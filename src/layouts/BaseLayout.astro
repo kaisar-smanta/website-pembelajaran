@@ -11,6 +11,7 @@ interface Props {
   description?: string;
   ogType?: 'website' | 'article';
   noindex?: boolean;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
@@ -18,7 +19,14 @@ const {
   description = 'Pusat pembelajaran Matematika SMA kelas X–XII: Kurikulum Merdeka, eksplorasi interaktif, latihan berjenjang, studi kasus nyata. Gratis, tanpa akun.',
   ogType = 'website',
   noindex = false,
+  structuredData,
 } = Astro.props;
+
+const structuredDataNodes: Array<Record<string, unknown>> = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
 
 const siteName = identity.name;
 const fullTitle = title.includes(siteName) ? title : `${title} — ${siteName}`;
@@ -94,6 +102,7 @@ const jsonLd = {
         },
       },
     },
+    ...structuredDataNodes,
   ],
 };
 ---

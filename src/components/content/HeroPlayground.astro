@@ -36,7 +36,7 @@ const factItems = facts.map((fact) => {
   </div>
 
   <p class="mascot-bubble" data-bubble role="status" aria-live="polite" set:html={factItems[0].html}></p>
-  <p class="mascot-hint">Ketuk maskot untuk miskonsepsi lain</p>
+  <p class="mascot-hint">Kesalahpahaman berganti otomatis · ketuk maskot untuk lanjut</p>
 
   <div class="math-facts" hidden>
     {factItems.map((item) => <span hidden data-math-fact set:html={item.html}></span>)}
@@ -83,7 +83,46 @@ const factItems = facts.map((fact) => {
         }, 320);
       }
 
+      var timer = null;
+      var hovered = false;
+      var focused = false;
+
+      function stopAuto() {
+        if (timer !== null) {
+          window.clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function startAuto() {
+        if (reduce || hovered || focused || timer !== null) return;
+        timer = window.setInterval(advance, 6500);
+      }
+
       button.addEventListener('click', advance);
+
+      root.addEventListener('mouseenter', function () {
+        hovered = true;
+        stopAuto();
+      });
+      root.addEventListener('mouseleave', function () {
+        hovered = false;
+        startAuto();
+      });
+      root.addEventListener('focusin', function () {
+        focused = true;
+        stopAuto();
+      });
+      root.addEventListener('focusout', function () {
+        focused = false;
+        startAuto();
+      });
+
+      if (reduce) {
+        stopAuto();
+      } else {
+        startAuto();
+      }
     } catch (error) {
       /* Biarkan fakta pertama tetap tampil bila skrip gagal. */
     }
