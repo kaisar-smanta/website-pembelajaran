@@ -1,17 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Matematika SMA — Pusat Pembelajaran">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Matematika SMA — Paham konsep, bukan sekadar hafal rumus">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1e2f7a" />
-      <stop offset="1" stop-color="#3a55c9" />
+      <stop offset="0" stop-color="#0d1526" />
+      <stop offset="0.55" stop-color="#1d2f74" />
+      <stop offset="1" stop-color="#2f4fd8" />
     </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1.5" />
+    </pattern>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)" />
-  <g stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.5">
-    <path d="M0 480 C 300 380 500 520 750 400 S 1100 300 1200 340" fill="none" />
-    <path d="M0 520 C 300 420 500 560 750 440 S 1100 340 1200 380" fill="none" />
-  </g>
-  <circle cx="980" cy="170" r="86" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2" />
-  <text x="90" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" fill="#ffffff">Matematika SMA</text>
-  <text x="92" y="370" font-family="Segoe UI, system-ui, sans-serif" font-size="34" fill="#c9d4ff">Pusat Pembelajaran Matematika Sekolah Menengah Atas</text>
-  <text x="92" y="430" font-family="Segoe UI, system-ui, sans-serif" font-size="28" fill="#9fb2f0">Memahami pola · membuat model · menalar · mengambil keputusan</text>
+  <rect width="1200" height="630" fill="url(#grid)" />
+  <circle cx="1040" cy="140" r="150" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="2" />
+  <circle cx="1040" cy="140" r="96" fill="#ffffff" fill-opacity="0.05" />
+  <rect x="92" y="96" width="72" height="72" rx="18" fill="#2f4fd8" />
+  <text x="128" y="150" font-family="'Iowan Old Style', Palatino, Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" fill="#ffffff" text-anchor="middle">&#8721;</text>
+  <text x="188" y="148" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4" fill="#9db4ff">PUSAT PEMBELAJARAN</text>
+  <text x="90" y="330" font-family="'Iowan Old Style', Palatino, Georgia, 'Times New Roman', serif" font-size="104" font-weight="700" fill="#ffffff">Matematika SMA</text>
+  <text x="92" y="400" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="40" font-weight="600" fill="#dfe7ff">Paham konsep, bukan sekadar hafal rumus</text>
+  <text x="92" y="456" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="24" fill="#a9b8e8">Kelas X&#8211;XII &#183; Kurikulum Merdeka &#183; Eksplorasi interaktif &#183; Latihan berjenjang</text>
+  <rect x="92" y="510" width="120" height="10" rx="5" fill="#2f6fd8" />
+  <rect x="224" y="510" width="120" height="10" rx="5" fill="#7b3fd6" />
+  <rect x="356" y="510" width="120" height="10" rx="5" fill="#0f8f7a" />
+  <rect x="488" y="510" width="120" height="10" rx="5" fill="#c26a10" />
+  <text x="92" y="578" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-size="26" fill="#c3cdf0">Kaisar Titoniran Akbar, S.Pd &#183; SMAN 1 Tanjung</text>
 </svg>

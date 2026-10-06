@@ -19,11 +19,10 @@ const year = new Date().getFullYear();
         tafsir instruksional atas Capaian Pembelajaran, bukan salinan resmi buku teks.
       </p>
       <p class="credit-line">
-        Disusun oleh <strong>{site.author.name}</strong> · {site.school.name}
-        <br />
+        <a href={url('/tentang')}>Tentang penyusun &amp; kredit</a>
+        <span aria-hidden="true"> · </span>
         <a href={site.school.url} target="_blank" rel="noopener noreferrer">
-          {site.school.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-          <span aria-hidden="true"> ↗</span>
+          {site.school.name} <span aria-hidden="true">↗</span>
         </a>
       </p>
     </div>

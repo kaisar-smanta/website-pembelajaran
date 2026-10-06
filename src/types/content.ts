@@ -190,6 +190,8 @@ export interface Exploration {
   title: string;
   topicId?: string;
   type: 'function-slider' | 'compound-interest' | 'probability' | 'geogebra' | 'linear-regression';
+  /** Bila true, ditampilkan sebagai eksplorasi unggulan di beranda. */
+  featured?: boolean;
   /** Rumus untuk tipe function-slider. */
   formula?: 'quadratic' | 'exponential' | 'sine';
   description: string;

@@ -29,6 +29,10 @@ export const GET: APIRoute = ({ site }) => {
     }
   }
 
+  for (const e of ELEMENT_ORDER) {
+    paths.push(`/elemen/${e}`);
+  }
+
   for (const t of topics) {
     if (t.status === 'rencana') continue;
     paths.push(`/kelas/${t.grade}/${t.element}/${t.slug}`);

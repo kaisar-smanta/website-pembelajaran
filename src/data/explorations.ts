@@ -41,6 +41,7 @@ export const explorations: Exploration[] = [
     title: 'Simulasi Bunga Majemuk',
     topicId: 'bunga-majemuk',
     type: 'compound-interest',
+    featured: true,
     description:
       'Bandingkan pertumbuhan saldo antara bunga tunggal dan bunga majemuk dengan modal, suku bunga, dan lama menabung yang dapat diatur.',
   },
@@ -57,6 +58,7 @@ export const explorations: Exploration[] = [
     title: 'Simulasi Peluang',
     topicId: 'peluang',
     type: 'probability',
+    featured: true,
     description:
       'Lakukan percobaan pelemparan koin atau dadu berulang kali dan bandingkan peluang empiris dengan peluang teoretis.',
   },
@@ -65,6 +67,7 @@ export const explorations: Exploration[] = [
     title: 'Visualisasi Regresi Linear',
     topicId: 'regresi',
     type: 'linear-regression',
+    featured: true,
     description:
       'Tambahkan titik data pada diagram pencar, lalu amati garis regresi dan nilai koefisien yang dihasilkan.',
   },

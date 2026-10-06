@@ -262,13 +262,6 @@ const first = quizData[0];
         let answered = false;
         let streak = 0;
 
-        try {
-          const stored = window.localStorage.getItem('quiz-streak');
-          const parsed = stored === null ? NaN : parseInt(stored, 10);
-          if (!Number.isNaN(parsed) && parsed >= 0) streak = parsed;
-        } catch (err) {
-          streak = 0;
-        }
         if (streakEl) streakEl.textContent = String(streak);
 
         let reduceMotion = false;
@@ -278,14 +271,6 @@ const first = quizData[0];
             window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         } catch (err) {
           reduceMotion = false;
-        }
-
-        function saveStreak() {
-          try {
-            window.localStorage.setItem('quiz-streak', String(streak));
-          } catch (err) {
-            /* penyimpanan tidak tersedia */
-          }
         }
 
         function render() {
@@ -359,7 +344,6 @@ const first = quizData[0];
               streakEl.classList.add('streak-pop');
             }
           }
-          saveStreak();
         }
 
         if (nextBtn) {

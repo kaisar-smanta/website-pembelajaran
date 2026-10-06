@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import TopicCard from '@/components/content/TopicCard.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { topicsByGradeElement, plannedTopics } from '@/data/topics';
+import { url } from '@/utils/url';
+import type { ElementId } from '@/types/content';
+
+export function getStaticPaths() {
+  return ELEMENT_ORDER.map((element) => ({ params: { element } }));
+}
+
+const element = Astro.params.element as ElementId;
+const meta = ELEMENTS[element];
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Elemen' },
+  { label: meta.name },
+];
+
+const grades = GRADE_ORDER.map((grade) => {
+  const complete = topicsByGradeElement(grade, element).map((t) => ({ ...t, status: 'lengkap' as const }));
+  const planned = plannedTopics
+    .filter((p) => p.grade === grade && p.element === element)
+    .map((t) => ({ ...t, status: 'rencana' as const }));
+  return { grade, entries: [...complete, ...planned] };
+}).filter((g) => g.entries.length > 0);
+
+const total = grades.reduce((sum, g) => sum + g.entries.length, 0);
+---
+
+<BaseLayout title={`Elemen ${meta.name}`} description={meta.description}>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class={`page-head accent-${element}`}>
+      <span class="element-icon" aria-hidden="true">
+        <ElementIcon element={element} size={26} />
+      </span>
+      <div>
+        <p class="eyebrow">Elemen</p>
+        <h1>{meta.name}</h1>
+        <p class="lead">{meta.description}</p>
+        <p class="text-muted">
+          Halaman ini menghimpun seluruh materi {meta.name} dari Kelas X hingga Kelas XII dalam satu
+          tempat.
+        </p>
+      </div>
+    </header>
+
+    {
+      grades.map(({ grade, entries }) => (
+        <section class="section grade-section" aria-labelledby={`grade-${grade}`}>
+          <h2 id={`grade-${grade}`}>{GRADES[grade].name}</h2>
+          <div class="grid grid-3">
+            {entries.map((t, i) => (
+              <TopicCard
+                title={t.title}
+                summary={t.summary}
+                grade={t.grade}
+                element={t.element}
+                slug={t.slug}
+                status={t.status}
+                showMeta={true}
+                delay={i * 60}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    {total === 0 && <p class="text-muted">Belum ada topik untuk elemen ini.</p>}
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding-block: 0.5rem 1rem;
+  }
+  .page-head h1 {
+    margin-bottom: 0.2rem;
+  }
+  .lead {
+    max-width: 68ch;
+    color: var(--color-text-muted);
+    margin: 0 0 0.4rem;
+  }
+  .page-head .text-muted {
+    max-width: 68ch;
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .element-icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 14px;
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .accent-bilangan .element-icon {
+    color: var(--color-number);
+  }
+  .accent-aljabar-fungsi .element-icon {
+    color: var(--color-algebra);
+  }
+  .accent-geometri .element-icon {
+    color: var(--color-geometry);
+  }
+  .accent-data-peluang .element-icon {
+    color: var(--color-data);
+  }
+  .grade-section {
+    padding-bottom: 2rem;
+  }
+  .grade-section h2 {
+    margin-bottom: 1rem;
+  }
+</style>

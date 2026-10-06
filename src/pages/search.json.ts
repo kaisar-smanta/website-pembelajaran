@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { topics } from '@/data/topics';
 import { applications, applicationCategories } from '@/data/applications';
-import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { ELEMENTS, GRADES, ELEMENT_ORDER } from '@/data/curriculum';
 import { stripMarkdown } from '@/utils/markdown';
 
 export const prerender = true;
@@ -57,6 +57,13 @@ export const GET: APIRoute = () => {
     { title: 'Matematika dalam Kehidupan', path: '/aplikasi', summary: 'Studi kasus penerapan matematika.' },
     { title: 'Referensi', path: '/referensi', summary: 'Sumber dan catatan kurikulum.' },
   ];
+  for (const e of ELEMENT_ORDER) {
+    pages.push({
+      title: `Elemen ${ELEMENTS[e].name}`,
+      path: `/elemen/${e}`,
+      summary: ELEMENTS[e].description,
+    });
+  }
   for (const p of pages) {
     items.push({
       title: p.title,

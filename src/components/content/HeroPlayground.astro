@@ -1,14 +1,24 @@
 ---
 import MathMascot from './MathMascot.astro';
+import { getTopic } from '@/data/topics';
+import { topicUrl } from '@/utils/url';
 
 const facts = [
-  'Nilai π ≈ 3,14159... dan terus berlanjut tanpa pola.',
-  'Bilangan prima terkecil adalah 2, satu-satunya prima genap.',
-  '√2 adalah bilangan irasional, tidak bisa ditulis sebagai pecahan.',
-  'Jumlah sudut dalam setiap segitiga selalu 180°.',
-  'Persamaan x² + y² = r² menggambarkan lingkaran berjari-jari r.',
-  '0,999... sama persis dengan 1, bukan sekadar mendekati.',
+  { text: 'Nilai π ≈ 3,14159... dan terus berlanjut tanpa pola.', topicId: 'lingkaran' },
+  { text: 'Bilangan prima terkecil adalah 2, satu-satunya prima genap.' },
+  { text: '√2 adalah bilangan irasional, tidak bisa ditulis sebagai pecahan.', topicId: 'eksponen' },
+  { text: 'Jumlah sudut dalam setiap segitiga selalu 180°.', topicId: 'trigonometri' },
+  { text: 'Persamaan x² + y² = r² menggambarkan lingkaran berjari-jari r.', topicId: 'lingkaran' },
+  { text: '0,999... sama persis dengan 1, bukan sekadar mendekati.', topicId: 'barisan-deret' },
 ];
+
+const factItems = facts.map((fact) => {
+  const topic = fact.topicId ? getTopic(fact.topicId) : undefined;
+  const link = topic
+    ? ` <a class="mascot-fact-link" href="${topicUrl(topic.grade, topic.element, topic.slug)}">Baca topik: ${topic.title} →</a>`
+    : '';
+  return { html: `<span class="mascot-fact-text">${fact.text}</span>${link}` };
+});
 ---
 
 <div class="hero-playground">
@@ -25,11 +35,11 @@ const facts = [
     </button>
   </div>
 
-  <p class="mascot-bubble" data-bubble role="status" aria-live="polite">{facts[0]}</p>
+  <p class="mascot-bubble" data-bubble role="status" aria-live="polite" set:html={factItems[0].html}></p>
   <p class="mascot-hint">Ketuk maskot untuk fakta lain</p>
 
   <div class="math-facts" hidden>
-    {facts.map((fact) => <span hidden data-math-fact>{fact}</span>)}
+    {factItems.map((item) => <span hidden data-math-fact set:html={item.html}></span>)}
   </div>
 </div>
 
@@ -46,10 +56,10 @@ const facts = [
       var facts = Array.prototype.slice
         .call(root.querySelectorAll('[data-math-fact]'))
         .map(function (el) {
-          return (el.textContent || '').trim();
+          return (el.innerHTML || '').trim();
         })
-        .filter(function (text) {
-          return text.length > 0;
+        .filter(function (html) {
+          return html.length > 0;
         });
       if (facts.length < 2) return;
 
@@ -63,7 +73,7 @@ const facts = [
 
       function advance() {
         index = (index + 1) % facts.length;
-        bubble.textContent = facts[index];
+        bubble.innerHTML = facts[index];
         if (reduce) return;
         bubble.classList.remove('pop');
         void bubble.offsetWidth;
@@ -243,6 +253,19 @@ const facts = [
   }
   .mascot-bubble.pop {
     animation: bubble-pop var(--dur) var(--ease-bounce) both;
+  }
+  .mascot-bubble :global(.mascot-fact-link) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .mascot-bubble :global(.mascot-fact-link:hover) {
+    text-decoration: underline;
   }
   .mascot-hint {
     margin: 0;

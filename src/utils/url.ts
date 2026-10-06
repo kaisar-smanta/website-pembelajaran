@@ -32,3 +32,8 @@ export function elementUrl(grade: string, element: string): string {
 export function topicUrl(grade: string, element: string, slug: string): string {
   return url(`kelas/${grade}/${element}/${slug}`);
 }
+
+/** URL ikhtisar elemen lintas kelas. */
+export function elementOverviewUrl(element: string): string {
+  return url(`elemen/${element}`);
+}
