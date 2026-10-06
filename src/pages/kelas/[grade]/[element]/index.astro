@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
@@ -28,6 +29,7 @@ const elementMeta = ELEMENTS[element];
 
 const complete = topicsByGradeElement(grade, element);
 const planned = plannedTopics.filter((p) => p.grade === grade && p.element === element);
+const otherElements = ELEMENT_ORDER.filter((e) => e !== element);
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -40,35 +42,48 @@ const crumbs = [
   title={`${elementMeta.name} — ${gradeMeta.name}`}
   description={`${elementMeta.description} Materi ${elementMeta.name} untuk ${gradeMeta.name}.`}
 >
-  <div class="container">
-    <Breadcrumbs items={crumbs} />
-    <header class={`page-head accent-${element}`}>
-      <span class="element-icon" aria-hidden="true">
-        <ElementIcon element={element} size={26} />
-      </span>
-      <div>
-        <p class="eyebrow">{gradeMeta.name} · {gradeMeta.label}</p>
-        <h1>{elementMeta.name}</h1>
-        <p class="lead">{elementMeta.description}</p>
-      </div>
-    </header>
+  <PageHeader
+    title={elementMeta.name}
+    eyebrow={`${gradeMeta.name} · ${gradeMeta.label}`}
+    lead={elementMeta.description}
+    crumbs={crumbs}
+    element={element}
+    icon
+    watermark
+  />
 
+  <div class="container">
     <div class="element-switch no-print" aria-label="Elemen lain">
       <span class="text-soft">Elemen:</span>
       {
-        ELEMENT_ORDER.filter((e) => e !== element).map((e) => (
-          <a class="btn btn-secondary btn-sm" href={elementUrl(grade, e)}>{ELEMENTS[e].name}</a>
+        otherElements.map((e) => (
+          <a class="btn btn-secondary btn-sm" href={elementUrl(grade, e)}>
+            {ELEMENTS[e].name}
+          </a>
         ))
       }
     </div>
 
     {
       complete.length > 0 && (
-        <section aria-labelledby="materi-lengkap">
-          <h2 id="materi-lengkap">Materi Tersedia</h2>
+        <section class="topic-section reveal" aria-labelledby="materi-lengkap">
+          <SectionHeading
+            id="materi-lengkap"
+            eyebrow="Siap dipelajari"
+            title="Materi Tersedia"
+            lead={`${complete.length} topik ${elementMeta.short} untuk ${gradeMeta.name}.`}
+          />
           <div class="grid grid-3">
-            {complete.map((t) => (
-              <TopicCard title={t.title} summary={t.summary} grade={t.grade} element={t.element} slug={t.slug} showMeta={false} />
+            {complete.map((t, i) => (
+              <TopicCard
+                title={t.title}
+                summary={t.summary}
+                grade={t.grade}
+                element={t.element}
+                slug={t.slug}
+                showElementName={false}
+                delay={i * 60}
+              />
             ))}
           </div>
         </section>
@@ -77,14 +92,18 @@ const crumbs = [
 
     {
       planned.length > 0 && (
-        <section aria-labelledby="materi-rencana" class="planned-section">
-          <h2 id="materi-rencana">Dalam Pengembangan</h2>
-          <p class="text-muted">
-            Topik berikut sudah masuk peta kurikulum dan akan dilengkapi secara bertahap. Arsitektur
-            konten memungkinkan penambahan tanpa mengubah aplikasi.
-          </p>
+        <section
+          class="topic-section planned-section reveal"
+          aria-labelledby="materi-rencana"
+        >
+          <SectionHeading
+            id="materi-rencana"
+            eyebrow="Peta kurikulum"
+            title="Dalam Pengembangan"
+            lead="Topik berikut sudah masuk peta kurikulum dan akan dilengkapi secara bertahap. Arsitektur konten memungkinkan penambahan tanpa mengubah aplikasi."
+          />
           <div class="grid grid-3">
-            {planned.map((t) => (
+            {planned.map((t, i) => (
               <TopicCard
                 title={t.title}
                 summary={t.summary}
@@ -92,7 +111,8 @@ const crumbs = [
                 element={t.element}
                 slug={t.slug}
                 status="rencana"
-                showMeta={false}
+                showElementName={false}
+                delay={i * 60}
               />
             ))}
           </div>
@@ -102,61 +122,112 @@ const crumbs = [
 
     {
       complete.length === 0 && planned.length === 0 && (
-        <p class="text-muted">Belum ada topik untuk elemen ini pada {gradeMeta.name}.</p>
+        <section class="empty-section reveal" aria-labelledby="materi-kosong">
+          <div class:list={['card', 'empty-card', `accent-${element}`]}>
+            <span class="icon-tile" aria-hidden="true">
+              <ElementIcon element={element} size={24} />
+            </span>
+            <p class="eyebrow-badge">Segera hadir</p>
+            <h2 id="materi-kosong">Belum ada topik di sini</h2>
+            <p class="text-muted">
+              Materi {elementMeta.short} untuk {gradeMeta.name} sedang disiapkan. Sementara itu,
+              jelajahi elemen lain di jenjang yang sama.
+            </p>
+            <div class="empty-links">
+              {otherElements.map((e) => (
+                <a class="btn btn-secondary btn-sm" href={elementUrl(grade, e)}>
+                  {ELEMENTS[e].name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
       )
     }
+
+    <section class="next-step reveal no-print" aria-labelledby="langkah-berikutnya">
+      <div class="card next-step-inner">
+        <div>
+          <p class="eyebrow-badge">Langkah berikutnya</p>
+          <h2 id="langkah-berikutnya">Latih dan jelajahi lebih jauh</h2>
+          <p class="text-muted">
+            Uji pemahamanmu lewat latihan berjenjang, atau lihat bagaimana elemen ini tersusun
+            lintas kelas pada peta pembelajaran.
+          </p>
+        </div>
+        <div class="next-step-actions">
+          <a class="btn btn-primary" href={url('/latihan')}>Latihan soal</a>
+          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
-  .page-head {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
-    align-items: start;
-    padding-block: 0.5rem 1rem;
-  }
-  .page-head h1 {
-    margin-bottom: 0.2rem;
-  }
-  .lead {
-    max-width: 68ch;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-  .element-icon {
-    display: grid;
-    place-items: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 14px;
-    background: var(--color-surface-2);
-    color: var(--color-primary);
-  }
-  .accent-bilangan .element-icon {
-    color: var(--color-number);
-  }
-  .accent-aljabar-fungsi .element-icon {
-    color: var(--color-algebra);
-  }
-  .accent-geometri .element-icon {
-    color: var(--color-geometry);
-  }
-  .accent-data-peluang .element-icon {
-    color: var(--color-data);
-  }
   .element-switch {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
-    padding-bottom: 1.5rem;
+    margin: 1.75rem 0 2.25rem;
+    padding: 0.85rem 1rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
   }
-  section {
+  .topic-section {
     padding-bottom: 2rem;
   }
   .planned-section {
     border-top: 1px dashed var(--color-border);
-    padding-top: 1.5rem;
+    padding-top: 1.75rem;
+  }
+  .empty-section {
+    padding-bottom: 2rem;
+  }
+  .empty-card {
+    display: grid;
+    justify-items: start;
+    gap: 0.75rem;
+    max-width: 46rem;
+    padding: 1.75rem;
+  }
+  .empty-card h2,
+  .empty-card p {
+    margin: 0;
+  }
+  .empty-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  .next-step {
+    margin-bottom: 3rem;
+  }
+  .next-step-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-top: 3px solid var(--color-primary);
+  }
+  .next-step-inner h2 {
+    margin-bottom: 0.25rem;
+  }
+  .next-step-inner p {
+    margin: 0;
+    max-width: 46ch;
+  }
+  .next-step .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .next-step-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

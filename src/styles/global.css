@@ -436,6 +436,47 @@ input[type='range'] {
   color: var(--color-bg-alt);
 }
 
+/* Aksen per elemen kurikulum — dipakai halaman dalam (kelas, peta, dll.). */
+.accent-bilangan {
+  --accent: var(--color-number);
+}
+.accent-aljabar-fungsi {
+  --accent: var(--color-algebra);
+}
+.accent-geometri {
+  --accent: var(--color-geometry);
+}
+.accent-data-peluang {
+  --accent: var(--color-data);
+}
+
+/* Irama latar antar-bagian pada halaman dalam. */
+.section-alt {
+  background: var(--color-bg-alt);
+  border-block: 1px solid var(--color-border);
+}
+.section-paper {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+}
+
+/* Kartu beraksen untuk daftar/ikon. */
+.card-accent {
+  border-top: 3px solid var(--accent, var(--color-primary));
+}
+.icon-tile {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 12px;
+  color: var(--accent, var(--color-primary));
+  background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 22%, var(--color-border));
+}
+
 /* ---------- Prose (materi) ---------- */
 .prose {
   font-size: 1.02rem;

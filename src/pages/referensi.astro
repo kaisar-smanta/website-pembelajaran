@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
 import { url } from '@/utils/url';
 
 const crumbs = [
@@ -13,14 +13,16 @@ const crumbs = [
   title="Referensi"
   description="Catatan kurikulum, sumber rujukan, dan keterangan penyusunan materi Matematika SMA."
 >
-  <div class="container container-narrow">
-    <Breadcrumbs items={crumbs} />
-    <header class="page-head">
-      <p class="eyebrow">Tentang Situs</p>
-      <h1>Referensi dan Catatan Kurikulum</h1>
-    </header>
+  <PageHeader
+    narrow
+    title="Referensi dan Catatan Kurikulum"
+    eyebrow="Tentang Situs"
+    lead="Catatan tentang kurikulum, sumber rujukan, dan prinsip penyusunan materi yang dipakai di situs ini."
+    crumbs={crumbs}
+  />
 
-    <div class="prose">
+  <div class="container container-narrow doc">
+    <div class="prose reveal">
       <h2>Hubungan dengan Kurikulum</h2>
       <p>
         Situs ini disusun mengikuti kerangka <strong>Capaian Pembelajaran (CP)</strong> matematika
@@ -70,10 +72,69 @@ const crumbs = [
       </p>
     </div>
   </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <div class="card cta-card card-accent hover-lift reveal">
+        <div class="cta-copy">
+          <p class="eyebrow-badge">Langkah berikutnya</p>
+          <h2>Kenali penyusun dan peta materinya</h2>
+          <p class="text-muted">
+            Lihat kredit penyusunan, atau telusuri bagaimana setiap topik saling terhubung.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href={url('/tentang')}>Tentang &amp; Kredit</a>
+          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1rem;
+  .doc {
+    padding-block: 1rem 2.5rem;
+  }
+  .prose h2 {
+    margin-top: 2.25rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--color-primary);
+    line-height: 1.25;
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .prose > p:first-of-type {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+  .cta-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cta-copy {
+    max-width: 46ch;
+  }
+  .cta-copy .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .cta-copy h2 {
+    margin-bottom: 0.35rem;
+  }
+  .cta-copy p {
+    margin: 0;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

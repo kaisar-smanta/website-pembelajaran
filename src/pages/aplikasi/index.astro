@@ -1,43 +1,68 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
 import { applications, applicationCategories } from '@/data/applications';
 import { url } from '@/utils/url';
-import type { ApplicationCategory } from '@/types/content';
+import type { ApplicationCategory, ElementId } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Matematika dalam Kehidupan' },
 ];
 const order: ApplicationCategory[] = ['keuangan', 'data', 'pertumbuhan', 'pengukuran'];
+const categoryElement: Record<ApplicationCategory, ElementId> = {
+  keuangan: 'bilangan',
+  data: 'data-peluang',
+  pertumbuhan: 'aljabar-fungsi',
+  pengukuran: 'geometri',
+};
 ---
 
 <BaseLayout
   title="Matematika dalam Kehidupan"
   description="Penerapan matematika pada keuangan, data, pertumbuhan, dan pengukuran dengan studi kasus kontekstual."
 >
-  <div class="container">
-    <Breadcrumbs items={crumbs} />
-    <header class="page-head">
-      <p class="eyebrow">Aplikasi</p>
-      <h1>Matematika dalam Kehidupan</h1>
-      <p class="lead">
-        Matematika berguna ketika membantu kita memahami situasi nyata dan mengambil keputusan.
-        Setiap studi kasus di bawah menghubungkan kembali ke konsep yang mendasarinya.
-      </p>
-    </header>
+  <PageHeader
+    title="Matematika dalam Kehidupan"
+    eyebrow="Aplikasi"
+    lead="Matematika berguna ketika membantu kita memahami situasi nyata dan mengambil keputusan. Setiap studi kasus di bawah menghubungkan kembali ke konsep yang mendasarinya."
+    crumbs={crumbs}
+    meta={[`${applications.length} studi kasus`, `${order.length} kategori`]}
+  />
 
+  <div class="container">
     {
       order.map((cat) => {
         const apps = applications.filter((a) => a.category === cat);
         if (!apps.length) return null;
         return (
-          <section class="block" aria-labelledby={`c-${cat}`}>
-            <h2 id={`c-${cat}`}>{applicationCategories[cat].name}</h2>
-            <p class="text-muted">{applicationCategories[cat].description}</p>
+          <section
+            class:list={['block', `accent-${categoryElement[cat]}`]}
+            aria-labelledby={`c-${cat}`}
+          >
+            <div class="block-head reveal">
+              <span class="icon-tile" aria-hidden="true">
+                <ElementIcon element={categoryElement[cat]} size={24} />
+              </span>
+              <div class="block-copy">
+                <SectionHeading
+                  id={`c-${cat}`}
+                  eyebrow={applicationCategories[cat].name}
+                  title={applicationCategories[cat].name}
+                  lead={applicationCategories[cat].description}
+                  reveal={false}
+                />
+              </div>
+            </div>
             <div class="grid grid-2">
-              {apps.map((a) => (
-                <a class="card card-link" href={url(`/aplikasi/${a.id}`)}>
+              {apps.map((a, i) => (
+                <a
+                  class="card card-link hover-lift reveal card-accent"
+                  href={url(`/aplikasi/${a.id}`)}
+                  style={`--reveal-delay:${i * 70}ms`}
+                >
                   <h3>{a.title}</h3>
                   <p class="text-muted">{a.summary}</p>
                   <span class="cta">Baca studi kasus →</span>
@@ -52,17 +77,24 @@ const order: ApplicationCategory[] = ['keuangan', 'data', 'pertumbuhan', 'penguk
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1.5rem;
-  }
-  .lead {
-    max-width: 70ch;
-    color: var(--color-text-muted);
-    font-size: 1.08rem;
+  .container {
+    padding-block: 1rem 2.5rem;
   }
   .block {
-    padding-block: 1.5rem;
+    padding-block: 2rem;
+  }
+  .block + .block {
     border-top: 1px solid var(--color-border);
+  }
+  .block-head {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  .block-copy {
+    flex: 1 1 auto;
+    min-width: 0;
   }
   .card h3 {
     margin-bottom: 0.3rem;
@@ -71,7 +103,7 @@ const order: ApplicationCategory[] = ['keuangan', 'data', 'pertumbuhan', 'penguk
     font-size: 0.93rem;
   }
   .cta {
-    color: var(--color-primary);
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
     font-weight: 600;
     font-size: 0.9rem;
   }

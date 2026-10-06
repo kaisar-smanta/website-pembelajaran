@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
 import { topics } from '@/data/topics';
 import { questions, questionsByTopic, assessmentCategories } from '@/data/questions';
 import { url } from '@/utils/url';
@@ -19,52 +20,102 @@ const byDifficulty = {
   mahir: questions.filter((q) => q.difficulty === 'mahir').length,
 };
 const catCount = (id: string) => questions.filter((q) => q.category === id).length;
+
+const levels = [
+  {
+    name: 'Dasar',
+    badge: 'badge-dasar',
+    accent: 'var(--color-success)',
+    text: 'Memahami istilah, membaca representasi, mengenali pola, dan prosedur sederhana.',
+    count: byDifficulty.dasar,
+  },
+  {
+    name: 'Cakap',
+    badge: 'badge-cakap',
+    accent: 'var(--color-primary)',
+    text: 'Menerapkan konsep pada masalah multi-langkah, pemodelan, dan interpretasi.',
+    count: byDifficulty.cakap,
+  },
+  {
+    name: 'Mahir',
+    badge: 'badge-mahir',
+    accent: 'var(--color-warning)',
+    text: 'Soal nonrutin, memilih strategi, menyusun argumentasi, dan mengevaluasi model.',
+    count: byDifficulty.mahir,
+  },
+];
+
+const catAccents = [
+  'var(--color-number)',
+  'var(--color-algebra)',
+  'var(--color-geometry)',
+  'var(--color-data)',
+  'var(--color-primary)',
+];
+
+const meta = [
+  `${total} soal pada ${topicWithQuestions.length} topik`,
+  `${byDifficulty.dasar} dasar · ${byDifficulty.cakap} cakap · ${byDifficulty.mahir} mahir`,
+];
+
+const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
 ---
 
 <BaseLayout
   title="Latihan & Asesmen"
   description="Bank latihan matematika SMA berjenjang: latihan cepat, pemahaman konsep, penerapan, pemodelan, penalaran, dan soal kontekstual."
 >
-  <div class="container">
-    <Breadcrumbs items={crumbs} />
-    <header class="page-head">
-      <p class="eyebrow">Asesmen</p>
-      <h1>Latihan & Asesmen</h1>
-      <p class="lead">
-        Soal dikelompokkan menurut tingkat kesulitan <strong>Dasar</strong>, <strong>Cakap</strong>,
-        dan <strong>Mahir</strong>. Kesulitan tidak ditentukan oleh besarnya angka, melainkan oleh
-        tuntutan penalaran, pemodelan, dan pemilihan strategi.
-      </p>
-      <p class="text-muted">{total} soal tersedia pada {topicWithQuestions.length} topik.</p>
-    </header>
+  <PageHeader
+    title="Latihan & Asesmen"
+    eyebrow="Asesmen"
+    lead="Soal dikelompokkan menurut tingkat kesulitan Dasar, Cakap, dan Mahir. Kesulitan tidak ditentukan oleh besarnya angka, melainkan oleh tuntutan penalaran, pemodelan, dan pemilihan strategi."
+    crumbs={crumbs}
+    meta={meta}
+  />
 
+  <div class="container">
     <section aria-labelledby="jenjang" class="block">
-      <h2 id="jenjang">Tingkat Kesulitan</h2>
+      <SectionHeading
+        id="jenjang"
+        eyebrow="Tiga jenjang"
+        title="Tingkat Kesulitan"
+        lead="Setiap soal menantang kemampuan berpikir yang berbeda. Mulai dari yang paling akrab, lalu naik perlahan."
+      />
       <div class="grid grid-3">
-        <div class="card level-card badge-dasar-border">
-          <h3><span class="badge badge-dasar">Dasar</span></h3>
-          <p>Memahami istilah, membaca representasi, mengenali pola, dan prosedur sederhana.</p>
-          <p class="text-soft">{byDifficulty.dasar} soal</p>
-        </div>
-        <div class="card level-card">
-          <h3><span class="badge badge-cakap">Cakap</span></h3>
-          <p>Menerapkan konsep pada masalah multi-langkah, pemodelan, dan interpretasi.</p>
-          <p class="text-soft">{byDifficulty.cakap} soal</p>
-        </div>
-        <div class="card level-card">
-          <h3><span class="badge badge-mahir">Mahir</span></h3>
-          <p>Soal nonrutin, memilih strategi, menyusun argumentasi, dan mengevaluasi model.</p>
-          <p class="text-soft">{byDifficulty.mahir} soal</p>
-        </div>
+        {
+          levels.map((lv, i) => (
+            <div
+              class="card card-accent level-card hover-lift reveal"
+              style={`--accent: ${lv.accent}; ${revealStyle(i)}`}
+              data-reveal
+            >
+              <span class="level-num" aria-hidden="true">{i + 1}</span>
+              <h3>
+                <span class={`badge ${lv.badge}`}>{lv.name}</span>
+              </h3>
+              <p>{lv.text}</p>
+              <p class="level-count text-soft">{lv.count} soal</p>
+            </div>
+          ))
+        }
       </div>
     </section>
 
     <section aria-labelledby="kategori" class="block">
-      <h2 id="kategori">Kategori Asesmen</h2>
+      <SectionHeading
+        id="kategori"
+        eyebrow="Cara menilai"
+        title="Kategori Asesmen"
+        lead="Soal juga ditandai menurut kompetensi yang diukur, supaya kamu tahu keterampilan mana yang sedang dilatih."
+      />
       <div class="cat-grid">
         {
-          assessmentCategories.map((c) => (
-            <div class="cat-item">
+          assessmentCategories.map((c, i) => (
+            <div
+              class="card cat-item hover-lift reveal"
+              style={`--accent: ${catAccents[i % catAccents.length]}; ${revealStyle(i)}`}
+              data-reveal
+            >
               <strong>{c.name}</strong>
               <span>{c.description}</span>
               <span class="badge">{catCount(c.id)} soal</span>
@@ -75,59 +126,92 @@ const catCount = (id: string) => questions.filter((q) => q.category === id).leng
     </section>
 
     <section aria-labelledby="topik" class="block">
-      <h2 id="topik">Latihan per Topik</h2>
+      <SectionHeading
+        id="topik"
+        eyebrow="Mulai berlatih"
+        title="Latihan per Topik"
+        lead="Pilih topik yang ingin kamu kuasai. Setiap halaman berisi soal dari tingkat dasar sampai mahir."
+      />
       <div class="grid grid-3">
         {
-          topicWithQuestions.map((t) => (
-            <a class="card card-link" href={url(`/latihan/${t.slug}`)}>
+          topicWithQuestions.map((t, i) => (
+            <a
+              class={`card card-link card-accent topic-card hover-lift reveal accent-${t.element}`}
+              href={url(`/latihan/${t.slug}`)}
+              style={revealStyle(i)}
+              data-reveal
+            >
               <span class="badge badge-grade">Kelas {t.grade}</span>
               <h3>{t.title}</h3>
               <p class="text-muted">{questionsByTopic(t.id).length} soal · tingkat dasar sampai mahir</p>
+              <span class="cta">Kerjakan →</span>
             </a>
           ))
         }
       </div>
     </section>
   </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <div class="card cta-card card-accent accent-aljabar-fungsi hover-lift reveal" data-reveal>
+        <div class="cta-copy">
+          <p class="eyebrow-badge">Langkah berikutnya</p>
+          <h2>Sudah selesai berlatih?</h2>
+          <p class="text-muted">
+            Lihat bagaimana topik-topik saling terhubung, atau coba sendiri konsepnya lewat
+            eksplorasi interaktif.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href={url('/peta-pembelajaran')}>Lihat peta pembelajaran</a>
+          <a class="btn btn-secondary" href={url('/eksplorasi')}>Coba eksplorasi</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1.5rem;
-  }
-  .lead {
-    max-width: 70ch;
-    color: var(--color-text-muted);
-    font-size: 1.08rem;
-  }
   .block {
-    padding-block: 1.5rem;
+    padding-block: 2rem;
+  }
+  .block + .block {
     border-top: 1px solid var(--color-border);
   }
-  .card h3 {
-    margin-top: 0.5rem;
-  }
-  .block .card-link {
+  .level-card {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
   }
-  .block .card-link .badge {
-    align-self: flex-start;
-  }
-  .block .card-link p {
+  .level-card h3 {
     margin: 0;
-    margin-top: auto;
-  }
-  .level-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
   }
   .level-card p {
     margin: 0;
     color: var(--color-text-muted);
     font-size: 0.93rem;
+  }
+  .level-count {
+    margin-top: auto;
+    padding-top: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .level-num {
+    position: absolute;
+    right: 0.6rem;
+    top: -0.6rem;
+    font-family: var(--font-serif);
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent, var(--color-primary));
+    opacity: 0.1;
+    pointer-events: none;
+    user-select: none;
   }
   .cat-grid {
     display: grid;
@@ -137,10 +221,8 @@ const catCount = (id: string) => questions.filter((q) => q.category === id).leng
   .cat-item {
     display: grid;
     gap: 0.2rem;
-    padding: 0.85rem 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--accent, var(--color-primary));
   }
   .cat-item span:nth-child(2) {
     color: var(--color-text-muted);
@@ -148,6 +230,55 @@ const catCount = (id: string) => questions.filter((q) => q.category === id).leng
   }
   .cat-item .badge {
     justify-self: start;
-    margin-top: 0.25rem;
+    margin-top: 0.35rem;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
+  }
+  .topic-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .topic-card .badge {
+    align-self: flex-start;
+  }
+  .topic-card h3 {
+    margin: 0.35rem 0 0;
+  }
+  .topic-card p {
+    margin: 0;
+    margin-top: auto;
+  }
+  .topic-card .cta {
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    font-weight: 600;
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+  .cta-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cta-copy {
+    max-width: 46ch;
+  }
+  .cta-copy .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .cta-copy h2 {
+    margin-bottom: 0.35rem;
+  }
+  .cta-copy p {
+    margin: 0;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

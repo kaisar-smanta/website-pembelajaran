@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import { getTopic } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
-import { renderInlineMarkdown } from '@/utils/markdown';
+import { ELEMENTS } from '@/data/curriculum';
 import { url, topicUrl } from '@/utils/url';
 import type { Difficulty } from '@/types/content';
 
@@ -23,72 +24,153 @@ const { topicId } = Astro.props;
 const topic = getTopic(topicId);
 const all = questionsByTopic(topicId);
 const difficulties: Difficulty[] = ['dasar', 'cakap', 'mahir'];
-const levelName = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' };
+const levelName: Record<Difficulty, string> = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' };
+const levelLead: Record<Difficulty, string> = {
+  dasar: 'Pemanasan untuk memastikan istilah dan prosedur dasar sudah melekat.',
+  cakap: 'Terapkan konsep pada masalah berlapis, lengkap dengan pemodelan dan interpretasi.',
+  mahir: 'Soal nonrutin yang menuntut pemilihan strategi, argumen, dan evaluasi.',
+};
+const levelAccent: Record<Difficulty, string> = {
+  dasar: 'var(--color-success)',
+  cakap: 'var(--color-primary)',
+  mahir: 'var(--color-warning)',
+};
+const counts = {
+  dasar: all.filter((q) => q.difficulty === 'dasar').length,
+  cakap: all.filter((q) => q.difficulty === 'cakap').length,
+  mahir: all.filter((q) => q.difficulty === 'mahir').length,
+};
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Latihan & Asesmen', href: url('/latihan') },
   { label: topic?.title ?? topicId },
 ];
+const meta = [
+  `${all.length} soal`,
+  `${counts.dasar} dasar · ${counts.cakap} cakap · ${counts.mahir} mahir`,
+];
+const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 ---
 
 <BaseLayout title={`Latihan ${topic?.title ?? ''}`} description={`Latihan soal ${topic?.title} berjenjang.`}>
-  <div class="container container-narrow">
-    <Breadcrumbs items={crumbs} />
-    <header class="page-head">
-      <p class="eyebrow">Latihan</p>
-      <h1>{topic?.title}</h1>
-      {topic && <p class="lead" set:html={renderInlineMarkdown(topic.summary)}></p>}
-      <p class="text-muted">{all.length} soal. Kerjakan berurutan dari tingkat dasar.</p>
-      {topic && (
-        <p>
-          <a class="btn btn-secondary btn-sm" href={topicUrl(topic.grade, topic.element, topic.slug)}>
-            ← Baca materinya dulu
-          </a>
-        </p>
-      )}
-    </header>
+  <PageHeader
+    title={topic?.title ?? topicId}
+    eyebrow={topic ? ELEMENTS[topic.element].name : 'Latihan'}
+    lead={topic?.summary}
+    crumbs={crumbs}
+    element={topic?.element}
+    icon
+    watermark
+    narrow
+    meta={meta}
+  />
 
+  <div class="container container-narrow">
     {
-      difficulties.map((d) => {
+      difficulties.map((d, di) => {
         const items = all.filter((q) => q.difficulty === d);
         if (!items.length) return null;
         return (
-          <section class="level-section" aria-labelledby={`lv-${d}`}>
-            <h2 id={`lv-${d}`} class="level-heading">
-              <span class={`badge badge-${d}`}>{levelName[d]}</span>
-              <span class="text-soft level-count">{items.length} soal</span>
-            </h2>
-            {items.map((q, i) => (
-              <QuestionCard question={q} index={i} />
-            ))}
+          <section
+            class="level-section reveal"
+            style={`--accent: ${levelAccent[d]}; ${revealStyle(di)}`}
+            data-reveal
+            aria-labelledby={`lv-${d}`}
+          >
+            <div class="level-head">
+              <SectionHeading id={`lv-${d}`} title={levelName[d]} lead={levelLead[d]} reveal={false} />
+              <span class={`badge badge-${d}`}>{items.length} soal</span>
+            </div>
+            <div class="level-cards">
+              {items.map((q, i) => (
+                <div class="q-item hover-lift reveal" style={revealStyle(i)} data-reveal>
+                  <QuestionCard question={q} index={i} />
+                </div>
+              ))}
+            </div>
           </section>
         );
       })
     }
+
+    <aside
+      class={`topic-cta card card-accent hover-lift reveal${topic ? ` accent-${topic.element}` : ''}`}
+      data-reveal
+      aria-label="Langkah selanjutnya"
+    >
+      <div class="cta-copy">
+        <p class="eyebrow-badge">Langkah selanjutnya</p>
+        <h2>Selesai berlatih topik ini?</h2>
+        <p class="text-muted">
+          Ulangi materinya bila masih ada yang mengganjal, atau jelajahi topik lain di bank latihan.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-secondary" href={url('/latihan')}>← Semua latihan</a>
+        {
+          topic && (
+            <a class="btn btn-primary" href={topicUrl(topic.grade, topic.element, topic.slug)}>
+              Baca materi {topic.title}
+            </a>
+          )
+        }
+      </div>
+    </aside>
   </div>
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1.5rem;
-  }
-  .lead {
-    color: var(--color-text-muted);
-  }
   .level-section {
-    padding-block: 1rem;
+    padding-block: 1.5rem;
   }
-  .level-heading {
+  .level-section + .level-section {
+    border-top: 1px solid var(--color-border);
+  }
+  .level-head {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--color-border);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    margin-bottom: 1.25rem;
+    padding-left: 0.9rem;
+    border-left: 3px solid var(--accent, var(--color-primary));
   }
-  .level-count {
-    font-size: 0.85rem;
-    font-family: var(--font-sans);
-    font-weight: 500;
+  .level-head :global(.section-heading) {
+    margin-bottom: 0;
+  }
+  .level-head :global(.section-heading h2) {
+    margin-bottom: 0.2rem;
+  }
+  .level-cards {
+    display: block;
+  }
+  .q-item :global(.question-card) {
+    margin-bottom: 1rem;
+  }
+  .topic-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .cta-copy {
+    max-width: 46ch;
+  }
+  .cta-copy .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .cta-copy h2 {
+    margin-bottom: 0.35rem;
+  }
+  .cta-copy p {
+    margin: 0;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

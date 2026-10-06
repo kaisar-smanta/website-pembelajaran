@@ -13,10 +13,28 @@ interface Props {
   slug: string;
   status?: 'lengkap' | 'rencana';
   showMeta?: boolean;
+  /** Tampilkan badge jenjang (mis. "Kelas X"). */
+  showBadge?: boolean;
+  /** Tampilkan nama elemen pada baris meta. */
+  showElementName?: boolean;
+  /** Tampilkan tautan ajakan "Pelajari →". */
+  showCta?: boolean;
   /** Jeda animasi reveal (ms) untuk efek berjenjang. */
   delay?: number;
 }
-const { title, summary, grade, element, slug, status = 'lengkap', showMeta = true, delay = 0 } = Astro.props;
+const {
+  title,
+  summary,
+  grade,
+  element,
+  slug,
+  status = 'lengkap',
+  showMeta = true,
+  showBadge = true,
+  showElementName = true,
+  showCta = true,
+  delay = 0,
+} = Astro.props;
 const elementMeta = ELEMENTS[element];
 const gradeMeta = GRADES[grade];
 const isPlanned = status === 'rencana';
@@ -48,15 +66,15 @@ const summaryHtml = renderInlineMarkdown(summary);
     <a class="topic-card-body" href={href}>
       <div class="card-top">
         <span class="icon-wrap" aria-hidden="true"><ElementIcon element={element} /></span>
-        {showMeta && <span class="badge badge-grade">{gradeMeta.name}</span>}
+        {showMeta && showBadge && <span class="badge badge-grade">{gradeMeta.name}</span>}
       </div>
       <h3 class="topic-title">{title}</h3>
       <p class="topic-summary" set:html={summaryHtml}></p>
       {
         showMeta && (
           <p class="topic-meta">
-            <span>{elementMeta.name}</span>
-            <span class="cta">Pelajari →</span>
+            {showElementName && <span>{elementMeta.name}</span>}
+            {showCta && <span class="cta">Pelajari →</span>}
           </p>
         )
       }

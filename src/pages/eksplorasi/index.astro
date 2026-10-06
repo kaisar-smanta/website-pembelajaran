@@ -1,15 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
 import ExplorationPanel from '@/components/interactive/ExplorationPanel.astro';
 import { explorationsByGrade, orderedExplorations } from '@/data/explorations';
 import { GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { url } from '@/utils/url';
+import type { ElementId, Grade } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Eksplorasi' },
 ];
+
+const gradeElement: Record<Grade, ElementId> = {
+  X: 'bilangan',
+  XI: 'aljabar-fungsi',
+  XII: 'geometri',
+};
 
 const groups = GRADE_ORDER.map((grade) => ({
   grade,
@@ -24,34 +32,31 @@ const total = orderedExplorations().length;
   title="Media Pembelajaran Interaktif"
   description="Eksplorasi matematika interaktif: penggeser parameter fungsi, simulasi barisan, sebaran data, bunga majemuk, anuitas, peluang, peluang bersyarat, dan regresi linear. Belajar dengan memprediksi, mengamati, lalu menjelaskan."
 >
+  <PageHeader
+    title="Media Pembelajaran Interaktif"
+    eyebrow="Laboratorium Matematika"
+    lead="Sebelum membaca rumus, cobalah mengubah-ubah nilainya. Amati apa yang berubah, ajukan dugaan, lalu hubungkan dengan konsep yang kamu pelajari. Setiap eksplorasi memandu kamu dengan alur prediksi → amati → jelaskan."
+    crumbs={crumbs}
+    meta={[`${total} eksplorasi`]}
+  />
+
   <div class="container">
-    <Breadcrumbs items={crumbs} />
-
-    <header class="page-head">
-      <p class="eyebrow">Laboratorium Matematika</p>
-      <h1>Media Pembelajaran Interaktif</h1>
-      <p class="lead">
-        Sebelum membaca rumus, cobalah mengubah-ubah nilainya. Amati apa yang berubah, ajukan
-        dugaan, lalu hubungkan dengan konsep yang kamu pelajari. Setiap eksplorasi memandu kamu
-        dengan alur <strong>prediksi → amati → jelaskan</strong>.
-      </p>
-      <p class="page-meta">{total} eksplorasi interaktif, tersusun per kelas.</p>
-    </header>
-
-    <nav class="ex-index" id="daftar-eksplorasi" aria-label="Daftar eksplorasi">
+    <nav class="ex-index card reveal" id="daftar-eksplorasi" aria-label="Daftar eksplorasi">
       <h2 class="ex-index-title">Peta eksplorasi</h2>
       <div class="ex-index-groups">
         {
           groups.map((g) => (
-            <div class="ex-index-group">
-              <a class="ex-index-grade" href={`#kelas-${g.grade}`}>
+            <div class:list={['ex-index-group', `accent-${gradeElement[g.grade]}`]}>
+              <a class="ex-index-grade hover-lift" href={`#kelas-${g.grade}`}>
                 {g.meta.name}
                 <span class="ex-index-count">{g.items.length}</span>
               </a>
               <ul>
                 {g.items.map((e) => (
                   <li>
-                    <a href={`#ex-${e.id}`}>{e.title}</a>
+                    <a class="hover-lift" href={`#ex-${e.id}`}>
+                      {e.title}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -63,22 +68,29 @@ const total = orderedExplorations().length;
 
     {
       groups.map((g) => (
-        <section class="grade-section" aria-labelledby={`kelas-${g.grade}`}>
-          <div class="grade-head">
-            <h2 id={`kelas-${g.grade}`} class="grade-title">
-              {g.meta.name}
-              <span class="grade-badge">{g.meta.label}</span>
-            </h2>
-            <p class="grade-desc">{g.meta.description}</p>
+        <section
+          class:list={['grade-section', `accent-${gradeElement[g.grade]}`]}
+          aria-labelledby={`kelas-${g.grade}`}
+        >
+          <div class="grade-head reveal">
+            <SectionHeading
+              id={`kelas-${g.grade}`}
+              eyebrow={g.meta.label}
+              title={g.meta.name}
+              lead={g.meta.description}
+              reveal={false}
+            />
           </div>
           {g.items.map((e) => (
-            <ExplorationPanel exploration={e} />
+            <div class="reveal">
+              <ExplorationPanel exploration={e} />
+            </div>
           ))}
         </section>
       ))
     }
 
-    <aside class="closing" aria-label="Langkah selanjutnya">
+    <aside class="closing card card-accent reveal" aria-label="Langkah selanjutnya">
       <p>
         Sudah menemukan polanya? Uji pemahamanmu lewat <a href={url('/latihan')}>latihan berjenjang</a>,
         atau lanjutkan menelusuri <a href={url('/peta-pembelajaran')}>peta pembelajaran</a>.
@@ -88,28 +100,12 @@ const total = orderedExplorations().length;
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1.25rem;
-  }
-  .lead {
-    max-width: 70ch;
-    color: var(--color-text-muted);
-    font-size: 1.08rem;
-  }
-  .page-meta {
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--color-text-soft);
+  .container {
+    padding-block: 1rem 2.5rem;
   }
 
   .ex-index {
-    padding: 1rem 1.15rem;
-    margin-bottom: 1.5rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    margin-bottom: 1.75rem;
   }
   .ex-index-title {
     margin: 0 0 0.75rem;
@@ -127,9 +123,10 @@ const total = orderedExplorations().length;
     font-weight: 700;
     text-decoration: none;
     color: var(--color-text);
+    border-radius: var(--radius);
   }
   .ex-index-grade:hover {
-    color: var(--color-primary);
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
   }
   .ex-index-count {
     display: inline-flex;
@@ -140,8 +137,9 @@ const total = orderedExplorations().length;
     padding-inline: 0.35rem;
     border-radius: 999px;
     font-size: 0.75rem;
-    background: var(--color-surface-2);
-    color: var(--color-text-muted);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface-2));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
   }
   .ex-index-group ul {
     list-style: none;
@@ -151,51 +149,37 @@ const total = orderedExplorations().length;
     gap: 0.25rem;
     font-size: 0.88rem;
   }
-  .ex-index-group a {
+  .ex-index-group ul a {
     display: inline-block;
     padding-block: 0.22rem;
     color: var(--color-text-muted);
     text-decoration: none;
   }
-  .ex-index-group a:hover {
-    color: var(--color-primary);
+  .ex-index-group ul a:hover {
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
     text-decoration: underline;
   }
 
   .grade-section {
-    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    margin-bottom: 2rem;
   }
-  .grade-head {
-    margin-bottom: 0.25rem;
+  .grade-section + .grade-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: 2rem;
   }
-  .grade-title {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.65rem;
-    margin: 0;
+  .grade-section :global(.section-heading h2) {
+    color: var(--accent, var(--color-primary));
   }
-  .grade-badge {
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.15rem 0.55rem;
-    border-radius: 999px;
-    color: var(--color-text-muted);
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-border);
-  }
-  .grade-desc {
-    margin: 0.35rem 0 0;
-    max-width: 70ch;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
+  .grade-section :global(.eyebrow-badge) {
+    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
   }
 
   .closing {
-    margin-top: 1.5rem;
-    padding: 1rem 1.15rem;
-    background: var(--color-surface-2);
-    border-radius: var(--radius-lg);
+    margin-top: 2rem;
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
     font-size: 0.95rem;
   }
   .closing p {

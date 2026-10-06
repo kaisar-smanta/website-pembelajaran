@@ -1,0 +1,213 @@
+---
+import type { ElementId } from '@/types/content';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  lead?: string;
+  crumbs?: Crumb[];
+  /** Elemen kurikulum: memberi aksen warna + opsi ikon/watermark. */
+  element?: ElementId;
+  /** Tampilkan ikon elemen di samping judul. */
+  icon?: boolean;
+  /** Tampilkan watermark elemen di sudut kanan. */
+  watermark?: boolean;
+  /** Gunakan lebar kolom sempit (untuk halaman dokumen). */
+  narrow?: boolean;
+  /** Chip fakta singkat di bawah lead. */
+  meta?: string[];
+}
+
+const {
+  title,
+  eyebrow,
+  lead,
+  crumbs,
+  element,
+  icon = false,
+  watermark = false,
+  narrow = false,
+  meta,
+} = Astro.props;
+
+const accentVar: Record<ElementId, string> = {
+  bilangan: 'var(--color-number)',
+  'aljabar-fungsi': 'var(--color-algebra)',
+  geometri: 'var(--color-geometry)',
+  'data-peluang': 'var(--color-data)',
+};
+const accent = element ? accentVar[element] : undefined;
+---
+
+<header class="page-hero" style={accent ? `--accent: ${accent}` : undefined}>
+  <span class="hero-glow" aria-hidden="true"></span>
+  {
+    watermark && element && (
+      <span class="hero-watermark" aria-hidden="true">
+        <ElementIcon element={element} size={200} />
+      </span>
+    )
+  }
+  <div class:list={['container', narrow && 'container-narrow']}>
+    {crumbs && <Breadcrumbs items={crumbs} />}
+    <div class="hero-inner">
+      {
+        icon && element && (
+          <span class="hero-icon" aria-hidden="true">
+            <ElementIcon element={element} size={26} />
+          </span>
+        )
+      }
+      <div class="hero-copy">
+        {eyebrow && <p class="eyebrow-badge">{eyebrow}</p>}
+        <h1>{title}</h1>
+        {lead && <p class="lead">{lead}</p>}
+        {
+          meta && meta.length > 0 && (
+            <ul class="hero-meta" role="list">
+              {meta.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .page-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(
+        circle at 90% 4%,
+        color-mix(in srgb, var(--accent, var(--color-primary)) 14%, transparent),
+        transparent 46%
+      ),
+      linear-gradient(180deg, var(--color-bg-alt), var(--color-bg));
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    -webkit-mask-image: radial-gradient(circle at 80% 0%, #000, transparent 72%);
+    mask-image: radial-gradient(circle at 80% 0%, #000, transparent 72%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    z-index: 0;
+    top: -8rem;
+    right: -5rem;
+    width: 26rem;
+    height: 26rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 42% 42%,
+      color-mix(in srgb, var(--accent, var(--color-primary)) 20%, transparent),
+      transparent 68%
+    );
+    filter: blur(10px);
+    pointer-events: none;
+  }
+  .hero-watermark {
+    position: absolute;
+    z-index: 0;
+    right: -1rem;
+    bottom: -3.2rem;
+    width: 12rem;
+    height: 12rem;
+    color: var(--accent, var(--color-primary));
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-block: 0.35rem 1.5rem;
+  }
+  .hero-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 14px;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface));
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
+  }
+  .hero-copy {
+    min-width: 0;
+    max-width: 70ch;
+  }
+  .hero-copy .eyebrow-badge {
+    margin-bottom: 0.7rem;
+  }
+  .hero-copy h1 {
+    margin-bottom: 0.35rem;
+  }
+  .lead {
+    margin: 0;
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    font-size: 1.08rem;
+  }
+  .hero-meta {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.5rem;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+  .hero-meta li {
+    display: inline-flex;
+    align-items: baseline;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 22%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 7%, var(--color-surface-2));
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-copy > * {
+      animation: rise-in var(--dur-slow) var(--ease-out-soft) both;
+    }
+    .hero-copy > *:nth-child(1) {
+      animation-delay: 40ms;
+    }
+    .hero-copy > *:nth-child(2) {
+      animation-delay: 110ms;
+    }
+    .hero-copy > *:nth-child(3) {
+      animation-delay: 180ms;
+    }
+    .hero-copy > *:nth-child(4) {
+      animation-delay: 250ms;
+    }
+  }
+</style>

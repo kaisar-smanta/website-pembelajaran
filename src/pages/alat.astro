@@ -1,79 +1,132 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
+import Callout from '@/components/content/Callout.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
 import { url } from '@/utils/url';
 import { toolGroups } from '@/data/tools';
+import type { ElementId } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Alat Matematika' },
 ];
 
+const accentElements: ElementId[] = ['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang'];
+const totalTools = toolGroups.reduce((sum, group) => sum + group.tools.length, 0);
+const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
 ---
 
 <BaseLayout
   title="Alat Matematika"
   description="Kumpulan alat matematika daring untuk memvisualkan fungsi, memeriksa perhitungan, dan menganalisis data."
 >
-  <div class="container">
-    <Breadcrumbs items={crumbs} />
-    <header class="page-head">
-      <p class="eyebrow">Perangkat</p>
-      <h1>Alat Matematika</h1>
-      <p class="lead">Kumpulan alat bantu untuk memvisualkan fungsi, memeriksa perhitungan, dan menganalisis data.</p>
-      <blockquote class="callout callout-info" role="note">
-        <strong>Alat membantu mengeksplorasi dan memeriksa</strong>, tetapi tidak menggantikan
-        pemahaman. Biasakan: kerjakan dengan tangan → periksa dengan alat → jelaskan mengapa
-        hasilnya masuk akal.
-      </blockquote>
-    </header>
+  <PageHeader
+    title="Alat Matematika"
+    eyebrow="Perangkat"
+    lead="Kumpulan alat bantu untuk memvisualkan fungsi, memeriksa perhitungan, dan menganalisis data."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container tools">
+    <div class="tools-advisory reveal">
+      <Callout
+        variant="info"
+        text="**Alat membantu mengeksplorasi dan memeriksa**, tetapi tidak menggantikan pemahaman. Biasakan: kerjakan dengan tangan → periksa dengan alat → jelaskan mengapa hasilnya masuk akal."
+      />
+    </div>
 
     {
-      toolGroups.map((group) => (
-        <section class="block" aria-labelledby={`g-${group.heading}`}>
-          <h2 id={`g-${group.heading}`}>{group.heading}</h2>
-          <p class="text-muted">{group.intro}</p>
-          <div class="grid grid-2">
-            {group.tools.map((tool) => (
-              <article class="card tool">
-                <h3>
-                  <a href={tool.url} target="_blank" rel="noopener noreferrer">
-                    {tool.name} <span aria-hidden="true">↗</span>
-                  </a>
-                </h3>
-                <p class="text-soft">{tool.note}</p>
-                <p>{tool.use}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))
+      toolGroups.map((group, gi) => {
+        const elementId = accentElements[gi % accentElements.length];
+        return (
+          <section class:list={['block', `accent-${elementId}`]} aria-labelledby={`g-${group.heading}`}>
+            <SectionHeading
+              id={`g-${group.heading}`}
+              eyebrow={`Kelompok ${gi + 1}`}
+              title={group.heading}
+              lead={group.intro}
+            />
+            <div class="grid grid-2">
+              {group.tools.map((tool, ti) => (
+                <article
+                  class="card tool hover-lift reveal card-accent"
+                  style={`--reveal-delay:${ti * 70}ms`}
+                >
+                  <span class="icon-tile tool-icon" aria-hidden="true">
+                    <ElementIcon element={elementId} size={22} />
+                  </span>
+                  <h3>
+                    <a href={tool.url} target="_blank" rel="noopener noreferrer">
+                      {tool.name} <span aria-hidden="true">↗</span>
+                    </a>
+                  </h3>
+                  <p class="text-soft">{tool.note}</p>
+                  <p>{tool.use}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })
     }
   </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <div class="card cta-card card-accent accent-aljabar-fungsi hover-lift reveal">
+        <div class="cta-copy">
+          <p class="eyebrow-badge">Langkah berikutnya</p>
+          <h2>Pakai alat untuk memahami, bukan menggantikannya</h2>
+          <p class="text-muted">
+            Coba modelkan sebuah konsep di laboratorium interaktif, atau mulai menelusuri materi dari
+            kelas X.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href={url('/eksplorasi')}>Jelajahi eksplorasi</a>
+          <a class="btn btn-secondary" href={url('/kelas/X')}>Mulai dari Kelas X</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1.5rem;
+  .tools {
+    padding-block: 1rem 2.5rem;
   }
-  .lead {
+  .tools-advisory {
     max-width: 70ch;
-    color: var(--color-text-muted);
-    font-size: 1.08rem;
-  }
-  .callout {
-    padding: 0.75rem 1rem;
-    border-left: 4px solid var(--color-primary);
-    background: var(--color-info-soft);
-    border-radius: var(--radius);
-    max-width: 70ch;
+    margin-bottom: 0.5rem;
   }
   .block {
-    padding-block: 1.5rem;
+    padding-block: 2rem;
+  }
+  .block + .block {
     border-top: 1px solid var(--color-border);
+  }
+  .block :global(.section-heading h2) {
+    color: var(--accent, var(--color-primary));
+  }
+  .block :global(.eyebrow-badge) {
+    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+  }
+  .tool {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .tool-icon {
+    margin-bottom: 0.45rem;
   }
   .tool h3 {
     font-size: 1.1rem;
+    margin-bottom: 0.15rem;
   }
   .tool h3 a {
     display: inline-block;
@@ -84,7 +137,37 @@ const crumbs = [
     text-decoration: underline;
   }
   .tool p {
-    margin: 0.3rem 0 0;
+    margin: 0;
     font-size: 0.93rem;
+  }
+  .tool p + p {
+    margin-top: 0.35rem;
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+  .cta-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cta-copy {
+    max-width: 46ch;
+  }
+  .cta-copy .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .cta-copy h2 {
+    margin-bottom: 0.35rem;
+  }
+  .cta-copy p {
+    margin: 0;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

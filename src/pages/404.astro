@@ -1,34 +1,187 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { url } from '@/utils/url';
+
+const destinations = [
+  {
+    title: 'Kelas X',
+    text: 'Mulai dari materi dasar kelas X: bilangan, aljabar, geometri, dan data.',
+    href: url('/kelas/X'),
+    accent: 'accent-bilangan',
+    icon: 'M2 9l10-5 10 5-10 5L2 9Zm4 2.6V16c0 1.2 2.7 2.4 6 2.4s6-1.2 6-2.4v-4.4',
+  },
+  {
+    title: 'Latihan soal',
+    text: 'Uji pemahaman dengan latihan berjenjang dan pembahasan setiap jawaban.',
+    href: url('/latihan'),
+    accent: 'accent-aljabar-fungsi',
+    icon: 'M4 20h4L18.5 9.5a2.12 2.12 0 0 0-3-3L5 17v3zM13.5 6.5l3 3',
+  },
+  {
+    title: 'Eksplorasi interaktif',
+    text: 'Ubah parameter pada simulasi, amati pola, lalu tarik kesimpulanmu.',
+    href: url('/eksplorasi'),
+    accent: 'accent-geometri',
+    icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm3.5 5.5-2 5-5 2 2-5 5-2z',
+  },
+  {
+    title: 'Peta pembelajaran',
+    text: 'Lihat alur materi lengkap dari kelas X sampai XII dalam satu peta.',
+    href: url('/peta-pembelajaran'),
+    accent: 'accent-data-peluang',
+    icon: 'M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zm0 0v14m6-12v14',
+  },
+];
+const revealStyle = (i: number) => `--reveal-delay:${i * 70}ms`;
 ---
 
-<BaseLayout title="Halaman Tidak Ditemukan" description="Halaman yang kamu cari tidak ditemukan." noindex>
-  <div class="container notfound">
-    <p class="code" aria-hidden="true">404</p>
-    <h1>Halaman tidak ditemukan</h1>
-    <p class="text-muted">
-      Tautan mungkin salah, atau halaman sudah dipindahkan. Coba mulai dari peta pembelajaran.
-    </p>
-    <div class="row">
-      <a class="btn btn-primary" href={url('/')}>Beranda</a>
-      <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta Pembelajaran</a>
-      <a class="btn btn-ghost" href={url('/cari')}>Cari materi</a>
+<BaseLayout
+  title="Halaman Tidak Ditemukan"
+  description="Halaman yang kamu cari tidak ditemukan. Coba mulai dari beranda atau peta pembelajaran."
+  noindex
+>
+  <PageHeader
+    eyebrow="Error 404"
+    title="Halaman tidak ditemukan"
+    lead="Tautan mungkin salah, atau halaman sudah dipindahkan. Coba mulai dari peta pembelajaran."
+    narrow
+  />
+
+  <section class="section section-paper nf-section">
+    <div class="container container-narrow">
+      <div class="nf-help">
+        <div class="nf-help-copy reveal" data-reveal>
+          <h2>Sepertinya kamu tersesat</h2>
+          <p class="text-muted">
+            Tak apa. Pilih salah satu pintu masuk berikut, atau telusuri langsung tujuanmu.
+          </p>
+          <div class="nf-actions">
+            <a class="btn btn-primary" href={url('/')}>Beranda</a>
+            <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta Pembelajaran</a>
+            <a class="btn btn-ghost" href={url('/cari')}>Cari materi</a>
+          </div>
+        </div>
+        <div class="nf-art reveal" data-reveal style="--reveal-delay:90ms">
+          <MathMascot size={11} />
+        </div>
+      </div>
+
+      <h2 class="nf-dest-heading reveal" data-reveal>Lanjutkan dari sini</h2>
+      <ul class="nf-grid" role="list">
+        {
+          destinations.map((item, i) => (
+            <li>
+              <a
+                class={`card card-link card-accent hover-lift reveal ${item.accent}`}
+                href={item.href}
+                style={revealStyle(i)}
+                data-reveal
+              >
+                <span class="icon-tile" aria-hidden="true">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    focusable="false"
+                  >
+                    <path d={item.icon} />
+                  </svg>
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <span class="nf-card-cta">
+                  Buka <span aria-hidden="true">→</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-  </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .notfound {
-    padding-block: 4rem;
-    max-width: 40rem;
+  .nf-section {
+    border-bottom: 1px solid var(--color-border);
   }
-  .code {
-    font-family: var(--font-serif);
-    font-size: 4rem;
-    font-weight: 700;
-    color: var(--color-primary);
+  .nf-help {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.25rem;
+  }
+  .nf-help-copy h2 {
+    margin: 0 0 0.4rem;
+  }
+  .nf-help-copy p {
+    margin: 0 0 1.1rem;
+    max-width: 46ch;
+  }
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .nf-art {
+    display: grid;
+    place-items: center;
+  }
+  .nf-art :global(.mascot) {
+    width: min(100%, 11rem);
+  }
+  .nf-dest-heading {
+    margin: 0 0 1rem;
+  }
+  .nf-grid {
+    list-style: none;
     margin: 0;
-    line-height: 1;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 1rem;
+  }
+  .nf-grid .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .nf-grid h3 {
+    margin: 0;
+  }
+  .nf-grid p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+  .nf-card-cta {
+    margin-top: auto;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  @media (max-width: 48rem) {
+    .nf-help {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .nf-help-copy p {
+      margin-inline: auto;
+    }
+    .nf-actions {
+      justify-content: center;
+    }
+    .nf-art {
+      order: -1;
+    }
   }
 </style>

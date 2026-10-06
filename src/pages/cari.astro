@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
 import { url } from '@/utils/url';
 import { GRADE_ORDER, ELEMENT_ORDER, ELEMENTS } from '@/data/curriculum';
 
@@ -9,19 +9,25 @@ const crumbs = [
   { label: 'Cari' },
 ];
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const meta = [
+  `${ELEMENT_ORDER.length} elemen kurikulum`,
+  `${GRADE_ORDER.length} jenjang kelas`,
+  'Tanpa server · tanpa akun',
+];
 ---
 
 <BaseLayout title="Cari Materi" description="Cari topik, konsep, dan studi kasus di seluruh situs Matematika SMA.">
-  <div class="container container-narrow" data-search-root data-base={base}>
-    <Breadcrumbs items={crumbs} />
-    <header class="page-head">
-      <h1>Cari Materi</h1>
-      <p class="lead">
-        Telusuri topik, istilah, dan studi kasus. Pencarian berjalan di peramban tanpa server.
-      </p>
-    </header>
+  <PageHeader
+    narrow
+    title="Cari Materi"
+    eyebrow="Pencarian"
+    lead="Telusuri topik, istilah, dan studi kasus. Pencarian berjalan di peramban tanpa server."
+    crumbs={crumbs}
+    meta={meta}
+  />
 
-    <form class="search-form" role="search" data-search-form>
+  <div class="container container-narrow search-body" data-search-root data-base={base}>
+    <form class="search-form reveal" role="search" data-search-form>
       <label class="visually-hidden" for="search-input">Kata kunci pencarian</label>
       <input
         id="search-input"
@@ -52,46 +58,118 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
     <p class="search-status" data-search-status aria-live="polite"></p>
     <ol class="search-results" data-search-results></ol>
   </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <div class="card cta-card card-accent accent-bilangan hover-lift reveal">
+        <div class="cta-copy">
+          <p class="eyebrow-badge">Belum menemukan?</p>
+          <h2>Jelajahi lewat jalur belajar</h2>
+          <p class="text-muted">
+            Mulai dari kelas X, ikuti peta konsep antar materi, atau uji pemahamanmu lewat latihan
+            berjenjang.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href={url('/kelas/X')}>Mulai dari Kelas X</a>
+          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
+          <a class="btn btn-secondary" href={url('/latihan')}>Latihan berjenjang</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding-block: 0.5rem 1.25rem;
-  }
-  .lead {
-    color: var(--color-text-muted);
+  .search-body {
+    padding-block: clamp(1.5rem, 4vw, 2.5rem) 3rem;
   }
   .search-form {
     display: grid;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+    padding: 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
   }
   .search-input {
     width: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.95rem 1.1rem;
     font: inherit;
-    font-size: 1.05rem;
-    border: 1px solid var(--color-border-strong);
+    font-size: 1.12rem;
+    border: 1.5px solid var(--color-border-strong);
     border-radius: var(--radius);
-    background: var(--color-surface);
+    background: var(--color-bg);
     color: var(--color-text);
+    transition:
+      border-color var(--dur) var(--ease-out-soft),
+      box-shadow var(--dur) var(--ease-out-soft),
+      background-color var(--dur);
+  }
+  .search-input::placeholder {
+    color: var(--color-text-soft);
+  }
+  .search-input:hover {
+    border-color: var(--color-primary);
+  }
+  .search-input:focus-visible {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 16%, transparent);
   }
   .filters {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.6rem;
     flex-wrap: wrap;
   }
+  .filters label {
+    flex: 1 1 12rem;
+    min-width: 0;
+  }
   .filters select {
-    padding: 0.5rem 0.65rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background: var(--color-bg);
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    background: var(--color-surface-2);
     color: var(--color-text);
     font: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast),
+      background-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .filters select:hover,
+  .filters select:focus-visible {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
   }
   .search-status {
+    margin: 0 0 0.9rem;
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+  }
+  .search-status:not(:empty) {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .search-status:not(:empty)::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--color-primary);
   }
   .search-results {
     list-style: none;
@@ -100,40 +178,32 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
     display: grid;
     gap: 0.75rem;
   }
-  .result-item {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: 1rem 1.1rem;
+  .cta-section {
+    padding-block: 2.5rem;
   }
-  .result-item a {
-    text-decoration: none;
-  }
-  .result-item h3 {
-    margin: 0 0 0.25rem;
-    font-size: 1.1rem;
-  }
-  .result-item p {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.92rem;
-  }
-  .result-empty {
-    list-style: none;
-    padding: 0.5rem 0;
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-  }
-  .result-meta {
+  .cta-card {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
   }
-  mark {
-    background: var(--color-warning-soft);
-    color: inherit;
-    padding: 0 0.1em;
-    border-radius: 3px;
+  .cta-copy {
+    max-width: 46ch;
+  }
+  .cta-copy .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .cta-copy h2 {
+    margin-bottom: 0.35rem;
+  }
+  .cta-copy p {
+    margin: 0;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>
 
@@ -158,6 +228,15 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
     const status = root.querySelector('[data-search-status]') as HTMLElement;
 
     let items: Item[] = [];
+
+    const accentMap: Record<string, string> = {
+      bilangan: 'var(--color-number)',
+      'aljabar-fungsi': 'var(--color-algebra)',
+      geometri: 'var(--color-geometry)',
+      'data-peluang': 'var(--color-data)',
+    };
+
+    const markStyle = 'background:var(--highlight);color:inherit;padding:0 0.1em;border-radius:3px';
 
     const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
@@ -184,10 +263,16 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
       if (!raw) return safe;
       const pattern = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const re = new RegExp(pattern, 'gi');
-      if (re.test(safe)) return safe.replace(re, (m) => `<mark>${m}</mark>`);
+      if (re.test(safe)) return safe.replace(re, (m) => `<mark style="${markStyle}">${m}</mark>`);
       const idx = norm(safe).indexOf(q);
       if (idx < 0) return safe;
-      return safe.slice(0, idx) + '<mark>' + safe.slice(idx, idx + q.length) + '</mark>' + safe.slice(idx + q.length);
+      return (
+        safe.slice(0, idx) +
+        `<mark style="${markStyle}">` +
+        safe.slice(idx, idx + q.length) +
+        '</mark>' +
+        safe.slice(idx + q.length)
+      );
     }
 
     function snippetOf(item: Item, q: string, raw: string): string {
@@ -232,7 +317,11 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
       if (out.length === 0) {
         const empty = document.createElement('li');
-        empty.className = 'result-empty';
+        empty.className = 'result-empty card';
+        empty.setAttribute(
+          'style',
+          'text-align:center;color:var(--color-text-muted);padding:1.6rem 1rem;border-style:dashed;display:grid;gap:0.35rem;justify-items:center',
+        );
         empty.textContent =
           q.length === 0
             ? 'Belum ada entri untuk filter ini.'
@@ -243,13 +332,18 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
       for (const item of out) {
         const li = document.createElement('li');
-        li.className = 'result-item';
+        li.className = 'result-item card hover-lift';
+        const accent = (item.element && accentMap[item.element]) || 'var(--color-primary)';
+        li.setAttribute('style', `--accent:${accent};border-left:4px solid var(--accent)`);
         const gradeLabel = item.grade ? `Kelas ${item.grade}` : '';
         li.innerHTML = `
-          <a href="${base.replace(/\/$/, '')}${item.url}">
-            <div class="result-meta"><span class="badge">${item.type}</span>${gradeLabel ? `<span class="badge badge-grade">${gradeLabel}</span>` : ''}</div>
-            <h3>${highlight(item.title, q, raw)}</h3>
-            <p>${snippetOf(item, q, raw)}</p>
+          <a href="${base.replace(/\/$/, '')}${item.url}" style="display:block;color:inherit;text-decoration:none">
+            <div class="result-meta" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;margin-bottom:0.4rem">
+              <span class="badge">${item.type}</span>
+              ${gradeLabel ? `<span class="badge badge-grade" style="background:var(--color-primary-soft);color:var(--color-primary);border-color:transparent">${gradeLabel}</span>` : ''}
+            </div>
+            <h3 style="margin:0 0 0.25rem;font-size:1.1rem">${highlight(item.title, q, raw)}</h3>
+            <p class="text-muted" style="margin:0;font-size:0.92rem">${snippetOf(item, q, raw)}</p>
           </a>`;
         results.appendChild(li);
       }
