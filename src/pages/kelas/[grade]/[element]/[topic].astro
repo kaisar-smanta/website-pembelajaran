@@ -26,6 +26,14 @@ const { topic } = Astro.props;
 const elementMeta = ELEMENTS[topic.element];
 const gradeMeta = GRADES[topic.grade];
 
+const elementAccent: Record<string, string> = {
+  bilangan: 'var(--color-number)',
+  'aljabar-fungsi': 'var(--color-algebra)',
+  geometri: 'var(--color-geometry)',
+  'data-peluang': 'var(--color-data)',
+};
+const accent = elementAccent[topic.element] ?? 'var(--color-primary)';
+
 const siblings = topicsByGradeElement(topic.grade, topic.element);
 const currentIndex = siblings.findIndex((t) => t.id === topic.id);
 const prev = currentIndex > 0 ? siblings[currentIndex - 1] : undefined;
@@ -47,28 +55,33 @@ const description = stripMarkdown(topic.summary);
 ---
 
 <BaseLayout title={`${topic.title} — ${gradeMeta.name}`} description={description} ogType="article">
-  <div class="topic-wrap container">
+  <div class="topic-wrap container" style={`--accent: ${accent}`}>
     <Breadcrumbs items={crumbs} />
 
     <header class={`topic-header accent-${topic.element}`}>
-      <div class="topic-head-top">
-        <span class="element-chip">
-          <ElementIcon element={topic.element} size={18} />
-          {elementMeta.name}
-        </span>
-        <span class="badge badge-grade">{gradeMeta.name} · {gradeMeta.label}</span>
+      <span class="topic-watermark" aria-hidden="true">
+        <ElementIcon element={topic.element} size={160} />
+      </span>
+      <div class="topic-header-inner">
+        <div class="topic-head-top">
+          <span class="element-chip">
+            <ElementIcon element={topic.element} size={18} />
+            {elementMeta.name}
+          </span>
+          <span class="badge badge-grade">{gradeMeta.name} · {gradeMeta.label}</span>
+        </div>
+        <h1>{topic.title}</h1>
+        {topic.subtitle && <p class="subtitle">{topic.subtitle}</p>}
+        <p class="topic-desc" set:html={renderInlineMarkdown(topic.description)}></p>
+        <ul class="topic-facts">
+          <li><strong>{sectionList.length}</strong> bagian materi</li>
+          {topic.estimatedMinutes && <li>≈ <strong>{topic.estimatedMinutes}</strong> menit belajar</li>}
+          {prerequisiteTopics.length > 0 && (
+            <li><strong>{prerequisiteTopics.length}</strong> topik prasyarat</li>
+          )}
+          {related.length > 0 && <li><strong>{related.length}</strong> topik terkait</li>}
+        </ul>
       </div>
-      <h1>{topic.title}</h1>
-      {topic.subtitle && <p class="subtitle">{topic.subtitle}</p>}
-      <p class="topic-desc" set:html={renderInlineMarkdown(topic.description)}></p>
-      <ul class="topic-facts">
-        <li><strong>{sectionList.length}</strong> bagian materi</li>
-        {topic.estimatedMinutes && <li>≈ <strong>{topic.estimatedMinutes}</strong> menit belajar</li>}
-        {prerequisiteTopics.length > 0 && (
-          <li><strong>{prerequisiteTopics.length}</strong> topik prasyarat</li>
-        )}
-        {related.length > 0 && <li><strong>{related.length}</strong> topik terkait</li>}
-      </ul>
     </header>
 
     <div class="topic-layout">
@@ -79,7 +92,7 @@ const description = stripMarkdown(topic.summary);
           <nav class="topic-pager no-print" aria-label="Navigasi topik">
             {
               prev ? (
-                <a class="pager-link pager-prev" href={topicUrl(prev.grade, prev.element, prev.slug)}>
+                <a class="pager-link pager-prev hover-lift" href={topicUrl(prev.grade, prev.element, prev.slug)}>
                   <span class="pager-label">Sebelumnya</span>
                   <span class="pager-title">← {prev.title}</span>
                 </a>
@@ -89,7 +102,7 @@ const description = stripMarkdown(topic.summary);
             }
             {
               next ? (
-                <a class="pager-link pager-next" href={topicUrl(next.grade, next.element, next.slug)}>
+                <a class="pager-link pager-next hover-lift" href={topicUrl(next.grade, next.element, next.slug)}>
                   <span class="pager-label">Selanjutnya</span>
                   <span class="pager-title">{next.title} →</span>
                 </a>
@@ -104,7 +117,7 @@ const description = stripMarkdown(topic.summary);
       <aside class="topic-aside no-print" aria-label="Informasi topik">
         <div class="aside-card">
           <h2 class="aside-heading">Isi Halaman</h2>
-          <ol class="outline">
+          <ol class="outline" data-outline>
             {
               sectionList.map((s) => (
                 <li>
@@ -180,24 +193,88 @@ const description = stripMarkdown(topic.summary);
 
 <script>
   document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+
+  const outline = document.querySelector('[data-outline]');
+  if (outline && 'IntersectionObserver' in window) {
+    const links = Array.from(outline.querySelectorAll<HTMLAnchorElement>('a'));
+    const sections = links
+      .map((link) => {
+        const id = link.getAttribute('href')?.slice(1) ?? '';
+        const el = id ? document.getElementById(id) : null;
+        return el ? { link, el } : null;
+      })
+      .filter((entry): entry is { link: HTMLAnchorElement; el: HTMLElement } => entry !== null);
+
+    if (sections.length) {
+      const setActive = (el: HTMLElement) => {
+        sections.forEach((entry) => {
+          const active = entry.el === el;
+          entry.link.classList.toggle('is-active', active);
+          if (active) entry.link.setAttribute('aria-current', 'true');
+          else entry.link.removeAttribute('aria-current');
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (visible[0]) setActive(visible[0].target as HTMLElement);
+        },
+        { rootMargin: '-18% 0px -68% 0px', threshold: 0 },
+      );
+      sections.forEach((entry) => observer.observe(entry.el));
+    }
+  }
 </script>
 
 <style>
   .topic-header {
-    padding: 1.5rem 0 1.5rem;
-    border-bottom: 1px solid var(--color-border);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 1.6rem clamp(1rem, 3vw, 1.6rem);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 46%),
+      var(--color-surface);
+    box-shadow: var(--shadow-sm);
   }
-  .topic-header.accent-bilangan {
-    border-top: 3px solid var(--color-number);
+  .topic-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    -webkit-mask-image: radial-gradient(circle at 82% 4%, #000, transparent 72%);
+    mask-image: radial-gradient(circle at 82% 4%, #000, transparent 72%);
+    opacity: 0.6;
+    pointer-events: none;
   }
-  .topic-header.accent-aljabar-fungsi {
-    border-top: 3px solid var(--color-algebra);
+  .topic-header-inner {
+    position: relative;
+    z-index: 1;
   }
-  .topic-header.accent-geometri {
-    border-top: 3px solid var(--color-geometry);
+  .topic-watermark {
+    position: absolute;
+    z-index: 0;
+    right: -1.5rem;
+    bottom: -3rem;
+    width: 11rem;
+    height: 11rem;
+    color: var(--accent);
+    opacity: 0.08;
+    pointer-events: none;
   }
-  .topic-header.accent-data-peluang {
-    border-top: 3px solid var(--color-data);
+  .topic-watermark :global(svg) {
+    width: 100%;
+    height: 100%;
   }
   .topic-head-top {
     display: flex;
@@ -210,9 +287,13 @@ const description = stripMarkdown(topic.summary);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--color-border));
+    background: color-mix(in srgb, var(--accent) 10%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent) 68%, var(--color-text));
     font-weight: 700;
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.82rem;
   }
   .subtitle {
     font-size: 1.1rem;
@@ -227,11 +308,20 @@ const description = stripMarkdown(topic.summary);
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1.25rem;
+    gap: 0.5rem;
     padding: 0;
-    margin: 0.75rem 0 0;
-    font-size: 0.88rem;
-    color: var(--color-text-soft);
+    margin: 1rem 0 0;
+  }
+  .topic-facts li {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--color-border));
+    background: color-mix(in srgb, var(--accent) 7%, var(--color-surface-2));
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
   }
   .topic-facts strong {
     color: var(--color-text);
@@ -242,6 +332,7 @@ const description = stripMarkdown(topic.summary);
     grid-template-columns: minmax(0, 1fr) 17rem;
     gap: 2.5rem;
     align-items: start;
+    padding-top: 1.5rem;
     padding-bottom: 2rem;
   }
   .topic-main {
@@ -257,16 +348,28 @@ const description = stripMarkdown(topic.summary);
   .aside-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
+    border-top: 3px solid color-mix(in srgb, var(--accent) 72%, var(--color-border));
     border-radius: var(--radius-lg);
     padding: 1rem;
   }
   .aside-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
     font-family: var(--font-sans);
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: var(--color-text-soft);
     margin-bottom: 0.6rem;
+  }
+  .aside-heading::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--accent);
   }
   .outline {
     list-style: none;
@@ -286,15 +389,26 @@ const description = stripMarkdown(topic.summary);
   }
   .outline a {
     display: block;
-    padding: 0.3rem 0.4rem;
+    padding: 0.3rem 0.45rem;
     border-radius: var(--radius-sm);
     color: var(--color-text-muted);
     text-decoration: none;
     font-size: 0.88rem;
+    border-left: 2px solid transparent;
+    transition:
+      background-color var(--dur-fast),
+      color var(--dur-fast),
+      border-color var(--dur-fast);
   }
   .outline a:hover {
     background: var(--color-surface-2);
     color: var(--color-primary);
+  }
+  .outline a.is-active {
+    background: color-mix(in srgb, var(--accent) 12%, var(--color-surface));
+    color: var(--color-text);
+    font-weight: 600;
+    border-left-color: var(--accent);
   }
   .aside-links {
     list-style: none;
@@ -337,12 +451,15 @@ const description = stripMarkdown(topic.summary);
     gap: 0.15rem;
     padding: 0.75rem 1rem;
     border: 1px solid var(--color-border);
+    border-top: 3px solid color-mix(in srgb, var(--accent) 72%, var(--color-border));
     border-radius: var(--radius);
+    background: var(--color-surface);
     text-decoration: none;
     max-width: 48%;
   }
-  .pager-link:hover {
-    border-color: var(--color-primary);
+  .pager-link:hover,
+  .pager-link:focus-visible {
+    border-color: var(--accent);
   }
   .pager-next {
     text-align: right;
@@ -352,7 +469,7 @@ const description = stripMarkdown(topic.summary);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--color-text-soft);
+    color: color-mix(in srgb, var(--accent) 62%, var(--color-text-muted));
   }
   .pager-title {
     font-weight: 600;

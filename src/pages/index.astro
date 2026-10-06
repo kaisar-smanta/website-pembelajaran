@@ -1,15 +1,28 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import TopicCard from '@/components/content/TopicCard.astro';
+import HeroPlayground from '@/components/content/HeroPlayground.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import MathMascot from '@/components/content/MathMascot.astro';
+import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
+import TopikShowcase from '@/components/content/TopikShowcase.astro';
+import QuickDemo from '@/components/interactive/QuickDemo.astro';
+import QuizTeaser from '@/components/exercises/QuizTeaser.astro';
 import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { featuredTopics, topics } from '@/data/topics';
+import { explorations } from '@/data/explorations';
 import { applications, applicationCategories } from '@/data/applications';
 import { site } from '@/data/site';
 import { url, gradeUrl } from '@/utils/url';
 
 const featured = featuredTopics().length ? featuredTopics() : topics.slice(0, 6);
+const showcaseExplorations = explorations.filter((e) =>
+  ['bunga-majemuk-sim', 'peluang-sim', 'regresi-sim'].includes(e.id),
+);
+const stats = [
+  { value: topics.length, label: 'topik materi' },
+  { value: ELEMENT_ORDER.length, label: 'elemen CP' },
+  { value: GRADE_ORDER.length, label: 'jenjang kelas' },
+  { value: explorations.length, label: 'eksplorasi interaktif' },
+];
 const philosophy = [
   { title: 'Pahami', text: 'Bangun makna konsep sebelum menghafal rumus.' },
   { title: 'Eksplorasi', text: 'Ubah parameter, amati pola, dan ajukan dugaan.' },
@@ -34,10 +47,11 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   description="Pusat pembelajaran Matematika SMA Indonesia: konsep, representasi, eksplorasi interaktif, latihan berjenjang, dan penerapan nyata sesuai Capaian Pembelajaran."
 >
   <section class="hero">
+    <span class="hero-mesh" aria-hidden="true"></span>
     <div class="hero-grid container">
       <div class="hero-copy">
-        <p class="eyebrow">Kurikulum Merdeka · Kelas X–XII</p>
-        <h1>Paham konsep, bukan sekadar hafal rumus</h1>
+        <p class="eyebrow-badge">Kurikulum Merdeka · Kelas X–XII</p>
+        <h1>Paham <span class="marker">konsep</span>, bukan sekadar hafal rumus</h1>
         <p class="hero-lead">
           Matematika bukan sekadar menghitung. Di sini kamu belajar{' '}
           <strong>memahami pola</strong>, <strong>membuat model</strong>,{' '}
@@ -52,6 +66,16 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
           <a class="btn btn-primary" href={url('/kelas/X')}>Mulai belajar</a>
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat peta belajar</a>
         </div>
+        <ul class="hero-stats" role="list">
+          {
+            stats.map((stat) => (
+              <li>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </li>
+            ))
+          }
+        </ul>
         <p class="hero-byline">
           <span class="byline-logo" aria-hidden="true">
             <img src={url(site.school.logo)} alt="" width="30" height="30" />
@@ -70,13 +94,26 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
           </span>
         </p>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-stage">
-          <span class="hero-chip chip-a float-slow">+</span>
-          <span class="hero-chip chip-b float-slow float-delayed">√</span>
-          <span class="hero-chip chip-c bob">x²</span>
-          <span class="hero-chip chip-d float-slow">π</span>
-          <MathMascot size={13} />
+      <div class="hero-visual">
+        <HeroPlayground />
+      </div>
+    </div>
+    <span class="hero-dots" aria-hidden="true"></span>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="play">
+    <div class="container">
+      <div class="section-heading reveal" data-reveal>
+        <p class="eyebrow-badge">Coba dulu</p>
+        <h2 id="play">Coba dulu, baru teori</h2>
+        <p class="text-muted">Geser, jawab, dan lihat hasilnya seketika. Tanpa akun.</p>
+      </div>
+      <div class="play-grid">
+        <div class="reveal" data-reveal>
+          <QuickDemo />
+        </div>
+        <div class="reveal" data-reveal style="--reveal-delay:90ms">
+          <QuizTeaser />
         </div>
       </div>
     </div>
@@ -84,6 +121,7 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
 
   <section class="section container" aria-labelledby="explore-grade">
     <div class="section-heading reveal" data-reveal>
+      <p class="eyebrow-badge">Per jenjang</p>
       <h2 id="explore-grade">Jelajahi Berdasarkan Kelas</h2>
       <p class="text-muted">Materi disusun menurut fase dan elemen matematika.</p>
     </div>
@@ -96,7 +134,8 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
             style={revealStyle(i)}
             data-reveal
           >
-            <span class="badge badge-grade">{GRADES[grade].label}</span>
+            <span class="grade-num" aria-hidden="true">{grade}</span>
+            <span class="badge badge-grade">Fase {GRADES[grade].phase}</span>
             <h3>{GRADES[grade].name}</h3>
             <p>{GRADES[grade].description}</p>
             <span class="cta">Buka kelas →</span>
@@ -109,6 +148,7 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   <section class="section section-alt" aria-labelledby="explore-element">
     <div class="container">
       <div class="section-heading reveal" data-reveal>
+        <p class="eyebrow-badge">Empat elemen</p>
         <h2 id="explore-element">Jelajahi Menurut Elemen</h2>
         <p class="text-muted">Empat elemen utama yang saling terhubung.</p>
       </div>
@@ -133,52 +173,50 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     </div>
   </section>
 
-  <section class="section container" aria-labelledby="philosophy">
+  <section class="section container" aria-labelledby="explorations">
     <div class="section-heading reveal" data-reveal>
-      <h2 id="philosophy">Cara Kami Mengajarkan</h2>
-      <p class="text-muted">Alur belajar yang menekankan pemahaman, bukan sekadar hasil.</p>
+      <p class="eyebrow-badge">Laboratorium mini</p>
+      <h2 id="explorations">Eksplorasi Interaktif</h2>
+      <p class="text-muted">Ubah parameter, amati perubahan, lalu temukan polanya sendiri.</p>
     </div>
-    <ol class="philosophy">
+    <div class="grid grid-3">
       {
-        philosophy.map((step, i) => (
-          <li class="philosophy-step hover-lift reveal" style={revealStyle(i)} data-reveal>
-            <span class="philosophy-num">{i + 1}</span>
-            <h3>{step.title}</h3>
-            <p>{step.text}</p>
-          </li>
+        showcaseExplorations.map((e, i) => (
+          <ExplorationPreviewCard exploration={e} delay={i * 70} />
         ))
       }
-    </ol>
+    </div>
+    <p class="section-more reveal" data-reveal>
+      <a class="btn btn-secondary" href={url('/eksplorasi')}>Semua eksplorasi</a>
+    </p>
   </section>
 
-  <section class="section section-alt" aria-labelledby="featured">
+  <section class="section section-paper" aria-labelledby="philosophy">
     <div class="container">
       <div class="section-heading reveal" data-reveal>
-        <h2 id="featured">Topik Pilihan</h2>
-        <p class="text-muted">Materi pilihan yang sudah dikembangkan lengkap.</p>
+        <p class="eyebrow-badge">Alur belajar</p>
+        <h2 id="philosophy">Cara Kami Mengajarkan</h2>
+        <p class="text-muted">Alur belajar yang menekankan pemahaman, bukan sekadar hasil.</p>
       </div>
-      <div class="grid grid-3">
+      <ol class="philosophy">
         {
-          featured.map((t, i) => (
-            <TopicCard
-              title={t.title}
-              summary={t.summary}
-              grade={t.grade}
-              element={t.element}
-              slug={t.slug}
-              delay={i * 70}
-            />
+          philosophy.map((step, i) => (
+            <li class="philosophy-step hover-lift reveal" style={revealStyle(i)} data-reveal>
+              <span class="philosophy-num">{i + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </li>
           ))
         }
-      </div>
-      <p class="section-more reveal" data-reveal>
-        <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat semua topik</a>
-      </p>
+      </ol>
     </div>
   </section>
+
+  <TopikShowcase topics={featured} />
 
   <section class="section container" aria-labelledby="real-world">
     <div class="section-heading reveal" data-reveal>
+      <p class="eyebrow-badge">Dunia nyata</p>
       <h2 id="real-world">Matematika dalam Kehidupan</h2>
       <p class="text-muted">Konsep matematika muncul dalam keputusan nyata.</p>
     </div>
@@ -207,24 +245,25 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   <section class="section section-alt" aria-labelledby="tools">
     <div class="container">
       <div class="section-heading reveal" data-reveal>
+        <p class="eyebrow-badge">Perangkat</p>
         <h2 id="tools">Alat Matematika</h2>
         <p class="text-muted">Alat bantu untuk mengeksplorasi dan memeriksa pekerjaanmu.</p>
       </div>
-      <div class="grid grid-3 tools-grid">
+      <div class="tool-row">
         {
           tools.map((tool, i) => (
             <a
-              class="card card-link tool-card hover-lift reveal"
+              class="tool-card hover-lift reveal"
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
               style={revealStyle(i)}
               data-reveal
             >
-              <h3>
+              <span class="tool-name">
                 {tool.name} <span aria-hidden="true">↗</span>
-              </h3>
-              <p>{tool.note}</p>
+              </span>
+              <span class="tool-note">{tool.note}</span>
             </a>
           ))
         }
@@ -239,19 +278,64 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
 <style>
   .hero {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     background:
-      radial-gradient(circle at 82% 28%, color-mix(in srgb, var(--color-algebra) 12%, transparent), transparent 42%),
-      radial-gradient(circle at 12% 78%, color-mix(in srgb, var(--color-geometry) 10%, transparent), transparent 44%),
+      radial-gradient(circle at 82% 24%, color-mix(in srgb, var(--color-algebra) 16%, transparent), transparent 44%),
+      radial-gradient(circle at 10% 82%, color-mix(in srgb, var(--color-geometry) 14%, transparent), transparent 46%),
       linear-gradient(180deg, var(--color-bg-alt), var(--color-bg));
     border-bottom: 1px solid var(--color-border);
   }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    -webkit-mask-image: radial-gradient(circle at 34% 34%, #000, transparent 72%);
+    mask-image: radial-gradient(circle at 34% 34%, #000, transparent 72%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .hero-mesh {
+    position: absolute;
+    z-index: 0;
+    top: -6rem;
+    right: -4rem;
+    width: 34rem;
+    height: 34rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 40% 40%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent),
+      transparent 68%
+    );
+    filter: blur(8px);
+    pointer-events: none;
+  }
+  .hero-dots {
+    position: absolute;
+    z-index: 0;
+    left: 8%;
+    bottom: 1.5rem;
+    width: 9rem;
+    height: 5rem;
+    background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 40%, transparent) 1.4px, transparent 1.5px);
+    background-size: 1.1rem 1.1rem;
+    opacity: 0.5;
+    pointer-events: none;
+  }
   .hero-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 2rem;
     align-items: center;
-    padding-block: clamp(2rem, 6vw, 4rem);
+    padding-block: clamp(1.75rem, 5vw, 3.25rem);
   }
   .hero-copy > * {
     animation: rise-in var(--dur-slow) var(--ease-out-soft) both;
@@ -269,12 +353,16 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     animation-delay: 250ms;
   }
   .hero-copy > *:nth-child(5),
-  .hero-copy > *:nth-child(6) {
+  .hero-copy > *:nth-child(6),
+  .hero-copy > *:nth-child(7) {
     animation-delay: 320ms;
   }
+  .hero-copy .eyebrow-badge {
+    margin-bottom: 0.85rem;
+  }
   .hero-copy h1 {
-    font-size: clamp(2.1rem, 1.4rem + 3.2vw, 3.25rem);
-    line-height: 1.12;
+    font-size: clamp(2.1rem, 1.4rem + 3.2vw, 3.35rem);
+    line-height: 1.1;
     letter-spacing: -0.02em;
     text-wrap: balance;
     margin-bottom: 0.55rem;
@@ -294,6 +382,29 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     gap: 0.75rem;
     margin-top: 1.25rem;
   }
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 1rem 0 0;
+    border-top: 1px dashed var(--color-border-strong);
+  }
+  .hero-stats li {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+  .hero-stats strong {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.7rem);
+    color: var(--color-primary);
+  }
+  .hero-stats span {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
   .hero-byline {
     display: inline-flex;
     align-items: center;
@@ -312,7 +423,8 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   .hero-byline a {
     display: inline-flex;
     align-items: center;
-    min-height: 1.5rem;
+    min-height: 1.75rem;
+    padding-block: 0.1rem;
     color: var(--color-text);
     font-weight: 600;
     text-decoration: none;
@@ -347,68 +459,39 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   .hero-visual {
     display: grid;
     place-items: center;
-    min-height: 15rem;
-  }
-  .hero-stage {
-    position: relative;
-    width: min(100%, 20rem);
-    display: grid;
-    place-items: center;
-  }
-  .hero-stage :global(.mascot) {
     width: 100%;
   }
-  .hero-chip {
-    position: absolute;
+  .play-grid {
     display: grid;
-    place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 14px;
-    background: var(--color-surface);
-    border: 2px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: 1.05rem;
-  }
-  .chip-a {
-    top: 4%;
-    left: 0;
-    color: var(--color-algebra);
-    border-color: color-mix(in srgb, var(--color-algebra) 45%, var(--color-border));
-  }
-  .chip-b {
-    top: 7%;
-    right: 0;
-    color: var(--color-geometry);
-    border-color: color-mix(in srgb, var(--color-geometry) 45%, var(--color-border));
-  }
-  .chip-c {
-    bottom: 16%;
-    left: 0;
-    color: var(--color-number);
-    border-color: color-mix(in srgb, var(--color-number) 45%, var(--color-border));
-  }
-  .chip-d {
-    bottom: 6%;
-    right: 0;
-    color: var(--color-data);
-    border-color: color-mix(in srgb, var(--color-data) 45%, var(--color-border));
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
   }
   .section-alt {
     background: var(--color-bg-alt);
     border-block: 1px solid var(--color-border);
   }
+  .section-paper {
+    position: relative;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+  }
   .section-more {
     margin-top: 1.5rem;
   }
 
+  .section-heading .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+
   .grade-card,
   .element-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    overflow: hidden;
   }
   .grade-card > .badge {
     align-self: flex-start;
@@ -428,14 +511,48 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     color: var(--color-primary);
     font-weight: 600;
   }
+  .grade-num {
+    position: absolute;
+    right: 0.4rem;
+    top: -0.6rem;
+    font-family: var(--font-serif);
+    font-size: 5.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-primary);
+    opacity: 0.08;
+    pointer-events: none;
+    user-select: none;
+  }
   .accent-number {
     border-top: 3px solid var(--color-number);
+  }
+  .accent-number .grade-num {
+    color: var(--color-number);
   }
   .accent-algebra {
     border-top: 3px solid var(--color-algebra);
   }
+  .accent-algebra .grade-num {
+    color: var(--color-algebra);
+  }
   .accent-geometry {
     border-top: 3px solid var(--color-geometry);
+  }
+  .accent-geometry .grade-num {
+    color: var(--color-geometry);
+  }
+  .accent-bilangan {
+    border-top: 3px solid var(--color-number);
+  }
+  .accent-aljabar-fungsi {
+    border-top: 3px solid var(--color-algebra);
+  }
+  .accent-geometri {
+    border-top: 3px solid var(--color-geometry);
+  }
+  .accent-data-peluang {
+    border-top: 3px solid var(--color-data);
   }
   .element-icon {
     display: grid;
@@ -448,31 +565,40 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   }
   .accent-bilangan .element-icon {
     color: var(--color-number);
+    background: color-mix(in srgb, var(--color-number) 12%, var(--color-surface-2));
   }
   .accent-aljabar-fungsi .element-icon {
     color: var(--color-algebra);
+    background: color-mix(in srgb, var(--color-algebra) 12%, var(--color-surface-2));
   }
   .accent-geometri .element-icon {
     color: var(--color-geometry);
+    background: color-mix(in srgb, var(--color-geometry) 12%, var(--color-surface-2));
   }
   .accent-data-peluang .element-icon {
     color: var(--color-data);
+    background: color-mix(in srgb, var(--color-data) 12%, var(--color-surface-2));
   }
   .philosophy {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 1rem;
-    counter-reset: phil;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+    gap: 0.6rem;
   }
   .philosophy-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 0.45rem;
+    row-gap: 0.1rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: 1.1rem;
+    border-radius: var(--radius);
     border-top: 3px solid var(--color-primary);
+    padding: 0.55rem 0.7rem;
   }
   .philosophy-step:nth-child(2) {
     border-top-color: var(--color-number);
@@ -487,23 +613,30 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     border-top-color: var(--color-data);
   }
   .philosophy-num {
-    display: inline-grid;
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
     place-items: center;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     background: var(--color-primary-soft);
     color: var(--color-primary);
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
   }
   .philosophy-step h3 {
-    font-size: 1.05rem;
-    margin-bottom: 0.25rem;
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.98rem;
+    margin: 0;
   }
   .philosophy-step p {
+    grid-column: 1 / -1;
+    grid-row: 2;
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
     color: var(--color-text-muted);
   }
   .app-list {
@@ -526,47 +659,84 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     text-decoration: none;
     font-weight: 500;
   }
-  .tool-card h3 {
-    font-size: 1.05rem;
+  .tool-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
-  .tool-card p {
-    margin: 0;
+  .tool-card {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.95rem;
+  }
+  .tool-card:hover,
+  .tool-card:focus-visible {
+    border-color: var(--color-primary);
+    color: inherit;
+  }
+  .tool-name {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tool-note {
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.82rem;
   }
   @media (min-width: 56rem) {
     .apps-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .tools-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .play-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+    .philosophy-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      top: 50%;
+      right: -0.72rem;
+      transform: translateY(-50%);
+      color: var(--color-border-strong);
+      font-size: 0.85rem;
+      line-height: 1;
+      pointer-events: none;
     }
   }
   @media (max-width: 56rem) {
     .hero-grid {
       grid-template-columns: 1fr;
     }
-    .hero-visual {
-      max-width: 18rem;
-      min-height: 12rem;
+  }
+  @media (max-width: 40rem) {
+    .hero-lead {
+      font-size: 1.05rem;
+    }
+    .hero-desc {
+      font-size: 0.95rem;
     }
   }
   @media (max-width: 34rem) {
-    .hero-visual {
-      max-width: 15rem;
-      min-height: 0;
-      margin-top: 0.25rem;
+    .byline-sep {
+      display: none;
     }
-    .hero-stage {
-      width: min(100%, 15rem);
+    .hero-byline {
+      border-radius: var(--radius-lg);
+      padding: 0.55rem 0.8rem 0.55rem 0.5rem;
     }
-    .hero-stage :global(.mascot) {
-      width: 10rem;
+    .tool-card {
+      flex: 1 1 auto;
+      justify-content: center;
     }
-    .hero-chip {
-      width: 2rem;
-      height: 2rem;
-      font-size: 0.85rem;
+    .tool-note {
+      display: none;
     }
   }
 </style>

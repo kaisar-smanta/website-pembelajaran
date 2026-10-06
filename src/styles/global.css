@@ -51,6 +51,12 @@
   --dur: 220ms;
   --dur-slow: 460ms;
 
+  /* Motif kertas berpetak & stabilo */
+  --grid-line: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  --grid-size: 24px;
+  --highlight: #ffe6a3;
+  --highlight-strong: #ffd45e;
+
   color-scheme: light;
 }
 
@@ -87,6 +93,10 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
+
+  --grid-line: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  --highlight: #5c4a14;
+  --highlight-strong: #7a6118;
 
   color-scheme: dark;
 }
@@ -226,6 +236,11 @@ hr {
   border: 0;
 }
 
+/* Pastikan atribut `hidden` selalu menang atas `display` komponen (mis. .btn). */
+[hidden] {
+  display: none !important;
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
@@ -363,6 +378,62 @@ input[type='range'] {
 }
 .section-heading {
   margin-bottom: 1.25rem;
+}
+
+/* ---------- Motif & kepribadian ---------- */
+.paper-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+}
+.marker {
+  background-image: linear-gradient(
+    180deg,
+    transparent 60%,
+    var(--highlight) 60%,
+    var(--highlight) 94%,
+    transparent 94%
+  );
+  padding-inline: 0.14em;
+  margin-inline: -0.04em;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.ink-underline {
+  text-decoration-line: underline;
+  text-decoration-color: var(--highlight-strong);
+  text-decoration-thickness: 0.18em;
+  text-underline-offset: 0.12em;
+}
+.eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+  background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.eyebrow-badge::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
+}
+.divider-wave {
+  display: block;
+  width: 100%;
+  height: 2.5rem;
+  color: var(--color-bg-alt);
 }
 
 /* ---------- Prose (materi) ---------- */
@@ -543,6 +614,33 @@ input[type='range'] {
     stroke-dashoffset: 0;
   }
 }
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(6px, -10px);
+  }
+}
+@keyframes marker-sweep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 
 /* Reveal on scroll — hanya aktif bila JS & motion diizinkan (lihat BaseLayout). */
 .motion-ready .reveal {
@@ -607,6 +705,45 @@ input[type='range'] {
   stroke-dashoffset: 320;
   animation: draw-line 1.6s var(--ease-out-soft) forwards;
 }
+.spin-slow {
+  animation: orbit 26s linear infinite;
+}
+.spin-slow-rev {
+  animation: orbit-reverse 60s linear infinite;
+}
+.drift {
+  animation: drift 9s var(--ease-out-soft) infinite;
+}
+
+/* ---------- Beranda: interaksi & hadiah kecil ---------- */
+@keyframes burst-ring {
+  from {
+    transform: scale(0.55);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(2px);
+  }
+}
+.burst-ring {
+  animation: burst-ring 620ms var(--ease-out-soft) forwards;
+}
+.streak-pop {
+  animation: pop-in var(--dur) var(--ease-bounce) both;
+}
 
 /* Karakter/maskot matematika sederhana (dekoratif). */
 .mascot {
@@ -624,6 +761,9 @@ input[type='range'] {
   .pulse-soft,
   .shimmer,
   .draw-line,
+  .spin-slow,
+  .spin-slow-rev,
+  .drift,
   .wiggle-on-hover:hover .wiggle-target,
   .wiggle-on-hover:focus-within .wiggle-target,
   .pop-on-hover:hover,

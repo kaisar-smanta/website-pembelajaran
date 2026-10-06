@@ -1,0 +1,111 @@
+---
+import { getExploration } from '@/data/explorations';
+import FunctionSlider from './FunctionSlider.astro';
+import { url } from '@/utils/url';
+
+interface Props {
+  explorationId?: string;
+  title?: string;
+  prompt?: string;
+}
+const { explorationId = 'kuadrat-parameter', title, prompt } = Astro.props;
+const exploration = getExploration(explorationId);
+---
+
+{
+  exploration ? (
+    <section class="quick-demo" aria-labelledby="quick-demo-title">
+      <div class="quick-demo-head">
+        <p class="eyebrow">Coba sekarang</p>
+        <span class="quick-demo-live">
+          <span class="live-dot" aria-hidden="true" />
+          Interaktif
+        </span>
+      </div>
+      <h3 id="quick-demo-title">{title ?? exploration.title}</h3>
+      <p class="quick-demo-prompt">
+        {prompt ?? 'Geser penggeser di bawah dan lihat bagaimana grafiknya berubah seketika.'}
+      </p>
+      <FunctionSlider exploration={exploration} />
+      <p class="quick-demo-more">
+        <a class="btn btn-secondary btn-sm" href={url('/eksplorasi')}>
+          Lihat semua eksplorasi
+        </a>
+      </p>
+    </section>
+  ) : (
+    <div class="callout callout-info" role="note">
+      Eksplorasi tidak ditemukan: {explorationId}
+    </div>
+  )
+}
+
+<style>
+  @keyframes live-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-algebra) 45%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 7px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  .quick-demo {
+    position: relative;
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        color-mix(in srgb, var(--color-algebra) 10%, transparent),
+        transparent 46%
+      ),
+      var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border-top: 3px solid var(--color-algebra);
+  }
+  .quick-demo-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+  .quick-demo-head .eyebrow {
+    margin: 0;
+    color: var(--color-algebra);
+  }
+  .quick-demo-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-algebra);
+  }
+  .live-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-algebra) 20%, transparent);
+    animation: live-pulse 2.4s var(--ease-out-soft) infinite;
+  }
+  .quick-demo-prompt {
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .quick-demo-more {
+    margin: 1rem 0 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot {
+      animation: none;
+    }
+  }
+</style>

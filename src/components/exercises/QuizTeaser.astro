@@ -1,0 +1,385 @@
+---
+import type { Question } from '@/types/content';
+import { getQuestion, questions } from '@/data/questions';
+import { renderMarkdown } from '@/utils/markdown';
+import { url } from '@/utils/url';
+
+interface Props {
+  questionIds?: string[];
+}
+const { questionIds } = Astro.props;
+
+function isQuizReady(q: Question | undefined): q is Question {
+  return Boolean(q && q.type === 'multiple-choice' && q.options && q.options.length > 0);
+}
+
+const preferredCategories = new Set(['cepat', 'konsep']);
+const preferredDifficulties = new Set(['dasar', 'cakap']);
+
+function rank(q: Question): number {
+  let score = 0;
+  if (q.category && preferredCategories.has(q.category)) score += 2;
+  if (preferredDifficulties.has(q.difficulty)) score += 1;
+  return score;
+}
+
+const selected: Question[] =
+  questionIds && questionIds.length
+    ? questionIds
+        .map((id) => getQuestion(id))
+        .filter(isQuizReady)
+        .slice(0, 5)
+    : questions
+        .map((q, i) => ({ q, i }))
+        .filter((entry) => isQuizReady(entry.q))
+        .sort((a, b) => rank(b.q) - rank(a.q) || a.i - b.i)
+        .slice(0, 5)
+        .map((entry) => entry.q);
+
+const quizData = selected.map((q) => ({
+  id: q.id,
+  difficulty: q.difficulty,
+  promptHtml: renderMarkdown(q.prompt),
+  options: (q.options ?? []).map((o) => ({ key: o.key, textHtml: renderMarkdown(o.text) })),
+  answer: q.answer,
+  explanationHtml: q.explanation ? renderMarkdown(q.explanation) : '',
+}));
+
+const first = quizData[0];
+---
+
+<section class="quiz-teaser" aria-labelledby="quiz-teaser-title">
+  <p class="eyebrow">Kuis kilat</p>
+  <h3 id="quiz-teaser-title">Uji pemahamanmu</h3>
+  <p class="quiz-intro text-muted">Jawab soal singkat dan lihat pembahasannya seketika.</p>
+
+  {
+    first ? (
+      <div class="quiz-box paper-grid" data-quiz data-questions={JSON.stringify(quizData)}>
+        <span class="quiz-burst" aria-hidden="true" />
+        <div class="quiz-prompt prose" data-quiz-prompt set:html={first.promptHtml} />
+        <div class="quiz-options" data-quiz-options>
+          {first.options.map((opt) => (
+            <button type="button" class="quiz-option" data-key={opt.key}>
+              <span class="quiz-key" aria-hidden="true">
+                {opt.key}
+              </span>
+              <span class="quiz-option-text" set:html={opt.textHtml} />
+            </button>
+          ))}
+        </div>
+        <div class="quiz-feedback" data-feedback role="status" aria-live="polite" />
+        <button type="button" class="btn btn-primary btn-sm" data-next hidden>
+          Soal berikutnya
+        </button>
+      </div>
+    ) : (
+      <div class="callout callout-info" role="note">
+        Belum ada soal kuis yang tersedia.
+      </div>
+    )
+  }
+
+  <p class="quiz-score" aria-live="polite">
+    <span class="marker quiz-streak-value" data-streak>0</span>
+    <span>benar berturut-turut</span>
+  </p>
+  <p>
+    <a href={url('/latihan')}>Latihan lengkap</a>
+  </p>
+</section>
+
+<style>
+  .quiz-teaser {
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        color-mix(in srgb, var(--color-primary) 8%, transparent),
+        transparent 44%
+      ),
+      var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border-top: 3px solid var(--color-primary);
+  }
+  .quiz-intro {
+    margin-bottom: 0.75rem;
+  }
+  .quiz-box {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-bg);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .quiz-prompt {
+    margin-bottom: 0.5rem;
+  }
+  .quiz-prompt :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .quiz-options {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .quiz-options :global(.quiz-option) {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast),
+      background-color var(--dur-fast),
+      box-shadow var(--dur-fast);
+  }
+  .quiz-options :global(.quiz-option:hover) {
+    border-color: var(--color-primary);
+  }
+  .quiz-options :global(.quiz-option.is-chosen) {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  }
+  .quiz-options :global(.quiz-option.is-correct) {
+    border-color: var(--color-success);
+    background: var(--color-success-soft);
+  }
+  .quiz-options :global(.quiz-option.is-wrong) {
+    border-color: var(--color-danger);
+    background: var(--color-danger-soft);
+  }
+  .quiz-options :global(.quiz-key) {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--color-surface-2);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .quiz-options :global(.quiz-option.is-correct .quiz-key) {
+    background: var(--color-success);
+    color: #fff;
+  }
+  .quiz-options :global(.quiz-option.is-wrong .quiz-key) {
+    background: var(--color-danger);
+    color: #fff;
+  }
+  .quiz-feedback {
+    margin: 0.75rem 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+  }
+  .quiz-feedback:empty {
+    display: none;
+  }
+  .quiz-feedback.is-ok {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+  }
+  .quiz-feedback.is-no {
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+  }
+  .quiz-feedback :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .quiz-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: fit-content;
+    margin: 0.75rem 0 0.5rem;
+    padding: 0.32rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface-2);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .quiz-score [data-streak] {
+    color: var(--color-primary);
+    font-weight: 800;
+    font-size: 1.02rem;
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    min-width: 1.1ch;
+    text-align: center;
+  }
+  .quiz-teaser a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+  }
+  .quiz-burst {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 2px solid var(--color-success);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    try {
+      const boxes = document.querySelectorAll('[data-quiz]');
+      boxes.forEach((box) => {
+        let quiz = [];
+        try {
+          quiz = JSON.parse(box.getAttribute('data-questions') || '[]');
+        } catch (err) {
+          quiz = [];
+        }
+        if (!Array.isArray(quiz) || quiz.length === 0) return;
+
+        const scope = box.closest('.quiz-teaser') || box;
+        const promptEl = box.querySelector('[data-quiz-prompt]');
+        const optionsEl = box.querySelector('[data-quiz-options]');
+        const feedbackEl = box.querySelector('[data-feedback]');
+        const nextBtn = box.querySelector('[data-next]');
+        const streakEl = scope.querySelector('[data-streak]');
+        let burst = box.querySelector('.quiz-burst');
+
+        let index = 0;
+        let answered = false;
+        let streak = 0;
+
+        try {
+          const stored = window.localStorage.getItem('quiz-streak');
+          const parsed = stored === null ? NaN : parseInt(stored, 10);
+          if (!Number.isNaN(parsed) && parsed >= 0) streak = parsed;
+        } catch (err) {
+          streak = 0;
+        }
+        if (streakEl) streakEl.textContent = String(streak);
+
+        let reduceMotion = false;
+        try {
+          reduceMotion =
+            typeof window.matchMedia === 'function' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        } catch (err) {
+          reduceMotion = false;
+        }
+
+        function saveStreak() {
+          try {
+            window.localStorage.setItem('quiz-streak', String(streak));
+          } catch (err) {
+            /* penyimpanan tidak tersedia */
+          }
+        }
+
+        function render() {
+          const q = quiz[index];
+          if (!q) return;
+          answered = false;
+          if (feedbackEl) {
+            feedbackEl.className = 'quiz-feedback';
+            feedbackEl.innerHTML = '';
+          }
+          if (nextBtn) nextBtn.hidden = true;
+          if (promptEl) promptEl.innerHTML = q.promptHtml || '';
+          if (optionsEl) {
+            optionsEl.innerHTML = '';
+            (q.options || []).forEach((opt) => {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'quiz-option';
+              btn.setAttribute('data-key', opt.key);
+              btn.innerHTML =
+                '<span class="quiz-key" aria-hidden="true">' +
+                opt.key +
+                '</span><span class="quiz-option-text">' +
+                (opt.textHtml || '') +
+                '</span>';
+              btn.addEventListener('click', () => choose(btn, opt.key));
+              optionsEl.appendChild(btn);
+            });
+          }
+        }
+
+        function choose(btn, key) {
+          if (answered) return;
+          answered = true;
+          const q = quiz[index];
+          if (!q) return;
+          const isCorrect = key === q.answer;
+
+          if (optionsEl) {
+            optionsEl.querySelectorAll('.quiz-option').forEach((el) => {
+              const k = el.getAttribute('data-key');
+              if (k === q.answer) el.classList.add('is-correct');
+              if (k === key && !isCorrect) el.classList.add('is-wrong');
+            });
+          }
+          btn.classList.add('is-chosen');
+
+          if (feedbackEl) {
+            feedbackEl.className = 'quiz-feedback ' + (isCorrect ? 'is-ok' : 'is-no');
+            feedbackEl.innerHTML =
+              (isCorrect ? '<strong>Benar!</strong> ' : '<strong>Belum tepat.</strong> ') +
+              (q.explanationHtml || '');
+          }
+          if (nextBtn) nextBtn.hidden = false;
+
+          if (isCorrect) {
+            streak += 1;
+            if (burst && !reduceMotion) {
+              burst.classList.remove('burst-ring');
+              void burst.offsetWidth;
+              burst.classList.add('burst-ring');
+            }
+          } else {
+            streak = 0;
+          }
+          if (streakEl) {
+            streakEl.textContent = String(streak);
+            if (isCorrect && !reduceMotion) {
+              streakEl.classList.remove('streak-pop');
+              void streakEl.offsetWidth;
+              streakEl.classList.add('streak-pop');
+            }
+          }
+          saveStreak();
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            index = (index + 1) % quiz.length;
+            render();
+          });
+        }
+
+        if (!burst) {
+          burst = document.createElement('span');
+          burst.className = 'quiz-burst';
+          burst.setAttribute('aria-hidden', 'true');
+          box.appendChild(burst);
+        }
+
+        render();
+      });
+    } catch (err) {
+      /* biarkan konten hasil server tetap tampil */
+    }
+  })();
+</script>

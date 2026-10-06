@@ -1,0 +1,232 @@
+---
+import type { Topic, ElementId } from '@/types/content';
+import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
+import { url } from '@/utils/url';
+import TopicCard from './TopicCard.astro';
+
+interface Props {
+  topics: Topic[];
+  initialVisible?: number;
+}
+const { topics, initialVisible = 6 } = Astro.props;
+
+const presentElements: ElementId[] = ELEMENT_ORDER.filter((id) =>
+  topics.some((t) => t.element === id),
+);
+---
+
+<section
+  class="section section-alt topik-showcase"
+  aria-labelledby="featured"
+  data-initial={initialVisible}
+>
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow-badge">Pilih dan pelajari</p>
+      <h2 id="featured">Topik Pilihan</h2>
+      <p class="text-muted">Pilih elemen, lalu buka topik yang ingin kamu pelajari.</p>
+    </div>
+
+    <div class="topic-filters" role="group" aria-label="Saring topik menurut elemen">
+      <button type="button" class="topic-chip is-active" data-filter="all" aria-pressed="true">
+        Semua
+      </button>
+      {
+        presentElements.map((id) => (
+          <button type="button" class="topic-chip" data-filter={id} aria-pressed="false">
+            {ELEMENTS[id].name}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid grid-3 topic-grid">
+      {
+        topics.map((t, i) => (
+          <div class="topic-slot" data-element={t.element}>
+            <TopicCard
+              title={t.title}
+              summary={t.summary}
+              grade={t.grade}
+              element={t.element}
+              slug={t.slug}
+              delay={i * 60}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="topic-footer">
+      <p class="topic-count" aria-live="polite"></p>
+      <div class="topic-actions">
+        <button type="button" class="btn btn-secondary btn-sm topic-expand" hidden>
+          Tampilkan semua topik
+        </button>
+        <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat semua topik</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    try {
+      var root = document.querySelector('.topik-showcase');
+      if (!root) return;
+      var slots = Array.prototype.slice.call(root.querySelectorAll('.topic-slot'));
+      var chips = Array.prototype.slice.call(root.querySelectorAll('.topic-chip'));
+      var countEl = root.querySelector('.topic-count');
+      var expandBtn = root.querySelector('.topic-expand');
+      if (!slots.length) return;
+
+      var initial = parseInt(root.getAttribute('data-initial') || '6', 10);
+      if (isNaN(initial) || initial < 1) initial = 6;
+      var total = slots.length;
+      var filter = 'all';
+      var expanded = false;
+
+      function countFor(name) {
+        if (name === 'all') return total;
+        var n = 0;
+        for (var i = 0; i < slots.length; i++) {
+          if (slots[i].getAttribute('data-element') === name) n++;
+        }
+        return n;
+      }
+
+      function render() {
+        var shown = 0;
+        for (var i = 0; i < slots.length; i++) {
+          var slot = slots[i];
+          var match = filter === 'all' || slot.getAttribute('data-element') === filter;
+          var hide = !match;
+          if (match) {
+            if (filter === 'all' && !expanded && shown >= initial) hide = true;
+            else shown++;
+          }
+          slot.classList.toggle('is-hidden', hide);
+        }
+
+        if (countEl) {
+          countEl.textContent = 'Menampilkan ' + shown + ' dari ' + total + ' topik';
+        }
+        if (expandBtn) {
+          expandBtn.hidden = !(filter === 'all' && !expanded && countFor('all') > initial);
+        }
+
+        for (var j = 0; j < chips.length; j++) {
+          var active = chips[j].getAttribute('data-filter') === filter;
+          chips[j].classList.toggle('is-active', active);
+          chips[j].setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+
+      for (var k = 0; k < chips.length; k++) {
+        chips[k].addEventListener('click', function (event) {
+          var target = event.currentTarget;
+          filter = target.getAttribute('data-filter') || 'all';
+          expanded = false;
+          render();
+        });
+      }
+      if (expandBtn) {
+        expandBtn.addEventListener('click', function () {
+          expanded = true;
+          render();
+        });
+      }
+
+      root.classList.add('js-ready');
+      render();
+    } catch (e) {
+      /* biarkan semua topik tetap tampil tanpa JS */
+    }
+  })();
+</script>
+
+<style>
+  section.topik-showcase {
+    position: relative;
+    background-color: var(--color-bg-alt);
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+      radial-gradient(
+        circle at 15% 0%,
+        color-mix(in srgb, var(--color-primary) 7%, transparent),
+        transparent 46%
+      );
+    background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size), auto;
+  }
+  .topik-showcase .eyebrow-badge {
+    margin-bottom: 0.55rem;
+  }
+  .topic-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .topic-chip {
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .topic-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .topic-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .topic-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .topic-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .topic-slot {
+    display: flex;
+    min-width: 0;
+  }
+  .topik-showcase.js-ready .topic-slot.is-hidden {
+    display: none;
+  }
+  .topic-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .topic-count {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  .topic-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  @media (max-width: 34rem) {
+    .topic-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

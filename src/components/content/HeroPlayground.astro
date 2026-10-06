@@ -1,0 +1,318 @@
+---
+import MathMascot from './MathMascot.astro';
+
+const facts = [
+  'Nilai π ≈ 3,14159... dan terus berlanjut tanpa pola.',
+  'Bilangan prima terkecil adalah 2, satu-satunya prima genap.',
+  '√2 adalah bilangan irasional, tidak bisa ditulis sebagai pecahan.',
+  'Jumlah sudut dalam setiap segitiga selalu 180°.',
+  'Persamaan x² + y² = r² menggambarkan lingkaran berjari-jari r.',
+  '0,999... sama persis dengan 1, bukan sekadar mendekati.',
+];
+---
+
+<div class="hero-playground">
+  <div class="playground-stage">
+    <span class="stage-orbit spin-slow-rev" aria-hidden="true"></span>
+    <span class="hero-chip chip-a float-slow" aria-hidden="true">+</span>
+    <span class="hero-chip chip-b float-slow float-delayed" aria-hidden="true">√</span>
+    <span class="hero-chip chip-c bob" aria-hidden="true">x²</span>
+    <span class="hero-chip chip-d float-slow" aria-hidden="true">π</span>
+    <button type="button" class="mascot-button" aria-label="Tampilkan fakta matematika">
+      <span class="mascot-halo" aria-hidden="true"></span>
+      <MathMascot size={13} interactive />
+      <span class="mascot-ground" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <p class="mascot-bubble" data-bubble role="status" aria-live="polite">{facts[0]}</p>
+  <p class="mascot-hint">Ketuk maskot untuk fakta lain</p>
+
+  <div class="math-facts" hidden>
+    {facts.map((fact) => <span hidden data-math-fact>{fact}</span>)}
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    try {
+      var root = document.querySelector('.hero-playground');
+      if (!root) return;
+
+      var button = root.querySelector('.mascot-button');
+      var bubble = root.querySelector('[data-bubble]');
+      if (!button || !bubble) return;
+
+      var facts = Array.prototype.slice
+        .call(root.querySelectorAll('[data-math-fact]'))
+        .map(function (el) {
+          return (el.textContent || '').trim();
+        })
+        .filter(function (text) {
+          return text.length > 0;
+        });
+      if (facts.length < 2) return;
+
+      var index = 0;
+      var reduce = false;
+      try {
+        reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      } catch (error) {
+        reduce = false;
+      }
+
+      function advance() {
+        index = (index + 1) % facts.length;
+        bubble.textContent = facts[index];
+        if (reduce) return;
+        bubble.classList.remove('pop');
+        void bubble.offsetWidth;
+        bubble.classList.add('pop');
+        window.setTimeout(function () {
+          bubble.classList.remove('pop');
+        }, 320);
+      }
+
+      button.addEventListener('click', advance);
+    } catch (error) {
+      /* Biarkan fakta pertama tetap tampil bila skrip gagal. */
+    }
+  })();
+</script>
+
+<style>
+  .hero-playground {
+    display: grid;
+    justify-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .playground-stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      'mascot mascot mascot mascot'
+      'a b c d';
+    align-items: center;
+    justify-items: center;
+    gap: 0.55rem 0.6rem;
+    width: min(100%, 23rem);
+    max-width: 100%;
+    min-width: 0;
+    min-height: 12rem;
+  }
+  .stage-orbit {
+    display: none;
+  }
+  .mascot-button {
+    grid-area: mascot;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: min(100%, 15rem);
+    margin-inline: auto;
+    padding: 0.25rem;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .mascot-button:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+  .mascot-button :global(.mascot) {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+  }
+  .mascot-halo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(118%, 20rem);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 42%,
+      color-mix(in srgb, var(--color-primary) 20%, transparent),
+      transparent 66%
+    );
+    filter: blur(4px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .mascot-ground {
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+    width: 64%;
+    height: 9%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--color-primary) 26%, transparent),
+      transparent 72%
+    );
+    filter: blur(3px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-chip {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 14px;
+    background: color-mix(in srgb, currentColor 12%, var(--color-surface));
+    border: 2px solid color-mix(in srgb, currentColor 48%, var(--color-border));
+    box-shadow:
+      0 6px 14px color-mix(in srgb, currentColor 20%, transparent),
+      var(--shadow-sm);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .chip-a {
+    grid-area: a;
+    color: var(--color-algebra);
+  }
+  .chip-b {
+    grid-area: b;
+    color: var(--color-geometry);
+  }
+  .chip-c {
+    grid-area: c;
+    color: var(--color-number);
+  }
+  .chip-d {
+    grid-area: d;
+    color: var(--color-data);
+  }
+  .mascot-bubble {
+    position: relative;
+    margin: 0;
+    max-width: 26rem;
+    padding: 0.7rem 1.05rem;
+    background: var(--color-surface);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-text);
+    font-size: 0.93rem;
+    line-height: 1.5;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .mascot-bubble::before {
+    content: 'Fakta matematika';
+    display: block;
+    width: fit-content;
+    margin: 0 auto 0.32rem;
+    padding: 0.05rem 0.45rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--highlight) 75%, transparent);
+    color: var(--color-text);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .mascot-bubble::after {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    width: 0.9rem;
+    height: 0.9rem;
+    transform: translateX(-50%) rotate(45deg);
+    background: var(--color-surface);
+    border-top: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+    border-left: 1px solid color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
+    border-top-left-radius: 4px;
+  }
+  .mascot-bubble.pop {
+    animation: bubble-pop var(--dur) var(--ease-bounce) both;
+  }
+  .mascot-hint {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+  }
+  .math-facts {
+    display: none;
+  }
+  @keyframes bubble-pop {
+    0% {
+      transform: scale(0.94);
+    }
+    60% {
+      transform: scale(1.03);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @media (min-width: 34rem) {
+    .playground-stage {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'mascot';
+      place-items: center;
+      min-height: 16rem;
+    }
+    .stage-orbit {
+      display: block;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: min(96%, 22rem);
+      height: 72%;
+      border: 1.5px dashed color-mix(in srgb, var(--color-primary) 32%, transparent);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .mascot-button {
+      width: min(100%, 19rem);
+    }
+    .hero-chip {
+      position: absolute;
+      z-index: 2;
+    }
+    .chip-a {
+      top: 0;
+      left: 0;
+    }
+    .chip-b {
+      top: 0;
+      right: 0;
+    }
+    .chip-c {
+      bottom: 0;
+      left: 0;
+    }
+    .chip-d {
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  @media (max-width: 24rem) {
+    .hero-chip {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

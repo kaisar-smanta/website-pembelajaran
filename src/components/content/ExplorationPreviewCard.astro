@@ -1,0 +1,184 @@
+---
+import type { ElementId, Exploration } from '@/types/content';
+import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
+import { url, topicUrl } from '@/utils/url';
+import { getTopic } from '@/data/topics';
+
+interface Props {
+  exploration: Exploration;
+  /** Jeda animasi reveal (ms) untuk efek berjenjang. */
+  delay?: number;
+}
+const { exploration, delay = 0 } = Astro.props;
+
+const labels: Record<Exploration['type'], string> = {
+  'function-slider': 'Grafik interaktif',
+  'compound-interest': 'Simulasi keuangan',
+  probability: 'Simulasi peluang',
+  'linear-regression': 'Visualisasi regresi',
+  geogebra: 'GeoGebra',
+};
+const label = labels[exploration.type];
+
+const topic = exploration.topicId ? getTopic(exploration.topicId) : undefined;
+const href = topic ? topicUrl(topic.grade, topic.element, topic.slug) : url('/eksplorasi');
+
+const elementAccents: Record<ElementId, string> = {
+  bilangan: '--color-number',
+  'aljabar-fungsi': '--color-algebra',
+  geometri: '--color-geometry',
+  'data-peluang': '--color-data',
+};
+const accent = topic ? elementAccents[topic.element] : '--color-primary';
+
+const descHtml = renderInlineMarkdown(exploration.description);
+const titleAttr = stripMarkdown(exploration.description);
+
+const curves: Record<Exploration['type'], string> = {
+  'function-slider': 'M6 58 C40 58 52 12 100 12 C148 12 160 58 194 58',
+  'compound-interest': 'M6 56 C60 56 115 48 150 30 C170 20 185 12 194 8',
+  probability: 'M6 58 C50 58 62 16 100 16 C138 16 150 58 194 58',
+  'linear-regression': 'M6 50 L194 14',
+  geogebra: 'M6 58 C45 58 60 14 100 14 C140 14 155 58 194 58',
+};
+
+const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>> = {
+  'function-slider': [
+    [6, 58],
+    [100, 12],
+    [194, 58],
+  ],
+  'compound-interest': [
+    [6, 56],
+    [150, 30],
+    [194, 8],
+  ],
+  probability: [
+    [50, 30],
+    [70, 20],
+    [100, 16],
+    [130, 20],
+    [150, 30],
+  ],
+  'linear-regression': [
+    [30, 44],
+    [62, 40],
+    [86, 34],
+    [112, 30],
+    [142, 22],
+    [172, 16],
+  ],
+  geogebra: [
+    [40, 40],
+    [100, 14],
+    [160, 40],
+  ],
+};
+const curve = curves[exploration.type];
+const points = dots[exploration.type];
+---
+
+<a
+  class="exploration-card card-link hover-lift reveal"
+  style={`--reveal-delay:${delay ?? 0}ms; --accent: var(${accent})`}
+  href={href}
+  title={titleAttr}
+>
+  <div class="exploration-graph" aria-hidden="true">
+    <svg viewBox="0 0 200 64" preserveAspectRatio="none" focusable="false">
+      <path class="baseline" d="M0 58 H200"></path>
+      <path class="curve" d={curve}></path>
+      {points.map(([cx, cy]) => <circle class="dot" cx={cx} cy={cy} r="2.6"></circle>)}
+    </svg>
+  </div>
+  <span class="badge">{label}</span>
+  <h3 class="exploration-title">{exploration.title}</h3>
+  <p class="exploration-desc" set:html={descHtml}></p>
+  <span class="cta">Coba →</span>
+</a>
+
+<style>
+  .exploration-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: 100%;
+    padding: 1rem 1rem 1.15rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .exploration-card:hover,
+  .exploration-card:focus-within {
+    border-color: var(--accent);
+  }
+  .exploration-graph {
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      135deg,
+      var(--color-surface-2),
+      color-mix(in srgb, var(--accent) 16%, var(--color-surface-2))
+    );
+    color: var(--accent);
+    overflow: hidden;
+  }
+  .exploration-graph svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .baseline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: 0.22;
+    vector-effect: non-scaling-stroke;
+  }
+  .curve {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .dot {
+    fill: currentColor;
+  }
+  .exploration-card .badge {
+    align-self: flex-start;
+    background: color-mix(in srgb, var(--accent) 14%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent) 62%, var(--color-text));
+    border-color: transparent;
+  }
+  .exploration-title {
+    margin: 0;
+    font-size: clamp(1rem, 1.4vw + 0.7rem, 1.15rem);
+    line-height: 1.3;
+  }
+  .exploration-desc {
+    margin: 0;
+    flex-grow: 1;
+    color: var(--color-text-muted);
+    font-size: 0.93rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  @supports not ((-webkit-line-clamp: 3) or (line-clamp: 3)) {
+    .exploration-desc {
+      max-height: 4.5em;
+    }
+  }
+  .cta {
+    color: color-mix(in srgb, var(--accent) 72%, var(--color-text));
+    font-weight: 600;
+  }
+</style>

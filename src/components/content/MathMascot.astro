@@ -3,13 +3,16 @@ interface Props {
   /** Bila diisi, maskot diberi label aksesibel. Default dekoratif. */
   label?: string;
   size?: number;
+  /** Bila true, tambahkan respons hover/fokus halus. Default dekoratif & statis. */
+  interactive?: boolean;
 }
-const { label, size = 15 } = Astro.props;
+const { label, size = 15, interactive = false } = Astro.props;
 const decorative = !label;
+const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
 ---
 
 <svg
-  class="mascot bob"
+  class={classList}
   viewBox="0 0 200 200"
   width={size * 16}
   height={size * 16}
@@ -66,11 +69,36 @@ const decorative = !label;
     transform: rotate(-3deg);
   }
   .mascot-eye {
+    transform-box: fill-box;
     transform-origin: center;
   }
+  .mascot--interactive {
+    transition: filter var(--dur) var(--ease-out-soft);
+  }
+  .mascot--interactive:hover,
+  .mascot--interactive:focus-visible {
+    filter: drop-shadow(0 16px 30px color-mix(in srgb, var(--color-primary) 30%, transparent));
+  }
   @media (prefers-reduced-motion: no-preference) {
-    .mascot:hover .mascot-eye {
-      animation: blink 3.4s var(--ease-out-soft) infinite;
+    .mascot--interactive:hover,
+    .mascot--interactive:focus-visible {
+      animation: mascot-bounce var(--dur-slow) var(--ease-bounce) both;
+    }
+  }
+  @keyframes mascot-bounce {
+    0% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(1.045) rotate(-1.5deg);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mascot-eye {
+      animation: blink 4.6s var(--ease-out-soft) infinite;
     }
   }
   @keyframes blink {

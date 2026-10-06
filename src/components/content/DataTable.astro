@@ -36,7 +36,12 @@ function cell(value: string): string {
 
 <style>
   .table-wrap {
-    margin: 1.1rem 0;
+    --tbl-accent: var(--accent, var(--color-primary));
+    margin: 1.25rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
   }
   table {
     width: 100%;
@@ -48,23 +53,55 @@ function cell(value: string): string {
   caption {
     caption-side: top;
     text-align: left;
-    font-size: 0.85rem;
+    padding: 0.75rem 0.9rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
     color: var(--color-text-muted);
-    padding-bottom: 0.4rem;
+  }
+  caption::after {
+    content: '';
+    display: block;
+    width: 2.25rem;
+    height: 2px;
+    margin-top: 0.4rem;
+    border-radius: 999px;
+    background: var(--tbl-accent);
   }
   th,
   td {
     border: 1px solid var(--color-border);
-    padding: 0.5rem 0.7rem;
+    padding: 0.55rem 0.75rem;
     text-align: left;
     vertical-align: middle;
   }
-  th {
-    background: var(--color-surface-2);
+  thead th {
+    background: color-mix(in srgb, var(--tbl-accent) 10%, var(--color-surface-2));
+    color: var(--color-text);
     font-weight: 700;
     white-space: nowrap;
+    border-bottom: 2px solid color-mix(in srgb, var(--tbl-accent) 32%, var(--color-border));
+  }
+  tbody tr {
+    transition: background-color var(--dur-fast) var(--ease-out-soft);
   }
   tbody tr:nth-child(even) {
     background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
+  }
+  tbody tr:hover {
+    background: color-mix(in srgb, var(--tbl-accent) 8%, var(--color-surface));
+  }
+  tr > :first-child {
+    border-left: none;
+  }
+  tr > :last-child {
+    border-right: none;
+  }
+  thead tr > * {
+    border-top: none;
+  }
+  tbody tr:last-child td {
+    border-bottom: none;
   }
 </style>
