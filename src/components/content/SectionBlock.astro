@@ -91,7 +91,7 @@ function blockList(blocks: Block[] | undefined) {
     border-bottom: 1px solid var(--color-border);
     scroll-margin-top: calc(var(--header-h) + 1rem);
   }
-  .content-section:last-child {
+  .content-section:last-of-type {
     border-bottom: none;
   }
   .section-head {
@@ -162,6 +162,11 @@ function blockList(blocks: Block[] | undefined) {
   }
   .kind-kesalahan-umum {
     background: color-mix(in srgb, var(--color-danger-soft) 35%, transparent);
+    border-radius: var(--radius);
+    padding-inline: 1rem;
+  }
+  .kind-evaluasi {
+    background: var(--color-surface-2);
     border-radius: var(--radius);
     padding-inline: 1rem;
   }

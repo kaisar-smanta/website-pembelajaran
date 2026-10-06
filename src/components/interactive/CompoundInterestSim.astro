@@ -1,5 +1,6 @@
 ---
 import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
 
 interface Props {
   exploration: Exploration;
@@ -43,7 +44,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     </table>
   </div>
 
-  <figcaption class="sim-caption" set:html={exploration.description} />
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
 <style>
@@ -85,7 +86,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     display: grid;
     gap: 0.4rem;
   }
-  .sim-summary .stat {
+  .sim-summary :global(.stat) {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
@@ -94,9 +95,13 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     border-radius: var(--radius-sm);
     font-size: 0.92rem;
   }
-  .sim-summary .stat strong {
+  .sim-summary :global(.stat strong) {
     font-family: var(--font-mono);
     color: var(--color-primary);
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin-inline: auto;
   }
   .sim-chart svg {
     display: block;
@@ -113,7 +118,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     color: var(--color-text-muted);
     margin: 0.4rem 0 0.6rem;
   }
-  .legend span::before {
+  .legend :global(span)::before {
     content: '';
     display: inline-block;
     width: 0.8rem;
@@ -123,10 +128,10 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     margin-right: 0.35rem;
     vertical-align: middle;
   }
-  .legend .l1 {
+  .legend :global(.l1) {
     color: var(--color-primary);
   }
-  .legend .l2 {
+  .legend :global(.l2) {
     color: var(--color-data);
   }
   table.amort {
@@ -141,19 +146,23 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     color: var(--color-text-muted);
     padding-bottom: 0.35rem;
   }
-  table.amort th,
-  table.amort td {
+  table.amort :global(th),
+  table.amort :global(td) {
     border: 1px solid var(--color-border);
     padding: 0.4rem 0.6rem;
     text-align: right;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
-  table.amort th:first-child,
-  table.amort td:first-child {
+  table.amort :global(th:first-child),
+  table.amort :global(td:first-child) {
     text-align: left;
   }
-  table.amort th {
+  table.amort :global(th) {
     background: var(--color-surface-2);
+  }
+  table.amort :global(tbody tr:nth-child(even)) {
+    background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
   }
   .sim-caption {
     margin-top: 0.6rem;

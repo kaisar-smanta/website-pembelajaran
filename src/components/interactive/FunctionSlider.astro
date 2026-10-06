@@ -1,5 +1,6 @@
 ---
 import type { Exploration, ExplorationParam } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
 
 interface Props {
   exploration: Exploration;
@@ -64,7 +65,7 @@ const formLabel: Record<string, string> = {
     }
   </div>
   <output class="sim-readout" data-readout aria-live="polite"></output>
-  <figcaption class="sim-caption" set:html={exploration.description} />
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
 <style>
@@ -85,6 +86,8 @@ const formLabel: Record<string, string> = {
     background: var(--color-surface-2);
     border-radius: var(--radius);
     overflow: hidden;
+    max-width: 36rem;
+    margin-inline: auto;
   }
   .sim-canvas svg {
     display: block;

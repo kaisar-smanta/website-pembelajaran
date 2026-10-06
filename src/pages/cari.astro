@@ -118,6 +118,12 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
     color: var(--color-text-muted);
     font-size: 0.92rem;
   }
+  .result-empty {
+    list-style: none;
+    padding: 0.5rem 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
   .result-meta {
     display: flex;
     gap: 0.5rem;
@@ -169,12 +175,29 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
       return s;
     }
 
-    function highlight(text: string, q: string): string {
-      const safe = text.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] as string));
-      if (!q) return safe;
+    function escapeHtml(text: string): string {
+      return text.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] as string));
+    }
+
+    function highlight(text: string, q: string, raw: string): string {
+      const safe = escapeHtml(text);
+      if (!raw) return safe;
+      const pattern = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(pattern, 'gi');
+      if (re.test(safe)) return safe.replace(re, (m) => `<mark>${m}</mark>`);
       const idx = norm(safe).indexOf(q);
       if (idx < 0) return safe;
       return safe.slice(0, idx) + '<mark>' + safe.slice(idx, idx + q.length) + '</mark>' + safe.slice(idx + q.length);
+    }
+
+    function snippetOf(item: Item, q: string, raw: string): string {
+      if (!raw || norm(item.summary).includes(q)) return highlight(item.summary, q, raw);
+      const haystack = item.text || '';
+      const idx = norm(haystack).indexOf(q);
+      if (idx < 0) return highlight(item.summary, q, raw);
+      const start = Math.max(0, idx - 50);
+      const chunk = haystack.slice(start, start + 150).trim();
+      return (start > 0 ? '… ' : '') + highlight(chunk, q, raw) + ' …';
     }
 
     function render() {
@@ -201,8 +224,21 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
       results.innerHTML = '';
       if (q.length === 0) {
         status.textContent = `Menampilkan ${out.length} entri. Ketik untuk menyaring.`;
+      } else if (out.length === 0) {
+        status.textContent = `Tidak ada hasil untuk "${raw}".`;
       } else {
         status.textContent = `${out.length} hasil untuk "${raw}".`;
+      }
+
+      if (out.length === 0) {
+        const empty = document.createElement('li');
+        empty.className = 'result-empty';
+        empty.textContent =
+          q.length === 0
+            ? 'Belum ada entri untuk filter ini.'
+            : 'Tidak ada hasil. Coba kata kunci lain atau ubah filter.';
+        results.appendChild(empty);
+        return;
       }
 
       for (const item of out) {
@@ -212,8 +248,8 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
         li.innerHTML = `
           <a href="${base.replace(/\/$/, '')}${item.url}">
             <div class="result-meta"><span class="badge">${item.type}</span>${gradeLabel ? `<span class="badge badge-grade">${gradeLabel}</span>` : ''}</div>
-            <h3>${highlight(item.title, q)}</h3>
-            <p>${highlight(item.summary, q)}</p>
+            <h3>${highlight(item.title, q, raw)}</h3>
+            <p>${snippetOf(item, q, raw)}</p>
           </a>`;
         results.appendChild(li);
       }

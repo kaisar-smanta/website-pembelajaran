@@ -128,7 +128,10 @@ function isActive(href: string): boolean {
   .mobile-nav-toggle {
     display: none;
     align-items: center;
+    justify-content: center;
     gap: 0.45rem;
+    min-height: 2.4rem;
+    min-width: 2.6rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
@@ -165,7 +168,7 @@ function isActive(href: string): boolean {
   .primary-nav a {
     position: relative;
     display: block;
-    padding: 0.4rem 0.6rem;
+    padding: 0.4rem 0.5rem;
     border-radius: var(--radius-sm);
     color: var(--color-text-muted);
     text-decoration: none;
@@ -227,10 +230,14 @@ function isActive(href: string): boolean {
     color: var(--color-text);
     border-color: var(--color-border-strong);
   }
-  @media (max-width: 60rem) {
+  @media (max-width: 75rem) {
+    .header-inner {
+      gap: 0.5rem;
+    }
     .mobile-nav-toggle {
       display: inline-flex;
       order: 3;
+      padding: 0.4rem 0.55rem;
     }
     .header-actions {
       order: 2;
@@ -252,6 +259,14 @@ function isActive(href: string): boolean {
       font-size: 1rem;
     }
     .search-label {
+      display: none;
+    }
+  }
+  @media (max-width: 23rem) {
+    .brand-text small {
+      display: none;
+    }
+    .mobile-nav-toggle > span:not(.bars) {
       display: none;
     }
   }

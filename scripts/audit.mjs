@@ -156,6 +156,57 @@ const AUDIT_EXPR = `(() => {
   }
   if (contrast.length) add({ type: 'low-contrast', severity: 'high', items: contrast.slice(0, 15) });
 
+  // Literal $...$ yang bocor ke teks berarti LaTeX tidak dirender.
+  var mathLeaks = [];
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: function (node) {
+      var parent = node.parentElement;
+      if (!parent) return NodeFilter.FILTER_REJECT;
+      if (parent.closest('code, pre, script, style, .katex, [aria-hidden="true"]')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+  var tn;
+  while ((tn = walker.nextNode())) {
+    var tval = tn.nodeValue || '';
+    var firstD = tval.indexOf('$');
+    if (firstD >= 0) {
+      var closeD = tval.indexOf('$', firstD + 1);
+      if (closeD > firstD + 1) {
+        mathLeaks.push({ text: tval.trim().slice(0, 80), match: tval.slice(firstD, closeD + 1).slice(0, 60) });
+      }
+    }
+  }
+  if (mathLeaks.length) {
+    add({ type: 'raw-latex-text', severity: 'high', count: mathLeaks.length, items: mathLeaks.slice(0, 8) });
+  }
+
+  // Konten yang disuntikkan lewat JS kehilangan atribut scoped Astro,
+  // sehingga gayanya tidak terpasang (mis. batang peluang mengecil 0px).
+  var injected = [];
+  var barTracks = document.querySelectorAll('.prob-bar-track');
+  for (var bti = 0; bti < barTracks.length; bti++) {
+    var bHeight = barTracks[bti].getBoundingClientRect().height;
+    if (bHeight < 6) injected.push({ el: 'prob-bar-track', height: Math.round(bHeight) });
+  }
+  var statRows = document.querySelectorAll('.sim-summary .stat');
+  for (var sti = 0; sti < statRows.length; sti++) {
+    var stDisplay = getComputedStyle(statRows[sti]).display;
+    if (stDisplay !== 'flex') injected.push({ el: 'sim-summary .stat', display: stDisplay });
+  }
+  var amortCells = document.querySelectorAll('table.amort th, table.amort td');
+  for (var ami = 0; ami < amortCells.length; ami++) {
+    if (getComputedStyle(amortCells[ami]).borderTopWidth === '0px') {
+      injected.push({ el: 'table.amort cell', borderTopWidth: '0px' });
+      break;
+    }
+  }
+  if (injected.length) {
+    add({ type: 'injected-style-missing', severity: 'high', count: injected.length, items: injected.slice(0, 8) });
+  }
+
   // Ambang WCAG 2.5.8 (AA) = 24x24 px. Tautan inline di dalam paragraf
   // dikecualikan sesuai catatan standar.
   var taps = [];
@@ -263,8 +314,10 @@ function printEntry(entry) {
   console.log(`\n=== ${entry.name} (${tag}) — ${total} temuan ===`);
   for (const issue of entry.issues) {
     if (issue.detail) console.log(`  [${issue.severity}] ${issue.type}: ${issue.detail}`);
-    else if (issue.count !== undefined) console.log(`  [${issue.severity}] ${issue.type} x${issue.count}: ${(issue.items || []).join(', ')}`);
-    else if (issue.items) {
+    else if (issue.count !== undefined) {
+      console.log(`  [${issue.severity}] ${issue.type} x${issue.count}:`);
+      for (const it of issue.items ?? []) console.log(`      ${JSON.stringify(it)}`);
+    } else if (issue.items) {
       console.log(`  [${issue.severity}] ${issue.type} x${issue.items.length}:`);
       for (const it of issue.items) console.log(`      ${JSON.stringify(it)}`);
     } else console.log(`  [${issue.severity}] ${issue.type}`);

@@ -398,13 +398,14 @@ input[type='range'] {
   border-collapse: collapse;
   font-size: 0.95rem;
   margin: 1rem 0;
+  font-variant-numeric: tabular-nums;
 }
 .prose th,
 .prose td {
   border: 1px solid var(--color-border);
   padding: 0.5rem 0.7rem;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
 }
 .prose th {
   background: var(--color-surface-2);

@@ -1,5 +1,6 @@
 ---
 import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
 
 interface Props {
   exploration: Exploration;
@@ -21,7 +22,7 @@ const { exploration } = Astro.props;
     <span class="text-soft" data-reg-count>0 titik</span>
   </div>
   <output class="reg-out" data-reg-out aria-live="polite"></output>
-  <figcaption class="reg-caption" set:html={exploration.description} />
+  <figcaption class="reg-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
 <style>
@@ -36,6 +37,10 @@ const { exploration } = Astro.props;
     font-size: 0.88rem;
     color: var(--color-text-muted);
     margin-top: 0;
+  }
+  .reg-canvas {
+    max-width: 36rem;
+    margin-inline: auto;
   }
   .reg-canvas svg {
     display: block;

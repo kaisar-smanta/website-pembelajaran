@@ -30,7 +30,20 @@ const JOBS = [
   { name: 'tentang-desktop-terang', pathname: '/tentang', width: 1440, height: 900 },
   { name: 'peta-pembelajaran-desktop', pathname: '/peta-pembelajaran', width: 1440, height: 900 },
   { name: 'topik-trigonometri-desktop', pathname: '/kelas/X/geometri/trigonometri', width: 1440, height: 900 },
+  { name: 'topik-trigonometri-gelap', pathname: '/kelas/X/geometri/trigonometri', width: 1440, height: 900, dark: true },
+  { name: 'topik-trigonometri-mobile', pathname: '/kelas/X/geometri/trigonometri', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'kelas-x-desktop', pathname: '/kelas/X', width: 1440, height: 900 },
+  { name: 'kelas-x-geometri-desktop', pathname: '/kelas/X/geometri', width: 1440, height: 900 },
   { name: 'latihan-desktop', pathname: '/latihan', width: 1440, height: 900 },
+  { name: 'latihan-trigonometri-desktop', pathname: '/latihan/trigonometri', width: 1440, height: 900 },
+  { name: 'latihan-trigonometri-mobile', pathname: '/latihan/trigonometri', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'eksplorasi-desktop', pathname: '/eksplorasi', width: 1440, height: 900 },
+  { name: 'eksplorasi-mobile', pathname: '/eksplorasi', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'aplikasi-desktop', pathname: '/aplikasi', width: 1440, height: 900 },
+  { name: 'alat-desktop', pathname: '/alat', width: 1440, height: 900 },
+  { name: 'referensi-desktop', pathname: '/referensi', width: 1440, height: 900 },
+  { name: 'cari-desktop', pathname: '/cari', width: 1440, height: 900 },
+  { name: 'peta-pembelajaran-mobile', pathname: '/peta-pembelajaran', width: 390, height: 844, dsf: 2, mobile: true },
 ];
 
 async function capture(cdp, port, job) {

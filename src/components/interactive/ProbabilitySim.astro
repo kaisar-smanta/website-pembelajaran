@@ -1,5 +1,6 @@
 ---
 import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
 
 interface Props {
   exploration: Exploration;
@@ -25,7 +26,7 @@ const { exploration } = Astro.props;
 
   <div class="prob-result" data-prob-result aria-live="polite"></div>
 
-  <figcaption class="prob-caption" set:html={exploration.description} />
+  <figcaption class="prob-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
 <style>
@@ -64,31 +65,34 @@ const { exploration } = Astro.props;
     display: grid;
     gap: 0.85rem;
   }
-  .prob-bar-wrap {
+  .prob-result :global(.prob-bar-wrap) {
     display: grid;
     gap: 0.3rem;
   }
-  .prob-bar-label {
+  .prob-result :global(.prob-bar-label) {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 0.25rem 1rem;
     font-size: 0.88rem;
   }
-  .prob-bar-track {
+  .prob-result :global(.prob-bar-track) {
     height: 0.9rem;
     background: var(--color-surface-2);
     border-radius: 999px;
     overflow: hidden;
   }
-  .prob-bar-fill {
+  .prob-result :global(.prob-bar-fill) {
     height: 100%;
     border-radius: 999px;
     background: var(--color-primary);
     transition: width 0.4s ease;
   }
-  .prob-bar-fill.theory {
+  .prob-result :global(.prob-bar-fill.theory) {
     background: var(--color-data);
   }
-  .prob-note {
+  .prob-result :global(.prob-note) {
+    margin: 0;
     font-size: 0.85rem;
     color: var(--color-text-muted);
   }

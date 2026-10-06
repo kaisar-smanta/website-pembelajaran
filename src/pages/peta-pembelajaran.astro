@@ -113,25 +113,29 @@ const chains: {
               {ELEMENT_ORDER.map((elementId) => {
                 const complete = topicsByGradeElement(grade, elementId);
                 const planned = plannedTopics.filter((p) => p.grade === grade && p.element === elementId);
-                if (complete.length === 0 && planned.length === 0) return null;
+                const empty = complete.length === 0 && planned.length === 0;
                 return (
-                  <div class={`elem-col accent-${elementId}`}>
+                  <div class={`elem-col accent-${elementId}${empty ? ' is-empty' : ''}`}>
                     <h4>
                       <ElementIcon element={elementId} size={16} /> {ELEMENTS[elementId].short}
                     </h4>
-                    <ul>
-                      {complete.map((t) => (
-                        <li>
-                          <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
-                        </li>
-                      ))}
-                      {planned.map((t) => (
-                        <li class="planned-item">
-                          <span>{t.title}</span>
-                          <span class="badge badge-rencana">Segera hadir</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {empty ? (
+                      <p class="elem-empty text-soft">Belum ada topik pada jenjang ini.</p>
+                    ) : (
+                      <ul>
+                        {complete.map((t) => (
+                          <li>
+                            <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
+                          </li>
+                        ))}
+                        {planned.map((t) => (
+                          <li class="planned-item">
+                            <span>{t.title}</span>
+                            <span class="badge badge-rencana">Segera hadir</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 );
               })}
@@ -240,6 +244,13 @@ const chains: {
   .elem-col.accent-data-peluang {
     border-top-color: var(--color-data);
   }
+  .elem-col.is-empty {
+    border-top-color: var(--color-border);
+  }
+  .elem-empty {
+    margin: 0.25rem 0 0;
+    font-size: 0.86rem;
+  }
   .elem-col h4 {
     display: flex;
     align-items: center;
@@ -271,9 +282,14 @@ const chains: {
   }
   .planned-item {
     color: var(--color-text-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
   .planned-item .badge {
-    margin-left: 0.4rem;
+    margin-left: 0;
     vertical-align: middle;
   }
   .chain-badge {

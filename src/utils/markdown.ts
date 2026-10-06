@@ -66,6 +66,17 @@ export function renderMarkdown(input: string): string {
   return withBase(restored);
 }
 
+/**
+ * Merender markdown inline (tanpa paragraf pembungkus) untuk ringkasan kartu,
+ * sehingga matematika $...$ tetap tampil sebagai rumus, bukan teks mentah.
+ */
+export function renderInlineMarkdown(input: string): string {
+  if (!input) return '';
+  const html = renderMarkdown(input).trim();
+  const single = html.match(/^<p>([\s\S]*)<\/p>$/);
+  return single ? single[1] : html;
+}
+
 /** Merender satu ekspresi LaTeX menjadi HTML KaTeX. */
 export function renderMath(tex: string, display = true): string {
   return katex.renderToString(tex, {
@@ -81,7 +92,7 @@ export function stripMarkdown(input: string): string {
   if (!input) return '';
   return input
     .replace(/\$\$([\s\S]+?)\$\$/g, ' $1 ')
-    .replace(/\$([^\n$]+?)\$/g, ' $1 ')
+    .replace(/\$([^\n$]+?)\$/g, '$1 ')
     .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')

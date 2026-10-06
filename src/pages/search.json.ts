@@ -26,7 +26,7 @@ export const GET: APIRoute = () => {
       .join(' ');
     items.push({
       title: t.title,
-      summary: t.summary,
+      summary: stripMarkdown(t.summary),
       url: `/kelas/${t.grade}/${t.element}/${t.slug}/`,
       type: 'topik',
       grade: t.grade,
@@ -41,7 +41,7 @@ export const GET: APIRoute = () => {
   for (const a of applications) {
     items.push({
       title: a.title,
-      summary: a.summary,
+      summary: stripMarkdown(a.summary),
       url: `/aplikasi/${a.id}/`,
       type: 'aplikasi',
       keywords: applicationCategories[a.category].name,

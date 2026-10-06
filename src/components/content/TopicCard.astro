@@ -2,6 +2,7 @@
 import type { ElementId, Grade } from '@/types/content';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { topicUrl } from '@/utils/url';
+import { renderInlineMarkdown } from '@/utils/markdown';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 
 interface Props {
@@ -20,6 +21,7 @@ const elementMeta = ELEMENTS[element];
 const gradeMeta = GRADES[grade];
 const isPlanned = status === 'rencana';
 const href = topicUrl(grade, element, slug);
+const summaryHtml = renderInlineMarkdown(summary);
 ---
 
 <article
@@ -33,7 +35,7 @@ const href = topicUrl(grade, element, slug);
         {showMeta && <span class="badge badge-rencana">Segera hadir</span>}
       </div>
       <h3 class="topic-title">{title}</h3>
-      <p class="topic-summary">{summary}</p>
+      <p class="topic-summary" set:html={summaryHtml}></p>
       {
         showMeta && (
           <p class="topic-meta text-soft">
@@ -49,7 +51,7 @@ const href = topicUrl(grade, element, slug);
         {showMeta && <span class="badge badge-grade">{gradeMeta.name}</span>}
       </div>
       <h3 class="topic-title">{title}</h3>
-      <p class="topic-summary">{summary}</p>
+      <p class="topic-summary" set:html={summaryHtml}></p>
       {
         showMeta && (
           <p class="topic-meta">

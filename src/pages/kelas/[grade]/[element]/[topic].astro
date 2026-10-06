@@ -7,6 +7,7 @@ import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { topicsByGradeElement, topics, resolveTopics } from '@/data/topics';
 import { applicationsForTopic } from '@/data/applications';
+import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { url, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
 
 export function getStaticPaths() {
@@ -42,7 +43,7 @@ const crumbs = [
 ];
 
 const sectionList = topic.sections.filter((s) => s.kind !== 'catatan');
-const description = topic.summary;
+const description = stripMarkdown(topic.summary);
 ---
 
 <BaseLayout title={`${topic.title} — ${gradeMeta.name}`} description={description} ogType="article">
@@ -59,7 +60,7 @@ const description = topic.summary;
       </div>
       <h1>{topic.title}</h1>
       {topic.subtitle && <p class="subtitle">{topic.subtitle}</p>}
-      <p class="topic-desc">{topic.description}</p>
+      <p class="topic-desc" set:html={renderInlineMarkdown(topic.description)}></p>
       <ul class="topic-facts">
         <li><strong>{sectionList.length}</strong> bagian materi</li>
         {topic.estimatedMinutes && <li>≈ <strong>{topic.estimatedMinutes}</strong> menit belajar</li>}
@@ -74,28 +75,30 @@ const description = topic.summary;
       <article class="topic-main">
         {sectionList.map((section, index) => <SectionBlock section={section} index={index} />)}
 
-        <nav class="topic-pager no-print" aria-label="Navigasi topik">
-          {
-            prev ? (
-              <a class="pager-link pager-prev" href={topicUrl(prev.grade, prev.element, prev.slug)}>
-                <span class="pager-label">Sebelumnya</span>
-                <span class="pager-title">← {prev.title}</span>
-              </a>
-            ) : (
-              <span />
-            )
-          }
-          {
-            next ? (
-              <a class="pager-link pager-next" href={topicUrl(next.grade, next.element, next.slug)}>
-                <span class="pager-label">Selanjutnya</span>
-                <span class="pager-title">{next.title} →</span>
-              </a>
-            ) : (
-              <span />
-            )
-          }
-        </nav>
+        {(prev || next) && (
+          <nav class="topic-pager no-print" aria-label="Navigasi topik">
+            {
+              prev ? (
+                <a class="pager-link pager-prev" href={topicUrl(prev.grade, prev.element, prev.slug)}>
+                  <span class="pager-label">Sebelumnya</span>
+                  <span class="pager-title">← {prev.title}</span>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+            {
+              next ? (
+                <a class="pager-link pager-next" href={topicUrl(next.grade, next.element, next.slug)}>
+                  <span class="pager-label">Selanjutnya</span>
+                  <span class="pager-title">{next.title} →</span>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+          </nav>
+        )}
       </article>
 
       <aside class="topic-aside no-print" aria-label="Informasi topik">
@@ -273,6 +276,14 @@ const description = topic.summary;
     display: grid;
     gap: 0.15rem;
   }
+  .outline li {
+    counter-increment: outline;
+  }
+  .outline a::before {
+    content: counter(outline) '. ';
+    color: var(--color-text-soft);
+    font-variant-numeric: tabular-nums;
+  }
   .outline a {
     display: block;
     padding: 0.3rem 0.4rem;
@@ -355,6 +366,12 @@ const description = topic.summary;
     .topic-aside {
       position: static;
       order: -1;
+    }
+  }
+  @media (min-width: 62rem) {
+    .outline {
+      max-height: 55vh;
+      overflow-y: auto;
     }
   }
 </style>

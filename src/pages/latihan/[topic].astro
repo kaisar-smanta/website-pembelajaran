@@ -4,6 +4,7 @@ import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import { getTopic } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
+import { renderInlineMarkdown } from '@/utils/markdown';
 import { url, topicUrl } from '@/utils/url';
 import type { Difficulty } from '@/types/content';
 
@@ -36,7 +37,7 @@ const crumbs = [
     <header class="page-head">
       <p class="eyebrow">Latihan</p>
       <h1>{topic?.title}</h1>
-      {topic && <p class="lead">{topic.summary}</p>}
+      {topic && <p class="lead" set:html={renderInlineMarkdown(topic.summary)}></p>}
       <p class="text-muted">{all.length} soal. Kerjakan berurutan dari tingkat dasar.</p>
       {topic && (
         <p>
