@@ -2,63 +2,25 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
-import ElementIcon from '@/components/content/ElementIcon.astro';
-import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
-import { topicsByGradeElement, plannedTopics, topics } from '@/data/topics';
-import { url, topicUrl } from '@/utils/url';
+import MapQuickNav from '@/components/content/MapQuickNav.astro';
+import LearningPath from '@/components/content/LearningPath.astro';
+import ElementCoverage from '@/components/content/ElementCoverage.astro';
+import MapLegend from '@/components/content/MapLegend.astro';
+import PrerequisiteGraph from '@/components/content/PrerequisiteGraph.astro';
+import { ELEMENTS, ELEMENT_ORDER, GRADE_ORDER } from '@/data/curriculum';
+import { topics, plannedTopics } from '@/data/topics';
+import { learningPaths } from '@/data/learning-paths';
+import { url } from '@/utils/url';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Peta Pembelajaran' },
 ];
 
-const chains: {
-  title: string;
-  note: string;
-  nodes: { label: string; id?: string; grade?: string; element?: string; planned?: boolean }[];
-}[] = [
-  {
-    title: 'Jalur Bilangan: dari eksponen ke keputusan keuangan',
-    note: 'Setiap tahap bertumpu pada tahap sebelumnya.',
-    nodes: [
-      { label: 'Eksponen', id: 'eksponen', grade: 'X', element: 'bilangan' },
-      { label: 'Fungsi Eksponensial', id: 'fungsi-eksponensial', grade: 'X', element: 'aljabar-fungsi' },
-      { label: 'Barisan & Deret', id: 'barisan-deret', grade: 'X', element: 'bilangan' },
-      { label: 'Bunga Majemuk', id: 'bunga-majemuk', grade: 'XI', element: 'bilangan' },
-      { label: 'Anuitas', id: 'anuitas', grade: 'XI', element: 'bilangan' },
-      { label: 'Pinjaman & Investasi', planned: true },
-    ],
-  },
-  {
-    title: 'Jalur Fungsi: dari hubungan ke pemodelan data',
-    note: 'Fungsi menghubungkan aljabar, data, dan pengambilan keputusan.',
-    nodes: [
-      { label: 'Fungsi Kuadrat', id: 'fungsi-kuadrat', grade: 'X', element: 'aljabar-fungsi' },
-      { label: 'Fungsi Invers', id: 'fungsi-invers', grade: 'XI', element: 'aljabar-fungsi' },
-      { label: 'Komposisi Fungsi', id: 'komposisi-fungsi', grade: 'XI', element: 'aljabar-fungsi' },
-      { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
-      { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
-    ],
-  },
-  {
-    title: 'Jalur Peluang: dari data ke kesimpulan yang sahih',
-    note: 'Asosiasi bukan berarti kausalitas.',
-    nodes: [
-      { label: 'Analisis Data', id: 'analisis-distribusi-data', grade: 'X', element: 'data-peluang' },
-      { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
-      { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
-      { label: 'Asosiasi & Kausalitas', id: 'asosiasi-kausalitas', grade: 'XII', element: 'data-peluang' },
-      { label: 'Peluang Bersyarat', id: 'peluang-bersyarat', grade: 'XII', element: 'data-peluang' },
-    ],
-  },
-];
-
-const chainAccents = ['bilangan', 'aljabar-fungsi', 'data-peluang'] as const;
-const revealStyle = (i: number) => `--reveal-delay:${i * 80}ms`;
 const meta = [
   `${topics.length} topik lengkap`,
   `${plannedTopics.length} topik segera hadir`,
-  `${chains.length} jalur konsep`,
+  `${learningPaths.length} jalur konsep`,
 ];
 ---
 
@@ -74,99 +36,67 @@ const meta = [
     meta={meta}
   />
 
+  <div class="container quicknav-slot">
+    <MapQuickNav />
+  </div>
+
   <div class="container">
-    <section aria-labelledby="jalur" class="block">
+    <section id="jalur" aria-labelledby="jalur-heading" class="block">
       <SectionHeading
-        id="jalur"
+        id="jalur-heading"
         eyebrow="Alur belajar"
         title="Jalur Konsep"
         lead="Tiga rute yang saling bertumpu: setiap tahap menyiapkan tahap berikutnya."
       />
       <div class="chain-grid">
-        {
-          chains.map((chain, i) => (
-            <article
-              class={`chain-card card-accent hover-lift reveal accent-${chainAccents[i]}`}
-              style={revealStyle(i)}
-              data-reveal
-            >
-              <h3>{chain.title}</h3>
-              <p class="text-muted chain-note">{chain.note}</p>
-              <ol class="chain">
-                {chain.nodes.map((n) => (
-                  <li class="chain-node">
-                    {n.id && n.grade && n.element ? (
-                      <a href={topicUrl(n.grade, n.element, n.id)}>{n.label}</a>
-                    ) : (
-                      <span>
-                        {n.label}
-                        {n.planned && <span class="badge badge-rencana chain-badge">Segera hadir</span>}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </article>
-          ))
-        }
+        {learningPaths.map((path, i) => <LearningPath path={path} delay={i * 80} />)}
       </div>
     </section>
+  </div>
 
-    <section aria-labelledby="peta-lengkap" class="block">
+  <section id="peta-lengkap" aria-labelledby="peta-lengkap-heading" class="block map-panel section-paper">
+    <div class="container">
       <SectionHeading
-        id="peta-lengkap"
+        id="peta-lengkap-heading"
         eyebrow="Cakupan materi"
         title="Peta Kurikulum Lengkap"
         lead="Seluruh topik tersusun per kelas dan elemen, lengkap dengan penanda materi yang masih direncanakan."
       />
-      <p class="text-muted">
-        Materi bertanda <span class="badge badge-rencana">Segera hadir</span> sudah tercantum dalam
-        roadmap dan akan dilengkapi tanpa mengubah struktur situs.
-      </p>
 
-      {
-        GRADE_ORDER.map((grade, gi) => (
-          <div class="grade-block reveal" style={revealStyle(gi)} data-reveal>
-            <h3 class="grade-title">
-              {GRADES[grade].name} <span class="badge">{GRADES[grade].label}</span>
-            </h3>
-            <div class="grade-columns">
-              {ELEMENT_ORDER.map((elementId) => {
-                const complete = topicsByGradeElement(grade, elementId);
-                const planned = plannedTopics.filter((p) => p.grade === grade && p.element === elementId);
-                const empty = complete.length === 0 && planned.length === 0;
-                return (
-                  <div class={`elem-col card-accent hover-lift accent-${elementId}${empty ? ' is-empty' : ''}`}>
-                    <h4>
-                      <span class="icon-tile elem-icon" aria-hidden="true">
-                        <ElementIcon element={elementId} size={14} />
-                      </span>
-                      <span>{ELEMENTS[elementId].short}</span>
-                    </h4>
-                    {empty ? (
-                      <p class="elem-empty text-soft">Belum ada topik pada jenjang ini.</p>
-                    ) : (
-                      <ul>
-                        {complete.map((t) => (
-                          <li>
-                            <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
-                          </li>
-                        ))}
-                        {planned.map((t) => (
-                          <li class="planned-item">
-                            <span>{t.title}</span>
-                            <span class="badge badge-rencana">Segera hadir</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))
-      }
+      <MapLegend />
+
+      <div class="map-toolbar" data-map-toolbar>
+        <div class="map-chips" role="group" aria-label="Saring topik menurut elemen">
+          <button type="button" class="topic-chip is-active" data-map-filter="all" aria-pressed="true">
+            Semua
+          </button>
+          {
+            ELEMENT_ORDER.map((id) => (
+              <button type="button" class="topic-chip" data-map-filter={id} aria-pressed="false">
+                {ELEMENTS[id].short}
+              </button>
+            ))
+          }
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" data-map-toggle aria-pressed="false">
+          Sembunyikan "Segera hadir"
+        </button>
+      </div>
+      <p class="map-status text-soft" aria-live="polite" data-map-status></p>
+
+      {GRADE_ORDER.map((grade, gi) => <ElementCoverage grade={grade} delay={gi * 60} />)}
+    </div>
+  </section>
+
+  <div class="container">
+    <section id="prasyarat" aria-labelledby="prasyarat-heading" class="block">
+      <SectionHeading
+        id="prasyarat-heading"
+        eyebrow="Hubungan konsep"
+        title="Peta Prasyarat"
+        lead="Lihat bagaimana topik saling bertumpu. Sorot sebuah topik untuk menelusuri prasyarat dan lanjutannya."
+      />
+      <PrerequisiteGraph />
     </section>
   </div>
 
@@ -189,141 +119,141 @@ const meta = [
   </section>
 </BaseLayout>
 
+<script is:inline>
+  (function () {
+    try {
+      var toolbar = document.querySelector('[data-map-toolbar]');
+      if (!toolbar) return;
+      var chips = Array.prototype.slice.call(document.querySelectorAll('[data-map-filter]'));
+      var toggle = document.querySelector('[data-map-toggle]');
+      var status = document.querySelector('[data-map-status]');
+      var cols = Array.prototype.slice.call(document.querySelectorAll('.elem-col'));
+      var items = Array.prototype.slice.call(document.querySelectorAll('.topic-item'));
+      var filter = 'all';
+      var hidePlanned = false;
+
+      function render() {
+        cols.forEach(function (col) {
+          var el = col.getAttribute('data-element');
+          var match = filter === 'all' || el === filter;
+          col.classList.toggle('is-hidden', !match);
+        });
+        items.forEach(function (item) {
+          var planned = item.getAttribute('data-status') === 'rencana';
+          item.classList.toggle('is-hidden', planned && hidePlanned);
+        });
+        cols.forEach(function (col) {
+          if (col.classList.contains('is-hidden')) return;
+          var own = Array.prototype.slice.call(col.querySelectorAll('.topic-item'));
+          if (!own.length) return;
+          var anyVisible = own.some(function (it) {
+            return !it.classList.contains('is-hidden');
+          });
+          col.classList.toggle('is-hidden', !anyVisible);
+        });
+        chips.forEach(function (c) {
+          var active = c.getAttribute('data-map-filter') === filter;
+          c.classList.toggle('is-active', active);
+          c.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        if (status) {
+          var shown = cols.filter(function (c) {
+            return !c.classList.contains('is-hidden');
+          }).length;
+          status.textContent = 'Menampilkan ' + shown + ' dari ' + cols.length + ' kelompok elemen.';
+        }
+      }
+
+      chips.forEach(function (c) {
+        c.addEventListener('click', function () {
+          filter = c.getAttribute('data-map-filter') || 'all';
+          render();
+        });
+      });
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          hidePlanned = !hidePlanned;
+          toggle.setAttribute('aria-pressed', hidePlanned ? 'true' : 'false');
+          render();
+        });
+      }
+      toolbar.classList.add('is-ready');
+      render();
+    } catch (e) {
+      /* tanpa JS seluruh peta tetap tampil */
+    }
+  })();
+</script>
+
 <style>
+  .quicknav-slot {
+    padding-top: 1.5rem;
+  }
   .block {
-    padding-block: 2rem;
+    padding-block: 2.25rem;
   }
   .block + .block {
     border-top: 1px solid var(--color-border);
+  }
+  .map-panel {
+    background-color: var(--color-bg-alt);
+    border-block: 1px solid var(--color-border);
   }
   .chain-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
     gap: 1.25rem;
   }
-  .chain-card {
-    background: var(--color-surface);
-    border-inline: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: 1.1rem;
-  }
-  .chain-card h3 {
-    font-size: 1.05rem;
-  }
-  .chain-note {
-    font-size: 0.86rem;
-    margin-top: -0.3rem;
-  }
-  .chain {
-    list-style: none;
-    margin: 0.75rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0;
-  }
-  .chain-node {
-    position: relative;
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    border-left: 2px solid color-mix(in srgb, var(--accent) 30%, var(--color-border));
-  }
-  .chain-node::before {
-    content: '';
-    position: absolute;
-    left: -0.42rem;
-    top: 0.9rem;
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .chain-node a {
-    display: inline-block;
-    padding-block: 0.15rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
-  .chain-node a:hover {
-    text-decoration: underline;
-  }
-  .grade-block {
-    margin-top: 1.5rem;
-  }
-  .grade-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-bottom: 2px solid var(--color-border);
-    padding-bottom: 0.4rem;
-  }
-  .grade-columns {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .elem-col {
-    background: var(--color-surface);
-    border-inline: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: 0.85rem 1rem;
-  }
-  .elem-col.is-empty {
-    border-top-color: var(--color-border);
-  }
-  .elem-empty {
-    margin: 0.25rem 0 0;
-    font-size: 0.86rem;
-  }
-  .elem-col h4 {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
-    margin-bottom: 0.5rem;
-  }
-  .elem-icon {
-    width: 1.7rem;
-    height: 1.7rem;
-    border-radius: 8px;
-  }
-  .elem-col ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.35rem;
-  }
-  .elem-col li {
-    font-size: 0.9rem;
-  }
-  .elem-col a {
-    display: inline-block;
-    padding-block: 0.15rem;
-    text-decoration: none;
-  }
-  .elem-col a:hover {
-    text-decoration: underline;
-  }
-  .planned-item {
-    color: var(--color-text-soft);
-    display: flex;
+  .map-toolbar {
+    display: none;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+  }
+  .map-toolbar.is-ready {
+    display: flex;
+  }
+  .map-chips {
+    display: flex;
     flex-wrap: wrap;
+    gap: 0.5rem;
   }
-  .planned-item .badge {
-    margin-left: 0;
-    vertical-align: middle;
+  .topic-chip {
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
   }
-  .chain-badge {
-    margin-left: 0.4rem;
+  .topic-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .topic-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .topic-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .topic-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .map-status {
+    min-height: 1.2rem;
+    margin: 0.6rem 0 0;
+    font-size: 0.85rem;
   }
   .cta-section {
     padding-block: 2.5rem;
@@ -351,5 +281,16 @@ const meta = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .block,
+  :global(.grade-block),
+  :global(.learning-path) {
+    scroll-margin-top: 5.25rem;
+  }
+
+  :global(.elem-col.is-hidden),
+  :global(.topic-item.is-hidden) {
+    display: none !important;
   }
 </style>

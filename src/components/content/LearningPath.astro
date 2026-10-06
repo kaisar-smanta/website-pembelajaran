@@ -1,0 +1,191 @@
+---
+import type { LearningPath } from '@/data/learning-paths';
+import { topicUrl } from '@/utils/url';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+
+interface Props {
+  path: LearningPath;
+  delay?: number;
+}
+
+const { path, delay = 0 } = Astro.props;
+
+const steps = path.nodes.map((node, index) => {
+  const href =
+    node.id && node.grade && node.element
+      ? topicUrl(node.grade, node.element, node.id)
+      : undefined;
+  return { node, index, href };
+});
+---
+
+<article
+  id={`jalur-${path.id}`}
+  class:list={['learning-path', 'card', 'card-accent', `accent-${path.accent}`, 'hover-lift', 'reveal']}
+  style={`--reveal-delay:${delay}ms`}
+  data-reveal
+>
+  <h3 class="path-title">{path.title}</h3>
+  <p class="path-note text-muted">{path.note}</p>
+  <ol class="path-steps">
+    {
+      steps.map(({ node, index, href }) => (
+        <li class:list={['path-step', { 'is-planned': !href }]}>
+          <span class="step-marker" aria-hidden="true">{index + 1}</span>
+          {href ? (
+            <a class="step-body" href={href}>
+              <span
+                class:list={['step-icon', 'icon-tile', `accent-${node.element}`]}
+              >
+                <ElementIcon element={node.element!} size={16} />
+              </span>
+              <span class="step-label">{node.label}</span>
+              <span class="badge step-grade">Kelas {node.grade}</span>
+            </a>
+          ) : (
+            <span class="step-body">
+              <span class="step-label">{node.label}</span>
+              <span class="badge badge-rencana">Segera hadir</span>
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+  <p class="path-foot">
+    <span class="path-count">{path.nodes.length} tahap</span>
+    <a href="#peta-lengkap">Lihat di peta lengkap →</a>
+  </p>
+</article>
+
+<style>
+  .learning-path {
+    --marker-size: 1.6rem;
+    --rail: color-mix(in srgb, var(--accent, var(--color-primary)) 30%, var(--color-border));
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .path-title {
+    margin: 0 0 0.25rem;
+    font-size: 1.15rem;
+  }
+  .path-note {
+    margin: 0 0 0.9rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .path-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+  }
+  .path-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--marker-size) 1fr;
+    align-items: center;
+    gap: 0.6rem;
+    padding-block: 0.28rem;
+  }
+  .path-step::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--marker-size) / 2 - 1px);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--rail);
+    z-index: 0;
+  }
+  .path-step:first-child::before {
+    top: 50%;
+  }
+  .path-step:last-child::before {
+    bottom: 50%;
+  }
+  .path-step.is-planned::before {
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--rail) 0 5px,
+      transparent 5px 10px
+    );
+  }
+  .step-marker {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: var(--marker-size);
+    height: var(--marker-size);
+    border-radius: 50%;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface));
+    border: 1px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 32%, var(--color-border));
+  }
+  .is-planned .step-marker {
+    color: var(--color-text-soft);
+    background: var(--color-surface-2);
+    border-color: var(--color-border);
+  }
+  .step-body {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  a.step-body:hover,
+  a.step-body:focus-visible {
+    background: var(--color-surface-2);
+  }
+  .step-icon {
+    flex-shrink: 0;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 8px;
+  }
+  .step-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .step-grade {
+    margin-left: auto;
+  }
+  .is-planned .step-label {
+    color: var(--color-text-soft);
+  }
+  .path-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.9rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+  }
+  .path-foot a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding-block: 0.15rem;
+  }
+  .path-count {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    font-weight: 600;
+  }
+</style>

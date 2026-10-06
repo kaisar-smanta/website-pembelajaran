@@ -1,0 +1,246 @@
+---
+import type { Grade } from '@/types/content';
+import { ELEMENTS, ELEMENT_ORDER, GRADES } from '@/data/curriculum';
+import { topicsByGradeElement, plannedTopics } from '@/data/topics';
+import { topicUrl } from '@/utils/url';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+
+interface Props {
+  grade: Grade;
+  delay?: number;
+}
+
+const { grade, delay = 0 } = Astro.props;
+
+const totalCount = ELEMENT_ORDER.reduce((sum, element) => {
+  const complete = topicsByGradeElement(grade, element);
+  const planned = plannedTopics.filter((p) => p.grade === grade && p.element === element);
+  return sum + complete.length + planned.length;
+}, 0);
+---
+
+<div class="grade-block reveal" id={`kelas-${grade}`} style={`--reveal-delay:${delay}ms`} data-reveal>
+  <div class="grade-head">
+    <h3 class="grade-title">
+      {GRADES[grade].name} <span class="badge">{GRADES[grade].label}</span>
+    </h3>
+    <p class="grade-count text-soft">{totalCount} topik</p>
+  </div>
+
+  <div class="grade-columns">
+    {
+      ELEMENT_ORDER.map((element) => {
+        const complete = topicsByGradeElement(grade, element);
+        const planned = plannedTopics.filter(
+          (p) => p.grade === grade && p.element === element,
+        );
+        const count = complete.length + planned.length;
+        return (
+          <div class={`elem-col card card-accent accent-${element}`} data-element={element}>
+            <h4>
+              <span class="icon-tile elem-icon" aria-hidden="true">
+                <ElementIcon element={element} size={14} />
+              </span>
+              <span class="elem-name">{ELEMENTS[element].short}</span>
+              {count > 0 && <span class="elem-count">{count}</span>}
+            </h4>
+            <p class="elem-desc text-soft">{ELEMENTS[element].description}</p>
+
+            {count > 0 && (
+              <div
+                class="coverage-bar"
+                role="img"
+                aria-label={`${complete.length} dari ${count} topik siap`}
+              >
+                <span
+                  class="coverage-fill"
+                  style={`width:${Math.round((complete.length / count) * 100)}%`}
+                />
+              </div>
+            )}
+
+            {count > 0 ? (
+              <ul class="elem-list">
+                {complete.map((t) => (
+                  <li class="topic-item" data-status="lengkap" data-element={element}>
+                    <a href={topicUrl(grade, element, t.slug)}>{t.title}</a>
+                  </li>
+                ))}
+                {planned.map((t) => (
+                  <li class="topic-item planned-item" data-status="rencana" data-element={element}>
+                    <span class="planned-label">{t.title}</span>
+                    <span class="badge badge-rencana">Segera hadir</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul class="elem-list">
+                <li class="elem-empty">
+                  <span class="elem-empty-icon" aria-hidden="true">
+                    <ElementIcon element={element} size={16} />
+                  </span>
+                  <span>Segera disusun untuk jenjang ini.</span>
+                </li>
+              </ul>
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .grade-block {
+    margin-top: 1.5rem;
+  }
+  .grade-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.4rem;
+  }
+  .grade-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+  }
+  .grade-title .badge {
+    vertical-align: middle;
+  }
+  .grade-count {
+    margin: 0;
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .grade-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .elem-col {
+    padding: 0.85rem 1rem;
+    min-width: 0;
+  }
+  .elem-col h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin: 0 0 0.35rem;
+  }
+  .elem-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 8px;
+    flex: none;
+  }
+  .elem-name {
+    min-width: 0;
+  }
+  .elem-count {
+    margin-left: auto;
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.4rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface-2));
+  }
+  .elem-desc {
+    margin: 0 0 0.6rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+  .coverage-bar {
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--color-surface-2);
+    overflow: hidden;
+    margin-bottom: 0.65rem;
+  }
+  .coverage-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent, var(--color-primary));
+    transition: width var(--dur) var(--ease-out-soft);
+  }
+  .elem-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .elem-col a {
+    display: inline-block;
+    min-height: 24px;
+    padding-block: 0.18rem;
+    text-decoration: none;
+  }
+  .elem-col a:hover {
+    text-decoration: underline;
+  }
+  .planned-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+  }
+  .planned-label {
+    line-height: 1.45;
+  }
+  .planned-item .badge {
+    flex: none;
+  }
+  .elem-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.1rem 0.85rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--color-text-soft);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--color-surface-2) 60%, transparent);
+  }
+  .elem-empty-icon {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+  }
+
+  @media (max-width: 30rem) {
+    .grade-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

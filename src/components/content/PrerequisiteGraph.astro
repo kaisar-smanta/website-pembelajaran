@@ -1,0 +1,457 @@
+---
+import type { ElementId, Grade } from '@/types/content';
+import { ELEMENT_ORDER, GRADES } from '@/data/curriculum';
+import { topics } from '@/data/topics';
+
+interface GraphNode {
+  id: string;
+  title: string;
+  grade: Grade;
+  element: ElementId;
+  prereqs: string[];
+}
+
+interface GraphEdge {
+  from: string;
+  to: string;
+  d: string;
+}
+
+const COLUMN_GAP = 230;
+const NODE_W = 190;
+const NODE_H = 54;
+const ROW_GAP = 18;
+const PADDING = 24;
+const ARROW_ID = 'prereq-arrow';
+
+const idSet = new Set(topics.map((t) => t.id));
+
+const nodes: GraphNode[] = topics.map((t) => ({
+  id: t.id,
+  title: t.title,
+  grade: t.grade,
+  element: t.element,
+  prereqs: (t.prerequisites ?? []).filter((id) => idSet.has(id)),
+}));
+
+const nodeById = new Map<string, GraphNode>(nodes.map((n) => [n.id, n]));
+
+const rankOf = new Map<string, number>();
+const visiting = new Set<string>();
+
+function computeRank(id: string): number {
+  const cached = rankOf.get(id);
+  if (cached !== undefined) return cached;
+  if (visiting.has(id)) return -1;
+  visiting.add(id);
+  const node = nodeById.get(id);
+  let best = -1;
+  if (node) {
+    for (const p of node.prereqs) {
+      const r = computeRank(p);
+      if (r > best) best = r;
+    }
+  }
+  visiting.delete(id);
+  const rank = best < 0 ? 0 : best + 1;
+  rankOf.set(id, rank);
+  return rank;
+}
+
+for (const n of nodes) computeRank(n.id);
+
+const maxRank = nodes.length ? Math.max(...nodes.map((n) => rankOf.get(n.id) ?? 0)) : 0;
+
+const columns: GraphNode[][] = Array.from({ length: maxRank + 1 }, () => []);
+for (const n of nodes) {
+  const r = rankOf.get(n.id) ?? 0;
+  columns[r].push(n);
+}
+
+const elementIndex = new Map<ElementId, number>(ELEMENT_ORDER.map((e, i) => [e, i]));
+for (const col of columns) {
+  col.sort((a, b) => {
+    const ea = elementIndex.get(a.element) ?? 0;
+    const eb = elementIndex.get(b.element) ?? 0;
+    if (ea !== eb) return ea - eb;
+    return a.title.localeCompare(b.title, 'id');
+  });
+}
+
+const maxColumnCount = Math.max(1, ...columns.map((c) => c.length));
+const width = PADDING * 2 + (maxRank + 1) * COLUMN_GAP;
+const height = PADDING * 2 + maxColumnCount * (NODE_H + ROW_GAP);
+
+const positions = new Map<string, { x: number; y: number }>();
+columns.forEach((col, rank) => {
+  const count = col.length;
+  const offset = ((maxColumnCount - count) * (NODE_H + ROW_GAP)) / 2;
+  col.forEach((n, i) => {
+    positions.set(n.id, {
+      x: PADDING + rank * COLUMN_GAP,
+      y: PADDING + i * (NODE_H + ROW_GAP) + offset,
+    });
+  });
+});
+
+const positioned = nodes
+  .map((n) => {
+    const pos = positions.get(n.id);
+    return pos ? { ...n, x: pos.x, y: pos.y } : undefined;
+  })
+  .filter((n): n is GraphNode & { x: number; y: number } => Boolean(n));
+
+const edges: GraphEdge[] = [];
+for (const n of nodes) {
+  const target = positions.get(n.id);
+  if (!target) continue;
+  for (const p of n.prereqs) {
+    const source = positions.get(p);
+    if (!source) continue;
+    const sx = source.x + NODE_W;
+    const sy = source.y + NODE_H / 2;
+    const tx = target.x;
+    const ty = target.y + NODE_H / 2;
+    const dx = tx - sx;
+    edges.push({
+      from: p,
+      to: n.id,
+      d: `M ${sx} ${sy} C ${sx + dx / 2} ${sy}, ${tx - dx / 2} ${ty}, ${tx} ${ty}`,
+    });
+  }
+}
+
+function truncate(value: string, max = 26): string {
+  if (value.length <= max) return value;
+  return `${value.slice(0, max - 1).trimEnd()}…`;
+}
+---
+
+<div class="prereq-wrap card reveal" data-reveal>
+  <p class="prereq-hint text-soft">
+    Arahkan kursor atau fokuskan sebuah topik untuk menyorot prasyaratnya.
+  </p>
+
+  <div class="prereq-scroll">
+    <svg
+      class="prereq-svg"
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label="Grafik prasyarat antar topik"
+    >
+      <title>Grafik prasyarat antar topik</title>
+      <defs>
+        <marker
+          id={ARROW_ID}
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto"
+        >
+          <path d="M0 0 L10 5 L0 10 Z" fill="context-stroke"></path>
+        </marker>
+      </defs>
+
+      <g class="prereq-edges">
+        {
+          edges.map((edge) => (
+            <path
+              class="prereq-edge"
+              data-from={edge.from}
+              data-to={edge.to}
+              d={edge.d}
+              marker-end={`url(#${ARROW_ID})`}
+            />
+          ))
+        }
+      </g>
+
+      <g class="prereq-nodes">
+        {
+          positioned.map((node) => (
+            <g
+              class={`prereq-node accent-${node.element}`}
+              data-id={node.id}
+              tabindex="0"
+              role="button"
+              aria-label={`${node.title}, ${GRADES[node.grade].name}`}
+            >
+              <rect x={node.x} y={node.y} width={NODE_W} height={NODE_H} rx="12" ry="12" />
+              <text class="prereq-title" x={node.x + 14} y={node.y + 23}>
+                {truncate(node.title)}
+              </text>
+              <text class="prereq-meta" x={node.x + 14} y={node.y + 41}>
+                {GRADES[node.grade].name}
+              </text>
+            </g>
+          ))
+        }
+      </g>
+    </svg>
+  </div>
+
+  <details class="prereq-fallback">
+    <summary>Daftar prasyarat (teks)</summary>
+    <ul>
+      {
+        nodes.map((node) => (
+          <li>
+            <strong>{node.title}</strong>
+            {' — '}
+            {node.prereqs.length
+              ? node.prereqs.map((id) => nodeById.get(id)?.title ?? id).join(', ')
+              : 'Tanpa prasyarat'}
+          </li>
+        ))
+      }
+    </ul>
+  </details>
+</div>
+
+<script is:inline>
+  (function () {
+    try {
+      var wraps = document.querySelectorAll('.prereq-wrap');
+      if (!wraps.length) return;
+
+      function init(wrap) {
+        var svg = wrap.querySelector('.prereq-svg');
+        if (!svg) return;
+        var nodeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-node'));
+        var edgeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-edge'));
+        if (!nodeEls.length) return;
+
+        var incoming = {};
+        var outgoing = {};
+        edgeEls.forEach(function (edge) {
+          var from = edge.getAttribute('data-from');
+          var to = edge.getAttribute('data-to');
+          if (!from || !to) return;
+          (outgoing[from] || (outgoing[from] = [])).push(to);
+          (incoming[to] || (incoming[to] = [])).push(from);
+        });
+
+        var pinnedId = null;
+
+        function apply(active) {
+          nodeEls.forEach(function (el) {
+            var id = el.getAttribute('data-id');
+            var on = !!(id && active[id]);
+            el.classList.toggle('is-active', on);
+            el.classList.toggle('is-dim', !on);
+          });
+          edgeEls.forEach(function (edge) {
+            var from = edge.getAttribute('data-from');
+            var to = edge.getAttribute('data-to');
+            var on = !!(from && to && active[from] && active[to]);
+            edge.classList.toggle('is-active', on);
+            edge.classList.toggle('is-dim', !on);
+          });
+        }
+
+        function clear() {
+          nodeEls.forEach(function (el) {
+            el.classList.remove('is-active');
+            el.classList.remove('is-dim');
+          });
+          edgeEls.forEach(function (edge) {
+            edge.classList.remove('is-active');
+            edge.classList.remove('is-dim');
+          });
+        }
+
+        function highlight(id) {
+          var active = {};
+          active[id] = true;
+
+          var stack = [id];
+          var seenIn = {};
+          seenIn[id] = true;
+          while (stack.length) {
+            var cur = stack.pop();
+            var inc = incoming[cur];
+            if (inc) {
+              for (var i = 0; i < inc.length; i++) {
+                var a = inc[i];
+                if (!seenIn[a]) {
+                  seenIn[a] = true;
+                  active[a] = true;
+                  stack.push(a);
+                }
+              }
+            }
+          }
+
+          stack = [id];
+          var seenOut = {};
+          seenOut[id] = true;
+          while (stack.length) {
+            var cur2 = stack.pop();
+            var out = outgoing[cur2];
+            if (out) {
+              for (var j = 0; j < out.length; j++) {
+                var d = out[j];
+                if (!seenOut[d]) {
+                  seenOut[d] = true;
+                  active[d] = true;
+                  stack.push(d);
+                }
+              }
+            }
+          }
+
+          apply(active);
+        }
+
+        nodeEls.forEach(function (el) {
+          var id = el.getAttribute('data-id');
+          if (!id) return;
+          el.addEventListener('mouseenter', function () {
+            highlight(id);
+          });
+          el.addEventListener('focus', function () {
+            highlight(id);
+          });
+          el.addEventListener('mouseleave', function () {
+            if (pinnedId) highlight(pinnedId);
+            else clear();
+          });
+          el.addEventListener('blur', function () {
+            if (pinnedId) highlight(pinnedId);
+            else clear();
+          });
+          el.addEventListener('click', function (event) {
+            event.stopPropagation();
+            if (pinnedId === id) {
+              pinnedId = null;
+              clear();
+            } else {
+              pinnedId = id;
+              highlight(id);
+            }
+          });
+          el.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+              event.preventDefault();
+              el.click();
+            }
+          });
+        });
+
+        document.addEventListener('click', function (event) {
+          var target = event.target;
+          if (target && wrap.contains(target)) return;
+          if (pinnedId) {
+            pinnedId = null;
+            clear();
+          }
+        });
+      }
+
+      Array.prototype.forEach.call(wraps, init);
+    } catch (e) {
+      /* biarkan graf tetap tampil tanpa interaksi */
+    }
+  })();
+</script>
+
+<style>
+  .prereq-wrap {
+    display: grid;
+    gap: 0.85rem;
+  }
+  .prereq-hint {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .prereq-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius);
+  }
+  .prereq-svg {
+    display: block;
+    max-width: none;
+    height: auto;
+  }
+  .prereq-node {
+    cursor: pointer;
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  .prereq-node rect {
+    fill: var(--color-surface);
+    stroke: color-mix(in srgb, var(--accent, var(--color-primary)) 45%, var(--color-border));
+    stroke-width: 1.5;
+    transition:
+      stroke var(--dur) var(--ease-out-soft),
+      stroke-width var(--dur) var(--ease-out-soft),
+      opacity var(--dur) var(--ease-out-soft);
+  }
+  .prereq-node.is-active rect {
+    stroke: var(--accent, var(--color-primary));
+  }
+  .prereq-node.is-dim {
+    opacity: 0.28;
+  }
+  .prereq-node:focus-visible {
+    outline: none;
+  }
+  .prereq-node:focus-visible rect {
+    stroke: var(--color-primary);
+    stroke-width: 2.5;
+  }
+  .prereq-title {
+    fill: var(--color-text);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .prereq-meta {
+    fill: var(--color-text-soft);
+    font-size: 10.5px;
+  }
+  .prereq-edge {
+    fill: none;
+    stroke: var(--color-border-strong);
+    stroke-width: 1.6;
+    transition:
+      stroke var(--dur) var(--ease-out-soft),
+      stroke-width var(--dur) var(--ease-out-soft),
+      opacity var(--dur) var(--ease-out-soft);
+  }
+  .prereq-edge.is-active {
+    stroke: var(--color-primary);
+    stroke-width: 2.5;
+  }
+  .prereq-edge.is-dim {
+    opacity: 0.2;
+  }
+  .prereq-fallback {
+    font-size: 0.9rem;
+  }
+  .prereq-fallback summary {
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+  }
+  .prereq-fallback ul {
+    margin: 0.6rem 0 0;
+    padding-left: 1.2rem;
+  }
+  .prereq-fallback li {
+    margin-bottom: 0.3rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prereq-node,
+    .prereq-node rect,
+    .prereq-edge {
+      transition: none;
+    }
+  }
+</style>

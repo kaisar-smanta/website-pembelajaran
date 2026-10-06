@@ -1,0 +1,81 @@
+---
+import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+---
+
+<div class="map-legend card reveal" data-reveal>
+  <span class="legend-label">Keterangan</span>
+  {
+    ELEMENT_ORDER.map((id) => (
+      <span class={`legend-el accent-${id}`}>
+        <span class="icon-tile legend-icon" aria-hidden="true">
+          <ElementIcon element={id} size={14} />
+        </span>
+        {ELEMENTS[id].short}
+      </span>
+    ))
+  }
+  <span class="legend-divider" aria-hidden="true"></span>
+  <span class="legend-note">
+    <span class="badge badge-rencana">Segera hadir</span> materi dalam roadmap
+  </span>
+  <span class="legend-note">
+    <span class="legend-bar"><span class="legend-bar-fill"></span></span> bagian topik yang sudah siap
+  </span>
+</div>
+
+<style>
+  .map-legend {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    font-size: 0.82rem;
+    padding: 0.85rem 1.1rem;
+  }
+  .legend-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .legend-el {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .legend-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 7px;
+  }
+  .legend-divider {
+    width: 1px;
+    height: 1.5rem;
+    background: var(--color-border);
+  }
+  .legend-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-text-soft);
+  }
+  .legend-bar {
+    display: inline-block;
+    width: 4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .legend-bar-fill {
+    display: block;
+    width: 55%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-primary);
+  }
+</style>
