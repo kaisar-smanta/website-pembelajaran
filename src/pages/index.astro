@@ -36,8 +36,8 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   <section class="hero">
     <div class="hero-grid container">
       <div class="hero-copy">
-        <p class="eyebrow">Pusat Pembelajaran Matematika SMA</p>
-        <h1>Matematika SMA</h1>
+        <p class="eyebrow">Kurikulum Merdeka · Kelas X–XII</p>
+        <h1>Paham konsep, bukan sekadar hafal rumus</h1>
         <p class="hero-lead">
           Matematika bukan sekadar menghitung. Di sini kamu belajar{' '}
           <strong>memahami pola</strong>, <strong>membuat model</strong>,{' '}
@@ -52,7 +52,23 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
           <a class="btn btn-primary" href={url('/kelas/X')}>Mulai belajar</a>
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat peta belajar</a>
         </div>
-        <p class="hero-note text-soft">Kelas X–XII · Mengikuti Capaian Pembelajaran Kurikulum Merdeka</p>
+        <p class="hero-byline">
+          <span class="byline-logo" aria-hidden="true">
+            <img src={url(site.school.logo)} alt="" width="30" height="30" />
+          </span>
+          <span>
+            Disusun oleh{' '}
+            <a href={url('/tentang')}>
+              <strong>{site.author.name}</strong>
+            </a>{' '}
+            <span class="byline-sep" aria-hidden="true">
+              ·
+            </span>{' '}
+            <a href={site.school.url} target="_blank" rel="noopener noreferrer">
+              {site.school.name}
+            </a>
+          </span>
+        </p>
       </div>
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-stage">
@@ -61,33 +77,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
           <span class="hero-chip chip-c bob">x²</span>
           <span class="hero-chip chip-d float-slow">π</span>
           <MathMascot size={13} />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section container credit-band" aria-labelledby="credit">
-    <div class="card credit-card reveal" data-reveal>
-      <span class="credit-logo">
-        <img src={url(site.school.logo)} alt={site.school.logoAlt} width="72" height="72" loading="lazy" />
-      </span>
-      <div class="credit-body">
-        <p class="eyebrow">Disusun oleh</p>
-        <h2 id="credit" class="credit-name">{site.author.name}</h2>
-        <p class="text-muted">
-          {site.author.role} untuk <strong>{site.school.name}</strong>. Materi disusun bertahap
-          melalui konsep, eksplorasi, dan latihan berjenjang.
-        </p>
-        <div class="row">
-          <a class="btn btn-secondary btn-sm" href={url('/tentang')}>Tentang &amp; kredit</a>
-          <a
-            class="btn btn-ghost btn-sm"
-            href={site.school.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {site.school.name} <span aria-hidden="true">↗</span>
-          </a>
         </div>
       </div>
     </div>
@@ -284,8 +273,11 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     animation-delay: 320ms;
   }
   .hero-copy h1 {
-    font-size: clamp(2.2rem, 1.4rem + 3.5vw, 3.4rem);
-    margin-bottom: 0.4rem;
+    font-size: clamp(2.1rem, 1.4rem + 3.2vw, 3.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 0.55rem;
   }
   .hero-lead {
     font-size: clamp(1.1rem, 1rem + 0.7vw, 1.45rem);
@@ -302,9 +294,55 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     gap: 0.75rem;
     margin-top: 1.25rem;
   }
-  .hero-note {
-    margin-top: 0.9rem;
-    font-size: 0.85rem;
+  .hero-byline {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    max-width: 100%;
+    margin: 1.15rem 0 0;
+    padding: 0.4rem 0.95rem 0.4rem 0.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .hero-byline a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .hero-byline a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .hero-byline strong {
+    font-weight: 700;
+  }
+  .byline-logo {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 1.9rem;
+    height: 1.9rem;
+    padding: 0.15rem;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--color-border);
+  }
+  .byline-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  .byline-sep {
+    color: var(--color-border-strong);
   }
   .hero-visual {
     display: grid;
@@ -364,43 +402,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   }
   .section-more {
     margin-top: 1.5rem;
-  }
-
-  .credit-band {
-    padding-block: 1.75rem 0.5rem;
-  }
-  .credit-card {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    border-left: 4px solid var(--color-primary);
-  }
-  .credit-logo {
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    width: 5.4rem;
-    height: 5.4rem;
-    padding: 0.5rem;
-    border-radius: var(--radius);
-    background: #fff;
-    border: 1px solid var(--color-border);
-  }
-  .credit-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 6px;
-  }
-  .credit-body {
-    min-width: 0;
-  }
-  .credit-name {
-    font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
-    margin: 0.1rem 0 0.35rem;
-  }
-  .credit-body p {
-    margin-bottom: 0.75rem;
   }
 
   .grade-card,
@@ -551,22 +552,21 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     }
   }
   @media (max-width: 34rem) {
-    .credit-card {
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-    }
     .hero-visual {
-      max-width: 18rem;
-      min-height: 10rem;
+      max-width: 15rem;
+      min-height: 0;
+      margin-top: 0.25rem;
     }
     .hero-stage {
-      width: min(100%, 18rem);
+      width: min(100%, 15rem);
+    }
+    .hero-stage :global(.mascot) {
+      width: 10rem;
     }
     .hero-chip {
-      width: 2.2rem;
-      height: 2.2rem;
-      font-size: 0.95rem;
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.85rem;
     }
   }
 </style>
