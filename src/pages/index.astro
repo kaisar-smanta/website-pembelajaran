@@ -11,7 +11,6 @@ import { featuredTopics, topics } from '@/data/topics';
 import { explorations } from '@/data/explorations';
 import { applications, applicationCategories } from '@/data/applications';
 import { questions } from '@/data/questions';
-import { featuredTools } from '@/data/tools';
 import { site } from '@/data/site';
 import { url, gradeUrl, elementOverviewUrl } from '@/utils/url';
 
@@ -24,6 +23,20 @@ const stats = [
   { value: applications.length, label: 'studi kasus nyata' },
   { value: explorations.length, label: 'eksplorasi interaktif' },
 ];
+const audience = [
+  {
+    title: 'Untuk siswa',
+    text: 'Belajar mandiri dengan eksplorasi interaktif, latihan berjenjang, dan pembahasan setiap jawaban.',
+  },
+  {
+    title: 'Untuk guru',
+    text: 'Materi, simulasi, dan bank soal siap dipakai sebagai pendamping pembelajaran di kelas.',
+  },
+  {
+    title: 'Untuk orang tua',
+    text: 'Pahami alur belajar dan dampingi anak dengan sumber yang jelas, gratis, dan tanpa iklan.',
+  },
+];
 const philosophy = [
   { title: 'Pahami', text: 'Mulai dari konteks dan pertanyaan, bukan langsung rumus.' },
   { title: 'Eksplorasi', text: 'Ubah parameter pada simulasi, amati pola, ajukan dugaan.' },
@@ -31,18 +44,20 @@ const philosophy = [
   { title: 'Analisis', text: 'Tafsirkan hasil dan nilai apakah modelnya masuk akal.' },
   { title: 'Refleksi', text: 'Kenali kesalahan umum, lalu rangkum pemahamanmu.' },
 ];
-const trustPoints = [
+const trustPoints: Array<{ title: string; text: string; href?: string; link?: string }> = [
   {
     title: 'Gratis & tanpa akun',
-    text: 'Semua materi dapat dibuka langsung, tanpa pendaftaran atau biaya.',
+    text: 'Semua materi bisa dibuka langsung, tanpa pendaftaran, biaya, atau iklan.',
   },
   {
     title: 'Mengikuti CP Kurikulum Merdeka',
     text: 'Disusun sebagai tafsir instruksional, bukan salinan buku teks resmi.',
+    href: url('/referensi'),
+    link: 'Lihat referensi',
   },
   {
-    title: 'Untuk siswa, guru, dan orang tua',
-    text: 'Cocok untuk belajar mandiri maupun mendampingi pembelajaran di kelas.',
+    title: 'Jujur soal batasannya',
+    text: 'Setiap model punya asumsi dan keterbatasan; kesalahan umum dibahas terbuka.',
   },
 ];
 const revealStyle = (i: number) => `--reveal-delay:${i * 70}ms`;
@@ -50,15 +65,15 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
 ---
 
 <BaseLayout
-  title="Paham Konsep, Bukan Sekadar Hafal Rumus"
-  description="Pusat pembelajaran Matematika SMA kelas X–XII sesuai Kurikulum Merdeka: eksplorasi interaktif, latihan berjenjang, dan studi kasus nyata. Gratis, tanpa akun."
+  title="Matematika SMA Kelas X–XII: Paham Konsep, Bukan Hafal Rumus"
+  description="Pusat belajar Matematika SMA kelas X–XII sesuai Kurikulum Merdeka: eksplorasi interaktif, latihan berjenjang, dan studi kasus nyata. Gratis, tanpa akun."
 >
   <section class="hero">
     <span class="hero-mesh" aria-hidden="true"></span>
     <div class="hero-grid container">
       <div class="hero-copy">
         <p class="eyebrow-badge">Kurikulum Merdeka · Kelas X–XII</p>
-        <h1>Paham <span class="marker">konsep</span>, bukan sekadar hafal rumus</h1>
+        <h1>Pahami <span class="marker">konsep</span> matematika SMA, bukan sekadar hafal rumus</h1>
         <p class="hero-lead">
           Matematika bukan sekadar menghitung. Di sini kamu belajar{' '}
           <strong>memahami pola</strong>, <strong>membuat model</strong>,{' '}
@@ -69,7 +84,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
           <a class="btn btn-primary" href={url('/kelas/X')}>Mulai belajar</a>
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat peta belajar</a>
         </div>
-        <p class="hero-note">Gratis · tanpa akun · untuk siswa, guru, dan orang tua</p>
         <ul class="hero-stats" role="list">
           {
             stats.map((stat) => (
@@ -105,6 +119,42 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     <span class="hero-dots" aria-hidden="true"></span>
   </section>
 
+  <section class="section section-paper" aria-labelledby="cara-belajar">
+    <div class="container">
+      <div class="section-heading reveal" data-reveal>
+        <p class="eyebrow-badge">Untuk siapa</p>
+        <h2 id="audience">Satu sumber, tiga peran</h2>
+        <p class="text-muted">Materi yang sama, dipakai dengan cara berbeda.</p>
+      </div>
+      <ul class="audience-grid" role="list">
+        {
+          audience.map((item, i) => (
+            <li class="audience-item hover-lift reveal" style={revealStyle(i)} data-reveal>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="section-heading pedagogy-heading reveal" data-reveal>
+        <h2 id="cara-belajar">Cara kamu belajar di sini</h2>
+        <p class="text-muted">Lima kebiasaan berpikir yang dilatih di setiap topik.</p>
+      </div>
+      <ol class="philosophy">
+        {
+          philosophy.map((step, i) => (
+            <li class="philosophy-step hover-lift reveal" style={revealStyle(i)} data-reveal>
+              <span class="philosophy-num">{i + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
   <section class="section section-alt" aria-labelledby="play">
     <div class="container">
       <div class="section-heading reveal" data-reveal>
@@ -123,66 +173,70 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     </div>
   </section>
 
-  <section class="section container" aria-labelledby="explore-grade">
+  <section class="section container browse" aria-labelledby="browse">
     <div class="section-heading reveal" data-reveal>
-      <p class="eyebrow-badge">Per jenjang</p>
-      <h2 id="explore-grade">Jelajahi Berdasarkan Kelas</h2>
-      <p class="text-muted">Materi disusun menurut fase dan elemen matematika.</p>
+      <p class="eyebrow-badge">Peta materi</p>
+      <h2 id="browse">Telusuri materi</h2>
+      <p class="text-muted">Pilih menurut kelas atau elemen, lalu buka topik yang ingin kamu pelajari.</p>
     </div>
-    <div class="grid grid-3">
-      {
-        GRADE_ORDER.map((grade, i) => (
-          <a
-            class={`card card-link grade-card hover-lift accent-${gradeAccent[grade]} reveal`}
-            href={gradeUrl(grade)}
-            style={revealStyle(i)}
-            data-reveal
-          >
-            <span class="grade-num" aria-hidden="true">{grade}</span>
-            <span class="badge badge-grade">Fase {GRADES[grade].phase}</span>
-            <h3>{GRADES[grade].name}</h3>
-            <p>{GRADES[grade].description}</p>
-            <span class="cta">Buka kelas →</span>
-          </a>
-        ))
-      }
+    <div class="browse-toggle" role="group" aria-label="Pilih cara menelusuri materi">
+      <button type="button" class="browse-chip" data-browse-target="grade" aria-pressed="false">
+        Menurut kelas
+      </button>
+      <button type="button" class="browse-chip" data-browse-target="element" aria-pressed="false">
+        Menurut elemen
+      </button>
+    </div>
+    <div class="browse-panel" data-browse-panel="grade">
+      <div class="grid grid-3">
+        {
+          GRADE_ORDER.map((grade, i) => (
+            <a
+              class={`card card-link grade-card hover-lift accent-${gradeAccent[grade]} reveal`}
+              href={gradeUrl(grade)}
+              style={revealStyle(i)}
+              data-reveal
+            >
+              <span class="grade-num" aria-hidden="true">{grade}</span>
+              <span class="badge badge-grade">Fase {GRADES[grade].phase}</span>
+              <h3>{GRADES[grade].name}</h3>
+              <p>{GRADES[grade].description}</p>
+              <span class="cta">Buka kelas →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+    <div class="browse-panel" data-browse-panel="element">
+      <div class="grid grid-4">
+        {
+          ELEMENT_ORDER.map((elementId, i) => (
+            <a
+              class={`card card-link element-card hover-lift wiggle-on-hover accent-${elementId} reveal`}
+              href={elementOverviewUrl(elementId)}
+              style={revealStyle(i)}
+              data-reveal
+            >
+              <span class="element-icon wiggle-target" aria-hidden="true">
+                <ElementIcon element={elementId} size={24} />
+              </span>
+              <h3>{ELEMENTS[elementId].name}</h3>
+              <p>{ELEMENTS[elementId].description}</p>
+              <span class="cta">Semua kelas →</span>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 
   <TopikShowcase topics={featured} />
 
-  <section class="section container" aria-labelledby="explore-element">
-    <div class="section-heading reveal" data-reveal>
-      <p class="eyebrow-badge">Empat elemen</p>
-      <h2 id="explore-element">Jelajahi Menurut Elemen</h2>
-      <p class="text-muted">Empat elemen CP yang saling terhubung, lintas Kelas X–XII.</p>
-    </div>
-    <div class="grid grid-4">
-      {
-        ELEMENT_ORDER.map((elementId, i) => (
-          <a
-            class={`card card-link element-card hover-lift wiggle-on-hover accent-${elementId} reveal`}
-            href={elementOverviewUrl(elementId)}
-            style={revealStyle(i)}
-            data-reveal
-          >
-            <span class="element-icon wiggle-target" aria-hidden="true">
-              <ElementIcon element={elementId} size={24} />
-            </span>
-            <h3>{ELEMENTS[elementId].name}</h3>
-            <p>{ELEMENTS[elementId].description}</p>
-            <span class="cta">Semua kelas →</span>
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
   <section class="section section-alt" aria-labelledby="explorations">
     <div class="container">
       <div class="section-heading reveal" data-reveal>
         <p class="eyebrow-badge">Laboratorium mini</p>
-        <h2 id="explorations">Eksplorasi Interaktif</h2>
+        <h2 id="explorations">Eksplorasi interaktif</h2>
         <p class="text-muted">Ubah parameter, amati perubahan, lalu temukan polanya sendiri.</p>
       </div>
       <div class="grid grid-3">
@@ -201,7 +255,7 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   <section class="section container" aria-labelledby="real-world">
     <div class="section-heading reveal" data-reveal>
       <p class="eyebrow-badge">Dunia nyata</p>
-      <h2 id="real-world">Matematika dalam Kehidupan</h2>
+      <h2 id="real-world">Matematika dalam kehidupan</h2>
       <p class="text-muted">Konsep matematika muncul dalam keputusan nyata.</p>
     </div>
     <div class="grid grid-2 apps-grid">
@@ -231,59 +285,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     </div>
   </section>
 
-  <section class="section section-paper" aria-labelledby="philosophy">
-    <div class="container">
-      <div class="section-heading reveal" data-reveal>
-        <p class="eyebrow-badge">Alur belajar</p>
-        <h2 id="philosophy">Cara Kamu Belajar di Sini</h2>
-        <p class="text-muted">Lima kebiasaan berpikir yang dilatih di setiap topik.</p>
-      </div>
-      <ol class="philosophy">
-        {
-          philosophy.map((step, i) => (
-            <li class="philosophy-step hover-lift reveal" style={revealStyle(i)} data-reveal>
-              <span class="philosophy-num">{i + 1}</span>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <section class="section section-alt" aria-labelledby="tools">
-    <div class="container">
-      <div class="section-heading reveal" data-reveal>
-        <p class="eyebrow-badge">Perangkat</p>
-        <h2 id="tools">Alat Matematika</h2>
-        <p class="text-muted">Alat bantu untuk mengeksplorasi dan memeriksa pekerjaanmu.</p>
-      </div>
-      <div class="tool-row">
-        {
-          featuredTools.map((tool, i) => (
-            <a
-              class="tool-card hover-lift reveal"
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={revealStyle(i)}
-              data-reveal
-            >
-              <span class="tool-name">
-                {tool.name} <span aria-hidden="true">↗</span>
-              </span>
-              <span class="tool-note">{tool.note}</span>
-            </a>
-          ))
-        }
-      </div>
-      <p class="section-more reveal" data-reveal>
-        <a class="btn btn-secondary" href={url('/alat')}>Semua alat & panduan</a>
-      </p>
-    </div>
-  </section>
-
   <section class="section container" aria-labelledby="trust">
     <div class="section-heading reveal" data-reveal>
       <p class="eyebrow-badge">Sebelum mulai</p>
@@ -295,6 +296,13 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
           <li class="trust-item hover-lift reveal" style={revealStyle(i)} data-reveal>
             <h3>{point.title}</h3>
             <p>{point.text}</p>
+            {point.href && (
+              <p class="trust-link">
+                <a href={point.href}>
+                  {point.link} <span aria-hidden="true">→</span>
+                </a>
+              </p>
+            )}
           </li>
         ))
       }
@@ -304,6 +312,42 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     </p>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  (function () {
+    try {
+      var root = document.querySelector('.browse');
+      if (!root) return;
+      var buttons = Array.prototype.slice.call(root.querySelectorAll('.browse-chip'));
+      var panels = Array.prototype.slice.call(root.querySelectorAll('.browse-panel'));
+      if (!buttons.length || !panels.length) return;
+
+      function show(target) {
+        for (var i = 0; i < panels.length; i++) {
+          var match = panels[i].getAttribute('data-browse-panel') === target;
+          panels[i].classList.toggle('is-hidden', !match);
+        }
+        for (var j = 0; j < buttons.length; j++) {
+          var active = buttons[j].getAttribute('data-browse-target') === target;
+          buttons[j].classList.toggle('is-active', active);
+          buttons[j].setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+
+      for (var k = 0; k < buttons.length; k++) {
+        buttons[k].addEventListener('click', function (event) {
+          var target = event.currentTarget.getAttribute('data-browse-target') || 'grade';
+          show(target);
+        });
+      }
+
+      root.classList.add('js-ready');
+      show('grade');
+    } catch (e) {
+      root && root.classList.remove('js-ready');
+    }
+  })();
+</script>
 
 <style>
   .hero {
@@ -401,11 +445,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     font-size: clamp(1.1rem, 1rem + 0.7vw, 1.45rem);
     line-height: 1.5;
     max-width: 46ch;
-  }
-  .hero-note {
-    margin: 0.9rem 0 0;
-    color: var(--color-text-soft);
-    font-size: 0.85rem;
   }
   .hero-actions {
     display: flex;
@@ -514,6 +553,86 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
 
   .section-heading .eyebrow-badge {
     margin-bottom: 0.6rem;
+  }
+
+  .audience-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.75rem;
+  }
+  .audience-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    border-top: 3px solid var(--color-primary);
+    padding: 0.9rem 1rem;
+  }
+  .audience-item:nth-child(2) {
+    border-top-color: var(--color-algebra);
+  }
+  .audience-item:nth-child(3) {
+    border-top-color: var(--color-geometry);
+  }
+  .audience-item h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1rem;
+  }
+  .audience-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  .pedagogy-heading {
+    margin-top: 2rem;
+  }
+
+  .browse-toggle {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    margin-bottom: 1.25rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+  }
+  .browse-chip {
+    appearance: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.42rem 1rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .browse-chip:hover {
+    color: var(--color-primary);
+  }
+  .browse-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .browse-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .browse-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .browse.js-ready .browse-panel.is-hidden {
+    display: none;
+  }
+  .browse-panel + .browse-panel {
+    margin-top: 1.25rem;
   }
 
   .grade-card,
@@ -708,37 +827,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
   .app-more a:hover {
     text-decoration: underline;
   }
-  .tool-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .tool-card {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    box-shadow: var(--shadow-sm);
-    text-decoration: none;
-    color: inherit;
-    font-size: 0.95rem;
-  }
-  .tool-card:hover,
-  .tool-card:focus-visible {
-    border-color: var(--color-primary);
-    color: inherit;
-  }
-  .tool-name {
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .tool-note {
-    color: var(--color-text-muted);
-    font-size: 0.82rem;
-  }
   .trust-grid {
     list-style: none;
     margin: 0;
@@ -762,6 +850,20 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     margin: 0;
     color: var(--color-text-muted);
     font-size: 0.9rem;
+  }
+  .trust-link {
+    margin-top: 0.5rem;
+  }
+  .trust-link a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .trust-link a:hover {
+    text-decoration: underline;
   }
   @media (min-width: 56rem) {
     .apps-grid {
@@ -800,13 +902,6 @@ const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: '
     .hero-byline {
       border-radius: var(--radius-lg);
       padding: 0.55rem 0.8rem 0.55rem 0.5rem;
-    }
-    .tool-card {
-      flex: 1 1 auto;
-      justify-content: center;
-    }
-    .tool-note {
-      display: none;
     }
   }
 </style>

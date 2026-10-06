@@ -100,7 +100,7 @@ karena basis lebih kecil dari 1, tanda pertidaksamaan berbalik saat menyamakan e
     title: 'Membaca Hasil Survei dengan Kritis',
     category: 'data',
     summary: 'Menafsirkan rata-rata, sebaran, dan ukuran sampel pada laporan survei.',
-    topicIds: ['analisis-distribusi-data', 'data-bivariat', 'statistik-dalam-kehidupan'],
+    topicIds: ['analisis-distribusi-data', 'data-bivariat'],
     body: `Sebuah berita menulis: *"Rata-rata nilai ujian matematika di kota ini 78, naik dari tahun lalu."* Sebelum mempercayai kesimpulan itu, ajukan beberapa pertanyaan:
 
 - Berapa **banyak sampel** yang diambil dan bagaimana cara memilihnya?

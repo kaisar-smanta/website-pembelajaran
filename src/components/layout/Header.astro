@@ -282,12 +282,40 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
-  const toggle = document.querySelector('[data-mobile-toggle]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
   const nav = document.querySelector('[data-primary-nav]');
+  const header = toggle?.closest('.site-header') || nav?.closest('.site-header');
+
+  function isOpen() {
+    return nav?.getAttribute('data-open') === 'true';
+  }
+
+  function setOpen(open: boolean) {
+    nav?.setAttribute('data-open', String(open));
+    if (!toggle) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+  }
+
   toggle?.addEventListener('click', () => {
-    const open = nav?.getAttribute('data-open') === 'true';
-    nav?.setAttribute('data-open', String(!open));
-    toggle.setAttribute('aria-expanded', String(!open));
-    toggle.setAttribute('aria-label', !open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+    setOpen(!isOpen());
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !isOpen()) return;
+    setOpen(false);
+    toggle?.focus();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!isOpen()) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (header && header.contains(target)) return;
+    setOpen(false);
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
   });
 </script>

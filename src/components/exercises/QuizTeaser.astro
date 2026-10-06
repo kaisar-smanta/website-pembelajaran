@@ -284,6 +284,9 @@ const first = quizData[0];
           if (nextBtn) nextBtn.hidden = true;
           if (promptEl) promptEl.innerHTML = q.promptHtml || '';
           if (optionsEl) {
+            optionsEl.querySelectorAll('.quiz-option').forEach((el) => {
+              el.removeAttribute('aria-disabled');
+            });
             optionsEl.innerHTML = '';
             (q.options || []).forEach((opt) => {
               const btn = document.createElement('button');
@@ -311,6 +314,7 @@ const first = quizData[0];
 
           if (optionsEl) {
             optionsEl.querySelectorAll('.quiz-option').forEach((el) => {
+              el.setAttribute('aria-disabled', 'true');
               const k = el.getAttribute('data-key');
               if (k === q.answer) el.classList.add('is-correct');
               if (k === key && !isCorrect) el.classList.add('is-wrong');

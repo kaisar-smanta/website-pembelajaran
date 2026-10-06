@@ -4,12 +4,12 @@ import { getTopic } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 
 const facts = [
-  { text: 'Nilai π ≈ 3,14159... dan terus berlanjut tanpa pola.', topicId: 'lingkaran' },
-  { text: 'Bilangan prima terkecil adalah 2, satu-satunya prima genap.' },
-  { text: '√2 adalah bilangan irasional, tidak bisa ditulis sebagai pecahan.', topicId: 'eksponen' },
-  { text: 'Jumlah sudut dalam setiap segitiga selalu 180°.', topicId: 'trigonometri' },
-  { text: 'Persamaan x² + y² = r² menggambarkan lingkaran berjari-jari r.', topicId: 'lingkaran' },
-  { text: '0,999... sama persis dengan 1, bukan sekadar mendekati.', topicId: 'barisan-deret' },
+  { text: 'Mengira √9 = ±3. Akar kuadrat utama selalu nonnegatif, jadi √9 = 3.', topicId: 'eksponen' },
+  { text: 'Mengira (a+b)² = a²+b². Yang benar (a+b)² = a² + 2ab + b².', topicId: 'fungsi-kuadrat' },
+  { text: 'Mengira korelasi kuat berarti sebab-akibat. Korelasi hanya menunjukkan keterkaitan.', topicId: 'asosiasi-kausalitas' },
+  { text: 'Mengira 0,999… hanya mendekati 1. Sebenarnya nilainya tepat 1.', topicId: 'barisan-deret' },
+  { text: 'Mengira peluang 1/2 berarti pasti muncul 5 dari 10. Peluang adalah kecenderungan jangka panjang.', topicId: 'peluang' },
+  { text: 'Mengira bunga tunggal dan bunga majemuk selalu sama. Bunga majemuk tumbuh lebih cepat karena berbunga atas bunga.', topicId: 'bunga-majemuk' },
 ];
 
 const factItems = facts.map((fact) => {
@@ -28,7 +28,7 @@ const factItems = facts.map((fact) => {
     <span class="hero-chip chip-b float-slow float-delayed" aria-hidden="true">√</span>
     <span class="hero-chip chip-c bob" aria-hidden="true">x²</span>
     <span class="hero-chip chip-d float-slow" aria-hidden="true">π</span>
-    <button type="button" class="mascot-button" aria-label="Tampilkan fakta matematika">
+    <button type="button" class="mascot-button" aria-label="Tampilkan kesalahpahaman umum berikutnya">
       <span class="mascot-halo" aria-hidden="true"></span>
       <MathMascot size={13} interactive />
       <span class="mascot-ground" aria-hidden="true"></span>
@@ -36,7 +36,7 @@ const factItems = facts.map((fact) => {
   </div>
 
   <p class="mascot-bubble" data-bubble role="status" aria-live="polite" set:html={factItems[0].html}></p>
-  <p class="mascot-hint">Ketuk maskot untuk fakta lain</p>
+  <p class="mascot-hint">Ketuk maskot untuk miskonsepsi lain</p>
 
   <div class="math-facts" hidden>
     {factItems.map((item) => <span hidden data-math-fact set:html={item.html}></span>)}
@@ -225,7 +225,7 @@ const factItems = facts.map((fact) => {
     text-wrap: balance;
   }
   .mascot-bubble::before {
-    content: 'Fakta matematika';
+    content: 'Kesalahpahaman umum';
     display: block;
     width: fit-content;
     margin: 0 auto 0.32rem;

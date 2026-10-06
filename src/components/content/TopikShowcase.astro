@@ -28,19 +28,31 @@ const presentElements: ElementId[] = ELEMENT_ORDER.filter((id) =>
     </div>
 
     <div class="topic-filters" role="group" aria-label="Saring topik menurut elemen">
-      <button type="button" class="topic-chip is-active" data-filter="all" aria-pressed="true">
+      <button
+        type="button"
+        class="topic-chip is-active"
+        data-filter="all"
+        aria-pressed="true"
+        aria-controls="topic-grid"
+      >
         Semua
       </button>
       {
         presentElements.map((id) => (
-          <button type="button" class="topic-chip" data-filter={id} aria-pressed="false">
+          <button
+            type="button"
+            class="topic-chip"
+            data-filter={id}
+            aria-pressed="false"
+            aria-controls="topic-grid"
+          >
             {ELEMENTS[id].name}
           </button>
         ))
       }
     </div>
 
-    <div class="grid grid-3 topic-grid">
+    <div class="grid grid-3 topic-grid" id="topic-grid">
       {
         topics.map((t, i) => (
           <div class="topic-slot" data-element={t.element}>
@@ -60,7 +72,12 @@ const presentElements: ElementId[] = ELEMENT_ORDER.filter((id) =>
     <div class="topic-footer">
       <p class="topic-count" aria-live="polite"></p>
       <div class="topic-actions">
-        <button type="button" class="btn btn-secondary btn-sm topic-expand" hidden>
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm topic-expand"
+          aria-controls="topic-grid"
+          hidden
+        >
           Tampilkan semua topik
         </button>
         <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat semua topik</a>
