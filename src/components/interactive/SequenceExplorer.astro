@@ -1,0 +1,379 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim sequence-sim" data-sequence>
+  <div class="sim-head">
+    <h3>Eksplorasi Barisan dan Deret</h3>
+  </div>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Jenis barisan</span>
+      <select data-field="jenis">
+        <option value="aritmetika">Aritmetika</option>
+        <option value="geometri">Geometri</option>
+      </select>
+    </label>
+    <label class="sim-field">
+      <span>Suku awal (a)</span>
+      <input type="number" min="-20" max="20" step="1" value="2" data-field="a" />
+    </label>
+    <label class="sim-field">
+      <span data-label-b>Beda (b)</span>
+      <input type="number" min="-5" max="5" step="0.5" value="2" data-field="b" />
+    </label>
+    <label class="sim-field">
+      <span>Banyak suku (n)</span>
+      <input type="number" min="1" max="20" step="1" value="8" data-field="n" />
+    </label>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 260"
+      role="img"
+      aria-label="Grafik batang nilai suku dan garis jumlah kumulatif barisan"
+      data-chart></svg>
+    <div class="legend">
+      <span class="l1">Nilai suku (Un)</span>
+      <span class="l2">Jumlah sampai suku ke-n (Sn)</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite"></output>
+
+  <div class="table-scroll">
+    <table class="urut">
+      <caption data-caption>Nilai suku dan jumlah kumulatif</caption>
+      <thead data-thead></thead>
+      <tbody data-tbody></tbody>
+    </table>
+  </div>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-head h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field input,
+  .sim-field select {
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend span::before {
+    content: '';
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.18rem;
+    border-radius: 2px;
+    background: currentColor;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-data);
+  }
+  .sequence-sim .sim-chart svg rect,
+  .sequence-sim .sim-chart svg circle {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  table.urut {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 0.85rem;
+  }
+  table.urut caption {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    padding-bottom: 0.35rem;
+  }
+  table.urut :global(th),
+  table.urut :global(td) {
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.6rem;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  table.urut :global(th) {
+    background: var(--color-surface-2);
+  }
+  table.urut :global(th:first-child),
+  table.urut :global(td:first-child) {
+    text-align: left;
+  }
+  table.urut :global(tbody th) {
+    font-weight: 600;
+  }
+  table.urut :global(tbody tr:nth-child(even)) {
+    background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sequence-sim .sim-chart svg rect,
+    .sequence-sim .sim-chart svg circle {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
+  const fmt = (v: number) => angka.format(Number.isFinite(v) ? v : 0);
+  const subDigits = '₀₁₂₃₄₅₆₇₈₉';
+  const sub = (num: number) =>
+    String(num)
+      .split('')
+      .map((c) => subDigits[Number(c)] ?? c)
+      .join('');
+  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+  function setupSequence(root: Element) {
+    const select = root.querySelector('[data-field="jenis"]') as HTMLSelectElement;
+    const inA = root.querySelector('[data-field="a"]') as HTMLInputElement;
+    const inB = root.querySelector('[data-field="b"]') as HTMLInputElement;
+    const inN = root.querySelector('[data-field="n"]') as HTMLInputElement;
+    const labelB = root.querySelector('[data-label-b]') as HTMLElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const chart = root.querySelector('[data-chart]') as SVGSVGElement;
+    const thead = root.querySelector('[data-thead]') as HTMLElement;
+    const tbody = root.querySelector('[data-tbody]') as HTMLElement;
+    const caption = root.querySelector('[data-caption]') as HTMLElement;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const el = (name: string, attrs: Record<string, string | number>) => {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+
+    function drawChart(values: number[], totals: number[], n: number) {
+      const W = 480;
+      const H = 260;
+      const pad = 34;
+      while (chart.firstChild) chart.removeChild(chart.firstChild);
+
+      const all = values.concat(totals);
+      let yMax = Math.max(...all, 0);
+      let yMin = Math.min(...all, 0);
+      if (yMax === yMin) yMax = yMin + 1;
+
+      const xAt = (i: number) => pad + ((i + 0.5) / n) * (W - 2 * pad);
+      const yAt = (v: number) => H - pad - ((v - yMin) / (yMax - yMin)) * (H - 2 * pad);
+
+      for (let i = 0; i <= 4; i++) {
+        const y = pad + (i / 4) * (H - 2 * pad);
+        chart.appendChild(
+          el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }),
+        );
+      }
+      const zero = yAt(0);
+      chart.appendChild(
+        el('line', { x1: pad, y1: zero, x2: W - pad, y2: zero, stroke: 'var(--color-text-soft)', 'stroke-width': 1.4 }),
+      );
+
+      const bw = Math.max(3, ((W - 2 * pad) / n) * 0.5);
+      values.forEach((v, i) => {
+        const y = yAt(v);
+        chart.appendChild(
+          el('rect', {
+            x: xAt(i) - bw / 2,
+            y: Math.min(zero, y),
+            width: bw,
+            height: Math.max(1, Math.abs(y - zero)),
+            rx: 2,
+            fill: 'var(--color-primary)',
+            opacity: 0.85,
+          }),
+        );
+      });
+
+      let d = '';
+      totals.forEach((v, i) => {
+        d += `${i === 0 ? 'M' : 'L'}${xAt(i).toFixed(1)} ${yAt(v).toFixed(1)} `;
+      });
+      chart.appendChild(
+        el('path', { d, fill: 'none', stroke: 'var(--color-data)', 'stroke-width': 2.6, 'stroke-linejoin': 'round' }),
+      );
+      totals.forEach((v, i) => {
+        chart.appendChild(el('circle', { cx: xAt(i), cy: yAt(v), r: 3, fill: 'var(--color-data)' }));
+      });
+    }
+
+    function render() {
+      const jenis = select.value === 'geometri' ? 'geometri' : 'aritmetika';
+      labelB.textContent = jenis === 'aritmetika' ? 'Beda (b)' : 'Rasio (r)';
+
+      let a = Number(inA.value);
+      if (!Number.isFinite(a)) a = 2;
+      a = clamp(a, -20, 20);
+
+      let b = Number(inB.value);
+      if (!Number.isFinite(b)) b = 2;
+      b = clamp(b, -5, 5);
+
+      let n = Math.round(Number(inN.value));
+      if (!Number.isFinite(n)) n = 8;
+      n = clamp(n, 1, 20);
+
+      const terms: number[] = [];
+      const sums: number[] = [];
+      let acc = 0;
+      for (let i = 0; i < n; i++) {
+        const v = jenis === 'aritmetika' ? a + i * b : a * Math.pow(b, i);
+        const nilai = Number.isFinite(v) ? v : 0;
+        terms.push(nilai);
+        acc = Number.isFinite(acc + nilai) ? acc + nilai : 0;
+        sums.push(acc);
+      }
+
+      const un = terms[n - 1];
+      const sn = sums[n - 1];
+
+      let rumusUn: string;
+      let hitungUn: string;
+      let rumusSn: string;
+      let hitungSn: string;
+
+      if (jenis === 'aritmetika') {
+        rumusUn = 'Uₙ = a + (n − 1)·b';
+        hitungUn = `${fmt(a)} + ${fmt(n - 1)}·${fmt(b)} = ${fmt(un)}`;
+        rumusSn = 'Sₙ = n/2 · (2a + (n − 1)·b)';
+        hitungSn = `${fmt(n)}/2 · (2·${fmt(a)} + ${fmt(n - 1)}·${fmt(b)}) = ${fmt(sn)}`;
+      } else {
+        rumusUn = 'Uₙ = a · r^(n − 1)';
+        hitungUn = `${fmt(a)} · ${fmt(b)}^${n - 1} = ${fmt(un)}`;
+        if (b === 1) {
+          rumusSn = 'Sₙ = n · a';
+          hitungSn = `${fmt(n)} · ${fmt(a)} = ${fmt(sn)}`;
+        } else {
+          rumusSn = 'Sₙ = a(rⁿ − 1)/(r − 1)';
+          hitungSn = `${fmt(a)}(${fmt(b)}^${n} − 1)/(${fmt(b)} − 1) = ${fmt(sn)}`;
+        }
+      }
+
+      readout.innerHTML =
+        `<div class="stat"><span>Rumus Uₙ</span><strong>${rumusUn}</strong></div>` +
+        `<div class="stat"><span>Nilai U${sub(n)}</span><strong>${hitungUn}</strong></div>` +
+        `<div class="stat"><span>Rumus Sₙ</span><strong>${rumusSn}</strong></div>` +
+        `<div class="stat"><span>Nilai S${sub(n)}</span><strong>${hitungSn}</strong></div>`;
+
+      thead.innerHTML =
+        '<tr><th scope="col">Suku</th><th scope="col">Nilai</th><th scope="col">Jumlah kumulatif</th></tr>';
+      tbody.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        th.setAttribute('scope', 'row');
+        th.textContent = `U${sub(i + 1)}`;
+        const tdNilai = document.createElement('td');
+        tdNilai.textContent = fmt(terms[i]);
+        const tdJumlah = document.createElement('td');
+        tdJumlah.textContent = fmt(sums[i]);
+        tr.append(th, tdNilai, tdJumlah);
+        tbody.appendChild(tr);
+      }
+      caption.textContent = `Nilai ${fmt(n)} suku pertama dan jumlah kumulatifnya`;
+
+      chart.setAttribute(
+        'aria-label',
+        `Grafik batang nilai ${fmt(n)} suku dan garis jumlah kumulatif barisan ${jenis}`,
+      );
+      drawChart(terms, sums, n);
+    }
+
+    select.addEventListener('change', render);
+    [inA, inB, inN].forEach((input) => input.addEventListener('input', render));
+    render();
+  }
+
+  document.querySelectorAll('[data-sequence]').forEach(setupSequence);
+</script>

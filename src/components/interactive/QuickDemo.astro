@@ -1,6 +1,6 @@
 ---
 import { getExploration } from '@/data/explorations';
-import FunctionSlider from './FunctionSlider.astro';
+import ExplorationSim from './ExplorationSim.astro';
 import { url } from '@/utils/url';
 
 interface Props {
@@ -26,7 +26,7 @@ const exploration = getExploration(explorationId);
       <p class="quick-demo-prompt">
         {prompt ?? 'Geser penggeser di bawah dan lihat bagaimana grafiknya berubah seketika.'}
       </p>
-      <FunctionSlider exploration={exploration} />
+      <ExplorationSim exploration={exploration} />
       <p class="quick-demo-more">
         <a class="btn btn-secondary btn-sm" href={url('/eksplorasi')}>
           Lihat semua eksplorasi

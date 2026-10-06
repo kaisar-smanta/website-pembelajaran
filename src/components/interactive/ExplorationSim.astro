@@ -1,0 +1,39 @@
+---
+import type { Exploration } from '@/types/content';
+import FunctionSlider from './FunctionSlider.astro';
+import CompoundInterestSim from './CompoundInterestSim.astro';
+import ProbabilitySim from './ProbabilitySim.astro';
+import LinearRegressionSim from './LinearRegressionSim.astro';
+import SequenceExplorer from './SequenceExplorer.astro';
+import DistributionExplorer from './DistributionExplorer.astro';
+import ConditionalProbSim from './ConditionalProbSim.astro';
+import GeogebraEmbed from './GeogebraEmbed.astro';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+{
+  exploration.type === 'function-slider' && <FunctionSlider exploration={exploration} />
+}
+{
+  exploration.type === 'compound-interest' && <CompoundInterestSim exploration={exploration} />
+}
+{exploration.type === 'probability' && <ProbabilitySim exploration={exploration} />}
+{
+  exploration.type === 'linear-regression' && <LinearRegressionSim exploration={exploration} />
+}
+{exploration.type === 'sequence' && <SequenceExplorer exploration={exploration} />}
+{exploration.type === 'distribution' && <DistributionExplorer exploration={exploration} />}
+{
+  exploration.type === 'conditional-probability' && (
+    <ConditionalProbSim exploration={exploration} />
+  )
+}
+{
+  exploration.type === 'geogebra' && exploration.url && (
+    <GeogebraEmbed url={exploration.url} title={exploration.title} />
+  )
+}

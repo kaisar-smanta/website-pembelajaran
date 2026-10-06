@@ -65,7 +65,7 @@ export type Block =
     }
   | {
       kind: 'exploration';
-      /** id eksplorasi interaktif pada src/content/explorations.ts */
+      /** id eksplorasi interaktif pada src/data/explorations.ts */
       explorationId: string;
     }
   | {
@@ -185,18 +185,54 @@ export interface ExplorationParam {
   value: number;
 }
 
+export type ExplorationType =
+  | 'function-slider'
+  | 'compound-interest'
+  | 'probability'
+  | 'linear-regression'
+  | 'sequence'
+  | 'distribution'
+  | 'conditional-probability'
+  | 'geogebra';
+
+/** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */
+export interface ExplorationPrompt {
+  /** Dugaan yang diajukan sebelum mengubah apa pun. */
+  predict: string;
+  /** Apa yang perlu diamati saat parameter diubah. */
+  observe: string;
+  /** Hubungan dengan konsep yang dipelajari. */
+  explain: string;
+}
+
 export interface Exploration {
   id: string;
   title: string;
   topicId?: string;
-  type: 'function-slider' | 'compound-interest' | 'probability' | 'geogebra' | 'linear-regression';
+  type: ExplorationType;
   /** Bila true, ditampilkan sebagai eksplorasi unggulan di beranda. */
   featured?: boolean;
   /** Rumus untuk tipe function-slider. */
-  formula?: 'quadratic' | 'exponential' | 'sine';
+  formula?: 'quadratic' | 'exponential' | 'sine' | 'transform';
   description: string;
   /** Parameter awal untuk tipe berbasis slider. */
   params?: ExplorationParam[];
   /** Untuk tipe geogebra. */
   url?: string;
+  /** Kelas tempat eksplorasi paling relevan. */
+  grade?: Grade;
+  /** Elemen kurikulum. */
+  element?: ElementId;
+  /** Urutan tampil di dalam kelasnya; makin kecil makin awal. */
+  order?: number;
+  /** Satu kalimat: apa yang seharusnya ditemukan siswa. */
+  goal?: string;
+  /** Skema prediksi–observasi–penjelasan. */
+  prompts?: ExplorationPrompt;
+  /** Kesalahan atau jebakan umum saat bereksplorasi. */
+  cautions?: string[];
+  /** Kata kunci untuk pencarian. */
+  tags?: string[];
+  /** 'lengkap' = siap dipakai; 'rencana' = masih roadmap. */
+  status?: 'lengkap' | 'rencana';
 }

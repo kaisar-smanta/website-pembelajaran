@@ -24,6 +24,7 @@ export const barisanDeret: Topic = {
   ],
   prerequisites: ['eksponen'],
   relatedTopics: ['fungsi-eksponensial', 'bunga-majemuk'],
+  explorations: ['barisan-pola'],
   prerequisiteKnowledge: [
     'Operasi bilangan bulat, pecahan, dan desimal',
     'Sifat-sifat eksponen dan bentuk pangkat',
@@ -167,6 +168,13 @@ Jika $\\lvert r\\rvert \\geq 1$, suku-sukunya tidak menuju nol dan deret **diver
           text: 'Rumus $S_\\infty = \\dfrac{a}{1-r}$ hanya berlaku bila $\\lvert r\\rvert < 1$. Periksa dulu rasionya sebelum memakainya.',
         },
       ],
+    },
+    {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Pola Barisan dan Deret',
+      body: `Sebelum menghafal rumus, bandingkan bagaimana barisan aritmetika dan geometri bertumbuh. Amati kapan jumlah suku barisan geometri melampaui barisan aritmetika.`,
+      blocks: [{ kind: 'exploration', explorationId: 'barisan-pola' }],
     },
     {
       id: 'contoh',

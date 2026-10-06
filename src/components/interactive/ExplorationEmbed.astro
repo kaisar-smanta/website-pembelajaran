@@ -1,9 +1,8 @@
 ---
 import { getExploration } from '@/data/explorations';
-import FunctionSlider from './FunctionSlider.astro';
-import CompoundInterestSim from './CompoundInterestSim.astro';
-import ProbabilitySim from './ProbabilitySim.astro';
-import LinearRegressionSim from './LinearRegressionSim.astro';
+import ExplorationSim from './ExplorationSim.astro';
+import ExplorationBrief from './ExplorationBrief.astro';
+import { url } from '@/utils/url';
 
 interface Props {
   explorationId: string;
@@ -15,11 +14,14 @@ const exploration = getExploration(explorationId);
 {
   exploration ? (
     <section class="exploration-embed" aria-label={`Eksplorasi: ${exploration.title}`}>
-      <h3 class="exploration-title">{exploration.title}</h3>
-      {exploration.type === 'function-slider' && <FunctionSlider exploration={exploration} />}
-      {exploration.type === 'compound-interest' && <CompoundInterestSim exploration={exploration} />}
-      {exploration.type === 'probability' && <ProbabilitySim exploration={exploration} />}
-      {exploration.type === 'linear-regression' && <LinearRegressionSim exploration={exploration} />}
+      <div class="exploration-head">
+        <h3 class="exploration-title">{exploration.title}</h3>
+        <a class="exploration-link" href={`${url('/eksplorasi')}#ex-${exploration.id}`}>
+          Buka di pusat eksplorasi
+        </a>
+      </div>
+      <ExplorationBrief exploration={exploration} showCautions />
+      <ExplorationSim exploration={exploration} />
     </section>
   ) : (
     <div class="callout callout-info" role="note">
@@ -32,8 +34,26 @@ const exploration = getExploration(explorationId);
   .exploration-embed {
     margin: 1.25rem 0;
   }
+  .exploration-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+  }
   .exploration-title {
     font-size: 1.05rem;
-    margin-bottom: 0.4rem;
+    margin: 0;
+  }
+  .exploration-link {
+    display: inline-block;
+    padding-block: 0.22rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .exploration-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
   }
 </style>

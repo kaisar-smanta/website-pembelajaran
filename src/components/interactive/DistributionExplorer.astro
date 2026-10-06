@@ -1,0 +1,692 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+const inputId = `dist-input-${exploration.id}`;
+const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
+---
+
+<figure class="sim dist-sim" data-distribution data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Penjelajah Sebaran, Kuartil, dan Pencilan</h3>
+  </div>
+
+  <div class="sim-fields">
+    <label class="sim-field" for={inputId}>
+      <span>Data (pisahkan dengan koma, spasi, atau baris baru)</span>
+      <textarea id={inputId} rows="3" spellcheck="false" data-dist-input>{initialData}</textarea>
+    </label>
+  </div>
+
+  <div class="dist-presets">
+    <button type="button" class="btn btn-secondary btn-sm" data-dist-preset="simetris">Data simetris</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-dist-preset="pencilan">Ada pencilan</button>
+    <span class="dist-count" data-dist-count></span>
+  </div>
+
+  <dl class="stats" data-stats>
+    <div class="stat">
+      <dt>Banyak data (n)</dt>
+      <dd data-stat="n">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Nilai minimum</dt>
+      <dd data-stat="min">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Nilai maksimum</dt>
+      <dd data-stat="max">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Rata-rata (mean)</dt>
+      <dd data-stat="mean">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Median</dt>
+      <dd data-stat="median">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Kuartil bawah (Q1)</dt>
+      <dd data-stat="q1">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Kuartil atas (Q3)</dt>
+      <dd data-stat="q3">–</dd>
+    </div>
+    <div class="stat">
+      <dt>Jangkauan interkuartil (IQR)</dt>
+      <dd data-stat="iqr">–</dd>
+    </div>
+  </dl>
+
+  <p class="dist-outliers" data-dist-outliers></p>
+
+  <div class="dist-chart">
+    <svg
+      viewBox="0 0 480 300"
+      role="img"
+      aria-label="Histogram dan box plot distribusi data"
+      data-dist-chart></svg>
+    <div class="legend">
+      <span class="l-median">Median dan kotak Q1–Q3</span>
+      <span class="l-mean">Rata-rata</span>
+      <span class="l-outlier">Pencilan</span>
+    </div>
+  </div>
+
+  <p class="dist-hint" data-dist-hint hidden>
+    Box plot dan deteksi pencilan tampil bila data memuat minimal 4 nilai.
+  </p>
+
+  <output class="dist-readout" data-dist-readout aria-live="polite"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-head h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field textarea {
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 3.2rem;
+    resize: vertical;
+  }
+  .dist-presets {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.7rem 0 0.1rem;
+  }
+  .dist-count {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+    gap: 0.5rem;
+    margin: 0.9rem 0;
+    padding: 0;
+  }
+  .stats .stat {
+    margin: 0;
+    padding: 0.5rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+  }
+  .stats dt {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .stats dd {
+    margin: 0.15rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--color-primary);
+  }
+  .dist-outliers {
+    margin: 0 0 0.75rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .dist-chart {
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  .dist-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0.6rem;
+  }
+  .legend span::before {
+    content: '';
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.18rem;
+    border-radius: 2px;
+    background: currentColor;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+  .legend .l-median {
+    color: var(--color-primary);
+  }
+  .legend .l-mean {
+    color: var(--color-data);
+  }
+  .legend .l-outlier {
+    color: var(--color-danger);
+  }
+  .dist-hint {
+    margin: 0.5rem 0 0;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .dist-readout {
+    display: block;
+    margin: 0.9rem 0 0.2rem;
+    padding: 0.55rem 0.75rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dist-sim *,
+    .dist-sim *::before,
+    .dist-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  const numberFmt = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
+
+  const PRESETS: Record<string, string> = {
+    simetris: '2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13',
+    pencilan: '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24',
+  };
+
+  const MAX_VALUES = 200;
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  interface DistributionStats {
+    n: number;
+    min: number;
+    max: number;
+    mean: number;
+    median: number;
+    q1: number;
+    q3: number;
+    iqr: number;
+    lowWhisker: number;
+    highWhisker: number;
+    outliers: number[];
+    inside: number[];
+    sorted: number[];
+  }
+
+  function medianOf(sorted: number[]): number {
+    const m = sorted.length;
+    if (m === 0) return NaN;
+    const mid = Math.floor(m / 2);
+    return m % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+  }
+
+  function parseData(text: string): number[] {
+    const tokens = text.split(/[\s,;]+/);
+    const values: number[] = [];
+    for (const token of tokens) {
+      if (!token) continue;
+      const value = Number(token);
+      if (Number.isFinite(value)) values.push(value);
+    }
+    return values;
+  }
+
+  function computeStats(data: number[]): DistributionStats | null {
+    const n = data.length;
+    if (n === 0) return null;
+    const sorted = [...data].sort((a, b) => a - b);
+    const min = sorted[0];
+    const max = sorted[n - 1];
+    const mean = sorted.reduce((a, b) => a + b, 0) / n;
+    const median = medianOf(sorted);
+
+    let q1 = NaN;
+    let q3 = NaN;
+    let iqr = 0;
+    if (n >= 2) {
+      const mid = Math.floor(n / 2);
+      const lower = sorted.slice(0, mid);
+      const upper = n % 2 === 0 ? sorted.slice(mid) : sorted.slice(mid + 1);
+      q1 = medianOf(lower);
+      q3 = medianOf(upper);
+      iqr = q3 - q1;
+    }
+
+    let lowWhisker = min;
+    let highWhisker = max;
+    let outliers: number[] = [];
+    let inside = sorted;
+    if (n >= 4 && iqr > 0) {
+      const lowFence = q1 - 1.5 * iqr;
+      const highFence = q3 + 1.5 * iqr;
+      inside = sorted.filter((v) => v >= lowFence && v <= highFence);
+      outliers = sorted.filter((v) => v < lowFence || v > highFence);
+      lowWhisker = inside[0];
+      highWhisker = inside[inside.length - 1];
+    }
+
+    return {
+      n,
+      min,
+      max,
+      mean,
+      median,
+      q1,
+      q3,
+      iqr,
+      lowWhisker,
+      highWhisker,
+      outliers,
+      inside,
+      sorted,
+    };
+  }
+
+  function setupDistribution(root: Element) {
+    const input = root.querySelector('[data-dist-input]') as HTMLTextAreaElement;
+    const svg = root.querySelector('[data-dist-chart]') as SVGSVGElement;
+    const countEl = root.querySelector('[data-dist-count]') as HTMLElement;
+    const readout = root.querySelector('[data-dist-readout]') as HTMLElement;
+    const outliersEl = root.querySelector('[data-dist-outliers]') as HTMLElement;
+    const hintEl = root.querySelector('[data-dist-hint]') as HTMLElement;
+    if (!input || !svg || !countEl || !readout || !outliersEl || !hintEl) return;
+
+    const statEls: Record<string, HTMLElement> = {};
+    root.querySelectorAll<HTMLElement>('[data-stat]').forEach((node) => {
+      const key = node.dataset.stat;
+      if (key) statEls[key] = node;
+    });
+
+    const PL = 44;
+    const PR = 464;
+    const HIST_TOP = 22;
+    const HIST_BASE = 158;
+    const BOX_CY = 208;
+    const BOX_H = 34;
+    const AXIS_Y = 252;
+
+    const el = (name: string, attrs: Record<string, string | number>): SVGElement => {
+      const node = document.createElementNS(SVG_NS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+
+    const fmt = (v: number): string => (Number.isFinite(v) ? numberFmt.format(v) : '–');
+
+    const setStat = (key: string, value: string) => {
+      const node = statEls[key];
+      if (node) node.textContent = value;
+    };
+
+    const clear = () => {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+    };
+
+    const addText = (
+      x: number,
+      y: number,
+      text: string,
+      attrs: Record<string, string | number> = {},
+    ) => {
+      const node = el('text', { x, y, ...attrs });
+      node.textContent = text;
+      svg.appendChild(node);
+    };
+
+    function draw(st: DistributionStats) {
+      clear();
+      let lo = st.min;
+      let hi = st.max;
+      if (hi === lo) {
+        lo -= 1;
+        hi += 1;
+      }
+      const span = hi - lo || 1;
+      const x = (v: number) => PL + ((v - lo) / span) * (PR - PL);
+
+      if (st.n >= 4) {
+        [st.q1, st.median, st.q3].forEach((v) => {
+          svg.appendChild(
+            el('line', {
+              x1: x(v),
+              y1: HIST_TOP,
+              x2: x(v),
+              y2: BOX_CY + BOX_H / 2,
+              stroke: 'var(--color-border-strong)',
+              'stroke-width': 1,
+              'stroke-dasharray': '3 4',
+            }),
+          );
+        });
+        svg.appendChild(
+          el('line', {
+            x1: x(st.mean),
+            y1: HIST_TOP,
+            x2: x(st.mean),
+            y2: BOX_CY + BOX_H / 2,
+            stroke: 'var(--color-data)',
+            'stroke-width': 1,
+            'stroke-dasharray': '3 4',
+            opacity: 0.75,
+          }),
+        );
+      }
+
+      const bins = Math.max(4, Math.min(10, Math.ceil(Math.log2(st.n)) + 1));
+      const binWidth = (hi - lo) / bins;
+      const counts = new Array<number>(bins).fill(0);
+      st.sorted.forEach((v) => {
+        let idx = Math.floor((v - lo) / binWidth);
+        if (idx < 0) idx = 0;
+        if (idx >= bins) idx = bins - 1;
+        counts[idx] += 1;
+      });
+      const maxCount = Math.max(1, ...counts);
+      const slot = (PR - PL) / bins;
+      const gap = Math.min(5, slot * 0.16);
+
+      svg.appendChild(
+        el('line', {
+          x1: PL,
+          y1: HIST_BASE,
+          x2: PR,
+          y2: HIST_BASE,
+          stroke: 'var(--color-text-soft)',
+          'stroke-width': 1.2,
+        }),
+      );
+      counts.forEach((c, i) => {
+        if (c === 0) return;
+        const barX = PL + i * slot + gap / 2;
+        const barW = slot - gap;
+        const barH = (c / maxCount) * (HIST_BASE - HIST_TOP - 12);
+        const barY = HIST_BASE - barH;
+        svg.appendChild(
+          el('rect', {
+            x: barX,
+            y: barY,
+            width: barW,
+            height: barH,
+            rx: 3,
+            fill: 'var(--color-primary)',
+            'fill-opacity': 0.28,
+            stroke: 'var(--color-primary)',
+            'stroke-width': 1.2,
+          }),
+        );
+        addText(barX + barW / 2, barY - 3, String(c), {
+          'text-anchor': 'middle',
+          'font-size': 10,
+          fill: 'var(--color-text-muted)',
+        });
+      });
+      const midY = (HIST_TOP + HIST_BASE) / 2;
+      addText(14, midY, 'Frekuensi', {
+        'text-anchor': 'middle',
+        'font-size': 10,
+        fill: 'var(--color-text-muted)',
+        transform: `rotate(-90 14 ${midY})`,
+      });
+
+      if (st.n < 4) {
+        addText((PL + PR) / 2, BOX_CY + 6, 'Box plot tampil bila data minimal 4 nilai', {
+          'text-anchor': 'middle',
+          'font-size': 12,
+          fill: 'var(--color-text-muted)',
+        });
+        return;
+      }
+
+      const boxTop = BOX_CY - BOX_H / 2;
+      const boxBottom = BOX_CY + BOX_H / 2;
+      svg.appendChild(
+        el('line', {
+          x1: x(st.lowWhisker),
+          y1: BOX_CY,
+          x2: x(st.highWhisker),
+          y2: BOX_CY,
+          stroke: 'var(--color-text-soft)',
+          'stroke-width': 2,
+        }),
+      );
+      [st.lowWhisker, st.highWhisker].forEach((v) => {
+        svg.appendChild(
+          el('line', {
+            x1: x(v),
+            y1: BOX_CY - 9,
+            x2: x(v),
+            y2: BOX_CY + 9,
+            stroke: 'var(--color-text-soft)',
+            'stroke-width': 2,
+          }),
+        );
+      });
+      svg.appendChild(
+        el('rect', {
+          x: x(st.q1),
+          y: boxTop,
+          width: Math.max(1, x(st.q3) - x(st.q1)),
+          height: BOX_H,
+          rx: 3,
+          fill: 'var(--color-primary)',
+          'fill-opacity': 0.18,
+          stroke: 'var(--color-primary)',
+          'stroke-width': 1.6,
+        }),
+      );
+      svg.appendChild(
+        el('line', {
+          x1: x(st.median),
+          y1: boxTop,
+          x2: x(st.median),
+          y2: boxBottom,
+          stroke: 'var(--color-primary)',
+          'stroke-width': 2.6,
+        }),
+      );
+      const mx = x(st.mean);
+      svg.appendChild(
+        el('polygon', {
+          points: `${mx},${BOX_CY - 7} ${mx + 7},${BOX_CY} ${mx},${BOX_CY + 7} ${mx - 7},${BOX_CY}`,
+          fill: 'var(--color-data)',
+          stroke: 'var(--color-surface)',
+          'stroke-width': 1.2,
+        }),
+      );
+      st.outliers.forEach((v) => {
+        svg.appendChild(
+          el('circle', {
+            cx: x(v),
+            cy: BOX_CY,
+            r: 4.5,
+            fill: 'var(--color-danger)',
+            stroke: 'var(--color-surface)',
+            'stroke-width': 1.4,
+          }),
+        );
+      });
+
+      svg.appendChild(
+        el('line', {
+          x1: x(st.min),
+          y1: AXIS_Y,
+          x2: x(st.max),
+          y2: AXIS_Y,
+          stroke: 'var(--color-border-strong)',
+          'stroke-width': 1.2,
+        }),
+      );
+      const tickValues = [st.min, st.q1, st.median, st.q3, st.max].filter(
+        (v, i, arr) => i === 0 || Math.abs(v - arr[i - 1]) > 1e-9,
+      );
+      tickValues.forEach((v) => {
+        svg.appendChild(
+          el('line', {
+            x1: x(v),
+            y1: AXIS_Y - 4,
+            x2: x(v),
+            y2: AXIS_Y + 4,
+            stroke: 'var(--color-border-strong)',
+            'stroke-width': 1,
+          }),
+        );
+        addText(x(v), AXIS_Y + 16, fmt(v), {
+          'text-anchor': 'middle',
+          'font-size': 9.5,
+          fill: 'var(--color-text-muted)',
+        });
+      });
+    }
+
+    function buildReadout(st: DistributionStats): string {
+      if (st.n === 1) {
+        return `Dengan satu nilai saja, rata-rata dan median sama, yaitu ${fmt(st.mean)}. Tambahkan data lain untuk melihat sebarannya.`;
+      }
+      if (st.n < 4) {
+        return `Dengan ${st.n} nilai, rata-rata ${fmt(st.mean)} dan median ${fmt(st.median)}. Masukkan minimal 4 nilai agar box plot dan deteksi pencilan dapat ditampilkan.`;
+      }
+      const tolerance = Math.max(0.01, Math.abs(st.median) * 0.01);
+      const diff = st.mean - st.median;
+      let text: string;
+      if (Math.abs(diff) <= tolerance) {
+        text = `Rata-rata (${fmt(st.mean)}) hampir sama dengan median (${fmt(st.median)}), menandakan sebaran cenderung simetris.`;
+      } else if (diff > 0) {
+        text = `Rata-rata (${fmt(st.mean)}) lebih besar daripada median (${fmt(st.median)}), tanda sebaran miring ke kanan.`;
+      } else {
+        text = `Rata-rata (${fmt(st.mean)}) lebih kecil daripada median (${fmt(st.median)}), tanda sebaran miring ke kiri.`;
+      }
+      if (st.outliers.length > 0) {
+        const cleanCount = st.inside.length;
+        const cleanMean =
+          cleanCount > 0 ? st.inside.reduce((a, b) => a + b, 0) / cleanCount : st.mean;
+        text += ` Ada ${st.outliers.length} pencilan; tanpa pencilan rata-rata berubah menjadi ${fmt(cleanMean)}. Median dan IQR lebih tahan terhadap nilai ekstrem sehingga tetap stabil.`;
+      } else {
+        text += ' Karena IQR memperhitungkan separuh data tengah, ukuran ini tidak terpengaruh nilai ekstrem.';
+      }
+      return text;
+    }
+
+    function render() {
+      const all = parseData(input.value);
+      const clamped = all.length > MAX_VALUES;
+      const data = clamped ? all.slice(0, MAX_VALUES) : all;
+      const st = computeStats(data);
+
+      if (!st) {
+        countEl.textContent = 'Belum ada nilai';
+        ['n', 'min', 'max', 'mean', 'median', 'q1', 'q3', 'iqr'].forEach((k) => setStat(k, '–'));
+        outliersEl.textContent = 'Masukkan data untuk melihat ringkasan.';
+        readout.textContent =
+          'Masukkan beberapa angka, misalnya 4, 5, 5, 6, 6, 7, 8, 20, untuk mulai menjelajah.';
+        hintEl.hidden = true;
+        svg.setAttribute('aria-label', 'Histogram dan box plot distribusi data');
+        clear();
+        return;
+      }
+
+      countEl.textContent = `${st.n} nilai${clamped ? ` (dibatasi ${MAX_VALUES})` : ''}`;
+      setStat('n', String(st.n));
+      setStat('min', fmt(st.min));
+      setStat('max', fmt(st.max));
+      setStat('mean', fmt(st.mean));
+      setStat('median', fmt(st.median));
+      setStat('q1', st.n >= 2 ? fmt(st.q1) : '–');
+      setStat('q3', st.n >= 2 ? fmt(st.q3) : '–');
+      setStat('iqr', st.n >= 2 ? fmt(st.iqr) : '–');
+
+      if (st.n < 4) {
+        outliersEl.textContent = 'Pencilan dihitung bila data memuat minimal 4 nilai.';
+        hintEl.hidden = false;
+      } else if (st.outliers.length === 0) {
+        outliersEl.textContent = 'Pencilan (aturan 1,5 × IQR): tidak ada pencilan.';
+        hintEl.hidden = true;
+      } else {
+        const shown = st.outliers.slice(0, 8).map(fmt).join(', ');
+        const extra =
+          st.outliers.length > 8 ? ` dan ${st.outliers.length - 8} pencilan lain` : '';
+        outliersEl.textContent = `Pencilan (aturan 1,5 × IQR): ${shown}${extra}.`;
+        hintEl.hidden = true;
+      }
+
+      draw(st);
+
+      svg.setAttribute(
+        'aria-label',
+        `Histogram dan box plot dari ${st.n} nilai; rata-rata ${fmt(st.mean)}, median ${fmt(st.median)}, ${st.outliers.length} pencilan.`,
+      );
+
+      readout.textContent = buildReadout(st);
+    }
+
+    input.addEventListener('input', render);
+    root.querySelectorAll<HTMLButtonElement>('[data-dist-preset]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.preset ?? '';
+        const preset = PRESETS[key];
+        if (preset) {
+          input.value = preset;
+          render();
+          input.focus();
+        }
+      });
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('[data-distribution]').forEach(setupDistribution);
+</script>

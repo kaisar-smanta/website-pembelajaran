@@ -15,13 +15,29 @@ const { exploration } = Astro.props;
       <select data-prob-kind>
         <option value="koin">Pelemparan koin</option>
         <option value="dadu">Pelemparan dadu</option>
+        <option value="dua-dadu">Jumlah dua dadu</option>
       </select>
     </label>
     <label class="prob-field">
-      <span>Banyak pelemparan</span>
+      <span>Fokus hasil</span>
+      <select data-prob-focus></select>
+    </label>
+    <label class="prob-field">
+      <span>Banyak pelemparan per simulasi</span>
       <input type="number" min="10" max="100000" step="10" value="1000" data-prob-trials />
     </label>
     <button type="button" class="btn btn-primary" data-prob-run>Lakukan simulasi</button>
+    <button type="button" class="btn btn-secondary" data-prob-reset>Atur ulang</button>
+  </div>
+
+  <p class="prob-total" data-prob-total aria-live="polite"></p>
+
+  <div class="prob-chart">
+    <svg viewBox="0 0 480 260" role="img" aria-label="Grafik garis peluang empiris kumulatif dibandingkan peluang teoretis" data-prob-chart></svg>
+    <div class="prob-legend" aria-hidden="true">
+      <span class="l1">Peluang empiris</span>
+      <span class="l2">Peluang teoretis</span>
+    </div>
   </div>
 
   <div class="prob-result" data-prob-result aria-live="polite"></div>
@@ -47,6 +63,7 @@ const { exploration } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    min-width: 0;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--color-text-muted);
@@ -59,6 +76,47 @@ const { exploration } = Astro.props;
     background: var(--color-bg);
     color: var(--color-text);
     font: inherit;
+    max-width: 100%;
+  }
+  .prob-total {
+    margin: 0.9rem 0 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .prob-chart {
+    max-width: 36rem;
+    margin: 0.6rem auto 0;
+  }
+  .prob-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .prob-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0.2rem;
+  }
+  .prob-legend :global(span)::before {
+    content: '';
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.18rem;
+    border-radius: 2px;
+    background: currentColor;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+  .prob-legend :global(.l1) {
+    color: var(--color-primary);
+  }
+  .prob-legend :global(.l2) {
+    color: var(--color-data);
   }
   .prob-result {
     margin-top: 1rem;
@@ -76,6 +134,9 @@ const { exploration } = Astro.props;
     gap: 0.25rem 1rem;
     font-size: 0.88rem;
   }
+  .prob-result :global(.prob-bar-label strong) {
+    font-variant-numeric: tabular-nums;
+  }
   .prob-result :global(.prob-bar-track) {
     height: 0.9rem;
     background: var(--color-surface-2);
@@ -91,6 +152,10 @@ const { exploration } = Astro.props;
   .prob-result :global(.prob-bar-fill.theory) {
     background: var(--color-data);
   }
+  .prob-result :global(.is-focus .prob-bar-label span:first-child) {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
   .prob-result :global(.prob-note) {
     margin: 0;
     font-size: 0.85rem;
@@ -104,57 +169,310 @@ const { exploration } = Astro.props;
   .prob-caption :global(> *:last-child) {
     margin-bottom: 0;
   }
+  @media (max-width: 420px) {
+    .prob-field {
+      flex: 1 1 100%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prob-result :global(.prob-bar-fill) {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
   const fmt = new Intl.NumberFormat('id-ID');
+  const MAX_TRIALS = 100000;
+  const MAX_POINTS = 60;
+
+  interface Outcome {
+    key: string;
+    label: string;
+    p: number;
+  }
+
+  interface Point {
+    n: number;
+    freq: number;
+  }
+
+  function outcomesFor(kind: string): Outcome[] {
+    if (kind === 'koin') {
+      return [
+        { key: 'Angka', label: 'Angka', p: 0.5 },
+        { key: 'Gambar', label: 'Gambar', p: 0.5 },
+      ];
+    }
+    if (kind === 'dua-dadu') {
+      const list: Outcome[] = [];
+      for (let k = 2; k <= 12; k++) {
+        list.push({ key: String(k), label: `Jumlah ${k}`, p: (6 - Math.abs(k - 7)) / 36 });
+      }
+      return list;
+    }
+    return [1, 2, 3, 4, 5, 6].map((d) => ({ key: String(d), label: `Mata ${d}`, p: 1 / 6 }));
+  }
+
+  function sampleOnce(kind: string): string {
+    if (kind === 'koin') return Math.random() < 0.5 ? 'Angka' : 'Gambar';
+    if (kind === 'dua-dadu') {
+      const a = Math.floor(Math.random() * 6) + 1;
+      const b = Math.floor(Math.random() * 6) + 1;
+      return String(a + b);
+    }
+    return String(Math.floor(Math.random() * 6) + 1);
+  }
 
   function setupProb(root: Element) {
     const kind = root.querySelector('[data-prob-kind]') as HTMLSelectElement;
+    const focus = root.querySelector('[data-prob-focus]') as HTMLSelectElement;
     const trials = root.querySelector('[data-prob-trials]') as HTMLInputElement;
     const run = root.querySelector('[data-prob-run]') as HTMLButtonElement;
+    const reset = root.querySelector('[data-prob-reset]') as HTMLButtonElement;
+    const totalEl = root.querySelector('[data-prob-total]') as HTMLElement;
     const result = root.querySelector('[data-prob-result]') as HTMLElement;
+    const chart = root.querySelector('[data-prob-chart]') as SVGSVGElement;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const el = (name: string, attrs: Record<string, string | number>) => {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+
+    let outcomeList: Outcome[] = [];
+    let counts: Record<string, number> = {};
+    let series: Record<string, Point[]> = {};
+    let total = 0;
+    let focusKey = '';
+
+    function populateFocus() {
+      focus.replaceChildren();
+      for (const o of outcomeList) {
+        const opt = document.createElement('option');
+        opt.value = o.key;
+        opt.textContent = o.label;
+        focus.appendChild(opt);
+      }
+      focus.value = focusKey;
+    }
+
+    function initExperiment() {
+      outcomeList = outcomesFor(kind.value);
+      counts = {};
+      series = {};
+      for (const o of outcomeList) {
+        counts[o.key] = 0;
+        series[o.key] = [];
+      }
+      total = 0;
+      focusKey = outcomeList[0].key;
+      populateFocus();
+      render();
+    }
+
+    function downsample() {
+      const len = series[outcomeList[0].key].length;
+      if (len <= MAX_POINTS) return;
+      const idxs: number[] = [];
+      for (let i = 0; i < MAX_POINTS; i++) {
+        idxs.push(Math.round((i / (MAX_POINTS - 1)) * (len - 1)));
+      }
+      for (const o of outcomeList) {
+        series[o.key] = idxs.map((i) => series[o.key][i]);
+      }
+    }
 
     function simulate() {
-      const k = kind.value;
-      const n = Math.max(1, Math.min(100000, Number(trials.value) || 1));
-      const outcomes = k === 'koin' ? ['Angka', 'Gambar'] : ['1', '2', '3', '4', '5', '6'];
-      const counts: Record<string, number> = {};
-      outcomes.forEach((o) => (counts[o] = 0));
-
+      const n = Math.max(1, Math.min(MAX_TRIALS, Math.floor(Number(trials.value) || 0) || 1));
+      const step = Math.max(1, Math.floor(n / MAX_POINTS));
+      const before = total;
       for (let i = 0; i < n; i++) {
-        if (k === 'koin') {
-          counts[Math.random() < 0.5 ? 'Angka' : 'Gambar']++;
-        } else {
-          const d = Math.floor(Math.random() * 6) + 1;
-          counts[String(d)]++;
+        const key = sampleOnce(kind.value);
+        counts[key]++;
+        const done = i + 1;
+        if (done % step === 0 || done === n) {
+          const t = before + done;
+          for (const o of outcomeList) {
+            series[o.key].push({ n: t, freq: counts[o.key] / t });
+          }
         }
       }
+      total = before + n;
+      downsample();
+      render();
+    }
 
-      result.innerHTML = '';
-      const theory = 1 / outcomes.length;
-      for (const o of outcomes) {
-        const freq = counts[o] / n;
+    function renderTotal() {
+      if (total === 0) {
+        totalEl.textContent = 'Belum ada percobaan. Tekan "Lakukan simulasi" untuk mulai mengumpulkan data.';
+        return;
+      }
+      const f = outcomeList.find((o) => o.key === focusKey);
+      totalEl.textContent = `Total percobaan: ${fmt.format(total)} lemparan · fokus pada ${f ? f.label : focusKey}.`;
+    }
+
+    function renderBars() {
+      result.replaceChildren();
+      for (const o of outcomeList) {
+        const c = counts[o.key] ?? 0;
+        const freq = total > 0 ? c / total : 0;
         const wrap = document.createElement('div');
-        wrap.className = 'prob-bar-wrap';
-        wrap.innerHTML = `
-          <div class="prob-bar-label">
-            <span>${k === 'dadu' ? 'Mata ' + o : o}</span>
-            <span><strong>${fmt.format(counts[o])}</strong> kemunculan · peluang empiris ${(freq * 100).toFixed(2)}%</span>
-          </div>
-          <div class="prob-bar-track"><div class="prob-bar-fill" style="width:${(freq * 100).toFixed(2)}%"></div></div>
-          <div class="prob-bar-track"><div class="prob-bar-fill theory" style="width:${(theory * 100).toFixed(2)}%"></div></div>`;
+        wrap.className = 'prob-bar-wrap' + (o.key === focusKey ? ' is-focus' : '');
+
+        const label = document.createElement('div');
+        label.className = 'prob-bar-label';
+        const name = document.createElement('span');
+        name.textContent = o.key === focusKey ? `${o.label} (fokus)` : o.label;
+        const detail = document.createElement('span');
+        const strong = document.createElement('strong');
+        strong.textContent = fmt.format(c);
+        detail.appendChild(strong);
+        detail.appendChild(
+          document.createTextNode(
+            ` kemunculan · empiris ${(freq * 100).toFixed(2)}% · teoretis ${(o.p * 100).toFixed(2)}%`,
+          ),
+        );
+        label.appendChild(name);
+        label.appendChild(detail);
+
+        const empiricalTrack = document.createElement('div');
+        empiricalTrack.className = 'prob-bar-track';
+        const empiricalFill = document.createElement('div');
+        empiricalFill.className = 'prob-bar-fill';
+        empiricalFill.style.width = `${(freq * 100).toFixed(2)}%`;
+        empiricalTrack.appendChild(empiricalFill);
+
+        const theoryTrack = document.createElement('div');
+        theoryTrack.className = 'prob-bar-track';
+        const theoryFill = document.createElement('div');
+        theoryFill.className = 'prob-bar-fill theory';
+        theoryFill.style.width = `${(o.p * 100).toFixed(2)}%`;
+        theoryTrack.appendChild(theoryFill);
+
+        wrap.appendChild(label);
+        wrap.appendChild(empiricalTrack);
+        wrap.appendChild(theoryTrack);
         result.appendChild(wrap);
       }
+
       const note = document.createElement('p');
       note.className = 'prob-note';
-      note.textContent = `Batang biru = peluang empiris, batang oranye = peluang teoretis ${(theory * 100).toFixed(2)}%. Semakin banyak percobaan, peluang empiris cenderung mendekati peluang teoretis (Hukum Bilangan Besar).`;
+      note.textContent =
+        'Batang biru = peluang empiris kumulatif, batang oranye = peluang teoretis. Grafik di atas menunjukkan bagaimana peluang empiris hasil yang dipilih bergerak menuju garis teoretis ketika jumlah percobaan bertambah (Hukum Bilangan Besar).';
       result.appendChild(note);
     }
 
+    function drawChart() {
+      chart.replaceChildren();
+      const W = 480;
+      const H = 260;
+      const padL = 48;
+      const padR = 16;
+      const padT = 18;
+      const padB = 34;
+      const x0 = padL;
+      const x1 = W - padR;
+      const y0 = padT;
+      const y1 = H - padB;
+
+      const focusOutcome = outcomeList.find((o) => o.key === focusKey) ?? outcomeList[0];
+      const pts = series[focusKey] ?? [];
+      const p = focusOutcome ? focusOutcome.p : 0.5;
+
+      const tail = pts.slice(Math.floor(pts.length / 2));
+      let tailMax = p;
+      for (const pt of tail) tailMax = Math.max(tailMax, pt.freq);
+      const yTop = Math.min(1, Math.max(tailMax * 1.25, p * 1.25, 0.05));
+      const xMax = Math.max(total, 1);
+
+      const sx = (n: number) => x0 + ((n - 1) / Math.max(1, xMax - 1)) * (x1 - x0);
+      const sy = (f: number) => y1 - (Math.min(f, yTop) / yTop) * (y1 - y0);
+
+      const ticks = [0, 0.25, 0.5, 0.75, 1];
+      for (const t of ticks) {
+        const y = y1 - t * (y1 - y0);
+        chart.appendChild(el('line', { x1: x0, y1: y, x2: x1, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+        const label = el('text', {
+          x: x0 - 6,
+          y: y + 3.5,
+          'text-anchor': 'end',
+          'font-size': 10,
+          fill: 'var(--color-text-muted)',
+        });
+        label.textContent = `${Math.round(t * yTop * 100)}%`;
+        chart.appendChild(label);
+      }
+
+      chart.appendChild(el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--color-border-strong)', 'stroke-width': 1.2 }));
+      chart.appendChild(el('line', { x1: x0, y1: y1, x2: x1, y2: y1, stroke: 'var(--color-border-strong)', 'stroke-width': 1.2 }));
+
+      const xStart = el('text', { x: x0, y: y1 + 14, 'text-anchor': 'start', 'font-size': 10, fill: 'var(--color-text-muted)' });
+      xStart.textContent = '1';
+      chart.appendChild(xStart);
+      const xEnd = el('text', { x: x1, y: y1 + 14, 'text-anchor': 'end', 'font-size': 10, fill: 'var(--color-text-muted)' });
+      xEnd.textContent = total > 0 ? fmt.format(total) : '0';
+      chart.appendChild(xEnd);
+
+      chart.appendChild(
+        el('line', {
+          x1: x0,
+          y1: sy(p),
+          x2: x1,
+          y2: sy(p),
+          stroke: 'var(--color-data)',
+          'stroke-width': 2,
+          'stroke-dasharray': '6 4',
+        }),
+      );
+      const thLabel = el('text', { x: x1, y: sy(p) - 5, 'text-anchor': 'end', 'font-size': 10, fill: 'var(--color-data)' });
+      thLabel.textContent = `teoretis ${(p * 100).toFixed(2)}%`;
+      chart.appendChild(thLabel);
+
+      if (pts.length > 0) {
+        let d = '';
+        pts.forEach((pt, i) => {
+          d += `${i === 0 ? 'M' : 'L'}${sx(pt.n).toFixed(1)} ${sy(pt.freq).toFixed(1)} `;
+        });
+        chart.appendChild(
+          el('path', {
+            d,
+            fill: 'none',
+            stroke: 'var(--color-primary)',
+            'stroke-width': 2.4,
+            'stroke-linejoin': 'round',
+            'stroke-linecap': 'round',
+          }),
+        );
+        pts.forEach((pt) => {
+          chart.appendChild(el('circle', { cx: sx(pt.n), cy: sy(pt.freq), r: 1.8, fill: 'var(--color-primary)' }));
+        });
+      }
+
+      chart.setAttribute(
+        'aria-label',
+        `Grafik garis peluang empiris kumulatif ${focusOutcome ? focusOutcome.label : ''} dari 1 sampai ${fmt.format(
+          total,
+        )} percobaan, dengan garis putus-putus peluang teoretis ${(p * 100).toFixed(2)} persen.`,
+      );
+    }
+
+    function render() {
+      renderTotal();
+      renderBars();
+      drawChart();
+    }
+
     run.addEventListener('click', simulate);
-    kind.addEventListener('change', simulate);
-    simulate();
+    reset.addEventListener('click', initExperiment);
+    kind.addEventListener('change', initExperiment);
+    focus.addEventListener('change', () => {
+      focusKey = focus.value;
+      render();
+    });
+
+    initExperiment();
   }
 
   document.querySelectorAll('[data-prob]').forEach(setupProb);

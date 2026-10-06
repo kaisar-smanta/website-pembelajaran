@@ -1,99 +1,208 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
-import FunctionSlider from '@/components/interactive/FunctionSlider.astro';
-import CompoundInterestSim from '@/components/interactive/CompoundInterestSim.astro';
-import ProbabilitySim from '@/components/interactive/ProbabilitySim.astro';
-import LinearRegressionSim from '@/components/interactive/LinearRegressionSim.astro';
-import { getExploration } from '@/data/explorations';
-import { getTopic } from '@/data/topics';
-import { url, topicUrl } from '@/utils/url';
+import ExplorationPanel from '@/components/interactive/ExplorationPanel.astro';
+import { explorationsByGrade, orderedExplorations } from '@/data/explorations';
+import { GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { url } from '@/utils/url';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Eksplorasi' },
 ];
-const ordered = [
-  'eksponen-pertumbuhan',
-  'kuadrat-parameter',
-  'fungsi-eksponensial-parameter',
-  'bunga-majemuk-sim',
-  'anuitas-sim',
-  'peluang-sim',
-  'regresi-sim',
-]
-  .map((id) => getExploration(id))
-  .filter((e): e is NonNullable<typeof e> => Boolean(e));
+
+const groups = GRADE_ORDER.map((grade) => ({
+  grade,
+  meta: GRADES[grade],
+  items: explorationsByGrade(grade),
+})).filter((g) => g.items.length > 0);
+
+const total = orderedExplorations().length;
 ---
 
 <BaseLayout
-  title="Eksplorasi"
-  description="Eksplorasi matematika interaktif: penggeser parameter fungsi, simulasi bunga majemuk, anuitas, peluang, dan regresi linear."
+  title="Media Pembelajaran Interaktif"
+  description="Eksplorasi matematika interaktif: penggeser parameter fungsi, simulasi barisan, sebaran data, bunga majemuk, anuitas, peluang, peluang bersyarat, dan regresi linear. Belajar dengan memprediksi, mengamati, lalu menjelaskan."
 >
   <div class="container">
     <Breadcrumbs items={crumbs} />
+
     <header class="page-head">
-      <p class="eyebrow">Belajar dengan Menemukan</p>
-      <h1>Eksplorasi</h1>
+      <p class="eyebrow">Laboratorium Matematika</p>
+      <h1>Media Pembelajaran Interaktif</h1>
       <p class="lead">
         Sebelum membaca rumus, cobalah mengubah-ubah nilainya. Amati apa yang berubah, ajukan
-        dugaan, lalu hubungkan dengan konsep yang kamu pelajari.
+        dugaan, lalu hubungkan dengan konsep yang kamu pelajari. Setiap eksplorasi memandu kamu
+        dengan alur <strong>prediksi → amati → jelaskan</strong>.
       </p>
+      <p class="page-meta">{total} eksplorasi interaktif, tersusun per kelas.</p>
     </header>
 
-    {
-      ordered.map((e) => {
-        const topic = e.topicId ? getTopic(e.topicId) : undefined;
-        return (
-          <section class="exploration" aria-labelledby={`ex-${e.id}`}>
-            <div class="ex-head">
-              <h2 id={`ex-${e.id}`}>{e.title}</h2>
-              {topic && (
-                <a class="ex-topic" href={topicUrl(topic.grade, topic.element, topic.slug)}>
-                  Materi: {topic.title}
-                </a>
-              )}
+    <nav class="ex-index" id="daftar-eksplorasi" aria-label="Daftar eksplorasi">
+      <h2 class="ex-index-title">Peta eksplorasi</h2>
+      <div class="ex-index-groups">
+        {
+          groups.map((g) => (
+            <div class="ex-index-group">
+              <a class="ex-index-grade" href={`#kelas-${g.grade}`}>
+                {g.meta.name}
+                <span class="ex-index-count">{g.items.length}</span>
+              </a>
+              <ul>
+                {g.items.map((e) => (
+                  <li>
+                    <a href={`#ex-${e.id}`}>{e.title}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            {e.type === 'function-slider' && <FunctionSlider exploration={e} />}
-            {e.type === 'compound-interest' && <CompoundInterestSim exploration={e} />}
-            {e.type === 'probability' && <ProbabilitySim exploration={e} />}
-            {e.type === 'linear-regression' && <LinearRegressionSim exploration={e} />}
-          </section>
-        );
-      })
+          ))
+        }
+      </div>
+    </nav>
+
+    {
+      groups.map((g) => (
+        <section class="grade-section" aria-labelledby={`kelas-${g.grade}`}>
+          <div class="grade-head">
+            <h2 id={`kelas-${g.grade}`} class="grade-title">
+              {g.meta.name}
+              <span class="grade-badge">{g.meta.label}</span>
+            </h2>
+            <p class="grade-desc">{g.meta.description}</p>
+          </div>
+          {g.items.map((e) => (
+            <ExplorationPanel exploration={e} />
+          ))}
+        </section>
+      ))
     }
+
+    <aside class="closing" aria-label="Langkah selanjutnya">
+      <p>
+        Sudah menemukan polanya? Uji pemahamanmu lewat <a href={url('/latihan')}>latihan berjenjang</a>,
+        atau lanjutkan menelusuri <a href={url('/peta-pembelajaran')}>peta pembelajaran</a>.
+      </p>
+    </aside>
   </div>
 </BaseLayout>
 
 <style>
   .page-head {
-    padding-block: 0.5rem 1.5rem;
+    padding-block: 0.5rem 1.25rem;
   }
   .lead {
     max-width: 70ch;
     color: var(--color-text-muted);
     font-size: 1.08rem;
   }
-  .exploration {
-    padding-block: 1.25rem;
-    border-top: 1px solid var(--color-border);
-  }
-  .ex-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  .ex-topic {
-    display: inline-block;
-    padding-block: 0.2rem;
+  .page-meta {
+    margin-top: 0.5rem;
     font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-text-soft);
+  }
+
+  .ex-index {
+    padding: 1rem 1.15rem;
+    margin-bottom: 1.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .ex-index-title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+  }
+  .ex-index-groups {
+    display: grid;
+    gap: 1rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .ex-index-grade {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .ex-index-grade:hover {
+    color: var(--color-primary);
+  }
+  .ex-index-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+  }
+  .ex-index-group ul {
+    list-style: none;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.25rem;
+    font-size: 0.88rem;
+  }
+  .ex-index-group a {
+    display: inline-block;
+    padding-block: 0.22rem;
     color: var(--color-text-muted);
     text-decoration: none;
   }
-  .ex-topic:hover {
+  .ex-index-group a:hover {
     color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .grade-section {
+    margin-bottom: 1.5rem;
+  }
+  .grade-head {
+    margin-bottom: 0.25rem;
+  }
+  .grade-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.65rem;
+    margin: 0;
+  }
+  .grade-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+  }
+  .grade-desc {
+    margin: 0.35rem 0 0;
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .closing {
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-lg);
+    font-size: 0.95rem;
+  }
+  .closing p {
+    margin: 0;
+  }
+  .closing a {
+    display: inline-block;
+    padding-block: 0.25rem;
   }
 </style>

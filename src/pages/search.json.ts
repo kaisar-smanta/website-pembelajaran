@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { topics } from '@/data/topics';
 import { applications, applicationCategories } from '@/data/applications';
+import { orderedExplorations } from '@/data/explorations';
 import { ELEMENTS, GRADES, ELEMENT_ORDER } from '@/data/curriculum';
 import { stripMarkdown } from '@/utils/markdown';
 
@@ -10,7 +11,7 @@ interface SearchItem {
   title: string;
   summary: string;
   url: string;
-  type: 'topik' | 'aplikasi' | 'halaman';
+  type: 'topik' | 'aplikasi' | 'eksplorasi' | 'halaman';
   grade?: string;
   element?: string;
   keywords: string;
@@ -46,6 +47,28 @@ export const GET: APIRoute = () => {
       type: 'aplikasi',
       keywords: applicationCategories[a.category].name,
       text: stripMarkdown(`${a.body} ${a.analysis ?? ''}`).slice(0, 1200),
+    });
+  }
+
+  for (const e of orderedExplorations()) {
+    const parts = [e.description, e.goal ?? ''];
+    if (e.prompts) parts.push(e.prompts.predict, e.prompts.observe, e.prompts.explain);
+    items.push({
+      title: `Eksplorasi: ${e.title}`,
+      summary: stripMarkdown(e.goal ?? e.description),
+      url: `/eksplorasi#ex-${e.id}`,
+      type: 'eksplorasi',
+      grade: e.grade,
+      element: e.element,
+      keywords: [
+        ...(e.tags ?? []),
+        'eksplorasi interaktif',
+        e.grade ? GRADES[e.grade].name : '',
+        e.element ? ELEMENTS[e.element].name : '',
+      ]
+        .filter(Boolean)
+        .join(' '),
+      text: stripMarkdown(parts.join(' ')).slice(0, 800),
     });
   }
 

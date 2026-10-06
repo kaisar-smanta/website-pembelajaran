@@ -1,0 +1,132 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderInlineMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+  /** Tampilkan butir kesalahan umum. */
+  showCautions?: boolean;
+}
+const { exploration, showCautions = false } = Astro.props;
+const prompts = exploration.prompts;
+const steps = prompts
+  ? [
+      { label: 'Prediksi', text: prompts.predict },
+      { label: 'Amati', text: prompts.observe },
+      { label: 'Jelaskan', text: prompts.explain },
+    ]
+  : [];
+const hasContent = Boolean(exploration.goal) || steps.length > 0 || (showCautions && exploration.cautions?.length);
+---
+
+{
+  hasContent && (
+    <div class="brief">
+      {exploration.goal && (
+        <p class="brief-goal">
+          <span class="brief-kicker">Yang akan kamu temukan</span>
+          <span set:html={renderInlineMarkdown(exploration.goal)} />
+        </p>
+      )}
+      {steps.length > 0 && (
+        <ol class="brief-steps">
+          {steps.map((s, i) => (
+            <li>
+              <span class="brief-num" aria-hidden="true">{i + 1}</span>
+              <span class="brief-body">
+                <strong>{s.label}.</strong> <span set:html={renderInlineMarkdown(s.text)} />
+              </span>
+            </li>
+          ))}
+        </ol>
+      )}
+      {showCautions && exploration.cautions?.length ? (
+        <details class="brief-cautions">
+          <summary>Kesalahan umum saat bereksplorasi</summary>
+          <ul>
+            {exploration.cautions.map((c) => (
+              <li set:html={renderInlineMarkdown(c)} />
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </div>
+  )
+}
+
+<style>
+  .brief {
+    margin: 0.75rem 0 0.5rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .brief-goal {
+    margin: 0;
+    padding: 0.6rem 0.8rem;
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 7%, var(--color-surface-2));
+    border-left: 3px solid color-mix(in srgb, var(--accent, var(--color-primary)) 70%, transparent);
+    border-radius: var(--radius-sm);
+    font-size: 0.93rem;
+  }
+  .brief-kicker {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
+    margin-bottom: 0.15rem;
+  }
+  .brief-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .brief-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .brief-num {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .brief-body :global(strong) {
+    color: var(--color-text);
+  }
+  .brief-cautions {
+    border: 1px solid color-mix(in srgb, var(--color-danger) 28%, var(--color-border));
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-danger) 6%, var(--color-surface));
+  }
+  .brief-cautions > summary {
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--color-danger) 72%, var(--color-text));
+  }
+  .brief-cautions ul {
+    margin: 0;
+    padding: 0 1rem 0.7rem 2rem;
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+  }
+</style>

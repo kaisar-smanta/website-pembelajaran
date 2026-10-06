@@ -5,7 +5,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -137,6 +137,7 @@ export async function waitForEndpoint(port, timeoutMs = 15000) {
 }
 
 export async function launchBrowser(browserPath) {
+  killStaleCdpBrowsers();
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cdp-profile-'));
   const proc = spawn(
     browserPath,
@@ -169,20 +170,41 @@ export async function launchBrowser(browserPath) {
   return { proc, userDataDir, cdp };
 }
 
+function sweepCdpProcesses(profileFilter) {
+  if (process.platform !== 'win32') return;
+  const escaped = String(profileFilter).replace(/'/g, "''");
+  const script =
+    "Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' or Name='msedge.exe'\" | " +
+    `Where-Object { $_.CommandLine -like '*${escaped}*' } | ` +
+    'ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }';
+  try {
+    spawnSync('powershell', ['-NoProfile', '-NonInteractive', '-Command', script], { stdio: 'ignore' });
+  } catch {
+    /* abaikan */
+  }
+}
+
+export function killStaleCdpBrowsers() {
+  sweepCdpProcesses('cdp-profile-');
+}
+
 export function killBrowser(proc, userDataDir) {
   try {
-    if (process.platform === 'win32') {
-      spawn('taskkill', ['/pid', String(proc.pid), '/t', '/f'], { stdio: 'ignore' });
-    } else {
-      proc.kill('SIGKILL');
+    if (proc && proc.pid) {
+      if (process.platform === 'win32') {
+        spawnSync('taskkill', ['/pid', String(proc.pid), '/t', '/f'], { stdio: 'ignore' });
+      } else {
+        proc.kill('SIGKILL');
+      }
     }
   } catch {
     try {
-      proc.kill();
+      proc?.kill();
     } catch {
       /* abaikan */
     }
   }
+  if (userDataDir) sweepCdpProcesses(userDataDir);
   try {
     fs.rmSync(userDataDir, { recursive: true, force: true });
   } catch {

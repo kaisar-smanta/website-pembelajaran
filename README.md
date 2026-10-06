@@ -131,7 +131,11 @@ Untuk `short-answer`, tambahkan `acceptedAnswers` berisi bentuk ekuivalen.
 ## Menambah Aktivitas Interaktif
 
 1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu dari
-   `function-slider`, `compound-interest`, `probability`, `linear-regression`, atau `geogebra`.
+   `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
+   `distribution`, `conditional-probability`, atau `geogebra`. Isi juga `grade`, `element`, dan
+   `order` agar eksplorasi otomatis dikelompokkan di halaman `/eksplorasi`, serta `goal` dan
+   `prompts` (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi` kini
+   sepenuhnya dibangkitkan dari registri ini.
 2. Untuk tipe yang sudah ada, cukup menautkan `explorationId` pada blok `exploration` di dalam
    sebuah `section`:
 

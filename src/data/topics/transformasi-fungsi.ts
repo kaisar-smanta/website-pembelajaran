@@ -25,6 +25,7 @@ export const transformasiFungsi: Topic = {
   ],
   prerequisites: ['fungsi-kuadrat'],
   relatedTopics: ['komposisi-fungsi', 'fungsi-invers'],
+  explorations: ['transformasi-fungsi-sim'],
   prerequisiteKnowledge: [
     'Menggambar grafik fungsi dasar seperti $y=x^2$, $y=x^3$, dan $y=2x+1$',
     'Mensubstitusi bentuk aljabar ke dalam fungsi',
@@ -168,6 +169,13 @@ Di sini $a$ mengatur peregangan vertikal dan refleksi terhadap sumbu-$x$, $k$ me
 - menggeser ke atas $3$ lalu meregangkan vertikal dengan faktor $2$ menghasilkan $2(x^2+3)=2x^2+6$.
 
 Kedua hasil berbeda. Karena itu, transformasi pada sumbu yang sama sebaiknya dikerjakan dengan urutan yang jelas.`,
+    },
+    {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Transformasi Fungsi',
+      body: `Selidiki bagaimana $a$, $h$, dan $k$ pada $y=a\\,f(x-h)+k$ menggeser, mencerminkan, dan meregangkan grafik dasar $f(x)=x^{2}$.`,
+      blocks: [{ kind: 'exploration', explorationId: 'transformasi-fungsi-sim' }],
     },
     {
       id: 'contoh',

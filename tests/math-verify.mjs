@@ -181,4 +181,72 @@ check('nilai min (2)^2-4(2)+7', 2 * 2 - 4 * 2 + 7, 3);
 check('refleksi x-axis', -(2 * 1 + 1), -3);
 check('refleksi y-axis', 2 * -1 + 1, -1);
 
+// ---------- Eksplorasi: barisan dan deret ----------
+const arit = (a, b, n) => a + (n - 1) * b;
+const aritS = (a, b, n) => (n / 2) * (2 * a + (n - 1) * b);
+const geo = (a, r, n) => a * r ** (n - 1);
+const geoS = (a, r, n) => (r === 1 ? n * a : (a * (r ** n - 1)) / (r - 1));
+check('explorer arit U8', arit(2, 2, 8), 16);
+check('explorer arit S8', aritS(2, 2, 8), 72);
+check('explorer geo U8', geo(2, 2, 8), 256);
+check('explorer geo S8', geoS(2, 2, 8), 510);
+check('explorer geo S1 = a', geoS(2, 2, 1), 2);
+check('explorer geo r=1 => n·a', geoS(3, 1, 5), 15);
+check('explorer geo tak hingga mendekati 4', r2(geoS(2, 0.5, 40)), 4, 0.001);
+
+// ---------- Eksplorasi: sebaran dan pencilan ----------
+const sorted = (arr) => [...arr].sort((a, b) => a - b);
+const med = (arr) => {
+  const s = sorted(arr);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+};
+const quart = (arr) => {
+  const s = sorted(arr);
+  const m = Math.floor(s.length / 2);
+  const lower = s.slice(0, m);
+  const upper = s.length % 2 ? s.slice(m + 1) : s.slice(m);
+  return { q1: med(lower), q3: med(upper) };
+};
+const q = quart([2, 3, 4, 4, 6, 6, 6, 7, 9, 13]);
+check('explorer median', med([2, 3, 4, 4, 6, 6, 6, 7, 9, 13]), 6);
+check('explorer Q1', q.q1, 4);
+check('explorer Q3', q.q3, 7);
+check('explorer IQR', q.q3 - q.q1, 3);
+check(
+  'explorer pagar atas & pencilan',
+  [2, 3, 4, 4, 6, 6, 6, 7, 9, 13].filter((x) => x > q.q3 + 1.5 * (q.q3 - q.q1)).length,
+  1,
+);
+
+// ---------- Eksplorasi: peluang bersyarat ----------
+const cond = (pA, pBA, pBAc) => {
+  const pAB = pA * pBA;
+  const pAcB = (1 - pA) * pBAc;
+  const pB = pAB + pAcB;
+  return { pAB, pB, pAgB: pB === 0 ? 0 : pAB / pB };
+};
+check('explorer P(B) campuran', r2(cond(0.2, 0.9, 0.2).pB), 0.34, 1e-9);
+check('explorer P(A|B)', r2(cond(0.2, 0.9, 0.2).pAgB), 0.53, 0.005);
+check('explorer P(A|B) ≠ P(B|A)', cond(0.2, 0.9, 0.2).pAgB !== 0.9, true);
+check('explorer P(A|B) simetris', cond(0.5, 0.5, 0.5).pAgB, 0.5);
+
+// ---------- Eksplorasi: frekuensi bunga majemuk ----------
+check('efektif bulanan 12%', r2((1 + 0.12 / 12) ** 12 - 1), 0.13, 0.001);
+check('efektif semesteran 10%', r2((1 + 0.1 / 2) ** 2 - 1), 0.1, 0.001);
+check('efektif triwulanan 8%', r2((1 + 0.08 / 4) ** 4 - 1), 0.08, 0.001);
+
+// ---------- Eksplorasi: transformasi fungsi ----------
+const tf = (x, a, h, k) => a * (x - h) ** 2 + k;
+check('transform puncak (2,-3)', tf(2, 1, 2, -3), -3);
+check('transform identitas f(0)', tf(0, 1, 0, 0), 0);
+check('transform cermin f(1)', tf(1, -1, 0, 0), -1);
+check('transform geser f(2)', tf(2, 1, 2, -3), -3);
+check('transform dilatasi f(1)', tf(1, 2, 0, 0), 2);
+
+// ---------- Eksplorasi: gelombang sinus ----------
+const wave = (x, a, k) => a * Math.sin(k * x);
+check('gelombang amplitudo', wave(Math.PI / 2, 2, 1), 2, 1e-12);
+check('gelombang periode k=2', wave(Math.PI / 2, 1, 2), 0, 1e-12);
+
 console.log(`\nSemua ${passed} pemeriksaan matematika lulus.`);

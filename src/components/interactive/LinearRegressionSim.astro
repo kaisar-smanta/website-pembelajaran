@@ -10,18 +10,51 @@ const { exploration } = Astro.props;
 
 <figure class="reg-sim" data-reg>
   <p class="reg-help">
-    Klik atau ketuk pada bidang untuk menambah titik data. Garis regresi dan koefisiennya
-    dihitung otomatis menggunakan metode kuadrat terkecil.
+    Klik atau ketuk pada bidang untuk menambah titik data, atau isi nilai x dan y pada
+    formulir. Garis regresi, koefisien korelasi, dan koefisien determinasi dihitung
+    otomatis menggunakan metode kuadrat terkecil.
   </p>
+
   <div class="reg-canvas">
-    <svg viewBox="0 0 480 320" role="img" aria-label="Diagram pencar dan garis regresi" data-reg-plot></svg>
+    <svg
+      viewBox="0 0 480 320"
+      role="img"
+      aria-label="Diagram pencar titik data dengan garis regresi kuadrat terkecil"
+      data-reg-plot></svg>
   </div>
+
+  <form class="reg-form" data-reg-form novalidate>
+    <label class="reg-field">
+      <span>Nilai x</span>
+      <input type="number" min="-10" max="10" step="0.5" value="0" inputmode="decimal" required data-reg-x />
+    </label>
+    <label class="reg-field">
+      <span>Nilai y</span>
+      <input type="number" min="-10" max="10" step="0.5" value="0" inputmode="decimal" required data-reg-y />
+    </label>
+    <button type="submit" class="btn btn-secondary btn-sm">Tambah titik</button>
+    <p class="reg-msg" data-reg-form-msg aria-live="polite"></p>
+  </form>
+
   <div class="row reg-actions">
     <button type="button" class="btn btn-secondary btn-sm" data-reg-random>Tambah data acak</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-reg-remove>Hapus titik terakhir</button>
     <button type="button" class="btn btn-secondary btn-sm" data-reg-clear>Hapus semua titik</button>
     <span class="text-soft" data-reg-count>0 titik</span>
   </div>
+
+  <label class="reg-toggle">
+    <input type="checkbox" data-reg-residual />
+    <span>Tampilkan galat (residual)</span>
+  </label>
+
   <output class="reg-out" data-reg-out aria-live="polite"></output>
+
+  <div class="reg-listwrap">
+    <h3 class="reg-listtitle">Daftar titik</h3>
+    <ul class="reg-list" data-reg-list aria-label="Daftar titik data"></ul>
+  </div>
+
   <figcaption class="reg-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
@@ -51,8 +84,58 @@ const { exploration } = Astro.props;
     cursor: crosshair;
     touch-action: none;
   }
+  .reg-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+  }
+  .reg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .reg-field input {
+    width: 6.5rem;
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .reg-msg {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--color-danger);
+  }
+  .reg-msg:empty {
+    display: none;
+  }
   .reg-actions {
+    flex-wrap: wrap;
+    align-items: center;
     margin-top: 0.6rem;
+  }
+  .reg-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+  }
+  .reg-toggle input[type='checkbox'] {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    accent-color: var(--color-primary);
   }
   .reg-out {
     display: block;
@@ -62,6 +145,41 @@ const { exploration } = Astro.props;
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
   }
+  .reg-listwrap {
+    margin-top: 0.75rem;
+  }
+  .reg-listtitle {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+  }
+  .reg-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+  }
+  .reg-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.3rem 0.2rem 0.6rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .reg-item button {
+    min-height: 1.6rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.78rem;
+  }
+  .reg-empty {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
   .reg-caption {
     margin-top: 0.6rem;
     font-size: 0.86rem;
@@ -69,6 +187,17 @@ const { exploration } = Astro.props;
   }
   .reg-caption :global(> *:last-child) {
     margin-bottom: 0;
+  }
+  @media (max-width: 420px) {
+    .reg-field input {
+      width: 100%;
+    }
+    .reg-field {
+      flex: 1 1 7rem;
+    }
+    .reg-form button {
+      flex: 1 1 auto;
+    }
   }
 </style>
 
@@ -82,6 +211,12 @@ const { exploration } = Astro.props;
     const svg = root.querySelector('[data-reg-plot]') as SVGSVGElement;
     const out = root.querySelector('[data-reg-out]') as HTMLOutputElement;
     const count = root.querySelector('[data-reg-count]') as HTMLElement;
+    const form = root.querySelector('[data-reg-form]') as HTMLFormElement;
+    const xInput = root.querySelector('[data-reg-x]') as HTMLInputElement;
+    const yInput = root.querySelector('[data-reg-y]') as HTMLInputElement;
+    const formMsg = root.querySelector('[data-reg-form-msg]') as HTMLElement;
+    const residualToggle = root.querySelector('[data-reg-residual]') as HTMLInputElement;
+    const list = root.querySelector('[data-reg-list]') as HTMLUListElement;
     const points: Pt[] = [];
     const W = 480;
     const H = 320;
@@ -95,6 +230,7 @@ const { exploration } = Astro.props;
     const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
     const ix = (px: number) => xMin + ((px - pad) / (W - 2 * pad)) * (xMax - xMin);
     const iy = (py: number) => yMin + ((H - pad - py) / (H - 2 * pad)) * (yMax - yMin);
+    const inRange = (v: number) => Number.isFinite(v) && v >= xMin && v <= xMax;
 
     const svgNS = 'http://www.w3.org/2000/svg';
     const el = (name: string, attrs: Record<string, string | number>) => {
@@ -120,7 +256,36 @@ const { exploration } = Astro.props;
       const slope = sxy / sxx;
       const intercept = my - slope * mx;
       const r = syy === 0 ? NaN : sxy / Math.sqrt(sxx * syy);
-      return { n, mx, my, slope, intercept, r };
+      const r2 = r * r;
+      return { n, mx, my, slope, intercept, r, r2 };
+    }
+
+    function renderList() {
+      list.innerHTML = '';
+      if (points.length === 0) {
+        const empty = document.createElement('li');
+        empty.className = 'reg-empty';
+        empty.textContent = 'Belum ada titik data. Tambahkan lewat bidang, formulir, atau data acak.';
+        list.appendChild(empty);
+        return;
+      }
+      points.forEach((p, i) => {
+        const li = document.createElement('li');
+        li.className = 'reg-item';
+        const label = document.createElement('span');
+        label.textContent = `(${p.x.toFixed(1)}, ${p.y.toFixed(1)})`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-secondary btn-sm';
+        btn.textContent = 'Hapus';
+        btn.setAttribute('aria-label', `Hapus titik (${p.x.toFixed(1)}, ${p.y.toFixed(1)})`);
+        btn.addEventListener('click', () => {
+          points.splice(i, 1);
+          draw();
+        });
+        li.append(label, btn);
+        list.appendChild(li);
+      });
     }
 
     function draw() {
@@ -151,6 +316,22 @@ const { exploration } = Astro.props;
           stroke: 'var(--color-primary)',
           'stroke-width': 2.4,
         }));
+
+        if (residualToggle.checked) {
+          for (const p of points) {
+            const pred = st.slope * p.x + st.intercept;
+            svg.appendChild(el('line', {
+              x1: sx(p.x),
+              y1: sy(p.y),
+              x2: sx(p.x),
+              y2: sy(pred),
+              stroke: 'var(--color-danger)',
+              'stroke-width': 1.6,
+              'stroke-dasharray': '3 3',
+              opacity: 0.85,
+            }));
+          }
+        }
       }
 
       points.forEach((p) => {
@@ -158,22 +339,34 @@ const { exploration } = Astro.props;
       });
 
       count.textContent = `${points.length} titik`;
+      svg.setAttribute('aria-label', `Diagram pencar dengan ${points.length} titik data dan garis regresi kuadrat terkecil`);
+
       if (!st) {
         out.textContent = 'Tambahkan minimal dua titik untuk menghitung garis regresi.';
       } else {
         const arah = st.slope > 0 ? 'positif' : st.slope < 0 ? 'negatif' : 'nol';
-        out.textContent = `ŷ = ${st.slope.toFixed(3)}x ${st.intercept >= 0 ? '+' : '−'} ${Math.abs(st.intercept).toFixed(3)} · korelasi r = ${isNaN(st.r) ? '—' : st.r.toFixed(3)} (${arah}). Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${st.slope.toFixed(3)} satuan.`;
+        const rTeks = isNaN(st.r) ? '—' : st.r.toFixed(3);
+        const r2Teks = isNaN(st.r2) ? '—' : st.r2.toFixed(3);
+        out.textContent = `ŷ = ${st.slope.toFixed(3)}x ${st.intercept >= 0 ? '+' : '−'} ${Math.abs(st.intercept).toFixed(3)} · korelasi r = ${rTeks} · determinasi r² = ${r2Teks} (${arah}). Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${st.slope.toFixed(3)} satuan.`;
       }
+
+      renderList();
+    }
+
+    function addPoint(x: number, y: number) {
+      if (!inRange(x) || !inRange(y)) return false;
+      points.push({ x, y });
+      draw();
+      return true;
     }
 
     function addPointFromEvent(ev: MouseEvent | Touch) {
       const rect = svg.getBoundingClientRect();
       const px = ((ev.clientX - rect.left) / rect.width) * W;
       const py = ((ev.clientY - rect.top) / rect.height) * H;
-      const x = ix(px);
-      const y = iy(py);
-      points.push({ x: Math.max(xMin, Math.min(xMax, x)), y: Math.max(yMin, Math.min(yMax, y)) });
-      draw();
+      const x = Math.max(xMin, Math.min(xMax, ix(px)));
+      const y = Math.max(yMin, Math.min(yMax, iy(py)));
+      addPoint(x, y);
     }
 
     svg.addEventListener('click', (e) => addPointFromEvent(e as MouseEvent));
@@ -183,6 +376,28 @@ const { exploration } = Astro.props;
         addPointFromEvent(e.touches[0]);
       }
     }, { passive: false });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const x = Number(xInput.value);
+      const y = Number(yInput.value);
+      if (xInput.value.trim() === '' || yInput.value.trim() === '' || !inRange(x) || !inRange(y)) {
+        formMsg.textContent = 'Masukkan nilai x dan y berupa angka antara -10 dan 10.';
+        return;
+      }
+      formMsg.textContent = '';
+      addPoint(x, y);
+      xInput.value = '';
+      yInput.value = '';
+      xInput.focus();
+    });
+
+    residualToggle.addEventListener('change', draw);
+
+    root.querySelector('[data-reg-remove]')?.addEventListener('click', () => {
+      points.pop();
+      draw();
+    });
 
     root.querySelector('[data-reg-clear]')?.addEventListener('click', () => {
       points.length = 0;

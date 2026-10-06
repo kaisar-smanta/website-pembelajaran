@@ -27,6 +27,7 @@ export const analisisDistribusiData: Topic = {
   ],
   prerequisites: [],
   relatedTopics: ['data-bivariat', 'statistik-dalam-kehidupan'],
+  explorations: ['distribusi-sebaran'],
   prerequisiteKnowledge: [
     'Membaca tabel dan diagram',
     'Operasi bilangan bulat dan pecahan',
@@ -187,6 +188,13 @@ dengan $L$ tepi bawah kelas median, $F$ frekuensi kumulatif sebelum kelas median
           ],
         },
       ],
+    },
+    {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Sebaran dan Pencilan',
+      body: `Dua kumpulan data dengan mean sama bisa sangat berbeda sebarannya. Tambahkan atau geser nilai ekstrem untuk melihat ukuran mana yang paling terpengaruh.`,
+      blocks: [{ kind: 'exploration', explorationId: 'distribusi-sebaran' }],
     },
     {
       id: 'contoh',

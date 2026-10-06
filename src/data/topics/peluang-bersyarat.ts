@@ -26,6 +26,7 @@ export const peluangBersyarat: Topic = {
   ],
   prerequisites: ['peluang'],
   relatedTopics: ['peluang', 'asosiasi-kausalitas'],
+  explorations: ['peluang-bersyarat-sim'],
   prerequisiteKnowledge: [
     'Ruang sampel, kejadian, dan peluang teoretis',
     'Aturan komplemen dan aturan penjumlahan',
@@ -197,6 +198,13 @@ $$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
 Contoh: banyak cara memilih **3 dari 10** siswa untuk sebuah tim (tanpa jabatan) adalah $\\binom{10}{3} = 120$. Bila ketiganya diberi jabatan berbeda (ketua, sekretaris, bendahara), maka urutan penting dan hasilnya $P(10,3) = 10 \\cdot 9 \\cdot 8 = 720$.
 
 Banyak konteks peluang bersyarat memerlukan pencacahan ini, misalnya menghitung peluang mengambil kartu tertentu dari satu set.`,
+    },
+    {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Peluang Bersyarat',
+      body: `Ubah peluang kejadian $A$ dan $B$, lalu bandingkan $P(A\\mid B)$ dengan $P(B\\mid A)$. Apakah keduanya selalu sama?`,
+      blocks: [{ kind: 'exploration', explorationId: 'peluang-bersyarat-sim' }],
     },
     {
       id: 'contoh',

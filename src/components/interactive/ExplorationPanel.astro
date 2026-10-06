@@ -1,0 +1,179 @@
+---
+import type { ElementId, Exploration } from '@/types/content';
+import ExplorationSim from './ExplorationSim.astro';
+import ExplorationBrief from './ExplorationBrief.astro';
+import { ELEMENTS } from '@/data/curriculum';
+import { getTopic } from '@/data/topics';
+import { url, topicUrl } from '@/utils/url';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const elementAccents: Record<ElementId, string> = {
+  bilangan: 'var(--color-number)',
+  'aljabar-fungsi': 'var(--color-algebra)',
+  geometri: 'var(--color-geometry)',
+  'data-peluang': 'var(--color-data)',
+};
+const element = exploration.element ? ELEMENTS[exploration.element] : undefined;
+const accent = exploration.element ? elementAccents[exploration.element] : 'var(--color-primary)';
+const topic = exploration.topicId ? getTopic(exploration.topicId) : undefined;
+const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : undefined;
+---
+
+<article
+  class="panel"
+  id={`ex-${exploration.id}`}
+  style={`--accent:${accent}`}
+  aria-labelledby={`ex-${exploration.id}-title`}
+>
+  <header class="panel-head">
+    <div class="panel-heading">
+      <h3 class="panel-title" id={`ex-${exploration.id}-title`}>{exploration.title}</h3>
+      <div class="panel-badges">
+        {exploration.grade && <span class="chip chip-grade">Kelas {exploration.grade}</span>}
+        {element && <span class="chip">{element.short}</span>}
+      </div>
+    </div>
+    {topic && topicHref && (
+      <a class="panel-topic" href={topicHref}>Materi: {topic.title}</a>
+    )}
+  </header>
+
+  <ExplorationBrief exploration={exploration} showCautions />
+  <ExplorationSim exploration={exploration} />
+
+  <footer class="panel-foot">
+    <button
+      type="button"
+      class="panel-anchor"
+      data-copy-link={`${url('/eksplorasi')}#ex-${exploration.id}`}
+      aria-label={`Salin tautan ke ${exploration.title}`}
+    >
+      Salin tautan
+    </button>
+    {topic && (
+      <a class="panel-practice" href={url(`/latihan/${topic.slug}`)}>Latihan topik ini</a>
+    )}
+    <a class="panel-top" href="#daftar-eksplorasi">Kembali ke daftar ↑</a>
+  </footer>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((btn) => {
+    const original = btn.textContent ?? 'Salin tautan';
+    btn.addEventListener('click', async () => {
+      const value = btn.getAttribute('data-copy-link') ?? '';
+      try {
+        await navigator.clipboard.writeText(new URL(value, location.href).href);
+        btn.textContent = 'Tersalin';
+        btn.classList.add('is-copied');
+      } catch {
+        btn.textContent = 'Gagal menyalin';
+      }
+      window.setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('is-copied');
+      }, 1600);
+    });
+  });
+</script>
+
+<style>
+  .panel {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+    padding: 1.1rem 0 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+  }
+  .panel-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+  .panel-title {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  .panel-badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: color-mix(in srgb, var(--accent) 70%, var(--color-text));
+    background: color-mix(in srgb, var(--accent) 12%, var(--color-surface));
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--color-border));
+  }
+  .chip-grade {
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border-color: var(--color-border);
+  }
+  .panel-topic {
+    display: inline-block;
+    padding-block: 0.22rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .panel-topic:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .panel-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.1rem;
+    margin-top: 0.85rem;
+    font-size: 0.84rem;
+  }
+  .panel-foot a,
+  .panel-foot button {
+    display: inline-block;
+    padding-block: 0.22rem;
+    font: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .panel-foot a:hover,
+  .panel-foot button:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .panel-foot button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  .panel-foot .is-copied {
+    color: var(--color-success);
+  }
+  .panel-practice {
+    font-weight: 600;
+    color: color-mix(in srgb, var(--accent) 72%, var(--color-text)) !important;
+  }
+  .panel-top {
+    margin-left: auto;
+  }
+</style>

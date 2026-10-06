@@ -22,6 +22,34 @@ const defaults: Record<string, ExplorationParam[]> = {
     { name: 'a', label: 'a', min: 0.5, max: 3, step: 0.1, value: 1 },
     { name: 'k', label: 'k', min: 0.5, max: 3, step: 0.1, value: 1 },
   ],
+  transform: [
+    { name: 'a', label: 'a', min: -2, max: 2, step: 0.1, value: 1 },
+    { name: 'h', label: 'h', min: -4, max: 4, step: 0.5, value: 0 },
+    { name: 'k', label: 'k', min: -6, max: 6, step: 0.5, value: 0 },
+  ],
+};
+
+const presets: Record<string, { label: string; values: Record<string, number> }[]> = {
+  exponential: [
+    { label: 'b > 1', values: { b: 2 } },
+    { label: 'b = 1', values: { b: 1 } },
+    { label: '0 < b < 1', values: { b: 0.5 } },
+  ],
+  quadratic: [
+    { label: 'a > 0', values: { a: 1, b: 0, c: -4 } },
+    { label: 'a < 0', values: { a: -1, b: 0, c: 4 } },
+    { label: 'a = 0', values: { a: 0, b: 1, c: 0 } },
+  ],
+  sine: [
+    { label: 'a = 1, k = 1', values: { a: 1, k: 1 } },
+    { label: 'a = 2, k = 1', values: { a: 2, k: 1 } },
+    { label: 'a = 1, k = 2', values: { a: 1, k: 2 } },
+  ],
+  transform: [
+    { label: 'identitas', values: { a: 1, h: 0, k: 0 } },
+    { label: 'cermin', values: { a: -1, h: 0, k: 0 } },
+    { label: 'geser', values: { a: 1, h: 2, k: -3 } },
+  ],
 };
 
 const params = exploration.params && exploration.params.length ? exploration.params : defaults[formula];
@@ -29,18 +57,22 @@ const formLabel: Record<string, string> = {
   quadratic: 'f(x) = ax² + bx + c',
   exponential: 'f(x) = a · bˣ',
   sine: 'f(x) = a · sin(kx)',
+  transform: 'y = a·(x − h)² + k',
 };
+const readoutId = `sim-readout-${exploration.id}`;
+const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${p.name} = ${p.value}`).join(', ')}`;
 ---
 
 <figure
   class="sim"
   data-fn-plot
   data-formula={formula}
+  data-formula-label={formLabel[formula]}
   data-params={JSON.stringify(params.map((p) => ({ name: p.name, value: p.value })))}
 >
   <div class="sim-formula" aria-hidden="true">{formLabel[formula]}</div>
   <div class="sim-canvas">
-    <svg viewBox="0 0 480 300" role="img" aria-label="Grafik fungsi interaktif" data-plot></svg>
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-plot></svg>
   </div>
   <div class="sim-controls">
     {
@@ -59,12 +91,27 @@ const formLabel: Record<string, string> = {
             value={p.value}
             data-param={p.name}
             aria-label={`Ubah ${p.label}`}
+            aria-describedby={readoutId}
           />
         </label>
       ))
     }
   </div>
-  <output class="sim-readout" data-readout aria-live="polite"></output>
+  <div class="sim-bar">
+    {
+      presets[formula]?.length ? (
+        <div class="sim-presets" role="group" aria-label="Preset parameter">
+          {presets[formula].map((preset) => (
+            <button type="button" data-preset={JSON.stringify(preset.values)}>
+              {preset.label}
+            </button>
+          ))}
+        </div>
+      ) : null
+    }
+    <button type="button" class="sim-reset" data-reset>Atur ulang</button>
+  </div>
+  <output id={readoutId} class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
   <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
@@ -117,6 +164,47 @@ const formLabel: Record<string, string> = {
     width: 100%;
     accent-color: var(--color-primary);
   }
+  .sim-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+  .sim-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .sim-presets button,
+  .sim-reset {
+    font: inherit;
+    font-size: 0.82rem;
+    padding: 0.32rem 0.65rem;
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition:
+      background var(--dur) var(--ease-out-soft),
+      border-color var(--dur) var(--ease-out-soft),
+      color var(--dur) var(--ease-out-soft);
+  }
+  .sim-presets button:hover,
+  .sim-reset:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .sim-presets button:focus-visible,
+  .sim-reset:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .sim-reset {
+    margin-left: auto;
+    font-weight: 600;
+  }
   .sim-readout {
     display: block;
     margin-top: 0.75rem;
@@ -133,6 +221,23 @@ const formLabel: Record<string, string> = {
   .sim-caption :global(> *:last-child) {
     margin-bottom: 0;
   }
+  @media (max-width: 390px) {
+    .sim-bar {
+      gap: 0.4rem;
+    }
+    .sim-presets {
+      width: 100%;
+    }
+    .sim-reset {
+      margin-left: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sim-presets button,
+    .sim-reset {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
@@ -141,10 +246,13 @@ const formLabel: Record<string, string> = {
   function setup(root: Element) {
     const svg = root.querySelector('[data-plot]') as SVGSVGElement;
     const formula = root.getAttribute('data-formula') ?? 'exponential';
+    const formulaLabel = root.getAttribute('data-formula-label') ?? '';
     const initial: Params[] = JSON.parse(root.getAttribute('data-params') ?? '[]');
     const outputs = root.querySelectorAll('[data-output]');
     const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
     const inputs = root.querySelectorAll('[data-param]');
+    const resetButton = root.querySelector('[data-reset]');
+    const presetButtons = root.querySelectorAll('[data-preset]');
 
     const state: Record<string, number> = {};
     initial.forEach((p) => (state[p.name] = p.value));
@@ -154,7 +262,7 @@ const formLabel: Record<string, string> = {
     const pad = 34;
 
     const setupMap = () => {
-      if (formula === 'quadratic') return { xMin: -8, xMax: 8, yMin: -12, yMax: 12 };
+      if (formula === 'quadratic' || formula === 'transform') return { xMin: -8, xMax: 8, yMin: -12, yMax: 12 };
       if (formula === 'sine') return { xMin: -2 * Math.PI, xMax: 2 * Math.PI, yMin: -3.2, yMax: 3.2 };
       return { xMin: -4, xMax: 4, yMin: -2, yMax: 18 };
     };
@@ -171,9 +279,21 @@ const formLabel: Record<string, string> = {
         const k = state.k ?? 1;
         return a * Math.sin(k * x);
       }
+      if (formula === 'transform') {
+        const a = state.a ?? 1;
+        const h = state.h ?? 0;
+        const k = state.k ?? 0;
+        const d = x - h;
+        return a * d * d + k;
+      }
       const a = state.a ?? 1;
       const b = state.b ?? 1;
       return a * Math.pow(b, x);
+    }
+
+    function fmt(n: number): string {
+      if (Number.isInteger(n)) return String(n);
+      return String(Number(n.toFixed(2)));
     }
 
     const svgNS = 'http://www.w3.org/2000/svg';
@@ -239,7 +359,6 @@ const formLabel: Record<string, string> = {
       path.setAttribute('d', d);
       svg.appendChild(path);
 
-      // Titik penting untuk kuadrat: titik puncak.
       if (formula === 'quadratic') {
         const a = state.a ?? 1;
         const b = state.b ?? 0;
@@ -250,6 +369,14 @@ const formLabel: Record<string, string> = {
           if (yv >= yMin && yv <= yMax) {
             svg.appendChild(el('circle', { cx: sx(xv), cy: sy(yv), r: 4.5, fill: 'var(--color-warning)' }));
           }
+        }
+      }
+
+      if (formula === 'transform') {
+        const h = state.h ?? 0;
+        const k = state.k ?? 0;
+        if (k >= yMin && k <= yMax) {
+          svg.appendChild(el('circle', { cx: sx(h), cy: sy(k), r: 5, fill: 'var(--color-warning)' }));
         }
       }
     }
@@ -270,6 +397,18 @@ const formLabel: Record<string, string> = {
         readout.textContent = info;
       } else if (formula === 'sine') {
         readout.textContent = `Amplitudo |a| = ${Math.abs(state.a ?? 1)}, periode = 2π / |k| ≈ ${(2 * Math.PI / Math.abs(state.k ?? 1)).toFixed(2)}.`;
+      } else if (formula === 'transform') {
+        const a = state.a ?? 1;
+        const h = state.h ?? 0;
+        const k = state.k ?? 0;
+        let info = `a = ${fmt(a)}, h = ${fmt(h)}, k = ${fmt(k)}. Titik puncak (${fmt(h)}, ${fmt(k)}). `;
+        info += a === 0 ? 'Jika a = 0, grafik bukan parabola. ' : a > 0 ? 'Parabola terbuka ke atas. ' : 'Parabola terbuka ke bawah. ';
+        info += `Transformasi dari y = x²: translasi horizontal ${fmt(h)} satuan, translasi vertikal ${fmt(k)} satuan, `;
+        if (a === 1) info += 'tanpa dilatasi atau pencerminan (a = 1).';
+        else if (a === -1) info += 'pencerminan terhadap sumbu x (a = -1).';
+        else if (a < 0) info += `pencerminan terhadap sumbu x dan dilatasi vertikal dengan faktor ${fmt(Math.abs(a))} (a = ${fmt(a)}).`;
+        else info += `dilatasi vertikal dengan faktor ${fmt(a)} (a = ${fmt(a)}).`;
+        readout.textContent = info;
       } else {
         const a = state.a ?? 1;
         const b = state.b ?? 1;
@@ -278,21 +417,51 @@ const formLabel: Record<string, string> = {
       }
     }
 
+    function updateAria() {
+      const parts = initial.map((p) => `${p.name} = ${fmt(state[p.name] ?? p.value)}`);
+      svg.setAttribute('aria-label', `Grafik ${formulaLabel} dengan ${parts.join(', ')}`);
+    }
+
+    function setParam(name: string, value: number) {
+      state[name] = value;
+      inputs.forEach((input) => {
+        if (input.getAttribute('data-param') === name) (input as HTMLInputElement).value = String(value);
+      });
+      outputs.forEach((o) => {
+        if (o.getAttribute('data-output') === name) o.textContent = String(value);
+      });
+    }
+
+    function sync() {
+      draw();
+      updateReadout();
+      updateAria();
+    }
+
     inputs.forEach((input) => {
       input.addEventListener('input', () => {
         const name = input.getAttribute('data-param') as string;
-        const value = Number((input as HTMLInputElement).value);
-        state[name] = value;
-        outputs.forEach((o) => {
-          if (o.getAttribute('data-output') === name) o.textContent = String(value);
-        });
-        draw();
-        updateReadout();
+        setParam(name, Number((input as HTMLInputElement).value));
+        sync();
       });
     });
 
-    draw();
-    updateReadout();
+    presetButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const raw = button.getAttribute('data-preset');
+        if (!raw) return;
+        const values = JSON.parse(raw) as Record<string, number>;
+        Object.entries(values).forEach(([name, value]) => setParam(name, value));
+        sync();
+      });
+    });
+
+    resetButton?.addEventListener('click', () => {
+      initial.forEach((p) => setParam(p.name, p.value));
+      sync();
+    });
+
+    sync();
   }
 
   document.querySelectorAll('[data-fn-plot]').forEach(setup);

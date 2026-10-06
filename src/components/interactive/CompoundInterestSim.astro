@@ -27,12 +27,29 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       <span>Lama {mode === 'anuitas' ? 'pinjaman' : 'menabung'} (tahun)</span>
       <input type="number" min="1" max="40" step="1" value={mode === 'anuitas' ? 5 : 10} data-field="years" />
     </label>
+    {mode !== 'anuitas' && (
+      <label class="sim-field">
+        <span>Frekuensi bunga per tahun</span>
+        <select data-field="freq">
+          <option value="1" selected>Tahunan</option>
+          <option value="2">Semesteran</option>
+          <option value="4">Triwulanan</option>
+          <option value="12">Bulanan</option>
+        </select>
+      </label>
+    )}
   </div>
 
   <div class="sim-summary" data-summary aria-live="polite"></div>
 
   <div class="sim-chart">
-    <svg viewBox="0 0 480 260" role="img" aria-label="Grafik pertumbuhan saldo" data-chart></svg>
+    <svg
+      viewBox="0 0 480 260"
+      role="img"
+      aria-label={mode === 'anuitas'
+        ? 'Grafik penurunan sisa pinjaman dari bulan ke bulan'
+        : 'Grafik perbandingan saldo bunga tunggal dan bunga majemuk per tahun'}
+      data-chart></svg>
     <div class="legend" data-legend></div>
   </div>
 
@@ -72,7 +89,8 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     font-weight: 600;
     color: var(--color-text-muted);
   }
-  .sim-field input {
+  .sim-field input,
+  .sim-field select {
     padding: 0.45rem 0.55rem;
     border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-sm);
@@ -98,6 +116,15 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
   .sim-summary :global(.stat strong) {
     font-family: var(--font-mono);
     color: var(--color-primary);
+  }
+  .sim-summary :global(.sim-note) {
+    margin: 0;
+    padding: 0.5rem 0.7rem;
+    border-left: 0.2rem solid var(--color-primary);
+    background: color-mix(in srgb, var(--color-surface-2) 70%, transparent);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
   }
   .sim-chart {
     max-width: 36rem;
@@ -172,6 +199,20 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
   .sim-caption :global(> *:last-child) {
     margin-bottom: 0;
   }
+  .sim-field select {
+    cursor: pointer;
+  }
+  @media (max-width: 30rem) {
+    .sim-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sim :global(*) {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
 <script>
@@ -183,6 +224,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     const P = root.querySelector('[data-field="P"]') as HTMLInputElement;
     const rate = root.querySelector('[data-field="rate"]') as HTMLInputElement;
     const years = root.querySelector('[data-field="years"]') as HTMLInputElement;
+    const freq = root.querySelector('[data-field="freq"]') as HTMLSelectElement | null;
     const summary = root.querySelector('[data-summary]') as HTMLElement;
     const thead = root.querySelector('[data-thead]') as HTMLElement;
     const tbody = root.querySelector('[data-tbody]') as HTMLElement;
@@ -199,31 +241,40 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     function render() {
       const p = Math.max(0, Number(P.value) || 0);
       const iy = Math.max(0, Number(rate.value) || 0) / 100;
-      const n = Math.max(1, Math.min(60, Math.round(Number(years.value) || 1)));
+      const n = Math.max(1, Math.min(40, Math.round(Number(years.value) || 1)));
 
       if (mode === 'anuitas') {
         renderAnuitas(p, iy, n);
       } else {
-        renderBunga(p, iy, n);
+        const rawFreq = freq ? Number(freq.value) : 1;
+        const m = [1, 2, 4, 12].includes(rawFreq) ? rawFreq : 1;
+        renderBunga(p, iy, n, m);
       }
     }
 
-    function renderBunga(p: number, iy: number, n: number) {
+    function renderBunga(p: number, iy: number, n: number, m: number) {
       const simple: number[] = [];
       const compound: number[] = [];
-      let comp = p;
       for (let t = 0; t <= n; t++) {
         simple.push(p * (1 + iy * t));
-        if (t > 0) comp = comp * (1 + iy);
-        compound.push(comp);
+        compound.push(p * Math.pow(1 + iy / m, m * t));
       }
       const lastSimple = simple[n];
       const lastComp = compound[n];
+      const effective = Math.pow(1 + iy / m, m) - 1;
 
       summary.innerHTML = '';
       addStat(summary, 'Saldo akhir (bunga tunggal)', rupiah.format(lastSimple));
       addStat(summary, 'Saldo akhir (bunga majemuk)', rupiah.format(lastComp));
       addStat(summary, 'Selisih', rupiah.format(lastComp - lastSimple));
+      addStat(summary, 'Efektif / tahun', `${angka.format(effective * 100)}%`);
+
+      const note = document.createElement('p');
+      note.className = 'sim-note';
+      note.textContent = iy > 0
+        ? 'Bunga majemuk selalu lebih besar daripada bunga tunggal mulai tahun ke-1 karena bunga yang diperoleh ikut berbunga.'
+        : 'Karena suku bunga 0%, saldo bunga tunggal dan bunga majemuk sama.';
+      summary.appendChild(note);
 
       thead.innerHTML = `<tr><th scope="col">Tahun</th><th scope="col">Bunga tunggal</th><th scope="col">Bunga majemuk</th></tr>`;
       tbody.innerHTML = '';
@@ -256,6 +307,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       const balances: number[] = [p];
       let sisa = p;
       const maxRows = Math.min(m, 12);
+      const step = Math.max(1, Math.ceil(m / 12));
       for (let k = 1; k <= m; k++) {
         const bunga = sisa * r;
         const pokok = A - bunga;
@@ -266,7 +318,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
           const tr = row(['…', '…', '…', '…', '…']);
           tbody.appendChild(tr);
         }
-        if (k % 12 === 0 || k === m) balances.push(sisa);
+        if (k % step === 0 || k === m) balances.push(sisa);
       }
       if (balances.length < 2) balances.push(sisa);
 
@@ -324,6 +376,10 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     }
 
     [P, rate, years].forEach((input) => input.addEventListener('input', render));
+    if (freq) {
+      freq.addEventListener('change', render);
+      freq.addEventListener('input', render);
+    }
     render();
   }
 

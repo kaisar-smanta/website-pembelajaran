@@ -28,6 +28,7 @@ export const trigonometri: Topic = {
   ],
   prerequisites: [],
   relatedTopics: ['lingkaran'],
+  explorations: ['trigonometri-gelombang'],
   prerequisiteKnowledge: [
     'Teorema Pythagoras pada segitiga siku-siku',
     'Operasi bilangan dan bentuk akar',
@@ -184,6 +185,13 @@ Perhatikan bahwa bila $A=90^\\circ$, maka $\\cos 90^\\circ=0$ sehingga aturan ko
           text: 'Sudut dan sisi harus **berpasangan dengan benar**: sisi $a$ selalu berhadapan dengan sudut $A$. Menukar pasangan ini adalah penyebab kesalahan paling umum.',
         },
       ],
+    },
+    {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Gelombang Sinus',
+      body: `Fungsi sinus $f(x)=a\\sin(kx)$ muncul dari memutar sebuah titik pada lingkaran satuan. Sebelum melanjutkan, selidiki bagaimana amplitudo $a$ dan bilangan gelombang $k$ mengubah bentuk gelombang.`,
+      blocks: [{ kind: 'exploration', explorationId: 'trigonometri-gelombang' }],
     },
     {
       id: 'contoh',
