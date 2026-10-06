@@ -1,0 +1,35 @@
+---
+import type { ElementId } from '@/types/content';
+
+interface Props {
+  element: ElementId;
+  size?: number;
+}
+const { element, size = 22 } = Astro.props;
+
+const paths: Record<ElementId, string> = {
+  bilangan:
+    'M4 7h16M4 12h16M4 17h10M6 4v16M13 4v16',
+  'aljabar-fungsi':
+    'M4 20c4 0 5-3 6-7s3-9 8-9M4 20h16M4 20V4',
+  geometri:
+    'M12 3 21 20H3L12 3Zm0 0v17M3 20l9-9 9 9',
+  'data-peluang':
+    'M4 20V10M9 20V4M14 20v-7M19 20V7M3 20h18',
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={paths[element]}></path>
+</svg>

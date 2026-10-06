@@ -1,0 +1,86 @@
+---
+interface Props {
+  /** Bila diisi, maskot diberi label aksesibel. Default dekoratif. */
+  label?: string;
+  size?: number;
+}
+const { label, size = 15 } = Astro.props;
+const decorative = !label;
+---
+
+<svg
+  class="mascot bob"
+  viewBox="0 0 200 200"
+  width={size * 16}
+  height={size * 16}
+  role={decorative ? 'presentation' : 'img'}
+  aria-hidden={decorative ? 'true' : undefined}
+  aria-label={label}
+  focusable="false"
+  style={`max-width:${size}rem`}
+>
+  <g class="mascot-symbols" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g class="float-slow" stroke="var(--color-algebra)" stroke-width="4">
+      <path d="M28 44h16M36 36v16" />
+    </g>
+    <g class="float-slow float-delayed" stroke="var(--color-geometry)" stroke-width="4">
+      <path d="m162 156 9 16h-18z" />
+    </g>
+    <g class="float-slow float-delayed" stroke="var(--color-data)" stroke-width="4">
+      <path d="M170 40 182 52M182 40 170 52" />
+    </g>
+  </g>
+
+  <g class="mascot-arms" fill="var(--color-primary-soft)" stroke="var(--color-primary)" stroke-width="4">
+    <rect x="16" y="96" width="22" height="46" rx="11" />
+    <rect x="162" y="96" width="22" height="46" rx="11" />
+  </g>
+
+  <g class="mascot-legs" fill="var(--color-primary-soft)" stroke="var(--color-primary)" stroke-width="4">
+    <rect x="66" y="152" width="24" height="24" rx="9" />
+    <rect x="110" y="152" width="24" height="24" rx="9" />
+  </g>
+
+  <rect x="42" y="50" width="116" height="106" rx="30" fill="var(--color-surface)" stroke="var(--color-primary)" stroke-width="4" />
+
+  <rect x="58" y="66" width="84" height="56" rx="18" fill="var(--color-primary-soft)" />
+
+  <circle class="mascot-eye" cx="82" cy="90" r="7.5" fill="var(--color-text)" />
+  <circle class="mascot-eye" cx="118" cy="90" r="7.5" fill="var(--color-text)" />
+
+  <path d="M80 108q20 15 40 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+
+  <circle cx="64" cy="106" r="6" fill="var(--color-data)" opacity="0.35" />
+  <circle cx="136" cy="106" r="6" fill="var(--color-data)" opacity="0.35" />
+
+  <line x1="100" y1="50" x2="100" y2="28" stroke="var(--color-primary)" stroke-width="4" stroke-linecap="round" />
+  <circle cx="100" cy="20" r="10" fill="var(--color-data)" />
+  <path d="M96 20h8M100 16v8" stroke="var(--color-surface)" stroke-width="2.6" stroke-linecap="round" />
+</svg>
+
+<style>
+  .mascot-arms {
+    transform-origin: 100px 100px;
+  }
+  .mascot:hover .mascot-arms {
+    transform: rotate(-3deg);
+  }
+  .mascot-eye {
+    transform-origin: center;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mascot:hover .mascot-eye {
+      animation: blink 3.4s var(--ease-out-soft) infinite;
+    }
+  }
+  @keyframes blink {
+    0%,
+    92%,
+    100% {
+      transform: scaleY(1);
+    }
+    96% {
+      transform: scaleY(0.15);
+    }
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+import { footerNav } from '@/data/nav';
+import { site } from '@/data/site';
+import { url } from '@/utils/url';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer no-print">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="brand-line">
+        <span class="brand-logo">
+          <img src={url(site.school.logo)} alt={site.school.logoAlt} width="30" height="30" loading="lazy" />
+        </span>
+        <strong>{site.name}</strong>
+      </div>
+      <p class="text-muted">
+        Pusat pembelajaran matematika SMA berbahasa Indonesia. Susunan materi merupakan
+        tafsir instruksional atas Capaian Pembelajaran, bukan salinan resmi buku teks.
+      </p>
+      <p class="credit-line">
+        Disusun oleh <strong>{site.author.name}</strong> · {site.school.name}
+        <br />
+        <a href={site.school.url} target="_blank" rel="noopener noreferrer">
+          {site.school.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+          <span aria-hidden="true"> ↗</span>
+        </a>
+      </p>
+    </div>
+
+    {
+      footerNav.map((group) => (
+        <nav class="footer-col" aria-label={group.heading}>
+          <h2 class="footer-heading">{group.heading}</h2>
+          <ul>
+            {group.items.map((item) => (
+              <li>
+                <a href={url(item.href)}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+  </div>
+  <div class="container footer-bottom">
+    <p>
+      &copy; {year} {site.name}. Disusun oleh {site.author.name}, {site.school.name}. Sumber
+      belajar bebas untuk keperluan pendidikan.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+  .footer-brand p {
+    max-width: 34rem;
+    font-size: 0.92rem;
+  }
+  .brand-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .brand-logo {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    padding: 0.18rem;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+  .brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+  }
+  .credit-line {
+    margin: 0.6rem 0 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .credit-line a {
+    display: inline-block;
+    padding-block: 0.2rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .credit-line a:hover {
+    text-decoration: underline;
+  }
+  .footer-heading {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    margin-bottom: 0.6rem;
+  }
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .footer-col a {
+    display: inline-block;
+    padding-block: 0.2rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+  .footer-col a:hover {
+    color: var(--color-primary);
+  }
+  .footer-bottom {
+    border-top: 1px solid var(--color-border);
+    padding-block: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+  }
+  .footer-bottom p {
+    margin: 0;
+  }
+  @media (max-width: 40rem) {
+    .footer-inner {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

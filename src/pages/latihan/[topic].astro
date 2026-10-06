@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import QuestionCard from '@/components/exercises/QuestionCard.astro';
+import { getTopic } from '@/data/topics';
+import { questions, questionsByTopic } from '@/data/questions';
+import { url, topicUrl } from '@/utils/url';
+import type { Difficulty } from '@/types/content';
+
+export function getStaticPaths() {
+  const ids = Array.from(new Set(questions.map((q) => q.topicId)));
+  return ids
+    .map((id) => getTopic(id))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t))
+    .map((topic) => ({ params: { topic: topic.slug }, props: { topicId: topic.id } }));
+}
+
+interface Props {
+  topicId: string;
+}
+const { topicId } = Astro.props;
+const topic = getTopic(topicId);
+const all = questionsByTopic(topicId);
+const difficulties: Difficulty[] = ['dasar', 'cakap', 'mahir'];
+const levelName = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' };
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Latihan & Asesmen', href: url('/latihan') },
+  { label: topic?.title ?? topicId },
+];
+---
+
+<BaseLayout title={`Latihan ${topic?.title ?? ''}`} description={`Latihan soal ${topic?.title} berjenjang.`}>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">Latihan</p>
+      <h1>{topic?.title}</h1>
+      {topic && <p class="lead">{topic.summary}</p>}
+      <p class="text-muted">{all.length} soal. Kerjakan berurutan dari tingkat dasar.</p>
+      {topic && (
+        <p>
+          <a class="btn btn-secondary btn-sm" href={topicUrl(topic.grade, topic.element, topic.slug)}>
+            ← Baca materinya dulu
+          </a>
+        </p>
+      )}
+    </header>
+
+    {
+      difficulties.map((d) => {
+        const items = all.filter((q) => q.difficulty === d);
+        if (!items.length) return null;
+        return (
+          <section class="level-section" aria-labelledby={`lv-${d}`}>
+            <h2 id={`lv-${d}`} class="level-heading">
+              <span class={`badge badge-${d}`}>{levelName[d]}</span>
+              <span class="text-soft level-count">{items.length} soal</span>
+            </h2>
+            {items.map((q, i) => (
+              <QuestionCard question={q} index={i} />
+            ))}
+          </section>
+        );
+      })
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.5rem;
+  }
+  .lead {
+    color: var(--color-text-muted);
+  }
+  .level-section {
+    padding-block: 1rem;
+  }
+  .level-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .level-count {
+    font-size: 0.85rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+  }
+</style>

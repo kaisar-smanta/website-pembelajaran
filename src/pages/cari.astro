@@ -1,0 +1,241 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import { url } from '@/utils/url';
+import { GRADE_ORDER, ELEMENT_ORDER, ELEMENTS } from '@/data/curriculum';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Cari' },
+];
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout title="Cari Materi" description="Cari topik, konsep, dan studi kasus di seluruh situs Matematika SMA.">
+  <div class="container container-narrow" data-search-root data-base={base}>
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <h1>Cari Materi</h1>
+      <p class="lead">
+        Telusuri topik, istilah, dan studi kasus. Pencarian berjalan di peramban tanpa server.
+      </p>
+    </header>
+
+    <form class="search-form" role="search" data-search-form>
+      <label class="visually-hidden" for="search-input">Kata kunci pencarian</label>
+      <input
+        id="search-input"
+        type="search"
+        class="search-input"
+        placeholder="Contoh: bunga majemuk, eksponen, kuartil…"
+        autocomplete="off"
+        data-search-input
+      />
+      <div class="filters">
+        <label>
+          <span class="visually-hidden">Filter kelas</span>
+          <select data-filter-grade>
+            <option value="">Semua kelas</option>
+            {GRADE_ORDER.map((g) => <option value={g}>Kelas {g}</option>)}
+          </select>
+        </label>
+        <label>
+          <span class="visually-hidden">Filter elemen</span>
+          <select data-filter-element>
+            <option value="">Semua elemen</option>
+            {ELEMENT_ORDER.map((e) => <option value={e}>{ELEMENTS[e].name}</option>)}
+          </select>
+        </label>
+      </div>
+    </form>
+
+    <p class="search-status" data-search-status aria-live="polite"></p>
+    <ol class="search-results" data-search-results></ol>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.25rem;
+  }
+  .lead {
+    color: var(--color-text-muted);
+  }
+  .search-form {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .search-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font: inherit;
+    font-size: 1.05rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .filters select {
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+  }
+  .search-status {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  .search-results {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .result-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+  }
+  .result-item a {
+    text-decoration: none;
+  }
+  .result-item h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+  }
+  .result-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+  .result-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  mark {
+    background: var(--color-warning-soft);
+    color: inherit;
+    padding: 0 0.1em;
+    border-radius: 3px;
+  }
+</style>
+
+<script>
+  interface Item {
+    title: string;
+    summary: string;
+    url: string;
+    type: string;
+    grade?: string;
+    element?: string;
+    keywords: string;
+    text: string;
+  }
+
+  function setupSearch(root: Element) {
+    const base = root.getAttribute('data-base') || '/';
+    const input = root.querySelector('[data-search-input]') as HTMLInputElement;
+    const gradeFilter = root.querySelector('[data-filter-grade]') as HTMLSelectElement;
+    const elementFilter = root.querySelector('[data-filter-element]') as HTMLSelectElement;
+    const results = root.querySelector('[data-search-results]') as HTMLElement;
+    const status = root.querySelector('[data-search-status]') as HTMLElement;
+
+    let items: Item[] = [];
+
+    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    function score(item: Item, q: string): number {
+      const title = norm(item.title);
+      const keywords = norm(item.keywords);
+      const summary = norm(item.summary);
+      const text = norm(item.text);
+      let s = 0;
+      if (title === q) s += 100;
+      if (title.includes(q)) s += 50;
+      if (keywords.includes(q)) s += 25;
+      if (summary.includes(q)) s += 12;
+      if (text.includes(q)) s += 6;
+      return s;
+    }
+
+    function highlight(text: string, q: string): string {
+      const safe = text.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] as string));
+      if (!q) return safe;
+      const idx = norm(safe).indexOf(q);
+      if (idx < 0) return safe;
+      return safe.slice(0, idx) + '<mark>' + safe.slice(idx, idx + q.length) + '</mark>' + safe.slice(idx + q.length);
+    }
+
+    function render() {
+      const raw = input.value.trim();
+      const q = norm(raw);
+      const g = gradeFilter.value;
+      const e = elementFilter.value;
+
+      let filtered = items;
+      if (g) filtered = filtered.filter((it) => it.grade === g || it.type === 'halaman');
+      if (e) filtered = filtered.filter((it) => it.element === e || it.type === 'halaman');
+
+      let out: (Item & { score: number })[];
+      if (q.length === 0) {
+        out = filtered.map((it) => ({ ...it, score: 0 })).slice(0, 12);
+      } else {
+        out = filtered
+          .map((it) => ({ ...it, score: score(it, q) }))
+          .filter((it) => it.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 40);
+      }
+
+      results.innerHTML = '';
+      if (q.length === 0) {
+        status.textContent = `Menampilkan ${out.length} entri. Ketik untuk menyaring.`;
+      } else {
+        status.textContent = `${out.length} hasil untuk "${raw}".`;
+      }
+
+      for (const item of out) {
+        const li = document.createElement('li');
+        li.className = 'result-item';
+        const gradeLabel = item.grade ? `Kelas ${item.grade}` : '';
+        li.innerHTML = `
+          <a href="${base.replace(/\/$/, '')}${item.url}">
+            <div class="result-meta"><span class="badge">${item.type}</span>${gradeLabel ? `<span class="badge badge-grade">${gradeLabel}</span>` : ''}</div>
+            <h3>${highlight(item.title, q)}</h3>
+            <p>${highlight(item.summary, q)}</p>
+          </a>`;
+        results.appendChild(li);
+      }
+    }
+
+    fetch(`${base}search.json`)
+      .then((r) => r.json())
+      .then((data) => {
+        items = data;
+        const params = new URLSearchParams(location.search);
+        const initial = params.get('q');
+        if (initial) input.value = initial;
+        render();
+      })
+      .catch(() => {
+        status.textContent = 'Indeks pencarian gagal dimuat.';
+      });
+
+    input.addEventListener('input', render);
+    gradeFilter.addEventListener('change', render);
+    elementFilter.addEventListener('change', render);
+  }
+
+  document.querySelectorAll('[data-search-root]').forEach(setupSearch);
+</script>

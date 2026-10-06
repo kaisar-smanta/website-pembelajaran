@@ -1,0 +1,39 @@
+---
+import { getExploration } from '@/data/explorations';
+import FunctionSlider from './FunctionSlider.astro';
+import CompoundInterestSim from './CompoundInterestSim.astro';
+import ProbabilitySim from './ProbabilitySim.astro';
+import LinearRegressionSim from './LinearRegressionSim.astro';
+
+interface Props {
+  explorationId: string;
+}
+const { explorationId } = Astro.props;
+const exploration = getExploration(explorationId);
+---
+
+{
+  exploration ? (
+    <section class="exploration-embed" aria-label={`Eksplorasi: ${exploration.title}`}>
+      <h3 class="exploration-title">{exploration.title}</h3>
+      {exploration.type === 'function-slider' && <FunctionSlider exploration={exploration} />}
+      {exploration.type === 'compound-interest' && <CompoundInterestSim exploration={exploration} />}
+      {exploration.type === 'probability' && <ProbabilitySim exploration={exploration} />}
+      {exploration.type === 'linear-regression' && <LinearRegressionSim exploration={exploration} />}
+    </section>
+  ) : (
+    <div class="callout callout-info" role="note">
+      Eksplorasi tidak ditemukan: {explorationId}
+    </div>
+  )
+}
+
+<style>
+  .exploration-embed {
+    margin: 1.25rem 0;
+  }
+  .exploration-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+</style>

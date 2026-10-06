@@ -1,0 +1,157 @@
+---
+import type { Exploration } from '@/types/content';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="prob-sim" data-prob data-exploration={exploration.id}>
+  <div class="prob-controls">
+    <label class="prob-field">
+      <span>Percobaan</span>
+      <select data-prob-kind>
+        <option value="koin">Pelemparan koin</option>
+        <option value="dadu">Pelemparan dadu</option>
+      </select>
+    </label>
+    <label class="prob-field">
+      <span>Banyak pelemparan</span>
+      <input type="number" min="10" max="100000" step="10" value="1000" data-prob-trials />
+    </label>
+    <button type="button" class="btn btn-primary" data-prob-run>Lakukan simulasi</button>
+  </div>
+
+  <div class="prob-result" data-prob-result aria-live="polite"></div>
+
+  <figcaption class="prob-caption" set:html={exploration.description} />
+</figure>
+
+<style>
+  .prob-sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .prob-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: flex-end;
+  }
+  .prob-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .prob-field select,
+  .prob-field input {
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+  }
+  .prob-result {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .prob-bar-wrap {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .prob-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+  }
+  .prob-bar-track {
+    height: 0.9rem;
+    background: var(--color-surface-2);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .prob-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--color-primary);
+    transition: width 0.4s ease;
+  }
+  .prob-bar-fill.theory {
+    background: var(--color-data);
+  }
+  .prob-note {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .prob-caption {
+    margin-top: 0.75rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .prob-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  const fmt = new Intl.NumberFormat('id-ID');
+
+  function setupProb(root: Element) {
+    const kind = root.querySelector('[data-prob-kind]') as HTMLSelectElement;
+    const trials = root.querySelector('[data-prob-trials]') as HTMLInputElement;
+    const run = root.querySelector('[data-prob-run]') as HTMLButtonElement;
+    const result = root.querySelector('[data-prob-result]') as HTMLElement;
+
+    function simulate() {
+      const k = kind.value;
+      const n = Math.max(1, Math.min(100000, Number(trials.value) || 1));
+      const outcomes = k === 'koin' ? ['Angka', 'Gambar'] : ['1', '2', '3', '4', '5', '6'];
+      const counts: Record<string, number> = {};
+      outcomes.forEach((o) => (counts[o] = 0));
+
+      for (let i = 0; i < n; i++) {
+        if (k === 'koin') {
+          counts[Math.random() < 0.5 ? 'Angka' : 'Gambar']++;
+        } else {
+          const d = Math.floor(Math.random() * 6) + 1;
+          counts[String(d)]++;
+        }
+      }
+
+      result.innerHTML = '';
+      const theory = 1 / outcomes.length;
+      for (const o of outcomes) {
+        const freq = counts[o] / n;
+        const wrap = document.createElement('div');
+        wrap.className = 'prob-bar-wrap';
+        wrap.innerHTML = `
+          <div class="prob-bar-label">
+            <span>${k === 'dadu' ? 'Mata ' + o : o}</span>
+            <span><strong>${fmt.format(counts[o])}</strong> kemunculan · peluang empiris ${(freq * 100).toFixed(2)}%</span>
+          </div>
+          <div class="prob-bar-track"><div class="prob-bar-fill" style="width:${(freq * 100).toFixed(2)}%"></div></div>
+          <div class="prob-bar-track"><div class="prob-bar-fill theory" style="width:${(theory * 100).toFixed(2)}%"></div></div>`;
+        result.appendChild(wrap);
+      }
+      const note = document.createElement('p');
+      note.className = 'prob-note';
+      note.textContent = `Batang biru = peluang empiris, batang oranye = peluang teoretis ${(theory * 100).toFixed(2)}%. Semakin banyak percobaan, peluang empiris cenderung mendekati peluang teoretis (Hukum Bilangan Besar).`;
+      result.appendChild(note);
+    }
+
+    run.addEventListener('click', simulate);
+    kind.addEventListener('change', simulate);
+    simulate();
+  }
+
+  document.querySelectorAll('[data-prob]').forEach(setupProb);
+</script>

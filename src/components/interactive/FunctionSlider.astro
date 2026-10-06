@@ -1,0 +1,296 @@
+---
+import type { Exploration, ExplorationParam } from '@/types/content';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+const formula = exploration.formula ?? 'exponential';
+
+const defaults: Record<string, ExplorationParam[]> = {
+  quadratic: [
+    { name: 'a', label: 'a', min: -3, max: 3, step: 0.1, value: 1 },
+    { name: 'b', label: 'b', min: -6, max: 6, step: 0.5, value: 0 },
+    { name: 'c', label: 'c', min: -6, max: 6, step: 0.5, value: -4 },
+  ],
+  exponential: [
+    { name: 'a', label: 'a', min: 0.5, max: 4, step: 0.5, value: 1 },
+    { name: 'b', label: 'b', min: 0.25, max: 3, step: 0.05, value: 2 },
+  ],
+  sine: [
+    { name: 'a', label: 'a', min: 0.5, max: 3, step: 0.1, value: 1 },
+    { name: 'k', label: 'k', min: 0.5, max: 3, step: 0.1, value: 1 },
+  ],
+};
+
+const params = exploration.params && exploration.params.length ? exploration.params : defaults[formula];
+const formLabel: Record<string, string> = {
+  quadratic: 'f(x) = ax² + bx + c',
+  exponential: 'f(x) = a · bˣ',
+  sine: 'f(x) = a · sin(kx)',
+};
+---
+
+<figure
+  class="sim"
+  data-fn-plot
+  data-formula={formula}
+  data-params={JSON.stringify(params.map((p) => ({ name: p.name, value: p.value })))}
+>
+  <div class="sim-formula" aria-hidden="true">{formLabel[formula]}</div>
+  <div class="sim-canvas">
+    <svg viewBox="0 0 480 300" role="img" aria-label="Grafik fungsi interaktif" data-plot></svg>
+  </div>
+  <div class="sim-controls">
+    {
+      params.map((p) => (
+        <label class="sim-control">
+          <span class="sim-control-label">
+            <span aria-hidden="true">{p.label}</span>
+            <span class="visually-hidden">{p.label}</span>
+            <output data-output={p.name}>{p.value}</output>
+          </span>
+          <input
+            type="range"
+            min={p.min}
+            max={p.max}
+            step={p.step}
+            value={p.value}
+            data-param={p.name}
+            aria-label={`Ubah ${p.label}`}
+          />
+        </label>
+      ))
+    }
+  </div>
+  <output class="sim-readout" data-readout aria-live="polite"></output>
+  <figcaption class="sim-caption" set:html={exploration.description} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-formula {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+  }
+  .sim-canvas {
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .sim-canvas svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: none;
+  }
+  .sim-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.85rem;
+  }
+  .sim-control-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.15rem;
+  }
+  .sim-control output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-readout {
+    display: block;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  type Params = { name: string; value: number };
+
+  function setup(root: Element) {
+    const svg = root.querySelector('[data-plot]') as SVGSVGElement;
+    const formula = root.getAttribute('data-formula') ?? 'exponential';
+    const initial: Params[] = JSON.parse(root.getAttribute('data-params') ?? '[]');
+    const outputs = root.querySelectorAll('[data-output]');
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const inputs = root.querySelectorAll('[data-param]');
+
+    const state: Record<string, number> = {};
+    initial.forEach((p) => (state[p.name] = p.value));
+
+    const W = 480;
+    const H = 300;
+    const pad = 34;
+
+    const setupMap = () => {
+      if (formula === 'quadratic') return { xMin: -8, xMax: 8, yMin: -12, yMax: 12 };
+      if (formula === 'sine') return { xMin: -2 * Math.PI, xMax: 2 * Math.PI, yMin: -3.2, yMax: 3.2 };
+      return { xMin: -4, xMax: 4, yMin: -2, yMax: 18 };
+    };
+
+    function f(x: number): number {
+      if (formula === 'quadratic') {
+        const a = state.a ?? 1;
+        const b = state.b ?? 0;
+        const c = state.c ?? 0;
+        return a * x * x + b * x + c;
+      }
+      if (formula === 'sine') {
+        const a = state.a ?? 1;
+        const k = state.k ?? 1;
+        return a * Math.sin(k * x);
+      }
+      const a = state.a ?? 1;
+      const b = state.b ?? 1;
+      return a * Math.pow(b, x);
+    }
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    function el(name: string, attrs: Record<string, string | number>) {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    }
+
+    function draw() {
+      const map = setupMap();
+      const { xMin, xMax, yMin, yMax } = map;
+      const sx = (x: number) => pad + ((x - xMin) / (xMax - xMin)) * (W - 2 * pad);
+      const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
+
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      const gridColor = 'var(--color-border)';
+      const axisColor = 'var(--color-text-soft)';
+
+      for (let i = 0; i <= 8; i++) {
+        const x = pad + (i / 8) * (W - 2 * pad);
+        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: gridColor, 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        const y = pad + (i / 6) * (H - 2 * pad);
+        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: gridColor, 'stroke-width': 1 }));
+      }
+
+      if (yMin <= 0 && yMax >= 0) {
+        svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: axisColor, 'stroke-width': 1.6 }));
+      }
+      if (xMin <= 0 && xMax >= 0) {
+        svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: axisColor, 'stroke-width': 1.6 }));
+      }
+
+      const path = el('path', {
+        fill: 'none',
+        stroke: 'var(--color-primary)',
+        'stroke-width': 2.6,
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round',
+      });
+      let d = '';
+      let started = false;
+      const steps = 480;
+      for (let i = 0; i <= steps; i++) {
+        const x = xMin + (i / steps) * (xMax - xMin);
+        const y = f(x);
+        if (!isFinite(y) || y < yMin - 200 || y > yMax + 200) {
+          started = false;
+          continue;
+        }
+        const px = sx(x);
+        const py = sy(y);
+        if (py < -2000 || py > 2000) {
+          started = false;
+          continue;
+        }
+        d += `${started ? 'L' : 'M'}${px.toFixed(1)} ${py.toFixed(1)} `;
+        started = true;
+      }
+      path.setAttribute('d', d);
+      svg.appendChild(path);
+
+      // Titik penting untuk kuadrat: titik puncak.
+      if (formula === 'quadratic') {
+        const a = state.a ?? 1;
+        const b = state.b ?? 0;
+        const c = state.c ?? 0;
+        if (a !== 0) {
+          const xv = -b / (2 * a);
+          const yv = a * xv * xv + b * xv + c;
+          if (yv >= yMin && yv <= yMax) {
+            svg.appendChild(el('circle', { cx: sx(xv), cy: sy(yv), r: 4.5, fill: 'var(--color-warning)' }));
+          }
+        }
+      }
+    }
+
+    function updateReadout() {
+      if (formula === 'quadratic') {
+        const a = state.a ?? 0;
+        const b = state.b ?? 0;
+        const c = state.c ?? 0;
+        const D = b * b - 4 * a * c;
+        let info = `a = ${a}, b = ${b}, c = ${c}. `;
+        info += a === 0 ? 'Jika a = 0, grafik bukan parabola. ' : a > 0 ? 'Parabola terbuka ke atas. ' : 'Parabola terbuka ke bawah. ';
+        if (a !== 0) {
+          info += `Titik puncak (${(-b / (2 * a)).toFixed(2)}, ${(c - (b * b) / (4 * a)).toFixed(2)}). `;
+        }
+        info += `Diskriminan D = b² − 4ac = ${D}. `;
+        info += D > 0 ? 'Dua akar real berbeda.' : D === 0 ? 'Satu akar real (kembar).' : 'Tidak memiliki akar real.';
+        readout.textContent = info;
+      } else if (formula === 'sine') {
+        readout.textContent = `Amplitudo |a| = ${Math.abs(state.a ?? 1)}, periode = 2π / |k| ≈ ${(2 * Math.PI / Math.abs(state.k ?? 1)).toFixed(2)}.`;
+      } else {
+        const a = state.a ?? 1;
+        const b = state.b ?? 1;
+        const mode = b > 1 ? 'pertumbuhan (naik)' : b === 1 ? 'konstan' : 'peluruhan (turun)';
+        readout.textContent = `a = ${a}, b = ${b}. Karena b ${b > 1 ? '>' : b === 1 ? '=' : '<'} 1, grafik menunjukkan ${mode}. Nilai f(0) = ${a}, dan f(x+1) = ${b} × f(x).`;
+      }
+    }
+
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        const name = input.getAttribute('data-param') as string;
+        const value = Number((input as HTMLInputElement).value);
+        state[name] = value;
+        outputs.forEach((o) => {
+          if (o.getAttribute('data-output') === name) o.textContent = String(value);
+        });
+        draw();
+        updateReadout();
+      });
+    });
+
+    draw();
+    updateReadout();
+  }
+
+  document.querySelectorAll('[data-fn-plot]').forEach(setup);
+</script>

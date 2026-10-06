@@ -1,0 +1,282 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { topicsByGradeElement, plannedTopics } from '@/data/topics';
+import { url, topicUrl } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Peta Pembelajaran' },
+];
+
+const chains: {
+  title: string;
+  note: string;
+  nodes: { label: string; id?: string; grade?: string; element?: string; planned?: boolean }[];
+}[] = [
+  {
+    title: 'Jalur Bilangan: dari eksponen ke keputusan keuangan',
+    note: 'Setiap tahap bertumpu pada tahap sebelumnya.',
+    nodes: [
+      { label: 'Eksponen', id: 'eksponen', grade: 'X', element: 'bilangan' },
+      { label: 'Fungsi Eksponensial', id: 'fungsi-eksponensial', grade: 'X', element: 'aljabar-fungsi' },
+      { label: 'Barisan & Deret', id: 'barisan-deret', grade: 'X', element: 'bilangan' },
+      { label: 'Bunga Majemuk', id: 'bunga-majemuk', grade: 'XI', element: 'bilangan' },
+      { label: 'Anuitas', id: 'anuitas', grade: 'XI', element: 'bilangan' },
+      { label: 'Pinjaman & Investasi', planned: true },
+    ],
+  },
+  {
+    title: 'Jalur Fungsi: dari hubungan ke pemodelan data',
+    note: 'Fungsi menghubungkan aljabar, data, dan pengambilan keputusan.',
+    nodes: [
+      { label: 'Fungsi Kuadrat', id: 'fungsi-kuadrat', grade: 'X', element: 'aljabar-fungsi' },
+      { label: 'Fungsi Invers', id: 'fungsi-invers', grade: 'XI', element: 'aljabar-fungsi' },
+      { label: 'Komposisi Fungsi', id: 'komposisi-fungsi', grade: 'XI', element: 'aljabar-fungsi' },
+      { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
+      { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
+    ],
+  },
+  {
+    title: 'Jalur Peluang: dari data ke kesimpulan yang sahih',
+    note: 'Asosiasi bukan berarti kausalitas.',
+    nodes: [
+      { label: 'Analisis Data', id: 'analisis-distribusi-data', grade: 'X', element: 'data-peluang' },
+      { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
+      { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
+      { label: 'Asosiasi & Kausalitas', id: 'asosiasi-kausalitas', grade: 'XII', element: 'data-peluang' },
+      { label: 'Peluang Bersyarat', id: 'peluang-bersyarat', grade: 'XII', element: 'data-peluang' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Peta Pembelajaran"
+  description="Peta kurikulum Matematika SMA: hubungan antar konsep, prasyarat, dan jalur belajar dari bilangan, aljabar, geometri, hingga data dan peluang."
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">Kurikulum</p>
+      <h1>Peta Pembelajaran</h1>
+      <p class="lead">
+        Materi tidak berdiri sendiri. Peta ini memperlihatkan bagaimana satu konsep menjadi
+        prasyarat bagi konsep lain, sehingga belajar menjadi runtut.
+      </p>
+    </header>
+
+    <section aria-labelledby="jalur" class="block">
+      <h2 id="jalur">Jalur Konsep</h2>
+      <div class="chain-grid">
+        {
+          chains.map((chain) => (
+            <article class="chain-card">
+              <h3>{chain.title}</h3>
+              <p class="text-muted chain-note">{chain.note}</p>
+              <ol class="chain">
+                {chain.nodes.map((n) => (
+                  <li class="chain-node">
+                    {n.id && n.grade && n.element ? (
+                      <a href={topicUrl(n.grade, n.element, n.id)}>{n.label}</a>
+                    ) : (
+                      <span>
+                        {n.label}
+                        {n.planned && <span class="badge badge-rencana chain-badge">Segera hadir</span>}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="peta-lengkap" class="block">
+      <h2 id="peta-lengkap">Peta Kurikulum Lengkap</h2>
+      <p class="text-muted">
+        Materi bertanda <span class="badge badge-rencana">Segera hadir</span> sudah tercantum dalam
+        roadmap dan akan dilengkapi tanpa mengubah struktur situs.
+      </p>
+
+      {
+        GRADE_ORDER.map((grade) => (
+          <div class="grade-block">
+            <h3 class="grade-title">
+              {GRADES[grade].name} <span class="badge">{GRADES[grade].label}</span>
+            </h3>
+            <div class="grade-columns">
+              {ELEMENT_ORDER.map((elementId) => {
+                const complete = topicsByGradeElement(grade, elementId);
+                const planned = plannedTopics.filter((p) => p.grade === grade && p.element === elementId);
+                if (complete.length === 0 && planned.length === 0) return null;
+                return (
+                  <div class={`elem-col accent-${elementId}`}>
+                    <h4>
+                      <ElementIcon element={elementId} size={16} /> {ELEMENTS[elementId].short}
+                    </h4>
+                    <ul>
+                      {complete.map((t) => (
+                        <li>
+                          <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
+                        </li>
+                      ))}
+                      {planned.map((t) => (
+                        <li class="planned-item">
+                          <span>{t.title}</span>
+                          <span class="badge badge-rencana">Segera hadir</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.5rem;
+  }
+  .lead {
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    font-size: 1.08rem;
+  }
+  .block {
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .chain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 1.25rem;
+  }
+  .chain-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem;
+  }
+  .chain-card h3 {
+    font-size: 1.05rem;
+  }
+  .chain-note {
+    font-size: 0.86rem;
+    margin-top: -0.3rem;
+  }
+  .chain {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+  .chain-node {
+    position: relative;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    border-left: 2px solid var(--color-primary-soft);
+  }
+  .chain-node::before {
+    content: '';
+    position: absolute;
+    left: -0.42rem;
+    top: 0.9rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+  .chain-node a {
+    display: inline-block;
+    padding-block: 0.15rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .chain-node a:hover {
+    text-decoration: underline;
+  }
+  .grade-block {
+    margin-top: 1.5rem;
+  }
+  .grade-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.4rem;
+  }
+  .grade-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .elem-col {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    border-top: 3px solid var(--color-border);
+  }
+  .elem-col.accent-bilangan {
+    border-top-color: var(--color-number);
+  }
+  .elem-col.accent-aljabar-fungsi {
+    border-top-color: var(--color-algebra);
+  }
+  .elem-col.accent-geometri {
+    border-top-color: var(--color-geometry);
+  }
+  .elem-col.accent-data-peluang {
+    border-top-color: var(--color-data);
+  }
+  .elem-col h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .elem-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .elem-col li {
+    font-size: 0.9rem;
+  }
+  .elem-col a {
+    display: inline-block;
+    padding-block: 0.15rem;
+    text-decoration: none;
+  }
+  .elem-col a:hover {
+    text-decoration: underline;
+  }
+  .planned-item {
+    color: var(--color-text-soft);
+  }
+  .planned-item .badge {
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+  .chain-badge {
+    margin-left: 0.4rem;
+  }
+</style>

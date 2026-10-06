@@ -1,0 +1,148 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import { site } from '@/data/site';
+import { url } from '@/utils/url';
+
+const crumbs = [{ label: 'Beranda', href: url('/') }, { label: 'Tentang' }];
+---
+
+<BaseLayout
+  title="Tentang & Kredit"
+  description="Profil penyusun, sekolah, dan catatan penggunaan materi Matematika SMA."
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head reveal" data-reveal>
+      <p class="eyebrow">Tentang Situs</p>
+      <h1>Tentang &amp; Kredit</h1>
+      <p class="lead">
+        Situs ini adalah pusat pembelajaran matematika SMA berbahasa Indonesia yang disusun untuk
+        mendampingi pembelajaran di kelas maupun belajar mandiri.
+      </p>
+    </header>
+
+    <section class="id-card card hover-lift reveal" aria-labelledby="penyusun" data-reveal>
+      <span class="id-logo">
+        <img src={url(site.school.logo)} alt={site.school.logoAlt} width="96" height="96" />
+      </span>
+      <div class="id-body">
+        <p class="eyebrow">Disusun oleh</p>
+        <h2 id="penyusun" class="id-name">{site.author.name}</h2>
+        <p class="text-muted">{site.author.role} · {site.school.name}</p>
+        <div class="row">
+          <a class="btn btn-primary btn-sm" href={url('/peta-pembelajaran')}>Jelajahi materi</a>
+          <a class="btn btn-secondary btn-sm" href={url('/referensi')}>Catatan referensi</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="prose">
+      <h2>Pendekatan Penyusunan</h2>
+      <p>
+        Materi disusun agar peserta didik membangun konsep secara bertahap, bukan sekadar menghafal
+        rumus. Setiap topik mengikuti alur memahami, mengeksplorasi, menerapkan, dan merefleksi.
+      </p>
+
+      <h2>Sekolah</h2>
+      <p>
+        Kredit penyusunan dan penyediaan materi berpusat pada {site.school.name}. Informasi resmi
+        sekolah dapat diakses melalui tautan berikut.
+      </p>
+      <ul class="link-list">
+        {
+          site.links.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2>Catatan Kurikulum</h2>
+      <p>
+        Susunan materi merupakan <em>tafsir instruksional</em> atas Capaian Pembelajaran (CP)
+        Kurikulum Merdeka. Ini <strong>bukan</strong> salinan resmi dan bukan buku teks resmi.
+        Guru dan sekolah tetap merujuk pada dokumen resmi yang berlaku. Penjelasan lengkap ada di
+        halaman <a href={url('/referensi')}>Referensi</a>.
+      </p>
+
+      <h2>Untuk Guru</h2>
+      <p>
+        Materi dapat dipakai sebagai bahan ajar pendamping, sumber latihan tambahan, atau contoh
+        penerapan konteks nyata. Setiap topik mengikuti alur belajar yang konsisten dan dilengkapi
+        latihan berjenjang, kesalahan umum, serta refleksi. Silakan adaptasi sesuai kebutuhan kelas.
+      </p>
+
+      <h2>Penggunaan dan Lisensi</h2>
+      <p>
+        Materi disediakan untuk keperluan pendidikan. Kamu dapat menggunakannya untuk belajar,
+        mengajar, atau menyusun latihan tambahan. Jika menemukan kekeliruan, mohon sampaikan agar
+        dapat diperbaiki.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1rem;
+  }
+  .lead {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+  .id-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-block: 1rem 2rem;
+    border-left: 4px solid var(--color-primary);
+  }
+  .id-logo {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 6.5rem;
+    height: 6.5rem;
+    padding: 0.6rem;
+    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid var(--color-border);
+  }
+  .id-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+  .id-name {
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
+    margin: 0.1rem 0 0.35rem;
+  }
+  .id-body p {
+    margin-bottom: 0.85rem;
+  }
+  .link-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .link-list a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .link-list a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 34rem) {
+    .id-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

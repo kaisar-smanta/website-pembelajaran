@@ -1,0 +1,168 @@
+---
+import type { Block, Section, SectionKind } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+import Callout from './Callout.astro';
+import DataTable from './DataTable.astro';
+import ExplorationEmbed from '@/components/interactive/ExplorationEmbed.astro';
+import GeogebraEmbed from '@/components/interactive/GeogebraEmbed.astro';
+
+interface Props {
+  section: Section;
+  index: number;
+}
+const { section, index } = Astro.props;
+
+const kindTitles: Record<SectionKind, string> = {
+  tujuan: 'Tujuan Pembelajaran',
+  pemantik: 'Pertanyaan Pemantik',
+  prasyarat: 'Prasyarat',
+  konteks: 'Situasi dan Konteks',
+  konsep: 'Konsep Inti',
+  representasi: 'Representasi',
+  eksplorasi: 'Eksplorasi',
+  generalisasi: 'Generalisasi',
+  rumus: 'Rumus dan Prosedur',
+  contoh: 'Contoh Terbimbing',
+  'latihan-dasar': 'Latihan Dasar',
+  'latihan-cakap': 'Latihan Cakap',
+  'latihan-mahir': 'Latihan Mahir',
+  'dunia-nyata': 'Masalah Dunia Nyata',
+  'kesalahan-umum': 'Kesalahan Umum',
+  refleksi: 'Refleksi',
+  rangkuman: 'Rangkuman',
+  evaluasi: 'Evaluasi',
+  catatan: 'Catatan',
+};
+
+const title = section.title ?? kindTitles[section.kind];
+const bodyHtml = section.body ? renderMarkdown(section.body) : '';
+const levelBadge: Record<string, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
+function blockList(blocks: Block[] | undefined) {
+  return blocks ?? [];
+}
+---
+
+<section
+  id={section.id}
+  class:list={['content-section', `kind-${section.kind}`, section.collapsed && 'is-collapsible']}
+  aria-labelledby={`heading-${section.id}`}
+>
+  {
+    section.kind !== 'catatan' && (
+      <div class="section-head">
+        <h2 id={`heading-${section.id}`} class="section-title">
+          <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          {title}
+          {section.level && <span class={`badge badge-${section.level}`}>{levelBadge[section.level]}</span>}
+        </h2>
+      </div>
+    )
+  }
+
+  {bodyHtml && <div class="prose section-body" set:html={bodyHtml} />}
+
+  {
+    blockList(section.blocks).map((block) => {
+      if (block.kind === 'callout') return <Callout variant={block.variant} title={block.title} text={block.text} />;
+      if (block.kind === 'table') return <DataTable block={block} />;
+      if (block.kind === 'exploration') return <ExplorationEmbed explorationId={block.explorationId} />;
+      if (block.kind === 'geogebra') return <GeogebraEmbed url={block.url} title={block.title} height={block.height} />;
+      if (block.kind === 'details') {
+        return (
+          <details class="details-block">
+            <summary>{block.summary}</summary>
+            <div class="prose details-body" set:html={renderMarkdown(block.text)} />
+          </details>
+        );
+      }
+      return null;
+    })
+  }
+</section>
+
+<style>
+  .content-section {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .content-section:last-child {
+    border-bottom: none;
+  }
+  .section-head {
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+  }
+  .section-index {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    padding: 0.15rem 0.4rem;
+  }
+  .section-title .badge {
+    margin-left: auto;
+  }
+  .section-body {
+    max-width: 70ch;
+    min-width: 0;
+  }
+  .details-block {
+    margin: 1rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+  .details-block > summary {
+    cursor: pointer;
+    padding: 0.7rem 1rem;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-primary);
+  }
+  .details-block > summary::before {
+    content: '+';
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+  .details-block[open] > summary::before {
+    content: '−';
+  }
+  .details-block > summary::-webkit-details-marker {
+    display: none;
+  }
+  .details-block[open] > summary {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+  }
+  .details-body {
+    padding: 0.9rem 1rem;
+  }
+  .details-body :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .kind-tujuan .section-body,
+  .kind-konteks .section-body {
+    color: var(--color-text-muted);
+  }
+  .kind-kesalahan-umum {
+    background: color-mix(in srgb, var(--color-danger-soft) 35%, transparent);
+    border-radius: var(--radius);
+    padding-inline: 1rem;
+  }
+</style>

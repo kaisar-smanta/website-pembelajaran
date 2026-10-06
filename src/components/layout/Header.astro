@@ -1,0 +1,278 @@
+---
+import { mainNav } from '@/data/nav';
+import { site } from '@/data/site';
+import { url } from '@/utils/url';
+import ThemeToggle from '@/components/layout/ThemeToggle.astro';
+
+const current = Astro.url.pathname.replace(import.meta.env.BASE_URL, '/');
+function isActive(href: string): boolean {
+  const clean = href.replace(/\/$/, '');
+  return current === clean || current.startsWith(clean + '/');
+}
+---
+
+<header class="site-header no-print">
+  <div class="header-inner container">
+    <a class="brand" href={url('/')} aria-label={`Beranda ${site.name}`}>
+      <span class="brand-logo">
+        <img src={url(site.school.logo)} alt={site.school.logoAlt} width="36" height="36" />
+      </span>
+      <span class="brand-text">
+        <strong>{site.name}</strong>
+        <small>{site.tagline}</small>
+      </span>
+    </a>
+
+    <button
+      class="mobile-nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label="Buka menu navigasi"
+      data-mobile-toggle
+    >
+      <span class="bars" aria-hidden="true"></span>
+      <span>Menu</span>
+    </button>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama" data-primary-nav>
+      <ul>
+        {
+          mainNav.map((item) => (
+            <li>
+              <a
+                href={url(item.href)}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class={isActive(item.href) ? 'active' : ''}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="search-link" href={url('/cari')} aria-label="Cari materi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <span class="search-label">Cari</span>
+      </a>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--header-h);
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--color-text);
+    margin-right: auto;
+  }
+  .brand-logo {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0.2rem;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transition: transform var(--dur) var(--ease-bounce);
+  }
+  .brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+  .brand:hover .brand-logo,
+  .brand:focus-visible .brand-logo {
+    transform: rotate(-4deg) scale(1.05);
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand-text strong {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+  }
+  .brand-text small {
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+  }
+  .mobile-nav-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.45rem 0.7rem;
+    font: inherit;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+  .bars,
+  .bars::before,
+  .bars::after {
+    display: block;
+    width: 1.05rem;
+    height: 2px;
+    background: currentColor;
+    content: '';
+    position: relative;
+  }
+  .bars::before {
+    top: -5px;
+  }
+  .bars::after {
+    top: 3px;
+  }
+  .primary-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+  }
+  .primary-nav a {
+    position: relative;
+    display: block;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+      color var(--dur-fast),
+      background-color var(--dur-fast);
+  }
+  .primary-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.15rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease-out-soft);
+  }
+  .primary-nav a:hover {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+  }
+  .primary-nav a:hover::after,
+  .primary-nav a:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .primary-nav a.active {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+  }
+  .primary-nav a.active::after {
+    transform: scaleX(1);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .search-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.4rem;
+    gap: 0.35rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .search-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+  @media (max-width: 60rem) {
+    .mobile-nav-toggle {
+      display: inline-flex;
+      order: 3;
+    }
+    .header-actions {
+      order: 2;
+    }
+    .primary-nav {
+      order: 4;
+      flex-basis: 100%;
+      display: none;
+    }
+    .primary-nav[data-open='true'] {
+      display: block;
+    }
+    .primary-nav ul {
+      flex-direction: column;
+      padding-bottom: 0.75rem;
+    }
+    .primary-nav a {
+      padding: 0.6rem 0.5rem;
+      font-size: 1rem;
+    }
+    .search-label {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brand:hover .brand-logo,
+    .brand:focus-visible .brand-logo {
+      transform: none;
+    }
+    .primary-nav a::after {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('[data-mobile-toggle]');
+  const nav = document.querySelector('[data-primary-nav]');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.getAttribute('data-open') === 'true';
+    nav?.setAttribute('data-open', String(!open));
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', !open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+  });
+</script>

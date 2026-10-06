@@ -1,0 +1,141 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import { topics } from '@/data/topics';
+import { questions, questionsByTopic, assessmentCategories } from '@/data/questions';
+import { url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Latihan & Asesmen' },
+];
+
+const topicIds = Array.from(new Set(questions.map((q) => q.topicId)));
+const topicWithQuestions = topics.filter((t) => topicIds.includes(t.id));
+const total = questions.length;
+const byDifficulty = {
+  dasar: questions.filter((q) => q.difficulty === 'dasar').length,
+  cakap: questions.filter((q) => q.difficulty === 'cakap').length,
+  mahir: questions.filter((q) => q.difficulty === 'mahir').length,
+};
+const catCount = (id: string) => questions.filter((q) => q.category === id).length;
+---
+
+<BaseLayout
+  title="Latihan & Asesmen"
+  description="Bank latihan matematika SMA berjenjang: latihan cepat, pemahaman konsep, penerapan, pemodelan, penalaran, dan soal kontekstual."
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">Asesmen</p>
+      <h1>Latihan & Asesmen</h1>
+      <p class="lead">
+        Soal dikelompokkan menurut tingkat kesulitan <strong>Dasar</strong>, <strong>Cakap</strong>,
+        dan <strong>Mahir</strong>. Kesulitan tidak ditentukan oleh besarnya angka, melainkan oleh
+        tuntutan penalaran, pemodelan, dan pemilihan strategi.
+      </p>
+      <p class="text-muted">{total} soal tersedia pada {topicWithQuestions.length} topik.</p>
+    </header>
+
+    <section aria-labelledby="jenjang" class="block">
+      <h2 id="jenjang">Tingkat Kesulitan</h2>
+      <div class="grid grid-3">
+        <div class="card level-card badge-dasar-border">
+          <h3><span class="badge badge-dasar">Dasar</span></h3>
+          <p>Memahami istilah, membaca representasi, mengenali pola, dan prosedur sederhana.</p>
+          <p class="text-soft">{byDifficulty.dasar} soal</p>
+        </div>
+        <div class="card level-card">
+          <h3><span class="badge badge-cakap">Cakap</span></h3>
+          <p>Menerapkan konsep pada masalah multi-langkah, pemodelan, dan interpretasi.</p>
+          <p class="text-soft">{byDifficulty.cakap} soal</p>
+        </div>
+        <div class="card level-card">
+          <h3><span class="badge badge-mahir">Mahir</span></h3>
+          <p>Soal nonrutin, memilih strategi, menyusun argumentasi, dan mengevaluasi model.</p>
+          <p class="text-soft">{byDifficulty.mahir} soal</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="kategori" class="block">
+      <h2 id="kategori">Kategori Asesmen</h2>
+      <div class="cat-grid">
+        {
+          assessmentCategories.map((c) => (
+            <div class="cat-item">
+              <strong>{c.name}</strong>
+              <span>{c.description}</span>
+              <span class="badge">{catCount(c.id)} soal</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="topik" class="block">
+      <h2 id="topik">Latihan per Topik</h2>
+      <div class="grid grid-3">
+        {
+          topicWithQuestions.map((t) => (
+            <a class="card card-link" href={url(`/latihan/${t.slug}`)}>
+              <span class="badge badge-grade">{t.grade}</span>
+              <h3>{t.title}</h3>
+              <p class="text-muted">{questionsByTopic(t.id).length} soal · tingkat dasar sampai mahir</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.5rem;
+  }
+  .lead {
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    font-size: 1.08rem;
+  }
+  .block {
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .card h3 {
+    margin-top: 0.5rem;
+  }
+  .level-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .level-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.93rem;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.75rem;
+  }
+  .cat-item {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .cat-item span:nth-child(2) {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+  }
+  .cat-item .badge {
+    justify-self: start;
+    margin-top: 0.25rem;
+  }
+</style>

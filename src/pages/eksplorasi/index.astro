@@ -1,0 +1,99 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import FunctionSlider from '@/components/interactive/FunctionSlider.astro';
+import CompoundInterestSim from '@/components/interactive/CompoundInterestSim.astro';
+import ProbabilitySim from '@/components/interactive/ProbabilitySim.astro';
+import LinearRegressionSim from '@/components/interactive/LinearRegressionSim.astro';
+import { getExploration } from '@/data/explorations';
+import { getTopic } from '@/data/topics';
+import { url, topicUrl } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Eksplorasi' },
+];
+const ordered = [
+  'eksponen-pertumbuhan',
+  'kuadrat-parameter',
+  'fungsi-eksponensial-parameter',
+  'bunga-majemuk-sim',
+  'anuitas-sim',
+  'peluang-sim',
+  'regresi-sim',
+]
+  .map((id) => getExploration(id))
+  .filter((e): e is NonNullable<typeof e> => Boolean(e));
+---
+
+<BaseLayout
+  title="Eksplorasi"
+  description="Eksplorasi matematika interaktif: penggeser parameter fungsi, simulasi bunga majemuk, anuitas, peluang, dan regresi linear."
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">Belajar dengan Menemukan</p>
+      <h1>Eksplorasi</h1>
+      <p class="lead">
+        Sebelum membaca rumus, cobalah mengubah-ubah nilainya. Amati apa yang berubah, ajukan
+        dugaan, lalu hubungkan dengan konsep yang kamu pelajari.
+      </p>
+    </header>
+
+    {
+      ordered.map((e) => {
+        const topic = e.topicId ? getTopic(e.topicId) : undefined;
+        return (
+          <section class="exploration" aria-labelledby={`ex-${e.id}`}>
+            <div class="ex-head">
+              <h2 id={`ex-${e.id}`}>{e.title}</h2>
+              {topic && (
+                <a class="ex-topic" href={topicUrl(topic.grade, topic.element, topic.slug)}>
+                  Materi: {topic.title}
+                </a>
+              )}
+            </div>
+            {e.type === 'function-slider' && <FunctionSlider exploration={e} />}
+            {e.type === 'compound-interest' && <CompoundInterestSim exploration={e} />}
+            {e.type === 'probability' && <ProbabilitySim exploration={e} />}
+            {e.type === 'linear-regression' && <LinearRegressionSim exploration={e} />}
+          </section>
+        );
+      })
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.5rem;
+  }
+  .lead {
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    font-size: 1.08rem;
+  }
+  .exploration {
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .ex-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .ex-topic {
+    display: inline-block;
+    padding-block: 0.2rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .ex-topic:hover {
+    color: var(--color-primary);
+  }
+</style>

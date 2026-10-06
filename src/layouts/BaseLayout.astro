@@ -1,0 +1,152 @@
+---
+import '@/styles/global.css';
+import 'katex/dist/katex.min.css';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Pusat pembelajaran Matematika SMA berbahasa Indonesia: konsep, eksplorasi, latihan, dan penerapan nyata.',
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title === 'Matematika SMA' ? title : `${title} — Matematika SMA`;
+const site = Astro.site ?? new URL('https://example.github.io');
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL(`${import.meta.env.BASE_URL}og-default.svg`, site).href;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <meta name="theme-color" content="#2f4fd8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1526" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Matematika SMA" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        // Aktifkan animasi reveal hanya bila JS tersedia dan pengguna tidak
+        // meminta gerak minimal, supaya konten tetap terlihat tanpa JS.
+        try {
+          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!reduce && 'IntersectionObserver' in window) {
+            document.documentElement.classList.add('motion-ready');
+          }
+        } catch (e) {
+          /* biarkan konten tampil normal */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#konten">Lewati ke konten utama</a>
+    <Header />
+    <main id="konten">
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      document.addEventListener('click', function (event) {
+        var anchor = event.target.closest && event.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        var id = anchor.getAttribute('href').slice(1);
+        if (!id) return;
+        var target = document.getElementById(id);
+        if (target) {
+          event.preventDefault();
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+    </script>
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        if (!root.classList.contains('motion-ready')) return;
+        var items = document.querySelectorAll('.reveal');
+        if (!items.length) return;
+        var reveal = function (el) {
+          el.classList.add('is-visible');
+        };
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              // Munculkan bila terlihat ATAU sudah terlewat (mis. lompat anchor).
+              if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+                reveal(entry.target);
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+        );
+        items.forEach(function (item) {
+          observer.observe(item);
+        });
+        // Jaring pengaman: apa pun yang berada di atas lipatan atau sudah
+        // terlewat tetap ditampilkan walau observer gagal/tidak sempat.
+        var sweep = function () {
+          items.forEach(function (item) {
+            if (item.classList.contains('is-visible')) return;
+            if (item.getBoundingClientRect().top < window.innerHeight) reveal(item);
+          });
+        };
+        window.addEventListener('load', function () {
+          window.setTimeout(sweep, 900);
+        });
+        window.addEventListener('hashchange', sweep);
+        window.addEventListener('scroll', function () {
+          window.clearTimeout(sweep._t);
+          sweep._t = window.setTimeout(sweep, 250);
+        });
+        // Jaring pengaman terakhir: bila observer tidak pernah melaporkan
+        // (mis. gulir sangat cepat, cuplikan otomatis, atau browser tidak
+        // biasa), tampilkan seluruh konten agar tidak ada yang tersembunyi.
+        var revealAll = function () {
+          items.forEach(reveal);
+        };
+        window.addEventListener('load', function () {
+          window.setTimeout(revealAll, 4000);
+        });
+        window.addEventListener('pageshow', function (event) {
+          if (event.persisted) revealAll();
+        });
+      })();
+    </script>
+  </body>
+</html>

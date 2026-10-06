@@ -1,0 +1,162 @@
+import type { Question } from '@/types/content';
+
+export const barisanDeretQuestions: Question[] = [
+  {
+    id: 'bd-01',
+    topicId: 'barisan-deret',
+    difficulty: 'dasar',
+    type: 'multiple-choice',
+    category: 'cepat',
+    prompt: 'Suku ke-$15$ dari barisan aritmetika $4, 9, 14, 19, \\dots$ adalah …',
+    options: [
+      { key: 'A', text: '$69$' },
+      { key: 'B', text: '$74$' },
+      { key: 'C', text: '$79$' },
+      { key: 'D', text: '$84$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Suku pertama $a=4$ dan beda $b=9-4=5$. Dengan $U_n=a+(n-1)b$ diperoleh $U_{15}=4+(15-1)\\cdot5=4+70=74$.',
+    hints: ['Tentukan dulu suku pertama $a$ dan beda $b$.', 'Gunakan $U_n=a+(n-1)b$; eksponen indeksnya $(n-1)$, bukan $n$.'],
+    competencies: ['suku ke-n barisan aritmetika'],
+  },
+  {
+    id: 'bd-02',
+    topicId: 'barisan-deret',
+    difficulty: 'dasar',
+    type: 'multiple-choice',
+    category: 'cepat',
+    prompt: 'Suku ke-$8$ dari barisan geometri $5, 10, 20, 40, \\dots$ adalah …',
+    options: [
+      { key: 'A', text: '$320$' },
+      { key: 'B', text: '$640$' },
+      { key: 'C', text: '$1.280$' },
+      { key: 'D', text: '$2.560$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Suku pertama $a=5$ dan rasio $r=\\dfrac{10}{5}=2$. Maka $U_8=5\\cdot2^{7}=5\\cdot128=640$.',
+    hints: ['Rasio $r$ diperoleh dari pembagian dua suku berdekatan.'],
+    competencies: ['suku ke-n barisan geometri'],
+  },
+  {
+    id: 'bd-03',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Suku ke-$3$ dan suku ke-$7$ suatu barisan aritmetika berturut-turut adalah $11$ dan $27$. Suku ke-$20$ barisan itu adalah …',
+    options: [
+      { key: 'A', text: '$75$' },
+      { key: 'B', text: '$79$' },
+      { key: 'C', text: '$83$' },
+      { key: 'D', text: '$87$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Dari $U_3=a+2b=11$ dan $U_7=a+6b=27$. Kurangkan: $4b=16$ sehingga $b=4$, lalu $a=11-2\\cdot4=3$. Jadi $U_{20}=3+(20-1)\\cdot4=3+76=79$.',
+    hints: ['Susun dua persamaan dari $U_3$ dan $U_7$, lalu eliminasi.'],
+    competencies: ['barisan aritmetika'],
+  },
+  {
+    id: 'bd-04',
+    topicId: 'barisan-deret',
+    difficulty: 'dasar',
+    type: 'short-answer',
+    category: 'cepat',
+    prompt: 'Hitung jumlah $20$ suku pertama deret aritmetika $2+5+8+\\cdots$.',
+    answer: '610',
+    acceptedAnswers: ['610'],
+    explanation:
+      '$a=2$, $b=3$, sehingga $U_{20}=2+19\\cdot3=59$. Maka $S_{20}=\\dfrac{20}{2}(2+59)=10\\cdot61=610$.',
+    hints: ['Tentukan $U_{20}$ lebih dahulu, lalu pakai $S_n=\\dfrac{n}{2}(a+U_n)$.'],
+    competencies: ['jumlah n suku deret aritmetika'],
+  },
+  {
+    id: 'bd-05',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt: 'Pada barisan geometri diketahui $U_2=6$ dan $U_5=48$. Tentukan suku ke-$10$.',
+    answer: '1536',
+    acceptedAnswers: ['1536'],
+    explanation:
+      '$\\dfrac{U_5}{U_2}=r^{3}=\\dfrac{48}{6}=8$, sehingga $r=2$. Karena $U_2=ar=6$, maka $a=3$. Jadi $U_{10}=3\\cdot2^{9}=3\\cdot512=1536$.',
+    hints: ['Bandingkan $U_5$ dan $U_2$ untuk memperoleh $r^{3}$.'],
+    competencies: ['barisan geometri'],
+  },
+  {
+    id: 'bd-06',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt: 'Hitung jumlah deret geometri tak hingga $12+6+3+\\cdots$.',
+    answer: '24',
+    acceptedAnswers: ['24'],
+    explanation:
+      'Di sini $a=12$ dan $r=\\tfrac12$ dengan $\\lvert r\\rvert<1$, maka $S_\\infty=\\dfrac{12}{1-\\tfrac12}=\\dfrac{12}{\\tfrac12}=24$.',
+    hints: ['Periksa dulu apakah $\\lvert r\\rvert<1$ sebelum memakai rumus $S_\\infty$.'],
+    competencies: ['deret geometri tak hingga'],
+  },
+  {
+    id: 'bd-07',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt: 'Suku keberapakah $47$ pada barisan aritmetika $3, 7, 11, 15, \\dots$?',
+    answer: '12',
+    acceptedAnswers: ['12'],
+    explanation:
+      'Misalkan $47=U_n$, maka $47=3+(n-1)\\cdot4$, sehingga $44=4(n-1)$ dan $n-1=11$. Jadi $n=12$.',
+    hints: ['Tulis $47$ sebagai $U_n=a+(n-1)b$, lalu selesaikan untuk $n$.'],
+    competencies: ['suku ke-n barisan aritmetika'],
+  },
+  {
+    id: 'bd-08',
+    topicId: 'barisan-deret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah gedung pertunjukan memiliki $25$ baris kursi. Baris pertama berisi $20$ kursi dan setiap baris berikutnya bertambah $3$ kursi. Tentukan kapasitas total gedung tersebut dan jelaskan langkah pemodelanmu.',
+    answer:
+      'Banyak kursi tiap baris membentuk barisan aritmetika dengan $a=20$, $b=3$, dan $n=25$. Kapasitas total adalah jumlah $25$ suku pertama: $S_{25}=\\dfrac{25}{2}\\big(2\\cdot20+(25-1)\\cdot3\\big)=\\dfrac{25}{2}(40+72)=\\dfrac{25}{2}\\cdot112=25\\cdot56=1400$. Jadi kapasitas gedung adalah $1400$ kursi.',
+    explanation:
+      'Kunci jawaban: mengenali pola aritmetika, menentukan $a=20$ dan $b=3$, lalu menggunakan rumus jumlah $S_n=\\dfrac{n}{2}\\big(2a+(n-1)b\\big)$.',
+    hints: ['Banyak kursi tiap baris membentuk barisan aritmetika.', 'Gunakan rumus jumlah $S_n$, bukan rumus suku ke-$n$.'],
+    competencies: ['pemodelan barisan aritmetika'],
+  },
+  {
+    id: 'bd-09',
+    topicId: 'barisan-deret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Sebuah bola dijatuhkan dari ketinggian $3$ m. Setiap kali memantul, bola mencapai $\\tfrac23$ dari ketinggian sebelumnya. Tentukan total jarak yang ditempuh bola sampai berhenti, dan jelaskan mengapa deretnya konvergen.',
+    answer:
+      'Jatuh pertama menempuh $3$ m. Setelah itu setiap pantulan menempuh jarak naik lalu turun. Ketinggian pantulan membentuk geometri $a=3\\cdot\\tfrac23=2$ dengan $r=\\tfrac23$. Total lintasan pantulan (naik dan turun) adalah $2\\cdot\\dfrac{2}{1-\\tfrac23}=2\\cdot\\dfrac{2}{\\tfrac13}=2\\cdot6=12$ m. Jadi total jarak $=3+12=15$ m. Deret konvergen karena $\\lvert r\\rvert=\\tfrac23<1$, sehingga suku-sukunya menuju nol.',
+    explanation:
+      'Kunci jawaban: memisahkan jarak jatuh pertama dari deret pantulan, lalu memakai $S_\\infty=\\dfrac{a}{1-r}$ untuk $\\lvert r\\rvert<1$.',
+    hints: ['Pisahkan jarak jatuh pertama dari jarak pantulan naik-turun.', 'Gunakan $S_\\infty=\\dfrac{a}{1-r}$ karena $\\lvert r\\rvert<1$.'],
+    competencies: ['deret geometri tak hingga', 'pemodelan'],
+  },
+  {
+    id: 'bd-10',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'konsep',
+    prompt:
+      'Jelaskan kapan deret geometri tak hingga memiliki jumlah berhingga (konvergen) dan kapan tidak. Sertakan syarat rasionya, lalu berikan satu contoh deret konvergen dan satu contoh deret divergen.',
+    answer:
+      'Deret geometri tak hingga konvergen jika $\\lvert r\\rvert<1$, sebab $r^{n}\\to0$ saat $n\\to\\infty$, sehingga jumlahnya $S_\\infty=\\dfrac{a}{1-r}$. Jika $\\lvert r\\rvert\\geq1$, suku-sukunya tidak menuju nol sehingga deret divergen dan jumlahnya tak berhingga. Contoh konvergen: $1+\\tfrac12+\\tfrac14+\\cdots=\\dfrac{1}{1-\\tfrac12}=2$. Contoh divergen: $2+4+8+\\cdots$ karena $r=2\\geq1$.',
+    explanation: 'Kunci jawaban menekankan syarat $\\lvert r\\rvert<1$ dan alasan suku-sukunya menuju nol.',
+    hints: ['Apa yang terjadi pada $r^{n}$ ketika $n$ membesar jika $\\lvert r\\rvert<1$?', 'Bandingkan dengan kasus $\\lvert r\\rvert\\geq1$.'],
+    competencies: ['kekonvergenan deret geometri'],
+  },
+];

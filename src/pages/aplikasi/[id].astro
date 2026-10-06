@@ -1,0 +1,176 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import { renderMarkdown } from '@/utils/markdown';
+import { applications, applicationCategories, getApplication } from '@/data/applications';
+import { getTopic } from '@/data/topics';
+import { url, topicUrl } from '@/utils/url';
+
+export function getStaticPaths() {
+  return applications.map((a) => ({ params: { id: a.id }, props: { id: a.id } }));
+}
+
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const app = getApplication(id)!;
+const category = applicationCategories[app.category];
+const bodyHtml = renderMarkdown(app.body);
+const analysisHtml = app.analysis ? renderMarkdown(app.analysis) : '';
+const related = app.topicIds.map((tid) => getTopic(tid)).filter((t): t is NonNullable<typeof t> => Boolean(t));
+const others = applications.filter((a) => a.id !== app.id).slice(0, 4);
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Matematika dalam Kehidupan', href: url('/aplikasi') },
+  { label: app.title },
+];
+---
+
+<BaseLayout title={app.title} description={app.summary} ogType="article">
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <div class="app-layout">
+      <article class="app-main">
+        <header class="page-head">
+          <span class="badge">{category.name}</span>
+          <h1>{app.title}</h1>
+          <p class="lead">{app.summary}</p>
+        </header>
+
+        <div class="prose" set:html={bodyHtml} />
+
+        {
+          analysisHtml && (
+            <section class="analysis">
+              <h2>Analisis dan Interpretasi</h2>
+              <div class="prose" set:html={analysisHtml} />
+            </section>
+          )
+        }
+
+        <section class="reflection">
+          <h2>Renungkan</h2>
+          <ul>
+            <li>Asumsi apa yang dipakai dalam model ini, dan kapan asumsi itu tidak lagi berlaku?</li>
+            <li>Besaran mana yang paling memengaruhi hasil, dan mengapa?</li>
+            <li>Keputusan apa yang akan kamu ambil berdasarkan analisis ini?</li>
+          </ul>
+        </section>
+      </article>
+
+      <aside class="app-aside no-print">
+        <div class="aside-card">
+          <h2 class="aside-heading">Konsep Terkait</h2>
+          <ul class="aside-links">
+            {
+              related.map((t) => (
+                <li>
+                  <a href={topicUrl(t.grade, t.element, t.slug)}>
+                    <ElementIcon element={t.element} size={16} />
+                    {t.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="aside-card">
+          <h2 class="aside-heading">Studi Kasus Lain</h2>
+          <ul class="aside-links">
+            {others.map((a) => (
+              <li>
+                <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .app-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    gap: 2.5rem;
+    align-items: start;
+    padding-bottom: 2rem;
+  }
+  .page-head {
+    padding-block: 0.5rem 1rem;
+  }
+  .lead {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+  }
+  .analysis {
+    margin-top: 1.5rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+  }
+  .analysis h2 {
+    font-size: 1.15rem;
+  }
+  .reflection {
+    margin-top: 1.5rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-lg);
+  }
+  .reflection h2 {
+    font-size: 1.05rem;
+  }
+  .app-aside {
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+    display: grid;
+    gap: 1rem;
+  }
+  .aside-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+  }
+  .aside-heading {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-soft);
+    margin-bottom: 0.6rem;
+  }
+  .aside-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .aside-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  .aside-links a:hover {
+    color: var(--color-primary);
+  }
+  @media (max-width: 58rem) {
+    .app-layout {
+      grid-template-columns: 1fr;
+    }
+    .app-aside {
+      position: static;
+    }
+  }
+</style>

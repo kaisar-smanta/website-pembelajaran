@@ -1,0 +1,34 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { url } from '@/utils/url';
+---
+
+<BaseLayout title="Halaman Tidak Ditemukan" description="Halaman yang kamu cari tidak ditemukan." noindex>
+  <div class="container notfound">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>Halaman tidak ditemukan</h1>
+    <p class="text-muted">
+      Tautan mungkin salah, atau halaman sudah dipindahkan. Coba mulai dari peta pembelajaran.
+    </p>
+    <div class="row">
+      <a class="btn btn-primary" href={url('/')}>Beranda</a>
+      <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta Pembelajaran</a>
+      <a class="btn btn-ghost" href={url('/cari')}>Cari materi</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: 4rem;
+    max-width: 40rem;
+  }
+  .code {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1;
+  }
+</style>

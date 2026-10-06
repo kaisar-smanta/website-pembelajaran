@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import { url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Referensi' },
+];
+---
+
+<BaseLayout
+  title="Referensi"
+  description="Catatan kurikulum, sumber rujukan, dan keterangan penyusunan materi Matematika SMA."
+>
+  <div class="container container-narrow">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">Tentang Situs</p>
+      <h1>Referensi dan Catatan Kurikulum</h1>
+    </header>
+
+    <div class="prose">
+      <h2>Hubungan dengan Kurikulum</h2>
+      <p>
+        Situs ini disusun mengikuti kerangka <strong>Capaian Pembelajaran (CP)</strong> matematika
+        SMA pada Kurikulum Merdeka, dengan empat elemen utama: Bilangan, Aljabar dan Fungsi,
+        Geometri, serta Analisis Data dan Peluang.
+      </p>
+      <p>
+        <strong>Penting:</strong> susunan topik, urutan, dan penamaan bagian pada situs ini
+        merupakan <em>tafsir instruksional</em> yang kami kembangkan untuk memudahkan belajar. Ini
+        <strong>bukan</strong> salinan resmi, dan tidak dimaksudkan sebagai daftar isi resmi buku
+        teks. Guru dan sekolah tetap merujuk pada dokumen resmi yang berlaku.
+      </p>
+
+      <h2>Sumber Rujukan</h2>
+      <ul>
+        <li>
+          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia — Capaian
+          Pembelajaran dan panduan pembelajaran matematika SMA.
+        </li>
+        <li>
+          Buku teks matematika SMA yang diterbitkan secara resmi dan digunakan di sekolah.
+        </li>
+        <li>Catatan dan praktik pembelajaran matematika di kelas.</li>
+      </ul>
+
+      <h2>Prinsip Penyusunan Materi</h2>
+      <ol>
+        <li>Konsep dibangun sebelum prosedur; rumus muncul dari pemahaman.</li>
+        <li>Setiap contoh dihitung dan diverifikasi secara mandiri.</li>
+        <li>Soal dibedakan berdasarkan tuntutan penalaran, bukan ukuran angka.</li>
+        <li>Kesalahan umum dibahas beserta alasannya, bukan sekadar dinyatakan salah.</li>
+        <li>Penerapan nyata selalu dikaitkan kembali dengan konsep dasarnya.</li>
+      </ol>
+
+      <h2>Lisensi dan Penggunaan</h2>
+      <p>
+        Materi pada situs ini disediakan untuk keperluan pendidikan. Kamu dapat menggunakannya
+        untuk belajar, mengajar, atau menyusun latihan tambahan. Jika menemukan kekeliruan,
+        mohon sampaikan agar dapat diperbaiki.
+      </p>
+
+      <h2>Catatan Teknis</h2>
+      <p>
+        Situs ini adalah situs statis tanpa server, tanpa basis data, dan tanpa akun pengguna.
+        Seluruh materi dibundel saat pembuatan situs sehingga dapat dibuka dengan cepat dan
+        dapat dipasang di GitHub Pages.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1rem;
+  }
+</style>

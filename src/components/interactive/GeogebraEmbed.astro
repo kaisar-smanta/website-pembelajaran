@@ -1,0 +1,50 @@
+---
+interface Props {
+  url: string;
+  title: string;
+  height?: number;
+}
+const { url, title, height = 480 } = Astro.props;
+---
+
+<figure class="geogebra-embed">
+  <figcaption>{title}</figcaption>
+  <div class="embed-frame">
+    <iframe
+      src={url}
+      title={title}
+      loading="lazy"
+      height={height}
+      allowfullscreen
+      referrerpolicy="no-referrer"
+    ></iframe>
+  </div>
+  <p class="text-muted embed-note">
+    Aktivitas interaktif ini dimuat dari GeoGebra. Jika tidak muncul, buka langsung di
+    <a href={url} target="_blank" rel="noopener noreferrer">situs GeoGebra</a>.
+  </p>
+</figure>
+
+<style>
+  .geogebra-embed {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  figcaption {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .embed-frame iframe {
+    width: 100%;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .embed-note {
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0;
+  }
+</style>

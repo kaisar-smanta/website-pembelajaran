@@ -1,0 +1,202 @@
+---
+import type { Exploration } from '@/types/content';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="reg-sim" data-reg>
+  <p class="reg-help">
+    Klik atau ketuk pada bidang untuk menambah titik data. Garis regresi dan koefisiennya
+    dihitung otomatis menggunakan metode kuadrat terkecil.
+  </p>
+  <div class="reg-canvas">
+    <svg viewBox="0 0 480 320" role="img" aria-label="Diagram pencar dan garis regresi" data-reg-plot></svg>
+  </div>
+  <div class="row reg-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-reg-random>Tambah data acak</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-reg-clear>Hapus semua titik</button>
+    <span class="text-soft" data-reg-count>0 titik</span>
+  </div>
+  <output class="reg-out" data-reg-out aria-live="polite"></output>
+  <figcaption class="reg-caption" set:html={exploration.description} />
+</figure>
+
+<style>
+  .reg-sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .reg-help {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-top: 0;
+  }
+  .reg-canvas svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .reg-actions {
+    margin-top: 0.6rem;
+  }
+  .reg-out {
+    display: block;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .reg-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .reg-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  interface Pt {
+    x: number;
+    y: number;
+  }
+
+  function setupReg(root: Element) {
+    const svg = root.querySelector('[data-reg-plot]') as SVGSVGElement;
+    const out = root.querySelector('[data-reg-out]') as HTMLOutputElement;
+    const count = root.querySelector('[data-reg-count]') as HTMLElement;
+    const points: Pt[] = [];
+    const W = 480;
+    const H = 320;
+    const pad = 34;
+    const xMin = -10;
+    const xMax = 10;
+    const yMin = -10;
+    const yMax = 10;
+
+    const sx = (x: number) => pad + ((x - xMin) / (xMax - xMin)) * (W - 2 * pad);
+    const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
+    const ix = (px: number) => xMin + ((px - pad) / (W - 2 * pad)) * (xMax - xMin);
+    const iy = (py: number) => yMin + ((H - pad - py) / (H - 2 * pad)) * (yMax - yMin);
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const el = (name: string, attrs: Record<string, string | number>) => {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+
+    function stats() {
+      const n = points.length;
+      if (n < 2) return null;
+      const mx = points.reduce((s, p) => s + p.x, 0) / n;
+      const my = points.reduce((s, p) => s + p.y, 0) / n;
+      let sxx = 0;
+      let syy = 0;
+      let sxy = 0;
+      for (const p of points) {
+        sxx += (p.x - mx) ** 2;
+        syy += (p.y - my) ** 2;
+        sxy += (p.x - mx) * (p.y - my);
+      }
+      if (sxx === 0) return null;
+      const slope = sxy / sxx;
+      const intercept = my - slope * mx;
+      const r = syy === 0 ? NaN : sxy / Math.sqrt(sxx * syy);
+      return { n, mx, my, slope, intercept, r };
+    }
+
+    function draw() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      for (let i = 0; i <= 8; i++) {
+        const x = pad + (i / 8) * (W - 2 * pad);
+        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        const y = pad + (i / 6) * (H - 2 * pad);
+        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.5 }));
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.5 }));
+
+      const st = stats();
+      if (st) {
+        const x1 = xMin;
+        const x2 = xMax;
+        const y1 = st.slope * x1 + st.intercept;
+        const y2 = st.slope * x2 + st.intercept;
+        svg.appendChild(el('line', {
+          x1: sx(x1),
+          y1: sy(y1),
+          x2: sx(x2),
+          y2: sy(y2),
+          stroke: 'var(--color-primary)',
+          'stroke-width': 2.4,
+        }));
+      }
+
+      points.forEach((p) => {
+        svg.appendChild(el('circle', { cx: sx(p.x), cy: sy(p.y), r: 4.5, fill: 'var(--color-data)' }));
+      });
+
+      count.textContent = `${points.length} titik`;
+      if (!st) {
+        out.textContent = 'Tambahkan minimal dua titik untuk menghitung garis regresi.';
+      } else {
+        const arah = st.slope > 0 ? 'positif' : st.slope < 0 ? 'negatif' : 'nol';
+        out.textContent = `ŷ = ${st.slope.toFixed(3)}x ${st.intercept >= 0 ? '+' : '−'} ${Math.abs(st.intercept).toFixed(3)} · korelasi r = ${isNaN(st.r) ? '—' : st.r.toFixed(3)} (${arah}). Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${st.slope.toFixed(3)} satuan.`;
+      }
+    }
+
+    function addPointFromEvent(ev: MouseEvent | Touch) {
+      const rect = svg.getBoundingClientRect();
+      const px = ((ev.clientX - rect.left) / rect.width) * W;
+      const py = ((ev.clientY - rect.top) / rect.height) * H;
+      const x = ix(px);
+      const y = iy(py);
+      points.push({ x: Math.max(xMin, Math.min(xMax, x)), y: Math.max(yMin, Math.min(yMax, y)) });
+      draw();
+    }
+
+    svg.addEventListener('click', (e) => addPointFromEvent(e as MouseEvent));
+    svg.addEventListener('touchstart', (e) => {
+      if (e.touches[0]) {
+        e.preventDefault();
+        addPointFromEvent(e.touches[0]);
+      }
+    }, { passive: false });
+
+    root.querySelector('[data-reg-clear]')?.addEventListener('click', () => {
+      points.length = 0;
+      draw();
+    });
+
+    root.querySelector('[data-reg-random]')?.addEventListener('click', () => {
+      const base = 2 + Math.random() * 2;
+      const noise = 0.6 + Math.random() * 1.4;
+      for (let i = 0; i < 8; i++) {
+        const x = -8 + Math.random() * 16;
+        const y = Math.max(yMin, Math.min(yMax, base + 0.7 * x + (Math.random() - 0.5) * 2 * noise * 3));
+        points.push({ x, y });
+      }
+      draw();
+    });
+
+    draw();
+  }
+
+  document.querySelectorAll('[data-reg]').forEach(setupReg);
+</script>

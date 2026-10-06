@@ -1,0 +1,65 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Crumb[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs no-print" aria-label="Remah roti">
+  <ol>
+    {
+      items.map((item, index) => (
+        <li>
+          {item.href && index < items.length - 1 ? (
+            <a href={item.href}>{item.label}</a>
+          ) : (
+            <span aria-current="page">{item.label}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    font-size: 0.85rem;
+    padding-block: 0.9rem;
+  }
+  .breadcrumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  .breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumbs li:not(:last-child)::after {
+    content: '/';
+    color: var(--color-text-soft);
+  }
+  .breadcrumbs a {
+    display: inline-block;
+    padding-block: 0.2rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .breadcrumbs [aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+</style>

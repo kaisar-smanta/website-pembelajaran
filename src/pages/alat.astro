@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import { url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Alat Matematika' },
+];
+
+interface ToolGroup {
+  heading: string;
+  intro: string;
+  tools: { name: string; url: string; ext?: boolean; note: string; use: string }[];
+}
+
+const groups: ToolGroup[] = [
+  {
+    heading: 'Grafik & Eksplorasi',
+    intro: 'Alat untuk memvisualkan fungsi, mengubah parameter, dan menyelidiki perilaku grafik.',
+    tools: [
+      {
+        name: 'GeoGebra',
+        url: 'https://www.geogebra.org/',
+        ext: true,
+        note: 'Perangkat matematika dinamis.',
+        use: 'Menggambar grafik fungsi, konstruksi geometri, dan eksplorasi parameter.',
+      },
+      {
+        name: 'Desmos Graphing Calculator',
+        url: 'https://www.desmos.com/calculator',
+        ext: true,
+        note: 'Kalkulator grafik daring yang cepat.',
+        use: 'Memeriksa bentuk grafik kuadrat, eksponen, dan trigonometri.',
+      },
+      {
+        name: 'GeoGebra Geometry',
+        url: 'https://www.geogebra.org/geometry',
+        ext: true,
+        note: 'Ruang konstruksi geometri.',
+        use: 'Menjelajahi lingkaran, garis singgung, dan sudut.',
+      },
+    ],
+  },
+  {
+    heading: 'Perhitungan & Pemeriksaan',
+    intro: 'Untuk memeriksa hasil, bukan menggantikan proses berpikir.',
+    tools: [
+      {
+        name: 'Wolfram Alpha',
+        url: 'https://www.wolframalpha.com/',
+        ext: true,
+        note: 'Mesin pengetahuan komputasional.',
+        use: 'Memeriksa langkah penyelesaian dan bentuk sederhana.',
+      },
+      {
+        name: 'Desmos Scientific Calculator',
+        url: 'https://www.desmos.com/scientific',
+        ext: true,
+        note: 'Kalkulator ilmiah daring.',
+        use: 'Menghitung nilai trigonometri, eksponen, dan akar.',
+      },
+    ],
+  },
+  {
+    heading: 'Data & Statistika',
+    intro: 'Mengolah data, membuat diagram, dan memeriksa model regresi.',
+    tools: [
+      {
+        name: 'Google Sheets',
+        url: 'https://docs.google.com/spreadsheets/',
+        ext: true,
+        note: 'Lembar kerja daring.',
+        use: 'Menghitung rata-rata, kuartil, dan membuat diagram pencar.',
+      },
+      {
+        name: 'GeoGebra Classic',
+        url: 'https://www.geogebra.org/classic',
+        ext: true,
+        note: 'Spreadsheet dan kalkulator dalam satu ruang.',
+        use: 'Regresi dan analisis data bivariat.',
+      },
+    ],
+  },
+];
+
+---
+
+<BaseLayout
+  title="Alat Matematika"
+  description="Kumpulan alat matematika daring untuk memvisualkan fungsi, memeriksa perhitungan, dan menganalisis data."
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">Perangkat</p>
+      <h1>Alat Matematika</h1>
+      <p class="lead">Kumpulan alat bantu untuk memvisualkan fungsi, memeriksa perhitungan, dan menganalisis data.</p>
+      <blockquote class="callout callout-info" role="note">
+        <strong>Alat membantu mengeksplorasi dan memeriksa</strong>, tetapi tidak menggantikan
+        pemahaman. Biasakan: kerjakan dengan tangan → periksa dengan alat → jelaskan mengapa
+        hasilnya masuk akal.
+      </blockquote>
+    </header>
+
+    {
+      groups.map((group) => (
+        <section class="block" aria-labelledby={`g-${group.heading}`}>
+          <h2 id={`g-${group.heading}`}>{group.heading}</h2>
+          <p class="text-muted">{group.intro}</p>
+          <div class="grid grid-2">
+            {group.tools.map((tool) => (
+              <article class="card tool">
+                <h3>
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer">
+                    {tool.name} <span aria-hidden="true">↗</span>
+                  </a>
+                </h3>
+                <p class="text-soft">{tool.note}</p>
+                <p>{tool.use}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.5rem;
+  }
+  .lead {
+    max-width: 70ch;
+    color: var(--color-text-muted);
+    font-size: 1.08rem;
+  }
+  .callout {
+    padding: 0.75rem 1rem;
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-info-soft);
+    border-radius: var(--radius);
+    max-width: 70ch;
+  }
+  .block {
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .tool h3 {
+    font-size: 1.1rem;
+  }
+  .tool h3 a {
+    display: inline-block;
+    padding-block: 0.2rem;
+    text-decoration: none;
+  }
+  .tool h3 a:hover {
+    text-decoration: underline;
+  }
+  .tool p {
+    margin: 0.3rem 0 0;
+    font-size: 0.93rem;
+  }
+</style>

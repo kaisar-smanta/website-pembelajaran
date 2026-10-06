@@ -1,0 +1,175 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import TopicCard from '@/components/content/TopicCard.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { topicsByGradeElement, plannedTopics } from '@/data/topics';
+import { url, gradeUrl } from '@/utils/url';
+import type { Grade } from '@/types/content';
+
+export function getStaticPaths() {
+  return GRADE_ORDER.map((grade) => ({ params: { grade }, props: { grade } }));
+}
+
+interface Props {
+  grade: Grade;
+}
+const { grade } = Astro.props;
+const gradeMeta = GRADES[grade];
+
+const otherGrades = GRADE_ORDER.filter((g) => g !== grade);
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Peta Pembelajaran', href: url('/peta-pembelajaran') },
+  { label: gradeMeta.name },
+];
+---
+
+<BaseLayout
+  title={gradeMeta.name}
+  description={`Materi matematika ${gradeMeta.name} (${gradeMeta.label}) menurut elemen bilangan, aljabar dan fungsi, geometri, serta analisis data dan peluang.`}
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class="page-head">
+      <p class="eyebrow">{gradeMeta.label}</p>
+      <h1>{gradeMeta.name}</h1>
+      <p class="lead">{gradeMeta.description}</p>
+    </header>
+
+    <div class="grade-switch no-print">
+      <span class="text-soft">Kelas lain:</span>
+      {
+        otherGrades.map((g) => (
+          <a class="btn btn-secondary btn-sm" href={gradeUrl(g)}>{GRADES[g].name}</a>
+        ))
+      }
+    </div>
+
+    <div class="element-list">
+      {
+        ELEMENT_ORDER.map((elementId) => {
+          const element = ELEMENTS[elementId];
+          const complete = topicsByGradeElement(grade, elementId);
+          const planned = plannedTopics.filter((p) => p.grade === grade && p.element === elementId);
+          const total = complete.length + planned.length;
+          if (total === 0) return null;
+          return (
+            <section class={`element-section accent-${elementId}`} aria-labelledby={`el-${elementId}`}>
+              <div class="element-head">
+                <span class="element-icon" aria-hidden="true">
+                  <ElementIcon element={elementId} size={22} />
+                </span>
+                <div>
+                  <h2 id={`el-${elementId}`}>{element.name}</h2>
+                  <p class="text-muted">{element.description}</p>
+                </div>
+                <span class="element-count">{complete.length} materi · {planned.length} rencana</span>
+              </div>
+              <div class="grid grid-3">
+                {complete.map((t) => (
+                  <TopicCard
+                    title={t.title}
+                    summary={t.summary}
+                    grade={t.grade}
+                    element={t.element}
+                    slug={t.slug}
+                    showMeta={false}
+                  />
+                ))}
+                {planned.map((t) => (
+                  <TopicCard
+                    title={t.title}
+                    summary={t.summary}
+                    grade={t.grade}
+                    element={t.element}
+                    slug={t.slug}
+                    status="rencana"
+                    showMeta={false}
+                  />
+                ))}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 0.5rem 1.25rem;
+  }
+  .lead {
+    max-width: 68ch;
+    color: var(--color-text-muted);
+    font-size: 1.08rem;
+  }
+  .grade-switch {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .element-list {
+    display: grid;
+    gap: 2.25rem;
+    padding-bottom: 2rem;
+  }
+  .element-section {
+    border-top: 3px solid var(--color-border);
+    padding-top: 1rem;
+  }
+  .element-section.accent-bilangan {
+    border-top-color: var(--color-number);
+  }
+  .element-section.accent-aljabar-fungsi {
+    border-top-color: var(--color-algebra);
+  }
+  .element-section.accent-geometri {
+    border-top-color: var(--color-geometry);
+  }
+  .element-section.accent-data-peluang {
+    border-top-color: var(--color-data);
+  }
+  .element-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.85rem;
+    align-items: start;
+    margin-bottom: 1rem;
+  }
+  .element-head h2 {
+    margin-bottom: 0.15rem;
+  }
+  .element-head p {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .element-icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .element-count {
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+    white-space: nowrap;
+  }
+  @media (max-width: 40rem) {
+    .element-head {
+      grid-template-columns: auto 1fr;
+    }
+    .element-count {
+      grid-column: 2;
+    }
+  }
+</style>

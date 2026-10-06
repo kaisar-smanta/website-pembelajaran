@@ -1,0 +1,73 @@
+---
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  variant: 'info' | 'warning' | 'tip' | 'concept';
+  title?: string;
+  text: string;
+}
+const { variant, title, text } = Astro.props;
+const html = renderMarkdown(text);
+const labels: Record<string, string> = {
+  info: 'Info',
+  warning: 'Perhatian',
+  tip: 'Tips',
+  concept: 'Konsep kunci',
+};
+---
+
+<aside class={`callout callout-${variant}`} role="note">
+  <div class="callout-head">
+    <span class="callout-badge">{title ?? labels[variant]}</span>
+  </div>
+  <div class="callout-body prose" set:html={html} />
+</aside>
+
+<style>
+  .callout {
+    border: 1px solid var(--color-border);
+    border-left-width: 4px;
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    margin: 1.1rem 0;
+    background: var(--color-surface-2);
+  }
+  .callout-head {
+    margin-bottom: 0.35rem;
+  }
+  .callout-badge {
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .callout-body :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .callout-info {
+    border-left-color: var(--color-primary);
+    background: var(--color-info-soft);
+  }
+  .callout-info .callout-badge {
+    color: var(--color-primary);
+  }
+  .callout-warning {
+    border-left-color: var(--color-warning);
+    background: var(--color-warning-soft);
+  }
+  .callout-warning .callout-badge {
+    color: var(--color-warning);
+  }
+  .callout-tip {
+    border-left-color: var(--color-success);
+    background: var(--color-success-soft);
+  }
+  .callout-tip .callout-badge {
+    color: var(--color-success);
+  }
+  .callout-concept {
+    border-left-color: var(--color-algebra);
+    background: var(--color-concept-soft);
+  }
+  .callout-concept .callout-badge {
+    color: var(--color-algebra);
+  }
+</style>

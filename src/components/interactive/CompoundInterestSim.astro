@@ -1,0 +1,322 @@
+---
+import type { Exploration } from '@/types/content';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
+---
+
+<figure class={`sim finance-sim mode-${mode}`} data-finance data-mode={mode}>
+  <div class="sim-head">
+    <h3>{mode === 'anuitas' ? 'Kalkulator Anuitas & Tabel Amortisasi' : 'Simulasi Bunga Tunggal vs Bunga Majemuk'}</h3>
+  </div>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>{mode === 'anuitas' ? 'Pokok pinjaman (Rp)' : 'Modal awal (Rp)'}</span>
+      <input type="number" min="100000" step="100000" value={mode === 'anuitas' ? 50000000 : 10000000} data-field="P" />
+    </label>
+    <label class="sim-field">
+      <span>Suku bunga per tahun (%)</span>
+      <input type="number" min="0" max="60" step="0.5" value={mode === 'anuitas' ? 12 : 6} data-field="rate" />
+    </label>
+    <label class="sim-field">
+      <span>Lama {mode === 'anuitas' ? 'pinjaman' : 'menabung'} (tahun)</span>
+      <input type="number" min="1" max="40" step="1" value={mode === 'anuitas' ? 5 : 10} data-field="years" />
+    </label>
+  </div>
+
+  <div class="sim-summary" data-summary aria-live="polite"></div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 260" role="img" aria-label="Grafik pertumbuhan saldo" data-chart></svg>
+    <div class="legend" data-legend></div>
+  </div>
+
+  <div class="table-scroll">
+    <table class="amort">
+      <caption data-caption>{mode === 'anuitas' ? 'Tabel amortisasi (ringkas)' : 'Perbandingan saldo per tahun'}</caption>
+      <thead data-thead></thead>
+      <tbody data-tbody></tbody>
+    </table>
+  </div>
+
+  <figcaption class="sim-caption" set:html={exploration.description} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-head h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field input {
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .sim-summary {
+    margin: 0.85rem 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .sim-summary .stat {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-summary .stat strong {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0.6rem;
+  }
+  .legend span::before {
+    content: '';
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.18rem;
+    border-radius: 2px;
+    background: currentColor;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-data);
+  }
+  table.amort {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 0.5rem;
+  }
+  table.amort caption {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    padding-bottom: 0.35rem;
+  }
+  table.amort th,
+  table.amort td {
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.6rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+  table.amort th:first-child,
+  table.amort td:first-child {
+    text-align: left;
+  }
+  table.amort th {
+    background: var(--color-surface-2);
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  const rupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
+  const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
+
+  function setupFinance(root: Element) {
+    const mode = root.getAttribute('data-mode') ?? 'bunga';
+    const P = root.querySelector('[data-field="P"]') as HTMLInputElement;
+    const rate = root.querySelector('[data-field="rate"]') as HTMLInputElement;
+    const years = root.querySelector('[data-field="years"]') as HTMLInputElement;
+    const summary = root.querySelector('[data-summary]') as HTMLElement;
+    const thead = root.querySelector('[data-thead]') as HTMLElement;
+    const tbody = root.querySelector('[data-tbody]') as HTMLElement;
+    const chart = root.querySelector('[data-chart]') as SVGSVGElement;
+    const legend = root.querySelector('[data-legend]') as HTMLElement;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const el = (name: string, attrs: Record<string, string | number>) => {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+
+    function render() {
+      const p = Math.max(0, Number(P.value) || 0);
+      const iy = Math.max(0, Number(rate.value) || 0) / 100;
+      const n = Math.max(1, Math.min(60, Math.round(Number(years.value) || 1)));
+
+      if (mode === 'anuitas') {
+        renderAnuitas(p, iy, n);
+      } else {
+        renderBunga(p, iy, n);
+      }
+    }
+
+    function renderBunga(p: number, iy: number, n: number) {
+      const simple: number[] = [];
+      const compound: number[] = [];
+      let comp = p;
+      for (let t = 0; t <= n; t++) {
+        simple.push(p * (1 + iy * t));
+        if (t > 0) comp = comp * (1 + iy);
+        compound.push(comp);
+      }
+      const lastSimple = simple[n];
+      const lastComp = compound[n];
+
+      summary.innerHTML = '';
+      addStat(summary, 'Saldo akhir (bunga tunggal)', rupiah.format(lastSimple));
+      addStat(summary, 'Saldo akhir (bunga majemuk)', rupiah.format(lastComp));
+      addStat(summary, 'Selisih', rupiah.format(lastComp - lastSimple));
+
+      thead.innerHTML = `<tr><th scope="col">Tahun</th><th scope="col">Bunga tunggal</th><th scope="col">Bunga majemuk</th></tr>`;
+      tbody.innerHTML = '';
+      for (let t = 0; t <= n; t++) {
+        tbody.appendChild(row([String(t), rupiah.format(simple[t]), rupiah.format(compound[t])]));
+      }
+
+      legend.innerHTML = '<span class="l1">Bunga tunggal</span><span class="l2">Bunga majemuk</span>';
+      drawChart([
+          { values: simple, color: 'var(--color-primary)' },
+          { values: compound, color: 'var(--color-data)' },
+        ]);
+    }
+
+    function renderAnuitas(p: number, iy: number, n: number) {
+      const r = iy / 12;
+      const m = n * 12;
+      const A = r === 0 ? p / m : (p * r) / (1 - Math.pow(1 + r, -m));
+      const total = A * m;
+      const totalInterest = total - p;
+
+      summary.innerHTML = '';
+      addStat(summary, 'Angsuran per bulan', rupiah.format(A));
+      addStat(summary, 'Total pembayaran', rupiah.format(total));
+      addStat(summary, 'Total bunga', rupiah.format(totalInterest));
+      addStat(summary, 'Suku bunga per bulan', `${angka.format(r * 100)}%`);
+
+      thead.innerHTML = `<tr><th scope="col">Bulan</th><th scope="col">Angsuran</th><th scope="col">Pokok</th><th scope="col">Bunga</th><th scope="col">Sisa pinjaman</th></tr>`;
+      tbody.innerHTML = '';
+      const balances: number[] = [p];
+      let sisa = p;
+      const maxRows = Math.min(m, 12);
+      for (let k = 1; k <= m; k++) {
+        const bunga = sisa * r;
+        const pokok = A - bunga;
+        sisa = Math.max(0, sisa - pokok);
+        if (k <= maxRows || k === m) {
+          tbody.appendChild(row([String(k), rupiah.format(A), rupiah.format(pokok), rupiah.format(bunga), rupiah.format(sisa)]));
+        } else if (k === maxRows + 1 && m > maxRows + 1) {
+          const tr = row(['…', '…', '…', '…', '…']);
+          tbody.appendChild(tr);
+        }
+        if (k % 12 === 0 || k === m) balances.push(sisa);
+      }
+      if (balances.length < 2) balances.push(sisa);
+
+      legend.innerHTML = '<span class="l2">Sisa pinjaman</span>';
+      drawChart([{ values: balances, color: 'var(--color-data)' }]);
+    }
+
+    function addStat(parent: HTMLElement, label: string, value: string) {
+      const div = document.createElement('div');
+      div.className = 'stat';
+      div.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+      parent.appendChild(div);
+    }
+
+    function row(cells: string[]): HTMLTableRowElement {
+      const tr = document.createElement('tr');
+      cells.forEach((c) => {
+        const td = document.createElement('td');
+        td.textContent = c;
+        tr.appendChild(td);
+      });
+      return tr;
+    }
+
+    function drawChart(series: { values: number[]; color: string }[]) {
+      const W = 480;
+      const H = 260;
+      const pad = 34;
+      while (chart.firstChild) chart.removeChild(chart.firstChild);
+      const all = series.flatMap((s) => s.values);
+      const yMax = Math.max(...all, 1);
+      const yMin = Math.min(...all, 0);
+      const maxLen = Math.max(...series.map((s) => s.values.length - 1), 1);
+      const sx = (t: number) => pad + (t / maxLen) * (W - 2 * pad);
+      const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin || 1)) * (H - 2 * pad);
+
+      for (let i = 0; i <= 6; i++) {
+        const y = pad + (i / 6) * (H - 2 * pad);
+        chart.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      chart.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.4 }));
+
+      for (const s of series) {
+        let d = '';
+        s.values.forEach((v, t) => {
+          d += `${t === 0 ? 'M' : 'L'}${sx(t).toFixed(1)} ${sy(v).toFixed(1)} `;
+        });
+        chart.appendChild(el('path', { d, fill: 'none', stroke: s.color, 'stroke-width': 2.6, 'stroke-linejoin': 'round' }));
+        s.values.forEach((v, t) => {
+          if (t % Math.ceil(maxLen / 12) === 0 || t === maxLen) {
+            chart.appendChild(el('circle', { cx: sx(t), cy: sy(v), r: 3, fill: s.color }));
+          }
+        });
+      }
+    }
+
+    [P, rate, years].forEach((input) => input.addEventListener('input', render));
+    render();
+  }
+
+  document.querySelectorAll('[data-finance]').forEach(setupFinance);
+</script>

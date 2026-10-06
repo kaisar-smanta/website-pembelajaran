@@ -1,0 +1,541 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TopicCard from '@/components/content/TopicCard.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
+import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { featuredTopics, topics } from '@/data/topics';
+import { applications, applicationCategories } from '@/data/applications';
+import { site } from '@/data/site';
+import { url, gradeUrl } from '@/utils/url';
+
+const featured = featuredTopics().length ? featuredTopics() : topics.slice(0, 6);
+const philosophy = [
+  { title: 'Pahami', text: 'Bangun makna konsep sebelum menghafal rumus.' },
+  { title: 'Eksplorasi', text: 'Ubah parameter, amati pola, dan ajukan dugaan.' },
+  { title: 'Terapkan', text: 'Gunakan konsep pada masalah terstruktur.' },
+  { title: 'Analisis', text: 'Tafsirkan hasil, nilai model, dan buat keputusan.' },
+  { title: 'Refleksi', text: 'Kenali kesalahan umum dan perbaiki pemahaman.' },
+];
+const tools = [
+  { name: 'GeoGebra', url: 'https://www.geogebra.org/', note: 'Grafik, geometri, dan kalkulus interaktif' },
+  { name: 'Desmos', url: 'https://www.desmos.com/calculator', note: 'Kalkulator grafik yang cepat' },
+  { name: 'Wolfram Alpha', url: 'https://www.wolframalpha.com/', note: 'Pemeriksa langkah dan hasil' },
+  { name: 'Spreadsheet', url: 'https://docs.google.com/spreadsheets/', note: 'Statistika dan regresi data' },
+  { name: 'Kalkulator', url: 'https://www.desmos.com/scientific', note: 'Kalkulator ilmiah daring' },
+  { name: 'GeoGebra Geometry', url: 'https://www.geogebra.org/geometry', note: 'Konstruksi geometri' },
+];
+const revealStyle = (i: number) => `--reveal-delay:${i * 70}ms`;
+const gradeAccent: Record<string, string> = { X: 'number', XI: 'algebra', XII: 'geometry' };
+---
+
+<BaseLayout
+  title="Matematika SMA"
+  description="Pusat pembelajaran Matematika SMA Indonesia: konsep, representasi, eksplorasi interaktif, latihan berjenjang, dan penerapan nyata sesuai Capaian Pembelajaran."
+>
+  <section class="hero">
+    <div class="hero-grid container">
+      <div class="hero-copy">
+        <p class="eyebrow">Pusat Pembelajaran Matematika SMA</p>
+        <h1>Matematika SMA</h1>
+        <p class="hero-lead">
+          Matematika bukan sekadar menghitung. Di sini kamu belajar{' '}
+          <strong>memahami pola</strong>, <strong>membuat model</strong>,{' '}
+          <strong>menalar</strong>, dan <strong>mengambil keputusan</strong>.
+        </p>
+        <p class="hero-desc">
+          Mulai dari konteks dan pertanyaan, bangun konsep lewat eksplorasi, lalu terapkan pada
+          masalah nyata. Ada latihan berjenjang dan pembahasan kesalahan umum supaya kamu makin
+          percaya diri.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={url('/kelas/X')}>Mulai belajar</a>
+          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat peta belajar</a>
+        </div>
+        <p class="hero-note text-soft">Kelas X–XII · Mengikuti Capaian Pembelajaran Kurikulum Merdeka</p>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-stage">
+          <span class="hero-chip chip-a float-slow">+</span>
+          <span class="hero-chip chip-b float-slow float-delayed">√</span>
+          <span class="hero-chip chip-c bob">x²</span>
+          <span class="hero-chip chip-d float-slow">π</span>
+          <MathMascot size={13} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container credit-band" aria-labelledby="credit">
+    <div class="card credit-card reveal" data-reveal>
+      <span class="credit-logo">
+        <img src={url(site.school.logo)} alt={site.school.logoAlt} width="72" height="72" loading="lazy" />
+      </span>
+      <div class="credit-body">
+        <p class="eyebrow">Disusun oleh</p>
+        <h2 id="credit" class="credit-name">{site.author.name}</h2>
+        <p class="text-muted">
+          {site.author.role} untuk <strong>{site.school.name}</strong>. Materi disusun bertahap
+          melalui konsep, eksplorasi, dan latihan berjenjang.
+        </p>
+        <div class="row">
+          <a class="btn btn-secondary btn-sm" href={url('/tentang')}>Tentang &amp; kredit</a>
+          <a
+            class="btn btn-ghost btn-sm"
+            href={site.school.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {site.school.name} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="explore-grade">
+    <div class="section-heading reveal" data-reveal>
+      <h2 id="explore-grade">Jelajahi Berdasarkan Kelas</h2>
+      <p class="text-muted">Materi disusun menurut fase dan elemen matematika.</p>
+    </div>
+    <div class="grid grid-3">
+      {
+        GRADE_ORDER.map((grade, i) => (
+          <a
+            class={`card card-link grade-card hover-lift accent-${gradeAccent[grade]} reveal`}
+            href={gradeUrl(grade)}
+            style={revealStyle(i)}
+            data-reveal
+          >
+            <span class="badge badge-grade">{GRADES[grade].label}</span>
+            <h3>{GRADES[grade].name}</h3>
+            <p>{GRADES[grade].description}</p>
+            <span class="cta">Buka kelas →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="explore-element">
+    <div class="container">
+      <div class="section-heading reveal" data-reveal>
+        <h2 id="explore-element">Jelajahi Menurut Elemen</h2>
+        <p class="text-muted">Empat elemen utama yang saling terhubung.</p>
+      </div>
+      <div class="grid grid-4">
+        {
+          ELEMENT_ORDER.map((elementId, i) => (
+            <a
+              class={`card card-link element-card hover-lift wiggle-on-hover accent-${elementId} reveal`}
+              href={url(`/kelas/X/${elementId}`)}
+              style={revealStyle(i)}
+              data-reveal
+            >
+              <span class="element-icon wiggle-target" aria-hidden="true">
+                <ElementIcon element={elementId} size={24} />
+              </span>
+              <h3>{ELEMENTS[elementId].name}</h3>
+              <p>{ELEMENTS[elementId].description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="philosophy">
+    <div class="section-heading reveal" data-reveal>
+      <h2 id="philosophy">Cara Kami Mengajarkan</h2>
+      <p class="text-muted">Alur belajar yang menekankan pemahaman, bukan sekadar hasil.</p>
+    </div>
+    <ol class="philosophy">
+      {
+        philosophy.map((step, i) => (
+          <li class="philosophy-step hover-lift reveal" style={revealStyle(i)} data-reveal>
+            <span class="philosophy-num">{i + 1}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="featured">
+    <div class="container">
+      <div class="section-heading reveal" data-reveal>
+        <h2 id="featured">Topik Pilihan</h2>
+        <p class="text-muted">Materi pilihan yang sudah dikembangkan lengkap.</p>
+      </div>
+      <div class="grid grid-3">
+        {
+          featured.map((t, i) => (
+            <TopicCard
+              title={t.title}
+              summary={t.summary}
+              grade={t.grade}
+              element={t.element}
+              slug={t.slug}
+              delay={i * 70}
+            />
+          ))
+        }
+      </div>
+      <p class="section-more reveal" data-reveal>
+        <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat semua topik</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="real-world">
+    <div class="section-heading reveal" data-reveal>
+      <h2 id="real-world">Matematika dalam Kehidupan</h2>
+      <p class="text-muted">Konsep matematika muncul dalam keputusan nyata.</p>
+    </div>
+    <div class="grid grid-2">
+      {
+        (Object.keys(applicationCategories) as Array<keyof typeof applicationCategories>).map((cat, i) => {
+          const apps = applications.filter((a) => a.category === cat);
+          return (
+            <div class="card hover-lift reveal" style={revealStyle(i)} data-reveal>
+              <h3>{applicationCategories[cat].name}</h3>
+              <p class="text-muted">{applicationCategories[cat].description}</p>
+              <ul class="app-list">
+                {apps.slice(0, 3).map((a) => (
+                  <li>
+                    <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="tools">
+    <div class="container">
+      <div class="section-heading reveal" data-reveal>
+        <h2 id="tools">Alat Matematika</h2>
+        <p class="text-muted">Alat bantu untuk mengeksplorasi dan memeriksa pekerjaanmu.</p>
+      </div>
+      <div class="grid grid-3">
+        {
+          tools.map((tool, i) => (
+            <a
+              class="card card-link tool-card hover-lift reveal"
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={revealStyle(i)}
+              data-reveal
+            >
+              <h3>
+                {tool.name} <span aria-hidden="true">↗</span>
+              </h3>
+              <p>{tool.note}</p>
+            </a>
+          ))
+        }
+      </div>
+      <p class="section-more reveal" data-reveal>
+        <a class="btn btn-secondary" href={url('/alat')}>Semua alat & panduan</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 82% 28%, color-mix(in srgb, var(--color-algebra) 12%, transparent), transparent 42%),
+      radial-gradient(circle at 12% 78%, color-mix(in srgb, var(--color-geometry) 10%, transparent), transparent 44%),
+      linear-gradient(180deg, var(--color-bg-alt), var(--color-bg));
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2rem;
+    align-items: center;
+    padding-block: clamp(2rem, 6vw, 4rem);
+  }
+  .hero-copy > * {
+    animation: rise-in var(--dur-slow) var(--ease-out-soft) both;
+  }
+  .hero-copy > *:nth-child(1) {
+    animation-delay: 40ms;
+  }
+  .hero-copy > *:nth-child(2) {
+    animation-delay: 110ms;
+  }
+  .hero-copy > *:nth-child(3) {
+    animation-delay: 180ms;
+  }
+  .hero-copy > *:nth-child(4) {
+    animation-delay: 250ms;
+  }
+  .hero-copy > *:nth-child(5),
+  .hero-copy > *:nth-child(6) {
+    animation-delay: 320ms;
+  }
+  .hero-copy h1 {
+    font-size: clamp(2.2rem, 1.4rem + 3.5vw, 3.4rem);
+    margin-bottom: 0.4rem;
+  }
+  .hero-lead {
+    font-size: clamp(1.1rem, 1rem + 0.7vw, 1.45rem);
+    line-height: 1.5;
+    max-width: 40ch;
+  }
+  .hero-desc {
+    color: var(--color-text-muted);
+    max-width: 52ch;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .hero-note {
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+  }
+  .hero-visual {
+    display: grid;
+    place-items: center;
+    min-height: 15rem;
+  }
+  .hero-stage {
+    position: relative;
+    width: min(100%, 20rem);
+    display: grid;
+    place-items: center;
+  }
+  .hero-stage :global(.mascot) {
+    width: 100%;
+  }
+  .hero-chip {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 14px;
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .chip-a {
+    top: 4%;
+    left: 0;
+    color: var(--color-algebra);
+    border-color: color-mix(in srgb, var(--color-algebra) 45%, var(--color-border));
+  }
+  .chip-b {
+    top: 7%;
+    right: 0;
+    color: var(--color-geometry);
+    border-color: color-mix(in srgb, var(--color-geometry) 45%, var(--color-border));
+  }
+  .chip-c {
+    bottom: 16%;
+    left: 0;
+    color: var(--color-number);
+    border-color: color-mix(in srgb, var(--color-number) 45%, var(--color-border));
+  }
+  .chip-d {
+    bottom: 6%;
+    right: 0;
+    color: var(--color-data);
+    border-color: color-mix(in srgb, var(--color-data) 45%, var(--color-border));
+  }
+  .section-alt {
+    background: var(--color-bg-alt);
+    border-block: 1px solid var(--color-border);
+  }
+  .section-more {
+    margin-top: 1.5rem;
+  }
+
+  .credit-band {
+    padding-block: 1.75rem 0.5rem;
+  }
+  .credit-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    border-left: 4px solid var(--color-primary);
+  }
+  .credit-logo {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 5.4rem;
+    height: 5.4rem;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid var(--color-border);
+  }
+  .credit-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+  .credit-body {
+    min-width: 0;
+  }
+  .credit-name {
+    font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+    margin: 0.1rem 0 0.35rem;
+  }
+  .credit-body p {
+    margin-bottom: 0.75rem;
+  }
+
+  .grade-card,
+  .element-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .grade-card h3,
+  .element-card h3 {
+    margin: 0;
+  }
+  .grade-card p,
+  .element-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.93rem;
+  }
+  .grade-card .cta {
+    margin-top: auto;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .accent-number {
+    border-top: 3px solid var(--color-number);
+  }
+  .accent-algebra {
+    border-top: 3px solid var(--color-algebra);
+  }
+  .accent-geometry {
+    border-top: 3px solid var(--color-geometry);
+  }
+  .element-icon {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 12px;
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .accent-bilangan .element-icon {
+    color: var(--color-number);
+  }
+  .accent-aljabar-fungsi .element-icon {
+    color: var(--color-algebra);
+  }
+  .accent-geometri .element-icon {
+    color: var(--color-geometry);
+  }
+  .accent-data-peluang .element-icon {
+    color: var(--color-data);
+  }
+  .philosophy {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 1rem;
+    counter-reset: phil;
+  }
+  .philosophy-step {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem;
+    border-top: 3px solid var(--color-primary);
+  }
+  .philosophy-step:nth-child(2) {
+    border-top-color: var(--color-number);
+  }
+  .philosophy-step:nth-child(3) {
+    border-top-color: var(--color-algebra);
+  }
+  .philosophy-step:nth-child(4) {
+    border-top-color: var(--color-geometry);
+  }
+  .philosophy-step:nth-child(5) {
+    border-top-color: var(--color-data);
+  }
+  .philosophy-num {
+    display: inline-grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .philosophy-step h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+  }
+  .philosophy-step p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .app-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .app-list a {
+    display: inline-block;
+    padding-block: 0.15rem;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .tool-card h3 {
+    font-size: 1.05rem;
+  }
+  .tool-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 56rem) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      max-width: 20rem;
+    }
+  }
+  @media (max-width: 34rem) {
+    .credit-card {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+</style>

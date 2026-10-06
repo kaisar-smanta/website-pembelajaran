@@ -1,0 +1,30 @@
+{
+  "name": "matematika-sma",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pusat Pembelajaran Matematika SMA Indonesia - situs statis untuk GitHub Pages",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node tests/math-verify.mjs",
+    "test:links": "node scripts/check-links.mjs",
+    "lint:content": "node scripts/lint-content.mjs",
+    "screenshot": "node scripts/screenshot.mjs",
+    "audit": "node scripts/audit.mjs",
+    "verify": "npm run check && npm run lint:content && npm run build && npm run test && npm run test:links"
+  },
+  "dependencies": {
+    "astro": "^7.0.0",
+    "katex": "^0.16.11",
+    "marked": "^18.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.6.4",
+    "typescript": "^6.0.3"
+  }
+}

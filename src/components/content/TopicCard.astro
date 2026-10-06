@@ -1,0 +1,177 @@
+---
+import type { ElementId, Grade } from '@/types/content';
+import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { topicUrl } from '@/utils/url';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  grade: Grade;
+  element: ElementId;
+  slug: string;
+  status?: 'lengkap' | 'rencana';
+  showMeta?: boolean;
+  /** Jeda animasi reveal (ms) untuk efek berjenjang. */
+  delay?: number;
+}
+const { title, summary, grade, element, slug, status = 'lengkap', showMeta = true, delay = 0 } = Astro.props;
+const elementMeta = ELEMENTS[element];
+const gradeMeta = GRADES[grade];
+const isPlanned = status === 'rencana';
+const href = topicUrl(grade, element, slug);
+---
+
+<article
+  class:list={['topic-card', 'reveal', `accent-${element}`, { planned: isPlanned }]}
+  style={`--reveal-delay:${delay}ms`}
+>
+  {isPlanned ? (
+    <div class="topic-card-body">
+      <div class="card-top">
+        <span class="icon-wrap" aria-hidden="true"><ElementIcon element={element} /></span>
+        {showMeta && <span class="badge badge-rencana">Segera hadir</span>}
+      </div>
+      <h3 class="topic-title">{title}</h3>
+      <p class="topic-summary">{summary}</p>
+      {
+        showMeta && (
+          <p class="topic-meta text-soft">
+            {gradeMeta.name} · {elementMeta.name}
+          </p>
+        )
+      }
+    </div>
+  ) : (
+    <a class="topic-card-body" href={href}>
+      <div class="card-top">
+        <span class="icon-wrap" aria-hidden="true"><ElementIcon element={element} /></span>
+        {showMeta && <span class="badge badge-grade">{gradeMeta.name}</span>}
+      </div>
+      <h3 class="topic-title">{title}</h3>
+      <p class="topic-summary">{summary}</p>
+      {
+        showMeta && (
+          <p class="topic-meta">
+            <span>{elementMeta.name}</span>
+            <span class="cta">Pelajari →</span>
+          </p>
+        )
+      }
+    </a>
+  )}
+</article>
+
+<style>
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-8deg);
+    }
+    75% {
+      transform: rotate(8deg);
+    }
+  }
+  .topic-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    height: 100%;
+  }
+  .accent-bilangan {
+    border-top: 3px solid var(--color-number);
+  }
+  .accent-aljabar-fungsi {
+    border-top: 3px solid var(--color-algebra);
+  }
+  .accent-geometri {
+    border-top: 3px solid var(--color-geometry);
+  }
+  .accent-data-peluang {
+    border-top: 3px solid var(--color-data);
+  }
+  .topic-card:not(.planned):hover,
+  .topic-card:not(.planned):focus-within {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+  }
+  .topic-card:not(.planned):hover .icon-wrap,
+  .topic-card:not(.planned):focus-within .icon-wrap {
+    animation: wiggle var(--dur-slow) var(--ease-bounce) both;
+  }
+  .planned {
+    background: var(--color-bg-alt);
+    border-style: dashed;
+  }
+  .topic-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.1rem 1.2rem 1.2rem;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .icon-wrap {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 10px;
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .accent-bilangan .icon-wrap {
+    color: var(--color-number);
+  }
+  .accent-aljabar-fungsi .icon-wrap {
+    color: var(--color-algebra);
+  }
+  .accent-geometri .icon-wrap {
+    color: var(--color-geometry);
+  }
+  .accent-data-peluang .icon-wrap {
+    color: var(--color-data);
+  }
+  .topic-title {
+    font-size: 1.15rem;
+    margin: 0;
+  }
+  .topic-summary {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.93rem;
+    flex-grow: 1;
+  }
+  .topic-meta {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--color-text-soft);
+  }
+  .cta {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .badge-grade {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    border-color: transparent;
+  }
+</style>
