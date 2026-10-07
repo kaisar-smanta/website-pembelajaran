@@ -165,4 +165,22 @@ export const lingkaranQuestions: Question[] = [
     hints: ['Hitung luas persegi dan luas lingkaran, lalu kurangkan.'],
     competencies: ['luas lingkaran', 'pemodelan'],
   },
+  {
+    id: 'lk-11',
+    topicId: 'lingkaran',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Dari titik $P$ di luar lingkaran berpusat $O$ dan berjari-jari $6$ cm, ditarik dua garis singgung $PA$ dan $PB$ dengan titik singgung $A$ dan $B$. Jika $OP=10$ cm, tentukan panjang $PA$ dan luas segi empat $OAPB$.',
+    answer:
+      'Karena $PA$ menyinggung lingkaran, $OA \\perp PA$ sehingga segitiga $OAP$ siku-siku di $A$. Dengan teorema Pythagoras, $PA = \\sqrt{OP^{2}-OA^{2}} = \\sqrt{10^{2}-6^{2}} = \\sqrt{100-36} = 8$ cm. Segi empat $OAPB$ tersusun dari dua segitiga siku-siku kongruen $OAP$ dan $OBP$, sehingga luasnya $= 2 \\cdot \\dfrac{1}{2} \\cdot OA \\cdot PA = 6 \\cdot 8 = 48$ cm².',
+    explanation:
+      'Kunci jawaban: memanfaatkan sifat garis singgung tegak lurus jari-jari di titik singgung, teorema Pythagoras, dan dekomposisi luas menjadi dua segitiga siku-siku.',
+    hints: [
+      'Garis singgung selalu tegak lurus jari-jari di titik singgung.',
+      'Luas $OAPB$ sama dengan dua kali luas segitiga siku-siku $OAP$.',
+    ],
+    competencies: ['garis singgung lingkaran', 'teorema Pythagoras', 'luas'],
+  },
 ];

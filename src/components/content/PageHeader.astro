@@ -12,6 +12,8 @@ interface Props {
   title: string;
   eyebrow?: string;
   lead?: string;
+  /** Alternatif `lead` yang sudah berupa HTML (mis. hasil renderInlineMarkdown). */
+  leadHtml?: string;
   crumbs?: Crumb[];
   /** Elemen kurikulum: memberi aksen warna + opsi ikon/watermark. */
   element?: ElementId;
@@ -29,6 +31,7 @@ const {
   title,
   eyebrow,
   lead,
+  leadHtml,
   crumbs,
   element,
   icon = false,
@@ -68,7 +71,13 @@ const accent = element ? accentVar[element] : undefined;
       <div class="hero-copy">
         {eyebrow && <p class="eyebrow-badge">{eyebrow}</p>}
         <h1>{title}</h1>
-        {lead && <p class="lead">{lead}</p>}
+        {
+          leadHtml ? (
+            <p class="lead" set:html={leadHtml} />
+          ) : (
+            lead && <p class="lead">{lead}</p>
+          )
+        }
         {
           meta && meta.length > 0 && (
             <ul class="hero-meta" role="list">

@@ -7,9 +7,10 @@ import { topicUrl } from '@/utils/url';
 interface Props {
   question: Question;
   index: number;
+  number?: number;
   showTopic?: boolean;
 }
-const { question, index, showTopic = false } = Astro.props;
+const { question, index, number, showTopic = false } = Astro.props;
 const promptHtml = renderMarkdown(question.prompt);
 const explanationHtml = question.explanation ? renderMarkdown(question.explanation) : '';
 const topic = getTopic(question.topicId);
@@ -19,12 +20,13 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
 <article
   class="question-card"
   data-question
+  data-question-id={question.id}
   data-type={question.type}
   data-answer={question.answer}
   data-accepted={JSON.stringify(question.acceptedAnswers ?? [])}
 >
   <header class="q-head">
-    <span class="q-number" aria-hidden="true">{index + 1}</span>
+    <span class="q-number" aria-hidden="true">{number ?? index + 1}</span>
     <span class={`badge badge-${question.difficulty}`}>{levelLabel}</span>
     {
       showTopic && topic && (
@@ -39,16 +41,24 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
 
   {
     question.type === 'multiple-choice' && question.options && (
-      <ul class="q-options" role="list">
-        {question.options.map((opt) => (
-          <li>
-            <button type="button" class="q-option" data-key={opt.key}>
-              <span class="q-key" aria-hidden="true">{opt.key}</span>
-              <span class="q-option-text" set:html={renderMarkdown(opt.text)} />
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div role="radiogroup" aria-label="Pilihan jawaban">
+        <ul class="q-options" role="list">
+          {question.options.map((opt) => (
+            <li>
+              <button
+                type="button"
+                class="q-option"
+                role="radio"
+                aria-checked="false"
+                data-key={opt.key}
+              >
+                <span class="q-key" aria-hidden="true">{opt.key}</span>
+                <span class="q-option-text" set:html={renderMarkdown(opt.text)} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     )
   }
 
@@ -82,6 +92,7 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
         <textarea
           id={`open-${question.id}`}
           class="q-textarea"
+          data-open-input
           rows="4"
           placeholder="Tulis jawaban dan alasanmu di sini…"
         />
@@ -93,6 +104,8 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
   }
 
   <p class="q-feedback" data-feedback role="status" aria-live="polite" hidden></p>
+
+  <button type="button" class="btn btn-ghost btn-sm q-reset" data-reset hidden>Coba lagi</button>
 
   {
     question.hints?.length ? (
@@ -243,6 +256,9 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
     background: var(--color-info-soft);
     color: var(--color-primary);
   }
+  .q-reset {
+    margin: 0.25rem 0 0.5rem;
+  }
   .q-hints {
     margin: 0.5rem 0;
     font-size: 0.92rem;
@@ -270,6 +286,15 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
 </style>
 
 <script>
+  import {
+    loadProgress,
+    saveProgress,
+    recordAttempt,
+    clearAttempt,
+    type Attempt,
+    type AttemptState,
+  } from '@/lib/progress';
+
   function normalize(value: string): string {
     return value
       .toLowerCase()
@@ -281,12 +306,62 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
       .replace(/√/g, '√');
   }
 
+  function record(
+    root: Element,
+    isCorrect: boolean,
+    state: AttemptState & { graded?: boolean } = {},
+  ) {
+    const questionId = root.getAttribute('data-question-id');
+    if (!questionId) return;
+    try {
+      const storage = window.localStorage;
+      const map = loadProgress(storage);
+      saveProgress(
+        storage,
+        recordAttempt(map, questionId, isCorrect, Date.now(), state.graded ?? true, state),
+      );
+    } catch {
+      /* ignore */
+    }
+    window.dispatchEvent(
+      new CustomEvent('mtk:progress', {
+        detail: { questionId, correct: isCorrect, graded: state.graded ?? true },
+      }),
+    );
+  }
+
+  function clearQuestion(root: Element) {
+    const questionId = root.getAttribute('data-question-id');
+    if (!questionId) return;
+    try {
+      const storage = window.localStorage;
+      const map = loadProgress(storage);
+      saveProgress(storage, clearAttempt(map, questionId));
+    } catch {
+      /* ignore */
+    }
+    window.dispatchEvent(
+      new CustomEvent('mtk:progress', { detail: { questionId, cleared: true } }),
+    );
+  }
+
   function setupQuestion(root: Element) {
     const type = root.getAttribute('data-type');
     const answer = (root.getAttribute('data-answer') ?? '').trim();
     const accepted: string[] = JSON.parse(root.getAttribute('data-accepted') ?? '[]');
     const feedback = root.querySelector('[data-feedback]') as HTMLElement;
     const explanation = root.querySelector('[data-explanation]') as HTMLElement;
+    const reset = root.querySelector('[data-reset]') as HTMLButtonElement | null;
+
+    // Pulihkan percobaan yang tersimpan agar soal yang sudah dikerjakan tidak
+    // tampak sama dengan soal yang belum dikerjakan setelah halaman dimuat ulang.
+    let attempt: Attempt | undefined;
+    try {
+      const id = root.getAttribute('data-question-id');
+      attempt = id ? loadProgress(window.localStorage)[id] : undefined;
+    } catch {
+      attempt = undefined;
+    }
 
     function showFeedback(kind: 'ok' | 'no' | 'info', text: string) {
       feedback.hidden = false;
@@ -294,23 +369,74 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
       feedback.textContent = text;
     }
 
+    function showReset() {
+      if (reset) reset.hidden = false;
+    }
+
+    function resetQuestion() {
+      root.querySelectorAll('[data-key]').forEach((o) => {
+        o.classList.remove('correct', 'incorrect');
+        o.setAttribute('aria-checked', 'false');
+        (o as HTMLButtonElement).disabled = false;
+      });
+      const input = root.querySelector('[data-short-input]') as HTMLInputElement | null;
+      if (input) {
+        input.value = '';
+        input.disabled = false;
+      }
+      const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
+      if (openInput) openInput.value = '';
+      const model = root.querySelector('[data-model]') as HTMLElement | null;
+      if (model) model.hidden = true;
+      const reveal = root.querySelector('[data-open-reveal]') as HTMLButtonElement | null;
+      if (reveal) reveal.textContent = 'Lihat contoh jawaban';
+      feedback.hidden = true;
+      feedback.className = 'q-feedback';
+      feedback.textContent = '';
+      explanation.hidden = true;
+      if (reset) reset.hidden = true;
+      // Hapus percobaan tersimpan agar hitungan "dikerjakan" tidak menghitung
+      // soal yang sudah dikembalikan ke keadaan belum dijawab.
+      clearQuestion(root);
+    }
+
     if (type === 'multiple-choice') {
       const options = root.querySelectorAll('[data-key]');
+      const apply = (key: string | null) => {
+        const isCorrect = key !== null && key === answer;
+        options.forEach((o) => {
+          const k = o.getAttribute('data-key');
+          o.classList.remove('correct', 'incorrect');
+          if (k === answer) o.classList.add('correct');
+          else if (key !== null && k === key && !isCorrect) o.classList.add('incorrect');
+          (o as HTMLButtonElement).setAttribute('aria-checked', String(key !== null && k === key));
+        });
+        return isCorrect;
+      };
+      const reveal = () => {
+        explanation.hidden = false;
+        showReset();
+      };
       options.forEach((btn) => {
         btn.addEventListener('click', () => {
           const key = btn.getAttribute('data-key');
-          const isCorrect = key === answer;
-          options.forEach((o) => {
-            const k = o.getAttribute('data-key');
-            o.classList.remove('correct', 'incorrect');
-            if (k === answer) o.classList.add('correct');
-            else if (k === key && !isCorrect) o.classList.add('incorrect');
-            (o as HTMLButtonElement).setAttribute('aria-pressed', String(k === key));
-          });
-          showFeedback(isCorrect ? 'ok' : 'no', isCorrect ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.');
-          explanation.hidden = false;
+          const isCorrect = apply(key);
+          showFeedback(
+            isCorrect ? 'ok' : 'no',
+            isCorrect ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
+          );
+          reveal();
+          record(root, isCorrect, { selected: key ?? undefined });
         });
       });
+      if (attempt) {
+        apply(attempt.selected ?? (attempt.correct ? answer : null));
+        showFeedback(
+          attempt.correct ? 'ok' : 'no',
+          attempt.correct ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
+        );
+        reveal();
+      }
     }
 
     if (type === 'short-answer') {
@@ -323,27 +449,58 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
           return;
         }
         const pool = [answer, ...accepted].map(normalize);
-        if (pool.includes(value)) {
+        const isCorrect = pool.includes(value);
+        if (isCorrect) {
           showFeedback('ok', 'Benar!');
         } else {
           showFeedback('no', 'Belum tepat, coba periksa langkahmu.');
         }
         explanation.hidden = false;
+        showReset();
+        record(root, isCorrect, { input: input.value });
       };
       check.addEventListener('click', run);
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') run();
       });
+      if (attempt) {
+        if (attempt.input !== undefined) input.value = attempt.input;
+        showFeedback(
+          attempt.correct ? 'ok' : 'no',
+          attempt.correct ? 'Benar!' : 'Belum tepat, coba periksa langkahmu.',
+        );
+        explanation.hidden = false;
+        showReset();
+      }
     }
 
     if (type === 'open-response') {
       const reveal = root.querySelector('[data-open-reveal]') as HTMLButtonElement;
       const model = root.querySelector('[data-model]') as HTMLElement;
+      const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
       reveal.addEventListener('click', () => {
         model.hidden = !model.hidden;
         reveal.textContent = model.hidden ? 'Lihat contoh jawaban' : 'Sembunyikan contoh jawaban';
+        if (!model.hidden) {
+          showReset();
+          // Soal uraian tidak dinilai otomatis; tandai "dikerjakan" tanpa
+          // memengaruhi ketepatan begitu siswa membuka pembahasan.
+          record(root, true, {
+            graded: false,
+            revealed: true,
+            input: openInput ? openInput.value : undefined,
+          });
+        }
       });
+      if (attempt) {
+        if (openInput && attempt.input !== undefined) openInput.value = attempt.input;
+        model.hidden = false;
+        reveal.textContent = 'Sembunyikan contoh jawaban';
+        showReset();
+      }
     }
+
+    if (reset) reset.addEventListener('click', resetQuestion);
   }
 
   document.querySelectorAll('[data-question]').forEach(setupQuestion);

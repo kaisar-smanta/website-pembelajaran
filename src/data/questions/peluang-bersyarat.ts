@@ -174,4 +174,27 @@ export const peluangBersyaratQuestions: Question[] = [
     hints: ['Tanyakan apakah urutan pemilihan penting atau tidak.'],
     competencies: ['permutasi', 'kombinasi', 'penalaran'],
   },
+  {
+    id: 'pb-11',
+    topicId: 'peluang-bersyarat',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah pabrik memproduksi barang dengan tiga mesin. Mesin A menghasilkan $30\\%$ produk dengan tingkat cacat $2\\%$, mesin B menghasilkan $30\\%$ produk dengan tingkat cacat $3\\%$, dan mesin C menghasilkan $40\\%$ produk dengan tingkat cacat $5\\%$. Jika sebuah produk terpilih acak ternyata cacat, peluang produk itu berasal dari mesin C adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{6}{35}$' },
+      { key: 'B', text: '$\\dfrac{9}{35}$' },
+      { key: 'C', text: '$\\dfrac{4}{7}$' },
+      { key: 'D', text: '$\\dfrac{5}{7}$' },
+    ],
+    answer: 'C',
+    explanation:
+      'Peluang total produk cacat $P(D) = 0{,}3(0{,}02) + 0{,}3(0{,}03) + 0{,}4(0{,}05) = 0{,}006 + 0{,}009 + 0{,}020 = 0{,}035$. Menurut aturan Bayes, $P(C \\mid D) = \\dfrac{P(D \\mid C)P(C)}{P(D)} = \\dfrac{0{,}05 \\cdot 0{,}4}{0{,}035} = \\dfrac{0{,}020}{0{,}035} = \\dfrac{4}{7}$. Opsi A dan B berturut-turut adalah peluang posterior untuk mesin A dan B, bukan mesin C.',
+    hints: [
+      'Hitung peluang total produk cacat dari ketiga mesin lebih dahulu.',
+      'Bagi kontribusi mesin C terhadap total cacat dengan $P(D)$.',
+    ],
+    competencies: ['aturan Bayes', 'peluang total', 'penalaran'],
+  },
 ];

@@ -160,4 +160,22 @@ export const spltvQuestions: Question[] = [
     hints: ['Bandingkan ruas kiri dan ruas kanan dua persamaan pertama.'],
     competencies: ['penalaran SPLTV', 'sistem tak konsisten'],
   },
+  {
+    id: 'sp-11',
+    topicId: 'spltv',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diberikan sistem $x+y+z=6$, $x+2y+3z=10$, dan $x+3y+kz=14$. Tentukan nilai $k$ agar sistem memiliki tak berhingga banyak solusi, lalu tuliskan bentuk umum solusinya.',
+    answer:
+      'Kurangkan persamaan pertama dari persamaan kedua: $y+2z=4$. Kurangkan persamaan pertama dari persamaan ketiga: $2y+(k-1)z=8$. Substitusi $y=4-2z$: $2(4-2z)+(k-1)z=8$, sehingga $8-4z+(k-1)z=8$ dan $(k-5)z=0$. Agar persamaan ini berlaku untuk sebarang $z$, haruslah $k=5$. Dengan $k=5$, misalkan $z=t$, maka $y=4-2t$ dan $x=6-y-z=2+t$. Jadi solusinya $(x,y,z)=(2+t,\\,4-2t,\\,t)$ untuk sebarang $t$, yaitu tak berhingga banyak. Ketika $k \\neq 5$ sistem memiliki solusi tunggal $(2,4,0)$.',
+    explanation:
+      'Kunci jawaban: mengeliminasi dua variabel hingga memperoleh bentuk $(k-5)z=0$, lalu menyimpulkan syarat tak berhingga banyak solusi dan menuliskan solusi parametriknya.',
+    hints: [
+      'Eliminasi agar tersisa hubungan antara $k$ dan $z$.',
+      'Sistem memiliki tak berhingga solusi ketika koefisien variabel bebasnya menjadi nol.',
+    ],
+    competencies: ['SPLTV', 'parameter', 'banyak solusi'],
+  },
 ];

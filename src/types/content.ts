@@ -91,6 +91,16 @@ export interface Section {
   level?: Difficulty;
   /** Bila true, bagian disembunyikan di balik tombol "lihat". */
   collapsed?: boolean;
+  /**
+   * Id soal dari bank soal (`src/data/questions`) yang ditampilkan sebagai
+   * latihan interaktif. Menjadikan bank soal sumber tunggal latihan.
+   */
+  questionIds?: string[];
+  /**
+   * Alternatif `questionIds`: tarik otomatis seluruh soal topik pada tingkat
+   * ini sebagai latihan interaktif.
+   */
+  practiceLevel?: Difficulty;
 }
 
 export interface LearningObjective {

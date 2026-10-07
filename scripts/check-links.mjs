@@ -26,14 +26,17 @@ for (const file of files) {
   const re = /href="([^"]+)"/g;
   let m;
   while ((m = re.exec(html))) {
-    const href = m[1];
+    const href = m[1].replace(/&amp;/g, '&');
     if (href.startsWith('#')) {
       const id = href.slice(1);
       if (id && !ids.has(id)) broken.push(`${file.replace(dist, '')} -> anchor ${href}`);
       continue;
     }
     if (!href.startsWith(base)) continue;
-    const [withoutHash, hash] = href.split('#');
+    // Buang query string (mis. filter klien /latihan?kelas=X) dan hash saat
+    // menyelesaikan berkas tujuan; keduanya tidak mengubah halaman yang dimuat.
+    const [beforeHash, hash] = href.split('#');
+    const withoutHash = beforeHash.split('?')[0];
     let rel = withoutHash.slice(base.length);
     if (rel === '' || rel === '/') rel = '/index.html';
     else if (rel.endsWith('/')) rel += 'index.html';

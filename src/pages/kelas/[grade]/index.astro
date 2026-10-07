@@ -5,6 +5,7 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { topicsByGradeElement, plannedTopics } from '@/data/topics';
+import { topicIdsWithQuestions } from '@/data/questions';
 import { url, gradeUrl } from '@/utils/url';
 import type { Grade } from '@/types/content';
 
@@ -29,6 +30,11 @@ const elementData = ELEMENT_ORDER.map((elementId) => {
 
 const completeTotal = elementData.reduce((sum, entry) => sum + entry.complete.length, 0);
 const plannedTotal = elementData.reduce((sum, entry) => sum + entry.planned.length, 0);
+
+const practiceTopicIds = new Set(topicIdsWithQuestions());
+const hasPractice = elementData.some((entry) =>
+  entry.complete.some((t) => practiceTopicIds.has(t.id)),
+);
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -118,7 +124,22 @@ const crumbs = [
           </p>
         </div>
         <div class="next-step-actions">
-          <a class="btn btn-primary" href={url('/latihan')}>Latihan soal</a>
+          {
+            hasPractice ? (
+              <>
+                <a class="btn btn-primary" href={url(`/latihan?kelas=${grade}`)}>
+                  Latihan kelas ini
+                </a>
+                <a class="btn btn-secondary" href={url('/latihan')}>
+                  Semua latihan
+                </a>
+              </>
+            ) : (
+              <a class="btn btn-primary" href={url('/latihan')}>
+                Latihan soal
+              </a>
+            )
+          }
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
         </div>
       </div>

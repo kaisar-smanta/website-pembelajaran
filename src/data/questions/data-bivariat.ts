@@ -162,4 +162,22 @@ export const dataBivariatQuestions: Question[] = [
     hints: ['Apa yang sebenarnya diukur oleh $r$?', 'Pertimbangkan pengaruh pencilan dan lengkungan.'],
     competencies: ['keterbatasan korelasi', 'penalaran'],
   },
+  {
+    id: 'db-11',
+    topicId: 'data-bivariat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penerapan',
+    prompt:
+      'Hitung koefisien korelasi linear $r$ untuk data $x: 1,2,3,4,5$ dan $y: 3,5,4,7,6$, lalu nyatakan arah dan kekuatan hubungannya.',
+    answer:
+      'Dengan $\\bar{x}=3$ dan $\\bar{y}=5$, diperoleh $\\sum(x_i-\\bar{x})^2 = 10$, $\\sum(y_i-\\bar{y})^2 = 10$, dan $\\sum(x_i-\\bar{x})(y_i-\\bar{y}) = 8$. Maka $r = \\dfrac{8}{\\sqrt{10 \\cdot 10}} = \\dfrac{8}{10} = 0{,}8$. Karena $r$ bernilai positif dan cukup dekat dengan $1$, hubungan kedua variabel adalah positif dan kuat.',
+    explanation:
+      'Kunci jawaban: menghitung penyimpangan dari rata-rata, lalu memakai rumus $r = \\dfrac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum(x_i-\\bar{x})^2\\sum(y_i-\\bar{y})^2}}$ dan menafsirkan tandanya serta besarnya.',
+    hints: [
+      'Hitung $\\bar{x}$ dan $\\bar{y}$ lebih dahulu.',
+      'Gunakan $r = \\dfrac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum(x_i-\\bar{x})^2\\sum(y_i-\\bar{y})^2}}$.',
+    ],
+    competencies: ['koefisien korelasi', 'interpretasi'],
+  },
 ];

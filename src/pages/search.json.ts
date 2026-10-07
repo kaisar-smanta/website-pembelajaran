@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { topics } from '@/data/topics';
 import { applications, applicationCategories } from '@/data/applications';
 import { orderedExplorations } from '@/data/explorations';
+import { topicIdsWithQuestions, questionsByTopic, practiceCounts } from '@/data/questions';
 import { ELEMENTS, GRADES, ELEMENT_ORDER } from '@/data/curriculum';
 import { stripMarkdown } from '@/utils/markdown';
 
@@ -11,7 +12,7 @@ interface SearchItem {
   title: string;
   summary: string;
   url: string;
-  type: 'topik' | 'aplikasi' | 'eksplorasi' | 'halaman';
+  type: 'topik' | 'aplikasi' | 'eksplorasi' | 'latihan' | 'halaman';
   grade?: string;
   element?: string;
   keywords: string;
@@ -36,6 +37,42 @@ export const GET: APIRoute = () => {
         .join(' ')
         .trim(),
       text: stripMarkdown(`${t.description} ${body}`).slice(0, 2000),
+    });
+  }
+
+  const practiceTopicIds = new Set(topicIdsWithQuestions());
+
+  for (const t of topics) {
+    if (!practiceTopicIds.has(t.id)) continue;
+    const count = questionsByTopic(t.id).length;
+    const levels = practiceCounts(t.id);
+    const difficulties = [
+      levels.dasar > 0 ? 'dasar' : '',
+      levels.cakap > 0 ? 'cakap' : '',
+      levels.mahir > 0 ? 'mahir' : '',
+    ].filter(Boolean);
+    items.push({
+      title: `Latihan: ${t.title}`,
+      summary: `${count} soal berjenjang`,
+      url: `/latihan/${t.slug}/`,
+      type: 'latihan',
+      grade: t.grade,
+      element: t.element,
+      keywords: [
+        ...(t.keywords ?? []),
+        t.subtitle ?? '',
+        GRADES[t.grade].name,
+        ELEMENTS[t.element].name,
+        'latihan',
+        'soal',
+        ...difficulties,
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .trim(),
+      text: stripMarkdown(
+        `${t.title} ${t.summary} latihan soal ${difficulties.join(' ')} ${GRADES[t.grade].name} ${ELEMENTS[t.element].name}`,
+      ).slice(0, 800),
     });
   }
 

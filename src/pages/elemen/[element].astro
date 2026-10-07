@@ -4,7 +4,8 @@ import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
-import { topicsByGradeElement, plannedTopics } from '@/data/topics';
+import { topicsByGradeElement, topicsByElement, plannedTopics } from '@/data/topics';
+import { topicIdsWithQuestions } from '@/data/questions';
 import { url } from '@/utils/url';
 import type { ElementId } from '@/types/content';
 
@@ -30,6 +31,9 @@ const grades = GRADE_ORDER.map((grade) => {
 }).filter((g) => g.entries.length > 0);
 
 const total = grades.reduce((sum, g) => sum + g.entries.length, 0);
+
+const practiceTopicIds = new Set(topicIdsWithQuestions());
+const hasPractice = topicsByElement(element).some((t) => practiceTopicIds.has(t.id));
 ---
 
 <BaseLayout title={`Elemen ${meta.name}`} description={meta.description}>
@@ -73,6 +77,28 @@ const total = grades.reduce((sum, g) => sum + g.entries.length, 0);
     }
 
     {total === 0 && <p class="text-muted">Belum ada topik untuk elemen ini.</p>}
+
+    {
+      hasPractice && (
+        <section class="section practice-cta no-print" aria-labelledby="latihan-elemen">
+          <div class="card practice-cta-inner">
+            <div>
+              <p class="eyebrow-badge">Latihan</p>
+              <h2 id="latihan-elemen">Latihan semua topik elemen ini</h2>
+              <p class="text-muted">
+                Uji pemahamanmu pada seluruh topik {meta.name} dengan soal berjenjang dasar, cakap,
+                dan mahir.
+              </p>
+            </div>
+            <div class="practice-cta-actions">
+              <a class="btn btn-primary" href={url(`/latihan?elemen=${element}`)}>
+                Mulai latihan
+              </a>
+            </div>
+          </div>
+        </section>
+      )
+    }
   </div>
 </BaseLayout>
 
@@ -123,5 +149,32 @@ const total = grades.reduce((sum, g) => sum + g.entries.length, 0);
   }
   .grade-section h2 {
     margin-bottom: 1rem;
+  }
+  .practice-cta {
+    padding-bottom: 3rem;
+  }
+  .practice-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-top: 3px solid var(--color-primary);
+  }
+  .practice-cta-inner h2 {
+    margin-bottom: 0.25rem;
+  }
+  .practice-cta-inner p {
+    margin: 0;
+    max-width: 46ch;
+  }
+  .practice-cta-inner .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .practice-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 </style>

@@ -141,6 +141,7 @@ export const bungaMajemukQuestions: Question[] = [
       'Bunga majemuk dihitung dari saldo terbaru yang sudah memuat bunga sebelumnya, sedangkan bunga tunggal selalu dihitung dari modal awal. Contoh: modal Rp5.000.000 pada 8% per tahun selama 5 tahun. Bunga tunggal menghasilkan $5.000.000(1+0{,}08\\cdot5) = \\text{Rp}7.000.000$, sedangkan bunga majemuk menghasilkan $5.000.000(1{,}08)^5 \\approx \\text{Rp}7.346.640$. Selisih Rp346.640 berasal dari bunga atas bunga. Keduanya sama hanya jika $n = 1$ (atau suku bunganya nol), sebab saat itu belum ada bunga yang dimajemukkan.',
     explanation:
       'Penilaian menekankan penjelasan mekanisme bunga atas bunga dan syarat kesamaan ($n=1$ atau $i=0$), didukung contoh perhitungan yang benar.',
+    hints: ['Bandingkan dasar perhitungan bunga majemuk (saldo terbaru) dengan bunga tunggal (modal awal).'],
     competencies: ['membandingkan model', 'penalaran keuangan'],
   },
   {
@@ -155,6 +156,7 @@ export const bungaMajemukQuestions: Question[] = [
       'Perlu mencari $n$ terkecil dengan $1{,}08^n \\ge 2$. Menghitung bertahap: $1{,}08^9 \\approx 1{,}999 < 2$ dan $1{,}08^{10} \\approx 2{,}159 > 2$. Jadi saldo baru menjadi dua kali lipat setelah **10 tahun**; pada akhir tahun ke-9 nilainya masih sedikit di bawah dua kali. Pemeriksaan dilakukan dengan perkalian berulang atau tabel nilai $(1{,}08)^n$ tanpa perlu logaritma.',
     explanation:
       'Kunci jawaban menuntut pemodelan pertidaksamaan $(1{,}08)^n \\ge 2$ dan pemeriksaan numerik bertahap, bukan sekadar menebak.',
+    hints: ['Cari $n$ terkecil yang memenuhi $(1{,}08)^{n} \\ge 2$ dengan mencoba nilai $n$ secara berurutan.'],
     competencies: ['pemodelan eksponen', 'penyelesaian numerik'],
   },
   {
@@ -169,6 +171,7 @@ export const bungaMajemukQuestions: Question[] = [
       'Bank A: $i = 6\\%$ dengan $m = 2$, sehingga $i_{\\text{efektif}} = (1{,}06)^2 - 1 = 0{,}1236 = 12{,}36\\%$. Bank B: $i = 1\\%$ dengan $m = 12$, sehingga $i_{\\text{efektif}} = (1{,}01)^{12} - 1 \\approx 0{,}126825 = 12{,}68\\%$. Bank B memiliki suku bunga efektif lebih besar karena bunga dimajemukkan lebih sering (12 kali per tahun), sehingga efek bunga atas bunga lebih kuat; makin sering pemajemukan, makin besar suku bunga efektif.',
     explanation:
       'Penilaian mencakup perhitungan kedua suku bunga efektif dan alasan konseptual mengapa frekuensi pemajemukan menaikkan suku bunga efektif.',
+    hints: ['Hitung suku bunga efektif tiap bank dengan rumus $(1+i)^{m}-1$ sesuai frekuensi pemajemukannya.'],
     competencies: ['suku bunga efektif', 'analisis kritis'],
   },
 ];

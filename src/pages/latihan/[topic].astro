@@ -3,10 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
-import { getTopic } from '@/data/topics';
+import { getTopic, resolveTopics } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS } from '@/data/curriculum';
 import { url, topicUrl } from '@/utils/url';
+import { renderInlineMarkdown } from '@/utils/markdown';
 import type { Difficulty } from '@/types/content';
 
 export function getStaticPaths() {
@@ -23,6 +24,7 @@ interface Props {
 const { topicId } = Astro.props;
 const topic = getTopic(topicId);
 const all = questionsByTopic(topicId);
+const allQuestionIds = all.map((q) => q.id);
 const difficulties: Difficulty[] = ['dasar', 'cakap', 'mahir'];
 const levelName: Record<Difficulty, string> = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' };
 const levelLead: Record<Difficulty, string> = {
@@ -40,6 +42,13 @@ const counts = {
   cakap: all.filter((q) => q.difficulty === 'cakap').length,
   mahir: all.filter((q) => q.difficulty === 'mahir').length,
 };
+const prerequisites = resolveTopics(topic?.prerequisites);
+const related = resolveTopics(topic?.relatedTopics);
+const objectives = topic?.objectives ?? [];
+const leadHtml = topic ? renderInlineMarkdown(topic.summary) : undefined;
+const materialUrl = topic ? topicUrl(topic.grade, topic.element, topic.slug) : url('/latihan');
+const elementName = topic ? ELEMENTS[topic.element].name : 'Latihan';
+const accentClass = topic ? `accent-${topic.element}` : '';
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Latihan & Asesmen', href: url('/latihan') },
@@ -55,8 +64,8 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 <BaseLayout title={`Latihan ${topic?.title ?? ''}`} description={`Latihan soal ${topic?.title} berjenjang.`}>
   <PageHeader
     title={topic?.title ?? topicId}
-    eyebrow={topic ? ELEMENTS[topic.element].name : 'Latihan'}
-    lead={topic?.summary}
+    eyebrow={elementName}
+    leadHtml={leadHtml}
     crumbs={crumbs}
     element={topic?.element}
     icon
@@ -65,7 +74,121 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     meta={meta}
   />
 
-  <div class="container container-narrow">
+  <div class:list={['container', 'container-narrow', accentClass]}>
+    {
+      topic && (
+        <section class="context" aria-labelledby="konteks-topik">
+          <SectionHeading
+            id="konteks-topik"
+            eyebrow="Sebelum berlatih"
+            title="Konteks topik"
+            lead="Pahami kaitan topik ini dengan materi yang sudah dan akan kamu pelajari."
+          />
+
+          <div class="context-grid">
+            {objectives.length > 0 && (
+              <div class="context-card card card-accent">
+                <h3>Tujuan Pembelajaran</h3>
+                <ul class="objective-list">
+                  {objectives.map((o) => (
+                    <li set:html={renderInlineMarkdown(o.text)} />
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {prerequisites.length > 0 && (
+              <nav class="context-card card" aria-label="Topik prasyarat">
+                <h3>Prasyarat</h3>
+                <p class="text-muted">Kuasai dulu topik berikut agar latihan terasa lebih mudah.</p>
+                <ul class="topic-links">
+                  {prerequisites.map((t) => (
+                    <li>
+                      <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
+                      <span class="badge">Kelas {t.grade}</span>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+
+            {related.length > 0 && (
+              <nav class="context-card card" aria-label="Topik terkait">
+                <h3>Topik Terkait</h3>
+                <p class="text-muted">Perluas pemahaman lewat topik yang masih satu keluarga.</p>
+                <ul class="topic-links">
+                  {related.map((t) => (
+                    <li>
+                      <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
+                      <span class="badge">Kelas {t.grade}</span>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </div>
+
+          <a class="btn btn-primary context-material" href={materialUrl}>
+            Baca materi {topic.title}
+          </a>
+        </section>
+      )
+    }
+
+    <aside
+      class="progress card card-accent"
+      data-question-ids={JSON.stringify(allQuestionIds)}
+      aria-label="Ringkasan kemajuan latihan"
+    >
+      <div class="progress-head">
+        <div>
+          <p class="eyebrow-badge">Kemajuanmu</p>
+          <h2>Ringkasan latihan</h2>
+        </div>
+        <p class="progress-intro text-muted">
+          Hitungan bertambah otomatis setiap kali kamu menjawab soal di halaman ini.
+        </p>
+      </div>
+
+      <dl class="progress-stats">
+        <div class="progress-stat">
+          <dt>Dijawab</dt>
+          <dd data-stat-answered>{`0/${all.length}`}</dd>
+        </div>
+        <div class="progress-stat">
+          <dt>Benar</dt>
+          <dd data-stat-correct>0</dd>
+        </div>
+        <div class="progress-stat">
+          <dt>Ketepatan</dt>
+          <dd data-stat-accuracy>0%</dd>
+        </div>
+      </dl>
+
+      <div
+        class="progress-track"
+        data-progress-track
+        role="progressbar"
+        aria-label="Kemajuan menjawab soal"
+        aria-valuemin="0"
+        aria-valuemax={all.length}
+        aria-valuenow="0"
+        aria-valuetext={`0 dari ${all.length} soal dijawab`}
+      >
+        <span class="progress-bar" data-progress-bar style="width: 0%"></span>
+      </div>
+
+      <p class="progress-note text-soft" data-progress-note aria-live="polite">
+        Belum ada soal yang dijawab. Mulai dari tingkat Dasar.
+      </p>
+
+      <div class="progress-review" data-review hidden>
+        <a class="btn btn-secondary btn-sm" data-review-link href="#">
+          Tinjau soal yang belum tepat
+        </a>
+      </div>
+    </aside>
+
     {
       difficulties.map((d, di) => {
         const items = all.filter((q) => q.difficulty === d);
@@ -83,7 +206,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
             </div>
             <div class="level-cards">
               {items.map((q, i) => (
-                <div class="q-item hover-lift reveal" style={revealStyle(i)} data-reveal>
+                <div id={`q-${q.id}`} class="q-item hover-lift reveal" style={revealStyle(i)} data-reveal>
                   <QuestionCard question={q} index={i} />
                 </div>
               ))}
@@ -109,7 +232,14 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
         <a class="btn btn-secondary" href={url('/latihan')}>← Semua latihan</a>
         {
           topic && (
-            <a class="btn btn-primary" href={topicUrl(topic.grade, topic.element, topic.slug)}>
+            <a class="btn btn-secondary" href={url(`/latihan?elemen=${topic.element}`)}>
+              Latihan elemen ini
+            </a>
+          )
+        }
+        {
+          topic && (
+            <a class="btn btn-primary" href={materialUrl}>
               Baca materi {topic.title}
             </a>
           )
@@ -120,6 +250,139 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 </BaseLayout>
 
 <style>
+  .context {
+    padding-block: 1.75rem 1rem;
+  }
+  .context :global(.section-heading) {
+    margin-bottom: 1rem;
+  }
+  .context-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+  .context-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .context-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .context-card p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .objective-list,
+  .topic-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .objective-list li {
+    position: relative;
+    padding-left: 1.15rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+  }
+  .objective-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent, var(--color-primary));
+  }
+  .topic-links li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .topic-links a {
+    font-weight: 600;
+  }
+  .context-material {
+    margin-top: 1.25rem;
+  }
+
+  .progress {
+    margin-block: 0.5rem 1.5rem;
+  }
+  .progress-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1.5rem;
+  }
+  .progress-head .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .progress-head h2 {
+    margin: 0;
+  }
+  .progress-intro {
+    margin: 0;
+    max-width: 40ch;
+    font-size: 0.9rem;
+  }
+  .progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap: 0.75rem;
+    margin: 1.1rem 0 1rem;
+  }
+  .progress-stat {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .progress-stat dt {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .progress-stat dd {
+    margin: 0.15rem 0 0;
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+  }
+  .progress-track {
+    height: 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .progress-bar {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: var(--accent, var(--color-primary));
+    transition: width var(--dur) var(--ease-out-soft);
+  }
+  .progress-note {
+    margin: 0.6rem 0 0;
+    font-size: 0.88rem;
+  }
+  .progress-review {
+    margin-top: 0.85rem;
+  }
+
   .level-section {
     padding-block: 1.5rem;
   }
@@ -144,6 +407,9 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
   }
   .level-cards {
     display: block;
+  }
+  .q-item {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
   }
   .q-item :global(.question-card) {
     margin-bottom: 1rem;
@@ -174,3 +440,104 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     gap: 0.75rem;
   }
 </style>
+
+<script>
+  import {
+    loadProgress,
+    summarize,
+    missedQuestionIds,
+    type ProgressMap,
+  } from '@/lib/progress';
+
+  function setupProgress() {
+    const root = document.querySelector<HTMLElement>('[data-question-ids]');
+    if (!root) return;
+
+    let ids: string[] = [];
+    try {
+      const raw = root.getAttribute('data-question-ids');
+      const parsed: unknown = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(parsed)) {
+        ids = parsed.filter((id): id is string => typeof id === 'string');
+      }
+    } catch {
+      ids = [];
+    }
+    if (!ids.length) return;
+
+    const answeredEl = root.querySelector<HTMLElement>('[data-stat-answered]');
+    const correctEl = root.querySelector<HTMLElement>('[data-stat-correct]');
+    const accuracyEl = root.querySelector<HTMLElement>('[data-stat-accuracy]');
+    const barEl = root.querySelector<HTMLElement>('[data-progress-bar]');
+    const trackEl = root.querySelector<HTMLElement>('[data-progress-track]');
+    const noteEl = root.querySelector<HTMLElement>('[data-progress-note]');
+    const reviewWrap = root.querySelector<HTMLElement>('[data-review]');
+    const reviewLink = root.querySelector<HTMLAnchorElement>('[data-review-link]');
+
+    let storage: Storage | undefined;
+    try {
+      storage = window.localStorage;
+    } catch {
+      storage = undefined;
+    }
+
+    const render = () => {
+      let attempts: ProgressMap = {};
+      try {
+        attempts = loadProgress(storage);
+      } catch {
+        attempts = {};
+      }
+
+      const summary = summarize(attempts, ids);
+      const answeredPct = summary.total
+        ? Math.round((summary.answered / summary.total) * 100)
+        : 0;
+      const accuracyPct = Math.round(summary.accuracy * 100);
+
+      if (answeredEl) answeredEl.textContent = `${summary.answered}/${summary.total}`;
+      if (correctEl) correctEl.textContent = String(summary.correct);
+      if (accuracyEl) accuracyEl.textContent = `${accuracyPct}%`;
+      if (barEl) barEl.style.width = `${answeredPct}%`;
+      if (trackEl) {
+        trackEl.setAttribute('aria-valuenow', String(summary.answered));
+        trackEl.setAttribute(
+          'aria-valuetext',
+          `${summary.answered} dari ${summary.total} soal dijawab`,
+        );
+      }
+      if (noteEl) {
+        if (summary.answered === 0) {
+          noteEl.textContent = 'Belum ada soal yang dijawab. Mulai dari tingkat Dasar.';
+        } else if (summary.answered === summary.total) {
+          noteEl.textContent = `Semua soal sudah dicoba. Ketepatanmu ${accuracyPct}%.`;
+        } else {
+          noteEl.textContent = `${summary.answered} dari ${summary.total} soal dijawab (${answeredPct}%).`;
+        }
+      }
+
+      const missed = missedQuestionIds(attempts, ids);
+      if (reviewWrap && reviewLink) {
+        if (missed.length > 0) {
+          reviewWrap.hidden = false;
+          reviewLink.href = `#q-${missed[0]}`;
+          reviewLink.textContent =
+            missed.length === 1
+              ? 'Tinjau 1 soal yang belum tepat'
+              : `Tinjau ${missed.length} soal yang belum tepat`;
+        } else {
+          reviewWrap.hidden = true;
+        }
+      }
+    };
+
+    render();
+    window.addEventListener('mtk:progress', render);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupProgress);
+  } else {
+    setupProgress();
+  }
+</script>

@@ -173,4 +173,22 @@ export const matriksQuestions: Question[] = [
     hints: ['Ukuran $S$ adalah $2 \\times 2$ dan $H$ adalah $2 \\times 1$, sehingga $SH$ berukuran $2 \\times 1$.'],
     competencies: ['pemodelan matriks', 'perkalian matriks'],
   },
+  {
+    id: 'mt-11',
+    topicId: 'matriks',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diketahui matriks persegi $A$ berordo $2\\times2$ dengan $\\det(A)=-3$. Tentukan nilai $\\det(2A)$, $\\det(A^{2})$, dan $\\det(A^{-1})$, serta jelaskan sifat yang digunakan.',
+    answer:
+      'Karena $A$ berordo $2\\times2$: (1) $\\det(2A) = 2^{2}\\det(A) = 4(-3) = -12$; (2) $\\det(A^{2}) = \\det(A)\\cdot\\det(A) = (-3)(-3) = 9$; (3) $\\det(A^{-1}) = \\dfrac{1}{\\det(A)} = -\\dfrac{1}{3}$. Sifat yang dipakai berturut-turut: $\\det(kA) = k^{n}\\det(A)$ dengan $n=2$, lalu $\\det(AB) = \\det(A)\\det(B)$, dan $\\det(A^{-1}) = 1/\\det(A)$ karena $A$ memiliki determinan tak nol.',
+    explanation:
+      'Kunci jawaban: menerapkan sifat determinan terhadap perkalian skalar (bergantung pada ordo), perkalian matriks, dan matriks invers.',
+    hints: [
+      'Untuk matriks $2\\times2$, berlaku $\\det(kA) = k^{2}\\det(A)$.',
+      'Gunakan $\\det(A^{-1}) = \\dfrac{1}{\\det(A)}$.',
+    ],
+    competencies: ['sifat determinan', 'invers matriks', 'penalaran'],
+  },
 ];

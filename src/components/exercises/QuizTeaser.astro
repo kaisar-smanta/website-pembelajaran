@@ -58,7 +58,12 @@ const first = quizData[0];
   <div class="quiz-main">
   {
     first ? (
-      <div class="quiz-box paper-grid" data-quiz data-questions={JSON.stringify(quizData)}>
+      <div
+        class="quiz-box paper-grid"
+        data-quiz
+        data-question-id={first.id}
+        data-questions={JSON.stringify(quizData)}
+      >
         <span class="quiz-burst" aria-hidden="true" />
         <div class="quiz-prompt prose" data-quiz-prompt set:html={first.promptHtml} />
         <div class="quiz-options" data-quiz-options>
@@ -361,6 +366,40 @@ const first = quizData[0];
           reduceMotion = false;
         }
 
+        function recordProgress(questionId, correct) {
+          if (!questionId) return;
+          try {
+            const storage = window.localStorage;
+            let map = {};
+            try {
+              const raw = storage.getItem('mtk-progress');
+              if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed === 'object') map = parsed;
+              }
+            } catch (err) {
+              map = {};
+            }
+            map[questionId] = { questionId: questionId, correct: Boolean(correct), at: Date.now() };
+            try {
+              storage.setItem('mtk-progress', JSON.stringify(map));
+            } catch (err) {
+              /* penyimpanan penuh atau diblokir: abaikan */
+            }
+          } catch (err) {
+            /* ignore */
+          }
+          try {
+            window.dispatchEvent(
+              new CustomEvent('mtk:progress', {
+                detail: { questionId: questionId, correct: Boolean(correct) },
+              }),
+            );
+          } catch (err) {
+            /* ignore */
+          }
+        }
+
         function rewardMessage(n) {
           if (n <= 1) return 'Tepat sekali. Lanjut ke soal berikutnya.';
           if (n === 2) return 'Dua benar berturut-turut.';
@@ -400,6 +439,7 @@ const first = quizData[0];
         function render() {
           const q = quiz[index];
           if (!q) return;
+          box.setAttribute('data-question-id', q.id);
           answered = false;
           hideReward();
           if (feedbackEl) {
@@ -454,6 +494,8 @@ const first = quizData[0];
               (q.explanationHtml || '');
           }
           if (nextBtn) nextBtn.hidden = false;
+
+          recordProgress(q.id, isCorrect);
 
           if (isCorrect) {
             streak += 1;

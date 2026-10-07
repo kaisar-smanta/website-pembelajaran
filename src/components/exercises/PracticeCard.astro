@@ -1,0 +1,166 @@
+---
+import type { Difficulty, ElementId, Grade } from '@/types/content';
+import { GRADES } from '@/data/curriculum';
+import { url } from '@/utils/url';
+import { renderInlineMarkdown } from '@/utils/markdown';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+
+interface Props {
+  title: string;
+  summary?: string;
+  grade: Grade;
+  element: ElementId;
+  slug: string;
+  counts: Record<Difficulty, number>;
+  questionIds: string[];
+}
+
+const { title, summary, grade, element, slug, counts, questionIds } = Astro.props;
+
+const LEVEL_ORDER: Difficulty[] = ['dasar', 'cakap', 'mahir'];
+const LEVEL_LABEL: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
+const gradeMeta = GRADES[grade];
+const href = url(`/latihan/${slug}`);
+const total = questionIds.length;
+const levels = LEVEL_ORDER.filter((level) => counts[level] > 0);
+const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
+---
+
+<article
+  class:list={['practice-card', 'hover-lift', `accent-${element}`]}
+  data-practice-card
+  data-kelas={grade}
+  data-elemen={element}
+  data-levels={levels.join(' ')}
+  data-question-ids={JSON.stringify(questionIds)}
+>
+  <a class="practice-card-body" href={href}>
+    <div class="card-top">
+      <span class="icon-tile" aria-hidden="true"><ElementIcon element={element} /></span>
+      <span class="badge badge-grade">{gradeMeta.name}</span>
+    </div>
+    <h3 class="practice-title">{title}</h3>
+    {summaryHtml && <p class="practice-summary text-muted" set:html={summaryHtml} />}
+    <p class="practice-counts">
+      {
+        levels.map((level) => (
+          <span class:list={['badge', `badge-${level}`]}>
+            {counts[level]} {LEVEL_LABEL[level]}
+          </span>
+        ))
+      }
+    </p>
+    <div class="practice-foot">
+      <span class="progress-chip" data-progress-chip>{0}/{total} dikerjakan</span>
+      <span class="cta">Kerjakan →</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .practice-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color var(--dur) var(--ease-out-soft),
+      box-shadow var(--dur) var(--ease-out-soft),
+      transform var(--dur) var(--ease-out-soft);
+  }
+  .practice-card:hover,
+  .practice-card:focus-within {
+    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 55%, var(--color-border));
+    border-top-color: var(--accent, var(--color-primary));
+  }
+  .practice-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.1rem 1.2rem 1.2rem;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .badge-grade {
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    border-color: transparent;
+  }
+  .practice-title {
+    font-size: 1.15rem;
+    margin: 0.35rem 0 0;
+  }
+  .practice-summary {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .practice-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.15rem 0 0;
+    padding: 0;
+  }
+  .practice-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.55rem;
+  }
+  .progress-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.62rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    color: var(--color-text-soft);
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    transition:
+      color var(--dur-fast),
+      background-color var(--dur-fast),
+      border-color var(--dur-fast);
+  }
+  .progress-chip.is-started {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+    border-color: transparent;
+  }
+  .progress-chip.is-complete {
+    color: var(--color-success);
+    background: var(--color-success-soft);
+    border-color: transparent;
+  }
+  .cta {
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>

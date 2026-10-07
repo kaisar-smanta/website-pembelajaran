@@ -86,7 +86,7 @@ const description = stripMarkdown(topic.summary);
 
     <div class="topic-layout">
       <article class="topic-main">
-        {sectionList.map((section, index) => <SectionBlock section={section} index={index} />)}
+        {sectionList.map((section, index) => <SectionBlock section={section} index={index} topicId={topic.id} />)}
 
         {(prev || next) && (
           <nav class="topic-pager no-print" aria-label="Navigasi topik">
@@ -182,7 +182,7 @@ const description = stripMarkdown(topic.summary);
         <div class="aside-card">
           <h2 class="aside-heading">Aksi</h2>
           <div class="aside-actions">
-            <a class="btn btn-secondary btn-sm" href={url('/latihan')}>Latihan topik ini</a>
+            <a class="btn btn-secondary btn-sm" href={url(`/latihan/${topic.slug}`)}>Latihan topik ini</a>
             <button type="button" class="btn btn-ghost btn-sm" data-print>Cetak halaman</button>
           </div>
         </div>

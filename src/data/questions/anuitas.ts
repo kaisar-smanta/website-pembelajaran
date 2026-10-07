@@ -141,6 +141,7 @@ export const anuitasQuestions: Question[] = [
       'Bunga setiap periode dihitung dari sisa utang, yaitu $i \\times \\text{sisa utang}$. Karena setiap angsuran pokok mengurangi sisa utang, sisa utang dari bulan ke bulan makin kecil, sehingga bunga yang dihitung pun makin kecil. Karena angsuran total $A$ tetap, bagian yang tersisa untuk pokok ($A$ dikurangi bunga) justru makin besar. Jadi ada dua hal yang bergerak berlawanan: porsi bunga menurun dan porsi pokok meningkat, namun jumlahnya selalu $A$.',
     explanation:
       'Penilaian menekankan pemahaman bahwa dasar perhitungan bunga adalah sisa utang yang terus menyusut, bukan pokok awal.',
+    hints: ['Ingat bahwa bunga dihitung dari sisa utang yang terus berkurang, bukan dari pokok awal.'],
     competencies: ['konsep anuitas', 'penalaran'],
   },
   {
@@ -155,6 +156,7 @@ export const anuitasQuestions: Question[] = [
       'Angsuran dihitung dengan $A = \\dfrac{M i}{1-(1+i)^{-n}}$. Memperpanjang tenor memperbesar $n$. Karena $(1+i)^{-n}$ makin kecil ketika $n$ bertambah, penyebut $1-(1+i)^{-n}$ makin besar, sehingga nilai $A$ menurun. Namun pembayaran dilakukan lebih banyak kali. Total pembayaran $= n \\times A$ justru bertambah karena bunga terus berjalan selama periode yang lebih lama, sehingga total bunga $nA - M$ naik. Dengan kata lain, angsuran bulanan lebih ringan, tetapi biaya pinjaman secara keseluruhan lebih besar.',
     explanation:
       'Kunci jawaban harus menghubungkan turunnya $A$ dengan naiknya $n$, lalu menjelaskan efek pada total $n \\times A$ dan total bunga.',
+    hints: ['Amati pengaruh memperbesar $n$ terhadap penyebut $1-(1+i)^{-n}$ dan terhadap banyaknya pembayaran $nA$.'],
     competencies: ['rumus anuitas', 'pemodelan keuangan', 'analisis kritis'],
   },
   {
@@ -169,6 +171,7 @@ export const anuitasQuestions: Question[] = [
       'Total pembayaran $= 12 \\times 1.500.000 = \\text{Rp}18.000.000$, sehingga total bunga $= 18.000.000 - 16.000.000 = \\text{Rp}2.000.000$. Nilai wajar angsuran pada $i = 1{,}5\\%$ dan $n = 12$ adalah $A = \\dfrac{16.000.000(0{,}015)}{1-(1{,}015)^{-12}} \\approx \\text{Rp}1.466.880$ (dengan $(1{,}015)^{-12} \\approx 0{,}836387$). Karena penawaran Rp1.500.000 lebih tinggi daripada nilai wajar Rp1.466.880, suku bunga efektif yang dikenakan melebihi $1{,}5\\%$ per bulan. Penawaran ini relatif mahal; peminjam sebaiknya memeriksa biaya administrasi, denda, dan bunga efektif sebelum menyetujui.',
     explanation:
       'Penilaian mencakup tiga hal: total bunga yang benar, perhitungan nilai wajar anuitas, dan penafsiran kritis bahwa angsuran penawaran di atas nilai wajar.',
+    hints: ['Bandingkan angsuran penawaran dengan nilai wajar anuitas pada suku bunga wajar $1{,}5\\%$ per bulan.'],
     competencies: ['rumus anuitas', 'evaluasi penawaran', 'literasi keuangan'],
   },
 ];

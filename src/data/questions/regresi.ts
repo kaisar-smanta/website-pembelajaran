@@ -160,4 +160,22 @@ export const regresiQuestions: Question[] = [
     hints: ['Gunakan $a=\\bar{y}-b\\bar{x}$.', 'Substitusikan $x=\\bar{x}$ ke persamaan garis.'],
     competencies: ['pembuktian', 'garis regresi'],
   },
+  {
+    id: 'rg-11',
+    topicId: 'regresi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Diberikan data $x: 2,3,4,5,6$ dan $y: 2,6,6,8,8$. Tentukan persamaan garis regresi kuadrat terkecil $\\hat{y}=bx+a$, lalu perkirakan nilai $y$ ketika $x=6$.',
+    answer:
+      'Dengan $n=5$, $\\sum x = 20$, $\\sum y = 30$, $\\sum xy = 134$, dan $\\sum x^2 = 90$: gradien $b = \\dfrac{n\\sum xy-(\\sum x)(\\sum y)}{n\\sum x^2-(\\sum x)^2} = \\dfrac{5(134)-20(30)}{5(90)-20^{2}} = \\dfrac{670-600}{450-400} = \\dfrac{70}{50} = 1{,}4$. Karena $\\bar{x}=4$ dan $\\bar{y}=6$, maka $a = \\bar{y}-b\\bar{x} = 6-1{,}4(4) = 0{,}4$. Jadi $\\hat{y} = 1{,}4x+0{,}4$, dan untuk $x=6$ diperoleh $\\hat{y} = 1{,}4(6)+0{,}4 = 8{,}8$.',
+    explanation:
+      'Kunci jawaban: menghitung $\\sum xy$ dan $\\sum x^2$, menentukan gradien dengan rumus kuadrat terkecil, lalu intersep melalui titik $(\\bar{x},\\bar{y})$ sebelum melakukan prediksi.',
+    hints: [
+      'Hitung $\\sum xy$ dan $\\sum x^{2}$ dari data.',
+      'Setelah memperoleh $b$, gunakan $a = \\bar{y}-b\\bar{x}$.',
+    ],
+    competencies: ['regresi linear', 'prediksi', 'pemodelan'],
+  },
 ];

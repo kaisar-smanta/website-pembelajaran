@@ -68,6 +68,25 @@ export function questionsByDifficulty(difficulty: Difficulty): Question[] {
   return questions.filter((q) => q.difficulty === difficulty);
 }
 
+export function questionsByTopicAndDifficulty(topicId: string, difficulty: Difficulty): Question[] {
+  return questions.filter((q) => q.topicId === topicId && q.difficulty === difficulty);
+}
+
+/** Id topik yang memiliki setidaknya satu soal pada bank. */
+export function topicIdsWithQuestions(): string[] {
+  return Array.from(new Set(questions.map((q) => q.topicId)));
+}
+
+/** Jumlah soal per tingkat kesulitan untuk satu topik. */
+export function practiceCounts(topicId: string): { dasar: number; cakap: number; mahir: number } {
+  const items = questionsByTopic(topicId);
+  return {
+    dasar: items.filter((q) => q.difficulty === 'dasar').length,
+    cakap: items.filter((q) => q.difficulty === 'cakap').length,
+    mahir: items.filter((q) => q.difficulty === 'mahir').length,
+  };
+}
+
 export function questionsByCategory(category: Question['category']): Question[] {
   return questions.filter((q) => q.category === category);
 }

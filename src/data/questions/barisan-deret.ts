@@ -159,4 +159,22 @@ export const barisanDeretQuestions: Question[] = [
     hints: ['Apa yang terjadi pada $r^{n}$ ketika $n$ membesar jika $\\lvert r\\rvert<1$?', 'Bandingkan dengan kasus $\\lvert r\\rvert\\geq1$.'],
     competencies: ['kekonvergenan deret geometri'],
   },
+  {
+    id: 'bd-11',
+    topicId: 'barisan-deret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Rani menabung pada suatu program: bulan pertama menyetor Rp100.000, dan setiap bulan berikutnya Rp25.000 lebih banyak daripada bulan sebelumnya. Setelah berapa bulan jumlah tabungan Rani pertama kali melebihi Rp3.000.000? Jelaskan pemodelannya.',
+    answer:
+      'Setoran tiap bulan membentuk barisan aritmetika dengan $a = 100.000$ dan $b = 25.000$. Jumlah $n$ bulan pertama adalah $S_n = \\dfrac{n}{2}\\big(2a + (n-1)b\\big) = \\dfrac{n}{2}\\big(200.000 + 25.000(n-1)\\big) = 12.500\\,n(n+7)$. Kita perlu $12.500\\,n(n+7) > 3.000.000$, yaitu $n(n+7) > 240$. Untuk $n = 12$ diperoleh $12 \\cdot 19 = 228 < 240$, sedangkan untuk $n = 13$ diperoleh $13 \\cdot 20 = 260 > 240$. Jadi jumlah tabungan pertama kali melebihi Rp3.000.000 setelah **13 bulan**, yaitu ketika $S_{13} = \\text{Rp}3.250.000$.',
+    explanation:
+      'Kunci jawaban: memodelkan setoran sebagai deret aritmetika, menyusun pertidaksamaan $S_n > 3.000.000$, lalu menguji nilai $n$ bilangan bulat terkecil.',
+    hints: [
+      'Setoran tiap bulan membentuk barisan aritmetika; gunakan $S_n$.',
+      'Selesaikan pertidaksamaan lalu uji $n$ bilangan bulat terkecil.',
+    ],
+    competencies: ['pemodelan deret aritmetika', 'pertidaksamaan'],
+  },
 ];
