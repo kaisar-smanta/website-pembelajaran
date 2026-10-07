@@ -2,14 +2,16 @@
 import type { ElementId, Exploration } from '@/types/content';
 import ExplorationSim from './ExplorationSim.astro';
 import ExplorationBrief from './ExplorationBrief.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS } from '@/data/curriculum';
 import { getTopic } from '@/data/topics';
 import { url, topicUrl } from '@/utils/url';
 
 interface Props {
   exploration: Exploration;
+  index?: number;
 }
-const { exploration } = Astro.props;
+const { exploration, index } = Astro.props;
 
 const elementAccents: Record<ElementId, string> = {
   bilangan: 'var(--color-number)',
@@ -24,17 +26,34 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
 ---
 
 <article
-  class="panel"
+  class="panel card"
   id={`ex-${exploration.id}`}
   style={`--accent:${accent}`}
   aria-labelledby={`ex-${exploration.id}-title`}
 >
   <header class="panel-head">
     <div class="panel-heading">
-      <h3 class="panel-title" id={`ex-${exploration.id}-title`}>{exploration.title}</h3>
-      <div class="panel-badges">
-        {exploration.grade && <span class="chip chip-grade">Kelas {exploration.grade}</span>}
-        {element && <span class="chip">{element.short}</span>}
+      {
+        index !== undefined && (
+          <span class="panel-station">
+            <span class="visually-hidden">Stasiun</span>
+            <span aria-hidden="true">{index}</span>
+          </span>
+        )
+      }
+      {
+        exploration.element && element && (
+          <span class="icon-tile panel-icon" aria-hidden="true">
+            <ElementIcon element={exploration.element} size={22} />
+          </span>
+        )
+      }
+      <div class="panel-heading-text">
+        <h3 class="panel-title" id={`ex-${exploration.id}-title`}>{exploration.title}</h3>
+        <div class="panel-badges">
+          {exploration.grade && <span class="chip chip-grade">Kelas {exploration.grade}</span>}
+          {element && <span class="chip">{element.short}</span>}
+        </div>
       </div>
     </div>
     {topic && topicHref && (
@@ -42,8 +61,11 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
     )}
   </header>
 
+  <div class="panel-sim">
+    <ExplorationSim exploration={exploration} />
+  </div>
+
   <ExplorationBrief exploration={exploration} showCautions />
-  <ExplorationSim exploration={exploration} />
 
   <footer class="panel-foot">
     <button
@@ -84,21 +106,45 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
 <style>
   .panel {
     scroll-margin-top: calc(var(--header-h) + 1rem);
-    padding: 1.1rem 0 1.5rem;
-    border-top: 1px solid var(--color-border);
+    padding: 1.05rem 1.25rem 1.4rem;
+    border-left: 4px solid var(--accent, var(--color-primary));
   }
   .panel-head {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 0.4rem 1rem;
+    gap: 0.5rem 1rem;
   }
   .panel-heading {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 0.75rem;
+    gap: 0.6rem 0.75rem;
+    min-width: 0;
+  }
+  .panel-station {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 999px;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 74%, var(--color-text));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 13%, var(--color-surface-2));
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 30%, var(--color-border));
+  }
+  .panel-icon {
+    flex: none;
+  }
+  .panel-heading-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
   }
   .panel-title {
     margin: 0;
@@ -136,6 +182,9 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
   .panel-topic:hover {
     color: var(--color-primary);
     text-decoration: underline;
+  }
+  .panel-sim {
+    margin-top: 0.9rem;
   }
   .panel-foot {
     display: flex;
@@ -175,5 +224,10 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
   }
   .panel-top {
     margin-left: auto;
+  }
+  @media print {
+    .panel {
+      border-left-width: 2px;
+    }
   }
 </style>

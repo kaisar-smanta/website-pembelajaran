@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import ExplorationPanel from '@/components/interactive/ExplorationPanel.astro';
+import ExplorationOverview from '@/components/interactive/ExplorationOverview.astro';
 import { explorationsByGrade, orderedExplorations } from '@/data/explorations';
 import { GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { url } from '@/utils/url';
@@ -29,50 +30,39 @@ const total = orderedExplorations().length;
 ---
 
 <BaseLayout
-  title="Media Pembelajaran Interaktif"
+  title="Eksplorasi Matematika Interaktif"
   description="Eksplorasi matematika interaktif: penggeser parameter fungsi, simulasi barisan, sebaran data, bunga majemuk, anuitas, peluang, peluang bersyarat, dan regresi linear. Belajar dengan memprediksi, mengamati, lalu menjelaskan."
 >
   <PageHeader
-    title="Media Pembelajaran Interaktif"
+    title="Ruang eksplorasi matematika"
     eyebrow="Laboratorium Matematika"
-    lead="Sebelum membaca rumus, cobalah mengubah-ubah nilainya. Amati apa yang berubah, ajukan dugaan, lalu hubungkan dengan konsep yang kamu pelajari. Setiap eksplorasi memandu kamu dengan alur prediksi → amati → jelaskan."
+    lead="Sebelum menghafal rumus, coba utak-atik dulu: geser nilainya, amati apa yang berubah, tebak polanya, lalu jelaskan dengan bahasamu sendiri. Tiap eksplorasi memandu alur prediksi → amati → jelaskan."
     crumbs={crumbs}
     meta={[`${total} eksplorasi`]}
   />
 
-  <div class="container">
-    <nav class="ex-index card reveal" id="daftar-eksplorasi" aria-label="Daftar eksplorasi">
-      <h2 class="ex-index-title">Peta eksplorasi</h2>
-      <div class="ex-index-groups">
-        {
-          groups.map((g) => (
-            <div class:list={['ex-index-group', `accent-${gradeElement[g.grade]}`]}>
-              <a class="ex-index-grade hover-lift" href={`#kelas-${g.grade}`}>
-                {g.meta.name}
-                <span class="ex-index-count">{g.items.length}</span>
-              </a>
-              <ul>
-                {g.items.map((e) => (
-                  <li>
-                    <a class="hover-lift" href={`#ex-${e.id}`}>
-                      {e.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-    </nav>
+  <section id="daftar-eksplorasi" class="section section-paper" aria-label="Peta eksplorasi">
+    <div class="container">
+      <ExplorationOverview groups={groups} total={total} />
+    </div>
+  </section>
 
-    {
-      groups.map((g) => (
-        <section
-          class:list={['grade-section', `accent-${gradeElement[g.grade]}`]}
-          aria-labelledby={`kelas-${g.grade}`}
-        >
-          <div class="grade-head reveal">
+  {
+    groups.map((g, gi) => (
+      <section
+        class:list={[
+          'section',
+          gi % 2 === 0 ? 'section-alt' : 'section-paper',
+          'grade-section',
+          `accent-${gradeElement[g.grade]}`,
+        ]}
+        aria-labelledby={`kelas-${g.grade}`}
+      >
+        <div class="container">
+          <div class="grade-band reveal" data-reveal>
+            <span class="grade-num" aria-hidden="true">
+              {g.grade}
+            </span>
             <SectionHeading
               id={`kelas-${g.grade}`}
               eyebrow={g.meta.label}
@@ -81,93 +71,29 @@ const total = orderedExplorations().length;
               reveal={false}
             />
           </div>
-          {g.items.map((e) => (
-            <div class="reveal">
-              <ExplorationPanel exploration={e} />
+          {g.items.map((e, i) => (
+            <div class="reveal" data-reveal style={`--reveal-delay:${i * 70}ms`}>
+              <ExplorationPanel exploration={e} index={i + 1} />
             </div>
           ))}
-        </section>
-      ))
-    }
+        </div>
+      </section>
+    ))
+  }
 
-    <aside class="closing card card-accent reveal" aria-label="Langkah selanjutnya">
-      <p>
-        Sudah menemukan polanya? Uji pemahamanmu lewat <a href={url('/latihan')}>latihan berjenjang</a>,
-        atau lanjutkan menelusuri <a href={url('/peta-pembelajaran')}>peta pembelajaran</a>.
-      </p>
-    </aside>
-  </div>
+  <section class="section section-paper">
+    <div class="container">
+      <aside class="closing card card-accent reveal" data-reveal aria-label="Langkah selanjutnya">
+        <p>
+          Sudah menemukan polanya? Uji dugaanmu lewat <a href={url('/latihan')}>latihan berjenjang</a>,
+          atau lanjut berkeliling di <a href={url('/peta-pembelajaran')}>peta pembelajaran</a>.
+        </p>
+      </aside>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .container {
-    padding-block: 1rem 2.5rem;
-  }
-
-  .ex-index {
-    margin-bottom: 1.75rem;
-  }
-  .ex-index-title {
-    margin: 0 0 0.75rem;
-    font-size: 1rem;
-  }
-  .ex-index-groups {
-    display: grid;
-    gap: 1rem 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-  }
-  .ex-index-grade {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--color-text);
-    border-radius: var(--radius);
-  }
-  .ex-index-grade:hover {
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
-  }
-  .ex-index-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.4rem;
-    height: 1.4rem;
-    padding-inline: 0.35rem;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface-2));
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
-    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
-  }
-  .ex-index-group ul {
-    list-style: none;
-    margin: 0.4rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0.25rem;
-    font-size: 0.88rem;
-  }
-  .ex-index-group ul a {
-    display: inline-block;
-    padding-block: 0.22rem;
-    color: var(--color-text-muted);
-    text-decoration: none;
-  }
-  .ex-index-group ul a:hover {
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
-    text-decoration: underline;
-  }
-
-  .grade-section {
-    padding-top: 1rem;
-    margin-bottom: 2rem;
-  }
-  .grade-section + .grade-section {
-    border-top: 1px solid var(--color-border);
-    padding-top: 2rem;
-  }
   .grade-section :global(.section-heading h2) {
     color: var(--accent, var(--color-primary));
   }
@@ -177,8 +103,25 @@ const total = orderedExplorations().length;
     color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
   }
 
+  .grade-band {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .grade-num {
+    position: absolute;
+    right: 0.4rem;
+    top: -1.1rem;
+    font-family: var(--font-serif);
+    font-size: clamp(3.25rem, 8vw, 5.25rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent, var(--color-primary));
+    opacity: 0.1;
+    pointer-events: none;
+    user-select: none;
+  }
+
   .closing {
-    margin-top: 2rem;
     background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
     font-size: 0.95rem;
   }

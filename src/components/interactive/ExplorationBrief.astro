@@ -24,7 +24,7 @@ const hasContent = Boolean(exploration.goal) || steps.length > 0 || (showCaution
     <div class="brief">
       {exploration.goal && (
         <p class="brief-goal">
-          <span class="brief-kicker">Yang akan kamu temukan</span>
+          <span class="brief-kicker">Misi kamu</span>
           <span set:html={renderInlineMarkdown(exploration.goal)} />
         </p>
       )}
@@ -42,7 +42,7 @@ const hasContent = Boolean(exploration.goal) || steps.length > 0 || (showCaution
       )}
       {showCautions && exploration.cautions?.length ? (
         <details class="brief-cautions">
-          <summary>Kesalahan umum saat bereksplorasi</summary>
+          <summary>Hati-hati, sering keliru</summary>
           <ul>
             {exploration.cautions.map((c) => (
               <li set:html={renderInlineMarkdown(c)} />
@@ -56,26 +56,38 @@ const hasContent = Boolean(exploration.goal) || steps.length > 0 || (showCaution
 
 <style>
   .brief {
-    margin: 0.75rem 0 0.5rem;
+    margin: 0.9rem 0 0.5rem;
     display: grid;
-    gap: 0.6rem;
+    gap: 0.7rem;
   }
   .brief-goal {
+    display: grid;
+    gap: 0.3rem;
     margin: 0;
-    padding: 0.6rem 0.8rem;
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 7%, var(--color-surface-2));
-    border-left: 3px solid color-mix(in srgb, var(--accent, var(--color-primary)) 70%, transparent);
-    border-radius: var(--radius-sm);
-    font-size: 0.93rem;
+    padding: 0.7rem 0.9rem;
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface-2));
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 22%, var(--color-border));
+    border-left: 4px solid color-mix(in srgb, var(--accent, var(--color-primary)) 80%, transparent);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
   }
   .brief-kicker {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
-    margin-bottom: 0.15rem;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 74%, var(--color-text));
+  }
+  .brief-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
   }
   .brief-steps {
     list-style: none;
@@ -111,15 +123,35 @@ const hasContent = Boolean(exploration.goal) || steps.length > 0 || (showCaution
   }
   .brief-cautions {
     border: 1px solid color-mix(in srgb, var(--color-danger) 28%, var(--color-border));
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius);
     background: color-mix(in srgb, var(--color-danger) 6%, var(--color-surface));
   }
   .brief-cautions > summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     cursor: pointer;
-    padding: 0.5rem 0.75rem;
+    padding: 0.55rem 0.75rem;
     font-size: 0.85rem;
     font-weight: 600;
     color: color-mix(in srgb, var(--color-danger) 72%, var(--color-text));
+    list-style: none;
+  }
+  .brief-cautions > summary::-webkit-details-marker {
+    display: none;
+  }
+  .brief-cautions > summary::before {
+    content: '';
+    flex: none;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform var(--dur) var(--ease-out-soft);
+  }
+  .brief-cautions[open] > summary::before {
+    transform: rotate(45deg);
   }
   .brief-cautions ul {
     margin: 0;

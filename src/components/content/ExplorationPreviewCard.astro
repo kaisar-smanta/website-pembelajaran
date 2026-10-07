@@ -8,8 +8,10 @@ interface Props {
   exploration: Exploration;
   /** Jeda animasi reveal (ms) untuk efek berjenjang. */
   delay?: number;
+  /** Tautan khusus; bila diisi, menggantikan tautan berbasis topik. */
+  href?: string;
 }
-const { exploration, delay = 0 } = Astro.props;
+const { exploration, delay = 0, href: hrefProp } = Astro.props;
 
 const labels: Record<Exploration['type'], string> = {
   'function-slider': 'Grafik interaktif',
@@ -24,7 +26,7 @@ const labels: Record<Exploration['type'], string> = {
 const label = labels[exploration.type];
 
 const topic = exploration.topicId ? getTopic(exploration.topicId) : undefined;
-const href = topic ? topicUrl(topic.grade, topic.element, topic.slug) : url('/eksplorasi');
+const linkHref = hrefProp ?? (topic ? topicUrl(topic.grade, topic.element, topic.slug) : url('/eksplorasi'));
 
 const elementAccents: Record<ElementId, string> = {
   bilangan: '--color-number',
@@ -103,7 +105,7 @@ const points = dots[exploration.type];
 <a
   class="exploration-card card-link hover-lift reveal"
   style={`--reveal-delay:${delay ?? 0}ms; --accent: var(${accent})`}
-  href={href}
+  href={linkHref}
   title={titleAttr}
 >
   <div class="exploration-graph" aria-hidden="true">

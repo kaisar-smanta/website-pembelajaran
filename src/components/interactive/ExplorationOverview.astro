@@ -1,0 +1,224 @@
+---
+import type { Exploration, Grade } from '@/types/content';
+import type { GradeMeta } from '@/data/curriculum';
+import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
+
+interface Props {
+  groups: Array<{ grade: Grade; meta: GradeMeta; items: Exploration[] }>;
+  total?: number;
+}
+const { groups, total } = Astro.props;
+
+const totalCount = total ?? groups.reduce((sum, g) => sum + g.items.length, 0);
+
+const gradeAccents: Record<Grade, string> = {
+  X: 'accent-bilangan',
+  XI: 'accent-aljabar-fungsi',
+  XII: 'accent-geometri',
+};
+
+const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendiri. Saring menurut kelas untuk memilih eksplorasi yang paling pas.';
+---
+
+<section class="ex-overview" data-ex-overview aria-labelledby="ex-overview-title">
+  <div class="section-heading reveal" data-reveal>
+    <p class="eyebrow-badge">Peta eksplorasi</p>
+    <h2 id="ex-overview-title">Jelajahi laboratorium matematika</h2>
+    <p class="text-muted">{lead}</p>
+  </div>
+
+  <div class="ex-chips" role="group" aria-label="Saring eksplorasi menurut kelas">
+    <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+      Semua
+      <span class="ex-chip-count">{totalCount}</span>
+    </button>
+    {
+      groups.map((g) => (
+        <button type="button" class="ex-chip" data-ex-filter={g.grade} aria-pressed="false">
+          {g.meta.name}
+          <span class="ex-chip-count">{g.items.length}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="grid grid-3 ex-grid">
+    {
+      groups.map((g) => (
+        <>
+          <p
+            class:list={['ex-group-label', 'eyebrow-badge', gradeAccents[g.grade]]}
+            data-ex-group={g.grade}
+          >
+            {g.meta.name}
+          </p>
+          {g.items.map((item, i) => (
+            <div class="ex-item" data-ex-grade={g.grade}>
+              <ExplorationPreviewCard exploration={item} href={`#ex-${item.id}`} delay={i * 70} />
+            </div>
+          ))}
+        </>
+      ))
+    }
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    try {
+      var root = document.querySelector('[data-ex-overview]');
+      if (!root) return;
+      var chips = Array.prototype.slice.call(root.querySelectorAll('[data-ex-filter]'));
+      var items = Array.prototype.slice.call(root.querySelectorAll('[data-ex-grade]'));
+      var labels = Array.prototype.slice.call(root.querySelectorAll('[data-ex-group]'));
+      if (!chips.length || !items.length) return;
+
+      function apply(filter) {
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          var match = filter === 'all' || item.getAttribute('data-ex-grade') === filter;
+          item.hidden = !match;
+          if (match) {
+            var card = item.querySelector('.reveal');
+            if (card) card.classList.add('is-visible');
+          }
+        }
+        for (var j = 0; j < labels.length; j++) {
+          var label = labels[j];
+          label.hidden = !(filter === 'all' || label.getAttribute('data-ex-group') === filter);
+        }
+        for (var k = 0; k < chips.length; k++) {
+          var active = chips[k].getAttribute('data-ex-filter') === filter;
+          chips[k].classList.toggle('is-active', active);
+          chips[k].setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      }
+
+      for (var c = 0; c < chips.length; c++) {
+        chips[c].addEventListener('click', function (event) {
+          apply(event.currentTarget.getAttribute('data-ex-filter') || 'all');
+        });
+      }
+
+      root.classList.add('js-ready');
+    } catch (e) {
+      var fallback = document.querySelector('[data-ex-overview]');
+      if (fallback) fallback.classList.remove('js-ready');
+    }
+  })();
+</script>
+
+<style>
+  .ex-overview {
+    margin-block: 0.5rem 2rem;
+  }
+  .ex-overview .section-heading {
+    margin-bottom: 1.25rem;
+  }
+
+  .ex-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .ex-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      background var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast),
+      transform var(--dur) var(--ease-out-soft);
+  }
+  .ex-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .ex-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .ex-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .ex-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .ex-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    transition: background var(--dur-fast), color var(--dur-fast);
+  }
+  .ex-chip.is-active .ex-chip-count {
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+  }
+
+  .ex-group-label {
+    grid-column: 1 / -1;
+    margin: 0.35rem 0 -0.35rem;
+    justify-self: start;
+    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+  }
+  .ex-grid > .ex-group-label:first-child {
+    margin-top: 0;
+  }
+
+  .ex-item {
+    display: flex;
+  }
+  .ex-item > :global(.exploration-card) {
+    flex: 1;
+    width: 100%;
+  }
+
+  @media (max-width: 30rem) {
+    .ex-chips {
+      gap: 0.4rem;
+    }
+    .ex-chip {
+      padding: 0.42rem 0.75rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ex-chip,
+    .ex-chip-count {
+      transition: none;
+    }
+  }
+
+  @media print {
+    .ex-item[hidden],
+    .ex-group-label[hidden] {
+      display: block !important;
+    }
+  }
+</style>
