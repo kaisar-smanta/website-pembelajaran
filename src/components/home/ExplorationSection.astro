@@ -1,0 +1,65 @@
+---
+import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
+import { explorations } from '@/data/explorations';
+import { url } from '@/utils/url';
+
+const featured = explorations.filter((e) => e.featured);
+const list = (featured.length ? featured : explorations).slice(0, 3);
+---
+
+<section class="section band-paper exploration-section" aria-labelledby="explorations">
+  <div class="container">
+    <div class="section-head--row reveal" data-reveal>
+      <div class="exploration-heading">
+        <p class="eyebrow-badge">Laboratorium mini</p>
+        <h2 id="explorations">Eksplorasi interaktif</h2>
+        <p class="text-muted">Ubah parameter, amati perubahan, lalu temukan polanya sendiri.</p>
+      </div>
+      <p class="exploration-action">
+        <a class="btn btn-secondary" href={url('/eksplorasi')}>Semua eksplorasi</a>
+      </p>
+    </div>
+    <div class="grid grid-3">
+      {list.map((e, i) => <ExplorationPreviewCard exploration={e} delay={i * 70} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .exploration-heading {
+    min-width: 0;
+  }
+  .exploration-heading .eyebrow-badge {
+    margin-bottom: 0.55rem;
+  }
+  .exploration-heading p:last-child {
+    margin-bottom: 0;
+  }
+  .exploration-action {
+    margin: 0;
+  }
+  .exploration-section :global(.exploration-card .cta) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.15rem;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 78%, var(--color-text));
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent, var(--color-primary)) 35%, transparent);
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color var(--dur) var(--ease-out-soft);
+  }
+  .exploration-section :global(.exploration-card:hover .cta),
+  .exploration-section :global(.exploration-card:focus-visible .cta) {
+    text-decoration-color: currentColor;
+  }
+  @media (max-width: 40rem) {
+    .exploration-action {
+      width: 100%;
+    }
+    .exploration-action .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

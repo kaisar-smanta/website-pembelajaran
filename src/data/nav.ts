@@ -2,13 +2,20 @@ export interface NavItem {
   label: string;
   href: string;
   description?: string;
+  children?: NavItem[];
 }
 
 export const mainNav: NavItem[] = [
   { label: 'Peta Pembelajaran', href: '/peta-pembelajaran' },
-  { label: 'Kelas X', href: '/kelas/X' },
-  { label: 'Kelas XI', href: '/kelas/XI' },
-  { label: 'Kelas XII', href: '/kelas/XII' },
+  {
+    label: 'Kelas',
+    href: '/kelas/X',
+    children: [
+      { label: 'Kelas X', href: '/kelas/X' },
+      { label: 'Kelas XI', href: '/kelas/XI' },
+      { label: 'Kelas XII', href: '/kelas/XII' },
+    ],
+  },
   { label: 'Latihan', href: '/latihan' },
   { label: 'Eksplorasi', href: '/eksplorasi' },
   { label: 'Alat', href: '/alat' },

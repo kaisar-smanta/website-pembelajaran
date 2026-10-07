@@ -1,0 +1,160 @@
+---
+import type { ElementId } from '@/types/content';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import { applications, applicationCategories } from '@/data/applications';
+import { url } from '@/utils/url';
+
+const accents = ['--color-number', '--color-algebra', '--color-geometry', '--color-data'];
+const elementIcons: ElementId[] = ['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang'];
+const categories = Object.keys(applicationCategories) as Array<keyof typeof applicationCategories>;
+const groups = categories.map((cat, i) => {
+  const apps = applications.filter((a) => a.category === cat);
+  return {
+    cat,
+    meta: applicationCategories[cat],
+    items: apps.slice(0, 3),
+    total: apps.length,
+    accent: accents[i % accents.length],
+    icon: elementIcons[i % elementIcons.length],
+  };
+});
+---
+
+<section class="section band-tint real-world-section" aria-labelledby="real-world">
+  <div class="container">
+    <div class="section-head--center reveal" data-reveal>
+      <p class="eyebrow-badge">Dunia nyata</p>
+      <h2 id="real-world">Matematika yang kamu pakai setiap hari</h2>
+      <p class="text-muted">
+        Dari menyusun anggaran sampai membaca berita, matematika menuntun banyak keputusan
+        nyata. Beberapa contohnya bisa langsung kamu jelajahi.
+      </p>
+    </div>
+    <div class="apps">
+      {
+        groups.map((g, i) => (
+          <article
+            class="card-rail hover-lift reveal"
+            style={`--accent: var(${g.accent}); --reveal-delay:${i * 60}ms`}
+            data-reveal
+          >
+            <div class="apps-head">
+              <span
+                class:list={[
+                  'sticker',
+                  'apps-sticker',
+                  i % 2 === 0 ? 'sticker--tilt' : 'sticker--tilt-alt',
+                ]}
+                aria-hidden="true"
+              >
+                <ElementIcon element={g.icon} size={18} />
+              </span>
+              <h3>{g.meta.name}</h3>
+            </div>
+            <p class="apps-desc">{g.meta.description}</p>
+            <ul class="apps-list" role="list">
+              {g.items.map((a) => (
+                <li>
+                  <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
+                </li>
+              ))}
+            </ul>
+            <p class="apps-more">
+              <a href={url('/aplikasi') + `#c-${g.cat}`}>
+                {g.total} studi kasus <span aria-hidden="true">→</span>
+              </a>
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .apps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .apps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 64rem) {
+    .apps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .real-world-section .card-rail {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1.3rem 1.35rem 1.5rem;
+  }
+  .apps-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .apps-sticker {
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 11px;
+  }
+  .card-rail h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .apps-desc {
+    margin: 0.3rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  .apps-list {
+    flex-grow: 1;
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .apps-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    padding-block: 0.15rem;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    font-weight: 500;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .apps-list a:hover,
+  .apps-list a:focus-visible {
+    text-decoration: underline;
+  }
+  .apps-more {
+    margin: 0.85rem 0 0;
+    padding-top: 0.7rem;
+    border-top: 1px dashed var(--color-border);
+    font-size: 0.88rem;
+  }
+  .apps-more a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 1.75rem;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .apps-more a:hover,
+  .apps-more a:focus-visible {
+    text-decoration: underline;
+  }
+</style>

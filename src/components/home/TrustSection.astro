@@ -1,0 +1,142 @@
+---
+import { url } from '@/utils/url';
+
+const accents = ['--color-number', '--color-algebra', '--color-geometry', '--color-data'];
+const trustPoints: Array<{ title: string; text: string; href?: string; link?: string }> = [
+  {
+    title: 'Gratis & tanpa akun',
+    text: 'Semua materi bisa langsung kamu buka, tanpa daftar, tanpa biaya, tanpa iklan, kapan saja.',
+  },
+  {
+    title: 'Mengikuti CP Kurikulum Merdeka',
+    text: 'Disusun mengikuti capaian pembelajaran sebagai tafsir instruksional, bukan salinan buku teks resmi.',
+    href: url('/referensi'),
+    link: 'Lihat referensi',
+  },
+  {
+    title: 'Jujur soal batasannya',
+    text: 'Setiap model punya asumsi dan keterbatasan. Kesalahan umum kami bahas terbuka supaya kamu tidak keliru.',
+  },
+  {
+    title: 'Peta yang apa adanya',
+    text: 'Status tiap topik ditandai apa adanya, jadi kamu tahu mana yang sudah siap dan mana yang masih direncanakan.',
+    href: url('/peta-pembelajaran'),
+    link: 'Lihat status topik',
+  },
+];
+---
+
+<section class="section band-plain trust-section" aria-labelledby="trust">
+  <div class="container">
+    <div class="section-head--center reveal" data-reveal>
+      <p class="eyebrow-badge">Sebelum mulai</p>
+      <h2 id="trust">Belajar dengan tenang &amp; jujur</h2>
+    </div>
+    <ul class="trust-grid" role="list">
+      {
+        trustPoints.map((point, i) => (
+          <li
+            class="item-bare trust-item hover-lift reveal"
+            style={`--accent: var(${accents[i % accents.length]}); --reveal-delay:${i * 60}ms`}
+            data-reveal
+          >
+            <div class="trust-head">
+              <span
+                class:list={[
+                  'sticker',
+                  'trust-sticker',
+                  i % 2 === 0 ? 'sticker--tilt' : 'sticker--tilt-alt',
+                ]}
+                aria-hidden="true"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <h3>{point.title}</h3>
+            </div>
+            <p>{point.text}</p>
+            {point.href && (
+              <p class="trust-link">
+                <a href={point.href}>
+                  {point.link} <span aria-hidden="true">→</span>
+                </a>
+              </p>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="trust-more reveal" data-reveal>
+      <a class="btn btn-secondary" href={url('/tentang')}>Baca tentang situs &amp; sumbernya</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .trust-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    align-items: stretch;
+    gap: 1.25rem 1.5rem;
+  }
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .trust-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    min-height: 2.6rem;
+    margin-bottom: 0.3rem;
+  }
+  .trust-head h3 {
+    margin: 0;
+    font-size: 1.02rem;
+  }
+  .trust-sticker {
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 10px;
+  }
+  .trust-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .trust-item .trust-link {
+    margin: auto 0 0;
+    padding-top: 0.5rem;
+  }
+  .trust-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 1.75rem;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .trust-link a:hover,
+  .trust-link a:focus-visible {
+    text-decoration: underline;
+  }
+  .trust-more {
+    margin: 1.5rem 0 0;
+  }
+</style>

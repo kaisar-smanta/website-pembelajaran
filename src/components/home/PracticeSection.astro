@@ -1,0 +1,70 @@
+---
+import QuickDemo from '@/components/interactive/QuickDemo.astro';
+import QuizTeaser from '@/components/exercises/QuizTeaser.astro';
+---
+
+<section class="section band-plain practice" aria-labelledby="practice-title">
+  <div class="container">
+    <div class="section-heading section-head--center reveal" data-reveal>
+      <p class="eyebrow-badge">Interaktif</p>
+      <h2 id="practice-title">Coba dulu, baru teori</h2>
+      <p class="text-muted">
+        Di sini tidak ada nilai. Geser penggeser, jawab kuis kilat, dan lihat hasilnya
+        seketika. Tanpa akun, tanpa menunggu.
+      </p>
+      <ul class="practice-tags" role="list">
+        <li class="tag">Uji cepat</li>
+        <li class="tag">Tanpa akun</li>
+        <li class="tag">Pembahasan langsung</li>
+      </ul>
+    </div>
+    <div class="practice-grid">
+      <div class="practice-panel reveal" data-reveal>
+        <QuickDemo />
+      </div>
+      <div class="practice-panel reveal" data-reveal style="--reveal-delay:90ms">
+        <QuizTeaser />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .practice-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+  .practice-panel {
+    display: flex;
+    min-width: 0;
+  }
+  .practice-panel > :global(*) {
+    width: 100%;
+  }
+  .practice-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+  }
+  .practice-tags .tag {
+    --accent: var(--color-primary);
+  }
+  .practice-tags li:nth-child(2) {
+    --accent: var(--color-algebra);
+  }
+  .practice-tags li:nth-child(3) {
+    --accent: var(--color-geometry);
+  }
+  @media (min-width: 56rem) {
+    .practice-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+  }
+</style>

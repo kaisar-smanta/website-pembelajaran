@@ -1,0 +1,259 @@
+---
+import MathMascot from '@/components/content/MathMascot.astro';
+import { GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { url, gradeUrl } from '@/utils/url';
+
+const gradeAccents: Record<(typeof GRADE_ORDER)[number], string> = {
+  X: 'var(--color-number)',
+  XI: 'var(--color-algebra)',
+  XII: 'var(--color-geometry)',
+};
+---
+
+<section class="section band-deep final-cta" aria-labelledby="final-cta-title">
+  <div class="final-cta__deco" aria-hidden="true">
+    <span class="final-cta__grid"></span>
+    <span class="final-cta__chip final-cta__chip--1 float-slow">&pi;</span>
+    <span class="final-cta__chip final-cta__chip--2 drift">x&sup2;</span>
+    <span class="final-cta__chip final-cta__chip--3 float-slow float-delayed">&radic;</span>
+    <span class="final-cta__chip final-cta__chip--4 drift">&theta;</span>
+    <span class="final-cta__chip final-cta__chip--5 float-slow">&sum;</span>
+    <span class="final-cta__chip final-cta__chip--6 drift">&infin;</span>
+    <span class="final-cta__mascot">
+      <MathMascot size={6} />
+    </span>
+  </div>
+
+  <div class="container final-cta__inner">
+    <div class="section-heading section-head--center reveal" data-reveal>
+      <p class="eyebrow-badge">Langkah berikutnya</p>
+      <h2 id="final-cta-title">Saatnya mulai: pahami, bukan sekadar hafal</h2>
+      <p class="final-cta__lead text-muted">
+        Mulai dari peta pembelajaran, atau langsung pilih kelasmu untuk menelusuri materi,
+        eksplorasi, dan latihan.
+      </p>
+      <div class="final-cta__tags">
+        <span class="tag" style="--accent: var(--color-geometry)">Gratis</span>
+        <span class="tag" style="--accent: var(--color-algebra)">Tanpa akun</span>
+      </div>
+    </div>
+
+    <div class="final-cta__actions reveal" data-reveal style="--reveal-delay:80ms">
+      <a class="btn btn-primary" href={url('/peta-pembelajaran')}>
+        Mulai belajar <span aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="btn btn-secondary" href={url('/eksplorasi')}>Coba eksplorasi</a>
+    </div>
+
+    <ul class="grade-row" role="list">
+      {
+        GRADE_ORDER.map((grade, i) => (
+          <li class="grade-row__item reveal" style={`--reveal-delay:${140 + i * 80}ms`} data-reveal>
+            <a
+              class="grade-card hover-lift"
+              href={gradeUrl(grade)}
+              style={`--accent: ${gradeAccents[grade]}`}
+            >
+              <span class="grade-card__phase">Fase {GRADES[grade].phase}</span>
+              <span class="grade-card__name">{GRADES[grade].name}</span>
+              <span class="grade-card__go" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .final-cta__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .final-cta__deco {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .final-cta__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 78%);
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 78%);
+    opacity: 0.7;
+  }
+
+  .final-cta__lead {
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+
+  .final-cta__tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+
+  .final-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.6rem;
+  }
+
+  .grade-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.9rem;
+    max-width: 42rem;
+    margin: 2rem auto 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .grade-row__item {
+    min-width: 0;
+  }
+
+  .grade-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-height: 4.5rem;
+    padding: 0.9rem 1rem 0.9rem 1.15rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    overflow: hidden;
+  }
+  .grade-card::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 4px;
+    background: var(--accent, var(--color-primary));
+  }
+  .grade-card:hover,
+  .grade-card:focus-visible {
+    color: var(--color-text);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--color-border));
+  }
+
+  .grade-card__phase {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .grade-card__name {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .grade-card__go {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.9rem;
+    color: var(--accent, var(--color-primary));
+    transition: transform var(--dur) var(--ease-out-soft);
+  }
+  .grade-card:hover .grade-card__go,
+  .grade-card:focus-visible .grade-card__go {
+    transform: translateX(3px);
+  }
+  .motion-ready .grade-row__item.is-visible .grade-card {
+    animation: confetti-pop var(--dur-slow) var(--ease-bounce);
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+
+  .final-cta__chip {
+    position: absolute;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-primary);
+    opacity: 0.16;
+    user-select: none;
+  }
+  .final-cta__chip--1 {
+    top: 14%;
+    left: 6%;
+    font-size: 3rem;
+    transform: rotate(-8deg);
+  }
+  .final-cta__chip--2 {
+    top: 22%;
+    right: 8%;
+    font-size: 2.4rem;
+    transform: rotate(7deg);
+  }
+  .final-cta__chip--3 {
+    bottom: 18%;
+    left: 10%;
+    font-size: 2.7rem;
+    transform: rotate(6deg);
+  }
+  .final-cta__chip--4 {
+    bottom: 12%;
+    right: 12%;
+    font-size: 2.9rem;
+    transform: rotate(-10deg);
+  }
+  .final-cta__chip--5 {
+    top: 48%;
+    left: 3%;
+    font-size: 2.2rem;
+    transform: rotate(4deg);
+  }
+  .final-cta__chip--6 {
+    top: 44%;
+    right: 4%;
+    font-size: 2.2rem;
+    transform: rotate(-5deg);
+  }
+
+  .final-cta__mascot {
+    position: absolute;
+    right: 4%;
+    bottom: 6%;
+    width: 4.5rem;
+    opacity: 0.92;
+  }
+  .final-cta__mascot :global(.mascot) {
+    max-width: 100%;
+  }
+
+  @media (max-width: 40rem) {
+    .final-cta__chip {
+      display: none;
+    }
+  }
+  @media (max-width: 56rem) {
+    .final-cta__mascot {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-ready .grade-row__item.is-visible .grade-card {
+      animation: none;
+    }
+  }
+</style>

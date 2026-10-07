@@ -1,0 +1,447 @@
+---
+import MathMascot from '@/components/content/MathMascot.astro';
+import { url } from '@/utils/url';
+
+interface Role {
+  title: string;
+  tag: string;
+  text: string;
+  href: string;
+  link: string;
+  accent: string;
+}
+
+interface Habit {
+  title: string;
+  text: string;
+  accent: string;
+  icon: string;
+}
+
+const roles: Role[] = [
+  {
+    title: 'Untuk siswa',
+    tag: 'Aku mau belajar',
+    text: 'Jelajahi konsep lewat simulasi, kerjakan latihan berjenjang, lalu baca pembahasan setiap jawaban. Kamu yang mengatur kecepatan belajar.',
+    href: url('/peta-pembelajaran'),
+    link: 'Lihat alur belajar',
+    accent: 'var(--color-primary)',
+  },
+  {
+    title: 'Untuk guru',
+    tag: 'Aku mau mengajar',
+    text: 'Bawa materi, simulasi, dan bank soal ke kelas. Semua siap dipakai sebagai pendamping mengajar.',
+    href: url('/latihan'),
+    link: 'Buka bank soal',
+    accent: 'var(--color-algebra)',
+  },
+  {
+    title: 'Untuk orang tua',
+    tag: 'Aku mau mendampingi',
+    text: 'Ikuti alur belajar anak, lalu dampingi dari rumah dengan sumber yang jelas, gratis, dan tanpa iklan.',
+    href: url('/tentang'),
+    link: 'Kenali sumbernya',
+    accent: 'var(--color-geometry)',
+  },
+];
+
+const habits: Habit[] = [
+  {
+    title: 'Pahami',
+    text: 'Mulai dari konteks dan pertanyaan, bukan langsung rumus.',
+    accent: 'var(--color-primary)',
+    icon: '<path d="M12 4a5.5 5.5 0 0 0-3.2 9.98c.5.4.8.97.9 1.6l.08.42h4.44l.08-.42c.1-.63.4-1.2.9-1.6A5.5 5.5 0 0 0 12 4Z"/><path d="M10 19h4"/><path d="M10.8 21h2.4"/>',
+  },
+  {
+    title: 'Eksplorasi',
+    text: 'Ubah parameter pada simulasi, amati pola, ajukan dugaan.',
+    accent: 'var(--color-number)',
+    icon: '<circle cx="12" cy="12" r="8"/><path d="m14.7 9.3-1.8 3.6-3.6 1.8 1.8-3.6z"/>',
+  },
+  {
+    title: 'Terapkan',
+    text: 'Kerjakan latihan berjenjang: dasar, cakap, lalu mahir.',
+    accent: 'var(--color-algebra)',
+    icon: '<rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="m8.3 12.2 2.5 2.5 5-5.4"/>',
+  },
+  {
+    title: 'Analisis',
+    text: 'Tafsirkan hasil dan nilai apakah modelnya masuk akal.',
+    accent: 'var(--color-geometry)',
+    icon: '<path d="M3.5 20h17"/><path d="M7 20v-6"/><path d="M12 20V5"/><path d="M17 20v-9"/>',
+  },
+  {
+    title: 'Refleksi',
+    text: 'Kenali kesalahan umum, lalu rangkum pemahamanmu.',
+    accent: 'var(--color-data)',
+    icon: '<path d="M5 12a7 7 0 0 1 11.9-5"/><path d="M17 3.6V7h-3.4"/><path d="M19 12a7 7 0 0 1-11.9 5"/><path d="M7 20.4V17h3.4"/>',
+  },
+];
+---
+
+<section class="section band-tint method-section" aria-labelledby="method-title">
+  <div class="container">
+    <header class="method-head section-head--center reveal" data-reveal>
+      <p class="eyebrow-badge">Untuk siapa &amp; bagaimana</p>
+      <h2 id="method-title">Cara kamu <span class="marker">belajar</span> di sini</h2>
+      <p class="text-muted method-lead">
+        Satu sumber untuk semua. Pilih peranmu, lalu jalani lima kebiasaan berpikir ini di
+        setiap topik.
+      </p>
+    </header>
+
+    <div class="method-grid">
+      <div class="method-col method-roles">
+        <h3 class="group-title" id="method-roles-title">Untuk siapa</h3>
+        <p class="group-lead">Pilih peranmu. Materinya tetap sama.</p>
+        <ul class="role-list" role="list" aria-labelledby="method-roles-title">
+          {
+            roles.map((role, i) => (
+              <li class="reveal" style={`--reveal-delay:${i * 80}ms`} data-reveal>
+                <a
+                  class="card-rail role-card hover-lift wiggle-on-hover"
+                  href={role.href}
+                  style={`--accent:${role.accent}`}
+                >
+                  <span class="tag role-tag">{role.tag}</span>
+                  <h4>{role.title}</h4>
+                  <p>{role.text}</p>
+                  <span class="role-cta">
+                    {role.link}
+                    <span class="cta-arrow wiggle-target" aria-hidden="true">
+                      →
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="method-col method-habits">
+        <h3 class="group-title" id="method-habits-title">Lima kebiasaan berpikir</h3>
+        <p class="group-lead">Lima langkah yang kamu jalani tiap kali belajar topik baru.</p>
+        <ol class="habit-path" aria-labelledby="method-habits-title">
+          {
+            habits.map((habit, i) => (
+              <li
+                class="habit-step hover-lift reveal"
+                style={`--accent:${habit.accent};--reveal-delay:${120 + i * 70}ms`}
+                data-reveal
+              >
+                <span class="habit-marker">
+                  <span
+                    class="sticker habit-icon wiggle-target"
+                    aria-hidden="true"
+                    set:html={`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">${habit.icon}</svg>`}
+                  />
+                  <span class="habit-num" aria-hidden="true">{i + 1}</span>
+                </span>
+                <div class="habit-body">
+                  <h4>{habit.title}</h4>
+                  <p>{habit.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+
+    <div class="method-cameo reveal" data-reveal>
+      <div class="cameo-figure" aria-hidden="true">
+        <MathMascot size={8} />
+      </div>
+      <p class="cameo-bubble">
+        Lima langkah ini dipakai di setiap topik. Belum tahu harus mulai dari mana?{' '}
+        <a class="cameo-link" href={url('/peta-pembelajaran')}>Buka peta pembelajaran</a>{' '}
+        untuk melihat urutannya.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .method-head {
+    margin-bottom: 1.4rem;
+  }
+  .method-lead {
+    max-width: 46ch;
+    margin: 0.35rem auto 0;
+  }
+  .method-grid {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .method-roles {
+    --group-accent: var(--color-primary);
+  }
+  .method-habits {
+    --group-accent: var(--color-algebra);
+  }
+  .group-title {
+    margin: 0;
+    font-size: 1.02rem;
+  }
+  .group-title::after {
+    content: '';
+    display: block;
+    width: 2.25rem;
+    height: 3px;
+    margin-top: 0.4rem;
+    border-radius: 999px;
+    background: var(--group-accent, var(--color-primary));
+  }
+  .group-lead {
+    margin: 0.6rem 0 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+  }
+
+  .role-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .role-list > li {
+    display: flex;
+    min-width: 0;
+  }
+  .role-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+  .role-tag {
+    margin-bottom: 0.1rem;
+  }
+  .role-card h4 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .role-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .role-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: auto;
+    padding-top: 0.55rem;
+    min-height: 1.5rem;
+    color: var(--accent, var(--color-primary));
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .cta-arrow {
+    display: inline-block;
+    transition: transform var(--dur) var(--ease-bounce);
+  }
+  .role-card:hover .cta-arrow,
+  .role-card:focus-visible .cta-arrow {
+    transform: translateX(3px);
+  }
+  .role-card:hover .role-cta,
+  .role-card:focus-visible .role-cta {
+    text-decoration: underline;
+  }
+
+  .habit-path {
+    --habit-pad: 1.05rem;
+    --habit-icon: 3rem;
+    --habit-line: calc(var(--habit-pad) + var(--habit-icon) / 2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .habit-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--habit-icon) minmax(0, 1fr);
+    column-gap: 1rem;
+    align-items: start;
+    padding: var(--habit-pad);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .habit-marker {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+  }
+  .habit-icon {
+    width: var(--habit-icon);
+    height: var(--habit-icon);
+  }
+  .habit-icon :global(svg) {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+  .habit-num {
+    position: absolute;
+    top: -0.4rem;
+    right: -0.4rem;
+    display: grid;
+    place-items: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    background: var(--accent, var(--color-primary));
+    color: var(--color-on-primary);
+    border: 2px solid var(--color-surface);
+    font-family: var(--font-serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .habit-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    padding-top: 0.15rem;
+  }
+  .habit-body h4 {
+    margin: 0;
+    font-size: 1.03rem;
+  }
+  .habit-body p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .habit-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: var(--habit-line);
+    top: calc(var(--habit-pad) + var(--habit-icon));
+    width: 0;
+    height: 0.62rem;
+    transform: translateX(-1px);
+    border-left: 2px dotted
+      color-mix(in srgb, var(--accent, var(--color-primary)) 55%, var(--color-border));
+  }
+  .habit-step:not(:last-child)::before {
+    content: '↓';
+    position: absolute;
+    left: var(--habit-line);
+    bottom: -1.28rem;
+    transform: translateX(-50%);
+    color: var(--accent, var(--color-primary));
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .method-cameo {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-top: 1.4rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+    border: 1px dashed color-mix(in srgb, var(--color-primary) 32%, var(--color-border-strong));
+  }
+  .cameo-figure {
+    flex: 0 0 auto;
+    width: 6rem;
+    max-width: 32%;
+  }
+  .cameo-figure :global(.mascot) {
+    max-width: 100%;
+    filter: none;
+  }
+  .cameo-bubble {
+    position: relative;
+    margin: 0;
+    padding: 0.9rem 1.2rem;
+    background: var(--color-surface);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    font-size: 1rem;
+    line-height: 1.55;
+    text-wrap: balance;
+  }
+  .cameo-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    font-weight: 600;
+  }
+  .cameo-bubble::before {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 50%;
+    width: 0.9rem;
+    height: 0.9rem;
+    transform: translateY(-50%) rotate(45deg);
+    background: var(--color-surface);
+    border-left: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+    border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+    border-bottom-left-radius: 3px;
+  }
+
+  @media (min-width: 56rem) {
+    .method-grid {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 2.25rem;
+      align-items: stretch;
+    }
+    .method-roles {
+      display: flex;
+      flex-direction: column;
+    }
+    .role-list {
+      flex: 1;
+      align-content: space-between;
+    }
+  }
+
+  @media (max-width: 37.99rem) {
+    .method-cameo {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.65rem;
+    }
+    .cameo-figure {
+      width: 6rem;
+      max-width: 45%;
+    }
+    .cameo-bubble::before {
+      left: 50%;
+      top: -0.5rem;
+      transform: translateX(-50%) rotate(45deg);
+      border: none;
+      border-left: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+      border-top: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+      border-radius: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-arrow {
+      transition: none;
+    }
+  }
+</style>

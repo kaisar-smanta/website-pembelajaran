@@ -24,12 +24,12 @@ const exploration = getExploration(explorationId);
       </div>
       <h3 id="quick-demo-title">{title ?? exploration.title}</h3>
       <p class="quick-demo-prompt">
-        {prompt ?? 'Geser penggeser di bawah dan lihat bagaimana grafiknya berubah seketika.'}
+        {prompt ?? 'Geser penggeser dan lihat grafiknya berubah seketika.'}
       </p>
       <ExplorationSim exploration={exploration} />
       <p class="quick-demo-more">
-        <a class="btn btn-secondary btn-sm" href={url('/eksplorasi')}>
-          Lihat semua eksplorasi
+        <a class="btn btn-secondary btn-sm pop-on-hover" href={url('/eksplorasi')}>
+          Jelajahi eksplorasi lainnya
         </a>
       </p>
     </section>
@@ -54,6 +54,9 @@ const exploration = getExploration(explorationId);
   }
   .quick-demo {
     position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background:
       radial-gradient(
         circle at 100% 0%,
@@ -101,7 +104,7 @@ const exploration = getExploration(explorationId);
     margin-bottom: 0.75rem;
   }
   .quick-demo-more {
-    margin: 1rem 0 0;
+    margin: auto 0 0;
   }
   @media (prefers-reduced-motion: reduce) {
     .live-dot {

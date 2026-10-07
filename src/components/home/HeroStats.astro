@@ -1,0 +1,130 @@
+---
+import { topics } from '@/data/topics';
+import { questions } from '@/data/questions';
+import { applications } from '@/data/applications';
+import { explorations } from '@/data/explorations';
+
+export interface Stat {
+  value: number;
+  label: string;
+}
+
+interface Props {
+  stats?: Stat[];
+}
+
+const computed: Stat[] = [
+  { value: topics.length, label: 'topik materi' },
+  { value: questions.length, label: 'soal latihan' },
+  { value: applications.length, label: 'studi kasus nyata' },
+  { value: explorations.length, label: 'eksplorasi interaktif' },
+];
+
+const { stats = computed } = Astro.props;
+---
+
+<ul class="stat-strip hero-stat-strip" role="list" aria-label="Ringkasan materi" data-hero-stats>
+  {
+    stats.map((stat) => (
+      <li class="stat">
+        <span class="stat-value" data-count={stat.value}>
+          {stat.value}
+        </span>
+        <span class="stat-label">{stat.label}</span>
+      </li>
+    ))
+  }
+</ul>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-hero-stats]');
+    if (!root) return;
+    var nodes = root.querySelectorAll('[data-count]');
+    if (!nodes.length) return;
+    var reduce = false;
+    try {
+      reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (error) {
+      reduce = false;
+    }
+    if (reduce) return;
+
+    function format(value) {
+      try {
+        return value.toLocaleString('id-ID');
+      } catch (error) {
+        return String(value);
+      }
+    }
+
+    function animate(node) {
+      var target = parseInt(node.getAttribute('data-count') || '', 10);
+      if (!isFinite(target) || target <= 0) return;
+      var started = null;
+      var duration = 900;
+      node.textContent = format(0);
+
+      function frame(now) {
+        if (started === null) started = now;
+        var progress = Math.min((now - started) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        node.textContent = format(Math.round(target * eased));
+        if (progress < 1) {
+          window.requestAnimationFrame(frame);
+        } else {
+          node.textContent = format(target);
+          node.classList.add('is-counted');
+        }
+      }
+
+      window.requestAnimationFrame(frame);
+    }
+
+    function start() {
+      for (var i = 0; i < nodes.length; i++) animate(nodes[i]);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              start();
+              observer.disconnect();
+              break;
+            }
+          }
+        },
+        { threshold: 0.35 },
+      );
+      observer.observe(root);
+    } else {
+      start();
+    }
+  })();
+</script>
+
+<style>
+  .hero-stat-strip {
+    margin-top: 1.2rem;
+  }
+  .hero-stat-strip .stat-value.is-counted {
+    animation: count-pop var(--dur) var(--ease-out-soft) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-stat-strip .stat-value.is-counted {
+      animation: none;
+    }
+  }
+  @media (max-width: 30rem) {
+    .hero-stat-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem 1.25rem;
+    }
+    .hero-stat-strip .stat {
+      min-width: 0;
+    }
+  }
+</style>

@@ -51,8 +51,11 @@ const first = quizData[0];
 <section class="quiz-teaser" aria-labelledby="quiz-teaser-title">
   <p class="eyebrow">Kuis kilat</p>
   <h3 id="quiz-teaser-title">Uji pemahamanmu</h3>
-  <p class="quiz-intro text-muted">Jawab soal singkat dan lihat pembahasannya seketika.</p>
+  <p class="quiz-intro text-muted">
+    Jawab satu soal, langsung tahu benar atau belum, lengkap dengan pembahasannya.
+  </p>
 
+  <div class="quiz-main">
   {
     first ? (
       <div class="quiz-box paper-grid" data-quiz data-questions={JSON.stringify(quizData)}>
@@ -69,8 +72,8 @@ const first = quizData[0];
           ))}
         </div>
         <div class="quiz-feedback" data-feedback role="status" aria-live="polite" />
-        <button type="button" class="btn btn-primary btn-sm" data-next hidden>
-          Soal berikutnya
+        <button type="button" class="btn btn-primary btn-sm pop-on-hover" data-next hidden>
+          Lanjut, soal berikutnya
         </button>
       </div>
     ) : (
@@ -84,13 +87,26 @@ const first = quizData[0];
     <span class="marker quiz-streak-value" data-streak>0</span>
     <span>benar berturut-turut</span>
   </p>
-  <p>
-    <a href={url('/latihan')}>Latihan lengkap</a>
+  <p class="quiz-reward" data-reward role="status" aria-live="polite" hidden>
+    <span class="quiz-reward-text" data-reward-text />
+    <span class="quiz-confetti" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </p>
+  </div>
+  <p class="quiz-more">
+    <a class="btn btn-secondary btn-sm" href={url('/latihan')}>Latihan lengkap</a>
   </p>
 </section>
 
 <style>
   .quiz-teaser {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background:
       radial-gradient(
         circle at 100% 0%,
@@ -106,6 +122,16 @@ const first = quizData[0];
   }
   .quiz-intro {
     margin-bottom: 0.75rem;
+  }
+  .quiz-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .quiz-more {
+    margin: auto 0 0;
+    padding-top: 0.75rem;
   }
   .quiz-box {
     position: relative;
@@ -219,6 +245,66 @@ const first = quizData[0];
     min-width: 1.1ch;
     text-align: center;
   }
+  .quiz-reward {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    margin: 0 0 0.5rem;
+    padding: 0.34rem 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--color-success) 42%, var(--color-border));
+    border-radius: 999px;
+    background: var(--color-success-soft);
+    color: var(--color-success);
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+  .quiz-reward[hidden] {
+    display: none;
+  }
+  .quiz-reward.is-pop {
+    animation: pop-in var(--dur) var(--ease-bounce) both;
+  }
+  .quiz-reward.is-soft {
+    border-color: var(--color-border);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+  }
+  .quiz-confetti {
+    display: inline-flex;
+    gap: 0.16rem;
+  }
+  .quiz-confetti span {
+    width: 0.32rem;
+    height: 0.32rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0;
+  }
+  .quiz-confetti span:nth-child(1) {
+    color: var(--color-primary);
+  }
+  .quiz-confetti span:nth-child(2) {
+    color: var(--color-algebra);
+  }
+  .quiz-confetti span:nth-child(3) {
+    color: var(--color-geometry);
+  }
+  .quiz-confetti span:nth-child(4) {
+    color: var(--color-data);
+  }
+  .quiz-reward.is-pop .quiz-confetti span {
+    animation: confetti-pop 560ms var(--ease-bounce) both;
+  }
+  .quiz-reward.is-pop .quiz-confetti span:nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .quiz-reward.is-pop .quiz-confetti span:nth-child(3) {
+    animation-delay: 140ms;
+  }
+  .quiz-reward.is-pop .quiz-confetti span:nth-child(4) {
+    animation-delay: 210ms;
+  }
   .quiz-teaser a {
     display: inline-flex;
     align-items: center;
@@ -256,6 +342,8 @@ const first = quizData[0];
         const feedbackEl = box.querySelector('[data-feedback]');
         const nextBtn = box.querySelector('[data-next]');
         const streakEl = scope.querySelector('[data-streak]');
+        const rewardEl = scope.querySelector('[data-reward]');
+        const rewardTextEl = scope.querySelector('[data-reward-text]');
         let burst = box.querySelector('.quiz-burst');
 
         let index = 0;
@@ -273,10 +361,47 @@ const first = quizData[0];
           reduceMotion = false;
         }
 
+        function rewardMessage(n) {
+          if (n <= 1) return 'Tepat sekali. Lanjut ke soal berikutnya.';
+          if (n === 2) return 'Dua benar berturut-turut.';
+          if (n === 3) return 'Tiga benar berturut-turut. Lanjutkan.';
+          if (n === 4) return 'Empat benar berturut-turut. Bagus.';
+          return n + ' benar berturut-turut. Teruskan.';
+        }
+
+        function hideReward() {
+          if (!rewardEl) return;
+          rewardEl.hidden = true;
+          rewardEl.classList.remove('is-pop', 'is-soft');
+        }
+
+        function showReward(n) {
+          if (!rewardEl) return;
+          rewardEl.hidden = false;
+          rewardEl.classList.remove('is-soft');
+          if (rewardTextEl) rewardTextEl.textContent = rewardMessage(n);
+          if (!reduceMotion) {
+            rewardEl.classList.remove('is-pop');
+            void rewardEl.offsetWidth;
+            rewardEl.classList.add('is-pop');
+          }
+        }
+
+        function softenReward() {
+          if (!rewardEl) return;
+          rewardEl.hidden = false;
+          rewardEl.classList.remove('is-pop');
+          rewardEl.classList.add('is-soft');
+          if (rewardTextEl) {
+            rewardTextEl.textContent = 'Belum tepat. Coba soal berikutnya.';
+          }
+        }
+
         function render() {
           const q = quiz[index];
           if (!q) return;
           answered = false;
+          hideReward();
           if (feedbackEl) {
             feedbackEl.className = 'quiz-feedback';
             feedbackEl.innerHTML = '';
@@ -337,8 +462,10 @@ const first = quizData[0];
               void burst.offsetWidth;
               burst.classList.add('burst-ring');
             }
+            showReward(streak);
           } else {
             streak = 0;
+            softenReward();
           }
           if (streakEl) {
             streakEl.textContent = String(streak);

@@ -81,6 +81,13 @@ const factItems = facts.map((fact) => {
         window.setTimeout(function () {
           bubble.classList.remove('pop');
         }, 320);
+
+        button.classList.remove('reacting');
+        void button.offsetWidth;
+        button.classList.add('reacting');
+        window.setTimeout(function () {
+          button.classList.remove('reacting');
+        }, 520);
       }
 
       var timer = null;
@@ -123,8 +130,7 @@ const factItems = facts.map((fact) => {
       } else {
         startAuto();
       }
-    } catch (error) {
-      /* Biarkan fakta pertama tetap tampil bila skrip gagal. */
+    } catch {
     }
   })();
 </script>
@@ -182,6 +188,9 @@ const factItems = facts.map((fact) => {
     z-index: 1;
     width: 100%;
     max-width: 100%;
+  }
+  .mascot-button.reacting :global(.mascot) {
+    animation: mascot-react var(--dur-slow) var(--ease-bounce) both;
   }
   .mascot-halo {
     position: absolute;
@@ -325,48 +334,69 @@ const factItems = facts.map((fact) => {
       transform: scale(1);
     }
   }
+  @keyframes mascot-react {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    35% {
+      transform: translateY(-7px) rotate(-3deg);
+    }
+    70% {
+      transform: translateY(2px) rotate(2.5deg);
+    }
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mascot-button.reacting :global(.mascot) {
+      animation: none;
+    }
+  }
 
   @media (min-width: 34rem) {
     .playground-stage {
       grid-template-columns: 1fr;
       grid-template-areas: 'mascot';
       place-items: center;
-      min-height: 16rem;
+      width: min(100%, 24rem);
+      min-height: clamp(15rem, 42vw, 18rem);
+      padding: 1.4rem 0.9rem;
     }
     .stage-orbit {
       display: block;
       position: absolute;
       inset: 0;
       margin: auto;
-      width: min(96%, 22rem);
-      height: 72%;
-      border: 1.5px dashed color-mix(in srgb, var(--color-primary) 32%, transparent);
+      width: min(82%, 19rem);
+      height: 74%;
+      border: 1.5px dashed color-mix(in srgb, var(--color-primary) 26%, transparent);
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
     }
     .mascot-button {
-      width: min(100%, 19rem);
+      width: min(100%, 15rem);
     }
     .hero-chip {
       position: absolute;
       z-index: 2;
     }
     .chip-a {
-      top: 0;
-      left: 0;
+      top: 0.35rem;
+      left: 0.35rem;
     }
     .chip-b {
-      top: 0;
-      right: 0;
+      top: 0.35rem;
+      right: 0.35rem;
     }
     .chip-c {
-      bottom: 0;
-      left: 0;
+      bottom: 0.35rem;
+      left: 0.35rem;
     }
     .chip-d {
-      bottom: 0;
-      right: 0;
+      bottom: 0.35rem;
+      right: 0.35rem;
     }
   }
 

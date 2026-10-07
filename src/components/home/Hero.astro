@@ -1,0 +1,245 @@
+---
+import HeroPlayground from '@/components/content/HeroPlayground.astro';
+import HeroStats from '@/components/home/HeroStats.astro';
+import { topics } from '@/data/topics';
+import { questions } from '@/data/questions';
+import { applications } from '@/data/applications';
+import { explorations } from '@/data/explorations';
+import { site } from '@/data/site';
+import { url } from '@/utils/url';
+
+const stats = [
+  { value: topics.length, label: 'topik materi' },
+  { value: questions.length, label: 'soal latihan' },
+  { value: applications.length, label: 'studi kasus nyata' },
+  { value: explorations.length, label: 'eksplorasi interaktif' },
+];
+---
+
+<section class="hero">
+  <span class="hero-mesh" aria-hidden="true"></span>
+  <div class="hero-grid container">
+    <div class="hero-copy">
+      <p class="eyebrow-badge">Kurikulum Merdeka · Kelas X–XII</p>
+      <h1>Pahami <span class="marker">konsep</span> matematika SMA, bukan sekadar hafal rumus</h1>
+      <p class="hero-lead">
+        Di sini kamu belajar memahami pola, membangun model, dan menalar, bukan sekadar
+        menghitung. Semua dijelaskan bertahap supaya mudah diikuti.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary pulse-soft" href={url('/peta-pembelajaran')}>Mulai belajar</a>
+        <a class="btn btn-secondary" href={url('/eksplorasi')}>Coba eksplorasi</a>
+      </div>
+      <HeroStats stats={stats} />
+      <p class="hero-byline">
+        <span class="byline-logo" aria-hidden="true">
+          <img src={url(site.school.logo)} alt="" width="30" height="30" />
+        </span>
+        <span class="byline-text">
+          Disusun oleh{' '}
+          <a href={url('/tentang')}>
+            <strong>{site.author.name}</strong>
+          </a>{' '}
+          <span class="byline-sep" aria-hidden="true">
+            ·
+          </span>{' '}
+          <a href={site.school.url} target="_blank" rel="noopener noreferrer">
+            {site.school.name}
+          </a>
+        </span>
+      </p>
+    </div>
+    <div class="hero-visual">
+      <HeroPlayground />
+    </div>
+  </div>
+  <span class="hero-dots" aria-hidden="true"></span>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 82% 24%, color-mix(in srgb, var(--color-algebra) 16%, transparent), transparent 44%),
+      radial-gradient(circle at 10% 82%, color-mix(in srgb, var(--color-geometry) 14%, transparent), transparent 46%),
+      linear-gradient(180deg, var(--color-bg-alt), var(--color-bg));
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    -webkit-mask-image: radial-gradient(circle at 34% 34%, #000, transparent 72%);
+    mask-image: radial-gradient(circle at 34% 34%, #000, transparent 72%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .hero-mesh {
+    position: absolute;
+    z-index: 0;
+    top: -6rem;
+    right: -4rem;
+    width: 34rem;
+    height: 34rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 40% 40%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent),
+      transparent 68%
+    );
+    filter: blur(8px);
+    pointer-events: none;
+  }
+  .hero-dots {
+    position: absolute;
+    z-index: 0;
+    left: 8%;
+    bottom: 1.5rem;
+    width: 9rem;
+    height: 5rem;
+    background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 40%, transparent) 1.4px, transparent 1.5px);
+    background-size: 1.1rem 1.1rem;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2rem;
+    align-items: center;
+    padding-block: clamp(1.75rem, 5vw, 3.25rem);
+  }
+  .hero-copy > * {
+    animation: rise-in var(--dur-slow) var(--ease-out-soft) both;
+  }
+  .hero-copy > *:nth-child(1) {
+    animation-delay: 40ms;
+  }
+  .hero-copy > *:nth-child(2) {
+    animation-delay: 110ms;
+  }
+  .hero-copy > *:nth-child(3) {
+    animation-delay: 180ms;
+  }
+  .hero-copy > *:nth-child(4) {
+    animation-delay: 250ms;
+  }
+  .hero-copy > *:nth-child(5) {
+    animation-delay: 320ms;
+  }
+  .hero-copy > *:nth-child(6) {
+    animation-delay: 390ms;
+  }
+  .hero-copy > *:nth-child(7) {
+    animation-delay: 460ms;
+  }
+  .hero-copy > *:nth-child(8) {
+    animation-delay: 530ms;
+  }
+  .hero-copy .eyebrow-badge {
+    margin-bottom: 0.85rem;
+  }
+  .hero-copy h1 {
+    font-size: clamp(2.1rem, 1.4rem + 3.2vw, 3.35rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 0.55rem;
+  }
+  .hero-lead {
+    font-size: clamp(1.1rem, 1rem + 0.7vw, 1.45rem);
+    line-height: 1.5;
+    max-width: 46ch;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .hero-byline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.55rem;
+    max-width: 100%;
+    margin: 1.15rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+  }
+  .byline-logo {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 1.55rem;
+    height: 1.55rem;
+    padding: 0.12rem;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--color-border);
+  }
+  .byline-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  .byline-text {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .hero-byline a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    padding-block: 0.1rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .hero-byline a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .hero-byline strong {
+    font-weight: 700;
+  }
+  .byline-sep {
+    color: var(--color-border-strong);
+  }
+  .hero-visual {
+    display: grid;
+    place-items: center;
+    width: 100%;
+  }
+  @media (max-width: 56rem) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 40rem) {
+    .hero-lead {
+      font-size: 1.05rem;
+    }
+  }
+  @media (max-width: 34rem) {
+    .hero-byline {
+      align-items: flex-start;
+    }
+    .byline-logo {
+      margin-top: 0.12rem;
+    }
+    .byline-sep {
+      display: none;
+    }
+  }
+</style>
