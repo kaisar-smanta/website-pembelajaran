@@ -1,5 +1,5 @@
 ---
-import type { ElementId, Exploration } from '@/types/content';
+import type { Difficulty, ElementId, Exploration } from '@/types/content';
 import ExplorationSim from './ExplorationSim.astro';
 import ExplorationBrief from './ExplorationBrief.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
@@ -12,6 +12,13 @@ interface Props {
   index?: number;
 }
 const { exploration, index } = Astro.props;
+
+const levelLabels: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+const tags = (exploration.tags ?? []).slice(0, 3);
 
 const elementAccents: Record<ElementId, string> = {
   bilangan: 'var(--color-number)',
@@ -53,6 +60,12 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
         <div class="panel-badges">
           {exploration.grade && <span class="chip chip-grade">Kelas {exploration.grade}</span>}
           {element && <span class="chip">{element.short}</span>}
+          {exploration.level && (
+            <span class="chip chip-level">{levelLabels[exploration.level]}</span>
+          )}
+          {typeof exploration.estimatedMinutes === 'number' && (
+            <span class="chip chip-time">±{exploration.estimatedMinutes} menit</span>
+          )}
         </div>
       </div>
     </div>
@@ -60,6 +73,16 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
       <a class="panel-topic" href={topicHref}>Materi: {topic.title}</a>
     )}
   </header>
+
+  {
+    tags.length > 0 && (
+      <ul class="panel-tags" aria-label="Kata kunci">
+        {tags.map((tag) => (
+          <li class="panel-tag">{tag}</li>
+        ))}
+      </ul>
+    )
+  }
 
   <div class="panel-sim">
     <ExplorationSim exploration={exploration} />
@@ -79,6 +102,7 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
     {topic && (
       <a class="panel-practice" href={url(`/latihan/${topic.slug}`)}>Latihan topik ini</a>
     )}
+    <a class="panel-detail" href={url(`/eksplorasi/${exploration.id}`)}>Halaman eksplorasi</a>
     <a class="panel-top" href="#daftar-eksplorasi">Kembali ke daftar ↑</a>
   </footer>
 </article>
@@ -171,6 +195,35 @@ const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : und
     color: var(--color-text-muted);
     background: var(--color-surface-2);
     border-color: var(--color-border);
+  }
+  .chip-level {
+    color: color-mix(in srgb, var(--color-primary) 72%, var(--color-text));
+    background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
+  }
+  .chip-time {
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border-color: var(--color-border);
+  }
+  .panel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.7rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .panel-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.12rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
   }
   .panel-topic {
     display: inline-block;

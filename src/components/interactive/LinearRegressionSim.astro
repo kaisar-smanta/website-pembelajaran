@@ -6,13 +6,29 @@ interface Props {
   exploration: Exploration;
 }
 const { exploration } = Astro.props;
+
+/** Sumber tunggal domain sumbu, dipakai markup dan skrip (lewat data-*). */
+const domain = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 };
+const helpId = `reg-help-${exploration.id}`;
 ---
 
-<figure class="reg-sim" data-reg>
-  <p class="reg-help">
+<figure
+  class="sim reg-sim"
+  data-reg
+  data-exploration={exploration.id}
+  data-x-min={domain.xMin}
+  data-x-max={domain.xMax}
+  data-y-min={domain.yMin}
+  data-y-max={domain.yMax}
+>
+  <div class="sim-head">
+    <h3>Diagram Pencar &amp; Regresi Linear</h3>
+  </div>
+
+  <p class="reg-help" id={helpId}>
     Klik atau ketuk pada bidang untuk menambah titik data, atau isi nilai x dan y pada
-    formulir. Garis regresi, koefisien korelasi, dan koefisien determinasi dihitung
-    otomatis menggunakan metode kuadrat terkecil.
+    formulir di bawah. Garis regresi, koefisien korelasi, dan koefisien determinasi
+    dihitung otomatis menggunakan metode kuadrat terkecil.
   </p>
 
   <div class="reg-canvas">
@@ -20,17 +36,48 @@ const { exploration } = Astro.props;
       viewBox="0 0 480 320"
       role="img"
       aria-label="Diagram pencar titik data dengan garis regresi kuadrat terkecil"
+      aria-describedby={helpId}
       data-reg-plot></svg>
+  </div>
+
+  <div class="reg-legend" aria-label="Keterangan diagram">
+    <span class="reg-legend-item">
+      <span class="reg-swatch reg-swatch-line" aria-hidden="true"></span>Garis regresi kuadrat terkecil
+    </span>
+    <span class="reg-legend-item">
+      <span class="reg-swatch reg-swatch-dot" aria-hidden="true"></span>Titik data
+    </span>
+    <span class="reg-legend-item">
+      <span class="reg-swatch reg-swatch-res" aria-hidden="true"></span>Segmen galat (residual)
+    </span>
   </div>
 
   <form class="reg-form" data-reg-form novalidate>
     <label class="reg-field">
       <span>Nilai x</span>
-      <input type="number" min="-10" max="10" step="0.5" value="0" inputmode="decimal" required data-reg-x />
+      <input
+        type="number"
+        min={domain.xMin}
+        max={domain.xMax}
+        step="0.5"
+        value="0"
+        inputmode="decimal"
+        required
+        data-reg-x
+      />
     </label>
     <label class="reg-field">
       <span>Nilai y</span>
-      <input type="number" min="-10" max="10" step="0.5" value="0" inputmode="decimal" required data-reg-y />
+      <input
+        type="number"
+        min={domain.yMin}
+        max={domain.yMax}
+        step="0.5"
+        value="0"
+        inputmode="decimal"
+        required
+        data-reg-y
+      />
     </label>
     <button type="submit" class="btn btn-secondary btn-sm">Tambah titik</button>
     <p class="reg-msg" data-reg-form-msg aria-live="polite"></p>
@@ -48,23 +95,27 @@ const { exploration } = Astro.props;
     <span>Tampilkan galat (residual)</span>
   </label>
 
-  <output class="reg-out" data-reg-out aria-live="polite"></output>
+  <output class="sim-readout" data-reg-out aria-live="polite" aria-atomic="true"></output>
 
   <div class="reg-listwrap">
     <h3 class="reg-listtitle">Daftar titik</h3>
     <ul class="reg-list" data-reg-list aria-label="Daftar titik data"></ul>
   </div>
 
-  <figcaption class="reg-caption" set:html={renderMarkdown(exploration.description)} />
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
 <style>
-  .reg-sim {
+  .sim {
     margin: 1.25rem 0;
     padding: 1rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+  }
+  .sim-head h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
   }
   .reg-help {
     font-size: 0.88rem;
@@ -82,7 +133,41 @@ const { exploration } = Astro.props;
     background: var(--color-surface-2);
     border-radius: var(--radius);
     cursor: crosshair;
-    touch-action: none;
+    touch-action: pan-y;
+  }
+  .reg-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    max-width: 36rem;
+    margin: 0.5rem auto 0;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+  .reg-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .reg-swatch {
+    display: inline-block;
+    flex: none;
+  }
+  .reg-swatch-line {
+    width: 1.4rem;
+    height: 0;
+    border-top: 2.4px solid var(--color-primary);
+  }
+  .reg-swatch-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--color-data);
+  }
+  .reg-swatch-res {
+    width: 0;
+    height: 0.95rem;
+    border-left: 1.6px dashed var(--color-danger);
   }
   .reg-form {
     display: flex;
@@ -137,7 +222,7 @@ const { exploration } = Astro.props;
     height: 1.5rem;
     accent-color: var(--color-primary);
   }
-  .reg-out {
+  .sim-readout {
     display: block;
     margin-top: 0.75rem;
     padding: 0.5rem 0.7rem;
@@ -180,12 +265,12 @@ const { exploration } = Astro.props;
     font-size: 0.85rem;
     color: var(--color-text-muted);
   }
-  .reg-caption {
+  .sim-caption {
     margin-top: 0.6rem;
     font-size: 0.86rem;
     color: var(--color-text-muted);
   }
-  .reg-caption :global(> *:last-child) {
+  .sim-caption :global(> *:last-child) {
     margin-bottom: 0;
   }
   @media (max-width: 420px) {
@@ -202,10 +287,20 @@ const { exploration } = Astro.props;
 </style>
 
 <script>
+  import {
+    regression,
+    generateRandomPoints,
+    MAX_POINTS,
+    RANDOM_BATCH_SIZE,
+    type Domain,
+  } from '../../lib/sim/regression';
+
   interface Pt {
     x: number;
     y: number;
   }
+
+  const MOVE_THRESHOLD_PX = 10;
 
   function setupReg(root: Element) {
     const svg = root.querySelector('[data-reg-plot]') as SVGSVGElement;
@@ -217,20 +312,26 @@ const { exploration } = Astro.props;
     const formMsg = root.querySelector('[data-reg-form-msg]') as HTMLElement;
     const residualToggle = root.querySelector('[data-reg-residual]') as HTMLInputElement;
     const list = root.querySelector('[data-reg-list]') as HTMLUListElement;
+    const randomBtn = root.querySelector('[data-reg-random]') as HTMLButtonElement;
     const points: Pt[] = [];
+
+    const domain: Domain = {
+      xMin: Number(root.getAttribute('data-x-min') ?? -10),
+      xMax: Number(root.getAttribute('data-x-max') ?? 10),
+      yMin: Number(root.getAttribute('data-y-min') ?? -10),
+      yMax: Number(root.getAttribute('data-y-max') ?? 10),
+    };
+    const { xMin, xMax, yMin, yMax } = domain;
     const W = 480;
     const H = 320;
     const pad = 34;
-    const xMin = -10;
-    const xMax = 10;
-    const yMin = -10;
-    const yMax = 10;
 
     const sx = (x: number) => pad + ((x - xMin) / (xMax - xMin)) * (W - 2 * pad);
     const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
     const ix = (px: number) => xMin + ((px - pad) / (W - 2 * pad)) * (xMax - xMin);
     const iy = (py: number) => yMin + ((H - pad - py) / (H - 2 * pad)) * (yMax - yMin);
-    const inRange = (v: number) => Number.isFinite(v) && v >= xMin && v <= xMax;
+    const inDomainX = (v: number) => Number.isFinite(v) && v >= xMin && v <= xMax;
+    const inDomainY = (v: number) => Number.isFinite(v) && v >= yMin && v <= yMax;
 
     const svgNS = 'http://www.w3.org/2000/svg';
     const el = (name: string, attrs: Record<string, string | number>) => {
@@ -238,27 +339,6 @@ const { exploration } = Astro.props;
       for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
       return node;
     };
-
-    function stats() {
-      const n = points.length;
-      if (n < 2) return null;
-      const mx = points.reduce((s, p) => s + p.x, 0) / n;
-      const my = points.reduce((s, p) => s + p.y, 0) / n;
-      let sxx = 0;
-      let syy = 0;
-      let sxy = 0;
-      for (const p of points) {
-        sxx += (p.x - mx) ** 2;
-        syy += (p.y - my) ** 2;
-        sxy += (p.x - mx) * (p.y - my);
-      }
-      if (sxx === 0) return null;
-      const slope = sxy / sxx;
-      const intercept = my - slope * mx;
-      const r = syy === 0 ? NaN : sxy / Math.sqrt(sxx * syy);
-      const r2 = r * r;
-      return { n, mx, my, slope, intercept, r, r2 };
-    }
 
     function renderList() {
       list.innerHTML = '';
@@ -302,16 +382,16 @@ const { exploration } = Astro.props;
       svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.5 }));
       svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.5 }));
 
-      const st = stats();
-      if (st) {
-        const x1 = xMin;
-        const x2 = xMax;
-        const y1 = st.slope * x1 + st.intercept;
-        const y2 = st.slope * x2 + st.intercept;
+      const st = regression(points);
+      const lineDefined = Number.isFinite(st.slope) && Number.isFinite(st.intercept);
+
+      if (lineDefined) {
+        const y1 = st.slope * xMin + st.intercept;
+        const y2 = st.slope * xMax + st.intercept;
         svg.appendChild(el('line', {
-          x1: sx(x1),
+          x1: sx(xMin),
           y1: sy(y1),
-          x2: sx(x2),
+          x2: sx(xMax),
           y2: sy(y2),
           stroke: 'var(--color-primary)',
           'stroke-width': 2.4,
@@ -338,29 +418,37 @@ const { exploration } = Astro.props;
         svg.appendChild(el('circle', { cx: sx(p.x), cy: sy(p.y), r: 4.5, fill: 'var(--color-data)' }));
       });
 
-      count.textContent = `${points.length} titik`;
+      count.textContent = `${points.length} / ${MAX_POINTS} titik`;
+      randomBtn.disabled = points.length >= MAX_POINTS;
       svg.setAttribute('aria-label', `Diagram pencar dengan ${points.length} titik data dan garis regresi kuadrat terkecil`);
 
-      if (!st) {
+      if (st.diagnostic === 'insufficient') {
         out.textContent = 'Tambahkan minimal dua titik untuk menghitung garis regresi.';
+      } else if (st.diagnostic === 'constant-x') {
+        out.textContent = 'Nilai x harus beragam: tambahkan titik dengan nilai x berbeda agar garis regresi terdefinisi.';
       } else {
         const arah = st.slope > 0 ? 'positif' : st.slope < 0 ? 'negatif' : 'nol';
-        const rTeks = isNaN(st.r) ? '—' : st.r.toFixed(3);
-        const r2Teks = isNaN(st.r2) ? '—' : st.r2.toFixed(3);
-        out.textContent = `ŷ = ${st.slope.toFixed(3)}x ${st.intercept >= 0 ? '+' : '−'} ${Math.abs(st.intercept).toFixed(3)} · korelasi r = ${rTeks} · determinasi r² = ${r2Teks} (${arah}). Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${st.slope.toFixed(3)} satuan.`;
+        const rTeks = Number.isNaN(st.r) ? '—' : st.r.toFixed(3);
+        const r2Teks = Number.isNaN(st.r2) ? '—' : st.r2.toFixed(3);
+        const dasar = `ŷ = ${st.slope.toFixed(3)}x ${st.intercept >= 0 ? '+' : '−'} ${Math.abs(st.intercept).toFixed(3)} · korelasi r = ${rTeks} · determinasi r² = ${r2Teks} (${arah}).`;
+        const catatan = st.diagnostic === 'zero-y-variance'
+          ? ' Semua nilai y sama sehingga korelasi tidak terdefinisi.'
+          : ` Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${st.slope.toFixed(3)} satuan.`;
+        out.textContent = dasar + catatan;
       }
 
       renderList();
     }
 
     function addPoint(x: number, y: number) {
-      if (!inRange(x) || !inRange(y)) return false;
+      if (!inDomainX(x) || !inDomainY(y)) return false;
+      if (points.length >= MAX_POINTS) return false;
       points.push({ x, y });
       draw();
       return true;
     }
 
-    function addPointFromEvent(ev: MouseEvent | Touch) {
+    function addPointFromEvent(ev: { clientX: number; clientY: number }) {
       const rect = svg.getBoundingClientRect();
       const px = ((ev.clientX - rect.left) / rect.width) * W;
       const py = ((ev.clientY - rect.top) / rect.height) * H;
@@ -369,20 +457,38 @@ const { exploration } = Astro.props;
       addPoint(x, y);
     }
 
-    svg.addEventListener('click', (e) => addPointFromEvent(e as MouseEvent));
-    svg.addEventListener('touchstart', (e) => {
-      if (e.touches[0]) {
-        e.preventDefault();
-        addPointFromEvent(e.touches[0]);
+    let press: { x: number; y: number; id: number; moved: boolean } | null = null;
+
+    svg.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      press = { x: e.clientX, y: e.clientY, id: e.pointerId, moved: false };
+    });
+    svg.addEventListener('pointermove', (e) => {
+      if (!press || e.pointerId !== press.id) return;
+      if (Math.hypot(e.clientX - press.x, e.clientY - press.y) > MOVE_THRESHOLD_PX) {
+        press.moved = true;
       }
-    }, { passive: false });
+    });
+    svg.addEventListener('pointercancel', () => {
+      press = null;
+    });
+    svg.addEventListener('pointerup', (e) => {
+      const p = press;
+      press = null;
+      if (!p || e.pointerId !== p.id || p.moved || e.button !== 0) return;
+      addPointFromEvent(e);
+    });
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (points.length >= MAX_POINTS) {
+        formMsg.textContent = `Maksimum ${MAX_POINTS} titik data tercapai. Hapus beberapa titik untuk menambah.`;
+        return;
+      }
       const x = Number(xInput.value);
       const y = Number(yInput.value);
-      if (xInput.value.trim() === '' || yInput.value.trim() === '' || !inRange(x) || !inRange(y)) {
-        formMsg.textContent = 'Masukkan nilai x dan y berupa angka antara -10 dan 10.';
+      if (xInput.value.trim() === '' || yInput.value.trim() === '' || !inDomainX(x) || !inDomainY(y)) {
+        formMsg.textContent = `Masukkan nilai x dan y berupa angka antara ${xMin} dan ${xMax}.`;
         return;
       }
       formMsg.textContent = '';
@@ -404,14 +510,14 @@ const { exploration } = Astro.props;
       draw();
     });
 
-    root.querySelector('[data-reg-random]')?.addEventListener('click', () => {
-      const base = 2 + Math.random() * 2;
-      const noise = 0.6 + Math.random() * 1.4;
-      for (let i = 0; i < 8; i++) {
-        const x = -8 + Math.random() * 16;
-        const y = Math.max(yMin, Math.min(yMax, base + 0.7 * x + (Math.random() - 0.5) * 2 * noise * 3));
-        points.push({ x, y });
+    randomBtn.addEventListener('click', () => {
+      const room = MAX_POINTS - points.length;
+      if (room <= 0) {
+        formMsg.textContent = `Maksimum ${MAX_POINTS} titik data sudah tercapai.`;
+        return;
       }
+      const batch = Math.min(RANDOM_BATCH_SIZE, room);
+      for (const p of generateRandomPoints(batch, domain)) points.push(p);
       draw();
     });
 

@@ -7,6 +7,11 @@ import LinearRegressionSim from './LinearRegressionSim.astro';
 import SequenceExplorer from './SequenceExplorer.astro';
 import DistributionExplorer from './DistributionExplorer.astro';
 import ConditionalProbSim from './ConditionalProbSim.astro';
+import CircleExplorer from './CircleExplorer.astro';
+import MatrixExplorer from './MatrixExplorer.astro';
+import LinearSystemExplorer from './LinearSystemExplorer.astro';
+import FunctionCompositionSim from './FunctionCompositionSim.astro';
+import FunctionInverseSim from './FunctionInverseSim.astro';
 import GeogebraEmbed from './GeogebraEmbed.astro';
 
 interface Props {
@@ -32,6 +37,17 @@ const { exploration } = Astro.props;
     <ConditionalProbSim exploration={exploration} />
   )
 }
+{exploration.type === 'circle' && <CircleExplorer exploration={exploration} />}
+{exploration.type === 'matrix' && <MatrixExplorer exploration={exploration} />}
+{
+  exploration.type === 'linear-system' && <LinearSystemExplorer exploration={exploration} />
+}
+{
+  exploration.type === 'function-composition' && (
+    <FunctionCompositionSim exploration={exploration} />
+  )
+}
+{exploration.type === 'function-inverse' && <FunctionInverseSim exploration={exploration} />}
 {
   exploration.type === 'geogebra' && exploration.url && (
     <GeogebraEmbed url={exploration.url} title={exploration.title} />

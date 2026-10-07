@@ -6,6 +6,7 @@ interface Props {
   exploration: Exploration;
 }
 const { exploration } = Astro.props;
+const uid = exploration.id;
 ---
 
 <figure class="sim cond-sim" data-condsim data-exploration={exploration.id}>
@@ -16,54 +17,61 @@ const { exploration } = Astro.props;
   <div class="sim-fields">
     <div class="sim-field">
       <div class="sim-field-head">
-        <label for="cond-a">Peluang kejadian A, P(A)</label>
-        <output class="sim-num" for="cond-a" data-out="a"></output>
+        <label for={`${uid}-a`}>Peluang kejadian A, P(A)</label>
+        <output class="sim-num" for={`${uid}-a`} data-out="a"></output>
       </div>
       <input
-        id="cond-a"
+        id={`${uid}-a`}
         type="range"
-        min="0.01"
-        max="0.99"
+        min="0"
+        max="1"
         step="0.01"
         value="0.5"
         data-field="a"
         aria-label="Peluang kejadian A"
+        aria-describedby={`${uid}-readout`}
       />
     </div>
 
     <div class="sim-field">
       <div class="sim-field-head">
-        <label for="cond-ba">Peluang B jika A terjadi, P(B|A)</label>
-        <output class="sim-num" for="cond-ba" data-out="ba"></output>
+        <label for={`${uid}-ba`}>Peluang B jika A terjadi, P(B|A)</label>
+        <output class="sim-num" for={`${uid}-ba`} data-out="ba"></output>
       </div>
       <input
-        id="cond-ba"
+        id={`${uid}-ba`}
         type="range"
-        min="0.01"
-        max="0.99"
+        min="0"
+        max="1"
         step="0.01"
         value="0.5"
         data-field="ba"
         aria-label="Peluang B terjadi dengan syarat A terjadi"
+        aria-describedby={`${uid}-readout`}
       />
     </div>
 
     <div class="sim-field">
       <div class="sim-field-head">
-        <label for="cond-bac">Peluang B jika A komplemen, P(B|A<sup>c</sup>)</label>
-        <output class="sim-num" for="cond-bac" data-out="bac"></output>
+        <label for={`${uid}-bac`}>Peluang B jika A komplemen, P(B|A<sup>c</sup>)</label>
+        <output class="sim-num" for={`${uid}-bac`} data-out="bac"></output>
       </div>
       <input
-        id="cond-bac"
+        id={`${uid}-bac`}
         type="range"
-        min="0.01"
-        max="0.99"
+        min="0"
+        max="1"
         step="0.01"
         value="0.5"
         data-field="bac"
         aria-label="Peluang B terjadi dengan syarat A komplemen terjadi"
+        aria-describedby={`${uid}-readout`}
       />
     </div>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-cond-reset>Atur ulang</button>
   </div>
 
   <div class="sim-summary">
@@ -126,7 +134,13 @@ const { exploration } = Astro.props;
     <p class="cond-bayes-eq" data-out="bayes"></p>
   </div>
 
-  <p class="sim-readout" data-out="readout" aria-live="polite"></p>
+  <p
+    id={`${uid}-readout`}
+    class="sim-readout"
+    data-out="readout"
+    aria-live="polite"
+    aria-atomic="true"
+  ></p>
 
   <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
@@ -176,6 +190,12 @@ const { exploration } = Astro.props;
     margin: 0.15rem 0 0;
     accent-color: var(--color-primary);
     cursor: pointer;
+  }
+  .sim-actions {
+    margin-top: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
   .sim-summary {
     margin: 0.85rem 0;
@@ -337,15 +357,20 @@ const { exploration } = Astro.props;
 </style>
 
 <script>
+  import { computeConditional } from '../../lib/sim/conditional';
+
   const persen = new Intl.NumberFormat('id-ID', {
     style: 'percent',
-    maximumFractionDigits: 1,
+    maximumFractionDigits: 2,
   });
+
+  const DEFAULTS = { a: '0.5', ba: '0.5', bac: '0.5' };
 
   function setupConditional(root: HTMLElement) {
     const fieldA = root.querySelector('[data-field="a"]') as HTMLInputElement;
     const fieldBA = root.querySelector('[data-field="ba"]') as HTMLInputElement;
     const fieldBAc = root.querySelector('[data-field="bac"]') as HTMLInputElement;
+    const reset = root.querySelector('[data-cond-reset]') as HTMLButtonElement | null;
 
     const outA = root.querySelector('[data-out="a"]') as HTMLOutputElement;
     const outBA = root.querySelector('[data-out="ba"]') as HTMLOutputElement;
@@ -369,25 +394,9 @@ const { exploration } = Astro.props;
     const cellBcTotal = root.querySelector('[data-cell="bcTotal"]') as HTMLTableCellElement;
     const cellGrand = root.querySelector('[data-cell="grandTotal"]') as HTMLTableCellElement;
 
-    function clamp(value: number): number {
-      if (!Number.isFinite(value)) return 0.5;
-      return Math.min(0.99, Math.max(0.01, value));
-    }
-
     function render() {
-      const pA = clamp(Number(fieldA.value));
-      const pBA = clamp(Number(fieldBA.value));
-      const pBAc = clamp(Number(fieldBAc.value));
-
-      const pAc = 1 - pA;
-      const pAB = pA * pBA;
-      const pAcB = pAc * pBAc;
-      const pB = pAB + pAcB;
-      const pBc = 1 - pB;
-      const pABc = pA - pAB;
-      const pAcBc = pAc - pAcB;
-      const punyaB = pB > 1e-12;
-      const pAGivenB = punyaB ? pAB / pB : NaN;
+      const { pA, pBA, pBAc, pAc, pAB, pAcB, pB, pBc, pABc, pAcBc, pAGivenB, pBGivenA, verdict } =
+        computeConditional(Number(fieldA.value), Number(fieldBA.value), Number(fieldBAc.value));
 
       outA.textContent = persen.format(pA);
       outBA.textContent = persen.format(pBA);
@@ -407,33 +416,41 @@ const { exploration } = Astro.props;
       cellBcTotal.textContent = persen.format(pBc);
       cellGrand.textContent = persen.format(1);
 
-      outBGivenA.textContent = persen.format(pBA);
-      outAGivenB.textContent = punyaB ? persen.format(pAGivenB) : 'tidak terdefinisi';
+      outBGivenA.textContent = persen.format(pBGivenA);
+      outAGivenB.textContent = pAGivenB === undefined ? 'tidak terdefinisi' : persen.format(pAGivenB);
 
-      const selisih = Math.abs(pAGivenB - pBA);
-      if (!punyaB) {
+      if (verdict === 'undefined') {
         outVerdict.textContent =
-          'P(A|B) tidak dapat dihitung karena P(B) = 0. Coba ubah nilai pada slider.';
-      } else if (selisih < 0.005) {
-        outVerdict.textContent = `Pada nilai ini P(A|B) dan P(B|A) hampir sama, yaitu sekitar ${persen.format(pAGivenB)}. Ubah slider untuk melihat bahwa keduanya dapat berbeda.`;
+          'P(A|B) tidak dapat dihitung karena P(B) = 0. Geser slider hingga P(B) > 0 untuk menghitungnya.';
+      } else if (verdict === 'similar') {
+        outVerdict.textContent = `Pada nilai ini P(A|B) dan P(B|A) hampir sama, yaitu sekitar ${persen.format(pAGivenB ?? 0)}. Ubah slider untuk melihat bahwa keduanya dapat berbeda.`;
       } else {
-        outVerdict.textContent = `P(A|B) = ${persen.format(pAGivenB)} sedangkan P(B|A) = ${persen.format(pBA)}. Keduanya berbeda, jadi arah syarat pada peluang bersyarat sangat menentukan.`;
+        outVerdict.textContent = `P(A|B) = ${persen.format(pAGivenB ?? 0)} sedangkan P(B|A) = ${persen.format(pBA)}. Keduanya berbeda, jadi arah syarat pada peluang bersyarat sangat menentukan.`;
       }
 
-      if (punyaB) {
+      if (pAGivenB === undefined) {
+        outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${persen.format(pA)} × ${persen.format(pBA)}) / ${persen.format(pB)} tidak terdefinisi karena P(B) = 0`;
+      } else {
         outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${persen.format(pA)} × ${persen.format(pBA)}) / ${persen.format(pB)} = ${persen.format(pAGivenB)}`;
-      } else {
-        outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${persen.format(pA)} × ${persen.format(pBA)}) / ${persen.format(0)} tidak terdefinisi`;
       }
 
-      if (punyaB) {
-        outReadout.textContent = `Dengan P(A) = ${persen.format(pA)}, P(B|A) = ${persen.format(pBA)}, dan P(B|A komplemen) = ${persen.format(pBAc)}, diperoleh P(B) = ${persen.format(pB)} sehingga P(A|B) = ${persen.format(pAGivenB)}, sedangkan P(B|A) = ${persen.format(pBA)} (${selisih < 0.005 ? 'hampir sama' : 'berbeda'}).`;
+      if (pAGivenB === undefined) {
+        outReadout.textContent = `Dengan P(A) = ${persen.format(pA)}, P(B|A) = ${persen.format(pBA)}, dan P(B|A komplemen) = ${persen.format(pBAc)}, diperoleh P(B) = ${persen.format(pB)} sehingga P(A|B) tidak terdefinisi. Naikkan P(B|A) atau P(B|A komplemen) agar B mungkin terjadi.`;
       } else {
-        outReadout.textContent = `Dengan P(A) = ${persen.format(pA)}, P(B|A) = ${persen.format(pBA)}, dan P(B|A komplemen) = ${persen.format(pBAc)}, diperoleh P(B) = 0 sehingga P(A|B) tidak terdefinisi.`;
+        outReadout.textContent = `Dengan P(A) = ${persen.format(pA)}, P(B|A) = ${persen.format(pBA)}, dan P(B|A komplemen) = ${persen.format(pBAc)}, diperoleh P(B) = ${persen.format(pB)} sehingga P(A|B) = ${persen.format(pAGivenB)}, sedangkan P(B|A) = ${persen.format(pBA)} (${verdict === 'similar' ? 'hampir sama' : 'berbeda'}).`;
       }
     }
 
     [fieldA, fieldBA, fieldBAc].forEach((input) => input.addEventListener('input', render));
+
+    reset?.addEventListener('click', () => {
+      fieldA.value = DEFAULTS.a;
+      fieldBA.value = DEFAULTS.ba;
+      fieldBAc.value = DEFAULTS.bac;
+      render();
+      fieldA.focus();
+    });
+
     render();
   }
 

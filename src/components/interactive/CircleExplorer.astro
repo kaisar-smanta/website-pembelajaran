@@ -1,0 +1,332 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const paramValue = (name: string, fallback: number): number => {
+  const found = exploration.params?.find((p) => p.name === name);
+  return found && Number.isFinite(found.value) ? found.value : fallback;
+};
+
+const r0 = paramValue('r', 4);
+const theta0 = paramValue('sudut', 90);
+const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} derajat`;
+---
+
+<figure
+  class="sim circle-sim"
+  data-circle
+  data-exploration={exploration.id}
+  data-exploration-type={exploration.type}
+>
+  <p class="sim-hint">
+    Geser jari-jari dan sudut pusat, lalu bandingkan panjang busur serta luas juring dengan
+    keliling dan luas lingkaran.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Jari-jari r <output data-value="r">{r0}</output></span>
+      <input type="range" min="1" max="10" step="0.5" value={r0} data-field="r" />
+    </label>
+    <label class="sim-field">
+      <span>Sudut pusat θ (°) <output data-value="sudut">{theta0}</output></span>
+      <input type="range" min="0" max="360" step="5" value={theta0} data-field="sudut" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-circle-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 320 320"
+      role="img"
+      aria-label={initialAria}
+      data-chart></svg>
+    <div class="legend">
+      <span class="l1">Jari-jari r</span>
+      <span class="l2">Busur dan juring θ</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 24rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend span::before {
+    content: '';
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.18rem;
+    border-radius: 2px;
+    background: currentColor;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-geometry);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  .circle-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 390px) {
+    .sim-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .circle-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    circumference,
+    area,
+    arcLength,
+    sectorArea,
+    degToRad,
+    formatNumber,
+  } from '../../lib/sim/circle';
+
+  function setupCircle(root: Element) {
+    const inR = root.querySelector('[data-field="r"]') as HTMLInputElement;
+    const inSudut = root.querySelector('[data-field="sudut"]') as HTMLInputElement;
+    const outR = root.querySelector('[data-value="r"]') as HTMLOutputElement;
+    const outSudut = root.querySelector('[data-value="sudut"]') as HTMLOutputElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const reset = root.querySelector('[data-circle-reset]') as HTMLButtonElement;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const el = (name: string, attrs: Record<string, string | number>) => {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+    const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+    const CX = 160;
+    const CY = 160;
+    const RMAX = 140;
+    const SCALE = RMAX / 10;
+
+    function point(pr: number, ang: number): [number, number] {
+      return [CX + pr * Math.cos(ang), CY - pr * Math.sin(ang)];
+    }
+
+    function draw(r: number, deg: number) {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      const pr = clamp(r, 1, 10) * SCALE;
+      const rad = degToRad(deg);
+
+      svg.appendChild(
+        el('circle', {
+          cx: CX,
+          cy: CY,
+          r: pr,
+          fill: 'none',
+          stroke: 'var(--color-border-strong)',
+          'stroke-width': 1.6,
+        }),
+      );
+
+      const steps = Math.max(2, Math.ceil(Math.abs(rad) / (Math.PI / 60)));
+      const pts: [number, number][] = [];
+      for (let i = 0; i <= steps; i++) {
+        pts.push(point(pr, (rad * i) / steps));
+      }
+
+      if (deg > 0) {
+        let sector = `M ${CX} ${CY}`;
+        pts.forEach(([x, y]) => {
+          sector += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+        });
+        sector += ' Z';
+        svg.appendChild(
+          el('path', { d: sector, fill: 'var(--color-geometry)', opacity: 0.18, stroke: 'none' }),
+        );
+
+        let arc = '';
+        pts.forEach(([x, y], i) => {
+          arc += `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)} `;
+        });
+        svg.appendChild(
+          el('path', {
+            d: arc,
+            fill: 'none',
+            stroke: 'var(--color-geometry)',
+            'stroke-width': 3,
+            'stroke-linecap': 'round',
+          }),
+        );
+      }
+
+      const [rx, ry] = point(pr, 0);
+      svg.appendChild(
+        el('line', {
+          x1: CX,
+          y1: CY,
+          x2: rx,
+          y2: ry,
+          stroke: 'var(--color-primary)',
+          'stroke-width': 2,
+        }),
+      );
+      svg.appendChild(el('circle', { cx: CX, cy: CY, r: 3.2, fill: 'var(--color-text)' }));
+    }
+
+    function render() {
+      let r = Number(inR.value);
+      if (!Number.isFinite(r) || r <= 0) r = 4;
+      r = clamp(r, 1, 10);
+
+      let deg = Number(inSudut.value);
+      if (!Number.isFinite(deg)) deg = 0;
+      deg = clamp(deg, 0, 360);
+
+      const rad = degToRad(deg);
+      const K = circumference(r);
+      const L = area(r);
+      const s = arcLength(r, deg);
+      const J = sectorArea(r, deg);
+
+      outR.textContent = formatNumber(r, 2);
+      outSudut.textContent = formatNumber(deg, 1);
+
+      readout.innerHTML =
+        `<div class="stat"><span>Keliling K = 2πr</span><strong>${formatNumber(K)}</strong></div>` +
+        `<div class="stat"><span>Luas L = πr²</span><strong>${formatNumber(L)}</strong></div>` +
+        `<div class="stat"><span>Panjang busur s = (θ/360)·2πr</span><strong>${formatNumber(s)}</strong></div>` +
+        `<div class="stat"><span>Luas juring J = (θ/360)·πr²</span><strong>${formatNumber(J)}</strong></div>` +
+        `<div class="stat"><span>Sudut pusat θ (radian)</span><strong>${formatNumber(rad)}</strong></div>`;
+
+      svg.setAttribute(
+        'aria-label',
+        `Lingkaran berjari-jari ${formatNumber(r, 2)} dengan sudut pusat ${formatNumber(deg, 1)} derajat, panjang busur ${formatNumber(s)}, luas juring ${formatNumber(J)}`,
+      );
+
+      draw(r, deg);
+    }
+
+    function resetInputs() {
+      inR.value = inR.defaultValue;
+      inSudut.value = inSudut.defaultValue;
+      render();
+    }
+
+    inR.addEventListener('input', render);
+    inSudut.addEventListener('input', render);
+    reset.addEventListener('click', resetInputs);
+    render();
+  }
+
+  document.querySelectorAll('[data-circle]').forEach(setupCircle);
+</script>

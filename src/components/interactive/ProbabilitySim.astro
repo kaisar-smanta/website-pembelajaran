@@ -8,7 +8,7 @@ interface Props {
 const { exploration } = Astro.props;
 ---
 
-<figure class="prob-sim" data-prob data-exploration={exploration.id}>
+<figure class="sim prob-sim" data-prob data-exploration={exploration.id}>
   <div class="prob-controls">
     <label class="prob-field">
       <span>Percobaan</span>
@@ -30,7 +30,7 @@ const { exploration } = Astro.props;
     <button type="button" class="btn btn-secondary" data-prob-reset>Atur ulang</button>
   </div>
 
-  <p class="prob-total" data-prob-total aria-live="polite"></p>
+  <p class="prob-total" data-prob-total aria-live="polite" aria-atomic="true"></p>
 
   <div class="prob-chart">
     <svg viewBox="0 0 480 260" role="img" aria-label="Grafik garis peluang empiris kumulatif dibandingkan peluang teoretis" data-prob-chart></svg>
@@ -40,9 +40,9 @@ const { exploration } = Astro.props;
     </div>
   </div>
 
-  <div class="prob-result" data-prob-result aria-live="polite"></div>
+  <div class="prob-result" data-prob-result aria-live="polite" aria-atomic="true"></div>
 
-  <figcaption class="prob-caption" set:html={renderMarkdown(exploration.description)} />
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
 </figure>
 
 <style>
@@ -161,12 +161,12 @@ const { exploration } = Astro.props;
     font-size: 0.85rem;
     color: var(--color-text-muted);
   }
-  .prob-caption {
+  .sim-caption {
     margin-top: 0.75rem;
     font-size: 0.86rem;
     color: var(--color-text-muted);
   }
-  .prob-caption :global(> *:last-child) {
+  .sim-caption :global(> *:last-child) {
     margin-bottom: 0;
   }
   @media (max-width: 420px) {
@@ -182,46 +182,20 @@ const { exploration } = Astro.props;
 </style>
 
 <script>
-  const fmt = new Intl.NumberFormat('id-ID');
-  const MAX_TRIALS = 100000;
-  const MAX_POINTS = 60;
+  import {
+    outcomesFor,
+    sampleOnce,
+    MAX_TRIALS,
+    type Outcome,
+    type ProbKind,
+  } from '../../lib/sim/probability';
 
-  interface Outcome {
-    key: string;
-    label: string;
-    p: number;
-  }
+  const fmt = new Intl.NumberFormat('id-ID');
+  const MAX_POINTS = 60;
 
   interface Point {
     n: number;
     freq: number;
-  }
-
-  function outcomesFor(kind: string): Outcome[] {
-    if (kind === 'koin') {
-      return [
-        { key: 'Angka', label: 'Angka', p: 0.5 },
-        { key: 'Gambar', label: 'Gambar', p: 0.5 },
-      ];
-    }
-    if (kind === 'dua-dadu') {
-      const list: Outcome[] = [];
-      for (let k = 2; k <= 12; k++) {
-        list.push({ key: String(k), label: `Jumlah ${k}`, p: (6 - Math.abs(k - 7)) / 36 });
-      }
-      return list;
-    }
-    return [1, 2, 3, 4, 5, 6].map((d) => ({ key: String(d), label: `Mata ${d}`, p: 1 / 6 }));
-  }
-
-  function sampleOnce(kind: string): string {
-    if (kind === 'koin') return Math.random() < 0.5 ? 'Angka' : 'Gambar';
-    if (kind === 'dua-dadu') {
-      const a = Math.floor(Math.random() * 6) + 1;
-      const b = Math.floor(Math.random() * 6) + 1;
-      return String(a + b);
-    }
-    return String(Math.floor(Math.random() * 6) + 1);
   }
 
   function setupProb(root: Element) {
@@ -259,7 +233,7 @@ const { exploration } = Astro.props;
     }
 
     function initExperiment() {
-      outcomeList = outcomesFor(kind.value);
+      outcomeList = outcomesFor(kind.value as ProbKind);
       counts = {};
       series = {};
       for (const o of outcomeList) {
@@ -289,7 +263,7 @@ const { exploration } = Astro.props;
       const step = Math.max(1, Math.floor(n / MAX_POINTS));
       const before = total;
       for (let i = 0; i < n; i++) {
-        const key = sampleOnce(kind.value);
+        const key = sampleOnce(kind.value as ProbKind);
         counts[key]++;
         const done = i + 1;
         if (done % step === 0 || done === n) {

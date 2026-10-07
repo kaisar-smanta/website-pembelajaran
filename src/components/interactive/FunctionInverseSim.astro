@@ -1,0 +1,440 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialA = 2;
+const initialB = 1;
+const readoutId = `sim-readout-${exploration.id}`;
+const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya, dan garis y = x`;
+---
+
+<figure class="sim inverse-sim" data-inverse-sim data-exploration={exploration.id}>
+  <div class="sim-formula" aria-hidden="true">f(x) = ax + b</div>
+
+  <div class="sim-canvas">
+    <svg viewBox="0 0 360 360" role="img" aria-label={initialAria} data-plot></svg>
+  </div>
+
+  <div class="legend">
+    <span class="l-f">Grafik f(x)</span>
+    <span class="l-inv">Grafik f⁻¹(x)</span>
+    <span class="l-mirror">Garis y = x (cermin)</span>
+  </div>
+
+  <div class="sim-controls">
+    <label class="sim-control">
+      <span class="sim-control-label">
+        <span aria-hidden="true">a</span>
+        <span class="visually-hidden">Koefisien a</span>
+        <output data-output="a">{initialA}</output>
+      </span>
+      <input
+        type="range"
+        min="-3"
+        max="3"
+        step="0.5"
+        value={initialA}
+        data-param="a"
+        aria-label="Ubah koefisien a"
+        aria-describedby={readoutId}
+      />
+    </label>
+    <label class="sim-control">
+      <span class="sim-control-label">
+        <span aria-hidden="true">b</span>
+        <span class="visually-hidden">Konstanta b</span>
+        <output data-output="b">{initialB}</output>
+      </span>
+      <input
+        type="range"
+        min="-5"
+        max="5"
+        step="0.5"
+        value={initialB}
+        data-param="b"
+        aria-label="Ubah konstanta b"
+        aria-describedby={readoutId}
+      />
+    </label>
+  </div>
+
+  <p class="sim-note">Nilai a = 0 dilewati otomatis karena membuat f konstan dan tidak satu-satu.</p>
+
+  <div class="sim-bar">
+    <button type="button" class="sim-reset" data-reset>Atur ulang</button>
+  </div>
+
+  <output id={readoutId} class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-formula {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+  }
+  .sim-canvas {
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+    overflow: hidden;
+    max-width: 24rem;
+    margin-inline: auto;
+  }
+  .sim-canvas svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.5rem 0 0;
+  }
+  .legend span::before {
+    content: '';
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.18rem;
+    border-radius: 2px;
+    background: currentColor;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+  }
+  .legend .l-f {
+    color: var(--color-primary);
+  }
+  .legend .l-inv {
+    color: var(--color-data);
+  }
+  .legend .l-mirror {
+    color: var(--color-text-soft);
+  }
+  .sim-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.85rem;
+  }
+  .sim-control-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.15rem;
+  }
+  .sim-control output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-note {
+    margin: 0.5rem 0 0;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+  .sim-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.6rem;
+  }
+  .sim-reset {
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.32rem 0.65rem;
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition:
+      background var(--dur) var(--ease-out-soft),
+      border-color var(--dur) var(--ease-out-soft),
+      color var(--dur) var(--ease-out-soft);
+  }
+  .sim-reset:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .sim-reset:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  .sim-readout :global(.sim-warning) {
+    margin: 0;
+    padding: 0.5rem 0.7rem;
+    background: color-mix(in srgb, var(--color-warning) 12%, transparent);
+    border-left: 3px solid var(--color-warning);
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+  }
+  .sim-readout :global(.sim-note-readout) {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 390px) {
+    .sim {
+      padding: 0.85rem;
+    }
+    .inverse-sim .sim-canvas {
+      max-width: 100%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sim-reset {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { computeInverse, evaluateLinear, verifyInverse } from '../../lib/sim/function-inverse';
+
+  const initialA = 2;
+  const initialB = 1;
+  const SAMPLE_T = 5;
+
+  function fmt(n: number): string {
+    if (Number.isInteger(n)) return String(n);
+    return String(Number(n.toFixed(2)));
+  }
+
+  function setup(root: Element) {
+    const plot = root.querySelector('[data-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const inA = root.querySelector('[data-param="a"]') as HTMLInputElement;
+    const inB = root.querySelector('[data-param="b"]') as HTMLInputElement;
+    const outA = root.querySelector('[data-output="a"]') as HTMLOutputElement;
+    const outB = root.querySelector('[data-output="b"]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-reset]') as HTMLButtonElement;
+
+    const state = { a: initialA, b: initialB };
+    let lastA = initialA;
+
+    const W = 360;
+    const H = 360;
+    const pad = 30;
+    const lo = -6.5;
+    const hi = 6.5;
+
+    const sx = (x: number) => pad + ((x - lo) / (hi - lo)) * (W - 2 * pad);
+    const sy = (y: number) => H - pad - ((y - lo) / (hi - lo)) * (H - 2 * pad);
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    function el(name: string, attrs: Record<string, string | number>) {
+      const node = document.createElementNS(svgNS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    }
+
+    function formulaF(a: number, b: number): string {
+      const ax = a === 1 ? 'x' : a === -1 ? '−x' : `${fmt(a)}x`;
+      if (b === 0) return ax;
+      return `${ax} ${b > 0 ? '+' : '−'} ${fmt(Math.abs(b))}`;
+    }
+
+    function coefForm(coef: { a: number; b: number }): string {
+      const ax = coef.a === 1 ? 'x' : coef.a === -1 ? '−x' : `${fmt(coef.a)}x`;
+      if (coef.b === 0) return ax;
+      return `${ax} ${coef.b > 0 ? '+' : '−'} ${fmt(Math.abs(coef.b))}`;
+    }
+
+    function invFraction(a: number, b: number): string {
+      const num = b === 0 ? 'x' : `x ${b > 0 ? '−' : '+'} ${fmt(Math.abs(b))}`;
+      return `(${num})/${fmt(a)}`;
+    }
+
+    function draw(a: number, b: number) {
+      const inv = computeInverse(a, b);
+      while (plot.firstChild) plot.removeChild(plot.firstChild);
+
+      for (let i = -6; i <= 6; i++) {
+        plot.appendChild(
+          el('line', { x1: sx(i), y1: sy(lo), x2: sx(i), y2: sy(hi), stroke: 'var(--color-border)', 'stroke-width': 1 }),
+        );
+        plot.appendChild(
+          el('line', { x1: sx(lo), y1: sy(i), x2: sx(hi), y2: sy(i), stroke: 'var(--color-border)', 'stroke-width': 1 }),
+        );
+      }
+
+      plot.appendChild(
+        el('line', { x1: sx(lo), y1: sy(0), x2: sx(hi), y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }),
+      );
+      plot.appendChild(
+        el('line', { x1: sx(0), y1: sy(lo), x2: sx(0), y2: sy(hi), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }),
+      );
+      plot.appendChild(
+        el('line', {
+          x1: sx(lo),
+          y1: sy(lo),
+          x2: sx(hi),
+          y2: sy(hi),
+          stroke: 'var(--color-text-soft)',
+          'stroke-width': 1.6,
+          'stroke-dasharray': '5 5',
+        }),
+      );
+
+      if (inv) {
+        plot.appendChild(
+          el('line', {
+            x1: sx(lo),
+            y1: sy(evaluateLinear(inv, lo)),
+            x2: sx(hi),
+            y2: sy(evaluateLinear(inv, hi)),
+            stroke: 'var(--color-data)',
+            'stroke-width': 2.6,
+            'stroke-linecap': 'round',
+          }),
+        );
+      }
+
+      plot.appendChild(
+        el('line', {
+          x1: sx(lo),
+          y1: sy(evaluateLinear({ a, b }, lo)),
+          x2: sx(hi),
+          y2: sy(evaluateLinear({ a, b }, hi)),
+          stroke: 'var(--color-primary)',
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+
+      if (inv) {
+        const x0 = 2;
+        const y0 = evaluateLinear({ a, b }, x0);
+        const inView = (v: number) => v >= lo && v <= hi;
+        if (inView(x0) && inView(y0)) {
+          plot.appendChild(
+            el('line', {
+              x1: sx(x0),
+              y1: sy(y0),
+              x2: sx(y0),
+              y2: sy(x0),
+              stroke: 'var(--color-warning)',
+              'stroke-width': 1.4,
+              'stroke-dasharray': '3 3',
+            }),
+          );
+          plot.appendChild(el('circle', { cx: sx(x0), cy: sy(y0), r: 4, fill: 'var(--color-primary)' }));
+          plot.appendChild(el('circle', { cx: sx(y0), cy: sy(x0), r: 4, fill: 'var(--color-data)' }));
+        }
+      }
+    }
+
+    function render() {
+      const { a, b } = state;
+      const inv = computeInverse(a, b);
+
+      outA.textContent = fmt(a);
+      inA.value = String(a);
+      outB.textContent = fmt(b);
+      inB.value = String(b);
+
+      draw(a, b);
+
+      if (!inv) {
+        readout.innerHTML =
+          `<div class="stat"><span>Fungsi awal</span><strong>f(x) = ${fmt(b)}</strong></div>` +
+          `<div class="stat"><span>Invers</span><strong>Tidak ada</strong></div>` +
+          `<p class="sim-warning">Karena a = 0, f(x) = ${fmt(b)} bernilai konstan sehingga tidak satu-satu. Fungsi seperti ini tidak memiliki invers.</p>`;
+      } else {
+        const invLabel = a === 1 || a === -1 ? coefForm(inv) : `${invFraction(a, b)} = ${coefForm(inv)}`;
+        const verified = verifyInverse(a, b, SAMPLE_T);
+        readout.innerHTML =
+          `<div class="stat"><span>Fungsi awal</span><strong>f(x) = ${formulaF(a, b)}</strong></div>` +
+          `<div class="stat"><span>Rumus invers</span><strong>f⁻¹(x) = ${invLabel}</strong></div>` +
+          `<div class="stat"><span>Uji komposisi</span><strong>f(f⁻¹(${fmt(SAMPLE_T)})) = ${fmt(verified)}</strong></div>` +
+          `<p class="sim-note-readout">Karena f berkorespondensi satu-satu (setiap x punya tepat satu pasangan dan sebaliknya), f⁻¹ ada, dan grafik f⁻¹ adalah pencerminan grafik f terhadap garis y = x.</p>`;
+      }
+
+      plot.setAttribute(
+        'aria-label',
+        inv
+          ? `Grafik f(x) = ${formulaF(a, b)}, invers f⁻¹(x) = ${coefForm(inv)}, dan garis y = x`
+          : `Grafik f(x) = ${fmt(b)} yang konstan, tanpa invers, dan garis y = x`,
+      );
+    }
+
+    inA.addEventListener('input', () => {
+      let v = Number(inA.value);
+      if (v === 0) {
+        v = lastA < 0 ? -0.5 : 0.5;
+        inA.value = String(v);
+      }
+      lastA = v;
+      state.a = v;
+      render();
+    });
+
+    inB.addEventListener('input', () => {
+      state.b = Number(inB.value);
+      render();
+    });
+
+    reset.addEventListener('click', () => {
+      state.a = initialA;
+      state.b = initialB;
+      lastA = initialA;
+      render();
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('[data-inverse-sim]').forEach(setup);
+</script>

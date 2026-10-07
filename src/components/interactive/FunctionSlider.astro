@@ -53,6 +53,13 @@ const presets: Record<string, { label: string; values: Record<string, number> }[
 };
 
 const params = exploration.params && exploration.params.length ? exploration.params : defaults[formula];
+const paramNames = new Set(params.map((p) => p.name));
+const formulaPresets = (presets[formula] ?? [])
+  .map((preset) => ({
+    label: preset.label,
+    values: Object.fromEntries(Object.entries(preset.values).filter(([name]) => paramNames.has(name))),
+  }))
+  .filter((preset) => Object.keys(preset.values).length > 0);
 const formLabel: Record<string, string> = {
   quadratic: 'f(x) = ax² + bx + c',
   exponential: 'f(x) = a · bˣ',
@@ -99,10 +106,16 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
   </div>
   <div class="sim-bar">
     {
-      presets[formula]?.length ? (
+      formulaPresets.length ? (
         <div class="sim-presets" role="group" aria-label="Preset parameter">
-          {presets[formula].map((preset) => (
-            <button type="button" data-preset={JSON.stringify(preset.values)}>
+          {formulaPresets.map((preset) => (
+            <button
+              type="button"
+              data-preset={JSON.stringify(preset.values)}
+              aria-label={`${preset.label} (${Object.entries(preset.values)
+                .map(([name, value]) => `${name} = ${value}`)
+                .join(', ')})`}
+            >
               {preset.label}
             </button>
           ))}
@@ -241,11 +254,14 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
 </style>
 
 <script>
+  import { evalFormula, mapFor, describe } from '../../lib/sim/function-slider';
+  import type { Formula } from '../../lib/sim/function-slider';
+
   type Params = { name: string; value: number };
 
   function setup(root: Element) {
     const svg = root.querySelector('[data-plot]') as SVGSVGElement;
-    const formula = root.getAttribute('data-formula') ?? 'exponential';
+    const formula = (root.getAttribute('data-formula') ?? 'exponential') as Formula;
     const formulaLabel = root.getAttribute('data-formula-label') ?? '';
     const initial: Params[] = JSON.parse(root.getAttribute('data-params') ?? '[]');
     const outputs = root.querySelectorAll('[data-output]');
@@ -261,36 +277,6 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     const H = 300;
     const pad = 34;
 
-    const setupMap = () => {
-      if (formula === 'quadratic' || formula === 'transform') return { xMin: -8, xMax: 8, yMin: -12, yMax: 12 };
-      if (formula === 'sine') return { xMin: -2 * Math.PI, xMax: 2 * Math.PI, yMin: -3.2, yMax: 3.2 };
-      return { xMin: -4, xMax: 4, yMin: -2, yMax: 18 };
-    };
-
-    function f(x: number): number {
-      if (formula === 'quadratic') {
-        const a = state.a ?? 1;
-        const b = state.b ?? 0;
-        const c = state.c ?? 0;
-        return a * x * x + b * x + c;
-      }
-      if (formula === 'sine') {
-        const a = state.a ?? 1;
-        const k = state.k ?? 1;
-        return a * Math.sin(k * x);
-      }
-      if (formula === 'transform') {
-        const a = state.a ?? 1;
-        const h = state.h ?? 0;
-        const k = state.k ?? 0;
-        const d = x - h;
-        return a * d * d + k;
-      }
-      const a = state.a ?? 1;
-      const b = state.b ?? 1;
-      return a * Math.pow(b, x);
-    }
-
     function fmt(n: number): string {
       if (Number.isInteger(n)) return String(n);
       return String(Number(n.toFixed(2)));
@@ -304,8 +290,7 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     }
 
     function draw() {
-      const map = setupMap();
-      const { xMin, xMax, yMin, yMax } = map;
+      const { xMin, xMax, yMin, yMax } = mapFor(formula);
       const sx = (x: number) => pad + ((x - xMin) / (xMax - xMin)) * (W - 2 * pad);
       const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
 
@@ -342,7 +327,7 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
       const steps = 480;
       for (let i = 0; i <= steps; i++) {
         const x = xMin + (i / steps) * (xMax - xMin);
-        const y = f(x);
+        const y = evalFormula(formula, state, x);
         if (!isFinite(y) || y < yMin - 200 || y > yMax + 200) {
           started = false;
           continue;
@@ -359,62 +344,15 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
       path.setAttribute('d', d);
       svg.appendChild(path);
 
-      if (formula === 'quadratic') {
-        const a = state.a ?? 1;
-        const b = state.b ?? 0;
-        const c = state.c ?? 0;
-        if (a !== 0) {
-          const xv = -b / (2 * a);
-          const yv = a * xv * xv + b * xv + c;
-          if (yv >= yMin && yv <= yMax) {
-            svg.appendChild(el('circle', { cx: sx(xv), cy: sy(yv), r: 4.5, fill: 'var(--color-warning)' }));
-          }
-        }
-      }
-
-      if (formula === 'transform') {
-        const h = state.h ?? 0;
-        const k = state.k ?? 0;
-        if (k >= yMin && k <= yMax) {
-          svg.appendChild(el('circle', { cx: sx(h), cy: sy(k), r: 5, fill: 'var(--color-warning)' }));
-        }
+      const info = describe(formula, state);
+      if (info.vertex && info.vertex.y >= yMin && info.vertex.y <= yMax) {
+        const r = formula === 'transform' ? 5 : 4.5;
+        svg.appendChild(el('circle', { cx: sx(info.vertex.x), cy: sy(info.vertex.y), r, fill: 'var(--color-warning)' }));
       }
     }
 
     function updateReadout() {
-      if (formula === 'quadratic') {
-        const a = state.a ?? 0;
-        const b = state.b ?? 0;
-        const c = state.c ?? 0;
-        const D = b * b - 4 * a * c;
-        let info = `a = ${a}, b = ${b}, c = ${c}. `;
-        info += a === 0 ? 'Jika a = 0, grafik bukan parabola. ' : a > 0 ? 'Parabola terbuka ke atas. ' : 'Parabola terbuka ke bawah. ';
-        if (a !== 0) {
-          info += `Titik puncak (${(-b / (2 * a)).toFixed(2)}, ${(c - (b * b) / (4 * a)).toFixed(2)}). `;
-        }
-        info += `Diskriminan D = b² − 4ac = ${D}. `;
-        info += D > 0 ? 'Dua akar real berbeda.' : D === 0 ? 'Satu akar real (kembar).' : 'Tidak memiliki akar real.';
-        readout.textContent = info;
-      } else if (formula === 'sine') {
-        readout.textContent = `Amplitudo |a| = ${Math.abs(state.a ?? 1)}, periode = 2π / |k| ≈ ${(2 * Math.PI / Math.abs(state.k ?? 1)).toFixed(2)}.`;
-      } else if (formula === 'transform') {
-        const a = state.a ?? 1;
-        const h = state.h ?? 0;
-        const k = state.k ?? 0;
-        let info = `a = ${fmt(a)}, h = ${fmt(h)}, k = ${fmt(k)}. Titik puncak (${fmt(h)}, ${fmt(k)}). `;
-        info += a === 0 ? 'Jika a = 0, grafik bukan parabola. ' : a > 0 ? 'Parabola terbuka ke atas. ' : 'Parabola terbuka ke bawah. ';
-        info += `Transformasi dari y = x²: translasi horizontal ${fmt(h)} satuan, translasi vertikal ${fmt(k)} satuan, `;
-        if (a === 1) info += 'tanpa dilatasi atau pencerminan (a = 1).';
-        else if (a === -1) info += 'pencerminan terhadap sumbu x (a = -1).';
-        else if (a < 0) info += `pencerminan terhadap sumbu x dan dilatasi vertikal dengan faktor ${fmt(Math.abs(a))} (a = ${fmt(a)}).`;
-        else info += `dilatasi vertikal dengan faktor ${fmt(a)} (a = ${fmt(a)}).`;
-        readout.textContent = info;
-      } else {
-        const a = state.a ?? 1;
-        const b = state.b ?? 1;
-        const mode = b > 1 ? 'pertumbuhan (naik)' : b === 1 ? 'konstan' : 'peluruhan (turun)';
-        readout.textContent = `a = ${a}, b = ${b}. Karena b ${b > 1 ? '>' : b === 1 ? '=' : '<'} 1, grafik menunjukkan ${mode}. Nilai f(0) = ${a}, dan f(x+1) = ${b} × f(x).`;
-      }
+      readout.textContent = describe(formula, state).text;
     }
 
     function updateAria() {

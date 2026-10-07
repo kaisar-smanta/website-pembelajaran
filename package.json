@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node tests/math-verify.mjs",
+    "test": "node tests/run-all.mjs",
     "test:links": "node scripts/check-links.mjs",
     "lint:content": "node scripts/lint-content.mjs",
     "screenshot": "node scripts/screenshot.mjs",

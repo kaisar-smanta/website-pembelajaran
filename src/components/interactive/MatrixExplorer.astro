@@ -1,0 +1,301 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const matrixNames = ['A', 'B'] as const;
+const defaults: Record<(typeof matrixNames)[number], number[][]> = {
+  A: [
+    [1, 2],
+    [3, 4],
+  ],
+  B: [
+    [2, 0],
+    [1, 2],
+  ],
+};
+const cellIndex = [0, 1];
+---
+
+<figure class="sim matrix-sim" data-matrix data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Eksplorasi Perkalian dan Determinan Matriks 2×2</h3>
+  </div>
+
+  <div class="sim-fields matrix-fields">
+    {
+      matrixNames.map((name) => (
+        <fieldset class="matrix-field">
+          <legend>Matriks {name}</legend>
+          <div class="matrix-grid">
+            {cellIndex.flatMap((r) =>
+              cellIndex.map((c) => (
+                <label class="matrix-cell">
+                  <span class="visually-hidden">{`Nilai baris ${r + 1} kolom ${c + 1} matriks ${name}`}</span>
+                  <input
+                    type="number"
+                    min="-20"
+                    max="20"
+                    step="1"
+                    value={String(defaults[name][r][c])}
+                    data-matrix-input={name}
+                    data-row={r}
+                    data-col={c}
+                  />
+                </label>
+              )),
+            )}
+          </div>
+        </fieldset>
+      ))
+    }
+  </div>
+
+  <div class="matrix-results" data-matrix-results></div>
+
+  <div class="sim-bar">
+    <button type="button" class="btn btn-secondary btn-sm" data-matrix-reset>Atur ulang</button>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-head h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.75rem;
+  }
+  .matrix-field {
+    margin: 0;
+    padding: 0.6rem 0.7rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .matrix-field legend {
+    padding: 0 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+  .matrix-cell input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    text-align: center;
+  }
+  .sim-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+  .matrix-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap: 0.6rem;
+    margin-top: 0.85rem;
+  }
+  .matrix-results :global(.matrix-card) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.55rem 0.65rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+  }
+  .matrix-results :global(.matrix-card-label) {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .matrix-results :global(table.matrix-table) {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .matrix-results :global(table.matrix-table td) {
+    border: 1px solid var(--color-border-strong);
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+    color: var(--color-primary);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .matrix-sim *,
+    .matrix-sim *::before,
+    .matrix-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { multiply, determinant, equals } from '../../lib/sim/matrix';
+  import type { Matrix2 } from '../../lib/sim/matrix';
+
+  const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
+  const fmt = (v: number) => angka.format(Number.isFinite(v) ? v : 0);
+  const fmtMatrix = (m: Matrix2) =>
+    `[[${fmt(m[0][0])}, ${fmt(m[0][1])}], [${fmt(m[1][0])}, ${fmt(m[1][1])}]]`;
+
+  function setupMatrix(root: Element) {
+    const inputs = Array.from(
+      root.querySelectorAll<HTMLInputElement>('[data-matrix-input]'),
+    );
+    const results = root.querySelector('[data-matrix-results]') as HTMLElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-matrix-reset]') as HTMLButtonElement;
+    if (!results || !readout || !reset) return;
+
+    const initial = new Map<HTMLInputElement, string>();
+    inputs.forEach((input) => initial.set(input, input.value));
+
+    function readMatrix(name: string): Matrix2 {
+      const cells: Matrix2 = [
+        [0, 0],
+        [0, 0],
+      ];
+      inputs.forEach((input) => {
+        if (input.getAttribute('data-matrix-input') !== name) return;
+        const r = Number(input.getAttribute('data-row')) === 1 ? 1 : 0;
+        const c = Number(input.getAttribute('data-col')) === 1 ? 1 : 0;
+        let value = Number(input.value);
+        if (!Number.isFinite(value)) value = 0;
+        cells[r][c] = value;
+      });
+      return cells;
+    }
+
+    function matrixCard(label: string, m: Matrix2): HTMLElement {
+      const wrap = document.createElement('div');
+      wrap.className = 'matrix-card';
+      const cap = document.createElement('span');
+      cap.className = 'matrix-card-label';
+      cap.textContent = label;
+      const table = document.createElement('table');
+      table.className = 'matrix-table';
+      for (let r = 0; r < 2; r++) {
+        const tr = document.createElement('tr');
+        for (let c = 0; c < 2; c++) {
+          const td = document.createElement('td');
+          td.textContent = fmt(m[r][c]);
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+      wrap.append(cap, table);
+      return wrap;
+    }
+
+    function render() {
+      const A = readMatrix('A');
+      const B = readMatrix('B');
+      const AB = multiply(A, B);
+      const BA = multiply(B, A);
+      const dA = determinant(A);
+      const dB = determinant(B);
+      const dAB = determinant(AB);
+      const same = equals(AB, BA);
+
+      results.replaceChildren(matrixCard('Hasil AB', AB), matrixCard('Hasil BA', BA));
+
+      readout.innerHTML =
+        `<div class="stat"><span>Matriks A</span><strong>${fmtMatrix(A)}</strong></div>` +
+        `<div class="stat"><span>Matriks B</span><strong>${fmtMatrix(B)}</strong></div>` +
+        `<div class="stat"><span>Hasil AB</span><strong>${fmtMatrix(AB)}</strong></div>` +
+        `<div class="stat"><span>Hasil BA</span><strong>${fmtMatrix(BA)}</strong></div>` +
+        `<div class="stat"><span>Apakah AB = BA?</span><strong>${
+          same ? 'Ya, AB = BA' : 'Tidak, AB ≠ BA'
+        }</strong></div>` +
+        `<div class="stat"><span>det(A)</span><strong>${fmt(dA)}</strong></div>` +
+        `<div class="stat"><span>det(B)</span><strong>${fmt(dB)}</strong></div>` +
+        `<div class="stat"><span>det(AB)</span><strong>${fmt(dAB)}</strong></div>` +
+        `<div class="stat"><span>Sifat determinan</span><strong>det(AB) = det(A)·det(B) = ${fmt(
+          dA,
+        )} · ${fmt(dB)} = ${fmt(dA * dB)}</strong></div>`;
+    }
+
+    inputs.forEach((input) => input.addEventListener('input', render));
+    reset.addEventListener('click', () => {
+      initial.forEach((value, input) => {
+        input.value = value;
+      });
+      render();
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('[data-matrix]').forEach(setupMatrix);
+</script>

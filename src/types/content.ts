@@ -193,6 +193,11 @@ export type ExplorationType =
   | 'sequence'
   | 'distribution'
   | 'conditional-probability'
+  | 'circle'
+  | 'matrix'
+  | 'linear-system'
+  | 'function-composition'
+  | 'function-inverse'
   | 'geogebra';
 
 /** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */
@@ -233,6 +238,10 @@ export interface Exploration {
   cautions?: string[];
   /** Kata kunci untuk pencarian. */
   tags?: string[];
+  /** Tuntutan penalaran, sejajar dengan tingkat kesulitan soal. */
+  level?: Difficulty;
+  /** Perkiraan waktu bereksplorasi (menit). */
+  estimatedMinutes?: number;
   /** 'lengkap' = siap dipakai; 'rencana' = masih roadmap. */
   status?: 'lengkap' | 'rencana';
 }

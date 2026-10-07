@@ -7,18 +7,11 @@ import ExplorationOverview from '@/components/interactive/ExplorationOverview.as
 import { explorationsByGrade, orderedExplorations } from '@/data/explorations';
 import { GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { url } from '@/utils/url';
-import type { ElementId, Grade } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Eksplorasi' },
 ];
-
-const gradeElement: Record<Grade, ElementId> = {
-  X: 'bilangan',
-  XI: 'aljabar-fungsi',
-  XII: 'geometri',
-};
 
 const groups = GRADE_ORDER.map((grade) => ({
   grade,
@@ -54,9 +47,10 @@ const total = orderedExplorations().length;
           'section',
           gi % 2 === 0 ? 'section-alt' : 'section-paper',
           'grade-section',
-          `accent-${gradeElement[g.grade]}`,
         ]}
         aria-labelledby={`kelas-${g.grade}`}
+        data-ex-section
+        data-ex-grade={g.grade}
       >
         <div class="container">
           <div class="grade-band reveal" data-reveal>
@@ -72,7 +66,16 @@ const total = orderedExplorations().length;
             />
           </div>
           {g.items.map((e, i) => (
-            <div class="reveal" data-reveal style={`--reveal-delay:${i * 70}ms`}>
+            <div
+              class="reveal"
+              data-reveal
+              data-ex-panel
+              data-ex-grade={e.grade}
+              data-ex-element={e.element}
+              data-ex-level={e.level}
+              data-ex-search={[e.title, e.description, ...(e.tags ?? [])].join(' ').toLowerCase()}
+              style={`--reveal-delay:${i * 70}ms`}
+            >
               <ExplorationPanel exploration={e} index={i + 1} />
             </div>
           ))}
@@ -95,12 +98,12 @@ const total = orderedExplorations().length;
 
 <style>
   .grade-section :global(.section-heading h2) {
-    color: var(--accent, var(--color-primary));
+    color: var(--color-primary);
   }
   .grade-section :global(.eyebrow-badge) {
-    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 35%, var(--color-border));
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+    color: color-mix(in srgb, var(--color-primary) 68%, var(--color-text));
   }
 
   .grade-band {
@@ -115,7 +118,7 @@ const total = orderedExplorations().length;
     font-size: clamp(3.25rem, 8vw, 5.25rem);
     font-weight: 700;
     line-height: 1;
-    color: var(--accent, var(--color-primary));
+    color: var(--color-primary);
     opacity: 0.1;
     pointer-events: none;
     user-select: none;
@@ -131,5 +134,12 @@ const total = orderedExplorations().length;
   .closing a {
     display: inline-block;
     padding-block: 0.25rem;
+  }
+
+  @media print {
+    .grade-section[hidden],
+    [data-ex-panel][hidden] {
+      display: block !important;
+    }
   }
 </style>

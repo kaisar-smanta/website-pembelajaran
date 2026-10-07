@@ -1,0 +1,427 @@
+---
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const params = [
+  { name: 'a', label: 'a (kemiringan f)', value: 2 },
+  { name: 'b', label: 'b (konstanta f)', value: 1 },
+  { name: 'c', label: 'c (kemiringan g)', value: -1 },
+  { name: 'd', label: 'd (konstanta g)', value: 3 },
+];
+const initialAria =
+  'Grafik fungsi f, g, komposisi f∘g, dan komposisi g∘f pada interval x dari −6 sampai 6';
+---
+
+<figure class="sim compose-sim" data-compose data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Eksplorasi Komposisi Fungsi</h3>
+  </div>
+
+  <div class="sim-formula">
+    f(x) = a·x + b &nbsp;&nbsp; g(x) = c·x + d
+  </div>
+
+  <div class="sim-controls">
+    {
+      params.map((p) => (
+        <label class="sim-control">
+          <span class="sim-control-label">
+            <span>{p.label}</span>
+            <output data-output={p.name}>{p.value}</output>
+          </span>
+          <input
+            type="range"
+            min="-5"
+            max="5"
+            step="0.5"
+            value={p.value}
+            data-param={p.name}
+            aria-label={`Ubah ${p.label}`}
+          />
+        </label>
+      ))
+    }
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-plot></svg>
+    <div class="legend" role="list" aria-label="Keterangan grafik">
+      <span class="legend-item" role="listitem">
+        <svg class="legend-glyph" viewBox="0 0 24 12" aria-hidden="true" focusable="false">
+          <line x1="2" y1="6" x2="22" y2="6" stroke="var(--color-primary)" stroke-width="3"></line>
+        </svg>
+        <span>f(x) = <span data-legend-f>2x + 1</span></span>
+      </span>
+      <span class="legend-item" role="listitem">
+        <svg class="legend-glyph" viewBox="0 0 24 12" aria-hidden="true" focusable="false">
+          <line
+            x1="2"
+            y1="6"
+            x2="22"
+            y2="6"
+            stroke="var(--color-data)"
+            stroke-width="3"
+            stroke-dasharray="7 4"></line>
+        </svg>
+        <span>g(x) = <span data-legend-g>−x + 3</span></span>
+      </span>
+      <span class="legend-item" role="listitem">
+        <svg class="legend-glyph" viewBox="0 0 24 12" aria-hidden="true" focusable="false">
+          <line
+            x1="2"
+            y1="6"
+            x2="22"
+            y2="6"
+            stroke="var(--color-success)"
+            stroke-width="3"
+            stroke-dasharray="2 4"></line>
+        </svg>
+        <span>(f∘g)(x) = <span data-legend-fg>−2x + 7</span></span>
+      </span>
+      <span class="legend-item" role="listitem">
+        <svg class="legend-glyph" viewBox="0 0 24 12" aria-hidden="true" focusable="false">
+          <line
+            x1="2"
+            y1="6"
+            x2="22"
+            y2="6"
+            stroke="var(--color-danger)"
+            stroke-width="3"
+            stroke-dasharray="9 3 2 3"></line>
+        </svg>
+        <span>(g∘f)(x) = <span data-legend-gf>−2x + 2</span></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="sim-bar">
+    <button type="button" class="btn btn-secondary btn-sm" data-compose-reset>Atur ulang</button>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .sim-head h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+  }
+  .sim-formula {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+  }
+  .sim-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.5rem 1.25rem;
+  }
+  .sim-control-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.15rem;
+  }
+  .sim-control output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart > svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .legend {
+    display: grid;
+    gap: 0.3rem 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.5rem 0 0;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .legend-glyph {
+    width: 1.4rem;
+    height: 0.75rem;
+    flex: none;
+  }
+  .legend-item span span {
+    font-family: var(--font-mono);
+    color: var(--color-text);
+  }
+  .sim-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .sim-caption {
+    margin-top: 0.6rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .sim-caption :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .compose-sim *,
+    .compose-sim *::before,
+    .compose-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    composeLinear,
+    evaluateLinear,
+    formatLinear,
+  } from '../../lib/sim/function-composition';
+  import type { Linear } from '../../lib/sim/function-composition';
+
+  type ParamName = 'a' | 'b' | 'c' | 'd';
+
+  const defaults: Record<ParamName, number> = { a: 2, b: 1, c: -1, d: 3 };
+  const SVGMIN = -6;
+  const SVGMAX = 6;
+
+  const fmt = (v: number): string =>
+    Number.isInteger(v) ? String(v) : String(Number(v.toFixed(2)));
+
+  function setupCompose(root: Element) {
+    const svg = root.querySelector('[data-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-compose-reset]') as HTMLButtonElement;
+    if (!svg || !readout || !reset) return;
+
+    const state: Record<ParamName, number> = { ...defaults };
+    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-param]'));
+    const outputs = Array.from(root.querySelectorAll<HTMLOutputElement>('[data-output]'));
+
+    const legendF = root.querySelector('[data-legend-f]') as HTMLElement | null;
+    const legendG = root.querySelector('[data-legend-g]') as HTMLElement | null;
+    const legendFG = root.querySelector('[data-legend-fg]') as HTMLElement | null;
+    const legendGF = root.querySelector('[data-legend-gf]') as HTMLElement | null;
+
+    const W = 480;
+    const H = 300;
+    const pad = 34;
+    const NS = 'http://www.w3.org/2000/svg';
+    const el = (name: string, attrs: Record<string, string | number>): SVGElement => {
+      const node = document.createElementNS(NS, name);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      return node;
+    };
+
+    function draw(f: Linear, g: Linear, fg: Linear, gf: Linear) {
+      const series = [
+        { coef: f, color: 'var(--color-primary)', dash: '', width: 2.6 },
+        { coef: g, color: 'var(--color-data)', dash: '7 4', width: 2.4 },
+        { coef: fg, color: 'var(--color-success)', dash: '2 4', width: 2.4 },
+        { coef: gf, color: 'var(--color-danger)', dash: '9 3 2 3', width: 2.4 },
+      ];
+
+      const samples = 240;
+      let yMin = Infinity;
+      let yMax = -Infinity;
+      for (const s of series) {
+        for (let i = 0; i <= samples; i++) {
+          const x = SVGMIN + (i / samples) * (SVGMAX - SVGMIN);
+          const y = evaluateLinear(s.coef, x);
+          if (Number.isFinite(y)) {
+            if (y < yMin) yMin = y;
+            if (y > yMax) yMax = y;
+          }
+        }
+      }
+      if (!Number.isFinite(yMin) || !Number.isFinite(yMax) || yMin === yMax) {
+        yMin = -1;
+        yMax = 1;
+      }
+      const padY = (yMax - yMin) * 0.12 || 1;
+      yMin -= padY;
+      yMax += padY;
+
+      const sx = (x: number) => pad + ((x - SVGMIN) / (SVGMAX - SVGMIN)) * (W - 2 * pad);
+      const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
+
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      for (let i = 0; i <= 8; i++) {
+        const x = pad + (i / 8) * (W - 2 * pad);
+        svg.appendChild(
+          el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }),
+        );
+      }
+      for (let i = 0; i <= 6; i++) {
+        const y = pad + (i / 6) * (H - 2 * pad);
+        svg.appendChild(
+          el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }),
+        );
+      }
+
+      if (yMin <= 0 && yMax >= 0) {
+        svg.appendChild(
+          el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }),
+        );
+      }
+      if (SVGMIN <= 0 && SVGMAX >= 0) {
+        svg.appendChild(
+          el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }),
+        );
+      }
+
+      for (const s of series) {
+        const path = el('path', {
+          fill: 'none',
+          stroke: s.color,
+          'stroke-width': s.width,
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+        });
+        if (s.dash) path.setAttribute('stroke-dasharray', s.dash);
+        let d = '';
+        for (let i = 0; i <= samples; i++) {
+          const x = SVGMIN + (i / samples) * (SVGMAX - SVGMIN);
+          const y = evaluateLinear(s.coef, x);
+          d += `${i === 0 ? 'M' : 'L'}${sx(x).toFixed(1)} ${sy(y).toFixed(1)} `;
+        }
+        path.setAttribute('d', d);
+        svg.appendChild(path);
+      }
+    }
+
+    function syncOutputs() {
+      outputs.forEach((output) => {
+        const name = output.getAttribute('data-output') as ParamName | null;
+        if (name) output.textContent = fmt(state[name]);
+      });
+      inputs.forEach((input) => {
+        const name = input.getAttribute('data-param') as ParamName | null;
+        if (name) input.value = String(state[name]);
+      });
+    }
+
+    function render() {
+      const f: Linear = { a: state.a, b: state.b };
+      const g: Linear = { a: state.c, b: state.d };
+      const fg = composeLinear(f, g);
+      const gf = composeLinear(g, f);
+
+      draw(f, g, fg, gf);
+
+      if (legendF) legendF.textContent = formatLinear(f);
+      if (legendG) legendG.textContent = formatLinear(g);
+      if (legendFG) legendFG.textContent = formatLinear(fg);
+      if (legendGF) legendGF.textContent = formatLinear(gf);
+
+      const same = fg.a === gf.a && fg.b === gf.b;
+      readout.innerHTML =
+        `<div class="stat"><span>(f∘g)(x)</span><strong>${formatLinear(fg)}</strong></div>` +
+        `<div class="stat"><span>(g∘f)(x)</span><strong>${formatLinear(gf)}</strong></div>` +
+        `<div class="stat"><span>(f∘g)(1)</span><strong>${fmt(evaluateLinear(fg, 1))}</strong></div>` +
+        `<div class="stat"><span>(g∘f)(1)</span><strong>${fmt(evaluateLinear(gf, 1))}</strong></div>` +
+        `<div class="stat"><span>(f∘g)(0)</span><strong>${fmt(evaluateLinear(fg, 0))}</strong></div>` +
+        `<div class="stat"><span>(g∘f)(0)</span><strong>${fmt(evaluateLinear(gf, 0))}</strong></div>` +
+        `<div class="stat"><span>Apakah f∘g = g∘f?</span><strong>${
+          same ? 'Ya, f∘g = g∘f' : 'Tidak, f∘g ≠ g∘f'
+        }</strong></div>`;
+
+      svg.setAttribute(
+        'aria-label',
+        `Grafik f(x) = ${formatLinear(f)}, g(x) = ${formatLinear(g)}, ` +
+          `(f∘g)(x) = ${formatLinear(fg)}, dan (g∘f)(x) = ${formatLinear(gf)} ` +
+          `pada interval x dari −6 sampai 6`,
+      );
+    }
+
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        const name = input.getAttribute('data-param') as ParamName | null;
+        if (!name) return;
+        const value = Number(input.value);
+        state[name] = Number.isFinite(value) ? value : defaults[name];
+        syncOutputs();
+        render();
+      });
+    });
+
+    reset.addEventListener('click', () => {
+      (Object.keys(defaults) as ParamName[]).forEach((name) => {
+        state[name] = defaults[name];
+      });
+      syncOutputs();
+      render();
+    });
+
+    syncOutputs();
+    render();
+  }
+
+  document.querySelectorAll('[data-compose]').forEach(setupCompose);
+</script>

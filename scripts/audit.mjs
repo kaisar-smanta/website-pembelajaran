@@ -226,6 +226,58 @@ const AUDIT_EXPR = `(() => {
   return { viewport: { w: vw, h: vh }, doc: { scrollW: de.scrollWidth, scrollH: de.scrollHeight }, issues: issues };
 })()`;
 
+// Pemeriksaan interaktif: menekan saringan, menggeser penggeser, menjalankan
+// simulasi, lalu memeriksa overflow, readout kosong, dan galat skrip.
+const INTERACT_EXPR = `(() => {
+  var issues = [];
+  var errors = [];
+  function onErr(e) { errors.push(String((e && e.message) || e)); }
+  window.addEventListener('error', onErr);
+  try {
+    var root = document.querySelector('[data-ex-overview]');
+    if (root) {
+      var groups = Array.prototype.slice.call(root.querySelectorAll('[data-ex-chips]'));
+      groups.forEach(function (group) {
+        var chips = Array.prototype.slice.call(group.querySelectorAll('[data-ex-filter]'));
+        for (var i = 0; i < chips.length; i++) chips[i].click();
+        if (chips.length) chips[0].click();
+      });
+    }
+    var ranges = document.querySelectorAll('input[type="range"]');
+    for (var r = 0; r < ranges.length; r++) {
+      var el = ranges[r];
+      var min = el.getAttribute('min');
+      var max = el.getAttribute('max');
+      if (min !== null) { el.value = min; el.dispatchEvent(new Event('input', { bubbles: true })); }
+      if (max !== null) { el.value = max; el.dispatchEvent(new Event('input', { bubbles: true })); }
+    }
+    var runs = document.querySelectorAll('[data-prob-run]');
+    for (var q = 0; q < runs.length; q++) runs[q].click();
+    var resets = document.querySelectorAll('[data-reset]');
+    for (var s = 0; s < resets.length; s++) resets[s].click();
+
+    var de = document.documentElement;
+    if (de.scrollWidth > de.clientWidth + 1) {
+      issues.push({ type: 'interactive-h-overflow', severity: 'high', detail: 'scrollWidth ' + de.scrollWidth + ' > viewport ' + de.clientWidth });
+    }
+    var readouts = document.querySelectorAll('.sim-readout, [data-readout]');
+    var empty = 0;
+    for (var k = 0; k < readouts.length; k++) {
+      if (!(readouts[k].textContent || '').trim()) empty++;
+    }
+    if (empty > 0) issues.push({ type: 'empty-sim-readout', severity: 'medium', count: empty, total: readouts.length });
+    var resultEl = root ? root.querySelector('[data-ex-result]') : null;
+    if (resultEl && !/^Menampilkan/.test(resultEl.textContent || '')) {
+      issues.push({ type: 'filter-result-stuck', severity: 'medium', detail: String(resultEl.textContent).slice(0, 40) });
+    }
+  } catch (e) {
+    issues.push({ type: 'interactive-exception', severity: 'high', detail: String((e && e.message) || e) });
+  }
+  window.removeEventListener('error', onErr);
+  if (errors.length) issues.push({ type: 'interactive-js-error', severity: 'high', count: errors.length, items: errors.slice(0, 8) });
+  return { issues: issues };
+})()`;
+
 const JOBS = [
   { name: 'beranda', path: '/', width: 1440, height: 900 },
   { name: 'beranda-gelap', path: '/', width: 1440, height: 900, dark: true },
@@ -246,6 +298,8 @@ const JOBS = [
   { name: 'cari', path: '/cari', width: 1440, height: 900 },
   { name: 'eksplorasi', path: '/eksplorasi', width: 1440, height: 900 },
   { name: 'eksplorasi-mobile', path: '/eksplorasi', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'eksplorasi-interaktif', path: '/eksplorasi', width: 1440, height: 900, interact: true },
+  { name: 'eksplorasi-interaktif-mobile', path: '/eksplorasi', width: 390, height: 844, dsf: 2, mobile: true, interact: true },
 ];
 
 let handle;
@@ -283,13 +337,22 @@ async function main() {
         returnByValue: true,
       });
       const value = res.result?.value ?? {};
+      let issues = value.issues ?? [];
+      if (job.interact) {
+        const res2 = await page.s('Runtime.evaluate', {
+          expression: INTERACT_EXPR,
+          returnByValue: true,
+        });
+        const v2 = res2.result?.value ?? {};
+        issues = issues.concat(v2.issues ?? []);
+      }
       const entry = {
         name: job.name,
         path: job.path,
         viewport: { width: job.width, dark: !!job.dark, mobile: !!job.mobile },
         doc: value.doc,
         console: page.messages,
-        issues: value.issues ?? [],
+        issues,
       };
       report.pages.push(entry);
       printEntry(entry);

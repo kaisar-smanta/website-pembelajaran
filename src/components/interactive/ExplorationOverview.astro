@@ -1,5 +1,6 @@
 ---
-import type { Exploration, Grade } from '@/types/content';
+import type { Difficulty, ElementId, Exploration, Grade } from '@/types/content';
+import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
 import type { GradeMeta } from '@/data/curriculum';
 import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
 
@@ -10,14 +11,34 @@ interface Props {
 const { groups, total } = Astro.props;
 
 const totalCount = total ?? groups.reduce((sum, g) => sum + g.items.length, 0);
+const allItems = groups.flatMap((g) => g.items);
 
-const gradeAccents: Record<Grade, string> = {
-  X: 'accent-bilangan',
-  XI: 'accent-aljabar-fungsi',
-  XII: 'accent-geometri',
+const levelLabels: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
 };
+const levelOrder: Difficulty[] = ['dasar', 'cakap', 'mahir'];
 
-const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendiri. Saring menurut kelas untuk memilih eksplorasi yang paling pas.';
+const elementChips: Array<{ id: ElementId; label: string; count: number }> = ELEMENT_ORDER.map(
+  (id) => ({
+    id,
+    label: ELEMENTS[id].short,
+    count: allItems.filter((item) => item.element === id).length,
+  }),
+);
+const levelChips: Array<{ id: Difficulty; label: string; count: number }> = levelOrder.map(
+  (level) => ({
+    id: level,
+    label: levelLabels[level],
+    count: allItems.filter((item) => item.level === level).length,
+  }),
+);
+
+const searchText = (item: Exploration) =>
+  [item.title, item.description, ...(item.tags ?? [])].join(' ').toLowerCase();
+
+const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendiri. Saring menurut kelas, elemen, tingkat, atau kata kunci untuk memilih eksplorasi yang paling pas.';
 ---
 
 <section class="ex-overview" data-ex-overview aria-labelledby="ex-overview-title">
@@ -27,33 +48,92 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     <p class="text-muted">{lead}</p>
   </div>
 
-  <div class="ex-chips" role="group" aria-label="Saring eksplorasi menurut kelas">
-    <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
-      Semua
-      <span class="ex-chip-count">{totalCount}</span>
-    </button>
-    {
-      groups.map((g) => (
-        <button type="button" class="ex-chip" data-ex-filter={g.grade} aria-pressed="false">
-          {g.meta.name}
-          <span class="ex-chip-count">{g.items.length}</span>
+  <div class="ex-filters">
+    <div class="ex-filter" data-ex-chips="grade" role="group" aria-label="Saring menurut kelas">
+      <span class="ex-filter-label">Kelas</span>
+      <div class="ex-chip-row">
+        <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+          Semua
+          <span class="ex-chip-count">{totalCount}</span>
         </button>
-      ))
-    }
+        {
+          groups.map((g) => (
+            <button type="button" class="ex-chip" data-ex-filter={g.grade} aria-pressed="false">
+              {g.meta.name}
+              <span class="ex-chip-count">{g.items.length}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="ex-filter" data-ex-chips="element" role="group" aria-label="Saring menurut elemen">
+      <span class="ex-filter-label">Elemen</span>
+      <div class="ex-chip-row">
+        <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+          Semua
+          <span class="ex-chip-count">{totalCount}</span>
+        </button>
+        {
+          elementChips.map((c) => (
+            <button type="button" class="ex-chip" data-ex-filter={c.id} aria-pressed="false">
+              {c.label}
+              <span class="ex-chip-count">{c.count}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="ex-filter" data-ex-chips="level" role="group" aria-label="Saring menurut tingkat kesulitan">
+      <span class="ex-filter-label">Tingkat</span>
+      <div class="ex-chip-row">
+        <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+          Semua
+          <span class="ex-chip-count">{totalCount}</span>
+        </button>
+        {
+          levelChips.map((c) => (
+            <button type="button" class="ex-chip" data-ex-filter={c.id} aria-pressed="false">
+              {c.label}
+              <span class="ex-chip-count">{c.count}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="ex-search">
+      <label class="visually-hidden" for="ex-search-input">Cari eksplorasi</label>
+      <input
+        id="ex-search-input"
+        type="search"
+        class="ex-search-input"
+        data-ex-search-input
+        placeholder="Cari judul, deskripsi, atau kata kunci"
+        autocomplete="off"
+      />
+    </div>
   </div>
+
+  <p class="ex-result" data-ex-result aria-live="polite">Menampilkan {totalCount} eksplorasi</p>
 
   <div class="grid grid-3 ex-grid">
     {
       groups.map((g) => (
         <>
-          <p
-            class:list={['ex-group-label', 'eyebrow-badge', gradeAccents[g.grade]]}
-            data-ex-group={g.grade}
-          >
+          <p class="ex-group-label eyebrow-badge" data-ex-group={g.grade}>
             {g.meta.name}
           </p>
           {g.items.map((item, i) => (
-            <div class="ex-item" data-ex-grade={g.grade}>
+            <div
+              class="ex-item"
+              data-ex-item
+              data-ex-grade={g.grade}
+              data-ex-element={item.element}
+              data-ex-level={item.level}
+              data-ex-search={searchText(item)}
+            >
               <ExplorationPreviewCard exploration={item} href={`#ex-${item.id}`} delay={i * 70} />
             </div>
           ))}
@@ -61,6 +141,10 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
       ))
     }
   </div>
+
+  <p class="ex-empty" data-ex-empty hidden>
+    Tidak ada eksplorasi yang cocok dengan saringan ini. Coba ubah kata kunci atau pilih saringan lain.
+  </p>
 </section>
 
 <script is:inline>
@@ -68,36 +152,120 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     try {
       var root = document.querySelector('[data-ex-overview]');
       if (!root) return;
+
+      var chipGroups = Array.prototype.slice.call(root.querySelectorAll('[data-ex-chips]'));
       var chips = Array.prototype.slice.call(root.querySelectorAll('[data-ex-filter]'));
-      var items = Array.prototype.slice.call(root.querySelectorAll('[data-ex-grade]'));
-      var labels = Array.prototype.slice.call(root.querySelectorAll('[data-ex-group]'));
+      var searchInput = document.querySelector('[data-ex-search-input]');
+      var result = document.querySelector('[data-ex-result]');
+      var empty = document.querySelector('[data-ex-empty]');
+      var items = Array.prototype.slice.call(document.querySelectorAll('[data-ex-item]'));
+      var panels = Array.prototype.slice.call(document.querySelectorAll('[data-ex-panel]'));
+      var labels = Array.prototype.slice.call(document.querySelectorAll('[data-ex-group]'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('[data-ex-section]'));
+
       if (!chips.length || !items.length) return;
 
-      function apply(filter) {
-        for (var i = 0; i < items.length; i++) {
-          var item = items[i];
-          var match = filter === 'all' || item.getAttribute('data-ex-grade') === filter;
+      function groupValue(group) {
+        var active = group.querySelector('[data-ex-filter].is-active');
+        return active ? active.getAttribute('data-ex-filter') : 'all';
+      }
+
+      function values() {
+        var map = {};
+        chipGroups.forEach(function (group) {
+          map[group.getAttribute('data-ex-chips')] = groupValue(group);
+        });
+        return map;
+      }
+
+      function matches(el, v, q) {
+        if (v.grade && v.grade !== 'all' && (el.getAttribute('data-ex-grade') || '') !== v.grade) {
+          return false;
+        }
+        if (v.element && v.element !== 'all' && (el.getAttribute('data-ex-element') || '') !== v.element) {
+          return false;
+        }
+        if (v.level && v.level !== 'all' && (el.getAttribute('data-ex-level') || '') !== v.level) {
+          return false;
+        }
+        if (q && (el.getAttribute('data-ex-search') || '').indexOf(q) === -1) return false;
+        return true;
+      }
+
+      function apply() {
+        var v = values();
+        var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        var visibleByGrade = {};
+        var count = 0;
+
+        items.forEach(function (item) {
+          var match = matches(item, v, q);
           item.hidden = !match;
           if (match) {
+            count += 1;
+            var grade = item.getAttribute('data-ex-grade') || '';
+            visibleByGrade[grade] = (visibleByGrade[grade] || 0) + 1;
             var card = item.querySelector('.reveal');
             if (card) card.classList.add('is-visible');
           }
-        }
-        for (var j = 0; j < labels.length; j++) {
-          var label = labels[j];
-          label.hidden = !(filter === 'all' || label.getAttribute('data-ex-group') === filter);
-        }
-        for (var k = 0; k < chips.length; k++) {
-          var active = chips[k].getAttribute('data-ex-filter') === filter;
-          chips[k].classList.toggle('is-active', active);
-          chips[k].setAttribute('aria-pressed', active ? 'true' : 'false');
-        }
+        });
+
+        panels.forEach(function (panel) {
+          var match = matches(panel, v, q);
+          panel.hidden = !match;
+          if (match) panel.classList.add('is-visible');
+        });
+
+        sections.forEach(function (section) {
+          var any = false;
+          var sectionPanels = section.querySelectorAll('[data-ex-panel]');
+          for (var i = 0; i < sectionPanels.length; i++) {
+            if (!sectionPanels[i].hidden) {
+              any = true;
+              break;
+            }
+          }
+          section.hidden = !any;
+        });
+
+        labels.forEach(function (label) {
+          var grade = label.getAttribute('data-ex-group') || '';
+          label.hidden = !visibleByGrade[grade];
+        });
+
+        chipGroups.forEach(function (group) {
+          var value = groupValue(group);
+          var groupChips = group.querySelectorAll('[data-ex-filter]');
+          for (var i = 0; i < groupChips.length; i++) {
+            var active = groupChips[i].getAttribute('data-ex-filter') === value;
+            groupChips[i].classList.toggle('is-active', active);
+            groupChips[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+          }
+        });
+
+        if (empty) empty.hidden = count !== 0;
+        if (result) result.textContent = 'Menampilkan ' + count + ' eksplorasi';
       }
 
-      for (var c = 0; c < chips.length; c++) {
-        chips[c].addEventListener('click', function (event) {
-          apply(event.currentTarget.getAttribute('data-ex-filter') || 'all');
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var group = chip.closest('[data-ex-chips]');
+          if (group) {
+            var groupChips = group.querySelectorAll('[data-ex-filter]');
+            for (var i = 0; i < groupChips.length; i++) {
+              groupChips[i].classList.remove('is-active');
+              groupChips[i].setAttribute('aria-pressed', 'false');
+            }
+          }
+          chip.classList.add('is-active');
+          chip.setAttribute('aria-pressed', 'true');
+          apply();
         });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', apply);
+        searchInput.addEventListener('search', apply);
       }
 
       root.classList.add('js-ready');
@@ -116,11 +284,32 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     margin-bottom: 1.25rem;
   }
 
-  .ex-chips {
+  .ex-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.1rem;
+  }
+  .ex-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    min-width: 0;
+  }
+  .ex-filter-label {
+    flex: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .ex-chip-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    min-width: 0;
   }
   .ex-chip {
     display: inline-flex;
@@ -178,13 +367,43 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     color: var(--color-primary);
   }
 
+  .ex-search {
+    min-width: 0;
+    max-width: 22rem;
+  }
+  .ex-search-input {
+    width: 100%;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .ex-search-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+
+  .ex-result {
+    margin: 0 0 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
   .ex-group-label {
     grid-column: 1 / -1;
     margin: 0.35rem 0 -0.35rem;
     justify-self: start;
-    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 35%, var(--color-border));
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+    color: color-mix(in srgb, var(--color-primary) 68%, var(--color-text));
   }
   .ex-grid > .ex-group-label:first-child {
     margin-top: 0;
@@ -198,19 +417,34 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     width: 100%;
   }
 
+  .ex-empty {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.15rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
   @media (max-width: 30rem) {
-    .ex-chips {
+    .ex-chip-row {
       gap: 0.4rem;
     }
     .ex-chip {
       padding: 0.42rem 0.75rem;
       font-size: 0.85rem;
     }
+    .ex-filter {
+      align-items: flex-start;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .ex-chip,
-    .ex-chip-count {
+    .ex-chip-count,
+    .ex-search-input {
       transition: none;
     }
   }
@@ -219,6 +453,9 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     .ex-item[hidden],
     .ex-group-label[hidden] {
       display: block !important;
+    }
+    .ex-empty {
+      display: none !important;
     }
   }
 </style>

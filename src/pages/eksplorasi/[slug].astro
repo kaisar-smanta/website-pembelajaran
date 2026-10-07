@@ -1,0 +1,242 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import ExplorationSim from '@/components/interactive/ExplorationSim.astro';
+import ExplorationBrief from '@/components/interactive/ExplorationBrief.astro';
+import { orderedExplorations } from '@/data/explorations';
+import { getTopic } from '@/data/topics';
+import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { url, topicUrl, absoluteUrl } from '@/utils/url';
+import { stripMarkdown } from '@/utils/markdown';
+import type { Exploration } from '@/types/content';
+
+export function getStaticPaths() {
+  return orderedExplorations().map((exploration) => ({
+    params: { slug: exploration.id },
+    props: { exploration },
+  }));
+}
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration: e } = Astro.props;
+
+const all = orderedExplorations();
+const index = all.findIndex((item) => item.id === e.id);
+const prev = index > 0 ? all[index - 1] : undefined;
+const next = index >= 0 && index < all.length - 1 ? all[index + 1] : undefined;
+
+const element = e.element ? ELEMENTS[e.element] : undefined;
+const grade = e.grade ? GRADES[e.grade] : undefined;
+const topic = e.topicId ? getTopic(e.topicId) : undefined;
+const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : undefined;
+
+const elementAccents: Record<string, string> = {
+  bilangan: 'var(--color-number)',
+  'aljabar-fungsi': 'var(--color-algebra)',
+  geometri: 'var(--color-geometry)',
+  'data-peluang': 'var(--color-data)',
+};
+const accent = e.element ? elementAccents[e.element] : 'var(--color-primary)';
+
+const levelLabels: Record<string, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
+const descriptionBase = stripMarkdown(e.description);
+const goalText = e.goal ? stripMarkdown(e.goal) : '';
+const description = (goalText && descriptionBase.length < 140 ? `${descriptionBase} ${goalText}` : descriptionBase)
+  .slice(0, 300);
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Eksplorasi', href: url('/eksplorasi') },
+  { label: e.title },
+];
+
+const meta = [
+  grade ? grade.name : '',
+  element ? element.name : '',
+  e.level ? `Tingkat ${levelLabels[e.level] ?? e.level}` : '',
+  e.estimatedMinutes ? `± ${e.estimatedMinutes} menit` : '',
+].filter(Boolean);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LearningResource',
+  name: e.title,
+  description,
+  inLanguage: 'id',
+  isAccessibleForFree: true,
+  learningResourceType: 'Eksplorasi interaktif',
+  educationalLevel: grade ? `${grade.name} (${grade.label})` : 'SMA',
+  about: element ? element.name : 'Matematika',
+  url: absoluteUrl(`/eksplorasi/${e.id}`),
+};
+---
+
+<BaseLayout
+  title={`${e.title} — Eksplorasi Matematika`}
+  description={description}
+  ogType="article"
+>
+  <PageHeader
+    title={e.title}
+    eyebrow="Eksplorasi"
+    lead={descriptionBase}
+    crumbs={crumbs}
+    element={e.element}
+    meta={meta}
+  />
+
+  <section class="section" style={`--accent:${accent}`}>
+    <div class="container eksplorasi-detail">
+      {
+        topic && topicHref && (
+          <p class="topic-link">
+            Materi terkait:{' '}
+            <a href={topicHref}>{topic.title}</a>
+          </p>
+        )
+      }
+
+      <div class="detail-card card card-accent">
+        <h2 class="block-title">Panduan eksplorasi</h2>
+        <ExplorationBrief exploration={e} showCautions />
+
+        <h2 class="block-title">Simulasi interaktif</h2>
+        <div class="detail-sim">
+          <ExplorationSim exploration={e} />
+        </div>
+      </div>
+
+      {
+        (prev || next) && (
+          <nav class="pager no-print" aria-label="Navigasi eksplorasi">
+            {prev ? (
+              <a class="pager-link pager-prev hover-lift" href={url(`/eksplorasi/${prev.id}`)}>
+                <span class="pager-label">Sebelumnya</span>
+                <span class="pager-title">← {prev.title}</span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <a class="pager-link pager-next hover-lift" href={url(`/eksplorasi/${next.id}`)}>
+                <span class="pager-label">Selanjutnya</span>
+                <span class="pager-title">{next.title} →</span>
+              </a>
+            ) : (
+              <span />
+            )}
+          </nav>
+        )
+      }
+
+      <p class="back">
+        <a href={url('/eksplorasi')}>← Kembali ke daftar eksplorasi</a>
+      </p>
+    </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+</BaseLayout>
+
+<style>
+  .eksplorasi-detail {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 60rem;
+  }
+  .topic-link {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .topic-link a {
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
+    font-weight: 600;
+  }
+  .detail-card {
+    padding: 1.25rem 1.4rem 1.5rem;
+    border-left: 4px solid var(--accent, var(--color-primary));
+  }
+  .block-title {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-soft);
+  }
+  .block-title + * {
+    margin-top: 0;
+  }
+  .detail-sim {
+    margin-top: 0.5rem;
+  }
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .pager-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-top: 3px solid color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-border));
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    text-decoration: none;
+    max-width: 48%;
+    min-width: 0;
+  }
+  .pager-link:hover,
+  .pager-link:focus-visible {
+    border-color: var(--accent, var(--color-primary));
+  }
+  .pager-next {
+    text-align: right;
+    margin-left: auto;
+  }
+  .pager-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 62%, var(--color-text-muted));
+  }
+  .pager-title {
+    font-weight: 600;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+  }
+  .back {
+    margin: 0;
+  }
+  .back a {
+    display: inline-block;
+    padding-block: 0.3rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+  .back a:hover {
+    color: var(--color-primary);
+  }
+  @media (max-width: 30rem) {
+    .pager {
+      flex-direction: column;
+    }
+    .pager-link {
+      max-width: 100%;
+    }
+    .pager-next {
+      text-align: left;
+      margin-left: 0;
+    }
+  }
+</style>

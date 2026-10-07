@@ -9,7 +9,7 @@ const { exploration } = Astro.props;
 const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
 ---
 
-<figure class={`sim finance-sim mode-${mode}`} data-finance data-mode={mode}>
+<figure class={`sim finance-sim mode-${mode}`} data-finance data-mode={mode} data-exploration={exploration.id}>
   <div class="sim-head">
     <h3>{mode === 'anuitas' ? 'Kalkulator Anuitas & Tabel Amortisasi' : 'Simulasi Bunga Tunggal vs Bunga Majemuk'}</h3>
   </div>
@@ -40,7 +40,11 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     )}
   </div>
 
-  <div class="sim-summary" data-summary aria-live="polite"></div>
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-finance-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-summary" data-summary aria-live="polite" aria-atomic="true"></div>
 
   <div class="sim-chart">
     <svg
@@ -98,6 +102,12 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     color: var(--color-text);
     font: inherit;
     font-weight: 500;
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
   }
   .sim-summary {
     margin: 0.85rem 0;
@@ -216,6 +226,14 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
 </style>
 
 <script>
+  import {
+    simpleInterestSeries,
+    compoundInterestSeries,
+    effectiveAnnualRate,
+    annuityPayment,
+    annuityTotalInterest,
+  } from '../../lib/sim/compound-interest';
+
   const rupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
   const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
 
@@ -230,6 +248,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     const tbody = root.querySelector('[data-tbody]') as HTMLElement;
     const chart = root.querySelector('[data-chart]') as SVGSVGElement;
     const legend = root.querySelector('[data-legend]') as HTMLElement;
+    const reset = root.querySelector('[data-finance-reset]') as HTMLButtonElement;
 
     const svgNS = 'http://www.w3.org/2000/svg';
     const el = (name: string, attrs: Record<string, string | number>) => {
@@ -253,15 +272,11 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     }
 
     function renderBunga(p: number, iy: number, n: number, m: number) {
-      const simple: number[] = [];
-      const compound: number[] = [];
-      for (let t = 0; t <= n; t++) {
-        simple.push(p * (1 + iy * t));
-        compound.push(p * Math.pow(1 + iy / m, m * t));
-      }
+      const simple = simpleInterestSeries(p, iy, n);
+      const compound = compoundInterestSeries(p, iy, n, m);
       const lastSimple = simple[n];
       const lastComp = compound[n];
-      const effective = Math.pow(1 + iy / m, m) - 1;
+      const effective = effectiveAnnualRate(iy, m);
 
       summary.innerHTML = '';
       addStat(summary, 'Saldo akhir (bunga tunggal)', rupiah.format(lastSimple));
@@ -292,9 +307,9 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     function renderAnuitas(p: number, iy: number, n: number) {
       const r = iy / 12;
       const m = n * 12;
-      const A = r === 0 ? p / m : (p * r) / (1 - Math.pow(1 + r, -m));
+      const A = annuityPayment(p, iy, m);
       const total = A * m;
-      const totalInterest = total - p;
+      const totalInterest = annuityTotalInterest(p, iy, m);
 
       summary.innerHTML = '';
       addStat(summary, 'Angsuran per bulan', rupiah.format(A));
@@ -375,11 +390,20 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       }
     }
 
+    function resetInputs() {
+      P.value = String(mode === 'anuitas' ? 50000000 : 10000000);
+      rate.value = String(mode === 'anuitas' ? 12 : 6);
+      years.value = String(mode === 'anuitas' ? 5 : 10);
+      if (freq) freq.value = '1';
+      render();
+    }
+
     [P, rate, years].forEach((input) => input.addEventListener('input', render));
     if (freq) {
       freq.addEventListener('change', render);
       freq.addEventListener('input', render);
     }
+    reset.addEventListener('click', resetInputs);
     render();
   }
 

@@ -8,7 +8,7 @@ interface Props {
 const { exploration } = Astro.props;
 ---
 
-<figure class="sim sequence-sim" data-sequence>
+<figure class="sim sequence-sim" data-sequence data-exploration={exploration.id}>
   <div class="sim-head">
     <h3>Eksplorasi Barisan dan Deret</h3>
   </div>
@@ -35,6 +35,10 @@ const { exploration } = Astro.props;
     </label>
   </div>
 
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-sequence-reset>Atur ulang</button>
+  </div>
+
   <div class="sim-chart">
     <svg
       viewBox="0 0 480 260"
@@ -47,7 +51,7 @@ const { exploration } = Astro.props;
     </div>
   </div>
 
-  <output class="sim-readout" data-readout aria-live="polite"></output>
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
 
   <div class="table-scroll">
     <table class="urut">
@@ -94,6 +98,12 @@ const { exploration } = Astro.props;
     color: var(--color-text);
     font: inherit;
     font-weight: 500;
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
   }
   .sim-chart {
     max-width: 36rem;
@@ -206,6 +216,8 @@ const { exploration } = Astro.props;
 </style>
 
 <script>
+  import { sequenceTerms } from '../../lib/sim/sequence';
+
   const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
   const fmt = (v: number) => angka.format(Number.isFinite(v) ? v : 0);
   const subDigits = '₀₁₂₃₄₅₆₇₈₉';
@@ -227,6 +239,7 @@ const { exploration } = Astro.props;
     const thead = root.querySelector('[data-thead]') as HTMLElement;
     const tbody = root.querySelector('[data-tbody]') as HTMLElement;
     const caption = root.querySelector('[data-caption]') as HTMLElement;
+    const reset = root.querySelector('[data-sequence-reset]') as HTMLButtonElement;
 
     const svgNS = 'http://www.w3.org/2000/svg';
     const el = (name: string, attrs: Record<string, string | number>) => {
@@ -304,16 +317,7 @@ const { exploration } = Astro.props;
       if (!Number.isFinite(n)) n = 8;
       n = clamp(n, 1, 20);
 
-      const terms: number[] = [];
-      const sums: number[] = [];
-      let acc = 0;
-      for (let i = 0; i < n; i++) {
-        const v = jenis === 'aritmetika' ? a + i * b : a * Math.pow(b, i);
-        const nilai = Number.isFinite(v) ? v : 0;
-        terms.push(nilai);
-        acc = Number.isFinite(acc + nilai) ? acc + nilai : 0;
-        sums.push(acc);
-      }
+      const { terms, sums } = sequenceTerms(jenis, a, b, n);
 
       const un = terms[n - 1];
       const sn = sums[n - 1];
@@ -370,8 +374,17 @@ const { exploration } = Astro.props;
       drawChart(terms, sums, n);
     }
 
+    function resetInputs() {
+      select.value = 'aritmetika';
+      inA.value = '2';
+      inB.value = '2';
+      inN.value = '8';
+      render();
+    }
+
     select.addEventListener('change', render);
     [inA, inB, inN].forEach((input) => input.addEventListener('input', render));
+    reset.addEventListener('click', resetInputs);
     render();
   }
 

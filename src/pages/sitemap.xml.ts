@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { topics } from '@/data/topics';
 import { applications } from '@/data/applications';
+import { orderedExplorations } from '@/data/explorations';
 import { GRADE_ORDER, ELEMENT_ORDER } from '@/data/curriculum';
 
 export const prerender = true;
@@ -41,6 +42,10 @@ export const GET: APIRoute = ({ site }) => {
 
   for (const a of applications) {
     paths.push(`/aplikasi/${a.id}`);
+  }
+
+  for (const e of orderedExplorations()) {
+    paths.push(`/eksplorasi/${e.id}`);
   }
 
   const urls = paths

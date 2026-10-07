@@ -1,5 +1,5 @@
 ---
-import type { ElementId, Exploration } from '@/types/content';
+import type { Difficulty, ElementId, Exploration } from '@/types/content';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { url, topicUrl } from '@/utils/url';
 import { getTopic } from '@/data/topics';
@@ -13,6 +13,12 @@ interface Props {
 }
 const { exploration, delay = 0, href: hrefProp } = Astro.props;
 
+const levelLabels: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
 const labels: Record<Exploration['type'], string> = {
   'function-slider': 'Grafik interaktif',
   'compound-interest': 'Simulasi keuangan',
@@ -21,6 +27,11 @@ const labels: Record<Exploration['type'], string> = {
   sequence: 'Pola barisan',
   distribution: 'Sebaran data',
   'conditional-probability': 'Peluang bersyarat',
+  circle: 'Eksplorasi lingkaran',
+  matrix: 'Simulasi matriks',
+  'linear-system': 'Sistem persamaan',
+  'function-composition': 'Komposisi fungsi',
+  'function-inverse': 'Fungsi invers',
   geogebra: 'GeoGebra',
 };
 const label = labels[exploration.type];
@@ -47,6 +58,11 @@ const curves: Record<Exploration['type'], string> = {
   sequence: 'M6 58 L44 50 L82 38 L120 24 L158 14 L194 10',
   distribution: 'M10 58 H50 V40 H90 V20 H130 V42 H170 V58 H194',
   'conditional-probability': 'M6 12 L40 30 L74 30 L108 52 L142 52 L176 58',
+  circle: 'M74 32 A26 26 0 1 1 126 32 A26 26 0 1 1 74 32',
+  matrix: 'M40 12 H58 V52 H40 M142 12 H160 V52 H142 M70 22 H130 M70 42 H130',
+  'linear-system': 'M10 58 L190 6 M10 6 L190 58',
+  'function-composition': 'M6 58 C50 58 70 10 100 10 C130 10 150 58 194 58',
+  'function-inverse': 'M6 6 L194 58 M6 46 C70 46 110 26 194 6',
   geogebra: 'M6 58 C45 58 60 14 100 14 C140 14 155 58 194 58',
 };
 
@@ -92,6 +108,24 @@ const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>
     [108, 52],
     [176, 58],
   ],
+  circle: [
+    [100, 32],
+    [126, 32],
+    [100, 6],
+  ],
+  matrix: [
+    [50, 32],
+    [150, 32],
+  ],
+  'linear-system': [[100, 32]],
+  'function-composition': [
+    [100, 10],
+    [150, 58],
+  ],
+  'function-inverse': [
+    [60, 40],
+    [100, 32],
+  ],
   geogebra: [
     [40, 40],
     [100, 14],
@@ -115,7 +149,10 @@ const points = dots[exploration.type];
       {points.map(([cx, cy]) => <circle class="dot" cx={cx} cy={cy} r="2.6"></circle>)}
     </svg>
   </div>
-  <span class="badge">{label}</span>
+  <div class="exploration-badges">
+    <span class="badge">{label}</span>
+    {exploration.level && <span class="badge badge-level">{levelLabels[exploration.level]}</span>}
+  </div>
   <h3 class="exploration-title">{exploration.title}</h3>
   <p class="exploration-desc" set:html={descHtml}></p>
   <span class="cta">Coba →</span>
@@ -173,11 +210,21 @@ const points = dots[exploration.type];
   .dot {
     fill: currentColor;
   }
-  .exploration-card .badge {
+  .exploration-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
     align-self: flex-start;
+  }
+  .exploration-card .badge {
     background: color-mix(in srgb, var(--accent) 14%, var(--color-surface));
     color: color-mix(in srgb, var(--accent) 62%, var(--color-text));
     border-color: transparent;
+  }
+  .exploration-card .badge-level {
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
   }
   .exploration-title {
     margin: 0;

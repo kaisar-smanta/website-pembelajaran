@@ -56,13 +56,14 @@ export const GET: APIRoute = () => {
     items.push({
       title: `Eksplorasi: ${e.title}`,
       summary: stripMarkdown(e.goal ?? e.description),
-      url: `/eksplorasi#ex-${e.id}`,
+      url: `/eksplorasi/${e.id}/`,
       type: 'eksplorasi',
       grade: e.grade,
       element: e.element,
       keywords: [
         ...(e.tags ?? []),
         'eksplorasi interaktif',
+        e.level ?? '',
         e.grade ? GRADES[e.grade].name : '',
         e.element ? ELEMENTS[e.element].name : '',
       ]

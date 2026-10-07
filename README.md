@@ -44,7 +44,7 @@ npm run build      # membangun situs statis ke dist/
 npm run preview    # pratinjau hasil build
 npm run check      # pemeriksaan tipe (astro check)
 npm run lint:content   # memindai materi dari pola LaTeX berisiko
-npm run test       # memverifikasi nilai matematika (tests/math-verify.mjs)
+npm run test       # memverifikasi nilai matematika & logika simulasi (tests/run-all.mjs)
 npm run test:links # memeriksa tautan & anchor internal pada dist/
 npm run verify     # jalankan seluruh pemeriksaan di atas
 npm run audit      # audit tata letak & aksesibilitas hasil build (Chrome/Edge)
@@ -132,10 +132,12 @@ Untuk `short-answer`, tambahkan `acceptedAnswers` berisi bentuk ekuivalen.
 
 1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu dari
    `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
-   `distribution`, `conditional-probability`, atau `geogebra`. Isi juga `grade`, `element`, dan
-   `order` agar eksplorasi otomatis dikelompokkan di halaman `/eksplorasi`, serta `goal` dan
-   `prompts` (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi` kini
-   sepenuhnya dibangkitkan dari registri ini.
+   `distribution`, `conditional-probability`, `circle`, `matrix`, `linear-system`,
+   `function-composition`, `function-inverse`, atau `geogebra`. Isi juga `grade`, `element`,
+   `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
+   dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
+   (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
+   `/eksplorasi/[slug]`, pencarian, dan peta sitemap sepenuhnya dibangkitkan dari registri ini.
 2. Untuk tipe yang sudah ada, cukup menautkan `explorationId` pada blok `exploration` di dalam
    sebuah `section`:
 
@@ -149,8 +151,9 @@ Untuk `short-answer`, tambahkan `acceptedAnswers` berisi bentuk ekuivalen.
    blocks: [{ kind: 'geogebra', url: 'https://www.geogebra.org/classic', title: 'Aktivitas' }]
    ```
 
-4. Untuk tipe baru, buat komponen di `src/components/interactive/`, lalu daftarkan pada
-   `src/components/interactive/ExplorationEmbed.astro`.
+4. Untuk tipe baru, buat komponen di `src/components/interactive/`, letakkan logika murni di
+   `src/lib/sim/` (agar dapat diuji tanpa DOM), lalu daftarkan pada
+   `src/components/interactive/ExplorationSim.astro`. Tambahkan uji `tests/sim-<tipe>.mjs`.
 
 ---
 
@@ -194,7 +197,8 @@ src/
 | `/kelas/[grade]/[element]` | Elemen dalam kelas |
 | `/kelas/[grade]/[element]/[topic]` | Halaman materi (breadcrumb, prasyarat, terkait, peta isi) |
 | `/latihan`, `/latihan/[topic]` | Latihan berjenjang dengan pemeriksaan sisi klien |
-| `/eksplorasi` | Simulasi interaktif |
+| `/eksplorasi` | Katalog & simulasi interaktif (dapat disaring) |
+| `/eksplorasi/[slug]` | Halaman rincian satu eksplorasi (simulasi, brief, navigasi) |
 | `/alat` | Alat matematika daring |
 | `/aplikasi`, `/aplikasi/[id]` | Matematika dalam kehidupan |
 | `/referensi` | Catatan kurikulum & sumber |
