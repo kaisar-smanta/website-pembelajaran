@@ -25,6 +25,12 @@ export const learningPaths: LearningPath[] = [
     nodes: [
       { label: 'Eksponen', id: 'eksponen', grade: 'X', element: 'bilangan' },
       {
+        label: 'Persamaan Eksponen & Logaritma',
+        id: 'persamaan-eksponen-logaritma',
+        grade: 'X',
+        element: 'bilangan',
+      },
+      {
         label: 'Fungsi Eksponensial',
         id: 'fungsi-eksponensial',
         grade: 'X',
@@ -33,7 +39,12 @@ export const learningPaths: LearningPath[] = [
       { label: 'Barisan & Deret', id: 'barisan-deret', grade: 'X', element: 'bilangan' },
       { label: 'Bunga Majemuk', id: 'bunga-majemuk', grade: 'XI', element: 'bilangan' },
       { label: 'Anuitas', id: 'anuitas', grade: 'XI', element: 'bilangan' },
-      { label: 'Pinjaman & Investasi', planned: true },
+      {
+        label: 'Pinjaman & Investasi',
+        id: 'pinjaman-investasi',
+        grade: 'XII',
+        element: 'bilangan',
+      },
     ],
   },
   {
@@ -42,6 +53,12 @@ export const learningPaths: LearningPath[] = [
     title: 'Jalur Fungsi: dari hubungan ke pemodelan data',
     note: 'Fungsi menghubungkan aljabar, data, dan pengambilan keputusan.',
     nodes: [
+      {
+        label: 'Sistem Pertidaksamaan',
+        id: 'sistem-pertidaksamaan',
+        grade: 'X',
+        element: 'aljabar-fungsi',
+      },
       {
         label: 'Fungsi Kuadrat',
         id: 'fungsi-kuadrat',
@@ -57,6 +74,12 @@ export const learningPaths: LearningPath[] = [
       {
         label: 'Komposisi Fungsi',
         id: 'komposisi-fungsi',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
+      {
+        label: 'Pemodelan Fungsi',
+        id: 'pemodelan-fungsi',
         grade: 'XI',
         element: 'aljabar-fungsi',
       },
@@ -76,6 +99,12 @@ export const learningPaths: LearningPath[] = [
         grade: 'X',
         element: 'data-peluang',
       },
+      {
+        label: 'Statistik dalam Kehidupan',
+        id: 'statistik-dalam-kehidupan',
+        grade: 'X',
+        element: 'data-peluang',
+      },
       { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
       { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
       {
@@ -87,6 +116,12 @@ export const learningPaths: LearningPath[] = [
       {
         label: 'Peluang Bersyarat',
         id: 'peluang-bersyarat',
+        grade: 'XII',
+        element: 'data-peluang',
+      },
+      {
+        label: 'Permutasi & Kombinasi',
+        id: 'permutasi-kombinasi',
         grade: 'XII',
         element: 'data-peluang',
       },

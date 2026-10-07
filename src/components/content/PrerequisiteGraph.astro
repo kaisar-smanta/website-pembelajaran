@@ -11,17 +11,37 @@ interface GraphNode {
   prereqs: string[];
 }
 
+interface LayoutNode {
+  id: string;
+  dummy: boolean;
+  rank: number;
+  seq: number;
+  title: string;
+  grade?: Grade;
+  element?: ElementId;
+  preds: LayoutNode[];
+  succs: LayoutNode[];
+  x: number;
+  y: number;
+}
+
 interface GraphEdge {
   from: string;
   to: string;
+  source: LayoutNode;
+  target: LayoutNode;
+  chain: LayoutNode[];
+  primary: boolean;
   d: string;
 }
 
 const COLUMN_GAP = 230;
 const NODE_W = 190;
-const NODE_H = 54;
+const NODE_H = 58;
 const ROW_GAP = 18;
 const PADDING = 24;
+const CORNER = 10;
+const TITLE_WRAP = 23;
 const ARROW_ID = 'prereq-arrow';
 
 const idSet = new Set(topics.map((t) => t.id));
@@ -62,74 +82,313 @@ for (const n of nodes) computeRank(n.id);
 
 const maxRank = nodes.length ? Math.max(...nodes.map((n) => rankOf.get(n.id) ?? 0)) : 0;
 
-const columns: GraphNode[][] = Array.from({ length: maxRank + 1 }, () => []);
+const layers: LayoutNode[][] = Array.from({ length: maxRank + 1 }, () => []);
+const layoutById = new Map<string, LayoutNode>();
+let seq = 0;
+
 for (const n of nodes) {
-  const r = rankOf.get(n.id) ?? 0;
-  columns[r].push(n);
+  const rank = rankOf.get(n.id) ?? 0;
+  const layout: LayoutNode = {
+    id: n.id,
+    dummy: false,
+    rank,
+    seq: seq++,
+    title: n.title,
+    grade: n.grade,
+    element: n.element,
+    preds: [],
+    succs: [],
+    x: 0,
+    y: 0,
+  };
+  layoutById.set(n.id, layout);
+  layers[rank].push(layout);
 }
-
-const elementIndex = new Map<ElementId, number>(ELEMENT_ORDER.map((e, i) => [e, i]));
-for (const col of columns) {
-  col.sort((a, b) => {
-    const ea = elementIndex.get(a.element) ?? 0;
-    const eb = elementIndex.get(b.element) ?? 0;
-    if (ea !== eb) return ea - eb;
-    return a.title.localeCompare(b.title, 'id');
-  });
-}
-
-const maxColumnCount = Math.max(1, ...columns.map((c) => c.length));
-const width = PADDING * 2 + (maxRank + 1) * COLUMN_GAP;
-const height = PADDING * 2 + maxColumnCount * (NODE_H + ROW_GAP);
-
-const positions = new Map<string, { x: number; y: number }>();
-columns.forEach((col, rank) => {
-  const count = col.length;
-  const offset = ((maxColumnCount - count) * (NODE_H + ROW_GAP)) / 2;
-  col.forEach((n, i) => {
-    positions.set(n.id, {
-      x: PADDING + rank * COLUMN_GAP,
-      y: PADDING + i * (NODE_H + ROW_GAP) + offset,
-    });
-  });
-});
-
-const positioned = nodes
-  .map((n) => {
-    const pos = positions.get(n.id);
-    return pos ? { ...n, x: pos.x, y: pos.y } : undefined;
-  })
-  .filter((n): n is GraphNode & { x: number; y: number } => Boolean(n));
 
 const edges: GraphEdge[] = [];
+
+const primaryPrereqRank = new Map<string, number>();
 for (const n of nodes) {
-  const target = positions.get(n.id);
+  let best = -1;
+  for (const p of n.prereqs) {
+    const r = rankOf.get(p);
+    if (r !== undefined && r > best) best = r;
+  }
+  primaryPrereqRank.set(n.id, best);
+}
+
+for (const n of nodes) {
+  const target = layoutById.get(n.id);
   if (!target) continue;
   for (const p of n.prereqs) {
-    const source = positions.get(p);
+    const source = layoutById.get(p);
     if (!source) continue;
-    const sx = source.x + NODE_W;
-    const sy = source.y + NODE_H / 2;
-    const tx = target.x;
-    const ty = target.y + NODE_H / 2;
-    const dx = tx - sx;
-    edges.push({
-      from: p,
-      to: n.id,
-      d: `M ${sx} ${sy} C ${sx + dx / 2} ${sy}, ${tx - dx / 2} ${ty}, ${tx} ${ty}`,
-    });
+    const primary = rankOf.get(p) === primaryPrereqRank.get(n.id);
+    const chain: LayoutNode[] = [source];
+    for (let r = source.rank + 1; r < target.rank; r++) {
+      const dummy: LayoutNode = {
+        id: `dummy-${p}-${n.id}-${r}`,
+        dummy: true,
+        rank: r,
+        seq: seq++,
+        title: '',
+        preds: [],
+        succs: [],
+        x: 0,
+        y: 0,
+      };
+      layers[r].push(dummy);
+      chain.push(dummy);
+    }
+    chain.push(target);
+    for (let i = 0; i < chain.length - 1; i++) {
+      chain[i].succs.push(chain[i + 1]);
+      chain[i + 1].preds.push(chain[i]);
+    }
+    edges.push({ from: p, to: n.id, source, target, chain, primary, d: '' });
   }
 }
 
-function truncate(value: string, max = 26): string {
-  if (value.length <= max) return value;
-  return `${value.slice(0, max - 1).trimEnd()}…`;
+const elementIndex = new Map<ElementId, number>(ELEMENT_ORDER.map((e, i) => [e, i]));
+
+for (const layer of layers) {
+  layer.sort((a, b) => {
+    if (a.dummy !== b.dummy) return a.dummy ? 1 : -1;
+    if (!a.dummy && !b.dummy) {
+      const ea = a.element ? elementIndex.get(a.element) ?? 0 : 0;
+      const eb = b.element ? elementIndex.get(b.element) ?? 0 : 0;
+      if (ea !== eb) return ea - eb;
+      const byTitle = a.title.localeCompare(b.title, 'id');
+      if (byTitle !== 0) return byTitle;
+    }
+    return a.seq - b.seq;
+  });
 }
+
+function indexLayer(rank: number): Map<LayoutNode, number> {
+  const index = new Map<LayoutNode, number>();
+  layers[rank].forEach((node, i) => index.set(node, i));
+  return index;
+}
+
+function sortByNeighbours(
+  rank: number,
+  neighboursOf: (node: LayoutNode) => LayoutNode[],
+  reference: Map<LayoutNode, number>,
+): void {
+  const layer = layers[rank];
+  const own = indexLayer(rank);
+  const keyed = layer.map((node) => {
+    const neighbours = neighboursOf(node);
+    let value = own.get(node) ?? 0;
+    if (neighbours.length) {
+      let sum = 0;
+      let count = 0;
+      for (const neighbour of neighbours) {
+        const idx = reference.get(neighbour);
+        if (idx !== undefined) {
+          sum += idx;
+          count++;
+        }
+      }
+      if (count) value = sum / count;
+    }
+    return { node, value };
+  });
+  keyed.sort((a, b) => a.value - b.value || a.node.seq - b.node.seq);
+  layers[rank] = keyed.map((entry) => entry.node);
+}
+
+for (let pass = 0; pass < 4; pass++) {
+  for (let r = 1; r <= maxRank; r++) {
+    sortByNeighbours(r, (node) => node.preds, indexLayer(r - 1));
+  }
+  for (let r = maxRank - 1; r >= 0; r--) {
+    sortByNeighbours(r, (node) => node.succs, indexLayer(r + 1));
+  }
+}
+
+function countCrossings(): number {
+  let total = 0;
+  for (let r = 0; r < maxRank; r++) {
+    const from = layers[r];
+    const fromIndex = new Map<LayoutNode, number>();
+    from.forEach((node, i) => fromIndex.set(node, i));
+    const toIndex = new Map<LayoutNode, number>();
+    layers[r + 1].forEach((node, i) => toIndex.set(node, i));
+    const pairs: Array<[number, number]> = [];
+    for (const node of from) {
+      const a = fromIndex.get(node) ?? 0;
+      for (const succ of node.succs) {
+        const b = toIndex.get(succ);
+        if (b !== undefined) pairs.push([a, b]);
+      }
+    }
+    for (let i = 0; i < pairs.length; i++) {
+      for (let j = i + 1; j < pairs.length; j++) {
+        const p = pairs[i];
+        const q = pairs[j];
+        if (p[0] === q[0] || p[1] === q[1]) continue;
+        if ((p[0] - q[0]) * (p[1] - q[1]) < 0) total++;
+      }
+    }
+  }
+  return total;
+}
+
+let bestCrossings = countCrossings();
+for (let round = 0; round < 8; round++) {
+  let improved = false;
+  for (let r = 0; r <= maxRank; r++) {
+    const layer = layers[r];
+    for (let i = 0; i + 1 < layer.length; i++) {
+      const first = layer[i];
+      const second = layer[i + 1];
+      layer[i] = second;
+      layer[i + 1] = first;
+      const next = countCrossings();
+      if (next < bestCrossings) {
+        bestCrossings = next;
+        improved = true;
+      } else {
+        layer[i] = first;
+        layer[i + 1] = second;
+      }
+    }
+  }
+  if (!improved) break;
+}
+
+const maxColumnCount = Math.max(1, ...layers.map((layer) => layer.length));
+const width = PADDING * 2 + (maxRank + 1) * COLUMN_GAP;
+const height = PADDING * 2 + maxColumnCount * (NODE_H + ROW_GAP);
+
+for (let r = 0; r <= maxRank; r++) {
+  const layer = layers[r];
+  const offset = ((maxColumnCount - layer.length) * (NODE_H + ROW_GAP)) / 2;
+  layer.forEach((node, i) => {
+    node.x = PADDING + r * COLUMN_GAP;
+    node.y = PADDING + i * (NODE_H + ROW_GAP) + offset;
+  });
+}
+
+const corridorUse = new Map<number, number[]>();
+edges.forEach((edge, edgeIndex) => {
+  for (let c = edge.source.rank; c <= edge.target.rank - 1; c++) {
+    const list = corridorUse.get(c);
+    if (list) list.push(edgeIndex);
+    else corridorUse.set(c, [edgeIndex]);
+  }
+});
+
+function roundedPath(rawPoints: Array<{ x: number; y: number }>): string {
+  const pts = rawPoints.filter(
+    (point, i) =>
+      i === 0 ||
+      Math.abs(point.x - rawPoints[i - 1].x) > 0.5 ||
+      Math.abs(point.y - rawPoints[i - 1].y) > 0.5,
+  );
+  if (pts.length < 2) return '';
+  if (pts.length === 2) return `M ${pts[0].x} ${pts[0].y} L ${pts[1].x} ${pts[1].y}`;
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const prev = pts[i - 1];
+    const cur = pts[i];
+    const next = pts[i + 1];
+    const inDx = cur.x - prev.x;
+    const inDy = cur.y - prev.y;
+    const outDx = next.x - cur.x;
+    const outDy = next.y - cur.y;
+    const inLen = Math.hypot(inDx, inDy) || 1;
+    const outLen = Math.hypot(outDx, outDy) || 1;
+    const radius = Math.min(CORNER, inLen / 2, outLen / 2);
+    const startX = cur.x - (inDx / inLen) * radius;
+    const startY = cur.y - (inDy / inLen) * radius;
+    const endX = cur.x + (outDx / outLen) * radius;
+    const endY = cur.y + (outDy / outLen) * radius;
+    d += ` L ${startX} ${startY} Q ${cur.x} ${cur.y} ${endX} ${endY}`;
+  }
+  const last = pts[pts.length - 1];
+  d += ` L ${last.x} ${last.y}`;
+  return d;
+}
+
+const corridorWidth = COLUMN_GAP - NODE_W;
+
+edges.forEach((edge, edgeIndex) => {
+  const a = edge.source.rank;
+  const b = edge.target.rank;
+  const startY = edge.source.y + NODE_H / 2;
+  const endY = edge.target.y + NODE_H / 2;
+
+  if (b - a <= 1) {
+    const startX = edge.source.x + NODE_W;
+    const endX = edge.target.x;
+    const dx = endX - startX;
+    edge.d = `M ${startX} ${startY} C ${startX + dx / 2} ${startY}, ${endX - dx / 2} ${endY}, ${endX} ${endY}`;
+    return;
+  }
+
+  const points: Array<{ x: number; y: number }> = [{ x: edge.source.x + NODE_W, y: startY }];
+  let currentY = startY;
+  for (let k = a + 1; k <= b; k++) {
+    const node = edge.chain[k - a];
+    if (!node) continue;
+    const nextY = node.y + NODE_H / 2;
+    const corridor = k - 1;
+    const users = corridorUse.get(corridor) ?? [];
+    const lane = users.indexOf(edgeIndex);
+    const step = users.length > 0 && lane >= 0 ? (lane + 1) / (users.length + 1) : 0.5;
+    const corridorX = PADDING + corridor * COLUMN_GAP + NODE_W + corridorWidth * step;
+    points.push({ x: corridorX, y: currentY });
+    points.push({ x: corridorX, y: nextY });
+    currentY = nextY;
+  }
+  points.push({ x: edge.target.x, y: endY });
+  edge.d = roundedPath(points);
+});
+
+function wrapTitle(value: string): string[] {
+  const words = value.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let index = 0;
+  while (index < words.length && lines.length < 2) {
+    let line = words[index++];
+    while (index < words.length && `${line} ${words[index]}`.length <= TITLE_WRAP) {
+      line += ` ${words[index++]}`;
+    }
+    if (line.length > TITLE_WRAP) line = line.slice(0, TITLE_WRAP);
+    lines.push(line);
+  }
+  if (index < words.length && lines.length === 2) {
+    const second = lines[1];
+    const clamped = second.length >= TITLE_WRAP ? second.slice(0, TITLE_WRAP - 1) : second;
+    lines[1] = `${clamped.trimEnd()}…`;
+  }
+  return lines.length ? lines : [''];
+}
+
+const positioned = nodes
+  .map((n) => {
+    const layout = layoutById.get(n.id);
+    return layout ? { ...n, x: layout.x, y: layout.y } : undefined;
+  })
+  .filter((n): n is GraphNode & { x: number; y: number } => Boolean(n));
+
+const renderNodes = positioned.map((node) => {
+  const lines = wrapTitle(node.title);
+  return {
+    ...node,
+    lines,
+    titleY: node.y + (lines.length > 1 ? 22 : 30),
+  };
+});
 ---
 
 <div class="prereq-wrap card reveal" data-reveal>
   <p class="prereq-hint text-soft">
-    Arahkan kursor atau fokuskan sebuah topik untuk menyorot prasyaratnya.
+    Peta menampilkan prasyarat utama tiap topik. Sorot atau ketuk sebuah topik untuk menelusuri
+    seluruh prasyarat dan lanjutannya.
   </p>
 
   <div class="prereq-scroll">
@@ -138,6 +397,7 @@ function truncate(value: string, max = 26): string {
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
+      style={`--prereq-w:${width}px`}
       role="img"
       aria-label="Grafik prasyarat antar topik"
     >
@@ -163,6 +423,7 @@ function truncate(value: string, max = 26): string {
               class="prereq-edge"
               data-from={edge.from}
               data-to={edge.to}
+              data-primary={edge.primary ? 'true' : 'false'}
               d={edge.d}
               marker-end={`url(#${ARROW_ID})`}
             />
@@ -172,7 +433,7 @@ function truncate(value: string, max = 26): string {
 
       <g class="prereq-nodes">
         {
-          positioned.map((node) => (
+          renderNodes.map((node) => (
             <g
               class={`prereq-node accent-${node.element}`}
               data-id={node.id}
@@ -181,10 +442,14 @@ function truncate(value: string, max = 26): string {
               aria-label={`${node.title}, ${GRADES[node.grade].name}`}
             >
               <rect x={node.x} y={node.y} width={NODE_W} height={NODE_H} rx="12" ry="12" />
-              <text class="prereq-title" x={node.x + 14} y={node.y + 23}>
-                {truncate(node.title)}
+              <text class="prereq-title" x={node.x + 14} y={node.titleY}>
+                {node.lines.map((line, i) => (
+                  <tspan x={node.x + 14} dy={i === 0 ? 0 : 14}>
+                    {line}
+                  </tspan>
+                ))}
               </text>
-              <text class="prereq-meta" x={node.x + 14} y={node.y + 41}>
+              <text class="prereq-meta" x={node.x + 14} y={node.y + 50}>
                 {GRADES[node.grade].name}
               </text>
             </g>
@@ -224,6 +489,7 @@ function truncate(value: string, max = 26): string {
         var nodeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-node'));
         var edgeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-edge'));
         if (!nodeEls.length) return;
+        wrap.classList.add('is-ready');
 
         var incoming = {};
         var outgoing = {};
@@ -376,7 +642,7 @@ function truncate(value: string, max = 26): string {
   }
   .prereq-svg {
     display: block;
-    max-width: none;
+    max-width: 100%;
     height: auto;
   }
   .prereq-node {
@@ -430,6 +696,15 @@ function truncate(value: string, max = 26): string {
   .prereq-edge.is-dim {
     opacity: 0.2;
   }
+  .prereq-wrap.is-ready .prereq-edge[data-primary='false'] {
+    opacity: 0;
+  }
+  .prereq-wrap.is-ready .prereq-edge[data-primary='false'].is-active {
+    opacity: 1;
+  }
+  .prereq-wrap.is-ready .prereq-edge[data-primary='false'].is-dim {
+    opacity: 0;
+  }
   .prereq-fallback {
     font-size: 0.9rem;
   }
@@ -452,6 +727,12 @@ function truncate(value: string, max = 26): string {
     .prereq-node rect,
     .prereq-edge {
       transition: none;
+    }
+  }
+  @media (max-width: 48rem) {
+    .prereq-svg {
+      width: var(--prereq-w);
+      max-width: none;
     }
   }
 </style>

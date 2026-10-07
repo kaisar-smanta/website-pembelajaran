@@ -46,7 +46,7 @@ const totalCount = ELEMENT_ORDER.reduce((sum, element) => {
             </h4>
             <p class="elem-desc text-soft">{ELEMENTS[element].description}</p>
 
-            {count > 0 && (
+            {count > complete.length && (
               <div
                 class="coverage-bar"
                 role="img"

@@ -18,23 +18,33 @@ import { regresi } from './regresi';
 import { peluang } from './peluang';
 import { asosiasiKausalitas } from './asosiasi-kausalitas';
 import { peluangBersyarat } from './peluang-bersyarat';
+import { persamaanEksponenLogaritma } from './persamaan-eksponen-logaritma';
+import { sistemPertidaksamaan } from './sistem-pertidaksamaan';
+import { statistikDalamKehidupan } from './statistik-dalam-kehidupan';
+import { pemodelanFungsi } from './pemodelan-fungsi';
+import { pinjamanInvestasi } from './pinjaman-investasi';
+import { permutasiKombinasi } from './permutasi-kombinasi';
 import { plannedTopics } from './planned';
 
 export { plannedTopics };
 
 /** Daftar seluruh topik yang materinya sudah lengkap. */
 export const topics: Topic[] = [
+  persamaanEksponenLogaritma,
   eksponen,
   barisanDeret,
   spltv,
+  sistemPertidaksamaan,
   fungsiKuadrat,
   fungsiEksponensial,
   trigonometri,
+  statistikDalamKehidupan,
   analisisDistribusiData,
   bungaMajemuk,
   anuitas,
   matriks,
   fungsiInvers,
+  pemodelanFungsi,
   komposisiFungsi,
   transformasiFungsi,
   lingkaran,
@@ -43,6 +53,8 @@ export const topics: Topic[] = [
   peluang,
   asosiasiKausalitas,
   peluangBersyarat,
+  permutasiKombinasi,
+  pinjamanInvestasi,
 ];
 
 const byId = new Map<string, Topic>(topics.map((t) => [t.id, t]));

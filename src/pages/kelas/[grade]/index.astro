@@ -46,7 +46,7 @@ const crumbs = [
     eyebrow={gradeMeta.label}
     lead={gradeMeta.description}
     crumbs={crumbs}
-    meta={[`${completeTotal} topik`, `${plannedTotal} rencana`]}
+    meta={[`${completeTotal} topik`, ...(plannedTotal > 0 ? [`${plannedTotal} rencana`] : [])]}
   />
 
   <div class="container">
@@ -75,7 +75,7 @@ const crumbs = [
               lead={element.description}
             />
             <p class="element-count">
-              {complete.length} materi <span aria-hidden="true">·</span> {planned.length} rencana
+              {complete.length} materi{planned.length > 0 && (<> <span aria-hidden="true">·</span> {planned.length} rencana</>)}
             </p>
             <div class="grid grid-3">
               {complete.map((t, i) => (

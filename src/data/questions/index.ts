@@ -18,21 +18,31 @@ import { regresiQuestions } from './regresi';
 import { peluangQuestions } from './peluang';
 import { peluangBersyaratQuestions } from './peluang-bersyarat';
 import { asosiasiKausalitasQuestions } from './asosiasi-kausalitas';
+import { persamaanEksponenLogaritmaQuestions } from './persamaan-eksponen-logaritma';
+import { sistemPertidaksamaanQuestions } from './sistem-pertidaksamaan';
+import { statistikDalamKehidupanQuestions } from './statistik-dalam-kehidupan';
+import { pemodelanFungsiQuestions } from './pemodelan-fungsi';
+import { pinjamanInvestasiQuestions } from './pinjaman-investasi';
+import { permutasiKombinasiQuestions } from './permutasi-kombinasi';
 
 /** Seluruh bank soal. Tambahkan berkas per topik lalu impor di sini. */
 export const questions: Question[] = [
   eksponenQuestions,
   barisanDeretQuestions,
   spltvQuestions,
+  sistemPertidaksamaanQuestions,
   fungsiKuadratQuestions,
   fungsiEksponensialQuestions,
+  persamaanEksponenLogaritmaQuestions,
   trigonometriQuestions,
+  statistikDalamKehidupanQuestions,
   analisisDistribusiDataQuestions,
   bungaMajemukQuestions,
   anuitasQuestions,
   matriksQuestions,
   fungsiInversQuestions,
   komposisiFungsiQuestions,
+  pemodelanFungsiQuestions,
   transformasiFungsiQuestions,
   lingkaranQuestions,
   dataBivariatQuestions,
@@ -40,6 +50,8 @@ export const questions: Question[] = [
   peluangQuestions,
   peluangBersyaratQuestions,
   asosiasiKausalitasQuestions,
+  permutasiKombinasiQuestions,
+  pinjamanInvestasiQuestions,
 ].flat();
 
 const byId = new Map<string, Question>(questions.map((q) => [q.id, q]));

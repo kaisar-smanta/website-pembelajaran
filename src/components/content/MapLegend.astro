@@ -1,5 +1,6 @@
 ---
 import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
+import { plannedTopics } from '@/data/topics';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 ---
 
@@ -15,13 +16,19 @@ import ElementIcon from '@/components/content/ElementIcon.astro';
       </span>
     ))
   }
-  <span class="legend-divider" aria-hidden="true"></span>
-  <span class="legend-note">
-    <span class="badge badge-rencana">Segera hadir</span> materi dalam roadmap
-  </span>
-  <span class="legend-note">
-    <span class="legend-bar"><span class="legend-bar-fill"></span></span> bagian topik yang sudah siap
-  </span>
+  {
+    plannedTopics.length > 0 && (
+      <>
+        <span class="legend-divider" aria-hidden="true"></span>
+        <span class="legend-note">
+          <span class="badge badge-rencana">Segera hadir</span> materi dalam roadmap
+        </span>
+        <span class="legend-note">
+          <span class="legend-bar"><span class="legend-bar-fill"></span></span> bagian topik yang sudah siap
+        </span>
+      </>
+    )
+  }
 </div>
 
 <style>

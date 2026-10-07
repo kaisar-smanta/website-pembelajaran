@@ -249,4 +249,60 @@ const wave = (x, a, k) => a * Math.sin(k * x);
 check('gelombang amplitudo', wave(Math.PI / 2, 2, 1), 2, 1e-12);
 check('gelombang periode k=2', wave(Math.PI / 2, 1, 2), 0, 1e-12);
 
+// ---------- Sistem pertidaksamaan ----------
+check('program linear max 3x+2y di (4,4)', 3 * 4 + 2 * 4, 20);
+check('program linear max 2x+3y di (2,3)', 2 * 2 + 3 * 3, 13);
+check('laba kue 2A+4B', 3000 * 2 + 4000 * 4, 22000);
+check('program linear max 5x+4y di (3,4)', 5 * 3 + 4 * 4, 31);
+
+// ---------- Persamaan eksponen & logaritma ----------
+check('log_3 81', Math.log(81) / Math.log(3), 4, 1e-12);
+check('4^(x+1)=8^(x-1) => x', 5, 5);
+check('log2(12*6/9)', Math.log((12 * 6) / 9) / Math.log(2), 3, 1e-12);
+check('9^x-4*3^x+3 => t', 4 * 4 - 4 * 4 + 3, 3);
+check('50*2^4', 50 * 2 ** 4, 800);
+check('2^a=3 => 4^(a+1)', 4 ** (Math.log(3) / Math.log(2) + 1), 36, 1e-9);
+
+// ---------- Statistik dalam kehidupan ----------
+check('mean data 5..10', (5 + 6 + 6 + 7 + 7 + 7 + 8 + 10) / 8, 7);
+check('mean gabungan kelas', (30 * 72 + 20 * 84) / 50, 76.8, 1e-9);
+check('IQR data', 21 - 15, 6);
+check('mean gaji 9+1', (9 * 4_000_000 + 40_000_000) / 10, 7_600_000);
+check('median gaji 9+1', 4_000_000, 4_000_000);
+
+// ---------- Pemodelan fungsi ----------
+const biayaLinear = (x) => 2000 * x + 5000;
+check('model biaya x=8', biayaLinear(8), 21000);
+check('model dua titik x=9', 4000 * 9 + 8000, 44000);
+check('eksponensial 400*b^3', 400 * 2 ** 3, 3200);
+check('labа puncak P(6)', -3 * 36 + 36 * 6 - 60, 48);
+check('modal 10jt 20% 3th', 10_000_000 * 1.2 ** 3, 17_280_000, 1e-6);
+
+// ---------- Pinjaman & investasi ----------
+const fvAnuitas = (A, i, n) => (A * ((1 + i) ** n - 1)) / i;
+check('FV 500rb 0,5% 24bln', fvAnuitas(500_000, 0.005, 24), 12_715_978, 500);
+const setoranTarget = (50_000_000 * 0.0075) / (1.0075 ** 60 - 1);
+check('setoran target 50jt', r2(setoranTarget), 662_918, 2);
+check(
+  'selisih bunga 48 vs 24 bln',
+  Math.round(
+    (48 * 526_676.71 - 20_000_000) - (24 * 941_469.44 - 20_000_000),
+  ),
+  2_685_216,
+  2,
+);
+
+// ---------- Permutasi & kombinasi ----------
+const fact = (nn) => {
+  let res = 1;
+  for (let i = 2; i <= nn; i++) res *= i;
+  return res;
+};
+const P = (nn, kk) => fact(nn) / fact(nn - kk);
+check('P(7,3)', P(7, 3), 210);
+check('MATEMATIKA', fact(10) / (fact(2) * fact(3) * fact(2)), 151_200);
+check('STATISTIKA', fact(10) / (fact(2) * fact(3) * fact(2) * fact(2)), 75_600);
+check('peluang 2 merah', (C(4, 2) * C(6, 1)) / C(10, 3), 0.3, 1e-12);
+check('peluang tanpa pasangan', (C(5, 4) * 2 ** 4) / C(10, 4), 8 / 21, 1e-12);
+
 console.log(`\nSemua ${passed} pemeriksaan matematika lulus.`);

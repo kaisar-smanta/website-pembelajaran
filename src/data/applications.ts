@@ -165,7 +165,66 @@ Panjang busur (untuk pagar):
 
 $$s = \\frac{\\theta}{360^\\circ} \\times 2\\pi r = \\frac{1}{4} \\times 2 \\times \\frac{22}{7} \\times 7 = 11 \\text{ m}.$$
 
-Jadi dibutuhkan sekitar **38,5 m² rumput** dan **11 m pagar** untuk sisi lengkung.`,
+ Jadi dibutuhkan sekitar **38,5 m² rumput** dan **11 m pagar** untuk sisi lengkung.`,
+  },
+  {
+    id: 'optimasi-produksi-bengkel',
+    title: 'Optimasi Produksi di Bengkel Kayu',
+    category: 'keuangan',
+    summary: 'Memilih kombinasi produksi yang memaksimumkan laba dengan sumber daya terbatas.',
+    topicIds: ['sistem-pertidaksamaan', 'spltv'],
+    body: `Sebuah bengkel membuat dua jenis rak. Rak A memerlukan **2 jam pemotongan** dan **1 jam penghalusan** dengan laba Rp150.000, sedangkan rak B memerlukan **1 jam pemotongan** dan **2 jam penghalusan** dengan laba Rp200.000. Setiap hari tersedia **8 jam pemotongan** dan **10 jam penghalusan**.`,
+    analysis: `Misal $x$ banyak rak A dan $y$ banyak rak B. Kendalanya:
+$$2x + y \\le 8, \\qquad x + 2y \\le 10, \\qquad x \\ge 0,\\ y \\ge 0.$$
+Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian adalah $(0,0)$, $(4,0)$, $(2,4)$, dan $(0,5)$. Nilai $f$ berturut-turut $0$, Rp600.000, Rp1.100.000, dan Rp1.000.000. Jadi laba maksimum **Rp1.100.000** dicapai dengan membuat **2 rak A dan 4 rak B**. Kombinasi ini tidak menghabiskan seluruh kapasitas pemotongan, tetapi tetap optimal — mengejar "semua bahan terpakai" belum tentu memberi laba terbesar.`,
+  },
+  {
+    id: 'dana-pensiun',
+    title: 'Dana Pensiun: Kekuatan Menabung Lebih Awal',
+    category: 'keuangan',
+    summary: 'Membandingkan setoran bulanan untuk target dana yang sama bila mulai lebih lambat.',
+    topicIds: ['pinjaman-investasi', 'anuitas', 'bunga-majemuk'],
+    body: `Seseorang ingin mengumpulkan **Rp500.000.000** saat pensiun dengan menabung setiap bulan. Dana memberi bunga **0,6% per bulan**. Berapa setoran bulanan yang diperlukan bila mulai **25 tahun** lagi, dan berapa bila menunda sehingga hanya tersisa **15 tahun**?`,
+    analysis: `Dengan rumus nilai masa depan anuitas, $A = \\dfrac{FV \\cdot i}{(1+i)^{n}-1}$.
+- Mulai 25 tahun lagi ($n = 300$): $(1{,}006)^{300} \\approx 6{,}017$, sehingga $A = \\dfrac{500.000.000 \\times 0{,}006}{5{,}017} \\approx \\text{Rp}598.000$ per bulan.
+- Menunda menjadi 15 tahun ($n = 180$): $(1{,}006)^{180} \\approx 2{,}935$, sehingga $A = \\dfrac{3.000.000}{1{,}935} \\approx \\text{Rp}1.550.000$ per bulan.
+
+Menunda 10 tahun membuat setoran bulanan **hampir tiga kali lebih besar**. Waktu adalah variabel paling berpengaruh pada investasi berkala.`,
+  },
+  {
+    id: 'skala-logaritma',
+    title: 'Skala Logaritma: Mengukur Gempa dan Keasaman',
+    category: 'pengukuran',
+    summary: 'Menggunakan logaritma untuk menafsirkan skala kekuatan gempa dan pH.',
+    topicIds: ['persamaan-eksponen-logaritma', 'eksponen', 'fungsi-eksponensial'],
+    body: `Besaran yang jangkauannya sangat lebar diukur dengan skala logaritma. Kekuatan gempa dinyatakan $M = \\log_{10}\\!\\left(\\dfrac{A}{A_0}\\right)$, sedangkan keasaman larutan dinyatakan $\\mathrm{pH} = -\\log_{10}[\\mathrm{H}^{+}]$.`,
+    analysis: `**Gempa.** Selisih satu satuan Richter berarti amplitudo $10$ kali lebih besar. Gempa bermagnitudo $7$ memiliki amplitudo $10^{7-5} = 10^{2} = 100$ kali gempa bermagnitudo $5$. Karena energi sebanding dengan $10^{1{,}5M}$, selisih dua satuan magnitudo menaikkan energi sekitar $10^{3} = 1000$ kali — kenaikan yang terasa kecil pada angka, tetapi sangat besar pada kenyataan.
+
+**pH.** Larutan dengan $\\mathrm{pH}=3$ memiliki konsentrasi ion $\\mathrm{H}^{+}$ sebesar $10^{-3}$ M, sedangkan $\\mathrm{pH}=5$ sebesar $10^{-5}$ M. Selisih dua satuan pH berarti konsentrasinya **100 kali** berbeda. Skala logaritma memampatkan rentang raksasa menjadi angka yang mudah dibaca.`,
+  },
+  {
+    id: 'pemodelan-penyebaran',
+    title: 'Memodelkan Penyebaran Kasus di Awal Wabah',
+    category: 'pertumbuhan',
+    summary: 'Menyusun model eksponensial dari data awal lalu memperkirakan kapan ambang terlampaui.',
+    topicIds: ['pemodelan-fungsi', 'fungsi-eksponensial', 'eksponen'],
+    body: `Pada awal sebuah wabah tercatat **20 kasus**, dan jumlahnya berlipat sekitar **1,5 kali** setiap pekan. Bila pola ini berlanjut, banyak kasus setelah $t$ pekan dimodelkan $K(t) = 20 \\cdot (1{,}5)^{t}$.`,
+    analysis: `Kapan kasus menembus **1.000**? Selesaikan $20 \\cdot (1{,}5)^{t} = 1000$, yaitu $(1{,}5)^{t} = 50$. Dengan logaritma,
+$$t = \\frac{\\log 50}{\\log 1{,}5} \\approx \\frac{3{,}912}{0{,}405} \\approx 9{,}7 \\text{ pekan}.$$
+Jadi sekitar **10 pekan** setelah pencatatan awal. **Asumsi penting:** model menganggap laju berlipat tetap. Pada kenyataannya jumlah penduduk yang belum terpapar berkurang sehingga pertumbuhan melambat — model eksponensial hanya akurat pada fase awal. Menyadari batas model ini adalah bagian inti dari pemodelan.`,
+  },
+  {
+    id: 'kata-sandi',
+    title: 'Menaksir Banyak Kata Sandi dengan Pencacahan',
+    category: 'data',
+    summary: 'Menggunakan aturan perkalian untuk menilai seberapa kuat sebuah kata sandi.',
+    topicIds: ['permutasi-kombinasi', 'peluang'],
+    body: `Aturan pencacahan membantu menilai keamanan kata sandi. Jika setiap posisi dipilih bebas dari sekumpulan karakter, banyak kemungkinan diperoleh dari **aturan perkalian**, bukan permutasi tanpa pengulangan.`,
+    analysis: `- **PIN 4 angka** ($10$ kemungkinan tiap posisi): $10^{4} = 10.000$ kemungkinan.
+- **Kata sandi 6 huruf kecil** ($26$ kemungkinan): $26^{6} = 308.915.776$ kemungkinan.
+- **8 karakter huruf kecil dan angka** ($36$ kemungkinan): $36^{8} \\approx 2{,}82 \\times 10^{12}$ kemungkinan.
+
+Setiap tambahan karakter memperbesar kemungkinan secara **perkalian**, bukan penjumlahan. Karena itu menambah panjang kata sandi jauh lebih efektif daripada hanya mengganti huruf dengan angka. Peluang menebaknya secara acak adalah $\\dfrac{1}{\\text{banyak kemungkinan}}$, yang menyusut sangat cepat seiring bertambahnya panjang.`,
   },
 ];
 

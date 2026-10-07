@@ -19,7 +19,7 @@ const crumbs = [
 
 const meta = [
   `${topics.length} topik lengkap`,
-  `${plannedTopics.length} topik segera hadir`,
+  ...(plannedTopics.length > 0 ? [`${plannedTopics.length} topik segera hadir`] : []),
   `${learningPaths.length} jalur konsep`,
 ];
 ---
@@ -60,7 +60,11 @@ const meta = [
         id="peta-lengkap-heading"
         eyebrow="Cakupan materi"
         title="Peta Kurikulum Lengkap"
-        lead="Seluruh topik tersusun per kelas dan elemen, lengkap dengan penanda materi yang masih direncanakan."
+        lead={
+          plannedTopics.length > 0
+            ? 'Seluruh topik tersusun per kelas dan elemen, lengkap dengan penanda materi yang masih direncanakan.'
+            : 'Seluruh topik tersusun per kelas dan elemen, lengkap dengan cakupan tiap elemen.'
+        }
       />
 
       <MapLegend />
@@ -78,9 +82,18 @@ const meta = [
             ))
           }
         </div>
-        <button type="button" class="btn btn-secondary btn-sm" data-map-toggle aria-pressed="false">
-          Sembunyikan "Segera hadir"
-        </button>
+        {
+          plannedTopics.length > 0 && (
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              data-map-toggle
+              aria-pressed="false"
+            >
+              Sembunyikan "Segera hadir"
+            </button>
+          )
+        }
       </div>
       <p class="map-status text-soft" aria-live="polite" data-map-status></p>
 
