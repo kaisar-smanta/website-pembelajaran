@@ -1,0 +1,95 @@
+---
+import type { Application, Difficulty } from '@/types/content';
+import { applicationCategories } from '@/data/applications';
+import { renderInlineMarkdown } from '@/utils/markdown';
+import { url } from '@/utils/url';
+
+interface Props {
+  application: Application;
+  /** Jeda animasi reveal (ms) untuk efek berjenjang. */
+  delay?: number;
+}
+
+const { application, delay = 0 } = Astro.props;
+const meta = applicationCategories[application.category];
+
+const levelLabels: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
+const summaryHtml = renderInlineMarkdown(application.summary);
+---
+
+<a
+  class="card card-link hover-lift reveal card-accent"
+  href={url(`/aplikasi/${application.id}`)}
+  style={`--accent: ${meta.accent}; --reveal-delay:${delay}ms`}
+>
+  <span class="app-badges">
+    <span class="badge badge-category">{meta.name}</span>
+    <span class:list={['badge', `badge-${application.level}`]}>{levelLabels[application.level]}</span>
+    {
+      application.estimatedMinutes && (
+        <span class="badge badge-time">± {application.estimatedMinutes} menit</span>
+      )
+    }
+  </span>
+  <h3 class="app-card-title">{application.title}</h3>
+  <p class="app-card-summary" set:html={summaryHtml}></p>
+  <span class="cta">Baca studi kasus →</span>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    height: 100%;
+  }
+  .app-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-self: flex-start;
+  }
+  .badge-category {
+    background: color-mix(in srgb, var(--accent) 14%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent) 62%, var(--color-text));
+    border-color: transparent;
+  }
+  .badge-time {
+    background: var(--color-surface-2);
+    color: var(--color-text-soft);
+    border-color: transparent;
+  }
+  .app-card-title {
+    margin: 0;
+    font-size: clamp(1.05rem, 1.1vw + 0.8rem, 1.2rem);
+    line-height: 1.3;
+  }
+  .app-card-summary {
+    margin: 0;
+    flex-grow: 1;
+    color: var(--color-text-muted);
+    font-size: 0.93rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  @supports not ((-webkit-line-clamp: 3) or (line-clamp: 3)) {
+    .app-card-summary {
+      max-height: 4.5em;
+    }
+  }
+  .cta {
+    margin-top: 0.15rem;
+    color: color-mix(in srgb, var(--accent) 72%, var(--color-text));
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+</style>

@@ -3,21 +3,70 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import { applications, applicationCategories } from '@/data/applications';
+import ApplicationCard from '@/components/content/ApplicationCard.astro';
+import {
+  applications,
+  applicationCategories,
+  applicationCategoryOrder,
+} from '@/data/applications';
+import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { url } from '@/utils/url';
-import type { ApplicationCategory, ElementId } from '@/types/content';
+import type { Difficulty } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Matematika dalam Kehidupan' },
 ];
-const order: ApplicationCategory[] = ['keuangan', 'data', 'pertumbuhan', 'pengukuran'];
-const categoryElement: Record<ApplicationCategory, ElementId> = {
-  keuangan: 'bilangan',
-  data: 'data-peluang',
-  pertumbuhan: 'aljabar-fungsi',
-  pengukuran: 'geometri',
+
+const total = applications.length;
+
+const groups = applicationCategoryOrder
+  .map((category) => ({
+    category,
+    meta: applicationCategories[category],
+    items: applications.filter((a) => a.category === category),
+  }))
+  .filter((g) => g.items.length > 0);
+
+const categoryCount = groups.length;
+
+const levelLabels: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
 };
+const levelOrder: Difficulty[] = ['dasar', 'cakap', 'mahir'];
+
+const gradeChips = GRADE_ORDER.map((grade) => ({
+  id: grade,
+  label: GRADES[grade].name,
+  count: applications.filter((a) => a.grade === grade).length,
+})).filter((c) => c.count > 0);
+
+const elementChips = ELEMENT_ORDER.map((id) => ({
+  id,
+  label: ELEMENTS[id].short,
+  count: applications.filter((a) => a.element === id).length,
+})).filter((c) => c.count > 0);
+
+const categoryChips = groups.map((g) => ({
+  id: g.category,
+  label: g.meta.name,
+  count: g.items.length,
+}));
+
+const levelChips = levelOrder
+  .map((level) => ({
+    id: level,
+    label: levelLabels[level],
+    count: applications.filter((a) => a.level === level).length,
+  }))
+  .filter((c) => c.count > 0);
+
+const searchText = (application: (typeof applications)[number]) =>
+  [application.title, application.summary, ...(application.tags ?? [])]
+    .join(' ')
+    .toLowerCase();
 ---
 
 <BaseLayout
@@ -29,82 +78,506 @@ const categoryElement: Record<ApplicationCategory, ElementId> = {
     eyebrow="Aplikasi"
     lead="Matematika berguna ketika membantu kita memahami situasi nyata dan mengambil keputusan. Setiap studi kasus di bawah menghubungkan kembali ke konsep yang mendasarinya."
     crumbs={crumbs}
-    meta={[`${applications.length} studi kasus`, `${order.length} kategori`]}
+    meta={[`${total} studi kasus`, `${categoryCount} kategori`]}
   />
 
-  <div class="container">
-    {
-      order.map((cat) => {
-        const apps = applications.filter((a) => a.category === cat);
-        if (!apps.length) return null;
-        return (
-          <section
-            class:list={['block', `accent-${categoryElement[cat]}`]}
-            aria-labelledby={`c-${cat}`}
-          >
-            <div class="block-head reveal">
-              <span class="icon-tile" aria-hidden="true">
-                <ElementIcon element={categoryElement[cat]} size={24} />
-              </span>
-              <div class="block-copy">
-                <SectionHeading
-                  id={`c-${cat}`}
-                  eyebrow={applicationCategories[cat].name}
-                  title={applicationCategories[cat].name}
-                  lead={applicationCategories[cat].description}
-                  reveal={false}
-                />
+  <section class="section section-paper" aria-label="Saringan studi kasus">
+    <div class="container">
+      <div class="section-heading reveal" data-reveal>
+        <p class="eyebrow-badge">Peta studi kasus</p>
+        <h2 id="app-overview-title">Telusuri matematika dalam kehidupan</h2>
+        <p class="text-muted">
+          Saring menurut kelas, elemen, kategori, atau tingkat penalaran untuk menemukan
+          studi kasus yang paling dekat dengan situasimu.
+        </p>
+      </div>
+
+      <div class="app-filters">
+        <div
+          class="app-filter"
+          data-app-chips="grade"
+          role="group"
+          aria-label="Saring menurut kelas"
+        >
+          <span class="app-filter-label">Kelas</span>
+          <div class="app-chip-row">
+            <button
+              type="button"
+              class="app-chip is-active"
+              data-app-filter="all"
+              aria-pressed="true"
+            >
+              Semua
+              <span class="app-chip-count">{total}</span>
+            </button>
+            {
+              gradeChips.map((c) => (
+                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                  {c.label}
+                  <span class="app-chip-count">{c.count}</span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div
+          class="app-filter"
+          data-app-chips="element"
+          role="group"
+          aria-label="Saring menurut elemen"
+        >
+          <span class="app-filter-label">Elemen</span>
+          <div class="app-chip-row">
+            <button
+              type="button"
+              class="app-chip is-active"
+              data-app-filter="all"
+              aria-pressed="true"
+            >
+              Semua
+              <span class="app-chip-count">{total}</span>
+            </button>
+            {
+              elementChips.map((c) => (
+                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                  {c.label}
+                  <span class="app-chip-count">{c.count}</span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div
+          class="app-filter"
+          data-app-chips="category"
+          role="group"
+          aria-label="Saring menurut kategori"
+        >
+          <span class="app-filter-label">Kategori</span>
+          <div class="app-chip-row">
+            <button
+              type="button"
+              class="app-chip is-active"
+              data-app-filter="all"
+              aria-pressed="true"
+            >
+              Semua
+              <span class="app-chip-count">{total}</span>
+            </button>
+            {
+              categoryChips.map((c) => (
+                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                  {c.label}
+                  <span class="app-chip-count">{c.count}</span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div
+          class="app-filter"
+          data-app-chips="level"
+          role="group"
+          aria-label="Saring menurut tingkat penalaran"
+        >
+          <span class="app-filter-label">Tingkat</span>
+          <div class="app-chip-row">
+            <button
+              type="button"
+              class="app-chip is-active"
+              data-app-filter="all"
+              aria-pressed="true"
+            >
+              Semua
+              <span class="app-chip-count">{total}</span>
+            </button>
+            {
+              levelChips.map((c) => (
+                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                  {c.label}
+                  <span class="app-chip-count">{c.count}</span>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="app-search">
+          <label class="visually-hidden" for="app-search-input">Cari studi kasus</label>
+          <input
+            id="app-search-input"
+            type="search"
+            class="app-search-input"
+            data-app-search-input
+            placeholder="Cari judul, ringkasan, atau kata kunci"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <p class="app-result" data-app-result aria-live="polite">Menampilkan {total} studi kasus</p>
+    </div>
+  </section>
+
+  {
+    groups.map((g, gi) => (
+      <section
+        class:list={['section', 'app-group', gi % 2 === 0 ? 'section-alt' : 'section-paper']}
+        data-app-section
+        data-app-category={g.category}
+        aria-labelledby={`c-${g.category}`}
+        style={`--accent: ${g.meta.accent}`}
+      >
+        <div class="container">
+          <div class="block-head reveal" data-reveal>
+            <span class="icon-tile" aria-hidden="true">
+              <ElementIcon element={g.meta.element} size={24} />
+            </span>
+            <SectionHeading
+              id={`c-${g.category}`}
+              eyebrow={`${g.items.length} studi kasus`}
+              title={g.meta.name}
+              lead={g.meta.description}
+              reveal={false}
+            />
+          </div>
+          <div class="grid grid-2">
+            {g.items.map((a, i) => (
+              <div
+                class="app-item"
+                data-app-item
+                data-app-grade={a.grade}
+                data-app-element={a.element}
+                data-app-category={a.category}
+                data-app-level={a.level}
+                data-app-search={searchText(a)}
+              >
+                <ApplicationCard application={a} delay={i * 70} />
               </div>
-            </div>
-            <div class="grid grid-2">
-              {apps.map((a, i) => (
-                <a
-                  class="card card-link hover-lift reveal card-accent"
-                  href={url(`/aplikasi/${a.id}`)}
-                  style={`--reveal-delay:${i * 70}ms`}
-                >
-                  <h3>{a.title}</h3>
-                  <p class="text-muted">{a.summary}</p>
-                  <span class="cta">Baca studi kasus →</span>
-                </a>
-              ))}
-            </div>
-          </section>
-        );
-      })
-    }
-  </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section">
+    <div class="container">
+      <p class="app-empty" data-app-empty hidden>
+        Tidak ada studi kasus yang cocok dengan saringan ini. Coba ubah kata kunci atau pilih
+        saringan lain.
+      </p>
+      <aside class="closing card card-accent reveal" data-reveal aria-label="Langkah selanjutnya">
+        <p>
+          Ingin melihat konsepnya dari dekat? Coba <a href={url('/eksplorasi')}>ruang eksplorasi</a>,
+          perdalam lewat <a href={url('/latihan')}>latihan berjenjang</a>, atau ikuti alurnya di <a
+            href={url('/peta-pembelajaran')}>peta pembelajaran</a>.
+        </p>
+      </aside>
+    </div>
+  </section>
 </BaseLayout>
 
+<script is:inline>
+  (function () {
+    try {
+      var chipGroups = Array.prototype.slice.call(document.querySelectorAll('[data-app-chips]'));
+      var chips = Array.prototype.slice.call(document.querySelectorAll('[data-app-filter]'));
+      var searchInput = document.querySelector('[data-app-search-input]');
+      var result = document.querySelector('[data-app-result]');
+      var empty = document.querySelector('[data-app-empty]');
+      var items = Array.prototype.slice.call(document.querySelectorAll('[data-app-item]'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('[data-app-section]'));
+
+      if (!chips.length || !items.length) return;
+
+      function groupValue(group) {
+        var active = group.querySelector('[data-app-filter].is-active');
+        return active ? active.getAttribute('data-app-filter') : 'all';
+      }
+
+      function values() {
+        var map = {};
+        chipGroups.forEach(function (group) {
+          map[group.getAttribute('data-app-chips')] = groupValue(group);
+        });
+        return map;
+      }
+
+      function matches(el, v, q) {
+        if (v.grade && v.grade !== 'all' && (el.getAttribute('data-app-grade') || '') !== v.grade) {
+          return false;
+        }
+        if (
+          v.element &&
+          v.element !== 'all' &&
+          (el.getAttribute('data-app-element') || '') !== v.element
+        ) {
+          return false;
+        }
+        if (
+          v.category &&
+          v.category !== 'all' &&
+          (el.getAttribute('data-app-category') || '') !== v.category
+        ) {
+          return false;
+        }
+        if (v.level && v.level !== 'all' && (el.getAttribute('data-app-level') || '') !== v.level) {
+          return false;
+        }
+        if (q && (el.getAttribute('data-app-search') || '').indexOf(q) === -1) return false;
+        return true;
+      }
+
+      function apply() {
+        var v = values();
+        var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        var count = 0;
+
+        items.forEach(function (item) {
+          var match = matches(item, v, q);
+          item.hidden = !match;
+          if (match) {
+            count += 1;
+            var card = item.querySelector('.reveal');
+            if (card) card.classList.add('is-visible');
+          }
+        });
+
+        sections.forEach(function (section) {
+          var any = false;
+          var sectionItems = section.querySelectorAll('[data-app-item]');
+          for (var i = 0; i < sectionItems.length; i++) {
+            if (!sectionItems[i].hidden) {
+              any = true;
+              break;
+            }
+          }
+          section.hidden = !any;
+          if (any) {
+            var head = section.querySelector('.reveal');
+            if (head) head.classList.add('is-visible');
+          }
+        });
+
+        chipGroups.forEach(function (group) {
+          var value = groupValue(group);
+          var groupChips = group.querySelectorAll('[data-app-filter]');
+          for (var i = 0; i < groupChips.length; i++) {
+            var active = groupChips[i].getAttribute('data-app-filter') === value;
+            groupChips[i].classList.toggle('is-active', active);
+            groupChips[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+          }
+        });
+
+        if (empty) empty.hidden = count !== 0;
+        if (result) result.textContent = 'Menampilkan ' + count + ' studi kasus';
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var group = chip.closest('[data-app-chips]');
+          if (group) {
+            var groupChips = group.querySelectorAll('[data-app-filter]');
+            for (var i = 0; i < groupChips.length; i++) {
+              groupChips[i].classList.remove('is-active');
+              groupChips[i].setAttribute('aria-pressed', 'false');
+            }
+          }
+          chip.classList.add('is-active');
+          chip.setAttribute('aria-pressed', 'true');
+          apply();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', apply);
+        searchInput.addEventListener('search', apply);
+      }
+    } catch (e) {
+      /* Biarkan semua kartu tetap tampil bila skrip gagal. */
+    }
+  })();
+</script>
+
 <style>
-  .container {
-    padding-block: 1rem 2.5rem;
+  .app-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.1rem;
   }
-  .block {
-    padding-block: 2rem;
+  .app-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    min-width: 0;
   }
-  .block + .block {
-    border-top: 1px solid var(--color-border);
+  .app-filter-label {
+    flex: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .app-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .app-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      background var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast),
+      transform var(--dur) var(--ease-out-soft);
+  }
+  .app-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .app-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .app-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .app-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .app-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    transition: background var(--dur-fast), color var(--dur-fast);
+  }
+  .app-chip.is-active .app-chip-count {
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+  }
+
+  .app-search {
+    min-width: 0;
+    max-width: 22rem;
+  }
+  .app-search-input {
+    width: 100%;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .app-search-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+
+  .app-result {
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .app-group {
+    scroll-margin-top: var(--header-h);
   }
   .block-head {
     display: flex;
     gap: 0.9rem;
     align-items: flex-start;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
-  .block-copy {
-    flex: 1 1 auto;
-    min-width: 0;
+  .app-item {
+    display: flex;
   }
-  .card h3 {
-    margin-bottom: 0.3rem;
+  .app-item > :global(.card) {
+    flex: 1;
+    width: 100%;
   }
-  .card p {
-    font-size: 0.93rem;
+
+  .closing {
+    margin-top: 1.5rem;
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+    font-size: 0.95rem;
   }
-  .cta {
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
-    font-weight: 600;
-    font-size: 0.9rem;
+  .closing p {
+    margin: 0;
+  }
+  .closing a {
+    display: inline-block;
+    padding-block: 0.25rem;
+  }
+
+  @media (max-width: 30rem) {
+    .app-chip-row {
+      gap: 0.4rem;
+    }
+    .app-chip {
+      padding: 0.42rem 0.75rem;
+      font-size: 0.85rem;
+    }
+    .app-filter {
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .app-chip,
+    .app-chip-count,
+    .app-search-input {
+      transition: none;
+    }
+  }
+
+  @media print {
+    .app-group[hidden],
+    [data-app-item][hidden] {
+      display: block !important;
+    }
+    .app-filters,
+    .app-search,
+    .app-result,
+    .app-empty {
+      display: none !important;
+    }
   }
 </style>

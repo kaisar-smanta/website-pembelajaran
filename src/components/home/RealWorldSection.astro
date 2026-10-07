@@ -1,21 +1,26 @@
 ---
-import type { ElementId } from '@/types/content';
+import type { Difficulty } from '@/types/content';
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import { applications, applicationCategories } from '@/data/applications';
+import {
+  applicationsByCategory,
+  applicationCategories,
+  applicationCategoryOrder,
+} from '@/data/applications';
 import { url } from '@/utils/url';
 
-const accents = ['--color-number', '--color-algebra', '--color-geometry', '--color-data'];
-const elementIcons: ElementId[] = ['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang'];
-const categories = Object.keys(applicationCategories) as Array<keyof typeof applicationCategories>;
-const groups = categories.map((cat, i) => {
-  const apps = applications.filter((a) => a.category === cat);
+const levelLabels: Record<Difficulty, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
+const groups = applicationCategoryOrder.map((cat) => {
+  const apps = applicationsByCategory(cat);
   return {
     cat,
     meta: applicationCategories[cat],
     items: apps.slice(0, 3),
     total: apps.length,
-    accent: accents[i % accents.length],
-    icon: elementIcons[i % elementIcons.length],
   };
 });
 ---
@@ -35,7 +40,7 @@ const groups = categories.map((cat, i) => {
         groups.map((g, i) => (
           <article
             class="card-rail hover-lift reveal"
-            style={`--accent: var(${g.accent}); --reveal-delay:${i * 60}ms`}
+            style={`--accent: ${g.meta.accent}; --reveal-delay:${i * 60}ms`}
             data-reveal
           >
             <div class="apps-head">
@@ -47,7 +52,7 @@ const groups = categories.map((cat, i) => {
                 ]}
                 aria-hidden="true"
               >
-                <ElementIcon element={g.icon} size={18} />
+                <ElementIcon element={g.meta.element} size={18} />
               </span>
               <h3>{g.meta.name}</h3>
             </div>
@@ -55,7 +60,10 @@ const groups = categories.map((cat, i) => {
             <ul class="apps-list" role="list">
               {g.items.map((a) => (
                 <li>
-                  <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
+                  <a href={url(`/aplikasi/${a.id}`)}>
+                    <span>{a.title}</span>
+                    <span class="apps-level">{levelLabels[a.level]}</span>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -126,6 +134,9 @@ const groups = categories.map((cat, i) => {
   .apps-list a {
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
     min-height: 1.5rem;
     padding-block: 0.15rem;
     font-size: 0.92rem;
@@ -133,6 +144,22 @@ const groups = categories.map((cat, i) => {
     font-weight: 500;
     text-decoration: none;
     overflow-wrap: anywhere;
+  }
+  .apps-list a > span:first-child {
+    min-width: 0;
+  }
+  .apps-level {
+    flex: none;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 8%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 62%, var(--color-text));
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    white-space: nowrap;
   }
   .apps-list a:hover,
   .apps-list a:focus-visible {

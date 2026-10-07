@@ -128,6 +128,49 @@ Untuk `short-answer`, tambahkan `acceptedAnswers` berisi bentuk ekuivalen.
 
 ---
 
+## Menambah Studi Kasus (Matematika dalam Kehidupan)
+
+Studi kasus disimpan per kategori di `src/data/applications/`
+(`keuangan.ts`, `data.ts`, `pertumbuhan.ts`, `pengukuran.ts`) dan digabung oleh
+`src/data/applications/index.ts`. Berkas `index.ts` juga menyimpan metadata
+kategori terpusat (`applicationCategories`) — nama, deskripsi, elemen, dan aksen
+— sehingga halaman `/aplikasi`, beranda, dan peta kurikulum tidak lagi
+menduplikasi pemetaan.
+
+```ts
+import type { Application } from '@/types/content';
+
+export const keuanganApplications: Application[] = [
+  {
+    id: 'contoh-studi',
+    title: 'Judul Studi Kasus',
+    category: 'keuangan',      // keuangan | data | pertumbuhan | pengukuran
+    element: 'bilangan',       // harus cocok dengan salah satu topicIds
+    grade: 'X',                // harus cocok dengan salah satu topicIds
+    level: 'dasar',            // dasar | cakap | mahir
+    estimatedMinutes: 8,
+    explorationId: 'bunga-majemuk-sim', // opsional, id dari explorations.ts
+    tags: ['bunga', 'investasi'],
+    summary: 'Ringkasan satu kalimat untuk kartu.',
+    topicIds: ['bunga-majemuk'],        // id topik (referensi, bukan teks)
+    body: 'Konteks nyata dan pertanyaan pemicu. Matematika: $M_n = M_0(1+i)^n$.',
+    analysis: 'Perhitungan, interpretasi, dan keputusan.',
+    takeaways: ['Poin kunci pertama', 'Poin kunci kedua'],
+    reflection: ['Pertanyaan refleksi kontekstual khusus studi kasus ini.'],
+  },
+];
+```
+
+Aturan integritas (diperiksa `npm test` lewat `tests/applications.mjs`):
+`element` dan `grade` harus cocok dengan salah satu topik pada `topicIds`,
+seluruh `topicIds`/`explorationId` harus ada, dan `id` harus unik. Pengesahan
+menghitung cakupan: setiap topik idealnya memiliki minimal satu studi kasus.
+Halaman `/aplikasi`, rincian `/aplikasi/[id]`, sisipan "Penerapan di Dunia
+Nyata" pada halaman topik, beranda, pencarian, dan peta sitemap semuanya
+dibangkitkan dari data ini.
+
+---
+
 ## Menambah Aktivitas Interaktif
 
 1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu dari
@@ -173,7 +216,8 @@ src/
 │   ├── site.ts         Identitas situs, penyusun, sekolah, & tautan resmi
 │   ├── nav.ts          Navigasi header/footer
 │   ├── explorations.ts Registri eksplorasi interaktif
-│   ├── applications.ts Studi kasus "Matematika dalam Kehidupan"
+│   ├── applications/   Studi kasus "Matematika dalam Kehidupan"
+│   │                   (index.ts + satu berkas per kategori)
 │   ├── topics/         Satu berkas per topik (materi)
 │   └── questions/      Satu berkas per topik (bank soal)
 ├── layouts/            BaseLayout.astro

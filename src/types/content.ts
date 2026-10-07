@@ -177,13 +177,31 @@ export interface Application {
   id: string;
   title: string;
   category: ApplicationCategory;
+  /** Elemen kurikulum utama yang paling relevan. */
+  element: ElementId;
+  /** Kelas tempat studi kasus paling relevan. */
+  grade: Grade;
   summary: string;
   /** id topik yang relevan. */
   topicIds: string[];
-  /** Markdown narasi studi kasus. */
+  /** id eksplorasi interaktif terkait (opsional) pada src/data/explorations.ts. */
+  explorationId?: string;
+  /** Tuntutan penalaran studi kasus, sejajar dengan tingkat soal. */
+  level: Difficulty;
+  /** Perkiraan waktu membaca dan mengerjakan (menit). */
+  estimatedMinutes?: number;
+  /** Kata kunci untuk pencarian. */
+  tags?: string[];
+  /** Markdown narasi studi kasus (konteks dan pertanyaan pemicu). */
   body: string;
   /** Contoh perhitungan atau analisis. */
   analysis?: string;
+  /** Pertanyaan refleksi kontekstual khusus studi kasus ini. */
+  reflection?: string[];
+  /** Poin kunci yang harus terbawa setelah membaca. */
+  takeaways?: string[];
+  /** Sumber atau catatan data yang dipakai. */
+  source?: string;
 }
 
 export interface ExplorationParam {

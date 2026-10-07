@@ -1,11 +1,18 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import { renderMarkdown } from '@/utils/markdown';
-import { applications, applicationCategories, getApplication } from '@/data/applications';
+import { renderMarkdown, renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
+import {
+  applications,
+  applicationCategories,
+  getApplication,
+  relatedApplications,
+} from '@/data/applications';
 import { getTopic } from '@/data/topics';
-import { url, topicUrl } from '@/utils/url';
+import { getExploration } from '@/data/explorations';
+import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { url, topicUrl, absoluteUrl } from '@/utils/url';
 
 export function getStaticPaths() {
   return applications.map((a) => ({ params: { id: a.id }, props: { id: a.id } }));
@@ -17,79 +24,220 @@ interface Props {
 const { id } = Astro.props;
 const app = getApplication(id)!;
 const category = applicationCategories[app.category];
+const grade = GRADES[app.grade];
+const element = ELEMENTS[app.element];
+const accent = category.accent;
+
+const levelLabels: Record<string, string> = {
+  dasar: 'Dasar',
+  cakap: 'Cakap',
+  mahir: 'Mahir',
+};
+
 const bodyHtml = renderMarkdown(app.body);
 const analysisHtml = app.analysis ? renderMarkdown(app.analysis) : '';
-const related = app.topicIds.map((tid) => getTopic(tid)).filter((t): t is NonNullable<typeof t> => Boolean(t));
-const others = applications.filter((a) => a.id !== app.id).slice(0, 4);
+const takeaways = app.takeaways ?? [];
+
+const genericReflection = [
+  'Asumsi apa yang dipakai dalam model ini, dan kapan asumsi itu tidak lagi berlaku?',
+  'Besaran mana yang paling memengaruhi hasil, dan mengapa?',
+  'Keputusan apa yang akan kamu ambil berdasarkan analisis ini?',
+];
+const reflection = app.reflection?.length ? app.reflection : genericReflection;
+
+const related = app.topicIds
+  .map((tid) => getTopic(tid))
+  .filter((t): t is NonNullable<typeof t> => Boolean(t));
+
+const practiceTopic = related[0];
+const exploration = app.explorationId ? getExploration(app.explorationId) : undefined;
+const others = relatedApplications(app.id, 4);
+
+const index = applications.findIndex((a) => a.id === app.id);
+const prev = index > 0 ? applications[index - 1] : undefined;
+const next = index >= 0 && index < applications.length - 1 ? applications[index + 1] : undefined;
+
+const meta = [
+  category.name,
+  grade.name,
+  element.name,
+  levelLabels[app.level] ?? app.level,
+  app.estimatedMinutes ? `± ${app.estimatedMinutes} menit` : '',
+].filter(Boolean);
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Matematika dalam Kehidupan', href: url('/aplikasi') },
+  { label: category.name },
   { label: app.title },
 ];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LearningResource',
+  name: app.title,
+  description: stripMarkdown(app.summary),
+  inLanguage: 'id',
+  isAccessibleForFree: true,
+  learningResourceType: 'Studi kasus',
+  educationalLevel: grade.name,
+  about: element.name,
+  url: absoluteUrl(`/aplikasi/${app.id}`),
+};
 ---
 
 <BaseLayout title={app.title} description={app.summary} ogType="article">
-  <div class="container">
-    <Breadcrumbs items={crumbs} />
-    <div class="app-layout">
-      <article class="app-main">
-        <header class="page-head">
-          <span class="badge">{category.name}</span>
-          <h1>{app.title}</h1>
-          <p class="lead">{app.summary}</p>
-        </header>
+  <PageHeader
+    title={app.title}
+    eyebrow="Matematika dalam Kehidupan"
+    lead={app.summary}
+    element={app.element}
+    crumbs={crumbs}
+    meta={meta}
+  />
 
-        <div class="prose" set:html={bodyHtml} />
+  <section class="section" style={`--accent:${accent}`}>
+    <div class="container">
+      <div class="app-layout">
+        <article class="app-main">
+          <div class="case-body">
+            <div class="prose" set:html={bodyHtml} />
+          </div>
 
-        {
-          analysisHtml && (
-            <section class="analysis">
-              <h2>Analisis dan Interpretasi</h2>
-              <div class="prose" set:html={analysisHtml} />
-            </section>
-          )
-        }
+          {
+            analysisHtml && (
+              <section class="panel" aria-labelledby="analisis-heading">
+                <h2 id="analisis-heading" class="panel-title">
+                  Analisis dan Interpretasi
+                </h2>
+                <div class="prose" set:html={analysisHtml} />
+              </section>
+            )
+          }
 
-        <section class="reflection">
-          <h2>Renungkan</h2>
-          <ul>
-            <li>Asumsi apa yang dipakai dalam model ini, dan kapan asumsi itu tidak lagi berlaku?</li>
-            <li>Besaran mana yang paling memengaruhi hasil, dan mengapa?</li>
-            <li>Keputusan apa yang akan kamu ambil berdasarkan analisis ini?</li>
-          </ul>
-        </section>
-      </article>
+          {
+            takeaways.length > 0 && (
+              <section class="panel panel--takeaways" aria-labelledby="intisari-heading">
+                <h2 id="intisari-heading" class="panel-title">
+                  Intisari
+                </h2>
+                <ul class="insight-list">
+                  {takeaways.map((t) => (
+                    <li set:html={renderInlineMarkdown(t)} />
+                  ))}
+                </ul>
+              </section>
+            )
+          }
 
-      <aside class="app-aside no-print">
-        <div class="aside-card">
-          <h2 class="aside-heading">Konsep Terkait</h2>
-          <ul class="aside-links">
-            {
-              related.map((t) => (
-                <li>
-                  <a href={topicUrl(t.grade, t.element, t.slug)}>
-                    <ElementIcon element={t.element} size={16} />
-                    {t.title}
+          <section class="panel panel--reflection" aria-labelledby="renungkan-heading">
+            <h2 id="renungkan-heading" class="panel-title">
+              Renungkan
+            </h2>
+            <ul class="insight-list">
+              {reflection.map((q) => (
+                <li set:html={renderInlineMarkdown(q)} />
+              ))}
+            </ul>
+          </section>
+
+          {
+            (prev || next) && (
+              <nav class="pager no-print" aria-label="Navigasi studi kasus">
+                {prev ? (
+                  <a class="pager-link pager-prev hover-lift" href={url(`/aplikasi/${prev.id}`)}>
+                    <span class="pager-label">Sebelumnya</span>
+                    <span class="pager-title">← {prev.title}</span>
                   </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-        <div class="aside-card">
-          <h2 class="aside-heading">Studi Kasus Lain</h2>
-          <ul class="aside-links">
-            {others.map((a) => (
-              <li>
-                <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
+                ) : (
+                  <span />
+                )}
+                {next ? (
+                  <a class="pager-link pager-next hover-lift" href={url(`/aplikasi/${next.id}`)}>
+                    <span class="pager-label">Selanjutnya</span>
+                    <span class="pager-title">{next.title} →</span>
+                  </a>
+                ) : (
+                  <span />
+                )}
+              </nav>
+            )
+          }
+        </article>
+
+        <aside class="app-aside no-print" aria-label="Informasi studi kasus">
+          {
+            related.length > 0 && (
+              <div class="aside-card">
+                <h2 class="aside-heading">Konsep Terkait</h2>
+                <ul class="aside-links">
+                  {related.map((t) => (
+                    <li>
+                      <a href={topicUrl(t.grade, t.element, t.slug)}>
+                        <ElementIcon element={t.element} size={16} />
+                        {t.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            app.explorationId && (
+              <div class="aside-card">
+                <h2 class="aside-heading">Coba Eksplorasi</h2>
+                <ul class="aside-links">
+                  <li>
+                    <a href={url(`/eksplorasi/${app.explorationId}`)}>
+                      {exploration ? exploration.title : app.explorationId}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            practiceTopic && (
+              <div class="aside-card">
+                <h2 class="aside-heading">Latihan Terkait</h2>
+                <ul class="aside-links">
+                  <li>
+                    <a href={url(`/latihan/${practiceTopic.slug}`)}>
+                      Latihan {practiceTopic.title}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            others.length > 0 && (
+              <div class="aside-card">
+                <h2 class="aside-heading">Studi Kasus Lain</h2>
+                <ul class="aside-links">
+                  {others.map((a) => (
+                    <li>
+                      <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+        </aside>
+      </div>
+
+      <p class="back no-print">
+        <a href={url('/aplikasi')}>← Kembali ke daftar</a>
+      </p>
     </div>
-  </div>
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 </BaseLayout>
 
 <style>
@@ -98,34 +246,69 @@ const crumbs = [
     grid-template-columns: minmax(0, 1fr) 16rem;
     gap: 2.5rem;
     align-items: start;
-    padding-bottom: 2rem;
   }
-  .page-head {
-    padding-block: 0.5rem 1rem;
+  .app-main {
+    min-width: 0;
+    display: grid;
+    gap: 1.5rem;
   }
-  .lead {
-    color: var(--color-text-muted);
-    font-size: 1.05rem;
-  }
-  .analysis {
-    margin-top: 1.5rem;
-    padding: 1.1rem 1.25rem;
+  .case-body {
+    padding: 1.25rem 1.4rem 1.4rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-primary);
+    border-top: 3px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .case-body :global(.prose > *:first-child) {
+    margin-top: 0;
+  }
+  .panel {
+    padding: 1.15rem 1.3rem 1.3rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--accent, var(--color-primary));
     border-radius: var(--radius-lg);
   }
-  .analysis h2 {
-    font-size: 1.15rem;
-  }
-  .reflection {
-    margin-top: 1.5rem;
-    padding: 1.1rem 1.25rem;
+  .panel--takeaways,
+  .panel--reflection {
     background: var(--color-surface-2);
-    border-radius: var(--radius-lg);
   }
-  .reflection h2 {
-    font-size: 1.05rem;
+  .panel--takeaways {
+    border-top: 3px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-border));
+  }
+  .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-soft);
+  }
+  .panel-title::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent, var(--color-primary));
+  }
+  .panel :global(.prose > *:first-child) {
+    margin-top: 0;
+  }
+  .insight-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.55rem;
+    color: var(--color-text-muted);
+  }
+  .insight-list li::marker {
+    color: var(--accent, var(--color-primary));
   }
   .app-aside {
     position: sticky;
@@ -136,16 +319,29 @@ const crumbs = [
   .aside-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
+    border-top: 3px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-border));
     border-radius: var(--radius-lg);
     padding: 1rem;
   }
   .aside-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
     font-family: var(--font-sans);
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: var(--color-text-soft);
     margin-bottom: 0.6rem;
+  }
+  .aside-heading::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--accent, var(--color-primary));
   }
   .aside-links {
     list-style: none;
@@ -161,8 +357,61 @@ const crumbs = [
     text-decoration: none;
     color: var(--color-text-muted);
     font-size: 0.9rem;
+    padding: 0.2rem 0;
   }
   .aside-links a:hover {
+    color: var(--color-primary);
+  }
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .pager-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-top: 3px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-border));
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    text-decoration: none;
+    max-width: 48%;
+    min-width: 0;
+  }
+  .pager-link:hover,
+  .pager-link:focus-visible {
+    border-color: var(--accent, var(--color-primary));
+  }
+  .pager-next {
+    text-align: right;
+    margin-left: auto;
+  }
+  .pager-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 62%, var(--color-text-muted));
+  }
+  .pager-title {
+    font-weight: 600;
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+  }
+  .back {
+    margin: 1.5rem 0 0;
+  }
+  .back a {
+    display: inline-block;
+    padding-block: 0.3rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+  .back a:hover {
     color: var(--color-primary);
   }
   @media (max-width: 58rem) {
@@ -171,6 +420,18 @@ const crumbs = [
     }
     .app-aside {
       position: static;
+    }
+  }
+  @media (max-width: 30rem) {
+    .pager {
+      flex-direction: column;
+    }
+    .pager-link {
+      max-width: 100%;
+    }
+    .pager-next {
+      text-align: left;
+      margin-left: 0;
     }
   }
 </style>

@@ -10,6 +10,11 @@ import PrerequisiteGraph from '@/components/content/PrerequisiteGraph.astro';
 import { ELEMENTS, ELEMENT_ORDER, GRADE_ORDER } from '@/data/curriculum';
 import { topics, plannedTopics } from '@/data/topics';
 import { learningPaths } from '@/data/learning-paths';
+import {
+  applications,
+  applicationCategories,
+  applicationCategoryOrder,
+} from '@/data/applications';
 import { url } from '@/utils/url';
 
 const crumbs = [
@@ -21,6 +26,7 @@ const meta = [
   `${topics.length} topik lengkap`,
   ...(plannedTopics.length > 0 ? [`${plannedTopics.length} topik segera hadir`] : []),
   `${learningPaths.length} jalur konsep`,
+  `${applications.length} studi kasus`,
 ];
 ---
 
@@ -68,6 +74,29 @@ const meta = [
       />
 
       <MapLegend />
+
+      <div class="applications-strip card reveal" data-reveal>
+        <span class="strip-label">Penerapan</span>
+        {
+          ELEMENT_ORDER.map((id) => {
+            const category = applicationCategoryOrder.find(
+              (cat) => applicationCategories[cat].element === id,
+            );
+            const count = applications.filter((a) => a.element === id).length;
+            if (!category || count === 0) return null;
+            return (
+              <a
+                class:list={['strip-item', `accent-${id}`]}
+                href={`${url('/aplikasi')}#c-${category}`}
+                aria-label={`${count} studi kasus ${ELEMENTS[id].name}`}
+              >
+                <span class="strip-count">{count}</span>
+                {ELEMENTS[id].short}
+              </a>
+            );
+          })
+        }
+      </div>
 
       <div class="map-toolbar" data-map-toolbar>
         <div class="map-chips" role="group" aria-label="Saring topik menurut elemen">
@@ -267,6 +296,55 @@ const meta = [
     min-height: 1.2rem;
     margin: 0.6rem 0 0;
     font-size: 0.85rem;
+  }
+  .applications-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 0.9rem;
+    margin-top: 1rem;
+    padding: 0.85rem 1.1rem;
+  }
+  .strip-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .strip-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 28%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
+    color: var(--color-text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+  }
+  .strip-item:hover,
+  .strip-item:focus-visible {
+    border-color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 15%, var(--color-surface));
+  }
+  .strip-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    padding-inline: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-on-primary);
+    background: var(--accent, var(--color-primary));
   }
   .cta-section {
     padding-block: 2.5rem;

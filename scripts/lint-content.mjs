@@ -3,12 +3,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const dir = 'src/data/topics';
-const files = fs.readdirSync(dir).filter((f) => f.endsWith('.ts') && f !== 'index.ts' && f !== 'planned.ts');
+const dirs = ['src/data/topics', 'src/data/applications'];
+const files = dirs.flatMap((dir) =>
+  fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.ts') && f !== 'index.ts' && f !== 'planned.ts')
+    .map((f) => path.join(dir, f)),
+);
 const problems = [];
 
-for (const f of files) {
-  const full = path.join(dir, f);
+for (const full of files) {
+  const f = path.basename(full);
   const lines = fs.readFileSync(full, 'utf8').split(/\r?\n/);
   lines.forEach((line, i) => {
     if (line.trim().startsWith('//')) return;

@@ -82,8 +82,26 @@ export const GET: APIRoute = () => {
       summary: stripMarkdown(a.summary),
       url: `/aplikasi/${a.id}/`,
       type: 'aplikasi',
-      keywords: applicationCategories[a.category].name,
-      text: stripMarkdown(`${a.body} ${a.analysis ?? ''}`).slice(0, 1200),
+      grade: a.grade,
+      element: a.element,
+      keywords: [
+        applicationCategories[a.category].name,
+        GRADES[a.grade].name,
+        ELEMENTS[a.element].name,
+        a.level,
+        ...(a.tags ?? []),
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .trim(),
+      text: stripMarkdown(
+        [
+          a.body,
+          a.analysis ?? '',
+          ...(a.takeaways ?? []),
+          ...(a.reflection ?? []),
+        ].join(' '),
+      ).slice(0, 1500),
     });
   }
 

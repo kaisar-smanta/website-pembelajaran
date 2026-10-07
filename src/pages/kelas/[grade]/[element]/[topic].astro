@@ -1,12 +1,13 @@
 ---
-import type { Topic } from '@/types/content';
+import type { Application, Topic } from '@/types/content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
 import SectionBlock from '@/components/content/SectionBlock.astro';
+import TopicApplications from '@/components/content/TopicApplications.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { topicsByGradeElement, topics, resolveTopics } from '@/data/topics';
-import { applicationsForTopic } from '@/data/applications';
+import { applicationsForTopic, getApplication } from '@/data/applications';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { url, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
 
@@ -41,7 +42,18 @@ const next = currentIndex >= 0 && currentIndex < siblings.length - 1 ? siblings[
 
 const prerequisiteTopics = resolveTopics(topic.prerequisites);
 const related = resolveTopics(topic.relatedTopics);
-const relatedApplications = applicationsForTopic(topic.id);
+
+const curatedApplications = (topic.applications ?? [])
+  .map((id) => getApplication(id))
+  .filter((a): a is Application => a !== undefined);
+const relatedApplications = Array.from(
+  new Map(
+    (curatedApplications.length ? curatedApplications : applicationsForTopic(topic.id)).map((a) => [
+      a.id,
+      a,
+    ]),
+  ).values(),
+);
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -88,6 +100,8 @@ const description = stripMarkdown(topic.summary);
       <article class="topic-main">
         {sectionList.map((section, index) => <SectionBlock section={section} index={index} topicId={topic.id} />)}
 
+        <TopicApplications applications={relatedApplications} />
+
         {(prev || next) && (
           <nav class="topic-pager no-print" aria-label="Navigasi topik">
             {
@@ -124,6 +138,13 @@ const description = stripMarkdown(topic.summary);
                   <a href={`#${s.id}`}>{s.title ?? s.id}</a>
                 </li>
               ))
+            }
+            {
+              relatedApplications.length > 0 && (
+                <li>
+                  <a href="#penerapan">Penerapan di Dunia Nyata</a>
+                </li>
+              )
             }
           </ol>
         </div>
