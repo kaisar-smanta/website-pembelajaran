@@ -56,9 +56,11 @@ export const dataBivariat: Topic = {
 Data apa yang sebaiknya ia kumpulkan, dan bagaimana cara menampilkannya agar pola hubungan terlihat dalam sekali pandang?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Ia perlu mengumpulkan **pasangan** data (lama belajar, nilai) untuk setiap orang, lalu menampilkan setiap pasangan sebagai satu titik pada bidang koordinat. Penyajian inilah yang disebut **diagram pencar**. Dari sebaran titiknya kita dapat melihat arah dan kekuatan hubungan.`,
+          kind: 'prediction',
+          prompt: 'Cara apa yang paling tepat menampilkan pasangan data dua variabel agar pola hubungan terlihat dalam sekali pandang?',
+          options: ['Diagram batang', 'Diagram pencar', 'Diagram lingkaran', 'Tabel frekuensi'],
+          reveal: `Ia perlu mengumpulkan **pasangan** data (lama belajar, nilai) untuk setiap orang, lalu menampilkan setiap pasangan sebagai satu titik pada bidang koordinat. Penyajian inilah yang disebut **diagram pencar**. Dari sebaran titiknya kita dapat melihat arah dan kekuatan hubungan.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -97,6 +99,17 @@ Sebagai contoh, untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar
           title: 'Inti yang perlu diingat',
           text: 'Pada data bivariat, satu titik merepresentasikan **satu objek** dengan dua nilai sekaligus. Menempatkan $x$ dan $y$ dengan benar penting untuk menafsirkan arah hubungan.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan istilah dengan maknanya.',
+          pairs: [
+            { left: 'Data bivariat', right: 'Pasangan dua variabel kuantitatif untuk objek yang sama' },
+            { left: 'Variabel bebas', right: 'Variabel penjelas $x$ yang diatur atau diduga sebagai penyebab' },
+            { left: 'Variabel terikat', right: 'Variabel respons $y$ yang diukur sebagai akibat' },
+            { left: 'Diagram pencar', right: 'Setiap pasangan $(x,y)$ digambar sebagai satu titik' },
+            { left: 'Korelasi', right: 'Ukuran arah dan kekuatan hubungan linear, diringkas oleh $r$' },
+          ],
+        },
       ],
     },
     {
@@ -122,6 +135,14 @@ Saat titik-titik di atas digambar pada bidang koordinat, tampak kecenderungan **
             ['Bentuk', 'Lurus atau melengkung?', 'Cenderung lurus'],
             ['Kekuatan', 'Titik mengumpul atau menyebar?', 'Cukup rapat (kuat)'],
             ['Pencilan', 'Ada titik yang jauh menyimpang?', 'Tidak tampak mencolok'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Tabel', body: 'Data lama belajar $x$ dan nilai $y$ disusun berpasangan: $(1,2),(2,4),(3,5),\\dots,(8,11)$.' },
+            { label: 'Diagram', body: 'Titik-titik digambar pada bidang koordinat; sebaran menanjak dari kiri bawah ke kanan atas.' },
+            { label: 'Tafsiran', body: 'Arah menaik (positif), bentuk cenderung lurus, kekuatan cukup rapat, dan tidak tampak pencilan mencolok.' },
           ],
         },
       ],
@@ -194,6 +215,18 @@ Untuk data lama belajar dan nilai di atas, koefisien korelasinya sekitar $r \\ap
 **Contoh 3.** Pada data lama belajar dan nilai, apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu?
 
 *Penyelesaian.* Tidak wajar. Data hanya mencakup $x$ dari $1$ hingga $8$ jam, sedangkan nilai maksimumnya $11$. Memperkirakan di luar rentang data disebut **ekstrapolasi** dan sangat berisiko: pola linear belum tentu berlaku pada jam belajar yang jauh lebih banyak.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari menilai apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu.',
+          steps: [
+            { title: 'Periksa rentang data', text: 'Data lama belajar hanya mencakup $x$ dari $1$ sampai $8$ jam.' },
+            { title: 'Bandingkan dengan pertanyaan', text: '$20$ jam berada jauh di luar rentang data, sehingga perkiraan itu termasuk ekstrapolasi.' },
+            { title: 'Periksa kewajaran nilai', text: 'Nilai terbesar pada data hanya $11$, sedangkan prediksi untuk $20$ jam bisa melampaui skala nilai yang masuk akal.' },
+            { title: 'Simpulkan', text: 'Perkiraan itu tidak wajar; prediksi paling aman berada di dalam rentang data ($1$ sampai $8$ jam).' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -294,6 +327,19 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
 **4. Mempercayai ekstrapolasi jauh.** Memperkirakan nilai di luar rentang data berbahaya karena tren bisa berubah.
 
 **5. Menganggap satu pencilan sebagai pola.** Satu titik menyimpang dapat menarik garis tren. Periksa apakah titik itu sah atau kesalahan pencatatan.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menafsirkan diagram pencar antara penjualan es krim dan angka kejahatan. Klik langkah yang keliru.',
+          steps: [
+            'Kedua variabel naik-turun bersama, jadi di antara keduanya ada korelasi positif.',
+            'Karena berkorelasi, membeli es krim menyebabkan orang berbuat kejahatan.',
+            'Maka untuk menekan kejahatan, cukup kurangi penjualan es krim.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Korelasi tidak menyiratkan sebab-akibat. Kedua variabel dipengaruhi faktor ketiga, yaitu suhu panas, sehingga hubungannya semu.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -304,6 +350,16 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
 1. Apa perbedaan antara "berkorelasi" dan "menyebabkan"?
 2. Ketika melihat diagram pencar, informasi apa yang paling dulu kamu perhatikan?
 3. Sebutkan satu pasangan variabel di sekitarmu yang mungkin berkorelasi karena faktor ketiga, bukan karena sebab-akibat langsung.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Apa perbedaan antara "berkorelasi" dan "menyebabkan"?',
+            'Ketika melihat diagram pencar, informasi apa yang paling dulu kamu perhatikan?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu menafsirkan arah, kekuatan, dan pencilan pada diagram pencar?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

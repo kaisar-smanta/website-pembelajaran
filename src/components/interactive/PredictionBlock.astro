@@ -1,0 +1,228 @@
+---
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'prediction' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const promptHtml = renderMarkdown(block.prompt);
+const revealHtml = renderMarkdown(block.reveal);
+const options = block.options ?? [];
+const saveLabel = block.saveLabel ?? 'Simpan dugaan';
+---
+
+<figure class="itx prediction" data-prediction data-pid={storageId}>
+  <div class="itx-head">
+    <span class="itx-kicker">Tebak dulu</span>
+    <span class="itx-hint">Tanpa penilaian — bandingkan dengan penjelasan setelahnya.</span>
+  </div>
+
+  <div class="itx-prompt prose" set:html={promptHtml} />
+
+  {
+    options.length > 0 ? (
+      <fieldset class="pred-options">
+        <legend class="visually-hidden">Pilih dugaanmu</legend>
+        {options.map((opt) => (
+          <label class="pred-option">
+            <input type="radio" name={`pred-${storageId}`} value={opt} data-pred-option />
+            <span set:html={renderInlineMarkdown(opt)} />
+          </label>
+        ))}
+      </fieldset>
+    ) : (
+      <label class="pred-free">
+        <span class="visually-hidden">Tulis dugaanmu</span>
+        <textarea data-pred-input rows="3" placeholder="Tulis dugaanmu di sini…"></textarea>
+      </label>
+    )
+  }
+
+  <div class="itx-bar">
+    <button type="button" class="btn btn-primary btn-sm" data-pred-save>{saveLabel}</button>
+    <span class="itx-saved" data-pred-saved hidden aria-live="polite">Dugaanmu tersimpan.</span>
+  </div>
+
+  <div class="itx-reveal prose" data-pred-reveal hidden set:html={revealHtml} />
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+  }
+  .itx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .itx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+  }
+  .itx-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+  }
+  .itx-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+  .itx-prompt {
+    font-size: 1rem;
+  }
+  .itx-prompt :global(> *:last-child) {
+    margin-bottom: 0.6rem;
+  }
+  .pred-options {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    border: 0;
+  }
+  .pred-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .pred-option:hover {
+    border-color: var(--accent, var(--color-primary));
+  }
+  .pred-option:has(input:checked) {
+    border-color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 10%, var(--color-surface));
+  }
+  .pred-option input {
+    margin-top: 0.25rem;
+    accent-color: var(--accent, var(--color-primary));
+  }
+  .pred-free textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    resize: vertical;
+  }
+  .itx-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.35rem;
+  }
+  .itx-saved {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--color-success);
+  }
+  .itx-reveal {
+    margin-top: 0.9rem;
+    padding: 0.8rem 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+  .itx-reveal :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prediction * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { loadPredictions, savePredictions, recordPrediction } from '@/lib/learner';
+
+  function setupPrediction(root: Element) {
+    const id = root.getAttribute('data-pid') ?? '';
+    const save = root.querySelector<HTMLButtonElement>('[data-pred-save]');
+    const saved = root.querySelector<HTMLElement>('[data-pred-saved]');
+    const reveal = root.querySelector<HTMLElement>('[data-pred-reveal]');
+    const input = root.querySelector<HTMLTextAreaElement>('[data-pred-input]');
+    const options = Array.from(root.querySelectorAll<HTMLInputElement>('[data-pred-option]'));
+    if (!save || !reveal) return;
+
+    let storage: Storage | undefined;
+    try {
+      storage = window.localStorage;
+    } catch {
+      storage = undefined;
+    }
+
+    function currentValue(): string {
+      if (input) return input.value.trim();
+      const checked = options.find((o) => o.checked);
+      return checked ? checked.value : '';
+    }
+
+    function apply(value: string, stored = false) {
+      if (input) input.value = value;
+      const match = options.find((o) => o.value === value);
+      if (match) match.checked = true;
+      if (value) {
+        reveal!.hidden = false;
+        if (saved) saved.hidden = !stored;
+      }
+    }
+
+    const existing = loadPredictions(storage)[id];
+    if (existing) apply(existing.value, true);
+
+    save.addEventListener('click', () => {
+      const value = currentValue();
+      if (!value) {
+        if (saved) {
+          saved.hidden = false;
+          saved.textContent = 'Tulis atau pilih dugaanmu dulu.';
+          saved.style.color = 'var(--color-danger)';
+        }
+        return;
+      }
+      if (storage) {
+        savePredictions(storage, recordPrediction(loadPredictions(storage), id, value));
+      }
+      if (saved) {
+        saved.hidden = false;
+        saved.textContent = 'Dugaanmu tersimpan.';
+        saved.style.color = '';
+      }
+      reveal!.hidden = false;
+      window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'prediction' } }));
+    });
+  }
+
+  document.querySelectorAll('[data-prediction]').forEach(setupPrediction);
+</script>

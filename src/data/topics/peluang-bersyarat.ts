@@ -60,9 +60,11 @@ Banyak orang spontan menjawab $\\tfrac12$ dengan alasan "anak lainnya pasti laki
 Hitung dulu dengan menuliskan seluruh kemungkinan jenis kelamin dua anak secara berurutan.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat arah jawaban',
-          text: `Ruang sampel: $\\{LL, LP, PL, PP\\}$. Informasi "paling sedikit satu laki-laki" menyisakan $\\{LL, LP, PL\\}$ — tiga hasil sama mungkin. Dari ketiganya, hanya $LL$ yang memenuhi "keduanya laki-laki", sehingga peluangnya $\\tfrac13$, bukan $\\tfrac12$. Inilah inti **peluang bersyarat**: ruang sampel dipersempit oleh informasi yang sudah diketahui.`,
+          kind: 'prediction',
+          prompt: 'Sebuah keluarga memiliki dua anak dan diketahui paling sedikit satu di antaranya laki-laki. Berapa peluang keduanya laki-laki?',
+          options: ['$\\tfrac12$', '$\\tfrac13$', '$\\tfrac14$', '$\\tfrac23$'],
+          reveal: `Ruang sampel: $\\{LL, LP, PL, PP\\}$. Informasi "paling sedikit satu laki-laki" menyisakan $\\{LL, LP, PL\\}$ — tiga hasil sama mungkin. Dari ketiganya, hanya $LL$ yang memenuhi "keduanya laki-laki", sehingga peluangnya $\\tfrac13$, bukan $\\tfrac12$. Inilah inti **peluang bersyarat**: ruang sampel dipersempit oleh informasi yang sudah diketahui.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -106,6 +108,17 @@ Memang, jika kita tahu muncul mata genap, peluang mata lebih dari 3 adalah $\\tf
           title: 'Inti yang perlu diingat',
           text: 'Peluang bersyarat **mempersempit ruang sampel**. Penyebut $P(B)$ memastikan peluang dihitung ulang relatif terhadap informasi baru.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan istilah dengan maknanya.',
+          pairs: [
+            { left: 'Peluang bersyarat', right: 'Peluang $A$ dengan syarat $B$ sudah terjadi' },
+            { left: 'Aturan perkalian', right: '$P(A\\cap B) = P(A\\mid B)P(B)$' },
+            { left: 'Aturan Bayes', right: 'Membalik arah peluang bersyarat dengan memperbarui dugaan awal' },
+            { left: 'Saling bebas', right: 'Terjadinya $B$ tidak mengubah peluang $A$' },
+            { left: 'Tabel kontingensi', right: 'Tabel silang dua kategori untuk membaca peluang dari proporsi' },
+          ],
+        },
       ],
     },
     {
@@ -134,6 +147,14 @@ Perhatikan bahwa $P(M \\mid F) \\neq P(F \\mid M)$ — peluang bersyarat bergant
           kind: 'callout',
           variant: 'tip',
           text: 'Untuk $P(A \\mid B)$, bagi irisan dengan **total baris/kolom milik $B$**, bukan dengan total keseluruhan.',
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: '$P(M\\mid F)=\\dfrac{P(M\\cap F)}{P(F)}$ dan $P(F\\mid M)=\\dfrac{P(F\\cap M)}{P(M)}$.' },
+            { label: 'Tabel', body: 'Dari tabel: $P(M\\mid F)=\\dfrac{40}{70}=\\dfrac47\\approx 0{,}571$.' },
+            { label: 'Perbandingan', body: '$P(F\\mid M)=\\dfrac{40}{60}=\\dfrac23\\approx 0{,}667$, berbeda dari $P(M\\mid F)$ karena kondisi yang diketahui berbeda.' },
+          ],
         },
       ],
     },
@@ -232,6 +253,18 @@ Jadi setelah melihat bola merah, peluang memilih Kantong A naik menjadi $\\tfrac
 - Peluang kartu kedua As **jika** kartu pertama As adalah $\\tfrac{1}{17} \\approx 0{,}0588$.
 
 **Contoh 4 — Pencacahan.** Dari 8 siswa akan dipilih 3 untuk mewakili kelas. Banyak susunan tim (urutan tidak penting) adalah $\\binom{8}{3} = 56$.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari hitung peluang dua kartu As diambil berturut-turut tanpa pengembalian, satu langkah sekaligus.',
+          steps: [
+            { title: 'Kartu pertama', text: 'Ada $4$ As dari $52$ kartu, sehingga $P(\\text{As}_1)=\\dfrac{4}{52}=\\dfrac{1}{13}$.' },
+            { title: 'Kondisi setelah pengambilan', text: 'Karena tanpa pengembalian, tersisa $51$ kartu dan $3$ As.' },
+            { title: 'Peluang bersyarat', text: '$P(\\text{As}_2\\mid\\text{As}_1)=\\dfrac{3}{51}=\\dfrac{1}{17}$.' },
+            { title: 'Aturan perkalian', text: '$P(\\text{As}_1\\cap\\text{As}_2)=\\dfrac{1}{13}\\cdot\\dfrac{1}{17}=\\dfrac{1}{221}$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -318,6 +351,19 @@ Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**
 **4. Mengabaikan peluang awal pada aturan Bayes.** Hasil positif pada penyakit langka tetap bisa berarti peluang sakit kecil. Peluang awal sangat menentukan.
 
 **5. Salah memilih permutasi atau kombinasi.** Gunakan kombinasi bila urutan **tidak** penting (memilih tim), dan permutasi bila urutan **penting** (menyusun jabatan atau kata sandi).`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa membaca tabel kontingensi dengan $n(F\\cap M)=40$, $n(F)=70$, dan $n(M)=60$. Klik langkah yang keliru.',
+          steps: [
+            'Untuk $P(M\\mid F)$, bagi irisan dengan total milik $F$: $P(M\\mid F)=\\dfrac{40}{70}=\\dfrac47$.',
+            'Karena $P(F\\mid M)$ memakai angka irisan yang sama, hasilnya juga $\\dfrac47$.',
+            'Jadi $P(F\\mid M)=\\dfrac47$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Untuk $P(F\\mid M)$ pembaginya adalah total milik $M$, bukan total milik $F$. Seharusnya $P(F\\mid M)=\\dfrac{40}{60}=\\dfrac23$. Jangan menukar kondisi yang diketahui.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -328,6 +374,16 @@ Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**
 1. Bagaimana informasi tambahan "mempersempit" ruang sampel, dan mengapa itu mengubah peluang?
 2. Kapan kamu harus memakai aturan Bayes, dan mengapa peluang awal begitu penting?
 3. Apa perbedaan mendasar antara permutasi dan kombinasi, serta bagaimana kamu memutuskan mana yang dipakai?`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Bagaimana informasi tambahan mempersempit ruang sampel, dan mengapa itu mengubah peluang?',
+            'Kapan kamu harus memakai aturan Bayes, dan mengapa peluang awal begitu penting?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu menghitung peluang bersyarat dari tabel dan rumus?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

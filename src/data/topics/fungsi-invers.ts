@@ -26,6 +26,7 @@ export const fungsiInvers: Topic = {
   ],
   prerequisites: ['fungsi-kuadrat'],
   relatedTopics: ['komposisi-fungsi', 'transformasi-fungsi'],
+  explorations: ['fungsi-invers-sim'],
   prerequisiteKnowledge: [
     'Pengertian relasi dan fungsi',
     'Notasi fungsi serta cara mensubstitusi nilai ke dalam fungsi',
@@ -57,11 +58,13 @@ Pertanyaannya: **jika yang diketahui adalah keluaran $F = 77$, dapatkah kita men
 Mesin tadi adalah sebuah fungsi. Yang kita cari adalah "mesin balik" yang mengubah arah dari Fahrenheit ke Celsius.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Mesin balik diperoleh dengan menyelesaikan $F = \\dfrac{9}{5}C + 32$ untuk $C$:
+          kind: 'prediction',
+          prompt: 'Jika diketahui keluaran $F = 77$, berapakah nilai masukan $C$ semula?',
+          options: ['$C = 25$', '$C = 32$', '$C = 45$', '$C = 77$'],
+          reveal: `Mesin balik diperoleh dengan menyelesaikan $F = \\dfrac{9}{5}C + 32$ untuk $C$:
 $$C = \\frac{5}{9}(F - 32).$$
 Untuk $F = 77$ diperoleh $C = \\dfrac{5}{9}(77 - 32) = \\dfrac{5}{9}(45) = 25$. Jadi masukan semula memang dapat ditemukan kembali. Inilah gagasan **fungsi invers**.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -100,6 +103,16 @@ Untuk fungsi pada bilangan real, himpunan nilai $x$ yang boleh dimasukkan disebu
           title: 'Inti yang perlu diingat',
           text: 'Domain adalah himpunan masukan, kodomain adalah himpunan tujuan, dan range adalah himpunan hasil yang benar-benar tercapai. Range selalu berada di dalam kodomain.',
         },
+        {
+          kind: 'match',
+          intro: 'Cocokkan istilah dasar pemetaan dengan maknanya.',
+          pairs: [
+            { left: 'Domain', right: 'Himpunan semua masukan yang boleh dimasukkan' },
+            { left: 'Kodomain', right: 'Himpunan tujuan pemetaan' },
+            { left: 'Range', right: 'Himpunan hasil yang benar-benar tercapai' },
+            { left: 'Bijektif', right: 'Fungsi satu-satu dan pada, sehingga memiliki invers' },
+          ],
+        },
       ],
     },
     {
@@ -116,6 +129,14 @@ Untuk fungsi pada bilangan real, himpunan nilai $x$ yang boleh dimasukkan disebu
             ['$1$', '$3$', '$(1,3)$'],
             ['$2$', '$5$', '$(2,5)$'],
             ['$3$', '$7$', '$(3,7)$'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Fungsi $f(x)=2x+1$ memetakan $x$ ke $2x+1$; inversnya membalik arah pemetaan itu.' },
+            { label: 'Tabel', body: 'Tabel pasangan terurut $(x, f(x))$ dapat dibaca terbalik menjadi pasangan $(f(x), x)$ untuk inversnya.' },
+            { label: 'Grafik', body: 'Grafik $f^{-1}$ adalah cerminan grafik $f$ terhadap garis $y=x$, karena koordinat tiap titik bertukar.' },
           ],
         },
       ],
@@ -180,6 +201,13 @@ Contoh: grafik $f(x)=2x+1$ melalui $(1,3)$. Maka grafik $f^{-1}(x)=\\dfrac{x-1}{
           ],
         },
       ],
+    },
+    {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Fungsi Invers',
+      body: `Gunakan simulator untuk memasukkan fungsi linear dan melihat grafik inversnya. Amati bahwa grafik $f$ dan $f^{-1}$ selalu saling mencerminkan terhadap garis $y=x$. Ubah koefisien dan periksa bagaimana kemiringan serta titik potongnya berubah.`,
+      blocks: [{ kind: 'exploration', explorationId: 'fungsi-invers-sim' }],
     },
     {
       id: 'contoh',

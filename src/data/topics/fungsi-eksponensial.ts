@@ -37,7 +37,7 @@ export const fungsiEksponensial: Topic = {
     { text: 'Menyelesaikan persamaan eksponen dengan menyamakan basis.' },
     { text: 'Memodelkan dan menafsirkan masalah pertumbuhan serta peluruhan.' },
   ],
-  explorations: ['fungsi-eksponensial-parameter'],
+  explorations: ['fungsi-eksponensial-grafik'],
   applications: ['pertumbuhan-populasi', 'peluruhan-zat'],
   sections: [
     {
@@ -57,9 +57,11 @@ $$N(t) = 500 \\cdot 2^{\\,t/20}.$$
 Dua jam kemudian, berapa banyak bakteri? Sebelum menghitung, kira-kira apakah jawabannya ratusan, ribuan, atau puluhan ribu?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Dua jam sama dengan $120$ menit, yaitu $120/20=6$ selang waktu. Maka $N(120)=500\\cdot2^{6}=500\\cdot64=32.000$ sel. Jauh lebih besar dari dugaan "hanya beberapa ribu" — inilah ciri pertumbuhan berlipat yang cepat.`,
+          kind: 'prediction',
+          prompt: 'Dua jam kemudian, kira-kira berapa banyak bakteri?',
+          options: ['Ratusan', 'Ribuan', 'Puluhan ribu'],
+          reveal: `Dua jam sama dengan $120$ menit, yaitu $120/20=6$ selang waktu. Maka $N(120)=500\\cdot2^{6}=500\\cdot64=32.000$ sel. Jauh lebih besar dari dugaan "hanya beberapa ribu" — inilah ciri pertumbuhan berlipat yang cepat.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -98,6 +100,16 @@ Karena $f(0)=a\\cdot b^{0}=a$, nilai $a$ adalah titik potong grafik dengan sumbu
           title: 'Inti yang perlu diingat',
           text: 'Pada fungsi eksponensial, **variabel berada di eksponen**, bukan di basis. Inilah pembeda utamanya dari fungsi kuadrat $ax^{2}$.',
         },
+        {
+          kind: 'match',
+          intro: 'Cocokkan istilah berikut dengan maknanya.',
+          pairs: [
+            { left: 'Basis', right: 'Bilangan $b$ yang dipangkatkan pada $f(x)=a\\cdot b^{x}$' },
+            { left: 'Pertumbuhan', right: 'Terjadi saat $b>1$ sehingga grafik monoton naik' },
+            { left: 'Peluruhan', right: 'Terjadi saat $0<b<1$ sehingga grafik monoton turun' },
+            { left: 'Asimtot horizontal', right: 'Garis $y=0$ yang didekati grafik tetapi tidak disentuh' },
+          ],
+        },
       ],
     },
     {
@@ -119,6 +131,14 @@ Karena $f(0)=a\\cdot b^{0}=a$, nilai $a$ adalah titik potong grafik dengan sumbu
           variant: 'info',
           title: 'Yang terlihat dari tabel',
           text: 'Setiap kenaikan $x$ sebesar $1$ mengalikan nilai dengan $2$. Untuk $x$ negatif, nilainya mengecil mendekati nol tetapi tidak pernah negatif — inilah asimtot.',
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: '$f(x)=2^{x}$. Variabel $x$ berada di eksponen dan basisnya tetap, yaitu $2$.' },
+            { label: 'Tabel', body: 'Nilai pada tabel berlipat dua setiap $x$ bertambah satu, dan mengecil mendekati nol untuk $x$ negatif.' },
+            { label: 'Grafik', body: 'Kurva naik dari kiri ke kanan, melalui $(0,1)$, dan mendekati sumbu-$x$ sebagai asimtot tanpa menyentuhnya.' },
+          ],
         },
       ],
     },
@@ -147,7 +167,7 @@ Untuk $a>0$, domain fungsi adalah seluruh bilangan real dan daerah hasilnya $y>0
       kind: 'eksplorasi',
       title: 'Eksplorasi',
       body: `Gunakan penggeser untuk mengubah koefisien $a$ dan basis $b$ pada $f(x)=a\\cdot b^{x}$. Bandingkan grafik untuk $b>1$ (pertumbuhan) dan $0<b<1$ (peluruhan), lalu amati kapan grafik naik atau turun.`,
-      blocks: [{ kind: 'exploration', explorationId: 'fungsi-eksponensial-parameter' }],
+      blocks: [{ kind: 'exploration', explorationId: 'fungsi-eksponensial-grafik' }],
     },
     {
       id: 'rumus',
@@ -185,6 +205,18 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
 **Contoh 4 (pemodelan).** Modal Rp5.000.000 ditabung dengan bunga majemuk $10\\%$ per tahun. Tentukan saldo setelah $3$ tahun.
 
 *Penyelesaian.* $M(t)=5.000.000(1{,}1)^{t}$, maka $M(3)=5.000.000\\cdot1{,}331=6.655.000$. Saldo menjadi **Rp6.655.000**.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari selesaikan $4^{x}=8^{x-1}$ dengan menyamakan basis, satu langkah sekaligus.',
+          steps: [
+            { title: 'Ubah ke basis 2', text: '$4^{x}=(2^{2})^{x}=2^{2x}$ dan $8^{x-1}=(2^{3})^{x-1}=2^{3x-3}$.' },
+            { title: 'Samakan eksponen', text: 'Karena basisnya sama, berlaku $2x=3x-3$.' },
+            { title: 'Selesaikan', text: '$2x=3x-3 \\Rightarrow x=3$.' },
+            { title: 'Periksa', text: '$4^{3}=64$ dan $8^{2}=64$, jadi $x=3$ memenuhi.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -283,6 +315,20 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
 **3. Menukar pertumbuhan dan peluruhan.** Basis $b>1$ berarti **pertumbuhan**; $0<b<1$ berarti **peluruhan**. Jangan terbalik.
 
 **4. Mengganggap grafik memotong sumbu-$x$.** Untuk $a>0$, $b^{x}$ tidak pernah nol; sumbu-$x$ hanyalah asimtot.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menyederhanakan $2^{x+1}$. Klik langkah yang keliru.',
+          steps: [
+            'Tulis $2^{x+1}$ sebagai hasil perkalian sesuai sifat pangkat.',
+            'Gunakan $a^{m+n}=a^{m}\\cdot a^{n}$, sehingga $2^{x+1}=2^{x}\\cdot2^{1}$.',
+            'Karena $2^{1}=2$, hasilnya $2\\cdot2^{x}$.',
+            'Karena eksponennya dijumlahkan, hasilnya juga $2^{x}+2$.',
+          ],
+          wrongIndex: 3,
+          explanation: 'Sifat eksponen bekerja pada **perkalian**, bukan penjumlahan. Hasil yang benar adalah $2^{x+1}=2\\cdot2^{x}$, bukan $2^{x}+2$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -291,6 +337,17 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       body: `1. Apa perbedaan penting antara fungsi kuadrat dan fungsi eksponensial?
 2. Bagaimana kamu menentukan apakah suatu model menggambarkan pertumbuhan atau peluruhan?
 3. Mengapa sebuah besaran yang tumbuh eksponensial akhirnya bisa melampaui besaran yang tumbuh linear?`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Apa perbedaan penting antara fungsi kuadrat dan fungsi eksponensial?',
+            'Bagaimana kamu menentukan apakah suatu model menggambarkan pertumbuhan atau peluruhan?',
+            'Mengapa besaran yang tumbuh eksponensial akhirnya dapat melampaui besaran yang tumbuh linear?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu membedakan pertumbuhan dan peluruhan?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

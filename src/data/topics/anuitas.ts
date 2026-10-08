@@ -48,9 +48,16 @@ export const anuitas: Topic = {
 Pertanyaan: apakah setiap bulan ia membayar bunga yang sama? Jika bunga per bulan 1,5%, berapa bagian angsuran yang benar-benar mengurangi utang pada **bulan pertama**? Jawaban ini menunjukkan mengapa saldo utang turun perlahan di awal.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat arah jawaban',
-          text: `Pada bulan pertama, bunga $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Karena angsuran Rp500.000, yang mengurangi pokok hanya Rp350.000. Bunga bulan berikutnya dihitung dari sisa utang yang lebih kecil, sehingga porsi pokok makin besar dan porsi bunga makin kecil — meskipun angsurannya tetap.`,
+          kind: 'prediction',
+          prompt: `Jika bunga per bulan $1{,}5\\%$, berapa bagian dari angsuran Rp500.000 pada **bulan pertama** yang benar-benar mengurangi utang pokok? Pilih dugaanmu, lalu bandingkan.`,
+          options: [
+            'Rp500.000 (seluruhnya)',
+            'Rp350.000',
+            'Rp150.000',
+            'Rp50.000',
+          ],
+          reveal: `Pada bulan pertama, bunga $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Karena angsuran Rp500.000, yang mengurangi pokok hanya Rp350.000. Bunga bulan berikutnya dihitung dari sisa utang yang lebih kecil, sehingga porsi pokok makin besar dan porsi bunga makin kecil — meskipun angsurannya tetap.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -96,6 +103,17 @@ Inilah **rumus angsuran anuitas**. Angsuran $A$ terdiri atas **angsuran bunga** 
           title: 'Anuitas vs bunga majemuk',
           text: 'Pada bunga majemuk, kita mencari saldo **akhir**. Pada anuitas, kita mencari pembayaran tetap yang membuat saldo akhir menjadi **nol**. Keduanya memakai basis $(1+i)^n$, tetapi tujuannya berbeda.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan setiap istilah anuitas dengan maknanya.',
+          pairs: [
+            { left: 'Anuitas', right: 'Rangkaian pembayaran sama besar secara berkala' },
+            { left: 'Angsuran pokok', right: 'Bagian angsuran yang mengurangi sisa utang' },
+            { left: 'Angsuran bunga', right: '$i \\times$ sisa utang pada periode itu' },
+            { left: 'Nilai sekarang (PV)', right: 'Nilai tunai seluruh angsuran saat ini' },
+            { left: 'Nilai masa depan (FV)', right: 'Saldo terkumpul dari setoran rutin' },
+          ],
+        },
       ],
     },
     {
@@ -111,6 +129,16 @@ Nilai masa depan (future value) dari $n$ angsuran $A$ yang diinvestasikan adalah
 $$FV = A \\cdot \\frac{(1+i)^{n}-1}{i}.$$
 
 Rumus $PV$ menjawab "berapa pinjaman yang setara dengan angsuran ini", sedangkan $FV$ menjawab "berapa saldo terkumpul dari menabung rutin".`,
+      blocks: [
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: '$PV = A \\cdot \\frac{1-(1+i)^{-n}}{i}$ dan $FV = A \\cdot \\frac{(1+i)^{n}-1}{i}$ merangkum hubungan antara angsuran, bunga, dan waktu.' },
+            { label: 'Tabel', body: 'Tabel amortisasi mencatat angsuran, bunga, pokok, dan sisa utang pada setiap periode.' },
+            { label: 'Grafik', body: 'Dari periode ke periode, porsi bunga menurun dan porsi pokok meningkat meskipun besar angsuran tetap.' },
+          ],
+        },
+      ],
     },
     {
       id: 'eksplorasi',
@@ -140,6 +168,18 @@ Total pembayaran $= 24 \\times 499.241 = \\text{Rp}11.981.784$, dengan **total b
 *Penyelesaian.* Bunga bulan 1 $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Angsuran pokok $= 499.241 - 150.000 = \\text{Rp}349.241$. Sisa utang $= 10.000.000 - 349.241 = \\text{Rp}9.650.759$.
 
 Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsuran pokok $\\approx \\text{Rp}354.480$. Terlihat porsi pokok meningkat.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Ikuti langkah menghitung besar angsuran pinjaman Rp10.000.000 dengan anuitas 24 bulan dan bunga 1,5% per bulan.',
+          steps: [
+            { title: 'Langkah 1', text: 'Catat besaran yang diketahui: $M = 10.000.000$, $i = 0{,}015$, dan $n = 24$.' },
+            { title: 'Langkah 2', text: 'Hitung faktor diskon: $(1{,}015)^{24} \\approx 1{,}429503$, sehingga $(1{,}015)^{-24} \\approx 0{,}699544$.' },
+            { title: 'Langkah 3', text: 'Substitusi ke rumus: $A = \\frac{10.000.000 \\times 0{,}015}{1 - 0{,}699544} = \\frac{150.000}{0{,}300456}$.' },
+            { title: 'Langkah 4', text: 'Bagi dan bulatkan: $A \\approx \\text{Rp}499.241$ per bulan.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -220,6 +260,20 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
 **4. Membandingkan hanya besar angsuran.** Angsuran kecil karena tenor panjang belum tentu murah; bandingkan **total bunga**.
 
 **5. Membulatkan angsuran terlalu awal.** Membulatkan $A$ ke ribuan sebelum menghitung total membuat kesalahan menumpuk.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Perhatikan perhitungan angsuran pinjaman dengan bunga tahunan yang dihitung bulanan. Ada satu langkah keliru. Klik langkah yang salah.',
+          steps: [
+            'Pinjaman Rp10.000.000 dengan bunga $12\\%$ per tahun, dihitung bulanan, tenor $5$ tahun.',
+            'Gunakan suku bunga $i = 12\\% = 0{,}12$ untuk **setiap bulan**.',
+            'Gunakan $n = 5 \\times 12 = 60$ periode.',
+            'Hitung $A = \\frac{10.000.000(0{,}12)}{1-(1{,}12)^{-60}}$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Langkah kedua keliru. Suku bunga tahunan harus diubah ke per periode: $i = 12\\% / 12 = 1\\% = 0{,}01$ per bulan. Memakai $i = 0{,}12$ per bulan membuat angsuran tampak jauh lebih besar daripada seharusnya.',
+        },
+      ],
     },
     {
       id: 'refleksi',

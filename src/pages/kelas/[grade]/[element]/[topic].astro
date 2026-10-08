@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
 import SectionBlock from '@/components/content/SectionBlock.astro';
 import TopicApplications from '@/components/content/TopicApplications.astro';
+import TopicProgress from '@/components/content/TopicProgress.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { topicsByGradeElement, topics, resolveTopics } from '@/data/topics';
@@ -148,6 +149,8 @@ const description = stripMarkdown(topic.summary);
             }
           </ol>
         </div>
+
+        <TopicProgress />
 
         {
           prerequisiteTopics.length ? (

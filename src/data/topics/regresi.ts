@@ -60,9 +60,11 @@ export const regresi: Topic = {
 Dugalah dulu sebelum melanjutkan. Bandingkan dugaan awalmu dengan hasil perhitungan pada bagian konsep.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat arah jawaban',
-          text: `Garis "kelihatan pas" bersifat subjektif dan dapat berbeda antar orang. Regresi linear memberi aturan objektif: pilih garis yang membuat **jumlah kuadrat selisih** antara nilai amatan dan nilai garis sekecil mungkin. Kekuatan hubungan diringkas oleh koefisien korelasi $r$, sedangkan seberapa besar variasi yang dijelaskan dinyatakan oleh $r^2$.`,
+          kind: 'prediction',
+          prompt: 'Bagaimana menentukan garis lurus terbaik untuk mewakili sebaran titik data secara matematis?',
+          options: ['Garis yang melewati titik terbanyak', 'Garis yang membuat jumlah kuadrat residu minimum', 'Garis yang melewati titik pertama dan terakhir', 'Garis dengan gradien terbesar'],
+          reveal: `Garis "kelihatan pas" bersifat subjektif dan dapat berbeda antar orang. Regresi linear memberi aturan objektif: pilih garis yang membuat **jumlah kuadrat selisih** antara nilai amatan dan nilai garis sekecil mungkin. Kekuatan hubungan diringkas oleh koefisien korelasi $r$, sedangkan seberapa besar variasi yang dijelaskan dinyatakan oleh $r^2$.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -111,6 +113,17 @@ Metode yang meminimumkan besaran ini disebut **metode kuadrat terkecil** (least 
           variant: 'concept',
           title: 'Inti yang perlu diingat',
           text: 'Garis regresi adalah **garis rata-rata terbaik**, bukan garis yang harus dilalui setiap titik. Kualitasnya dinilai dari seberapa kecil kuadrat residu totalnya.',
+        },
+        {
+          kind: 'match',
+          intro: 'Pasangkan istilah regresi dengan maknanya.',
+          pairs: [
+            { left: 'Garis regresi', right: 'Garis lurus yang paling mewakili pola data' },
+            { left: 'Gradien $b$', right: 'Perubahan rata-rata $y$ untuk setiap tambahan satu satuan $x$' },
+            { left: 'Intersep $a$', right: 'Nilai dugaan $\\hat{y}$ ketika $x=0$' },
+            { left: 'Residu', right: 'Selisih antara nilai amatan dan nilai dugaan' },
+            { left: 'Determinasi $r^2$', right: 'Proporsi variasi $y$ yang dijelaskan oleh model' },
+          ],
         },
       ],
     },

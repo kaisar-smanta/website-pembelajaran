@@ -1,0 +1,145 @@
+---
+import { renderMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'tabs' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
+---
+
+<figure class="itx tabs" data-tabs data-tid={storageId}>
+  <div class="tablist" role="tablist" aria-label="Pilih representasi">
+    {
+      block.items.map((item, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`${base}-tab-${i}`}
+          aria-controls={`${base}-panel-${i}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? '0' : '-1'}
+          class="tab-btn"
+          data-tab-btn
+          data-index={String(i)}
+        >
+          {item.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="tab-panels">
+    {
+      block.items.map((item, i) => (
+        <div
+          role="tabpanel"
+          id={`${base}-panel-${i}`}
+          aria-labelledby={`${base}-tab-${i}`}
+          class="tab-panel prose"
+          data-tab-panel
+          data-index={String(i)}
+          tabindex="0"
+          set:html={renderMarkdown(item.body)}
+        />
+      ))
+    }
+  </div>
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+    overflow: hidden;
+  }
+  .tablist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.7rem 0.8rem 0;
+  }
+  .tab-btn {
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--color-border-strong);
+    border-bottom: none;
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .tab-btn:hover {
+    color: var(--color-text);
+  }
+  .tab-btn[aria-selected='true'] {
+    background: var(--color-surface);
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 78%, var(--color-text));
+    border-color: var(--color-border);
+    box-shadow: 0 -2px 0 var(--accent, var(--color-primary)) inset;
+  }
+  .tab-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .tab-panels {
+    padding: 0.95rem 1.05rem;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+  .tab-panel :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .tab-panel:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+    border-radius: var(--radius-sm);
+  }
+</style>
+
+<script>
+  function setupTabs(root: Element) {
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab-btn]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-tab-panel]'));
+    if (!buttons.length || !panels.length) return;
+
+    function activate(index: number) {
+      buttons.forEach((btn, i) => {
+        const selected = i === index;
+        btn.setAttribute('aria-selected', String(selected));
+        btn.tabIndex = selected ? 0 : -1;
+      });
+      panels.forEach((panel, i) => {
+        panel.hidden = i !== index;
+      });
+      const id = root.getAttribute('data-tid') ?? '';
+      window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'tabs' } }));
+    }
+
+    buttons.forEach((btn, i) => {
+      btn.addEventListener('click', () => activate(i));
+      btn.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const dir = event.key === 'ArrowRight' ? 1 : -1;
+        const next = (i + dir + buttons.length) % buttons.length;
+        buttons[next].focus();
+        activate(next);
+      });
+    });
+
+    activate(0);
+  }
+
+  document.querySelectorAll('[data-tabs]').forEach(setupTabs);
+</script>

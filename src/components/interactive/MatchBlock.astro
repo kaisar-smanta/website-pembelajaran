@@ -1,0 +1,253 @@
+---
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
+import { seededShuffle } from '@/lib/learner';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'match' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const introHtml = block.intro ? renderMarkdown(block.intro) : '';
+const leftItems = block.pairs.map((pair, i) => ({ text: pair.left, index: i }));
+const rightItems = seededShuffle(
+  block.pairs.map((pair, i) => ({ text: pair.right, index: i })),
+  storageId,
+);
+---
+
+<figure class="itx match" data-match data-mid={storageId}>
+  <div class="itx-head">
+    <span class="itx-kicker">Pasangkan</span>
+    <span class="itx-hint">Klik satu kartu kiri, lalu pasangannya di kanan.</span>
+  </div>
+
+  {introHtml && <div class="itx-prompt prose" set:html={introHtml} />}
+
+  <div class="match-board">
+    <div class="match-col">
+      {leftItems.map((item) => (
+        <button type="button" class="match-card" data-match-left data-index={String(item.index)}>
+          <span class="prose" set:html={renderInlineMarkdown(item.text)} />
+        </button>
+      ))}
+    </div>
+    <div class="match-col">
+      {rightItems.map((item) => (
+        <button type="button" class="match-card" data-match-right data-index={String(item.index)}>
+          <span class="prose" set:html={renderInlineMarkdown(item.text)} />
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <p class="itx-feedback" data-match-feedback role="status" aria-live="polite">0 dari {block.pairs.length} pasangan cocok.</p>
+
+  <div class="itx-bar">
+    <button type="button" class="btn btn-ghost btn-sm" data-match-reset hidden>Ulangi</button>
+  </div>
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+  }
+  .itx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .itx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+  }
+  .itx-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+  }
+  .itx-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+  .itx-prompt {
+    font-size: 0.98rem;
+  }
+  .itx-prompt :global(> *:last-child) {
+    margin-bottom: 0.75rem;
+  }
+  .match-board {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+  .match-col {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  .match-card {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft),
+      transform var(--dur-fast) var(--ease-out-soft);
+  }
+  .match-card:hover:not(:disabled) {
+    border-color: var(--accent, var(--color-primary));
+  }
+  .match-card :global(> .prose > *:last-child),
+  .match-card :global(.prose > *:last-child) {
+    margin-bottom: 0;
+  }
+  .match-card.is-selected {
+    border-color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface));
+  }
+  .match-card.is-matched {
+    border-color: var(--color-success);
+    background: var(--color-success-soft);
+    cursor: default;
+  }
+  .match-card.is-wrong {
+    border-color: var(--color-danger);
+    background: var(--color-danger-soft);
+    animation: match-shake 300ms var(--ease-out-soft);
+  }
+  @keyframes match-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+  }
+  .itx-feedback {
+    margin: 0.85rem 0 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .itx-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  @media (max-width: 34rem) {
+    .match-board {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .match-card.is-wrong {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function setupMatch(root: Element) {
+    const lefts = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-match-left]'));
+    const rights = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-match-right]'));
+    const feedback = root.querySelector<HTMLElement>('[data-match-feedback]');
+    const reset = root.querySelector<HTMLButtonElement>('[data-match-reset]');
+    const total = lefts.length;
+    if (!total) return;
+
+    let selected: HTMLButtonElement | null = null;
+    const matched = new Set<string>();
+    const id = root.getAttribute('data-mid') ?? '';
+
+    function updateFeedback() {
+      if (feedback) {
+        feedback.textContent = `${matched.size} dari ${total} pasangan cocok.`;
+      }
+      if (matched.size === total && reset) reset.hidden = false;
+      if (matched.size === total) {
+        window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'match' } }));
+      }
+    }
+
+    function clearSelection() {
+      selected?.classList.remove('is-selected');
+      selected = null;
+    }
+
+    lefts.forEach((left) => {
+      left.addEventListener('click', () => {
+        if (left.classList.contains('is-matched')) return;
+        if (selected === left) {
+          clearSelection();
+          return;
+        }
+        clearSelection();
+        selected = left;
+        left.classList.add('is-selected');
+      });
+    });
+
+    rights.forEach((right) => {
+      right.addEventListener('click', () => {
+        if (!selected || right.classList.contains('is-matched')) return;
+        const leftIndex = selected.getAttribute('data-index');
+        const rightIndex = right.getAttribute('data-index');
+        if (leftIndex === rightIndex) {
+          selected.classList.add('is-matched');
+          selected.classList.remove('is-selected');
+          right.classList.add('is-matched');
+          matched.add(leftIndex ?? '');
+          selected.disabled = true;
+          right.disabled = true;
+          clearSelection();
+          updateFeedback();
+        } else {
+          const wrongLeft = selected;
+          right.classList.add('is-wrong');
+          wrongLeft.classList.add('is-wrong');
+          setTimeout(() => {
+            right.classList.remove('is-wrong');
+            wrongLeft.classList.remove('is-wrong');
+          }, 500);
+        }
+      });
+    });
+
+    reset?.addEventListener('click', () => {
+      matched.clear();
+      clearSelection();
+      lefts.concat(rights).forEach((btn) => {
+        btn.disabled = false;
+        btn.classList.remove('is-matched', 'is-wrong', 'is-selected');
+      });
+      if (reset) reset.hidden = true;
+      updateFeedback();
+    });
+
+    updateFeedback();
+  }
+
+  document.querySelectorAll('[data-match]').forEach(setupMatch);
+</script>

@@ -61,9 +61,16 @@ Banyak siswa memperkirakan tebalnya hanya beberapa milimeter. Hitunglah secara b
 Setelah 10 lipatan tebalnya adalah $0{,}1 \\times 2^{10}$ mm. Berapa hasilnya? Bandingkan dugaanmu sebelum menekan tombol hitung.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Karena $2^{10} = 1024$, maka tebalnya $0{,}1 \\times 1024 = 102{,}4$ mm, yaitu sekitar $10{,}24$ cm. Jauh lebih besar daripada dugaan awal. Di sinilah pentingnya memahami **perkalian berulang yang tumbuh cepat**.`,
+          kind: 'prediction',
+          prompt: `Setelah dilipat $10$ kali, berapa tebal tumpukan kertas $0{,}1$ mm itu? Pilih dugaanmu, lalu bandingkan dengan perhitungan sebenarnya.`,
+          options: [
+            'Sekitar $10$ mm',
+            'Sekitar $100$ mm (10 cm)',
+            'Sekitar $1.000$ mm (1 m)',
+            'Lebih dari $1$ m',
+          ],
+          reveal: `Karena $2^{10} = 1024$, maka tebalnya $0{,}1 \\times 1024 = 102{,}4$ mm, yaitu sekitar $10{,}24$ cm. Jauh lebih besar daripada dugaan awal. Di sinilah pentingnya memahami **perkalian berulang yang tumbuh cepat**.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -105,6 +112,17 @@ Perhatikan bahwa eksponen berfungsi sebagai **penghitung banyaknya faktor**, buk
           title: 'Inti yang perlu diingat',
           text: 'Eksponen menyatakan berapa kali basis dijadikan faktor. Menambah eksponen berarti **mengalikan**, bukan menjumlahkan basis.',
         },
+        {
+          kind: 'flip-cards',
+          intro: 'Bolak-balik kartu untuk memeriksa istilah kunci pada topik ini.',
+          cards: [
+            { front: 'Basis', back: 'Bilangan yang dipangkatkan, misalnya $a$ pada $a^{n}$.' },
+            { front: 'Eksponen', back: 'Banyaknya faktor basis, misalnya $n$ pada $a^{n}$.' },
+            { front: 'Pangkat nol', back: '$a^{0} = 1$ untuk $a \\neq 0$.' },
+            { front: 'Pangkat negatif', back: '$a^{-n} = \\dfrac{1}{a^{n}}$ untuk $a \\neq 0$.' },
+            { front: 'Pangkat pecahan', back: '$a^{m/n} = \\sqrt[n]{a^{m}}$, misalnya $27^{2/3} = 9$.' },
+          ],
+        },
       ],
     },
     {
@@ -121,6 +139,14 @@ Perhatikan bahwa eksponen berfungsi sebagai **penghitung banyaknya faktor**, buk
             ['Perkalian berulang', '$2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2$'],
             ['Notasi eksponen', '$2^{5}$'],
             ['Hasil', '$32$'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Bentuk ringkasnya $2^{5}$, yang berarti basis $2$ dipangkatkan $5$.' },
+            { label: 'Perkalian', body: 'Dijabarkan menjadi $2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2$, yaitu lima faktor yang sama.' },
+            { label: 'Tabel', body: 'Nilainya tumbuh cepat: $2^{1}=2$, $2^{2}=4$, $2^{3}=8$, $2^{4}=16$, $2^{5}=32$.' },
           ],
         },
       ],
@@ -219,6 +245,18 @@ Maka $2\\sqrt{3}+3\\sqrt{3}-4\\sqrt{3} = (2+3-4)\\sqrt{3} = \\sqrt{3}$.
 *Penyelesaian.* Nyatakan kedua ruas dengan basis yang sama, yaitu 2:
 
 $$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Ikuti langkah menyederhanakan $(2x^{3}y^{-2})^{2} \\cdot (x^{-2}y^{3})$ satu per satu.',
+          steps: [
+            { title: 'Langkah 1', text: 'Pangkatkan setiap faktor: $(2x^{3}y^{-2})^{2} = 2^{2}(x^{3})^{2}(y^{-2})^{2} = 4x^{6}y^{-4}$.' },
+            { title: 'Langkah 2', text: 'Kalikan dengan $x^{-2}y^{3}$: $4x^{6}y^{-4} \\cdot x^{-2}y^{3}$.' },
+            { title: 'Langkah 3', text: 'Jumlahkan eksponen basis yang sama: $4x^{6+(-2)}y^{-4+3} = 4x^{4}y^{-1}$.' },
+            { title: 'Langkah 4', text: 'Tulis pangkat negatif sebagai pecahan: $\\dfrac{4x^{4}}{y}$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -308,6 +346,20 @@ Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuha
 **3. Mengalikan eksponen saat menjumlahkan basis.** $(a+b)^{2}\\neq a^{2}+b^{2}$. Sifat $(ab)^n=a^nb^n$ berlaku untuk **perkalian**, bukan penjumlahan. Coba $a=b=1$: $(1+1)^2=4$ sedangkan $1^2+1^2=2$.
 
 **4. Menjumlahkan akar berbeda.** $\\sqrt{2}+\\sqrt{8}=3\\sqrt{2}$, bukan $\\sqrt{10}$.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Perhatikan penyelesaian $2^{3} \\cdot 2^{5}$. Salah satu langkah keliru. Klik langkah yang salah.',
+          steps: [
+            'Kalikan basisnya: $2 \\times 2 = 4$.',
+            'Jumlahkan eksponennya: $3 + 5 = 8$.',
+            'Tuliskan hasil sebagai $2^{8}$.',
+            'Hitung nilainya: $2^{8} = 256$.',
+          ],
+          wrongIndex: 0,
+          explanation: 'Langkah pertama keliru. Saat mengalikan bilangan berpangkat dengan **basis sama**, basis tidak berubah; yang bertambah adalah eksponennya. Jadi $2^{3} \\cdot 2^{5} = 2^{8} = 256$, bukan $4^{8}$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -318,6 +370,17 @@ Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuha
 1. Kapan kamu perlu menggunakan sifat eksponen, dan kapan sifat itu **tidak** berlaku?
 2. Kesalahan apa yang paling sering kamu lakukan, dan bagaimana cara menghindarinya?
 3. Berikan satu contoh situasi nyata di sekitarmu yang pertumbuhannya bersifat "berlipat" (eksponensial), bukan "bertambah tetap" (linear).`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Kapan kamu perlu menggunakan sifat eksponen, dan kapan sifat itu **tidak** berlaku?',
+            'Kesalahan apa yang paling sering kamu lakukan saat bekerja dengan pangkat, dan bagaimana cara menghindarinya?',
+            'Berikan satu contoh pertumbuhan yang bersifat "berlipat" di sekitarmu.',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu dengan materi eksponen ini?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

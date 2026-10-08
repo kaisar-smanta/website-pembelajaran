@@ -26,6 +26,7 @@ export const lingkaran: Topic = {
   ],
   prerequisites: [],
   relatedTopics: ['trigonometri'],
+  explorations: ['lingkaran-eksplorasi'],
   prerequisiteKnowledge: [
     'Teorema Pythagoras',
     'Sifat segitiga sama kaki',
@@ -55,9 +56,11 @@ export const lingkaran: Topic = {
 Berapa luas rumput dan berapa panjang pagar yang dibutuhkan? Bisakah kamu menghitungnya hanya dengan mengetahui jari-jari dan sudut pusat?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Juring $90^\\circ$ adalah $\\dfrac{1}{4}$ lingkaran. Luas juring $=\\dfrac{1}{4}\\pi r^{2}=\\dfrac{1}{4}\\cdot\\dfrac{22}{7}\\cdot49=38{,}5$ m². Panjang busur $=\\dfrac{1}{4}\\cdot2\\pi r=\\dfrac{1}{4}\\cdot2\\cdot\\dfrac{22}{7}\\cdot7=11$ m. Jadi dibutuhkan **38,5 m² rumput** dan **11 m pagar**.`,
+          kind: 'prediction',
+          prompt: 'Taman berbentuk juring berjari-jari $7$ m dengan sudut pusat $90^\\circ$. Berapa luas rumput dan panjang pagar pada sisi lengkungnya?',
+          options: ['Luas $38{,}5$ m² dan pagar $11$ m', 'Luas $154$ m² dan pagar $22$ m', 'Luas $19{,}25$ m² dan pagar $5{,}5$ m', 'Luas $49$ m² dan pagar $14$ m'],
+          reveal: `Juring $90^\\circ$ adalah $\\dfrac{1}{4}$ lingkaran. Luas juring $=\\dfrac{1}{4}\\pi r^{2}=\\dfrac{1}{4}\\cdot\\dfrac{22}{7}\\cdot49=38{,}5$ m². Panjang busur $=\\dfrac{1}{4}\\cdot2\\pi r=\\dfrac{1}{4}\\cdot2\\cdot\\dfrac{22}{7}\\cdot7=11$ m. Jadi dibutuhkan **38,5 m² rumput** dan **11 m pagar**.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -93,6 +96,20 @@ Berapa luas rumput dan berapa panjang pagar yang dibutuhkan? Bisakah kamu menghi
 - **apotema**: jarak terpendek dari pusat ke tali busur.
 
 Diameter selalu $2$ kali jari-jari, sehingga $r=\\dfrac{d}{2}$.`,
+      blocks: [
+        {
+          kind: 'flip-cards',
+          intro: 'Balik tiap kartu untuk menguji istilah unsur lingkaran.',
+          cards: [
+            { front: 'Pusat', back: 'Titik tetap yang menjadi acuan semua titik lingkaran.' },
+            { front: 'Jari-jari', back: 'Ruas garis dari pusat ke titik pada lingkaran, panjangnya $r$.' },
+            { front: 'Diameter', back: 'Tali busur yang melalui pusat, panjangnya $d=2r$.' },
+            { front: 'Juring', back: 'Daerah yang dibatasi dua jari-jari dan satu busur.' },
+            { front: 'Tembereng', back: 'Daerah yang dibatasi tali busur dan busur.' },
+            { front: 'Apotema', back: 'Jarak terpendek dari pusat ke tali busur.' },
+          ],
+        },
+      ],
     },
     {
       id: 'sudut',
@@ -118,6 +135,14 @@ Sebagai contoh, jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika
           variant: 'warning',
           title: 'Hati-hati',
           text: 'Hubungan $\\angle AOB=2\\angle ACB$ hanya berlaku jika kedua sudut **menghadap busur yang sama**. Jika menghadap busur berbeda, hubungan itu tidak berlaku.',
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: '$\\angle AOB=2\\angle ACB$ untuk kedua sudut yang menghadap busur $AB$.' },
+            { label: 'Tabel', body: 'Sudut pusat $80^\\circ$ memberi sudut keliling $40^\\circ$; sudut pusat $120^\\circ$ memberi sudut keliling $60^\\circ$.' },
+            { label: 'Kasus khusus', body: 'Jika sudut pusat menghadap diameter, besarnya $180^\\circ$, sehingga sudut kelilingnya selalu $90^\\circ$.' },
+          ],
         },
       ],
     },
@@ -168,6 +193,13 @@ $$\\ell_{\\text{dalam}}=\\sqrt{d^{2}-(R+r)^{2}}.$$
 Semua rumus ini berasal dari teorema Pythagoras pada segitiga yang dibentuk garis singgung, jari-jari, dan garis pusat.`,
     },
     {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Unsur dan Sudut Lingkaran',
+      body: `Geser titik pada lingkaran dan ubah besar sudut untuk melihat bagaimana sudut pusat, sudut keliling, panjang busur, dan luas juring saling berkaitan. Amati kapan hubungan sudut pusat dua kali sudut keliling tetap berlaku.`,
+      blocks: [{ kind: 'exploration', explorationId: 'lingkaran-eksplorasi' }],
+    },
+    {
       id: 'contoh',
       kind: 'contoh',
       title: 'Contoh Terbimbing',
@@ -185,6 +217,18 @@ $$s=\\frac{90}{360}\\times2\\times\\frac{22}{7}\\times14=22 \\text{ cm}, \\qquad
 
 *Penyelesaian.*
 $$\\ell=\\sqrt{13^{2}-5^{2}}=\\sqrt{169-25}=\\sqrt{144}=12 \\text{ cm}.$$`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari hitung panjang busur dan luas juring untuk $r=14$ cm dan sudut pusat $90^\\circ$, satu langkah sekaligus.',
+          steps: [
+            { title: 'Tentukan pecahan sudut', text: 'Sudut $90^\\circ$ adalah $\\dfrac{90}{360}=\\dfrac{1}{4}$ dari satu putaran penuh.' },
+            { title: 'Panjang busur', text: '$s=\\dfrac{1}{4}\\times2\\pi r=\\dfrac{1}{4}\\times2\\times\\dfrac{22}{7}\\times14=22$ cm.' },
+            { title: 'Luas juring', text: '$L=\\dfrac{1}{4}\\times\\pi r^{2}=\\dfrac{1}{4}\\times\\dfrac{22}{7}\\times196=154$ cm².' },
+            { title: 'Tafsirkan', text: 'Juring $90^\\circ$ dari lingkaran berjari-jari $14$ cm memiliki busur $22$ cm dan luas $154$ cm².' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -282,6 +326,19 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
 **4. Menyamakan tembereng dengan juring.** Tembereng $=$ juring $-$ segitiga. Untuk sudut $90^\\circ$ dan $r=14$, juringnya $154$ tetapi temberengnya hanya $56$.
 
 **5. Salah memasukkan tanda kurung pada garis singgung persekutuan.** Luar memakai $(R-r)^{2}$, dalam memakai $(R+r)^{2}$.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menghitung luas lingkaran berdiameter $14$ cm dengan $\\pi=\\dfrac{22}{7}$. Klik langkah yang keliru.',
+          steps: [
+            'Diketahui diameter $d=14$ cm.',
+            'Jari-jari adalah $r=\\dfrac{d}{2}=\\dfrac{14}{2}=7$ cm.',
+            'Luas $=\\pi r^{2}=\\dfrac{22}{7}\\times14^{2}=\\dfrac{22}{7}\\times196=616$ cm².',
+          ],
+          wrongIndex: 2,
+          explanation: 'Langkah terakhir memakai $14$ sebagai jari-jari, padahal $r=7$. Seharusnya luas $=\\dfrac{22}{7}\\times7^{2}=\\dfrac{22}{7}\\times49=154$ cm².',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -292,6 +349,16 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
 1. Bagaimana kamu membedakan soal yang memerlukan sudut pusat dan sudut keliling?
 2. Kapan kamu memakai $\\pi=\\dfrac{22}{7}$ dan kapan $3{,}14$ atau $\\pi$? Apa pertimbanganmu?
 3. Sebutkan satu benda nyata yang bentuknya melibatkan garis singgung dua lingkaran.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Bagaimana kamu membedakan soal yang memerlukan sudut pusat dan sudut keliling?',
+            'Kapan kamu memakai $\\pi=\\dfrac{22}{7}$ dan kapan $3{,}14$? Apa pertimbanganmu?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu menghitung busur, juring, dan garis singgung?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

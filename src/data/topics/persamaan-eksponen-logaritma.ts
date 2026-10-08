@@ -48,9 +48,11 @@ Kita dapat menuliskan jumlah sel setelah $t$ jam sebagai $2^{t}$. Jadi kita menc
 Sekarang, berapa $t$ jika jumlahnya menjadi $100$ sel? Angka $100$ bukan pangkat bulat dari $2$. Bagaimana cara menuliskan jawabannya? Di sinilah logaritma muncul.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Untuk $2^{t}=128$ diperoleh $t=7$ karena $2^{7}=128$. Untuk $2^{t}=100$, nilai $t$ berada di antara $6$ (karena $2^{6}=64$) dan $7$ (karena $2^{7}=128$). Jawaban tepatnya ditulis $t=\\log_{2}100$, yaitu "pangkat yang harus diberikan pada $2$ agar hasilnya $100$". Nilainya kira-kira $6{,}64$ jam.`,
+          kind: 'prediction',
+          prompt: 'Jika mula-mula ada $1$ sel dan setiap jam jumlahnya berlipat dua, berapa jam yang dibutuhkan agar mencapai $128$ sel?',
+          options: ['$6$ jam', '$7$ jam', '$8$ jam', '$100$ jam'],
+          reveal: `Karena $2^{7}=128$, dibutuhkan $7$ jam — mudah karena $128$ adalah pangkat bulat dari $2$. Namun untuk $2^{t}=100$, nilai $t$ berada di antara $6$ dan $7$ karena $2^{6}=64$ dan $2^{7}=128$. Jawaban tepatnya ditulis $t=\\log_{2}100$, yaitu "pangkat yang harus diberikan pada $2$ agar hasilnya $100$", sekitar $6{,}64$ jam. Di sinilah logaritma muncul.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -110,6 +112,16 @@ $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
           title: 'Syarat yang tidak boleh dilupakan',
           text: 'Basis harus $a>0$ dan $a\\neq1$, sedangkan numerus harus positif. Nilai $\\log_{a}b$ hanya terdefinisi bila $b>0$. Setiap solusi persamaan logaritma **wajib** diperiksa terhadap syarat ini.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan setiap bentuk eksponen dengan bentuk logaritmanya.',
+          pairs: [
+            { left: '$2^{3} = 8$', right: '$\\log_{2}8 = 3$' },
+            { left: '$3^{4} = 81$', right: '$\\log_{3}81 = 4$' },
+            { left: '$10^{-2} = 0{,}01$', right: '$\\log_{10}0{,}01 = -2$' },
+            { left: '$a^{c} = b$', right: '$\\log_{a}b = c$' },
+          ],
+        },
       ],
     },
     {
@@ -134,6 +146,14 @@ $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
           variant: 'tip',
           title: 'Cara cepat mengubah bentuk',
           text: 'Bila bingung, bayangkan "basis naik jadi pangkat, hasil berpindah ke belakang". Dari $a^{c}=b$ menjadi $\\log_{a}b=c$: basis $a$ tetap di bawah, $b$ di dalam, dan $c$ menjadi hasil.',
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Eksponen', body: '$2^{3} = 8$ berarti basis $2$ dipangkatkan $3$ menghasilkan $8$.' },
+            { label: 'Logaritma', body: '$\\log_{2}8 = 3$ menjawab "basis $2$ dipangkatkan berapa agar hasilnya $8$".' },
+            { label: 'Makna', body: 'Kedua bentuk menanyakan hubungan yang sama; yang berbeda hanya cara menuliskannya.' },
+          ],
         },
       ],
     },
@@ -185,6 +205,18 @@ Kembalikan: $2^{x}=1 \\Rightarrow x=0$, dan $2^{x}=4=2^{2} \\Rightarrow x=2$. So
 $$\\log_{2}12+\\log_{2}6-\\log_{2}9=\\log_{2}\\!\\left(\\frac{12\\cdot6}{9}\\right)=\\log_{2}8=3.$$
 
 Periksa dengan $2^{3}=8$ ✓.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Ikuti langkah menyelesaikan $2^{2x}-5\\cdot 2^{x}+4=0$ dengan substitusi variabel.',
+          steps: [
+            { title: 'Langkah 1', text: 'Misalkan $t = 2^{x}$ dengan $t > 0$, sehingga $2^{2x} = (2^{x})^{2} = t^{2}$.' },
+            { title: 'Langkah 2', text: 'Persamaan menjadi $t^{2} - 5t + 4 = 0$.' },
+            { title: 'Langkah 3', text: 'Faktorkan: $(t-1)(t-4) = 0$, sehingga $t = 1$ atau $t = 4$.' },
+            { title: 'Langkah 4', text: 'Kembalikan: $2^{x} = 1 \\Rightarrow x = 0$ dan $2^{x} = 4 = 2^{2} \\Rightarrow x = 2$. Keduanya memenuhi $t>0$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -285,6 +317,20 @@ Skala logaritma juga memampatkan rentang yang sangat lebar: skala pH, skala Rich
 **3. Lupa memeriksa syarat numerus positif.** Pada $\\log_{2}x+\\log_{2}(x-2)=3$ muncul dua kandidat, tetapi $x=-2$ harus ditolak karena numerusnya negatif. Solusi persamaan kuadrat belum tentu solusi persamaan logaritma.
 
 **4. Menganggap $\\log_{a}m^{n}=n\\log_{a}m$ sebagai $(\\log_{a}m)^{n}$.** Sifat pangkat menurunkan eksponen ke depan sebagai faktor, bukan memangkatkan nilai logaritmanya.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Perhatikan penyederhanaan $\\log_{2}4 + \\log_{2}8$. Ada satu langkah keliru. Klik langkah yang salah.',
+          steps: [
+            'Jumlahkan numerusnya: $\\log_{2}4 + \\log_{2}8 = \\log_{2}(4+8) = \\log_{2}12$.',
+            'Gunakan sifat yang benar: $\\log_{2}4 + \\log_{2}8 = \\log_{2}(4 \\cdot 8)$.',
+            'Hitung hasil kalinya: $4 \\cdot 8 = 32$.',
+            'Sederhanakan: $\\log_{2}32 = 5$.',
+          ],
+          wrongIndex: 0,
+          explanation: 'Langkah pertama keliru. Sifat logaritma mengubah **perkalian** menjadi penjumlahan, bukan sebaliknya. Jadi $\\log_{2}4 + \\log_{2}8 = \\log_{2}(4 \\cdot 8) = \\log_{2}32 = 5$, bukan $\\log_{2}12$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -293,6 +339,17 @@ Skala logaritma juga memampatkan rentang yang sangat lebar: skala pH, skala Rich
       body: `1. Kapan kamu cukup menyamakan basis, dan kapan kamu memerlukan substitusi variabel?
 2. Bagaimana kamu menjelaskan kepada teman bahwa logaritma adalah invers dari eksponen?
 3. Mengapa memeriksa syarat numerus positif wajib dilakukan di akhir setiap penyelesaian persamaan logaritma?`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Kapan kamu cukup menyamakan basis, dan kapan kamu memerlukan substitusi variabel?',
+            'Bagaimana kamu menjelaskan kepada teman bahwa logaritma adalah invers dari eksponen?',
+            'Mengapa memeriksa syarat numerus positif wajib dilakukan di akhir setiap penyelesaian persamaan logaritma?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu dengan persamaan eksponen dan logaritma ini?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

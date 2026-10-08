@@ -56,11 +56,17 @@ Sekarang bayangkan grafik itu digeser ke kanan sejauh $2$ satuan dan ke atas sej
 Seorang siswa menebak bahwa rumusnya menjadi $y=(x+2)^2+3$ karena "kanan dan atas berarti positif". Apakah tebakan ini benar? Mari kita periksa bersama.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Tebakan itu **salah**. Menggeser ke kanan sejauh $2$ satuan menghasilkan $y=(x-2)^2$, bukan $(x+2)^2$. Selanjutnya digeser ke atas $3$ satuan menjadi
+          kind: 'prediction',
+          prompt: 'Setelah digeser ke kanan $2$ satuan lalu ke atas $3$ satuan, rumus dan titik puncak manakah yang benar?',
+          options: [
+            '$y=(x+2)^2+3$ dengan puncak $(-2,3)$',
+            '$y=(x-2)^2+3$ dengan puncak $(2,3)$',
+            '$y=(x-2)^2-3$ dengan puncak $(2,-3)$',
+          ],
+          reveal: `Tebakan "kanan dan atas berarti positif" itu **salah**. Menggeser ke kanan sejauh $2$ satuan menghasilkan $y=(x-2)^2$, bukan $(x+2)^2$. Selanjutnya digeser ke atas $3$ satuan menjadi
 $$y = (x-2)^2 + 3.$$
 Titik puncaknya berada di $(2,3)$. Periksa: untuk $x=2$ diperoleh $y=0+3=3$. Inilah alasan pergeseran horizontal "berlawanan tanda" dari yang diduga.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -152,6 +158,24 @@ Perhatikan bahwa $y=2x^2$ dan $y=4x^2$ memiliki bentuk berbeda: yang pertama leb
             ['$y=f(kx)$', 'dilatasi horizontal $\\tfrac{1}{k}$', '$\\left(\\tfrac{a}{k},\\,b\\right)$'],
           ],
         },
+        {
+          kind: 'match',
+          intro: 'Cocokkan setiap bentuk hasil transformasi dengan jenisnya.',
+          pairs: [
+            { left: '$y=f(x)+k$', right: 'Geser vertikal sejauh $k$' },
+            { left: '$y=f(x-h)$', right: 'Geser horizontal sejauh $h$' },
+            { left: '$y=-f(x)$', right: 'Refleksi terhadap sumbu-$x$' },
+            { left: '$y=f(kx)$', right: 'Dilatasi horizontal dengan faktor $\\tfrac{1}{k}$' },
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Hasil translasi $y=x^2$ ditulis $y=(x-2)^2+3=x^2-4x+7$.' },
+            { label: 'Tabel', body: 'Setiap titik $(a,b)$ pada $y=x^2$ berpindah menjadi $(a+2,\\,b+3)$ pada grafik baru.' },
+            { label: 'Grafik', body: 'Parabola dasar digeser ke kanan $2$ satuan lalu ke atas $3$ satuan, dengan puncak baru di $(2,3)$.' },
+          ],
+        },
       ],
     },
     {
@@ -196,6 +220,18 @@ Sumbu simetrinya $x=\\dfrac{4}{2}=2$ dan nilai minimumnya $y=2^2-4(2)+7=3$. Bena
 *Penyelesaian.*
 - $y=2f(x)=2x^2$: titik $(2,4)$ menjadi $(2,\\,2\\cdot4)=(2,8)$. Periksa: $2(2)^2=8$.
 - $y=f(2x)=4x^2$: titik $(2,4)$ menjadi $\\left(\\dfrac{2}{2},\\,4\\right)=(1,4)$. Periksa: $4(1)^2=4$.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari sketsakan $y=(x-2)^2+3$ dari grafik dasar $y=x^2$, satu langkah sekaligus.',
+          steps: [
+            { title: 'Kenali bentuknya', text: 'Bentuk $y=(x-2)^2+3$ berasal dari $y=x^2$ dengan $h=2$ dan $k=3$.' },
+            { title: 'Geser horizontal', text: 'Faktor $x-2$ berarti grafik digeser ke kanan $2$ satuan, sehingga puncak $(0,0)$ menjadi $(2,0)$.' },
+            { title: 'Geser vertikal', text: 'Tambahan $+3$ menggeser grafik ke atas $3$ satuan, sehingga puncak menjadi $(2,3)$.' },
+            { title: 'Periksa dengan bentuk umum', text: 'Dikembangkan: $(x-2)^2+3=x^2-4x+7$. Sumbu simetri $x=2$ dan nilai minimum $f(2)=3$, cocok dengan puncak $(2,3)$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -270,6 +306,19 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
 **2. Menukar refleksi sumbu-$x$ dan sumbu-$y$.** $y=-f(x)$ mencerminkan terhadap sumbu-$x$, sedangkan $y=f(-x)$ terhadap sumbu-$y$. Keduanya berbeda untuk $f(x)=2x+1$.
 **3. Menganggap $a f(x)$ selalu meregang horizontal.** Faktor di luar fungsi, yaitu $a f(x)$, mengubah arah **vertikal**; faktor di dalam fungsi, yaitu $f(kx)$, mengubah arah **horizontal**.
 **4. Mengabaikan urutan transformasi.** Menggeser lalu meregangkan tidak sama dengan meregangkan lalu menggeser.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menggeser grafik $y=x^2$ ke kanan $2$ satuan. Klik langkah yang keliru.',
+          steps: [
+            'Grafik $y=x^2$ akan digeser ke kanan sejauh $2$ satuan.',
+            'Geser horizontal ke kanan berarti mengganti $x$ dengan $x+2$ di dalam fungsi.',
+            'Jadi rumus grafik barunya $y=(x+2)^2$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Pergeseran ke kanan "berlawanan tanda": ganti $x$ dengan $x-h$, yaitu $x-2$. Rumus yang benar $y=(x-2)^2$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -279,6 +328,17 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
 1. Mengapa pergeseran horizontal "berlawanan tanda" dari yang mungkin kamu duga?
 2. Bagaimana kamu membedakan dilatasi vertikal dan horizontal hanya dari posisi angka pada rumus?
 3. Berikan contoh nyata di sekitarmu yang bentuknya dapat dijelaskan sebagai hasil transformasi bentuk dasar.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Mengapa pergeseran horizontal "berlawanan tanda" dari yang mungkin kamu duga?',
+            'Bagaimana kamu membedakan dilatasi vertikal dan horizontal hanya dari posisi angka pada rumus?',
+            'Berikan contoh nyata di sekitarmu yang bentuknya dapat dijelaskan sebagai hasil transformasi bentuk dasar.',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu menentukan rumus hasil transformasi?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

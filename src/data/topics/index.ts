@@ -25,11 +25,12 @@ import { pemodelanFungsi } from './pemodelan-fungsi';
 import { pinjamanInvestasi } from './pinjaman-investasi';
 import { permutasiKombinasi } from './permutasi-kombinasi';
 import { plannedTopics } from './planned';
+import { enhanceTopic, sectionSearchText } from './enhance';
 
-export { plannedTopics };
+export { plannedTopics, sectionSearchText };
 
 /** Daftar seluruh topik yang materinya sudah lengkap. */
-export const topics: Topic[] = [
+const rawTopics: Topic[] = [
   persamaanEksponenLogaritma,
   eksponen,
   barisanDeret,
@@ -56,6 +57,9 @@ export const topics: Topic[] = [
   permutasiKombinasi,
   pinjamanInvestasi,
 ];
+
+/** Topik lengkap setelah peningkatan interaktivitas (lihat enhance.ts). */
+export const topics: Topic[] = rawTopics.map(enhanceTopic);
 
 const byId = new Map<string, Topic>(topics.map((t) => [t.id, t]));
 

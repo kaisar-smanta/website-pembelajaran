@@ -57,9 +57,11 @@ export const trigonometri: Topic = {
 Kunci jawabannya terletak pada perbandingan sisi segitiga siku-siku. Jika sudut $45^\\circ$ membuat sisi depan dan sisi samping **sama panjang**, apa dugaanmu tentang tinggi menara?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Segitiga siku-siku dengan sudut $45^\\circ$ selalu *sama kaki*, sehingga sisi depan (tinggi menara) sama dengan sisi samping (jarak pengamat). Jadi tingginya $40$ m. Inilah inti trigonometri: **cukup mengetahui satu sudut dan satu sisi** untuk menentukan sisi lain.`,
+          kind: 'prediction',
+          prompt: 'Pengamat berjarak $40$ m dari kaki menara dengan sudut elevasi $45^\\circ$. Berapa tinggi menara?',
+          options: ['Sekitar 20 m', 'Sekitar 40 m', 'Sekitar 69 m', 'Tidak dapat ditentukan dari informasi itu'],
+          reveal: `Segitiga siku-siku dengan sudut $45^\\circ$ selalu *sama kaki*, sehingga sisi depan (tinggi menara) sama dengan sisi samping (jarak pengamat). Karena $\\tan 45^\\circ=1$, tinggi menara $=40\\tan 45^\\circ=40$ m. Inilah inti trigonometri: **cukup mengetahui satu sudut dan satu sisi** untuk menentukan sisi lain.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -103,6 +105,16 @@ $$\\sin\\alpha=\\frac{3}{5},\\qquad \\cos\\alpha=\\frac{4}{5},\\qquad \\tan\\alp
           title: 'Inti yang perlu diingat',
           text: 'Perbandingan trigonometri **hanya bergantung pada besar sudut**, bukan pada ukuran segitiga. Nilai perbandingan yang sama muncul pada semua segitiga yang sebangun.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan istilah dengan maknanya.',
+          pairs: [
+            { left: 'Sinus', right: 'Perbandingan sisi depan dengan sisi miring' },
+            { left: 'Kosinus', right: 'Perbandingan sisi samping dengan sisi miring' },
+            { left: 'Tangen', right: 'Perbandingan sisi depan dengan sisi samping' },
+            { left: 'Hipotenusa', right: 'Sisi terpanjang, di hadapan sudut siku-siku' },
+          ],
+        },
       ],
     },
     {
@@ -125,6 +137,14 @@ $$\\sin\\alpha=\\frac{3}{5},\\qquad \\cos\\alpha=\\frac{4}{5},\\qquad \\tan\\alp
           variant: 'tip',
           title: 'Pola berpenyiku',
           text: 'Karena $\\alpha+\\beta=90^\\circ$, berlaku $\\sin\\alpha=\\cos\\beta$ dan $\\cos\\alpha=\\sin\\beta$. Perhatikan $\\sin\\alpha=\\dfrac{3}{5}=\\cos\\beta$.',
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Untuk sudut $\\alpha$: $\\sin\\alpha=\\dfrac{3}{5}$, $\\cos\\alpha=\\dfrac{4}{5}$, dan $\\tan\\alpha=\\dfrac{3}{4}$.' },
+            { label: 'Tabel', body: 'Baris $\\alpha$ dan $\\beta$ menunjukkan perbandingan yang bertukar karena kedua sudut berpenyiku.' },
+            { label: 'Grafik', body: 'Pada segitiga bersisi $3$, $4$, $5$, sisi $3$ berada di hadapan $\\alpha$, sisi $4$ di hadapan $\\beta$, dan sisi $5$ adalah sisi miring.' },
+          ],
         },
       ],
     },
@@ -212,6 +232,18 @@ $$h=40\\tan 30^\\circ=40\\cdot\\frac{\\sqrt{3}}{3}=\\frac{40\\sqrt{3}}{3}\\appro
 *Penyelesaian.* Gunakan aturan kosinus:
 
 $$a^{2}=b^{2}+c^{2}-2bc\\cos A=25+64-2\\cdot5\\cdot8\\cdot\\frac{1}{2}=89-40=49 \\Rightarrow a=7.$$`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari hitung tinggi menara dari sudut elevasi $30^\\circ$ pada jarak $40$ m, satu langkah sekaligus.',
+          steps: [
+            { title: 'Kenali sisi', text: 'Sudut elevasi $30^\\circ$ menghadap tinggi menara $h$ (sisi depan) dan berdekatan dengan jarak $40$ m (sisi samping).' },
+            { title: 'Pilih perbandingan', text: 'Karena memakai sisi depan dan sisi samping, gunakan tangen: $\\tan 30^\\circ=\\dfrac{h}{40}$.' },
+            { title: 'Hitung', text: '$h=40\\tan 30^\\circ=40\\cdot\\dfrac{\\sqrt{3}}{3}=\\dfrac{40\\sqrt{3}}{3}$.' },
+            { title: 'Tafsirkan', text: '$\\dfrac{40\\sqrt{3}}{3}\\approx 23{,}09$ m, jadi tinggi menara sekitar $23{,}09$ m.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -306,6 +338,19 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
 **3. Menyamakan satuan sudut kalkulator.** Pastikan kalkulator berada pada mode **derajat** saat menghitung $\\tan 30^\\circ$; mode radian memberi nilai yang sama sekali berbeda.
 
 **4. Memakai $\\tan$ untuk mencari sisi miring.** $\\tan$ hanya melibatkan sisi depan dan samping. Untuk sisi miring gunakan $\\sin$ atau $\\cos$.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menghitung $\\sin 60^\\circ$ dengan mengaitkannya ke sudut $30^\\circ$. Klik langkah yang keliru.',
+          steps: [
+            'Diketahui $\\sin 30^\\circ=\\dfrac{1}{2}$.',
+            'Karena $60^\\circ=2\\cdot30^\\circ$, maka $\\sin 60^\\circ=\\sin(2\\cdot30^\\circ)=2\\sin 30^\\circ$.',
+            'Jadi $\\sin 60^\\circ=2\\cdot\\dfrac{1}{2}=1$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Sifat $\\sin 2\\alpha=2\\sin\\alpha$ tidak berlaku; fungsi trigonometri bukan operasi linear. Nilai yang benar adalah $\\sin 60^\\circ=\\dfrac{\\sqrt{3}}{2}\\approx 0{,}866$, bukan $1$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -316,6 +361,16 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
 1. Bagaimana kamu memutuskan apakah suatu masalah menggunakan $\\sin$, $\\cos$, atau $\\tan$?
 2. Kapan aturan sinus atau kosinus diperlukan, dan kapan perbandingan segitiga siku-siku sudah cukup?
 3. Sebutkan satu benda di sekitarmu yang tingginya sulit diukur langsung dan rancang cara mengukurnya dengan trigonometri.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Bagaimana kamu memutuskan apakah suatu masalah menggunakan $\\sin$, $\\cos$, atau $\\tan$?',
+            'Kapan aturan sinus atau kosinus diperlukan, dan kapan perbandingan segitiga siku-siku sudah cukup?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu memilih perbandingan trigonometri yang tepat?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

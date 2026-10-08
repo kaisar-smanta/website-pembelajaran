@@ -58,11 +58,11 @@ Sekarang bandingkan dengan pertanyaan berikut: dari $5$ siswa yang sama akan dip
 Coba daftarkan beberapa kemungkinan terlebih dahulu sebelum memakai rumus.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pemantik',
-          text: `Untuk pemilihan ketua dan wakil, urutan **penting** karena (Ani, Budi) berbeda dari (Budi, Ani). Ada $5$ pilihan ketua dan $4$ sisa pilihan wakil, sehingga $5 \\cdot 4 = 20$ susunan.
-
-Untuk pemilihan dua orang tanpa jabatan, urutan **tidak penting** karena memilih Ani dan Budi sama saja dengan memilih Budi dan Ani. Setiap pasangan terhitung dua kali, sehingga $20 : 2 = 10$ pilihan. Inilah perbedaan **permutasi** dan **kombinasi**.`,
+          kind: 'prediction',
+          prompt: 'Dari $5$ siswa akan dipilih seorang ketua dan seorang wakil ketua. Berapa banyak susunan pengurus yang mungkin?',
+          options: ['$10$ susunan', '$20$ susunan', '$25$ susunan', '$120$ susunan'],
+          reveal: `Untuk pemilihan ketua dan wakil, urutan **penting** karena (Ani, Budi) berbeda dari (Budi, Ani). Ada $5$ pilihan ketua dan $4$ sisa pilihan wakil, sehingga $5 \\cdot 4 = 20$ susunan. Bandingkan dengan memilih dua orang tanpa jabatan: urutan tidak penting, setiap pasangan terhitung dua kali, dan hasilnya $20 : 2 = 10$ pilihan. Inilah perbedaan **permutasi** dan **kombinasi**.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -116,6 +116,17 @@ Hubungan keduanya adalah $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$, karena setiap pi
           title: 'Inti yang perlu diingat',
           text: 'Aturan perkalian dan penjumlahan adalah pondasi. Sebelum memakai rumus, tentukan dahulu apakah urutan penting, apakah ada unsur yang sama, dan apakah objek boleh dipakai berulang.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan istilah pencacahan dengan maknanya.',
+          pairs: [
+            { left: 'Aturan perkalian', right: 'Tahapan berurutan: kalikan banyak cara tiap tahap' },
+            { left: 'Aturan penjumlahan', right: 'Pilihan saling lepas: jumlahkan banyak caranya' },
+            { left: 'Faktorial', right: '$n! = n(n-1)\\cdots1$ dengan $0!=1$' },
+            { left: 'Permutasi', right: 'Susunan dengan urutan diperhatikan' },
+            { left: 'Kombinasi', right: 'Pemilihan dengan urutan tidak diperhatikan' },
+          ],
+        },
       ],
     },
     {
@@ -139,6 +150,14 @@ yaitu $5$ pilihan untuk kotak pertama, $4$ untuk kedua, dan $3$ untuk ketiga. Ca
             ['Notasi', '$P(n,k) = \\dfrac{n!}{(n-k)!}$', '$\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$'],
             ['Contoh pemakaian', 'kata sandi, jabatan', 'anggota tim, kartu'],
             ['Contoh nilai', '$P(5,2) = 20$', '$\\binom{5}{2} = 10$'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: '$P(n,k)=\\dfrac{n!}{(n-k)!}$ untuk urutan penting dan $\\binom{n}{k}=\\dfrac{n!}{k!(n-k)!}$ untuk urutan tidak penting.' },
+            { label: 'Kotak pengisian', body: 'Menyusun $3$ huruf dari $5$ huruf: $\\underline{5}\\;\\underline{4}\\;\\underline{3}=60$, menunjukkan urutan penting.' },
+            { label: 'Tabel', body: '$P(5,2)=20$ sedangkan $\\binom{5}{2}=10$; hasil kombinasi selalu $k!$ kali lebih kecil dari permutasi.' },
           ],
         },
       ],
@@ -182,6 +201,18 @@ $$\\binom{10}{3} = \\frac{10!}{3!\\,7!} = \\frac{10 \\cdot 9 \\cdot 8}{3 \\cdot 
 
 *Penyelesaian.* Banyak cara mengambil $2$ dari $8$ bola adalah $\\binom{8}{2} = 28$. Cara mendapat dua merah adalah $\\binom{5}{2} = 10$. Jadi
 $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari hitung banyak susunan huruf kata "BUKU", satu langkah sekaligus.',
+          steps: [
+            { title: 'Hitung seolah berbeda', text: 'Kata "BUKU" memiliki $4$ huruf, sehingga jika semua berbeda ada $4!=24$ susunan.' },
+            { title: 'Kenali unsur sama', text: 'Huruf U muncul $2$ kali, dan menukar posisi kedua huruf U menghasilkan susunan yang sama.' },
+            { title: 'Bagi dengan faktorial unsur sama', text: 'Banyak susunan $=\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.' },
+            { title: 'Tafsirkan', text: 'Jadi hanya ada $12$ susunan huruf yang berbeda.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -268,6 +299,19 @@ Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lot
 **4. Memakai aturan penjumlahan padahal perkalian, atau sebaliknya.** Gunakan **perkalian** bila tahapan terjadi berurutan (dan), serta **penjumlahan** bila pilihannya saling lepas (atau).
 
 **5. Mengabaikan syarat pengulangan.** Kata sandi dengan "angka boleh berulang" dan "angka tidak boleh berulang" memberi hasil berbeda. Baca soal dengan cermat.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menghitung banyak susunan huruf kata "BUKU". Klik langkah yang keliru.',
+          steps: [
+            'Kata "BUKU" memiliki $4$ huruf.',
+            'Karena keempatnya dianggap berbeda, banyak susunan $=4!=24$.',
+            'Jadi ada $24$ susunan huruf.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Huruf U muncul $2$ kali, sehingga banyak susunan terhitung berulang. Seharusnya dibagi dengan $2!$: $\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -276,6 +320,16 @@ Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lot
       body: `1. Dari sebuah soal cerita, bagaimana kamu memutuskan apakah urutan penting atau tidak?
 2. Kapan kamu harus membagi dengan faktorial unsur yang sama, dan mengapa?
 3. Bagaimana pencacahan membantumu menghitung peluang suatu kejadian?`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Dari sebuah soal cerita, bagaimana kamu memutuskan apakah urutan penting atau tidak?',
+            'Kapan kamu harus membagi dengan faktorial unsur yang sama, dan mengapa?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu memilih permutasi atau kombinasi dengan tepat?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

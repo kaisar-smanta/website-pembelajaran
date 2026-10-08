@@ -1,0 +1,201 @@
+---
+import { renderMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'step-reveal' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const introHtml = block.intro ? renderMarkdown(block.intro) : '';
+const stepCount = block.steps.length;
+---
+
+<figure class="itx steps" data-steps data-sid={storageId}>
+  <div class="itx-head">
+    <span class="itx-kicker">Contoh bertahap</span>
+    <span class="itx-progress" data-steps-progress aria-live="polite">Langkah 1 dari {stepCount}</span>
+  </div>
+
+  {introHtml && <div class="itx-prompt prose" set:html={introHtml} />}
+
+  <ol class="steps-list">
+    {
+      block.steps.map((step, i) => (
+        <li class="step" data-step hidden={i > 0}>
+          <span class="step-num" aria-hidden="true">{i + 1}</span>
+          <div class="step-body">
+            {step.title && <p class="step-title">{step.title}</p>}
+            <div class="prose" set:html={renderMarkdown(step.text)} />
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="itx-bar">
+    <button type="button" class="btn btn-primary btn-sm" data-steps-next>
+      {stepCount > 1 ? 'Langkah berikutnya' : 'Selesai'}
+    </button>
+    <button type="button" class="btn btn-ghost btn-sm" data-steps-reset hidden>Ulang dari awal</button>
+  </div>
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+  }
+  .itx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .itx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+  }
+  .itx-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+  }
+  .itx-progress {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-text-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .itx-prompt {
+    font-size: 0.98rem;
+  }
+  .itx-prompt :global(> *:last-child) {
+    margin-bottom: 0.75rem;
+  }
+  .steps-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+  .step:not([hidden]) {
+    animation: step-in var(--dur) var(--ease-out-soft) both;
+  }
+  @keyframes step-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .step-num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: var(--accent, var(--color-primary));
+    color: var(--color-on-primary);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .step-body {
+    min-width: 0;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+  .step-title {
+    margin: 0 0 0.25rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+  }
+  .step-body :global(> .prose > *:last-child),
+  .step-body :global(.prose > *:last-child) {
+    margin-bottom: 0;
+  }
+  .itx-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step:not([hidden]) {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function setupSteps(root: Element) {
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-step]'));
+    const next = root.querySelector<HTMLButtonElement>('[data-steps-next]');
+    const reset = root.querySelector<HTMLButtonElement>('[data-steps-reset]');
+    const progress = root.querySelector<HTMLElement>('[data-steps-progress]');
+    if (!next || !steps.length) return;
+
+    let shown = 1;
+
+    function render() {
+      steps.forEach((step, i) => {
+        step.hidden = i >= shown;
+      });
+      if (progress) {
+        progress.textContent = `Langkah ${Math.min(shown, steps.length)} dari ${steps.length}`;
+      }
+      const done = shown >= steps.length;
+      next!.textContent = done ? 'Selesai' : 'Langkah berikutnya';
+      next!.disabled = done;
+      if (reset) reset.hidden = shown <= 1;
+      if (done) {
+        const id = root.getAttribute('data-sid') ?? '';
+        window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'steps' } }));
+      }
+    }
+
+    next.addEventListener('click', () => {
+      if (shown < steps.length) {
+        shown += 1;
+        render();
+      }
+    });
+    reset?.addEventListener('click', () => {
+      shown = 1;
+      render();
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('[data-steps]').forEach(setupSteps);
+</script>

@@ -57,9 +57,11 @@ $$1+100=101,\\quad 2+99=101,\\quad 3+98=101,\\quad \\dots,\\quad 50+51=101.$$
 Ada berapa pasangan yang masing-masing berjumlah $101$? Berapa jumlah seluruhnya?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Terdapat $50$ pasangan, sehingga jumlahnya $50 \\times 101 = 5050$. Cara Gauss ini adalah inti dari rumus jumlah deret aritmetika: pasangkan suku pertama dengan suku terakhir, lalu kalikan banyaknya pasangan.`,
+          kind: 'prediction',
+          prompt: 'Berapa jumlah semua bilangan dari $1$ sampai $100$? Pilih dugaanmu, lalu bandingkan dengan siasat Gauss.',
+          options: ['$505$', '$5050$', '$5500$', '$10100$'],
+          reveal: `Terdapat $50$ pasangan yang masing-masing berjumlah $101$, sehingga jumlahnya $50 \\times 101 = 5050$. Cara Gauss ini adalah inti dari rumus jumlah deret aritmetika: pasangkan suku pertama dengan suku terakhir, lalu kalikan banyaknya pasangan.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -98,6 +100,17 @@ Jadi barisan mendaftar (dipisah koma), sedangkan deret menjumlahkan (dihubungkan
           title: 'Inti yang perlu diingat',
           text: 'Aritmetika memakai **selisih tetap** ($U_{n}-U_{n-1}=b$), geometri memakai **rasio tetap** ($U_{n}/U_{n-1}=r$). Kedua rumus suku ke-$n$ berbeda dan tidak boleh tertukar.',
         },
+        {
+          kind: 'flip-cards',
+          intro: 'Bolak-balik kartu untuk mengingat istilah dasar barisan dan deret.',
+          cards: [
+            { front: 'Barisan', back: 'Urutan bilangan menurut aturan tertentu, ditulis dengan pemisah koma.' },
+            { front: 'Deret', back: 'Jumlah suku-suku suatu barisan, ditulis dengan tanda tambah.' },
+            { front: 'Beda ($b$)', back: 'Selisih tetap dua suku berdekatan pada barisan aritmetika.' },
+            { front: 'Rasio ($r$)', back: 'Hasil bagi tetap dua suku berdekatan pada barisan geometri.' },
+            { front: 'Suku ke-$n$ ($U_n$)', back: 'Suku pada posisi ke-$n$ dalam suatu barisan.' },
+          ],
+        },
       ],
     },
     {
@@ -115,6 +128,14 @@ Jadi barisan mendaftar (dipisah koma), sedangkan deret menjumlahkan (dihubungkan
             ['$3, 6, 12, 24, \\dots$', 'rasio $\\times 2$', 'Geometri'],
             ['$1, 1, 2, 3, 5, 8, \\dots$', 'selisih berubah', 'Bukan keduanya'],
             ['$80, 40, 20, 10, \\dots$', 'rasio $\\times \\tfrac12$', 'Geometri'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Rumus suku ke-$n$: aritmetika $U_n = a + (n-1)b$, geometri $U_n = a r^{\\,n-1}$.' },
+            { label: 'Tabel', body: 'Aritmetika $2, 5, 8, 11$ bertambah $3$; geometri $3, 6, 12, 24$ dikali $2$.' },
+            { label: 'Grafik', body: 'Suku aritmetika membentuk titik pada garis lurus, sedangkan suku geometri menanjak makin cepat membentuk lengkungan.' },
           ],
         },
       ],
@@ -196,6 +217,18 @@ $$S_7 = \\frac{5(3^{7}-1)}{3-1} = \\frac{5(2187-1)}{2} = \\frac{5 \\cdot 2186}{2
 
 *Penyelesaian.* Di sini $a=18$ dan $r=\\tfrac13$ dengan $\\lvert r\\rvert<1$, maka
 $$S_\\infty = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Ikuti langkah menentukan $U_{20}$ dan $S_{20}$ dari barisan $4, 9, 14, 19, \\dots$.',
+          steps: [
+            { title: 'Langkah 1', text: 'Tentukan suku pertama dan beda: $a = 4$ dan $b = 5$ karena selisihnya tetap $5$.' },
+            { title: 'Langkah 2', text: 'Gunakan rumus suku ke-$n$: $U_{20} = 4 + (20-1) \\cdot 5 = 4 + 95 = 99$.' },
+            { title: 'Langkah 3', text: 'Gunakan rumus jumlah: $S_{20} = \\dfrac{20}{2}(4 + 99) = 10 \\cdot 103$.' },
+            { title: 'Langkah 4', text: 'Hitung hasilnya: $S_{20} = 1030$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -288,6 +321,20 @@ Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun 
 **3. Menggunakan rumus jumlah aritmetika untuk geometri.** $S_n$ aritmetika memuat $b$, sedangkan geometri memuat $r^{n}$. Pastikan jenis barisannya lebih dahulu.
 
 **4. Memakai deret tak hingga tanpa memeriksa syarat konvergen.** $2+4+8+\\cdots$ tidak memiliki jumlah; $\\lvert r\\rvert = 2 \\geq 1$. Hanya deret dengan $\\lvert r\\rvert<1$ yang konvergen.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Perhatikan penentuan suku ke-$8$ barisan geometri $5, 10, 20, 40, \\dots$. Ada satu langkah keliru. Klik langkah yang salah.',
+          steps: [
+            'Tentukan suku pertama dan rasio: $a = 5$ dan $r = 2$.',
+            'Gunakan rumus suku ke-$n$, yaitu $U_n = a r^{n}$.',
+            'Substitusi $n = 8$: $U_8 = 5 \\cdot 2^{8} = 1280$.',
+            'Jadi suku ke-$8$ adalah $1280$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Rumus suku ke-$n$ barisan geometri adalah $U_n = a r^{\\,n-1}$, bukan $a r^{n}$. Eksponennya $(n-1)$ karena rasio pertama kali muncul pada suku kedua. Maka $U_8 = 5 \\cdot 2^{7} = 640$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -296,6 +343,17 @@ Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun 
       body: `1. Bagaimana caramu memutuskan suatu barisan termasuk aritmetika atau geometri?
 2. Kapan deret geometri tak hingga punya jumlah berhingga, dan kapan tidak?
 3. Berikan satu contoh pola di sekitarmu yang bersifat aritmetika dan satu yang bersifat geometri.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Bagaimana caramu memutuskan suatu barisan termasuk aritmetika atau geometri?',
+            'Kapan deret geometri tak hingga punya jumlah berhingga, dan kapan tidak?',
+            'Berikan satu contoh pola di sekitarmu yang bersifat aritmetika dan satu yang bersifat geometri.',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu dengan barisan dan deret ini?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

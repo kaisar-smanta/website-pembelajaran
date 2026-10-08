@@ -79,6 +79,56 @@ export type Block =
       url: string;
       title: string;
       height?: number;
+    }
+  | {
+      kind: 'prediction';
+      /** Pertanyaan prediksi (markdown, mendukung $...$). */
+      prompt: string;
+      /** Opsi pilihan; bila kosong siswa menulis dugaan bebas. */
+      options?: string[];
+      /** Penjelasan yang dibuka setelah siswa menyimpan dugaan. */
+      reveal: string;
+      /** Label tombol simpan. */
+      saveLabel?: string;
+    }
+  | {
+      kind: 'reflection';
+      /** Pertanyaan refleksi yang jawabannya disimpan di peramban. */
+      prompts: string[];
+      /** Label skala keyakinan; dihilangkan bila tidak diisi. */
+      confidenceLabel?: string;
+    }
+  | {
+      kind: 'step-reveal';
+      intro?: string;
+      /** Langkah pembahasan yang dibuka satu per satu. */
+      steps: { title?: string; text: string }[];
+    }
+  | {
+      kind: 'spot-mistake';
+      intro?: string;
+      /** Deretan langkah; siswa menebak langkah yang salah. */
+      steps: string[];
+      /** Indeks langkah salah (0-based). */
+      wrongIndex: number;
+      explanation: string;
+    }
+  | {
+      kind: 'match';
+      intro?: string;
+      /** Pasangan istilah–makna yang dicocokkan siswa. */
+      pairs: { left: string; right: string }[];
+    }
+  | {
+      kind: 'flip-cards';
+      intro?: string;
+      /** Kartu bolak-balik untuk latihan istilah. */
+      cards: { front: string; back: string }[];
+    }
+  | {
+      kind: 'tabs';
+      /** Panel representasi yang dapat ditukar (simbolik/grafik/tabel). */
+      items: { label: string; body: string }[];
     };
 
 export interface Section {

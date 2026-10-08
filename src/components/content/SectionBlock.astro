@@ -1,10 +1,7 @@
 ---
 import type { Block, Difficulty, Question, Section, SectionKind } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
-import Callout from './Callout.astro';
-import DataTable from './DataTable.astro';
-import ExplorationEmbed from '@/components/interactive/ExplorationEmbed.astro';
-import GeogebraEmbed from '@/components/interactive/GeogebraEmbed.astro';
+import BlockRenderer from './BlockRenderer.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import { getQuestion, questionsByTopicAndDifficulty } from '@/data/questions';
 
@@ -60,6 +57,11 @@ const levelBadge: Record<string, string> = {
 function blockList(blocks: Block[] | undefined) {
   return blocks ?? [];
 }
+
+/** Id stabil untuk menyimpan interaksi siswa (dugaan, refleksi, dsb.). */
+function blockStorageId(blockIndex: number): string {
+  return `${topicId ?? 'umum'}:${section.id}:${blockIndex}`;
+}
 ---
 
 <section
@@ -93,13 +95,11 @@ function blockList(blocks: Block[] | undefined) {
           </div>
         </div>
 
-        {blockList(section.blocks).map((block) => {
-          if (block.kind === 'callout') return <Callout variant={block.variant} title={block.title} text={block.text} />;
-          if (block.kind === 'table') return <DataTable block={block} />;
-          if (block.kind === 'exploration') return <ExplorationEmbed explorationId={block.explorationId} />;
-          if (block.kind === 'geogebra') return <GeogebraEmbed url={block.url} title={block.title} height={block.height} />;
-          return null;
-        })}
+        {blockList(section.blocks).map((block, bi) =>
+          block.kind === 'details' ? null : (
+            <BlockRenderer block={block} storageId={blockStorageId(bi)} />
+          ),
+        )}
 
         {(bodyHtml || blockList(section.blocks).some((block) => block.kind === 'details')) && (
           <details class="practice-legacy">
@@ -125,21 +125,11 @@ function blockList(blocks: Block[] | undefined) {
       <>
         {bodyHtml && <div class="prose section-body" set:html={bodyHtml} />}
 
-        {blockList(section.blocks).map((block) => {
-          if (block.kind === 'callout') return <Callout variant={block.variant} title={block.title} text={block.text} />;
-          if (block.kind === 'table') return <DataTable block={block} />;
-          if (block.kind === 'exploration') return <ExplorationEmbed explorationId={block.explorationId} />;
-          if (block.kind === 'geogebra') return <GeogebraEmbed url={block.url} title={block.title} height={block.height} />;
-          if (block.kind === 'details') {
-            return (
-              <details class="details-block">
-                <summary>{block.summary}</summary>
-                <div class="prose details-body" set:html={renderMarkdown(block.text)} />
-              </details>
-            );
-          }
-          return null;
-        })}
+        {blockList(section.blocks).map((block, bi) =>
+          block.kind === 'details' ? null : (
+            <BlockRenderer block={block} storageId={blockStorageId(bi)} />
+          ),
+        )}
       </>
     )
   }

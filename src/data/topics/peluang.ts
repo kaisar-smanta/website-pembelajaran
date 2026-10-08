@@ -60,9 +60,11 @@ export const peluang: Topic = {
 Peluang teoretis $\\tfrac12$ tidak menjanjikan hasil seimbang pada percobaan singkat, tetapi hasil percobaan akan makin mendekati $\\tfrac12$ ketika banyak percobaan diperbesar.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat arah jawaban',
-          text: `Banyaknya lemparan yang sedikit membuat hasil mudah "menyimpang" dari $\\tfrac12$ hanya karena kebetulan. Ini bukan bukti koin tidak seimbang. Ketika percobaan diulang sangat banyak, **peluang empiris** (frekuensi relatif) cenderung mendekati **peluang teoretis**. Sifat ini disebut **hukum bilangan besar**.`,
+          kind: 'prediction',
+          prompt: 'Koin dilempar $1000$ kali. Apakah jumlah muncul angka pasti tepat $500$?',
+          options: ['Ya, pasti tepat $500$', 'Tidak, tetapi proporsinya cenderung mendekati $\\tfrac12$', 'Tidak, berarti koin pasti tidak seimbang', 'Tidak dapat diprediksi sama sekali'],
+          reveal: `Banyaknya lemparan yang sedikit membuat hasil mudah "menyimpang" dari $\\tfrac12$ hanya karena kebetulan. Ini bukan bukti koin tidak seimbang. Ketika percobaan diulang sangat banyak, **peluang empiris** (frekuensi relatif) cenderung mendekati **peluang teoretis**. Sifat ini disebut **hukum bilangan besar**.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -106,6 +108,17 @@ dengan $n(A)$ menyatakan banyak anggota kejadian $A$. Karena $A \\subseteq S$, s
           title: 'Syarat hasil sama mungkin',
           text: 'Rumus $P(A) = \\dfrac{n(A)}{n(S)}$ hanya berlaku bila setiap hasil pada ruang sampel berpeluang sama. Mendaftar ruang sampel dengan benar adalah langkah paling penting.',
         },
+        {
+          kind: 'match',
+          intro: 'Pasangkan istilah peluang dengan maknanya.',
+          pairs: [
+            { left: 'Ruang sampel', right: 'Himpunan semua hasil yang mungkin dari suatu percobaan' },
+            { left: 'Kejadian', right: 'Himpunan bagian dari ruang sampel' },
+            { left: 'Peluang teoretis', right: 'Rasio banyak anggota kejadian dengan ruang sampel' },
+            { left: 'Peluang empiris', right: 'Frekuensi relatif yang diperoleh dari percobaan nyata' },
+            { left: 'Frekuensi harapan', right: 'Perkiraan banyak munculnya kejadian pada $N$ percobaan' },
+          ],
+        },
       ],
     },
     {
@@ -129,6 +142,14 @@ dengan $n(A)$ menyatakan banyak anggota kejadian $A$. Karena $A \\subseteq S$, s
           kind: 'callout',
           variant: 'tip',
           text: 'Gunakan simulasi pada bagian berikutnya untuk melihat sendiri bagaimana peluang empiris "merapat" ke peluang teoretis ketika banyak percobaan diperbesar.',
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Peluang teoretis $P(A) = \\dfrac{n(A)}{n(S)}$; peluang empiris $\\approx \\dfrac{\\text{kejadian muncul}}{\\text{banyak percobaan}}$.' },
+            { label: 'Tabel', body: 'Setelah $6$ lemparan peluang empiris bisa jauh dari $\\tfrac16$; setelah $6000$ lemparan nilainya mendekati $\\tfrac16$.' },
+            { label: 'Grafik', body: 'Jika frekuensi relatif digambar terhadap banyak lemparan, grafiknya berayun lalu merapat ke garis mendatar $\\tfrac16$.' },
+          ],
         },
       ],
     },
@@ -206,6 +227,18 @@ $$P(A \\cup B) = \\tfrac12 + \\tfrac12 - \\tfrac16 = \\tfrac56.$$
 **Contoh 3 — Tiga koin.** Ruang sampel berukuran $8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Kejadian "paling sedikit satu gambar" adalah komplemen dari "tidak ada gambar" (yaitu $GGG$ dengan peluang $\\tfrac18$), maka $P = 1 - \\tfrac18 = \\tfrac78$.
 
 **Contoh 4 — Frekuensi harapan.** Dua dadu dilempar $180$ kali. Karena $P(\\text{jumlah }7) = \\tfrac16$, frekuensi harapan muncul jumlah $7$ adalah $180 \\cdot \\tfrac16 = 30$ kali.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari hitung peluang jumlah dua dadu sama dengan $7$, satu langkah sekaligus.',
+          steps: [
+            { title: 'Tentukan ruang sampel', text: 'Setiap dadu memiliki $6$ hasil, sehingga $n(S)=6\\times6=36$.' },
+            { title: 'Daftar hasil yang menguntungkan', text: 'Jumlah $7$ muncul dari $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, yaitu $6$ cara.' },
+            { title: 'Hitung peluang', text: '$P(\\text{jumlah }7)=\\dfrac{n(A)}{n(S)}=\\dfrac{6}{36}=\\dfrac{1}{6}$.' },
+            { title: 'Tafsirkan', text: 'Pada percobaan panjang, sekitar satu dari enam lemparan diperkirakan berjumlah $7$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -288,6 +321,19 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
 **4. Salah menghitung ruang sampel.** Untuk dua dadu, satu dadu punya 6 hasil sehingga dua dadu punya $36$ hasil, bukan $12$. Hasil $(1,2)$ dan $(2,1)$ adalah dua hasil berbeda.
 
 **5. Mengabaikan syarat hasil sama mungkin.** Rumus $\\tfrac{n(A)}{n(S)}$ hanya sah bila setiap anggota ruang sampel berpeluang sama.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menghitung $P(A\\cup B)$ untuk satu dadu dengan $A=\\{2,4,6\\}$ dan $B=\\{2,3,5\\}$. Klik langkah yang keliru.',
+          steps: [
+            'Diketahui $P(A)=\\dfrac{3}{6}=\\dfrac12$ dan $P(B)=\\dfrac{3}{6}=\\dfrac12$.',
+            'Karena $A$ dan $B$ beririsan, jumlahkan langsung: $P(A\\cup B)=\\dfrac12+\\dfrac12=1$.',
+            'Jadi peluang gabungannya $1$, artinya pasti terjadi.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Menjumlahkan langsung hanya sah untuk kejadian saling lepas. Karena $A\\cap B=\\{2\\}$ dengan $P(A\\cap B)=\\tfrac16$, seharusnya $P(A\\cup B)=\\dfrac12+\\dfrac12-\\dfrac16=\\dfrac56$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -298,6 +344,16 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
 1. Apa perbedaan utama antara peluang teoretis dan peluang empiris?
 2. Kapan aturan penjumlahan boleh disederhanakan menjadi $P(A) + P(B)$, dan kapan tidak boleh?
 3. Berikan satu contoh dari kehidupanmu di mana frekuensi harapan membantu mengambil keputusan.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Apa perbedaan utama antara peluang teoretis dan peluang empiris?',
+            'Kapan aturan penjumlahan boleh disederhanakan menjadi $P(A) + P(B)$, dan kapan tidak boleh?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu membedakan kejadian saling lepas dan saling bebas?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

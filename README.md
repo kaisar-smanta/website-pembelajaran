@@ -92,7 +92,57 @@ npm run screenshot # tangkapan layar hasil build ke artifacts/ (Chrome/Edge)
 Jenis bagian (`SectionKind`) yang tersedia: `tujuan`, `pemantik`, `prasyarat`, `konteks`,
 `konsep`, `representasi`, `eksplorasi`, `generalisasi`, `rumus`, `contoh`, `latihan-dasar`,
 `latihan-cakap`, `latihan-mahir`, `dunia-nyata`, `kesalahan-umum`, `refleksi`, `rangkuman`,
-`evaluasi`, `catatan`. Blok khusus: `callout`, `table`, `exploration`, `details`, `geogebra`.
+`evaluasi`, `catatan`.
+
+Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
+`src/components/content/BlockRenderer.astro`:
+
+| Blok | Kegunaan |
+| --- | --- |
+| `callout` | Sorotan info/perhatian/tips/konsep. |
+| `table` | Tabel (opsional sel matematika). |
+| `exploration` | Menyisipkan simulasi dari `explorations.ts`. |
+| `geogebra` | Sematan GeoGebra. |
+| `details` | Pembahasan berbalut tombol buka-tutup. |
+| `prediction` | Pertanyaan pemantik: siswa menyimpan dugaan lebih dulu, lalu penjelasan terbuka. |
+| `reflection` | Pertanyaan refleksi dengan jawaban + skala keyakinan tersimpan di peramban. |
+| `step-reveal` | Contoh bertahap yang dibuka langkah demi langkah. |
+| `spot-mistake` | Siswa menebak langkah yang salah pada pembahasan. |
+| `match` | Mencocokkan istilah–makna dengan kartu. |
+| `flip-cards` | Kartu bolak-balik untuk istilah. |
+| `tabs` | Penukar representasi (simbolik/grafik/tabel). |
+
+Contoh blok interaktif:
+
+```ts
+blocks: [
+  { kind: 'prediction', prompt: 'Menurutmu ...?', options: ['A', 'B'], reveal: 'Ternyata ...' },
+  { kind: 'step-reveal', intro: 'Ikuti langkahnya.', steps: [
+    { title: 'Langkah 1', text: '$2^3 \\cdot 2^4 = 2^{3+4}$' },
+    { title: 'Langkah 2', text: '$= 2^7 = 128$' },
+  ] },
+  { kind: 'spot-mistake', steps: ['$2^3\\cdot2^5=4^8$', '$2^3\\cdot2^5=2^8$'], wrongIndex: 0, explanation: 'Basis tidak berubah.' },
+  { kind: 'match', pairs: [{ left: 'Basis', right: 'Bilangan yang dipangkatkan' }] },
+  { kind: 'flip-cards', cards: [{ front: 'Eksponen', back: 'Banyaknya faktor' }] },
+  { kind: 'tabs', items: [{ label: 'Simbolik', body: '$a^n$' }, { label: 'Tabel', body: '...' }] },
+  { kind: 'reflection', prompts: ['Kapan sifat eksponen tidak berlaku?'], confidenceLabel: 'Seberapa yakin?' },
+]
+```
+
+Interaksi `prediction` dan `reflection` disimpan melalui `src/lib/learner.ts`
+(diuji `tests/learner.mjs`). Blok lain mengirim event `mtk:interaction`.
+
+Selain blok yang ditulis manual, `src/data/topics/enhance.ts` **meningkatkan
+seluruh topik secara otomatis** saat data dimuat (dipakai `src/data/topics/index.ts`):
+pemantik ber-`details` diubah menjadi `prediction`, refleksi bernomor menjadi
+`reflection`, contoh "Contoh N"/"Langkah N" menjadi `step-reveal`, topik yang
+punya simulasi sendiri selalu mendapat blok `exploration` (sekaligus memperbaiki
+id eksplorasi yang salah), dan blok variasi (`match`, `flip-cards`, `tabs`,
+`spot-mistake`) ditambahkan lewat peta `EXTRA_BLOCKS` agar tiap halaman materi
+tidak lagi hanya dapat dibaca. `sectionSearchText` ikut mengindeks isi blok
+untuk pencarian. Halaman materi juga menampilkan kartu **Kemajuan halaman**
+(`TopicProgress.astro`) yang menghitung dugaan, refleksi, dan latihan yang sudah
+dikerjakan.
 
 ---
 

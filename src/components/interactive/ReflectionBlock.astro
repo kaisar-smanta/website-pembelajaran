@@ -1,0 +1,244 @@
+---
+import { renderMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'reflection' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const confidenceLabel = block.confidenceLabel ?? 'Seberapa yakin kamu dengan jawabanmu?';
+const levels = [1, 2, 3, 4, 5];
+---
+
+<figure class="itx reflection" data-reflection data-rid={storageId}>
+  <div class="itx-head">
+    <span class="itx-kicker">Refleksi tersimpan</span>
+    <span class="itx-hint">Jawabanmu hanya tersimpan di peramban ini.</span>
+  </div>
+
+  <ol class="refl-list">
+    {
+      block.prompts.map((p, i) => (
+        <li class="refl-item">
+          <label class="refl-label prose" set:html={renderMarkdown(p)} for={`refl-${storageId}-${i}`} />
+          <textarea id={`refl-${storageId}-${i}`} data-reflect-input rows="2" placeholder="Tulis jawabanmu…" />
+        </li>
+      ))
+    }
+  </ol>
+
+  <fieldset class="refl-confidence">
+    <legend>{confidenceLabel}</legend>
+    <div class="refl-scale">
+      {
+        levels.map((n) => (
+          <label class="refl-scale-item">
+            <input type="radio" name={`conf-${storageId}`} value={String(n)} data-reflect-conf />
+            <span>{n}</span>
+          </label>
+        ))
+      }
+      <span class="refl-scale-ends" aria-hidden="true"><span>Belum yakin</span><span>Sangat yakin</span></span>
+    </div>
+  </fieldset>
+
+  <div class="itx-bar">
+    <button type="button" class="btn btn-primary btn-sm" data-reflect-save>Simpan refleksi</button>
+    <span class="itx-saved" data-reflect-saved hidden aria-live="polite">Refleksimu tersimpan.</span>
+  </div>
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+  }
+  .itx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.7rem;
+  }
+  .itx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+  }
+  .itx-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+  }
+  .itx-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+  .refl-list {
+    display: grid;
+    gap: 0.85rem;
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+  .refl-item {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .refl-label {
+    font-size: 0.95rem;
+  }
+  .refl-label :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .refl-item textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    resize: vertical;
+  }
+  .refl-confidence {
+    margin: 1rem 0 0.35rem;
+    padding: 0;
+    border: 0;
+  }
+  .refl-confidence legend {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+  .refl-scale {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .refl-scale-item input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .refl-scale-item span {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50%;
+    background: var(--color-bg);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft);
+  }
+  .refl-scale-item span:hover {
+    border-color: var(--accent, var(--color-primary));
+  }
+  .refl-scale-item input:checked + span {
+    border-color: var(--accent, var(--color-primary));
+    background: var(--accent, var(--color-primary));
+    color: var(--color-on-primary);
+  }
+  .refl-scale-item input:focus-visible + span {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .refl-scale-ends {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.1rem;
+    font-size: 0.74rem;
+    color: var(--color-text-soft);
+  }
+  .itx-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.9rem;
+  }
+  .itx-saved {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--color-success);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reflection * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { loadReflections, saveReflections, recordReflection } from '@/lib/learner';
+
+  function setupReflection(root: Element) {
+    const id = root.getAttribute('data-rid') ?? '';
+    const save = root.querySelector<HTMLButtonElement>('[data-reflect-save]');
+    const saved = root.querySelector<HTMLElement>('[data-reflect-saved]');
+    const inputs = Array.from(root.querySelectorAll<HTMLTextAreaElement>('[data-reflect-input]'));
+    const confs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-reflect-conf]'));
+    if (!save) return;
+
+    let storage: Storage | undefined;
+    try {
+      storage = window.localStorage;
+    } catch {
+      storage = undefined;
+    }
+
+    const existing = loadReflections(storage)[id];
+    if (existing) {
+      existing.text.split('\n\u0000\n').forEach((part, i) => {
+        if (inputs[i]) inputs[i].value = part;
+      });
+      const conf = confs.find((c) => c.value === String(existing.confidence));
+      if (conf) conf.checked = true;
+    }
+
+    save.addEventListener('click', () => {
+      const text = inputs.map((i) => i.value.trim()).join('\n\u0000\n');
+      const confidence = Number(confs.find((c) => c.checked)?.value ?? 0);
+      if (!text.replace(/\u0000/g, '').trim()) {
+        if (saved) {
+          saved.hidden = false;
+          saved.textContent = 'Tulis minimal satu jawaban refleksi.';
+          saved.style.color = 'var(--color-danger)';
+        }
+        return;
+      }
+      if (storage) {
+        saveReflections(storage, recordReflection(loadReflections(storage), id, text, confidence));
+      }
+      if (saved) {
+        saved.hidden = false;
+        saved.textContent = 'Refleksimu tersimpan di perangkat ini.';
+        saved.style.color = '';
+      }
+      window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'reflection' } }));
+    });
+  }
+
+  document.querySelectorAll('[data-reflection]').forEach(setupReflection);
+</script>

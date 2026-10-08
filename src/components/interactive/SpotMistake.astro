@@ -1,0 +1,247 @@
+---
+import { renderMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'spot-mistake' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const introHtml = block.intro ? renderMarkdown(block.intro) : '';
+const explanationHtml = renderMarkdown(block.explanation);
+---
+
+<figure class="itx spot" data-spot data-xid={storageId} data-wrong={String(block.wrongIndex)}>
+  <div class="itx-head">
+    <span class="itx-kicker">Cari yang salah</span>
+    <span class="itx-hint">Klik langkah yang menurutmu keliru.</span>
+  </div>
+
+  {introHtml && <div class="itx-prompt prose" set:html={introHtml} />}
+
+  <ol class="spot-list">
+    {
+      block.steps.map((step, i) => (
+        <li>
+          <button type="button" class="spot-step" data-spot-step data-index={String(i)}>
+            <span class="spot-num" aria-hidden="true">{i + 1}</span>
+            <span class="spot-text prose" set:html={renderMarkdown(step)} />
+          </button>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="itx-feedback" data-spot-feedback role="status" aria-live="polite" hidden />
+
+  <div class="itx-reveal prose" data-spot-reveal hidden set:html={explanationHtml} />
+
+  <div class="itx-bar">
+    <button type="button" class="btn btn-ghost btn-sm" data-spot-reset hidden>Coba lagi</button>
+  </div>
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-danger) 26%, var(--color-border));
+    border-left: 4px solid var(--color-danger);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--color-danger) 5%, var(--color-surface));
+  }
+  .itx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .itx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-danger) 78%, var(--color-text));
+  }
+  .itx-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+  }
+  .itx-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+  .itx-prompt {
+    font-size: 0.98rem;
+  }
+  .itx-prompt :global(> *:last-child) {
+    margin-bottom: 0.75rem;
+  }
+  .spot-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .spot-step {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .spot-step:hover:not(:disabled) {
+    border-color: var(--color-danger);
+  }
+  .spot-step:disabled {
+    cursor: default;
+  }
+  .spot-num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .spot-text {
+    min-width: 0;
+  }
+  .spot-text :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .spot-step.is-correct {
+    border-color: var(--color-success);
+    background: var(--color-success-soft);
+  }
+  .spot-step.is-correct .spot-num {
+    background: var(--color-success);
+    color: #fff;
+  }
+  .spot-step.is-wrong {
+    border-color: var(--color-danger);
+    background: var(--color-danger-soft);
+  }
+  .spot-step.is-wrong .spot-num {
+    background: var(--color-danger);
+    color: #fff;
+  }
+  .itx-feedback {
+    margin: 0.75rem 0 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+  .itx-feedback.ok {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+  }
+  .itx-feedback.no {
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+  }
+  .itx-reveal {
+    margin-top: 0.85rem;
+    padding: 0.8rem 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+  .itx-reveal :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .itx-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spot * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupSpot(root: Element) {
+    const wrong = Number(root.getAttribute('data-wrong') ?? '-1');
+    const steps = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-spot-step]'));
+    const feedback = root.querySelector<HTMLElement>('[data-spot-feedback]');
+    const reveal = root.querySelector<HTMLElement>('[data-spot-reveal]');
+    const reset = root.querySelector<HTMLButtonElement>('[data-spot-reset]');
+    if (!steps.length) return;
+
+    function finish(correct: boolean) {
+      steps.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === wrong) btn.classList.add('is-correct');
+      });
+      if (reveal) reveal.hidden = false;
+      if (reset) reset.hidden = false;
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.className = `itx-feedback ${correct ? 'ok' : 'no'}`;
+        feedback.textContent = correct
+          ? 'Tepat! Itu langkah yang keliru.'
+          : 'Belum tepat. Langkah yang salah sudah ditandai hijau.';
+      }
+      const id = root.getAttribute('data-xid') ?? '';
+      window.dispatchEvent(
+        new CustomEvent('mtk:interaction', { detail: { id, kind: 'spot-mistake', correct } }),
+      );
+    }
+
+    steps.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        if (i === wrong) {
+          finish(true);
+        } else {
+          btn.classList.add('is-wrong');
+          if (feedback) {
+            feedback.hidden = false;
+            feedback.className = 'itx-feedback no';
+            feedback.textContent = 'Bukan langkah itu. Coba periksa lagi.';
+          }
+        }
+      });
+    });
+
+    reset?.addEventListener('click', () => {
+      steps.forEach((btn) => {
+        btn.disabled = false;
+        btn.classList.remove('is-correct', 'is-wrong');
+      });
+      if (feedback) {
+        feedback.hidden = true;
+        feedback.textContent = '';
+      }
+      if (reveal) reveal.hidden = true;
+      reset.hidden = true;
+    });
+  }
+
+  document.querySelectorAll('[data-spot]').forEach(setupSpot);
+</script>

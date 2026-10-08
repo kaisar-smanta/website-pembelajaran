@@ -1,0 +1,166 @@
+---
+import { renderMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'flip-cards' }>;
+  storageId: string;
+}
+const { block, storageId } = Astro.props;
+const introHtml = block.intro ? renderMarkdown(block.intro) : '';
+---
+
+<figure class="itx flip" data-flip data-fid={storageId}>
+  <div class="itx-head">
+    <span class="itx-kicker">Kartu istilah</span>
+    <span class="itx-hint">Klik kartu untuk membalik dan melihat maknanya.</span>
+  </div>
+
+  {introHtml && <div class="itx-prompt prose" set:html={introHtml} />}
+
+  <div class="flip-grid">
+    {
+      block.cards.map((card) => (
+        <div class="flip-card">
+          <button type="button" class="flip-btn" data-flip-btn aria-pressed="false">
+            <span class="visually-hidden">Balik kartu</span>
+            <span class="flip-face flip-front prose" set:html={renderMarkdown(card.front)} />
+            <span class="flip-face flip-back prose" set:html={renderMarkdown(card.back)} />
+          </button>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="itx-bar">
+    <button type="button" class="btn btn-ghost btn-sm" data-flip-reset>Tutup semua</button>
+  </div>
+</figure>
+
+<style>
+  .itx {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+  }
+  .itx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .itx-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+  }
+  .itx-kicker::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+  }
+  .itx-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+  .itx-prompt {
+    font-size: 0.98rem;
+  }
+  .itx-prompt :global(> *:last-child) {
+    margin-bottom: 0.75rem;
+  }
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.7rem;
+  }
+  .flip-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 7rem;
+    padding: 0.85rem 0.9rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .flip-btn:hover {
+    border-color: var(--accent, var(--color-primary));
+  }
+  .flip-face {
+    display: block;
+  }
+  .flip-face :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .flip-front {
+    font-weight: 700;
+  }
+  .flip-back {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--color-border-strong);
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+  .flip-btn:not([aria-pressed='true']) .flip-back {
+    display: none;
+  }
+  .flip-btn[aria-pressed='true'] {
+    border-color: var(--color-success);
+    background: var(--color-success-soft);
+  }
+  .itx-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flip * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupFlip(root: Element) {
+    const id = root.getAttribute('data-fid') ?? '';
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-flip-btn]'));
+    const reset = root.querySelector<HTMLButtonElement>('[data-flip-reset]');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', String(!open));
+        if (!open) {
+          window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'flip' } }));
+        }
+      });
+    });
+
+    reset?.addEventListener('click', () => {
+      buttons.forEach((btn) => btn.setAttribute('aria-pressed', 'false'));
+    });
+  }
+
+  document.querySelectorAll('[data-flip]').forEach(setupFlip);
+</script>

@@ -48,9 +48,16 @@ export const bungaMajemuk: Topic = {
 Diskusikan: jika bunga tahun pertama ditambahkan ke saldo, apakah bunga tahun kedua dihitung dari Rp5.000.000 atau dari saldo yang sudah bertambah? Jawaban pertanyaan ini membedakan **bunga tunggal** dan **bunga majemuk**.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat arah jawaban',
-          text: `Pada **bunga tunggal**, bunga selalu dihitung dari modal awal, sehingga tiap tahun tetap Rp400.000. Pada **bunga majemuk**, bunga dihitung dari saldo terbaru yang sudah termasuk bunga sebelumnya, sehingga bunganya makin besar setiap tahun.`,
+          kind: 'prediction',
+          prompt: `Setiap tahun, apakah ia menerima bunga Rp400.000 yang sama, atau besar bunganya berubah? Pilih dugaanmu, lalu bandingkan dengan penjelasan.`,
+          options: [
+            'Bunga tetap Rp400.000 setiap tahun',
+            'Bunga makin besar setiap tahun',
+            'Bunga makin kecil setiap tahun',
+            'Bunga tidak dapat diperkirakan',
+          ],
+          reveal: `Pada **bunga tunggal**, bunga selalu dihitung dari modal awal, sehingga tiap tahun tetap Rp400.000. Pada **bunga majemuk**, bunga dihitung dari saldo terbaru yang sudah termasuk bunga sebelumnya, sehingga bunganya makin besar setiap tahun.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -96,6 +103,17 @@ dengan $M_n$ saldo setelah $n$ periode. Barisan saldo $M_0, M_1, M_2, \\dots$ ad
           title: 'Hubungan dengan barisan geometri',
           text: 'Rumus bunga majemuk identik dengan suku ke-$n$ barisan geometri: $U_n = a r^{n-1}$. Di sini $a = M_0(1+i)$ dan $r = (1+i)$.',
         },
+        {
+          kind: 'flip-cards',
+          intro: 'Bolak-balik kartu untuk memeriksa istilah kunci bunga majemuk.',
+          cards: [
+            { front: 'Modal awal ($M_0$)', back: 'Saldo mula-mula sebelum bunga dihitung.' },
+            { front: 'Suku bunga per periode ($i$)', back: 'Bunga untuk satu periode, misalnya $8\\%$ per tahun atau $1\\%$ per bulan.' },
+            { front: 'Banyak periode ($n$)', back: 'Banyaknya selang waktu perhitungan bunga.' },
+            { front: 'Saldo ($M_n$)', back: 'Nilai tabungan atau pinjaman setelah $n$ periode.' },
+            { front: 'Rasio $(1+i)$', back: 'Faktor pengali tetap sehingga saldo membentuk barisan geometri.' },
+          ],
+        },
       ],
     },
     {
@@ -117,6 +135,14 @@ Karena $n$ menyatakan banyak periode, lamanya $t$ tahun setara dengan $n = m \\c
             ['Semesteran', '2', '$0{,}06$', '2'],
             ['Kuartalan', '4', '$0{,}03$', '4'],
             ['Bulanan', '12', '$0{,}01$', '12'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Nominal tahunan', body: 'Bunga dinyatakan untuk satu tahun penuh, misalnya $j = 12\\%$ per tahun.' },
+            { label: 'Per periode', body: 'Bagi nominal dengan frekuensi: $i = j/m$, misalnya $12\\% / 12 = 1\\%$ per bulan.' },
+            { label: 'Efektif', body: 'Pertumbuhan nyata selama setahun: $i_{\\text{efektif}} = (1 + j/m)^{m} - 1 \\approx 12{,}68\\%$.' },
           ],
         },
       ],
@@ -157,6 +183,18 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 **Contoh 3.** Suku bunga nominal 12% per tahun dihitung bulanan. Tentukan suku bunga efektif per tahun.
 
 *Penyelesaian.* $i = 0{,}01$ dan $m = 12$, sehingga $(1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu **12,68%** per tahun.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Ikuti langkah menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun.',
+          steps: [
+            { title: 'Langkah 1', text: 'Catat besaran yang diketahui: $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$.' },
+            { title: 'Langkah 2', text: 'Gunakan rumus saldo: $M_5 = 5.000.000(1{,}08)^{5}$.' },
+            { title: 'Langkah 3', text: 'Hitung faktor pangkatnya: $(1{,}08)^{5} \\approx 1{,}469328$.' },
+            { title: 'Langkah 4', text: 'Kalikan dengan modal: $M_5 \\approx 5.000.000 \\times 1{,}469328 \\approx \\text{Rp}7.346.640$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -237,6 +275,20 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 **4. Membulatkan terlalu awal.** Membulatkan $(1{,}06)^4 = 1{,}26$ sebelum mengalikan membuat hasil meleset. Simpan angka desimal sampai langkah akhir.
 
 **5. Menganggap suku bunga efektif sama dengan nominal.** Karena efek majemuk, efektif selalu $\\ge$ nominal (sama hanya jika dihitung sekali setahun).`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Perhatikan cara menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun. Ada satu langkah keliru. Klik langkah yang salah.',
+          steps: [
+            'Modal awal Rp5.000.000 dan suku bunga $8\\%$ per tahun selama $5$ tahun.',
+            'Hitung bunga tiap tahun tetap dari modal **awal**: $5.000.000 \\times 8\\% = \\text{Rp}400.000$.',
+            'Kalikan banyak tahun: $5 \\times 400.000 = \\text{Rp}2.000.000$.',
+            'Saldo akhir $= 5.000.000 + 2.000.000 = \\text{Rp}7.000.000$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Langkah kedua keliru karena bunga majemuk dihitung dari **saldo terbaru**, bukan modal awal. Saldo yang benar adalah $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$, bukan Rp7.000.000. Selisihnya berasal dari bunga atas bunga.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -245,6 +297,17 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       body: `1. Mengapa menabung lebih awal lebih menguntungkan daripada menabung dengan jumlah sama tetapi lebih lambat?
 2. Dalam situasi apa bunga tunggal lebih tepat dipakai daripada bunga majemuk?
 3. Kesalahan mana yang paling mungkin kamu lakukan, dan bagaimana cara memeriksanya?`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Mengapa menabung lebih awal lebih menguntungkan daripada menabung dengan jumlah sama tetapi lebih lambat?',
+            'Dalam situasi apa bunga tunggal lebih tepat dipakai daripada bunga majemuk?',
+            'Kesalahan mana yang paling mungkin kamu lakukan, dan bagaimana cara memeriksanya?',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu dengan materi bunga majemuk ini?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

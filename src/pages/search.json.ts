@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { topics } from '@/data/topics';
+import { topics, sectionSearchText } from '@/data/topics';
 import { applications, applicationCategories } from '@/data/applications';
 import { orderedExplorations } from '@/data/explorations';
 import { topicIdsWithQuestions, questionsByTopic, practiceCounts } from '@/data/questions';
@@ -23,9 +23,7 @@ export const GET: APIRoute = () => {
   const items: SearchItem[] = [];
 
   for (const t of topics) {
-    const body = t.sections
-      .map((s) => `${s.title ?? ''} ${s.body ?? ''}`)
-      .join(' ');
+    const body = t.sections.map((s) => sectionSearchText(s)).join(' ');
     items.push({
       title: t.title,
       summary: stripMarkdown(t.summary),

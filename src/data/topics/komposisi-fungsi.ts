@@ -24,6 +24,7 @@ export const komposisiFungsi: Topic = {
   ],
   prerequisites: ['fungsi-invers'],
   relatedTopics: ['transformasi-fungsi', 'fungsi-invers'],
+  explorations: ['komposisi-fungsi-sim'],
   prerequisiteKnowledge: [
     'Pengertian fungsi, domain, dan range',
     'Mensubstitusi nilai atau bentuk aljabar ke dalam fungsi',
@@ -58,11 +59,13 @@ Bandingkan dua urutan:
 Rangkaian dua proses seperti ini adalah contoh **komposisi fungsi**.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Jika $f(x)=0{,}8x$ (diskon) dan $g(x)=1{,}1x$ (pajak), maka urutan diskon lalu pajak menghasilkan
+          kind: 'prediction',
+          prompt: 'Jika harga awal $x$, berapa bagian dari harga awal yang harus dibayar setelah diskon $20\\%$ lalu pajak $10\\%$?',
+          options: ['$0{,}88x$', '$0{,}90x$', '$1{,}10x$', '$0{,}98x$'],
+          reveal: `Jika $f(x)=0{,}8x$ (diskon) dan $g(x)=1{,}1x$ (pajak), maka urutan diskon lalu pajak menghasilkan
 $$(g \\circ f)(x) = g(f(x)) = 1{,}1(0{,}8x) = 0{,}88x.$$
 Jadi pembeli membayar $88\\%$ dari harga awal, yaitu setara diskon total $12\\%$. Pada contoh ini urutan terbalik pun memberi nilai sama, yaitu $(f \\circ g)(x)=0{,}8(1{,}1x)=0{,}88x$, karena kedua fungsi hanya berupa perkalian dengan skalar. Namun secara umum komposisi **tidak komutatif**, seperti akan kita lihat pada fungsi yang melibatkan pergeseran.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -105,6 +108,16 @@ sehingga komposisi **tidak komutatif**.`,
           title: 'Inti yang perlu diingat',
           text: 'Pada $(f \\circ g)(x)=f(g(x))$, fungsi yang ditulis lebih dekat ke $x$ (yaitu $g$) dikerjakan lebih dahulu. Urutan sangat menentukan hasil.',
         },
+        {
+          kind: 'match',
+          intro: 'Cocokkan notasi komposisi dengan maknanya.',
+          pairs: [
+            { left: '$(f \\circ g)(x)$', right: 'Sama dengan $f(g(x))$; kerjakan $g$ lebih dahulu' },
+            { left: '$(g \\circ f)(x)$', right: 'Sama dengan $g(f(x))$; kerjakan $f$ lebih dahulu' },
+            { left: 'Tidak komutatif', right: 'Secara umum $f \\circ g \\neq g \\circ f$' },
+            { left: 'Asosiatif', right: 'Pengelompokan tidak mengubah hasil, $(f \\circ g) \\circ h = f \\circ (g \\circ h)$' },
+          ],
+        },
       ],
     },
     {
@@ -127,6 +140,14 @@ Hasil $9$ dan $5$ berbeda, meskipun masukan keduanya sama, yaitu $2$.`,
             ['$1$', '$2$', '$4$', '$2$'],
             ['$2$', '$3$', '$9$', '$5$'],
             ['$3$', '$4$', '$16$', '$10$'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Untuk $f(x)=x^2$ dan $g(x)=x+1$: $(f \\circ g)(x)=(x+1)^2$ dan $(g \\circ f)(x)=x^2+1$.' },
+            { label: 'Tabel', body: 'Baris tabel memperlihatkan nilai $(f \\circ g)$ dan $(g \\circ f)$ berbeda untuk masukan yang sama.' },
+            { label: 'Alur', body: 'Model mesin: masukan $x$ diproses $g$, lalu hasil $g(x)$ diproses $f$ sehingga keluarannya $f(g(x))$.' },
           ],
         },
       ],
@@ -191,6 +212,13 @@ $$(g^{-1} \\circ f^{-1})(x) = g^{-1}\\!\\left(\\frac{x-1}{3}\\right) = \\frac{x-
 Hasilnya sama, membenarkan sifat tersebut.`,
     },
     {
+      id: 'eksplorasi',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Komposisi Fungsi',
+      body: `Gunakan simulator untuk menggabungkan dua fungsi $f$ dan $g$. Bandingkan hasil $(f \\circ g)(x)$ dengan $(g \\circ f)(x)$ saat kamu menukar urutan atau mengubah koefisien. Amati kapan kedua komposisi memberi nilai sama dan kapan berbeda.`,
+      blocks: [{ kind: 'exploration', explorationId: 'komposisi-fungsi-sim' }],
+    },
+    {
       id: 'contoh',
       kind: 'contoh',
       title: 'Contoh Terbimbing',
@@ -215,6 +243,18 @@ Kedua hasil berbeda, menegaskan komposisi tidak komutatif.
 **Contoh 3.** Diketahui $f(x)=\\sqrt{x}$ dan $g(x)=2x+4$. Tentukan $(f \\circ g)(x)$ beserta domainnya.
 
 *Penyelesaian.* $(f \\circ g)(x)=f(2x+4)=\\sqrt{2x+4}$. Syarat di bawah akar tidak boleh negatif: $2x+4 \\geq 0 \\Rightarrow x \\geq -2$. Jadi domainnya adalah $x \\geq -2$.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$ untuk $f(x)=x+3$ dan $g(x)=x^2-1$, satu langkah sekaligus.',
+          steps: [
+            { title: 'Pahami urutan', text: 'Pada $(f \\circ g)(x)=f(g(x))$, fungsi $g$ dikerjakan lebih dahulu, lalu hasilnya dimasukkan ke $f$.' },
+            { title: 'Substitusi $g$ ke $f$', text: '$(f \\circ g)(x)=f(x^2-1)=(x^2-1)+3=x^2+2$.' },
+            { title: 'Substitusi $f$ ke $g$', text: '$(g \\circ f)(x)=g(x+3)=(x+3)^2-1=x^2+6x+8$.' },
+            { title: 'Bandingkan', text: '$x^2+2$ dan $x^2+6x+8$ berbeda, menegaskan komposisi tidak komutatif.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -287,6 +327,19 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
 **2. Salah urutan pengerjaan.** Pada $(f \\circ g)(x)$, yang dikerjakan lebih dahulu adalah $g$, bukan $f$.
 **3. Lupa menentukan domain.** Rumus $\\sqrt{2x+4}$ terdefinisi hanya untuk $x \\geq -2$; mengabaikan syarat ini membuat jawaban tidak lengkap.
 **4. Membalik urutan pada invers komposisi.** Sifat yang benar adalah $(f \\circ g)^{-1}=g^{-1} \\circ f^{-1}$, bukan $f^{-1} \\circ g^{-1}$.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menentukan $(f \\circ g)(x)$ untuk $f(x)=x+3$ dan $g(x)=x^2-1$. Klik langkah yang keliru.',
+          steps: [
+            'Notasi $(f \\circ g)(x)$ berarti $f(g(x))$.',
+            'Kerjakan $f$ lebih dahulu, lalu masukkan hasilnya ke $g$.',
+            'Hasilnya $(f \\circ g)(x)=(x+3)^2-1=x^2+6x+8$.',
+          ],
+          wrongIndex: 1,
+          explanation: 'Urutannya terbalik. Pada $(f \\circ g)(x)=f(g(x))$, fungsi $g$ dikerjakan lebih dahulu. Hasil yang benar adalah $(x^2-1)+3=x^2+2$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -296,6 +349,17 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
 1. Bagaimana kamu menjelaskan perbedaan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$ kepada temanmu?
 2. Mengapa domain hasil komposisi tidak boleh diabaikan meskipun rumusnya tampak sederhana?
 3. Berikan satu contoh proses dua tahap di sekitarmu yang dapat dimodelkan sebagai komposisi fungsi.`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Bagaimana kamu menjelaskan perbedaan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$ kepada temanmu?',
+            'Mengapa domain hasil komposisi tidak boleh diabaikan meskipun rumusnya tampak sederhana?',
+            'Berikan satu contoh proses dua tahap di sekitarmu yang dapat dimodelkan sebagai komposisi fungsi.',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu menentukan komposisi dua fungsi?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

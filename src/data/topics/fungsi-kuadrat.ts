@@ -57,9 +57,11 @@ $$h(t) = -5t^{2} + 20t.$$
 Pada awalnya bola naik, lalu mencapai titik tertinggi, kemudian turun. Pada detik ke berapa bola berada di titik tertinggi, dan berapa tingginya? Berapa lama bola berada di udara?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Lengkapi kuadrat: $h(t)=-5(t^{2}-4t)=-5\\big((t-2)^{2}-4\\big)=-5(t-2)^{2}+20$. Karena $(t-2)^{2}\\geq 0$, nilai terbesar $h$ adalah $20$ pada $t=2$. Jadi bola tertinggi $20$ m pada detik ke-$2$. Bola menyentuh tanah saat $h(t)=0$: $-5t(t-4)=0$, sehingga $t=0$ atau $t=4$; bola berada di udara selama $4$ detik.`,
+          kind: 'prediction',
+          prompt: 'Pada detik ke berapa bola berada di titik tertinggi?',
+          options: ['Detik ke-1', 'Detik ke-2', 'Detik ke-3', 'Detik ke-4'],
+          reveal: `Lengkapi kuadrat: $h(t)=-5(t^{2}-4t)=-5\\big((t-2)^{2}-4\\big)=-5(t-2)^{2}+20$. Karena $(t-2)^{2}\\geq 0$, nilai terbesar $h$ adalah $20$ pada $t=2$. Jadi bola tertinggi $20$ m pada detik ke-$2$. Bola menyentuh tanah saat $h(t)=0$: $-5t(t-4)=0$, sehingga $t=0$ atau $t=4$; bola berada di udara selama $4$ detik.`,
+          saveLabel: 'Simpan dugaan',
         },
       ],
     },
@@ -100,6 +102,16 @@ Nilai $c = f(0)$ adalah titik potong grafik dengan sumbu-$y$. Semakin besar $\\l
           title: 'Inti yang perlu diingat',
           text: '$a$ mengatur arah dan lebar parabola, sedangkan $b$ dan $c$ menggeser posisinya. Parabola selalu simetris terhadap garis vertikal yang melalui titik puncaknya.',
         },
+        {
+          kind: 'flip-cards',
+          intro: 'Balik tiap kartu untuk menguji istilah kunci fungsi kuadrat.',
+          cards: [
+            { front: 'Parabola', back: 'Grafik fungsi kuadrat, berupa kurva simetris.' },
+            { front: 'Titik puncak', back: 'Titik tertinggi atau terendah pada parabola.' },
+            { front: 'Sumbu simetri', back: 'Garis vertikal $x=-\\dfrac{b}{2a}$ yang membagi parabola menjadi dua bagian cermin.' },
+            { front: 'Diskriminan', back: '$D=b^{2}-4ac$, penentu banyaknya akar real.' },
+          ],
+        },
       ],
     },
     {
@@ -118,6 +130,14 @@ Ketiga bentuk itu menyingkap informasi berbeda: bentuk faktor menunjukkan akar, 
           headers: ['$x$', '0', '1', '2', '3', '4', '5'],
           rows: [
             ['$f(x)$', '8', '3', '0', '-1', '0', '3'],
+          ],
+        },
+        {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: '$f(x)=x^{2}-6x+8=(x-2)(x-4)=(x-3)^{2}-1$. Bentuk faktor menyingkap akar, sedangkan bentuk puncak menyingkap titik puncak.' },
+            { label: 'Tabel', body: 'Baris nilai menunjukkan $f$ turun sampai $x=3$ lalu naik kembali. Nilai terkecil $-1$ muncul pada $x=3$.' },
+            { label: 'Grafik', body: 'Parabola terbuka ke atas, memotong sumbu-$x$ di $(2,0)$ dan $(4,0)$, serta berpuncak di $(3,-1)$.' },
           ],
         },
       ],
@@ -181,6 +201,19 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
 **Contoh 3 (optimasi).** Seutas kawat panjang $40$ m akan dibuat pagar persegi panjang. Tentukan ukuran agar luasnya maksimum.
 
 *Penyelesaian.* Misal panjang $x$, maka lebarnya $20-x$ (karena keliling $2(x+\\text{lebar})=40$). Luas $L(x)=x(20-x)=20x-x^{2}$, yaitu fungsi kuadrat dengan $a=-1<0$. Puncaknya di $x=-\\dfrac{20}{2\\cdot(-1)}=10$, sehingga $L(10)=10\\cdot10=100$. Luas maksimum $100$ m² dicapai saat persegi berukuran $10 \\times 10$ m.`,
+      blocks: [
+        {
+          kind: 'step-reveal',
+          intro: 'Mari telusuri ciri grafik $f(x)=x^{2}-6x+8$ satu langkah sekaligus.',
+          steps: [
+            { title: 'Faktorkan', text: '$f(x)=x^{2}-6x+8=(x-2)(x-4)$.' },
+            { title: 'Tentukan akar', text: 'Dari bentuk faktor, akarnya $x=2$ dan $x=4$.' },
+            { title: 'Sumbu simetri', text: '$x=-\\dfrac{b}{2a}=-\\dfrac{-6}{2\\cdot1}=3$.' },
+            { title: 'Titik puncak', text: '$f(3)=9-18+8=-1$, sehingga titik puncaknya $(3,-1)$.' },
+            { title: 'Arah dan potongan sumbu-$y$', text: 'Karena $a=1>0$ parabola terbuka ke atas, dan $c=8$ memberi titik potong $(0,8)$.' },
+          ],
+        },
+      ],
     },
     {
       id: 'latihan-dasar',
@@ -276,6 +309,19 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
 **3. Menganggap titik puncak selalu maksimum.** Titik puncak maksimum hanya bila $a<0$; bila $a>0$ titik puncak adalah minimum.
 
 **4. Menyamakan nilai puncak dengan nilai $c$.** Nilai $c=f(0)$ hanyalah titik potong sumbu-$y$, belum tentu puncak.`,
+      blocks: [
+        {
+          kind: 'spot-mistake',
+          intro: 'Seorang siswa menentukan sumbu simetri $f(x)=x^{2}-6x+8$. Klik langkah yang keliru.',
+          steps: [
+            'Tulis $a=1$, $b=-6$, dan $c=8$.',
+            'Gunakan rumus sumbu simetri $x=-\\dfrac{b}{2a}$.',
+            'Substitusi: $x=\\dfrac{-6}{2\\cdot1}=-3$, jadi sumbu simetri $x=-3$.',
+          ],
+          wrongIndex: 2,
+          explanation: 'Substitusinya keliru karena tanda negatif di depan rumus ikut terlewat. Seharusnya $x=-\\dfrac{-6}{2\\cdot1}=3$, sehingga sumbu simetri $x=3$.',
+        },
+      ],
     },
     {
       id: 'refleksi',
@@ -284,6 +330,17 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
       body: `1. Informasi apa yang langsung kamu peroleh dari tanda $a$ dan nilai $c$ sebelum menghitung?
 2. Bagaimana bentuk kuadrat sempurna membantumu menemukan titik puncak tanpa rumus?
 3. Berikan satu situasi nyata yang titik puncaknya berarti "terbaik".`,
+      blocks: [
+        {
+          kind: 'reflection',
+          prompts: [
+            'Informasi apa yang langsung kamu peroleh dari tanda $a$ dan nilai $c$ sebelum menghitung?',
+            'Bagaimana bentuk kuadrat sempurna membantumu menemukan titik puncak tanpa rumus?',
+            'Berikan satu situasi nyata yang titik puncaknya berarti "terbaik".',
+          ],
+          confidenceLabel: 'Seberapa yakin kamu menentukan titik puncak fungsi kuadrat?',
+        },
+      ],
     },
     {
       id: 'rangkuman',

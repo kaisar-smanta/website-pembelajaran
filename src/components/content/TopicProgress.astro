@@ -1,0 +1,149 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'Kemajuan halaman' } = Astro.props;
+---
+
+<div class="topic-progress card card-accent" data-topic-progress aria-label="Kemajuan belajar halaman ini">
+  <div class="tp-head">
+    <span class="tp-kicker">{title}</span>
+    <span class="tp-count" data-tp-count>0 aktivitas</span>
+  </div>
+  <div
+    class="tp-track"
+    data-tp-track
+    role="progressbar"
+    aria-label="Aktivitas selesai"
+    aria-valuemin="0"
+    aria-valuemax="1"
+    aria-valuenow="0"
+  >
+    <span class="tp-bar" data-tp-bar style="width: 0%"></span>
+  </div>
+  <p class="tp-note" data-tp-note aria-live="polite">
+    Jawab tebak-dugaan, refleksi, latihan, dan contoh terbimbing untuk menaikkan kemajuanmu.
+  </p>
+</div>
+
+<style>
+  .topic-progress {
+    display: grid;
+    gap: 0.55rem;
+  }
+  .tp-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .tp-kicker {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-soft);
+  }
+  .tp-count {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .tp-track {
+    height: 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .tp-bar {
+    display: block;
+    height: 100%;
+    background: var(--color-gradient, linear-gradient(90deg, var(--color-primary), var(--color-geometry)));
+    transition: width var(--dur) var(--ease-out-soft);
+  }
+  .tp-note {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--color-text-muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tp-bar {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { loadProgress } from '@/lib/progress';
+  import { loadPredictions, loadReflections } from '@/lib/learner';
+
+  function setupTopicProgress(root: Element) {
+    const countEl = root.querySelector<HTMLElement>('[data-tp-count]');
+    const barEl = root.querySelector<HTMLElement>('[data-tp-bar]');
+    const trackEl = root.querySelector<HTMLElement>('[data-tp-track]');
+    const noteEl = root.querySelector<HTMLElement>('[data-tp-note]');
+
+    let storage: Storage | undefined;
+    try {
+      storage = window.localStorage;
+    } catch {
+      storage = undefined;
+    }
+
+    function render() {
+      const questions = Array.from(document.querySelectorAll<HTMLElement>('[data-question-id]'));
+      const predictions = Array.from(document.querySelectorAll<HTMLElement>('[data-prediction]'));
+      const reflections = Array.from(document.querySelectorAll<HTMLElement>('[data-reflection]'));
+      const total = questions.length + predictions.length + reflections.length;
+
+      const progress = loadProgress(storage);
+      const preds = loadPredictions(storage);
+      const refls = loadReflections(storage);
+
+      let done = 0;
+      for (const el of questions) {
+        const id = el.getAttribute('data-question-id');
+        if (id && progress[id]) done += 1;
+      }
+      for (const el of predictions) {
+        const id = el.getAttribute('data-pid');
+        if (id && preds[id]) done += 1;
+      }
+      for (const el of reflections) {
+        const id = el.getAttribute('data-rid');
+        if (id && refls[id]) done += 1;
+      }
+
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      if (countEl) countEl.textContent = `${done}/${total} aktivitas`;
+      if (barEl) barEl.style.width = `${pct}%`;
+      if (trackEl) {
+        trackEl.setAttribute('aria-valuenow', String(done));
+        trackEl.setAttribute('aria-valuemax', String(total));
+        trackEl.setAttribute('aria-valuetext', `${done} dari ${total} aktivitas selesai`);
+      }
+      if (noteEl) {
+        if (total === 0) noteEl.textContent = 'Belum ada aktivitas interaktif di halaman ini.';
+        else if (done === total) noteEl.textContent = 'Semua aktivitas halaman ini sudah kamu selesaikan.';
+        else noteEl.textContent = `Tersisa ${total - done} aktivitas lagi di halaman ini.`;
+      }
+    }
+
+    render();
+    window.addEventListener('mtk:progress', render);
+    window.addEventListener('mtk:interaction', render);
+  }
+
+  function boot() {
+    document.querySelectorAll('[data-topic-progress]').forEach(setupTopicProgress);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>
