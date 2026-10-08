@@ -33,6 +33,13 @@ import { turunanQuestions } from './turunan';
 import { aplikasiTurunanQuestions } from './aplikasi-turunan';
 import { integralQuestions } from './integral';
 import { variabelAcakDiskretQuestions } from './variabel-acak-diskret';
+import { limitFungsiQuestions } from './limit-fungsi';
+import { distribusiBinomialQuestions } from './distribusi-binomial';
+import { transformasiGeometriQuestions } from './transformasi-geometri';
+import { induksiMatematikaQuestions } from './induksi-matematika';
+import { teoriBilanganQuestions } from './teori-bilangan';
+import { ketaksamaanQuestions } from './ketaksamaan';
+import { kombinatorikaLanjutQuestions } from './kombinatorika-lanjut';
 
 /** Seluruh bank soal. Tambahkan berkas per topik lalu impor di sini. */
 export const questions: Question[] = [
@@ -53,6 +60,7 @@ export const questions: Question[] = [
   komposisiFungsiQuestions,
   pemodelanFungsiQuestions,
   transformasiFungsiQuestions,
+  transformasiGeometriQuestions,
   lingkaranQuestions,
   dataBivariatQuestions,
   regresiQuestions,
@@ -71,6 +79,13 @@ export const questions: Question[] = [
   aplikasiTurunanQuestions,
   integralQuestions,
   variabelAcakDiskretQuestions,
+  // Pengayaan di luar CP resmi
+  limitFungsiQuestions,
+  distribusiBinomialQuestions,
+  induksiMatematikaQuestions,
+  teoriBilanganQuestions,
+  ketaksamaanQuestions,
+  kombinatorikaLanjutQuestions,
 ].flat();
 
 const byId = new Map<string, Question>(questions.map((q) => [q.id, q]));

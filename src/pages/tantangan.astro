@@ -1,0 +1,265 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
+import Callout from '@/components/content/Callout.astro';
+import QuestionCard from '@/components/exercises/QuestionCard.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { topics, topicSubject } from '@/data/topics';
+import { questions, questionsByTopic } from '@/data/questions';
+import { ELEMENTS, GRADES, GRADE_ORDER, SUBJECTS, SUBJECT_ORDER } from '@/data/curriculum';
+import { seededShuffle } from '@/lib/learner';
+import { renderInlineMarkdown } from '@/utils/markdown';
+import { url, topicUrl } from '@/utils/url';
+import type { Grade, SubjectId } from '@/types/content';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Tantangan & Pengayaan' },
+];
+
+const mahir = questions.filter((q) => q.difficulty === 'mahir');
+const featured = seededShuffle(mahir, 'tantangan-unggulan').slice(0, 6);
+
+const supplementaryTopics = topics.filter((t) => t.supplementary);
+
+const challengeTopics = topics
+  .map((topic) => {
+    const items = questionsByTopic(topic.id);
+    const mahirCount = items.filter((q) => q.difficulty === 'mahir').length;
+    return { topic, mahirCount };
+  })
+  .filter((entry) => entry.mahirCount > 0);
+
+const groups = SUBJECT_ORDER.map((subject: SubjectId) => ({
+  subject,
+  meta: SUBJECTS[subject],
+  grades: GRADE_ORDER.map((grade: Grade) => ({
+    grade,
+    meta: GRADES[grade],
+    topics: challengeTopics
+      .filter((entry) => topicSubject(entry.topic) === subject && entry.topic.grade === grade)
+      .sort((a, b) => a.topic.title.localeCompare(b.topic.title, 'id')),
+  })).filter((g) => g.topics.length > 0),
+})).filter((g) => g.grades.length > 0);
+
+const totalMahir = mahir.length;
+const meta = [`${totalMahir} soal mahir`, `${supplementaryTopics.length} topik pengayaan`];
+
+const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
+---
+
+<BaseLayout
+  title="Tantangan & Pengayaan"
+  description="Kumpulan soal tantangan tingkat mahir dan materi pengayaan untuk siswa yang ingin melampaui capaian pembelajaran: penalaran, pembuktian, dan pemodelan."
+>
+  <PageHeader
+    title="Tantangan & pengayaan"
+    eyebrow="Untuk yang ingin melangkah lebih jauh"
+    lead="Soal nonrutin dan materi di luar capaian dasar. Tempat berlatih memilih strategi, menyusun argumen, membuktikan, dan memodelkan masalah nyata yang menuntut lebih dari sekadar menghitung."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container container-narrow tantangan-intro">
+    <Callout
+      variant="concept"
+      title="Cara memakai halaman ini"
+      text="Kerjakan soal **mahir** sebagai tantangan, lalu telusuri **topik pengayaan** yang melampaui capaian pembelajaran. Jangan buru-buru melihat pembahasan: tulis gagasanmu dulu, baru bandingkan."
+    />
+  </div>
+
+  <section class="section section-paper" aria-labelledby="pemanasan-tantangan">
+    <div class="container">
+      <SectionHeading
+        id="pemanasan-tantangan"
+        eyebrow="Pemanasan"
+        title="Tantangan pilihan"
+        lead="Enam soal mahir dari berbagai topik dan elemen untuk menguji strategi. Tiap soal menampilkan topik asalnya agar kamu bisa menelusuri materinya."
+      />
+      <div class="challenge-list">
+        {
+          featured.map((question, i) => (
+            <div class="reveal" style={revealStyle(i)}>
+              <QuestionCard question={question} index={i} showTopic />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    groups.map((group, gi) => (
+      <section
+        class:list={['section', gi % 2 === 0 ? 'section-alt' : 'section-paper']}
+        aria-labelledby={`tantangan-${group.subject}`}
+      >
+        <div class="container">
+          <SectionHeading
+            id={`tantangan-${group.subject}`}
+            eyebrow={group.meta.name}
+            title={`Tantangan ${group.meta.short}`}
+            lead="Pilih topik untuk membuka sesi latihan berjenjangnya, lalu fokuskan pada tingkat mahir."
+          />
+          {group.grades.map((gradeGroup) => (
+            <div class="grade-block">
+              <h3 class="grade-label">
+                {gradeGroup.meta.name}
+                <span class="grade-tag">{gradeGroup.meta.label}</span>
+              </h3>
+              <div class="topic-grid">
+                {gradeGroup.topics.map(({ topic, mahirCount }, i) => (
+                  <a
+                    class:list={['card', 'topic-card', 'hover-lift', 'reveal', 'card-accent', `accent-${topic.element}`]}
+                    href={url(`/latihan/${topic.slug}`)}
+                    style={revealStyle(i)}
+                  >
+                    <span class="topic-element">{ELEMENTS[topic.element].short}</span>
+                    <h4 set:html={renderInlineMarkdown(topic.title)} />
+                    <p class="topic-summary" set:html={renderInlineMarkdown(topic.summary)} />
+                    <span class="topic-meta">
+                      {mahirCount} soal mahir
+                      {topic.supplementary ? ' · pengayaan' : ''}
+                    </span>
+                    <span class="topic-link">Buka latihan →</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+
+  {
+    supplementaryTopics.length > 0 && (
+      <section class="section section-paper" aria-labelledby="topik-pengayaan">
+        <div class="container">
+          <SectionHeading
+            id="topik-pengayaan"
+            eyebrow="Di luar capaian pembelajaran"
+            title="Topik pengayaan"
+            lead="Materi ini memperluas atau melampaui capaian pembelajaran resmi. Cocok untuk memperdalam dan menyiapkan bidang STEM."
+          />
+          <div class="topic-grid">
+            {supplementaryTopics.map((topic, i) => (
+              <a
+                class:list={['card', 'topic-card', 'hover-lift', 'reveal', 'card-accent', `accent-${topic.element}`]}
+                href={topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))}
+                style={revealStyle(i)}
+              >
+                <span class="topic-element">{ELEMENTS[topic.element].short}</span>
+                <h4 set:html={renderInlineMarkdown(topic.title)} />
+                <p class="topic-summary" set:html={renderInlineMarkdown(topic.summary)} />
+                {topic.cpNote && <p class="topic-note" set:html={renderInlineMarkdown(topic.cpNote)} />}
+                <span class="topic-link">Buka materi →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Perdalam dengan eksplorasi dan matematika lanjut"
+        text="Coba simulasi interaktif untuk menemukan pola sendiri, atau jelajahi Matematika Tingkat Lanjut untuk abstraksi yang lebih tinggi."
+        accentClass="accent-aljabar-fungsi"
+        reveal
+        actions={[
+          { label: 'Jelajahi eksplorasi', href: url('/eksplorasi'), variant: 'primary' },
+          { label: 'Matematika Tingkat Lanjut', href: url('/matematika-lanjut'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tantangan-intro {
+    padding-block: 1rem 0.5rem;
+  }
+  .challenge-list {
+    display: grid;
+    gap: 1rem;
+    max-width: 75ch;
+  }
+  .grade-block {
+    margin-top: 1.5rem;
+  }
+  .grade-block + .grade-block {
+    margin-top: 2rem;
+  }
+  .grade-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 0.85rem;
+    font-size: 1.05rem;
+  }
+  .grade-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-pill);
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+  }
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.9rem;
+  }
+  .topic-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+  }
+  .topic-element {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+  }
+  .topic-card h4 {
+    font-size: 1.02rem;
+    margin: 0.3rem 0 0.35rem;
+  }
+  .topic-summary {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .topic-note {
+    margin: 0.45rem 0 0;
+    font-size: 0.84rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+  .topic-meta {
+    margin-top: 0.55rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+  .topic-link {
+    margin-top: auto;
+    padding-top: 0.6rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 78%, var(--color-text));
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+</style>

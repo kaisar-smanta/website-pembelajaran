@@ -185,4 +185,61 @@ export const asosiasiKausalitasQuestions: Question[] = [
     hints: ['Bandingkan siapa yang menentukan perlakuan pada tiap jenis studi.'],
     competencies: ['eksperimen acak', 'kausalitas', 'penalaran'],
   },
+  {
+    id: 'ak-11',
+    topicId: 'asosiasi-kausalitas',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'konsep',
+    prompt:
+      'Ketika sebuah penelitian menyimpulkan bahwa akibat justru dianggap sebagai penyebab, misalnya penyakit yang membuat penderita lebih banyak minum kopi, bukan kopi yang menyebabkan penyakit, fenomena ini disebut …',
+    answer: 'kausalitas terbalik',
+    acceptedAnswers: [
+      'kausalitas terbalik',
+      'reverse causation',
+      'sebab-akibat terbalik',
+      'arah sebab-akibat terbalik',
+      'kausalitas terbalik (reverse causation)',
+    ],
+    explanation:
+      'Arah pengaruh yang sebenarnya berlawanan dari dugaan disebut kausalitas terbalik (reverse causation). Data korelasi tidak menentukan arah, sehingga urutan waktu perlu diperiksa.',
+    hints: ['Perhatikan siapa yang sebenarnya lebih dahulu terjadi.'],
+    competencies: ['kausalitas terbalik'],
+  },
+  {
+    id: 'ak-12',
+    topicId: 'asosiasi-kausalitas',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Dari 100 siswa, 60 biasa sarapan dan 40 tidak. Di antara yang sarapan, 45 lulus ujian; di antara yang tidak sarapan, 20 lulus. Berapa poin persen selisih persentase kelulusan kedua kelompok?',
+    answer: '25',
+    acceptedAnswers: ['25', '25%', '25 persen', '25 poin persen', '25 poin'],
+    explanation:
+      'Kelompok sarapan: $\\dfrac{45}{60}=75\\%$. Kelompok tidak sarapan: $\\dfrac{20}{40}=50\\%$. Selisih $=75\\%-50\\%=25$ poin persen. Selisih ini hanya menunjukkan asosiasi; masih mungkin ada variabel perancu seperti kondisi ekonomi keluarga atau kebiasaan belajar, sehingga belum cukup untuk menyimpulkan sebab-akibat.',
+    hints: [
+      'Hitung persentase kelulusan masing-masing kelompok terhadap banyak anggotanya.',
+      'Kurangkan kedua persentase untuk memperoleh selisihnya.',
+    ],
+    competencies: ['asosiasi', 'membandingkan proporsi', 'penalaran'],
+  },
+  {
+    id: 'ak-13',
+    topicId: 'asosiasi-kausalitas',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah perusahaan melaporkan bahwa karyawan yang mengikuti program kebugaran **sukarela** memiliki tingkat absensi lebih rendah, lalu menyimpulkan bahwa program itu menurunkan absensi. Evaluasilah kesimpulan tersebut: sebutkan bias pemilihannya dan jelaskan bagaimana eksperimen acak dapat memperbaiki simpulan itu.',
+    answer:
+      'Kesimpulan itu lemah karena program bersifat sukarela, sehingga timbul bias pemilihan diri (self-selection). Karyawan yang memilih ikut program kemungkinan memang sudah lebih sehat, lebih sadar kesehatan, atau lebih disiplin, sehingga absensi rendah bukan akibat program melainkan sifat awal peserta. Kelompok yang tidak ikut tidak setara sejak awal, sehingga perbandingan menjadi tidak adil. Eksperimen acak memperbaikinya dengan menempatkan karyawan secara acak ke kelompok perlakuan (ikut program) dan kelompok kontrol, sehingga perbedaan karakteristik terbagi rata dan perbedaan absensi lebih layak dikaitkan dengan program. Pengukuran sebelum-sesudah dan pengendalian faktor seperti usia dan beban kerja juga memperkuat bukti.',
+    explanation:
+      'Kunci jawaban mengenali self-selection sebagai variabel perancu dan menjelaskan peran pengacakan untuk membuat kelompok setara.',
+    hints: [
+      'Pikirkan ciri karyawan yang cenderung memilih ikut program secara sukarela.',
+      'Apa yang membuat kelompok perlakuan dan kontrol setara pada eksperimen acak?',
+    ],
+    competencies: ['bias pemilihan', 'eksperimen acak', 'evaluasi klaim'],
+  },
 ];

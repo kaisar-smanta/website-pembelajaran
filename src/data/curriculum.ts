@@ -34,7 +34,7 @@ export const ELEMENTS: Record<ElementId, ElementMeta> = {
     name: 'Geometri',
     short: 'Geometri',
     description:
-      'Trigonometri dan lingkaran: hubungan sudut, sisi, busur, juring, serta penerapannya dalam pengukuran.',
+      'Trigonometri, lingkaran, dan transformasi geometri: hubungan sudut, sisi, busur, juring, serta perpindahan dan perubahan ukuran bangun pada bidang koordinat.',
     icon: 'geometry',
     accent: 'element-geometry',
   },
@@ -43,7 +43,7 @@ export const ELEMENTS: Record<ElementId, ElementMeta> = {
     name: 'Analisis Data dan Peluang',
     short: 'Data & Peluang',
     description:
-      'Distribusi data, data bivariat, regresi, asosiasi dan kausalitas, serta peluang dan kombinatorika.',
+      'Distribusi data, data bivariat, regresi, asosiasi dan kausalitas, peluang dan kombinatorika, serta variabel acak dan distribusi binomial.',
     icon: 'data',
     accent: 'element-data',
   },
@@ -52,7 +52,7 @@ export const ELEMENTS: Record<ElementId, ElementMeta> = {
     name: 'Kalkulus',
     short: 'Kalkulus',
     description:
-      'Laju perubahan dan turunan, penerapan turunan untuk gradien, garis singgung, kecepatan, dan optimasi, serta integral sebagai kebalikan turunan dan penghitung luas.',
+      'Limit sebagai nilai yang didekati fungsi, laju perubahan dan turunan, penerapan turunan untuk gradien, garis singgung, kecepatan, dan optimasi, serta integral sebagai kebalikan turunan dan penghitung luas.',
     icon: 'calculus',
     accent: 'element-calculus',
   },
@@ -121,7 +121,7 @@ export const SUBJECTS: Record<SubjectId, SubjectMeta> = {
     name: 'Matematika Tingkat Lanjut',
     short: 'Mat. Lanjut',
     description:
-      'Mata pelajaran pilihan Fase F untuk memperkuat abstraksi dan menyiapkan bidang STEM: polinomial, matriks dan transformasi geometri, trigonometri lanjut, vektor, irisan kerucut, turunan, integral, serta variabel acak diskret.',
+      'Mata pelajaran pilihan Fase F untuk memperkuat abstraksi dan menyiapkan bidang STEM: polinomial, matriks dan transformasi geometri, trigonometri lanjut, vektor, irisan kerucut, limit, turunan, integral, variabel acak diskret, serta distribusi binomial.',
     phases: ['F'],
     grades: ['XI', 'XII'],
     elements: ['aljabar-fungsi', 'geometri', 'kalkulus', 'data-peluang'],
@@ -130,7 +130,7 @@ export const SUBJECTS: Record<SubjectId, SubjectMeta> = {
     accent: 'subject-lanjut',
     gradeDescriptions: {
       XI: 'Penguatan abstraksi: polinomial, matriks dan transformasi geometri, trigonometri lanjut, vektor, serta irisan kerucut.',
-      XII: 'Kalkulus dan peluang lanjutan: turunan, penerapannya, integral, serta variabel acak diskret untuk bidang STEM.',
+      XII: 'Kalkulus dan peluang lanjutan: limit, turunan, penerapannya, integral, variabel acak diskret, serta distribusi binomial untuk bidang STEM.',
     },
   },
 };

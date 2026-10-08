@@ -32,6 +32,7 @@ export const persamaanEksponenLogaritma: Topic = {
     { text: 'Menggunakan sifat-sifat logaritma (perkalian, pembagian, dan pangkat) dalam perhitungan.' },
     { text: 'Menyelesaikan persamaan logaritma sederhana dengan memeriksa syarat numerus positif.' },
   ],
+  applications: ['skala-logaritma'],
   sections: [
     {
       id: "tujuan",
@@ -344,6 +345,44 @@ Skala logaritma juga memampatkan rentang yang sangat lebar: skala pH, skala Rich
           ],
           wrongIndex: 0,
           explanation: "Langkah pertama keliru. Sifat logaritma mengubah **perkalian** menjadi penjumlahan, bukan sebaliknya. Jadi $\\log_{2}4 + \\log_{2}8 = \\log_{2}(4 \\cdot 8) = \\log_{2}32 = 5$, bukan $\\log_{2}12$.",
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Logaritma lahir dari kebutuhan berhitung yang sangat praktis. Pada awal abad ke-17, para astronom harus mengalikan bilangan-bilangan besar dan panjang. John Napier, dalam *Mirifici Logarithmorum Canonis Descriptio* (1614), memperkenalkan gagasan "bilangan perbandingan" yang mengubah perkalian menjadi penjumlahan. Henry Briggs kemudian menyusun tabel logaritma basis 10 pada 1617 sehingga metode ini cepat menyebar. Kata *logarithm* berasal dari bahasa Yunani *logos* (perbandingan) dan *arithmos* (bilangan).
+
+Untuk beberapa waktu logaritma dipandang semata sebagai alat hitung, bukan sebagai fungsi. Leonhard Euler dalam *Introductio in analysin infinitorum* (1748) menempatkannya pada dasar yang modern: ia memperkenalkan bilangan $e \\approx 2{,}71828$, menuliskan fungsi eksponen $e^{x}$, dan menegaskan bahwa logaritma adalah **operasi invers** dari eksponen. Dari sanalah hubungan $a^{c} = b \\iff \\log_{a}b = c$ menjadi definisi yang kita pakai sekarang. Justru karena sifat balik inilah persamaan eksponen dan persamaan logaritma dapat saling diterjemahkan, dan pemeriksaan syarat numerus positif menjadi bagian yang tak terpisahkan.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tokoh kunci dalam perkembangan logaritma",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "John Napier (1614)",
+              "Memperkenalkan logaritma sebagai alat hitung.",
+            ],
+            [
+              "Henry Briggs (1617)",
+              "Menyusun tabel logaritma basis 10.",
+            ],
+            [
+              "Leonhard Euler (1748)",
+              "Menegaskan logaritma sebagai invers eksponen dan memperkenalkan bilangan $e$.",
+            ],
+          ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Inti pandangan Euler",
+          text: "Bagi Euler, $e^{x}$ dan $\\ln x$ adalah dua fungsi yang saling membalik. Cara pandang inilah yang mengubah logaritma dari sekadar trik perkalian menjadi konsep pusat dalam kalkulus dan penyelesaian persamaan.",
         },
       ],
     },

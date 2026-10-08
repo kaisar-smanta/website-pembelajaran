@@ -35,6 +35,7 @@ export const sistemPertidaksamaan: Topic = {
     { text: 'Memodelkan kendala situasi nyata sebagai sistem pertidaksamaan linear.' },
     { text: 'Menentukan nilai optimum fungsi objektif dengan memeriksa titik sudut.' },
   ],
+  applications: ['optimasi-produksi-bengkel'],
   sections: [
     {
       id: "tujuan",

@@ -209,4 +209,22 @@ export const permutasiKombinasiQuestions: Question[] = [
     hints: ['Urutan huruf pada kode penting.', 'Gunakan $P(5,3)$ karena tanpa pengulangan.'],
     competencies: ['permutasi', 'pemodelan'],
   },
+  {
+    id: 'perkom-14',
+    topicId: 'permutasi-kombinasi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah panitia beranggota $5$ orang akan dibentuk dari $6$ pria dan $4$ wanita. (a) Berapa banyak susunan panitia yang memuat tepat $2$ wanita? (b) Berapa banyak susunan panitia yang memuat paling sedikit $1$ wanita?',
+    answer:
+      '(a) Pilih $2$ wanita dari $4$ dan $3$ pria dari $6$: $\\binom{4}{2}\\binom{6}{3}=6\\cdot20=120$. (b) Hitung total semua panitia lalu kurangi panitia tanpa wanita: $\\binom{10}{5}-\\binom{6}{5}=252-6=246$. Jadi ada $246$ susunan yang memuat paling sedikit $1$ wanita.',
+    explanation:
+      'Kunci: memakai aturan perkalian kombinasi untuk kasus "tepat", dan strategi komplemen (total dikurangi tanpa wanita) untuk kasus "paling sedikit".',
+    hints: [
+      'Untuk "tepat $2$ wanita", pilih wanita dan pria secara terpisah lalu kalikan.',
+      'Untuk "paling sedikit $1$", kurangi total dengan susunan tanpa wanita.',
+    ],
+    competencies: ['kombinasi', 'aturan perkalian', 'strategi komplemen', 'pemodelan'],
+  },
 ];

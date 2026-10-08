@@ -51,6 +51,8 @@ export type SectionKind =
   | 'refleksi'
   | 'rangkuman'
   | 'evaluasi'
+  | 'sejarah'
+  | 'tantangan'
   | 'catatan';
 
 /** Blok tambahan di luar markdown, untuk kasus yang butuh UI khusus. */
@@ -229,6 +231,7 @@ export interface Question {
   explanation?: string;
   hints?: string[];
   competencies?: string[];
+  rubric?: string[];
 }
 
 export type ApplicationCategory =
@@ -298,6 +301,8 @@ export type ExplorationType =
   | 'derivative'
   | 'integral'
   | 'random-variable'
+  | 'limit'
+  | 'binomial-distribution'
   | 'geogebra';
 
 /** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */

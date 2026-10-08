@@ -138,6 +138,106 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
       <p class="last-activity text-soft" data-stat-last></p>
     </section>
 
+    <section data-review hidden aria-labelledby="tinjauan-lintas">
+      <SectionHeading
+        id="tinjauan-lintas"
+        eyebrow="Tinjau"
+        title="Tinjau semua soal yang belum tepat"
+        lead="Himpun soal yang pernah salah atau belum dicoba dari seluruh topik dalam satu sesi, diurutkan menurut jadwal pengulangan."
+        reveal={false}
+      />
+      <div class="challenge-card card">
+        <div class="challenge-copy">
+          <p class="challenge-kicker">Antrean tinjauan</p>
+          <h3 data-review-title>Belum ada soal untuk ditinjau</h3>
+          <p class="challenge-text" data-review-text>
+            Selesaikan beberapa latihan agar antrean tinjauanmu terisi.
+          </p>
+        </div>
+        <div class="row">
+          <a class="btn btn-primary" href={url('/review')}>Mulai tinjauan</a>
+        </div>
+      </div>
+    </section>
+
+    <section data-challenge hidden aria-labelledby="tantangan-berikutnya">
+      <SectionHeading
+        id="tantangan-berikutnya"
+        eyebrow="Langkah berikutnya"
+        title="Tantangan berikutnya"
+        lead="Saran ini menyesuaikan ketepatanmu secara keseluruhan."
+        reveal={false}
+      />
+      <div class="challenge-card card">
+        <div class="challenge-copy">
+          <p class="challenge-kicker" data-challenge-kicker>Latihan</p>
+          <h3 data-challenge-title>Tingkatkan ketepatanmu</h3>
+          <p class="challenge-text" data-challenge-text>
+            Lanjutkan berlatih untuk memperkuat dasar sebelum menuju soal tantangan.
+          </p>
+        </div>
+        <div class="row">
+          <a
+            class="btn btn-primary"
+            data-challenge-link
+            data-href-challenge={url('/tantangan')}
+            data-href-practice={url('/latihan')}
+            href={url('/latihan')}
+          >
+            Kerjakan latihan
+          </a>
+          <a class="btn btn-secondary" data-challenge-secondary href={url('/latihan')} hidden>
+            Ulangi latihan ringan
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section data-mastery hidden aria-labelledby="penguasaan">
+      <SectionHeading
+        id="penguasaan"
+        eyebrow="Penguasaan"
+        title="Penguasaan topik"
+        lead="Penguasaan dihitung dari ketepatan menjawab dan banyaknya soal topik yang sudah dikerjakan."
+        reveal={false}
+      />
+      <dl class="stats mastery-bands" data-mastery-bands></dl>
+      <div class="mastery-focus">
+        <h3 class="subhead">Perlu perhatian</h3>
+        <p class="subhead-note text-muted" data-mastery-note></p>
+        <ol class="continue-list" data-mastery-list></ol>
+      </div>
+    </section>
+
+    <section data-confidence hidden aria-labelledby="keyakinan">
+      <SectionHeading
+        id="keyakinan"
+        eyebrow="Refleksi"
+        title="Keyakinan refleksi"
+        lead="Refleksi pada halaman materi menyertakan skala keyakinan 1 sampai 5."
+        reveal={false}
+      />
+      <dl class="stats">
+        <div class="stat">
+          <dt>Refleksi tersimpan</dt>
+          <dd data-conf-total>0</dd>
+        </div>
+        <div class="stat">
+          <dt>Rata-rata keyakinan</dt>
+          <dd data-conf-average>&mdash;</dd>
+        </div>
+        <div class="stat">
+          <dt>Keyakinan rendah</dt>
+          <dd data-conf-low-count>0</dd>
+        </div>
+      </dl>
+      <div class="confidence-low">
+        <h3 class="subhead">Perlu ditindaklanjuti</h3>
+        <p class="subhead-note text-muted" data-conf-note></p>
+        <ul class="confidence-list" data-conf-list></ul>
+      </div>
+    </section>
+
     <section data-continue hidden aria-labelledby="lanjutkan">
       <SectionHeading
         id="lanjutkan"
@@ -326,6 +426,10 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     font-size: 0.88rem;
   }
   section[data-summary],
+  section[data-review],
+  section[data-challenge],
+  section[data-mastery],
+  section[data-confidence],
   section[data-continue],
   section[data-suggest],
   section[data-breakdown],
@@ -334,11 +438,103 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     gap: 1rem;
   }
   section[data-summary] :global(.section-heading),
+  section[data-review] :global(.section-heading),
+  section[data-challenge] :global(.section-heading),
+  section[data-mastery] :global(.section-heading),
+  section[data-confidence] :global(.section-heading),
   section[data-continue] :global(.section-heading),
   section[data-suggest] :global(.section-heading),
   section[data-breakdown] :global(.section-heading),
   section[data-manage] :global(.section-heading) {
     margin-bottom: 0;
+  }
+  .challenge-card {
+    display: grid;
+    gap: 1rem;
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+    border-top: 3px solid var(--accent, var(--color-primary));
+  }
+  .challenge-copy {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .challenge-kicker {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .challenge-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  .challenge-text {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    max-width: 60ch;
+  }
+  .mastery-bands {
+    margin: 0;
+  }
+  .mastery-band.band-mahir dd {
+    color: var(--color-success, var(--color-primary));
+  }
+  .mastery-band.band-berlatih dd {
+    color: var(--color-warning, var(--color-primary));
+  }
+  .mastery-band.band-belum dd {
+    color: var(--color-text-muted);
+  }
+  .mastery-focus,
+  .confidence-low {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .subhead {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .subhead-note {
+    margin: 0;
+    font-size: 0.88rem;
+  }
+  .confidence-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .confidence-item {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-warning, var(--color-primary));
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+  .confidence-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .confidence-score {
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+  }
+  .confidence-text {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
   }
   .continue-list {
     list-style: none;
@@ -507,6 +703,11 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
   .cta-section {
     padding-block: 2.5rem;
   }
+  @media (max-width: 40rem) {
+    .challenge-card {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
 </style>
 
 <script>
@@ -528,7 +729,11 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     type SiteOverview,
     type TopicEntry,
     type TopicOverview,
+    type TopicMastery,
+    type MasteryBand,
+    type LowConfidenceEntry,
   } from '@/lib/progress-overview';
+  import { buildReviewQueue, summarizeReviewQueue } from '@/lib/review';
 
   function boot() {
     const rootEl = document.querySelector<HTMLElement>('[data-kemajuan-root]');
@@ -548,6 +753,10 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     const emptyEl = root.querySelector<HTMLElement>('[data-empty]');
     const sections = {
       summary: root.querySelector<HTMLElement>('[data-summary]'),
+      review: root.querySelector<HTMLElement>('[data-review]'),
+      challenge: root.querySelector<HTMLElement>('[data-challenge]'),
+      mastery: root.querySelector<HTMLElement>('[data-mastery]'),
+      confidence: root.querySelector<HTMLElement>('[data-confidence]'),
       continue: root.querySelector<HTMLElement>('[data-continue]'),
       suggest: root.querySelector<HTMLElement>('[data-suggest]'),
       breakdown: root.querySelector<HTMLElement>('[data-breakdown]'),
@@ -771,6 +980,190 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
       }
     }
 
+    const BAND_LABELS: Record<MasteryBand, string> = {
+      mahir: 'Mahir',
+      cukup: 'Cukup',
+      berlatih: 'Berlatih',
+      belum: 'Belum',
+    };
+
+    function masteryListItem(topic: TopicMastery): HTMLLIElement {
+      const item = document.createElement('li');
+      item.className = 'continue-item';
+      item.style.setProperty('--accent', `var(--color-${accentKey(topic.element ?? '')})`);
+
+      const main = document.createElement('div');
+      main.className = 'continue-main';
+
+      const link = document.createElement('a');
+      link.className = 'continue-title';
+      link.href = topic.practiceHref;
+      link.textContent = topic.title;
+
+      const meta = document.createElement('span');
+      meta.className = 'continue-meta';
+      const ratio =
+        topic.total > 0
+          ? `${topic.answered}/${topic.total} soal (${percent(topic.completion)})`
+          : 'belum ada soal';
+      const accuracy = topic.gradedAnswered
+        ? ` · ketepatan ${percent(topic.accuracy)}`
+        : '';
+      meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy} · ${BAND_LABELS[topic.band]}`;
+
+      main.append(link, meta);
+
+      const material = document.createElement('a');
+      material.className = 'btn btn-secondary btn-sm';
+      material.href = topic.materialHref;
+      material.textContent = 'Baca materi';
+
+      item.append(main, material);
+      return item;
+    }
+
+    function renderReview(progress: ProgressMap) {
+      const title = root.querySelector<HTMLElement>('[data-review-title]');
+      const text = root.querySelector<HTMLElement>('[data-review-text]');
+      const ids = entries.flatMap((entry) => entry.questionIds);
+      const queue = buildReviewQueue(ids, progress, Date.now());
+      const summary = summarizeReviewQueue(queue);
+
+      if (title) {
+        title.textContent =
+          queue.length > 0
+            ? `${queue.length} soal menunggu tinjauan`
+            : 'Semua soal sudah tepat';
+      }
+      if (text) {
+        text.textContent =
+          queue.length > 0
+            ? `${summary.missed} soal belum tepat dan ${summary.unanswered} soal belum dicoba. Urutannya memprioritaskan yang paling mendesak.`
+            : 'Tidak ada soal yang belum tepat atau belum dicoba. Pertahankan dengan berlatih soal baru atau soal tingkat mahir.';
+      }
+    }
+
+    function renderChallenge(overview: SiteOverview) {
+      const kicker = root.querySelector<HTMLElement>('[data-challenge-kicker]');
+      const title = root.querySelector<HTMLElement>('[data-challenge-title]');
+      const text = root.querySelector<HTMLElement>('[data-challenge-text]');
+      const link = root.querySelector<HTMLAnchorElement>('[data-challenge-link]');
+      const secondary = root.querySelector<HTMLAnchorElement>('[data-challenge-secondary]');
+      const ready = overview.answered >= 10 && overview.accuracy >= 0.8;
+
+      if (kicker) kicker.textContent = ready ? 'Pengayaan' : 'Latihan';
+      if (title) title.textContent = ready ? 'Kamu siap untuk tantangan' : 'Tingkatkan ketepatanmu';
+      if (text) {
+        text.textContent = ready
+          ? `Ketepatanmu ${percent(overview.accuracy)} dari ${overview.answered} soal yang dikerjakan. Coba soal tingkat mahir dan topik pengayaan untuk melangkah lebih jauh.`
+          : 'Lanjutkan berlatih untuk memperkuat dasar sebelum menuju soal tantangan.';
+      }
+      if (link) {
+        const target = ready ? link.dataset.hrefChallenge : link.dataset.hrefPractice;
+        if (target) link.href = target;
+        link.textContent = ready ? 'Buka tantangan & pengayaan' : 'Kerjakan latihan';
+      }
+      if (secondary) secondary.hidden = !ready;
+    }
+
+    function renderMastery(overview: SiteOverview) {
+      const bandsEl = root.querySelector<HTMLElement>('[data-mastery-bands]');
+      const list = root.querySelector<HTMLOListElement>('[data-mastery-list]');
+      const note = root.querySelector<HTMLElement>('[data-mastery-note]');
+      const summary = overview.mastery;
+
+      if (bandsEl) {
+        const order: MasteryBand[] = ['mahir', 'cukup', 'berlatih', 'belum'];
+        bandsEl.replaceChildren(
+          ...order.map((band) => {
+            const cell = document.createElement('div');
+            cell.className = `stat mastery-band band-${band}`;
+            const dt = document.createElement('dt');
+            dt.textContent = BAND_LABELS[band];
+            const dd = document.createElement('dd');
+            dd.textContent = String(summary.bands[band]);
+            cell.append(dt, dd);
+            return cell;
+          }),
+        );
+      }
+
+      if (list) list.replaceChildren(...summary.focus.map(masteryListItem));
+
+      if (note) {
+        note.textContent =
+          summary.focus.length > 0
+            ? 'Topik berikut belum tuntas atau ketepatannya masih di bawah 70%.'
+            : 'Tidak ada topik yang tertinggal. Pertahankan dengan mengulang secara berkala.';
+      }
+    }
+
+    function renderConfidence(overview: SiteOverview) {
+      const summary = overview.confidence;
+      const totalEl = root.querySelector('[data-conf-total]');
+      const averageEl = root.querySelector('[data-conf-average]');
+      const lowCountEl = root.querySelector('[data-conf-low-count]');
+      const list = root.querySelector<HTMLUListElement>('[data-conf-list]');
+      const note = root.querySelector<HTMLElement>('[data-conf-note]');
+
+      if (totalEl) totalEl.textContent = String(summary.total);
+      if (averageEl) {
+        averageEl.textContent = summary.average === null ? '—' : `${summary.average.toFixed(1)}/5`;
+      }
+      if (lowCountEl) lowCountEl.textContent = String(summary.low.length);
+
+      if (list) {
+        list.replaceChildren(...summary.low.map(confidenceListItem));
+      }
+
+      if (note) {
+        if (summary.rated === 0) {
+          note.textContent = 'Belum ada refleksi yang menyertakan skala keyakinan.';
+        } else if (summary.low.length === 0) {
+          note.textContent = 'Tidak ada refleksi dengan keyakinan rendah. Pertahankan.';
+        } else {
+          note.textContent =
+            'Refleksi berikut menandai pemahaman yang masih goyah (keyakinan 2 atau kurang).';
+        }
+      }
+    }
+
+    function confidenceListItem(entry: LowConfidenceEntry): HTMLLIElement {
+      const item = document.createElement('li');
+      item.className = 'confidence-item';
+
+      const head = document.createElement('div');
+      head.className = 'confidence-head';
+
+      if (entry.practiceHref) {
+        const link = document.createElement('a');
+        link.href = entry.practiceHref;
+        link.textContent = entry.topicTitle;
+        head.appendChild(link);
+      } else {
+        const name = document.createElement('span');
+        name.textContent = entry.topicTitle;
+        head.appendChild(name);
+      }
+
+      const score = document.createElement('span');
+      score.className = 'confidence-score';
+      score.textContent = `Keyakinan ${entry.confidence}/5`;
+      head.appendChild(score);
+
+      item.appendChild(head);
+
+      const snippet = entry.text.trim();
+      if (snippet) {
+        const text = document.createElement('p');
+        text.className = 'confidence-text';
+        text.textContent = snippet.length > 100 ? `${snippet.slice(0, 100)}…` : snippet;
+        item.appendChild(text);
+      }
+
+      return item;
+    }
+
     function render() {
       const { progress, predictions, reflections } = readStores();
       const overview = buildOverview(entries, progress, predictions, reflections);
@@ -778,6 +1171,10 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
       if (!overview.hasData) {
         if (emptyEl) emptyEl.hidden = false;
         setSectionVisible(sections.summary, false);
+        setSectionVisible(sections.review, false);
+        setSectionVisible(sections.challenge, false);
+        setSectionVisible(sections.mastery, false);
+        setSectionVisible(sections.confidence, false);
         setSectionVisible(sections.continue, false);
         setSectionVisible(sections.suggest, false);
         setSectionVisible(sections.breakdown, false);
@@ -787,9 +1184,19 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
 
       if (emptyEl) emptyEl.hidden = true;
       setSectionVisible(sections.summary, true);
+      setSectionVisible(sections.review, overview.answered > 0);
+      setSectionVisible(sections.challenge, true);
+      setSectionVisible(sections.mastery, overview.answered > 0);
+      setSectionVisible(sections.confidence, overview.confidence.total > 0);
       setSectionVisible(sections.breakdown, true);
       setSectionVisible(sections.manage, true);
       renderSummary(overview);
+      renderChallenge(overview);
+      if (overview.answered > 0) {
+        renderMastery(overview);
+        renderReview(progress);
+      }
+      if (overview.confidence.total > 0) renderConfidence(overview);
       renderContinue(overview);
       renderSuggest(overview);
       renderBreakdown(overview);

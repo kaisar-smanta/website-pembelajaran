@@ -117,6 +117,29 @@ const competencies = question.competencies ?? [];
           rows="4"
           placeholder="Tulis jawaban dan alasanmu di sini…"
         />
+        {
+          question.rubric?.length ? (
+            <fieldset class="q-rubric" data-rubric>
+              <legend class="q-rubric-title">Periksa jawabanmu</legend>
+              <ul class="q-rubric-list" role="list">
+                {question.rubric.map((criterion, i) => (
+                  <li>
+                    <label class="q-rubric-item" for={`rubric-${question.id}-${i}`}>
+                      <input
+                        type="checkbox"
+                        id={`rubric-${question.id}-${i}`}
+                        class="q-rubric-check"
+                        data-rubric-check
+                        value={String(i)}
+                      />
+                      <span>{criterion}</span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </fieldset>
+          ) : null
+        }
         <button type="button" class="btn btn-secondary btn-sm" data-open-reveal>
           Lihat contoh jawaban
         </button>
@@ -259,6 +282,44 @@ const competencies = question.competencies ?? [];
     gap: 0.5rem;
     justify-items: start;
   }
+  .q-rubric {
+    width: 100%;
+    margin: 0.25rem 0 0;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .q-rubric-title {
+    padding: 0 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .q-rubric-list {
+    list-style: none;
+    margin: 0.35rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .q-rubric-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .q-rubric-check {
+    flex: 0 0 auto;
+    width: 1.05rem;
+    height: 1.05rem;
+    margin-top: 0.15rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }
   .q-feedback {
     margin: 0.5rem 0;
     padding: 0.5rem 0.75rem;
@@ -316,7 +377,14 @@ const competencies = question.competencies ?? [];
     type AttemptState,
   } from '@/lib/progress';
   import { isAcceptedAnswer, normalizeAnswer } from '@/lib/answer';
-  import { seededShuffle } from '@/lib/learner';
+  import {
+    seededShuffle,
+    loadRubricChecks,
+    saveRubricChecks,
+    toggleRubricCheck,
+    clearRubricChecks,
+    type RubricCheckMap,
+  } from '@/lib/learner';
   import { combineSeed } from '@/lib/practice';
 
   const SESSION_SEED_KEY = 'mtk-session-seed';
@@ -454,6 +522,19 @@ const competencies = question.competencies ?? [];
       if (check) check.disabled = false;
       const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
       if (openInput) openInput.value = '';
+      const rubricBoxes = root.querySelectorAll<HTMLInputElement>('[data-rubric-check]');
+      if (rubricBoxes.length) {
+        rubricBoxes.forEach((box) => {
+          box.checked = false;
+        });
+        try {
+          const storage = window.localStorage;
+          const qid = root.getAttribute('data-question-id') ?? '';
+          saveRubricChecks(storage, clearRubricChecks(loadRubricChecks(storage), qid));
+        } catch {
+          /* ignore */
+        }
+      }
       hideModel();
       const reveal = root.querySelector('[data-open-reveal]') as HTMLButtonElement | null;
       if (reveal) reveal.textContent = 'Lihat contoh jawaban';
@@ -642,7 +723,33 @@ const competencies = question.competencies ?? [];
       const reveal = root.querySelector('[data-open-reveal]') as HTMLButtonElement;
       const model = root.querySelector('[data-model]') as HTMLElement;
       const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
+      const rubricBoxes = Array.from(
+        root.querySelectorAll<HTMLInputElement>('[data-rubric-check]'),
+      );
+      const questionId = root.getAttribute('data-question-id') ?? '';
       let recorded = false;
+
+      if (rubricBoxes.length) {
+        let rubricMap: RubricCheckMap = {};
+        try {
+          rubricMap = loadRubricChecks(window.localStorage);
+        } catch {
+          rubricMap = {};
+        }
+        const checkedIndices = new Set(rubricMap[questionId] ?? []);
+        rubricBoxes.forEach((box) => {
+          const index = Number(box.value);
+          box.checked = checkedIndices.has(index);
+          box.addEventListener('change', () => {
+            try {
+              rubricMap = toggleRubricCheck(rubricMap, questionId, index, box.checked);
+              saveRubricChecks(window.localStorage, rubricMap);
+            } catch {
+              /* ignore */
+            }
+          });
+        });
+      }
 
       // Rubrik (`data-explanation`) dibuka bersama jawaban model.
       const syncExplanation = () => {

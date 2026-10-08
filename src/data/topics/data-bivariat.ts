@@ -362,7 +362,7 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana hubungan dua variabel membantumu menafsirkan data berpasangan.",
       blocks: [
         {
           kind: "reflection",

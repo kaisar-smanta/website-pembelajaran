@@ -296,10 +296,52 @@ Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listri
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Sebuah simetri kecil dapat menghitung integral yang tampak mustahil.
+
+**Sifat simetri.** Untuk fungsi $f$ yang kontinu pada $[0,a]$, berlaku
+$$\\int_0^a f(x)\\,dx=\\int_0^a f(a-x)\\,dx.$$
+
+**Tantangan.** Gunakan sifat di atas untuk menghitung
+$$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Terapkan sifat simetri dengan $a=\\dfrac{\\pi}{2}$ pada fungsi $f(x)=\\dfrac{\\sin x}{\\sin x+\\cos x}$, lalu jumlahkan hasilnya dengan bentuk semula.`,
+        },
+        {
+          kind: "step-reveal",
+          intro: "Gunakan simetri untuk membentuk dua bentuk integral yang saling melengkapi.",
+          steps: [
+            {
+              title: "Terapkan sifat simetri",
+              text: `Dengan $a=\\dfrac{\\pi}{2}$, diperoleh $I=\\int_0^{\\pi/2}\\dfrac{\\sin\\left(\\frac{\\pi}{2}-x\\right)}{\\sin\\left(\\frac{\\pi}{2}-x\\right)+\\cos\\left(\\frac{\\pi}{2}-x\\right)}\\,dx$.`,
+            },
+            {
+              title: "Sederhanakan",
+              text: `Gunakan $\\sin\\left(\\frac{\\pi}{2}-x\\right)=\\cos x$ dan $\\cos\\left(\\frac{\\pi}{2}-x\\right)=\\sin x$, sehingga $I=\\int_0^{\\pi/2}\\dfrac{\\cos x}{\\cos x+\\sin x}\\,dx$.`,
+            },
+            {
+              title: "Jumlahkan kedua bentuk",
+              text: `$2I=\\int_0^{\\pi/2}\\left[\\dfrac{\\sin x}{\\sin x+\\cos x}+\\dfrac{\\cos x}{\\cos x+\\sin x}\\right]dx=\\int_0^{\\pi/2}1\\,dx$.`,
+            },
+            {
+              title: "Hitung hasilnya",
+              text: `$2I=\\dfrac{\\pi}{2}$, sehingga $I=\\dfrac{\\pi}{4}$.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana penjumlahan bagian kecil menyusun luas dan akumulasi.",
       blocks: [
         {
           kind: "reflection",

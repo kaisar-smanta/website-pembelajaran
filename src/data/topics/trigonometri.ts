@@ -40,6 +40,7 @@ export const trigonometri: Topic = {
     { text: 'Menyelesaikan masalah pengukuran menggunakan sudut elevasi dan sudut depresi.' },
     { text: 'Mengenal aturan sinus dan kosinus sebagai perluasan pada segitiga sebarang.' },
   ],
+  applications: ['pengukuran-tinggi-menara', 'luas-juring-taman'],
   sections: [
     {
       id: "tujuan",
@@ -378,10 +379,52 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
       ],
     },
     {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Trigonometri tumbuh dari kebutuhan astronomi. Pada abad ke-2 SM, Hipparchus dari Nicea menyusun tabel **tali busur** yang menghubungkan sudut dengan panjang tali busur pada sebuah lingkaran, sebuah alat untuk memperkirakan posisi benda langit. Claudius Ptolemaeus, sekitar empat abad kemudian, menyempurnakan tabel itu dalam *Almagest* dengan mengambil lingkaran berjari-jari 60 dan membuktikan sifat tali busur yang setara dengan rumus penjumlahan sudut. Pada mulanya yang dihitung adalah tali busur penuh, bukan setengahnya.
+
+Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*), yang lebih dekat dengan sinus kita sekarang. Kata *jya* berarti tali busur; melalui terjemahan Arab menjadi *jayb* dan kemudian dibaca *jaib* ("kantong"), istilah itu masuk ke bahasa Latin sebagai *sinus*. Kosinus muncul belakangan sebagai *sinus complementi*, yakni sinus dari sudut penyiku, sedangkan istilah *tangen* dipopulerkan pada abad ke-16. Notasi singkat $\\sin$, $\\cos$, dan $\\tan$ serta perumusan pada lingkaran satuan baru matang pada karya Leonhard Euler pada abad ke-18. Jadi perbandingan $\\sin\\alpha = \\dfrac{\\text{depan}}{\\text{miring}}$ yang kita pelajari adalah warisan panjang dari cara para astronom mengukur langit.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Dari tabel tali busur ke notasi modern",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "Hipparchus (abad ke-2 SM)",
+              "Menyusun tabel tali busur untuk astronomi.",
+            ],
+            [
+              "Ptolemaeus (abad ke-2 M)",
+              "Menyempurnakan tabel tali busur dalam *Almagest*.",
+            ],
+            [
+              "Aryabhata (sekitar 500 M)",
+              "Memakai setengah tali busur, cikal bakal sinus.",
+            ],
+            [
+              "Leonhard Euler (abad ke-18)",
+              "Merumuskan trigonometri pada lingkaran satuan dengan notasi modern.",
+            ],
+          ],
+        },
+        {
+          kind: "callout",
+          variant: "info",
+          title: "Dari mana kata sinus",
+          text: "Kata *sinus* bukan istilah asli Latin, melainkan hasil rantai terjemahan: *jya* (Sanskerta) menjadi *jayb* dan *jaib* (Arab), lalu dibaca *sinus* oleh para penerjemah Latin. Bahkan namanya menempuh perjalanan lebih panjang daripada rumusnya.",
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana sudut dan perbandingan trigonometri membantumu mengukur yang tak terjangkau.",
       blocks: [
         {
           kind: "reflection",

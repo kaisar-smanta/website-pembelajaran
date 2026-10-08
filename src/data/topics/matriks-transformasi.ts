@@ -39,6 +39,7 @@ export const matriksTransformasi: Topic = {
     { text: 'Peserta didik dapat menghitung komposisi transformasi menggunakan perkalian matriks.' },
     { text: 'Peserta didik dapat menafsirkan determinan sebagai faktor skala luas.' },
   ],
+  applications: ['mtl-transformasi-citra'],
   sections: [
     {
       id: "tujuan",
@@ -268,7 +269,7 @@ yang tidak lain adalah refleksi terhadap garis $y=-x$.`,
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      body: "Cobakan berbagai matriks transformasi dan amati bagaimana bangun berpindah di bidang.",
       blocks: [
         {
           kind: "exploration",
@@ -365,7 +366,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana matriks memindahkan dan mengubah bangun pada bidang.",
       blocks: [
         {
           kind: "reflection",

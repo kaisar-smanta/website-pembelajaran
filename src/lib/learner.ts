@@ -17,11 +17,52 @@ export interface ReflectionRecord {
   at: number;
 }
 
+export type RubricCheckMap = Record<string, number[]>;
+
 export type PredictionMap = Record<string, PredictionRecord>;
 export type ReflectionMap = Record<string, ReflectionRecord>;
 
 export const PREDICTION_KEY = 'mtk-predictions';
 export const REFLECTION_KEY = 'mtk-reflections';
+export const RUBRIC_KEY = 'mtk-rubric-checks';
+
+export function toggleRubricCheck(
+  map: RubricCheckMap,
+  questionId: string,
+  index: number,
+  checked: boolean,
+): RubricCheckMap {
+  const current = new Set(map[questionId] ?? []);
+  if (checked) current.add(index);
+  else current.delete(index);
+  const next = { ...map };
+  const indices = [...current].sort((a, b) => a - b);
+  if (indices.length) next[questionId] = indices;
+  else delete next[questionId];
+  return next;
+}
+
+export function clearRubricChecks(map: RubricCheckMap, questionId: string): RubricCheckMap {
+  if (!Object.prototype.hasOwnProperty.call(map, questionId)) return map;
+  const next = { ...map };
+  delete next[questionId];
+  return next;
+}
+
+export function loadRubricChecks(storage: Storage | undefined): RubricCheckMap {
+  return readMap(
+    RUBRIC_KEY,
+    (value) => {
+      if (!Array.isArray(value)) return undefined;
+      return value.filter((n): n is number => typeof n === 'number');
+    },
+    storage,
+  );
+}
+
+export function saveRubricChecks(storage: Storage | undefined, map: RubricCheckMap): void {
+  writeMap(RUBRIC_KEY, map, storage);
+}
 
 /** Menyimpan/menyegarkan satu dugaan tanpa memutasi peta masukan. */
 export function recordPrediction(

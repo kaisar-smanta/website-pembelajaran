@@ -199,4 +199,40 @@ export const komposisiFungsiQuestions: Question[] = [
     hints: ['Diskon berlaku lebih dahulu, baru pajak.', 'Kalikan kedua faktor dan bandingkan urutannya.'],
     competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
   },
+  {
+    id: 'kf-13',
+    topicId: 'komposisi-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah toko online menerapkan tiga tahap pada harga produk: diskon $30\\%$ yaitu $d(x)=0{,}7x$, lalu ongkos kirim tetap Rp15.000 yaitu $s(x)=x+15.000$, lalu pajak $10\\%$ dari total yaitu $t(x)=1{,}1x$ (semua dalam rupiah). (a) Susun komposisi yang benar untuk total akhir. (b) Hitung total untuk harga produk Rp250.000. (c) Bandingkan dengan urutan yang mengenakan pajak atas harga diskon sebelum ongkos kirim, lalu jelaskan mengapa hasilnya berbeda.',
+    answer:
+      '(a) Urutan tahapnya diskon, ongkos kirim, baru pajak, sehingga total $=(t\\circ s\\circ d)(x)=t(s(0{,}7x))=t(0{,}7x+15.000)=1{,}1(0{,}7x+15.000)=0{,}77x+16.500$. (b) Untuk $x=250.000$: $0{,}77(250.000)+16.500=192.500+16.500=209.000$, jadi totalnya Rp209.000. (c) Jika pajak dikenakan atas harga diskon lebih dahulu lalu ongkos kirim ditambahkan, hasilnya $=(s\\circ t\\circ d)(x)=1{,}1(0{,}7x)+15.000=0{,}77x+15.000$, yaitu Rp207.500 untuk $x=250.000$. Selisihnya Rp1.500, tepat $10\\%$ dari ongkos kirim Rp15.000, karena pada urutan pertama ongkos kirim ikut kena pajak sedangkan pada urutan kedua tidak.',
+    explanation:
+      'Kunci: memilih urutan komposisi sesuai alur transaksi, menghitung nilai, lalu menelusuri asal perbedaan Rp1.500 dari pajak atas ongkos kirim.',
+    hints: [
+      'Kerjakan tahap yang paling dulu terjadi terhadap harga, yaitu diskon.',
+      'Selisih kedua urutan hanya terletak pada apakah ongkos kirim terkena pajak.',
+    ],
+    competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
+  },
+  {
+    id: 'kf-14',
+    topicId: 'komposisi-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diberikan $f(x)=\\dfrac{x}{x-1}$ untuk $x\\neq1$. (a) Tentukan $(f\\circ f)(x)$. (b) Tentukan $(f\\circ f\\circ f)(x)$. (c) Jelaskan pola yang muncul dan kaitannya dengan fungsi invers.',
+    answer:
+      '(a) $(f\\circ f)(x)=f\\!\\left(\\dfrac{x}{x-1}\\right)=\\dfrac{\\frac{x}{x-1}}{\\frac{x}{x-1}-1}$. Karena $\\dfrac{x}{x-1}-1=\\dfrac{x-(x-1)}{x-1}=\\dfrac{1}{x-1}$, maka $(f\\circ f)(x)=\\dfrac{\\frac{x}{x-1}}{\\frac{1}{x-1}}=x$. (b) Karena $f\\circ f$ adalah fungsi identitas, $(f\\circ f\\circ f)(x)=f\\big((f\\circ f)(x)\\big)=f(x)=\\dfrac{x}{x-1}$. (c) Polanya bergantian: komposisi genap menghasilkan $x$ dan komposisi ganjil menghasilkan $f(x)$. Hal ini berarti $f$ adalah invers bagi dirinya sendiri, yaitu $f^{-1}=f$, sehingga menerapkan $f$ dua kali mengembalikan nilai semula.',
+    explanation:
+      'Kunci: menghitung komposisi berulang secara aljabar, mengenali sifat identitas pada komposisi genap, dan menyimpulkan bahwa $f$ adalah involusi (invers dirinya sendiri).',
+    hints: [
+      'Hitung $f(x)-1$ terlebih dahulu untuk menyederhanakan penyebut.',
+      'Perhatikan bahwa menerapkan $f$ dua kali mengembalikan $x$.',
+    ],
+    competencies: ['komposisi fungsi', 'fungsi invers', 'penalaran'],
+  },
 ];

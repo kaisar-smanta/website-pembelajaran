@@ -168,4 +168,27 @@ export const fungsiKuadratQuestions: Question[] = [
     hints: ['Faktorkan $x^{2}-4x+3$.', 'Parabola membuka ke atas karena koefisien $x^{2}$ positif.'],
     competencies: ['akar fungsi kuadrat', 'diskriminan', 'evaluasi'],
   },
+  {
+    id: 'fk-12',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'konsep',
+    prompt:
+      'Diketahui $f(x)=ax^{2}+bx+c$ dengan $a>0$ dan diskriminan $D=b^{2}-4ac=0$. Pernyataan yang benar tentang grafiknya adalah …',
+    options: [
+      { key: 'A', text: 'terbuka ke atas dan menyinggung sumbu-$x$ di tepat satu titik' },
+      { key: 'B', text: 'terbuka ke atas dan memotong sumbu-$x$ di dua titik' },
+      { key: 'C', text: 'terbuka ke bawah dan menyinggung sumbu-$x$ di tepat satu titik' },
+      { key: 'D', text: 'terbuka ke atas dan tidak memotong sumbu-$x$' },
+    ],
+    answer: 'A',
+    explanation:
+      '$a>0$ membuat parabola terbuka ke atas. Diskriminan $D=0$ berarti $ax^{2}+bx+c=0$ memiliki satu akar kembar, sehingga grafik hanya menyinggung sumbu-$x$ di satu titik, yaitu titik puncaknya.',
+    hints: [
+      'Tanda $a$ menentukan arah bukaan parabola.',
+      '$D=0$ berarti akar kembar, yaitu grafik menyinggung sumbu-$x$.',
+    ],
+    competencies: ['diskriminan', 'bentuk grafik fungsi kuadrat'],
+  },
 ];

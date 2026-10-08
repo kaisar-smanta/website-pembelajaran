@@ -143,21 +143,19 @@ export const pemodelanFungsiQuestions: Question[] = [
     id: 'pmf-09',
     topicId: 'pemodelan-fungsi',
     difficulty: 'mahir',
-    type: 'multiple-choice',
-    category: 'penalaran',
+    type: 'open-response',
+    category: 'pemodelan',
     prompt:
-      'Populasi mengikuti model eksponensial $N(t)=N_0\\cdot b^{t}$ dengan $N(1)=150$ dan $N(3)=1350$. Nilai $N(0)$ adalah …',
-    options: [
-      { key: 'A', text: '$50$' },
-      { key: 'B', text: '$100$' },
-      { key: 'C', text: '$75$' },
-      { key: 'D', text: '$150$' },
-    ],
-    answer: 'A',
+      'Populasi suatu jenis ikan di sebuah danau dimodelkan $N(t)=N_0\\cdot b^{t}$ dengan $t$ dalam tahun. Diketahui $N(1)=150$ dan $N(3)=1350$. (a) Tentukan $b$ dan $N_0$. (b) Ramalkan populasi pada $t=5$. (c) Tentukan tahun pertama (bilangan bulat) ketika populasi melebihi $100.000$, dengan menghitung nilai tiap tahun.',
+    answer:
+      '(a) Bagi kedua nilai: $\\dfrac{N(3)}{N(1)}=b^{3-1}=b^{2}=\\dfrac{1350}{150}=9$, sehingga $b=3$ (basis positif). Lalu $N(1)=N_0\\cdot3=150$, jadi $N_0=50$. Modelnya $N(t)=50\\cdot3^{t}$. (b) $N(5)=50\\cdot3^{5}=50\\cdot243=12.150$. (c) Perlu $50\\cdot3^{t}>100.000$, yaitu $3^{t}>2000$. Uji: $3^{6}=729$; $3^{7}=2187>2000$. Jadi populasi melebihi $100.000$ pada $t=7$ tahun. Periksa $N(7)=50\\cdot2187=109.350>100.000$, sedangkan $N(6)=50\\cdot729=36.450$.',
     explanation:
-      'Bagi kedua nilai: $\\dfrac{N(3)}{N(1)}=b^{2}=\\dfrac{1350}{150}=9$, sehingga $b=3$. Lalu $N(1)=N_0\\cdot3=150 \\Rightarrow N_0=50$. Jadi $N(0)=50$.',
-    hints: ['Selisih waktu $2$ langkah, jadi $b$ diperoleh dari akar kuadrat rasio.'],
-    competencies: ['pemodelan eksponensial', 'mencari nilai awal'],
+      'Kunci: memakai rasio dua nilai untuk memperoleh basis, menentukan nilai awal dari satu titik, lalu menyelesaikan pertidaksamaan eksponen dengan menguji nilai tahun.',
+    hints: [
+      'Selisih $t$ dari $1$ ke $3$ adalah $2$, sehingga $\\dfrac{N(3)}{N(1)}=b^{2}$.',
+      'Untuk bagian (c), cari pangkat $3$ terkecil yang melebihi $2000$.',
+    ],
+    competencies: ['pemodelan eksponensial', 'pertidaksamaan eksponen', 'pemodelan'],
   },
   {
     id: 'pmf-10',
@@ -179,15 +177,18 @@ export const pemodelanFungsiQuestions: Question[] = [
     topicId: 'pemodelan-fungsi',
     difficulty: 'mahir',
     type: 'open-response',
-    category: 'kontekstual',
+    category: 'pemodelan',
     prompt:
-      'Sebuah modal investasi Rp10.000.000 tumbuh $20\\%$ per tahun. Susun model nilainya, ramalkan nilainya setelah $3$ tahun, dan sebutkan satu asumsi yang mendasari model tersebut.',
+      'Sebuah modal investasi Rp10.000.000 tumbuh $20\\%$ setiap tahun. (a) Susun model nilai investasi $M(t)$ setelah $t$ tahun. (b) Tentukan nilainya setelah $3$ tahun. (c) Tentukan tahun pertama (bilangan bulat) ketika nilai investasi melebihi Rp50.000.000, dengan menghitung tiap tahun. (d) Sebutkan satu asumsi yang mendasari model ini.',
     answer:
-      'Karena tumbuh $20\\%$ per tahun, faktor pengalinya $b=1+0{,}20=1{,}2$, sehingga $M(t)=10.000.000\\cdot(1{,}2)^{t}$ rupiah dengan $t$ tahun. Setelah $3$ tahun: $M(3)=10.000.000\\cdot(1{,}2)^{3}=10.000.000\\cdot1{,}728=17.280.000$. Jadi nilainya sekitar Rp17.280.000. Asumsinya pertumbuhan berlangsung tetap $20\\%$ per tahun, tanpa penyetoran atau penarikan tambahan, dan model berlaku untuk jangka menengah.',
+      '(a) Faktor pertumbuhan $b=1+0{,}20=1{,}2$, sehingga $M(t)=10.000.000(1{,}2)^{t}$ rupiah. (b) $M(3)=10.000.000(1{,}2)^{3}=10.000.000(1{,}728)=\\text{Rp}17.280.000$. (c) Perlu $10.000.000(1{,}2)^{t}>50.000.000$, yaitu $(1{,}2)^{t}>5$. Uji: $(1{,}2)^{8}\\approx4{,}2998$ (masih di bawah $5$) dan $(1{,}2)^{9}\\approx5{,}1598$ (di atas $5$). Jadi nilai investasi pertama kali melebihi Rp50.000.000 pada tahun ke-$9$. (d) Model mengasumsikan pertumbuhan tetap $20\\%$ per tahun tanpa penyetoran atau penarikan tambahan serta tanpa perubahan kondisi pasar; dalam jangka panjang asumsi ini bisa tidak realistis.',
     explanation:
-      'Kunci menekankan penerapan faktor pertumbuhan $1+ r$ pada model eksponensial, perhitungan nilai masa depan, serta penyadaran akan asumsi.',
-    hints: ['Persen pertumbuhan $r$ memberi faktor $b=1+r$.', 'Tanyakan: apa yang dianggap konstan selama periode itu?'],
-    competencies: ['pemodelan eksponensial', 'pertumbuhan persen', 'asumsi model'],
+      'Kunci: menyusun model $M(t)=M_0(1+r)^t$, menghitung nilai pada waktu tertentu, menyelesaikan pertidaksamaan eksponen dengan uji nilai, dan menyadari keterbatasan asumsi.',
+    hints: [
+      'Faktor pertumbuhan adalah $1+r$ dengan $r=0{,}20$.',
+      'Untuk bagian (c), cari pangkat bulat terkecil dari $1{,}2$ yang melebihi $5$.',
+    ],
+    competencies: ['pemodelan eksponen', 'pertidaksamaan eksponen', 'asumsi model'],
   },
   {
     id: 'pmf-12',
@@ -203,5 +204,42 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Kunci: mengenali pola eksponensial dari rasio tetap, menyusun model dan prediksi, serta menyadari batas keberlakuan model.',
     hints: ['Periksa rasio, bukan selisih, antar nilai berurutan.', 'Pertimbangkan batas populasi atau sumber daya.'],
     competencies: ['pemodelan eksponensial', 'evaluasi', 'interpretasi'],
+  },
+  {
+    id: 'pmf-13',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'dasar',
+    type: 'multiple-choice',
+    category: 'cepat',
+    prompt:
+      'Sebuah populasi mengikuti model $N(t)=100\\cdot 3^{t}$. Banyak populasi saat $t=2$ adalah …',
+    options: [
+      { key: 'A', text: '$300$' },
+      { key: 'B', text: '$600$' },
+      { key: 'C', text: '$900$' },
+      { key: 'D', text: '$1200$' },
+    ],
+    answer: 'C',
+    explanation: 'Substitusi $t=2$: $N(2)=100\\cdot 3^{2}=100\\cdot 9=900$.',
+    hints: ['Hitung $3^{2}$ lebih dahulu, lalu kalikan dengan $100$.'],
+    competencies: ['substitusi model eksponensial'],
+  },
+  {
+    id: 'pmf-14',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Massa sebuah zat radioaktif berkurang menjadi setengah setiap $5$ tahun. Mula-mula tersedia $800$ gram. (a) Susun model massa $M(t)$ (gram) sebagai fungsi waktu $t$ (tahun). (b) Tentukan massa zat setelah $15$ tahun. (c) Tentukan setelah berapa tahun massa zat tersisa $200$ gram.',
+    answer:
+      '(a) Karena berkurang setengah tiap $5$ tahun, pangkatnya adalah $t/5$, sehingga $M(t)=800\\left(\\dfrac{1}{2}\\right)^{t/5}$. (b) $M(15)=800\\left(\\dfrac{1}{2}\\right)^{3}=800\\cdot\\dfrac{1}{8}=100$ gram. (c) Selesaikan $800\\left(\\dfrac{1}{2}\\right)^{t/5}=200$, maka $\\left(\\dfrac{1}{2}\\right)^{t/5}=\\dfrac{1}{4}=\\left(\\dfrac{1}{2}\\right)^{2}$, sehingga $\\dfrac{t}{5}=2$ dan $t=10$ tahun.',
+    explanation:
+      'Kunci: menerjemahkan konsep waktu paruh menjadi eksponen $t/5$, menghitung nilai model, dan menyelesaikan persamaan eksponensial dengan menyamakan pangkat.',
+    hints: [
+      'Waktu paruh $5$ tahun berarti pangkatnya $t/5$, bukan $t$.',
+      'Nyatakan $\\dfrac{1}{4}$ sebagai pangkat dari $\\dfrac{1}{2}$.',
+    ],
+    competencies: ['pemodelan eksponensial', 'waktu paruh', 'persamaan eksponensial'],
   },
 ];

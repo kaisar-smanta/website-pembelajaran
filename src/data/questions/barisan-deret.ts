@@ -122,13 +122,16 @@ export const barisanDeretQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Sebuah gedung pertunjukan memiliki $25$ baris kursi. Baris pertama berisi $20$ kursi dan setiap baris berikutnya bertambah $3$ kursi. Tentukan kapasitas total gedung tersebut dan jelaskan langkah pemodelanmu.',
+      'Sebuah aula menyediakan $1500$ kursi. Kursi ditata sehingga baris pertama memuat $30$ kursi dan setiap baris berikutnya $2$ kursi lebih banyak daripada baris sebelumnya. (a) Nyatakan banyak kursi pada baris ke-$n$ dan total kursi $n$ baris pertama. (b) Tentukan banyak baris terbanyak yang dapat dibuat agar total kursi tidak melebihi kapasitas aula. (c) Hitung berapa kursi yang tidak terpakai pada penataan itu.',
     answer:
-      'Banyak kursi tiap baris membentuk barisan aritmetika dengan $a=20$, $b=3$, dan $n=25$. Kapasitas total adalah jumlah $25$ suku pertama: $S_{25}=\\dfrac{25}{2}\\big(2\\cdot20+(25-1)\\cdot3\\big)=\\dfrac{25}{2}(40+72)=\\dfrac{25}{2}\\cdot112=25\\cdot56=1400$. Jadi kapasitas gedung adalah $1400$ kursi.',
+      '(a) Banyak kursi baris ke-$n$ membentuk barisan aritmetika dengan $a=30$ dan $b=2$, sehingga $U_n=30+2(n-1)=2n+28$. Total $n$ baris pertama $S_n=\\dfrac{n}{2}\\big(2\\cdot30+(n-1)\\cdot2\\big)=\\dfrac{n}{2}(60+2n-2)=n(n+29)$. (b) Perlu $n(n+29)\\le1500$. Uji: $n=25$ memberi $25\\cdot54=1350$; $n=26$ memberi $26\\cdot55=1430$; $n=27$ memberi $27\\cdot56=1512>1500$. Jadi paling banyak $26$ baris. (c) Dengan $26$ baris terpakai $1430$ kursi, sehingga kursi yang tidak terpakai $1500-1430=70$ kursi.',
     explanation:
-      'Kunci jawaban: mengenali pola aritmetika, menentukan $a=20$ dan $b=3$, lalu menggunakan rumus jumlah $S_n=\\dfrac{n}{2}\\big(2a+(n-1)b\\big)$.',
-    hints: ['Banyak kursi tiap baris membentuk barisan aritmetika.', 'Gunakan rumus jumlah $S_n$, bukan rumus suku ke-$n$.'],
-    competencies: ['pemodelan barisan aritmetika'],
+      'Kunci: memodelkan kursi tiap baris sebagai barisan aritmetika, menyusun fungsi jumlah $S_n$, menyelesaikan pertidaksamaan dengan menguji nilai bulat, lalu menafsirkan sisa kapasitas.',
+    hints: [
+      'Gunakan $U_n=a+(n-1)b$ dengan $a=30$ dan $b=2$.',
+      'Uji nilai $n$ pada $S_n=n(n+29)$ sampai melewati $1500$.',
+    ],
+    competencies: ['pemodelan barisan aritmetika', 'deret aritmetika', 'pertidaksamaan'],
   },
   {
     id: 'bd-09',
@@ -191,5 +194,41 @@ export const barisanDeretQuestions: Question[] = [
       'Kunci: membedakan pertumbuhan linear dan eksponensial, dibuktikan dengan perbandingan suku ke-10.',
     hints: ['Gunakan $U_n=a+(n-1)b$ untuk aritmetika dan $U_n=ar^{n-1}$ untuk geometri.', 'Bandingkan laju pertambahan keduanya.'],
     competencies: ['barisan aritmetika', 'barisan geometri', 'evaluasi'],
+  },
+  {
+    id: 'bd-13',
+    topicId: 'barisan-deret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Buktikan bahwa pada barisan aritmetika berlaku $U_1+U_n = U_2+U_{n-1} = U_3+U_{n-2}$, lalu gunakan sifat tersebut untuk menjelaskan rumus jumlah $S_n=\\dfrac{n}{2}(U_1+U_n)$.',
+    answer:
+      'Dengan $U_k=a+(k-1)b$, maka $U_k+U_{n+1-k}=\\big(a+(k-1)b\\big)+\\big(a+(n-k)b\\big)=2a+(n-1)b$, yang tidak bergantung pada $k$. Jadi setiap pasangan suku yang berjarak sama dari ujung berjumlah sama, yaitu $U_1+U_n$. Ketika seluruh $n$ suku dijumlahkan, suku-sukunya dapat dipasangkan sehingga setiap pasangan berjumlah $U_1+U_n$; karena ada $\\dfrac{n}{2}$ pasangan (untuk $n$ ganjil suku tengah berpasangan dengan dirinya dan hasilnya tetap sama), diperoleh $S_n=\\dfrac{n}{2}(U_1+U_n)$.',
+    explanation:
+      'Kunci: membuktikan $U_k+U_{n+1-k}$ konstan, lalu menafsirkannya sebagai banyak pasangan berjumlah tetap pada penjumlahan Gauss.',
+    hints: [
+      'Tulis $U_k$ dan $U_{n+1-k}$ dengan rumus $a+(k-1)b$.',
+      'Jumlahkan suku secara berpasangan dari kedua ujung.',
+    ],
+    competencies: ['barisan aritmetika', 'pembuktian', 'jumlah deret'],
+  },
+  {
+    id: 'bd-14',
+    topicId: 'barisan-deret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Tiga bilangan membentuk barisan aritmetika. Jumlah ketiganya $24$ dan jumlah kuadrat ketiganya $200$. Tentukan ketiga bilangan tersebut dan jelaskan mengapa ada dua susunan yang mungkin.',
+    answer:
+      'Misalkan ketiga bilangan $a-d$, $a$, dan $a+d$. Dari jumlahnya, $(a-d)+a+(a+d)=3a=24$, sehingga $a=8$. Jumlah kuadratnya: $(a-d)^2+a^2+(a+d)^2=(64-16d+d^2)+64+(64+16d+d^2)=192+2d^2=200$, sehingga $2d^2=8$ dan $d^2=4$, yaitu $d=2$ atau $d=-2$. Untuk $d=2$ bilangannya $6,8,10$; untuk $d=-2$ bilangannya $10,8,6$, yaitu himpunan bilangan yang sama dengan urutan terbalik. Karena barisan aritmetika boleh naik atau turun, keduanya sah dan menghasilkan tiga bilangan $6,8,10$.',
+    explanation:
+      'Kunci: memakai bentuk simetris $a-d$, $a$, $a+d$, memanfaatkan jumlah untuk memperoleh $a$, menyelesaikan $d$ dari jumlah kuadrat, dan menafsirkan dua tanda $d$ sebagai barisan naik atau turun.',
+    hints: [
+      'Tulis bilangan sebagai $a-d$, $a$, $a+d$ agar jumlahnya mudah dihitung.',
+      'Setelah $a=8$, gunakan jumlah kuadrat untuk mencari $d^2$.',
+    ],
+    competencies: ['barisan aritmetika', 'sistem persamaan', 'penalaran'],
   },
 ];

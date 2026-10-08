@@ -79,6 +79,39 @@ Pertanyaan: apakah setiap bulan ia membayar bunga yang sama? Jika bunga per bula
 Memahami anuitas membantu kita menghitung kemampuan membayar, membandingkan penawaran, dan menyadari bahwa angsuran "terjangkau" belum tentu totalnya murah.`,
     },
     {
+      id: "konsep",
+      kind: "konsep",
+      title: "Konsep Inti",
+      body: `**Anuitas** adalah rangkaian pembayaran sebesar $A$ yang dilakukan secara berkala (misalnya tiap bulan) untuk melunasi pinjaman atau mengumpulkan dana. Ciri utamanya: **besar setoran tetap**, tetapi **komposisinya berubah** dari periode ke periode — porsi bunga menyusut dan porsi pokok membesar.
+
+Ide kuncinya adalah **menyetarakan nilai waktu uang**. Pokok pinjaman $M$ diterima hari ini, sedangkan seluruh angsuran dibayar pada masa mendatang. Agar adil, nilai sekarang seluruh angsuran harus sama dengan $M$. Karena angsuran ke-$k$ baru dibayar setelah $k$ periode, nilainya didiskontokan dengan faktor $\\dfrac{1}{(1+i)^k}$.
+
+Dari kesetaraan nilai sekarang itulah lahir **rumus angsuran anuitas**:
+
+$$A = M \\cdot \\frac{i(1+i)^n}{(1+i)^n - 1}.$$
+
+Rumus ini setara dengan $A = \\dfrac{M \\cdot i}{1-(1+i)^{-n}}$: cukup membagi pembilang dan penyebut dengan $(1+i)^n$. Artinya, jika pokok $M$, suku bunga per periode $i$, dan banyak periode $n$ diketahui, besar angsuran tunggal yang **tepat melunasi** utang pada waktunya dapat dihitung.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Inti anuitas",
+          text: "Semua angsuran sama besar, tetapi tiap angsuran menyatukan **angsuran bunga** (dihitung dari sisa utang) dan **angsuran pokok** (sisanya). Karena sisa utang selalu menurun, bunga tiap periode ikut menurun dan porsi pokok makin besar.",
+        },
+        {
+          kind: "table",
+          caption: "Membaca besaran pada rumus $A = M \\cdot \\dfrac{i(1+i)^n}{(1+i)^n - 1}$",
+          headers: ["Lambang", "Arti", "Satuan"],
+          rows: [
+            ["$A$", "besar angsuran tetap tiap periode", "rupiah"],
+            ["$M$", "pokok pinjaman awal", "rupiah"],
+            ["$i$", "suku bunga per periode", "desimal"],
+            ["$n$", "banyak periode pembayaran", "periode"],
+          ],
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Menurunkan Rumus Anuitas",

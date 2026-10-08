@@ -227,4 +227,46 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     hints: ['Satu kendala untuk lahan dan satu untuk modal.', 'Laba tiap komoditas menjadi koefisien fungsi objektif.'],
     competencies: ['pemodelan program linear', 'kontekstual'],
   },
+  {
+    id: 'spt-14',
+    topicId: 'sistem-pertidaksamaan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah bengkel kerajinan membuat dua jenis produk. Produk A memerlukan $2$ jam pengecatan dan $1$ jam perakitan, sedangkan produk B memerlukan $1$ jam pengecatan dan $2$ jam perakitan. Waktu yang tersedia $12$ jam untuk pengecatan dan $12$ jam untuk perakitan. Laba produk A Rp50.000 per unit dan produk B Rp60.000 per unit. (a) Susun model kendala dan fungsi objektifnya. (b) Tentukan kombinasi produksi yang memberi laba maksimum beserta nilainya.',
+    answer:
+      'Misal $x$ banyak produk A dan $y$ banyak produk B. Kendala: $2x+y\\le12$ (pengecatan), $x+2y\\le12$ (perakitan), $x\\ge0$, dan $y\\ge0$. Fungsi objektif $L=50000x+60000y$. Titik sudut: $(0,0)$, $(6,0)$, $(4,4)$, dan $(0,6)$. Nilai $L$: $0$, $300000$, $440000$, dan $360000$. Laba maksimum Rp440.000 dicapai dengan memproduksi $4$ unit produk A dan $4$ unit produk B.',
+    explanation:
+      'Kunci: menerjemahkan kebutuhan jam tiap produk menjadi dua kendala, menambahkan syarat tak negatif, menulis laba sebagai fungsi objektif, lalu menguji semua titik sudut daerah penyelesaian.',
+    hints: [
+      'Koefisien tiap pertidaksamaan berasal dari kebutuhan jam tiap produk.',
+      'Titik potong $2x+y=12$ dan $x+2y=12$ adalah $(4,4)$.',
+      'Uji nilai $L$ di setiap titik sudut.',
+    ],
+    competencies: ['pemodelan program linear', 'nilai maksimum', 'optimasi'],
+  },
+  {
+    id: 'spt-15',
+    topicId: 'sistem-pertidaksamaan',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Daerah penyelesaian sistem $x+y\\ge6$, $x+2y\\ge8$, $x\\ge0$, dan $y\\ge0$ tidak terbatas. Nilai minimum fungsi $f=3x+2y$ pada daerah itu adalah …',
+    options: [
+      { key: 'A', text: '$12$' },
+      { key: 'B', text: '$16$' },
+      { key: 'C', text: '$24$' },
+      { key: 'D', text: '$8$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Titik sudut daerah penyelesaian: $(8,0)$ dari $x+2y=8$ dengan $y=0$; $(4,2)$ dari titik potong $x+y=6$ dan $x+2y=8$; serta $(0,6)$ dari $x+y=6$ dengan $x=0$. Nilai $f$: $(8,0)=24$, $(4,2)=16$, dan $(0,6)=12$. Karena $f$ makin kecil ke arah kiri atas dan tetap terbatas oleh titik $(0,6)$, nilai minimumnya $12$.',
+    hints: [
+      'Cari titik potong kedua garis dan titik potong dengan sumbu-sumbu.',
+      'Meskipun daerah tak terbatas, nilai minimum masih dapat muncul di titik sudut.',
+    ],
+    competencies: ['program linear', 'nilai minimum', 'penalaran'],
+  },
 ];

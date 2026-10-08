@@ -44,6 +44,7 @@ export const irisanKerucut: Topic = {
     { text: 'Mengidentifikasi unsur elips: pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas.' },
     { text: 'Menentukan persamaan garis singgung elips di sebuah titik.' },
   ],
+  applications: ['mtl-antena-elips'],
   sections: [
     {
       id: "tujuan",
@@ -258,6 +259,42 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
       ],
     },
     {
+      id: "representasi",
+      kind: "representasi",
+      title: "Representasi",
+      body: `Setiap irisan kerucut dapat dikenali dari **bentuk aljabar** persamaannya maupun dari **bentuk grafik**nya. Membandingkan keduanya membantu kita memindai ciri: variabel mana yang dikuadratkan, bagaimana tanda tiap suku, dan berapa penyebut masing-masing. Lingkaran dan elips adalah keluarga terdekat; parabola dan hiperbola disertakan sebagai pengayaan.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Perbandingan bentuk aljabar irisan kerucut",
+          headers: ["Kurva", "Bentuk baku", "Ciri grafik"],
+          rows: [
+            ["Lingkaran", "$(x-a)^2 + (y-b)^2 = r^2$", "Semua titik berjarak sama dari pusat"],
+            ["Elips", "$\\dfrac{(x-h)^2}{a^2} + \\dfrac{(y-k)^2}{b^2} = 1$", "Kurva tertutup lonjong dengan dua fokus"],
+            ["Parabola", "$(x-h)^2 = 4p(y-k)$", "Terbuka satu arah menuju satu fokus"],
+            ["Hiperbola", "$\\dfrac{(x-h)^2}{a^2} - \\dfrac{(y-k)^2}{b^2} = 1$", "Dua cabang terpisah dengan dua fokus"],
+          ],
+        },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Lingkaran & elips",
+              body: "Lingkaran adalah elips khusus dengan $a = b = r$. Keduanya kurva tertutup, sehingga kedua suku pangkat dua bertanda positif.",
+            },
+            {
+              label: "Parabola",
+              body: "Hanya satu variabel yang dikuadratkan. Grafiknya terbuka ke satu arah dan hanya memiliki satu titik fokus.",
+            },
+            {
+              label: "Hiperbola",
+              body: "Kedua variabel dikuadratkan, tetapi tandanya berlawanan. Grafiknya terdiri atas dua cabang yang saling menjauh.",
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "garis-singgung-elips",
       kind: "rumus",
       title: "Garis Singgung Elips",
@@ -385,10 +422,61 @@ Dalam astronomi, hukum Kepler menyatakan orbit planet berbentuk elips dengan Mat
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Sifat paling khas elips ternyata sekaligus dapat dibuktikan dari persamaannya.
+
+Diberikan elips dengan persamaan
+$$\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1,\\qquad a>b>0,$$
+dengan fokus $F_1(-c,0)$ dan $F_2(c,0)$, di mana $c^2=a^2-b^2$.
+
+Buktikan bahwa untuk **setiap** titik $P(x,y)$ pada elips berlaku
+$$PF_1+PF_2=2a.$$`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Tulis $PF_1^2=(x+c)^2+y^2$, lalu ganti $y^2$ dari persamaan elips dan lengkapkan kuadrat. Bandingkan hasilnya dengan bentuk $\\left(a+\\tfrac{c}{a}x\\right)^2$.`,
+        },
+        {
+          kind: "step-reveal",
+          intro: "Bukti berjalan melalui manipulasi aljabar pada jarak ke kedua fokus.",
+          steps: [
+            {
+              title: "Pakai persamaan elips",
+              text: `Karena $P$ pada elips, $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$, sehingga $y^2=b^2\\left(1-\\dfrac{x^2}{a^2}\\right)=b^2-\\dfrac{b^2x^2}{a^2}$.`,
+            },
+            {
+              title: "Susun $PF_1^2$",
+              text: `$PF_1^2=(x+c)^2+y^2=x^2+2cx+c^2+b^2-\\dfrac{b^2x^2}{a^2}$.`,
+            },
+            {
+              title: "Sederhanakan koefisien",
+              text: `Karena $c^2=a^2-b^2$, maka $b^2+c^2=a^2$ dan $1-\\dfrac{b^2}{a^2}=\\dfrac{c^2}{a^2}$. Jadi $PF_1^2=a^2+2cx+\\dfrac{c^2x^2}{a^2}$.`,
+            },
+            {
+              title: "Kenali kuadrat sempurna",
+              text: `Ruas kanan dapat ditulis $\\left(a+\\dfrac{c}{a}x\\right)^2$. Karena $a+\\dfrac{c}{a}x>0$ pada $-a\\le x\\le a$, diperoleh $PF_1=a+\\dfrac{c}{a}x$.`,
+            },
+            {
+              title: "Fokus kedua",
+              text: `Dengan cara serupa, $PF_2^2=(x-c)^2+y^2=\\left(a-\\dfrac{c}{a}x\\right)^2$, sehingga $PF_2=a-\\dfrac{c}{a}x$.`,
+            },
+            {
+              title: "Jumlahkan",
+              text: `$PF_1+PF_2=\\left(a+\\dfrac{c}{a}x\\right)+\\left(a-\\dfrac{c}{a}x\\right)=2a$. Terbukti.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana bentuk irisan kerucut tampil pada benda di sekitarmu.",
       blocks: [
         {
           kind: "reflection",

@@ -369,7 +369,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana dua proses yang digabung berubah ketika urutannya ditukar.",
       blocks: [
         {
           kind: "reflection",

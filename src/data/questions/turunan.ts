@@ -133,6 +133,12 @@ export const turunanQuestions: Question[] = [
       'Gunakan $\\dfrac{d}{dx}(uv) = u\'v + uv\'$.',
     ],
     competencies: ['aturan hasil kali', 'aturan rantai', 'penalaran'],
+    rubric: [
+      'Memisahkan kedua faktor dengan benar',
+      'Menerapkan aturan rantai pada faktor pertama',
+      'Menerapkan aturan hasil kali',
+      'Menyederhanakan hasil akhir',
+    ],
   },
   {
     id: 'tur-09',
@@ -170,6 +176,12 @@ export const turunanQuestions: Question[] = [
       'Gunakan identitas $\\sin^{2} x + \\cos^{2} x = 1$.',
     ],
     competencies: ['turunan trigonometri', 'aturan hasil bagi', 'pembuktian'],
+    rubric: [
+      'Menuliskan tangen sebagai hasil bagi sinus dan kosinus',
+      'Menerapkan aturan hasil bagi',
+      'Memakai identitas Pythagoras',
+      'Menyimpulkan hasilnya sekans kuadrat',
+    ],
   },
   {
     id: 'tur-11',
@@ -211,6 +223,12 @@ export const turunanQuestions: Question[] = [
       'Kunci: menyelesaikan $f\'(x)=0$, memakai tanda $f\'\'$, dan menyadari bahwa titik stasioner bisa berupa titik belok.',
     hints: ['Faktorkan $3x^{2}-3$.', 'Ingat contoh $y=x^{3}$ di titik asal.'],
     competencies: ['titik stasioner', 'uji turunan kedua', 'evaluasi'],
+    rubric: [
+      'Menentukan turunan pertama',
+      'Mencari titik stasioner',
+      'Menguji jenis titik dengan turunan kedua',
+      'Memberi contoh titik belok',
+    ],
   },
   {
     id: 'tur-14',

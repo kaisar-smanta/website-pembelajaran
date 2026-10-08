@@ -195,4 +195,37 @@ export const dataBivariatQuestions: Question[] = [
     hints: ['Perhatikan selisih $y$ yang tetap sebesar $2$.', 'Prediksi di luar data tetap bergantung pada asumsi.'],
     competencies: ['hubungan linear', 'pemodelan', 'prediksi'],
   },
+  {
+    id: 'db-13',
+    topicId: 'data-bivariat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Data pengeluaran iklan $x$ (juta rupiah) dan penjualan $y$ (juta rupiah) adalah $(1,55), (2,60), (3,68), (4,72), (5,80)$. Tentukan persamaan garis regresi linear $y=ax+b$ dengan metode kuadrat terkecil, lalu perkirakan penjualan bila iklan $6$ juta. Sebutkan satu keterbatasan perkiraan tersebut.',
+    answer:
+      'Dengan $n=5$, $\\bar{x}=3$, $\\bar{y}=67$, $\\sum x_iy_i=1067$, dan $\\sum x_i^2=55$: $a=\\dfrac{\\sum x_iy_i-n\\bar{x}\\bar{y}}{\\sum x_i^2-n\\bar{x}^2}=\\dfrac{1067-1005}{55-45}=\\dfrac{62}{10}=6{,}2$ dan $b=\\bar{y}-a\\bar{x}=67-6{,}2(3)=48{,}4$. Jadi $y=6{,}2x+48{,}4$. Untuk $x=6$ diperoleh $y=6{,}2(6)+48{,}4=85{,}6$ juta rupiah. Keterbatasannya, $x=6$ berada di luar rentang data ($x$ hanya $1$ sampai $5$), sehingga perkiraan itu merupakan ekstrapolasi yang bergantung pada asumsi pola linear tetap berlaku.',
+    explanation:
+      'Kunci: menghitung koefisien regresi dengan rumus kuadrat terkecil, memakai model untuk memprediksi, dan menyadari risiko ekstrapolasi.',
+    hints: [
+      'Hitung $\\bar{x}$ dan $\\bar{y}$ serta $\\sum x_iy_i$ dan $\\sum x_i^2$.',
+      'Gunakan $a=\\dfrac{\\sum x_iy_i-n\\bar{x}\\bar{y}}{\\sum x_i^2-n\\bar{x}^2}$ lalu $b=\\bar{y}-a\\bar{x}$.',
+    ],
+    competencies: ['regresi linear', 'metode kuadrat terkecil', 'pemodelan'],
+  },
+  {
+    id: 'db-14',
+    topicId: 'data-bivariat',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Sebuah model regresi menghasilkan prediksi $\\hat{y}=6{,}2x+48{,}4$. Pada pengamatan $x=6$, nilai yang teramati adalah $y=88$. Tentukan residual (selisih nilai teramati dengan nilai prediksi).',
+    answer: '2,4',
+    acceptedAnswers: ['2,4', '2.4', '+2,4', '+2.4', '2,40', '2.40'],
+    explanation:
+      'Nilai prediksi $\\hat{y}=6{,}2(6)+48{,}4=85{,}6$. Residual $=y-\\hat{y}=88-85{,}6=2{,}4$. Residual positif berarti nilai teramati berada di atas prediksi model.',
+    hints: ['Hitung nilai prediksi lebih dahulu dengan $x=6$.', 'Residual $=y-\\hat{y}$.'],
+    competencies: ['regresi linear', 'residual'],
+  },
 ];

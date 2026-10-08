@@ -134,6 +134,41 @@ Diameter selalu $2$ kali jari-jari, sehingga $r=\\dfrac{d}{2}$.`,
       ],
     },
     {
+      id: "representasi",
+      kind: "representasi",
+      title: "Representasi",
+      body: `Sebuah lingkaran dapat disajikan dengan beberapa cara yang saling melengkapi. Bentuk **simbolik** menuliskan syarat jaraknya sebagai persamaan $(x-a)^2 + (y-b)^2 = r^2$, yaitu himpunan titik yang berjarak tepat $r$ dari pusat $(a,b)$. Bentuk **grafik** menampilkan himpunan titik itu pada bidang koordinat sebagai kurva tertutup, sedangkan bentuk **tabel** mencatat pasangan koordinat titik-titik yang memenuhi persamaan tersebut.`,
+      blocks: [
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: "$(x-a)^2 + (y-b)^2 = r^2$ menyatakan setiap titik $(x,y)$ berjarak tepat $r$ dari pusat $(a,b)$. Contoh: $(x-1)^2 + (y+2)^2 = 9$ berpusat $(1,-2)$ dan berjari-jari $r = 3$.",
+            },
+            {
+              label: "Grafik",
+              body: "Pada bidang koordinat, semua titik yang berjarak $r$ dari $(a,b)$ membentuk kurva tertutup. Titik terjauh mendatar dan tegak berjarak $r$ dari pusat.",
+            },
+            {
+              label: "Tabel",
+              body: "Tabel koordinat membantu menggambar lingkaran. Untuk $(x-1)^2 + (y+2)^2 = 9$, titik $(4,-2)$, $(1,1)$, $(-2,-2)$, dan $(1,-5)$ semuanya berjarak $3$ dari pusat $(1,-2)$.",
+            },
+          ],
+        },
+        {
+          kind: "table",
+          caption: "Tiga representasi lingkaran $(x-1)^2 + (y+2)^2 = 9$",
+          headers: ["Representasi", "Yang tampak"],
+          rows: [
+            ["Simbolik", "Pusat $(1,-2)$ dan jari-jari $r = 3$"],
+            ["Grafik", "Kurva tertutup berpusat $(1,-2)$ berjari-jari $3$"],
+            ["Tabel", "Koordinat titik seperti $(4,-2)$ dan $(1,1)$"],
+          ],
+        },
+      ],
+    },
+    {
       id: "sudut",
       kind: "konsep",
       title: "Sudut Pusat dan Sudut Keliling",
@@ -344,10 +379,52 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
       ],
     },
     {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Bilangan $\\pi$ sudah dipakai berabad-abad sebelum mendapat namanya. Archimedes dari Sirakusa, sekitar 250 SM, menghampiri $\\pi$ dengan menggambar poligon beraturan **di dalam dan di luar** sebuah lingkaran. Dengan poligon bersisi 96 ia membuktikan
+$$3\\tfrac{10}{71} < \\pi < 3\\tfrac{1}{7}.$$
+Batas atas $3\\tfrac{1}{7} = \\frac{22}{7}$ itulah hampiran yang masih kita pakai di kelas. Archimedes juga membuktikan bahwa luas lingkaran sama dengan luas segitiga yang alasnya keliling lingkaran dan tingginya jari-jari, yaitu $L = \\frac{1}{2} \\cdot 2\\pi r \\cdot r = \\pi r^{2}$.
+
+Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3.072, dan pada abad ke-5 Zu Chongzhi memberi hampiran $\\frac{355}{113}$ yang akurat sampai enam angka di belakang koma. Simbol Yunani $\\pi$ untuk perbandingan keliling dan diameter baru diperkenalkan William Jones pada 1706 dan dipopulerkan Leonhard Euler pada 1737. Bagi topik ini, kisah Archimedes menjelaskan mengapa panjang busur dan luas juring selalu sebanding dengan sudut pusat: keduanya hanyalah pecahan dari keliling dan luas lingkaran penuh.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tokoh dalam pendekatan nilai pi",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "Archimedes (sekitar 250 SM)",
+              "Membatasi $\\pi$ dengan poligon 96 sisi.",
+            ],
+            [
+              "Liu Hui (abad ke-3)",
+              "Memakai poligon bersisi 3.072.",
+            ],
+            [
+              "Zu Chongzhi (abad ke-5)",
+              "Menghampiri $\\pi$ dengan $\\frac{355}{113}$.",
+            ],
+            [
+              "William Jones (1706)",
+              "Memperkenalkan simbol $\\pi$.",
+            ],
+            [
+              "Leonhard Euler (1737)",
+              "Mempopulerkan pemakaian simbol $\\pi$.",
+            ],
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana sifat lingkaran dan sudutnya muncul dalam rancangan sehari-hari.",
       blocks: [
         {
           kind: "reflection",

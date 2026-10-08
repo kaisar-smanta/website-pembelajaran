@@ -140,6 +140,12 @@ export const peluangBersyaratQuestions: Question[] = [
       'Jawaban benar menekankan perbedaan penyebut ($P(B)$ versus $P(A)$) dan memberi contoh yang menunjukkan nilainya berbeda.',
     hints: ['Tuliskan kedua rumusnya berdampingan dan bandingkan penyebutnya.'],
     competencies: ['peluang bersyarat', 'penalaran'],
+    rubric: [
+      'Menuliskan kedua rumus berdampingan',
+      'Membandingkan penyebut tiap rumus',
+      'Memberi contoh pada dadu',
+      'Menghitung peluang contoh dengan benar',
+    ],
   },
   {
     id: 'pb-09',
@@ -158,6 +164,12 @@ export const peluangBersyaratQuestions: Question[] = [
       'Bagi peluang jalur A-merah dengan peluang total merah.',
     ],
     competencies: ['aturan Bayes', 'peluang total', 'penalaran'],
+    rubric: [
+      'Menuliskan peluang awal tiap kantong',
+      'Menghitung peluang total terambil merah',
+      'Menerapkan aturan Bayes',
+      'Memperoleh hasil akhir',
+    ],
   },
   {
     id: 'pb-10',
@@ -173,6 +185,12 @@ export const peluangBersyaratQuestions: Question[] = [
       'Jawaban benar menekankan peran urutan dan menunjukkan hubungan $P(n,k) = k! \\, \\binom{n}{k}$.',
     hints: ['Tanyakan apakah urutan pemilihan penting atau tidak.'],
     competencies: ['permutasi', 'kombinasi', 'penalaran'],
+    rubric: [
+      'Menjelaskan peran urutan',
+      'Menghitung kombinasi enam pilih dua',
+      'Menghitung permutasi enam pilih dua',
+      'Menjelaskan hubungan permutasi dan kombinasi',
+    ],
   },
   {
     id: 'pb-11',
@@ -211,6 +229,12 @@ export const peluangBersyaratQuestions: Question[] = [
       'Kunci: menghitung peluang total hasil positif lalu menerapkan Bayes, serta menafsirkan pengaruh prevalensi rendah terhadap nilai prediktif positif.',
     hints: ['Hitung $P(+)$ sebagai jumlah dua jalur.', 'Perhatikan peran besar kelompok sehat pada prevalensi rendah.'],
     competencies: ['aturan Bayes', 'nilai prediktif', 'evaluasi'],
+    rubric: [
+      'Menghitung peluang total hasil positif',
+      'Menerapkan aturan Bayes',
+      'Memperoleh nilai peluang',
+      'Menjelaskan pengaruh prevalensi rendah',
+    ],
   },
   {
     id: 'pb-13',
@@ -226,5 +250,59 @@ export const peluangBersyaratQuestions: Question[] = [
       'Kunci: memodelkan pengambilan tanpa pengembalian sebagai peluang bersyarat dan menerapkan aturan perkalian.',
     hints: ['Setelah pengambilan pertama, jumlah kelereng berkurang satu.', 'Gunakan $P(A\\cap B)=P(A)\\cdot P(B\\mid A)$.'],
     competencies: ['peluang bersyarat', 'aturan perkalian', 'pemodelan'],
+    rubric: [
+      'Menentukan peluang kelereng pertama merah',
+      'Menyesuaikan jumlah setelah pengambilan',
+      'Menerapkan aturan perkalian',
+      'Menghitung peluang akhir',
+    ],
+  },
+  {
+    id: 'pb-14',
+    topicId: 'peluang-bersyarat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah filter surel menandai $98\\%$ surel spam dengan benar, tetapi juga keliru menandai $1\\%$ surel bukan spam sebagai spam. Diketahui $20\\%$ surel yang masuk adalah spam. (a) Susun model peluang total untuk surel yang ditandai spam. (b) Tentukan peluang surel yang ditandai spam benar-benar spam. (c) Berikan rekomendasi apakah filter layak digunakan.',
+    answer:
+      'Misal $S$ = surel spam dan $F$ = ditandai spam. Diketahui $P(S)=0{,}2$, $P(F\\mid S)=0{,}98$, dan $P(F\\mid S^{c})=0{,}01$. (a) $P(F)=P(F\\mid S)P(S)+P(F\\mid S^{c})P(S^{c})=0{,}98(0{,}2)+0{,}01(0{,}8)=0{,}196+0{,}008=0{,}204$. (b) Dengan aturan Bayes, $P(S\\mid F)=\\dfrac{0{,}196}{0{,}204}\\approx0{,}9608$, yaitu sekitar $96{,}1\\%$. (c) Sekitar $96\\%$ surel yang ditandai memang spam, dan hanya $4\\%$ yang salah tandai, sehingga filter cukup akurat dan layak dipakai; meski begitu, tetap perlu ruang pemeriksaan agar surel sah yang tersaring tidak hilang.',
+    explanation:
+      'Kunci: memisahkan dua jalur (spam dan bukan spam) pada peluang total, menerapkan Bayes, lalu menafsirkan hasilnya menjadi rekomendasi.',
+    hints: [
+      'Hitung $P(F)$ sebagai jumlah jalur spam dan jalur bukan spam.',
+      'Bagi jalur spam terhadap $P(F)$ untuk memperoleh $P(S\\mid F)$.',
+    ],
+    competencies: ['aturan Bayes', 'peluang total', 'pemodelan'],
+    rubric: [
+      'Memisahkan jalur spam dan bukan spam',
+      'Menghitung peluang total ditandai spam',
+      'Menerapkan aturan Bayes',
+      'Memberi rekomendasi yang beralasan',
+    ],
+  },
+  {
+    id: 'pb-15',
+    topicId: 'peluang-bersyarat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Dua kejadian $A$ dan $B$ disebut saling bebas jika $P(A\\cap B)=P(A)P(B)$, yang ekuivalen dengan $P(A\\mid B)=P(A)$ ketika $P(B)>0$. (a) Jelaskan mengapa kedua rumus itu ekuivalen. (b) Periksa apakah kejadian "muncul mata genap" dan "muncul mata kelipatan $3$" pada satu lemparan dadu saling bebas. (c) Simpulkan hasilnya.',
+    answer:
+      '(a) Jika $P(A\\cap B)=P(A)P(B)$, bagi kedua ruas dengan $P(B)$, diperoleh $\\dfrac{P(A\\cap B)}{P(B)}=P(A)$, yaitu $P(A\\mid B)=P(A)$. Sebaliknya, dari $P(A\\mid B)=P(A)$ dan definisi $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$, kalikan dengan $P(B)$ untuk memperoleh $P(A\\cap B)=P(A)P(B)$. (b) Ruang sampel $\\{1,2,3,4,5,6\\}$. Kejadian $A=$ genap $=\\{2,4,6\\}$ dengan $P(A)=\\dfrac{3}{6}=\\dfrac12$, dan $B=$ kelipatan $3$ $=\\{3,6\\}$ dengan $P(B)=\\dfrac{2}{6}=\\dfrac13$. Karena $A\\cap B=\\{6\\}$, maka $P(A\\cap B)=\\dfrac16$. Di sisi lain $P(A)P(B)=\\dfrac12\\cdot\\dfrac13=\\dfrac16$, sehingga keduanya sama. (c) Karena $P(A\\cap B)=P(A)P(B)$, kejadian "muncul mata genap" dan "muncul mata kelipatan $3$" saling bebas; munculnya mata kelipatan $3$ tidak mengubah peluang muncul mata genap.',
+    explanation:
+      'Kunci: menurunkan ekuivalensi dua definisi saling bebas secara aljabar, lalu mengujinya pada ruang sampel dadu dengan perhitungan pecahan yang tepat.',
+    hints: [
+      'Gunakan definisi $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$ untuk menjembatani kedua rumus.',
+      'Daftar anggota kedua kejadian dan hitung peluangnya dari $6$ hasil yang sama mungkin.',
+    ],
+    competencies: ['kejadian saling bebas', 'peluang bersyarat', 'penalaran'],
+    rubric: [
+      'Menurunkan ekuivalensi kedua rumus',
+      'Mendaftar anggota kedua kejadian',
+      'Menghitung peluang tiap kejadian',
+      'Menyimpulkan kedua kejadian saling bebas',
+    ],
   },
 ];

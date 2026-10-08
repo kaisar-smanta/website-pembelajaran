@@ -199,4 +199,45 @@ export const aplikasiTurunanQuestions: Question[] = [
     hints: ['Faktorkan $K\'(x)=-3x(x-4)$.', 'Turunan pertama negatif berarti fungsi menurun.'],
     competencies: ['optimasi', 'uji turunan kedua', 'evaluasi'],
   },
+  {
+    id: 'ap-13',
+    topicId: 'aplikasi-turunan',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'konsep',
+    prompt:
+      'Diketahui $f\'\'(c)=0$ pada suatu titik stasioner $x=c$. Pernyataan yang paling tepat mengenai titik $(c, f(c))$ adalah …',
+    options: [
+      { key: 'A', text: 'pasti merupakan titik belok' },
+      { key: 'B', text: 'pasti merupakan titik maksimum lokal' },
+      { key: 'C', text: 'belum tentu titik belok; perlu diperiksa perubahan tanda $f\'\'$ di sekitar $x=c$' },
+      { key: 'D', text: 'pasti merupakan titik minimum lokal' },
+    ],
+    answer: 'C',
+    explanation:
+      'Nilai $f\'\'(c)=0$ tidak cukup untuk memutuskan jenis titik. Bila $f\'\'$ berubah tanda di sekitar $x=c$, titik itu titik belok; bila tandanya tidak berubah (misalnya $f(x)=x^{4}$ di $x=0$), titik itu justru minimum lokal. Karena itu perlu uji perubahan tanda $f\'\'$.',
+    hints: [
+      'Uji turunan kedua tidak dapat disimpulkan ketika $f\'\'(c)=0$.',
+      'Bandingkan perilaku $f(x)=x^{3}$ dan $f(x)=x^{4}$ di sekitar $x=0$.',
+    ],
+    competencies: ['uji turunan kedua', 'titik belok', 'konsep turunan'],
+  },
+  {
+    id: 'ap-14',
+    topicId: 'aplikasi-turunan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Sebuah wadah berbentuk tabung tertutup memiliki volume tetap $V$. Buktikan dengan turunan bahwa luas permukaan wadah minimum ketika tinggi tabung sama dengan diameternya.',
+    answer:
+      'Misalkan jari-jari $r$ dan tinggi $h$, dengan volume $\\pi r^{2}h=V$ tetap sehingga $h=\\dfrac{V}{\\pi r^{2}}$. Luas permukaan $L=2\\pi r^{2}+2\\pi rh=2\\pi r^{2}+\\dfrac{2V}{r}$. Turunan $L\'(r)=4\\pi r-\\dfrac{2V}{r^{2}}=0$ memberi $4\\pi r^{3}=2V$, yaitu $V=2\\pi r^{3}$. Substitusi ke $h=\\dfrac{V}{\\pi r^{2}}$ menghasilkan $h=\\dfrac{2\\pi r^{3}}{\\pi r^{2}}=2r$, yang tidak lain adalah diameternya. Karena $L\'\'(r)=4\\pi+\\dfrac{4V}{r^{3}}>0$, titik ini benar-benar memberi minimum. Terbukti.',
+    explanation:
+      'Kunci: menyatakan luas sebagai fungsi satu variabel lewat kendala volume, menurunkan, menyelesaikan syarat stasioner, memeriksa jenisnya dengan turunan kedua, lalu menafsirkan $h=2r$.',
+    hints: [
+      'Gunakan kendala volume untuk menulis $h$ dalam $r$.',
+      'Tunjukkan $L\'\'(r)>0$ supaya titik itu terbukti minimum.',
+    ],
+    competencies: ['optimasi', 'pemodelan geometri', 'pembuktian'],
+  },
 ];

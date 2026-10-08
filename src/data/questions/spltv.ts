@@ -193,4 +193,45 @@ export const spltvQuestions: Question[] = [
     hints: ['Nyatakan $y$ dan $z$ dalam $x$.', 'Substitusikan ke persamaan jumlah.'],
     competencies: ['SPLTV', 'pemodelan', 'evaluasi'],
   },
+  {
+    id: 'sp-13',
+    topicId: 'spltv',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'konsep',
+    prompt:
+      'Pada sebuah SPLTV, persamaan ketiga merupakan jumlah dari persamaan pertama dan kedua. Pernyataan yang paling tepat tentang sistem tersebut adalah …',
+    options: [
+      { key: 'A', text: 'selalu tidak memiliki solusi' },
+      { key: 'B', text: 'selalu memiliki tepat satu solusi' },
+      { key: 'C', text: 'memiliki tak berhingga banyak solusi karena satu persamaan bergantung' },
+      { key: 'D', text: 'memiliki tepat dua solusi' },
+    ],
+    answer: 'C',
+    explanation:
+      'Karena persamaan ketiga dapat diperoleh dari dua persamaan lain, ia tidak menambah informasi baru (bergantung) dan pasti terpenuhi. Sistem menjadi konsisten dengan satu syarat berlebih, sehingga selama dua persamaan pertama tidak sejajar solusinya tak berhingga banyak, yaitu titik-titik pada garis potong dua bidang.',
+    hints: [
+      'Periksa apakah persamaan ketiga memberi informasi baru.',
+      'Persamaan yang bergantung membuat sistem kehilangan satu syarat.',
+    ],
+    competencies: ['SPLTV', 'sistem bergantung', 'banyak solusi'],
+  },
+  {
+    id: 'sp-14',
+    topicId: 'spltv',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah kios mencatat penjualan tiga jenis minuman. Hari pertama terjual $2$ teh, $1$ kopi, dan $1$ susu dengan pendapatan Rp27.000. Hari kedua terjual $1$ teh, $2$ kopi, dan $1$ susu dengan pendapatan Rp29.000. Hari ketiga terjual $1$ teh, $1$ kopi, dan $2$ susu dengan pendapatan Rp32.000. Susun SPLTV-nya dan tentukan harga satu teh, satu kopi, dan satu susu.',
+    answer:
+      'Misal harga teh $t$, kopi $k$, dan susu $s$ (dalam ribu rupiah). Modelnya $2t+k+s=27$, $t+2k+s=29$, dan $t+k+2s=32$. Kurangkan persamaan pertama dari kedua: $k-t=2$, jadi $k=t+2$. Kurangkan persamaan pertama dari ketiga: $s-t=5$, jadi $s=t+5$. Substitusi ke persamaan pertama: $2t+(t+2)+(t+5)=27 \\Rightarrow 4t+7=27 \\Rightarrow t=5$. Maka $k=7$ dan $s=10$. Jadi harga teh Rp5.000, kopi Rp7.000, dan susu Rp10.000. Periksa: $2(5)+7+10=27$; $5+14+10=29$; $5+7+20=32$.',
+    explanation:
+      'Kunci: memodelkan harga tiap minuman sebagai variabel, menyusun tiga persamaan dari data penjualan, menyelesaikan dengan eliminasi-substitusi, dan memeriksa solusi.',
+    hints: [
+      'Gunakan satuan ribuan rupiah agar angkanya sederhana.',
+      'Kurangkan pasangan persamaan untuk memperoleh hubungan antarvariabel.',
+    ],
+    competencies: ['SPLTV', 'pemodelan', 'eliminasi', 'substitusi'],
+  },
 ];

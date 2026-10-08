@@ -102,6 +102,12 @@ export const learningPaths: LearningPath[] = [
     nodes: [
       { label: 'Trigonometri', id: 'trigonometri', grade: 'X', element: 'geometri' },
       { label: 'Lingkaran', id: 'lingkaran', grade: 'XI', element: 'geometri' },
+      {
+        label: 'Transformasi Geometri (pengayaan)',
+        id: 'transformasi-geometri',
+        grade: 'XII',
+        element: 'geometri',
+      },
     ],
   },
   {
@@ -112,6 +118,28 @@ export const learningPaths: LearningPath[] = [
     nodes: [
       { label: 'SPLTV (pengayaan)', id: 'spltv', grade: 'X', element: 'aljabar-fungsi' },
       { label: 'Matriks (pengayaan)', id: 'matriks', grade: 'XI', element: 'aljabar-fungsi' },
+    ],
+  },
+  {
+    id: 'pengayaan',
+    accent: 'aljabar-fungsi',
+    title: 'Jalur Pengayaan: penalaran dan pembuktian',
+    note: 'Materi di luar capaian pembelajaran untuk memperdalam penalaran: teori bilangan, ketaksamaan, induksi matematika, dan kombinatorika lanjut.',
+    nodes: [
+      { label: 'Teori Bilangan (pengayaan)', id: 'teori-bilangan', grade: 'X', element: 'bilangan' },
+      { label: 'Ketaksamaan (pengayaan)', id: 'ketaksamaan', grade: 'X', element: 'aljabar-fungsi' },
+      {
+        label: 'Induksi Matematika (pengayaan)',
+        id: 'induksi-matematika',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
+      {
+        label: 'Kombinatorika Lanjut (pengayaan)',
+        id: 'kombinatorika-lanjut',
+        grade: 'XII',
+        element: 'data-peluang',
+      },
     ],
   },
   {
@@ -188,12 +216,19 @@ export const learningPaths: LearningPath[] = [
     title: 'Jalur MTL: dari laju perubahan ke integral dan peluang',
     note: 'Turunan dan integral menjadi alat utama membaca perubahan dan akumulasi.',
     nodes: [
+      { label: 'Limit Fungsi', id: 'limit-fungsi', grade: 'XII', element: 'kalkulus' },
       { label: 'Turunan', id: 'turunan', grade: 'XII', element: 'kalkulus' },
       { label: 'Penerapan Turunan', id: 'aplikasi-turunan', grade: 'XII', element: 'kalkulus' },
       { label: 'Integral', id: 'integral', grade: 'XII', element: 'kalkulus' },
       {
         label: 'Variabel Acak Diskret',
         id: 'variabel-acak-diskret',
+        grade: 'XII',
+        element: 'data-peluang',
+      },
+      {
+        label: 'Distribusi Binomial (pengayaan)',
+        id: 'distribusi-binomial',
         grade: 'XII',
         element: 'data-peluang',
       },

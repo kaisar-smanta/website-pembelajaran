@@ -377,7 +377,7 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana garis tren membantumu melihat arah hubungan dalam data.",
       blocks: [
         {
           kind: "reflection",

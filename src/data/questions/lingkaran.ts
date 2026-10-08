@@ -213,4 +213,19 @@ export const lingkaranQuestions: Question[] = [
     hints: ['Sudut $120^\\circ$ sama dengan sepertiga putaran.', 'Total pagar mencakup dua jari-jari lurus dan satu busur.'],
     competencies: ['panjang busur', 'luas juring', 'kontekstual'],
   },
+  {
+    id: 'lk-14',
+    topicId: 'lingkaran',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Dua lingkaran berjari-jari $15$ cm dan $8$ cm memiliki panjang garis singgung persekutuan luar $24$ cm. Tentukan jarak antara kedua pusat lingkaran.',
+    answer: '25',
+    acceptedAnswers: ['25', '25 cm', '25\\text{ cm}'],
+    explanation:
+      'Gunakan hubungan $\\ell_{\\text{luar}}^{2}=d^{2}-(R-r)^{2}$. Substitusi memberi $24^{2}=d^{2}-(15-8)^{2}$, yaitu $576=d^{2}-49$, sehingga $d^{2}=625$ dan $d=25$ cm.',
+    hints: ['Gunakan $(R-r)$ untuk garis singgung persekutuan luar.', 'Selesaikan $24^{2}=d^{2}-7^{2}$.'],
+    competencies: ['garis singgung persekutuan', 'teorema Pythagoras'],
+  },
 ];

@@ -385,10 +385,56 @@ Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuha
       ],
     },
     {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Notasi pangkat yang kita pakai hari ini lahir dari upaya mempersingkat penulisan yang panjang. Pada abad ke-14, Nicole Oresme sudah menyinggung gagasan pangkat dengan eksponen pecahan. Baru pada 1544 Michael Stifel, dalam *Arithmetica Integra*, memakai istilah *exponent* dan menyusun tabel pangkat bilangan bulat. Puncaknya, René Descartes dalam *La Géométrie* (1637) memperkenalkan bentuk superskrip $a^{n}$ yang kita kenal sekarang, jauh lebih ringkas daripada menuliskan faktor berulang secara penuh.
+
+Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "mengalikan sebanyak setengah kali" sulit dibayangkan. John Wallis dalam *Arithmetica Infinitorum* (1655) dan kemudian Isaac Newton memperluas makna eksponen ke bilangan nol, negatif, dan pecahan dengan menjaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Perluasan itulah yang membuat aturan seperti $a^{-n} = \\dfrac{1}{a^{n}}$ dan $a^{1/2} = \\sqrt{a}$ terasa wajar, bukan sekadar kesepakatan. Notasi yang lahir untuk menyingkat perkalian berulang justru membuka pintu bagi bentuk akar, logaritma, dan fungsi eksponensial.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tokoh kunci dalam perkembangan notasi eksponen",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "Nicole Oresme (abad ke-14)",
+              "Menyinggung pangkat dengan eksponen pecahan.",
+            ],
+            [
+              "Michael Stifel (1544)",
+              "Memakai istilah *exponent* dan tabel pangkat bilangan bulat.",
+            ],
+            [
+              "René Descartes (1637)",
+              "Memperkenalkan notasi superskrip $a^{n}$.",
+            ],
+            [
+              "John Wallis (1655)",
+              "Memperluas eksponen ke pangkat negatif dan pecahan.",
+            ],
+            [
+              "Isaac Newton (1676)",
+              "Merumuskan eksponen rasional secara umum.",
+            ],
+          ],
+        },
+        {
+          kind: "callout",
+          variant: "info",
+          title: "Mengapa perluasan itu penting",
+          text: "Setiap perluasan eksponen ke bilangan baru selalu dijaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Aturan itulah yang menuntun mengapa $a^{0} = 1$ dan $a^{-n} = \\dfrac{1}{a^{n}}$, bukan sekadar ditetapkan begitu saja.",
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana pola perkalian berulang muncul dalam pertumbuhan dan peluruhan.",
       blocks: [
         {
           kind: "reflection",

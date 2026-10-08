@@ -178,23 +178,54 @@ export const anuitasQuestions: Question[] = [
     id: 'an-11',
     topicId: 'anuitas',
     difficulty: 'mahir',
-    type: 'multiple-choice',
-    category: 'penerapan',
+    type: 'open-response',
+    category: 'pemodelan',
     prompt:
-      'Pinjaman Rp12.000.000 akan dilunasi dengan anuitas selama 12 bulan dan bunga 1% per bulan. Besar angsuran bulanan adalah …',
-    options: [
-      { key: 'A', text: 'Rp1.000.000,00' },
-      { key: 'B', text: 'Rp1.200.000,00' },
-      { key: 'C', text: 'Rp1.120.000,00' },
-      { key: 'D', text: 'Rp1.066.185,46' },
-    ],
-    answer: 'D',
+      'Pinjaman Rp12.000.000 dikenai bunga 1% per bulan dan diangsur dengan sistem anuitas selama 12 bulan. Setelah membayar 6 angsuran, peminjam berencana melunasi sisa utang sekaligus. (a) Hitung sisa utang setelah 6 angsuran. (b) Hitung total pembayaran bila rencana itu dijalankan (6 angsuran ditambah pelunasan sisa), lalu bandingkan dengan total pembayaran bila ia tetap mengangsur sampai 12 bulan. (c) Jelaskan mengapa melunasi lebih awal menghemat bunga.',
+    answer:
+      'Angsuran anuitas $A=\\dfrac{12.000.000(0{,}01)}{1-(1{,}01)^{-12}}\\approx\\text{Rp}1.066.185{,}46$. (a) Sisa utang setelah 6 angsuran sama dengan nilai sekarang 6 angsuran yang tersisa: $B_6=A\\cdot\\dfrac{1-(1{,}01)^{-6}}{0{,}01}\\approx1.066.185{,}46\\times5{,}795476\\approx\\text{Rp}6.179.052{,}77$. (b) Rencana percepatan: $6\\times1.066.185{,}46+6.179.052{,}77\\approx\\text{Rp}12.576.165{,}55$. Tetap 12 angsuran: $12\\times1.066.185{,}46\\approx\\text{Rp}12.794.225{,}57$. Selisihnya sekitar Rp218.060,02. (c) Bunga hanya dikenakan atas sisa utang selama dana masih dipinjam. Dengan melunasi lebih awal, sisa utang berhenti berbunga selama 6 bulan terakhir, sehingga bunga yang dibayar berkurang; inilah sumber penghematan.',
     explanation:
-      '$A=\\dfrac{M i}{1-(1+i)^{-n}}=\\dfrac{12.000.000(0{,}01)}{1-(1{,}01)^{-12}}=\\dfrac{120.000}{0{,}112551}\\approx\\text{Rp}1.066.185{,}46$. Opsi A mengabaikan bunga, opsi C sekadar menambahkan bunga satu periode.',
+      'Kunci: menghitung anuitas, memakai rumus sisa utang $B_k=A\\dfrac{1-(1+i)^{-(n-k)}}{i}$ (nilai sekarang angsuran tersisa), membandingkan total pembayaran, dan menafsirkan penghematan sebagai hilangnya bunga pada periode yang dipangkas.',
     hints: [
-      'Gunakan rumus anuitas dengan $(1{,}01)^{-12}\\approx0{,}887449$.',
-      'Angsuran harus lebih kecil dari pokok ditambah bunga satu bulan penuh.',
+      'Sisa utang setelah $k$ angsuran = nilai sekarang dari angsuran yang masih tersisa.',
+      'Bandingkan $6A+B_6$ dengan $12A$.',
     ],
-    competencies: ['rumus anuitas', 'penerapan keuangan'],
+    competencies: ['rumus anuitas', 'sisa utang', 'pemodelan keuangan'],
+  },
+  {
+    id: 'an-12',
+    topicId: 'anuitas',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Sebuah pinjaman Rp12.000.000 dikenai bunga 1% per bulan selama 12 bulan. Bandingkan total bunga bila memakai sistem anuitas dengan sistem bunga tetap (flat), yang menghitung bunga selalu dari pokok awal. Jelaskan mengapa salah satunya lebih besar.',
+    answer:
+      'Sistem flat: bunga tiap bulan $=0{,}01\\times12.000.000=\\text{Rp}120.000$, sehingga total bunga $=12\\times120.000=\\text{Rp}1.440.000$. Sistem anuitas: $A=\\dfrac{12.000.000(0{,}01)}{1-(1{,}01)^{-12}}\\approx\\text{Rp}1.066.185,46$, sehingga total pembayaran $\\approx12\\times1.066.185,46=\\text{Rp}12.794.225$ dan total bunga $\\approx\\text{Rp}794.225$. Jadi total bunga flat lebih besar. Penyebabnya, pada sistem flat bunga selalu dihitung dari pokok penuh meskipun utang sudah berkurang, sedangkan pada anuitas bunga dihitung dari sisa utang yang terus menyusut sehingga bunga totalnya lebih kecil.',
+    explanation:
+      'Kunci jawaban membandingkan dasar perhitungan bunga (pokok awal vs sisa utang) dan menunjukkannya dengan angka pada tenor yang sama.',
+    hints: [
+      'Hitung total bunga flat sebagai $n \\times i \\times M$.',
+      'Bandingkan dengan total pembayaran anuitas $n \\times A$ dikurangi pokok.',
+    ],
+    competencies: ['rumus anuitas', 'literasi keuangan', 'penalaran'],
+  },
+  {
+    id: 'an-13',
+    topicId: 'anuitas',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Pada anuitas dengan pokok $M$, suku bunga $i$ per periode, dan $n$ angsuran sebesar $A$, sisa utang setelah $k$ angsuran dapat ditulis $B_k=A\\dfrac{1-(1+i)^{-(n-k)}}{i}$. (a) Jelaskan mengapa rumus itu bermakna "nilai sekarang dari angsuran yang tersisa". (b) Tunjukkan dengan substitusi $A=\\dfrac{M i}{1-(1+i)^{-n}}$ bahwa rumus ini setara dengan $B_k=M(1+i)^k-A\\dfrac{(1+i)^k-1}{i}$. (c) Periksa bahwa pada $k=n$ diperoleh $B_n=0$.',
+    answer:
+      '(a) Pada saat $k$, masih ada $n-k$ angsuran yang harus dibayar, masing-masing sebesar $A$ pada waktu $k+1,k+2,\\dots,n$. Nilai sekarang (pada waktu $k$) angsuran-angsuran itu adalah $A(1+i)^{-1}+A(1+i)^{-2}+\\cdots+A(1+i)^{-(n-k)}$, yaitu deret geometri dengan rasio $(1+i)^{-1}$. Jumlahnya $A\\dfrac{1-(1+i)^{-(n-k)}}{i}$, tepat sama dengan $B_k$: sisa utang sekarang setara dengan seluruh pembayaran yang akan datang. (b) Substitusikan $M=A\\dfrac{1-(1+i)^{-n}}{i}$ ke $M(1+i)^k$: $B_k=A\\dfrac{(1+i)^k-(1+i)^{k-n}}{i}-A\\dfrac{(1+i)^k-1}{i}=A\\dfrac{1-(1+i)^{-(n-k)}}{i}$. Jadi kedua bentuk setara. (c) Untuk $k=n$: $B_n=A\\dfrac{1-(1+i)^{0}}{i}=A\\cdot\\dfrac{0}{i}=0$, sehingga utang lunas setelah angsuran terakhir.',
+    explanation:
+      'Kunci: menafsirkan sisa utang sebagai jumlah nilai sekarang angsuran tersisa (deret geometri), melakukan substitusi aljabar untuk membuktikan kesetaraan kedua rumus, dan memeriksa kasus batas $k=n$.',
+    hints: [
+      'Gunakan jumlah deret geometri $a\\dfrac{1-r^{m}}{1-r}$ pada $r=(1+i)^{-1}$.',
+      'Substitusikan $M$ dari hubungan $M=A\\dfrac{1-(1+i)^{-n}}{i}$.',
+    ],
+    competencies: ['rumus anuitas', 'sisa utang', 'pembuktian'],
   },
 ];

@@ -191,6 +191,7 @@ export const GET: APIRoute = () => {
     '': 'Beranda pusat belajar Matematika dan Matematika Tingkat Lanjut SMA.',
     'peta-pembelajaran': 'Peta hubungan antar konsep dan kurikulum.',
     latihan: 'Bank soal berjenjang dasar, cakap, mahir.',
+    tantangan: 'Soal tantangan dan materi pengayaan untuk siswa di atas capaian.',
     eksplorasi: 'Simulasi dan eksplorasi interaktif.',
     alat: 'Alat bantu matematika daring.',
     aplikasi: 'Studi kasus penerapan matematika.',

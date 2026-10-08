@@ -1,0 +1,315 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialAria =
+  'Grafik f(x) = (x² − 1)/(x − 1) dengan sampel titik dari kiri dan kanan saat x mendekati 1';
+---
+
+<figure class="sim limit-sim" data-limit data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Pilih fungsi, lalu atur ketelitian jarak sampel. Amati nilai f(x) saat x
+    mendekati titik tertentu dari kiri dan dari kanan.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Fungsi</span>
+      <select data-field="fungsi">
+        <option value="rasional">f(x) = (x² − 1)/(x − 1)</option>
+        <option value="akar">f(x) = (√(x + 3) − 2)/(x − 1)</option>
+        <option value="mutlak">f(x) = |x − 2|/(x − 2)</option>
+      </select>
+    </label>
+    <label class="sim-field">
+      <span>Jarak sampel h <output data-value="h">0.1</output></span>
+      <input type="range" min="1" max="4" step="1" value="1" data-field="h" aria-label="Ketelitian jarak sampel h" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-limit-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Kurva f(x)</span>
+      <span class="l2">Sampel dari kiri dan kanan</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <div class="table-scroll">
+    <table class="limit-table">
+      <caption data-caption>Nilai f(x) saat x mendekati titik dari dua arah</caption>
+      <thead data-thead></thead>
+      <tbody data-tbody></tbody>
+    </table>
+  </div>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-field select {
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-calculus);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout .stat {
+    font-size: 0.9rem;
+  }
+  table.limit-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+    margin-top: 0.85rem;
+  }
+  table.limit-table caption {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    padding-bottom: 0.35rem;
+  }
+  table.limit-table :global(th),
+  table.limit-table :global(td) {
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.6rem;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  table.limit-table :global(th) {
+    background: var(--color-surface-2);
+  }
+  table.limit-table :global(th:first-child),
+  table.limit-table :global(td:first-child) {
+    text-align: left;
+  }
+  table.limit-table :global(tbody tr:nth-child(even)) {
+    background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
+  }
+  .limit-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .limit-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { LIMIT_FUNCTIONS, buildLimitTable, describeLimit } from '../../lib/sim/limit';
+  import type { LimitFunctionKey } from '../../lib/sim/limit';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+
+  function setupLimit(root: Element) {
+    const select = root.querySelector('[data-field="fungsi"]') as HTMLSelectElement;
+    const inputH = root.querySelector('[data-field="h"]') as HTMLInputElement;
+    const outH = root.querySelector('[data-value="h"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const thead = root.querySelector('[data-thead]') as HTMLElement;
+    const tbody = root.querySelector('[data-tbody]') as HTMLElement;
+    const reset = root.querySelector('[data-limit-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 300;
+    const pad = 34;
+
+    const fmt = (v: number): string =>
+      Number.isFinite(v) ? String(Number(v.toFixed(4))) : 'tak terdefinisi';
+
+    function draw(evaluate: (x: number) => number, target: number) {
+      const span = 2.5;
+      const xMin = target - span;
+      const xMax = target + span;
+
+      const values: number[] = [];
+      for (let i = 0; i <= 200; i++) {
+        const y = evaluate(xMin + (i / 200) * (xMax - xMin));
+        if (Number.isFinite(y) && Math.abs(y) < 50) values.push(y);
+      }
+      let yMin = Math.min(...values, 0);
+      let yMax = Math.max(...values, 0);
+      if (yMax - yMin < 1) {
+        yMin -= 1;
+        yMax += 1;
+      }
+
+      const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
+      clear(svg);
+
+      for (let i = 0; i <= 8; i++) {
+        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 6) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 6) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(target), y1: pad, x2: sx(target), y2: H - pad, stroke: 'var(--color-warning)', 'stroke-width': 1.4, 'stroke-dasharray': '4 4' }));
+
+      const curve: Array<[number, number] | null> = [];
+      for (let i = 0; i <= W; i++) {
+        const x = xMin + (i / W) * (xMax - xMin);
+        const y = evaluate(x);
+        const py = sy(y);
+        curve.push(!Number.isFinite(y) || py < -400 || py > H + 400 ? null : [sx(x), py]);
+      }
+      svg.appendChild(el('path', { d: polyline(curve), fill: 'none', stroke: 'var(--color-primary)', 'stroke-width': 2.6, 'stroke-linecap': 'round' }));
+    }
+
+    function drawSamples(target: number, table: ReturnType<typeof buildLimitTable>, yMin: number, yMax: number) {
+      const span = 2.5;
+      const { sx, sy } = linearScale(
+        { xMin: target - span, xMax: target + span, yMin, yMax },
+        { width: W, height: H, pad },
+      );
+      for (const point of [...table.left, ...table.right]) {
+        if (!Number.isFinite(point.f)) continue;
+        const py = sy(point.f);
+        if (py < pad - 20 || py > H - pad + 20) continue;
+        svg.appendChild(el('circle', { cx: sx(point.x), cy: py, r: 3.4, fill: 'var(--color-calculus)' }));
+      }
+      if (table.estimate.exists && Number.isFinite(table.estimate.value)) {
+        const py = sy(table.estimate.value);
+        if (py >= pad - 20 && py <= H - pad + 20) {
+          svg.appendChild(el('circle', { cx: sx(target), cy: py, r: 5, fill: 'var(--color-surface-2)', stroke: 'var(--color-primary)', 'stroke-width': 2 }));
+        }
+      }
+    }
+
+    function render() {
+      const key = (select.value as LimitFunctionKey) ?? 'rasional';
+      const model = LIMIT_FUNCTIONS[key] ?? LIMIT_FUNCTIONS.rasional;
+      const h0 = Math.pow(10, -Number(inputH.value));
+      outH.textContent = String(h0);
+
+      const table = buildLimitTable(model.evaluate, model.target, h0, 5);
+      draw(model.evaluate, model.target);
+
+      const values: number[] = [];
+      for (let i = 0; i <= 200; i++) {
+        const y = model.evaluate(model.target - 2.5 + (i / 200) * 5);
+        if (Number.isFinite(y) && Math.abs(y) < 50) values.push(y);
+      }
+      let yMin = Math.min(...values, 0);
+      let yMax = Math.max(...values, 0);
+      if (yMax - yMin < 1) {
+        yMin -= 1;
+        yMax += 1;
+      }
+      drawSamples(model.target, table, yMin, yMax);
+
+      readout.textContent = describeLimit(model, table.estimate);
+
+      thead.innerHTML =
+        '<tr><th scope="col">x ← a</th><th scope="col">f(x)</th><th scope="col">x → a</th><th scope="col">f(x)</th></tr>';
+      tbody.innerHTML = '';
+      for (let i = 0; i < table.left.length; i++) {
+        const left = table.left[i];
+        const right = table.right[i];
+        const tr = document.createElement('tr');
+        for (const value of [left.x, left.f, right.x, right.f]) {
+          const td = document.createElement('td');
+          td.textContent = fmt(value);
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+
+      svg.setAttribute(
+        'aria-label',
+        `Grafik ${model.label} dengan sampel dari kiri dan kanan saat x mendekati ${model.target}`,
+      );
+    }
+
+    select.addEventListener('change', render);
+    inputH.addEventListener('input', render);
+    reset.addEventListener('click', () => {
+      select.value = 'rasional';
+      inputH.value = inputH.defaultValue;
+      render();
+    });
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-limit]'), setupLimit);
+</script>

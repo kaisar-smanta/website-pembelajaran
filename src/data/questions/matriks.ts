@@ -221,4 +221,45 @@ export const matriksQuestions: Question[] = [
     hints: ['Baris menyatakan paket dan kolom menyatakan jenis barang.', 'Ukuran $S$ adalah $2\\times2$ dan $H$ adalah $2\\times1$.'],
     competencies: ['perkalian matriks', 'pemodelan matriks', 'kontekstual'],
   },
+  {
+    id: 'mt-14',
+    topicId: 'matriks',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diberikan matriks $A=\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$. (a) Hitung $A^{2}$ lalu tunjukkan bahwa $A^{2}-5A-2I=O$, dengan $I$ matriks identitas dan $O$ matriks nol. (b) Gunakan hubungan itu untuk menentukan $A^{-1}$.',
+    answer:
+      '(a) $A^{2}=\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}=\\begin{pmatrix} 7 & 10 \\\\ 15 & 22 \\end{pmatrix}$. Karena $\\operatorname{tr}(A)=5$ dan $\\det(A)=1(4)-2(3)=-2$, hubungan Cayley-Hamilton $A^{2}-\\operatorname{tr}(A)A+\\det(A)I=O$ menjadi $A^{2}-5A-2I=O$. Periksa: $5A+2I=\\begin{pmatrix} 5 & 10 \\\\ 15 & 20 \\end{pmatrix}+\\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}=\\begin{pmatrix} 7 & 10 \\\\ 15 & 22 \\end{pmatrix}=A^{2}$. (b) Kalikan $A^{2}-5A-2I=O$ dengan $A^{-1}$ dari kiri: $A-5I-2A^{-1}=O$, sehingga $A^{-1}=\\dfrac{1}{2}(A-5I)=\\dfrac{1}{2}\\begin{pmatrix} -4 & 2 \\\\ 3 & -1 \\end{pmatrix}=\\begin{pmatrix} -2 & 1 \\\\ \\dfrac{3}{2} & -\\dfrac{1}{2} \\end{pmatrix}$. Periksa dengan rumus invers: $\\dfrac{1}{-2}\\begin{pmatrix} 4 & -2 \\\\ -3 & 1 \\end{pmatrix}$ memberi hasil yang sama.',
+    explanation:
+      'Kunci: menghitung $A^{2}$, mengenali hubungan Cayley-Hamilton untuk matriks $2\\times2$ melalui trace dan determinan, lalu memakainya untuk menurunkan invers tanpa rumus adjoin.',
+    hints: [
+      'Untuk matriks $2\\times2$ berlaku $A^{2}-\\operatorname{tr}(A)A+\\det(A)I=O$.',
+      'Kalikan $A^{2}-5A-2I=O$ dengan $A^{-1}$ dari kiri.',
+    ],
+    competencies: ['aljabar matriks', 'determinan', 'invers matriks', 'penalaran'],
+  },
+  {
+    id: 'mt-15',
+    topicId: 'matriks',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Diketahui matriks $A$ dan $B$ berordo $2\\times2$ dengan $\\det(A)=2$ dan $\\det(B)=3$. Nilai $\\det(2AB^{-1})$ adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{8}{3}$' },
+      { key: 'B', text: '$\\dfrac{4}{3}$' },
+      { key: 'C', text: '$\\dfrac{2}{3}$' },
+      { key: 'D', text: '$12$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Gunakan sifat determinan: $\\det(2AB^{-1})=2^{2}\\det(A)\\det(B^{-1})=4\\cdot2\\cdot\\dfrac{1}{3}=\\dfrac{8}{3}$. Faktor $2^{2}$ muncul karena matriks berordo $2\\times2$.',
+    hints: [
+      '$\\det(kA)=k^{n}\\det(A)$ dengan $n=2$.',
+      '$\\det(B^{-1})=\\dfrac{1}{\\det(B)}$ dan $\\det(AB)=\\det(A)\\det(B)$.',
+    ],
+    competencies: ['sifat determinan', 'invers matriks', 'penalaran'],
+  },
 ];

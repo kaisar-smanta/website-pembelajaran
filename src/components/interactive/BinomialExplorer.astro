@@ -1,0 +1,241 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialAria = 'Diagram batang distribusi binomial dengan n = 10 dan p = 0,5';
+---
+
+<figure class="sim binom-sim" data-binomial data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Atur banyak percobaan n dan peluang sukses p, lalu amati bentuk distribusi
+    peluang P(X = k) beserta nilai harapan dan sebarannya.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Banyak percobaan n <output data-value="n">10</output></span>
+      <input type="range" min="1" max="30" step="1" value="10" data-field="n" aria-label="Banyak percobaan n" />
+    </label>
+    <label class="sim-field">
+      <span>Peluang sukses p <output data-value="p">0.5</output></span>
+      <input type="range" min="0" max="1" step="0.01" value="0.5" data-field="p" aria-label="Peluang sukses p" />
+    </label>
+    <label class="sim-field">
+      <span>Nilai k yang disorot <output data-value="k">3</output></span>
+      <input type="range" min="0" max="30" step="1" value="3" data-field="k" aria-label="Nilai k yang disorot" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-binom-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 260" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">P(X = k)</span>
+      <span class="l2">Nilai harapan E(X)</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 34rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-data);
+  }
+  .legend .l2 {
+    color: var(--color-warning);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .binom-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .binom-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    binomialDistribution,
+    binomialPmf,
+    cumulativeBinomial,
+    binomialStats,
+  } from '../../lib/sim/binomial';
+  import { el, clear, clamp, linearScale, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  function setupBinomial(root: Element) {
+    const inN = root.querySelector('[data-field="n"]') as HTMLInputElement;
+    const inP = root.querySelector('[data-field="p"]') as HTMLInputElement;
+    const inK = root.querySelector('[data-field="k"]') as HTMLInputElement;
+    const outN = root.querySelector('[data-value="n"]') as HTMLOutputElement;
+    const outP = root.querySelector('[data-value="p"]') as HTMLOutputElement;
+    const outK = root.querySelector('[data-value="k"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-binom-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 260;
+    const pad = 34;
+    const fmt = (v: number) => formatPlain(Number(v.toFixed(4)));
+
+    function draw(dist: { k: number; p: number }[], mean: number, highlight: number) {
+      const n = dist.length - 1;
+      const maxP = Math.max(0.05, ...dist.map((d) => d.p));
+      const { sx, sy } = linearScale(
+        { xMin: -0.5, xMax: n + 0.5, yMin: 0, yMax: maxP * 1.15 },
+        { width: W, height: H, pad },
+      );
+      clear(svg);
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+
+      const slot = (W - 2 * pad) / (n + 1);
+      const barW = Math.min(40, Math.max(3, slot * 0.62));
+      const labelStep = Math.max(1, Math.ceil((n + 1) / 16));
+      for (const point of dist) {
+        const topY = sy(point.p);
+        const active = point.k === highlight;
+        svg.appendChild(
+          el('rect', {
+            x: sx(point.k) - barW / 2,
+            y: topY,
+            width: barW,
+            height: Math.max(0.5, sy(0) - topY),
+            rx: 2,
+            fill: active ? 'var(--color-warning)' : 'var(--color-data)',
+            'fill-opacity': active ? 0.9 : 0.35,
+            stroke: active ? 'var(--color-warning)' : 'var(--color-data)',
+            'stroke-width': 1.3,
+          }),
+        );
+        if (point.k % labelStep === 0 || point.k === n) {
+          const label = el('text', { x: sx(point.k), y: H - pad + 15, 'text-anchor': 'middle', 'font-size': 10, fill: 'var(--color-text-muted)' });
+          label.textContent = String(point.k);
+          svg.appendChild(label);
+        }
+      }
+
+      if (mean >= -0.5 && mean <= n + 0.5) {
+        svg.appendChild(el('line', { x1: sx(mean), y1: pad - 4, x2: sx(mean), y2: sy(0), stroke: 'var(--color-warning)', 'stroke-width': 2, 'stroke-dasharray': '5 4' }));
+      }
+    }
+
+    function render() {
+      const n = clamp(Math.round(Number(inN.value)), 1, 30);
+      const p = clamp(Number(inP.value), 0, 1);
+      inN.value = String(n);
+      inP.value = String(p);
+      inK.max = String(n);
+      const k = clamp(Math.round(Number(inK.value)), 0, n);
+      inK.value = String(k);
+
+      outN.textContent = String(n);
+      outP.textContent = String(p);
+      outK.textContent = String(k);
+
+      const dist = binomialDistribution(n, p);
+      const st = binomialStats(n, p);
+      const pk = binomialPmf(n, k, p);
+      const cdf = cumulativeBinomial(n, p, k);
+
+      draw(dist, st.mean, k);
+      svg.setAttribute(
+        'aria-label',
+        `Diagram batang distribusi binomial n = ${n}, p = ${fmt(p)}; peluang P(X = ${k}) = ${fmt(pk)}`,
+      );
+
+      readout.innerHTML =
+        `<div class="stat"><span>P(X = ${k})</span><strong>${fmt(pk)}</strong></div>` +
+        `<div class="stat"><span>P(X ≤ ${k})</span><strong>${fmt(cdf)}</strong></div>` +
+        `<div class="stat"><span>Nilai harapan E(X) = np</span><strong>${fmt(st.mean)}</strong></div>` +
+        `<div class="stat"><span>Varians np(1 − p)</span><strong>${fmt(st.variance)}</strong></div>` +
+        `<div class="stat"><span>Simpangan baku σ</span><strong>${fmt(st.stdDev)}</strong></div>`;
+    }
+
+    inN.addEventListener('input', render);
+    inP.addEventListener('input', render);
+    inK.addEventListener('input', render);
+
+    reset.addEventListener('click', () => {
+      [inN, inP, inK].forEach((input) => {
+        input.value = input.defaultValue;
+      });
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-binomial]'), setupBinomial);
+</script>

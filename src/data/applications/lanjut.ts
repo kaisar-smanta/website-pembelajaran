@@ -15,6 +15,7 @@ export const lanjutApplications: Application[] = [
     grade: 'XII',
     level: 'mahir',
     estimatedMinutes: 12,
+    explorationId: 'mtl-aplikasi-turunan-garis-singgung',
     tags: ['optimasi', 'turunan', 'biaya', 'produksi'],
     summary:
       'Mencari banyak produksi yang meminimumkan biaya rata-rata menggunakan turunan.',
@@ -42,6 +43,8 @@ Perilaku model menjelaskan mengapa nilai itu muncul. Untuk $x$ kecil, suku $\\df
       'Mengapa solusi negatif dari persamaan kuadrat diabaikan di sini?',
       'Bagaimana kesimpulan berubah bila biaya tetap naik dua kali lipat?',
     ],
+    source:
+      'Ilustrasi fiktif biaya produksi usaha kecil; angka dibuat agar mudah diturunkan.',
   },
   {
     id: 'mtl-gerak-kecepatan',
@@ -52,6 +55,7 @@ Perilaku model menjelaskan mengapa nilai itu muncul. Untuk $x$ kecil, suku $\\df
     grade: 'XII',
     level: 'cakap',
     estimatedMinutes: 10,
+    explorationId: 'mtl-integral-riemann',
     tags: ['kecepatan sesaat', 'turunan', 'gerak'],
     summary: 'Menghitung kecepatan sesaat dari fungsi posisi memakai turunan.',
     topicIds: ['aplikasi-turunan', 'integral'],
@@ -76,6 +80,8 @@ Percepatan adalah turunan kecepatan, $a(t) = v'(t) = -10$ m/detik$^{2}$, yang be
       'Apa makna fisis dari kecepatan bernilai nol pada $t = 2$?',
       'Mengapa tinggi maksimum dapat dihitung lewat integral kecepatan?',
     ],
+    source:
+      'Ilustrasi fiktif gerak peluru; angka dibuat agar mudah dihitung dengan turunan dan integral.',
   },
   {
     id: 'mtl-transformasi-citra',
@@ -86,6 +92,7 @@ Percepatan adalah turunan kecepatan, $a(t) = v'(t) = -10$ m/detik$^{2}$, yang be
     grade: 'XI',
     level: 'cakap',
     estimatedMinutes: 10,
+    explorationId: 'mtl-matriks-transformasi',
     tags: ['transformasi', 'matriks', 'rotasi', 'grafika'],
     summary: 'Menggunakan matriks rotasi dan refleksi untuk memindahkan titik pada bidang.',
     topicIds: ['matriks-transformasi'],
@@ -113,6 +120,8 @@ Matriks hasil $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$ sebenarnya me
       'Transformasi tunggal apa yang setara dengan matriks hasil di atas?',
       'Mengapa prosesor grafika lebih memilih perkalian matriks daripada hitungan manual?',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan transformasi citra digital; koordinat dibuat agar mudah dihitung.',
   },
   {
     id: 'mtl-navigasi-vektor',
@@ -123,6 +132,7 @@ Matriks hasil $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$ sebenarnya me
     grade: 'XI',
     level: 'cakap',
     estimatedMinutes: 10,
+    explorationId: 'mtl-vektor-bidang',
     tags: ['vektor', 'navigasi', 'resultan'],
     summary: 'Menentukan arah dan besar perpindahan resultan kapal dengan penjumlahan vektor.',
     topicIds: ['vektor', 'trigonometri-lanjut'],
@@ -146,6 +156,8 @@ Arah perpindahan terhadap sumbu-$x$ dapat dihitung dengan $\\tan\\theta = \\dfra
       'Mengapa besar perpindahan tidak sama dengan jumlah panjang tiap segmen?',
       'Bagaimana arus laut dapat dimodelkan sebagai vektor tambahan?',
     ],
+    source:
+      'Ilustrasi fiktif perjalanan kapal; angka dibuat agar mudah dihitung dengan vektor.',
   },
   {
     id: 'mtl-antena-elips',
@@ -156,6 +168,7 @@ Arah perpindahan terhadap sumbu-$x$ dapat dihitung dengan $\\tan\\theta = \\dfra
     grade: 'XI',
     level: 'dasar',
     estimatedMinutes: 9,
+    explorationId: 'mtl-irisan-kerucut-sim',
     tags: ['elips', 'irisan kerucut', 'fokus', 'reflektor'],
     summary: 'Membaca unsur elips (fokus dan sumbu) pada desain penampang reflector.',
     topicIds: ['irisan-kerucut'],
@@ -181,6 +194,8 @@ Karena penyebut $169$ menempel pada suku $x$, sumbu mayor elips ini sejajar sumb
       'Apa yang terjadi pada bentuk elips bila eksentrisitasnya mendekati nol?',
       'Bagaimana posisi fokus berubah jika sumbu mayor dan minor ditukar?',
     ],
+    source:
+      'Ilustrasi fiktif desain penampang reflektor; angka dibuat agar mudah dihitung.',
   },
   {
     id: 'mtl-ekspektasi-risiko',
@@ -191,6 +206,7 @@ Karena penyebut $169$ menempel pada suku $x$, sumbu mayor elips ini sejajar sumb
     grade: 'XII',
     level: 'mahir',
     estimatedMinutes: 12,
+    explorationId: 'mtl-variabel-acak-pmf',
     tags: ['variabel acak', 'ekspektasi', 'risiko', 'data'],
     summary: 'Menghitung nilai harapan dan simpangan baku untuk menimbang risiko.',
     topicIds: ['variabel-acak-diskret'],
@@ -219,5 +235,99 @@ Perhatikan juga peluang merugi: hasil terendah adalah $X = 0$ dengan peluang $0{
       'Mengapa nilai harapan positif belum tentu berarti selalu untung?',
       'Ukuran tambahan apa yang membantu memahami risiko di luar simpangan baku?',
     ],
+    source:
+      'Ilustrasi fiktif distribusi laba usaha; angka dibuat agar mudah dihitung.',
+  },
+  {
+    id: 'mtl-limit-kadar-obat',
+    title: 'Kadar Obat dalam Darah yang Menuju Stabil',
+    category: 'pertumbuhan',
+    subject: 'matematika-lanjut',
+    element: 'kalkulus',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 12,
+    explorationId: 'mtl-aplikasi-turunan-garis-singgung',
+    tags: ['limit', 'limit tak hingga', 'kestabilan', 'obat', 'laju'],
+    summary:
+      'Memakai limit di tak hingga untuk memprediksi kadar obat yang stabil dan limit bentuk nol per nol untuk membaca laju awalnya.',
+    topicIds: ['limit-fungsi', 'aplikasi-turunan'],
+    body: `Setelah satu dosis diminum, kadar obat dalam darah (mg/L) pada jam ke-$t$ dimodelkan
+$$C(t) = 8 - \\frac{16}{t+2},\\qquad t \\ge 0.$$
+Dokter ingin mengetahui kadar yang bertahan dalam jangka panjang, serta seberapa cepat kadar berubah saat memasuki jam ke-$2$.
+
+Kadar awal $C(0) = 0$ karena obat belum terserap, lalu naik dan makin melambat. Pertanyaan "berapa kadar jangka panjangnya?" sebenarnya menanyakan nilai yang **didekati** $C(t)$ ketika $t$ membesar tanpa batas — tepatnya sebuah limit di tak hingga. Sementara pertanyaan laju perubahan pada satu saat menuntut limit bentuk $\\tfrac{0}{0}$ yang dihitung lewat pemfaktoran.`,
+    analysis: `**Kadar jangka panjang.** Bagi pembilang dan penyebut suku pecahan dengan $t$:
+$$\\lim_{t \\to \\infty}\\left(8 - \\frac{16}{t+2}\\right) = 8 - 0 = 8\\ \\text{mg/L}.$$
+Suku $\\dfrac{16}{t+2}$ menuju nol, sehingga kadar obat mendatar menuju $8$ mg/L. Nilai ini adalah kadar stabil (steady state) yang menjadi acuan dosis berikutnya.
+
+**Laju pada jam ke-$2$.** Kadar saat $t = 2$ adalah $C(2) = 8 - \\dfrac{16}{4} = 4$ mg/L. Laju perubahan sesaat dihitung lewat limit hasil bagi selisih:
+$$\\lim_{t \\to 2}\\frac{C(t) - C(2)}{t - 2}
+= \\lim_{t \\to 2}\\frac{\\left(8 - \\frac{16}{t+2}\\right) - 4}{t-2}
+= \\lim_{t \\to 2}\\frac{4 - \\frac{16}{t+2}}{t-2}.$$
+Penyebut dan pembilang sama-sama menuju nol (bentuk $\\tfrac{0}{0}$). Dengan menyamakan penyebut pada pembilang:
+$$4 - \\frac{16}{t+2} = \\frac{4(t+2) - 16}{t+2} = \\frac{4t - 8}{t+2} = \\frac{4(t-2)}{t+2},$$
+sehingga
+$$\\lim_{t \\to 2}\\frac{4(t-2)}{t+2} \\cdot \\frac{1}{t-2} = \\lim_{t \\to 2}\\frac{4}{t+2} = \\frac{4}{4} = 1.$$
+Jadi pada jam ke-$2$ kadar bertambah sekitar $1$ mg/L per jam. Bentuk tak tentu $\\tfrac{0}{0}$ ternyata menyimpan laju yang berhingga setelah pembilang difaktorkan.`,
+    takeaways: [
+      'Limit di tak hingga memberi kadar stabil, yaitu nilai yang didekati fungsi untuk waktu yang panjang.',
+      'Limit bentuk $\\tfrac{0}{0}$ tidak otomatis tak ada; pemfaktoran dapat menyederhanakannya.',
+      'Laju perubahan sesaat adalah limit hasil bagi selisih, jembatan menuju turunan.',
+      'Kesimpulan model tetap dibatasi asumsi penyerapan dan metabolisme yang disederhanakan.',
+    ],
+    reflection: [
+      'Mengapa membagi dengan $t$ membantu menghitung limit di tak hingga?',
+      'Apa yang terjadi bila kadar stabil diinginkan lebih tinggi, misalnya $10$ mg/L?',
+      'Bagaimana grafik $C(t)$ menjelaskan bahwa kadar tidak pernah melampaui $8$ mg/L?',
+    ],
+    source:
+      'Ilustrasi fiktif model kadar obat; angka dibuat agar limitnya mudah dihitung.',
+  },
+  {
+    id: 'mtl-binomial-kendali-mutu',
+    title: 'Kendali Mutu Produk Cacat dengan Distribusi Binomial',
+    category: 'data',
+    subject: 'matematika-lanjut',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 12,
+    explorationId: 'mtl-variabel-acak-pmf',
+    tags: ['distribusi binomial', 'kendali mutu', 'peluang', 'nilai harapan'],
+    summary:
+      'Menghitung peluang banyaknya produk cacat pada sampel memakai distribusi binomial.',
+    topicIds: ['distribusi-binomial', 'variabel-acak-diskret'],
+    body: `Sebuah pabrik mengklaim hanya $5\\%$ produknya cacat. Tim kendali mutu mengambil sampel $20$ produk secara acak dan menganggap cacat atau tidak cacat sebagai percobaan binomial saling bebas dengan $p = 0{,}05$.
+
+Berapa peluang menemukan **paling banyak satu** produk cacat? Jika ternyata ditemukan lebih banyak, apakah klaim $5\\%$ patut diragukan?
+
+Setiap produk dalam sampel hanya punya dua hasil (cacat atau baik), peluang cacat dianggap tetap, dan antarproduk saling bebas. Inilah syarat percobaan binomial, sehingga banyak produk cacat $X$ pada $20$ percobaan menyebar binomial $X \\sim B(20,\\ 0{,}05)$.`,
+    analysis: `Peluang tepat $k$ cacat mengikuti
+$$P(X = k) = \\binom{20}{k}(0{,}05)^{k}(0{,}95)^{20-k}.$$
+Untuk paling banyak satu cacat:
+$$P(X \\le 1) = P(X=0) + P(X=1).$$
+$$P(X=0) = (0{,}95)^{20} \\approx 0{,}3585.$$
+$$P(X=1) = \\binom{20}{1}(0{,}05)(0{,}95)^{19} = 20(0{,}05)(0{,}3774) \\approx 0{,}3774.$$
+Jadi $P(X \\le 1) \\approx 0{,}3585 + 0{,}3774 = 0{,}7359$. Sekitar $73{,}6\\%$ sampel berisi paling banyak satu produk cacat.
+
+Sebaliknya, peluang menemukan **dua atau lebih** cacat adalah komplemennya:
+$$P(X \\ge 2) = 1 - P(X \\le 1) \\approx 0{,}2641,$$
+cukup besar untuk muncul sesekali. Nilai harapan $E(X) = np = 20(0{,}05) = 1$ produk cacat per sampel, dengan simpangan baku
+$$\\sigma = \\sqrt{np(1-p)} = \\sqrt{20(0{,}05)(0{,}95)} = \\sqrt{0{,}95} \\approx 0{,}975.$$
+Karena menyebar normal secara kasar, menemukan $4$ cacat (jauh di atas rata-rata $1$) jarang terjadi pada $p = 0{,}05$; justru itu petunjuk bahwa peluang cacat sesungguhnya mungkin lebih tinggi.`,
+    takeaways: [
+      'Ciri percobaan binomial: dua hasil, peluang tetap, dan antarpercobaan saling bebas.',
+      'Peluang kumulatif dihitung dengan menjumlahkan $P(X=k)$ atau memakai komplemen.',
+      'Nilai harapan binomial $E(X)=np$ memberi banyak cacat yang diharapkan per sampel.',
+      'Hasil jauh di atas $np$ menjadi sinyal untuk memeriksa kembali klaim kualitas.',
+    ],
+    reflection: [
+      'Mengapa asumsi peluang tetap dan saling bebas penting sebelum memakai rumus binomial?',
+      'Bagaimana keputusan berubah bila ukuran sampel diperbesar menjadi $50$?',
+      'Ukuran apa yang lebih meyakinkan untuk menilai klaim, rata-rata atau peluang kejadian ekstrem?',
+    ],
+    source:
+      'Ilustrasi fiktif kendali mutu pabrik; angka dibuat agar peluangnya mudah dihitung.',
   },
 ];

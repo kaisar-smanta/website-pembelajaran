@@ -204,4 +204,40 @@ export const pinjamanInvestasiQuestions: Question[] = [
     ],
     competencies: ['evaluasi pinjaman', 'pengambilan keputusan'],
   },
+  {
+    id: 'pinv-12',
+    topicId: 'pinjaman-investasi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Bu Rina menyetor Rp1.000.000 setiap bulan ke rekening dengan bunga $0{,}6\\%$ per bulan selama $10$ tahun. (Gunakan $(1{,}006)^{120}\\approx2{,}0500$.) (a) Susun model nilai masa depan anuitasnya. (b) Hitung saldo akhir. (c) Jika ia menargetkan Rp200.000.000, tentukan setoran bulanan yang diperlukan dan jelaskan apakah setoran sekarang cukup.',
+    answer:
+      '(a) Dengan $A=1.000.000$, $i=0{,}006$, dan $n=10\\times12=120$, nilai masa depan $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}$. (b) $FV=1.000.000\\cdot\\dfrac{2{,}0500-1}{0{,}006}=1.000.000\\cdot\\dfrac{1{,}0500}{0{,}006}=1.000.000\\cdot175=175.000.000$. Jadi saldo akhirnya sekitar Rp175.000.000. (c) Untuk target $FV=200.000.000$, $A=\\dfrac{FV\\cdot i}{(1+i)^{n}-1}=\\dfrac{200.000.000\\times0{,}006}{1{,}0500}=\\dfrac{1.200.000}{1{,}0500}\\approx1.142.857$, sehingga diperlukan sekitar Rp1.143.000 per bulan. Karena Rp1.143.000 lebih besar daripada setoran Rp1.000.000, setoran sekarang belum cukup untuk mencapai target.',
+    explanation:
+      'Kunci: memodelkan anuitas dengan setoran bulanan, menghitung nilai masa depan, lalu membalik rumus untuk mencari setoran yang mengejar target.',
+    hints: [
+      'Ubah $10$ tahun menjadi $120$ bulan.',
+      'Gunakan $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}$ lalu balik untuk mencari $A$.',
+    ],
+    competencies: ['pemodelan keuangan', 'nilai masa depan', 'anuitas'],
+  },
+  {
+    id: 'pinv-13',
+    topicId: 'pinjaman-investasi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Pada suku bunga $i$ per periode, nilai masa depan tabungan $A$ tiap periode adalah $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}$, sedangkan angsuran untuk melunasi pokok pinjaman $M$ adalah $A=M\\cdot\\dfrac{i}{1-(1+i)^{-n}}$. (a) Tunjukkan bahwa $M=A\\cdot\\dfrac{1-(1+i)^{-n}}{i}$. (b) Buktikan bahwa $M(1+i)^{n}=FV$ untuk $A$ yang sama. (c) Jelaskan secara intuitif mengapa kedua rumus saling berkaitan.',
+    answer:
+      '(a) Dari $A=M\\cdot\\dfrac{i}{1-(1+i)^{-n}}$, kalikan kedua ruas: $A\\big(1-(1+i)^{-n}\\big)=M\\,i$, sehingga $M=A\\cdot\\dfrac{1-(1+i)^{-n}}{i}$. (b) Kalikan $M$ dengan $(1+i)^{n}$: $M(1+i)^{n}=A\\cdot\\dfrac{1-(1+i)^{-n}}{i}\\cdot(1+i)^{n}=A\\cdot\\dfrac{(1+i)^{n}-1}{i}=FV$, terbukti. (c) Kedua rumus merupakan pencerminan waktu dari proses yang sama: $M$ adalah nilai sekarang (present value) dari rangkaian angsuran $A$, dan $FV$ adalah nilai yang akan datang dari rangkaian setoran $A$ yang sama. Mengalikan $M$ dengan faktor bunga $(1+i)^{n}$ memindahkannya dari waktu sekarang ke akhir periode, tepat menjadi $FV$.',
+    explanation:
+      'Kunci: mengubah bentuk rumus anuitas, membuktikan identitas dengan aljabar eksponen, dan menjelaskan makna nilai sekarang versus nilai masa depan.',
+    hints: [
+      'Kalikan silang rumus angsuran untuk mengeluarkan $M$.',
+      'Manfaatkan $(1+i)^{-n}\\cdot(1+i)^{n}=1$.',
+    ],
+    competencies: ['anuitas', 'nilai sekarang dan masa depan', 'penalaran'],
+  },
 ];

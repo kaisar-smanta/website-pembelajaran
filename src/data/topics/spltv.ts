@@ -39,6 +39,7 @@ export const spltv: Topic = {
     { text: 'Memodelkan masalah kontekstual ke dalam SPLTV.' },
     { text: 'Menafsirkan solusi serta mengenali kasus tanpa solusi atau tak berhingga banyak solusi.' },
   ],
+  applications: ['optimasi-produksi-bengkel'],
   sections: [
     {
       id: "tujuan",

@@ -40,6 +40,7 @@ export const trigonometriLanjut: Topic = {
     { text: 'Peserta didik dapat menerapkan aturan sinus dan aturan kosinus.' },
     { text: 'Peserta didik dapat menghitung luas segitiga sebarang.' },
   ],
+  applications: ['mtl-navigasi-vektor'],
   sections: [
     {
       id: "tujuan",
@@ -237,7 +238,7 @@ $$L = \\frac{1}{2}\\cdot5\\cdot8\\cdot\\sin 60^\\circ = 20\\cdot\\frac{\\sqrt{3}
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      body: "Geser parameter gelombang untuk memeriksa bagaimana amplitudo dan periode saling memengaruhi.",
       blocks: [
         {
           kind: "exploration",
@@ -346,10 +347,56 @@ Aturan sinus dan kosinus dipakai dalam **triangulasi** untuk mengukur jarak anta
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Identitas tangen jumlah sudut menyimpan hasil yang rapi.
+
+Misalkan $A$, $B$, dan $C$ adalah besar sudut sebuah segitiga, sehingga $A+B+C=180^\\circ$.
+
+Buktikan bahwa
+$$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
+(Sudut tumpul diperbolehkan selama ketiga tangennya terdefinisi.)`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Mulailah dari $A+B=180^\\circ-C$, lalu terapkan identitas $\\tan(A+B)$. Ingat pula bahwa $\\tan(180^\\circ-C)=-\\tan C$.`,
+        },
+        {
+          kind: "step-reveal",
+          intro: "Bukti mengalir dari satu identitas ke identitas berikutnya.",
+          steps: [
+            {
+              title: "Ubah hubungan sudut",
+              text: `Karena $A+B+C=180^\\circ$, berlaku $A+B=180^\\circ-C$.`,
+            },
+            {
+              title: "Ambil tangen",
+              text: `Ambil tangen pada kedua ruas: $\\tan(A+B)=\\tan(180^\\circ-C)=-\\tan C$.`,
+            },
+            {
+              title: "Terapkan identitas jumlah sudut",
+              text: `Gunakan $\\tan(A+B)=\\dfrac{\\tan A+\\tan B}{1-\\tan A\\tan B}$, sehingga $\\dfrac{\\tan A+\\tan B}{1-\\tan A\\tan B}=-\\tan C$.`,
+            },
+            {
+              title: "Kalikan silang",
+              text: `$\\tan A+\\tan B=-\\tan C\\left(1-\\tan A\\tan B\\right)=-\\tan C+\\tan A\\tan B\\tan C$.`,
+            },
+            {
+              title: "Susun ulang",
+              text: `Pindahkan suku $-\\tan C$ ke ruas kiri: $\\tan A+\\tan B+\\tan C=\\tan A\\tan B\\tan C$. Terbukti.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana identitas dan gelombang trigonometri menjelaskan gejala berkala.",
       blocks: [
         {
           kind: "reflection",

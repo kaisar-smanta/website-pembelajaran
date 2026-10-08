@@ -1,5 +1,5 @@
 ---
-import { renderMarkdown } from '@/utils/markdown';
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import type { Block } from '@/types/content';
 
 interface Props {
@@ -25,7 +25,7 @@ const stepCount = block.steps.length;
         <li class="step" data-step hidden={i > 0}>
           <span class="step-num" aria-hidden="true">{i + 1}</span>
           <div class="step-body">
-            {step.title && <p class="step-title">{step.title}</p>}
+            {step.title && <p class="step-title" set:html={renderInlineMarkdown(step.title)} />}
             <div class="prose" set:html={renderMarkdown(step.text)} />
           </div>
         </li>

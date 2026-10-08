@@ -38,6 +38,7 @@ export const barisanDeret: Topic = {
     { text: 'Menghitung jumlah deret geometri tak hingga yang konvergen.' },
     { text: 'Memodelkan dan menyelesaikan masalah nyata menggunakan barisan dan deret.' },
   ],
+  applications: ['bunga-investasi', 'pertumbuhan-populasi', 'anuitas-pinjaman'],
   sections: [
     {
       id: "tujuan",

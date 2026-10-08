@@ -137,6 +137,12 @@ export const polinomialQuestions: Question[] = [
       'Kunci menekankan urutan koefisien, langkah turunkan-kalikan-jumlahkan, serta penulisan bentuk $P(x)=(x-2)H(x)+S$ dengan $S=18$ dan pemeriksaan derajat sisa lebih kecil dari derajat pembagi.',
     hints: ['Tulis semua koefisien, termasuk yang bernilai nol bila ada.'],
     competencies: ['pembagian polinomial', 'metode Horner'],
+    rubric: [
+      'Menuliskan semua koefisien secara berurutan',
+      'Menjalankan langkah turun, kali, dan jumlah',
+      'Menuliskan hasil bagi dan sisa',
+      'Memeriksa derajat sisa',
+    ],
   },
   {
     id: 'pol-09',
@@ -175,6 +181,12 @@ export const polinomialQuestions: Question[] = [
       'Samakan koefisien $x^{2}$, $x$, dan konstanta di kedua ruas.',
     ],
     competencies: ['identitas polinomial', 'perkalian polinomial'],
+    rubric: [
+      'Menjabarkan hasil kali faktor secara bertahap',
+      'Mengumpulkan suku sejenis',
+      'Menyamakan koefisien kedua ruas',
+      'Memperoleh nilai a, b, dan c',
+    ],
   },
   {
     id: 'pol-11',
@@ -190,6 +202,12 @@ export const polinomialQuestions: Question[] = [
       'Kunci menekankan pencarian satu akar dengan teorema faktor, pembagian untuk menurunkan derajat, lalu pemfaktoran hasil bagi.',
     hints: ['Uji pembagi dari konstanta $6$: $\\pm1, \\pm2, \\pm3, \\pm6$.'],
     competencies: ['faktor polinomial', 'akar polinomial'],
+    rubric: [
+      'Menemukan satu akar dengan teorema faktor',
+      'Membagi untuk menurunkan derajat',
+      'Memfaktorkan hasil bagi',
+      'Menuliskan semua akar',
+    ],
   },
   {
     id: 'pol-12',
@@ -208,6 +226,12 @@ export const polinomialQuestions: Question[] = [
       'Setelah $a$ diketahui, bagi $P(x)$ oleh $(x-1)$.',
     ],
     competencies: ['teorema faktor', 'pembagian polinomial', 'pemfaktoran'],
+    rubric: [
+      'Memakai syarat nilai polinomial sama dengan nol',
+      'Menentukan nilai a',
+      'Membagi oleh faktor yang diketahui',
+      'Memfaktorkan hasil bagi kuadrat',
+    ],
   },
   {
     id: 'pol-13',
@@ -223,6 +247,12 @@ export const polinomialQuestions: Question[] = [
       'Kunci: memakai teorema faktor, membagi untuk menurunkan derajat, memfaktorkan hasil bagi, dan menafsirkan akar sebagai titik potong sumbu-$x$.',
     hints: ['Uji $P(1)$ lebih dahulu.', 'Setelah membagi, faktorkan kuadrat yang tersisa.'],
     competencies: ['teorema faktor', 'akar polinomial', 'evaluasi'],
+    rubric: [
+      'Menunjukkan nilai polinomial di satu titik nol',
+      'Memfaktorkan polinomial sepenuhnya',
+      'Menuliskan semua akar',
+      'Mengaitkan akar dengan titik potong sumbu-x',
+    ],
   },
   {
     id: 'pol-14',
@@ -253,5 +283,35 @@ export const polinomialQuestions: Question[] = [
       'Kunci: membaca konstanta sebagai biaya tetap, mensubstitusi $x=2$, lalu mengubah satuan ratus ribu menjadi rupiah.',
     hints: ['Biaya tetap diperoleh pada $x=0$.', 'Hasil $C(2)=15$ masih dalam ratus ribu rupiah.'],
     competencies: ['nilai polinomial', 'kontekstual', 'interpretasi'],
+    rubric: [
+      'Membaca biaya tetap dari konstanta',
+      'Menghitung nilai polinomial pada satu titik',
+      'Mengubah satuan ke rupiah',
+      'Menafsirkan hasil sesuai konteks',
+    ],
+  },
+  {
+    id: 'pol-16',
+    topicId: 'polinomial',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Keuntungan harian sebuah usaha (juta rupiah) dimodelkan $P(x)=-x^{3}+7x^{2}-10x$ dengan $x$ menyatakan banyak produksi dalam ratus unit, $x\\geq0$. (a) Faktorkan $P(x)$ lengkap. (b) Tentukan titik impas yang bermakna secara kontekstual. (c) Tentukan rentang $x$ agar usaha tidak merugi.',
+    answer:
+      '(a) $P(x)=-x(x^{2}-7x+10)=-x(x-2)(x-5)$. (b) $P(x)=0$ pada $x=0$, $x=2$, dan $x=5$. Karena $x=0$ berarti tidak berproduksi, titik impas yang bermakna adalah $x=2$ (200 unit) dan $x=5$ (500 unit). (c) Uji tanda: untuk $2<x<5$, misalnya $x=3$, $P(3)=-3(1)(-2)=6>0$, sedangkan di luar selang itu $P(x)<0$. Jadi usaha tidak merugi pada $2\\leq x\\leq5$, yaitu antara $200$ dan $500$ unit.',
+    explanation:
+      'Kunci: memfaktorkan polinomial, menentukan akar yang bermakna secara konteks, dan menganalisis tanda polinomial untuk memperoleh selang tidak rugi.',
+    hints: [
+      'Keluarkan faktor $-x$ terlebih dahulu.',
+      'Uji tanda pada selang di antara akar-akarnya.',
+    ],
+    competencies: ['pemfaktoran polinomial', 'tanda polinomial', 'pemodelan'],
+    rubric: [
+      'Memfaktorkan polinomial lengkap',
+      'Menentukan titik impas yang bermakna',
+      'Menganalisis tanda pada tiap selang',
+      'Menyimpulkan rentang tidak merugi',
+    ],
   },
 ];

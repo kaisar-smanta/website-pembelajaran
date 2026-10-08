@@ -272,7 +272,7 @@ Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      body: "Ubah susunan dan operasi matriks untuk melihat bagaimana hasilnya berubah.",
       blocks: [
         {
           kind: "exploration",
@@ -377,10 +377,56 @@ Dalam grafika komputer, matriks mentransformasi posisi titik sehingga gambar dap
       ],
     },
     {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Menyusun bilangan dalam baris dan kolom sebenarnya bukan gagasan baru. Buku matematika Tiongkok *Sembilan Bab Seni Berhitung* (sekitar abad ke-1 M) memuat tabel koefisien untuk menyelesaikan sistem persamaan linear dengan cara yang menyerupai eliminasi Gauss. Namun istilah dan aljabarnya baru dibentuk pada abad ke-19. James Joseph Sylvester pada 1850 menciptakan istilah **matriks** dari bahasa Latin *mater* ("ibu"), karena tabel itu melahirkan determinan. Arthur Cayley, dalam *A Memoir on the Theory of Matrices* (1858), memperkenalkan notasi satu huruf untuk matriks, mendefinisikan penjumlahan dan perkalian, matriks identitas, serta invers, lalu menunjukkan bahwa $AB$ umumnya tidak sama dengan $BA$.
+
+Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leibniz (1693) menurunkannya ketika menyelesaikan sistem persamaan, lalu Gabriel Cramer merumuskan aturan yang kini menyandang namanya pada 1750. Cayley menjalin keduanya menjadi aljabar tersendiri dan mengaitkannya dengan transformasi geometri. Dari sana matriks menjadi bahasa baku untuk menyelesaikan sistem persamaan linear secara ringkas: apa yang dahulu dikerjakan satu per satu dengan substitusi atau eliminasi, kini dapat dituliskan sebagai $AX = B$ dan diselesaikan dengan $X = A^{-1}B$. Notasi baris-kolom dan ordo yang kita pakai adalah penyempurnaan pada abad ke-20 atas gagasan Cayley.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tokoh kunci dalam perkembangan matriks",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "Seki Kowa (1683)",
+              "Menemukan determinan dari penyelesaian sistem persamaan.",
+            ],
+            [
+              "Gottfried Leibniz (1693)",
+              "Merumuskan determinan secara independen.",
+            ],
+            [
+              "Gabriel Cramer (1750)",
+              "Merumuskan aturan Cramer.",
+            ],
+            [
+              "James Joseph Sylvester (1850)",
+              "Menciptakan istilah *matriks*.",
+            ],
+            [
+              "Arthur Cayley (1858)",
+              "Membangun aljabar matriks, termasuk perkalian dan invers.",
+            ],
+          ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Mengapa perkalian tidak komutatif",
+          text: "Cayley menyadari bahwa $AB$ dan $BA$ umumnya berbeda. Sifat yang tampak \"aneh\" ini justru penting, sebab matriks tidak sekadar menyimpan data, melainkan juga mewakili transformasi yang urutannya menentukan hasil.",
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana susunan bilangan ini meringkas dan menyelesaikan banyak perhitungan.",
       blocks: [
         {
           kind: "reflection",

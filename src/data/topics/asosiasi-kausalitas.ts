@@ -37,6 +37,7 @@ export const asosiasiKausalitas: Topic = {
     { text: 'Membandingkan kekuatan bukti dari studi observasional dan eksperimen terkontrol.' },
     { text: 'Menyimpulkan hubungan antar-variabel dengan hati-hati dan tanpa berlebihan.' },
   ],
+  applications: ['korelasi-sebab-akibat'],
   sections: [
     {
       id: "tujuan",
@@ -221,7 +222,7 @@ Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya ko
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      body: "Selidiki data yang tampak berkaitan untuk melihat kapan hubungan itu benar-benar sebab-akibat.",
       blocks: [
         {
           kind: "exploration",
@@ -301,7 +302,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana kamu membedakan asosiasi dari sebab-akibat saat membaca klaim.",
       blocks: [
         {
           kind: "reflection",

@@ -41,6 +41,7 @@ export const variabelAcakDiskret: Topic = {
     { text: 'Peserta didik dapat menghitung varians dan simpangan baku variabel acak diskret.' },
     { text: 'Peserta didik dapat memakai nilai harapan dan sebaran untuk memodelkan dan menafsirkan data nyata.' },
   ],
+  applications: ['mtl-ekspektasi-risiko', 'mtl-binomial-kendali-mutu'],
   sections: [
     {
       id: "tujuan",
@@ -321,7 +322,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana nilai harapan dan sebaran membantumu menimbang risiko.",
       blocks: [
         {
           kind: "reflection",

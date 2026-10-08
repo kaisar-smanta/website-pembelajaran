@@ -33,6 +33,13 @@ import { turunan } from './turunan';
 import { aplikasiTurunan } from './aplikasi-turunan';
 import { integral } from './integral';
 import { variabelAcakDiskret } from './variabel-acak-diskret';
+import { limitFungsi } from './limit-fungsi';
+import { distribusiBinomial } from './distribusi-binomial';
+import { transformasiGeometri } from './transformasi-geometri';
+import { induksiMatematika } from './induksi-matematika';
+import { teoriBilangan } from './teori-bilangan';
+import { ketaksamaan } from './ketaksamaan';
+import { kombinatorikaLanjut } from './kombinatorika-lanjut';
 import { plannedTopics } from './planned';
 import { sectionSearchText } from '@/lib/content-text';
 
@@ -57,6 +64,7 @@ const rawTopics: Topic[] = [
   pemodelanFungsi,
   komposisiFungsi,
   transformasiFungsi,
+  transformasiGeometri,
   lingkaran,
   dataBivariat,
   regresi,
@@ -75,6 +83,13 @@ const rawTopics: Topic[] = [
   aplikasiTurunan,
   integral,
   variabelAcakDiskret,
+  // Pengayaan di luar CP resmi
+  limitFungsi,
+  distribusiBinomial,
+  induksiMatematika,
+  teoriBilangan,
+  ketaksamaan,
+  kombinatorikaLanjut,
 ];
 
 /** Seluruh topik; blok interaktif sudah ditulis langsung pada tiap berkas. */

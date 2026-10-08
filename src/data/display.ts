@@ -73,6 +73,8 @@ export const EXPLORATION_TYPE_LABELS: Record<ExplorationType, string> = {
   derivative: 'Garis singgung & turunan',
   integral: 'Luas & integral',
   'random-variable': 'Variabel acak',
+  limit: 'Limit fungsi',
+  'binomial-distribution': 'Distribusi binomial',
   geogebra: 'GeoGebra',
 };
 
@@ -101,6 +103,7 @@ export const STATIC_PAGES: StaticPage[] = [
   { path: 'matematika', title: 'Matematika' },
   { path: 'matematika-lanjut', title: 'Matematika Tingkat Lanjut' },
   { path: 'latihan', title: 'Latihan' },
+  { path: 'tantangan', title: 'Tantangan' },
   { path: 'eksplorasi', title: 'Eksplorasi' },
   { path: 'alat', title: 'Alat Matematika' },
   { path: 'aplikasi', title: 'Matematika dalam Kehidupan' },
@@ -109,6 +112,7 @@ export const STATIC_PAGES: StaticPage[] = [
   { path: 'rumus', title: 'Kumpulan Rumus' },
   { path: 'peta-situs', title: 'Peta Situs' },
   { path: 'kemajuan', title: 'Kemajuan Saya' },
+  { path: 'review', title: 'Tinjauan lintas topik' },
   { path: 'kontak', title: 'Kontak' },
   { path: 'aksesibilitas', title: 'Aksesibilitas' },
   { path: 'tentang', title: 'Tentang' },

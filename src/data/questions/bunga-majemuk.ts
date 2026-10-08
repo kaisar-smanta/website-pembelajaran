@@ -178,23 +178,54 @@ export const bungaMajemukQuestions: Question[] = [
     id: 'bm-11',
     topicId: 'bunga-majemuk',
     difficulty: 'mahir',
-    type: 'multiple-choice',
-    category: 'penerapan',
+    type: 'open-response',
+    category: 'pemodelan',
     prompt:
-      'Modal Rp4.000.000 dibungakan dengan suku bunga nominal 12% per tahun yang dihitung triwulanan selama 2 tahun. Saldo akhirnya adalah …',
-    options: [
-      { key: 'A', text: 'Rp5.000.000,00' },
-      { key: 'B', text: 'Rp5.120.000,00' },
-      { key: 'C', text: 'Rp4.960.000,00' },
-      { key: 'D', text: 'Rp5.067.080,33' },
-    ],
-    answer: 'D',
+      'Modal Rp4.000.000 akan dibungakan majemuk triwulanan (bunga dibagi rata dalam setahun) selama 2 tahun. (a) Jika suku bunga nominal 12% per tahun, hitung saldo akhirnya. (b) Jika peminjam menginginkan saldo akhir tepat Rp5.200.000, tentukan suku bunga nominal per tahun yang diperlukan (bulatkan dua angka di belakang koma).',
+    answer:
+      '(a) Suku bunga per triwulan $i=\\dfrac{0{,}12}{4}=0{,}03$ dan banyak periode $n=4\\times2=8$, sehingga $M_8=4.000.000(1{,}03)^8=4.000.000(1{,}266770)\\approx\\text{Rp}5.067.080{,}33$. (b) Perlu $4.000.000\\left(1+\\dfrac{j}{4}\\right)^8=5.200.000$, yaitu $\\left(1+\\dfrac{j}{4}\\right)^8=1{,}3$. Ambil akar pangkat delapan: $1+\\dfrac{j}{4}=(1{,}3)^{1/8}\\approx1{,}033339$, sehingga $j=4(1{,}033339-1)\\approx0{,}133357$, yaitu sekitar $13{,}34\\%$ per tahun. Jadi suku bunga nominal harus dinaikkan dari $12\\%$ menjadi sekitar $13{,}34\\%$.',
     explanation:
-      'Suku bunga per triwulan $i=\\dfrac{0{,}12}{4}=0{,}03$ dan banyak periode $n=4\\times2=8$. Maka $M_8=4.000.000(1{,}03)^8=4.000.000(1{,}266770)\\approx\\text{Rp}5.067.080{,}33$.',
+      'Kunci: mengubah suku bunga nominal menjadi suku bunga per triwulan, memakai $M_n=M_0(1+i)^n$ pada bagian (a), lalu menyelesaikan persamaan eksponen dengan menarik akar pangkat delapan untuk mencari nominal yang diminta pada bagian (b).',
     hints: [
-      'Bagi suku bunga nominal dengan frekuensi pemajemukan per tahun.',
-      'Kalikan frekuensi dengan lama tahun untuk memperoleh banyak periode.',
+      'Bagi nominal dengan 4 dan kalikan lama tahun dengan 4 untuk memperoleh banyak periode.',
+      'Untuk mencari nominal, selesaikan $\\left(1+\\dfrac{j}{4}\\right)^8=1{,}3$ dengan menarik akar pangkat delapan.',
     ],
-    competencies: ['suku bunga per periode', 'rumus bunga majemuk'],
+    competencies: ['suku bunga per periode', 'rumus bunga majemuk', 'persamaan eksponen', 'pemodelan'],
+  },
+  {
+    id: 'bm-12',
+    topicId: 'bunga-majemuk',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Tanpa menghitung saldo penuh, buktikan bahwa untuk $i>0$ dan bilangan bulat $n\\ge2$ berlaku $(1+i)^n > 1+ni$. Jelaskan kaitannya dengan saldo bunga majemuk yang selalu melebihi bunga tunggal.',
+    answer:
+      'Dengan ekspansi binomial, $(1+i)^n = 1+ni+\\binom{n}{2}i^2+\\binom{n}{3}i^3+\\cdots+i^n$. Karena $i>0$ dan $n\\ge2$, semua suku mulai dari $\\binom{n}{2}i^2$ positif, sehingga $(1+i)^n = 1+ni+(\\text{suku positif}) > 1+ni$. Sisi kanan $1+ni$ adalah faktor pertumbuhan bunga tunggal, sedangkan sisi kiri adalah faktor pertumbuhan bunga majemuk. Jadi untuk $n\\ge2$ saldo bunga majemuk selalu lebih besar daripada bunga tunggal, dan kelebihan itu berasal dari suku-suku bunga atas bunga.',
+    explanation:
+      'Kunci: menggunakan ekspansi binomial dan menunjukkan suku-suku tambahan positif, lalu menafsirkan kedua sisi sebagai faktor bunga majemuk dan bunga tunggal.',
+    hints: [
+      'Kembangkan $(1+i)^n$ dengan teorema binomial.',
+      'Sisi kanan $1+ni$ adalah faktor pertumbuhan bunga tunggal.',
+    ],
+    competencies: ['rumus bunga majemuk', 'ekspansi binomial', 'pembuktian'],
+  },
+  {
+    id: 'bm-13',
+    topicId: 'bunga-majemuk',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Suku bunga nominal $12\\%$ per tahun dimajemukkan $m$ kali setahun. (a) Hitung suku bunga efektif tahunan untuk $m=1$, $m=2$, $m=4$, dan $m=12$. (b) Jelaskan pola yang muncul dan mengapa demikian. (c) Ramalkan nilai batas suku bunga efektif ketika $m$ makin besar tak terhingga, lalu tafsirkan maknanya.',
+    answer:
+      '(a) Dengan $i_{\\text{efektif}}=\\left(1+\\dfrac{0{,}12}{m}\\right)^{m}-1$: untuk $m=1$ diperoleh $12{,}00\\%$; $m=2$: $(1{,}06)^2-1=12{,}36\\%$; $m=4$: $(1{,}03)^4-1\\approx12{,}56\\%$; $m=12$: $(1{,}01)^{12}-1\\approx12{,}68\\%$. (b) Nilainya bertambah besar ketika $m$ bertambah, sebab makin sering bunga dimajemukkan, makin banyak kesempatan bunga menghasilkan bunga. Namun pertambahannya makin kecil (dari $0{,}36$ poin ke $0{,}20$ lalu $0{,}12$), sehingga menuju suatu batas. (c) Nilai batasnya adalah $e^{0{,}12}-1\\approx0{,}127497$, yaitu sekitar $12{,}75\\%$ per tahun; ini adalah suku bunga efektif bila bunga dimajemukkan secara kontinu. Jadi memperbanyak frekuensi pemajemukan tidak dapat menaikkan suku bunga efektif melewati batas ini.',
+    explanation:
+      'Kunci: menghitung beberapa suku bunga efektif, mengenali pola naik yang melandai, lalu menghubungkan batasnya dengan $e^{0{,}12}-1$ yang muncul ketika $\\left(1+\\dfrac{0{,}12}{m}\\right)^{m}\\to e^{0{,}12}$.',
+    hints: [
+      'Gunakan bilangan Euler: $\\left(1+\\dfrac{r}{m}\\right)^{m}\\to e^{r}$ untuk $m\\to\\infty$.',
+      'Perhatikan bahwa selisih antar nilai makin kecil, tanda menuju batas.',
+    ],
+    competencies: ['suku bunga efektif', 'limit eksponen', 'penalaran'],
   },
 ];

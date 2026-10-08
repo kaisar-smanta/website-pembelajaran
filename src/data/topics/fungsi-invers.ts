@@ -358,7 +358,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana membalik suatu proses membantumu memahami hubungan fungsi.",
       blocks: [
         {
           kind: "reflection",

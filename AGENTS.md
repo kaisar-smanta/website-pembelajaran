@@ -35,10 +35,22 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   selain bilangan bulat telanjang wajib punya `acceptedAnswers` (ditegakkan `tests/questions.mjs`).
 - Bagian `generalisasi` yang memuat rumus tampil `$$...$$` ikut dihimpun halaman `/rumus`
   bersama bagian `rumus` (`src/lib/reference.ts`).
+- **Asesmen & tinjauan**: soal `open-response` dapat memuat `rubric` (kriteria penilaian
+  mandiri, dirender `QuestionCard.astro`, tersimpan lewat `src/lib/learner.ts`). Halaman
+  topik menyediakan ekspor **lembar kerja** dengan opsi **"Sertakan kunci jawaban"**.
+  Halaman `/review` + `src/lib/review.ts` membangun antrean **tinjauan berkala** lintas
+  topik (model Leitner) dari `localStorage`, tanpa server.
+- **PWA offline**: `public/sw.js` dan `public/offline.html` didaftarkan `BaseLayout.astro`
+  pada build produksi (memakai `manifest.webmanifest`); halaman yang pernah dibuka tetap
+  dapat diakses tanpa jaringan.
 - Topik roadmap dicantumkan di `src/data/topics/planned.ts` (`status: 'rencana'`); topik
-  pengayaan di luar CP ditandai `supplementary: true`.
+  pengayaan di luar CP ditandai `supplementary: true` dan wajib `cpNote` (ditegakkan
+  `tests/pengayaan.mjs`). Halaman `/tantangan` menghimpun soal `mahir` dan topik pengayaan;
+  bagian `sejarah` (latar historis) dan `tantangan` (soal nonrutin) memperkaya materi.
+  `tests/pengayaan.mjs` juga menjaga ambang soal mahir per topik.
 - Uji di `tests/*.mjs`, dijalankan `npm test` (lewat `tests/run-all.mjs`, auto-discovery).
-  Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tata letak graf prasyarat,
-  dan setiap simulasi (`tests/sim-*.mjs`).
+  Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
+  (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`), tata
+  letak graf prasyarat, dan setiap simulasi (`tests/sim-*.mjs`, termasuk limit & binomial).
 - Simulasi disiapkan lazy lewat `initWhenVisible` (`src/lib/dom.ts`).
 - Bahasa konten: Indonesia, sapaan ramah tanpa emoji.

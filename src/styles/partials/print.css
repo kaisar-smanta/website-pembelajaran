@@ -73,6 +73,20 @@
   [data-model] {
     display: block !important;
   }
+  body.print-worksheet:not(.print-with-key) .q-explanation,
+  body.print-worksheet:not(.print-with-key) .q-model,
+  body.print-worksheet:not(.print-with-key) .q-feedback,
+  body.print-worksheet:not(.print-with-key) [data-explanation],
+  body.print-worksheet:not(.print-with-key) [data-model],
+  body.print-worksheet:not(.print-with-key) [data-pred-reveal],
+  body.print-worksheet:not(.print-with-key) [data-spot-reveal] {
+    display: none !important;
+  }
+  body.print-worksheet [data-short-check],
+  body.print-worksheet [data-open-reveal],
+  body.print-worksheet [data-reset] {
+    display: none !important;
+  }
   /* Soal latihan jangan terpotong saat berganti halaman. */
   .question-card,
   .q-item {

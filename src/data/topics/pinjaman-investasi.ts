@@ -37,6 +37,7 @@ export const pinjamanInvestasi: Topic = {
     { text: 'Membandingkan dua penawaran pinjaman berdasarkan total bunga dan total biaya.' },
     { text: 'Mengambil keputusan finansial dan menilai risiko sederhana seperti kenaikan suku bunga serta biaya administrasi.' },
   ],
+  applications: ['dana-pensiun'],
   sections: [
     {
       id: "tujuan",

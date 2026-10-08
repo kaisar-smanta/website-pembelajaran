@@ -35,6 +35,8 @@ Kedua kelas punya rata-rata sama, tetapi kondisinya sangat berbeda. Median kelas
       'Bagaimana kamu akan memeriksa klaim "rata-rata naik" sebelum mempercayainya?',
       'Ukuran statistik mana yang paling jujur untuk data dengan nilai ekstrem?',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan pelaporan hasil survei di media; angka dibuat untuk latihan membaca data.',
   },
   {
     id: 'regresi-nilai-ujian',
@@ -70,6 +72,8 @@ Untuk siswa yang belajar 10 jam, perkiraan nilainya $\\hat{y} = 1{,}19(10) + 0{,
       'Mengapa korelasi kuat tidak cukup untuk menyimpulkan sebab-akibat?',
       'Sejauh mana kamu boleh memakai garis regresi ini untuk membuat prediksi?',
     ],
+    source:
+      'Data ilustratif hasil belajar siswa; angka dibuat untuk latihan analisis regresi.',
   },
   {
     id: 'kata-sandi',
@@ -97,6 +101,8 @@ Setiap tambahan karakter memperbesar kemungkinan secara **perkalian**, bukan pen
       'Mengapa menambah satu karakter lebih ampuh daripada mengganti huruf dengan angka?',
       'Bagaimana kamu memakai pencacahan untuk menilai kata sandi milikmu sendiri?',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan praktik keamanan kata sandi; perhitungan dibuat untuk pembelajaran.',
   },
   {
     id: 'tes-kesehatan',
@@ -136,6 +142,8 @@ Meski tes "95% akurat", hanya sekitar $16{,}1\\%$ orang dengan hasil positif yan
       'Jika prevalensi naik menjadi $10\\%$, apakah peluang di atas lebih besar atau lebih kecil? Perkirakan dulu sebelum menghitung.',
       'Mengapa dokter tetap memesan tes lanjutan walau hasil pertama positif?',
     ],
+    source:
+      'Data ilustratif berdasarkan konsep sensitivitas dan spesifisitas tes kesehatan; angka dibulatkan untuk pembelajaran, bukan rujukan medis.',
   },
   {
     id: 'korelasi-sebab-akibat',
@@ -175,6 +183,8 @@ Menyimpulkan sebab-akibat menuntut bukti yang lebih kuat, misalnya eksperimen de
       'Untuk klaim "siswa yang sarapan nilainya lebih baik", variabel perancu apa yang mungkin berperan?',
       'Carilah satu judul berita yang mengubah korelasi menjadi klaim sebab-akibat, lalu susun sanggahanmu.',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan laporan survei gaya hidup remaja; angka dibuat untuk latihan penalaran kausal.',
   },
   {
     id: 'statistik-harian',
@@ -207,5 +217,47 @@ Pertanyaan pemicunya: berapa diskon sebenarnya pada spanduk itu, dan apa yang ha
       'Sebuah barang didiskon $30\\%$ lalu didiskon lagi $10\\%$. Berapa diskon totalnya?',
       'Klaim "penjualan naik 5" bisa terdengar hebat atau biasa. Data tambahan apa yang kamu butuhkan?',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan pola diskon dan klaim statistik sehari-hari; angka dibuat agar mudah dihitung.',
+  },
+  {
+    id: 'komb-sandi-dan-pin',
+    title: 'Sandi Portal: Mencacah dengan Batasan dan Prinsip Sarang Merpati',
+    category: 'data',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 13,
+    explorationId: 'peluang-sim',
+    tags: ['pencacahan', 'inkluksi-eksklusi', 'sarang merpati', 'kata sandi', 'kombinatorika'],
+    summary:
+      'Menghitung banyak kata sandi yang memenuhi syarat dengan komplemen, lalu menjamin tabrakan PIN lewat prinsip sarang merpati.',
+    topicIds: ['kombinatorika-lanjut', 'permutasi-kombinasi', 'peluang'],
+    body: `Sebuah portal sekolah mewajibkan **kata sandi 6 karakter** dari 26 huruf kecil dan 10 angka (total 36 karakter), dengan syarat **paling sedikit satu angka**. Di sisi lain, tiap siswa memakai **PIN 4 angka** untuk masuk ke perangkat.
+
+Pertanyaan pemicunya: berapa banyak kata sandi yang sah menurut aturan itu, dan berapa banyak siswa minimal harus ada agar **pasti** ada dua siswa dengan PIN yang sama? Kedua pertanyaan menuntut alat kombinatorika yang berbeda: yang pertama **pencacahan dengan batasan**, yang kedua **prinsip sarang merpati**.`,
+    analysis: `**Banyak kata sandi sah.** Menghitung langsung "paling sedikit satu angka" merepotkan, jadi pakai **komplemen**. Tanpa batasan, banyak kata sandi 6 karakter adalah
+$$36^{6} = 2.176.782.336.$$
+Kata sandi yang **tidak** memuat angka berarti seluruhnya huruf kecil:
+$$26^{6} = 308.915.776.$$
+Maka kata sandi yang memuat paling sedikit satu angka adalah
+$$36^{6} - 26^{6} = 2.176.782.336 - 308.915.776 = 1.867.866.560.$$
+Inilah contoh **inklusi-eksklusi** sederhana: hitung semuanya, lalu kurangi yang tidak diinginkan. Aturan "semua huruf" mengurangkan sekitar seper tujuh dari total, jadi menambahkan syarat satu angka tetap menyisakan lebih dari **1,86 miliar** kata sandi.
+
+**Menjamin PIN kembar.** PIN 4 angka memiliki $10^{4} = 10.000$ kemungkinan. Bayangkan setiap siswa sebagai "merpati" dan setiap PIN sebagai "sarang". Jika ada $10.000$ siswa, secara logika mereka masih bisa menempati seluruh sarang tanpa tabrakan. Begitu ada **10.001 siswa**, prinsip sarang merpati menjamin **pasti** ada dua siswa dengan PIN yang sama, karena terdapat lebih banyak merpati daripada sarang. Jadi jawabannya $10.000 + 1 = 10.001$ siswa.
+
+Kedua teknik saling melengkapi: pencacahan menghitung **berapa banyak** kemungkinan, sedangkan prinsip sarang merpati menjamin **kapan** suatu tabrakan pasti terjadi — bahkan tanpa mengetahui PIN siapa pun.`,
+    takeaways: [
+      'Pencacahan dengan batasan sering paling mudah dikerjakan lewat komplemen (hitung semua, kurangi yang dilarang).',
+      'Prinsip sarang merpati menjamin keberadaan tabrakan ketika jumlah objek melebihi jumlah wadah.',
+      'Untuk $N$ kemungkinan PIN, cukup $N+1$ siswa agar dua PIN pasti sama.',
+    ],
+    reflection: [
+      'Mengapa menghitung "paling sedikit satu angka" lebih mudah lewat komplemen ketimbang langsung?',
+      'Berapa banyak siswa yang menjamin dua orang lahir pada bulan yang sama, dan mengapa?',
+      'Jika syarat berubah menjadi "paling sedikit dua angka", bagaimana bentuk perhitungannya?',
+    ],
+    source:
+      'Ilustrasi fiktif kebijakan kata sandi portal sekolah; angka dibuat agar perhitungan mudah diperiksa.',
   },
 ];

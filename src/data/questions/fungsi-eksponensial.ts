@@ -191,4 +191,41 @@ export const fungsiEksponensialQuestions: Question[] = [
     hints: ['$3^{2}$ berarti $3\\times3$.'],
     competencies: ['nilai fungsi eksponensial'],
   },
+  {
+    id: 'fe-13',
+    topicId: 'fungsi-eksponensial',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Dua kultur bakteri diamati. Kultur P dimulai dengan $200$ bakteri dan berlipat dua setiap $3$ jam. Kultur Q dimulai dengan $800$ bakteri dan berkurang setengah setiap $2$ jam. (a) Susun model $P(t)$ dan $Q(t)$ untuk $t$ jam. (b) Tentukan saat keduanya berjumlah sama. (c) Jelaskan mengapa setelah saat itu jumlah kultur P selalu lebih besar daripada kultur Q.',
+    answer:
+      '(a) Kultur P berlipat dua tiap $3$ jam, sehingga $P(t)=200\\cdot 2^{t/3}$. Kultur Q berkurang setengah tiap $2$ jam, sehingga $Q(t)=800\\cdot 2^{-t/2}$. (b) Samakan: $200\\cdot 2^{t/3}=800\\cdot 2^{-t/2} \\Rightarrow 2^{t/3}=4\\cdot 2^{-t/2}=2^{2-t/2}$. Maka $\\dfrac{t}{3}=2-\\dfrac{t}{2} \\Rightarrow \\dfrac{5t}{6}=2 \\Rightarrow t=\\dfrac{12}{5}=2{,}4$ jam. Periksa: $P(2{,}4)=200\\cdot 2^{0{,}8}\\approx348{,}2$ dan $Q(2{,}4)=800\\cdot 2^{-1{,}2}\\approx348{,}2$. (c) Setelah $t=2{,}4$, faktor $2^{t/3}$ terus bertambah sedangkan $2^{-t/2}$ terus mengecil, sehingga P bertambah dan Q berkurang. Karena keduanya hanya bersilangan sekali, P akan selamanya lebih besar.',
+    explanation:
+      'Kunci: menyusun model pertumbuhan dan peluruhan, menyelesaikan persamaan eksponen dengan menyamakan basis $2$, lalu menafsirkan perilaku jangka panjang.',
+    hints: [
+      'Pertumbuhan berlipat dua tiap $3$ jam memberi eksponen $t/3$.',
+      'Peluruhan setengah tiap $2$ jam memberi faktor $2^{-t/2}$.',
+      'Nyatakan $4$ sebagai $2^{2}$ agar basisnya sama.',
+    ],
+    competencies: ['pemodelan pertumbuhan', 'pemodelan peluruhan', 'persamaan eksponen'],
+  },
+  {
+    id: 'fe-14',
+    topicId: 'fungsi-eksponensial',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Jelaskan mengapa $f(x)=2^{x}$ akhirnya tumbuh lebih cepat daripada $g(x)=x^{10}$ untuk $x$ yang cukup besar, meskipun pada $x$ kecil (misalnya $x=10$) nilai $x^{10}$ justru jauh lebih besar. Gunakan perbandingan rasio $\\dfrac{f(x+1)}{f(x)}$ dan $\\dfrac{g(x+1)}{g(x)}$.',
+    answer:
+      'Untuk fungsi eksponen, $\\dfrac{f(x+1)}{f(x)}=\\dfrac{2^{x+1}}{2^{x}}=2$, yaitu rasio tetap. Untuk polinomial, $\\dfrac{g(x+1)}{g(x)}=\\left(\\dfrac{x+1}{x}\\right)^{10}$, yang nilainya makin mendekati $1$ ketika $x$ membesar. Karena pertumbuhan eksponen selalu mengalikan dengan $2$ setiap langkah, sedangkan pertumbuhan polinomial relatifnya menyusut menuju $1$, maka untuk $x$ yang cukup besar laju eksponen melampaui polinomial dan selisihnya terus melebar. Sebagai ilustrasi, pada $x=10$ nilai $x^{10}=10^{10}$ masih mengalahkan $2^{10}=1024$, tetapi pada $x=100$ nilai $2^{100}\\approx1{,}27\\times10^{30}$ sudah mengalahkan $100^{10}=10^{20}$.',
+    explanation:
+      'Kunci: membandingkan rasio pertumbuhan (konstan $2$ versus menuju $1$) dan memberi ilustrasi numerik bahwa eksponen akhirnya menyalip polinomial.',
+    hints: [
+      'Hitung rasio $f(x+1)/f(x)$ untuk fungsi eksponen.',
+      'Hitung rasio $g(x+1)/g(x)$ untuk polinomial dan lihat kecenderungannya saat $x$ besar.',
+    ],
+    competencies: ['perbandingan pertumbuhan', 'penalaran'],
+  },
 ];

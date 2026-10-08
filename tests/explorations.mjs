@@ -38,6 +38,8 @@ const EXPLORATION_TYPES = new Set([
   'derivative',
   'integral',
   'random-variable',
+  'limit',
+  'binomial-distribution',
   'geogebra',
 ]);
 

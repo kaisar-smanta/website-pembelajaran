@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2f4fd8" />
+    <title>Mode Luring — Matematika SMA</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f8fb;
+        --surface: #ffffff;
+        --text: #1c2333;
+        --muted: #55607a;
+        --brand: #2f4fd8;
+        --border: #dde2ee;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1526;
+          --surface: #16213a;
+          --text: #eef2ff;
+          --muted: #aab4d0;
+          --brand: #7f97ff;
+          --border: #26324f;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+      }
+      main {
+        width: 100%;
+        max-width: 34rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: 1.5rem;
+        line-height: 1.3;
+      }
+      p {
+        margin: 0 0 1rem;
+        color: var(--muted);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+      a.button,
+      button {
+        font: inherit;
+        font-weight: 600;
+        border-radius: 0.6rem;
+        padding: 0.65rem 1.1rem;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid transparent;
+      }
+      a.button {
+        background: var(--brand);
+        color: #ffffff;
+      }
+      button {
+        background: transparent;
+        color: var(--text);
+        border-color: var(--border);
+      }
+      a.button:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--brand);
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Anda sedang luring</h1>
+      <p>
+        Sepertinya koneksi internet terputus. Beberapa halaman yang pernah dibuka mungkin masih
+        tersedia dari simpanan sementara. Sambungkan kembali perangkat Anda lalu coba lagi.
+      </p>
+      <p>Setelah daring kembali, seluruh materi akan tersedia seperti biasa.</p>
+      <div class="actions">
+        <a class="button" href="./">Buka beranda</a>
+        <button type="button" onclick="location.reload()">Muat ulang</button>
+      </div>
+    </main>
+  </body>
+</html>

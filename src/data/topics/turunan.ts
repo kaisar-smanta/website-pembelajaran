@@ -27,7 +27,7 @@ export const turunan: Topic = {
     'turunan eksponensial',
     'turunan trigonometri',
   ],
-  prerequisites: ['fungsi-kuadrat', 'fungsi-eksponensial', 'trigonometri-lanjut'],
+  prerequisites: ['fungsi-kuadrat', 'fungsi-eksponensial', 'trigonometri-lanjut', 'limit-fungsi'],
   relatedTopics: ['aplikasi-turunan'],
   prerequisiteKnowledge: [
     'Menentukan gradien garis lurus dan persamaan garis',
@@ -307,10 +307,58 @@ Pada bidang kesehatan, laju penyebaran penyakit dimodelkan melalui turunan. Dala
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Definisi turunan dapat mengungkap sifat fungsi yang ditentukan oleh persamaan fungsional.
+
+Misalkan $f$ dapat diturunkan pada seluruh bilangan real dan memenuhi
+$$f(x+y)=f(x)\\,f(y)$$
+untuk setiap bilangan real $x$ dan $y$, dengan $f(0)\\neq 0$.
+
+Buktikan bahwa
+$$f'(x)=f'(0)\\,f(x),$$
+lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Gunakan definisi turunan $f'(x)=\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$ dan ubah $f(x+h)$ dengan persamaan fungsional.`,
+        },
+        {
+          kind: "step-reveal",
+          intro: "Kerjakan dengan definisi turunan, bukan dengan aturan turunan yang biasa.",
+          steps: [
+            {
+              title: "Tentukan $f(0)$",
+              text: `Dari $f(0)=f(0+0)=f(0)^2$ dan $f(0)\\neq 0$, diperoleh $f(0)=1$.`,
+            },
+            {
+              title: "Tulis definisi turunan",
+              text: `$f'(x)=\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$.`,
+            },
+            {
+              title: "Gunakan persamaan fungsional",
+              text: `Karena $f(x+h)=f(x)f(h)$, maka $f'(x)=\\lim_{h\\to 0}\\dfrac{f(x)f(h)-f(x)}{h}=f(x)\\lim_{h\\to 0}\\dfrac{f(h)-1}{h}$.`,
+            },
+            {
+              title: "Kenali $f'(0)$",
+              text: `Karena $f(0)=1$, bentuk $\\lim_{h\\to 0}\\dfrac{f(h)-f(0)}{h}$ tepat sama dengan $f'(0)$. Jadi $f'(x)=f(x)\\,f'(0)$.`,
+            },
+            {
+              title: "Akibatnya",
+              text: `Jika $f'(0)=0$, maka $f'(x)=0$ untuk semua $x$. Fungsi yang turunannya nol di seluruh garis real adalah fungsi konstan. Karena $f(0)=1$, fungsi itu adalah $f(x)=1$.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana kemiringan garis singgung menggambarkan laju perubahan.",
       blocks: [
         {
           kind: "reflection",

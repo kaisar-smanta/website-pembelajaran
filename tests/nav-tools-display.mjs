@@ -78,7 +78,7 @@ const mainItems = flattenNav(mainNav);
 const staticTitles = new Map(
   STATIC_PAGES.map((page) => [page.path ? `/${page.path}` : '/', page.title]),
 );
-for (const href of ['/aplikasi', '/alat']) {
+for (const href of ['/aplikasi', '/alat', '/tantangan', '/latihan', '/eksplorasi']) {
   const item = mainItems.find((entry) => entry.href === href);
   ok(item, `mainNav: tidak memuat halaman ${href}`);
   ok(

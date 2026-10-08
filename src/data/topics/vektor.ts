@@ -46,6 +46,7 @@ export const vektor: Topic = {
     { text: 'Menentukan proyeksi skalar dan proyeksi vektor.' },
     { text: 'Membuktikan sifat geometri (kolinear, tegak lurus, teorema titik tengah) menggunakan vektor.' },
   ],
+  applications: ['mtl-navigasi-vektor'],
   sections: [
     {
       id: "tujuan",
@@ -286,7 +287,7 @@ Karena $\\vec{BC} = 2\\,\\vec{MN}$, kedua ruas garis **sejajar**, dan panjangnya
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      body: "Ubah komponen vektor untuk melihat bagaimana besar dan arah resultannya berubah.",
       blocks: [
         {
           kind: "exploration",
@@ -392,10 +393,44 @@ Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor;
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Salah satu hasil klasik geometri dapat dibuktikan dengan vektor hanya dalam beberapa baris.
+
+Ambil sebarang segiempat $ABCD$. Tandai titik tengah setiap sisinya:
+- $P$ titik tengah $AB$,
+- $Q$ titik tengah $BC$,
+- $R$ titik tengah $CD$,
+- $S$ titik tengah $DA$.
+
+Buktikan bahwa $PQRS$ selalu berupa **jajargenjang** (hasil ini dikenal sebagai teorema Varignon).`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Nyatakan setiap titik tengah sebagai vektor posisi, misalnya $\\vec{p}=\\tfrac{1}{2}(\\vec{a}+\\vec{b})$. Kemudian bandingkan $\\vec{PQ}$ dengan $\\vec{SR}$.`,
+        },
+        {
+          kind: "details",
+          summary: "Pembahasan lengkap",
+          text: `Misalkan $\\vec{a}$, $\\vec{b}$, $\\vec{c}$, $\\vec{d}$ adalah vektor posisi titik $A$, $B$, $C$, $D$. Karena $P,Q,R,S$ titik tengah, berlaku
+$$\\vec{p}=\\tfrac{1}{2}(\\vec{a}+\\vec{b}),\\quad \\vec{q}=\\tfrac{1}{2}(\\vec{b}+\\vec{c}),\\quad \\vec{r}=\\tfrac{1}{2}(\\vec{c}+\\vec{d}),\\quad \\vec{s}=\\tfrac{1}{2}(\\vec{d}+\\vec{a}).$$
+
+Hitung dua sisi $PQRS$:
+$$\\vec{PQ}=\\vec{q}-\\vec{p}=\\tfrac{1}{2}(\\vec{c}-\\vec{a}),$$
+$$\\vec{SR}=\\vec{r}-\\vec{s}=\\tfrac{1}{2}(\\vec{c}-\\vec{a}).$$
+
+Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panjang. Jadi $PQRS$ adalah jajargenjang. Terbukti.`,
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana besar dan arah vektor muncul dalam perpindahan dan gaya.",
       blocks: [
         {
           kind: "reflection",

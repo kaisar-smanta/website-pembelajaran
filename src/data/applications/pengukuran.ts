@@ -33,6 +33,8 @@ Jadi tinggi menara sekitar **28,9 m**. Metode ini disebut **triangulasi** dan di
       'Asumsi apa yang paling mudah dilanggar saat mengukur di lapangan?',
       'Bagaimana koreksi dilakukan jika tinggi mata pengamat tidak diabaikan?',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan metode triangulasi juru ukur; angka dibuat agar mudah dihitung.',
   },
   {
     id: 'luas-juring-taman',
@@ -68,6 +70,8 @@ Jadi dibutuhkan sekitar **38,5 m² rumput** dan **11 m pagar** untuk sisi lengku
       'Bagaimana hasil berubah jika sudut juring diperbesar dua kali?',
       'Bagian taman mana yang paling mahal, dan mengapa?',
     ],
+    source:
+      'Ilustrasi fiktif perancangan taman berbentuk juring; ukuran dibuat agar mudah dihitung.',
   },
   {
     id: 'skala-logaritma',
@@ -95,6 +99,8 @@ Mengapa gempa bermagnitudo $7$ jauh lebih dahsyat daripada magnitudo $5$, padaha
       'Mengapa kenaikan satu angka pada skala Richter terasa jauh lebih dahsyat daripada kelihatannya?',
       'Sebutkan besaran lain yang cocok diukur dengan skala logaritma.',
     ],
+    source:
+      'Data ilustratif berdasarkan skala Richter dan skala pH; angka dibulatkan untuk pembelajaran.',
   },
   {
     id: 'lintasan-bola',
@@ -132,6 +138,8 @@ Jadi bola mencapai tinggi maksimum **21 m** pada detik ke-**2**. Setelah itu bol
       'Bagaimana bentuk parabola berubah jika tendangan lebih kuat?',
       'Pada detik ke berapa bola menyentuh tanah, dan bagaimana kamu menghitungnya?',
     ],
+    source:
+      'Ilustrasi fiktif lintasan gerak peluru; angka dibuat agar mudah dihitung.',
   },
   {
     id: 'transformasi-matriks',
@@ -166,6 +174,8 @@ Determinan mengungkap sifat tiap transformasi. Untuk $R$, $\\det R = 1 \\cdot (-
       'Mengapa pemutaran lalu pencerminan dapat memberi hasil berbeda dari urutan sebaliknya?',
       'Transformasi seperti apa yang akan mengubah luas bangun, dan bergantung pada besaran apa?',
     ],
+    source:
+      'Ilustrasi fiktif berdasarkan transformasi pada grafika komputer; koordinat dibuat agar mudah dihitung.',
   },
   {
     id: 'peta-dan-skala',
@@ -206,5 +216,90 @@ Bentuk akhirnya adalah $Y = a\\,f(X-h)+k$ dengan $a = \\frac{1}{2}$, $h = 1$, da
       'Apa yang terjadi pada jarak sebenarnya jika skala diubah menjadi 1 : 40.000?',
       'Bagaimana menentukan persamaan jalan jika peta diputar, bukan hanya digeser?',
     ],
+    source:
+      'Ilustrasi fiktif pengukuran peta berskala; jarak dan skala dibuat agar mudah dihitung.',
+  },
+  {
+    id: 'tgeo-motif-batik',
+    title: 'Menata Motif Batik dengan Komposisi Transformasi',
+    category: 'pengukuran',
+    element: 'geometri',
+    grade: 'XII',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    explorationId: 'matriks-transformasi',
+    tags: ['transformasi geometri', 'rotasi', 'dilatasi', 'komposisi', 'motif'],
+    summary:
+      'Menggabungkan rotasi dan dilatasi menjadi satu matriks untuk menata motif pada bidang koordinat.',
+    topicIds: ['transformasi-geometri', 'matriks'],
+    body: `Sebuah motif batik diawali dari segitiga dengan titik sudut $A(1,1)$, $B(3,1)$, dan $C(1,2)$. Untuk membuat variasi, motif itu diputar $90^\\circ$ berlawanan arah jarum jam terhadap titik asal, lalu diperbesar dua kali dari titik asal.
+
+Bagaimana menentukan koordinat bayangan ketiga titik, dan berapa luas segitiga hasilnya? Alih-alih mengerjakan dua langkah terpisah, kedua transformasi dapat digabung menjadi satu matriks, sehingga penggandaan motif pada kain tidak perlu menghitung titik demi titik.`,
+    analysis: `Matriks rotasi $90^\\circ$ berlawanan arah jarum jam dan matriks dilatasi faktor $2$ adalah
+$$R = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}, \\qquad S = \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}.$$
+Karena rotasi dikerjakan lebih dulu, matriks gabungannya
+$$SR = \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix} = \\begin{pmatrix} 0 & -2 \\\\ 2 & 0 \\end{pmatrix}.$$
+Menerapkannya pada tiap titik:
+$$A(1,1) \\to (-2,2),\\quad B(3,1) \\to (-2,6),\\quad C(1,2) \\to (-4,2).$$
+Luas segitiga awal
+$$L = \\frac{1}{2}\\left| (3-1)(2-1) - (1-1)(1-1) \\right| = 1.$$
+Karena $\\lvert\\det(SR)\\rvert = \\lvert 0 \\cdot 0 - (-2)(2)\\rvert = 4$, luas segitiga hasil adalah $4 \\times 1 = 4$ satuan luas. Hasil ini dapat diperiksa dengan rumus luas pada titik bayangan $(-2,2)$, $(-2,6)$, $(-4,2)$ yang memberi nilai yang sama. Determinan positif menunjukkan orientasi bangun tetap, karena rotasi dan dilatasi tidak membalik arah seperti pencerminan.`,
+    takeaways: [
+      'Rotasi dan dilatasi terhadap titik asal dapat digabung menjadi satu matriks $2 \\times 2$.',
+      'Urutan perkalian penting: $SR$ berarti rotasi dahulu, baru dilatasi.',
+      'Nilai mutlak determinan adalah faktor pengali luas bangun.',
+      'Determinan positif menandakan orientasi bangun tidak terbalik.',
+    ],
+    reflection: [
+      'Bagaimana hasilnya berbeda bila dilatasi dikerjakan sebelum rotasi?',
+      'Transformasi mana yang mengubah luas, dan seberapa besar pengaruhnya?',
+      'Mengapa penggandaan motif lebih efisien memakai matriks gabungan?',
+    ],
+    source:
+      'Ilustrasi fiktif penataan motif pada bidang koordinat; koordinat dibuat agar mudah dihitung.',
+  },
+  {
+    id: 'ktk-optimasi-pagar-taman',
+    title: 'Merancang Taman: Luas Terbesar dengan Pagar Terbatas',
+    category: 'pengukuran',
+    element: 'aljabar-fungsi',
+    grade: 'X',
+    level: 'cakap',
+    estimatedMinutes: 12,
+    explorationId: 'kuadrat-parameter',
+    tags: ['ketaksamaan', 'AM-GM', 'optimasi', 'luas maksimum', 'desain'],
+    summary:
+      'Memakai ketaksamaan AM-GM untuk menentukan ukuran taman dengan luas terbesar pada panjang pagar yang tetap.',
+    topicIds: ['ketaksamaan', 'fungsi-kuadrat', 'sistem-pertidaksamaan'],
+    body: `Panitia lingkungan memiliki pagar sepanjang **40 m** untuk memagari taman berbentuk persegi panjang. Salah satu sisi taman menempel pada dinding yang sudah ada, sehingga pagar hanya dipasang pada **tiga sisi**. Sementara itu, dana yang tersedia adalah **Rp6.000.000**, dan harga pagar **Rp150.000 per meter**, tepat cukup untuk 40 m.
+
+Pertanyaan pemicunya: berapa ukuran taman agar **luasnya maksimum**, dan berapa luas maksimum itu? Menariknya, ketaksamaan **AM-GM** menjawabnya tanpa perlu menggambar grafik.`,
+    analysis: `Misalkan sisi taman yang tegak lurus dinding berukuran $x$ meter (ada dua sisi) dan sisi yang sejajar dinding berukuran $y$ meter (ada satu sisi). Panjang pagar yang tersedia memberi kendala
+$$2x + y = 40, \\qquad x > 0,\\ y > 0,$$
+sedangkan luas taman adalah $L = xy$. Kita ingin memaksimalkan $xy$.
+
+Terapkan ketaksamaan **AM-GM** pada bilangan positif $2x$ dan $y$:
+$$\\frac{2x + y}{2} \\ge \\sqrt{(2x)(y)}.$$
+Karena $2x + y = 40$, maka
+$$20 \\ge \\sqrt{2xy} \\quad\\Longrightarrow\\quad 400 \\ge 2xy \\quad\\Longrightarrow\\quad xy \\le 200.$$
+Jadi luas taman tidak pernah melebihi $200\\ \\text{m}^2$.
+
+Kesamaan AM-GM tercapai ketika kedua bilangan sama, yaitu $2x = y$. Gabungkan dengan kendala:
+$$2x + y = 40 \\Rightarrow 2x + 2x = 40 \\Rightarrow x = 10,\\quad y = 20.$$
+Ukuran optimal adalah $10\\ \\text{m} \\times 20\\ \\text{m}$ dengan luas maksimum $L = 10 \\times 20 = 200\\ \\text{m}^2$.
+
+Cara ini menghemat langkah dibandingkan memeriksa satu per satu nilai $x$. Perhatikan juga bahwa $x = 5$ memberi luas $5 \\times 30 = 150\\ \\text{m}^2$ dan $x = 15$ memberi $15 \\times 10 = 150\\ \\text{m}^2$ — keduanya sama-sama di bawah $200\\ \\text{m}^2$. Anggaran yang terbatas justru memaksa kita memilih proporsi yang paling efisien.`,
+    takeaways: [
+      'AM-GM mengubah masalah optimasi menjadi penentuan syarat kesamaan.',
+      'Kesamaan AM-GM tercapai saat suku-suku yang dibandingkan sama besar.',
+      'Batasan sumber daya (panjang pagar) tidak menghalangi nilai optimum, asalkan proporsinya tepat.',
+    ],
+    reflection: [
+      'Mengapa kesamaan AM-GM menuntut $2x = y$, bukan $x = y$?',
+      'Bagaimana hasilnya berubah jika pagar dipasang pada keempat sisi dengan panjang total 40 m?',
+      'Sebutkan satu situasi lain yang dapat dioptimalkan dengan pola yang sama.',
+    ],
+    source:
+      'Ilustrasi fiktif desain taman dengan pagar terbatas; ukuran dan harga dibuat agar mudah dihitung.',
   },
 ];

@@ -4,6 +4,7 @@
   "description": "Pusat pembelajaran Matematika SMA kelas X–XII: Kurikulum Merdeka, eksplorasi interaktif, latihan berjenjang, dan studi kasus nyata.",
   "lang": "id",
   "dir": "ltr",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

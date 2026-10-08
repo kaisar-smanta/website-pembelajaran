@@ -379,10 +379,46 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
       ],
     },
     {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Teori peluang tidak dimulai dari rumus, melainkan dari sebuah pertanyaan tentang permainan. Sekitar 1654, Antoine Gombaud (Chevalier de Méré) menanyakan kepada Blaise Pascal bagaimana membagi taruhan secara adil ketika sebuah permainan harus dihentikan sebelum selesai. Pascal lalu berkorespondensi dengan Pierre de Fermat; keduanya menyelesaikan *masalah pembagian taruhan* dengan dua pendekatan berbeda dan memperoleh jawaban yang sama. Korespondensi inilah yang biasanya dianggap sebagai titik tolak teori peluang.
+
+Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang peluang, *De ratiociniis in ludo aleae* (1657). Jacob Bernoulli dalam *Ars Conjectandi* (1713) merumuskan apa yang kemudian dikenal sebagai **hukum bilangan besar**, yaitu penjelasan mengapa peluang empiris merapat ke peluang teoretis pada percobaan yang panjang. Pierre-Simon Laplace dalam *Théorie analytique des probabilités* (1812) merapikan definisi klasiknya sebagai perbandingan kasus yang menguntungkan terhadap seluruh kasus yang sama mungkin. Definisi itulah yang kita pakai sebagai $P(A) = \\dfrac{n(A)}{n(S)}$, sehingga mendata ruang sampel dengan benar menjadi langkah pertama setiap perhitungan.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tonggak perkembangan teori peluang",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "Pascal dan Fermat (1654)",
+              "Menyelesaikan masalah pembagian taruhan lewat korespondensi.",
+            ],
+            [
+              "Christiaan Huygens (1657)",
+              "Menulis buku pertama tentang peluang.",
+            ],
+            [
+              "Jacob Bernoulli (1713)",
+              "Merumuskan hukum bilangan besar.",
+            ],
+            [
+              "Pierre-Simon Laplace (1812)",
+              "Merapikan definisi klasik peluang.",
+            ],
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana peluang membantumu mengambil keputusan saat hasilnya belum pasti.",
       blocks: [
         {
           kind: "reflection",

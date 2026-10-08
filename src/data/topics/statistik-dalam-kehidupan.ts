@@ -41,6 +41,7 @@ export const statistikDalamKehidupan: Topic = {
     { text: 'Menafsirkan data yang disajikan dalam bentuk matriks (baris sebagai objek, kolom sebagai variabel) untuk menilai klaim media.' },
     { text: 'Menyusun kesimpulan yang sahih berdasarkan data dan sampel yang memadai.' },
   ],
+  applications: ['statistik-harian'],
   sections: [
     {
       id: "tujuan",
@@ -346,7 +347,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana angka statistik di sekitarmu bisa menyesatkan bila dibaca sekilas.",
       blocks: [
         {
           kind: "reflection",

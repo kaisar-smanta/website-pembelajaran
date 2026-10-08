@@ -202,4 +202,40 @@ export const eksponenQuestions: Question[] = [
     hints: ['Hitung $(0{,}8)^{3}$ lebih dahulu.', 'Basis kurang dari $1$ menandakan peluruhan.'],
     competencies: ['pemodelan eksponen', 'peluruhan'],
   },
+  {
+    id: 'eks-13',
+    topicId: 'eksponen',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Pada awal tahun $2020$, penduduk Kota A berjumlah $500.000$ orang dan bertambah $3\\%$ setiap tahun, sedangkan Kota B berjumlah $800.000$ orang dan bertambah $1\\%$ setiap tahun. (a) Tuliskan model $A(t)$ dan $B(t)$ untuk penduduk setelah $t$ tahun. (b) Tentukan tahun pertama ketika penduduk Kota A melampaui Kota B, dengan menghitung nilai tiap tahun. (c) Sebutkan satu alasan mengapa model pertumbuhan tetap ini mungkin tidak berlaku lama.',
+    answer:
+      '(a) $A(t)=500.000(1{,}03)^t$ dan $B(t)=800.000(1{,}01)^t$. (b) Kita perlu $500.000(1{,}03)^t>800.000(1{,}01)^t$, yaitu $\\left(\\dfrac{1{,}03}{1{,}01}\\right)^t>1{,}6$. Menguji nilai bulat: pada $t=23$, $A\\approx500.000(1{,}973587)\\approx986.793$ dan $B\\approx800.000(1{,}257163)\\approx1.005.730$, jadi A masih lebih kecil. Pada $t=24$, $A\\approx500.000(2{,}032794)\\approx1.016.397$ dan $B\\approx800.000(1{,}269735)\\approx1.015.788$, sehingga A sudah melampaui B. Jadi Kota A melampaui Kota B pada tahun ke-$24$, yaitu awal tahun $2044$ (dihitung dari $2020$). (c) Model mengasumsikan laju pertumbuhan tetap tanpa batas; pada kenyataannya daya dukung wilayah, keterbatasan lahan dan air, serta migrasi akan memperlambat pertumbuhan sehingga laju tidak konstan selamanya.',
+    explanation:
+      'Kunci: menyusun dua model eksponen, mengubah perbandingan menjadi pertidaksamaan pangkat, menguji nilai tahun secara bertahap, dan menyadari keterbatasan asumsi laju tetap.',
+    hints: [
+      'Bentuk model $P(t)=P_0(1+r)^t$ untuk tiap kota.',
+      'Bandingkan dengan membagi kedua model sehingga muncul $\\left(\\dfrac{1{,}03}{1{,}01}\\right)^t>1{,}6$.',
+    ],
+    competencies: ['pemodelan eksponen', 'pertidaksamaan', 'interpretasi'],
+  },
+  {
+    id: 'eks-14',
+    topicId: 'eksponen',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Massa sebuah zat radioaktif mula-mula $320$ gram. Setelah $15$ tahun, massanya tersisa $40$ gram. Massa zat itu menyusut mengikuti $M(t)=M_0\\left(\\dfrac{1}{2}\\right)^{t/T}$ dengan $T$ waktu paruh. (a) Tentukan waktu paruh $T$. (b) Tuliskan model lengkapnya. (c) Tentukan massa zat setelah $25$ tahun.',
+    answer:
+      '(a) Dari $320\\left(\\dfrac{1}{2}\\right)^{15/T}=40$ diperoleh $\\left(\\dfrac{1}{2}\\right)^{15/T}=\\dfrac{40}{320}=\\dfrac{1}{8}=\\left(\\dfrac{1}{2}\\right)^{3}$, sehingga $\\dfrac{15}{T}=3$ dan $T=5$ tahun. (b) Modelnya $M(t)=320\\left(\\dfrac{1}{2}\\right)^{t/5}$. (c) Setelah $25$ tahun terjadi $\\dfrac{25}{5}=5$ waktu paruh, sehingga $M(25)=320\\left(\\dfrac{1}{2}\\right)^{5}=320\\cdot\\dfrac{1}{32}=10$ gram.',
+    explanation:
+      'Kunci: mengubah data pengamatan menjadi persamaan eksponen, menyatakan $\\dfrac{1}{8}$ sebagai $\\left(\\dfrac{1}{2}\\right)^{3}$ untuk memperoleh waktu paruh, lalu memakai model pada waktu yang diminta.',
+    hints: [
+      'Nyatakan rasio massa yang tersisa sebagai pangkat dari $\\dfrac{1}{2}$.',
+      'Setelah waktu paruh diketahui, bagi lama waktu dengan $T$ untuk memperoleh banyak waktu paruh.',
+    ],
+    competencies: ['peluruhan eksponen', 'waktu paruh', 'persamaan eksponen', 'pemodelan'],
+  },
 ];

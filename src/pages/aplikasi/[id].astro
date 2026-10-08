@@ -137,6 +137,14 @@ const jsonLd = {
           </section>
 
           {
+            app.source && (
+              <p class="case-source">
+                <span class="case-source-label">Sumber:</span> {app.source}
+              </p>
+            )
+          }
+
+          {
             (prev || next) && (
               <nav class="pager no-print" aria-label="Navigasi studi kasus">
                 {prev ? (
@@ -356,6 +364,21 @@ const jsonLd = {
   }
   .aside-links a:hover {
     color: var(--color-primary);
+  }
+  .case-source {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-soft);
+    background: var(--color-surface-2);
+    border-left: 3px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 55%, var(--color-border));
+    border-radius: var(--radius);
+  }
+  .case-source-label {
+    font-weight: 600;
+    color: var(--color-text-muted);
   }
   .pager {
     display: flex;

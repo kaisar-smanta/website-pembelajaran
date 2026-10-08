@@ -37,6 +37,7 @@ export const transformasiFungsi: Topic = {
     { text: 'Peserta didik dapat menentukan urutan transformasi yang menghasilkan grafik tertentu.' },
     { text: 'Peserta didik dapat memodelkan situasi nyata menggunakan transformasi fungsi.' },
   ],
+  applications: ['peta-dan-skala'],
   sections: [
     {
       id: "tujuan",
@@ -348,7 +349,7 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana menggeser dan meregangkan grafik mengubah tampilan sebuah fungsi.",
       blocks: [
         {
           kind: "reflection",

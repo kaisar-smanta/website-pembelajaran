@@ -117,7 +117,7 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
             </div>
           )
         }
-        {topic.cpNote && <p class="cp-note text-soft">{topic.cpNote}</p>}
+        {topic.cpNote && <p class="cp-note text-soft" set:html={renderInlineMarkdown(topic.cpNote)} />}
       </div>
     </header>
 
@@ -272,6 +272,13 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
                 )
               }
               <button type="button" class="btn btn-ghost btn-sm" data-print>Cetak halaman</button>
+              <button type="button" class="btn btn-secondary btn-sm" data-print-worksheet>
+                Cetak lembar kerja
+              </button>
+              <label class="print-key" for="print-key-toggle">
+                <input type="checkbox" id="print-key-toggle" data-print-key />
+                <span>Sertakan kunci jawaban</span>
+              </label>
             </div>
           </div>
         </div>
@@ -292,7 +299,25 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
 <script>
   import { loadProgress, missedQuestionIds, type ProgressMap } from '@/lib/progress';
 
-  document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+  const body = document.body;
+  const keyToggle = document.querySelector<HTMLInputElement>('[data-print-key]');
+
+  function clearPrintMode() {
+    body.classList.remove('print-worksheet', 'print-with-key');
+  }
+
+  document.querySelector('[data-print]')?.addEventListener('click', () => {
+    clearPrintMode();
+    window.print();
+  });
+
+  document.querySelector('[data-print-worksheet]')?.addEventListener('click', () => {
+    clearPrintMode();
+    body.classList.add('print-worksheet');
+    if (keyToggle?.checked) body.classList.add('print-with-key');
+    window.addEventListener('afterprint', clearPrintMode, { once: true });
+    window.print();
+  });
 
   const disclosure = document.querySelector<HTMLDetailsElement>('[data-outline-disclosure]');
   if (disclosure) {
@@ -711,6 +736,22 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
   }
   .aside-actions .btn {
     justify-content: center;
+  }
+  .print-key {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+  .print-key input {
+    flex: 0 0 auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0;
+    accent-color: var(--accent, var(--color-primary));
+    cursor: pointer;
   }
   .review-lead {
     margin: 0 0 0.5rem;

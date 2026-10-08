@@ -36,6 +36,7 @@ export const permutasiKombinasi: Topic = {
     { text: 'Menentukan banyak kombinasi dan membedakan kapan memakai permutasi atau kombinasi.' },
     { text: 'Menggunakan pencacahan untuk menghitung peluang suatu kejadian.' },
   ],
+  applications: ['kata-sandi'],
   sections: [
     {
       id: "tujuan",

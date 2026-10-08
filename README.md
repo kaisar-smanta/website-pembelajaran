@@ -42,6 +42,10 @@ Disusun oleh **Kaisar Titoniran Akbar, S.Pd** untuk **SMAN 1 Tanjung**. Lihat `/
 
 Tanpa backend, tanpa basis data, tanpa autentikasi. Seluruh konten dibundel saat build.
 
+Ada dukungan **PWA offline**: `public/sw.js` (service worker) dan `public/offline.html`
+didaftarkan `BaseLayout.astro` pada build produksi (memakai `manifest.webmanifest`),
+sehingga halaman yang pernah dibuka tetap dapat diakses kembali tanpa jaringan.
+
 ---
 
 ## Menjalankan Secara Lokal
@@ -125,7 +129,8 @@ Field `status` pada `Topic` menandai materi `'lengkap'` atau `'rencana'`.
 Jenis bagian (`SectionKind`) yang tersedia: `tujuan`, `pemantik`, `prasyarat`, `konteks`,
 `konsep`, `representasi`, `eksplorasi`, `generalisasi`, `rumus`, `contoh`, `latihan-dasar`,
 `latihan-cakap`, `latihan-mahir`, `dunia-nyata`, `kesalahan-umum`, `refleksi`, `rangkuman`,
-`evaluasi`, `catatan`.
+`evaluasi`, `sejarah`, `tantangan`, `catatan`. Bagian `sejarah` memuat latar historis konsep,
+sedangkan `tantangan` memuat soal nonrutin beserta pembahasan terbuka untuk siswa pengayaan.
 
 Bagian `latihan-dasar`, `latihan-cakap`, dan `latihan-mahir` menarik soal topik dari bank
 soal secara otomatis lewat `src/components/exercises/PracticeSet.astro`. Sebuah bagian juga
@@ -231,6 +236,10 @@ padanan formatnya. `tests/questions.mjs` mewajibkan `acceptedAnswers` untuk jawa
 bertipe selain bilangan bulat telanjang (bilangan bulat seperti cacah, derajat
 polinomial, atau sisa bagi boleh tanpa padanan).
 
+Soal `open-response` tidak dinilai otomatis; jawaban model (`answer`) dan daftar
+kriteria mandiri (`Question.rubric`) membantu siswa menilai kelengkapan jawabannya
+sendiri. Selengkapnya pada bagian Latihan & Asesmen.
+
 ### Format jawaban singkat yang diterima
 
 Pencocokan jawaban dilakukan murni di `src/lib/answer.ts`, dipakai bersama oleh
@@ -272,8 +281,51 @@ halaman per topik `/latihan/[topic]`.
   selesai: setelah semua soal dijawab, skor ketepatan dan tombol "Ulangi kuis"
   ditampilkan.
 
-Uji terkait: `tests/practice.mjs`, `tests/questions.mjs`, `tests/answer.mjs`, dan
-`tests/progress.mjs`.
+### Rubrik, lembar kerja, dan tinjauan berkala
+
+- **Rubrik jawaban terbuka.** Soal `open-response` dapat memuat `rubric` (daftar
+  kriteria pada `Question.rubric`). `QuestionCard.astro` menampilkannya sebagai daftar
+  centang **"Periksa jawabanmu"** yang tersimpan di peramban lewat `src/lib/learner.ts`,
+  sehingga siswa menilai kelengkapan jawabannya sendiri sebelum membuka contoh jawaban.
+- **Ekspor lembar kerja.** Halaman topik menyediakan tombol **"Cetak lembar kerja"** yang
+  menyembunyikan pembahasan dan kunci, beserta opsi **"Sertakan kunci jawaban"** untuk
+  versi berkunci. Gaya cetaknya diatur `src/styles/partials/print.css`.
+- **Antrean tinjauan berkala.** Halaman `/review` menghimpun soal yang belum tepat atau
+  belum dicoba dari seluruh topik menjadi satu sesi berprioritas. Urutan dan jadwal
+  pengulangan (model Leitner sederhana) dihitung `src/lib/review.ts` dari data
+  `localStorage`, tanpa akun maupun server.
+
+Uji terkait: `tests/practice.mjs`, `tests/questions.mjs`, `tests/answer.mjs`,
+`tests/progress.mjs`, dan `tests/review.mjs`.
+
+---
+
+## Pengayaan & Tantangan
+
+Siswa yang melampaui capaian dapat menempuh lapisan pengayaan:
+
+- **Halaman `/tantangan`** menghimpun soal tingkat `mahir` dari seluruh topik menjadi
+  tantangan campuran (dipilih deterministik lewat `seededShuffle`), menampilkan rincian
+  topik berjenjang, serta mendaftar topik pengayaan. Halaman dibangkitkan dari data yang
+  sama dengan `/latihan` dan `/eksplorasi`.
+- **Bagian `sejarah`** memberi latar historis konsep (mis. Napier/Euler untuk logaritma,
+  Archimedes untuk π, Pascal–Fermat untuk peluang).
+- **Bagian `tantangan`** memuat satu soal nonrutin beserta pembahasan bertahap
+  (`step-reveal`, `spot-mistake`, atau `details`) dan petunjuk strategi.
+- **Topik pengayaan** ditandai `supplementary: true` (mis. SPLTV, matriks, logaritma,
+  limit, distribusi binomial, transformasi geometri, teori bilangan, ketaksamaan,
+  induksi matematika, kombinatorika lanjut) dan wajib menyertakan `cpNote`.
+- **Jalur Pengayaan** pada `/peta-pembelajaran` (`src/data/learning-paths.ts`) merangkai
+  teori bilangan → ketaksamaan → induksi matematika → kombinatorika lanjut sebagai
+  lintasan penalaran dan pembuktian.
+- **Dasbor `/kemajuan`** menambahkan ringkasan **penguasaan topik** (berdasarkan ketepatan,
+  bukan hanya jumlah soal dijawab), **keyakinan refleksi**, dan ajakan **tantangan
+  berikutnya** saat ketepatan sudah tinggi.
+
+Uji terkait: `tests/pengayaan.mjs` menjaga ambang soal mahir, `cpNote` pengayaan, serta
+keberadaan bagian `sejarah`/`tantangan`; `tests/mtl-tambahan.mjs` memverifikasi nilai
+matematika topik pengayaan yang lebih baru (limit, distribusi binomial, transformasi
+geometri).
 
 ---
 
@@ -326,7 +378,7 @@ dibangkitkan dari data ini.
    `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
    `distribution`, `conditional-probability`, `circle`, `matrix`, `linear-system`,
    `function-composition`, `function-inverse`, `polynomial`, `vector`, `conic`, `derivative`,
-   `integral`, `random-variable`, atau `geogebra`. Isi juga `grade`, `element`,
+   `integral`, `random-variable`, `limit`, `binomial-distribution`, atau `geogebra`. Isi juga `grade`, `element`,
    `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
    dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
    (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
@@ -373,7 +425,7 @@ Pemetaan CP disimpan di `src/data/curriculum/cp.ts` — satu-satunya tempat CP "
 ini memuat:
 
 - `regulations` — riwayat regulasi (nomor, penerbit, tanggal berlaku, `supersedes`, `status`);
-- `cpStatements` — pernyataan CP berkode (mis. `E-BIL-1`, `F-ALG-3`) beserta `phase`, `element`,
+- `cpStatements` — pernyataan CP berkode (mis. `E-BIL-1`, `F-ALJ-3`) beserta `phase`, `element`,
   `grades`, teks parafrasa, dan `topicIds` yang memenuhinya.
 
 Halaman `/referensi` dan peta pembelajaran membangkitkan tampilan langsung dari registri ini,
@@ -434,8 +486,9 @@ src/
 │                       dom.ts (initWhenVisible untuk simulasi lazy),
 │                       interaction.ts, filter.ts, filter-dom.ts,
 │                       content-text.ts, search.ts (skor, fuzzy, sorot
-│                       pencarian), practice.ts (hitung & kelompokin soal)
-├── pages/              Rute (lihat tabel di bawah)
+│                       pencarian), practice.ts (hitung & kelompokin soal),
+│                       review.ts (antrean tinjauan berkala lintas topik)
+├── pages/              Rute statis (lihat tabel di bawah), termasuk review.astro
 ├── styles/             global.css (perakit @import berurutan) +
 │                       partials/ (tokens, base, layout, components, decor,
 │                       home, accents, prose, utilities, motion, print)
@@ -459,6 +512,8 @@ src/
 | `/[subject]/kelas/[grade]/[element]/[topic]` | Halaman materi (breadcrumb, prasyarat, terkait, peta isi, pager lintas elemen, latihan tertanam; aside direorder di layar sempit) |
 | `/kelas/...`, `/elemen/...` | Pengalih statis rute lama ke `/matematika/...` |
 | `/latihan`, `/latihan/[topic]` | Latihan berjenjang: saringan, paginasi, sesi tinjau, pemeriksaan sisi klien |
+| `/review` | Tinjauan lintas topik: soal salah/belum dicoba dari semua topik |
+| `/tantangan` | Tantangan & pengayaan: soal mahir campuran, topik pengayaan, bagian sejarah & tantangan |
 | `/eksplorasi` | Katalog & simulasi interaktif (dapat disaring) |
 | `/eksplorasi/[slug]` | Halaman rincian satu eksplorasi (simulasi, brief, navigasi) |
 | `/alat` | Alat matematika daring (kelompok beraksen elemen) |

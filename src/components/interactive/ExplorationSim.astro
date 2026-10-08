@@ -17,6 +17,8 @@ import ConicExplorer from './ConicExplorer.astro';
 import DerivativeExplorer from './DerivativeExplorer.astro';
 import IntegralExplorer from './IntegralExplorer.astro';
 import RandomVariableExplorer from './RandomVariableExplorer.astro';
+import LimitExplorer from './LimitExplorer.astro';
+import BinomialExplorer from './BinomialExplorer.astro';
 import VectorExplorer from './VectorExplorer.astro';
 import GeogebraEmbed from './GeogebraEmbed.astro';
 
@@ -50,6 +52,8 @@ const SIM_COMPONENTS = {
   derivative: DerivativeExplorer,
   integral: IntegralExplorer,
   'random-variable': RandomVariableExplorer,
+  limit: LimitExplorer,
+  'binomial-distribution': BinomialExplorer,
   geogebra: null,
 } satisfies Record<ExplorationType, unknown>;
 

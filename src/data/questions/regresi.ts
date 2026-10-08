@@ -193,4 +193,45 @@ export const regresiQuestions: Question[] = [
     hints: ['Kuadratkan $r$ untuk mendapatkan determinasi.', 'Pikirkan faktor ketiga yang memengaruhi keduanya.'],
     competencies: ['koefisien determinasi', 'korelasi vs kausalitas', 'evaluasi'],
   },
+  {
+    id: 'rg-13',
+    topicId: 'regresi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Sebuah garis regresi memberi taksiran $\\hat{y}=1{,}5x+2$. Salah satu data yang diamati adalah $(4,9)$. (a) Hitung nilai $\\hat{y}$ untuk $x=4$ dan tentukan residunya. (b) Jelaskan makna tanda residu tersebut terhadap posisi titik data. (c) Jelaskan mengapa residu dapat bernilai positif maupun negatif.',
+    answer:
+      '(a) $\\hat{y}=1{,}5(4)+2=8$, sehingga residu $=y-\\hat{y}=9-8=1$. (b) Residu positif berarti nilai pengamatan $y$ berada di atas nilai yang ditaksir garis regresi pada $x$ tersebut. (c) Residu adalah selisih data terhadap garis taksiran; titik di atas garis memberi residu positif, sedangkan titik di bawah garis memberi residu negatif. Garis kuadrat terkecil dipilih agar jumlah kuadrat residunya minimum dan jumlah residu bertanda mendekati nol.',
+    explanation:
+      'Kunci: menghitung taksiran dan residu, menafsirkan tanda residu sebagai posisi titik terhadap garis, serta mengaitkan residu dengan penyimpangan data dari model.',
+    hints: [
+      'Residu dihitung dengan $y-\\hat{y}$.',
+      'Tanda residu menunjukkan titik berada di atas atau di bawah garis.',
+    ],
+    competencies: ['residu', 'interpretasi regresi', 'penalaran'],
+  },
+  {
+    id: 'rg-14',
+    topicId: 'regresi',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Pada suatu data, koefisien korelasi $r=0{,}8$, simpangan baku $y$ adalah $s_{y}=5$, dan simpangan baku $x$ adalah $s_{x}=2$. Gradien $b$ garis regresi kuadrat terkecil adalah …',
+    options: [
+      { key: 'A', text: '$2$' },
+      { key: 'B', text: '$0{,}32$' },
+      { key: 'C', text: '$8$' },
+      { key: 'D', text: '$0{,}5$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Gradien regresi memenuhi $b=r\\dfrac{s_{y}}{s_{x}}=0{,}8\\cdot\\dfrac{5}{2}=2$, sehingga setiap kenaikan satu satuan $x$ berkaitan dengan kenaikan sekitar $2$ satuan $y$.',
+    hints: [
+      'Hubungan gradien dan korelasi: $b=r\\dfrac{s_{y}}{s_{x}}$.',
+      'Kalikan $r$ dengan rasio simpangan baku $y$ terhadap $x$.',
+    ],
+    competencies: ['gradien regresi', 'korelasi', 'penalaran'],
+  },
 ];

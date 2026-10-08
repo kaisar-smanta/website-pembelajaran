@@ -167,13 +167,14 @@ const uncovered = [];
 const supplementary = [];
 for (const [id, meta] of topicMeta) {
   if (meta.status === 'rencana') continue;
-  if (covered.has(id)) continue;
+  // Setiap topik pengayaan wajib punya cpNote, baik yang terpetakan ke CP
+  // maupun yang belum, dan seluruhnya dilaporkan (bukan hanya yang tak terpetakan).
   if (meta.supplementary) {
     supplementary.push(id);
     ok(meta.cpNote.length > 0, `topik pengayaan ${id} wajib punya cpNote penjelas`);
-  } else {
-    uncovered.push(id);
   }
+  if (covered.has(id)) continue;
+  if (!meta.supplementary) uncovered.push(id);
 }
 ok(
   uncovered.length === 0,

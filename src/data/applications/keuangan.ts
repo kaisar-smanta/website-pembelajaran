@@ -41,6 +41,8 @@ Selisihnya sekitar **Rp1.908.477** — cukup untuk membeli laptop atau menambah 
       'Jika uang itu hanya ditabung 2 tahun, apakah keputusan memilih bank masih benar-benar penting?',
       'Kalau kamu hanya boleh menabung sekali dan tidak bisa menambah setoran, mengapa waktu menjadi sekutu terbaikmu?',
     ],
+    source:
+      'Data ilustratif berdasarkan produk tabungan bank umum; suku bunga dan saldo dibulatkan untuk pembelajaran.',
   },
   {
     id: 'anuitas-pinjaman',
@@ -79,6 +81,8 @@ Total pembayaran $= 60 \\times 1.112.222{,}4 \\approx \\text{Rp}66.733.342$, seh
       'Apa yang terjadi pada total bunga jika tenor diperpanjang dari 60 menjadi 72 bulan, padahal angsuran lebih ringan?',
       'Jika kamu punya dana lebih, kapan pelunasan lebih awal paling menghemat bunga?',
     ],
+    source:
+      'Data ilustratif berdasarkan skema kredit kendaraan bermotor; pokok, bunga, dan tenor dibulatkan untuk pembelajaran.',
   },
   {
     id: 'optimasi-produksi-bengkel',
@@ -88,6 +92,7 @@ Total pembayaran $= 60 \\times 1.112.222{,}4 \\approx \\text{Rp}66.733.342$, seh
     grade: 'X',
     level: 'cakap',
     estimatedMinutes: 12,
+    explorationId: 'spltv-perpotongan',
     tags: ['program linear', 'optimasi', 'sistem pertidaksamaan', 'laba', 'kendala'],
     summary: 'Memilih kombinasi produksi yang memaksimumkan laba dengan sumber daya terbatas.',
     topicIds: ['sistem-pertidaksamaan', 'spltv'],
@@ -109,6 +114,8 @@ Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian di
       'Bagaimana solusi berubah jika laba rak B naik menjadi Rp250.000 sementara kendala tetap?',
       'Jika suatu hari jam pemotongan ditambah menjadi 9 jam, apakah laba pasti ikut naik? Jelaskan.',
     ],
+    source:
+      'Ilustrasi fiktif persoalan program linear pada usaha kecil; angka dibuat agar mudah dihitung.',
   },
   {
     id: 'dana-pensiun',
@@ -145,6 +152,8 @@ Menunda 10 tahun membuat setoran bulanan naik dari sekitar Rp598.000 menjadi Rp1
       'Jika setoran bulananmu sekarang kecil, apa cara paling masuk akal untuk mengimbanginya?',
       'Bagaimana hasilnya berubah jika suku bunga bulanan turun menjadi 0,4%? Mana yang lebih sensitif, waktu atau suku bunga?',
     ],
+    source:
+      'Data ilustratif berdasarkan produk investasi berkala; imbal hasil dan target dana dibulatkan untuk pembelajaran.',
   },
   {
     id: 'diskon-berlapis',
@@ -183,6 +192,8 @@ Sekarang urutannya penting: selisihnya **Rp10.000**. Kesimpulannya, selama semua
       'Jika kamu boleh memilih urutan, kapan sebaiknya kamu memakai diskon persen dan kapan voucher nominal?',
       'Bagaimana komposisi berubah jika setelah diskon masih dikenakan PPN 11%? Apakah urutan PPN memengaruhi harga akhir?',
     ],
+    source:
+      'Ilustrasi fiktif pola promo diskon berlapis di ritel; harga dan voucher dibuat agar mudah dihitung.',
   },
   {
     id: 'konversi-mata-uang',
@@ -222,5 +233,55 @@ Namun di dunia nyata, money changer memakai dua kurs sekaligus: **kurs beli** Rp
       'Jika kurs berubah dari Rp16.000 menjadi Rp17.000 per USD, bagaimana pengaruhnya terhadap jumlah rupiah yang diterima untuk 100 USD?',
       'Dalam situasi apa biaya selisih kurs ini masih sepadan dengan kebutuhanmu?',
     ],
+    source:
+      'Data ilustratif berdasarkan kurs transaksi bank dan money changer; kurs dibulatkan dan dapat berubah dari waktu ke waktu.',
+  },
+  {
+    id: 'ind-validasi-angsuran',
+    title: 'Validasi Pola Angsuran Bertahap dengan Induksi',
+    category: 'keuangan',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'mahir',
+    estimatedMinutes: 13,
+    explorationId: 'anuitas-sim',
+    tags: ['induksi matematika', 'pembuktian', 'deret aritmetika', 'angsuran', 'pola'],
+    summary:
+      'Membuktikan rumus total setoran bertahap berlaku untuk semua bulan dengan induksi matematika.',
+    topicIds: ['induksi-matematika', 'barisan-deret', 'bunga-majemuk'],
+    body: `Sebuah koperasi menawarkan program simpanan bertahap. Setoran bulan pertama **Rp100.000**, dan setiap bulan berikutnya naik **Rp25.000**. Brosurnya menjanjikan total setoran setelah $n$ bulan mengikuti rumus
+$$S_n = 12.500n^{2} + 87.500n.$$
+
+Rumus ini enak dipakai, tetapi dari mana asalnya? Menguji beberapa bulan pertama saja tidak cukup, karena bisa saja rumus itu cocok di awal lalu melenceng pada bulan ke-13. Untuk memastikan rumus benar untuk **semua** $n$ bilangan asli, kita perlu **induksi matematika**.
+
+Pertanyaan pemicunya: bagaimana membuktikan rumus total setoran itu benar untuk setiap bulan, bukan sekadar beberapa bulan pertama?`,
+    analysis: `Total setoran setelah $n$ bulan adalah deret aritmetika
+$$S_n = 100.000 + 125.000 + \\cdots + \\bigl(100.000 + (n-1)25.000\\bigr).$$
+
+Langkah pertama, **basis**: untuk $n = 1$,
+$$S_1 = 100.000 \\quad\\text{dan}\\quad 12.500(1)^{2} + 87.500(1) = 100.000.$$
+Basis benar.
+
+Langkah kedua, **langkah induksi**: andaikan rumus benar untuk $n$, yakni $S_n = 12.500n^{2} + 87.500n$. Setoran bulan ke-$(n+1)$ adalah $100.000 + n \\cdot 25.000$, sehingga
+$$S_{n+1} = S_n + 100.000 + 25.000n = 12.500n^{2} + 87.500n + 100.000 + 25.000n.$$
+Menyederhanakan,
+$$S_{n+1} = 12.500n^{2} + 112.500n + 100.000.$$
+Sisi lain yang ingin dicapai adalah rumus untuk $n+1$:
+$$12.500(n+1)^{2} + 87.500(n+1) = 12.500n^{2} + 112.500n + 100.000.$$
+Kedua bentuk **sama persis**, jadi langkah induksi berhasil. Karena basis benar dan langkah induksi benar, rumus $S_n$ terbukti berlaku untuk semua bilangan asli $n$.
+
+Bandingkan dengan pengujian beberapa bulan: memeriksa $n = 1, 2, 3$ memang mencocokkan angka, tetapi hanya induksi yang menjamin tidak ada bulan ke-13 yang melenceng. Inilah yang membedakan **pola yang tampak** dari **pola yang terbukti**.`,
+    takeaways: [
+      'Induksi matematika butuh dua bagian: basis ($n=1$) dan langkah induksi ($n \\to n+1$).',
+      'Menguji beberapa kasus awal tidak pernah cukup untuk membuktikan pola jangka panjang.',
+      'Rumus deret aritmetika lebih meyakinkan jika diturunkan dan dibuktikan, bukan sekadar dipercaya.',
+    ],
+    reflection: [
+      'Mengapa memeriksa 10 bulan pertama tetap belum membuktikan rumus angsuran ini benar?',
+      'Di mana tepatnya hipotesis induksi dipakai pada langkah $n \\to n+1$?',
+      'Jika kenaikan bulanan berubah menjadi Rp50.000, apa yang berubah pada pembuktiannya?',
+    ],
+    source:
+      'Ilustrasi fiktif program simpanan bertahap koperasi; nominal dibuat agar mudah dibuktikan dengan induksi.',
   },
 ];

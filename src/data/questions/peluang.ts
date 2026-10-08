@@ -212,4 +212,45 @@ export const peluangQuestions: Question[] = [
     hints: ['Ada berapa hasil yang sama mungkin, dan berapa yang termasuk kejadian?'],
     competencies: ['peluang teoretis', 'ruang sampel'],
   },
+  {
+    id: 'pl-13',
+    topicId: 'peluang',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Di sebuah kelas terdapat $40$ siswa. Sebanyak $25$ siswa menyukai matematika, $20$ siswa menyukai fisika, dan $10$ siswa menyukai keduanya. Seorang siswa dipilih secara acak. (a) Tentukan peluang siswa menyukai matematika dan fisika. (b) Tentukan peluang siswa menyukai matematika jika diketahui ia menyukai fisika. (c) Periksa apakah kedua kejadian saling bebas, lalu simpulkan.',
+    answer:
+      'Misal $M$ kejadian menyukai matematika dan $F$ kejadian menyukai fisika. (a) $P(M\\cap F)=\\dfrac{10}{40}=\\dfrac{1}{4}$. (b) $P(M\\mid F)=\\dfrac{P(M\\cap F)}{P(F)}=\\dfrac{10/40}{20/40}=\\dfrac{10}{20}=\\dfrac{1}{2}$. (c) $P(M)=\\dfrac{25}{40}=\\dfrac{5}{8}$ dan $P(F)=\\dfrac{20}{40}=\\dfrac{1}{2}$. Karena $P(M)P(F)=\\dfrac{5}{16}\\neq\\dfrac{1}{4}=P(M\\cap F)$, kedua kejadian tidak saling bebas. Mengetahui siswa menyukai fisika mengubah peluangnya menyukai matematika.',
+    explanation:
+      'Kunci: menghitung peluang irisan langsung dari data, memakai definisi peluang bersyarat, lalu membandingkan $P(M)P(F)$ dengan $P(M\\cap F)$ untuk menguji kebebasan.',
+    hints: [
+      'Peluang bersyarat $P(M\\mid F)=\\dfrac{P(M\\cap F)}{P(F)}$.',
+      'Dua kejadian saling bebas bila $P(M\\cap F)=P(M)P(F)$.',
+    ],
+    competencies: ['peluang bersyarat', 'kejadian saling bebas', 'penalaran'],
+  },
+  {
+    id: 'pl-14',
+    topicId: 'peluang',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Sebuah kantong berisi $5$ bola merah dan $3$ bola putih. Dua bola diambil satu per satu tanpa pengembalian. Peluang terambil kedua bola merah adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{5}{14}$' },
+      { key: 'B', text: '$\\dfrac{25}{64}$' },
+      { key: 'C', text: '$\\dfrac{5}{8}$' },
+      { key: 'D', text: '$\\dfrac{1}{2}$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Karena tanpa pengembalian, peluang berubah setelah pengambilan pertama. $P(M_{1})=\\dfrac{5}{8}$ dan setelah satu merah terambil tersisa $4$ merah dari $7$ bola sehingga $P(M_{2}\\mid M_{1})=\\dfrac{4}{7}$. Maka $P(M_{1}\\cap M_{2})=\\dfrac{5}{8}\\cdot\\dfrac{4}{7}=\\dfrac{20}{56}=\\dfrac{5}{14}$.',
+    hints: [
+      'Karena tanpa pengembalian, banyak bola dan banyak merah berkurang setelah pengambilan pertama.',
+      'Kalikan peluang pengambilan pertama dengan peluang bersyarat pengambilan kedua.',
+    ],
+    competencies: ['peluang bersyarat', 'aturan perkalian', 'penalaran'],
+  },
 ];

@@ -37,6 +37,7 @@ export const pemodelanFungsi: Topic = {
     { text: 'Memeriksa kecocokan model dengan data dan grafiknya.' },
     { text: 'Menafsirkan parameter beserta satuan serta menentukan domain yang valid.' },
   ],
+  applications: ['pemodelan-penyebaran', 'lintasan-bola'],
   sections: [
     {
       id: "tujuan",
@@ -382,7 +383,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana sebuah model menyederhanakan keadaan nyata dan di mana batasnya.",
       blocks: [
         {
           kind: "reflection",

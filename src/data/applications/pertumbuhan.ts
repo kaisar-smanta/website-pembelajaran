@@ -31,6 +31,8 @@ Jika pertambahannya linear (bertambah jumlah tetap), hasilnya akan jauh lebih ke
       'Mengapa hasil pertumbuhan eksponensial jauh melampaui pertumbuhan linear?',
       'Kapan model ini berhenti berlaku, dan faktor apa yang membuatnya melambat?',
     ],
+    source:
+      'Data ilustratif berdasarkan pengamatan pertumbuhan bakteri di laboratorium; angka dibulatkan untuk pembelajaran.',
   },
   {
     id: 'peluruhan-zat',
@@ -62,6 +64,8 @@ Karena basis lebih kecil dari 1, tanda pertidaksamaan berbalik saat menyamakan e
       'Mengapa tanda pertidaksamaan berbalik pada peluruhan dengan basis kurang dari 1?',
       'Bagaimana kamu menentukan kapan obat perlu diminum lagi?',
     ],
+    source:
+      'Data ilustratif berdasarkan konsep waktu paruh obat; angka dibulatkan untuk pembelajaran dan bukan rujukan medis.',
   },
   {
     id: 'pemodelan-penyebaran',
@@ -93,6 +97,8 @@ Jadi ambang itu dilewati sekitar **10 pekan** setelah pencatatan awal. **Asumsi 
       'Mengapa prediksi model ini cepat melenceng setelah beberapa pekan?',
       'Informasi tambahan apa yang kamu butuhkan agar model lebih realistis?',
     ],
+    source:
+      'Data ilustratif berdasarkan pola awal penyebaran kasus yang dilaporkan lembaga kesehatan (mis. WHO); angka dibulatkan untuk latihan pemodelan, bukan angka resmi.',
   },
   {
     id: 'tabungan-vs-inflasi',
@@ -134,5 +140,89 @@ Dalam 10 tahun faktor pertumbuhan daya beli adalah $\\left(\\dfrac{1{,}04}{1{,}0
       'Mengapa selisih $4\\%$ dan $3\\%$ tidak sama dengan tingkat bunga riil?',
       'Data suku bunga dan inflasi apa yang perlu kamu cari sebelum memutuskan menyimpan uang?',
     ],
+    source:
+      'Data ilustratif berdasarkan suku bunga tabungan dan laju inflasi; angka dibulatkan untuk pembelajaran.',
+  },
+  {
+    id: 'pertumbuhan-batas-daya-dukung',
+    title: 'Ketika Pertumbuhan Eksponensial Mentok: Batas Daya Dukung',
+    category: 'pertumbuhan',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'mahir',
+    estimatedMinutes: 14,
+    explorationId: 'eksponen-pertumbuhan',
+    tags: ['pemodelan', 'eksponen', 'logaritma', 'daya dukung', 'pertumbuhan logistik', 'barisan geometri'],
+    summary:
+      'Menguji asumsi model eksponensial dan memperkenalkan batas daya dukung ketika pertumbuhan mulai melambat.',
+    topicIds: ['pemodelan-fungsi', 'fungsi-eksponensial', 'eksponen', 'barisan-deret'],
+    body: `Sebuah danau kecil mula-mula dihuni **200 ekor ikan**. Tanpa predator, populasinya berlipat sekitar **1,4 kali setiap tahun** sehingga pada tahun-tahun awal terlihat mengikuti model eksponensial
+$$N(t) = 200 \\cdot (1{,}4)^{t}.$$
+
+Namun danau itu hanya mampu menampung sekitar **2.000 ekor** sebelum makanan dan ruang menjadi terbatas. Artinya model eksponensial tidak boleh dipakai selamanya.
+
+Pertanyaan pemicunya: menurut model eksponensial, kapan populasi menembus 2.000? Setelah itu, apakah populasi benar-benar terus berlipat, dan apa yang membuat prediksi eksponensial mulai menyesatkan?`,
+    analysis: `Selesaikan $200 \\cdot (1{,}4)^{t} = 2000$, yaitu $(1{,}4)^{t} = 10$. Dengan logaritma,
+$$t = \\frac{\\log 10}{\\log 1{,}4} \\approx \\frac{1}{0{,}1461} \\approx 6{,}8 \\text{ tahun}.$$
+Jadi model eksponensial memperkirakan ambang 2.000 ekor terlampaui sekitar **tahun ke-7**. Padahal daya dukung danau hanya 2.000 ekor: ketika populasi mendekati batas itu, persaingan makanan menurunkan laju kelahiran dan menaikkan kematian. Pertumbuhan melambat, bukan terus berlipat.
+
+Model yang lebih jujur adalah pertumbuhan logistik, misalnya
+$$N(t) = \\frac{K}{1 + \\left(\\dfrac{K-N_0}{N_0}\\right)e^{-rt}}$$
+dengan $K = 2000$ daya dukung dan $N_0 = 200$ populasi awal. Grafiknya menyerupai huruf S: cepat pada awalnya (mendekati eksponensial), lalu mendatar mendekati $K$ sebagai asimtot. Pertumbuhan logistik memiliki laju paling cepat di sekitar $N = K/2 = 1000$ ekor, bukan di awal.
+
+Pelajarannya bukan "eksponensial salah", melainkan **setiap model punya rentang keberlakuan**. Model eksponensial akurat selama sumber daya masih berlimpah; setelah itu perlu ditambahkan faktor pembatas.`,
+    takeaways: [
+      'Model eksponensial hanya berlaku selama sumber daya belum menjadi pembatas.',
+      'Daya dukung $K$ membuat pertumbuhan melambat dan menghampiri nilai maksimum sebagai asimtot.',
+      'Menentukan kapan model berhenti berlaku sama pentingnya dengan menghitung dari model itu.',
+      'Logaritma dipakai untuk menerjemahkan pertanyaan ambang menjadi waktu.',
+    ],
+    reflection: [
+      'Apa bukti nyata di lapangan yang menandakan populasi sudah mendekati daya dukung?',
+      'Bagaimana bentuk grafik berubah jika daya dukung dinaikkan menjadi 3.000 ekor?',
+      'Sebutkan satu contoh lain (selain populasi) yang tumbuh eksponensial pada awalnya tetapi kemudian melambat.',
+    ],
+    source:
+      'Data ilustratif berdasarkan pola pertumbuhan populasi dalam ruang terbatas; angka dan daya dukung dibulatkan untuk pembelajaran.',
+  },
+  {
+    id: 'tbil-jadwal-ronda',
+    title: 'Penjadwalan Ronda: Kapan Tiga Kelompok Bertemu Lagi?',
+    category: 'pertumbuhan',
+    element: 'bilangan',
+    grade: 'X',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    tags: ['KPK', 'modulo', 'keterbagian', 'penjadwalan', 'siklus'],
+    summary:
+      'Menggunakan KPK dan aritmetika modulo untuk menentukan kapan beberapa siklus kegiatan berulang bersamaan.',
+    topicIds: ['teori-bilangan', 'eksponen', 'barisan-deret'],
+    body: `Di sebuah kampung, tiga kelompok ronda bertugas dengan siklus berbeda:
+- Kelompok A bertugas setiap **4 malam**,
+- Kelompok B setiap **6 malam**,
+- Kelompok C setiap **9 malam**.
+
+Malam ini ketiganya bertugas bersama. Pertanyaan pemicunya: berapa malam lagi mereka akan bertugas bersama lagi, dan jika malam ini **Jumat**, kapan pertemuan bersama itu jatuh pada hari Jumat berikutnya? Menjawabnya cukup dengan **kelipatan persekutuan terkecil (KPK)** dan bahasa **modulo**.`,
+    analysis: `**Kapan bertemu lagi.** Agar ketiganya bertugas bersama, jumlah malam yang berlalu harus kelipatan 4, kelipatan 6, sekaligus kelipatan 9. Waktu pertemuan berikutnya adalah
+$$\\operatorname{lcm}(4,6,9) = 36 \\text{ malam}.$$
+Memang $\\operatorname{lcm}(4,6)=12$ dan $\\operatorname{lcm}(12,9)=36$, sehingga setiap 36 malam ketiganya bertemu.
+
+**Jatuh pada hari apa.** Satu minggu ada 7 hari, jadi hari bergeser dengan modulo 7. Jarak 36 malam bersisa $36 \\equiv 1 \\pmod 7$, artinya pertemuan berikutnya jatuh satu hari setelah Jumat, yakni **Sabtu**. Karena itu, agar pertemuannya kembali hari Jumat, jaraknya harus kelipatan dari **kedua** siklus, yaitu
+$$\\operatorname{lcm}(36,7) = 252 \\text{ malam}.$$
+Dalam 252 malam, $252 = 36 \\times 7$ sehingga ketiganya sudah bertemu $7$ kali, dan $252 \\equiv 0 \\pmod 7$ sehingga harinya kembali Jumat. Jadi pertemuan bersama pada hari Jumat berikutnya terjadi **252 malam** sejak malam ini.
+
+Cara berpikir ini dipakai di dunia nyata untuk menyelaraskan jadwal piket, perawatan mesin, hingga sinkronisasi siaran: jadwal bersamaan selalu muncul pada kelipatan persekutuan.`,
+    takeaways: [
+      'Dua kegiatan periodik selalu bertemu pada kelipatan persekutuan terkecil periodenya.',
+      'Aritmetika modulo 7 menjelaskan pergeseran hari dalam sepekan.',
+      'KPK dari siklus gabungan dan 7 memberi waktu pertemuan yang jatuh pada hari yang sama.',
+    ],
+    reflection: [
+      'Mengapa pertemuan berikutnya harus kelipatan 4, 6, dan 9 sekaligus?',
+      'Jika kelompok C diganti menjadi setiap 12 malam, bagaimana KPK-nya berubah?',
+      'Kegiatan lain apa di sekitarmu yang jadwalnya bisa dianalisis dengan cara ini?',
+    ],
+    source:
+      'Ilustrasi fiktif penjadwalan ronda kampung; periode dibuat agar KPK-nya mudah dihitung.',
   },
 ];

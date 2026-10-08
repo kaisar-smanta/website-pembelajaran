@@ -39,6 +39,7 @@ export const polinomial: Topic = {
     { text: 'Peserta didik dapat menerapkan teorema sisa dan teorema faktor.' },
     { text: 'Peserta didik dapat menentukan faktor dan akar polinomial serta menyelesaikan identitas polinomial.' },
   ],
+  applications: ['mtl-optimasi-produksi'],
   sections: [
     {
       id: "tujuan",
@@ -331,10 +332,54 @@ Dalam teknologi, kurva Bézier pada desain grafis dan animasi dibangun dari poli
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Fakta sederhana tentang paritas dapat menyelesaikan masalah akar polinomial yang tampak sulit.
+
+Misalkan $P(x)$ adalah polinomial dengan koefisien bilangan bulat. Diketahui $P(0)$ dan $P(1)$ keduanya bilangan **ganjil**.
+
+Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Perhatikan hanya **paritas** (genap atau ganjil). Jika $k$ akar bulat, tuliskan $P(x)=(x-k)Q(x)$, lalu selidiki paritas $P(0)$ dan $P(1)$.`,
+        },
+        {
+          kind: "step-reveal",
+          intro: "Ikuti langkah pembuktian berikut satu per satu.",
+          steps: [
+            {
+              title: "Mengandaikan ada akar bulat",
+              text: `Andaikan $P$ memiliki akar bulat $k$. Menurut teorema faktor, $(x-k)$ membagi $P(x)$, sehingga $P(x)=(x-k)Q(x)$. Karena $P$ berkoefisien bulat dan $(x-k)$ monik, hasil bagi $Q(x)$ juga berkoefisien bulat.`,
+            },
+            {
+              title: "Menghitung $P(0)$",
+              text: `Substitusi $x=0$ memberi $P(0)=(-k)Q(0)$. Jadi $P(0)$ habis dibagi oleh $k$.`,
+            },
+            {
+              title: "Menghitung $P(1)$",
+              text: `Substitusi $x=1$ memberi $P(1)=(1-k)Q(1)$. Jadi $P(1)$ habis dibagi oleh $(1-k)$.`,
+            },
+            {
+              title: "Menyelidiki paritas",
+              text: `Jika $k$ genap, maka $P(0)=(-k)Q(0)$ juga genap. Jika $k$ ganjil, maka $1-k$ genap sehingga $P(1)=(1-k)Q(1)$ genap. Jadi sekurang-kurangnya satu dari $P(0)$ atau $P(1)$ bernilai genap.`,
+            },
+            {
+              title: "Kontradiksi",
+              text: `Hal ini bertentangan dengan yang diketahui, yaitu $P(0)$ dan $P(1)$ keduanya ganjil. Maka pengandaian salah, sehingga $P(x)$ tidak memiliki akar bilangan bulat. Terbukti.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana bentuk polinomial menjelaskan pola dan perilaku grafiknya.",
       blocks: [
         {
           kind: "reflection",

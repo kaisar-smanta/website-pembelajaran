@@ -35,9 +35,11 @@ export interface TopicEntry {
   prerequisites?: string[];
 }
 
-/** Rekaman berstempel waktu; hanya `at` yang dipakai di sini. */
+/** Rekaman berstempel waktu; `at` dipakai di sini dan `confidence` untuk refleksi. */
 export interface StampedRecord {
   at?: number;
+  confidence?: number;
+  text?: string;
 }
 
 /** Kemajuan satu topik, hasil gabungan soal, dugaan, dan refleksi. */
@@ -57,6 +59,78 @@ export interface TopicOverview extends TopicEntry {
   completed: boolean;
 }
 
+export type MasteryBand = 'belum' | 'berlatih' | 'cukup' | 'mahir';
+
+export interface MasteryTopicInput {
+  id: string;
+  slug: string;
+  title: string;
+  gradeName: string;
+  elementName: string;
+  element?: string;
+  practiceHref: string;
+  materialHref: string;
+  answered: number;
+  correct: number;
+  gradedAnswered: number;
+  total: number;
+  lastAt?: number;
+}
+
+export interface TopicMastery {
+  id: string;
+  slug: string;
+  title: string;
+  gradeName: string;
+  elementName: string;
+  element?: string;
+  practiceHref: string;
+  materialHref: string;
+  answered: number;
+  correct: number;
+  gradedAnswered: number;
+  total: number;
+  accuracy: number;
+  completion: number;
+  band: MasteryBand;
+  lastAt: number;
+}
+
+export interface MasterySummary {
+  bands: Record<MasteryBand, number>;
+  topics: TopicMastery[];
+  focus: TopicMastery[];
+  thresholdCukup: number;
+  thresholdMahir: number;
+}
+
+export const MASTERY_THRESHOLD_CUKUP = 0.7;
+export const MASTERY_THRESHOLD_MAHIR = 0.85;
+
+export interface ConfidenceTopicInput {
+  id: string;
+  title: string;
+  practiceHref: string;
+}
+
+export interface LowConfidenceEntry {
+  key: string;
+  topicId: string;
+  topicTitle: string;
+  practiceHref: string;
+  confidence: number;
+  at: number;
+  text: string;
+}
+
+export interface ConfidenceSummary {
+  total: number;
+  rated: number;
+  average: number | null;
+  low: LowConfidenceEntry[];
+  lowLimit: number;
+}
+
 export interface SiteOverview {
   topics: TopicOverview[];
   totalQuestions: number;
@@ -70,6 +144,8 @@ export interface SiteOverview {
   reflections: number;
   lastAt: number;
   hasData: boolean;
+  mastery: MasterySummary;
+  confidence: ConfidenceSummary;
 }
 
 export interface ElementGroup {
@@ -211,6 +287,131 @@ export function buildOverview(
     reflections: reflectionsTotal,
     lastAt,
     hasData: answered > 0 || predictionsTotal > 0 || reflectionsTotal > 0,
+    mastery: buildMasterySummary(topics),
+    confidence: buildConfidenceSummary(
+      topics.map((topic) => ({
+        id: topic.id,
+        title: topic.title,
+        practiceHref: topic.practiceHref,
+      })),
+      reflections,
+    ),
+  };
+}
+
+export function classifyMastery(
+  answered: number,
+  accuracy: number,
+  completion: number,
+  thresholds: { cukup?: number; mahir?: number } = {},
+): MasteryBand {
+  if (answered <= 0) return 'belum';
+  const cukup = thresholds.cukup ?? MASTERY_THRESHOLD_CUKUP;
+  const mahir = thresholds.mahir ?? MASTERY_THRESHOLD_MAHIR;
+  if (accuracy >= mahir && completion >= 1) return 'mahir';
+  if (accuracy < cukup || completion < 1) return 'berlatih';
+  return 'cukup';
+}
+
+const MASTERY_FOCUS_WEIGHT: Record<MasteryBand, number> = {
+  berlatih: 0,
+  belum: 1,
+  cukup: 2,
+  mahir: 3,
+};
+
+export function buildMasterySummary(
+  topics: MasteryTopicInput[],
+  focusLimit = 8,
+): MasterySummary {
+  const list: TopicMastery[] = topics
+    .filter((topic) => topic.total > 0)
+    .map((topic) => {
+      const completion = topic.total > 0 ? topic.answered / topic.total : 0;
+      const accuracy = topic.gradedAnswered > 0 ? topic.correct / topic.gradedAnswered : 0;
+      return {
+        id: topic.id,
+        slug: topic.slug,
+        title: topic.title,
+        gradeName: topic.gradeName,
+        elementName: topic.elementName,
+        element: topic.element,
+        practiceHref: topic.practiceHref,
+        materialHref: topic.materialHref,
+        answered: topic.answered,
+        correct: topic.correct,
+        gradedAnswered: topic.gradedAnswered,
+        total: topic.total,
+        accuracy,
+        completion,
+        band: classifyMastery(topic.answered, accuracy, completion),
+        lastAt: topic.lastAt ?? 0,
+      };
+    });
+
+  const bands: Record<MasteryBand, number> = { belum: 0, berlatih: 0, cukup: 0, mahir: 0 };
+  for (const topic of list) bands[topic.band] += 1;
+
+  const focus = list
+    .filter((topic) => topic.band === 'berlatih' || topic.band === 'belum')
+    .sort((a, b) => {
+      if (MASTERY_FOCUS_WEIGHT[a.band] !== MASTERY_FOCUS_WEIGHT[b.band]) {
+        return MASTERY_FOCUS_WEIGHT[a.band] - MASTERY_FOCUS_WEIGHT[b.band];
+      }
+      if (a.completion !== b.completion) return a.completion - b.completion;
+      if (a.accuracy !== b.accuracy) return a.accuracy - b.accuracy;
+      return b.lastAt - a.lastAt;
+    })
+    .slice(0, Math.max(0, focusLimit));
+
+  return {
+    bands,
+    topics: list,
+    focus,
+    thresholdCukup: MASTERY_THRESHOLD_CUKUP,
+    thresholdMahir: MASTERY_THRESHOLD_MAHIR,
+  };
+}
+
+export function buildConfidenceSummary(
+  topics: ConfidenceTopicInput[],
+  records: Record<string, StampedRecord>,
+  lowLimit = 6,
+): ConfidenceSummary {
+  const byId = new Map(topics.map((topic) => [topic.id, topic]));
+  const entries = Object.entries(records);
+  let rated = 0;
+  let sum = 0;
+  const low: LowConfidenceEntry[] = [];
+
+  for (const [key, record] of entries) {
+    const confidence = record?.confidence;
+    if (typeof confidence !== 'number' || confidence <= 0) continue;
+    rated += 1;
+    sum += confidence;
+    if (confidence <= 2) {
+      const topicId = topicOfStorageKey(key);
+      const topic = byId.get(topicId);
+      low.push({
+        key,
+        topicId,
+        topicTitle: topic?.title ?? topicId,
+        practiceHref: topic?.practiceHref ?? '',
+        confidence,
+        at: typeof record.at === 'number' ? record.at : 0,
+        text: typeof record.text === 'string' ? record.text : '',
+      });
+    }
+  }
+
+  low.sort((a, b) => a.confidence - b.confidence || b.at - a.at);
+
+  return {
+    total: entries.length,
+    rated,
+    average: rated ? sum / rated : null,
+    low: low.slice(0, Math.max(0, lowLimit)),
+    lowLimit,
   };
 }
 

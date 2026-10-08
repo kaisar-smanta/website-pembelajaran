@@ -238,4 +238,46 @@ export const trigonometriLanjutQuestions: Question[] = [
     hints: ['Uraikan perpindahan $15$ km menjadi komponen $x$ dan $y$.', 'Gunakan rumus jarak antara dua titik.'],
     competencies: ['vektor', 'aturan kosinus', 'kontekstual'],
   },
+  {
+    id: 'tl-15',
+    topicId: 'trigonometri-lanjut',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Kedalaman air di sebuah pelabuhan mengikuti pola sinusoidal. Saat surut pada $t=0$ kedalamannya $2$ m, sedangkan saat pasang pada $t=6$ jam kedalamannya $8$ m. Pola ini berulang setiap $12$ jam. (a) Susun model kedalaman $h(t)$ dalam bentuk kosinus. (b) Tentukan kedalaman air pada $t=4$ jam. (c) Tentukan waktu pertama setelah surut ketika kedalaman mencapai $6{,}5$ m.',
+    answer:
+      'Amplitudo $A=\\dfrac{8-2}{2}=3$ dan nilai tengah $D=\\dfrac{8+2}{2}=5$. Karena $t=0$ adalah nilai minimum, gunakan $h(t)=D-A\\cos(30^\\circ t)=5-3\\cos(30^\\circ t)$ dengan periode $12$ jam. (b) $h(4)=5-3\\cos120^\\circ=5-3\\left(-\\dfrac{1}{2}\\right)=6{,}5$ m. (c) Selesaikan $5-3\\cos(30^\\circ t)=6{,}5$, yaitu $\\cos(30^\\circ t)=-\\dfrac{1}{2}$. Maka $30^\\circ t=120^\\circ$ sehingga $t=4$ jam. Jadi kedalaman $6{,}5$ m pertama kali tercapai pada $t=4$ jam.',
+    explanation:
+      'Kunci: menentukan amplitudo dan nilai tengah dari data surut-pasang, memilih bentuk kosinus bertanda negatif agar $t=0$ menjadi minimum, lalu menyelesaikan persamaan trigonometri.',
+    hints: [
+      'Amplitudo adalah setengah selisih kedalaman pasang dan surut.',
+      'Karena $t=0$ surut (minimum), pakai bentuk $-\\cos$.',
+      'Selesaikan $\\cos(30^\\circ t)=-\\dfrac{1}{2}$.',
+    ],
+    competencies: ['pemodelan fungsi trigonometri', 'persamaan trigonometri', 'amplitudo dan periode'],
+  },
+  {
+    id: 'tl-16',
+    topicId: 'trigonometri-lanjut',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Diketahui $\\sin\\theta+\\cos\\theta=\\dfrac{1}{2}$. Nilai $\\sin\\theta\\cos\\theta$ adalah …',
+    options: [
+      { key: 'A', text: '$-\\dfrac{3}{8}$' },
+      { key: 'B', text: '$\\dfrac{3}{8}$' },
+      { key: 'C', text: '$-\\dfrac{1}{4}$' },
+      { key: 'D', text: '$\\dfrac{5}{8}$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Kuadratkan kedua ruas: $(\\sin\\theta+\\cos\\theta)^{2}=\\sin^{2}\\theta+2\\sin\\theta\\cos\\theta+\\cos^{2}\\theta=1+2\\sin\\theta\\cos\\theta=\\dfrac{1}{4}$. Maka $2\\sin\\theta\\cos\\theta=-\\dfrac{3}{4}$, sehingga $\\sin\\theta\\cos\\theta=-\\dfrac{3}{8}$.',
+    hints: [
+      'Kuadratkan kedua ruas persamaan.',
+      'Gunakan identitas $\\sin^{2}\\theta+\\cos^{2}\\theta=1$.',
+    ],
+    competencies: ['identitas trigonometri', 'penalaran'],
+  },
 ];

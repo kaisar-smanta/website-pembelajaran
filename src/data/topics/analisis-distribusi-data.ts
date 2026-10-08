@@ -42,6 +42,7 @@ export const analisisDistribusiData: Topic = {
     { text: 'Menyajikan pasangan dua variabel numerik pada diagram pencar dan menafsirkan arah hubungannya.' },
     { text: 'Membandingkan dua distribusi dan menarik kesimpulan yang wajar.' },
   ],
+  applications: ['survei-statistik', 'statistik-harian'],
   sections: [
     {
       id: "tujuan",
@@ -413,7 +414,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana ukuran pemusatan dan penyebaran membantumu membaca data di sekitarmu.",
       blocks: [
         {
           kind: "reflection",

@@ -38,6 +38,7 @@ export const peluangBersyarat: Topic = {
     { text: 'Menerapkan aturan Bayes sederhana untuk memperbarui peluang.' },
     { text: 'Menggunakan permutasi dan kombinasi untuk mencacah ruang sampel.' },
   ],
+  applications: ['tes-kesehatan'],
   sections: [
     {
       id: "tujuan",
@@ -367,10 +368,55 @@ Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `Ini masalah klasik yang jawabannya sering mengejutkan.
+
+Di dalam sebuah kotak terdapat tiga kartu yang tak dapat dibedakan dari belakang:
+- kartu pertama berwarna merah pada **kedua** sisinya;
+- kartu kedua berwarna putih pada **kedua** sisinya;
+- kartu ketiga berwarna merah pada satu sisi dan putih pada sisi lainnya.
+
+Sebuah kartu diambil secara acak, lalu diletakkan di atas meja. Ternyata sisi kartu yang tampak **berwarna merah**.
+
+Berapa peluang sisi balik kartu itu juga berwarna merah?`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: `Jangan berpikir dalam satuan **kartu**, melainkan dalam satuan **muka (sisi)** kartu. Kedua sisi tiap kartu sama mungkin muncul di atas.`,
+        },
+        {
+          kind: "step-reveal",
+          intro: "Hitung berdasarkan muka kartu, bukan kartu.",
+          steps: [
+            {
+              title: "Daftar seluruh muka",
+              text: `Ada $6$ muka yang sama mungkin: dua merah milik kartu merah-merah, dua putih milik kartu putih-putih, serta satu merah dan satu putih milik kartu campuran.`,
+            },
+            {
+              title: "Batasi pada muka merah",
+              text: `Diketahui muka yang tampak merah. Ada $3$ muka merah yang sama mungkin. Inilah peluang bersyarat yang mempersempit ruang sampel.`,
+            },
+            {
+              title: "Hitung muka merah yang balikannya merah",
+              text: `Dari $3$ muka merah itu, $2$ di antaranya berasal dari kartu merah-merah, dan $1$ berasal dari kartu campuran.`,
+            },
+            {
+              title: "Simpulkan",
+              text: `Jadi $P(\\text{balikan merah}\\mid\\text{tampak merah})=\\dfrac{2}{3}$, bukan $\\dfrac{1}{2}$.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana informasi tambahan mengubah cara kamu menilai peluang.",
       blocks: [
         {
           kind: "reflection",

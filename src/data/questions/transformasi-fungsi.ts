@@ -198,4 +198,40 @@ export const transformasiFungsiQuestions: Question[] = [
     hints: ['Geser ke kanan berarti $x$ diganti $x-2$.', 'Geser ke bawah mengurangi nilai fungsi dengan $3$.'],
     competencies: ['translasi grafik', 'kontekstual', 'interpretasi'],
   },
+  {
+    id: 'tf-13',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Lengkung sebuah jembatan dimodelkan $y=a(x-h)^{2}+k$. Tinggi maksimumnya $12$ m terjadi di tengah bentang selebar $40$ m, dan kedua ujung lengkung menyentuh permukaan jalan ($y=0$) pada $x=0$ dan $x=40$. (a) Tentukan $h$ dan $k$ dari titik puncak. (b) Tentukan $a$ menggunakan salah satu ujung, lalu tulis rumus lengkapnya. (c) Hitung tinggi lengkung pada jarak $10$ m dari tepi kiri.',
+    answer:
+      '(a) Titik tertinggi berada di tengah, yaitu $(h,k)=(20,12)$. (b) Substitusi ujung $(0,0)$: $a(0-20)^{2}+12=0 \\Rightarrow 400a=-12 \\Rightarrow a=-0{,}03$. Jadi $y=-0{,}03(x-20)^{2}+12$. Periksa ujung kanan: $-0{,}03(40-20)^{2}+12=-0{,}03(400)+12=0$, benar. (c) Untuk $x=10$: $y=-0{,}03(10-20)^{2}+12=-0{,}03(100)+12=-3+12=9$ m.',
+    explanation:
+      'Kunci: membaca parameter puncak dari bentuk $a(x-h)^{2}+k$, menentukan $a$ dari satu titik pada lengkung, lalu mengevaluasi tinggi.',
+    hints: [
+      'Puncak lengkung berada di tengah bentang, yaitu $x=20$.',
+      'Gunakan titik ujung $(0,0)$ untuk mencari $a$.',
+    ],
+    competencies: ['pemodelan transformasi', 'bentuk puncak'],
+  },
+  {
+    id: 'tf-14',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diberikan grafik $y=f(x)$. Tiga transformasi diterapkan berurutan: (i) refleksi terhadap sumbu-$y$, (ii) digeser ke kanan $2$ satuan, (iii) diregangkan vertikal dengan faktor $3$. (a) Tentukan rumus akhirnya. (b) Bandingkan dengan urutan yang dibalik (regang vertikal, lalu geser ke kanan, lalu refleksi sumbu-$y$) dan jelaskan perbedaannya. (c) Tunjukkan perbedaan itu dengan $f(x)=x^{2}$.',
+    answer:
+      '(a) Mulai dari $y=f(x)$. Refleksi sumbu-$y$: $y=f(-x)$. Geser ke kanan $2$: ganti $x$ dengan $x-2$, menjadi $y=f(-(x-2))=f(2-x)$. Regang vertikal faktor $3$: $y=3f(2-x)$. (b) Urutan dibalik: regang vertikal memberi $y=3f(x)$, geser ke kanan $2$ memberi $y=3f(x-2)$, lalu refleksi sumbu-$y$ mengganti $x$ dengan $-x$ sehingga $y=3f(-x-2)$. Jadi hasilnya $3f(2-x)$ versus $3f(-x-2)$; karena $2-x\\neq-x-2$ secara umum, keduanya berbeda. (c) Dengan $f(x)=x^{2}$: urutan pertama memberi $3(2-x)^{2}=3(x-2)^{2}$ yang puncaknya di $x=2$, sedangkan urutan kedua memberi $3(-x-2)^{2}=3(x+2)^{2}$ yang puncaknya di $x=-2$. Kedua grafik kongruen tetapi bergeser ke arah berlawanan, membuktikan urutan transformasi memengaruhi hasil.',
+    explanation:
+      'Kunci: menerapkan tiap transformasi pada rumus secara berurutan, membandingkan hasil saat urutan dibalik, dan mengonfirmasi perbedaan melalui contoh konkret.',
+    hints: [
+      'Refleksi sumbu-$y$ mengganti setiap $x$ dengan $-x$; peregangan vertikal mengalikan seluruh nilai fungsi.',
+      'Bandingkan letak titik puncak kedua hasil dengan $f(x)=x^{2}$.',
+    ],
+    competencies: ['komposisi transformasi', 'urutan transformasi', 'penalaran'],
+  },
 ];

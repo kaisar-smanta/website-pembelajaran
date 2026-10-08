@@ -195,4 +195,37 @@ export const fungsiInversQuestions: Question[] = [
     hints: ['Kurangi $500$ terlebih dahulu, lalu bagi dengan $350$.', 'Periksa dengan $B(10)=350(10)+500=4000$.'],
     competencies: ['invers fungsi linear', 'pemodelan'],
   },
+  {
+    id: 'fi-13',
+    topicId: 'fungsi-invers',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah restoran mengenakan pajak $10\\%$ lalu menambahkan biaya layanan tetap Rp20.000 pada total setelah pajak. Total pembayaran (dalam rupiah) dimodelkan $T(x)=1{,}1x+20.000$ dengan $x$ harga menu sebelum pajak. (a) Tentukan $T^{-1}$ yang menyatakan harga menu dari total pembayaran. (b) Hitung harga menu jika pelanggan membayar Rp240.000. (c) Jelaskan mengapa fungsi invers berguna untuk memeriksa tagihan.',
+    answer:
+      '(a) Dari $T=1{,}1x+20.000$ diperoleh $1{,}1x=T-20.000$, sehingga $T^{-1}(x)=\\dfrac{x-20.000}{1{,}1}$. (b) $T^{-1}(240.000)=\\dfrac{240.000-20.000}{1{,}1}=\\dfrac{220.000}{1{,}1}=200.000$, jadi harga menu Rp200.000. Periksa: $T(200.000)=1{,}1(200.000)+20.000=240.000$. (c) Invers membalik arah perhitungan: dari total yang dibayar kita dapat memastikan kembali harga dasar yang seharusnya, sehingga berguna untuk mendeteksi tagihan yang keliru.',
+    explanation:
+      'Kunci: menjadikan $x$ subjek rumus, menerapkan invers pada nilai total, dan menjelaskan manfaat praktisnya.',
+    hints: ['Kurangi biaya layanan terlebih dahulu, lalu bagi dengan $1{,}1$.'],
+    competencies: ['invers fungsi linear', 'pemodelan'],
+  },
+  {
+    id: 'fi-14',
+    topicId: 'fungsi-invers',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diberikan $f(x)=\\dfrac{2x+1}{x-3}$, $x\\neq3$. (a) Tentukan $f^{-1}(x)$. (b) Tunjukkan bahwa $f^{-1}(f(x))=x$. (c) Jelaskan hubungan asimtot $f$ dengan asimtot $f^{-1}$ berdasarkan pencerminan terhadap garis $y=x$.',
+    answer:
+      '(a) Tulis $y=\\dfrac{2x+1}{x-3}$, maka $y(x-3)=2x+1 \\Rightarrow xy-3y=2x+1 \\Rightarrow x(y-2)=3y+1 \\Rightarrow x=\\dfrac{3y+1}{y-2}$. Jadi $f^{-1}(x)=\\dfrac{3x+1}{x-2}$, $x\\neq2$. (b) $f^{-1}(f(x))=\\dfrac{3f(x)+1}{f(x)-2}$. Dengan $f(x)=\\dfrac{2x+1}{x-3}$: pembilangnya $=\\dfrac{3(2x+1)+(x-3)}{x-3}=\\dfrac{7x}{x-3}$ dan penyebutnya $=\\dfrac{(2x+1)-2(x-3)}{x-3}=\\dfrac{7}{x-3}$. Hasil baginya $=\\dfrac{7x}{7}=x$. (c) Grafik $f^{-1}$ adalah pencerminan grafik $f$ terhadap $y=x$, sehingga asimtot vertikal dan horizontal bertukar peran: $f$ memiliki asimtot vertikal $x=3$ dan asimtot horizontal $y=2$, sedangkan $f^{-1}$ memiliki asimtot vertikal $x=2$ dan asimtot horizontal $y=3$.',
+    explanation:
+      'Kunci: menyusun invers fungsi rasional, memverifikasi dengan komposisi, lalu mengaitkan pertukaran asimtot dengan pencerminan terhadap $y=x$.',
+    hints: [
+      'Kalikan silang lalu kumpulkan suku yang memuat $x$.',
+      'Pencerminan terhadap $y=x$ menukar koordinat, sehingga asimtot horizontal menjadi vertikal dan sebaliknya.',
+    ],
+    competencies: ['invers fungsi rasional', 'asimtot', 'penalaran'],
+  },
 ];

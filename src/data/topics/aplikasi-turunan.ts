@@ -286,7 +286,7 @@ Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posi
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Jawab dengan jujur:",
+      body: "Renungkan bagaimana laju perubahan dan optimasi muncul dalam keputusan nyata.",
       blocks: [
         {
           kind: "reflection",

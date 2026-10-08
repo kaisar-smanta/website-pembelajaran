@@ -189,4 +189,45 @@ export const trigonometriQuestions: Question[] = [
     hints: ['Tulis tinggi dalam dua cara memakai $\\tan30^\\circ$ dan $\\tan45^\\circ$.', 'Rasionalkan penyebut $\\sqrt{3}-1$ dengan bentuk sekawan.'],
     competencies: ['pemodelan trigonometri', 'sudut elevasi'],
   },
+  {
+    id: 'tr-13',
+    topicId: 'trigonometri',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Buktikan bahwa $\\tan\\theta+\\cot\\theta=\\dfrac{1}{\\sin\\theta\\cos\\theta}$ untuk setiap $\\theta$ yang membuat bentuk itu terdefinisi, lalu gunakan hasilnya untuk menentukan $\\tan\\theta+\\cot\\theta$ ketika $\\sin\\theta\\cos\\theta=\\dfrac{1}{4}$.',
+    answer:
+      'Tulis $\\tan\\theta=\\dfrac{\\sin\\theta}{\\cos\\theta}$ dan $\\cot\\theta=\\dfrac{\\cos\\theta}{\\sin\\theta}$. Maka $\\tan\\theta+\\cot\\theta=\\dfrac{\\sin\\theta}{\\cos\\theta}+\\dfrac{\\cos\\theta}{\\sin\\theta}=\\dfrac{\\sin^{2}\\theta+\\cos^{2}\\theta}{\\sin\\theta\\cos\\theta}=\\dfrac{1}{\\sin\\theta\\cos\\theta}$. Terbukti. Jika $\\sin\\theta\\cos\\theta=\\dfrac{1}{4}$, maka $\\tan\\theta+\\cot\\theta=\\dfrac{1}{1/4}=4$.',
+    explanation:
+      'Kunci: menyamakan penyebut kedua perbandingan, memakai identitas Pythagoras pada pembilang, lalu mensubstitusikan nilai yang diketahui.',
+    hints: [
+      'Ubah tangen dan kotangen ke bentuk sinus dan kosinus.',
+      'Pembilangnya menjadi $\\sin^{2}\\theta+\\cos^{2}\\theta=1$.',
+    ],
+    competencies: ['identitas trigonometri', 'pembuktian', 'penalaran'],
+  },
+  {
+    id: 'tr-14',
+    topicId: 'trigonometri',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Diketahui sudut lancip $\\alpha$ dengan $\\tan\\alpha=\\dfrac{3}{4}$. Nilai $\\sin\\alpha+\\cos\\alpha$ adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{7}{5}$' },
+      { key: 'B', text: '$\\dfrac{1}{5}$' },
+      { key: 'C', text: '$1$' },
+      { key: 'D', text: '$\\dfrac{7}{25}$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Karena $\\tan\\alpha=\\dfrac{3}{4}$, sisi depan $3$, sisi samping $4$, dan sisi miring $\\sqrt{3^{2}+4^{2}}=5$. Maka $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\cos\\alpha=\\dfrac{4}{5}$, sehingga $\\sin\\alpha+\\cos\\alpha=\\dfrac{3}{5}+\\dfrac{4}{5}=\\dfrac{7}{5}$.',
+    hints: [
+      'Gunakan segitiga siku-siku bantu bersisi $3$ dan $4$.',
+      'Hitung sisi miring, lalu tentukan sinus dan kosinus.',
+    ],
+    competencies: ['perbandingan trigonometri', 'penalaran'],
+  },
 ];

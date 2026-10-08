@@ -1,6 +1,6 @@
 ---
 import type { Block, Difficulty, Section, SectionKind } from '@/types/content';
-import { renderMarkdown } from '@/utils/markdown';
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import BlockRenderer from './BlockRenderer.astro';
 import PracticeSet from '@/components/exercises/PracticeSet.astro';
 
@@ -39,6 +39,8 @@ const kindTitles: Record<SectionKind, string> = {
   refleksi: 'Refleksi',
   rangkuman: 'Rangkuman',
   evaluasi: 'Evaluasi',
+  sejarah: 'Jejak Sejarah',
+  tantangan: 'Tantangan',
   catatan: 'Catatan',
 };
 
@@ -88,7 +90,7 @@ function blockStorageId(blockIndex: number): string {
   {blockList(section.blocks).map((block, bi) =>
     block.kind === 'details' ? (
       <details class="details-block">
-        <summary>{block.summary}</summary>
+        <summary set:html={renderInlineMarkdown(block.summary)} />
         <div class="prose details-body" set:html={renderMarkdown(block.text)} />
       </details>
     ) : (
@@ -137,6 +139,12 @@ function blockStorageId(blockIndex: number): string {
   }
   .kind-evaluasi {
     --sec: var(--color-primary);
+  }
+  .kind-sejarah {
+    --sec: var(--color-text-muted);
+  }
+  .kind-tantangan {
+    --sec: var(--color-warning);
   }
   .kind-kesalahan-umum {
     --sec: var(--color-danger);
@@ -266,6 +274,11 @@ function blockStorageId(blockIndex: number): string {
   }
   .kind-evaluasi {
     background: color-mix(in srgb, var(--sec) 6%, var(--color-surface));
+    border-radius: var(--radius);
+    padding-inline: 1rem;
+  }
+  .kind-tantangan {
+    background: color-mix(in srgb, var(--sec) 7%, var(--color-surface));
     border-radius: var(--radius);
     padding-inline: 1rem;
   }

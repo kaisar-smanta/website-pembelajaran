@@ -190,4 +190,39 @@ export const analisisDistribusiDataQuestions: Question[] = [
     ],
     competencies: ['modus data berkelompok', 'interpretasi'],
   },
+  {
+    id: 'ad-13',
+    topicId: 'analisis-distribusi-data',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Misalkan setiap nilai pada suatu kumpulan data ditambah dengan konstanta $c$. Buktikan bahwa rata-ratanya bertambah $c$, tetapi simpangan bakunya tetap. Jelaskan makna hasil tersebut.',
+    answer:
+      'Rata-rata baru: $\\bar{x}_{\\text{baru}} = \\dfrac{1}{n}\\sum (x_i + c) = \\dfrac{1}{n}\\sum x_i + \\dfrac{1}{n}(nc) = \\bar{x} + c$. Simpangan baru setiap datum: $(x_i + c) - \\bar{x}_{\\text{baru}} = (x_i + c) - (\\bar{x} + c) = x_i - \\bar{x}$, sehingga $s_{\\text{baru}} = \\sqrt{\\dfrac{1}{n}\\sum (x_i - \\bar{x})^2} = s$. Jadi menambah konstanta menggeser seluruh data tanpa mengubah keragamannya: simpangan baku mengukur sebaran relatif terhadap rata-rata, bukan posisi mutlak data.',
+    explanation:
+      'Kunci jawaban menuntut penggunaan definisi mean dan simpangan baku, menunjukkan bahwa setiap simpangan tidak berubah setelah pergeseran serentak, lalu menafsirkan kemandirian simpangan baku terhadap pergeseran.',
+    hints: [
+      'Substitusi rata-rata baru ke bentuk simpangan $x_i + c - \\bar{x}_{\\text{baru}}$.',
+      'Simpangan baku hanya bergantung pada selisih setiap nilai dengan rata-ratanya.',
+    ],
+    competencies: ['ukuran pemusatan', 'ukuran penyebaran', 'pembuktian'],
+  },
+  {
+    id: 'ad-14',
+    topicId: 'analisis-distribusi-data',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt: 'Tentukan simpangan baku dari data $2, 4, 6, 8, 10$.',
+    answer: '2√2',
+    acceptedAnswers: ['2√2', '√8', 'akar 8', '2,83', '2.83', '2,828', '2.828'],
+    explanation:
+      'Rata-rata $\\bar{x}=6$. Jumlah kuadrat simpangan $=(2-6)^2+(4-6)^2+(6-6)^2+(8-6)^2+(10-6)^2=16+4+0+4+16=40$, sehingga variansi $=\\dfrac{40}{5}=8$ dan simpangan baku $=\\sqrt{8}=2\\sqrt{2}\\approx2{,}83$.',
+    hints: [
+      'Hitung rata-rata lebih dahulu, lalu selisih tiap datum dengan rata-rata.',
+      'Simpangan baku adalah akar dari rata-rata kuadrat simpangan.',
+    ],
+    competencies: ['simpangan baku'],
+  },
 ];

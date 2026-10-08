@@ -220,4 +220,40 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     hints: ['Jumlah tiga skor $=$ rata-rata $\\times$ banyak babak.'],
     competencies: ['mean', 'pemodelan'],
   },
+  {
+    id: 'sdk-14',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah sekolah memiliki dua kelas. Kelas X-A berisi $32$ siswa dengan rata-rata nilai $78$, dan X-B berisi $28$ siswa dengan rata-rata $72$. (a) Susun model rata-rata gabungan dan hitung nilainya. (b) Setelah program tambahan, rata-rata X-A naik menjadi $80$ sedangkan X-B tetap. Hitung rata-rata gabungan baru. (c) Jelaskan mengapa kenaikan rata-rata gabungan lebih kecil daripada kenaikan kelas X-A.',
+    answer:
+      '(a) Rata-rata gabungan $=\\dfrac{32\\cdot78+28\\cdot72}{32+28}=\\dfrac{2.496+2.016}{60}=\\dfrac{4.512}{60}=75{,}2$. (b) Setelah kenaikan: $\\dfrac{32\\cdot80+28\\cdot72}{60}=\\dfrac{2.560+2.016}{60}=\\dfrac{4.576}{60}\\approx76{,}27$. (c) Rata-rata X-A naik $2$ poin, tetapi kenaikan rata-rata gabungan hanya sekitar $76{,}27-75{,}2=1{,}07$ poin. Hal ini karena X-A hanya $\\dfrac{32}{60}\\approx53\\%$ dari seluruh siswa, sedangkan X-B yang tidak berubah menahan kenaikan; semakin kecil porsi kelompok yang berubah, semakin kecil pengaruhnya pada rata-rata gabungan.',
+    explanation:
+      'Kunci: memodelkan rata-rata gabungan berbobot ukuran kelas, menghitung perubahan, lalu menafsirkan pengaruh porsi kelompok.',
+    hints: [
+      'Rata-rata gabungan adalah jumlah seluruh nilai dibagi jumlah seluruh siswa.',
+      'Perhatikan bobot banyak siswa tiap kelompok, bukan sekadar rata-ratanya.',
+    ],
+    competencies: ['rata-rata gabungan', 'pemodelan', 'interpretasi'],
+  },
+  {
+    id: 'sdk-15',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Dua kelas masing-masing berisi $10$ siswa memiliki rata-rata nilai sama, yaitu $75$. Data kelas P adalah $70,71,72,73,74,76,77,78,79,80$, sedangkan data kelas Q adalah $45,45,60,70,75,75,80,90,105,105$. (a) Jelaskan mengapa rata-rata saja tidak cukup untuk membandingkan kedua kelas. (b) Hitung jangkauan masing-masing kelas. (c) Ukuran penyebaran apa yang lebih informatif, dan apa kesimpulanmu tentang keragaman nilai kedua kelas?',
+    answer:
+      '(a) Meskipun rata-ratanya sama, sebaran nilainya jauh berbeda; rata-rata tidak menunjukkan apakah nilai siswa berdekatan atau terpencar, sehingga dua kelas dengan rata-rata sama bisa sangat berbeda mutunya. (b) Jangkauan kelas P $=80-70=10$, sedangkan jangkauan kelas Q $=105-45=60$. (c) Jangkauan (atau lebih baik lagi simpangan baku dan IQR) menunjukkan penyebaran. Kelas Q jauh lebih menyebar: selisih nilai terendah dan tertinggi mencapai $60$ poin, menandakan kemampuan yang sangat beragam, sedangkan kelas P relatif seragam dengan jangkauan hanya $10$ poin. Jadi siswa di kelas Q lebih beragam dan "nilai rata-rata" tidak mewakili sebagian besar siswa sebaik pada kelas P.',
+    explanation:
+      'Kunci: menegaskan keterbatasan mean, menghitung ukuran sebaran, dan menafsirkan makna keragaman data pada dua kelas.',
+    hints: [
+      'Rata-rata yang sama tidak menjamin sebaran yang sama.',
+      'Jangkauan $=$ nilai terbesar $-$ nilai terkecil.',
+    ],
+    competencies: ['ukuran penyebaran', 'jangkauan', 'penalaran'],
+  },
 ];

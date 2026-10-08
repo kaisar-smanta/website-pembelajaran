@@ -16,6 +16,9 @@ import {
   buildOverview,
   continueLearning,
   suggestedStart,
+  classifyMastery,
+  buildMasterySummary,
+  buildConfidenceSummary,
 } from '../src/lib/progress-overview.ts';
 
 function mockStorage() {
@@ -245,6 +248,72 @@ check('suggestedStart mengabaikan prasyarat di luar kandidat', () => {
   ];
   const overview = overviewOf(entries);
   assert.deepEqual(suggestedStart(overview, 3).map((t) => t.id), ['b']);
+});
+
+function masteryTopic(id, overrides = {}) {
+  return {
+    id,
+    slug: id,
+    title: `Topik ${id}`,
+    gradeName: 'Kelas X',
+    elementName: 'Bilangan',
+    practiceHref: `/latihan/${id}`,
+    materialHref: `/materi/${id}`,
+    answered: 0,
+    correct: 0,
+    gradedAnswered: 0,
+    total: 4,
+    ...overrides,
+  };
+}
+
+check('classifyMastery memetakan band sesuai ambang', () => {
+  assert.equal(classifyMastery(0, 0, 0), 'belum');
+  assert.equal(classifyMastery(4, 0.9, 1), 'mahir');
+  assert.equal(classifyMastery(4, 0.75, 1), 'cukup');
+  assert.equal(classifyMastery(4, 0.5, 1), 'berlatih');
+  assert.equal(classifyMastery(2, 1, 0.5), 'berlatih');
+});
+
+check('buildMasterySummary menghitung band dan fokus', () => {
+  const summary = buildMasterySummary([
+    masteryTopic('mahir', { answered: 4, correct: 4, gradedAnswered: 4 }),
+    masteryTopic('cukup', { answered: 4, correct: 3, gradedAnswered: 4 }),
+    masteryTopic('berlatih', { answered: 2, correct: 0, gradedAnswered: 2 }),
+    masteryTopic('belum'),
+    masteryTopic('tanpa-soal', { total: 0 }),
+  ]);
+  assert.deepEqual(summary.bands, { belum: 1, berlatih: 1, cukup: 1, mahir: 1 });
+  assert.equal(summary.topics.length, 4);
+  assert.deepEqual(summary.focus.map((t) => t.id), ['berlatih', 'belum']);
+});
+
+check('buildConfidenceSummary merata-rata dan menyorot keyakinan rendah', () => {
+  const summary = buildConfidenceSummary(
+    [
+      { id: 'a', title: 'Topik A', practiceHref: '/latihan/a' },
+      { id: 'b', title: 'Topik B', practiceHref: '/latihan/b' },
+    ],
+    {
+      'a:refleksi:0': { confidence: 5, at: 10 },
+      'b:refleksi:0': { confidence: 2, at: 20 },
+      'b:refleksi:1': { confidence: 1, at: 30 },
+      'a:refleksi:1': { at: 40 },
+    },
+  );
+  assert.equal(summary.total, 4);
+  assert.equal(summary.rated, 3);
+  assert.equal(summary.average, (5 + 2 + 1) / 3);
+  assert.deepEqual(summary.low.map((entry) => entry.confidence), [1, 2]);
+  assert.equal(summary.low[0].topicTitle, 'Topik B');
+});
+
+check('buildConfidenceSummary aman tanpa data', () => {
+  const summary = buildConfidenceSummary([], {});
+  assert.equal(summary.total, 0);
+  assert.equal(summary.rated, 0);
+  assert.equal(summary.average, null);
+  assert.deepEqual(summary.low, []);
 });
 
 console.log(`PASS progress (${passed} pemeriksaan)`);

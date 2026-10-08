@@ -151,6 +151,12 @@ export const vektorQuestions: Question[] = [
       'Kunci menekankan penggunaan rumus proyeksi vektor dan pemeriksaan bahwa panjang proyeksi sama dengan proyeksi skalar $\\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert}$.',
     hints: ['Proyeksi vektor $\\vec{a}$ pada $\\vec{b}$ adalah $\\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\vec{b}$.'],
     competencies: ['proyeksi vektor', 'perkalian titik'],
+    rubric: [
+      'Menghitung perkalian titik',
+      'Menghitung kuadrat panjang vektor acuan',
+      'Menerapkan rumus proyeksi vektor',
+      'Menentukan panjang proyeksi',
+    ],
   },
   {
     id: 'vk-10',
@@ -186,6 +192,12 @@ export const vektorQuestions: Question[] = [
       'Kunci menekankan perumusan titik tengah, perhitungan vektor $\\vec{MN}$ dan $\\vec{BC}$, lalu penyimpulan kesejajaran dari kelipatan dan panjang dari faktor skala.',
     hints: ['Titik tengah ruas $PQ$ adalah $\\tfrac{1}{2}(P+Q)$.', 'Kelipatan vektor menunjukkan kesejajaran.'],
     competencies: ['teorema titik tengah', 'pembuktian geometris'],
+    rubric: [
+      'Menentukan titik tengah kedua ruas',
+      'Menghitung vektor penghubung kedua titik tengah',
+      'Menunjukkan kesejajaran lewat kelipatan',
+      'Menyimpulkan panjangnya setengah ruas lain',
+    ],
   },
   {
     id: 'vk-12',
@@ -201,6 +213,12 @@ export const vektorQuestions: Question[] = [
       'Kunci menekankan syarat ketegaklurusan $\\vec{u} \\cdot \\vec{v} = 0$ lalu penyelesaian persamaan linear yang dihasilkan.',
     hints: ['Ketegaklurusan berarti perkalian titik kedua vektor sama dengan nol.'],
     competencies: ['ketegaklurusan', 'penalaran aljabar'],
+    rubric: [
+      'Memakai syarat tegak lurus perkalian titik nol',
+      'Menyusun persamaan dalam x',
+      'Menyelesaikan nilai x',
+      'Memeriksa jawaban dengan substitusi',
+    ],
   },
   {
     id: 'vk-13',
@@ -216,6 +234,12 @@ export const vektorQuestions: Question[] = [
       'Kunci: menghitung perkalian titik dan sudut, menentukan proyeksi skalar, lalu menafsirkan arti tanda pada proyeksi skalar.',
     hints: ['Gunakan $\\cos\\theta=\\dfrac{\\vec a\\cdot\\vec b}{\\lVert\\vec a\\rVert\\lVert\\vec b\\rVert}$.', 'Tanda proyeksi skalar bergantung pada tanda $\\cos\\theta$.'],
     competencies: ['perkalian titik', 'proyeksi', 'evaluasi'],
+    rubric: [
+      'Menghitung perkalian titik',
+      'Menentukan besar sudut antara kedua vektor',
+      'Menghitung proyeksi skalar',
+      'Menjelaskan arti tanda proyeksi skalar',
+    ],
   },
   {
     id: 'vk-14',
@@ -231,6 +255,12 @@ export const vektorQuestions: Question[] = [
       'Kunci: menjumlahkan vektor kecepatan dan angin, menghitung besar dengan Pythagoras, lalu menentukan arah lewat tangen.',
     hints: ['Jumlahkan komponen yang bersesuaian.', 'Gunakan $\\tan\\theta=\\dfrac{\\text{komponen } y}{\\text{komponen } x}$.'],
     competencies: ['penjumlahan vektor', 'pemodelan kecepatan'],
+    rubric: [
+      'Menjumlahkan vektor kecepatan dan angin',
+      'Menghitung besar resultan',
+      'Menentukan arah dengan tangen',
+      'Menyajikan satuan yang tepat',
+    ],
   },
   {
     id: 'vk-15',
@@ -246,5 +276,59 @@ export const vektorQuestions: Question[] = [
       'Kunci: menjumlahkan dua vektor gaya, menghitung besar resultan, dan menentukan arah dengan tangen.',
     hints: ['Gaya resultan adalah jumlah kedua vektor.', 'Gunakan komponen resultan untuk mencari besar dan arah.'],
     competencies: ['resultan gaya', 'vektor', 'kontekstual'],
+    rubric: [
+      'Menjumlahkan kedua vektor gaya',
+      'Menghitung besar resultan',
+      'Menentukan sudut terhadap sumbu-x',
+      'Menyajikan satuan yang tepat',
+    ],
+  },
+  {
+    id: 'vk-16',
+    topicId: 'vektor',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah pesawat terbang dengan kecepatan udara (relatif terhadap udara) $200$ km/jam dan ingin menempuh lintasan tepat ke arah utara. Angin bertiup ke arah timur dengan kecepatan $50$ km/jam. (a) Tentukan arah hidung pesawat terhadap arah utara agar lintasannya tepat ke utara. (b) Hitung kecepatan pesawat terhadap tanah.',
+    answer:
+      'Ambil sumbu-$x$ ke timur dan sumbu-$y$ ke utara. Misal pesawat diarahkan $\\theta$ ke barat dari utara. Vektor kecepatan udara relatif adalah $(-200\\sin\\theta,\\,200\\cos\\theta)$ km/jam, sedangkan angin $(50,\\,0)$ km/jam. Agar lintasan tepat ke utara, komponen $x$ resultan harus nol: $-200\\sin\\theta+50=0$, sehingga $\\sin\\theta=\\dfrac{1}{4}$ dan $\\theta\\approx14{,}48^\\circ$ ke barat dari utara. Komponen utara resultan adalah $200\\cos\\theta=200\\sqrt{1-\\dfrac{1}{16}}=200\\cdot\\dfrac{\\sqrt{15}}{4}=50\\sqrt{15}\\approx193{,}65$ km/jam. Jadi pesawat harus diarahkan sekitar $14{,}5^\\circ$ ke barat dari utara dengan kecepatan terhadap tanah sekitar $193{,}6$ km/jam.',
+    explanation:
+      'Kunci: menguraikan vektor kecepatan udara menjadi komponen, menetapkan komponen timur sama dengan kecepatan angin agar resultan hanya ke utara, lalu menghitung komponen utara sebagai kecepatan terhadap tanah.',
+    hints: [
+      'Tulis vektor kecepatan udara dan angin dalam komponen.',
+      'Agar arah resultan tepat ke utara, komponen timurnya harus nol.',
+      'Gunakan $\\cos\\theta=\\sqrt{1-\\sin^{2}\\theta}$.',
+    ],
+    competencies: ['pemodelan vektor', 'penguraian vektor', 'resultan kecepatan'],
+    rubric: [
+      'Menguraikan kecepatan udara menjadi komponen',
+      'Menetapkan komponen timur resultan nol',
+      'Menentukan arah hidung pesawat',
+      'Menghitung kecepatan terhadap tanah',
+    ],
+  },
+  {
+    id: 'vk-17',
+    topicId: 'vektor',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Diketahui $\\vec{a}=\\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}$ dan $\\vec{b}=\\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}$. Vektor $\\vec{c}=\\vec{a}+t\\vec{b}$ tegak lurus $\\vec{a}$ untuk nilai $t$ sama dengan …',
+    options: [
+      { key: 'A', text: '$-1$' },
+      { key: 'B', text: '$1$' },
+      { key: 'C', text: '$-\\dfrac{1}{5}$' },
+      { key: 'D', text: '$5$' },
+    ],
+    answer: 'A',
+    explanation:
+      '$\\vec{c}=\\begin{pmatrix} 2+t \\\\ 1+3t \\end{pmatrix}$. Tegak lurus $\\vec{a}$ berarti $\\vec{c}\\cdot\\vec{a}=0$, yaitu $2(2+t)+1(1+3t)=5+5t=0$, sehingga $t=-1$. Periksa: $\\vec{c}=\\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix}$ dan $\\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix}\\cdot\\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}=2-2=0$. Benar.',
+    hints: [
+      'Gunakan syarat tegak lurus $\\vec{c}\\cdot\\vec{a}=0$.',
+      'Hitung dulu komponen $\\vec{c}$ dalam $t$.',
+    ],
+    competencies: ['ketegaklurusan', 'perkalian titik', 'penalaran'],
   },
 ];

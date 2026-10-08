@@ -244,5 +244,19 @@ const jsonLd = {
         });
       })();
     </script>
+    {import.meta.env.PROD && (
+      <script is:inline define:vars={{ swBase: basePath }}>
+        (function () {
+          if (!('serviceWorker' in navigator)) return;
+          window.addEventListener('load', function () {
+            navigator.serviceWorker
+              .register(swBase + 'sw.js', { scope: swBase })
+              .catch(function () {
+                /* gagal senyap bila pendaftaran tidak didukung */
+              });
+          });
+        })();
+      </script>
+    )}
   </body>
 </html>

@@ -214,4 +214,23 @@ export const variabelAcakDiskretQuestions: Question[] = [
     hints: ['Nilai $X=0$ tetap disertakan dalam perhitungan meskipun hasilnya nol.', 'Bandingkan premi dengan $E(X)$.'],
     competencies: ['nilai harapan', 'kontekstual', 'interpretasi'],
   },
+  {
+    id: 'vad-14',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah undian menjual $1.000$ kupon seharga Rp5.000 per kupon. Hadiahnya: $1$ kupon berhadiah Rp1.000.000, $5$ kupon berhadiah Rp100.000, dan $20$ kupon berhadiah Rp20.000. Misalkan $X$ adalah keuntungan bersih (nilai hadiah dikurangi harga kupon) bagi pemegang satu kupon. (a) Tentukan distribusi peluang $X$. (b) Hitung $E(X)$. (c) Apakah undian ini adil bagi pembeli? Jelaskan.',
+    answer:
+      '(a) Keuntungan bersih bernilai $995.000$ dengan peluang $\\dfrac{1}{1.000}$, $95.000$ dengan peluang $\\dfrac{5}{1.000}$, $15.000$ dengan peluang $\\dfrac{20}{1.000}$, dan $-5.000$ dengan peluang $\\dfrac{974}{1.000}$. (b) Nilai harapan hadiah $=\\dfrac{1.000.000+5(100.000)+20(20.000)}{1.000}=\\dfrac{1.900.000}{1.000}=1.900$, sehingga $E(X)=1.900-5.000=-3.100$ rupiah. (c) Karena $E(X)<0$, secara rata-rata pembeli menderita kerugian sekitar Rp3.100 per kupon, sehingga undian tidak adil bagi pembeli dan menguntungkan penyelenggara.',
+    explanation:
+      'Kunci: menyusun distribusi keuntungan bersih, memakai kelinearan nilai harapan untuk memisahkan hadiah dan biaya, lalu menafsirkan tanda $E(X)$ terhadap keadilan undian.',
+    hints: [
+      'Keuntungan bersih $=$ nilai hadiah $-$ harga kupon.',
+      'Hitung $E(\\text{hadiah})$ lebih dahulu, lalu kurangi Rp5.000.',
+      'Nilai harapan negatif berarti pembeli rugi secara rata-rata.',
+    ],
+    competencies: ['distribusi peluang', 'nilai harapan', 'kontekstual', 'interpretasi'],
+  },
 ];

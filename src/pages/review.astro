@@ -1,0 +1,529 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
+import QuestionCard from '@/components/exercises/QuestionCard.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { topics, topicSubject } from '@/data/topics';
+import { questionsByTopic } from '@/data/questions';
+import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { url, topicUrl } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Latihan & Asesmen', href: url('/latihan') },
+  { label: 'Tinjauan lintas topik' },
+];
+
+const topicEntries = topics
+  .map((topic) => {
+    const subject = topicSubject(topic);
+    return {
+      id: topic.id,
+      title: topic.title,
+      gradeName: GRADES[topic.grade].name,
+      elementName: ELEMENTS[topic.element].name,
+      element: topic.element,
+      practiceHref: url(`/latihan/${topic.slug}`),
+      materialHref: topicUrl(topic.grade, topic.element, topic.slug, subject),
+      questions: questionsByTopic(topic.id),
+    };
+  })
+  .filter((entry) => entry.questions.length > 0);
+
+const allQuestionIds = topicEntries.flatMap((entry) => entry.questions.map((q) => q.id));
+const questionIndex = new Map<string, number>();
+allQuestionIds.forEach((id, i) => questionIndex.set(id, i));
+const totalQuestions = allQuestionIds.length;
+const idsJson = JSON.stringify(allQuestionIds).replace(/</g, '\\u003c');
+
+const meta = [
+  `${totalQuestions} soal`,
+  `${topicEntries.length} topik`,
+  'Tersimpan lokal',
+];
+---
+
+<BaseLayout
+  title="Tinjauan lintas topik"
+  description="Sesi tinjauan yang menghimpun seluruh soal yang belum tepat atau belum dicoba dari semua topik, diurutkan menurut jadwal pengulangan. Tersimpan lokal di peramban, tanpa akun."
+>
+  <PageHeader
+    title="Tinjauan lintas topik"
+    eyebrow="Tinjau"
+    lead="Himpunan soal yang pernah kamu jawab belum tepat atau belum sempat dicoba dari seluruh topik, disusun sebagai satu sesi. Urutannya mengikuti jadwal pengulangan sederhana agar yang paling mendesak muncul lebih dulu."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container container-narrow review" data-review-root>
+    <p class="notice">
+      Antrean di halaman ini dihitung dari data <strong>yang tersimpan di peramban</strong> ini.
+      Tidak ada akun maupun server. Jawabanmu langsung tersimpan, dan ringkasan di atas
+      bertambah setiap kali kamu menjawab soal.
+    </p>
+
+    <section class="empty card" data-review-empty aria-labelledby="review-kosong">
+      <h2 id="review-kosong" data-empty-title>Belum ada soal untuk ditinjau</h2>
+      <p class="text-muted" data-empty-text>
+        Kerjakan beberapa latihan dulu, lalu kembali ke sini untuk meninjau soal yang belum
+        tepat atau belum dicoba secara lintas topik.
+      </p>
+      <div class="row">
+        <a class="btn btn-primary" href={url('/latihan')}>Mulai berlatih</a>
+        <a class="btn btn-secondary" href={url('/kemajuan')}>Lihat kemajuan</a>
+      </div>
+      <p class="text-soft empty-note">
+        Catatan: halaman ini memerlukan JavaScript karena membaca data dari perambanmu. Tanpa
+        JavaScript, datanya tetap aman tersimpan, hanya antreannya belum dapat dihitung.
+      </p>
+    </section>
+
+    <div data-review-body hidden>
+      <section class="review-summary" data-review-summary aria-labelledby="review-ringkasan">
+        <SectionHeading
+          id="review-ringkasan"
+          eyebrow="Antrean"
+          title="Ringkasan tinjauan"
+          lead="Angka-angka ini diperbarui setiap kali kamu menjawab soal di halaman ini."
+          reveal={false}
+        />
+        <dl class="stats">
+          <div class="stat">
+            <dt>Soal dalam antrean</dt>
+            <dd data-review-total>0</dd>
+          </div>
+          <div class="stat">
+            <dt>Sudah tepat</dt>
+            <dd data-review-done>0/0</dd>
+          </div>
+          <div class="stat">
+            <dt>Ketepatan</dt>
+            <dd data-review-accuracy>0%</dd>
+          </div>
+        </dl>
+        <div
+          class="track"
+          data-review-track
+          role="progressbar"
+          aria-label="Kemajuan tinjauan"
+          aria-valuemin="0"
+          aria-valuemax="0"
+          aria-valuenow="0"
+          aria-valuetext="Belum ada soal yang tepat"
+        >
+          <span class="bar" data-review-bar style="width: 0%"></span>
+        </div>
+        <p class="review-note text-soft" data-review-note aria-live="polite"></p>
+      </section>
+
+      <div class="review-groups" data-review-groups>
+        {
+          topicEntries.map((entry) => (
+            <section
+              class:list={['review-topic', `accent-${entry.element}`]}
+              data-review-topic
+              data-topic-id={entry.id}
+              hidden
+              aria-labelledby={`review-topic-${entry.id}`}
+            >
+              <div class="review-topic-head">
+                <div class="review-topic-copy">
+                  <h2 id={`review-topic-${entry.id}`}>
+                    <a href={entry.practiceHref}>{entry.title}</a>
+                  </h2>
+                  <p class="review-topic-meta text-muted">
+                    {entry.gradeName} · {entry.elementName} ·{' '}
+                    <a href={entry.materialHref}>Baca materi</a>
+                  </p>
+                </div>
+                <span class="review-topic-count badge" data-topic-count>
+                  {entry.questions.length} soal
+                </span>
+              </div>
+              <div class="review-list">
+                {entry.questions.map((question) => (
+                  <div
+                    class="review-q"
+                    data-review-item={question.id}
+                    data-topic-id={entry.id}
+                    hidden
+                  >
+                    <p class="review-due" data-review-due></p>
+                    <QuestionCard
+                      question={question}
+                      index={questionIndex.get(question.id) ?? 0}
+                      showTopic
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+
+    <script type="application/json" id="review-ids" is:inline set:html={idsJson}></script>
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Antrean sudah tuntas?"
+        text="Kunjungi dasbor kemajuan untuk melihat capaianmu, atau tantang dirimu dengan soal tingkat mahir dan topik pengayaan."
+        reveal
+        actions={[
+          { label: 'Lihat kemajuan', href: url('/kemajuan'), variant: 'primary' },
+          { label: 'Buka tantangan', href: url('/tantangan'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .review {
+    padding-block: 1rem 2.5rem;
+    display: grid;
+    gap: 1.75rem;
+  }
+  .notice {
+    margin: 0;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+    font-size: 0.92rem;
+  }
+  .empty {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+    text-align: left;
+  }
+  .empty h2 {
+    margin: 0;
+  }
+  .empty-note {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+  }
+  .review-summary {
+    display: grid;
+    gap: 1rem;
+  }
+  .review-summary :global(.section-heading) {
+    margin-bottom: 0;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 0.85rem;
+    margin: 0;
+  }
+  .stat {
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .stat dt {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .stat dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+  }
+  .track {
+    height: 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .bar {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-geometry));
+    transition: width var(--dur) var(--ease-out-soft);
+  }
+  .review-note {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .review-groups {
+    display: grid;
+    gap: 1.75rem;
+  }
+  .review-topic {
+    display: grid;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 3px solid var(--accent, var(--color-primary));
+  }
+  .review-topic-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+  .review-topic-copy {
+    min-width: 0;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .review-topic-head h2 {
+    margin: 0;
+    font-size: 1.35rem;
+  }
+  .review-topic-head h2 a {
+    color: inherit;
+  }
+  .review-topic-head h2 a:hover {
+    color: var(--accent, var(--color-primary));
+  }
+  .review-topic-meta {
+    margin: 0;
+    font-size: 0.88rem;
+  }
+  .review-topic-count {
+    align-self: flex-start;
+    flex: 0 0 auto;
+  }
+  .review-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .review-q {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .review-due {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-text-muted);
+  }
+  .review-q.is-resolved .review-due {
+    color: var(--color-success);
+  }
+  .review-q :global(.question-card) {
+    margin-bottom: 0;
+  }
+  .review-topic[hidden],
+  .review-q[hidden],
+  [data-review-body][hidden],
+  [data-review-empty][hidden] {
+    display: none !important;
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+</style>
+
+<script>
+  import { loadProgress, type ProgressMap } from '@/lib/progress';
+  import { safeStorage } from '@/lib/storage';
+  import {
+    buildReviewQueue,
+    summarizeReviewQueue,
+    reviewDueHint,
+    formatDueIn,
+    REVIEW_CORRECT_INTERVAL_MS,
+    type ReviewItem,
+  } from '@/lib/review';
+
+  function boot() {
+    const root = document.querySelector<HTMLElement>('[data-review-root]');
+    if (!root) return;
+
+    const idsEl = document.getElementById('review-ids');
+    let ids: string[] = [];
+    try {
+      const parsed: unknown = idsEl ? JSON.parse(idsEl.textContent ?? '[]') : [];
+      if (Array.isArray(parsed)) {
+        ids = parsed.filter((id): id is string => typeof id === 'string');
+      }
+    } catch {
+      ids = [];
+    }
+
+    const storage = safeStorage();
+    const emptyEl = root.querySelector<HTMLElement>('[data-review-empty]');
+    const emptyTitle = root.querySelector<HTMLElement>('[data-empty-title]');
+    const emptyText = root.querySelector<HTMLElement>('[data-empty-text]');
+    const bodyEl = root.querySelector<HTMLElement>('[data-review-body]');
+    const groupsEl = root.querySelector<HTMLElement>('[data-review-groups]');
+    const totalEl = root.querySelector<HTMLElement>('[data-review-total]');
+    const doneEl = root.querySelector<HTMLElement>('[data-review-done]');
+    const accuracyEl = root.querySelector<HTMLElement>('[data-review-accuracy]');
+    const barEl = root.querySelector<HTMLElement>('[data-review-bar]');
+    const trackEl = root.querySelector<HTMLElement>('[data-review-track]');
+    const noteEl = root.querySelector<HTMLElement>('[data-review-note]');
+
+    const itemEls = new Map<string, HTMLElement>();
+    for (const el of root.querySelectorAll<HTMLElement>('[data-review-item]')) {
+      const id = el.getAttribute('data-review-item');
+      if (id) itemEls.set(id, el);
+    }
+    const topicEls = Array.from(root.querySelectorAll<HTMLElement>('[data-review-topic]'));
+
+    let queue: ReviewItem[] = [];
+
+    function readAttempts(): ProgressMap {
+      try {
+        return loadProgress(storage);
+      } catch {
+        return {};
+      }
+    }
+
+    function setVisible(el: HTMLElement | null, visible: boolean) {
+      if (el) el.hidden = !visible;
+    }
+
+    function percent(ratio: number): string {
+      return `${Math.round(ratio * 100)}%`;
+    }
+
+    function applyQueue() {
+      const position = new Map(queue.map((item, index) => [item.questionId, index]));
+
+      for (const el of itemEls.values()) {
+        el.hidden = true;
+        el.classList.remove('is-resolved');
+      }
+      for (const item of queue) {
+        const el = itemEls.get(item.questionId);
+        if (!el) continue;
+        el.hidden = false;
+        const badge = el.querySelector<HTMLElement>('.q-number');
+        const rank = (position.get(item.questionId) ?? 0) + 1;
+        if (badge) badge.textContent = String(rank);
+      }
+
+      const order = new Map<HTMLElement, number>();
+      for (const group of topicEls) {
+        let min = Number.POSITIVE_INFINITY;
+        let count = 0;
+        for (const el of group.querySelectorAll<HTMLElement>('[data-review-item]')) {
+          const id = el.getAttribute('data-review-item');
+          if (!id) continue;
+          const index = position.get(id);
+          if (index === undefined) continue;
+          count += 1;
+          if (index < min) min = index;
+        }
+        group.hidden = count === 0;
+        const countEl = group.querySelector<HTMLElement>('[data-topic-count]');
+        if (countEl) countEl.textContent = count === 1 ? '1 soal' : `${count} soal`;
+        if (count > 0) order.set(group, min);
+      }
+
+      const visible = topicEls.filter((group) => !group.hidden);
+      visible.sort((a, b) => (order.get(a) ?? 0) - (order.get(b) ?? 0));
+      for (const group of visible) groupsEl?.appendChild(group);
+    }
+
+    function refreshStatus() {
+      const attempts = readAttempts();
+      const now = Date.now();
+      let resolved = 0;
+      let graded = 0;
+
+      for (const item of queue) {
+        const attempt = attempts[item.questionId];
+        const isResolved = Boolean(attempt && attempt.graded !== false && attempt.correct);
+        if (isResolved) resolved += 1;
+        if (attempt && attempt.graded !== false) graded += 1;
+
+        const el = itemEls.get(item.questionId);
+        if (!el) continue;
+        el.classList.toggle('is-resolved', isResolved);
+        const dueEl = el.querySelector<HTMLElement>('[data-review-due]');
+        if (!dueEl) continue;
+        if (isResolved) {
+          dueEl.textContent = `Sudah tepat · ${formatDueIn(REVIEW_CORRECT_INTERVAL_MS)}`;
+        } else if (attempt && attempt.graded === false) {
+          dueEl.textContent = 'Sudah dikerjakan';
+        } else {
+          dueEl.textContent = reviewDueHint(item, now);
+        }
+      }
+
+      const total = queue.length;
+      const accuracy = graded ? resolved / graded : 0;
+      if (totalEl) totalEl.textContent = String(total);
+      if (doneEl) doneEl.textContent = `${resolved}/${total}`;
+      if (accuracyEl) accuracyEl.textContent = percent(accuracy);
+      if (barEl) barEl.style.width = `${total ? Math.round((resolved / total) * 100) : 0}%`;
+      if (trackEl) {
+        trackEl.setAttribute('aria-valuemax', String(total));
+        trackEl.setAttribute('aria-valuenow', String(resolved));
+        trackEl.setAttribute(
+          'aria-valuetext',
+          `${resolved} dari ${total} soal sudah tepat`,
+        );
+      }
+      if (noteEl) {
+        const summary = summarizeReviewQueue(queue);
+        noteEl.textContent = `${summary.missed} soal belum tepat dan ${summary.unanswered} soal belum dicoba. Urutan di bawah memprioritaskan yang paling mendesak.`;
+      }
+    }
+
+    function rebuild() {
+      const attempts = readAttempts();
+      queue = buildReviewQueue(ids, attempts, Date.now());
+
+      if (queue.length === 0) {
+        const hasAttempts = Object.keys(attempts).length > 0;
+        if (emptyTitle) {
+          emptyTitle.textContent = hasAttempts
+            ? 'Tidak ada soal yang perlu ditinjau'
+            : 'Belum ada soal untuk ditinjau';
+        }
+        if (emptyText) {
+          emptyText.textContent = hasAttempts
+            ? 'Semua soal yang pernah kamu kerjakan sudah tepat. Pertahankan dengan berlatih soal baru atau soal tingkat mahir.'
+            : 'Kerjakan beberapa latihan dulu, lalu kembali ke sini untuk meninjau soal yang belum tepat atau belum dicoba secara lintas topik.';
+        }
+        setVisible(emptyEl, true);
+        setVisible(bodyEl, false);
+        return;
+      }
+
+      setVisible(emptyEl, false);
+      setVisible(bodyEl, true);
+      applyQueue();
+      refreshStatus();
+    }
+
+    rebuild();
+
+    window.addEventListener('mtk:progress', refreshStatus);
+    window.addEventListener('pageshow', rebuild);
+    window.addEventListener('storage', rebuild);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>

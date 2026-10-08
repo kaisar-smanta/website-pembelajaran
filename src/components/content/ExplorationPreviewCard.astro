@@ -45,6 +45,8 @@ const curves: Record<Exploration['type'], string> = {
   derivative: 'M6 58 C60 58 100 12 194 12 M40 46 L164 6',
   integral: 'M6 52 C60 52 80 14 120 14 C160 14 180 40 194 52 M6 52 H194',
   'random-variable': 'M10 58 H40 V34 H70 V20 H100 V44 H130 V30 H160 V58 H194',
+  limit: 'M6 46 L86 22 M114 22 L194 8',
+  'binomial-distribution': 'M10 58 H40 V32 H70 V18 H100 V26 H130 V18 H160 V32 H194',
   geogebra: 'M6 58 C45 58 60 14 100 14 C140 14 155 58 194 58',
 };
 
@@ -136,6 +138,16 @@ const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>
     [70, 20],
     [100, 44],
     [130, 30],
+  ],
+  limit: [
+    [60, 30],
+    [140, 14],
+  ],
+  'binomial-distribution': [
+    [40, 32],
+    [70, 18],
+    [100, 26],
+    [130, 18],
   ],
   geogebra: [
     [40, 40],
