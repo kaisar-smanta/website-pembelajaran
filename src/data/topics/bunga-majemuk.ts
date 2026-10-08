@@ -35,37 +35,37 @@ export const bungaMajemuk: Topic = {
   applications: ['bunga-investasi'],
   sections: [
     {
-      id: 'tujuan',
-      kind: 'tujuan',
-      title: 'Tujuan Pembelajaran',
-      body: `Peserta didik dapat memodelkan pertumbuhan saldo dengan bunga majemuk, menghitung saldo akhir dengan bunga tunggal maupun bunga majemuk, menentukan suku bunga efektif, serta menggunakan model tersebut untuk membandingkan pilihan menabung atau meminjam secara kritis.`,
+      id: "tujuan",
+      kind: "tujuan",
+      title: "Tujuan Pembelajaran",
+      body: "Peserta didik dapat memodelkan pertumbuhan saldo dengan bunga majemuk, menghitung saldo akhir dengan bunga tunggal maupun bunga majemuk, menentukan suku bunga efektif, serta menggunakan model tersebut untuk membandingkan pilihan menabung atau meminjam secara kritis.",
     },
     {
-      id: 'pemantik',
-      kind: 'pemantik',
-      title: 'Pertanyaan Pemantik',
+      id: "pemantik",
+      kind: "pemantik",
+      title: "Pertanyaan Pemantik",
       body: `Seorang siswa menabung **Rp5.000.000** dengan bunga **8% per tahun**. Apakah setiap tahun ia menerima bunga Rp400.000, atau apakah besar bunganya berubah?
 
 Diskusikan: jika bunga tahun pertama ditambahkan ke saldo, apakah bunga tahun kedua dihitung dari Rp5.000.000 atau dari saldo yang sudah bertambah? Jawaban pertanyaan ini membedakan **bunga tunggal** dan **bunga majemuk**.`,
       blocks: [
         {
-          kind: 'prediction',
-          prompt: `Setiap tahun, apakah ia menerima bunga Rp400.000 yang sama, atau besar bunganya berubah? Pilih dugaanmu, lalu bandingkan dengan penjelasan.`,
+          kind: "prediction",
+          prompt: "Setiap tahun, apakah ia menerima bunga Rp400.000 yang sama, atau besar bunganya berubah? Pilih dugaanmu, lalu bandingkan dengan penjelasan.",
           options: [
-            'Bunga tetap Rp400.000 setiap tahun',
-            'Bunga makin besar setiap tahun',
-            'Bunga makin kecil setiap tahun',
-            'Bunga tidak dapat diperkirakan',
+            "Bunga tetap Rp400.000 setiap tahun",
+            "Bunga makin besar setiap tahun",
+            "Bunga makin kecil setiap tahun",
+            "Bunga tidak dapat diperkirakan",
           ],
-          reveal: `Pada **bunga tunggal**, bunga selalu dihitung dari modal awal, sehingga tiap tahun tetap Rp400.000. Pada **bunga majemuk**, bunga dihitung dari saldo terbaru yang sudah termasuk bunga sebelumnya, sehingga bunganya makin besar setiap tahun.`,
-          saveLabel: 'Simpan dugaan',
+          reveal: "Pada **bunga tunggal**, bunga selalu dihitung dari modal awal, sehingga tiap tahun tetap Rp400.000. Pada **bunga majemuk**, bunga dihitung dari saldo terbaru yang sudah termasuk bunga sebelumnya, sehingga bunganya makin besar setiap tahun.",
+          saveLabel: "Simpan dugaan",
         },
       ],
     },
     {
-      id: 'prasyarat',
-      kind: 'prasyarat',
-      title: 'Prasyarat',
+      id: "prasyarat",
+      kind: "prasyarat",
+      title: "Prasyarat",
       body: `Pastikan kamu sudah memahami:
 
 - sifat eksponen, terutama $(1+i)^n$ dan pangkat bilangan rasional;
@@ -73,17 +73,17 @@ Diskusikan: jika bunga tahun pertama ditambahkan ke saldo, apakah bunga tahun ke
 - mengubah persen menjadi desimal, misalnya $8\\% = 0{,}08$.`,
     },
     {
-      id: 'konteks',
-      kind: 'konteks',
-      title: 'Situasi dan Konteks',
+      id: "konteks",
+      kind: "konteks",
+      title: "Situasi dan Konteks",
       body: `Bank menghitung bunga tabungan berdasarkan **saldo terkini**, bukan saldo awal. Karena itu saldo tumbuh mengikuti pola perkalian berulang — inilah bunga majemuk. Prinsip yang sama dipakai pada pinjaman: sisa utang pun dikenai bunga, sehingga utang dapat membengkak bila tidak dibayar.
 
 Memahami bunga majemuk membantu kita membandingkan produk keuangan, memahami inflasi, dan memutuskan antara menabung sekarang atau kemudian.`,
     },
     {
-      id: 'bunga-tunggal',
-      kind: 'konsep',
-      title: 'Mengenal Bunga Tunggal',
+      id: "bunga-tunggal",
+      kind: "konsep",
+      title: "Mengenal Bunga Tunggal",
       body: `Sebelum mendalami bunga majemuk, ingat kembali **bunga tunggal**. Pada bunga tunggal, bunga selalu dihitung dari modal awal, bukan dari saldo terbaru. Jika modal awal $M_0$, suku bunga $i$ per periode, dan lama $n$ periode, saldo akhirnya adalah
 
 $$M_n = M_0(1 + i\\,n).$$
@@ -95,9 +95,9 @@ $$M_5 = 5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000,$$
 sedangkan bunga majemuk dengan suku bunga yang sama menghasilkan $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$. Selisih Rp346.640 itulah bunga atas bunga yang hanya muncul pada bunga majemuk.`,
     },
     {
-      id: 'konsep',
-      kind: 'konsep',
-      title: 'Konsep Inti',
+      id: "konsep",
+      kind: "konsep",
+      title: "Konsep Inti",
       body: `Misalkan modal awal $M_0$ dan suku bunga $i$ per periode. Setelah satu periode:
 
 $$M_1 = M_0(1+i).$$
@@ -113,28 +113,43 @@ $$M_n = M_0(1+i)^n$$
 dengan $M_n$ saldo setelah $n$ periode. Barisan saldo $M_0, M_1, M_2, \\dots$ adalah **barisan geometri** dengan rasio $(1+i)$.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'concept',
-          title: 'Hubungan dengan barisan geometri',
-          text: 'Rumus bunga majemuk identik dengan suku ke-$n$ barisan geometri: $U_n = a r^{n-1}$. Di sini $a = M_0(1+i)$ dan $r = (1+i)$.',
+          kind: "callout",
+          variant: "concept",
+          title: "Hubungan dengan barisan geometri",
+          text: "Rumus bunga majemuk identik dengan suku ke-$n$ barisan geometri: $U_n = a r^{n-1}$. Di sini $a = M_0(1+i)$ dan $r = (1+i)$.",
         },
         {
-          kind: 'flip-cards',
-          intro: 'Bolak-balik kartu untuk memeriksa istilah kunci bunga majemuk.',
+          kind: "flip-cards",
+          intro: "Bolak-balik kartu untuk memeriksa istilah kunci bunga majemuk.",
           cards: [
-            { front: 'Modal awal ($M_0$)', back: 'Saldo mula-mula sebelum bunga dihitung.' },
-            { front: 'Suku bunga per periode ($i$)', back: 'Bunga untuk satu periode, misalnya $8\\%$ per tahun atau $1\\%$ per bulan.' },
-            { front: 'Banyak periode ($n$)', back: 'Banyaknya selang waktu perhitungan bunga.' },
-            { front: 'Saldo ($M_n$)', back: 'Nilai tabungan atau pinjaman setelah $n$ periode.' },
-            { front: 'Rasio $(1+i)$', back: 'Faktor pengali tetap sehingga saldo membentuk barisan geometri.' },
+            {
+              front: "Modal awal ($M_0$)",
+              back: "Saldo mula-mula sebelum bunga dihitung.",
+            },
+            {
+              front: "Suku bunga per periode ($i$)",
+              back: "Bunga untuk satu periode, misalnya $8\\%$ per tahun atau $1\\%$ per bulan.",
+            },
+            {
+              front: "Banyak periode ($n$)",
+              back: "Banyaknya selang waktu perhitungan bunga.",
+            },
+            {
+              front: "Saldo ($M_n$)",
+              back: "Nilai tabungan atau pinjaman setelah $n$ periode.",
+            },
+            {
+              front: "Rasio $(1+i)$",
+              back: "Faktor pengali tetap sehingga saldo membentuk barisan geometri.",
+            },
           ],
         },
       ],
     },
     {
-      id: 'suku-bunga',
-      kind: 'representasi',
-      title: 'Suku Bunga Nominal dan Suku Bunga per Periode',
+      id: "suku-bunga",
+      kind: "representasi",
+      title: "Suku Bunga Nominal dan Suku Bunga per Periode",
       body: `Bank biasanya menyebut **suku bunga nominal per tahun**, tetapi bunga dapat dihitung beberapa kali dalam setahun. Jika nominal tahunan $j$ dan bunga dihitung $m$ kali per tahun, maka suku bunga **per periode** adalah
 
 $$i = \\frac{j}{m}.$$
@@ -142,30 +157,64 @@ $$i = \\frac{j}{m}.$$
 Karena $n$ menyatakan banyak periode, lamanya $t$ tahun setara dengan $n = m \\cdot t$ periode. Sebagai contoh, nominal $12\\%$ dengan perhitungan bulanan berarti $i = \\dfrac{0{,}12}{12} = 0{,}01$ per bulan.`,
       blocks: [
         {
-          kind: 'table',
-          caption: 'Contoh nominal tahunan 12% dan suku bunga per periode',
-          headers: ['Frekuensi', 'm', 'i per periode', 'n untuk 1 tahun'],
+          kind: "table",
+          caption: "Contoh nominal tahunan 12% dan suku bunga per periode",
+          headers: [
+            "Frekuensi",
+            "m",
+            "i per periode",
+            "n untuk 1 tahun",
+          ],
           rows: [
-            ['Tahunan', '1', '$0{,}12$', '1'],
-            ['Semesteran', '2', '$0{,}06$', '2'],
-            ['Kuartalan', '4', '$0{,}03$', '4'],
-            ['Bulanan', '12', '$0{,}01$', '12'],
+            [
+              "Tahunan",
+              "1",
+              "$0{,}12$",
+              "1",
+            ],
+            [
+              "Semesteran",
+              "2",
+              "$0{,}06$",
+              "2",
+            ],
+            [
+              "Kuartalan",
+              "4",
+              "$0{,}03$",
+              "4",
+            ],
+            [
+              "Bulanan",
+              "12",
+              "$0{,}01$",
+              "12",
+            ],
           ],
         },
         {
-          kind: 'tabs',
+          kind: "tabs",
           items: [
-            { label: 'Nominal tahunan', body: 'Bunga dinyatakan untuk satu tahun penuh, misalnya $j = 12\\%$ per tahun.' },
-            { label: 'Per periode', body: 'Bagi nominal dengan frekuensi: $i = j/m$, misalnya $12\\% / 12 = 1\\%$ per bulan.' },
-            { label: 'Efektif', body: 'Pertumbuhan nyata selama setahun: $i_{\\text{efektif}} = (1 + j/m)^{m} - 1 \\approx 12{,}68\\%$.' },
+            {
+              label: "Nominal tahunan",
+              body: "Bunga dinyatakan untuk satu tahun penuh, misalnya $j = 12\\%$ per tahun.",
+            },
+            {
+              label: "Per periode",
+              body: "Bagi nominal dengan frekuensi: $i = j/m$, misalnya $12\\% / 12 = 1\\%$ per bulan.",
+            },
+            {
+              label: "Efektif",
+              body: "Pertumbuhan nyata selama setahun: $i_{\\text{efektif}} = (1 + j/m)^{m} - 1 \\approx 12{,}68\\%$.",
+            },
           ],
         },
       ],
     },
     {
-      id: 'efektif',
-      kind: 'konsep',
-      title: 'Suku Bunga Efektif',
+      id: "efektif",
+      kind: "konsep",
+      title: "Suku Bunga Efektif",
       body: `Suku bunga efektif adalah pertumbuhan saldo sebenarnya selama satu tahun. Karena bunga dihitung majemuk, suku bunga efektif biasanya **lebih besar** daripada nominal. Untuk nominal $j$ dengan $m$ periode per tahun:
 
 $$i_{\\text{efektif}} = \\left(1 + \\frac{j}{m}\\right)^{m} - 1.$$
@@ -173,16 +222,21 @@ $$i_{\\text{efektif}} = \\left(1 + \\frac{j}{m}\\right)^{m} - 1.$$
 Contoh: nominal $12\\%$ dihitung bulanan memberi $i_{\\text{efektif}} = (1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu sekitar **12,68%** per tahun — lebih tinggi daripada nominalnya.`,
     },
     {
-      id: 'eksplorasi',
-      kind: 'eksplorasi',
-      title: 'Eksplorasi',
-      body: `Bandingkan pertumbuhan bunga tunggal dan bunga majemuk dengan mengubah modal, suku bunga, dan lama menabung.`,
-      blocks: [{ kind: 'exploration', explorationId: 'bunga-majemuk-sim' }],
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi",
+      body: "Bandingkan pertumbuhan bunga tunggal dan bunga majemuk dengan mengubah modal, suku bunga, dan lama menabung.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "bunga-majemuk-sim",
+        },
+      ],
     },
     {
-      id: 'contoh',
-      kind: 'contoh',
-      title: 'Contoh Terbimbing',
+      id: "contoh",
+      kind: "contoh",
+      title: "Contoh Terbimbing",
       body: `**Contoh 1.** Ibu menabung Rp5.000.000 dengan bunga majemuk 8% per tahun. Berapa saldo setelah 5 tahun?
 
 *Penyelesaian.* Dengan $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$:
@@ -200,22 +254,34 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 *Penyelesaian.* $i = 0{,}01$ dan $m = 12$, sehingga $(1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu **12,68%** per tahun.`,
       blocks: [
         {
-          kind: 'step-reveal',
-          intro: 'Ikuti langkah menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun.',
+          kind: "step-reveal",
+          intro: "Ikuti langkah menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun.",
           steps: [
-            { title: 'Langkah 1', text: 'Catat besaran yang diketahui: $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$.' },
-            { title: 'Langkah 2', text: 'Gunakan rumus saldo: $M_5 = 5.000.000(1{,}08)^{5}$.' },
-            { title: 'Langkah 3', text: 'Hitung faktor pangkatnya: $(1{,}08)^{5} \\approx 1{,}469328$.' },
-            { title: 'Langkah 4', text: 'Kalikan dengan modal: $M_5 \\approx 5.000.000 \\times 1{,}469328 \\approx \\text{Rp}7.346.640$.' },
+            {
+              title: "Langkah 1",
+              text: "Catat besaran yang diketahui: $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Gunakan rumus saldo: $M_5 = 5.000.000(1{,}08)^{5}$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Hitung faktor pangkatnya: $(1{,}08)^{5} \\approx 1{,}469328$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Kalikan dengan modal: $M_5 \\approx 5.000.000 \\times 1{,}469328 \\approx \\text{Rp}7.346.640$.",
+            },
           ],
         },
       ],
     },
     {
-      id: 'latihan-dasar',
-      kind: 'latihan-dasar',
-      title: 'Latihan Dasar',
-      level: 'dasar',
+      id: "latihan-dasar",
+      kind: "latihan-dasar",
+      title: "Latihan Dasar",
+      level: "dasar",
       body: `1. Modal Rp1.000.000 dengan bunga majemuk 10% per tahun. Tentukan saldo setelah 2 tahun.
 
 2. Tentukan suku bunga per periode jika nominal 24% per tahun dihitung bulanan.
@@ -223,8 +289,8 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 3. Hitung $(1{,}05)^{2}$ kemudian tentukan saldo Rp4.000.000 setelah 2 tahun pada bunga majemuk 5% per tahun.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. $1.000.000(1{,}1)^2 = 1.000.000(1{,}21) = \\text{Rp}1.210.000$.
 2. $i = 0{,}24/12 = 0{,}02$ per bulan.
 3. $(1{,}05)^2 = 1{,}1025$, sehingga saldo $= 4.000.000(1{,}1025) = \\text{Rp}4.410.000$.`,
@@ -232,10 +298,10 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       ],
     },
     {
-      id: 'latihan-cakap',
-      kind: 'latihan-cakap',
-      title: 'Latihan Cakap',
-      level: 'cakap',
+      id: "latihan-cakap",
+      kind: "latihan-cakap",
+      title: "Latihan Cakap",
+      level: "cakap",
       body: `1. Modal Rp3.000.000 dibungakan majemuk 1,5% per bulan. Tentukan saldo setelah 8 bulan.
 
 2. Nominal 9% per tahun dihitung kuartalan. Tentukan suku bunga per periode dan saldo Rp2.000.000 setelah 1 tahun.
@@ -243,8 +309,8 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 3. Berapa lama modal harus ditabung pada bunga majemuk 8% per tahun agar menjadi dua kali lipat? Gunakan pendekatan dengan tabel perhitungan.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. $3.000.000(1{,}015)^8 \\approx 3.000.000(1{,}126493) \\approx \\text{Rp}3.379.479$.
 2. $i = 0{,}09/4 = 0{,}0225$ per kuartal, $n = 4$; saldo $= 2.000.000(1{,}0225)^4 \\approx 2.000.000(1{,}093083) \\approx \\text{Rp}2.186.166$.
 3. Cari $n$ dengan $1{,}08^n \\ge 2$. Karena $1{,}08^9 \\approx 1{,}999$ dan $1{,}08^{10} \\approx 2{,}159$, maka modal berlipat dua setelah sekitar **10 tahun**.`,
@@ -252,10 +318,10 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       ],
     },
     {
-      id: 'latihan-mahir',
-      kind: 'latihan-mahir',
-      title: 'Latihan Mahir',
-      level: 'mahir',
+      id: "latihan-mahir",
+      kind: "latihan-mahir",
+      title: "Latihan Mahir",
+      level: "mahir",
       body: `1. Dua bank menawarkan suku bunga nominal yang sama, 12% per tahun. Bank A menghitung tiap semester, Bank B tiap bulan. Bandingkan suku bunga efektif keduanya dan jelaskan mengapa berbeda.
 
 2. Sebuah pinjaman tidak dibayar sehingga bunga majemuk 2% per bulan menumpuk pada sisa utang. Jika utang awal Rp4.000.000 dan tidak ada pembayaran selama 6 bulan, berapa utangnya? Jelaskan mengapa utang tumbuh lebih cepat dari dugaan awal.
@@ -263,8 +329,8 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 3. Sebuah barang naik harga 5% per tahun (inflasi). Jika harga awal Rp200.000, tentukan harga setelah 4 tahun dan diskusikan keterbatasan model inflasi konstan.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat pembahasan',
+          kind: "details",
+          summary: "Lihat pembahasan",
           text: `1. Bank A: $(1{,}06)^2 - 1 = 0{,}1236 = 12{,}36\\%$. Bank B: $(1{,}01)^{12} - 1 \\approx 0{,}126825 = 12{,}68\\%$. Bank B lebih besar karena bunga lebih sering dihitung majemuk (semakin sering, semakin besar efek bunga atas bunga).
 2. $4.000.000(1{,}02)^6 \\approx 4.000.000(1{,}126162) \\approx \\text{Rp}4.504.649$. Utang tumbuh karena bunga bulan berikutnya dihitung dari sisa utang yang sudah bertambah.
 3. $200.000(1{,}05)^4 = 200.000(1{,}215506) \\approx \\text{Rp}243.101$. Keterbatasan: inflasi nyata tidak selalu tetap; harga pangan dan energi dapat berubah tidak seragam.`,
@@ -272,15 +338,15 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       ],
     },
     {
-      id: 'dunia-nyata',
-      kind: 'dunia-nyata',
-      title: 'Penerapan di Dunia Nyata',
-      body: `Bunga majemuk menjelaskan mengapa menabung lebih awal sangat menguntungkan, dan mengapa utang kartu kredit bisa cepat membengkak. Bandingkan dua studi kasus pada halaman [Memilih Tabungan](aplikasi/bunga-investasi) dan [Kredit Motor](aplikasi/anuitas-pinjaman).`,
+      id: "dunia-nyata",
+      kind: "dunia-nyata",
+      title: "Penerapan di Dunia Nyata",
+      body: "Bunga majemuk menjelaskan mengapa menabung lebih awal sangat menguntungkan, dan mengapa utang kartu kredit bisa cepat membengkak. Bandingkan dua studi kasus pada halaman [Memilih Tabungan](aplikasi/bunga-investasi) dan [Kredit Motor](aplikasi/anuitas-pinjaman).",
     },
     {
-      id: 'kesalahan-umum',
-      kind: 'kesalahan-umum',
-      title: 'Kesalahan Umum',
+      id: "kesalahan-umum",
+      kind: "kesalahan-umum",
+      title: "Kesalahan Umum",
       body: `**1. Menggunakan penalaran bunga tunggal.** Menghitung $5.000.000 \\times 8\\% \\times 5 = \\text{Rp}2.000.000$ lalu menambahkan ke modal memberi Rp7.000.000. Cara ini **salah** untuk bunga majemuk karena mengabaikan bunga atas bunga; hasil yang benar Rp7.346.640.
 
 **2. Mencampur suku bunga nominal dan per periode.** Memakai 12% langsung untuk perhitungan bulanan, padahal $i = 1\\%$ per bulan. Akibatnya saldo terhitung jauh lebih besar dari seharusnya.
@@ -292,61 +358,76 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 **5. Menganggap suku bunga efektif sama dengan nominal.** Karena efek majemuk, efektif selalu $\\ge$ nominal (sama hanya jika dihitung sekali setahun).`,
       blocks: [
         {
-          kind: 'spot-mistake',
-          intro: 'Perhatikan cara menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun. Ada satu langkah keliru. Klik langkah yang salah.',
+          kind: "spot-mistake",
+          intro: "Perhatikan cara menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun. Ada satu langkah keliru. Klik langkah yang salah.",
           steps: [
-            'Modal awal Rp5.000.000 dan suku bunga $8\\%$ per tahun selama $5$ tahun.',
-            'Hitung bunga tiap tahun tetap dari modal **awal**: $5.000.000 \\times 8\\% = \\text{Rp}400.000$.',
-            'Kalikan banyak tahun: $5 \\times 400.000 = \\text{Rp}2.000.000$.',
-            'Saldo akhir $= 5.000.000 + 2.000.000 = \\text{Rp}7.000.000$.',
+            "Modal awal Rp5.000.000 dan suku bunga $8\\%$ per tahun selama $5$ tahun.",
+            "Hitung bunga tiap tahun tetap dari modal **awal**: $5.000.000 \\times 8\\% = \\text{Rp}400.000$.",
+            "Kalikan banyak tahun: $5 \\times 400.000 = \\text{Rp}2.000.000$.",
+            "Saldo akhir $= 5.000.000 + 2.000.000 = \\text{Rp}7.000.000$.",
           ],
           wrongIndex: 1,
-          explanation: 'Langkah kedua keliru karena bunga majemuk dihitung dari **saldo terbaru**, bukan modal awal. Saldo yang benar adalah $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$, bukan Rp7.000.000. Selisihnya berasal dari bunga atas bunga.',
+          explanation: "Langkah kedua keliru karena bunga majemuk dihitung dari **saldo terbaru**, bukan modal awal. Saldo yang benar adalah $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$, bukan Rp7.000.000. Selisihnya berasal dari bunga atas bunga.",
         },
       ],
     },
     {
-      id: 'refleksi',
-      kind: 'refleksi',
-      title: 'Refleksi',
-      body: `1. Mengapa menabung lebih awal lebih menguntungkan daripada menabung dengan jumlah sama tetapi lebih lambat?
-2. Dalam situasi apa bunga tunggal lebih tepat dipakai daripada bunga majemuk?
-3. Kesalahan mana yang paling mungkin kamu lakukan, dan bagaimana cara memeriksanya?`,
+      id: "refleksi",
+      kind: "refleksi",
+      title: "Refleksi",
       blocks: [
         {
-          kind: 'reflection',
+          kind: "reflection",
           prompts: [
-            'Mengapa menabung lebih awal lebih menguntungkan daripada menabung dengan jumlah sama tetapi lebih lambat?',
-            'Dalam situasi apa bunga tunggal lebih tepat dipakai daripada bunga majemuk?',
-            'Kesalahan mana yang paling mungkin kamu lakukan, dan bagaimana cara memeriksanya?',
+            "Mengapa menabung lebih awal lebih menguntungkan daripada menabung dengan jumlah sama tetapi lebih lambat?",
+            "Dalam situasi apa bunga tunggal lebih tepat dipakai daripada bunga majemuk?",
+            "Kesalahan mana yang paling mungkin kamu lakukan, dan bagaimana cara memeriksanya?",
           ],
-          confidenceLabel: 'Seberapa yakin kamu dengan materi bunga majemuk ini?',
+          confidenceLabel: "Seberapa yakin kamu dengan materi bunga majemuk ini?",
         },
       ],
     },
     {
-      id: 'rangkuman',
-      kind: 'rangkuman',
-      title: 'Rangkuman',
+      id: "rangkuman",
+      kind: "rangkuman",
+      title: "Rangkuman",
       blocks: [
         {
-          kind: 'table',
-          headers: ['Konsep', 'Rumus'],
+          kind: "table",
+          headers: [
+            "Konsep",
+            "Rumus",
+          ],
           rows: [
-            ['Saldo bunga majemuk', '$M_n = M_0(1+i)^n$'],
-            ['Suku bunga per periode', '$i = \\dfrac{j}{m}$'],
-            ['Banyak periode', '$n = m \\cdot t$'],
-            ['Suku bunga efektif', '$i_{\\text{efektif}} = \\left(1+\\dfrac{j}{m}\\right)^{m} - 1$'],
-            ['Bunga tunggal (pembanding)', '$M_n = M_0(1 + i\\,n)$'],
+            [
+              "Saldo bunga majemuk",
+              "$M_n = M_0(1+i)^n$",
+            ],
+            [
+              "Suku bunga per periode",
+              "$i = \\dfrac{j}{m}$",
+            ],
+            [
+              "Banyak periode",
+              "$n = m \\cdot t$",
+            ],
+            [
+              "Suku bunga efektif",
+              "$i_{\\text{efektif}} = \\left(1+\\dfrac{j}{m}\\right)^{m} - 1$",
+            ],
+            [
+              "Bunga tunggal (pembanding)",
+              "$M_n = M_0(1 + i\\,n)$",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'evaluasi',
-      kind: 'evaluasi',
-      title: 'Evaluasi',
-      body: `Uji pemahamanmu pada halaman [Latihan & Asesmen](/latihan) topik **Bunga Majemuk**.`,
+      id: "evaluasi",
+      kind: "evaluasi",
+      title: "Evaluasi",
+      body: "Uji pemahamanmu pada halaman [Latihan & Asesmen](/latihan) topik **Bunga Majemuk**.",
     },
   ],
 };

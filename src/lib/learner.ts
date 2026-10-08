@@ -4,6 +4,8 @@
  * agar dapat diuji tanpa DOM maupun localStorage (lihat tests/learner.mjs).
  */
 
+import { readMap, writeMap } from './storage.ts';
+
 export interface PredictionRecord {
   value: string;
   at: number;
@@ -42,72 +44,35 @@ export function recordReflection(
   return { ...map, [id]: { text, confidence, at } };
 }
 
-function parseMap<T extends Record<string, unknown>>(
-  raw: string | null,
-  validate: (value: Record<string, unknown>) => T | undefined,
-): Record<string, T> {
-  if (!raw) return {};
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(raw);
-  } catch {
-    return {};
-  }
-  if (!parsed || typeof parsed !== 'object') return {};
-  const out: Record<string, T> = {};
-  for (const [id, value] of Object.entries(parsed as Record<string, unknown>)) {
-    if (!value || typeof value !== 'object') continue;
-    const valid = validate(value as Record<string, unknown>);
-    if (valid) out[id] = valid;
-  }
-  return out;
-}
-
 export function loadPredictions(storage: Storage | undefined): PredictionMap {
-  if (!storage) return {};
-  let raw: string | null = null;
-  try {
-    raw = storage.getItem(PREDICTION_KEY);
-  } catch {
-    return {};
-  }
-  return parseMap(raw, (value) => {
-    if (typeof value.value !== 'string') return undefined;
-    return { value: value.value, at: typeof value.at === 'number' ? value.at : 0 };
-  });
+  return readMap(
+    PREDICTION_KEY,
+    (value) => {
+      if (typeof value.value !== 'string') return undefined;
+      return { value: value.value, at: typeof value.at === 'number' ? value.at : 0 };
+    },
+    storage,
+  );
 }
 
 export function savePredictions(storage: Storage | undefined, map: PredictionMap): void {
-  if (!storage) return;
-  try {
-    storage.setItem(PREDICTION_KEY, JSON.stringify(map));
-  } catch {
-    /* penyimpanan penuh atau diblokir: abaikan */
-  }
+  writeMap(PREDICTION_KEY, map, storage);
 }
 
 export function loadReflections(storage: Storage | undefined): ReflectionMap {
-  if (!storage) return {};
-  let raw: string | null = null;
-  try {
-    raw = storage.getItem(REFLECTION_KEY);
-  } catch {
-    return {};
-  }
-  return parseMap(raw, (value) => {
-    if (typeof value.text !== 'string') return undefined;
-    const confidence = typeof value.confidence === 'number' ? value.confidence : 0;
-    return { text: value.text, confidence, at: typeof value.at === 'number' ? value.at : 0 };
-  });
+  return readMap(
+    REFLECTION_KEY,
+    (value) => {
+      if (typeof value.text !== 'string') return undefined;
+      const confidence = typeof value.confidence === 'number' ? value.confidence : 0;
+      return { text: value.text, confidence, at: typeof value.at === 'number' ? value.at : 0 };
+    },
+    storage,
+  );
 }
 
 export function saveReflections(storage: Storage | undefined, map: ReflectionMap): void {
-  if (!storage) return;
-  try {
-    storage.setItem(REFLECTION_KEY, JSON.stringify(map));
-  } catch {
-    /* penyimpanan penuh atau diblokir: abaikan */
-  }
+  writeMap(REFLECTION_KEY, map, storage);
 }
 
 /**

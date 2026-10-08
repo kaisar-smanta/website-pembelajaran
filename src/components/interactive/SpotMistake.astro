@@ -11,7 +11,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 const explanationHtml = renderMarkdown(block.explanation);
 ---
 
-<figure class="itx spot" data-spot data-xid={storageId} data-wrong={String(block.wrongIndex)}>
+<figure class="itx spot" data-spot data-storage-id={storageId} data-wrong={String(block.wrongIndex)}>
   <div class="itx-head">
     <span class="itx-kicker">Cari yang salah</span>
     <span class="itx-hint">Klik langkah yang menurutmu keliru.</span>
@@ -139,7 +139,7 @@ const explanationHtml = renderMarkdown(block.explanation);
   }
   .spot-step.is-correct .spot-num {
     background: var(--color-success);
-    color: #fff;
+    color: var(--color-on-primary);
   }
   .spot-step.is-wrong {
     border-color: var(--color-danger);
@@ -147,7 +147,7 @@ const explanationHtml = renderMarkdown(block.explanation);
   }
   .spot-step.is-wrong .spot-num {
     background: var(--color-danger);
-    color: #fff;
+    color: var(--color-on-primary);
   }
   .itx-feedback {
     margin: 0.75rem 0 0;
@@ -186,6 +186,8 @@ const explanationHtml = renderMarkdown(block.explanation);
 </style>
 
 <script>
+  import { emitInteraction } from '@/lib/interaction';
+
   function setupSpot(root: Element) {
     const wrong = Number(root.getAttribute('data-wrong') ?? '-1');
     const steps = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-spot-step]'));
@@ -208,10 +210,8 @@ const explanationHtml = renderMarkdown(block.explanation);
           ? 'Tepat! Itu langkah yang keliru.'
           : 'Belum tepat. Langkah yang salah sudah ditandai hijau.';
       }
-      const id = root.getAttribute('data-xid') ?? '';
-      window.dispatchEvent(
-        new CustomEvent('mtk:interaction', { detail: { id, kind: 'spot-mistake', correct } }),
-      );
+      const id = root.getAttribute('data-storage-id') ?? '';
+      emitInteraction(id, 'spot-mistake', { correct });
     }
 
     steps.forEach((btn, i) => {

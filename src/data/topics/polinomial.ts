@@ -41,45 +41,45 @@ export const polinomial: Topic = {
   ],
   sections: [
     {
-      id: 'tujuan',
-      kind: 'tujuan',
-      title: 'Tujuan Pembelajaran',
-      body: `Setelah mempelajari topik ini, peserta didik dapat melakukan operasi aritmetika pada polinomial, membagi polinomial dengan cara bersusun atau metode Horner, menerapkan teorema sisa dan teorema faktor, serta menentukan faktor, akar, dan identitas polinomial.`,
+      id: "tujuan",
+      kind: "tujuan",
+      title: "Tujuan Pembelajaran",
+      body: "Setelah mempelajari topik ini, peserta didik dapat melakukan operasi aritmetika pada polinomial, membagi polinomial dengan cara bersusun atau metode Horner, menerapkan teorema sisa dan teorema faktor, serta menentukan faktor, akar, dan identitas polinomial.",
     },
     {
-      id: 'pemantik',
-      kind: 'pemantik',
-      title: 'Pertanyaan Pemantik',
-      body: `Perhatikan polinomial $P(x) = x^{3} - 4x^{2} + 5x - 2$. Nilai $P(1) = 1 - 4 + 5 - 2 = 0$ dan $P(2) = 8 - 16 + 10 - 2 = 0$. Kedua fakta ini bukan kebetulan.
-
-Pertanyaannya: apa hubungan antara nilai $P(c)$ dan sisa pembagian $P(x)$ oleh $(x-c)$?`,
+      id: "pemantik",
+      kind: "pemantik",
+      title: "Pertanyaan Pemantik",
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Sisa pembagian $P(x)$ oleh $(x-c)$ tepat sama dengan $P(c)$. Ini adalah **teorema sisa**. Karena $P(1)=0$ dan $P(2)=0$, baik $(x-1)$ maupun $(x-2)$ membagi habis $P(x)$. Memang $P(x) = (x-1)(x-1)(x-2)$, sehingga akar-akarnya $x=1$ (kembar) dan $x=2$. Gagasan inilah yang menjadi inti topik polinomial.`,
+          kind: "prediction",
+          prompt: `Perhatikan polinomial $P(x) = x^{3} - 4x^{2} + 5x - 2$. Nilai $P(1) = 1 - 4 + 5 - 2 = 0$ dan $P(2) = 8 - 16 + 10 - 2 = 0$. Kedua fakta ini bukan kebetulan.
+
+Pertanyaannya: apa hubungan antara nilai $P(c)$ dan sisa pembagian $P(x)$ oleh $(x-c)$?`,
+          reveal: "Sisa pembagian $P(x)$ oleh $(x-c)$ tepat sama dengan $P(c)$. Ini adalah **teorema sisa**. Karena $P(1)=0$ dan $P(2)=0$, baik $(x-1)$ maupun $(x-2)$ membagi habis $P(x)$. Memang $P(x) = (x-1)(x-1)(x-2)$, sehingga akar-akarnya $x=1$ (kembar) dan $x=2$. Gagasan inilah yang menjadi inti topik polinomial.",
+          saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
     },
     {
-      id: 'prasyarat',
-      kind: 'prasyarat',
-      title: 'Prasyarat',
+      id: "prasyarat",
+      kind: "prasyarat",
+      title: "Prasyarat",
       body: `Sebelum melanjutkan, pastikan kamu menguasai:
 - operasi bentuk aljabar, termasuk mengalikan dua binomial;
 - fungsi kuadrat beserta akar-akarnya;
 - aturan tanda pada penjumlahan dan perkalian bilangan.`,
     },
     {
-      id: 'konteks',
-      kind: 'konteks',
-      title: 'Situasi dan Konteks',
-      body: `Polinomial muncul ketika suatu besaran bergantung pada pangkat lebih tinggi dari satu: volume balok sebagai fungsi panjang, lintasan proyektil, atau perkiraan biaya produksi. Membagi polinomial memungkinkan kita menyederhanakan bentuk dan menemukan faktor, sedangkan teorema sisa memberi cara cepat menghitung nilai tanpa substitusi panjang. Keterampilan ini juga fondasi bagi analisis fungsi pada topik lanjutan.`,
+      id: "konteks",
+      kind: "konteks",
+      title: "Situasi dan Konteks",
+      body: "Polinomial muncul ketika suatu besaran bergantung pada pangkat lebih tinggi dari satu: volume balok sebagai fungsi panjang, lintasan proyektil, atau perkiraan biaya produksi. Membagi polinomial memungkinkan kita menyederhanakan bentuk dan menemukan faktor, sedangkan teorema sisa memberi cara cepat menghitung nilai tanpa substitusi panjang. Keterampilan ini juga fondasi bagi analisis fungsi pada topik lanjutan.",
     },
     {
-      id: 'operasi',
-      kind: 'konsep',
-      title: 'Notasi dan Operasi Aritmetika Polinomial',
+      id: "operasi",
+      kind: "konsep",
+      title: "Notasi dan Operasi Aritmetika Polinomial",
       body: `Polinomial (suku banyak) dalam variabel $x$ berderajat $n$ berbentuk
 $$P(x) = a_{n}x^{n} + a_{n-1}x^{n-1} + \\cdots + a_{1}x + a_{0},$$
 dengan $a_{n} \\neq 0$. Bilangan $a_{n}$ disebut **koefisien utama**, $a_{0}$ disebut **konstanta**, dan $n$ adalah **derajat**. Sebagai contoh, $P(x)=2x^{3}-3x^{2}+4x-5$ berderajat $3$ dengan koefisien utama $2$.
@@ -91,36 +91,78 @@ Perkalian dilakukan dengan **sifat distributif**: setiap suku $P$ dikalikan seti
 $$P(x)Q(x) = 2x^{5} + x^{4} - 6x - 5.$$`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'concept',
-          title: 'Inti yang perlu diingat',
-          text: 'Saat menjumlahkan atau mengurangkan, tandai suku-suku **sejenis**. Saat mengalikan, derajat suku-suku bertambah sehingga derajat hasil kali sama dengan jumlah derajat kedua polinomial.',
+          kind: "callout",
+          variant: "concept",
+          title: "Inti yang perlu diingat",
+          text: "Saat menjumlahkan atau mengurangkan, tandai suku-suku **sejenis**. Saat mengalikan, derajat suku-suku bertambah sehingga derajat hasil kali sama dengan jumlah derajat kedua polinomial.",
         },
-      ],
-    },
-    {
-      id: 'derajat',
-      kind: 'representasi',
-      title: 'Derajat Hasil Operasi',
-      body: `Derajat memberi gambaran cepat tentang hasil suatu operasi.`,
-      blocks: [
         {
-          kind: 'table',
-          caption: 'Aturan derajat pada operasi polinomial',
-          headers: ['Operasi', 'Derajat hasil', 'Contoh'],
-          rows: [
-            ['$P+Q$', '$\\max(\\deg P, \\deg Q)$', '$3$ dan $2$ menghasilkan derajat $3$'],
-            ['$P-Q$', '$\\max(\\deg P, \\deg Q)$', '$3$ dan $2$ menghasilkan derajat $3$'],
-            ['$P \\cdot Q$', '$\\deg P + \\deg Q$', '$3$ dan $2$ menghasilkan derajat $5$'],
-            ['$P^{k}$', '$k \\cdot \\deg P$', '$P^{2}$ berderajat $6$'],
+          kind: "match",
+          intro: "Cocokkan teorema polinomial dengan maknanya.",
+          pairs: [
+            {
+              left: "Teorema sisa",
+              right: "Sisa bagi $P(x)$ oleh $(x-k)$ adalah $P(k)$",
+            },
+            {
+              left: "Teorema faktor",
+              right: "$(x-k)$ faktor $P(x)$ jika dan hanya jika $P(k)=0$",
+            },
+            {
+              left: "Skema Horner",
+              right: "Cara efisien membagi polinomial oleh $(x-k)$",
+            },
+            {
+              left: "Derajat hasil bagi",
+              right: "Derajat $P$ dikurangi derajat pembagi",
+            },
           ],
         },
       ],
     },
     {
-      id: 'pembagian',
-      kind: 'rumus',
-      title: 'Pembagian Polinomial: Bersusun dan Horner',
+      id: "derajat",
+      kind: "representasi",
+      title: "Derajat Hasil Operasi",
+      body: "Derajat memberi gambaran cepat tentang hasil suatu operasi.",
+      blocks: [
+        {
+          kind: "table",
+          caption: "Aturan derajat pada operasi polinomial",
+          headers: [
+            "Operasi",
+            "Derajat hasil",
+            "Contoh",
+          ],
+          rows: [
+            [
+              "$P+Q$",
+              "$\\max(\\deg P, \\deg Q)$",
+              "$3$ dan $2$ menghasilkan derajat $3$",
+            ],
+            [
+              "$P-Q$",
+              "$\\max(\\deg P, \\deg Q)$",
+              "$3$ dan $2$ menghasilkan derajat $3$",
+            ],
+            [
+              "$P \\cdot Q$",
+              "$\\deg P + \\deg Q$",
+              "$3$ dan $2$ menghasilkan derajat $5$",
+            ],
+            [
+              "$P^{k}$",
+              "$k \\cdot \\deg P$",
+              "$P^{2}$ berderajat $6$",
+            ],
+          ],
+        },
+      ],
+    },
+    {
+      id: "pembagian",
+      kind: "rumus",
+      title: "Pembagian Polinomial: Bersusun dan Horner",
       body: `Pembagian polinomial mengikuti **algoritma pembagian**: jika $P(x)$ dibagi oleh $Q(x)$ menghasilkan hasil bagi $H(x)$ dan sisa $S(x)$, maka
 $$P(x) = Q(x)\\,H(x) + S(x), \\qquad \\deg S < \\deg Q.$$
 
@@ -133,9 +175,9 @@ sehingga hasil baginya $2x^{2}+5x+7$ dan sisanya $18$.
 Operasi yang sama dapat diverifikasi dengan teorema sisa: nilai $P(2)$ memang $18$.`,
     },
     {
-      id: 'teorema',
-      kind: 'konsep',
-      title: 'Teorema Sisa dan Teorema Faktor',
+      id: "teorema",
+      kind: "konsep",
+      title: "Teorema Sisa dan Teorema Faktor",
       body: `**Teorema sisa.** Sisa pembagian $P(x)$ oleh $(x-c)$ adalah $P(c)$. Secara umum, sisa pembagian $P(x)$ oleh $(ax+b)$ adalah $P\\left(-\\dfrac{b}{a}\\right)$.
 
 Sebagai contoh, untuk $P(x)=2x^{3}-5x^{2}+4x-7$:
@@ -147,17 +189,17 @@ $$x^{3}-4x^{2}+x+6 = (x-3)(x-2)(x+1),$$
 sehingga akar-akarnya $x=3$, $x=2$, dan $x=-1$.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'warning',
-          title: 'Hati-hati',
-          text: 'Teorema sisa memakai $(x-c)$, sehingga yang disubstitusi adalah $c$ (lawan dari angka pada kurung). Untuk pembagi $(ax+b)$, substitusikan $x=-\\dfrac{b}{a}$, bukan $\\dfrac{b}{a}$.',
+          kind: "callout",
+          variant: "warning",
+          title: "Hati-hati",
+          text: "Teorema sisa memakai $(x-c)$, sehingga yang disubstitusi adalah $c$ (lawan dari angka pada kurung). Untuk pembagi $(ax+b)$, substitusikan $x=-\\dfrac{b}{a}$, bukan $\\dfrac{b}{a}$.",
         },
       ],
     },
     {
-      id: 'identitas',
-      kind: 'konsep',
-      title: 'Identitas Polinomial',
+      id: "identitas",
+      kind: "konsep",
+      title: "Identitas Polinomial",
       body: `Dua polinomial **identik** jika koefisien suku-suku sejenisnya sama. Sifat ini dipakai untuk menentukan koefisien yang belum diketahui.
 
 Sebagai contoh, tentukan $a$ dan $b$ dari kesamaan
@@ -167,45 +209,61 @@ $$(x-1)(x+2) = x^{2}+x-2, \\qquad (x^{2}+x-2)(x-3) = x^{3}-2x^{2}-5x+6.$$
 Menyamakan koefisien suku sejenis memberi $a=-2$ dan $b=6$.`,
     },
     {
-      id: 'contoh',
-      kind: 'contoh',
-      title: 'Contoh Terbimbing',
-      body: `**Contoh 1 (operasi).** Diketahui $P(x)=2x^{3}-3x^{2}+4x-5$ dan $Q(x)=x^{2}+2x+1$. Hitunglah $P(x)+Q(x)$ dan $P(x)Q(x)$.
+      id: "contoh",
+      kind: "contoh",
+      title: "Contoh Terbimbing",
+      blocks: [
+        {
+          kind: "step-reveal",
+          steps: [
+            {
+              title: "Contoh 1",
+              text: `Diketahui $P(x)=2x^{3}-3x^{2}+4x-5$ dan $Q(x)=x^{2}+2x+1$. Hitunglah $P(x)+Q(x)$ dan $P(x)Q(x)$.
 
 *Penyelesaian.* Gabungkan suku sejenis:
 $$P(x)+Q(x) = 2x^{3} - 2x^{2} + 6x - 4.$$
 Untuk perkalian, kalikan setiap suku lalu gabungkan:
-$$P(x)Q(x) = 2x^{5} + x^{4} - 6x - 5.$$
-
-**Contoh 2 (teorema sisa).** Tentukan sisa pembagian $P(x)=2x^{3}-5x^{2}+4x-7$ oleh $(x-2)$.
+$$P(x)Q(x) = 2x^{5} + x^{4} - 6x - 5.$$`,
+            },
+            {
+              title: "Contoh 2",
+              text: `Tentukan sisa pembagian $P(x)=2x^{3}-5x^{2}+4x-7$ oleh $(x-2)$.
 
 *Penyelesaian.* Menurut teorema sisa, sisa sama dengan $P(2)$:
 $$P(2) = 2(8) - 5(4) + 4(2) - 7 = 16 - 20 + 8 - 7 = -3.$$
-Jadi sisanya $-3$.
-
-**Contoh 3 (faktor dan akar).** Tunjukkan bahwa $(x-3)$ adalah faktor dari $P(x)=x^{3}-4x^{2}+x+6$, lalu tentukan semua akarnya.
+Jadi sisanya $-3$.`,
+            },
+            {
+              title: "Contoh 3",
+              text: `Tunjukkan bahwa $(x-3)$ adalah faktor dari $P(x)=x^{3}-4x^{2}+x+6$, lalu tentukan semua akarnya.
 
 *Penyelesaian.* Hitung $P(3) = 27 - 36 + 3 + 6 = 0$, jadi $(x-3)$ faktor. Membagi dengan Horner memberi hasil bagi $x^{2}-x-2=(x-2)(x+1)$. Maka
 $$x^{3}-4x^{2}+x+6 = (x-3)(x-2)(x+1),$$
-dengan akar $x=3$, $x=2$, dan $x=-1$.
-
-**Contoh 4 (identitas).** Tentukan $a$ dan $b$ dari $x^{3}+ax^{2}-5x+b = (x-1)(x+2)(x-3)$.
+dengan akar $x=3$, $x=2$, dan $x=-1$.`,
+            },
+            {
+              title: "Contoh 4",
+              text: `Tentukan $a$ dan $b$ dari $x^{3}+ax^{2}-5x+b = (x-1)(x+2)(x-3)$.
 
 *Penyelesaian.* Ruas kanan menjabar menjadi $x^{3}-2x^{2}-5x+6$. Menyamakan koefisien memberi $a=-2$ dan $b=6$.`,
+            },
+          ],
+        },
+      ],
     },
     {
-      id: 'latihan-dasar',
-      kind: 'latihan-dasar',
-      title: 'Latihan Dasar',
-      level: 'dasar',
+      id: "latihan-dasar",
+      kind: "latihan-dasar",
+      title: "Latihan Dasar",
+      level: "dasar",
       body: `1. Tentukan derajat dan koefisien utama dari $4x^{5}-x^{3}+2x-9$.
 2. Diketahui $P(x)=x^{3}+2x^{2}-x+1$ dan $Q(x)=x^{2}-3x+2$. Tentukan $P(x)+Q(x)$.
 3. Hitunglah $P(x)Q(x)$ untuk $P(x)=x+2$ dan $Q(x)=x^{2}-x+3$.
 4. Tentukan sisa pembagian $x^{3}-2x^{2}+4x-1$ oleh $(x-1)$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. Derajatnya $5$ dengan koefisien utama $4$.
 2. $P(x)+Q(x) = x^{3} + 3x^{2} - 4x + 3$.
 3. $(x+2)(x^{2}-x+3) = x^{3} + x^{2} + x + 6$.
@@ -214,18 +272,18 @@ dengan akar $x=3$, $x=2$, dan $x=-1$.
       ],
     },
     {
-      id: 'latihan-cakap',
-      kind: 'latihan-cakap',
-      title: 'Latihan Cakap',
-      level: 'cakap',
+      id: "latihan-cakap",
+      kind: "latihan-cakap",
+      title: "Latihan Cakap",
+      level: "cakap",
       body: `1. Tentukan hasil bagi dan sisa pembagian $2x^{3}+x^{2}-3x+4$ oleh $(x-2)$ dengan metode Horner.
 2. Jika $P(x)=x^{3}+2x^{2}-5x+3$, tentukan $P(-2)$.
 3. Tunjukkan bahwa $(x-2)$ adalah faktor dari $x^{3}-4x^{2}+5x-2$.
 4. Tentukan nilai $k$ agar $(x-1)$ menjadi faktor dari $x^{3}+kx^{2}-3x+2$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. Hasil baginya $2x^{2}+5x+7$ dan sisanya $18$, karena $2x^{3}+x^{2}-3x+4 = (x-2)(2x^{2}+5x+7)+18$.
 2. $P(-2) = -8 + 8 + 10 + 3 = 13$.
 3. $P(2) = 8 - 16 + 10 - 2 = 0$, sehingga $(x-2)$ faktor.
@@ -234,18 +292,18 @@ dengan akar $x=3$, $x=2$, dan $x=-1$.
       ],
     },
     {
-      id: 'latihan-mahir',
-      kind: 'latihan-mahir',
-      title: 'Latihan Mahir',
-      level: 'mahir',
+      id: "latihan-mahir",
+      kind: "latihan-mahir",
+      title: "Latihan Mahir",
+      level: "mahir",
       body: `1. Tentukan semua akar dari $P(x)=x^{3}-4x^{2}+x+6$ beserta pemfaktorannya.
 2. Tentukan $a$ dan $b$ dari kesamaan $x^{3}+ax^{2}-5x+b=(x-1)(x+2)(x-3)$.
 3. Jika polinomial $P(x)$ berderajat $4$ dan dibagi $(x-1)$ bersisa $5$, tentukan $P(1)$ lalu jelaskan kaitannya dengan teorema sisa.
 4. Tentukan sisa pembagian $x^{4}-3x^{2}+2x-5$ oleh $(x+2)$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat pembahasan',
+          kind: "details",
+          summary: "Lihat pembahasan",
           text: `1. $P(3)=0$ sehingga $(x-3)$ faktor. Hasil bagi $x^{2}-x-2=(x-2)(x+1)$, maka $P(x)=(x-3)(x-2)(x+1)$ dengan akar $x=3$, $x=2$, dan $x=-1$.
 2. Ruas kanan $=x^{3}-2x^{2}-5x+6$, maka $a=-2$ dan $b=6$.
 3. Teorema sisa menyatakan sisa pembagian oleh $(x-1)$ adalah $P(1)$, jadi $P(1)=5$.
@@ -254,55 +312,87 @@ dengan akar $x=3$, $x=2$, dan $x=-1$.
       ],
     },
     {
-      id: 'dunia-nyata',
-      kind: 'dunia-nyata',
-      title: 'Penerapan di Dunia Nyata',
+      id: "dunia-nyata",
+      kind: "dunia-nyata",
+      title: "Penerapan di Dunia Nyata",
       body: `Polinomial dipakai untuk memodelkan volume, lintasan, dan biaya. Menentukan akar polinomial membantu mencari titik saat suatu besaran bernilai nol, misalnya waktu sebuah proyektil menyentuh tanah atau ukuran kemasan dengan volume tertentu.
 
 Dalam teknologi, kurva Bézier pada desain grafis dan animasi dibangun dari polinomial. Kode pemeriksa galat pada transmisi data juga menggunakan aritmetika polinomial di atas bilangan biner.`,
     },
     {
-      id: 'kesalahan-umum',
-      kind: 'kesalahan-umum',
-      title: 'Kesalahan Umum',
+      id: "kesalahan-umum",
+      kind: "kesalahan-umum",
+      title: "Kesalahan Umum",
       body: `**1. Salah tanda pada teorema sisa.** Untuk pembagi $(x+1)$, substitusikan $x=-1$; untuk $(ax+b)$, substitusikan $x=-\\dfrac{b}{a}$.
 **2. Menyamakan suku tidak sejenis.** Hanya koefisien dari pangkat yang sama boleh disamakan pada identitas polinomial.
 **3. Berhenti saat menemukan satu faktor.** Setelah $(x-c)$ diperoleh, hasil bagi masih perlu difaktorkan untuk menemukan akar lainnya.
 **4. Mengabaikan derajat hasil bagi.** Derajat hasil bagi adalah derajat $P$ dikurangi derajat pembagi; periksa kembali agar tidak ada suku yang hilang.`,
     },
     {
-      id: 'refleksi',
-      kind: 'refleksi',
-      title: 'Refleksi',
-      body: `Jawab dengan jujur:
-1. Mengapa teorema sisa membuat perhitungan nilai polinomial menjadi lebih cepat?
-2. Bagaimana kamu memeriksa kebenaran hasil pembagian polinomial?
-3. Kapan penyamaan koefisien lebih mudah daripada menyubstitusi nilai $x$ tertentu?`,
-    },
-    {
-      id: 'rangkuman',
-      kind: 'rangkuman',
-      title: 'Rangkuman',
+      id: "refleksi",
+      kind: "refleksi",
+      title: "Refleksi",
+      body: "Jawab dengan jujur:",
       blocks: [
         {
-          kind: 'table',
-          headers: ['Konsep', 'Bentuk / Aturan'],
+          kind: "reflection",
+          prompts: [
+            "Mengapa teorema sisa membuat perhitungan nilai polinomial menjadi lebih cepat?",
+            "Bagaimana kamu memeriksa kebenaran hasil pembagian polinomial?",
+            "Kapan penyamaan koefisien lebih mudah daripada menyubstitusi nilai $x$ tertentu?",
+          ],
+          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+        },
+      ],
+    },
+    {
+      id: "rangkuman",
+      kind: "rangkuman",
+      title: "Rangkuman",
+      blocks: [
+        {
+          kind: "table",
+          headers: [
+            "Konsep",
+            "Bentuk / Aturan",
+          ],
           rows: [
-            ['Bentuk polinomial', '$P(x)=a_{n}x^{n}+\\cdots+a_{1}x+a_{0}$'],
-            ['Penjumlahan / pengurangan', 'gabungkan suku sejenis'],
-            ['Perkalian', '$\\deg(PQ)=\\deg P+\\deg Q$'],
-            ['Algoritma pembagian', '$P(x)=Q(x)H(x)+S(x)$'],
-            ['Teorema sisa', 'sisa oleh $(x-c)$ adalah $P(c)$'],
-            ['Teorema faktor', '$(x-c)$ faktor $\\Leftrightarrow$ $P(c)=0$'],
-            ['Identitas polinomial', 'koefisien suku sejenis sama'],
+            [
+              "Bentuk polinomial",
+              "$P(x)=a_{n}x^{n}+\\cdots+a_{1}x+a_{0}$",
+            ],
+            [
+              "Penjumlahan / pengurangan",
+              "gabungkan suku sejenis",
+            ],
+            [
+              "Perkalian",
+              "$\\deg(PQ)=\\deg P+\\deg Q$",
+            ],
+            [
+              "Algoritma pembagian",
+              "$P(x)=Q(x)H(x)+S(x)$",
+            ],
+            [
+              "Teorema sisa",
+              "sisa oleh $(x-c)$ adalah $P(c)$",
+            ],
+            [
+              "Teorema faktor",
+              "$(x-c)$ faktor $\\Leftrightarrow$ $P(c)=0$",
+            ],
+            [
+              "Identitas polinomial",
+              "koefisien suku sejenis sama",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'evaluasi',
-      kind: 'evaluasi',
-      title: 'Evaluasi',
+      id: "evaluasi",
+      kind: "evaluasi",
+      title: "Evaluasi",
       body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Polinomial**.
 `,
     },

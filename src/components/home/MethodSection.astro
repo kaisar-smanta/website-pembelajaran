@@ -191,7 +191,7 @@ const habits: Habit[] = [
     width: 2.25rem;
     height: 3px;
     margin-top: 0.4rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--group-accent, var(--color-primary));
   }
   .group-lead {
@@ -439,9 +439,4 @@ const habits: Habit[] = [
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .cta-arrow {
-      transition: none;
-    }
-  }
 </style>

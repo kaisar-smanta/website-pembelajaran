@@ -147,26 +147,22 @@ blocks: [
 Interaksi `prediction` dan `reflection` disimpan melalui `src/lib/learner.ts`
 (diuji `tests/learner.mjs`). Blok lain mengirim event `mtk:interaction`.
 
-Selain blok yang ditulis manual, `src/data/topics/enhance.ts` **meningkatkan
-seluruh topik secara otomatis** saat data dimuat (dipakai `src/data/topics/index.ts`):
-pemantik ber-`details` diubah menjadi `prediction`, refleksi bernomor menjadi
-`reflection`, contoh "Contoh N"/"Langkah N" menjadi `step-reveal`, topik yang
-punya simulasi sendiri selalu mendapat blok `exploration` (sekaligus memperbaiki
-id eksplorasi yang salah), dan blok variasi (`match`, `flip-cards`, `tabs`,
-`spot-mistake`) ditambahkan lewat peta `EXTRA_BLOCKS` agar tiap halaman materi
-tidak lagi hanya dapat dibaca. `sectionSearchText` ikut mengindeks isi blok
-untuk pencarian. Halaman materi juga menampilkan kartu **Kemajuan halaman**
+**Blok interaktif ditulis langsung di data topik.** Sebelumnya ada lapisan
+peningkatan otomatis (`src/data/topics/enhance.ts`) yang mengubah `body` markdown
+menjadi blok saat data dimuat. Lapisan itu kini dihapus: seluruh topik pada
+`src/data/topics/*.ts` sudah memuat bloknya sendiri, sehingga satu sumber
+kebenaran dan tidak ada lagi pola rapuh berbasis regex. `tests/content-blocks.mjs`
+menegakkan kontraknya — setiap bagian `pemantik` wajib punya `prediction`,
+`refleksi` wajib punya `reflection`, dan `eksplorasi` wajib punya `exploration`.
+`sectionSearchText` (di `src/lib/content-text.ts`) mengindeks isi blok untuk
+pencarian. Halaman materi juga menampilkan kartu **Kemajuan halaman**
 (`TopicProgress.astro`) yang menghitung dugaan, refleksi, dan latihan yang sudah
 dikerjakan.
 
-> **Perhatian saat menambah contoh.** Bila sebuah bagian `contoh` sudah punya blok
-> `step-reveal` manual, `enhanceContoh` akan **menghapus** isi `body`-nya begitu
-> jumlah langkah manual tidak lebih sedikit daripada jumlah contoh ("Contoh N").
-> Menambah contoh baru ke `body` bagian seperti itu bisa tidak tampil (atau malah
-> memunculkan kembali seluruh `body` dan menduplikasi `step-reveal`). Untuk
-> contoh tambahan, buat **bagian `contoh` baru** dengan satu contoh di dalamnya —
-> `enhanceContoh` tidak akan mengubahnya. Contoh: bagian `contoh-imajiner`
-> (fungsi kuadrat) dan `contoh-majemuk` (peluang).
+> Untuk menambah blok interaktif baru, tulis langsung pada `blocks` bagian yang
+> bersangkutan (lihat tabel di atas). Tidak ada lagi konversi otomatis, sehingga
+> materi tidak akan pernah terhapus atau terduplikasi saat data dimuat.
+
 
 ---
 
@@ -328,24 +324,32 @@ Topik pengayaan yang melampaui CP (mis. SPLTV, aljabar matriks) ditandai
 src/
 ├── components/
 │   ├── layout/        Header, Footer, ThemeToggle, BaseLayout
-│   ├── navigation/     Breadcrumbs
-│   ├── content/        SectionBlock, TopicCard, Callout, DataTable, ElementIcon, MathMascot
-│   ├── exercises/      QuestionCard
-│   └── interactive/    FunctionSlider, CompoundInterestSim, ProbabilitySim,
-│                       LinearRegressionSim, GeogebraEmbed, ExplorationEmbed
+│   ├── navigation/    Breadcrumbs
+│   ├── content/       SectionBlock, TopicCard, Callout, DataTable, ElementIcon, MathMascot
+│   ├── exercises/     QuestionCard, QuizTeaser
+│   ├── interactive/   FunctionSlider, CompoundInterestSim, ... + sim.css (gaya bersama)
+│   └── ui/            CtaCard (kartu ajakan bersama)
 ├── data/
 │   ├── curriculum.ts   Daftar kelas & elemen + meta
+│   ├── display.ts      Metadata tampilan terpusat (warna elemen, label tingkat, halaman statis)
 │   ├── curriculum/     Registri CP & riwayat regulasi (cp.ts)
 │   ├── site.ts         Identitas situs, penyusun, sekolah, & tautan resmi
 │   ├── nav.ts          Navigasi header/footer
 │   ├── explorations.ts Registri eksplorasi interaktif
 │   ├── applications/   Studi kasus "Matematika dalam Kehidupan"
 │   │                   (index.ts + satu berkas per kategori)
-│   ├── topics/         Satu berkas per topik (materi)
+│   ├── topics/         Satu berkas per topik (materi, blok interaktif ditulis langsung)
 │   └── questions/      Satu berkas per topik (bank soal)
 ├── layouts/            BaseLayout.astro
+├── lib/                Pustaka murni & dapat diuji: sim/ (perhitungan),
+│                       graph/layout.ts, storage.ts, learner.ts, progress.ts,
+│                       format.ts, dom.ts, interaction.ts, filter.ts,
+│                       content-text.ts, search.ts (skor & sorot pencarian),
+│                       practice.ts (hitung & kelompokin soal per tingkat)
 ├── pages/              Rute (lihat tabel di bawah)
-├── styles/             global.css (design token, mode gelap, cetak)
+├── styles/             global.css (perakit @import berurutan) +
+│                       partials/ (tokens, base, layout, components, decor,
+│                       home, accents, prose, utilities, motion, print)
 ├── types/content.ts    Model data: Topic, Section, Block, Question, ...
 └── utils/              markdown.ts (KaTeX+marked), url.ts (base path), ...
 ```

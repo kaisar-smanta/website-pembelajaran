@@ -10,7 +10,7 @@ const { block, storageId } = Astro.props;
 const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
 ---
 
-<figure class="itx tabs" data-tabs data-tid={storageId}>
+<figure class="itx tabs" data-tabs data-storage-id={storageId}>
   <div class="tablist" role="tablist" aria-label="Pilih representasi">
     {
       block.items.map((item, i) => (
@@ -108,6 +108,8 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
 </style>
 
 <script>
+  import { emitInteraction } from '@/lib/interaction';
+
   function setupTabs(root: Element) {
     const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab-btn]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-tab-panel]'));
@@ -122,8 +124,8 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
       panels.forEach((panel, i) => {
         panel.hidden = i !== index;
       });
-      const id = root.getAttribute('data-tid') ?? '';
-      window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'tabs' } }));
+      const id = root.getAttribute('data-storage-id') ?? '';
+      emitInteraction(id, 'tabs');
     }
 
     buttons.forEach((btn, i) => {

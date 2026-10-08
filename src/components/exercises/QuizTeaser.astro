@@ -201,11 +201,11 @@ const first = quizData[0];
   }
   .quiz-options :global(.quiz-option.is-correct .quiz-key) {
     background: var(--color-success);
-    color: #fff;
+    color: var(--color-on-accent);
   }
   .quiz-options :global(.quiz-option.is-wrong .quiz-key) {
     background: var(--color-danger);
-    color: #fff;
+    color: var(--color-on-accent);
   }
   .quiz-feedback {
     margin: 0.75rem 0;
@@ -235,7 +235,7 @@ const first = quizData[0];
     margin: 0.75rem 0 0.5rem;
     padding: 0.32rem 0.8rem;
     border: 1px solid var(--color-border);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-surface-2);
     font-size: 0.88rem;
     font-weight: 600;
@@ -258,7 +258,7 @@ const first = quizData[0];
     margin: 0 0 0.5rem;
     padding: 0.34rem 0.7rem;
     border: 1px solid color-mix(in srgb, var(--color-success) 42%, var(--color-border));
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-success-soft);
     color: var(--color-success);
     font-size: 0.88rem;
@@ -328,12 +328,22 @@ const first = quizData[0];
   }
 </style>
 
-<script is:inline>
+<script>
+  import { loadProgress, saveProgress, recordAttempt } from '@/lib/progress';
+
   (() => {
     try {
-      const boxes = document.querySelectorAll('[data-quiz]');
+      const boxes = document.querySelectorAll<HTMLElement>('[data-quiz]');
       boxes.forEach((box) => {
-        let quiz = [];
+        type QuizOption = { key: string; textHtml?: string };
+        type QuizItem = {
+          id: string;
+          answer: string;
+          promptHtml?: string;
+          explanationHtml?: string;
+          options?: QuizOption[];
+        };
+        let quiz: QuizItem[] = [];
         try {
           quiz = JSON.parse(box.getAttribute('data-questions') || '[]');
         } catch (err) {
@@ -341,15 +351,15 @@ const first = quizData[0];
         }
         if (!Array.isArray(quiz) || quiz.length === 0) return;
 
-        const scope = box.closest('.quiz-teaser') || box;
-        const promptEl = box.querySelector('[data-quiz-prompt]');
-        const optionsEl = box.querySelector('[data-quiz-options]');
-        const feedbackEl = box.querySelector('[data-feedback]');
-        const nextBtn = box.querySelector('[data-next]');
-        const streakEl = scope.querySelector('[data-streak]');
-        const rewardEl = scope.querySelector('[data-reward]');
-        const rewardTextEl = scope.querySelector('[data-reward-text]');
-        let burst = box.querySelector('.quiz-burst');
+        const scope = (box.closest('.quiz-teaser') as HTMLElement | null) || box;
+        const promptEl = box.querySelector<HTMLElement>('[data-quiz-prompt]');
+        const optionsEl = box.querySelector<HTMLElement>('[data-quiz-options]');
+        const feedbackEl = box.querySelector<HTMLElement>('[data-feedback]');
+        const nextBtn = box.querySelector<HTMLElement>('[data-next]');
+        const streakEl = scope.querySelector<HTMLElement>('[data-streak]');
+        const rewardEl = scope.querySelector<HTMLElement>('[data-reward]');
+        const rewardTextEl = scope.querySelector<HTMLElement>('[data-reward-text]');
+        let burst = box.querySelector<HTMLElement>('.quiz-burst');
 
         let index = 0;
         let answered = false;
@@ -366,26 +376,12 @@ const first = quizData[0];
           reduceMotion = false;
         }
 
-        function recordProgress(questionId, correct) {
+        function recordProgress(questionId: string, correct: boolean) {
           if (!questionId) return;
           try {
             const storage = window.localStorage;
-            let map = {};
-            try {
-              const raw = storage.getItem('mtk-progress');
-              if (raw) {
-                const parsed = JSON.parse(raw);
-                if (parsed && typeof parsed === 'object') map = parsed;
-              }
-            } catch (err) {
-              map = {};
-            }
-            map[questionId] = { questionId: questionId, correct: Boolean(correct), at: Date.now() };
-            try {
-              storage.setItem('mtk-progress', JSON.stringify(map));
-            } catch (err) {
-              /* penyimpanan penuh atau diblokir: abaikan */
-            }
+            const map = loadProgress(storage);
+            saveProgress(storage, recordAttempt(map, questionId, Boolean(correct)));
           } catch (err) {
             /* ignore */
           }
@@ -400,7 +396,7 @@ const first = quizData[0];
           }
         }
 
-        function rewardMessage(n) {
+        function rewardMessage(n: number) {
           if (n <= 1) return 'Tepat sekali. Lanjut ke soal berikutnya.';
           if (n === 2) return 'Dua benar berturut-turut.';
           if (n === 3) return 'Tiga benar berturut-turut. Lanjutkan.';
@@ -414,7 +410,7 @@ const first = quizData[0];
           rewardEl.classList.remove('is-pop', 'is-soft');
         }
 
-        function showReward(n) {
+        function showReward(n: number) {
           if (!rewardEl) return;
           rewardEl.hidden = false;
           rewardEl.classList.remove('is-soft');
@@ -470,7 +466,7 @@ const first = quizData[0];
           }
         }
 
-        function choose(btn, key) {
+        function choose(btn: HTMLElement, key: string) {
           if (answered) return;
           answered = true;
           const q = quiz[index];

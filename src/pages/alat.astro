@@ -4,6 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import Callout from '@/components/content/Callout.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { url } from '@/utils/url';
 import { toolGroups } from '@/data/tools';
 import { ALL_ELEMENT_ORDER } from '@/data/curriculum';
@@ -76,20 +77,17 @@ const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
 
   <section class="section-alt cta-section">
     <div class="container">
-      <div class="card cta-card card-accent accent-aljabar-fungsi hover-lift reveal">
-        <div class="cta-copy">
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2>Pakai alat untuk memahami, bukan menggantikannya</h2>
-          <p class="text-muted">
-            Coba modelkan sebuah konsep di laboratorium interaktif, atau mulai menelusuri materi dari
-            kelas X.
-          </p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/eksplorasi')}>Jelajahi eksplorasi</a>
-          <a class="btn btn-secondary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Pakai alat untuk memahami, bukan menggantikannya"
+        text="Coba modelkan sebuah konsep di laboratorium interaktif, atau mulai menelusuri materi dari kelas X."
+        accentClass="accent-aljabar-fungsi"
+        reveal
+        actions={[
+          { label: 'Jelajahi eksplorasi', href: url('/eksplorasi'), variant: 'primary' },
+          { label: 'Mulai dari Kelas X', href: url('/matematika/kelas/X'), variant: 'secondary' },
+        ]}
+      />
     </div>
   </section>
 </BaseLayout>
@@ -145,29 +143,5 @@ const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
   }
   .cta-section {
     padding-block: 2.5rem;
-  }
-  .cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .cta-copy {
-    max-width: 46ch;
-  }
-  .cta-copy .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .cta-copy h2 {
-    margin-bottom: 0.35rem;
-  }
-  .cta-copy p {
-    margin: 0;
-  }
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 </style>

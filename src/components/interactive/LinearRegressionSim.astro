@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -106,13 +107,6 @@ const helpId = `reg-help-${exploration.id}`;
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-head h3 {
     margin: 0 0 0.75rem;
     font-size: 1.1rem;
@@ -265,14 +259,6 @@ const helpId = `reg-help-${exploration.id}`;
     font-size: 0.85rem;
     color: var(--color-text-muted);
   }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
-  }
   @media (max-width: 420px) {
     .reg-field input {
       width: 100%;
@@ -294,6 +280,8 @@ const helpId = `reg-help-${exploration.id}`;
     RANDOM_BATCH_SIZE,
     type Domain,
   } from '../../lib/sim/regression';
+  import { el, clear, linearScale } from '../../lib/dom';
+  import { formatFixed } from '../../lib/format';
 
   interface Pt {
     x: number;
@@ -326,19 +314,11 @@ const helpId = `reg-help-${exploration.id}`;
     const H = 320;
     const pad = 34;
 
-    const sx = (x: number) => pad + ((x - xMin) / (xMax - xMin)) * (W - 2 * pad);
-    const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
+    const { sx, sy } = linearScale(domain, { width: W, height: H, pad });
     const ix = (px: number) => xMin + ((px - pad) / (W - 2 * pad)) * (xMax - xMin);
     const iy = (py: number) => yMin + ((H - pad - py) / (H - 2 * pad)) * (yMax - yMin);
     const inDomainX = (v: number) => Number.isFinite(v) && v >= xMin && v <= xMax;
     const inDomainY = (v: number) => Number.isFinite(v) && v >= yMin && v <= yMax;
-
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const el = (name: string, attrs: Record<string, string | number>) => {
-      const node = document.createElementNS(svgNS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    };
 
     function renderList() {
       list.innerHTML = '';
@@ -353,12 +333,12 @@ const helpId = `reg-help-${exploration.id}`;
         const li = document.createElement('li');
         li.className = 'reg-item';
         const label = document.createElement('span');
-        label.textContent = `(${p.x.toFixed(1)}, ${p.y.toFixed(1)})`;
+        label.textContent = `(${formatFixed(p.x, 1)}, ${formatFixed(p.y, 1)})`;
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn btn-secondary btn-sm';
         btn.textContent = 'Hapus';
-        btn.setAttribute('aria-label', `Hapus titik (${p.x.toFixed(1)}, ${p.y.toFixed(1)})`);
+        btn.setAttribute('aria-label', `Hapus titik (${formatFixed(p.x, 1)}, ${formatFixed(p.y, 1)})`);
         btn.addEventListener('click', () => {
           points.splice(i, 1);
           draw();
@@ -369,7 +349,7 @@ const helpId = `reg-help-${exploration.id}`;
     }
 
     function draw() {
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      clear(svg);
 
       for (let i = 0; i <= 8; i++) {
         const x = pad + (i / 8) * (W - 2 * pad);
@@ -428,12 +408,12 @@ const helpId = `reg-help-${exploration.id}`;
         out.textContent = 'Nilai x harus beragam: tambahkan titik dengan nilai x berbeda agar garis regresi terdefinisi.';
       } else {
         const arah = st.slope > 0 ? 'positif' : st.slope < 0 ? 'negatif' : 'nol';
-        const rTeks = Number.isNaN(st.r) ? '—' : st.r.toFixed(3);
-        const r2Teks = Number.isNaN(st.r2) ? '—' : st.r2.toFixed(3);
-        const dasar = `ŷ = ${st.slope.toFixed(3)}x ${st.intercept >= 0 ? '+' : '−'} ${Math.abs(st.intercept).toFixed(3)} · korelasi r = ${rTeks} · determinasi r² = ${r2Teks} (${arah}).`;
+        const rTeks = Number.isNaN(st.r) ? '—' : formatFixed(st.r, 3);
+        const r2Teks = Number.isNaN(st.r2) ? '—' : formatFixed(st.r2, 3);
+        const dasar = `ŷ = ${formatFixed(st.slope, 3)}x ${st.intercept >= 0 ? '+' : '−'} ${formatFixed(Math.abs(st.intercept), 3)} · korelasi r = ${rTeks} · determinasi r² = ${r2Teks} (${arah}).`;
         const catatan = st.diagnostic === 'zero-y-variance'
           ? ' Semua nilai y sama sehingga korelasi tidak terdefinisi.'
-          : ` Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${st.slope.toFixed(3)} satuan.`;
+          : ` Interpretasi: setiap kenaikan 1 satuan x, y berubah sekitar ${formatFixed(st.slope, 3)} satuan.`;
         out.textContent = dasar + catatan;
       }
 

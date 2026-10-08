@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -146,13 +147,6 @@ const uid = exploration.id;
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-head h3 {
     margin: 0 0 0.75rem;
     font-size: 1.1rem;
@@ -330,15 +324,6 @@ const uid = exploration.id;
     color: var(--color-text);
     transition: background var(--dur) var(--ease-out-soft);
   }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
-  }
-
   @media (max-width: 430px) {
     .sim {
       padding: 0.8rem;
@@ -358,11 +343,7 @@ const uid = exploration.id;
 
 <script>
   import { computeConditional } from '../../lib/sim/conditional';
-
-  const persen = new Intl.NumberFormat('id-ID', {
-    style: 'percent',
-    maximumFractionDigits: 2,
-  });
+  import { formatPercent } from '../../lib/format';
 
   const DEFAULTS = { a: '0.5', ba: '0.5', bac: '0.5' };
 
@@ -398,46 +379,46 @@ const uid = exploration.id;
       const { pA, pBA, pBAc, pAc, pAB, pAcB, pB, pBc, pABc, pAcBc, pAGivenB, pBGivenA, verdict } =
         computeConditional(Number(fieldA.value), Number(fieldBA.value), Number(fieldBAc.value));
 
-      outA.textContent = persen.format(pA);
-      outBA.textContent = persen.format(pBA);
-      outBAc.textContent = persen.format(pBAc);
+      outA.textContent = formatPercent(pA);
+      outBA.textContent = formatPercent(pBA);
+      outBAc.textContent = formatPercent(pBAc);
 
-      outPAB.textContent = persen.format(pAB);
-      outPAcB.textContent = persen.format(pAcB);
-      outPB.textContent = persen.format(pB);
+      outPAB.textContent = formatPercent(pAB);
+      outPAcB.textContent = formatPercent(pAcB);
+      outPB.textContent = formatPercent(pB);
 
-      cellAB.textContent = persen.format(pAB);
-      cellABc.textContent = persen.format(pABc);
-      cellATotal.textContent = persen.format(pA);
-      cellAcB.textContent = persen.format(pAcB);
-      cellAcBc.textContent = persen.format(pAcBc);
-      cellAcTotal.textContent = persen.format(pAc);
-      cellBTotal.textContent = persen.format(pB);
-      cellBcTotal.textContent = persen.format(pBc);
-      cellGrand.textContent = persen.format(1);
+      cellAB.textContent = formatPercent(pAB);
+      cellABc.textContent = formatPercent(pABc);
+      cellATotal.textContent = formatPercent(pA);
+      cellAcB.textContent = formatPercent(pAcB);
+      cellAcBc.textContent = formatPercent(pAcBc);
+      cellAcTotal.textContent = formatPercent(pAc);
+      cellBTotal.textContent = formatPercent(pB);
+      cellBcTotal.textContent = formatPercent(pBc);
+      cellGrand.textContent = formatPercent(1);
 
-      outBGivenA.textContent = persen.format(pBGivenA);
-      outAGivenB.textContent = pAGivenB === undefined ? 'tidak terdefinisi' : persen.format(pAGivenB);
+      outBGivenA.textContent = formatPercent(pBGivenA);
+      outAGivenB.textContent = pAGivenB === undefined ? 'tidak terdefinisi' : formatPercent(pAGivenB);
 
       if (verdict === 'undefined') {
         outVerdict.textContent =
           'P(A|B) tidak dapat dihitung karena P(B) = 0. Geser slider hingga P(B) > 0 untuk menghitungnya.';
       } else if (verdict === 'similar') {
-        outVerdict.textContent = `Pada nilai ini P(A|B) dan P(B|A) hampir sama, yaitu sekitar ${persen.format(pAGivenB ?? 0)}. Ubah slider untuk melihat bahwa keduanya dapat berbeda.`;
+        outVerdict.textContent = `Pada nilai ini P(A|B) dan P(B|A) hampir sama, yaitu sekitar ${formatPercent(pAGivenB ?? 0)}. Ubah slider untuk melihat bahwa keduanya dapat berbeda.`;
       } else {
-        outVerdict.textContent = `P(A|B) = ${persen.format(pAGivenB ?? 0)} sedangkan P(B|A) = ${persen.format(pBA)}. Keduanya berbeda, jadi arah syarat pada peluang bersyarat sangat menentukan.`;
+        outVerdict.textContent = `P(A|B) = ${formatPercent(pAGivenB ?? 0)} sedangkan P(B|A) = ${formatPercent(pBA)}. Keduanya berbeda, jadi arah syarat pada peluang bersyarat sangat menentukan.`;
       }
 
       if (pAGivenB === undefined) {
-        outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${persen.format(pA)} × ${persen.format(pBA)}) / ${persen.format(pB)} tidak terdefinisi karena P(B) = 0`;
+        outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${formatPercent(pA)} × ${formatPercent(pBA)}) / ${formatPercent(pB)} tidak terdefinisi karena P(B) = 0`;
       } else {
-        outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${persen.format(pA)} × ${persen.format(pBA)}) / ${persen.format(pB)} = ${persen.format(pAGivenB)}`;
+        outBayes.textContent = `P(A|B) = P(A) × P(B|A) / P(B) = (${formatPercent(pA)} × ${formatPercent(pBA)}) / ${formatPercent(pB)} = ${formatPercent(pAGivenB)}`;
       }
 
       if (pAGivenB === undefined) {
-        outReadout.textContent = `Dengan P(A) = ${persen.format(pA)}, P(B|A) = ${persen.format(pBA)}, dan P(B|A komplemen) = ${persen.format(pBAc)}, diperoleh P(B) = ${persen.format(pB)} sehingga P(A|B) tidak terdefinisi. Naikkan P(B|A) atau P(B|A komplemen) agar B mungkin terjadi.`;
+        outReadout.textContent = `Dengan P(A) = ${formatPercent(pA)}, P(B|A) = ${formatPercent(pBA)}, dan P(B|A komplemen) = ${formatPercent(pBAc)}, diperoleh P(B) = ${formatPercent(pB)} sehingga P(A|B) tidak terdefinisi. Naikkan P(B|A) atau P(B|A komplemen) agar B mungkin terjadi.`;
       } else {
-        outReadout.textContent = `Dengan P(A) = ${persen.format(pA)}, P(B|A) = ${persen.format(pBA)}, dan P(B|A komplemen) = ${persen.format(pBAc)}, diperoleh P(B) = ${persen.format(pB)} sehingga P(A|B) = ${persen.format(pAGivenB)}, sedangkan P(B|A) = ${persen.format(pBA)} (${verdict === 'similar' ? 'hampir sama' : 'berbeda'}).`;
+        outReadout.textContent = `Dengan P(A) = ${formatPercent(pA)}, P(B|A) = ${formatPercent(pBA)}, dan P(B|A komplemen) = ${formatPercent(pBAc)}, diperoleh P(B) = ${formatPercent(pB)} sehingga P(A|B) = ${formatPercent(pAGivenB)}, sedangkan P(B|A) = ${formatPercent(pBA)} (${verdict === 'similar' ? 'hampir sama' : 'berbeda'}).`;
       }
     }
 

@@ -1,20 +1,49 @@
 import { marked } from 'marked';
 import katex from 'katex';
+import { BASE } from './url.ts';
 
 marked.setOptions({
   gfm: true,
   breaks: false,
 });
 
-const BASE = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+/** Opsi KaTeX bersama; `displayMode` ditentukan di tiap pemanggilan. */
+const KATEX_OPTIONS = {
+  throwOnError: false,
+  strict: false,
+  trust: true,
+};
 
-/** Menambahkan base path pada tautan internal (href="/..."). */
-function withBase(html: string): string {
-  if (BASE === '/') return html;
-  return html.replace(/href="\/(?!\/)/g, `href="${BASE}`);
+/**
+ * Menambahkan base path pada tautan/gambar internal (`href="/..."`, `src="/..."`).
+ *
+ * - Mendukung tanda kutip tunggal maupun ganda.
+ * - URL protokol-relatif (`//host/...`) dan absolut (`https://...`) dibiarkan.
+ * - Tidak menggandakan prefiks bila URL sudah memakai base path.
+ *
+ * Diekspor agar dapat diuji dengan base path non-root; Node menyelesaikan
+ * `BASE` menjadi `/` saat pengujian.
+ */
+export function rewriteBase(html: string, base: string): string {
+  if (base === '/') return html;
+  const baseNoSlash = base.replace(/\/+$/, '');
+  const pattern = new RegExp(`(?<![\\w-])(href|src)=(["'])(\\/[^"']*)\\2`, 'g');
+  return html.replace(
+    pattern,
+    (match: string, attr: string, quote: string, value: string) => {
+      if (value.startsWith('//')) return match;
+      if (value === base || value === baseNoSlash) return match;
+      if (value.startsWith(base) || value.startsWith(`${baseNoSlash}/`)) return match;
+      return `${attr}=${quote}${base}${value.replace(/^\/+/, '')}${quote}`;
+    },
+  );
 }
+
+/** Versi `rewriteBase` yang memakai `BASE` hasil build. */
+function withBase(html: string): string {
+  return rewriteBase(html, BASE);
+}
+
 /**
  * Mengubah markdown (dengan $...$ dan $$...$$) menjadi HTML,
  * lalu merender matematika menggunakan KaTeX pada saat build.
@@ -35,23 +64,13 @@ export function renderMarkdown(input: string): string {
 
   // 1. Ganti blok display $$...$$ terlebih dahulu.
   let withTokens = input.replace(/\$\$([\s\S]+?)\$\$/g, (_m, tex: string) => {
-    const html = katex.renderToString(tex.trim(), {
-      displayMode: true,
-      throwOnError: false,
-      strict: false,
-      trust: true,
-    });
+    const html = katex.renderToString(tex.trim(), { ...KATEX_OPTIONS, displayMode: true });
     return stash(html);
   });
 
   // 2. Ganti inline $...$ (hindari $$ yang sudah habis).
   withTokens = withTokens.replace(/(?<!\\)\$([^\n$]+?)\$/g, (_m, tex: string) => {
-    const html = katex.renderToString(tex.trim(), {
-      displayMode: false,
-      throwOnError: false,
-      strict: false,
-      trust: true,
-    });
+    const html = katex.renderToString(tex.trim(), { ...KATEX_OPTIONS, displayMode: false });
     return stash(html);
   });
 
@@ -79,12 +98,7 @@ export function renderInlineMarkdown(input: string): string {
 
 /** Merender satu ekspresi LaTeX menjadi HTML KaTeX. */
 export function renderMath(tex: string, display = true): string {
-  return katex.renderToString(tex, {
-    displayMode: display,
-    throwOnError: false,
-    strict: false,
-    trust: true,
-  });
+  return katex.renderToString(tex, { ...KATEX_OPTIONS, displayMode: display });
 }
 
 /** Membersihkan markdown menjadi teks biasa, untuk deskripsi meta dan pencarian. */
@@ -96,7 +110,11 @@ export function stripMarkdown(input: string): string {
     .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-    .replace(/[#>*_~-]/g, ' ')
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '')
+    .replace(/^\s{0,3}>\s?/gm, '')
+    .replace(/^\s{0,3}[-*+]\s+/gm, '')
+    .replace(/^\s{0,3}([-*_])\1{2,}\s*$/gm, '')
+    .replace(/[*_~]+/g, '')
     .replace(/\|/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();

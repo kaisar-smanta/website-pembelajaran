@@ -2,9 +2,17 @@ import type { SubjectId } from '@/types/content';
 
 /** Utilitas URL yang sadar base path GitHub Pages. */
 
-export const BASE: string = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+/**
+ * Vite/Astro mengganti `import.meta.env` menjadi objek statis saat build,
+ * tetapi nilainya `undefined` bila modul ini diimpor langsung oleh Node
+ * (mis. dari berkas uji). Menyimpannya lewat tipe opsional membuat modul tetap
+ * aman di kedua konteks tanpa mengubah hasil build.
+ */
+const env: { BASE_URL?: string; SITE?: string } | undefined = import.meta.env;
+
+const rawBase = env?.BASE_URL ?? '/';
+
+export const BASE: string = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
 /** Membuat URL internal dengan base path yang benar. */
 export function url(path = ''): string {
@@ -14,7 +22,7 @@ export function url(path = ''): string {
 
 /** Membuat URL absolut menggunakan `site` untuk metadata & sitemap. */
 export function absoluteUrl(pathname = ''): string {
-  const site = import.meta.env.SITE || 'https://example.github.io';
+  const site = env?.SITE || 'https://example.github.io';
   const clean = String(pathname).replace(/^\/+/, '');
   const base = BASE.replace(/\/+$/, '');
   return `${site.replace(/\/+$/, '')}${base}/${clean}`;

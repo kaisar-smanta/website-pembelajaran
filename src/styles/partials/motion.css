@@ -1,0 +1,242 @@
+
+/* ---------- Motion & personality ---------- */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(6px, -10px);
+  }
+}
+@keyframes marker-sweep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Reveal on scroll — hanya aktif bila JS & motion diizinkan (lihat BaseLayout). */
+.motion-ready .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.motion-ready .reveal.is-visible {
+  animation: rise-in var(--dur-slow) var(--ease-out-soft) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+/* Konten yang menerima fokus keyboard harus selalu terlihat. */
+.motion-ready .reveal:focus-within {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+/* Mikrointeraksi */
+.hover-lift {
+  transition:
+    transform var(--dur) var(--ease-out-soft),
+    box-shadow var(--dur) var(--ease-out-soft),
+    border-color var(--dur) var(--ease-out-soft);
+}
+.hover-lift:hover,
+.hover-lift:focus-within {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.pop-on-hover:hover,
+.pop-on-hover:focus-visible {
+  animation: pop-in var(--dur) var(--ease-bounce) both;
+}
+.wiggle-on-hover:hover .wiggle-target,
+.wiggle-on-hover:focus-within .wiggle-target {
+  animation: wiggle var(--dur-slow) var(--ease-bounce) both;
+}
+.float-slow {
+  animation: float-slow 6.5s var(--ease-out-soft) infinite;
+}
+.float-delayed {
+  animation-delay: -3.2s;
+}
+.bob {
+  animation: bob 5.5s var(--ease-out-soft) infinite;
+}
+.pulse-soft {
+  animation: pulse-ring 2.6s var(--ease-out-soft) infinite;
+}
+.shimmer {
+  background: linear-gradient(
+    100deg,
+    var(--color-primary-soft) 30%,
+    color-mix(in srgb, var(--color-primary) 22%, var(--color-primary-soft)) 50%,
+    var(--color-primary-soft) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 6s linear infinite;
+}
+.draw-line {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: draw-line 1.6s var(--ease-out-soft) forwards;
+}
+.spin-slow {
+  animation: orbit 26s linear infinite;
+}
+.spin-slow-rev {
+  animation: orbit-reverse 60s linear infinite;
+}
+.drift {
+  animation: drift 9s var(--ease-out-soft) infinite;
+}
+
+/* ---------- Beranda: interaksi & hadiah kecil ---------- */
+@keyframes burst-ring {
+  from {
+    transform: scale(0.55);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(2px);
+  }
+}
+.burst-ring {
+  animation: burst-ring 620ms var(--ease-out-soft) forwards;
+}
+.streak-pop {
+  animation: pop-in var(--dur) var(--ease-bounce) both;
+}
+
+/* Karakter/maskot matematika sederhana (dekoratif). */
+.mascot {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 15rem;
+  filter: drop-shadow(0 12px 22px rgba(16, 24, 40, 0.14));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-slow,
+  .float-delayed,
+  .bob,
+  .pulse-soft,
+  .shimmer,
+  .draw-line,
+  .spin-slow,
+  .spin-slow-rev,
+  .drift,
+  .wiggle-on-hover:hover .wiggle-target,
+  .wiggle-on-hover:focus-within .wiggle-target,
+  .pop-on-hover:hover,
+  .pop-on-hover:focus-visible,
+  .hero-copy > * {
+    animation: none !important;
+  }
+  .motion-ready .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

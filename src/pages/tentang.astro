@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { site } from '@/data/site';
 import { url } from '@/utils/url';
 
@@ -89,19 +90,16 @@ const crumbs = [{ label: 'Beranda', href: url('/') }, { label: 'Tentang' }];
 
   <section class="section-alt cta-section">
     <div class="container">
-      <div class="card cta-card card-accent hover-lift reveal">
-        <div class="cta-copy">
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2>Mulai belajar atau coba eksplorasi</h2>
-          <p class="text-muted">
-            Materi siap dipakai. Pilih titik awal yang paling sesuai, lalu ikuti alurnya.
-          </p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
-          <a class="btn btn-secondary" href={url('/eksplorasi')}>Coba eksplorasi</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Mulai belajar atau coba eksplorasi"
+        text="Materi siap dipakai. Pilih titik awal yang paling sesuai, lalu ikuti alurnya."
+        reveal
+        actions={[
+          { label: 'Mulai dari Kelas X', href: url('/matematika/kelas/X'), variant: 'primary' },
+          { label: 'Coba eksplorasi', href: url('/eksplorasi'), variant: 'secondary' },
+        ]}
+      />
     </div>
   </section>
 </BaseLayout>
@@ -173,30 +171,6 @@ const crumbs = [{ label: 'Beranda', href: url('/') }, { label: 'Tentang' }];
   }
   .cta-section {
     padding-block: 2.5rem;
-  }
-  .cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .cta-copy {
-    max-width: 46ch;
-  }
-  .cta-copy .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .cta-copy h2 {
-    margin-bottom: 0.35rem;
-  }
-  .cta-copy p {
-    margin: 0;
-  }
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
   @media (max-width: 34rem) {
     .id-card {

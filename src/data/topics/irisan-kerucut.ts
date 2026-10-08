@@ -46,32 +46,32 @@ export const irisanKerucut: Topic = {
   ],
   sections: [
     {
-      id: 'tujuan',
-      kind: 'tujuan',
-      title: 'Tujuan Pembelajaran',
-      body: `Setelah mempelajari topik ini, peserta didik dapat menyatakan persamaan lingkaran dalam bentuk baku dan umum, menentukan garis singgung lingkaran, mengidentifikasi unsur-unsur elips, serta menentukan persamaan garis singgung elips.`,
+      id: "tujuan",
+      kind: "tujuan",
+      title: "Tujuan Pembelajaran",
+      body: "Setelah mempelajari topik ini, peserta didik dapat menyatakan persamaan lingkaran dalam bentuk baku dan umum, menentukan garis singgung lingkaran, mengidentifikasi unsur-unsur elips, serta menentukan persamaan garis singgung elips.",
     },
     {
-      id: 'pemantik',
-      kind: 'pemantik',
-      title: 'Pertanyaan Pemantik',
-      body: `Sebuah lampu taman berada $4$ m di atas permukaan tanah. Cahayanya jatuh pada dinding yang permukaannya berupa elips dengan bentuk yang tampak lebih panjang daripada lebarnya.
-
-Mengapa bayangan lingkaran pada dinding miring dapat berubah menjadi **elips**? Apa hubungan antara lingkaran, elips, dan garis singgung yang menempel pada tepinya? Pertanyaan inilah yang dijawab oleh **irisan kerucut**.`,
+      id: "pemantik",
+      kind: "pemantik",
+      title: "Pertanyaan Pemantik",
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Lingkaran adalah irisan kerucut dengan bidang potong **tegak lurus** sumbu kerucut. Ketika bidang potong **dimiringkan** (tetapi tidak melewati titik puncak dan tidak sejajar sisi kerucut), irisan yang terbentuk adalah **elips**. Karena dinding memotong kerucut cahaya secara miring, tepinya tampak sebagai elips, bukan lingkaran.
+          kind: "prediction",
+          prompt: `Sebuah lampu taman berada $4$ m di atas permukaan tanah. Cahayanya jatuh pada dinding yang permukaannya berupa elips dengan bentuk yang tampak lebih panjang daripada lebarnya.
+
+Mengapa bayangan lingkaran pada dinding miring dapat berubah menjadi **elips**? Apa hubungan antara lingkaran, elips, dan garis singgung yang menempel pada tepinya? Pertanyaan inilah yang dijawab oleh **irisan kerucut**.`,
+          reveal: `Lingkaran adalah irisan kerucut dengan bidang potong **tegak lurus** sumbu kerucut. Ketika bidang potong **dimiringkan** (tetapi tidak melewati titik puncak dan tidak sejajar sisi kerucut), irisan yang terbentuk adalah **elips**. Karena dinding memotong kerucut cahaya secara miring, tepinya tampak sebagai elips, bukan lingkaran.
 
 Garis singgung adalah garis yang menyentuh kurva di tepat satu titik. Pada lingkaran, garis singgung tegak lurus jari-jari di titik singgung; pada elips, garis singgung memuat titik yang bersangkutan dan mengikuti arah kemiringan elips di titik itu.`,
+          saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
     },
     {
-      id: 'prasyarat',
-      kind: 'prasyarat',
-      title: 'Prasyarat',
+      id: "prasyarat",
+      kind: "prasyarat",
+      title: "Prasyarat",
       body: `Sebelum melanjutkan, pastikan kamu menguasai:
 - persamaan garis lurus dan gradien, misalnya $y = mx + c$;
 - melengkapkan kuadrat sempurna, misalnya $x^{2} - 6x = (x-3)^{2} - 9$;
@@ -79,17 +79,17 @@ Garis singgung adalah garis yang menyentuh kurva di tepat satu titik. Pada lingk
 - operasi bentuk akar dan pecahan.`,
     },
     {
-      id: 'konteks',
-      kind: 'konteks',
-      title: 'Situasi dan Konteks',
+      id: "konteks",
+      kind: "konteks",
+      title: "Situasi dan Konteks",
       body: `Irisan kerucut ada di banyak tempat: gelombang air melingkar, orbit planet yang elips, lengkungan jembatan, hingga antena parabola. Lingkaran dan elips adalah dua bentuk paling dasar. Memahami persamaannya memungkinkan kita merancang lintasan, menghitung jarak fokus, dan menentukan letak garis singgung.
 
 Sifat fokus elips juga menjelaskan mengapa ruangan berkubah berbentuk elips mampu menyebarkan bisikan dari satu fokus ke fokus lain: setiap gelombang dari satu titik fokus akan dipantulkan menuju titik fokus lainnya.`,
     },
     {
-      id: 'lingkaran-baku',
-      kind: 'konsep',
-      title: 'Persamaan Lingkaran Bentuk Baku',
+      id: "lingkaran-baku",
+      kind: "konsep",
+      title: "Persamaan Lingkaran Bentuk Baku",
       body: `**Lingkaran** adalah himpunan titik yang berjarak sama ($r$) dari sebuah titik tetap (pusat). Jika pusatnya $(a,b)$ dan jari-jarinya $r$, maka setiap titik $(x,y)$ pada lingkaran memenuhi
 
 $$(x-a)^{2} + (y-b)^{2} = r^{2}.$$
@@ -103,17 +103,39 @@ Sebagai contoh:
 Perhatikan bahwa tanda di dalam kurung **berlawanan** dengan tanda koordinat pusat: $(y+3)^{2}$ berarti ordinat pusat $-3$, bukan $+3$.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'warning',
-          title: 'Hati-hati',
-          text: 'Jari-jari diperoleh dari $\\sqrt{r^{2}}$, bukan $r^{2}$ itu sendiri. Jika tertulis $=16$, maka $r=4$, bukan $16$.',
+          kind: "callout",
+          variant: "warning",
+          title: "Hati-hati",
+          text: "Jari-jari diperoleh dari $\\sqrt{r^{2}}$, bukan $r^{2}$ itu sendiri. Jika tertulis $=16$, maka $r=4$, bukan $16$.",
+        },
+        {
+          kind: "flip-cards",
+          intro: "Uji ingatanmu tentang unsur elips.",
+          cards: [
+            {
+              front: "Sumbu mayor",
+              back: "Ruas terpanjang melalui pusat; panjangnya $2a$",
+            },
+            {
+              front: "Sumbu minor",
+              back: "Ruas terpendek melalui pusat; panjangnya $2b$",
+            },
+            {
+              front: "Fokus",
+              back: "Dua titik berjarak $c=\\sqrt{a^{2}-b^{2}}$ dari pusat",
+            },
+            {
+              front: "Eksentrisitas",
+              back: "$e=\\dfrac{c}{a}$, bernilai $0<e<1$",
+            },
+          ],
         },
       ],
     },
     {
-      id: 'lingkaran-umum',
-      kind: 'rumus',
-      title: 'Persamaan Lingkaran Bentuk Umum',
+      id: "lingkaran-umum",
+      kind: "rumus",
+      title: "Persamaan Lingkaran Bentuk Umum",
       body: `Dengan menjabarkan bentuk baku, kita memperoleh **bentuk umum** persamaan lingkaran:
 
 $$x^{2} + y^{2} + Dx + Ey + F = 0.$$
@@ -133,9 +155,9 @@ $$r = \\sqrt{9 + 4 + 12} = \\sqrt{25} = 5.$$
 Persamaan lingkaran itu dapat ditulis kembali sebagai $(x-3)^{2} + (y+2)^{2} = 25$.`,
     },
     {
-      id: 'garis-singgung-lingkaran',
-      kind: 'rumus',
-      title: 'Garis Singgung Lingkaran',
+      id: "garis-singgung-lingkaran",
+      kind: "rumus",
+      title: "Garis Singgung Lingkaran",
       body: `Garis singgung menyentuh lingkaran di **tepat satu titik** dan tegak lurus jari-jari di titik singgung itu.
 
 **Di titik pada lingkaran.** Untuk lingkaran $x^{2} + y^{2} = r^{2}$ yang berpusat di $(0,0)$, garis singgung di titik $(x_{1}, y_{1})$ pada lingkaran adalah
@@ -161,9 +183,9 @@ $$3(x-2) + 4(y-1) = 25 \\quad\\Longrightarrow\\quad 3x + 4y = 35.$$
 $$x\\,x_{1} + y\\,y_{1} + \\frac{D(x + x_{1})}{2} + \\frac{E(y + y_{1})}{2} + F = 0.$$`,
     },
     {
-      id: 'elips',
-      kind: 'konsep',
-      title: 'Persamaan dan Unsur Elips',
+      id: "elips",
+      kind: "konsep",
+      title: "Persamaan dan Unsur Elips",
       body: `**Elips** adalah himpunan titik yang jumlah jaraknya ke dua titik tetap (**fokus**) selalu sama. Bentuk bakunya berpusat di $(h,k)$ dengan sumbu mayor sejajar sumbu-$x$ adalah
 
 $$\\frac{(x-h)^{2}}{a^{2}} + \\frac{(y-k)^{2}}{b^{2}} = 1, \\qquad a > b > 0.$$
@@ -182,23 +204,41 @@ Sebagai contoh, untuk $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$: $a = 5$, $b 
 Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a = 5$, $b = 4$, $c = \\sqrt{25 - 16} = 3$. Fokusnya $(-1,1)$ dan $(5,1)$, dengan $e = \\dfrac{3}{5} = 0{,}6$.`,
       blocks: [
         {
-          kind: 'table',
-          caption: 'Unsur elips $\\dfrac{(x-h)^{2}}{a^{2}} + \\dfrac{(y-k)^{2}}{b^{2}} = 1$ dengan $a > b$',
-          headers: ['Unsur', 'Nilai'],
+          kind: "table",
+          caption: "Unsur elips $\\dfrac{(x-h)^{2}}{a^{2}} + \\dfrac{(y-k)^{2}}{b^{2}} = 1$ dengan $a > b$",
+          headers: [
+            "Unsur",
+            "Nilai",
+          ],
           rows: [
-            ['Pusat', '$(h, k)$'],
-            ['Sumbu mayor', '$2a$, sejajar sumbu-$x$'],
-            ['Sumbu minor', '$2b$, sejajar sumbu-$y$'],
-            ['Fokus', '$(h \\pm c,\\, k)$ dengan $c^{2} = a^{2} - b^{2}$'],
-            ['Eksentrisitas', '$e = \\dfrac{c}{a}$'],
+            [
+              "Pusat",
+              "$(h, k)$",
+            ],
+            [
+              "Sumbu mayor",
+              "$2a$, sejajar sumbu-$x$",
+            ],
+            [
+              "Sumbu minor",
+              "$2b$, sejajar sumbu-$y$",
+            ],
+            [
+              "Fokus",
+              "$(h \\pm c,\\, k)$ dengan $c^{2} = a^{2} - b^{2}$",
+            ],
+            [
+              "Eksentrisitas",
+              "$e = \\dfrac{c}{a}$",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'garis-singgung-elips',
-      kind: 'rumus',
-      title: 'Garis Singgung Elips',
+      id: "garis-singgung-elips",
+      kind: "rumus",
+      title: "Garis Singgung Elips",
       body: `Untuk elips berpusat di $(0,0)$ dengan persamaan $\\dfrac{x^{2}}{a^{2}} + \\dfrac{y^{2}}{b^{2}} = 1$, garis singgung di titik $(x_{1}, y_{1})$ pada elips adalah
 
 $$\\frac{x\\,x_{1}}{a^{2}} + \\frac{y\\,y_{1}}{b^{2}} = 1.$$
@@ -216,26 +256,40 @@ Periksa: $4(4) + 5\\left(\\tfrac{9}{5}\\right) = 16 + 9 = 25$. Benar.
 Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat, atau dengan menuliskan bentuk baku terlebih dahulu.`,
     },
     {
-      id: 'contoh',
-      kind: 'contoh',
-      title: 'Contoh Terbimbing',
-      body: `**Contoh 1 (bentuk umum ke baku).** Tentukan pusat dan jari-jari lingkaran $x^{2} + y^{2} - 6x + 4y - 12 = 0$.
+      id: "contoh",
+      kind: "contoh",
+      title: "Contoh Terbimbing",
+      blocks: [
+        {
+          kind: "step-reveal",
+          steps: [
+            {
+              title: "Contoh 1",
+              text: `Tentukan pusat dan jari-jari lingkaran $x^{2} + y^{2} - 6x + 4y - 12 = 0$.
 
-*Penyelesaian.* Lengkapi kuadrat: $(x-3)^{2} - 9 + (y+2)^{2} - 4 - 12 = 0$, sehingga $(x-3)^{2} + (y+2)^{2} = 25$. Jadi pusatnya $(3,-2)$ dan $r = 5$.
+*Penyelesaian.* Lengkapi kuadrat: $(x-3)^{2} - 9 + (y+2)^{2} - 4 - 12 = 0$, sehingga $(x-3)^{2} + (y+2)^{2} = 25$. Jadi pusatnya $(3,-2)$ dan $r = 5$.`,
+            },
+            {
+              title: "Contoh 2",
+              text: `Tentukan garis singgung lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$.
 
-**Contoh 2 (garis singgung lingkaran).** Tentukan garis singgung lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$.
-
-*Penyelesaian.* Dengan rumus $x\\,x_{1} + y\\,y_{1} = r^{2}$: $3x + 4y = 25$.
-
-**Contoh 3 (unsur elips).** Tentukan pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas elips $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$.
+*Penyelesaian.* Dengan rumus $x\\,x_{1} + y\\,y_{1} = r^{2}$: $3x + 4y = 25$.`,
+            },
+            {
+              title: "Contoh 3",
+              text: `Tentukan pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas elips $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$.
 
 *Penyelesaian.* Pusat $(2,1)$, $a = 5$, $b = 4$, sehingga $c = \\sqrt{25-16} = 3$. Fokus $(-1,1)$ dan $(5,1)$; sumbu mayor $2a = 10$; sumbu minor $2b = 8$; eksentrisitas $e = \\dfrac{3}{5} = 0{,}6$.`,
+            },
+          ],
+        },
+      ],
     },
     {
-      id: 'latihan-dasar',
-      kind: 'latihan-dasar',
-      title: 'Latihan Dasar',
-      level: 'dasar',
+      id: "latihan-dasar",
+      kind: "latihan-dasar",
+      title: "Latihan Dasar",
+      level: "dasar",
       body: `1. Tentukan pusat dan jari-jari lingkaran $(x-2)^{2} + (y+3)^{2} = 16$.
 2. Tentukan jari-jari lingkaran $x^{2} + y^{2} = 49$.
 3. Diketahui lingkaran $x^{2} + y^{2} - 6x + 4y - 12 = 0$. Tentukan pusatnya.
@@ -243,8 +297,8 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
 5. Tentukan fokus elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. Pusat $(2,-3)$ dan $r = \\sqrt{16} = 4$.
 2. $r = \\sqrt{49} = 7$.
 3. Bentuk baku: $(x-3)^{2} + (y+2)^{2} = 25$, jadi pusatnya $(3,-2)$.
@@ -254,10 +308,10 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
       ],
     },
     {
-      id: 'latihan-cakap',
-      kind: 'latihan-cakap',
-      title: 'Latihan Cakap',
-      level: 'cakap',
+      id: "latihan-cakap",
+      kind: "latihan-cakap",
+      title: "Latihan Cakap",
+      level: "cakap",
       body: `1. Tentukan garis singgung lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$.
 2. Tentukan garis singgung lingkaran $(x-2)^{2} + (y-1)^{2} = 25$ di titik $(5,5)$.
 3. Tentukan eksentrisitas elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$.
@@ -265,8 +319,8 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
 5. Tentukan garis singgung elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. $3x + 4y = 25$.
 2. $3(x-2) + 4(y-1) = 25$, yaitu $3x + 4y = 35$.
 3. $c = \\sqrt{25-9} = 4$, sehingga $e = \\dfrac{4}{5} = 0{,}8$.
@@ -276,18 +330,18 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
       ],
     },
     {
-      id: 'latihan-mahir',
-      kind: 'latihan-mahir',
-      title: 'Latihan Mahir',
-      level: 'mahir',
+      id: "latihan-mahir",
+      kind: "latihan-mahir",
+      title: "Latihan Mahir",
+      level: "mahir",
       body: `1. Tentukan pusat dan jari-jari lingkaran $2x^{2} + 2y^{2} - 8x + 12y - 6 = 0$.
 2. Diketahui elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$. Tentukan panjang sumbu mayor, sumbu minor, dan jarak kedua fokus.
 3. Tentukan persamaan garis singgung elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$ dan tuliskan dalam bentuk umum.
 4. Sebuah lingkaran berpusat $(3,-2)$ menyinggung sumbu-$x$. Tentukan jari-jari dan persamaannya.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat pembahasan',
+          kind: "details",
+          summary: "Lihat pembahasan",
           text: `1. Bagi dengan $2$: $x^{2} + y^{2} - 4x + 6y - 3 = 0$, sehingga pusatnya $(2,-3)$ dan $r = \\sqrt{4 + 9 + 3} = \\sqrt{16} = 4$.
 2. $a = 5$, $b = 3$, sehingga sumbu mayor $2a = 10$, sumbu minor $2b = 6$, dan $c = \\sqrt{25-9} = 4$. Jarak kedua fokus adalah $2c = 8$.
 3. $\\dfrac{4x}{25} + \\dfrac{y}{5} = 1$. Kalikan dengan $25$: $4x + 5y = 25$, atau $4x + 5y - 25 = 0$.
@@ -296,17 +350,17 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
       ],
     },
     {
-      id: 'dunia-nyata',
-      kind: 'dunia-nyata',
-      title: 'Penerapan di Dunia Nyata',
+      id: "dunia-nyata",
+      kind: "dunia-nyata",
+      title: "Penerapan di Dunia Nyata",
       body: `Lingkaran dipakai pada roda, piringan, dan jangkauan sinyal pemancar. Elips muncul pada orbit planet dan satelit, lengkungan jembatan, serta ruang sidang berkubah yang memanfaatkan dua titik fokus.
 
 Dalam astronomi, hukum Kepler menyatakan orbit planet berbentuk elips dengan Matahari di salah satu titik fokus. Eksentrisitas mengukur seberapa "lonjong" orbit itu. Pada olahraga, lapangan dan lintasan lari dirancang dari gabungan setengah lingkaran dan garis lurus. Garis singgung penting pada mesin: roda gigi dan sabuk harus menyinggung lingkaran secara tepat agar tidak tergelincir.`,
     },
     {
-      id: 'kesalahan-umum',
-      kind: 'kesalahan-umum',
-      title: 'Kesalahan Umum',
+      id: "kesalahan-umum",
+      kind: "kesalahan-umum",
+      title: "Kesalahan Umum",
       body: `**1. Salah membaca tanda pusat.** Pada $(x-2)^{2} + (y+3)^{2} = 16$, pusatnya $(2,-3)$, bukan $(2,3)$ atau $(-2,3)$.
 
 **2. Mengambil $r^{2}$ sebagai jari-jari.** Jika bentuk bakunya $=16$, maka $r = 4$. Jari-jari adalah akar dari ruas kanan.
@@ -318,51 +372,83 @@ Dalam astronomi, hukum Kepler menyatakan orbit planet berbentuk elips dengan Mat
 **5. Menghitung $c$ dengan menjumlah.** Untuk elips berlaku $c^{2} = a^{2} - b^{2}$, bukan $a^{2} + b^{2}$. Penjumlahan berlaku untuk hiperbola, bukan elips.`,
       blocks: [
         {
-          kind: 'spot-mistake',
-          intro: 'Seorang siswa menentukan jari-jari lingkaran $(x-1)^{2} + (y+4)^{2} = 36$. Klik langkah yang keliru.',
+          kind: "spot-mistake",
+          intro: "Seorang siswa menentukan jari-jari lingkaran $(x-1)^{2} + (y+4)^{2} = 36$. Klik langkah yang keliru.",
           steps: [
-            'Bentuk bakunya $(x-1)^{2} + (y+4)^{2} = 36$.',
-            'Pusatnya $(1,-4)$.',
-            'Maka jari-jarinya $r = 36$.',
+            "Bentuk bakunya $(x-1)^{2} + (y+4)^{2} = 36$.",
+            "Pusatnya $(1,-4)$.",
+            "Maka jari-jarinya $r = 36$.",
           ],
           wrongIndex: 2,
-          explanation: 'Jari-jari adalah akar dari $36$, yaitu $r = 6$, bukan $36$. Angka $36$ adalah $r^{2}$.',
+          explanation: "Jari-jari adalah akar dari $36$, yaitu $r = 6$, bukan $36$. Angka $36$ adalah $r^{2}$.",
         },
       ],
     },
     {
-      id: 'refleksi',
-      kind: 'refleksi',
-      title: 'Refleksi',
-      body: `Jawab dengan jujur:
-1. Apa ciri yang membedakan persamaan lingkaran dan persamaan elips?
-2. Mengapa fokus elips selalu terletak pada sumbu mayor?
-3. Bagaimana kamu memeriksa bahwa sebuah titik benar-benar berada pada lingkaran atau elips sebelum menulis garis singgungnya?`,
-    },
-    {
-      id: 'rangkuman',
-      kind: 'rangkuman',
-      title: 'Rangkuman',
+      id: "refleksi",
+      kind: "refleksi",
+      title: "Refleksi",
+      body: "Jawab dengan jujur:",
       blocks: [
         {
-          kind: 'table',
-          headers: ['Konsep', 'Bentuk / Rumus'],
+          kind: "reflection",
+          prompts: [
+            "Apa ciri yang membedakan persamaan lingkaran dan persamaan elips?",
+            "Mengapa fokus elips selalu terletak pada sumbu mayor?",
+            "Bagaimana kamu memeriksa bahwa sebuah titik benar-benar berada pada lingkaran atau elips sebelum menulis garis singgungnya?",
+          ],
+          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+        },
+      ],
+    },
+    {
+      id: "rangkuman",
+      kind: "rangkuman",
+      title: "Rangkuman",
+      blocks: [
+        {
+          kind: "table",
+          headers: [
+            "Konsep",
+            "Bentuk / Rumus",
+          ],
           rows: [
-            ['Lingkaran bentuk baku', '$(x-a)^{2} + (y-b)^{2} = r^{2}$'],
-            ['Pusat & jari-jari (umum)', 'pusat $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right)$, $r = \\sqrt{\\left(\\dfrac{D}{2}\\right)^{2} + \\left(\\dfrac{E}{2}\\right)^{2} - F}$'],
-            ['Garis singgung lingkaran di $(x_{1},y_{1})$', '$x\\,x_{1} + y\\,y_{1} = r^{2}$'],
-            ['Elips (sumbu mayor-$x$)', '$\\dfrac{(x-h)^{2}}{a^{2}} + \\dfrac{(y-k)^{2}}{b^{2}} = 1$, $a > b$'],
-            ['Fokus elips', '$c^{2} = a^{2} - b^{2}$, fokus $(h \\pm c,\\, k)$'],
-            ['Eksentrisitas', '$e = \\dfrac{c}{a}$, $0 < e < 1$'],
-            ['Garis singgung elips di $(x_{1},y_{1})$', '$\\dfrac{x\\,x_{1}}{a^{2}} + \\dfrac{y\\,y_{1}}{b^{2}} = 1$'],
+            [
+              "Lingkaran bentuk baku",
+              "$(x-a)^{2} + (y-b)^{2} = r^{2}$",
+            ],
+            [
+              "Pusat & jari-jari (umum)",
+              "pusat $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right)$, $r = \\sqrt{\\left(\\dfrac{D}{2}\\right)^{2} + \\left(\\dfrac{E}{2}\\right)^{2} - F}$",
+            ],
+            [
+              "Garis singgung lingkaran di $(x_{1},y_{1})$",
+              "$x\\,x_{1} + y\\,y_{1} = r^{2}$",
+            ],
+            [
+              "Elips (sumbu mayor-$x$)",
+              "$\\dfrac{(x-h)^{2}}{a^{2}} + \\dfrac{(y-k)^{2}}{b^{2}} = 1$, $a > b$",
+            ],
+            [
+              "Fokus elips",
+              "$c^{2} = a^{2} - b^{2}$, fokus $(h \\pm c,\\, k)$",
+            ],
+            [
+              "Eksentrisitas",
+              "$e = \\dfrac{c}{a}$, $0 < e < 1$",
+            ],
+            [
+              "Garis singgung elips di $(x_{1},y_{1})$",
+              "$\\dfrac{x\\,x_{1}}{a^{2}} + \\dfrac{y\\,y_{1}}{b^{2}} = 1$",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'evaluasi',
-      kind: 'evaluasi',
-      title: 'Evaluasi',
+      id: "evaluasi",
+      kind: "evaluasi",
+      title: "Evaluasi",
       body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Irisan Kerucut**.
 `,
     },

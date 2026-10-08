@@ -84,7 +84,7 @@ const items = applications.filter((a) => applicationCategories[a.category]);
     display: block;
     height: 2px;
     margin-top: 0.55rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: linear-gradient(
       90deg,
       color-mix(in srgb, var(--sec) 60%, transparent),
@@ -139,7 +139,7 @@ const items = applications.filter((a) => applicationCategories[a.category]);
     display: inline-flex;
     align-items: center;
     padding: 0.16rem 0.55rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.04em;

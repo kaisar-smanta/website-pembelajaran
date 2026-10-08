@@ -46,34 +46,37 @@ export const vektor: Topic = {
     { text: 'Menentukan proyeksi skalar dan proyeksi vektor.' },
     { text: 'Membuktikan sifat geometri (kolinear, tegak lurus, teorema titik tengah) menggunakan vektor.' },
   ],
+  explorations: [
+    "mtl-vektor-bidang",
+  ],
   sections: [
     {
-      id: 'tujuan',
-      kind: 'tujuan',
-      title: 'Tujuan Pembelajaran',
-      body: `Setelah mempelajari topik ini, peserta didik dapat menyatakan vektor pada bidang datar, menghitung panjang dan vektor satuannya, melakukan operasi aljabar vektor termasuk perkalian titik, menentukan sudut dan proyeksi antar vektor, serta membuktikan sifat geometri seperti kolinearitas, ketegaklurusan, dan teorema titik tengah.`,
+      id: "tujuan",
+      kind: "tujuan",
+      title: "Tujuan Pembelajaran",
+      body: "Setelah mempelajari topik ini, peserta didik dapat menyatakan vektor pada bidang datar, menghitung panjang dan vektor satuannya, melakukan operasi aljabar vektor termasuk perkalian titik, menentukan sudut dan proyeksi antar vektor, serta membuktikan sifat geometri seperti kolinearitas, ketegaklurusan, dan teorema titik tengah.",
     },
     {
-      id: 'pemantik',
-      kind: 'pemantik',
-      title: 'Pertanyaan Pemantik',
-      body: `Sebuah pesawat terbang dengan kecepatan $300$ km/jam menuju timur, sementara angin bertiup $80$ km/jam ke arah utara. Ke manakah arah gerak pesawat sebenarnya, dan berapa besar kecepatannya?
-
-Kedua kecepatan itu bukan sekadar bilangan; masing-masing memiliki **besar dan arah**. Untuk menggabungkannya kita memerlukan alat baru: **vektor**. Bagaimana cara menjumlahkan dua besaran berarah dan menentukan panjang hasilnya?`,
+      id: "pemantik",
+      kind: "pemantik",
+      title: "Pertanyaan Pemantik",
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat jawaban pertanyaan pemantik',
-          text: `Tulis kecepatan pesawat $\\vec{p} = \\begin{pmatrix} 300 \\\\ 0 \\end{pmatrix}$ dan angin $\\vec{w} = \\begin{pmatrix} 0 \\\\ 80 \\end{pmatrix}$. Kecepatan resultan adalah jumlah vektornya
+          kind: "prediction",
+          prompt: `Sebuah pesawat terbang dengan kecepatan $300$ km/jam menuju timur, sementara angin bertiup $80$ km/jam ke arah utara. Ke manakah arah gerak pesawat sebenarnya, dan berapa besar kecepatannya?
+
+Kedua kecepatan itu bukan sekadar bilangan; masing-masing memiliki **besar dan arah**. Untuk menggabungkannya kita memerlukan alat baru: **vektor**. Bagaimana cara menjumlahkan dua besaran berarah dan menentukan panjang hasilnya?`,
+          reveal: `Tulis kecepatan pesawat $\\vec{p} = \\begin{pmatrix} 300 \\\\ 0 \\end{pmatrix}$ dan angin $\\vec{w} = \\begin{pmatrix} 0 \\\\ 80 \\end{pmatrix}$. Kecepatan resultan adalah jumlah vektornya
 $$\\vec{r} = \\vec{p} + \\vec{w} = \\begin{pmatrix} 300 \\\\ 80 \\end{pmatrix}.$$
 Panjangnya $\\lVert \\vec{r} \\rVert = \\sqrt{300^{2} + 80^{2}} = \\sqrt{90000 + 6400} = \\sqrt{96400} \\approx 310{,}5$ km/jam. Jadi pesawat bergerak dengan laju sekitar $310{,}5$ km/jam, sedikit menyimpang dari arah timur.`,
+          saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
     },
     {
-      id: 'prasyarat',
-      kind: 'prasyarat',
-      title: 'Prasyarat',
+      id: "prasyarat",
+      kind: "prasyarat",
+      title: "Prasyarat",
       body: `Sebelum melanjutkan, pastikan kamu menguasai:
 - koordinat Kartesius dan cara menghitung jarak dua titik;
 - teorema Pythagoras, misalnya $3^{2}+4^{2}=5^{2}$;
@@ -81,17 +84,17 @@ Panjangnya $\\lVert \\vec{r} \\rVert = \\sqrt{300^{2} + 80^{2}} = \\sqrt{90000 +
 - penyederhanaan bentuk akar dan operasi bilangan.`,
     },
     {
-      id: 'konteks',
-      kind: 'konteks',
-      title: 'Situasi dan Konteks',
+      id: "konteks",
+      kind: "konteks",
+      title: "Situasi dan Konteks",
       body: `Banyak besaran di sekitar kita bergantung pada arah: perpindahan, kecepatan, gaya, dan medan listrik. Menyebut "gaya $20$ N" saja belum cukup jika tidak tahu ke mana arahnya. Vektor memberi bahasa untuk menggabungkan besaran berarah: gaya-gaya pada jembatan, arus dan angin pada navigasi, serta pergeseran pada grafika komputer.
 
 Ketika sebuah kapal menyeberang sungai yang berarus, arah dan laju sesungguhnya adalah hasil penjumlahan dua vektor. Menghitungnya dengan tepat menyelamatkan kapal dari melenceng jauh dari tujuan.`,
     },
     {
-      id: 'notasi',
-      kind: 'konsep',
-      title: 'Notasi dan Representasi Vektor di Bidang Datar',
+      id: "notasi",
+      kind: "konsep",
+      title: "Notasi dan Representasi Vektor di Bidang Datar",
       body: `**Vektor** adalah besaran yang memiliki besar (panjang) dan arah. Di bidang datar, vektor ditulis sebagai pasangan terurut komponennya:
 
 $$\\vec{a} = \\begin{pmatrix} a_{1} \\\\ a_{2} \\end{pmatrix} = a_{1}\\,\\mathbf{i} + a_{2}\\,\\mathbf{j},$$
@@ -105,17 +108,39 @@ $$\\vec{AB} = B - A = \\begin{pmatrix} x_{2} - x_{1} \\\\ y_{2} - y_{1} \\end{pm
 Sebagai contoh, dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. Vektor ini sama dengan vektor apa pun yang komponennya $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$; letaknya di bidang tidak mengubah nilainya.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'concept',
-          title: 'Inti yang perlu diingat',
-          text: 'Vektor ditentukan oleh **besar dan arah**, bukan oleh letak gambarannya. Dua vektor sama bila semua komponennya sama.',
+          kind: "callout",
+          variant: "concept",
+          title: "Inti yang perlu diingat",
+          text: "Vektor ditentukan oleh **besar dan arah**, bukan oleh letak gambarannya. Dua vektor sama bila semua komponennya sama.",
+        },
+        {
+          kind: "match",
+          intro: "Cocokkan operasi vektor dengan hasilnya.",
+          pairs: [
+            {
+              left: "Perkalian titik",
+              right: "$\\vec{a}\\cdot\\vec{b}=\\lvert\\vec{a}\\rvert\\,\\lvert\\vec{b}\\rvert\\cos\\theta$",
+            },
+            {
+              left: "Vektor satuan",
+              right: "$\\hat{a}=\\dfrac{\\vec{a}}{\\lvert\\vec{a}\\rvert}$",
+            },
+            {
+              left: "Tegak lurus",
+              right: "$\\vec{a}\\cdot\\vec{b}=0$",
+            },
+            {
+              left: "Kolinear",
+              right: "$\\vec{a}=k\\vec{b}$ untuk skalar $k$",
+            },
+          ],
         },
       ],
     },
     {
-      id: 'panjang',
-      kind: 'rumus',
-      title: 'Panjang Vektor dan Vektor Satuan',
+      id: "panjang",
+      kind: "rumus",
+      title: "Panjang Vektor dan Vektor Satuan",
       body: `**Panjang (magnitudo)** vektor $\\vec{a} = \\begin{pmatrix} a_{1} \\\\ a_{2} \\end{pmatrix}$ diperoleh dari teorema Pythagoras:
 
 $$\\lVert \\vec{a} \\rVert = \\sqrt{a_{1}^{2} + a_{2}^{2}}.$$
@@ -133,9 +158,9 @@ $$\\hat{a} = \\frac{1}{5}\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} = \\begin{pmat
 Periksa: $\\sqrt{\\left(\\tfrac{3}{5}\\right)^{2} + \\left(\\tfrac{4}{5}\\right)^{2}} = \\sqrt{\\tfrac{9}{25} + \\tfrac{16}{25}} = \\sqrt{1} = 1$. Benar.`,
     },
     {
-      id: 'operasi',
-      kind: 'konsep',
-      title: 'Operasi Aljabar Vektor',
+      id: "operasi",
+      kind: "konsep",
+      title: "Operasi Aljabar Vektor",
       body: `**Penjumlahan dan pengurangan** dilakukan komponen demi komponen:
 
 $$\\vec{a} + \\vec{b} = \\begin{pmatrix} a_{1} + b_{1} \\\\ a_{2} + b_{2} \\end{pmatrix}, \\qquad \\vec{a} - \\vec{b} = \\begin{pmatrix} a_{1} - b_{1} \\\\ a_{2} - b_{2} \\end{pmatrix}.$$
@@ -153,17 +178,17 @@ Sebagai contoh, $2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$ dan $3\\v
 Secara geometris, penjumlahan vektor mengikuti **aturan segitiga** atau **aturan jajargenjang**: tempatkan pangkal $\\vec{b}$ di ujung $\\vec{a}$, maka $\\vec{a} + \\vec{b}$ menghubungkan pangkal $\\vec{a}$ ke ujung $\\vec{b}$.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'warning',
-          title: 'Hati-hati',
-          text: 'Penjumlahan mengikuti komponen yang **seposisi**: komponen-$x$ dengan komponen-$x$, komponen-$y$ dengan komponen-$y$. Jangan mencampur keduanya.',
+          kind: "callout",
+          variant: "warning",
+          title: "Hati-hati",
+          text: "Penjumlahan mengikuti komponen yang **seposisi**: komponen-$x$ dengan komponen-$x$, komponen-$y$ dengan komponen-$y$. Jangan mencampur keduanya.",
         },
       ],
     },
     {
-      id: 'perkalian-titik',
-      kind: 'rumus',
-      title: 'Perkalian Titik dan Sudut Antar Vektor',
+      id: "perkalian-titik",
+      kind: "rumus",
+      title: "Perkalian Titik dan Sudut Antar Vektor",
       body: `**Perkalian titik (dot product)** dua vektor menghasilkan **bilangan**, bukan vektor:
 
 $$\\vec{a} \\cdot \\vec{b} = a_{1}b_{1} + a_{2}b_{2}.$$
@@ -183,20 +208,32 @@ $$\\cos\\theta = \\frac{5}{\\sqrt{5}\\,\\sqrt{10}} = \\frac{5}{\\sqrt{50}} = \\f
 **Akibat penting.** Dua vektor **tegak lurus** jika dan hanya jika $\\vec{a} \\cdot \\vec{b} = 0$, karena $\\cos 90^\\circ = 0$. Sebagai contoh, $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, jadi kedua vektor itu saling tegak lurus.`,
       blocks: [
         {
-          kind: 'table',
-          caption: 'Dua cara menghitung perkalian titik',
-          headers: ['Bentuk', 'Rumus', 'Kapan dipakai'],
+          kind: "table",
+          caption: "Dua cara menghitung perkalian titik",
+          headers: [
+            "Bentuk",
+            "Rumus",
+            "Kapan dipakai",
+          ],
           rows: [
-            ['Komponen', '$\\vec{a} \\cdot \\vec{b} = a_{1}b_{1} + a_{2}b_{2}$', 'komponen diketahui'],
-            ['Geometris', '$\\vec{a} \\cdot \\vec{b} = \\lVert \\vec{a} \\rVert \\lVert \\vec{b} \\rVert \\cos\\theta$', 'sudut atau panjang diketahui'],
+            [
+              "Komponen",
+              "$\\vec{a} \\cdot \\vec{b} = a_{1}b_{1} + a_{2}b_{2}$",
+              "komponen diketahui",
+            ],
+            [
+              "Geometris",
+              "$\\vec{a} \\cdot \\vec{b} = \\lVert \\vec{a} \\rVert \\lVert \\vec{b} \\rVert \\cos\\theta$",
+              "sudut atau panjang diketahui",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'proyeksi',
-      kind: 'rumus',
-      title: 'Proyeksi Vektor',
+      id: "proyeksi",
+      kind: "rumus",
+      title: "Proyeksi Vektor",
       body: `**Proyeksi skalar** $\\vec{a}$ pada $\\vec{b}$ adalah panjang bayangan $\\vec{a}$ ketika diproyeksikan ke arah $\\vec{b}$:
 
 $$c = \\frac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert}.$$
@@ -214,9 +251,9 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
 Panjang proyeksi vektor ini adalah $\\lVert \\vec{p} \\rVert = \\dfrac{11}{5}\\sqrt{5} = \\dfrac{11}{\\sqrt{5}} = c$, sesuai definisinya.`,
     },
     {
-      id: 'pembuktian',
-      kind: 'representasi',
-      title: 'Pembuktian Geometris dengan Vektor',
+      id: "pembuktian",
+      kind: "representasi",
+      title: "Pembuktian Geometris dengan Vektor",
       body: `Vektor memungkinkan pembuktian sifat geometri tanpa gambar yang rumit.
 
 **Kolinearitas (kesejajaran).** Titik-titik $A$, $B$, $C$ **kolinear** jika $\\vec{AB}$ dan $\\vec{AC}$ sejajar, yaitu $\\vec{AC} = k\\,\\vec{AB}$ untuk suatu skalar $k$. Sebagai contoh, $A(1,1)$, $B(3,3)$, $C(5,5)$: $\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$ dan $\\vec{AC} = \\begin{pmatrix} 4 \\\\ 4 \\end{pmatrix} = 2\\,\\vec{AB}$, jadi ketiga titik kolinear.
@@ -230,40 +267,75 @@ $$\\vec{MN} = N - M = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}, \\qquad \\vec{B
 Karena $\\vec{BC} = 2\\,\\vec{MN}$, kedua ruas garis **sejajar**, dan panjangnya $\\lVert \\vec{MN} \\rVert = \\sqrt{13} = \\tfrac{1}{2}\\lVert \\vec{BC} \\rVert$. Terbukti.`,
       blocks: [
         {
-          kind: 'tabs',
+          kind: "tabs",
           items: [
-            { label: 'Kolinear', body: 'Titik $A,B,C$ kolinear bila $\\vec{AC} = k\\,\\vec{AB}$.' },
-            { label: 'Tegak lurus', body: '$\\vec{AB} \\perp \\vec{AC}$ bila $\\vec{AB} \\cdot \\vec{AC} = 0$.' },
-            { label: 'Titik tengah', body: 'Jika $M,N$ titik tengah dua sisi, maka $\\vec{BC} = 2\\,\\vec{MN}$, sehingga $MN \\parallel BC$ dan $MN = \\tfrac{1}{2}BC$.' },
+            {
+              label: "Kolinear",
+              body: "Titik $A,B,C$ kolinear bila $\\vec{AC} = k\\,\\vec{AB}$.",
+            },
+            {
+              label: "Tegak lurus",
+              body: "$\\vec{AB} \\perp \\vec{AC}$ bila $\\vec{AB} \\cdot \\vec{AC} = 0$.",
+            },
+            {
+              label: "Titik tengah",
+              body: "Jika $M,N$ titik tengah dua sisi, maka $\\vec{BC} = 2\\,\\vec{MN}$, sehingga $MN \\parallel BC$ dan $MN = \\tfrac{1}{2}BC$.",
+            },
           ],
         },
       ],
     },
     {
-      id: 'contoh',
-      kind: 'contoh',
-      title: 'Contoh Terbimbing',
-      body: `**Contoh 1 (panjang dan vektor satuan).** Tentukan panjang dan vektor satuan dari $\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$.
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi",
+      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-vektor-bidang",
+        },
+      ],
+    },
+    {
+      id: "contoh",
+      kind: "contoh",
+      title: "Contoh Terbimbing",
+      blocks: [
+        {
+          kind: "step-reveal",
+          steps: [
+            {
+              title: "Contoh 1",
+              text: `Tentukan panjang dan vektor satuan dari $\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$.
 
-*Penyelesaian.* $\\lVert \\vec{a} \\rVert = \\sqrt{6^{2} + 8^{2}} = \\sqrt{100} = 10$, sehingga $\\hat{a} = \\dfrac{1}{10}\\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{3}{5} \\\\ \\tfrac{4}{5} \\end{pmatrix}$.
-
-**Contoh 2 (perkalian titik dan sudut).** Tentukan sudut antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.
+*Penyelesaian.* $\\lVert \\vec{a} \\rVert = \\sqrt{6^{2} + 8^{2}} = \\sqrt{100} = 10$, sehingga $\\hat{a} = \\dfrac{1}{10}\\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{3}{5} \\\\ \\tfrac{4}{5} \\end{pmatrix}$.`,
+            },
+            {
+              title: "Contoh 2",
+              text: `Tentukan sudut antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.
 
 *Penyelesaian.* $\\vec{u} \\cdot \\vec{v} = 3 + 2 = 5$; $\\lVert \\vec{u} \\rVert = \\sqrt{5}$ dan $\\lVert \\vec{v} \\rVert = \\sqrt{10}$. Maka
 
-$$\\cos\\theta = \\frac{5}{\\sqrt{5}\\,\\sqrt{10}} = \\frac{1}{\\sqrt{2}}, \\qquad \\theta = 45^\\circ.$$
-
-**Contoh 3 (proyeksi).** Tentukan proyeksi vektor $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.
+$$\\cos\\theta = \\frac{5}{\\sqrt{5}\\,\\sqrt{10}} = \\frac{1}{\\sqrt{2}}, \\qquad \\theta = 45^\\circ.$$`,
+            },
+            {
+              title: "Contoh 3",
+              text: `Tentukan proyeksi vektor $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.
 
 *Penyelesaian.* $\\vec{a} \\cdot \\vec{b} = 3 + 8 = 11$ dan $\\lVert \\vec{b} \\rVert^{2} = 1 + 4 = 5$, sehingga
 
 $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{11}{5} \\\\ \\tfrac{22}{5} \\end{pmatrix}.$$`,
+            },
+          ],
+        },
+      ],
     },
     {
-      id: 'latihan-dasar',
-      kind: 'latihan-dasar',
-      title: 'Latihan Dasar',
-      level: 'dasar',
+      id: "latihan-dasar",
+      kind: "latihan-dasar",
+      title: "Latihan Dasar",
+      level: "dasar",
       body: `1. Tentukan panjang vektor $\\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$.
 2. Tentukan panjang vektor $\\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$.
 3. Diketahui $A(1,2)$ dan $B(4,6)$. Tentukan $\\vec{AB}$.
@@ -271,8 +343,8 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
 5. Hitunglah $\\vec{a} - \\vec{b}$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. $\\lVert \\vec{a} \\rVert = \\sqrt{36 + 64} = \\sqrt{100} = 10$.
 2. $\\lVert \\vec{a} \\rVert = \\sqrt{25 + 144} = \\sqrt{169} = 13$.
 3. $\\vec{AB} = \\begin{pmatrix} 4 - 1 \\\\ 6 - 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$, panjangnya $5$.
@@ -282,10 +354,10 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
       ],
     },
     {
-      id: 'latihan-cakap',
-      kind: 'latihan-cakap',
-      title: 'Latihan Cakap',
-      level: 'cakap',
+      id: "latihan-cakap",
+      kind: "latihan-cakap",
+      title: "Latihan Cakap",
+      level: "cakap",
       body: `1. Hitunglah $\\vec{a} \\cdot \\vec{b}$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.
 2. Tentukan sudut antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.
 3. Buktikan bahwa $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ tegak lurus dengan $\\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix}$.
@@ -293,8 +365,8 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
 5. Tentukan vektor satuan dari $\\vec{a} = \\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. $\\vec{a} \\cdot \\vec{b} = 3(1) + 4(2) = 11$.
 2. $\\vec{u} \\cdot \\vec{v} = 1(3) + 2(1) = 5$; $\\lVert \\vec{u} \\rVert = \\sqrt{5}$, $\\lVert \\vec{v} \\rVert = \\sqrt{10}$; $\\cos\\theta = \\dfrac{5}{\\sqrt{50}} = \\dfrac{1}{\\sqrt{2}}$, jadi $\\theta = 45^\\circ$.
 3. $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, sehingga tegak lurus.
@@ -304,18 +376,18 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
       ],
     },
     {
-      id: 'latihan-mahir',
-      kind: 'latihan-mahir',
-      title: 'Latihan Mahir',
-      level: 'mahir',
+      id: "latihan-mahir",
+      kind: "latihan-mahir",
+      title: "Latihan Mahir",
+      level: "mahir",
       body: `1. Diketahui $A(1,1)$, $B(3,3)$, dan $C(5,k)$ kolinear. Tentukan nilai $k$.
 2. Tentukan nilai $x$ agar $\\vec{u} = \\begin{pmatrix} x \\\\ 3 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 2 \\\\ -4 \\end{pmatrix}$ saling tegak lurus.
 3. Pada segitiga $A(0,0)$, $B(4,0)$, $C(0,6)$, tunjukkan dengan vektor bahwa ruas garis yang menghubungkan titik tengah $AB$ dan $AC$ sejajar $BC$ dan panjangnya setengah $BC$.
 4. Diketahui $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Tentukan proyeksi vektor $\\vec{a}$ pada $\\vec{b}$ dan panjang proyeksinya.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat pembahasan',
+          kind: "details",
+          summary: "Lihat pembahasan",
           text: `1. $\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$ dan $\\vec{AC} = \\begin{pmatrix} 4 \\\\ k - 1 \\end{pmatrix}$. Agar kolinear, $\\vec{AC} = 2\\,\\vec{AB} = \\begin{pmatrix} 4 \\\\ 4 \\end{pmatrix}$, sehingga $k - 1 = 4$ dan $k = 5$.
 2. Tegak lurus berarti $\\vec{u} \\cdot \\vec{v} = 0$: $2x - 12 = 0$, sehingga $x = 6$.
 3. Titik tengah $AB$: $M = (2,0)$; titik tengah $AC$: $N = (0,3)$. Maka $\\vec{MN} = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}$ dan $\\vec{BC} = \\begin{pmatrix} -4 \\\\ 6 \\end{pmatrix} = 2\\,\\vec{MN}$. Karena kelipatan positif, $MN \\parallel BC$; karena faktor $2$, panjang $MN = \\tfrac{1}{2}BC$. Terbukti.
@@ -324,17 +396,17 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
       ],
     },
     {
-      id: 'dunia-nyata',
-      kind: 'dunia-nyata',
-      title: 'Penerapan di Dunia Nyata',
+      id: "dunia-nyata",
+      kind: "dunia-nyata",
+      title: "Penerapan di Dunia Nyata",
       body: `Vektor muncul pada navigasi: kecepatan kapal digabung dengan arus sungai, dan kecepatan pesawat digabung dengan angin. Hasil penjumlahan vektor menentukan arah serta laju sebenarnya.
 
 Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor; benda seimbang bila resultannya nol. Perkalian titik dipakai untuk menghitung kerja (usaha) suatu gaya, sedangkan proyeksi vektor membantu memecah gaya menjadi komponen yang sejajar dan tegak lurus. Pada grafika komputer dan animasi, vektor menggeser serta memutar objek, dan vektor satuan memberi arah normal pada permukaan sehingga pencahayaan terlihat realistis.`,
     },
     {
-      id: 'kesalahan-umum',
-      kind: 'kesalahan-umum',
-      title: 'Kesalahan Umum',
+      id: "kesalahan-umum",
+      kind: "kesalahan-umum",
+      title: "Kesalahan Umum",
       body: `**1. Menganggap panjang vektor selalu bilangan bulat.** Panjang adalah akar kuadrat; misalnya $\\lVert \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} \\rVert = \\sqrt{5}$, bukan $3$.
 
 **2. Menjumlahkan komponen yang tidak seposisi.** Komponen-$x$ hanya dijumlahkan dengan komponen-$x$. Menukar posisi menghasilkan vektor yang salah arah.
@@ -346,55 +418,99 @@ Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor;
 **5. Lupa membagi dengan panjang saat memakai rumus sudut.** Rumusnya $\\cos\\theta = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{a} \\rVert\\lVert \\vec{b} \\rVert}$. Tanpa pembagi, hasilnya bukan kosinus.`,
       blocks: [
         {
-          kind: 'spot-mistake',
-          intro: 'Seorang siswa menentukan panjang vektor $\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Klik langkah yang keliru.',
+          kind: "spot-mistake",
+          intro: "Seorang siswa menentukan panjang vektor $\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Klik langkah yang keliru.",
           steps: [
-            'Diketahui $\\vec{a} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.',
-            'Jumlahkan komponennya: $1 + 2 = 3$.',
-            'Jadi $\\lVert \\vec{a} \\rVert = 3$.',
+            "Diketahui $\\vec{a} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.",
+            "Jumlahkan komponennya: $1 + 2 = 3$.",
+            "Jadi $\\lVert \\vec{a} \\rVert = 3$.",
           ],
           wrongIndex: 1,
-          explanation: 'Panjang vektor bukan jumlah komponen, melainkan akar dari jumlah kuadrat komponen. Seharusnya $\\lVert \\vec{a} \\rVert = \\sqrt{1^{2} + 2^{2}} = \\sqrt{5} \\approx 2{,}24$.',
+          explanation: "Panjang vektor bukan jumlah komponen, melainkan akar dari jumlah kuadrat komponen. Seharusnya $\\lVert \\vec{a} \\rVert = \\sqrt{1^{2} + 2^{2}} = \\sqrt{5} \\approx 2{,}24$.",
         },
       ],
     },
     {
-      id: 'refleksi',
-      kind: 'refleksi',
-      title: 'Refleksi',
-      body: `Jawab dengan jujur:
-1. Apa perbedaan pokok antara vektor dan bilangan biasa, dan mengapa perbedaan itu penting?
-2. Kapan kamu memakai perkalian titik, dan informasi apa yang diberikannya?
-3. Bagaimana vektor menyederhanakan pembuktian sifat geometri dibandingkan cara koordinat atau gambar manual?`,
-    },
-    {
-      id: 'rangkuman',
-      kind: 'rangkuman',
-      title: 'Rangkuman',
+      id: "refleksi",
+      kind: "refleksi",
+      title: "Refleksi",
+      body: "Jawab dengan jujur:",
       blocks: [
         {
-          kind: 'table',
-          headers: ['Konsep', 'Bentuk / Rumus'],
+          kind: "reflection",
+          prompts: [
+            "Apa perbedaan pokok antara vektor dan bilangan biasa, dan mengapa perbedaan itu penting?",
+            "Kapan kamu memakai perkalian titik, dan informasi apa yang diberikannya?",
+            "Bagaimana vektor menyederhanakan pembuktian sifat geometri dibandingkan cara koordinat atau gambar manual?",
+          ],
+          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+        },
+      ],
+    },
+    {
+      id: "rangkuman",
+      kind: "rangkuman",
+      title: "Rangkuman",
+      blocks: [
+        {
+          kind: "table",
+          headers: [
+            "Konsep",
+            "Bentuk / Rumus",
+          ],
           rows: [
-            ['Notasi vektor', '$\\vec{a} = \\begin{pmatrix} a_{1} \\\\ a_{2} \\end{pmatrix} = a_{1}\\mathbf{i} + a_{2}\\mathbf{j}$'],
-            ['Vektor dari $A$ ke $B$', '$\\vec{AB} = B - A$'],
-            ['Panjang vektor', '$\\lVert \\vec{a} \\rVert = \\sqrt{a_{1}^{2} + a_{2}^{2}}$'],
-            ['Vektor satuan', '$\\hat{a} = \\dfrac{\\vec{a}}{\\lVert \\vec{a} \\rVert}$'],
-            ['Penjumlahan / pengurangan', 'komponen demi komponen'],
-            ['Perkalian titik', '$\\vec{a} \\cdot \\vec{b} = a_{1}b_{1} + a_{2}b_{2}$'],
-            ['Sudut antar vektor', '$\\cos\\theta = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{a} \\rVert\\lVert \\vec{b} \\rVert}$'],
-            ['Tegak lurus', '$\\vec{a} \\cdot \\vec{b} = 0$'],
-            ['Proyeksi skalar', '$c = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert}$'],
-            ['Proyeksi vektor', '$\\vec{p} = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\,\\vec{b}$'],
-            ['Kolinear', '$\\vec{AC} = k\\,\\vec{AB}$'],
+            [
+              "Notasi vektor",
+              "$\\vec{a} = \\begin{pmatrix} a_{1} \\\\ a_{2} \\end{pmatrix} = a_{1}\\mathbf{i} + a_{2}\\mathbf{j}$",
+            ],
+            [
+              "Vektor dari $A$ ke $B$",
+              "$\\vec{AB} = B - A$",
+            ],
+            [
+              "Panjang vektor",
+              "$\\lVert \\vec{a} \\rVert = \\sqrt{a_{1}^{2} + a_{2}^{2}}$",
+            ],
+            [
+              "Vektor satuan",
+              "$\\hat{a} = \\dfrac{\\vec{a}}{\\lVert \\vec{a} \\rVert}$",
+            ],
+            [
+              "Penjumlahan / pengurangan",
+              "komponen demi komponen",
+            ],
+            [
+              "Perkalian titik",
+              "$\\vec{a} \\cdot \\vec{b} = a_{1}b_{1} + a_{2}b_{2}$",
+            ],
+            [
+              "Sudut antar vektor",
+              "$\\cos\\theta = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{a} \\rVert\\lVert \\vec{b} \\rVert}$",
+            ],
+            [
+              "Tegak lurus",
+              "$\\vec{a} \\cdot \\vec{b} = 0$",
+            ],
+            [
+              "Proyeksi skalar",
+              "$c = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert}$",
+            ],
+            [
+              "Proyeksi vektor",
+              "$\\vec{p} = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\,\\vec{b}$",
+            ],
+            [
+              "Kolinear",
+              "$\\vec{AC} = k\\,\\vec{AB}$",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'evaluasi',
-      kind: 'evaluasi',
-      title: 'Evaluasi',
+      id: "evaluasi",
+      kind: "evaluasi",
+      title: "Evaluasi",
       body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Vektor**.
 `,
     },

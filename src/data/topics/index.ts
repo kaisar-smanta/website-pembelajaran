@@ -34,7 +34,7 @@ import { aplikasiTurunan } from './aplikasi-turunan';
 import { integral } from './integral';
 import { variabelAcakDiskret } from './variabel-acak-diskret';
 import { plannedTopics } from './planned';
-import { enhanceTopic, sectionSearchText } from './enhance';
+import { sectionSearchText } from '@/lib/content-text';
 
 export { plannedTopics, sectionSearchText };
 
@@ -77,8 +77,8 @@ const rawTopics: Topic[] = [
   variabelAcakDiskret,
 ];
 
-/** Topik lengkap setelah peningkatan interaktivitas (lihat enhance.ts). */
-export const topics: Topic[] = rawTopics.map(enhanceTopic);
+/** Seluruh topik; blok interaktif sudah ditulis langsung pada tiap berkas. */
+export const topics: Topic[] = rawTopics;
 
 const byId = new Map<string, Topic>(topics.map((t) => [t.id, t]));
 
@@ -93,20 +93,6 @@ export function topicSubject(topic: Topic): SubjectId {
 
 export function topicsBySubject(subject: SubjectId): Topic[] {
   return topics.filter((t) => topicSubject(t) === subject);
-}
-
-export function topicsByGrade(grade: Grade): Topic[] {
-  return topics.filter((t) => t.grade === grade && topicSubject(t) === 'matematika');
-}
-
-export function topicsByElement(element: ElementId): Topic[] {
-  return topics.filter((t) => t.element === element && topicSubject(t) === 'matematika');
-}
-
-export function topicsByGradeElement(grade: Grade, element: ElementId): Topic[] {
-  return topics.filter(
-    (t) => t.grade === grade && t.element === element && topicSubject(t) === 'matematika',
-  );
 }
 
 export function topicsBySubjectGrade(subject: SubjectId, grade: Grade): Topic[] {
@@ -127,27 +113,7 @@ export function topicsBySubjectGradeElement(
   );
 }
 
-export function featuredTopics(): Topic[] {
-  return topics.filter((t) => t.featured);
-}
-
 export function resolveTopics(ids: string[] | undefined): Topic[] {
   if (!ids) return [];
   return ids.map((id) => byId.get(id)).filter((t): t is Topic => Boolean(t));
-}
-
-/** Semua topik (lengkap + rencana) untuk peta pembelajaran. */
-export function allTopicEntries(): Array<
-  Pick<Topic, 'id' | 'slug' | 'title' | 'grade' | 'element' | 'status' | 'summary'>
-> {
-  const complete = topics.map((t) => ({
-    id: t.id,
-    slug: t.slug,
-    title: t.title,
-    grade: t.grade,
-    element: t.element,
-    status: t.status ?? ('lengkap' as const),
-    summary: t.summary,
-  }));
-  return [...complete, ...plannedTopics];
 }

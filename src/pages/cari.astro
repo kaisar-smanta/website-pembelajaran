@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { url } from '@/utils/url';
 import { ALL_ELEMENT_ORDER, GRADE_ORDER, ELEMENTS } from '@/data/curriculum';
 
@@ -61,21 +62,18 @@ const meta = [
 
   <section class="section-alt cta-section">
     <div class="container">
-      <div class="card cta-card card-accent accent-bilangan hover-lift reveal">
-        <div class="cta-copy">
-          <p class="eyebrow-badge">Belum menemukan?</p>
-          <h2>Jelajahi lewat jalur belajar</h2>
-          <p class="text-muted">
-            Mulai dari kelas X, ikuti peta konsep antar materi, atau uji pemahamanmu lewat latihan
-            berjenjang.
-          </p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
-          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
-          <a class="btn btn-secondary" href={url('/latihan')}>Latihan berjenjang</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Belum menemukan?"
+        title="Jelajahi lewat jalur belajar"
+        text="Mulai dari kelas X, ikuti peta konsep antar materi, atau uji pemahamanmu lewat latihan berjenjang."
+        accentClass="accent-bilangan"
+        reveal
+        actions={[
+          { label: 'Mulai dari Kelas X', href: url('/matematika/kelas/X'), variant: 'primary' },
+          { label: 'Peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'secondary' },
+          { label: 'Latihan berjenjang', href: url('/latihan'), variant: 'secondary' },
+        ]}
+      />
     </div>
   </section>
 </BaseLayout>
@@ -181,43 +179,15 @@ const meta = [
   .cta-section {
     padding-block: 2.5rem;
   }
-  .cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .cta-copy {
-    max-width: 46ch;
-  }
-  .cta-copy .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .cta-copy h2 {
-    margin-bottom: 0.35rem;
-  }
-  .cta-copy p {
-    margin: 0;
-  }
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
 </style>
 
 <script>
-  interface Item {
-    title: string;
-    summary: string;
-    url: string;
-    type: string;
-    grade?: string;
-    element?: string;
-    keywords: string;
-    text: string;
-  }
+  import {
+    scoreItem,
+    highlight,
+    buildSnippet,
+    type SearchItem,
+  } from '@/lib/search';
 
   function setupSearch(root: Element) {
     const base = root.getAttribute('data-base') || '/';
@@ -227,8 +197,10 @@ const meta = [
     const results = root.querySelector('[data-search-results]') as HTMLElement;
     const status = root.querySelector('[data-search-status]') as HTMLElement;
 
-    let items: Item[] = [];
+    let items: SearchItem[] = [];
 
+    /* Cermin ELEMENT_COLOR di `src/data/display.ts`. Disalin apa adanya karena
+       skrip klien tidak boleh mengimpor modul data sisi server. */
     const accentMap: Record<string, string> = {
       bilangan: 'var(--color-number)',
       'aljabar-fungsi': 'var(--color-algebra)',
@@ -237,58 +209,8 @@ const meta = [
       'data-peluang': 'var(--color-data)',
     };
 
-    const markStyle = 'background:var(--highlight);color:inherit;padding:0 0.1em;border-radius:3px';
-
-    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    function score(item: Item, q: string): number {
-      const title = norm(item.title);
-      const keywords = norm(item.keywords);
-      const summary = norm(item.summary);
-      const text = norm(item.text);
-      let s = 0;
-      if (title === q) s += 100;
-      if (title.includes(q)) s += 50;
-      if (keywords.includes(q)) s += 25;
-      if (summary.includes(q)) s += 12;
-      if (text.includes(q)) s += 6;
-      return s;
-    }
-
-    function escapeHtml(text: string): string {
-      return text.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c] as string));
-    }
-
-    function highlight(text: string, q: string, raw: string): string {
-      const safe = escapeHtml(text);
-      if (!raw) return safe;
-      const pattern = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const re = new RegExp(pattern, 'gi');
-      if (re.test(safe)) return safe.replace(re, (m) => `<mark style="${markStyle}">${m}</mark>`);
-      const idx = norm(safe).indexOf(q);
-      if (idx < 0) return safe;
-      return (
-        safe.slice(0, idx) +
-        `<mark style="${markStyle}">` +
-        safe.slice(idx, idx + q.length) +
-        '</mark>' +
-        safe.slice(idx + q.length)
-      );
-    }
-
-    function snippetOf(item: Item, q: string, raw: string): string {
-      if (!raw || norm(item.summary).includes(q)) return highlight(item.summary, q, raw);
-      const haystack = item.text || '';
-      const idx = norm(haystack).indexOf(q);
-      if (idx < 0) return highlight(item.summary, q, raw);
-      const start = Math.max(0, idx - 50);
-      const chunk = haystack.slice(start, start + 150).trim();
-      return (start > 0 ? '… ' : '') + highlight(chunk, q, raw) + ' …';
-    }
-
     function render() {
       const raw = input.value.trim();
-      const q = norm(raw);
       const g = gradeFilter.value;
       const e = elementFilter.value;
 
@@ -296,19 +218,19 @@ const meta = [
       if (g) filtered = filtered.filter((it) => it.grade === g || it.type === 'halaman');
       if (e) filtered = filtered.filter((it) => it.element === e || it.type === 'halaman');
 
-      let out: (Item & { score: number })[];
-      if (q.length === 0) {
+      let out: (SearchItem & { score: number })[];
+      if (raw.length === 0) {
         out = filtered.map((it) => ({ ...it, score: 0 })).slice(0, 12);
       } else {
         out = filtered
-          .map((it) => ({ ...it, score: score(it, q) }))
+          .map((it) => ({ ...it, score: scoreItem(it, raw) }))
           .filter((it) => it.score > 0)
           .sort((a, b) => b.score - a.score)
           .slice(0, 40);
       }
 
       results.innerHTML = '';
-      if (q.length === 0) {
+      if (raw.length === 0) {
         status.textContent = `Menampilkan ${out.length} entri. Ketik untuk menyaring.`;
       } else if (out.length === 0) {
         status.textContent = `Tidak ada hasil untuk "${raw}".`;
@@ -324,7 +246,7 @@ const meta = [
           'text-align:center;color:var(--color-text-muted);padding:1.6rem 1rem;border-style:dashed;display:grid;gap:0.35rem;justify-items:center',
         );
         empty.textContent =
-          q.length === 0
+          raw.length === 0
             ? 'Belum ada entri untuk filter ini.'
             : 'Tidak ada hasil. Coba kata kunci lain atau ubah filter.';
         results.appendChild(empty);
@@ -343,8 +265,8 @@ const meta = [
               <span class="badge">${item.type}</span>
               ${gradeLabel ? `<span class="badge badge-grade" style="background:var(--color-primary-soft);color:var(--color-primary);border-color:transparent">${gradeLabel}</span>` : ''}
             </div>
-            <h3 style="margin:0 0 0.25rem;font-size:1.1rem">${highlight(item.title, q, raw)}</h3>
-            <p class="text-muted" style="margin:0;font-size:0.92rem">${snippetOf(item, q, raw)}</p>
+            <h3 style="margin:0 0 0.25rem;font-size:1.1rem">${highlight(item.title, raw)}</h3>
+            <p class="text-muted" style="margin:0;font-size:0.92rem">${buildSnippet(item, raw)}</p>
           </a>`;
         results.appendChild(li);
       }

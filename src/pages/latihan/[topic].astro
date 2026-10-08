@@ -6,6 +6,8 @@ import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import { getTopic, resolveTopics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS } from '@/data/curriculum';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
+import { difficultyCounts, groupByDifficulty } from '@/lib/practice';
 import { url, topicUrl } from '@/utils/url';
 import { renderInlineMarkdown } from '@/utils/markdown';
 import type { Difficulty } from '@/types/content';
@@ -25,8 +27,6 @@ const { topicId } = Astro.props;
 const topic = getTopic(topicId);
 const all = questionsByTopic(topicId);
 const allQuestionIds = all.map((q) => q.id);
-const difficulties: Difficulty[] = ['dasar', 'cakap', 'mahir'];
-const levelName: Record<Difficulty, string> = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' };
 const levelLead: Record<Difficulty, string> = {
   dasar: 'Pemanasan untuk memastikan istilah dan prosedur dasar sudah melekat.',
   cakap: 'Terapkan konsep pada masalah berlapis, lengkap dengan pemodelan dan interpretasi.',
@@ -37,11 +37,8 @@ const levelAccent: Record<Difficulty, string> = {
   cakap: 'var(--color-primary)',
   mahir: 'var(--color-warning)',
 };
-const counts = {
-  dasar: all.filter((q) => q.difficulty === 'dasar').length,
-  cakap: all.filter((q) => q.difficulty === 'cakap').length,
-  mahir: all.filter((q) => q.difficulty === 'mahir').length,
-};
+const counts = difficultyCounts(all);
+const byDifficulty = groupByDifficulty(all);
 const prerequisites = resolveTopics(topic?.prerequisites);
 const related = resolveTopics(topic?.relatedTopics);
 const objectives = topic?.objectives ?? [];
@@ -192,8 +189,8 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     </aside>
 
     {
-      difficulties.map((d, di) => {
-        const items = all.filter((q) => q.difficulty === d);
+      DIFFICULTY_ORDER.map((d, di) => {
+        const items = byDifficulty[d];
         if (!items.length) return null;
         return (
           <section
@@ -203,7 +200,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
             aria-labelledby={`lv-${d}`}
           >
             <div class="level-head">
-              <SectionHeading id={`lv-${d}`} title={levelName[d]} lead={levelLead[d]} reveal={false} />
+              <SectionHeading id={`lv-${d}`} title={DIFFICULTY_LABELS[d]} lead={levelLead[d]} reveal={false} />
               <span class={`badge badge-${d}`}>{items.length} soal</span>
             </div>
             <div class="level-cards">

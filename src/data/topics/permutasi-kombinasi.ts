@@ -39,15 +39,15 @@ export const permutasiKombinasi: Topic = {
   ],
   sections: [
     {
-      id: 'tujuan',
-      kind: 'tujuan',
-      title: 'Tujuan Pembelajaran',
-      body: `Setelah mempelajari topik ini, peserta didik dapat menggunakan aturan perkalian dan penjumlahan untuk mencacah, menghitung nilai faktorial, menentukan banyak permutasi (semua unsur, sebagian unsur, dan unsur sama), menentukan banyak kombinasi, membedakan kapan memakai permutasi atau kombinasi dari konteks soal, serta menggunakan pencacahan untuk menghitung peluang suatu kejadian.`,
+      id: "tujuan",
+      kind: "tujuan",
+      title: "Tujuan Pembelajaran",
+      body: "Setelah mempelajari topik ini, peserta didik dapat menggunakan aturan perkalian dan penjumlahan untuk mencacah, menghitung nilai faktorial, menentukan banyak permutasi (semua unsur, sebagian unsur, dan unsur sama), menentukan banyak kombinasi, membedakan kapan memakai permutasi atau kombinasi dari konteks soal, serta menggunakan pencacahan untuk menghitung peluang suatu kejadian.",
     },
     {
-      id: 'pemantik',
-      kind: 'pemantik',
-      title: 'Pertanyaan Pemantik',
+      id: "pemantik",
+      kind: "pemantik",
+      title: "Pertanyaan Pemantik",
       body: `Dari $5$ siswa akan dipilih seorang **ketua** dan seorang **wakil ketua**. Berapa banyak susunan pengurus yang mungkin?
 
 Sekarang bandingkan dengan pertanyaan berikut: dari $5$ siswa yang sama akan dipilih **dua orang** untuk mengikuti lomba tanpa jabatan apa pun. Berapa banyak pilihan yang mungkin?
@@ -58,18 +58,23 @@ Sekarang bandingkan dengan pertanyaan berikut: dari $5$ siswa yang sama akan dip
 Coba daftarkan beberapa kemungkinan terlebih dahulu sebelum memakai rumus.`,
       blocks: [
         {
-          kind: 'prediction',
-          prompt: 'Dari $5$ siswa akan dipilih seorang ketua dan seorang wakil ketua. Berapa banyak susunan pengurus yang mungkin?',
-          options: ['$10$ susunan', '$20$ susunan', '$25$ susunan', '$120$ susunan'],
-          reveal: `Untuk pemilihan ketua dan wakil, urutan **penting** karena (Ani, Budi) berbeda dari (Budi, Ani). Ada $5$ pilihan ketua dan $4$ sisa pilihan wakil, sehingga $5 \\cdot 4 = 20$ susunan. Bandingkan dengan memilih dua orang tanpa jabatan: urutan tidak penting, setiap pasangan terhitung dua kali, dan hasilnya $20 : 2 = 10$ pilihan. Inilah perbedaan **permutasi** dan **kombinasi**.`,
-          saveLabel: 'Simpan dugaan',
+          kind: "prediction",
+          prompt: "Dari $5$ siswa akan dipilih seorang ketua dan seorang wakil ketua. Berapa banyak susunan pengurus yang mungkin?",
+          options: [
+            "$10$ susunan",
+            "$20$ susunan",
+            "$25$ susunan",
+            "$120$ susunan",
+          ],
+          reveal: "Untuk pemilihan ketua dan wakil, urutan **penting** karena (Ani, Budi) berbeda dari (Budi, Ani). Ada $5$ pilihan ketua dan $4$ sisa pilihan wakil, sehingga $5 \\cdot 4 = 20$ susunan. Bandingkan dengan memilih dua orang tanpa jabatan: urutan tidak penting, setiap pasangan terhitung dua kali, dan hasilnya $20 : 2 = 10$ pilihan. Inilah perbedaan **permutasi** dan **kombinasi**.",
+          saveLabel: "Simpan dugaan",
         },
       ],
     },
     {
-      id: 'prasyarat',
-      kind: 'prasyarat',
-      title: 'Prasyarat',
+      id: "prasyarat",
+      kind: "prasyarat",
+      title: "Prasyarat",
       body: `Sebelum melanjutkan, pastikan kamu menguasai:
 - aturan perkalian dan aturan penjumlahan pada proses bertahap;
 - operasi bilangan bulat dan pecahan;
@@ -77,17 +82,17 @@ Coba daftarkan beberapa kemungkinan terlebih dahulu sebelum memakai rumus.`,
 - notasi faktorial $n!$ dan nilainya.`,
     },
     {
-      id: 'konteks',
-      kind: 'konteks',
-      title: 'Situasi dan Konteks',
+      id: "konteks",
+      kind: "konteks",
+      title: "Situasi dan Konteks",
       body: `Banyak masalah sehari-hari menuntut kita menghitung banyak cara: menyusun kata sandi, mengatur urutan pemenang lomba, menyusun jadwal, memilih anggota tim, atau memperkirakan peluang menang undian. Ketika pilihannya sedikit, kita bisa mendaftar satu per satu; ketika pilihannya mencapai ribuan atau jutaan, kita perlu **aturan pencacahan**.
 
 Dua pertanyaan dasar yang selalu muncul adalah: apakah **urutan** hasil penting? Jika ya, kita memakai **permutasi**; jika tidak, kita memakai **kombinasi**. Topik ini melatih kita mengenali perbedaan itu dan menghitung dengan tepat, termasuk saat menghitung peluang.`,
     },
     {
-      id: 'konsep',
-      kind: 'konsep',
-      title: 'Konsep Inti: Aturan Pencacahan, Permutasi, dan Kombinasi',
+      id: "konsep",
+      kind: "konsep",
+      title: "Konsep Inti: Aturan Pencacahan, Permutasi, dan Kombinasi",
       body: `**Aturan perkalian.** Jika suatu kejadian terdiri atas tahapan berurutan dengan $n_1$ cara pada tahap pertama, $n_2$ cara pada tahap kedua, dan seterusnya, maka total cara adalah hasil kalinya:
 $$n_1 \\cdot n_2 \\cdots n_k.$$
 Aturan ini dipakai ketika tahapan terjadi bersama-sama (dan/atau).
@@ -111,28 +116,43 @@ $$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
 Hubungan keduanya adalah $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$, karena setiap pilihan $k$ objek memiliki $k!$ susunan.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'concept',
-          title: 'Inti yang perlu diingat',
-          text: 'Aturan perkalian dan penjumlahan adalah pondasi. Sebelum memakai rumus, tentukan dahulu apakah urutan penting, apakah ada unsur yang sama, dan apakah objek boleh dipakai berulang.',
+          kind: "callout",
+          variant: "concept",
+          title: "Inti yang perlu diingat",
+          text: "Aturan perkalian dan penjumlahan adalah pondasi. Sebelum memakai rumus, tentukan dahulu apakah urutan penting, apakah ada unsur yang sama, dan apakah objek boleh dipakai berulang.",
         },
         {
-          kind: 'match',
-          intro: 'Pasangkan istilah pencacahan dengan maknanya.',
+          kind: "match",
+          intro: "Pasangkan istilah pencacahan dengan maknanya.",
           pairs: [
-            { left: 'Aturan perkalian', right: 'Tahapan berurutan: kalikan banyak cara tiap tahap' },
-            { left: 'Aturan penjumlahan', right: 'Pilihan saling lepas: jumlahkan banyak caranya' },
-            { left: 'Faktorial', right: '$n! = n(n-1)\\cdots1$ dengan $0!=1$' },
-            { left: 'Permutasi', right: 'Susunan dengan urutan diperhatikan' },
-            { left: 'Kombinasi', right: 'Pemilihan dengan urutan tidak diperhatikan' },
+            {
+              left: "Aturan perkalian",
+              right: "Tahapan berurutan: kalikan banyak cara tiap tahap",
+            },
+            {
+              left: "Aturan penjumlahan",
+              right: "Pilihan saling lepas: jumlahkan banyak caranya",
+            },
+            {
+              left: "Faktorial",
+              right: "$n! = n(n-1)\\cdots1$ dengan $0!=1$",
+            },
+            {
+              left: "Permutasi",
+              right: "Susunan dengan urutan diperhatikan",
+            },
+            {
+              left: "Kombinasi",
+              right: "Pemilihan dengan urutan tidak diperhatikan",
+            },
           ],
         },
       ],
     },
     {
-      id: 'representasi',
-      kind: 'representasi',
-      title: 'Representasi: Kotak Pengisian dan Tabel Pembanding',
+      id: "representasi",
+      kind: "representasi",
+      title: "Representasi: Kotak Pengisian dan Tabel Pembanding",
       body: `Dua cara memandang pencacahan membantu kita memilih rumus yang tepat.
 
 **Mengisi kotak (slots).** Menyusun $3$ huruf berbeda dari $5$ huruf yang tersedia dapat dibayangkan sebagai mengisi $3$ kotak kosong:
@@ -142,41 +162,75 @@ yaitu $5$ pilihan untuk kotak pertama, $4$ untuk kedua, dan $3$ untuk ketiga. Ca
 **Tabel pembanding.** Perhatikan perbedaan permutasi dan kombinasi berikut.`,
       blocks: [
         {
-          kind: 'table',
-          caption: 'Perbandingan permutasi dan kombinasi',
-          headers: ['Aspek', 'Permutasi', 'Kombinasi'],
+          kind: "table",
+          caption: "Perbandingan permutasi dan kombinasi",
+          headers: [
+            "Aspek",
+            "Permutasi",
+            "Kombinasi",
+          ],
           rows: [
-            ['Urutan', 'diperhatikan', 'tidak diperhatikan'],
-            ['Notasi', '$P(n,k) = \\dfrac{n!}{(n-k)!}$', '$\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$'],
-            ['Contoh pemakaian', 'kata sandi, jabatan', 'anggota tim, kartu'],
-            ['Contoh nilai', '$P(5,2) = 20$', '$\\binom{5}{2} = 10$'],
+            [
+              "Urutan",
+              "diperhatikan",
+              "tidak diperhatikan",
+            ],
+            [
+              "Notasi",
+              "$P(n,k) = \\dfrac{n!}{(n-k)!}$",
+              "$\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$",
+            ],
+            [
+              "Contoh pemakaian",
+              "kata sandi, jabatan",
+              "anggota tim, kartu",
+            ],
+            [
+              "Contoh nilai",
+              "$P(5,2) = 20$",
+              "$\\binom{5}{2} = 10$",
+            ],
           ],
         },
         {
-          kind: 'tabs',
+          kind: "tabs",
           items: [
-            { label: 'Simbolik', body: '$P(n,k)=\\dfrac{n!}{(n-k)!}$ untuk urutan penting dan $\\binom{n}{k}=\\dfrac{n!}{k!(n-k)!}$ untuk urutan tidak penting.' },
-            { label: 'Kotak pengisian', body: 'Menyusun $3$ huruf dari $5$ huruf: $\\underline{5}\\;\\underline{4}\\;\\underline{3}=60$, menunjukkan urutan penting.' },
-            { label: 'Tabel', body: '$P(5,2)=20$ sedangkan $\\binom{5}{2}=10$; hasil kombinasi selalu $k!$ kali lebih kecil dari permutasi.' },
+            {
+              label: "Simbolik",
+              body: "$P(n,k)=\\dfrac{n!}{(n-k)!}$ untuk urutan penting dan $\\binom{n}{k}=\\dfrac{n!}{k!(n-k)!}$ untuk urutan tidak penting.",
+            },
+            {
+              label: "Kotak pengisian",
+              body: "Menyusun $3$ huruf dari $5$ huruf: $\\underline{5}\\;\\underline{4}\\;\\underline{3}=60$, menunjukkan urutan penting.",
+            },
+            {
+              label: "Tabel",
+              body: "$P(5,2)=20$ sedangkan $\\binom{5}{2}=10$; hasil kombinasi selalu $k!$ kali lebih kecil dari permutasi.",
+            },
           ],
         },
       ],
     },
     {
-      id: 'eksplorasi',
-      kind: 'eksplorasi',
-      title: 'Eksplorasi: Peluang Empiris dan Teoretis',
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi: Peluang Empiris dan Teoretis",
       body: `Pada eksplorasi ini kita membandingkan **peluang teoretis** hasil pencacahan dengan **peluang empiris** yang diperoleh dari simulasi.
 
 Misalkan sebuah kotak berisi $4$ bola merah dan $6$ bola biru, lalu diambil $3$ bola sekaligus. Peluang terambilnya tepat $2$ bola merah dapat dihitung dengan pencacahan:
 $$P = \\frac{\\binom{4}{2}\\binom{6}{1}}{\\binom{10}{3}} = \\frac{6 \\cdot 6}{120} = \\frac{36}{120} = \\frac{3}{10}.$$
 Jalankan simulasi berkali-kali. Apakah frekuensi relatif kejadian ini mendekati $0{,}3$? Semakin banyak percobaan, frekuensi empiris biasanya makin dekat dengan nilai teoretis. Pencacahan memberi nilai **teoretis** yang menjadi acuan.`,
-      blocks: [{ kind: 'exploration', explorationId: 'peluang-sim' }],
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "peluang-sim",
+        },
+      ],
     },
     {
-      id: 'contoh',
-      kind: 'contoh',
-      title: 'Contoh Terbimbing',
+      id: "contoh",
+      kind: "contoh",
+      title: "Contoh Terbimbing",
       body: `**Contoh 1 (aturan perkalian).** Sebuah kata sandi terdiri atas $4$ angka berbeda yang dipilih dari angka $0$ sampai $9$. Berapa banyak kata sandi yang mungkin?
 
 *Penyelesaian.* Isi empat kotak: $10$ pilihan untuk angka pertama, lalu $9$, $8$, dan $7$ karena angka tidak boleh berulang:
@@ -203,22 +257,34 @@ $$\\binom{10}{3} = \\frac{10!}{3!\\,7!} = \\frac{10 \\cdot 9 \\cdot 8}{3 \\cdot 
 $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       blocks: [
         {
-          kind: 'step-reveal',
-          intro: 'Mari hitung banyak susunan huruf kata "BUKU", satu langkah sekaligus.',
+          kind: "step-reveal",
+          intro: "Mari hitung banyak susunan huruf kata \"BUKU\", satu langkah sekaligus.",
           steps: [
-            { title: 'Hitung seolah berbeda', text: 'Kata "BUKU" memiliki $4$ huruf, sehingga jika semua berbeda ada $4!=24$ susunan.' },
-            { title: 'Kenali unsur sama', text: 'Huruf U muncul $2$ kali, dan menukar posisi kedua huruf U menghasilkan susunan yang sama.' },
-            { title: 'Bagi dengan faktorial unsur sama', text: 'Banyak susunan $=\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.' },
-            { title: 'Tafsirkan', text: 'Jadi hanya ada $12$ susunan huruf yang berbeda.' },
+            {
+              title: "Hitung seolah berbeda",
+              text: "Kata \"BUKU\" memiliki $4$ huruf, sehingga jika semua berbeda ada $4!=24$ susunan.",
+            },
+            {
+              title: "Kenali unsur sama",
+              text: "Huruf U muncul $2$ kali, dan menukar posisi kedua huruf U menghasilkan susunan yang sama.",
+            },
+            {
+              title: "Bagi dengan faktorial unsur sama",
+              text: "Banyak susunan $=\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.",
+            },
+            {
+              title: "Tafsirkan",
+              text: "Jadi hanya ada $12$ susunan huruf yang berbeda.",
+            },
           ],
         },
       ],
     },
     {
-      id: 'latihan-dasar',
-      kind: 'latihan-dasar',
-      title: 'Latihan Dasar',
-      level: 'dasar',
+      id: "latihan-dasar",
+      kind: "latihan-dasar",
+      title: "Latihan Dasar",
+      level: "dasar",
       body: `1. Hitung nilai $5!$.
 2. Hitung $P(5,2)$.
 3. Hitung $\\binom{6}{2}$.
@@ -226,8 +292,8 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
 5. Tiga orang akan berfoto berjajar. Berapa banyak urutan berfoto yang mungkin?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. $5! = 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1 = 120$.
 2. $P(5,2) = \\dfrac{5!}{3!} = 5 \\cdot 4 = 20$.
 3. $\\binom{6}{2} = \\dfrac{6!}{2!\\,4!} = \\dfrac{6 \\cdot 5}{2} = 15$.
@@ -237,10 +303,10 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       ],
     },
     {
-      id: 'latihan-cakap',
-      kind: 'latihan-cakap',
-      title: 'Latihan Cakap',
-      level: 'cakap',
+      id: "latihan-cakap",
+      kind: "latihan-cakap",
+      title: "Latihan Cakap",
+      level: "cakap",
       body: `1. Dari $7$ siswa akan dipilih ketua, sekretaris, dan bendahara. Berapa banyak susunan pengurus?
 2. Berapa banyak susunan huruf dari kata "MATEMATIKA"?
 3. Dari $6$ siswa laki-laki dan $4$ siswa perempuan akan dibentuk komite berisi $3$ orang dengan tepat $1$ perempuan. Berapa banyak komite yang mungkin?
@@ -248,8 +314,8 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
 5. Berapa banyak bilangan tiga angka **berbeda** yang dapat dibentuk dari angka $1, 2, 3, 4, 5$?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. Urutan penting: $P(7,3) = \\dfrac{7!}{4!} = 7 \\cdot 6 \\cdot 5 = 210$.
 2. Huruf pada "MATEMATIKA": M $2$, A $3$, T $2$, E $1$, I $1$, K $1$ (total $10$ huruf). Maka $\\dfrac{10!}{2!\\,3!\\,2!} = \\dfrac{3628800}{24} = 151200$.
 3. Pilih $1$ perempuan dari $4$ dan $2$ laki-laki dari $6$: $\\binom{4}{1}\\binom{6}{2} = 4 \\cdot 15 = 60$.
@@ -259,18 +325,18 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       ],
     },
     {
-      id: 'latihan-mahir',
-      kind: 'latihan-mahir',
-      title: 'Latihan Mahir',
-      level: 'mahir',
+      id: "latihan-mahir",
+      kind: "latihan-mahir",
+      title: "Latihan Mahir",
+      level: "mahir",
       body: `1. Berapa banyak susunan huruf dari kata "STATISTIKA"?
 2. Dari $5$ pasangan suami istri akan dipilih $4$ orang. Tentukan peluang tidak ada pasangan suami istri yang terpilih.
 3. Empat buku matematika, $3$ buku fisika, dan $2$ buku kimia disusun pada rak. Berapa banyak susunan bila buku sejenis harus berdampingan?
 4. Dari $10$ calon akan dibentuk komite $4$ orang. Tentukan peluang komite tersebut memuat dua orang tertentu.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. Huruf pada "STATISTIKA": S $2$, T $3$, A $2$, I $2$, K $1$ (total $10$ huruf). Maka $\\dfrac{10!}{2!\\,3!\\,2!\\,2!} = \\dfrac{3628800}{48} = 75600$.
 2. Total cara memilih $4$ dari $10$ adalah $\\binom{10}{4} = 210$. Agar tidak ada pasangan, pilih $4$ pasangan dari $5$ pasangan $(\\binom{5}{4} = 5)$, lalu pilih $1$ orang dari tiap pasangan $(2^4 = 16)$. Jadi $5 \\cdot 16 = 80$ cara, dan $P = \\dfrac{80}{210} = \\dfrac{8}{21}$.
 3. Perlakukan setiap jenis sebagai satu blok: $3!$ cara menyusun blok, lalu di dalamnya $4!$, $3!$, dan $2!$. Total $3! \\cdot 4! \\cdot 3! \\cdot 2! = 6 \\cdot 24 \\cdot 6 \\cdot 2 = 1728$.
@@ -279,17 +345,17 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       ],
     },
     {
-      id: 'dunia-nyata',
-      kind: 'dunia-nyata',
-      title: 'Penerapan di Dunia Nyata',
+      id: "dunia-nyata",
+      kind: "dunia-nyata",
+      title: "Penerapan di Dunia Nyata",
       body: `Aturan pencacahan membantu kita memahami skala kemungkinan di sekitar kita. Banyaknya kata sandi yang mungkin menentukan seberapa kuat sebuah akun; banyaknya susunan kartu menentukan peluang kombinasi tertentu; banyaknya urutan penjadwalan menentukan seberapa besar ruang pencarian yang harus dijelajahi komputer.
 
 Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lotere, hingga pengambilan sampel acak dalam penelitian. Prinsipnya sederhana: bila setiap hasil sama mungkin, peluang adalah **perbandingan banyak cara**.`,
     },
     {
-      id: 'kesalahan-umum',
-      kind: 'kesalahan-umum',
-      title: 'Kesalahan Umum',
+      id: "kesalahan-umum",
+      kind: "kesalahan-umum",
+      title: "Kesalahan Umum",
       body: `**1. Tertukar permutasi dan kombinasi.** Tanyakan lebih dahulu: apakah urutan penting? Memilih pengurus (urutan penting) memakai permutasi, sedangkan memilih tim (urutan tidak penting) memakai kombinasi.
 
 **2. Lupa membagi dengan faktorial unsur yang sama.** Untuk kata seperti "BUKU", jawaban $4! = 24$ salah karena huruf U yang kembar membuat banyak susunan terhitung berulang.
@@ -301,62 +367,87 @@ Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lot
 **5. Mengabaikan syarat pengulangan.** Kata sandi dengan "angka boleh berulang" dan "angka tidak boleh berulang" memberi hasil berbeda. Baca soal dengan cermat.`,
       blocks: [
         {
-          kind: 'spot-mistake',
-          intro: 'Seorang siswa menghitung banyak susunan huruf kata "BUKU". Klik langkah yang keliru.',
+          kind: "spot-mistake",
+          intro: "Seorang siswa menghitung banyak susunan huruf kata \"BUKU\". Klik langkah yang keliru.",
           steps: [
-            'Kata "BUKU" memiliki $4$ huruf.',
-            'Karena keempatnya dianggap berbeda, banyak susunan $=4!=24$.',
-            'Jadi ada $24$ susunan huruf.',
+            "Kata \"BUKU\" memiliki $4$ huruf.",
+            "Karena keempatnya dianggap berbeda, banyak susunan $=4!=24$.",
+            "Jadi ada $24$ susunan huruf.",
           ],
           wrongIndex: 1,
-          explanation: 'Huruf U muncul $2$ kali, sehingga banyak susunan terhitung berulang. Seharusnya dibagi dengan $2!$: $\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.',
+          explanation: "Huruf U muncul $2$ kali, sehingga banyak susunan terhitung berulang. Seharusnya dibagi dengan $2!$: $\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.",
         },
       ],
     },
     {
-      id: 'refleksi',
-      kind: 'refleksi',
-      title: 'Refleksi',
-      body: `1. Dari sebuah soal cerita, bagaimana kamu memutuskan apakah urutan penting atau tidak?
-2. Kapan kamu harus membagi dengan faktorial unsur yang sama, dan mengapa?
-3. Bagaimana pencacahan membantumu menghitung peluang suatu kejadian?`,
+      id: "refleksi",
+      kind: "refleksi",
+      title: "Refleksi",
       blocks: [
         {
-          kind: 'reflection',
+          kind: "reflection",
           prompts: [
-            'Dari sebuah soal cerita, bagaimana kamu memutuskan apakah urutan penting atau tidak?',
-            'Kapan kamu harus membagi dengan faktorial unsur yang sama, dan mengapa?',
+            "Dari sebuah soal cerita, bagaimana kamu memutuskan apakah urutan penting atau tidak?",
+            "Kapan kamu harus membagi dengan faktorial unsur yang sama, dan mengapa?",
+            "Bagaimana pencacahan membantumu menghitung peluang suatu kejadian?",
           ],
-          confidenceLabel: 'Seberapa yakin kamu memilih permutasi atau kombinasi dengan tepat?',
+          confidenceLabel: "Seberapa yakin kamu memilih permutasi atau kombinasi dengan tepat?",
         },
       ],
     },
     {
-      id: 'rangkuman',
-      kind: 'rangkuman',
-      title: 'Rangkuman',
+      id: "rangkuman",
+      kind: "rangkuman",
+      title: "Rangkuman",
       blocks: [
         {
-          kind: 'table',
-          headers: ['Aspek', 'Penjelasan'],
+          kind: "table",
+          headers: [
+            "Aspek",
+            "Penjelasan",
+          ],
           rows: [
-            ['Aturan perkalian', 'tahapan berurutan: $n_1 \\cdot n_2 \\cdots n_k$'],
-            ['Aturan penjumlahan', 'pilihan saling lepas: $n_1 + n_2$'],
-            ['Faktorial', '$n! = n(n-1)\\cdots 1$ dan $0! = 1$'],
-            ['Permutasi semua unsur', '$n!$ susunan $n$ objek berbeda'],
-            ['Permutasi sebagian', '$P(n,k) = \\dfrac{n!}{(n-k)!}$'],
-            ['Permutasi unsur sama', '$\\dfrac{n!}{k_1!\\,k_2!\\cdots}$'],
-            ['Kombinasi', '$\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$'],
-            ['Pencacahan untuk peluang', '$P(A) = \\dfrac{n(A)}{n(S)}$'],
+            [
+              "Aturan perkalian",
+              "tahapan berurutan: $n_1 \\cdot n_2 \\cdots n_k$",
+            ],
+            [
+              "Aturan penjumlahan",
+              "pilihan saling lepas: $n_1 + n_2$",
+            ],
+            [
+              "Faktorial",
+              "$n! = n(n-1)\\cdots 1$ dan $0! = 1$",
+            ],
+            [
+              "Permutasi semua unsur",
+              "$n!$ susunan $n$ objek berbeda",
+            ],
+            [
+              "Permutasi sebagian",
+              "$P(n,k) = \\dfrac{n!}{(n-k)!}$",
+            ],
+            [
+              "Permutasi unsur sama",
+              "$\\dfrac{n!}{k_1!\\,k_2!\\cdots}$",
+            ],
+            [
+              "Kombinasi",
+              "$\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$",
+            ],
+            [
+              "Pencacahan untuk peluang",
+              "$P(A) = \\dfrac{n(A)}{n(S)}$",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'evaluasi',
-      kind: 'evaluasi',
-      title: 'Evaluasi',
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Permutasi dan Kombinasi**.`,
+      id: "evaluasi",
+      kind: "evaluasi",
+      title: "Evaluasi",
+      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Permutasi dan Kombinasi**.",
     },
   ],
 };

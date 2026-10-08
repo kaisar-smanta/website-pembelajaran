@@ -1,5 +1,5 @@
 ---
-import type { Exploration } from '@/types/content';
+import type { Exploration, ExplorationType } from '@/types/content';
 import FunctionSlider from './FunctionSlider.astro';
 import CompoundInterestSim from './CompoundInterestSim.astro';
 import ProbabilitySim from './ProbabilitySim.astro';
@@ -18,38 +18,41 @@ interface Props {
   exploration: Exploration;
 }
 const { exploration } = Astro.props;
----
 
+/**
+ * Peta jenis eksplorasi ke komponennya. `satisfies Record<ExplorationType, …>`
+ * memaksa setiap anggota `ExplorationType` terdaftar, sehingga menambah jenis
+ * baru tanpa komponen menjadi galat tipe. Jenis yang belum punya komponen dan
+ * `geogebra` diisi `null`.
+ */
+const SIM_COMPONENTS = {
+  'function-slider': FunctionSlider,
+  'compound-interest': CompoundInterestSim,
+  probability: ProbabilitySim,
+  'linear-regression': LinearRegressionSim,
+  sequence: SequenceExplorer,
+  distribution: DistributionExplorer,
+  'conditional-probability': ConditionalProbSim,
+  circle: CircleExplorer,
+  matrix: MatrixExplorer,
+  'linear-system': LinearSystemExplorer,
+  'function-composition': FunctionCompositionSim,
+  'function-inverse': FunctionInverseSim,
+  polynomial: null,
+  vector: null,
+  conic: null,
+  derivative: null,
+  integral: null,
+  'random-variable': null,
+  geogebra: null,
+} satisfies Record<ExplorationType, unknown>;
+
+const SimComponent = SIM_COMPONENTS[exploration.type];
+---
 {
-  exploration.type === 'function-slider' && <FunctionSlider exploration={exploration} />
-}
-{
-  exploration.type === 'compound-interest' && <CompoundInterestSim exploration={exploration} />
-}
-{exploration.type === 'probability' && <ProbabilitySim exploration={exploration} />}
-{
-  exploration.type === 'linear-regression' && <LinearRegressionSim exploration={exploration} />
-}
-{exploration.type === 'sequence' && <SequenceExplorer exploration={exploration} />}
-{exploration.type === 'distribution' && <DistributionExplorer exploration={exploration} />}
-{
-  exploration.type === 'conditional-probability' && (
-    <ConditionalProbSim exploration={exploration} />
-  )
-}
-{exploration.type === 'circle' && <CircleExplorer exploration={exploration} />}
-{exploration.type === 'matrix' && <MatrixExplorer exploration={exploration} />}
-{
-  exploration.type === 'linear-system' && <LinearSystemExplorer exploration={exploration} />
-}
-{
-  exploration.type === 'function-composition' && (
-    <FunctionCompositionSim exploration={exploration} />
-  )
-}
-{exploration.type === 'function-inverse' && <FunctionInverseSim exploration={exploration} />}
-{
-  exploration.type === 'geogebra' && exploration.url && (
+  exploration.type === 'geogebra' && exploration.url ? (
     <GeogebraEmbed url={exploration.url} title={exploration.title} />
-  )
+  ) : SimComponent ? (
+    <SimComponent exploration={exploration} />
+  ) : null
 }

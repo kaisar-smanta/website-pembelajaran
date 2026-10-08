@@ -1,3 +1,5 @@
+import { formatPlain } from '../format.ts';
+
 export type Formula = 'quadratic' | 'exponential' | 'sine' | 'transform';
 
 export type SimParams = Record<string, number>;
@@ -27,8 +29,7 @@ export interface Description {
 }
 
 export function fmt(n: number): string {
-  if (Number.isInteger(n)) return String(n);
-  return String(Number(n.toFixed(2)));
+  return formatPlain(n);
 }
 
 export function evalFormula(formula: Formula, params: SimParams, x: number): number {

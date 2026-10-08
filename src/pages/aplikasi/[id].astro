@@ -12,6 +12,7 @@ import {
 import { getTopic, topicSubject } from '@/data/topics';
 import { getExploration } from '@/data/explorations';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { DIFFICULTY_LABELS } from '@/data/display';
 import { url, topicUrl, absoluteUrl } from '@/utils/url';
 
 export function getStaticPaths() {
@@ -27,12 +28,6 @@ const category = applicationCategories[app.category];
 const grade = GRADES[app.grade];
 const element = ELEMENTS[app.element];
 const accent = category.accent;
-
-const levelLabels: Record<string, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
 
 const bodyHtml = renderMarkdown(app.body);
 const analysisHtml = app.analysis ? renderMarkdown(app.analysis) : '';
@@ -61,7 +56,7 @@ const meta = [
   category.name,
   grade.name,
   element.name,
-  levelLabels[app.level] ?? app.level,
+  DIFFICULTY_LABELS[app.level] ?? app.level,
   app.estimatedMinutes ? `± ${app.estimatedMinutes} menit` : '',
 ].filter(Boolean);
 

@@ -37,36 +37,39 @@ export const asosiasiKausalitas: Topic = {
     { text: 'Membandingkan kekuatan bukti dari studi observasional dan eksperimen terkontrol.' },
     { text: 'Menyimpulkan hubungan antar-variabel dengan hati-hati dan tanpa berlebihan.' },
   ],
+  explorations: [
+    "asosiasi-kausalitas-tabel",
+  ],
   sections: [
     {
-      id: 'tujuan',
-      kind: 'tujuan',
-      title: 'Tujuan Pembelajaran',
-      body: `Setelah mempelajari topik ini, peserta didik dapat membedakan asosiasi dari kausalitas, mengidentifikasi variabel perancu dan korelasi semu, membedakan kekuatan bukti studi observasional dan eksperimen, serta menyusun kesimpulan yang hati-hati dari data.`,
+      id: "tujuan",
+      kind: "tujuan",
+      title: "Tujuan Pembelajaran",
+      body: "Setelah mempelajari topik ini, peserta didik dapat membedakan asosiasi dari kausalitas, mengidentifikasi variabel perancu dan korelasi semu, membedakan kekuatan bukti studi observasional dan eksperimen, serta menyusun kesimpulan yang hati-hati dari data.",
     },
     {
-      id: 'pemantik',
-      kind: 'pemantik',
-      title: 'Pertanyaan Pemantik',
-      body: `Seorang peneliti menemukan bahwa **penjualan es krim** dan **angka kejahatan** di sebuah kota naik-turun bersama sepanjang tahun. Korelasinya cukup kuat.
+      id: "pemantik",
+      kind: "pemantik",
+      title: "Pertanyaan Pemantik",
+      blocks: [
+        {
+          kind: "prediction",
+          prompt: `Seorang peneliti menemukan bahwa **penjualan es krim** dan **angka kejahatan** di sebuah kota naik-turun bersama sepanjang tahun. Korelasinya cukup kuat.
 
 - Apakah membeli es krim membuat orang cenderung berbuat kejahatan?
 - Apakah kejahatan mendorong orang membeli es krim?
 - Adakah penjelasan lain yang lebih masuk akal?
 
 Sebelum menuduh es krim sebagai penyebab, pikirkan apa yang sama-sama berubah pada musim tertentu.`,
-      blocks: [
-        {
-          kind: 'details',
-          summary: 'Lihat arah jawaban',
-          text: `Penjelasan paling wajar bukanlah sebab-akibat langsung, melainkan **variabel ketiga**: suhu udara. Saat cuaca panas, orang lebih banyak membeli es krim **dan** lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik. Suhu adalah **variabel perancu** yang membuat dua hal tampak berkaitan padahal tidak saling menyebabkan.`,
+          reveal: "Penjelasan paling wajar bukanlah sebab-akibat langsung, melainkan **variabel ketiga**: suhu udara. Saat cuaca panas, orang lebih banyak membeli es krim **dan** lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik. Suhu adalah **variabel perancu** yang membuat dua hal tampak berkaitan padahal tidak saling menyebabkan.",
+          saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
     },
     {
-      id: 'prasyarat',
-      kind: 'prasyarat',
-      title: 'Prasyarat',
+      id: "prasyarat",
+      kind: "prasyarat",
+      title: "Prasyarat",
       body: `Sebelum melanjutkan, pastikan kamu menguasai:
 
 - membaca arah dan kekuatan hubungan dari diagram pencar;
@@ -74,17 +77,17 @@ Sebelum menuduh es krim sebagai penyebab, pikirkan apa yang sama-sama berubah pa
 - membedakan **dua variabel** yang diamati dengan **faktor lain** yang mungkin ikut berperan.`,
     },
     {
-      id: 'konteks',
-      kind: 'konteks',
-      title: 'Situasi dan Konteks',
+      id: "konteks",
+      kind: "konteks",
+      title: "Situasi dan Konteks",
       body: `Setiap hari kita disuguhi klaim berbasis data: "minuman manis meningkatkan risiko penyakit", "siswa yang sarapan nilainya lebih tinggi", "pengguna media sosial lebih mudah cemas". Sebagian klaim didukung bukti kuat, sebagian hanya **asosiasi** yang dibungkus seolah-olah sebab-akibat.
 
 Kemampuan membedakan keduanya adalah keterampilan berpikir kritis yang sangat berharga, sebab keputusan kesehatan, kebijakan, dan keuangan sering diambil berdasarkan klaim semacam itu.`,
     },
     {
-      id: 'konsep',
-      kind: 'konsep',
-      title: 'Konsep Inti: Asosiasi vs Kausalitas',
+      id: "konsep",
+      kind: "konsep",
+      title: "Konsep Inti: Asosiasi vs Kausalitas",
       body: `**Asosiasi** (korelasi) berarti dua variabel cenderung berubah bersama: ketika $x$ naik, $y$ cenderung naik (asosiasi positif) atau turun (asosiasi negatif). Ini adalah pernyataan **statistik** tentang pola data.
 
 **Kausalitas** berarti perubahan pada satu variabel **menyebabkan** perubahan pada variabel lain. Ini adalah pernyataan tentang **mekanisme**, bukan sekadar pola.
@@ -97,40 +100,82 @@ Asosiasi adalah **syarat perlu** tetapi **bukan syarat cukup** untuk kausalitas.
 Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'concept',
-          title: 'Inti yang perlu diingat',
-          text: 'Data hanya dapat menunjukkan **bahwa** dua hal bergerak bersama. Menjawab **mengapa** memerlukan penalaran tambahan: variabel perancu, urutan waktu, dan eksperimen.',
+          kind: "callout",
+          variant: "concept",
+          title: "Inti yang perlu diingat",
+          text: "Data hanya dapat menunjukkan **bahwa** dua hal bergerak bersama. Menjawab **mengapa** memerlukan penalaran tambahan: variabel perancu, urutan waktu, dan eksperimen.",
+        },
+        {
+          kind: "flip-cards",
+          intro: "Bedakan asosiasi dari sebab-akibat.",
+          cards: [
+            {
+              front: "Asosiasi",
+              back: "Kecenderungan dua variabel berubah bersama",
+            },
+            {
+              front: "Kausalitas",
+              back: "Satu variabel benar-benar menyebabkan perubahan variabel lain",
+            },
+            {
+              front: "Variabel perancu",
+              back: "Faktor tersembunyi yang dapat menjelaskan asosiasi",
+            },
+            {
+              front: "Eksperimen",
+              back: "Menguji sebab-akibat dengan mengendalikan variabel",
+            },
+          ],
         },
       ],
     },
     {
-      id: 'representasi',
-      kind: 'representasi',
-      title: 'Representasi: Ciri Asosiasi dan Kausalitas',
+      id: "representasi",
+      kind: "representasi",
+      title: "Representasi: Ciri Asosiasi dan Kausalitas",
       blocks: [
         {
-          kind: 'table',
-          caption: 'Membedakan dua jenis klaim',
-          headers: ['Aspek', 'Asosiasi', 'Kausalitas'],
+          kind: "table",
+          caption: "Membedakan dua jenis klaim",
+          headers: [
+            "Aspek",
+            "Asosiasi",
+            "Kausalitas",
+          ],
           rows: [
-            ['Pernyataan', '$x$ dan $y$ berubah bersama', '$x$ menyebabkan $y$'],
-            ['Jenis bukti', 'statistik (diagram pencar, $r$)', 'statistik + mekanisme + waktu'],
-            ['Contoh', 'es krim dan angka kejahatan', 'merokok dan kanker paru'],
-            ['Bahaya', 'diberi label sebab-akibat', 'perlu bukti kuat, bukan dugaan'],
+            [
+              "Pernyataan",
+              "$x$ dan $y$ berubah bersama",
+              "$x$ menyebabkan $y$",
+            ],
+            [
+              "Jenis bukti",
+              "statistik (diagram pencar, $r$)",
+              "statistik + mekanisme + waktu",
+            ],
+            [
+              "Contoh",
+              "es krim dan angka kejahatan",
+              "merokok dan kanker paru",
+            ],
+            [
+              "Bahaya",
+              "diberi label sebab-akibat",
+              "perlu bukti kuat, bukan dugaan",
+            ],
           ],
         },
         {
-          kind: 'callout',
-          variant: 'tip',
-          text: 'Ubah klaim menjadi pertanyaan: "Apa buktinya bahwa $x$ menyebabkan $y$, dan bukan sekadar keduanya dipengaruhi faktor yang sama?"',
+          kind: "callout",
+          variant: "tip",
+          text: "Ubah klaim menjadi pertanyaan: \"Apa buktinya bahwa $x$ menyebabkan $y$, dan bukan sekadar keduanya dipengaruhi faktor yang sama?\"",
         },
       ],
     },
     {
-      id: 'generalisasi',
-      kind: 'generalisasi',
-      title: 'Menyimpulkan dengan Hati-Hati',
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Menyimpulkan dengan Hati-Hati",
       body: `Bila menemukan asosiasi kuat, ujilah beberapa pertanyaan berikut sebelum menyimpulkan kausalitas.
 
 1. **Urutan waktu.** Apakah dugaan penyebab benar-benar terjadi sebelum akibat? Bila tidak, mungkin ada **kausalitas terbalik** (reverse causation).
@@ -142,9 +187,9 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
 Semakin banyak pertanyaan di atas terjawab "ya", semakin masuk akal kesimpulan kausalnya. Sebaliknya, bila hanya satu asosiasi yang dimiliki, kesimpulan harus dinyatakan dengan sangat hati-hati.`,
     },
     {
-      id: 'perancu',
-      kind: 'konsep',
-      title: 'Variabel Perancu',
+      id: "perancu",
+      kind: "konsep",
+      title: "Variabel Perancu",
       body: `**Variabel perancu** (confounding variable) adalah variabel yang:
 
 - berkaitan dengan variabel "penyebab" yang diduga, **dan**
@@ -158,17 +203,17 @@ Kehadirannya dapat menciptakan asosiasi yang tidak mencerminkan sebab-akibat lan
 Jadi ukuran sepatu tidak menyebabkan kemampuan membaca; usia adalah variabel perancunya. Bila kita membandingkan anak **pada usia yang sama**, hubungan tadi menghilang. Mengendalikan variabel perancu seperti ini disebut **mengontrol** variabel tersebut.`,
       blocks: [
         {
-          kind: 'callout',
-          variant: 'warning',
-          title: 'Hati-hati',
-          text: 'Variabel perancu tidak selalu terlihat di data. Ia bisa tersembunyi, sehingga asosiasi kuat sekalipun belum cukup untuk menyimpulkan kausalitas.',
+          kind: "callout",
+          variant: "warning",
+          title: "Hati-hati",
+          text: "Variabel perancu tidak selalu terlihat di data. Ia bisa tersembunyi, sehingga asosiasi kuat sekalipun belum cukup untuk menyimpulkan kausalitas.",
         },
       ],
     },
     {
-      id: 'spurious',
-      kind: 'konsep',
-      title: 'Korelasi Semu dan Kausalitas Terbalik',
+      id: "spurious",
+      kind: "konsep",
+      title: "Korelasi Semu dan Kausalitas Terbalik",
       body: `**Korelasi semu** (spurious correlation) adalah asosiasi yang muncul tanpa hubungan kausal, biasanya karena **variabel perancu** atau **kebetulan**. Contoh terkenal: penjualan es krim dan angka kejahatan (perancu: suhu). Contoh yang tampak mengesankan padahal kebetulan: jumlah film yang dibintangi sebuah aktor tahun tertentu dan harga tiket bioskop — keduanya kebetulan naik bersama.
 
 **Kausalitas terbalik** terjadi ketika kita menukar arah sebab-akibat. Misalnya, data menunjukkan "orang yang rutin berolahraga lebih jarang stres". Mungkin benar olahraga mengurangi stres, tetapi bisa juga **stres yang rendah membuat orang lebih mampu berolahraga**. Data korelasi sering tidak dapat menentukan arah ini sendiri.
@@ -176,22 +221,50 @@ Jadi ukuran sepatu tidak menyebabkan kemampuan membaca; usia adalah variabel per
 Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya korelasi.`,
     },
     {
-      id: 'contoh',
-      kind: 'contoh',
-      title: 'Contoh Terbimbing',
-      body: `**Contoh 1 — Es krim dan kejahatan.** Korelasi positif kuat antara penjualan es krim dan angka kejahatan. **Analisis:** keduanya meningkat pada musim panas. Variabel perancu = suhu/iklim. **Kesimpulan:** asosiasi saja, bukan kausalitas.
-
-**Contoh 2 — Ukuran sepatu dan membaca.** Anak berkaki besar lebih mahir membaca. **Analisis:** usia memengaruhi ukuran kaki dan kemampuan membaca. **Kesimpulan:** korelasi semu; variabel perancu = usia.
-
-**Contoh 3 — Observasional vs eksperimen.** Studi observasional menemukan siswa yang sarapan berprestasi lebih baik. Namun siswa yang sarapan mungkin juga berasal dari keluarga dengan dukungan belajar lebih besar (perancu). Untuk menguji kausalitas, peneliti dapat melakukan **eksperimen acak**: sebagian siswa diberi sarapan, sebagian tidak, dengan pembagian acak. Bila kelompok yang diberi sarapan meningkat secara signifikan, bukti kausalnya jauh lebih kuat.
-
-**Contoh 4 — Kausalitas terbalik.** Data: "pegawai yang lebih sering lembur melaporkan produktivitas lebih rendah." Bisa jadi lembur menurunkan produktivitas, atau **beban kerja yang tinggi** menyebabkan keduanya — atau pegawai kurang produktif justru harus lembur. Arah penyebabnya tidak jelas dari korelasi.`,
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi",
+      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "asosiasi-kausalitas-tabel",
+        },
+      ],
     },
     {
-      id: 'latihan-dasar',
-      kind: 'latihan-dasar',
-      title: 'Latihan Dasar',
-      level: 'dasar',
+      id: "contoh",
+      kind: "contoh",
+      title: "Contoh Terbimbing",
+      blocks: [
+        {
+          kind: "step-reveal",
+          steps: [
+            {
+              title: "Contoh 1",
+              text: "Korelasi positif kuat antara penjualan es krim dan angka kejahatan. **Analisis:** keduanya meningkat pada musim panas. Variabel perancu = suhu/iklim. **Kesimpulan:** asosiasi saja, bukan kausalitas.",
+            },
+            {
+              title: "Contoh 2",
+              text: "Anak berkaki besar lebih mahir membaca. **Analisis:** usia memengaruhi ukuran kaki dan kemampuan membaca. **Kesimpulan:** korelasi semu; variabel perancu = usia.",
+            },
+            {
+              title: "Contoh 3",
+              text: "Studi observasional menemukan siswa yang sarapan berprestasi lebih baik. Namun siswa yang sarapan mungkin juga berasal dari keluarga dengan dukungan belajar lebih besar (perancu). Untuk menguji kausalitas, peneliti dapat melakukan **eksperimen acak**: sebagian siswa diberi sarapan, sebagian tidak, dengan pembagian acak. Bila kelompok yang diberi sarapan meningkat secara signifikan, bukti kausalnya jauh lebih kuat.",
+            },
+            {
+              title: "Contoh 4",
+              text: "Data: \"pegawai yang lebih sering lembur melaporkan produktivitas lebih rendah.\" Bisa jadi lembur menurunkan produktivitas, atau **beban kerja yang tinggi** menyebabkan keduanya — atau pegawai kurang produktif justru harus lembur. Arah penyebabnya tidak jelas dari korelasi.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "latihan-dasar",
+      kind: "latihan-dasar",
+      title: "Latihan Dasar",
+      level: "dasar",
       body: `Untuk tiap pernyataan, tentukan apakah itu **asosiasi** atau **kausalitas**, serta sebutkan variabel perancu yang mungkin bila ada.
 
 1. "Angka penjualan payung naik bersamaan dengan angka kecelakaan lalu lintas."
@@ -199,8 +272,8 @@ Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya ko
 3. "Anak yang menonton lebih banyak televisi cenderung kurang tidur."`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. **Asosiasi** (korelasi semu). Perancu: curah hujan — hujan membuat orang membeli payung dan jalanan licin.
 2. **Kausalitas**. Hubungan mekanistik jelas dan dapat diuji: menekan tombol mengalirkan arus sehingga lampu menyala.
 3. **Asosiasi**, belum tentu kausal. Perancu mungkin kebiasaan orang tua atau jadwal keluarga; bisa juga arah sebab-akibat terbalik (anak yang sulit tidur menonton televisi lebih lama).`,
@@ -208,17 +281,17 @@ Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya ko
       ],
     },
     {
-      id: 'latihan-cakap',
-      kind: 'latihan-cakap',
-      title: 'Latihan Cakap',
-      level: 'cakap',
+      id: "latihan-cakap",
+      kind: "latihan-cakap",
+      title: "Latihan Cakap",
+      level: "cakap",
       body: `1. Sebuah artikel menulis: "Siswa yang ikut les tambahan nilainya lebih tinggi, jadi les tambahan meningkatkan nilai." Sebutkan dua variabel perancu yang mungkin, dan jelaskan mengapa kesimpulan itu terlalu cepat.
 2. Sebuah studi menemukan korelasi positif antara konsumsi kopi dan penyakit jantung. Bagaimana **kausalitas terbalik** mungkin menjelaskan temuan itu?
 3. Mengapa melakukan **pengacakan** pada eksperimen dapat menekan pengaruh variabel perancu?`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat kunci dan pembahasan',
+          kind: "details",
+          summary: "Lihat kunci dan pembahasan",
           text: `1. Perancu misalnya **motivasi belajar** dan **dukungan keluarga**. Siswa yang termotivasi dan didukung lebih mungkin ikut les **dan** memperoleh nilai tinggi, sehingga hubungan les-nilai bisa muncul tanpa les sebagai penyebab. Diperlukan eksperimen atau pengontrolan variabel untuk menyimpulkan kausalitas.
 2. Mungkin **penyakit atau gejalanya** membuat orang lebih banyak minum kopi (misalnya untuk mengatasi kelelahan), bukan kopi yang menyebabkan penyakit. Urutan waktunya harus diperiksa.
 3. Karena pembagian acak cenderung membuat kelompok sebanding pada **semua** variabel, baik yang diamati maupun yang tidak (misalnya gaya hidup, riwayat kesehatan). Dengan begitu pengaruh perancu "terbagi rata" antar kelompok, sehingga perbedaan hasil lebih mungkin disebabkan perlakuan.`,
@@ -226,17 +299,17 @@ Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya ko
       ],
     },
     {
-      id: 'latihan-mahir',
-      kind: 'latihan-mahir',
-      title: 'Latihan Mahir',
-      level: 'mahir',
+      id: "latihan-mahir",
+      kind: "latihan-mahir",
+      title: "Latihan Mahir",
+      level: "mahir",
       body: `1. Rancang sebuah **eksperimen sederhana** untuk menguji apakah mendengarkan musik klasik saat belajar meningkatkan hasil tes. Sebutkan kelompok perlakuan, kelompok kontrol, dan cara pengacakan.
 2. Diberikan klaim: "Kota dengan lebih banyak tempat olahraga memiliki penduduk yang lebih sehat." Uraikan rantai penalaran yang mungkin, variabel perancunya, dan bagaimana kamu akan menguji klaim tersebut.
 3. Jelaskan mengapa **korelasi kuat** justru bisa berbahaya bila disalahartikan sebagai kausalitas. Berikan satu contoh nyata.`,
       blocks: [
         {
-          kind: 'details',
-          summary: 'Lihat pembahasan',
+          kind: "details",
+          summary: "Lihat pembahasan",
           text: `1. Contoh rancangan: pilih siswa secara acak, bagi menjadi dua kelompok. Kelompok perlakuan belajar sambil mendengarkan musik klasik; kelompok kontrol belajar dalam kondisi sunyi (selain perlakuan, semua kondisi dibuat sama). Bandingkan rata-rata nilai tes. Pengacakan dilakukan agar kedua kelompok sebanding pada faktor seperti kebiasaan belajar dan kemampuan awal, sehingga perbedaan yang tersisa lebih layak dikaitkan dengan perlakuan.
 2. Rantai yang mungkin: banyak tempat olahraga di kota besar; kota besar juga punya fasilitas kesehatan dan pendapatan lebih tinggi, yang memengaruhi kesehatan. Perancu: **pendapatan rata-rata** dan **akses layanan kesehatan**. Uji dengan membandingkan kota berpendapatan serupa, atau gunakan eksperimen/analisis yang mengontrol variabel tersebut.
 3. Karena korelasi tidak menentukan sebab-akibat, kebijakan yang salah sasaran bisa diambil. Contoh: "siswa yang membawa bekal lebih berprestasi, maka bagikan bekal agar nilai naik" — padahal bekal hanya penanda keluarga mapan, sehingga intervensi itu mungkin tidak berpengaruh. Bukti kuat (eksperimen acak) diperlukan sebelum mengambil keputusan besar.`,
@@ -244,17 +317,17 @@ Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya ko
       ],
     },
     {
-      id: 'dunia-nyata',
-      kind: 'dunia-nyata',
-      title: 'Penerapan di Dunia Nyata',
+      id: "dunia-nyata",
+      kind: "dunia-nyata",
+      title: "Penerapan di Dunia Nyata",
       body: `Berpikir kritis tentang asosiasi dan kausalitas membantu kita menilai berita, iklan, dan kebijakan. Ketika membaca "orang yang mengonsumsi X lebih berisiko Y", tanyakan: siapa yang diteliti, bagaimana desainnya (observasional atau eksperimen), dan variabel apa yang mungkin ikut berperan.
 
 Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi dengan tepat, tetapi tidak dengan sendirinya membuktikan sebab-akibat. Koefisien korelasi yang tinggi adalah awal penyelidikan, bukan akhir kesimpulan.`,
     },
     {
-      id: 'kesalahan-umum',
-      kind: 'kesalahan-umum',
-      title: 'Kesalahan Umum',
+      id: "kesalahan-umum",
+      kind: "kesalahan-umum",
+      title: "Kesalahan Umum",
       body: `**1. "Korelasi berarti kausalitas".** Kesalahan paling sering. Asosiasi kuat tetap bisa semu karena variabel perancu.
 
 **2. Mengabaikan arah waktu.** Menyimpulkan $A$ menyebabkan $B$ padahal $B$ mungkin terjadi lebih dahulu (kausalitas terbalik).
@@ -266,39 +339,67 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
 **5. Menggeneralisasi dari satu studi kecil.** Satu temuan lemah belum cukup menjadi dasar kebijakan atau keyakinan kuat.`,
     },
     {
-      id: 'refleksi',
-      kind: 'refleksi',
-      title: 'Refleksi',
-      body: `Jawab dengan jujur:
-
-1. Mengapa asosiasi merupakan syarat perlu tetapi bukan syarat cukup untuk kausalitas?
-2. Ketika membaca klaim berbasis data di media, tiga pertanyaan kritis apa yang akan kamu ajukan?
-3. Sebutkan satu keyakinanmu sendiri yang mungkin dibentuk oleh asosiasi, bukan bukti kausal.`,
-    },
-    {
-      id: 'rangkuman',
-      kind: 'rangkuman',
-      title: 'Rangkuman',
+      id: "refleksi",
+      kind: "refleksi",
+      title: "Refleksi",
+      body: "Jawab dengan jujur:",
       blocks: [
         {
-          kind: 'table',
-          headers: ['Istilah', 'Makna'],
+          kind: "reflection",
+          prompts: [
+            "Mengapa asosiasi merupakan syarat perlu tetapi bukan syarat cukup untuk kausalitas?",
+            "Ketika membaca klaim berbasis data di media, tiga pertanyaan kritis apa yang akan kamu ajukan?",
+            "Sebutkan satu keyakinanmu sendiri yang mungkin dibentuk oleh asosiasi, bukan bukti kausal.",
+          ],
+          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+        },
+      ],
+    },
+    {
+      id: "rangkuman",
+      kind: "rangkuman",
+      title: "Rangkuman",
+      blocks: [
+        {
+          kind: "table",
+          headers: [
+            "Istilah",
+            "Makna",
+          ],
           rows: [
-            ['Asosiasi', 'dua variabel berubah bersama secara statistik'],
-            ['Kausalitas', 'satu variabel menyebabkan perubahan pada variabel lain'],
-            ['Variabel perancu', 'variabel ketiga yang memengaruhi keduanya'],
-            ['Korelasi semu', 'asosiasi tanpa hubungan kausal'],
-            ['Kausalitas terbalik', 'arah sebab-akibat terbalik dari dugaan'],
-            ['Eksperimen acak', 'bukti terkuat untuk kausalitas'],
+            [
+              "Asosiasi",
+              "dua variabel berubah bersama secara statistik",
+            ],
+            [
+              "Kausalitas",
+              "satu variabel menyebabkan perubahan pada variabel lain",
+            ],
+            [
+              "Variabel perancu",
+              "variabel ketiga yang memengaruhi keduanya",
+            ],
+            [
+              "Korelasi semu",
+              "asosiasi tanpa hubungan kausal",
+            ],
+            [
+              "Kausalitas terbalik",
+              "arah sebab-akibat terbalik dari dugaan",
+            ],
+            [
+              "Eksperimen acak",
+              "bukti terkuat untuk kausalitas",
+            ],
           ],
         },
       ],
     },
     {
-      id: 'evaluasi',
-      kind: 'evaluasi',
-      title: 'Evaluasi',
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Asosiasi dan Kausalitas**.`,
+      id: "evaluasi",
+      kind: "evaluasi",
+      title: "Evaluasi",
+      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Asosiasi dan Kausalitas**.",
     },
   ],
 };

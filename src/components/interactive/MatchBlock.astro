@@ -16,7 +16,7 @@ const rightItems = seededShuffle(
 );
 ---
 
-<figure class="itx match" data-match data-mid={storageId}>
+<figure class="itx match" data-match data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Pasangkan</span>
     <span class="itx-hint">Klik satu kartu kiri, lalu pasangannya di kanan.</span>
@@ -169,6 +169,8 @@ const rightItems = seededShuffle(
 </style>
 
 <script>
+  import { emitInteraction } from '@/lib/interaction';
+
   function setupMatch(root: Element) {
     const lefts = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-match-left]'));
     const rights = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-match-right]'));
@@ -179,7 +181,7 @@ const rightItems = seededShuffle(
 
     let selected: HTMLButtonElement | null = null;
     const matched = new Set<string>();
-    const id = root.getAttribute('data-mid') ?? '';
+    const id = root.getAttribute('data-storage-id') ?? '';
 
     function updateFeedback() {
       if (feedback) {
@@ -187,7 +189,7 @@ const rightItems = seededShuffle(
       }
       if (matched.size === total && reset) reset.hidden = false;
       if (matched.size === total) {
-        window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'match' } }));
+        emitInteraction(id, 'match');
       }
     }
 

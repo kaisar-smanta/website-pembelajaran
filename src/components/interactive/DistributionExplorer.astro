@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -124,13 +125,6 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-head h3 {
     margin: 0 0 0.75rem;
     font-size: 1.1rem;
@@ -249,14 +243,6 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
     font-size: 0.9rem;
     color: var(--color-text);
   }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
-  }
   @media (max-width: 430px) {
     .sim {
       padding: 0.85rem;
@@ -279,11 +265,10 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
     buildReadout,
   } from '../../lib/sim/distribution';
   import type { DistributionStats } from '../../lib/sim/distribution';
-
-  const numberFmt = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
+  import { el, clear } from '../../lib/dom';
+  import { formatId } from '../../lib/format';
 
   const MAX_VALUES = 200;
-  const SVG_NS = 'http://www.w3.org/2000/svg';
 
   function setupDistribution(root: Element) {
     const input = root.querySelector('[data-dist-input]') as HTMLTextAreaElement;
@@ -314,21 +299,11 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
     const BOX_H = 34;
     const AXIS_Y = 252;
 
-    const el = (name: string, attrs: Record<string, string | number>): SVGElement => {
-      const node = document.createElementNS(SVG_NS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    };
-
-    const fmt = (v: number): string => (Number.isFinite(v) ? numberFmt.format(v) : '–');
+    const fmt = (v: number): string => (Number.isFinite(v) ? formatId(v) : '–');
 
     const setStat = (key: string, value: string) => {
       const node = statEls[key];
       if (node) node.textContent = value;
-    };
-
-    const clear = () => {
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
     };
 
     const addText = (
@@ -343,7 +318,7 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
     };
 
     function draw(st: DistributionStats) {
-      clear();
+      clear(svg);
       let lo = st.min;
       let hi = st.max;
       if (hi === lo) {
@@ -561,7 +536,7 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
           'Masukkan beberapa angka, misalnya 4, 5, 5, 6, 6, 7, 8, 20, untuk mulai menjelajah.';
         hintEl.hidden = true;
         svg.setAttribute('aria-label', 'Histogram dan box plot distribusi data');
-        clear();
+        clear(svg);
         return;
       }
 

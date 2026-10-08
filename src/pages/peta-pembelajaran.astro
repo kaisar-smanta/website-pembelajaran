@@ -8,6 +8,7 @@ import ElementCoverage from '@/components/content/ElementCoverage.astro';
 import CpCoverage from '@/components/content/CpCoverage.astro';
 import MapLegend from '@/components/content/MapLegend.astro';
 import PrerequisiteGraph from '@/components/content/PrerequisiteGraph.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import {
   ALL_ELEMENT_ORDER,
   ELEMENTS,
@@ -185,105 +186,106 @@ const pathGroups = SUBJECT_ORDER.map((subject) => ({
 
   <section class="section-alt cta-section">
     <div class="container">
-      <div class="card cta-card card-accent accent-aljabar-fungsi hover-lift reveal">
-        <div class="cta-copy">
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2>Siap menelusuri peta ini?</h2>
-          <p class="text-muted">
-            Mulai dari kelas X dan ikuti alurnya, atau uji pemahamanmu lewat latihan berjenjang.
-          </p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
-          <a class="btn btn-secondary" href={url('/latihan')}>Latihan berjenjang</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Siap menelusuri peta ini?"
+        text="Mulai dari kelas X dan ikuti alurnya, atau uji pemahamanmu lewat latihan berjenjang."
+        accentClass="accent-aljabar-fungsi"
+        reveal
+        actions={[
+          { label: 'Mulai dari Kelas X', href: url('/matematika/kelas/X'), variant: 'primary' },
+          { label: 'Latihan berjenjang', href: url('/latihan'), variant: 'secondary' },
+        ]}
+      />
     </div>
   </section>
 </BaseLayout>
 
-<script is:inline>
-  (function () {
-    try {
-      var toolbar = document.querySelector('[data-map-toolbar]');
-      if (!toolbar) return;
-      var chips = Array.prototype.slice.call(document.querySelectorAll('[data-map-filter]'));
-      var toggle = document.querySelector('[data-map-toggle]');
-      var status = document.querySelector('[data-map-status]');
-      var cols = Array.prototype.slice.call(document.querySelectorAll('.elem-col'));
-      var items = Array.prototype.slice.call(document.querySelectorAll('.topic-item'));
-      var pendings = Array.prototype.slice.call(document.querySelectorAll('[data-pending]'));
-      var strips = Array.prototype.slice.call(document.querySelectorAll('[data-pending-strip]'));
-      var filter = 'all';
-      var hidePlanned = false;
+<script>
+  import { setupFilterPage, type FilterPageHandle } from '@/lib/filter-dom';
 
-      function render() {
-        cols.forEach(function (col) {
-          var el = col.getAttribute('data-element');
-          var match = filter === 'all' || el === filter;
-          col.classList.toggle('is-hidden', !match);
-        });
-        items.forEach(function (item) {
-          var planned = item.getAttribute('data-status') === 'rencana';
-          item.classList.toggle('is-hidden', planned && hidePlanned);
-        });
-        cols.forEach(function (col) {
-          if (col.classList.contains('is-hidden')) return;
-          var own = Array.prototype.slice.call(col.querySelectorAll('.topic-item'));
-          if (!own.length) return;
-          var anyVisible = own.some(function (it) {
-            return !it.classList.contains('is-hidden');
-          });
-          col.classList.toggle('is-hidden', !anyVisible);
-        });
-        pendings.forEach(function (p) {
-          var el = p.getAttribute('data-element');
-          var match = filter === 'all' || el === filter;
-          p.classList.toggle('is-hidden', !match);
-        });
-        strips.forEach(function (strip) {
-          var own = Array.prototype.slice.call(strip.querySelectorAll('[data-pending]'));
-          var anyVisible = own.some(function (p) {
-            return !p.classList.contains('is-hidden');
-          });
-          strip.classList.toggle('is-hidden', own.length > 0 && !anyVisible);
-        });
-        chips.forEach(function (c) {
-          var active = c.getAttribute('data-map-filter') === filter;
-          c.classList.toggle('is-active', active);
-          c.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-        if (status) {
-          if (filter === 'all') {
-            status.textContent = cols.length + ' kelompok elemen tersedia.';
-          } else {
-            var shown = cols.filter(function (c) {
-              return !c.classList.contains('is-hidden');
-            }).length;
-            status.textContent = 'Menampilkan ' + shown + ' dari ' + cols.length + ' kelompok elemen.';
-          }
+  const toolbar = document.querySelector<HTMLElement>('[data-map-toolbar]');
+
+  if (toolbar) {
+    const chipGroup = toolbar.querySelector<HTMLElement>('.map-chips');
+    const toggle = document.querySelector<HTMLButtonElement>('[data-map-toggle]');
+    const status = document.querySelector<HTMLElement>('[data-map-status]');
+    const cols = Array.from(document.querySelectorAll<HTMLElement>('.elem-col'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.topic-item'));
+    const pendings = Array.from(document.querySelectorAll<HTMLElement>('[data-pending]'));
+    const strips = Array.from(document.querySelectorAll<HTMLElement>('[data-pending-strip]'));
+
+    let hidePlanned = false;
+    let page: FilterPageHandle | null = null;
+
+    function render(values: Record<string, string>): void {
+      const filter = values.element || 'all';
+      for (const col of cols) {
+        const element = col.getAttribute('data-element');
+        col.classList.toggle('is-hidden', !(filter === 'all' || element === filter));
+      }
+      for (const item of items) {
+        const planned = item.getAttribute('data-status') === 'rencana';
+        item.classList.toggle('is-hidden', planned && hidePlanned);
+      }
+      for (const col of cols) {
+        if (col.classList.contains('is-hidden')) continue;
+        const own = Array.from(col.querySelectorAll<HTMLElement>('.topic-item'));
+        if (!own.length) continue;
+        const anyVisible = own.some((item) => !item.classList.contains('is-hidden'));
+        col.classList.toggle('is-hidden', !anyVisible);
+      }
+      for (const pending of pendings) {
+        const element = pending.getAttribute('data-element');
+        pending.classList.toggle('is-hidden', !(filter === 'all' || element === filter));
+      }
+      for (const strip of strips) {
+        const own = Array.from(strip.querySelectorAll<HTMLElement>('[data-pending]'));
+        const anyVisible = own.some((pending) => !pending.classList.contains('is-hidden'));
+        strip.classList.toggle('is-hidden', own.length > 0 && !anyVisible);
+      }
+      if (status) {
+        if (filter === 'all') {
+          status.textContent = `${cols.length} kelompok elemen tersedia.`;
+        } else {
+          const shown = cols.filter((col) => !col.classList.contains('is-hidden')).length;
+          status.textContent = `Menampilkan ${shown} dari ${cols.length} kelompok elemen.`;
         }
       }
+    }
 
-      chips.forEach(function (c) {
-        c.addEventListener('click', function () {
-          filter = c.getAttribute('data-map-filter') || 'all';
-          render();
+    try {
+      toolbar.classList.add('is-ready');
+
+      if (chipGroup) {
+        page = setupFilterPage({
+          groups: [
+            {
+              key: 'element',
+              group: chipGroup,
+              chipSelector: '[data-map-filter]',
+              valueAttr: 'data-map-filter',
+              activeClass: 'is-active',
+              allValue: 'all',
+            },
+          ],
+          apply: render,
         });
-      });
+      } else {
+        render({ element: 'all' });
+      }
+
       if (toggle) {
-        toggle.addEventListener('click', function () {
+        toggle.addEventListener('click', () => {
           hidePlanned = !hidePlanned;
           toggle.setAttribute('aria-pressed', hidePlanned ? 'true' : 'false');
-          render();
+          page?.refresh();
         });
       }
-      toolbar.classList.add('is-ready');
-      render();
-    } catch (e) {
+    } catch {
       /* tanpa JS seluruh peta tetap tampil */
     }
-  })();
+  }
 </script>
 
 <style>
@@ -427,30 +429,6 @@ const pathGroups = SUBJECT_ORDER.map((subject) => ({
   }
   .cta-section {
     padding-block: 2.5rem;
-  }
-  .cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .cta-copy {
-    max-width: 46ch;
-  }
-  .cta-copy .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .cta-copy h2 {
-    margin-bottom: 0.35rem;
-  }
-  .cta-copy p {
-    margin: 0;
-  }
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 
   .subject-coverage + .subject-coverage {

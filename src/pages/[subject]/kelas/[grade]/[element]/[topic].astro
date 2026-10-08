@@ -9,6 +9,7 @@ import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
 import { cpForTopic } from '@/data/curriculum/cp';
 import { topicsBySubjectGradeElement, topicSubject, topics, resolveTopics } from '@/data/topics';
+import { elementColor } from '@/data/display';
 import { applicationsForTopic, getApplication } from '@/data/applications';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { url, subjectUrl, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
@@ -36,14 +37,7 @@ const subjectMeta = SUBJECTS[subject];
 const elementMeta = ELEMENTS[topic.element];
 const gradeMeta = GRADES[topic.grade];
 
-const elementAccent: Record<string, string> = {
-  bilangan: 'var(--color-number)',
-  'aljabar-fungsi': 'var(--color-algebra)',
-  geometri: 'var(--color-geometry)',
-  kalkulus: 'var(--color-calculus)',
-  'data-peluang': 'var(--color-data)',
-};
-const accent = elementAccent[topic.element] ?? 'var(--color-primary)';
+const accent = elementColor(topic.element);
 
 const siblings = topicsBySubjectGradeElement(subject, topic.grade, topic.element);
 const currentIndex = siblings.findIndex((t) => t.id === topic.id);

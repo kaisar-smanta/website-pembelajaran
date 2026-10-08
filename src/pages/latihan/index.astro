@@ -3,10 +3,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import PracticeCard from '@/components/exercises/PracticeCard.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic, practiceCounts, topicIdsWithQuestions } from '@/data/questions';
-import { ELEMENTS, ALL_ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import {
+  ELEMENTS,
+  ALL_ELEMENT_ORDER,
+  GRADES,
+  GRADE_ORDER,
+  SUBJECTS,
+  SUBJECT_ORDER,
+  elementOrderFor,
+  gradesFor,
+} from '@/data/curriculum';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
+import { difficultyCounts } from '@/lib/practice';
 import { url } from '@/utils/url';
+import type { Difficulty } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -14,51 +27,55 @@ const crumbs = [
 ];
 
 const total = questions.length;
-const byDifficulty = {
-  dasar: questions.filter((q) => q.difficulty === 'dasar').length,
-  cakap: questions.filter((q) => q.difficulty === 'cakap').length,
-  mahir: questions.filter((q) => q.difficulty === 'mahir').length,
-};
+const byDifficulty = difficultyCounts(questions);
 
-const levels = [
-  {
-    value: 'dasar',
-    name: 'Dasar',
+const levelMeta: Record<Difficulty, { badge: string; accent: string; text: string }> = {
+  dasar: {
     badge: 'badge-dasar',
     accent: 'var(--color-success)',
     text: 'Memahami istilah, membaca representasi, mengenali pola, dan prosedur sederhana.',
-    count: byDifficulty.dasar,
   },
-  {
-    value: 'cakap',
-    name: 'Cakap',
+  cakap: {
     badge: 'badge-cakap',
     accent: 'var(--color-primary)',
     text: 'Menerapkan konsep pada masalah multi-langkah, pemodelan, dan interpretasi.',
-    count: byDifficulty.cakap,
   },
-  {
-    value: 'mahir',
-    name: 'Mahir',
+  mahir: {
     badge: 'badge-mahir',
     accent: 'var(--color-warning)',
     text: 'Soal nonrutin, memilih strategi, menyusun argumentasi, dan mengevaluasi model.',
-    count: byDifficulty.mahir,
   },
-];
+};
+
+const levels = DIFFICULTY_ORDER.map((value) => ({
+  value,
+  name: DIFFICULTY_LABELS[value],
+  count: byDifficulty[value],
+  ...levelMeta[value],
+}));
 
 const withQuestions = new Set(topicIdsWithQuestions());
 const practiceTopics = topics.filter((t) => withQuestions.has(t.id));
 
-const groups = GRADE_ORDER.map((grade) => ({
-  grade,
-  label: GRADES[grade].name,
-  elements: ALL_ELEMENT_ORDER.map((element) => ({
-    element,
-    label: ELEMENTS[element].name,
-    topics: practiceTopics.filter((t) => t.grade === grade && t.element === element),
-  })).filter((group) => group.topics.length > 0),
-})).filter((group) => group.elements.length > 0);
+const groups = SUBJECT_ORDER.map((subject) => ({
+  subject,
+  label: SUBJECTS[subject].name,
+  grades: gradesFor(subject)
+    .map((grade) => ({
+      grade,
+      label: GRADES[grade].name,
+      elements: elementOrderFor(subject)
+        .map((element) => ({
+          element,
+          label: ELEMENTS[element].name,
+          topics: practiceTopics.filter(
+            (t) => topicSubject(t) === subject && t.grade === grade && t.element === element,
+          ),
+        }))
+        .filter((group) => group.topics.length > 0),
+    }))
+    .filter((group) => group.elements.length > 0),
+})).filter((group) => group.grades.length > 0);
 
 const meta = [
   `${total} soal pada ${practiceTopics.length} topik`,
@@ -170,39 +187,57 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         id="topik"
         eyebrow="Mulai berlatih"
         title="Latihan per Topik"
-        lead="Daftar dikelompokkan per kelas lalu per elemen. Progres ditandai otomatis dari soal yang pernah kamu kerjakan di peramban ini."
+        lead="Daftar dikelompokkan per mata pelajaran, kelas, lalu elemen. Progres ditandai otomatis dari soal yang pernah kamu kerjakan di peramban ini."
       />
       {
-        groups.map((group) => (
-          <section class="grade-group" data-grade-group aria-labelledby={`kelas-${group.grade}`}>
-            <h3 class="grade-title" id={`kelas-${group.grade}`}>
-              {group.label}
+        groups.map((subjectGroup) => (
+          <section
+            class="subject-group"
+            data-subject-group
+            aria-labelledby={`mapel-${subjectGroup.subject}`}
+          >
+            <h3 class="subject-title" id={`mapel-${subjectGroup.subject}`}>
+              {subjectGroup.label}
             </h3>
-            {group.elements.map((elementGroup) => (
-              <div
-                class="element-group"
-                data-practice-group
-                aria-labelledby={`elemen-${group.grade}-${elementGroup.element}`}
+            {subjectGroup.grades.map((group) => (
+              <section
+                class="grade-group"
+                data-grade-group
+                aria-labelledby={`kelas-${subjectGroup.subject}-${group.grade}`}
               >
-                <h4 class:list={['element-title', `accent-${elementGroup.element}`]} id={`elemen-${group.grade}-${elementGroup.element}`}>
-                  <span class="element-dot" aria-hidden="true"></span>
-                  {elementGroup.label}
+                <h4 class="grade-title" id={`kelas-${subjectGroup.subject}-${group.grade}`}>
+                  {group.label}
                 </h4>
-                <div class="grid grid-3">
-                  {elementGroup.topics.map((topic) => (
-                    <PracticeCard
-                      title={topic.title}
-                      summary={topic.summary}
-                      grade={topic.grade}
-                      element={topic.element}
-                      slug={topic.slug}
-                      subject={topicSubject(topic)}
-                      counts={practiceCounts(topic.id)}
-                      questionIds={questionsByTopic(topic.id).map((q) => q.id)}
-                    />
-                  ))}
-                </div>
-              </div>
+                {group.elements.map((elementGroup) => (
+                  <div
+                    class="element-group"
+                    data-practice-group
+                    aria-labelledby={`elemen-${subjectGroup.subject}-${group.grade}-${elementGroup.element}`}
+                  >
+                    <h5
+                      class:list={['element-title', `accent-${elementGroup.element}`]}
+                      id={`elemen-${subjectGroup.subject}-${group.grade}-${elementGroup.element}`}
+                    >
+                      <span class="element-dot" aria-hidden="true"></span>
+                      {elementGroup.label}
+                    </h5>
+                    <div class="grid grid-3">
+                      {elementGroup.topics.map((topic) => (
+                        <PracticeCard
+                          title={topic.title}
+                          summary={topic.summary}
+                          grade={topic.grade}
+                          element={topic.element}
+                          slug={topic.slug}
+                          subject={topicSubject(topic)}
+                          counts={practiceCounts(topic.id)}
+                          questionIds={questionsByTopic(topic.id).map((q) => q.id)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </section>
             ))}
           </section>
         ))
@@ -216,20 +251,18 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
 
   <section class="section-alt cta-section">
     <div class="container">
-      <div class="card cta-card card-accent accent-aljabar-fungsi hover-lift reveal" data-reveal>
-        <div class="cta-copy">
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2>Sudah selesai berlatih?</h2>
-          <p class="text-muted">
-            Lihat bagaimana topik-topik saling terhubung, atau coba sendiri konsepnya lewat
-            eksplorasi interaktif.
-          </p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/peta-pembelajaran')}>Lihat peta pembelajaran</a>
-          <a class="btn btn-secondary" href={url('/eksplorasi')}>Coba eksplorasi</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Sudah selesai berlatih?"
+        text="Lihat bagaimana topik-topik saling terhubung, atau coba sendiri konsepnya lewat eksplorasi interaktif."
+        accentClass="accent-aljabar-fungsi"
+        reveal
+        dataReveal
+        actions={[
+          { label: 'Lihat peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'primary' },
+          { label: 'Coba eksplorasi', href: url('/eksplorasi'), variant: 'secondary' },
+        ]}
+      />
     </div>
   </section>
 </BaseLayout>
@@ -336,6 +369,15 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     font-weight: 600;
     color: var(--color-text-muted);
   }
+  .subject-group + .subject-group {
+    margin-top: 2.75rem;
+  }
+  .subject-title {
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-border-strong);
+    font-size: 1.65rem;
+  }
   .grade-group + .grade-group {
     margin-top: 2rem;
   }
@@ -376,49 +418,24 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
   .cta-section {
     padding-block: 2.5rem;
   }
-  .cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .cta-copy {
-    max-width: 46ch;
-  }
-  .cta-copy .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .cta-copy h2 {
-    margin-bottom: 0.35rem;
-  }
-  .cta-copy p {
-    margin: 0;
-  }
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
 </style>
 
 <script>
   import { loadProgress, summarize, type ProgressMap } from '@/lib/progress';
+  import { matchesAny } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
 
   const root = document.querySelector<HTMLElement>('[data-latihan-root]');
 
   if (root) {
     const KEYS = ['kelas', 'elemen', 'tingkat'] as const;
-    type FilterKey = (typeof KEYS)[number];
 
     const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-practice-card]'));
-    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
     const countEl = root.querySelector<HTMLElement>('[data-result-count]');
     const emptyEl = root.querySelector<HTMLElement>('[data-empty]');
     const groupEls = Array.from(root.querySelectorAll<HTMLElement>('[data-practice-group]'));
     const gradeEls = Array.from(root.querySelectorAll<HTMLElement>('[data-grade-group]'));
-
-    const state: Record<FilterKey, string> = { kelas: '', elemen: '', tingkat: '' };
+    const subjectEls = Array.from(root.querySelectorAll<HTMLElement>('[data-subject-group]'));
 
     let progress: ProgressMap = {};
     try {
@@ -459,45 +476,20 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
       updateProgress();
     }
 
-    function matches(card: HTMLElement): boolean {
-      if (state.kelas && card.getAttribute('data-kelas') !== state.kelas) return false;
-      if (state.elemen && card.getAttribute('data-elemen') !== state.elemen) return false;
-      if (state.tingkat) {
-        const levels = (card.getAttribute('data-levels') ?? '').split(/\s+/).filter(Boolean);
-        if (!levels.includes(state.tingkat)) return false;
-      }
-      return true;
+    const selected = (value: string | undefined): Set<string> =>
+      value ? new Set([value]) : new Set();
+
+    function matches(card: HTMLElement, values: Record<string, string>): boolean {
+      if (!matchesAny(selected(values.kelas), [card.getAttribute('data-kelas') ?? ''])) return false;
+      if (!matchesAny(selected(values.elemen), [card.getAttribute('data-elemen') ?? ''])) return false;
+      const levels = (card.getAttribute('data-levels') ?? '').split(/\s+/).filter(Boolean);
+      return matchesAny(selected(values.tingkat), levels);
     }
 
-    function syncButtons(): void {
-      for (const button of buttons) {
-        const filter = button.getAttribute('data-filter') as FilterKey | null;
-        if (!filter || !KEYS.includes(filter)) continue;
-        const value = button.getAttribute('data-value') ?? '';
-        const active = state[filter] === value;
-        button.setAttribute('aria-pressed', active ? 'true' : 'false');
-      }
-    }
-
-    function syncUrl(): void {
-      try {
-        const params = new URLSearchParams(location.search);
-        for (const key of KEYS) {
-          if (state[key]) params.set(key, state[key]);
-          else params.delete(key);
-        }
-        const query = params.toString();
-        const next = `${location.pathname}${query ? `?${query}` : ''}${location.hash}`;
-        history.replaceState(null, '', next);
-      } catch {
-        /* abaikan bila riwayat/URL tidak dapat diubah */
-      }
-    }
-
-    function apply(): void {
+    function apply(values: Record<string, string>): void {
       let visible = 0;
       for (const card of cards) {
-        const show = matches(card);
+        const show = matches(card, values);
         card.hidden = !show;
         if (show) visible += 1;
       }
@@ -508,6 +500,9 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
       for (const grade of gradeEls) {
         grade.hidden = grade.querySelector<HTMLElement>('[data-practice-group]:not([hidden])') === null;
       }
+      for (const subject of subjectEls) {
+        subject.hidden = subject.querySelector<HTMLElement>('[data-grade-group]:not([hidden])') === null;
+      }
 
       if (emptyEl) emptyEl.hidden = visible !== 0;
       if (countEl) {
@@ -516,34 +511,21 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
             ? 'Tidak ada latihan yang cocok dengan filter ini.'
             : `Menampilkan ${visible} dari ${cards.length} topik latihan.`;
       }
-
-      syncButtons();
-      syncUrl();
     }
 
-    for (const button of buttons) {
-      button.addEventListener('click', () => {
-        const filter = button.getAttribute('data-filter') as FilterKey | null;
-        if (!filter || !KEYS.includes(filter)) return;
-        state[filter] = button.getAttribute('data-value') ?? '';
-        apply();
-      });
-    }
+    const groups = Array.from(root.querySelectorAll<HTMLElement>('.filter-group'))
+      .map((group) => ({
+        key: group.querySelector<HTMLElement>('[data-filter]')?.getAttribute('data-filter') ?? '',
+        group,
+        chipSelector: '[data-filter]',
+        valueAttr: 'data-value',
+        allValue: '',
+      }))
+      .filter((spec) => (KEYS as readonly string[]).includes(spec.key));
 
-    try {
-      const params = new URLSearchParams(location.search);
-      for (const key of KEYS) {
-        const value = params.get(key) ?? '';
-        if (value && buttons.some((b) => b.getAttribute('data-filter') === key && b.getAttribute('data-value') === value)) {
-          state[key] = value;
-        }
-      }
-    } catch {
-      /* abaikan parameter yang tidak valid */
-    }
+    setupFilterPage({ groups, apply, syncUrl: true });
 
     updateProgress();
-    apply();
 
     window.addEventListener('mtk:progress', refreshProgress);
     window.addEventListener('pageshow', refreshProgress);

@@ -174,7 +174,7 @@ const pending = groups.filter((group) => group.count === 0);
     min-width: 1.4rem;
     height: 1.4rem;
     padding-inline: 0.4rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -193,7 +193,7 @@ const pending = groups.filter((group) => group.count === 0);
   }
   .coverage-bar {
     height: 0.4rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-surface-2);
     overflow: hidden;
     margin-bottom: 0.65rem;
@@ -273,7 +273,7 @@ const pending = groups.filter((group) => group.count === 0);
     align-items: center;
     gap: 0.4rem;
     padding: 0.2rem 0.65rem 0.2rem 0.3rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid
       color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
     background: var(--color-surface);

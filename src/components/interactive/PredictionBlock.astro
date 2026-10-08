@@ -13,7 +13,7 @@ const options = block.options ?? [];
 const saveLabel = block.saveLabel ?? 'Simpan dugaan';
 ---
 
-<figure class="itx prediction" data-prediction data-pid={storageId}>
+<figure class="itx prediction" data-prediction data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Tebak dulu</span>
     <span class="itx-hint">Tanpa penilaian — bandingkan dengan penjelasan setelahnya.</span>
@@ -165,9 +165,11 @@ const saveLabel = block.saveLabel ?? 'Simpan dugaan';
 
 <script>
   import { loadPredictions, savePredictions, recordPrediction } from '@/lib/learner';
+  import { emitInteraction } from '@/lib/interaction';
+  import { safeStorage } from '@/lib/storage';
 
   function setupPrediction(root: Element) {
-    const id = root.getAttribute('data-pid') ?? '';
+    const id = root.getAttribute('data-storage-id') ?? '';
     const save = root.querySelector<HTMLButtonElement>('[data-pred-save]');
     const saved = root.querySelector<HTMLElement>('[data-pred-saved]');
     const reveal = root.querySelector<HTMLElement>('[data-pred-reveal]');
@@ -175,12 +177,7 @@ const saveLabel = block.saveLabel ?? 'Simpan dugaan';
     const options = Array.from(root.querySelectorAll<HTMLInputElement>('[data-pred-option]'));
     if (!save || !reveal) return;
 
-    let storage: Storage | undefined;
-    try {
-      storage = window.localStorage;
-    } catch {
-      storage = undefined;
-    }
+    const storage = safeStorage();
 
     function currentValue(): string {
       if (input) return input.value.trim();
@@ -220,7 +217,7 @@ const saveLabel = block.saveLabel ?? 'Simpan dugaan';
         saved.style.color = '';
       }
       reveal!.hidden = false;
-      window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'prediction' } }));
+      emitInteraction(id, 'prediction');
     });
   }
 

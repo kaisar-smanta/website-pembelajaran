@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration, ExplorationParam } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -129,13 +130,6 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-formula {
     font-family: var(--font-serif);
     font-size: 1.1rem;
@@ -226,14 +220,6 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
   }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
-  }
   @media (max-width: 390px) {
     .sim-bar {
       gap: 0.4rem;
@@ -256,6 +242,8 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
 <script>
   import { evalFormula, mapFor, describe } from '../../lib/sim/function-slider';
   import type { Formula } from '../../lib/sim/function-slider';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
 
   type Params = { name: string; value: number };
 
@@ -277,24 +265,11 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     const H = 300;
     const pad = 34;
 
-    function fmt(n: number): string {
-      if (Number.isInteger(n)) return String(n);
-      return String(Number(n.toFixed(2)));
-    }
-
-    const svgNS = 'http://www.w3.org/2000/svg';
-    function el(name: string, attrs: Record<string, string | number>) {
-      const node = document.createElementNS(svgNS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    }
-
     function draw() {
       const { xMin, xMax, yMin, yMax } = mapFor(formula);
-      const sx = (x: number) => pad + ((x - xMin) / (xMax - xMin)) * (W - 2 * pad);
-      const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
+      const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
 
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      clear(svg);
 
       const gridColor = 'var(--color-border)';
       const axisColor = 'var(--color-text-soft)';
@@ -322,26 +297,24 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
         'stroke-linecap': 'round',
         'stroke-linejoin': 'round',
       });
-      let d = '';
-      let started = false;
+      const points: Array<[number, number] | null> = [];
       const steps = 480;
       for (let i = 0; i <= steps; i++) {
         const x = xMin + (i / steps) * (xMax - xMin);
         const y = evalFormula(formula, state, x);
         if (!isFinite(y) || y < yMin - 200 || y > yMax + 200) {
-          started = false;
+          points.push(null);
           continue;
         }
         const px = sx(x);
         const py = sy(y);
         if (py < -2000 || py > 2000) {
-          started = false;
+          points.push(null);
           continue;
         }
-        d += `${started ? 'L' : 'M'}${px.toFixed(1)} ${py.toFixed(1)} `;
-        started = true;
+        points.push([px, py]);
       }
-      path.setAttribute('d', d);
+      path.setAttribute('d', polyline(points));
       svg.appendChild(path);
 
       const info = describe(formula, state);
@@ -356,7 +329,7 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     }
 
     function updateAria() {
-      const parts = initial.map((p) => `${p.name} = ${fmt(state[p.name] ?? p.value)}`);
+      const parts = initial.map((p) => `${p.name} = ${formatPlain(state[p.name] ?? p.value)}`);
       svg.setAttribute('aria-label', `Grafik ${formulaLabel} dengan ${parts.join(', ')}`);
     }
 

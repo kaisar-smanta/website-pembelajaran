@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -20,7 +21,7 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     <svg viewBox="0 0 360 360" role="img" aria-label={initialAria} data-plot></svg>
   </div>
 
-  <div class="legend">
+  <div class="legend sim-legend">
     <span class="l-f">Grafik f(x)</span>
     <span class="l-inv">Grafik f⁻¹(x)</span>
     <span class="l-mirror">Garis y = x (cermin)</span>
@@ -74,13 +75,6 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-formula {
     font-family: var(--font-serif);
     font-size: 1.1rem;
@@ -107,16 +101,6 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     font-size: 0.82rem;
     color: var(--color-text-muted);
     margin: 0.5rem 0 0;
-  }
-  .legend span::before {
-    content: '';
-    display: inline-block;
-    width: 0.8rem;
-    height: 0.18rem;
-    border-radius: 2px;
-    background: currentColor;
-    margin-right: 0.35rem;
-    vertical-align: middle;
   }
   .legend .l-f {
     color: var(--color-primary);
@@ -187,23 +171,6 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     gap: 0.4rem;
     margin-top: 0.75rem;
   }
-  .sim-readout :global(.stat) {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.45rem 0.7rem;
-    background: var(--color-surface-2);
-    border-radius: var(--radius-sm);
-    font-size: 0.92rem;
-  }
-  .sim-readout :global(.stat span) {
-    color: var(--color-text-muted);
-  }
-  .sim-readout :global(.stat strong) {
-    font-family: var(--font-mono);
-    color: var(--color-primary);
-    text-align: right;
-  }
   .sim-readout :global(.sim-warning) {
     margin: 0;
     padding: 0.5rem 0.7rem;
@@ -216,14 +183,6 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     margin: 0;
     font-size: 0.85rem;
     color: var(--color-text-muted);
-  }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
   }
   @media (max-width: 390px) {
     .sim {
@@ -242,15 +201,12 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
 
 <script>
   import { computeInverse, evaluateLinear, verifyInverse } from '../../lib/sim/function-inverse';
+  import { el, clear, linearScale } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
 
   const initialA = 2;
   const initialB = 1;
   const SAMPLE_T = 5;
-
-  function fmt(n: number): string {
-    if (Number.isInteger(n)) return String(n);
-    return String(Number(n.toFixed(2)));
-  }
 
   function setup(root: Element) {
     const plot = root.querySelector('[data-plot]') as SVGSVGElement;
@@ -270,36 +226,31 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     const lo = -6.5;
     const hi = 6.5;
 
-    const sx = (x: number) => pad + ((x - lo) / (hi - lo)) * (W - 2 * pad);
-    const sy = (y: number) => H - pad - ((y - lo) / (hi - lo)) * (H - 2 * pad);
-
-    const svgNS = 'http://www.w3.org/2000/svg';
-    function el(name: string, attrs: Record<string, string | number>) {
-      const node = document.createElementNS(svgNS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    }
+    const { sx, sy } = linearScale(
+      { xMin: lo, xMax: hi, yMin: lo, yMax: hi },
+      { width: W, height: H, pad },
+    );
 
     function formulaF(a: number, b: number): string {
-      const ax = a === 1 ? 'x' : a === -1 ? '−x' : `${fmt(a)}x`;
+      const ax = a === 1 ? 'x' : a === -1 ? '−x' : `${formatPlain(a)}x`;
       if (b === 0) return ax;
-      return `${ax} ${b > 0 ? '+' : '−'} ${fmt(Math.abs(b))}`;
+      return `${ax} ${b > 0 ? '+' : '−'} ${formatPlain(Math.abs(b))}`;
     }
 
     function coefForm(coef: { a: number; b: number }): string {
-      const ax = coef.a === 1 ? 'x' : coef.a === -1 ? '−x' : `${fmt(coef.a)}x`;
+      const ax = coef.a === 1 ? 'x' : coef.a === -1 ? '−x' : `${formatPlain(coef.a)}x`;
       if (coef.b === 0) return ax;
-      return `${ax} ${coef.b > 0 ? '+' : '−'} ${fmt(Math.abs(coef.b))}`;
+      return `${ax} ${coef.b > 0 ? '+' : '−'} ${formatPlain(Math.abs(coef.b))}`;
     }
 
     function invFraction(a: number, b: number): string {
-      const num = b === 0 ? 'x' : `x ${b > 0 ? '−' : '+'} ${fmt(Math.abs(b))}`;
-      return `(${num})/${fmt(a)}`;
+      const num = b === 0 ? 'x' : `x ${b > 0 ? '−' : '+'} ${formatPlain(Math.abs(b))}`;
+      return `(${num})/${formatPlain(a)}`;
     }
 
     function draw(a: number, b: number) {
       const inv = computeInverse(a, b);
-      while (plot.firstChild) plot.removeChild(plot.firstChild);
+      clear(plot);
 
       for (let i = -6; i <= 6; i++) {
         plot.appendChild(
@@ -380,25 +331,25 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
       const { a, b } = state;
       const inv = computeInverse(a, b);
 
-      outA.textContent = fmt(a);
+      outA.textContent = formatPlain(a);
       inA.value = String(a);
-      outB.textContent = fmt(b);
+      outB.textContent = formatPlain(b);
       inB.value = String(b);
 
       draw(a, b);
 
       if (!inv) {
         readout.innerHTML =
-          `<div class="stat"><span>Fungsi awal</span><strong>f(x) = ${fmt(b)}</strong></div>` +
+          `<div class="stat"><span>Fungsi awal</span><strong>f(x) = ${formatPlain(b)}</strong></div>` +
           `<div class="stat"><span>Invers</span><strong>Tidak ada</strong></div>` +
-          `<p class="sim-warning">Karena a = 0, f(x) = ${fmt(b)} bernilai konstan sehingga tidak satu-satu. Fungsi seperti ini tidak memiliki invers.</p>`;
+          `<p class="sim-warning">Karena a = 0, f(x) = ${formatPlain(b)} bernilai konstan sehingga tidak satu-satu. Fungsi seperti ini tidak memiliki invers.</p>`;
       } else {
         const invLabel = a === 1 || a === -1 ? coefForm(inv) : `${invFraction(a, b)} = ${coefForm(inv)}`;
         const verified = verifyInverse(a, b, SAMPLE_T);
         readout.innerHTML =
           `<div class="stat"><span>Fungsi awal</span><strong>f(x) = ${formulaF(a, b)}</strong></div>` +
           `<div class="stat"><span>Rumus invers</span><strong>f⁻¹(x) = ${invLabel}</strong></div>` +
-          `<div class="stat"><span>Uji komposisi</span><strong>f(f⁻¹(${fmt(SAMPLE_T)})) = ${fmt(verified)}</strong></div>` +
+          `<div class="stat"><span>Uji komposisi</span><strong>f(f⁻¹(${formatPlain(SAMPLE_T)})) = ${formatPlain(verified)}</strong></div>` +
           `<p class="sim-note-readout">Karena f berkorespondensi satu-satu (setiap x punya tepat satu pasangan dan sebaliknya), f⁻¹ ada, dan grafik f⁻¹ adalah pencerminan grafik f terhadap garis y = x.</p>`;
       }
 
@@ -406,7 +357,7 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
         'aria-label',
         inv
           ? `Grafik f(x) = ${formulaF(a, b)}, invers f⁻¹(x) = ${coefForm(inv)}, dan garis y = x`
-          : `Grafik f(x) = ${fmt(b)} yang konstan, tanpa invers, dan garis y = x`,
+          : `Grafik f(x) = ${formatPlain(b)} yang konstan, tanpa invers, dan garis y = x`,
       );
     }
 

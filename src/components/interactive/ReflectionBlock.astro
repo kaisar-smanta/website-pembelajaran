@@ -11,7 +11,7 @@ const confidenceLabel = block.confidenceLabel ?? 'Seberapa yakin kamu dengan jaw
 const levels = [1, 2, 3, 4, 5];
 ---
 
-<figure class="itx reflection" data-reflection data-rid={storageId}>
+<figure class="itx reflection" data-reflection data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Refleksi tersimpan</span>
     <span class="itx-hint">Jawabanmu hanya tersimpan di peramban ini.</span>
@@ -192,21 +192,18 @@ const levels = [1, 2, 3, 4, 5];
 
 <script>
   import { loadReflections, saveReflections, recordReflection } from '@/lib/learner';
+  import { emitInteraction } from '@/lib/interaction';
+  import { safeStorage } from '@/lib/storage';
 
   function setupReflection(root: Element) {
-    const id = root.getAttribute('data-rid') ?? '';
+    const id = root.getAttribute('data-storage-id') ?? '';
     const save = root.querySelector<HTMLButtonElement>('[data-reflect-save]');
     const saved = root.querySelector<HTMLElement>('[data-reflect-saved]');
     const inputs = Array.from(root.querySelectorAll<HTMLTextAreaElement>('[data-reflect-input]'));
     const confs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-reflect-conf]'));
     if (!save) return;
 
-    let storage: Storage | undefined;
-    try {
-      storage = window.localStorage;
-    } catch {
-      storage = undefined;
-    }
+    const storage = safeStorage();
 
     const existing = loadReflections(storage)[id];
     if (existing) {
@@ -236,7 +233,7 @@ const levels = [1, 2, 3, 4, 5];
         saved.textContent = 'Refleksimu tersimpan di perangkat ini.';
         saved.style.color = '';
       }
-      window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'reflection' } }));
+      emitInteraction(id, 'reflection');
     });
   }
 

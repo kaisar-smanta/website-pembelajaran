@@ -278,7 +278,7 @@ const factItems = facts.map((fact) => {
     width: fit-content;
     margin: 0 auto 0.32rem;
     padding: 0.05rem 0.45rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--highlight) 75%, transparent);
     color: var(--color-text);
     font-size: 0.66rem;
@@ -348,12 +348,6 @@ const factItems = facts.map((fact) => {
       transform: translateY(0) rotate(0deg);
     }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .mascot-button.reacting :global(.mascot) {
-      animation: none;
-    }
-  }
-
   @media (min-width: 34rem) {
     .playground-stage {
       grid-template-columns: 1fr;

@@ -1,0 +1,74 @@
+---
+interface Action {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  text?: string;
+  accentClass?: string;
+  reveal?: boolean;
+  dataReveal?: boolean;
+  actions: Action[];
+}
+
+const {
+  eyebrow,
+  title,
+  text,
+  accentClass,
+  reveal = false,
+  dataReveal = false,
+  actions,
+} = Astro.props;
+---
+
+<div
+  class:list={['card', 'cta-card', 'card-accent', accentClass, 'hover-lift', reveal && 'reveal']}
+  data-reveal={dataReveal ? '' : undefined}
+>
+  <div class="cta-copy">
+    <p class="eyebrow-badge">{eyebrow}</p>
+    <h2>{title}</h2>
+    {text && <p class="text-muted">{text}</p>}
+  </div>
+  <div class="cta-actions">
+    {
+      actions.map((action) => (
+        <a class:list={['btn', `btn-${action.variant ?? 'primary'}`]} href={action.href}>
+          {action.label}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .cta-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cta-copy {
+    max-width: 46ch;
+  }
+  .cta-copy .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .cta-copy h2 {
+    margin-bottom: 0.35rem;
+  }
+  .cta-copy p {
+    margin: 0;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

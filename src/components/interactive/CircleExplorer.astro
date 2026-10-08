@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -49,7 +50,7 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
       role="img"
       aria-label={initialAria}
       data-chart></svg>
-    <div class="legend">
+    <div class="legend sim-legend">
       <span class="l1">Jari-jari r</span>
       <span class="l2">Busur dan juring θ</span>
     </div>
@@ -61,13 +62,6 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-hint {
     margin: 0 0 0.85rem;
     font-size: 0.9rem;
@@ -124,16 +118,6 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     color: var(--color-text-muted);
     margin: 0.4rem 0 0;
   }
-  .legend span::before {
-    content: '';
-    display: inline-block;
-    width: 0.8rem;
-    height: 0.18rem;
-    border-radius: 2px;
-    background: currentColor;
-    margin-right: 0.35rem;
-    vertical-align: middle;
-  }
   .legend .l1 {
     color: var(--color-primary);
   }
@@ -145,33 +129,8 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     gap: 0.4rem;
     margin-top: 0.85rem;
   }
-  .sim-readout :global(.stat) {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.45rem 0.7rem;
-    background: var(--color-surface-2);
-    border-radius: var(--radius-sm);
-    font-size: 0.92rem;
-  }
-  .sim-readout :global(.stat span) {
-    color: var(--color-text-muted);
-  }
-  .sim-readout :global(.stat strong) {
-    font-family: var(--font-mono);
-    color: var(--color-primary);
-    text-align: right;
-  }
   .circle-sim svg :global(*) {
     transition: opacity var(--dur) var(--ease-out-soft);
-  }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
   }
   @media (max-width: 390px) {
     .sim-fields {
@@ -194,6 +153,7 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     degToRad,
     formatNumber,
   } from '../../lib/sim/circle';
+  import { el, clear, clamp, polyline } from '../../lib/dom';
 
   function setupCircle(root: Element) {
     const inR = root.querySelector('[data-field="r"]') as HTMLInputElement;
@@ -203,14 +163,6 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
     const svg = root.querySelector('[data-chart]') as SVGSVGElement;
     const reset = root.querySelector('[data-circle-reset]') as HTMLButtonElement;
-
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const el = (name: string, attrs: Record<string, string | number>) => {
-      const node = document.createElementNS(svgNS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    };
-    const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
     const CX = 160;
     const CY = 160;
@@ -222,7 +174,7 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     }
 
     function draw(r: number, deg: number) {
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      clear(svg);
 
       const pr = clamp(r, 1, 10) * SCALE;
       const rad = degToRad(deg);
@@ -245,19 +197,13 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
       }
 
       if (deg > 0) {
-        let sector = `M ${CX} ${CY}`;
-        pts.forEach(([x, y]) => {
-          sector += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
-        });
-        sector += ' Z';
+        const sectorPoints: Array<[number, number]> = [[CX, CY], ...pts];
+        const sector = `${polyline(sectorPoints)} Z`;
         svg.appendChild(
           el('path', { d: sector, fill: 'var(--color-geometry)', opacity: 0.18, stroke: 'none' }),
         );
 
-        let arc = '';
-        pts.forEach(([x, y], i) => {
-          arc += `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)} `;
-        });
+        const arc = polyline(pts);
         svg.appendChild(
           el('path', {
             d: arc,

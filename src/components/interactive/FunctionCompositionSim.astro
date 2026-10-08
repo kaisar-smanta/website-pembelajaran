@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -109,13 +110,6 @@ const initialAria =
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-head h3 {
     margin: 0 0 0.5rem;
     font-size: 1.1rem;
@@ -195,31 +189,12 @@ const initialAria =
     margin-top: 0.85rem;
   }
   .sim-readout :global(.stat) {
-    display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     gap: 0.35rem 1rem;
-    padding: 0.45rem 0.7rem;
-    background: var(--color-surface-2);
-    border-radius: var(--radius-sm);
     font-size: 0.9rem;
   }
-  .sim-readout :global(.stat span) {
-    color: var(--color-text-muted);
-  }
   .sim-readout :global(.stat strong) {
-    font-family: var(--font-mono);
-    color: var(--color-primary);
-    text-align: right;
     overflow-wrap: anywhere;
-  }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
   }
   @media (max-width: 430px) {
     .sim {
@@ -243,15 +218,14 @@ const initialAria =
     formatLinear,
   } from '../../lib/sim/function-composition';
   import type { Linear } from '../../lib/sim/function-composition';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
 
   type ParamName = 'a' | 'b' | 'c' | 'd';
 
   const defaults: Record<ParamName, number> = { a: 2, b: 1, c: -1, d: 3 };
   const SVGMIN = -6;
   const SVGMAX = 6;
-
-  const fmt = (v: number): string =>
-    Number.isInteger(v) ? String(v) : String(Number(v.toFixed(2)));
 
   function setupCompose(root: Element) {
     const svg = root.querySelector('[data-plot]') as SVGSVGElement;
@@ -271,12 +245,6 @@ const initialAria =
     const W = 480;
     const H = 300;
     const pad = 34;
-    const NS = 'http://www.w3.org/2000/svg';
-    const el = (name: string, attrs: Record<string, string | number>): SVGElement => {
-      const node = document.createElementNS(NS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    };
 
     function draw(f: Linear, g: Linear, fg: Linear, gf: Linear) {
       const series = [
@@ -307,10 +275,12 @@ const initialAria =
       yMin -= padY;
       yMax += padY;
 
-      const sx = (x: number) => pad + ((x - SVGMIN) / (SVGMAX - SVGMIN)) * (W - 2 * pad);
-      const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin)) * (H - 2 * pad);
+      const { sx, sy } = linearScale(
+        { xMin: SVGMIN, xMax: SVGMAX, yMin, yMax },
+        { width: W, height: H, pad },
+      );
 
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      clear(svg);
 
       for (let i = 0; i <= 8; i++) {
         const x = pad + (i / 8) * (W - 2 * pad);
@@ -345,13 +315,12 @@ const initialAria =
           'stroke-linejoin': 'round',
         });
         if (s.dash) path.setAttribute('stroke-dasharray', s.dash);
-        let d = '';
+        const points: Array<[number, number]> = [];
         for (let i = 0; i <= samples; i++) {
           const x = SVGMIN + (i / samples) * (SVGMAX - SVGMIN);
-          const y = evaluateLinear(s.coef, x);
-          d += `${i === 0 ? 'M' : 'L'}${sx(x).toFixed(1)} ${sy(y).toFixed(1)} `;
+          points.push([sx(x), sy(evaluateLinear(s.coef, x))]);
         }
-        path.setAttribute('d', d);
+        path.setAttribute('d', polyline(points));
         svg.appendChild(path);
       }
     }
@@ -359,7 +328,7 @@ const initialAria =
     function syncOutputs() {
       outputs.forEach((output) => {
         const name = output.getAttribute('data-output') as ParamName | null;
-        if (name) output.textContent = fmt(state[name]);
+        if (name) output.textContent = formatPlain(state[name]);
       });
       inputs.forEach((input) => {
         const name = input.getAttribute('data-param') as ParamName | null;
@@ -384,10 +353,10 @@ const initialAria =
       readout.innerHTML =
         `<div class="stat"><span>(f∘g)(x)</span><strong>${formatLinear(fg)}</strong></div>` +
         `<div class="stat"><span>(g∘f)(x)</span><strong>${formatLinear(gf)}</strong></div>` +
-        `<div class="stat"><span>(f∘g)(1)</span><strong>${fmt(evaluateLinear(fg, 1))}</strong></div>` +
-        `<div class="stat"><span>(g∘f)(1)</span><strong>${fmt(evaluateLinear(gf, 1))}</strong></div>` +
-        `<div class="stat"><span>(f∘g)(0)</span><strong>${fmt(evaluateLinear(fg, 0))}</strong></div>` +
-        `<div class="stat"><span>(g∘f)(0)</span><strong>${fmt(evaluateLinear(gf, 0))}</strong></div>` +
+        `<div class="stat"><span>(f∘g)(1)</span><strong>${formatPlain(evaluateLinear(fg, 1))}</strong></div>` +
+        `<div class="stat"><span>(g∘f)(1)</span><strong>${formatPlain(evaluateLinear(gf, 1))}</strong></div>` +
+        `<div class="stat"><span>(f∘g)(0)</span><strong>${formatPlain(evaluateLinear(fg, 0))}</strong></div>` +
+        `<div class="stat"><span>(g∘f)(0)</span><strong>${formatPlain(evaluateLinear(gf, 0))}</strong></div>` +
         `<div class="stat"><span>Apakah f∘g = g∘f?</span><strong>${
           same ? 'Ya, f∘g = g∘f' : 'Tidak, f∘g ≠ g∘f'
         }</strong></div>`;

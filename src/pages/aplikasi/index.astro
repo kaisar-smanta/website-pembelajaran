@@ -10,8 +10,8 @@ import {
   applicationCategoryOrder,
 } from '@/data/applications';
 import { ELEMENTS, ALL_ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
 import { url } from '@/utils/url';
-import type { Difficulty } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -29,13 +29,6 @@ const groups = applicationCategoryOrder
   .filter((g) => g.items.length > 0);
 
 const categoryCount = groups.length;
-
-const levelLabels: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
-const levelOrder: Difficulty[] = ['dasar', 'cakap', 'mahir'];
 
 const gradeChips = GRADE_ORDER.map((grade) => ({
   id: grade,
@@ -55,13 +48,11 @@ const categoryChips = groups.map((g) => ({
   count: g.items.length,
 }));
 
-const levelChips = levelOrder
-  .map((level) => ({
-    id: level,
-    label: levelLabels[level],
-    count: applications.filter((a) => a.level === level).length,
-  }))
-  .filter((c) => c.count > 0);
+const levelChips = DIFFICULTY_ORDER.map((level) => ({
+  id: level,
+  label: DIFFICULTY_LABELS[level],
+  count: applications.filter((a) => a.level === level).length,
+})).filter((c) => c.count > 0);
 
 const searchText = (application: (typeof applications)[number]) =>
   [application.title, application.summary, ...(application.tags ?? [])]
@@ -281,126 +272,78 @@ const searchText = (application: (typeof applications)[number]) =>
   </section>
 </BaseLayout>
 
-<script is:inline>
-  (function () {
+<script>
+  import { matchesAny, normalizeText } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
+
+  const chipGroups = Array.from(document.querySelectorAll<HTMLElement>('[data-app-chips]'));
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-app-item]'));
+
+  if (chipGroups.length && items.length) {
+    const searchInput = document.querySelector<HTMLInputElement>('[data-app-search-input]');
+    const result = document.querySelector<HTMLElement>('[data-app-result]');
+    const empty = document.querySelector<HTMLElement>('[data-app-empty]');
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-app-section]'));
+
+    const selected = (value: string | undefined): Set<string> =>
+      value && value !== 'all' ? new Set([value]) : new Set();
+
+    const matches = (
+      el: HTMLElement,
+      values: Record<string, string>,
+      query: string,
+    ): boolean =>
+      matchesAny(selected(values.grade), [el.getAttribute('data-app-grade') ?? '']) &&
+      matchesAny(selected(values.element), [el.getAttribute('data-app-element') ?? '']) &&
+      matchesAny(selected(values.category), [el.getAttribute('data-app-category') ?? '']) &&
+      matchesAny(selected(values.level), [el.getAttribute('data-app-level') ?? '']) &&
+      (query === '' || normalizeText(el.getAttribute('data-app-search') ?? '').includes(query));
+
     try {
-      var chipGroups = Array.prototype.slice.call(document.querySelectorAll('[data-app-chips]'));
-      var chips = Array.prototype.slice.call(document.querySelectorAll('[data-app-filter]'));
-      var searchInput = document.querySelector('[data-app-search-input]');
-      var result = document.querySelector('[data-app-result]');
-      var empty = document.querySelector('[data-app-empty]');
-      var items = Array.prototype.slice.call(document.querySelectorAll('[data-app-item]'));
-      var sections = Array.prototype.slice.call(document.querySelectorAll('[data-app-section]'));
+      setupFilterPage({
+        groups: chipGroups.map((group) => ({
+          key: group.getAttribute('data-app-chips') ?? '',
+          group,
+          chipSelector: '[data-app-filter]',
+          valueAttr: 'data-app-filter',
+          activeClass: 'is-active',
+          allValue: 'all',
+        })),
+        searchInput,
+        apply: (values, query) => {
+          const q = normalizeText(query);
+          let count = 0;
 
-      if (!chips.length || !items.length) return;
-
-      function groupValue(group) {
-        var active = group.querySelector('[data-app-filter].is-active');
-        return active ? active.getAttribute('data-app-filter') : 'all';
-      }
-
-      function values() {
-        var map = {};
-        chipGroups.forEach(function (group) {
-          map[group.getAttribute('data-app-chips')] = groupValue(group);
-        });
-        return map;
-      }
-
-      function matches(el, v, q) {
-        if (v.grade && v.grade !== 'all' && (el.getAttribute('data-app-grade') || '') !== v.grade) {
-          return false;
-        }
-        if (
-          v.element &&
-          v.element !== 'all' &&
-          (el.getAttribute('data-app-element') || '') !== v.element
-        ) {
-          return false;
-        }
-        if (
-          v.category &&
-          v.category !== 'all' &&
-          (el.getAttribute('data-app-category') || '') !== v.category
-        ) {
-          return false;
-        }
-        if (v.level && v.level !== 'all' && (el.getAttribute('data-app-level') || '') !== v.level) {
-          return false;
-        }
-        if (q && (el.getAttribute('data-app-search') || '').indexOf(q) === -1) return false;
-        return true;
-      }
-
-      function apply() {
-        var v = values();
-        var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
-        var count = 0;
-
-        items.forEach(function (item) {
-          var match = matches(item, v, q);
-          item.hidden = !match;
-          if (match) {
-            count += 1;
-            var card = item.querySelector('.reveal');
-            if (card) card.classList.add('is-visible');
-          }
-        });
-
-        sections.forEach(function (section) {
-          var any = false;
-          var sectionItems = section.querySelectorAll('[data-app-item]');
-          for (var i = 0; i < sectionItems.length; i++) {
-            if (!sectionItems[i].hidden) {
-              any = true;
-              break;
+          for (const item of items) {
+            const show = matches(item, values, q);
+            item.hidden = !show;
+            if (show) {
+              count += 1;
+              item.querySelector('.reveal')?.classList.add('is-visible');
             }
           }
-          section.hidden = !any;
-          if (any) {
-            var head = section.querySelector('.reveal');
-            if (head) head.classList.add('is-visible');
-          }
-        });
 
-        chipGroups.forEach(function (group) {
-          var value = groupValue(group);
-          var groupChips = group.querySelectorAll('[data-app-filter]');
-          for (var i = 0; i < groupChips.length; i++) {
-            var active = groupChips[i].getAttribute('data-app-filter') === value;
-            groupChips[i].classList.toggle('is-active', active);
-            groupChips[i].setAttribute('aria-pressed', active ? 'true' : 'false');
-          }
-        });
-
-        if (empty) empty.hidden = count !== 0;
-        if (result) result.textContent = 'Menampilkan ' + count + ' studi kasus';
-      }
-
-      chips.forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          var group = chip.closest('[data-app-chips]');
-          if (group) {
-            var groupChips = group.querySelectorAll('[data-app-filter]');
-            for (var i = 0; i < groupChips.length; i++) {
-              groupChips[i].classList.remove('is-active');
-              groupChips[i].setAttribute('aria-pressed', 'false');
+          for (const section of sections) {
+            let any = false;
+            const sectionItems = section.querySelectorAll<HTMLElement>('[data-app-item]');
+            for (const item of sectionItems) {
+              if (!item.hidden) {
+                any = true;
+                break;
+              }
             }
+            section.hidden = !any;
+            if (any) section.querySelector('.reveal')?.classList.add('is-visible');
           }
-          chip.classList.add('is-active');
-          chip.setAttribute('aria-pressed', 'true');
-          apply();
-        });
+
+          if (empty) empty.hidden = count !== 0;
+          if (result) result.textContent = `Menampilkan ${count} studi kasus`;
+        },
       });
-
-      if (searchInput) {
-        searchInput.addEventListener('input', apply);
-        searchInput.addEventListener('search', apply);
-      }
-    } catch (e) {
+    } catch {
       /* Biarkan semua kartu tetap tampil bila skrip gagal. */
     }
-  })();
+  }
 </script>
 
 <style>

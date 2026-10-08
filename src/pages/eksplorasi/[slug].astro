@@ -6,6 +6,7 @@ import ExplorationBrief from '@/components/interactive/ExplorationBrief.astro';
 import { orderedExplorations } from '@/data/explorations';
 import { getTopic, topicSubject } from '@/data/topics';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { elementColor, DIFFICULTY_LABELS } from '@/data/display';
 import { url, topicUrl, absoluteUrl } from '@/utils/url';
 import { stripMarkdown } from '@/utils/markdown';
 import type { Exploration } from '@/types/content';
@@ -34,20 +35,7 @@ const topicHref = topic
   ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))
   : undefined;
 
-const elementAccents: Record<string, string> = {
-  bilangan: 'var(--color-number)',
-  'aljabar-fungsi': 'var(--color-algebra)',
-  geometri: 'var(--color-geometry)',
-  kalkulus: 'var(--color-calculus)',
-  'data-peluang': 'var(--color-data)',
-};
-const accent = e.element ? elementAccents[e.element] : 'var(--color-primary)';
-
-const levelLabels: Record<string, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
+const accent = elementColor(e.element);
 
 const descriptionBase = stripMarkdown(e.description);
 const goalText = e.goal ? stripMarkdown(e.goal) : '';
@@ -63,7 +51,7 @@ const crumbs = [
 const meta = [
   grade ? grade.name : '',
   element ? element.name : '',
-  e.level ? `Tingkat ${levelLabels[e.level] ?? e.level}` : '',
+  e.level ? `Tingkat ${DIFFICULTY_LABELS[e.level] ?? e.level}` : '',
   e.estimatedMinutes ? `± ${e.estimatedMinutes} menit` : '',
 ].filter(Boolean);
 

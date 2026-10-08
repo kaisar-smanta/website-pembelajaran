@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import CpCoverage from '@/components/content/CpCoverage.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { url } from '@/utils/url';
 
 const crumbs = [
@@ -133,19 +134,16 @@ const crumbs = [
 
   <section class="section-alt cta-section">
     <div class="container">
-      <div class="card cta-card card-accent hover-lift reveal">
-        <div class="cta-copy">
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2>Kenali penyusun dan peta materinya</h2>
-          <p class="text-muted">
-            Lihat kredit penyusunan, atau telusuri bagaimana setiap topik saling terhubung.
-          </p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/tentang')}>Tentang &amp; Kredit</a>
-          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Kenali penyusun dan peta materinya"
+        text="Lihat kredit penyusunan, atau telusuri bagaimana setiap topik saling terhubung."
+        reveal
+        actions={[
+          { label: 'Tentang & Kredit', href: url('/tentang'), variant: 'primary' },
+          { label: 'Peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'secondary' },
+        ]}
+      />
     </div>
   </section>
 </BaseLayout>
@@ -234,29 +232,5 @@ const crumbs = [
   }
   .cta-section {
     padding-block: 2.5rem;
-  }
-  .cta-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .cta-copy {
-    max-width: 46ch;
-  }
-  .cta-copy .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .cta-copy h2 {
-    margin-bottom: 0.35rem;
-  }
-  .cta-copy p {
-    margin: 0;
-  }
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 </style>

@@ -10,17 +10,10 @@ import RealWorldSection from '@/components/home/RealWorldSection.astro';
 import TrustSection from '@/components/home/TrustSection.astro';
 import FinalCta from '@/components/home/FinalCta.astro';
 import { resolveTopics, topicSubject } from '@/data/topics';
+import { FEATURED_TOPIC_IDS } from '@/data/display';
 import { absoluteUrl } from '@/utils/url';
 
-const featuredIds = [
-  'eksponen',
-  'fungsi-kuadrat',
-  'trigonometri',
-  'polinomial',
-  'turunan',
-  'vektor',
-];
-const featured = resolveTopics(featuredIds);
+const featured = resolveTopics(FEATURED_TOPIC_IDS);
 const featuredList = {
   '@type': 'ItemList',
   name: 'Topik pilihan Matematika dan Matematika Tingkat Lanjut SMA',

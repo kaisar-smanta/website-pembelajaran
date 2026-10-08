@@ -11,7 +11,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 const stepCount = block.steps.length;
 ---
 
-<figure class="itx steps" data-steps data-sid={storageId}>
+<figure class="itx steps" data-steps data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Contoh bertahap</span>
     <span class="itx-progress" data-steps-progress aria-live="polite">Langkah 1 dari {stepCount}</span>
@@ -157,6 +157,8 @@ const stepCount = block.steps.length;
 </style>
 
 <script>
+  import { emitInteraction } from '@/lib/interaction';
+
   function setupSteps(root: Element) {
     const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-step]'));
     const next = root.querySelector<HTMLButtonElement>('[data-steps-next]');
@@ -178,8 +180,8 @@ const stepCount = block.steps.length;
       next!.disabled = done;
       if (reset) reset.hidden = shown <= 1;
       if (done) {
-        const id = root.getAttribute('data-sid') ?? '';
-        window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'steps' } }));
+        const id = root.getAttribute('data-storage-id') ?? '';
+        emitInteraction(id, 'steps');
       }
     }
 

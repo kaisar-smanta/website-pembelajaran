@@ -4,6 +4,8 @@
  * dan aman dipanggil dari peramban.
  */
 
+import { readMap, writeMap } from './storage.ts';
+
 export interface Attempt {
   questionId: string;
   correct: boolean;
@@ -121,38 +123,25 @@ export function cloneProgress(map: ProgressMap): ProgressMap {
 }
 
 export function loadProgress(storage: Storage | undefined): ProgressMap {
-  if (!storage) return {};
-  try {
-    const raw = storage.getItem(STORAGE_KEY);
-    if (!raw) return {};
-    const parsed: unknown = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') return {};
-    const out: ProgressMap = {};
-    for (const [id, value] of Object.entries(parsed as Record<string, unknown>)) {
-      if (!value || typeof value !== 'object') continue;
-      const attempt = value as Partial<Attempt>;
-      if (typeof attempt.correct !== 'boolean') continue;
-      out[id] = {
+  return readMap(
+    STORAGE_KEY,
+    (value, id) => {
+      if (typeof value.correct !== 'boolean') return undefined;
+      const attempt: Attempt = {
         questionId: id,
-        correct: attempt.correct,
-        at: typeof attempt.at === 'number' ? attempt.at : 0,
-        graded: attempt.graded === false ? false : true,
+        correct: value.correct,
+        at: typeof value.at === 'number' ? value.at : 0,
+        graded: value.graded === false ? false : true,
       };
-      if (typeof attempt.selected === 'string') out[id].selected = attempt.selected;
-      if (typeof attempt.input === 'string') out[id].input = attempt.input;
-      if (attempt.revealed === true) out[id].revealed = true;
-    }
-    return out;
-  } catch {
-    return {};
-  }
+      if (typeof value.selected === 'string') attempt.selected = value.selected;
+      if (typeof value.input === 'string') attempt.input = value.input;
+      if (value.revealed === true) attempt.revealed = true;
+      return attempt;
+    },
+    storage,
+  );
 }
 
 export function saveProgress(storage: Storage | undefined, map: ProgressMap): void {
-  if (!storage) return;
-  try {
-    storage.setItem(STORAGE_KEY, JSON.stringify(map));
-  } catch {
-    /* penyimpanan penuh atau diblokir: abaikan */
-  }
+  writeMap(STORAGE_KEY, map, storage);
 }

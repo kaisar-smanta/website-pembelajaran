@@ -147,133 +147,98 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
   </p>
 </section>
 
-<script is:inline>
-  (function () {
-    try {
-      var root = document.querySelector('[data-ex-overview]');
-      if (!root) return;
+<script>
+  import { matchesAny, normalizeText } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
 
-      var chipGroups = Array.prototype.slice.call(root.querySelectorAll('[data-ex-chips]'));
-      var chips = Array.prototype.slice.call(root.querySelectorAll('[data-ex-filter]'));
-      var searchInput = document.querySelector('[data-ex-search-input]');
-      var result = document.querySelector('[data-ex-result]');
-      var empty = document.querySelector('[data-ex-empty]');
-      var items = Array.prototype.slice.call(document.querySelectorAll('[data-ex-item]'));
-      var panels = Array.prototype.slice.call(document.querySelectorAll('[data-ex-panel]'));
-      var labels = Array.prototype.slice.call(document.querySelectorAll('[data-ex-group]'));
-      var sections = Array.prototype.slice.call(document.querySelectorAll('[data-ex-section]'));
+  const root = document.querySelector<HTMLElement>('[data-ex-overview]');
 
-      if (!chips.length || !items.length) return;
+  if (root) {
+    const chipGroups = Array.from(root.querySelectorAll<HTMLElement>('[data-ex-chips]'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-ex-item]'));
 
-      function groupValue(group) {
-        var active = group.querySelector('[data-ex-filter].is-active');
-        return active ? active.getAttribute('data-ex-filter') : 'all';
-      }
+    if (chipGroups.length && items.length) {
+      const searchInput = document.querySelector<HTMLInputElement>('[data-ex-search-input]');
+      const result = document.querySelector<HTMLElement>('[data-ex-result]');
+      const empty = document.querySelector<HTMLElement>('[data-ex-empty]');
+      const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-ex-panel]'));
+      const labels = Array.from(document.querySelectorAll<HTMLElement>('[data-ex-group]'));
+      const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-ex-section]'));
 
-      function values() {
-        var map = {};
-        chipGroups.forEach(function (group) {
-          map[group.getAttribute('data-ex-chips')] = groupValue(group);
-        });
-        return map;
-      }
+      const selected = (value: string | undefined): Set<string> =>
+        value && value !== 'all' ? new Set([value]) : new Set();
 
-      function matches(el, v, q) {
-        if (v.grade && v.grade !== 'all' && (el.getAttribute('data-ex-grade') || '') !== v.grade) {
-          return false;
-        }
-        if (v.element && v.element !== 'all' && (el.getAttribute('data-ex-element') || '') !== v.element) {
-          return false;
-        }
-        if (v.level && v.level !== 'all' && (el.getAttribute('data-ex-level') || '') !== v.level) {
-          return false;
-        }
-        if (q && (el.getAttribute('data-ex-search') || '').indexOf(q) === -1) return false;
-        return true;
-      }
+      const matches = (
+        el: HTMLElement,
+        values: Record<string, string>,
+        query: string,
+      ): boolean =>
+        matchesAny(selected(values.grade), [el.getAttribute('data-ex-grade') ?? '']) &&
+        matchesAny(selected(values.element), [el.getAttribute('data-ex-element') ?? '']) &&
+        matchesAny(selected(values.level), [el.getAttribute('data-ex-level') ?? '']) &&
+        (query === '' || normalizeText(el.getAttribute('data-ex-search') ?? '').includes(query));
 
-      function apply() {
-        var v = values();
-        var q = searchInput ? searchInput.value.trim().toLowerCase() : '';
-        var visibleByGrade = {};
-        var count = 0;
+      try {
+        root.classList.add('js-ready');
 
-        items.forEach(function (item) {
-          var match = matches(item, v, q);
-          item.hidden = !match;
-          if (match) {
-            count += 1;
-            var grade = item.getAttribute('data-ex-grade') || '';
-            visibleByGrade[grade] = (visibleByGrade[grade] || 0) + 1;
-            var card = item.querySelector('.reveal');
-            if (card) card.classList.add('is-visible');
-          }
-        });
+        setupFilterPage({
+          groups: chipGroups.map((group) => ({
+            key: group.getAttribute('data-ex-chips') ?? '',
+            group,
+            chipSelector: '[data-ex-filter]',
+            valueAttr: 'data-ex-filter',
+            activeClass: 'is-active',
+            allValue: 'all',
+          })),
+          searchInput,
+          apply: (values, query) => {
+            const q = normalizeText(query);
+            const visibleByGrade: Record<string, number> = {};
+            let count = 0;
 
-        panels.forEach(function (panel) {
-          var match = matches(panel, v, q);
-          panel.hidden = !match;
-          if (match) panel.classList.add('is-visible');
-        });
-
-        sections.forEach(function (section) {
-          var any = false;
-          var sectionPanels = section.querySelectorAll('[data-ex-panel]');
-          for (var i = 0; i < sectionPanels.length; i++) {
-            if (!sectionPanels[i].hidden) {
-              any = true;
-              break;
+            for (const item of items) {
+              const show = matches(item, values, q);
+              item.hidden = !show;
+              if (show) {
+                count += 1;
+                const grade = item.getAttribute('data-ex-grade') ?? '';
+                visibleByGrade[grade] = (visibleByGrade[grade] ?? 0) + 1;
+                item.querySelector('.reveal')?.classList.add('is-visible');
+              }
             }
-          }
-          section.hidden = !any;
-        });
 
-        labels.forEach(function (label) {
-          var grade = label.getAttribute('data-ex-group') || '';
-          label.hidden = !visibleByGrade[grade];
-        });
-
-        chipGroups.forEach(function (group) {
-          var value = groupValue(group);
-          var groupChips = group.querySelectorAll('[data-ex-filter]');
-          for (var i = 0; i < groupChips.length; i++) {
-            var active = groupChips[i].getAttribute('data-ex-filter') === value;
-            groupChips[i].classList.toggle('is-active', active);
-            groupChips[i].setAttribute('aria-pressed', active ? 'true' : 'false');
-          }
-        });
-
-        if (empty) empty.hidden = count !== 0;
-        if (result) result.textContent = 'Menampilkan ' + count + ' eksplorasi';
-      }
-
-      chips.forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          var group = chip.closest('[data-ex-chips]');
-          if (group) {
-            var groupChips = group.querySelectorAll('[data-ex-filter]');
-            for (var i = 0; i < groupChips.length; i++) {
-              groupChips[i].classList.remove('is-active');
-              groupChips[i].setAttribute('aria-pressed', 'false');
+            for (const panel of panels) {
+              const show = matches(panel, values, q);
+              panel.hidden = !show;
+              if (show) panel.classList.add('is-visible');
             }
-          }
-          chip.classList.add('is-active');
-          chip.setAttribute('aria-pressed', 'true');
-          apply();
+
+            for (const section of sections) {
+              let any = false;
+              const sectionPanels = section.querySelectorAll<HTMLElement>('[data-ex-panel]');
+              for (const panel of sectionPanels) {
+                if (!panel.hidden) {
+                  any = true;
+                  break;
+                }
+              }
+              section.hidden = !any;
+            }
+
+            for (const label of labels) {
+              const grade = label.getAttribute('data-ex-group') ?? '';
+              label.hidden = !visibleByGrade[grade];
+            }
+
+            if (empty) empty.hidden = count !== 0;
+            if (result) result.textContent = `Menampilkan ${count} eksplorasi`;
+          },
         });
-      });
-
-      if (searchInput) {
-        searchInput.addEventListener('input', apply);
-        searchInput.addEventListener('search', apply);
+      } catch {
+        root.classList.remove('js-ready');
       }
-
-      root.classList.add('js-ready');
-    } catch (e) {
-      var fallback = document.querySelector('[data-ex-overview]');
-      if (fallback) fallback.classList.remove('js-ready');
     }
-  })();
+  }
 </script>
 
 <style>

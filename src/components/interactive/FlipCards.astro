@@ -10,7 +10,7 @@ const { block, storageId } = Astro.props;
 const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 ---
 
-<figure class="itx flip" data-flip data-fid={storageId}>
+<figure class="itx flip" data-flip data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Kartu istilah</span>
     <span class="itx-hint">Klik kartu untuk membalik dan melihat maknanya.</span>
@@ -142,8 +142,10 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 </style>
 
 <script>
+  import { emitInteraction } from '@/lib/interaction';
+
   function setupFlip(root: Element) {
-    const id = root.getAttribute('data-fid') ?? '';
+    const id = root.getAttribute('data-storage-id') ?? '';
     const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-flip-btn]'));
     const reset = root.querySelector<HTMLButtonElement>('[data-flip-reset]');
 
@@ -152,7 +154,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
         const open = btn.getAttribute('aria-pressed') === 'true';
         btn.setAttribute('aria-pressed', String(!open));
         if (!open) {
-          window.dispatchEvent(new CustomEvent('mtk:interaction', { detail: { id, kind: 'flip' } }));
+          emitInteraction(id, 'flip');
         }
       });
     });

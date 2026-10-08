@@ -372,13 +372,6 @@ function formatDate(iso: string): string {
     background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface-2));
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .cp-coverage.is-compact summary.cp-phase-head,
-    .cp-coverage.is-compact summary.cp-phase-head::after {
-      transition: none;
-    }
-  }
-
   @media (max-width: 30rem) {
     .cp-elements {
       grid-template-columns: 1fr;

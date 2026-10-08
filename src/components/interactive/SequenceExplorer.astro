@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -45,7 +46,7 @@ const { exploration } = Astro.props;
       role="img"
       aria-label="Grafik batang nilai suku dan garis jumlah kumulatif barisan"
       data-chart></svg>
-    <div class="legend">
+    <div class="legend sim-legend">
       <span class="l1">Nilai suku (Un)</span>
       <span class="l2">Jumlah sampai suku ke-n (Sn)</span>
     </div>
@@ -65,13 +66,6 @@ const { exploration } = Astro.props;
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-head h3 {
     margin: 0 0 0.75rem;
     font-size: 1.1rem;
@@ -124,16 +118,6 @@ const { exploration } = Astro.props;
     color: var(--color-text-muted);
     margin: 0.4rem 0 0;
   }
-  .legend span::before {
-    content: '';
-    display: inline-block;
-    width: 0.8rem;
-    height: 0.18rem;
-    border-radius: 2px;
-    background: currentColor;
-    margin-right: 0.35rem;
-    vertical-align: middle;
-  }
   .legend .l1 {
     color: var(--color-primary);
   }
@@ -148,23 +132,6 @@ const { exploration } = Astro.props;
     display: grid;
     gap: 0.4rem;
     margin-top: 0.85rem;
-  }
-  .sim-readout :global(.stat) {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.45rem 0.7rem;
-    background: var(--color-surface-2);
-    border-radius: var(--radius-sm);
-    font-size: 0.92rem;
-  }
-  .sim-readout :global(.stat span) {
-    color: var(--color-text-muted);
-  }
-  .sim-readout :global(.stat strong) {
-    font-family: var(--font-mono);
-    color: var(--color-primary);
-    text-align: right;
   }
   table.urut {
     width: 100%;
@@ -199,14 +166,6 @@ const { exploration } = Astro.props;
   table.urut :global(tbody tr:nth-child(even)) {
     background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
   }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
-  }
   @media (prefers-reduced-motion: reduce) {
     .sequence-sim .sim-chart svg rect,
     .sequence-sim .sim-chart svg circle {
@@ -217,16 +176,15 @@ const { exploration } = Astro.props;
 
 <script>
   import { sequenceTerms } from '../../lib/sim/sequence';
+  import { el, clear, clamp, linearScale, polyline } from '../../lib/dom';
+  import { formatId } from '../../lib/format';
 
-  const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
-  const fmt = (v: number) => angka.format(Number.isFinite(v) ? v : 0);
   const subDigits = '₀₁₂₃₄₅₆₇₈₉';
   const sub = (num: number) =>
     String(num)
       .split('')
       .map((c) => subDigits[Number(c)] ?? c)
       .join('');
-  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
   function setupSequence(root: Element) {
     const select = root.querySelector('[data-field="jenis"]') as HTMLSelectElement;
@@ -241,26 +199,21 @@ const { exploration } = Astro.props;
     const caption = root.querySelector('[data-caption]') as HTMLElement;
     const reset = root.querySelector('[data-sequence-reset]') as HTMLButtonElement;
 
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const el = (name: string, attrs: Record<string, string | number>) => {
-      const node = document.createElementNS(svgNS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    };
-
     function drawChart(values: number[], totals: number[], n: number) {
       const W = 480;
       const H = 260;
       const pad = 34;
-      while (chart.firstChild) chart.removeChild(chart.firstChild);
+      clear(chart);
 
       const all = values.concat(totals);
       let yMax = Math.max(...all, 0);
       let yMin = Math.min(...all, 0);
       if (yMax === yMin) yMax = yMin + 1;
 
-      const xAt = (i: number) => pad + ((i + 0.5) / n) * (W - 2 * pad);
-      const yAt = (v: number) => H - pad - ((v - yMin) / (yMax - yMin)) * (H - 2 * pad);
+      const { sx: xAt, sy: yAt } = linearScale(
+        { xMin: -0.5, xMax: n - 0.5, yMin, yMax },
+        { width: W, height: H, pad },
+      );
 
       for (let i = 0; i <= 4; i++) {
         const y = pad + (i / 4) * (H - 2 * pad);
@@ -289,10 +242,7 @@ const { exploration } = Astro.props;
         );
       });
 
-      let d = '';
-      totals.forEach((v, i) => {
-        d += `${i === 0 ? 'M' : 'L'}${xAt(i).toFixed(1)} ${yAt(v).toFixed(1)} `;
-      });
+      const d = polyline(totals.map((v, i): [number, number] => [xAt(i), yAt(v)]));
       chart.appendChild(
         el('path', { d, fill: 'none', stroke: 'var(--color-data)', 'stroke-width': 2.6, 'stroke-linejoin': 'round' }),
       );
@@ -329,18 +279,18 @@ const { exploration } = Astro.props;
 
       if (jenis === 'aritmetika') {
         rumusUn = 'Uₙ = a + (n − 1)·b';
-        hitungUn = `${fmt(a)} + ${fmt(n - 1)}·${fmt(b)} = ${fmt(un)}`;
+        hitungUn = `${formatId(a)} + ${formatId(n - 1)}·${formatId(b)} = ${formatId(un)}`;
         rumusSn = 'Sₙ = n/2 · (2a + (n − 1)·b)';
-        hitungSn = `${fmt(n)}/2 · (2·${fmt(a)} + ${fmt(n - 1)}·${fmt(b)}) = ${fmt(sn)}`;
+        hitungSn = `${formatId(n)}/2 · (2·${formatId(a)} + ${formatId(n - 1)}·${formatId(b)}) = ${formatId(sn)}`;
       } else {
         rumusUn = 'Uₙ = a · r^(n − 1)';
-        hitungUn = `${fmt(a)} · ${fmt(b)}^${n - 1} = ${fmt(un)}`;
+        hitungUn = `${formatId(a)} · ${formatId(b)}^${n - 1} = ${formatId(un)}`;
         if (b === 1) {
           rumusSn = 'Sₙ = n · a';
-          hitungSn = `${fmt(n)} · ${fmt(a)} = ${fmt(sn)}`;
+          hitungSn = `${formatId(n)} · ${formatId(a)} = ${formatId(sn)}`;
         } else {
           rumusSn = 'Sₙ = a(rⁿ − 1)/(r − 1)';
-          hitungSn = `${fmt(a)}(${fmt(b)}^${n} − 1)/(${fmt(b)} − 1) = ${fmt(sn)}`;
+          hitungSn = `${formatId(a)}(${formatId(b)}^${n} − 1)/(${formatId(b)} − 1) = ${formatId(sn)}`;
         }
       }
 
@@ -359,17 +309,17 @@ const { exploration } = Astro.props;
         th.setAttribute('scope', 'row');
         th.textContent = `U${sub(i + 1)}`;
         const tdNilai = document.createElement('td');
-        tdNilai.textContent = fmt(terms[i]);
+        tdNilai.textContent = formatId(terms[i]);
         const tdJumlah = document.createElement('td');
-        tdJumlah.textContent = fmt(sums[i]);
+        tdJumlah.textContent = formatId(sums[i]);
         tr.append(th, tdNilai, tdJumlah);
         tbody.appendChild(tr);
       }
-      caption.textContent = `Nilai ${fmt(n)} suku pertama dan jumlah kumulatifnya`;
+      caption.textContent = `Nilai ${formatId(n)} suku pertama dan jumlah kumulatifnya`;
 
       chart.setAttribute(
         'aria-label',
-        `Grafik batang nilai ${fmt(n)} suku dan garis jumlah kumulatif barisan ${jenis}`,
+        `Grafik batang nilai ${formatId(n)} suku dan garis jumlah kumulatif barisan ${jenis}`,
       );
       drawChart(terms, sums, n);
     }

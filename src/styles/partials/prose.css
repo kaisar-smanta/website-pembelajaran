@@ -1,0 +1,67 @@
+
+/* ---------- Prose (materi) ---------- */
+.prose {
+  font-size: 1.02rem;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.prose > * + * {
+  margin-top: 0.85rem;
+}
+.prose h2,
+.prose h3 {
+  margin-top: 1.75rem;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+.prose li {
+  margin-bottom: 0.35rem;
+}
+.prose blockquote {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-surface-2);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--color-text-muted);
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 1rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+  vertical-align: middle;
+}
+.prose th {
+  background: var(--color-surface-2);
+  font-weight: 700;
+}
+.prose img {
+  border-radius: var(--radius);
+}
+
+/* ---------- Math ---------- */
+.katex {
+  font-size: 1.05em;
+}
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0.1rem;
+  margin: 0.75rem 0;
+}
+.katex-display > .katex {
+  font-size: 1.12em;
+}
+.math-cell {
+  white-space: nowrap;
+}

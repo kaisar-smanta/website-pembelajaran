@@ -32,8 +32,3 @@ export function equals(A: Matrix2, B: Matrix2): boolean {
     A[1][1] === B[1][1]
   );
 }
-
-/** Mengubah matriks menjadi teks ringkas, mis. "[[1, 2], [3, 4]]". */
-export function formatMatrix(A: Matrix2): string {
-  return `[[${A[0][0]}, ${A[0][1]}], [${A[1][0]}, ${A[1][1]}]]`;
-}

@@ -1,4 +1,5 @@
 ---
+import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 
@@ -54,7 +55,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
         ? 'Grafik penurunan sisa pinjaman dari bulan ke bulan'
         : 'Grafik perbandingan saldo bunga tunggal dan bunga majemuk per tahun'}
       data-chart></svg>
-    <div class="legend" data-legend></div>
+    <div class="legend sim-legend" data-legend></div>
   </div>
 
   <div class="table-scroll">
@@ -69,13 +70,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
 </figure>
 
 <style>
-  .sim {
-    margin: 1.25rem 0;
-    padding: 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-  }
   .sim-head h3 {
     margin: 0 0 0.75rem;
     font-size: 1.1rem;
@@ -155,16 +149,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     color: var(--color-text-muted);
     margin: 0.4rem 0 0.6rem;
   }
-  .legend :global(span)::before {
-    content: '';
-    display: inline-block;
-    width: 0.8rem;
-    height: 0.18rem;
-    border-radius: 2px;
-    background: currentColor;
-    margin-right: 0.35rem;
-    vertical-align: middle;
-  }
   .legend :global(.l1) {
     color: var(--color-primary);
   }
@@ -201,14 +185,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
   table.amort :global(tbody tr:nth-child(even)) {
     background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
   }
-  .sim-caption {
-    margin-top: 0.6rem;
-    font-size: 0.86rem;
-    color: var(--color-text-muted);
-  }
-  .sim-caption :global(> *:last-child) {
-    margin-bottom: 0;
-  }
   .sim-field select {
     cursor: pointer;
   }
@@ -233,9 +209,10 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     annuityPayment,
     annuityTotalInterest,
   } from '../../lib/sim/compound-interest';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { formatId } from '../../lib/format';
 
   const rupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
-  const angka = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
 
   function setupFinance(root: Element) {
     const mode = root.getAttribute('data-mode') ?? 'bunga';
@@ -249,13 +226,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     const chart = root.querySelector('[data-chart]') as SVGSVGElement;
     const legend = root.querySelector('[data-legend]') as HTMLElement;
     const reset = root.querySelector('[data-finance-reset]') as HTMLButtonElement;
-
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const el = (name: string, attrs: Record<string, string | number>) => {
-      const node = document.createElementNS(svgNS, name);
-      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-      return node;
-    };
 
     function render() {
       const p = Math.max(0, Number(P.value) || 0);
@@ -282,7 +252,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       addStat(summary, 'Saldo akhir (bunga tunggal)', rupiah.format(lastSimple));
       addStat(summary, 'Saldo akhir (bunga majemuk)', rupiah.format(lastComp));
       addStat(summary, 'Selisih', rupiah.format(lastComp - lastSimple));
-      addStat(summary, 'Efektif / tahun', `${angka.format(effective * 100)}%`);
+      addStat(summary, 'Efektif / tahun', `${formatId(effective * 100)}%`);
 
       const note = document.createElement('p');
       note.className = 'sim-note';
@@ -315,7 +285,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       addStat(summary, 'Angsuran per bulan', rupiah.format(A));
       addStat(summary, 'Total pembayaran', rupiah.format(total));
       addStat(summary, 'Total bunga', rupiah.format(totalInterest));
-      addStat(summary, 'Suku bunga per bulan', `${angka.format(r * 100)}%`);
+      addStat(summary, 'Suku bunga per bulan', `${formatId(r * 100)}%`);
 
       thead.innerHTML = `<tr><th scope="col">Bulan</th><th scope="col">Angsuran</th><th scope="col">Pokok</th><th scope="col">Bunga</th><th scope="col">Sisa pinjaman</th></tr>`;
       tbody.innerHTML = '';
@@ -362,13 +332,15 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       const W = 480;
       const H = 260;
       const pad = 34;
-      while (chart.firstChild) chart.removeChild(chart.firstChild);
+      clear(chart);
       const all = series.flatMap((s) => s.values);
       const yMax = Math.max(...all, 1);
       const yMin = Math.min(...all, 0);
       const maxLen = Math.max(...series.map((s) => s.values.length - 1), 1);
-      const sx = (t: number) => pad + (t / maxLen) * (W - 2 * pad);
-      const sy = (y: number) => H - pad - ((y - yMin) / (yMax - yMin || 1)) * (H - 2 * pad);
+      const { sx, sy } = linearScale(
+        { xMin: 0, xMax: maxLen, yMin, yMax },
+        { width: W, height: H, pad },
+      );
 
       for (let i = 0; i <= 6; i++) {
         const y = pad + (i / 6) * (H - 2 * pad);
@@ -377,10 +349,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       chart.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.4 }));
 
       for (const s of series) {
-        let d = '';
-        s.values.forEach((v, t) => {
-          d += `${t === 0 ? 'M' : 'L'}${sx(t).toFixed(1)} ${sy(v).toFixed(1)} `;
-        });
+        const d = polyline(s.values.map((v, t): [number, number] => [sx(t), sy(v)]));
         chart.appendChild(el('path', { d, fill: 'none', stroke: s.color, 'stroke-width': 2.6, 'stroke-linejoin': 'round' }));
         s.values.forEach((v, t) => {
           if (t % Math.ceil(maxLen / 12) === 0 || t === maxLen) {
