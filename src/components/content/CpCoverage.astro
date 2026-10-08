@@ -1,8 +1,8 @@
 ---
 import type { Phase } from '@/types/content';
-import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { ELEMENTS, ALL_ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { activeRegulation, cpStatementsByPhase, getRegulation } from '@/data/curriculum/cp';
-import { resolveTopics } from '@/data/topics';
+import { resolveTopics, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 
@@ -21,7 +21,7 @@ const phases: Phase[] = ['E', 'F'];
 const groups = phases.map((phase) => {
   const statements = cpStatementsByPhase(phase);
   const grades = GRADE_ORDER.filter((grade) => GRADES[grade].phase === phase);
-  const elements = ELEMENT_ORDER.map((element) => ({
+  const elements = ALL_ELEMENT_ORDER.map((element) => ({
     element,
     statements: statements.filter((s) => s.element === element),
   })).filter((group) => group.statements.length > 0);
@@ -114,7 +114,7 @@ function formatDate(iso: string): string {
                           <ul class="cp-topics" aria-label="Topik terkait">
                             {topicList.map((topicItem) => (
                               <li>
-                                <a href={topicUrl(topicItem.grade, topicItem.element, topicItem.slug)}>
+                                <a href={topicUrl(topicItem.grade, topicItem.element, topicItem.slug, topicSubject(topicItem))}>
                                   {topicItem.title}
                                 </a>
                               </li>

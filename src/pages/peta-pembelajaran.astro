@@ -8,7 +8,13 @@ import ElementCoverage from '@/components/content/ElementCoverage.astro';
 import CpCoverage from '@/components/content/CpCoverage.astro';
 import MapLegend from '@/components/content/MapLegend.astro';
 import PrerequisiteGraph from '@/components/content/PrerequisiteGraph.astro';
-import { ELEMENTS, ELEMENT_ORDER, GRADE_ORDER } from '@/data/curriculum';
+import {
+  ALL_ELEMENT_ORDER,
+  ELEMENTS,
+  SUBJECTS,
+  SUBJECT_ORDER,
+  gradesFor,
+} from '@/data/curriculum';
 import { topics, plannedTopics } from '@/data/topics';
 import { learningPaths } from '@/data/learning-paths';
 import {
@@ -79,16 +85,16 @@ const meta = [
       <div class="applications-strip card reveal" data-reveal>
         <span class="strip-label">Penerapan</span>
         {
-          ELEMENT_ORDER.map((id) => {
+          ALL_ELEMENT_ORDER.map((id) => {
             const category = applicationCategoryOrder.find(
               (cat) => applicationCategories[cat].element === id,
             );
             const count = applications.filter((a) => a.element === id).length;
-            if (!category || count === 0) return null;
+            if (count === 0) return null;
             return (
               <a
                 class:list={['strip-item', `accent-${id}`]}
-                href={`${url('/aplikasi')}#c-${category}`}
+                href={category ? `${url('/aplikasi')}#c-${category}` : url('/aplikasi')}
                 aria-label={`${count} studi kasus ${ELEMENTS[id].name}`}
               >
                 <span class="strip-count">{count}</span>
@@ -105,7 +111,7 @@ const meta = [
             Semua
           </button>
           {
-            ELEMENT_ORDER.map((id) => (
+            ALL_ELEMENT_ORDER.map((id) => (
               <button type="button" class="topic-chip" data-map-filter={id} aria-pressed="false">
                 {ELEMENTS[id].short}
               </button>
@@ -127,7 +133,16 @@ const meta = [
       </div>
       <p class="map-status text-soft" aria-live="polite" data-map-status></p>
 
-      {GRADE_ORDER.map((grade, gi) => <ElementCoverage grade={grade} delay={gi * 60} />)}
+      {
+        SUBJECT_ORDER.map((subject) => (
+          <div class="subject-coverage">
+            <h3 class="subject-coverage-title">{SUBJECTS[subject].name}</h3>
+            {gradesFor(subject).map((grade, gi) => (
+              <ElementCoverage grade={grade} subject={subject} delay={gi * 60} />
+            ))}
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -164,7 +179,7 @@ const meta = [
           </p>
         </div>
         <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/kelas/X')}>Mulai dari Kelas X</a>
+          <a class="btn btn-primary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
           <a class="btn btn-secondary" href={url('/latihan')}>Latihan berjenjang</a>
         </div>
       </div>
@@ -383,6 +398,16 @@ const meta = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .subject-coverage + .subject-coverage {
+    margin-top: 2.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .subject-coverage-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
   }
 
   .block,

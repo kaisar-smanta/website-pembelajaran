@@ -6,14 +6,14 @@ import Callout from '@/components/content/Callout.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { url } from '@/utils/url';
 import { toolGroups } from '@/data/tools';
-import type { ElementId } from '@/types/content';
+import { ALL_ELEMENT_ORDER } from '@/data/curriculum';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Alat Matematika' },
 ];
 
-const accentElements: ElementId[] = ['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang'];
+const accentElements = ALL_ELEMENT_ORDER;
 const totalTools = toolGroups.reduce((sum, group) => sum + group.tools.length, 0);
 const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
 ---
@@ -87,7 +87,7 @@ const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
         </div>
         <div class="cta-actions">
           <a class="btn btn-primary" href={url('/eksplorasi')}>Jelajahi eksplorasi</a>
-          <a class="btn btn-secondary" href={url('/kelas/X')}>Mulai dari Kelas X</a>
+          <a class="btn btn-secondary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
         </div>
       </div>
     </div>

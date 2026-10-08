@@ -9,7 +9,7 @@ import {
   applicationCategories,
   applicationCategoryOrder,
 } from '@/data/applications';
-import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { ELEMENTS, ALL_ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { url } from '@/utils/url';
 import type { Difficulty } from '@/types/content';
 
@@ -43,7 +43,7 @@ const gradeChips = GRADE_ORDER.map((grade) => ({
   count: applications.filter((a) => a.grade === grade).length,
 })).filter((c) => c.count > 0);
 
-const elementChips = ELEMENT_ORDER.map((id) => ({
+const elementChips = ALL_ELEMENT_ORDER.map((id) => ({
   id,
   label: ELEMENTS[id].short,
   count: applications.filter((a) => a.element === id).length,

@@ -1,6 +1,6 @@
 ---
 import type { Difficulty, ElementId, Exploration, Grade } from '@/types/content';
-import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
+import { ELEMENTS, ALL_ELEMENT_ORDER } from '@/data/curriculum';
 import type { GradeMeta } from '@/data/curriculum';
 import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
 
@@ -20,7 +20,7 @@ const levelLabels: Record<Difficulty, string> = {
 };
 const levelOrder: Difficulty[] = ['dasar', 'cakap', 'mahir'];
 
-const elementChips: Array<{ id: ElementId; label: string; count: number }> = ELEMENT_ORDER.map(
+const elementChips: Array<{ id: ElementId; label: string; count: number }> = ALL_ELEMENT_ORDER.map(
   (id) => ({
     id,
     label: ELEMENTS[id].short,

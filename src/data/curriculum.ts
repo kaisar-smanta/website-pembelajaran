@@ -1,4 +1,4 @@
-import type { ElementId, Grade, Phase } from '@/types/content';
+import type { ElementId, Grade, Phase, SubjectId } from '@/types/content';
 
 export interface ElementMeta {
   id: ElementId;
@@ -47,14 +47,115 @@ export const ELEMENTS: Record<ElementId, ElementMeta> = {
     icon: 'data',
     accent: 'element-data',
   },
+  kalkulus: {
+    id: 'kalkulus',
+    name: 'Kalkulus',
+    short: 'Kalkulus',
+    description:
+      'Laju perubahan dan turunan, penerapan turunan untuk gradien, garis singgung, kecepatan, dan optimasi, serta integral sebagai kebalikan turunan dan penghitung luas.',
+    icon: 'calculus',
+    accent: 'element-calculus',
+  },
 };
 
+/** Urutan elemen untuk mata pelajaran Matematika (wajib). */
 export const ELEMENT_ORDER: ElementId[] = [
   'bilangan',
   'aljabar-fungsi',
   'geometri',
   'data-peluang',
 ];
+
+/** Seluruh elemen lintas mata pelajaran (termasuk Kalkulus). */
+export const ALL_ELEMENT_ORDER: ElementId[] = [
+  'bilangan',
+  'aljabar-fungsi',
+  'geometri',
+  'kalkulus',
+  'data-peluang',
+];
+
+export interface SubjectMeta {
+  id: SubjectId;
+  name: string;
+  short: string;
+  description: string;
+  /** Fase yang dicakup. */
+  phases: Phase[];
+  /** Kelas yang dicakup. */
+  grades: Grade[];
+  /** Urutan elemen khas mata pelajaran ini. */
+  elements: ElementId[];
+  /** Mata pelajaran pilihan (bukan wajib). */
+  elective: boolean;
+  /** Alokasi jam pelajaran (JP) total bila diketahui dari regulasi. */
+  hours?: number;
+  accent: string;
+  /**
+   * Deskripsi kelas khas mata pelajaran ini. Bila kosong, dipakai deskripsi
+   * umum pada `GRADES` (yang disusun untuk Matematika).
+   */
+  gradeDescriptions?: Partial<Record<Grade, string>>;
+}
+
+/**
+ * Dua mata pelajaran yang didukung situs. Matematika Lanjut (Matematika
+ * Tingkat Lanjut) hanya ada pada Fase F (Kelas XI–XII) dan tidak memuat elemen
+ * Bilangan, tetapi menambah elemen Kalkulus.
+ */
+export const SUBJECTS: Record<SubjectId, SubjectMeta> = {
+  matematika: {
+    id: 'matematika',
+    name: 'Matematika',
+    short: 'Matematika',
+    description:
+      'Mata pelajaran wajib Fase E–F: bilangan, aljabar dan fungsi, geometri, serta analisis data dan peluang.',
+    phases: ['E', 'F'],
+    grades: ['X', 'XI', 'XII'],
+    elements: ['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang'],
+    elective: false,
+    accent: 'subject-matematika',
+  },
+  'matematika-lanjut': {
+    id: 'matematika-lanjut',
+    name: 'Matematika Tingkat Lanjut',
+    short: 'Mat. Lanjut',
+    description:
+      'Mata pelajaran pilihan Fase F untuk memperkuat abstraksi dan menyiapkan bidang STEM: polinomial, matriks dan transformasi geometri, trigonometri lanjut, vektor, irisan kerucut, turunan, integral, serta variabel acak diskret.',
+    phases: ['F'],
+    grades: ['XI', 'XII'],
+    elements: ['aljabar-fungsi', 'geometri', 'kalkulus', 'data-peluang'],
+    elective: true,
+    hours: 800,
+    accent: 'subject-lanjut',
+    gradeDescriptions: {
+      XI: 'Penguatan abstraksi: polinomial, matriks dan transformasi geometri, trigonometri lanjut, vektor, serta irisan kerucut.',
+      XII: 'Kalkulus dan peluang lanjutan: turunan, penerapannya, integral, serta variabel acak diskret untuk bidang STEM.',
+    },
+  },
+};
+
+export const SUBJECT_ORDER: SubjectId[] = ['matematika', 'matematika-lanjut'];
+
+/** Urutan elemen untuk suatu mata pelajaran. */
+export function elementOrderFor(subject: SubjectId): ElementId[] {
+  return SUBJECTS[subject].elements;
+}
+
+/** Kelas yang dicakup suatu mata pelajaran. */
+export function gradesFor(subject: SubjectId): Grade[] {
+  return SUBJECTS[subject].grades;
+}
+
+/** Fase yang dicakup suatu mata pelajaran. */
+export function phasesFor(subject: SubjectId): Phase[] {
+  return SUBJECTS[subject].phases;
+}
+
+/** Mata pelajaran sebuah entri; entri lama tanpa penanda dianggap Matematika. */
+export function subjectOf(entry: { subject?: SubjectId } | undefined): SubjectId {
+  return entry?.subject ?? 'matematika';
+}
 
 export interface GradeMeta {
   id: Grade;
@@ -97,5 +198,6 @@ export const ELEMENT_LABELS: Record<ElementId, string> = {
   bilangan: 'Bilangan',
   'aljabar-fungsi': 'Aljabar dan Fungsi',
   geometri: 'Geometri',
+  kalkulus: 'Kalkulus',
   'data-peluang': 'Analisis Data dan Peluang',
 };

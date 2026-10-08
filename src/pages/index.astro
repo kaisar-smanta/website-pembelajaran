@@ -4,12 +4,13 @@ import Hero from '@/components/home/Hero.astro';
 import MethodSection from '@/components/home/MethodSection.astro';
 import PracticeSection from '@/components/home/PracticeSection.astro';
 import BrowseSection from '@/components/home/BrowseSection.astro';
+import SubjectDoors from '@/components/home/SubjectDoors.astro';
 import TopicsSection from '@/components/home/TopicsSection.astro';
 import ExplorationSection from '@/components/home/ExplorationSection.astro';
 import RealWorldSection from '@/components/home/RealWorldSection.astro';
 import TrustSection from '@/components/home/TrustSection.astro';
 import FinalCta from '@/components/home/FinalCta.astro';
-import { resolveTopics } from '@/data/topics';
+import { resolveTopics, topicSubject } from '@/data/topics';
 import { absoluteUrl } from '@/utils/url';
 
 const featuredIds = [
@@ -28,7 +29,7 @@ const featuredList = {
     '@type': 'ListItem',
     position: i + 1,
     name: topic.title,
-    url: absoluteUrl(`kelas/${topic.grade}/${topic.element}/${topic.slug}`),
+    url: absoluteUrl(`${topicSubject(topic)}/kelas/${topic.grade}/${topic.element}/${topic.slug}`),
   })),
 };
 ---
@@ -40,6 +41,7 @@ const featuredList = {
 >
   <Hero />
   <MethodSection />
+  <SubjectDoors />
   <PracticeSection />
   <BrowseSection />
   <TopicsSection />

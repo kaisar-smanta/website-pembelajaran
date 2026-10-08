@@ -532,6 +532,140 @@ const EXTRA_BLOCKS: Record<string, ExtraBlock[]> = {
       },
     },
   ],
+  // ---------------- Matematika Tingkat Lanjut ----------------
+  polinomial: [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'match',
+        intro: 'Cocokkan teorema polinomial dengan maknanya.',
+        pairs: [
+          { left: 'Teorema sisa', right: 'Sisa bagi $P(x)$ oleh $(x-k)$ adalah $P(k)$' },
+          { left: 'Teorema faktor', right: '$(x-k)$ faktor $P(x)$ jika dan hanya jika $P(k)=0$' },
+          { left: 'Skema Horner', right: 'Cara efisien membagi polinomial oleh $(x-k)$' },
+          { left: 'Derajat hasil bagi', right: 'Derajat $P$ dikurangi derajat pembagi' },
+        ],
+      },
+    },
+  ],
+  'matriks-transformasi': [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'match',
+        intro: 'Cocokkan transformasi dengan matriksnya.',
+        pairs: [
+          { left: 'Rotasi $90^\\circ$ berlawanan arah jarum jam', right: '$\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$' },
+          { left: 'Refleksi terhadap sumbu-$x$', right: '$\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$' },
+          { left: 'Dilatasi faktor $k$', right: '$\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}$' },
+          { left: 'Refleksi terhadap garis $y=x$', right: '$\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$' },
+        ],
+      },
+    },
+  ],
+  'trigonometri-lanjut': [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'match',
+        intro: 'Pasangkan identitas dan aturan trigonometri dengan bentuknya.',
+        pairs: [
+          { left: '$\\sin(A+B)$', right: '$\\sin A\\cos B+\\cos A\\sin B$' },
+          { left: '$\\cos 2A$', right: '$\\cos^{2}A-\\sin^{2}A$' },
+          { left: 'Aturan sinus', right: '$\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$' },
+          { left: 'Aturan cosinus', right: '$a^{2}=b^{2}+c^{2}-2bc\\cos A$' },
+        ],
+      },
+    },
+  ],
+  vektor: [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'match',
+        intro: 'Cocokkan operasi vektor dengan hasilnya.',
+        pairs: [
+          { left: 'Perkalian titik', right: '$\\vec{a}\\cdot\\vec{b}=\\lvert\\vec{a}\\rvert\\,\\lvert\\vec{b}\\rvert\\cos\\theta$' },
+          { left: 'Vektor satuan', right: '$\\hat{a}=\\dfrac{\\vec{a}}{\\lvert\\vec{a}\\rvert}$' },
+          { left: 'Tegak lurus', right: '$\\vec{a}\\cdot\\vec{b}=0$' },
+          { left: 'Kolinear', right: '$\\vec{a}=k\\vec{b}$ untuk skalar $k$' },
+        ],
+      },
+    },
+  ],
+  'irisan-kerucut': [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'flip-cards',
+        intro: 'Uji ingatanmu tentang unsur elips.',
+        cards: [
+          { front: 'Sumbu mayor', back: 'Ruas terpanjang melalui pusat; panjangnya $2a$' },
+          { front: 'Sumbu minor', back: 'Ruas terpendek melalui pusat; panjangnya $2b$' },
+          { front: 'Fokus', back: 'Dua titik berjarak $c=\\sqrt{a^{2}-b^{2}}$ dari pusat' },
+          { front: 'Eksentrisitas', back: '$e=\\dfrac{c}{a}$, bernilai $0<e<1$' },
+        ],
+      },
+    },
+  ],
+  turunan: [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'match',
+        intro: 'Cocokkan aturan turunan dengan hasilnya.',
+        pairs: [
+          { left: 'Aturan pangkat', right: '$\\dfrac{d}{dx}x^{n}=n x^{n-1}$' },
+          { left: 'Aturan hasil kali', right: '$(uv)\'=u\'v+uv\'$' },
+          { left: 'Aturan rantai', right: '$\\dfrac{d}{dx}f(g(x))=f\'(g(x))g\'(x)$' },
+          { left: 'Turunan $\\sin x$', right: '$\\cos x$' },
+        ],
+      },
+    },
+  ],
+  'aplikasi-turunan': [
+    {
+      kind: 'representasi',
+      block: {
+        kind: 'tabs',
+        items: [
+          { label: 'Gradien', body: 'Gradien garis singgung di $x=a$ adalah $f\'(a)$.' },
+          { label: 'Kecepatan', body: 'Kecepatan sesaat adalah turunan fungsi posisi.' },
+          { label: 'Optimasi', body: 'Nilai ekstrem terjadi saat $f\'(x)=0$, diuji dengan $f\'\'(x)$.' },
+        ],
+      },
+    },
+  ],
+  integral: [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'match',
+        intro: 'Cocokkan integral dengan hasilnya.',
+        pairs: [
+          { left: '$\\int x^{n}\\,dx$', right: '$\\dfrac{x^{n+1}}{n+1}+C$' },
+          { left: '$\\int \\cos x\\,dx$', right: '$\\sin x+C$' },
+          { left: 'Teorema dasar kalkulus', right: '$\\int_{a}^{b} f(x)\\,dx=F(b)-F(a)$' },
+          { left: 'Integral tentu', right: 'Luas daerah berarah di bawah kurva' },
+        ],
+      },
+    },
+  ],
+  'variabel-acak-diskret': [
+    {
+      kind: 'konsep',
+      block: {
+        kind: 'flip-cards',
+        intro: 'Ingat kembali istilah variabel acak diskret.',
+        cards: [
+          { front: 'Variabel acak diskret', back: 'Peubah bernilai terhingga/tercacah' },
+          { front: 'Fungsi peluang', back: 'Memetakan tiap nilai ke peluangnya; total $=1$' },
+          { front: 'Nilai harapan $E(X)$', back: '$\\sum x\\,P(X=x)$' },
+          { front: 'Varians', back: '$E(X^{2})-[E(X)]^{2}$' },
+        ],
+      },
+    },
+  ],
 };
 
 function applyExtras(topic: Topic, sections: Section[]): Section[] {

@@ -10,10 +10,18 @@ export type Grade = 'X' | 'XI' | 'XII';
 
 export type Phase = 'E' | 'F';
 
+/**
+ * Mata pelajaran. Situs semula hanya memuat Matematika (wajib). Matematika
+ * Tingkat Lanjut adalah mata pelajaran pilihan Fase F yang ditambahkan sebagai
+ * dimensi tersendiri agar elemen, kelas, dan rutenya tidak bertabrakan.
+ */
+export type SubjectId = 'matematika' | 'matematika-lanjut';
+
 export type ElementId =
   | 'bilangan'
   | 'aljabar-fungsi'
   | 'geometri'
+  | 'kalkulus'
   | 'data-peluang';
 
 export type Difficulty = 'dasar' | 'cakap' | 'mahir';
@@ -166,6 +174,11 @@ export interface Topic {
   grade: Grade;
   phase: Phase;
   element: ElementId;
+  /**
+   * Mata pelajaran pemilik topik. Bila dikosongkan dianggap 'matematika'
+   * (lihat `subjectOfTopic`) sehingga materi lama tidak perlu diubah.
+   */
+  subject?: SubjectId;
   /** Ringkasan 1 kalimat untuk kartu. */
   summary: string;
   /** Deskripsi beberapa kalimat untuk halaman topik. */
@@ -235,6 +248,8 @@ export interface Application {
   id: string;
   title: string;
   category: ApplicationCategory;
+  /** Mata pelajaran; kosong berarti 'matematika'. */
+  subject?: SubjectId;
   /** Elemen kurikulum utama yang paling relevan. */
   element: ElementId;
   /** Kelas tempat studi kasus paling relevan. */
@@ -284,6 +299,12 @@ export type ExplorationType =
   | 'linear-system'
   | 'function-composition'
   | 'function-inverse'
+  | 'polynomial'
+  | 'vector'
+  | 'conic'
+  | 'derivative'
+  | 'integral'
+  | 'random-variable'
   | 'geogebra';
 
 /** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */
@@ -299,6 +320,8 @@ export interface ExplorationPrompt {
 export interface Exploration {
   id: string;
   title: string;
+  /** Mata pelajaran; kosong berarti 'matematika'. */
+  subject?: SubjectId;
   topicId?: string;
   type: ExplorationType;
   /** Bila true, ditampilkan sebagai eksplorasi unggulan di beranda. */

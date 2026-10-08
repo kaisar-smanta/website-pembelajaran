@@ -1,5 +1,5 @@
 ---
-import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
+import { ELEMENTS, ALL_ELEMENT_ORDER } from '@/data/curriculum';
 import { topics, plannedTopics } from '@/data/topics';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 
@@ -9,7 +9,7 @@ const hasSupplementary = topics.some((t) => t.supplementary);
 <div class="map-legend card reveal" data-reveal>
   <span class="legend-label">Keterangan</span>
   {
-    ELEMENT_ORDER.map((id) => (
+    ALL_ELEMENT_ORDER.map((id) => (
       <span class={`legend-el accent-${id}`}>
         <span class="icon-tile legend-icon" aria-hidden="true">
           <ElementIcon element={id} size={14} />

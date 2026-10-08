@@ -1,7 +1,7 @@
 ---
 import type { Question } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 
 interface Props {
@@ -30,7 +30,7 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
     <span class={`badge badge-${question.difficulty}`}>{levelLabel}</span>
     {
       showTopic && topic && (
-        <a class="q-topic" href={topicUrl(topic.grade, topic.element, topic.slug)}>
+        <a class="q-topic" href={topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))}>
           {topic.title}
         </a>
       )

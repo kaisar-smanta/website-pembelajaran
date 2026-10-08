@@ -1,5 +1,5 @@
 ---
-import type { ElementId, Grade } from '@/types/content';
+import type { ElementId, Grade, SubjectId } from '@/types/content';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { topicUrl } from '@/utils/url';
 import { renderInlineMarkdown } from '@/utils/markdown';
@@ -11,6 +11,8 @@ interface Props {
   grade: Grade;
   element: ElementId;
   slug: string;
+  /** Mata pelajaran; kosong berarti 'matematika'. */
+  subject?: SubjectId;
   status?: 'lengkap' | 'rencana';
   showMeta?: boolean;
   /** Tampilkan badge jenjang (mis. "Kelas X"). */
@@ -28,6 +30,7 @@ const {
   grade,
   element,
   slug,
+  subject = 'matematika',
   status = 'lengkap',
   showMeta = true,
   showBadge = true,
@@ -38,7 +41,7 @@ const {
 const elementMeta = ELEMENTS[element];
 const gradeMeta = GRADES[grade];
 const isPlanned = status === 'rencana';
-const href = topicUrl(grade, element, slug);
+const href = topicUrl(grade, element, slug, subject);
 const summaryHtml = renderInlineMarkdown(summary);
 ---
 
@@ -118,6 +121,9 @@ const summaryHtml = renderInlineMarkdown(summary);
   .accent-data-peluang {
     border-top: 3px solid var(--color-data);
   }
+  .accent-kalkulus {
+    border-top: 3px solid var(--color-calculus);
+  }
   .topic-card:not(.planned):hover,
   .topic-card:not(.planned):focus-within {
     border-color: var(--color-primary);
@@ -168,6 +174,9 @@ const summaryHtml = renderInlineMarkdown(summary);
   }
   .accent-data-peluang .icon-wrap {
     color: var(--color-data);
+  }
+  .accent-kalkulus .icon-wrap {
+    color: var(--color-calculus);
   }
   .topic-title {
     font-size: 1.15rem;

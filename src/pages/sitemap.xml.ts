@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { topics } from '@/data/topics';
+import { topics, topicSubject } from '@/data/topics';
 import { applications } from '@/data/applications';
 import { orderedExplorations } from '@/data/explorations';
-import { GRADE_ORDER, ELEMENT_ORDER } from '@/data/curriculum';
+import { SUBJECT_ORDER, elementOrderFor, gradesFor } from '@/data/curriculum';
 
 export const prerender = true;
 
@@ -23,20 +23,33 @@ export const GET: APIRoute = ({ site }) => {
     '/cari',
   ];
 
-  for (const g of GRADE_ORDER) {
-    paths.push(`/kelas/${g}`);
-    for (const e of ELEMENT_ORDER) {
-      paths.push(`/kelas/${g}/${e}`);
+  for (const subject of SUBJECT_ORDER) {
+    paths.push(`/${subject}`);
+    for (const g of gradesFor(subject)) {
+      paths.push(`/${subject}/kelas/${g}`);
+      for (const e of elementOrderFor(subject)) {
+        const hasTopic = topics.some(
+          (t) =>
+            t.status !== 'rencana' &&
+            topicSubject(t) === subject &&
+            t.grade === g &&
+            t.element === e,
+        );
+        if (hasTopic) paths.push(`/${subject}/kelas/${g}/${e}`);
+      }
     }
-  }
-
-  for (const e of ELEMENT_ORDER) {
-    paths.push(`/elemen/${e}`);
+    for (const e of elementOrderFor(subject)) {
+      const hasTopic = topics.some(
+        (t) => t.status !== 'rencana' && topicSubject(t) === subject && t.element === e,
+      );
+      if (hasTopic) paths.push(`/${subject}/elemen/${e}`);
+    }
   }
 
   for (const t of topics) {
     if (t.status === 'rencana') continue;
-    paths.push(`/kelas/${t.grade}/${t.element}/${t.slug}`);
+    const subject = topicSubject(t);
+    paths.push(`/${subject}/kelas/${t.grade}/${t.element}/${t.slug}`);
     paths.push(`/latihan/${t.slug}`);
   }
 

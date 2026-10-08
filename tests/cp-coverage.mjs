@@ -25,9 +25,10 @@ const { regulations, cpStatements, activeRegulation, cpCoveredTopicIds } = await
   'src/data/curriculum/cp.ts',
 );
 
-const ELEMENTS = new Set(['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang']);
+const ELEMENTS = new Set(['bilangan', 'aljabar-fungsi', 'geometri', 'kalkulus', 'data-peluang']);
 const GRADES = new Set(['X', 'XI', 'XII']);
 const PHASES = new Set(['E', 'F']);
+const SUBJECTS = new Set(['matematika', 'matematika-lanjut']);
 
 let checks = 0;
 function ok(condition, message) {
@@ -52,6 +53,7 @@ for (const file of fs.readdirSync(topicDir)) {
         grade: value.grade,
         element: value.element,
         phase: value.phase,
+        subject: value.subject ?? 'matematika',
         supplementary: value.supplementary === true,
         cpNote: typeof value.cpNote === 'string' ? value.cpNote : '',
         status: value.status ?? 'lengkap',
@@ -96,6 +98,7 @@ const ELEMENT_CODE = {
   BIL: 'bilangan',
   ALJ: 'aljabar-fungsi',
   GEO: 'geometri',
+  KAL: 'kalkulus',
   DAT: 'data-peluang',
 };
 const stmtIds = new Set();
@@ -104,13 +107,26 @@ for (const stmt of cpStatements) {
   ok(!stmtIds.has(stmt.id), `id pernyataan CP duplikat: ${stmt.id}`);
   stmtIds.add(stmt.id);
 
-  const codeMatch = typeof stmt.id === 'string' ? stmt.id.match(/^([EF])-([A-Z]{3})-(\d+)$/) : null;
-  ok(codeMatch, `${stmt.id}: format kode tidak valid (harus FASE-ELEM-N, mis. E-BIL-1)`);
+  const stmtSubject = stmt.subject ?? 'matematika';
+  ok(SUBJECTS.has(stmtSubject), `${stmt.id}: mata pelajaran tidak dikenal (${stmtSubject})`);
+
+  const codeMatch =
+    typeof stmt.id === 'string' ? stmt.id.match(/^(E|F|FL)-([A-Z]{3})-(\d+)$/) : null;
+  ok(codeMatch, `${stmt.id}: format kode tidak valid (harus FASE-ELEM-N, mis. E-BIL-1/FL-ALJ-1)`);
   if (codeMatch) {
-    ok(codeMatch[1] === stmt.phase, `${stmt.id}: prefiks fase tidak cocok dengan phase ${stmt.phase}`);
+    const codePhase = codeMatch[1] === 'FL' ? 'F' : codeMatch[1];
+    ok(codePhase === stmt.phase, `${stmt.id}: prefiks fase tidak cocok dengan phase ${stmt.phase}`);
     ok(
       ELEMENT_CODE[codeMatch[2]] === stmt.element,
       `${stmt.id}: prefiks elemen tidak cocok dengan ${stmt.element}`,
+    );
+    ok(
+      codeMatch[1] !== 'FL' || stmtSubject === 'matematika-lanjut',
+      `${stmt.id}: prefiks FL hanya untuk Matematika Tingkat Lanjut`,
+    );
+    ok(
+      codeMatch[1] === 'FL' || stmtSubject === 'matematika',
+      `${stmt.id}: prefiks non-FL harus bermatapelajaran Matematika`,
     );
   }
 
@@ -137,6 +153,10 @@ for (const stmt of cpStatements) {
     ok(
       meta.phase === stmt.phase,
       `${stmt.id}: fase ${stmt.phase} tidak cocok dengan topik ${tid} (fase ${meta.phase})`,
+    );
+    ok(
+      meta.subject === stmtSubject,
+      `${stmt.id}: mata pelajaran (${stmtSubject}) tidak cocok dengan topik ${tid} (${meta.subject})`,
     );
   }
 }
@@ -166,9 +186,22 @@ for (const phase of PHASES) {
   ok(count > 0, `fase ${phase} tidak memiliki pernyataan CP`);
 }
 
+// ---- Cakupan mata pelajaran ----
+for (const subject of SUBJECTS) {
+  const count = cpStatements.filter((s) => (s.subject ?? 'matematika') === subject).length;
+  ok(count > 0, `mata pelajaran ${subject} tidak memiliki pernyataan CP`);
+  for (const stmt of cpStatements.filter((s) => (s.subject ?? 'matematika') === subject)) {
+    if (subject === 'matematika-lanjut') {
+      ok(stmt.phase === 'F', `${stmt.id}: Matematika Tingkat Lanjut hanya Fase F`);
+    }
+  }
+}
+
 const byPhase = (p) => cpStatements.filter((s) => s.phase === p).length;
+const bySubject = (s) => cpStatements.filter((stmt) => (stmt.subject ?? 'matematika') === s).length;
 console.log(`Regulasi aktif: ${active.number} (berlaku sejak ${active.effectiveDate})`);
 console.log(`Pernyataan CP: ${cpStatements.length} (Fase E: ${byPhase('E')}, Fase F: ${byPhase('F')})`);
+console.log(`  - Matematika: ${bySubject('matematika')}, Matematika Lanjut: ${bySubject('matematika-lanjut')}`);
 console.log(`Topik terpetakan: ${covered.size}/${topicMeta.size}`);
 console.log(`Topik pengayaan (supplementary): ${supplementary.length}${supplementary.length ? ` (${supplementary.join(', ')})` : ''}`);
 console.log(`CP diperiksa: ${checks} asersi`);

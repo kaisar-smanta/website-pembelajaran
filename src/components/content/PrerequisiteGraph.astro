@@ -1,6 +1,6 @@
 ---
 import type { ElementId, Grade } from '@/types/content';
-import { ELEMENT_ORDER, GRADES } from '@/data/curriculum';
+import { ALL_ELEMENT_ORDER, GRADES } from '@/data/curriculum';
 import { topics } from '@/data/topics';
 
 interface GraphNode {
@@ -149,7 +149,7 @@ for (const n of nodes) {
   }
 }
 
-const elementIndex = new Map<ElementId, number>(ELEMENT_ORDER.map((e, i) => [e, i]));
+const elementIndex = new Map<ElementId, number>(ALL_ELEMENT_ORDER.map((e, i) => [e, i]));
 
 for (const layer of layers) {
   layer.sort((a, b) => {

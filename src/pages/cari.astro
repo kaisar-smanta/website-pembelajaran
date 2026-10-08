@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import { url } from '@/utils/url';
-import { GRADE_ORDER, ELEMENT_ORDER, ELEMENTS } from '@/data/curriculum';
+import { ALL_ELEMENT_ORDER, GRADE_ORDER, ELEMENTS } from '@/data/curriculum';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -10,7 +10,7 @@ const crumbs = [
 ];
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const meta = [
-  `${ELEMENT_ORDER.length} elemen kurikulum`,
+  `${ALL_ELEMENT_ORDER.length} elemen kurikulum`,
   `${GRADE_ORDER.length} jenjang kelas`,
   'Tanpa server · tanpa akun',
 ];
@@ -49,7 +49,7 @@ const meta = [
           <span class="visually-hidden">Filter elemen</span>
           <select data-filter-element>
             <option value="">Semua elemen</option>
-            {ELEMENT_ORDER.map((e) => <option value={e}>{ELEMENTS[e].name}</option>)}
+            {ALL_ELEMENT_ORDER.map((e) => <option value={e}>{ELEMENTS[e].name}</option>)}
           </select>
         </label>
       </div>
@@ -71,7 +71,7 @@ const meta = [
           </p>
         </div>
         <div class="cta-actions">
-          <a class="btn btn-primary" href={url('/kelas/X')}>Mulai dari Kelas X</a>
+          <a class="btn btn-primary" href={url('/matematika/kelas/X')}>Mulai dari Kelas X</a>
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
           <a class="btn btn-secondary" href={url('/latihan')}>Latihan berjenjang</a>
         </div>
@@ -233,6 +233,7 @@ const meta = [
       bilangan: 'var(--color-number)',
       'aljabar-fungsi': 'var(--color-algebra)',
       geometri: 'var(--color-geometry)',
+      kalkulus: 'var(--color-calculus)',
       'data-peluang': 'var(--color-data)',
     };
 

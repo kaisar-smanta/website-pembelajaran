@@ -1,0 +1,207 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import TopicCard from '@/components/content/TopicCard.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import {
+  ELEMENTS,
+  GRADES,
+  SUBJECTS,
+  SUBJECT_ORDER,
+  elementOrderFor,
+  gradesFor,
+} from '@/data/curriculum';
+import { topicsBySubjectGradeElement, topicsBySubjectElement, plannedTopics } from '@/data/topics';
+import { topicIdsWithQuestions } from '@/data/questions';
+import { url, subjectUrl } from '@/utils/url';
+import type { ElementId, SubjectId } from '@/types/content';
+
+export function getStaticPaths() {
+  const paths: { params: { subject: SubjectId; element: ElementId } }[] = [];
+  for (const subject of SUBJECT_ORDER) {
+    for (const element of elementOrderFor(subject)) {
+      paths.push({ params: { subject, element } });
+    }
+  }
+  return paths;
+}
+
+const subject = Astro.params.subject as SubjectId;
+const element = Astro.params.element as ElementId;
+const subjectMeta = SUBJECTS[subject];
+const meta = ELEMENTS[element];
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: subjectMeta.name, href: subjectUrl(subject) },
+  { label: 'Elemen' },
+  { label: meta.name },
+];
+
+const grades = gradesFor(subject)
+  .map((grade) => {
+    const complete = topicsBySubjectGradeElement(subject, grade, element).map((t) => ({
+      ...t,
+      status: 'lengkap' as const,
+    }));
+    const planned =
+      subject === 'matematika'
+        ? plannedTopics
+            .filter((p) => p.grade === grade && p.element === element)
+            .map((t) => ({ ...t, status: 'rencana' as const }))
+        : [];
+    return { grade, entries: [...complete, ...planned] };
+  })
+  .filter((g) => g.entries.length > 0);
+
+const total = grades.reduce((sum, g) => sum + g.entries.length, 0);
+
+const practiceTopicIds = new Set(topicIdsWithQuestions());
+const hasPractice = topicsBySubjectElement(subject, element).some((t) =>
+  practiceTopicIds.has(t.id),
+);
+---
+
+<BaseLayout title={`Elemen ${meta.name}`} description={meta.description}>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class={`page-head accent-${element}`}>
+      <span class="element-icon" aria-hidden="true">
+        <ElementIcon element={element} size={26} />
+      </span>
+      <div>
+        <p class="eyebrow">Elemen</p>
+        <h1>{meta.name}</h1>
+        <p class="lead">{meta.description}</p>
+        <p class="text-muted">
+          Halaman ini menghimpun seluruh materi {meta.name} pada {subjectMeta.name} dalam satu
+          tempat.
+        </p>
+      </div>
+    </header>
+
+    {
+      grades.map(({ grade, entries }) => (
+        <section class="section grade-section" aria-labelledby={`grade-${grade}`}>
+          <h2 id={`grade-${grade}`}>{GRADES[grade].name}</h2>
+          <div class="grid grid-3">
+            {entries.map((t, i) => (
+              <TopicCard
+                title={t.title}
+                summary={t.summary}
+                grade={t.grade}
+                element={t.element}
+                slug={t.slug}
+                subject={subject}
+                status={t.status}
+                showMeta={true}
+                delay={i * 60}
+              />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    {total === 0 && <p class="text-muted">Belum ada topik untuk elemen ini.</p>}
+
+    {
+      hasPractice && (
+        <section class="section practice-cta no-print" aria-labelledby="latihan-elemen">
+          <div class="card practice-cta-inner">
+            <div>
+              <p class="eyebrow-badge">Latihan</p>
+              <h2 id="latihan-elemen">Latihan semua topik elemen ini</h2>
+              <p class="text-muted">
+                Uji pemahamanmu pada seluruh topik {meta.name} dengan soal berjenjang dasar, cakap,
+                dan mahir.
+              </p>
+            </div>
+            <div class="practice-cta-actions">
+              <a class="btn btn-primary" href={url(`/latihan?elemen=${element}`)}>
+                Mulai latihan
+              </a>
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding-block: 0.5rem 1rem;
+  }
+  .page-head h1 {
+    margin-bottom: 0.2rem;
+  }
+  .lead {
+    max-width: 68ch;
+    color: var(--color-text-muted);
+    margin: 0 0 0.4rem;
+  }
+  .page-head .text-muted {
+    max-width: 68ch;
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .element-icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 14px;
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .accent-bilangan .element-icon {
+    color: var(--color-number);
+  }
+  .accent-aljabar-fungsi .element-icon {
+    color: var(--color-algebra);
+  }
+  .accent-geometri .element-icon {
+    color: var(--color-geometry);
+  }
+  .accent-data-peluang .element-icon {
+    color: var(--color-data);
+  }
+  .grade-section {
+    padding-bottom: 2rem;
+  }
+  .grade-section h2 {
+    margin-bottom: 1rem;
+  }
+  .practice-cta {
+    padding-bottom: 3rem;
+  }
+  .practice-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-top: 3px solid var(--color-primary);
+  }
+  .practice-cta-inner h2 {
+    margin-bottom: 0.25rem;
+  }
+  .practice-cta-inner p {
+    margin: 0;
+    max-width: 46ch;
+  }
+  .practice-cta-inner .eyebrow-badge {
+    margin-bottom: 0.6rem;
+  }
+  .practice-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

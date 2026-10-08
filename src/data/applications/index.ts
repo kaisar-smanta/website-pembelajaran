@@ -3,6 +3,7 @@ import { keuanganApplications } from './keuangan.ts';
 import { dataApplications } from './data.ts';
 import { pertumbuhanApplications } from './pertumbuhan.ts';
 import { pengukuranApplications } from './pengukuran.ts';
+import { lanjutApplications } from './lanjut.ts';
 
 export interface ApplicationCategoryMeta {
   name: string;
@@ -59,6 +60,7 @@ export const applications: Application[] = [
   ...dataApplications,
   ...pertumbuhanApplications,
   ...pengukuranApplications,
+  ...lanjutApplications,
 ];
 
 export function getApplication(id: string): Application | undefined {

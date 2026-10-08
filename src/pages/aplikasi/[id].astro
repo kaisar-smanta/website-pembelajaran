@@ -9,7 +9,7 @@ import {
   getApplication,
   relatedApplications,
 } from '@/data/applications';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicSubject } from '@/data/topics';
 import { getExploration } from '@/data/explorations';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { url, topicUrl, absoluteUrl } from '@/utils/url';
@@ -173,7 +173,7 @@ const jsonLd = {
                 <ul class="aside-links">
                   {related.map((t) => (
                     <li>
-                      <a href={topicUrl(t.grade, t.element, t.slug)}>
+                      <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>
                         <ElementIcon element={t.element} size={16} />
                         {t.title}
                       </a>

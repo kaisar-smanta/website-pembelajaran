@@ -1,4 +1,4 @@
-import type { ElementId, Grade, Topic } from '@/types/content';
+import type { ElementId, Grade, SubjectId, Topic } from '@/types/content';
 import { eksponen } from './eksponen';
 import { barisanDeret } from './barisan-deret';
 import { spltv } from './spltv';
@@ -24,6 +24,15 @@ import { statistikDalamKehidupan } from './statistik-dalam-kehidupan';
 import { pemodelanFungsi } from './pemodelan-fungsi';
 import { pinjamanInvestasi } from './pinjaman-investasi';
 import { permutasiKombinasi } from './permutasi-kombinasi';
+import { polinomial } from './polinomial';
+import { matriksTransformasi } from './matriks-transformasi';
+import { trigonometriLanjut } from './trigonometri-lanjut';
+import { vektor } from './vektor';
+import { irisanKerucut } from './irisan-kerucut';
+import { turunan } from './turunan';
+import { aplikasiTurunan } from './aplikasi-turunan';
+import { integral } from './integral';
+import { variabelAcakDiskret } from './variabel-acak-diskret';
 import { plannedTopics } from './planned';
 import { enhanceTopic, sectionSearchText } from './enhance';
 
@@ -56,6 +65,16 @@ const rawTopics: Topic[] = [
   peluangBersyarat,
   permutasiKombinasi,
   pinjamanInvestasi,
+  // Matematika Tingkat Lanjut (Fase F)
+  polinomial,
+  matriksTransformasi,
+  trigonometriLanjut,
+  vektor,
+  irisanKerucut,
+  turunan,
+  aplikasiTurunan,
+  integral,
+  variabelAcakDiskret,
 ];
 
 /** Topik lengkap setelah peningkatan interaktivitas (lihat enhance.ts). */
@@ -67,16 +86,45 @@ export function getTopic(id: string): Topic | undefined {
   return byId.get(id);
 }
 
+/** Mata pelajaran sebuah topik; topik lama tanpa penanda dianggap Matematika. */
+export function topicSubject(topic: Topic): SubjectId {
+  return topic.subject ?? 'matematika';
+}
+
+export function topicsBySubject(subject: SubjectId): Topic[] {
+  return topics.filter((t) => topicSubject(t) === subject);
+}
+
 export function topicsByGrade(grade: Grade): Topic[] {
-  return topics.filter((t) => t.grade === grade);
+  return topics.filter((t) => t.grade === grade && topicSubject(t) === 'matematika');
 }
 
 export function topicsByElement(element: ElementId): Topic[] {
-  return topics.filter((t) => t.element === element);
+  return topics.filter((t) => t.element === element && topicSubject(t) === 'matematika');
 }
 
 export function topicsByGradeElement(grade: Grade, element: ElementId): Topic[] {
-  return topics.filter((t) => t.grade === grade && t.element === element);
+  return topics.filter(
+    (t) => t.grade === grade && t.element === element && topicSubject(t) === 'matematika',
+  );
+}
+
+export function topicsBySubjectGrade(subject: SubjectId, grade: Grade): Topic[] {
+  return topics.filter((t) => topicSubject(t) === subject && t.grade === grade);
+}
+
+export function topicsBySubjectElement(subject: SubjectId, element: ElementId): Topic[] {
+  return topics.filter((t) => topicSubject(t) === subject && t.element === element);
+}
+
+export function topicsBySubjectGradeElement(
+  subject: SubjectId,
+  grade: Grade,
+  element: ElementId,
+): Topic[] {
+  return topics.filter(
+    (t) => topicSubject(t) === subject && t.grade === grade && t.element === element,
+  );
 }
 
 export function featuredTopics(): Topic[] {

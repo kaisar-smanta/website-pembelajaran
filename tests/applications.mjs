@@ -23,9 +23,10 @@ const { applications, relatedApplications } = await load(
 );
 
 const CATEGORIES = new Set(['keuangan', 'data', 'pertumbuhan', 'pengukuran']);
-const ELEMENTS = new Set(['bilangan', 'aljabar-fungsi', 'geometri', 'data-peluang']);
+const ELEMENTS = new Set(['bilangan', 'aljabar-fungsi', 'geometri', 'kalkulus', 'data-peluang']);
 const GRADES = new Set(['X', 'XI', 'XII']);
 const LEVELS = new Set(['dasar', 'cakap', 'mahir']);
+const SUBJECTS = new Set(['matematika', 'matematika-lanjut']);
 
 let checks = 0;
 function ok(condition, message) {
@@ -41,7 +42,11 @@ for (const file of fs.readdirSync(topicDir)) {
   const mod = await load(path.join('src/data/topics', file));
   for (const value of Object.values(mod)) {
     if (value && typeof value === 'object' && typeof value.id === 'string' && Array.isArray(value.sections)) {
-      topicMeta.set(value.id, { grade: value.grade, element: value.element });
+      topicMeta.set(value.id, {
+        grade: value.grade,
+        element: value.element,
+        subject: value.subject ?? 'matematika',
+      });
     }
   }
 }
@@ -58,7 +63,9 @@ for (const app of applications) {
   ok(!seen.has(app.id), `id studi kasus duplikat: ${app.id}`);
   seen.add(app.id);
 
+  const appSubject = app.subject ?? 'matematika';
   ok(CATEGORIES.has(app.category), `${app.id}: kategori tidak dikenal (${app.category})`);
+  ok(SUBJECTS.has(appSubject), `${app.id}: mata pelajaran tidak dikenal (${appSubject})`);
   ok(ELEMENTS.has(app.element), `${app.id}: elemen tidak dikenal (${app.element})`);
   ok(GRADES.has(app.grade), `${app.id}: kelas tidak dikenal (${app.grade})`);
   ok(LEVELS.has(app.level), `${app.id}: level tidak dikenal (${app.level})`);
@@ -82,6 +89,10 @@ for (const app of applications) {
   ok(
     refTopics.some((t) => t.grade === app.grade),
     `${app.id}: kelas (${app.grade}) tidak cocok dengan topik mana pun`,
+  );
+  ok(
+    refTopics.some((t) => t.subject === appSubject),
+    `${app.id}: mata pelajaran (${appSubject}) tidak cocok dengan topik mana pun`,
   );
 
   // relatedApplications tidak boleh memuat dirinya sendiri.

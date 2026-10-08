@@ -1,4 +1,9 @@
-import type { ElementId, Grade, Phase } from '@/types/content';
+import type { ElementId, Grade, Phase, SubjectId } from '@/types/content';
+
+/** Mata pelajaran pernyataan; tanpa penanda dianggap Matematika. */
+function subjectOf(statement: { subject?: SubjectId }): SubjectId {
+  return statement.subject ?? 'matematika';
+}
 
 /**
  * Registri Capaian Pembelajaran (CP) yang berlaku beserta pemetaannya ke topik.
@@ -37,10 +42,12 @@ export interface Regulation {
 }
 
 export interface CpStatement {
-  /** Kode stabil, mis. 'E-BIL-1'. */
+  /** Kode stabil, mis. 'E-BIL-1' atau 'FL-ALJ-1' untuk Matematika Lanjut. */
   id: string;
   /** Id regulasi induk pada `regulations`. */
   regulation: string;
+  /** Mata pelajaran; kosong berarti 'matematika'. */
+  subject?: SubjectId;
   phase: Phase;
   element: ElementId;
   /** Kelas yang dicakup pernyataan ini. */
@@ -61,7 +68,7 @@ export const regulations: Regulation[] = [
     effectiveDate: '2025-07-16',
     supersedes: ['bskap-032-2024'],
     status: 'berlaku',
-    note: 'Matematika SMA tercantum pada Lampiran II.',
+    note: 'Matematika SMA tercantum pada Lampiran II. Regulasi yang sama juga memuat Matematika Tingkat Lanjut Fase F (mata pelajaran pilihan, alokasi 800 JP). Keputusan Kepala BKPDM Nomor 020 Tahun 2026 yang mengubah Kepka ini sejauh penelusuran hanya menyentuh Pendidikan Agama dan Budi Pekerti; belum ada bukti perubahan untuk Matematika. Verifikasi akhir tetap merujuk Rumah Pendidikan atau laman BSKAP/BKPDM.',
   },
   {
     id: 'bskap-032-2024',
@@ -269,11 +276,123 @@ export const cpStatements: CpStatement[] = [
     text: 'Memahami peluang bersyarat dengan menggunakan permutasi dan kombinasi.',
     topicIds: ['peluang-bersyarat', 'permutasi-kombinasi'],
   },
+
+  // ---------------- Matematika Tingkat Lanjut, Fase F (Kelas XI–XII) ----------------
+  {
+    id: 'FL-ALJ-1',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'aljabar-fungsi',
+    grades: ['XI'],
+    text: 'Melakukan operasi aritmetika pada polinomial (suku banyak), menentukan faktor polinomial, dan memakai identitas polinomial untuk menyelesaikan masalah.',
+    topicIds: ['polinomial'],
+  },
+  {
+    id: 'FL-ALJ-2',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'aljabar-fungsi',
+    grades: ['XI'],
+    text: 'Melakukan operasi aljabar pada matriks dan menerapkannya dalam transformasi geometri.',
+    topicIds: ['matriks-transformasi'],
+  },
+  {
+    id: 'FL-ALJ-3',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'aljabar-fungsi',
+    grades: ['XI'],
+    text: 'Memodelkan fenomena periodik dengan fungsi trigonometri, serta membuktikan dan menerapkan identitas trigonometri dan aturan cosinus dan sinus.',
+    topicIds: ['trigonometri-lanjut'],
+  },
+  {
+    id: 'FL-GEO-1',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'geometri',
+    grades: ['XI'],
+    text: 'Menyatakan vektor pada bidang datar dan melakukan operasi aljabar pada vektor.',
+    topicIds: ['vektor'],
+  },
+  {
+    id: 'FL-GEO-2',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'geometri',
+    grades: ['XI'],
+    text: 'Melakukan pembuktian geometris menggunakan vektor.',
+    topicIds: ['vektor'],
+  },
+  {
+    id: 'FL-GEO-3',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'geometri',
+    grades: ['XI', 'XII'],
+    text: 'Menyatakan sifat geometri dari persamaan lingkaran, elips, dan persamaan garis singgung.',
+    topicIds: ['irisan-kerucut'],
+  },
+  {
+    id: 'FL-KAL-1',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'kalkulus',
+    grades: ['XII'],
+    text: 'Memahami laju perubahan (turunan) secara geometris maupun aljabar serta menentukan turunan fungsi polinomial, eksponensial, dan trigonometri.',
+    topicIds: ['turunan'],
+  },
+  {
+    id: 'FL-KAL-2',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'kalkulus',
+    grades: ['XII'],
+    text: 'Menerapkan turunan untuk mensketsa kurva, menghitung gradien dan menentukan persamaan garis singgung, menentukan kecepatan sesaat, dan menyelesaikan soal optimasi.',
+    topicIds: ['aplikasi-turunan'],
+  },
+  {
+    id: 'FL-KAL-3',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'kalkulus',
+    grades: ['XII'],
+    text: 'Memahami integral sebagai kebalikan turunan dan sebagai cara menghitung luas, serta memahami teorema dasar kalkulus sebagai penghubung turunan dan integral.',
+    topicIds: ['integral'],
+  },
+  {
+    id: 'FL-DAT-1',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'data-peluang',
+    grades: ['XII'],
+    text: 'Memahami variabel acak diskret dan fungsi peluang, serta memakainya untuk memodelkan data.',
+    topicIds: ['variabel-acak-diskret'],
+  },
 ];
 
-/** Pernyataan CP untuk satu fase. */
+/** Pernyataan CP untuk satu fase (seluruh mata pelajaran). */
 export function cpStatementsByPhase(phase: Phase): CpStatement[] {
   return cpStatements.filter((s) => s.phase === phase);
+}
+
+/** Pernyataan CP untuk satu mata pelajaran. */
+export function cpStatementsForSubject(subject: SubjectId): CpStatement[] {
+  return cpStatements.filter((s) => subjectOf(s) === subject);
+}
+
+/** Pernyataan CP untuk satu mata pelajaran dan fase. */
+export function cpStatementsBySubjectPhase(subject: SubjectId, phase: Phase): CpStatement[] {
+  return cpStatements.filter((s) => subjectOf(s) === subject && s.phase === phase);
 }
 
 /** Pernyataan CP untuk satu fase dan elemen. */
@@ -289,4 +408,11 @@ export function cpForTopic(topicId: string): CpStatement[] {
 /** Seluruh id topik yang diacu oleh minimal satu pernyataan CP. */
 export function cpCoveredTopicIds(): Set<string> {
   return new Set(cpStatements.flatMap((s) => s.topicIds));
+}
+
+/** Seluruh id topik yang dipetakan pada satu mata pelajaran. */
+export function cpCoveredTopicIdsForSubject(subject: SubjectId): Set<string> {
+  return new Set(
+    cpStatements.filter((s) => subjectOf(s) === subject).flatMap((s) => s.topicIds),
+  );
 }

@@ -4,7 +4,7 @@ import ExplorationSim from './ExplorationSim.astro';
 import ExplorationBrief from './ExplorationBrief.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS } from '@/data/curriculum';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicSubject } from '@/data/topics';
 import { url, topicUrl } from '@/utils/url';
 
 interface Props {
@@ -24,12 +24,15 @@ const elementAccents: Record<ElementId, string> = {
   bilangan: 'var(--color-number)',
   'aljabar-fungsi': 'var(--color-algebra)',
   geometri: 'var(--color-geometry)',
+  kalkulus: 'var(--color-calculus)',
   'data-peluang': 'var(--color-data)',
 };
 const element = exploration.element ? ELEMENTS[exploration.element] : undefined;
 const accent = exploration.element ? elementAccents[exploration.element] : 'var(--color-primary)';
 const topic = exploration.topicId ? getTopic(exploration.topicId) : undefined;
-const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : undefined;
+const topicHref = topic
+  ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))
+  : undefined;
 ---
 
 <article

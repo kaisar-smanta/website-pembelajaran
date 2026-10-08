@@ -1,6 +1,6 @@
 ---
 import MathMascot from './MathMascot.astro';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 
 const facts = [
@@ -15,7 +15,7 @@ const facts = [
 const factItems = facts.map((fact) => {
   const topic = fact.topicId ? getTopic(fact.topicId) : undefined;
   const link = topic
-    ? ` <a class="mascot-fact-link" href="${topicUrl(topic.grade, topic.element, topic.slug)}">Baca topik: ${topic.title} →</a>`
+    ? ` <a class="mascot-fact-link" href="${topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))}">Baca topik: ${topic.title} →</a>`
     : '';
   return { html: `<span class="mascot-fact-text">${fact.text}</span>${link}` };
 });

@@ -1,16 +1,28 @@
 ---
 import { learningPaths } from '@/data/learning-paths';
-import { GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { GRADES, SUBJECTS, SUBJECT_ORDER, gradesFor } from '@/data/curriculum';
 import { cpStatements } from '@/data/curriculum/cp';
-import { topics, plannedTopics } from '@/data/topics';
+import { topics, topicSubject, plannedTopics } from '@/data/topics';
 
-const gradeTotals = GRADE_ORDER.map((grade) => ({
-  grade,
-  name: GRADES[grade].name,
-  total:
-    topics.filter((t) => t.grade === grade).length +
-    plannedTopics.filter((p) => p.grade === grade).length,
-}));
+const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
+  gradesFor(subject).map((grade) => {
+    const complete = topics.filter(
+      (t) => t.grade === grade && topicSubject(t) === subject,
+    ).length;
+    const planned =
+      subject === 'matematika'
+        ? plannedTopics.filter((p) => p.grade === grade).length
+        : 0;
+    return {
+      subject,
+      grade,
+      name: `${GRADES[grade].name}`,
+      subjectName: SUBJECTS[subject].short,
+      total: complete + planned,
+      href: `#kelas-${subject}-${grade}`,
+    };
+  }),
+);
 ---
 
 <nav class="map-quicknav card reveal" aria-label="Navigasi peta pembelajaran" data-reveal>
@@ -35,8 +47,10 @@ const gradeTotals = GRADE_ORDER.map((grade) => ({
       <div class="quicknav-list">
         {
           gradeTotals.map((g) => (
-            <a class="quick-link" href={`#kelas-${g.grade}`}>
-              <span class="quick-text">{g.name}</span>
+            <a class="quick-link" href={g.href}>
+              <span class="quick-text">
+                {g.name} <span class="text-soft">· {g.subjectName}</span>
+              </span>
               <span class="quick-count">{g.total} topik</span>
             </a>
           ))

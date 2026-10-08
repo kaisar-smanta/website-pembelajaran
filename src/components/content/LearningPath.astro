@@ -9,11 +9,12 @@ interface Props {
 }
 
 const { path, delay = 0 } = Astro.props;
+const subject = path.subject ?? 'matematika';
 
 const steps = path.nodes.map((node, index) => {
   const href =
     node.id && node.grade && node.element
-      ? topicUrl(node.grade, node.element, node.id)
+      ? topicUrl(node.grade, node.element, node.id, subject)
       : undefined;
   return { node, index, href };
 });

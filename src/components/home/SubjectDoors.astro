@@ -1,0 +1,131 @@
+---
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import { ELEMENTS, SUBJECTS, SUBJECT_ORDER, elementOrderFor } from '@/data/curriculum';
+import { topicsBySubject } from '@/data/topics';
+import { subjectUrl } from '@/utils/url';
+
+const subjects = SUBJECT_ORDER.map((id) => {
+  const meta = SUBJECTS[id];
+  const topics = topicsBySubject(id);
+  return {
+    id,
+    meta,
+    count: topics.length,
+    grades: meta.grades,
+    elements: elementOrderFor(id),
+    url: subjectUrl(id),
+  };
+});
+---
+
+<section class="section band-tint subject-doors" aria-labelledby="subject-doors-title">
+  <div class="container">
+    <div class="section-heading reveal" data-reveal>
+      <p class="eyebrow-badge">Mata pelajaran</p>
+      <h2 id="subject-doors-title">Pilih mata pelajaran</h2>
+      <p class="text-muted">
+        Matematika wajib tersedia untuk Kelas X–XII. Matematika Tingkat Lanjut adalah mata pelajaran
+        pilihan Fase F untuk memperkuat penalaran dan menyiapkan bidang STEM.
+      </p>
+    </div>
+
+    <div class="subject-grid">
+      {
+        subjects.map((s, i) => (
+          <a
+            class:list={['subject-card', 'card', 'card-accent', `accent-${s.elements[0]}`, 'hover-lift', 'reveal']}
+            href={s.url}
+            style={`--reveal-delay:${i * 70}ms`}
+            data-reveal
+          >
+            <div class="subject-head">
+              <h3>{s.meta.name}</h3>
+              <span class="badge">{s.meta.elective ? 'Pilihan · Fase F' : 'Wajib · Fase E–F'}</span>
+            </div>
+            <p class="text-muted">{s.meta.description}</p>
+            <ul class="subject-elements" role="list">
+              {s.elements.map((el) => (
+                <li>
+                  <span class:list={['subject-el', `accent-${el}`]} aria-hidden="true">
+                    <ElementIcon element={el} size={14} />
+                  </span>
+                  {ELEMENTS[el].short}
+                </li>
+              ))}
+            </ul>
+            <p class="subject-meta text-soft">
+              {s.grades
+                .map((g) => `Kelas ${g}`)
+                .join(' · ')} · {s.count} topik{s.meta.hours ? ` · ${s.meta.hours} JP` : ''}
+            </p>
+            <span class="cta">Masuk →</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1.1rem;
+    margin-top: 1.25rem;
+  }
+  .subject-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.3rem 1.4rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .subject-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .subject-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  .subject-card p {
+    margin: 0;
+    font-size: 0.93rem;
+  }
+  .subject-elements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+    list-style: none;
+    margin: 0.2rem 0;
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .subject-elements li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .subject-el {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 7px;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+  }
+  .subject-meta {
+    font-size: 0.82rem;
+  }
+  .subject-card .cta {
+    margin-top: auto;
+    color: var(--accent, var(--color-primary));
+    font-weight: 600;
+  }
+</style>

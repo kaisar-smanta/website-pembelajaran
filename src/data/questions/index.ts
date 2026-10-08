@@ -24,6 +24,15 @@ import { statistikDalamKehidupanQuestions } from './statistik-dalam-kehidupan';
 import { pemodelanFungsiQuestions } from './pemodelan-fungsi';
 import { pinjamanInvestasiQuestions } from './pinjaman-investasi';
 import { permutasiKombinasiQuestions } from './permutasi-kombinasi';
+import { polinomialQuestions } from './polinomial';
+import { matriksTransformasiQuestions } from './matriks-transformasi';
+import { trigonometriLanjutQuestions } from './trigonometri-lanjut';
+import { vektorQuestions } from './vektor';
+import { irisanKerucutQuestions } from './irisan-kerucut';
+import { turunanQuestions } from './turunan';
+import { aplikasiTurunanQuestions } from './aplikasi-turunan';
+import { integralQuestions } from './integral';
+import { variabelAcakDiskretQuestions } from './variabel-acak-diskret';
 
 /** Seluruh bank soal. Tambahkan berkas per topik lalu impor di sini. */
 export const questions: Question[] = [
@@ -52,6 +61,16 @@ export const questions: Question[] = [
   asosiasiKausalitasQuestions,
   permutasiKombinasiQuestions,
   pinjamanInvestasiQuestions,
+  // Matematika Tingkat Lanjut (Fase F)
+  polinomialQuestions,
+  matriksTransformasiQuestions,
+  trigonometriLanjutQuestions,
+  vektorQuestions,
+  irisanKerucutQuestions,
+  turunanQuestions,
+  aplikasiTurunanQuestions,
+  integralQuestions,
+  variabelAcakDiskretQuestions,
 ].flat();
 
 const byId = new Map<string, Question>(questions.map((q) => [q.id, q]));

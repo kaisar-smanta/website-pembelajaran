@@ -1,6 +1,6 @@
 ---
 import TopicCard from '@/components/content/TopicCard.astro';
-import { resolveTopics } from '@/data/topics';
+import { resolveTopics, topicSubject } from '@/data/topics';
 import { url } from '@/utils/url';
 
 const featuredIds = [
@@ -37,6 +37,7 @@ const featured = resolveTopics(featuredIds);
               grade={topic.grade}
               element={topic.element}
               slug={topic.slug}
+              subject={topicSubject(topic)}
               delay={i * 60}
             />
           </div>

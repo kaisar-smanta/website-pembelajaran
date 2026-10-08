@@ -24,6 +24,7 @@
   --color-algebra: #7b3fd6;
   --color-geometry: #0f8f7a;
   --color-data: #c26a10;
+  --color-calculus: #d6336c;
 
   --color-success: #17795e;
   --color-success-soft: #e2f5ee;
@@ -80,6 +81,7 @@
   --color-algebra: #b58cff;
   --color-geometry: #4fd0b8;
   --color-data: #f0a94e;
+  --color-calculus: #f478a8;
 
   --color-success: #5fd0a8;
   --color-success-soft: #12332a;
@@ -639,6 +641,15 @@ input[type='range'] {
 }
 .accent-data-peluang {
   --accent: var(--color-data);
+}
+.accent-kalkulus {
+  --accent: var(--color-calculus);
+}
+.subject-matematika {
+  --accent: var(--color-primary);
+}
+.subject-lanjut {
+  --accent: var(--color-calculus);
 }
 
 /* Irama latar antar-bagian pada halaman dalam. */

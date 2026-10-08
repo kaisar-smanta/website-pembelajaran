@@ -4,7 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import ExplorationSim from '@/components/interactive/ExplorationSim.astro';
 import ExplorationBrief from '@/components/interactive/ExplorationBrief.astro';
 import { orderedExplorations } from '@/data/explorations';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicSubject } from '@/data/topics';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { url, topicUrl, absoluteUrl } from '@/utils/url';
 import { stripMarkdown } from '@/utils/markdown';
@@ -30,12 +30,15 @@ const next = index >= 0 && index < all.length - 1 ? all[index + 1] : undefined;
 const element = e.element ? ELEMENTS[e.element] : undefined;
 const grade = e.grade ? GRADES[e.grade] : undefined;
 const topic = e.topicId ? getTopic(e.topicId) : undefined;
-const topicHref = topic ? topicUrl(topic.grade, topic.element, topic.slug) : undefined;
+const topicHref = topic
+  ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))
+  : undefined;
 
 const elementAccents: Record<string, string> = {
   bilangan: 'var(--color-number)',
   'aljabar-fungsi': 'var(--color-algebra)',
   geometri: 'var(--color-geometry)',
+  kalkulus: 'var(--color-calculus)',
   'data-peluang': 'var(--color-data)',
 };
 const accent = e.element ? elementAccents[e.element] : 'var(--color-primary)';

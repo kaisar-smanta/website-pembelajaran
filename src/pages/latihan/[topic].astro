@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
-import { getTopic, resolveTopics } from '@/data/topics';
+import { getTopic, resolveTopics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS } from '@/data/curriculum';
 import { url, topicUrl } from '@/utils/url';
@@ -46,7 +46,9 @@ const prerequisites = resolveTopics(topic?.prerequisites);
 const related = resolveTopics(topic?.relatedTopics);
 const objectives = topic?.objectives ?? [];
 const leadHtml = topic ? renderInlineMarkdown(topic.summary) : undefined;
-const materialUrl = topic ? topicUrl(topic.grade, topic.element, topic.slug) : url('/latihan');
+const materialUrl = topic
+  ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))
+  : url('/latihan');
 const elementName = topic ? ELEMENTS[topic.element].name : 'Latihan';
 const accentClass = topic ? `accent-${topic.element}` : '';
 const crumbs = [
@@ -104,7 +106,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
                 <ul class="topic-links">
                   {prerequisites.map((t) => (
                     <li>
-                      <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
+                      <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>{t.title}</a>
                       <span class="badge">Kelas {t.grade}</span>
                     </li>
                   ))}
@@ -119,7 +121,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
                 <ul class="topic-links">
                   {related.map((t) => (
                     <li>
-                      <a href={topicUrl(t.grade, t.element, t.slug)}>{t.title}</a>
+                      <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>{t.title}</a>
                       <span class="badge">Kelas {t.grade}</span>
                     </li>
                   ))}

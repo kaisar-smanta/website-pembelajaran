@@ -1,14 +1,21 @@
 # Matematika SMA — Pusat Pembelajaran Matematika
 
-Situs statis berbahasa Indonesia untuk pembelajaran matematika SMA, disusun mengikuti kerangka
-**Capaian Pembelajaran (CP)** pada empat elemen: **Bilangan**, **Aljabar dan
-Fungsi**, **Geometri**, serta **Analisis Data dan Peluang**.
+Situs statis berbahasa Indonesia untuk pembelajaran matematika SMA yang memuat **dua mata
+pelajaran**:
+
+- **Matematika** (wajib, Fase E–F, Kelas X–XII) pada empat elemen: **Bilangan**, **Aljabar dan
+  Fungsi**, **Geometri**, serta **Analisis Data dan Peluang**.
+- **Matematika Tingkat Lanjut** (pilihan, Fase F, Kelas XI–XII, 800 JP) pada elemen **Aljabar dan
+  Fungsi**, **Geometri**, **Kalkulus**, serta **Analisis Data dan Peluang** (tanpa Bilangan).
 
 Acuan CP yang dipakai adalah **Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025**
 tentang Capaian Pembelajaran pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan
 Jenjang Pendidikan Menengah, berlaku sejak **16 Juli 2025**. Untuk Matematika SMA, CP ada pada
-**Lampiran II**; regulasi ini menggantikan Kepka BSKAP No. 032/H/KR/2024. Pemetaan CP beserta
-riwayat regulasi disimpan di `src/data/curriculum/cp.ts` dan diperiksa `tests/cp-coverage.mjs`.
+**Lampiran II**; regulasi ini menggantikan Kepka BSKAP No. 032/H/KR/2024. Regulasi yang sama juga
+memuat CP Matematika Tingkat Lanjut Fase F. Keputusan Kepala BKPDM Nomor 020 Tahun 2026 yang
+mengubahnya sejauh penelusuran hanya menyentuh Pendidikan Agama dan Budi Pekerti. Pemetaan CP
+beserta riwayat regulasi disimpan di `src/data/curriculum/cp.ts` dan diperiksa
+`tests/cp-coverage.mjs`. Konsistensi mata pelajaran diperiksa `tests/subjects.mjs`.
 
 > Catatan: susunan materi merupakan **tafsir instruksional** atas CP, bukan salinan resmi daftar
 > isi buku teks maupun dokumen kurikulum. Cocokkan selalu dengan dokumen resmi yang berlaku.
@@ -73,7 +80,8 @@ npm run screenshot # tangkapan layar hasil build ke artifacts/ (Chrome/Edge)
      title: 'Judul Topik',
      grade: 'X',
      phase: 'E',
-     element: 'bilangan', // bilangan | aljabar-fungsi | geometri | data-peluang
+     element: 'bilangan', // bilangan | aljabar-fungsi | geometri | kalkulus | data-peluang
+     subject: 'matematika', // matematika | matematika-lanjut (kosong = matematika)
      summary: 'Ringkasan satu kalimat untuk kartu.',
      description: 'Deskripsi beberapa kalimat.',
      keywords: ['kata kunci'],
@@ -266,6 +274,23 @@ dibangkitkan dari data ini.
 
 ---
 
+## Mata Pelajaran
+
+Mata pelajaran diperlakukan sebagai dimensi tersendiri sejak integrasi Matematika Tingkat Lanjut.
+Metadata terpusat ada di `src/data/curriculum.ts`:
+
+- `SubjectId = 'matematika' | 'matematika-lanjut'`;
+- `SUBJECTS` menyimpan nama, deskripsi, `grades`, `phases`, `elements` (urutan elemen khas), `elective`,
+  dan `hours`;
+- `elementOrderFor(subject)`, `gradesFor(subject)`, `phasesFor(subject)`, serta `subjectOf(entry)`
+  (entri lama tanpa `subject` dianggap Matematika);
+- elemen `kalkulus` hanya dimiliki Matematika Tingkat Lanjut; `ALL_ELEMENT_ORDER` mencakup seluruh
+  elemen lintas mata pelajaran untuk halaman global (mis. peta, pencarian, alat).
+
+Topik, eksplorasi, studi kasus, dan jalur konsep memiliki opsional `subject`. Fungsi registri
+seperti `topicsBySubject*` dan `cpStatementsForSubject` menyaring per mata pelajaran. Rute lama
+tanpa segmen mata pelajaran dipertahankan sebagai pengalih ke `/matematika/...`.
+
 ## Capaian Pembelajaran & Regulasi
 
 Pemetaan CP disimpan di `src/data/curriculum/cp.ts` — satu-satunya tempat CP "dikodekan". Berkas
@@ -335,9 +360,11 @@ src/
 | --- | --- |
 | `/` | Beranda |
 | `/peta-pembelajaran` | Peta kurikulum + jalur konsep |
-| `/kelas/[grade]` | Kelas X/XI/XII |
-| `/kelas/[grade]/[element]` | Elemen dalam kelas |
-| `/kelas/[grade]/[element]/[topic]` | Halaman materi (breadcrumb, prasyarat, terkait, peta isi) |
+| `/matematika`, `/matematika-lanjut` | Halaman mata pelajaran |
+| `/[subject]/kelas/[grade]` | Kelas X/XI/XII (`subject` = `matematika` \| `matematika-lanjut`) |
+| `/[subject]/kelas/[grade]/[element]` | Elemen dalam kelas |
+| `/[subject]/kelas/[grade]/[element]/[topic]` | Halaman materi (breadcrumb, prasyarat, terkait, peta isi) |
+| `/kelas/...`, `/elemen/...` | Pengalih statis rute lama ke `/matematika/...` |
 | `/latihan`, `/latihan/[topic]` | Latihan berjenjang dengan pemeriksaan sisi klien |
 | `/eksplorasi` | Katalog & simulasi interaktif (dapat disaring) |
 | `/eksplorasi/[slug]` | Halaman rincian satu eksplorasi (simulasi, brief, navigasi) |

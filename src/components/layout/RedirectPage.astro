@@ -1,0 +1,27 @@
+---
+/**
+ * Halaman pengalih statis untuk rute lama (mis. `/kelas/X`) menuju rute baru
+ * yang sadar mata pelajaran (mis. `/matematika/kelas/X`). GitHub Pages tidak
+ * mendukung pengalihan sisi server, jadi dipakai meta refresh + kanonikal.
+ */
+interface Props {
+  to: string;
+  title?: string;
+}
+const { to, title = 'Halaman dipindahkan' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <link rel="canonical" href={to} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <p>Halaman ini telah dipindahkan. <a href={to}>Lanjutkan ke halaman baru</a>.</p>
+    <script is:inline define:vars={{ to }}>window.location.replace(to);</script>
+  </body>
+</html>

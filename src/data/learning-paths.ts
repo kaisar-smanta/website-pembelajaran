@@ -1,4 +1,4 @@
-import type { ElementId, Grade } from '@/types/content';
+import type { ElementId, Grade, SubjectId } from '@/types/content';
 
 export interface LearningPathNode {
   label: string;
@@ -10,6 +10,8 @@ export interface LearningPathNode {
 
 export interface LearningPath {
   id: string;
+  /** Mata pelajaran; kosong berarti 'matematika'. */
+  subject?: SubjectId;
   title: string;
   note: string;
   accent: ElementId;
@@ -122,6 +124,50 @@ export const learningPaths: LearningPath[] = [
       {
         label: 'Permutasi & Kombinasi',
         id: 'permutasi-kombinasi',
+        grade: 'XII',
+        element: 'data-peluang',
+      },
+    ],
+  },
+
+  // ---------------- Matematika Tingkat Lanjut ----------------
+  {
+    id: 'mtl-aljabar-geometri',
+    subject: 'matematika-lanjut',
+    accent: 'aljabar-fungsi',
+    title: 'Jalur MTL: dari polinomial ke vektor dan irisan kerucut',
+    note: 'Mata pelajaran pilihan Fase F yang memperkuat abstraksi dan penalaran geometris.',
+    nodes: [
+      { label: 'Polinomial', id: 'polinomial', grade: 'XI', element: 'aljabar-fungsi' },
+      {
+        label: 'Matriks & Transformasi',
+        id: 'matriks-transformasi',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
+      {
+        label: 'Trigonometri Lanjut',
+        id: 'trigonometri-lanjut',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
+      { label: 'Vektor', id: 'vektor', grade: 'XI', element: 'geometri' },
+      { label: 'Irisan Kerucut', id: 'irisan-kerucut', grade: 'XI', element: 'geometri' },
+    ],
+  },
+  {
+    id: 'mtl-kalkulus-data',
+    subject: 'matematika-lanjut',
+    accent: 'kalkulus',
+    title: 'Jalur MTL: dari laju perubahan ke integral dan peluang',
+    note: 'Turunan dan integral menjadi alat utama membaca perubahan dan akumulasi.',
+    nodes: [
+      { label: 'Turunan', id: 'turunan', grade: 'XII', element: 'kalkulus' },
+      { label: 'Penerapan Turunan', id: 'aplikasi-turunan', grade: 'XII', element: 'kalkulus' },
+      { label: 'Integral', id: 'integral', grade: 'XII', element: 'kalkulus' },
+      {
+        label: 'Variabel Acak Diskret',
+        id: 'variabel-acak-diskret',
         grade: 'XII',
         element: 'data-peluang',
       },

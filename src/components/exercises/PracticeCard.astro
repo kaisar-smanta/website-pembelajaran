@@ -1,6 +1,6 @@
 ---
-import type { Difficulty, ElementId, Grade } from '@/types/content';
-import { GRADES } from '@/data/curriculum';
+import type { Difficulty, ElementId, Grade, SubjectId } from '@/types/content';
+import { GRADES, SUBJECTS } from '@/data/curriculum';
 import { url } from '@/utils/url';
 import { renderInlineMarkdown } from '@/utils/markdown';
 import ElementIcon from '@/components/content/ElementIcon.astro';
@@ -11,11 +11,13 @@ interface Props {
   grade: Grade;
   element: ElementId;
   slug: string;
+  /** Mata pelajaran; kosong berarti 'matematika'. */
+  subject?: SubjectId;
   counts: Record<Difficulty, number>;
   questionIds: string[];
 }
 
-const { title, summary, grade, element, slug, counts, questionIds } = Astro.props;
+const { title, summary, grade, element, slug, subject = 'matematika', counts, questionIds } = Astro.props;
 
 const LEVEL_ORDER: Difficulty[] = ['dasar', 'cakap', 'mahir'];
 const LEVEL_LABEL: Record<Difficulty, string> = {
@@ -42,7 +44,12 @@ const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
   <a class="practice-card-body" href={href}>
     <div class="card-top">
       <span class="icon-tile" aria-hidden="true"><ElementIcon element={element} /></span>
-      <span class="badge badge-grade">{gradeMeta.name}</span>
+      <span class="card-tags">
+        {subject === 'matematika-lanjut' && (
+          <span class="badge badge-subject">{SUBJECTS[subject].short}</span>
+        )}
+        <span class="badge badge-grade">{gradeMeta.name}</span>
+      </span>
     </div>
     <h3 class="practice-title">{title}</h3>
     {summaryHtml && <p class="practice-summary text-muted" set:html={summaryHtml} />}
@@ -63,6 +70,17 @@ const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
 </article>
 
 <style>
+  .card-tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    justify-content: flex-end;
+  }
+  .badge-subject {
+    background: color-mix(in srgb, var(--color-calculus) 14%, var(--color-surface));
+    color: color-mix(in srgb, var(--color-calculus) 70%, var(--color-text));
+    border-color: transparent;
+  }
   .practice-card {
     display: flex;
     flex-direction: column;

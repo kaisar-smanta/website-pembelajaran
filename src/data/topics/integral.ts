@@ -1,0 +1,286 @@
+import type { Topic } from '@/types/content';
+
+export const integral: Topic = {
+  id: 'integral',
+  slug: 'integral',
+  title: 'Integral',
+  subtitle: 'Antiturunan, luas, dan teorema dasar kalkulus',
+  grade: 'XII',
+  phase: 'F',
+  element: 'kalkulus',
+  subject: 'matematika-lanjut',
+  status: 'lengkap',
+  estimatedMinutes: 100,
+  summary:
+    'Memahami integral sebagai antiturunan dan sebagai luas, menghitung integral tak tentu serta tentu, dan menggunakan teorema dasar kalkulus.',
+  description:
+    'Integral adalah kebalikan dari turunan sekaligus cara menghitung luas. Topik ini berangkat dari gagasan antiturunan integral tak tentu beserta sifat dan aturan dasarnya, lalu memperluasnya ke integral tak tentu polinomial, eksponensial, dan trigonometri. Dari sana kita menafsirkan integral tentu sebagai limit jumlah luas persegi panjang, menghubungkan turunan dan integral melalui teorema dasar kalkulus, serta menerapkannya untuk menghitung luas daerah di bawah kurva dan luas daerah antara dua kurva.',
+  keywords: [
+    'integral',
+    'antiturunan',
+    'integral tak tentu',
+    'integral tentu',
+    'teorema dasar kalkulus',
+    'luas di bawah kurva',
+    'luas antara dua kurva',
+    'limit jumlah',
+  ],
+  prerequisites: ['turunan'],
+  relatedTopics: ['aplikasi-turunan'],
+  prerequisiteKnowledge: [
+    'Menentukan turunan fungsi polinomial, eksponensial, dan trigonometri',
+    'Memahami turunan sebagai laju perubahan dan gradien garis singgung',
+    'Menghitung limit sederhana dan jumlah suku berurutan',
+    'Menentukan titik potong dua kurva serta luas bangun datar dasar',
+  ],
+  objectives: [
+    { text: 'Peserta didik dapat menjelaskan integral sebagai antiturunan.' },
+    { text: 'Peserta didik dapat menggunakan sifat dan aturan dasar integral tak tentu.' },
+    { text: 'Peserta didik dapat menentukan integral tak tentu polinomial, eksponensial, dan trigonometri.' },
+    { text: 'Peserta didik dapat menafsirkan integral tentu sebagai limit jumlah dan sebagai luas.' },
+    { text: 'Peserta didik dapat menggunakan teorema dasar kalkulus untuk menghitung luas di bawah kurva dan antara dua kurva.' },
+  ],
+  applications: ['pengukuran', 'pertumbuhan'],
+  sections: [
+    {
+      id: 'tujuan',
+      kind: 'tujuan',
+      title: 'Tujuan Pembelajaran',
+      body: `Setelah mempelajari topik ini, peserta didik dapat menjelaskan integral sebagai antiturunan, menggunakan sifat dan aturan dasar integral tak tentu, menentukan integral tak tentu fungsi polinomial, eksponensial, dan trigonometri, menafsirkan integral tentu sebagai limit jumlah dan sebagai luas, serta menggunakan teorema dasar kalkulus untuk menghitung luas daerah di bawah kurva dan antara dua kurva.`,
+    },
+    {
+      id: 'pemantik',
+      kind: 'pemantik',
+      title: 'Pertanyaan Pemantik',
+      body: `Jika kecepatan sebuah kendaraan diketahui pada setiap saat, bagaimana kita menentukan **jarak total** yang ditempuh? Turunan mengubah posisi menjadi kecepatan, jadi proses kebalikannya seharusnya mengubah kecepatan kembali menjadi posisi. Proses kebalikan itu dinamakan **integral**.
+Pertanyaan lainnya: bagaimana menghitung luas daerah yang dibatasi kurva melengkung, misalnya $y = x^{2}$ di antara $x = 0$ dan $x = 1$?`,
+      blocks: [
+        {
+          kind: 'details',
+          summary: 'Lihat jawaban pertanyaan pemantik',
+          text: `Daerah melengkung dapat didekati oleh banyak persegi panjang tipis. Ketika lebar persegi panjang dibuat makin kecil, jumlah luasnya mendekati luas sebenarnya. Limit jumlah inilah yang disebut **integral tentu**. Untuk $y = x^{2}$ pada $[0, 1]$ diperoleh $\\displaystyle\\int_{0}^{1} x^{2}\\,dx = \\dfrac{1}{3}$.`,
+        },
+      ],
+    },
+    {
+      id: 'prasyarat',
+      kind: 'prasyarat',
+      title: 'Prasyarat',
+      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+- aturan turunan konstanta, pangkat, jumlah, dan rantai;
+- turunan fungsi eksponensial dan trigonometri;
+- menentukan titik potong dua kurva;
+- menghitung luas persegi, segitiga, dan trapesium.`,
+    },
+    {
+      id: 'konteks',
+      kind: 'konteks',
+      title: 'Situasi dan Konteks',
+      body: `Integral menjawab pertanyaan tentang akumulasi dan luas. Jika turunan mengukur "seberapa cepat", integral mengukur "seberapa banyak" yang terkumpul. Dari kecepatan kita memperoleh jarak, dari laju aliran kita memperoleh volume, dari daya kita memperoleh energi.
+Dalam geometri, integral menghitung luas daerah yang batasnya berupa kurva. Dalam statistika, ia dipakai untuk menghitung peluang pada sebaran kontinu. Integral dan turunan adalah dua sisi dari satu gagasan yang sama.`,
+    },
+    {
+      id: 'konsep',
+      kind: 'konsep',
+      title: 'Integral sebagai Antiturunan dan sebagai Luas',
+      body: `**Integral tak tentu.** Fungsi $F$ disebut **antiturunan** $f$ jika $F'(x) = f(x)$. Himpunan semua antiturunan ditulis
+$$\\int f(x)\\,dx = F(x) + C,$$
+dengan $C$ adalah konstanta integrasi. Karena turunan konstanta nol, setiap antiturunan berbeda hanya oleh konstanta.
+
+Sebagai contoh, karena $\\dfrac{d}{dx}\\left(x^{3}\\right) = 3x^{2}$, maka $\\displaystyle\\int 3x^{2}\\,dx = x^{3} + C$.
+
+**Integral tentu dan limit jumlah.** Integral tentu fungsi $f$ pada selang $[a, b]$ didefinisikan sebagai limit jumlah luas persegi panjang:
+$$\\int_{a}^{b} f(x)\\,dx = \\lim_{n \\to \\infty} \\sum_{i=1}^{n} f(x_i)\\,\\Delta x,$$
+dengan selang dibagi menjadi $n$ bagian selebar $\\Delta x = \\dfrac{b-a}{n}$. Nilai ini menyatakan **luas bertanda** daerah antara kurva dan sumbu-$x$; daerah di bawah sumbu-$x$ dihitung negatif. Integral tentu berupa sebuah **bilangan**, bukan fungsi.
+
+**Teorema dasar kalkulus.** Jika $F$ antiturunan kontinu dari $f$ pada $[a, b]$, maka
+$$\\int_{a}^{b} f(x)\\,dx = F(b) - F(a) = \\Big[F(x)\\Big]_{a}^{b}.$$
+Teorema ini menghubungkan dua gagasan integral, yaitu limit jumlah dan antiturunan, sehingga luas dapat dihitung dengan mudah.`,
+      blocks: [
+        {
+          kind: 'callout',
+          variant: 'concept',
+          title: 'Turunan dan integral saling membatalkan',
+          text: 'Karena $\\displaystyle\\int f(x)\\,dx$ adalah antiturunan, maka $\\dfrac{d}{dx}\\displaystyle\\int f(x)\\,dx = f(x)$.',
+        },
+      ],
+    },
+    {
+      id: 'rumus',
+      kind: 'rumus',
+      title: 'Sifat dan Aturan Dasar',
+      body: `**Aturan pangkat.** $\\displaystyle\\int x^{n}\\,dx = \\dfrac{x^{n+1}}{n+1} + C$ untuk $n \\neq -1$.
+
+**Konstanta dan kelipatan.** $\\displaystyle\\int c\\,dx = cx + C$ dan $\\displaystyle\\int c\\,f(x)\\,dx = c\\int f(x)\\,dx$.
+
+**Jumlah dan selisih.** $\\displaystyle\\int \\left[f(x) \\pm g(x)\\right] dx = \\int f(x)\\,dx \\pm \\int g(x)\\,dx$.
+
+**Batas sama.** $\\displaystyle\\int_{a}^{a} f(x)\\,dx = 0$.
+
+**Tukar batas.** $\\displaystyle\\int_{a}^{b} f(x)\\,dx = -\\int_{b}^{a} f(x)\\,dx$.
+
+**Pecah selang.** $\\displaystyle\\int_{a}^{b} f(x)\\,dx = \\int_{a}^{c} f(x)\\,dx + \\int_{c}^{b} f(x)\\,dx$.
+
+**Eksponensial.** $\\displaystyle\\int e^{x}\\,dx = e^{x} + C$ dan $\\displaystyle\\int a^{x}\\,dx = \\dfrac{a^{x}}{\\ln a} + C$.
+
+**Trigonometri.** $\\displaystyle\\int \\cos x\\,dx = \\sin x + C$ dan $\\displaystyle\\int \\sin x\\,dx = -\\cos x + C$.`,
+    },
+    {
+      id: 'representasi',
+      kind: 'representasi',
+      title: 'Luas Daerah',
+      body: `**Luas di bawah kurva.** Bila $f(x) \\geq 0$ pada $[a, b]$, luas daerah antara kurva dan sumbu-$x$ adalah
+$$L = \\int_{a}^{b} f(x)\\,dx.$$
+Bila $f(x)$ dapat bernilai negatif, luas diperoleh dengan membagi selang menurut tanda $f$.
+
+**Luas antara dua kurva.** Bila $f(x) \\geq g(x)$ pada $[a, b]$, luas daerah antara kedua kurva adalah
+$$L = \\int_{a}^{b} \\left[f(x) - g(x)\\right] dx.$$
+Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $f(x) = g(x)$.`,
+      blocks: [
+        {
+          kind: 'table',
+          caption: 'Dua tafsir integral tentu',
+          headers: ['Tafsir', 'Bentuk'],
+          rows: [
+            ['Limit jumlah', '$\\lim_{n \\to \\infty} \\sum f(x_i)\\,\\Delta x$'],
+            ['Antiturunan', '$\\Big[F(x)\\Big]_{a}^{b} = F(b) - F(a)$'],
+            ['Luas di bawah kurva', '$\\int_{a}^{b} f(x)\\,dx$'],
+            ['Luas antara dua kurva', '$\\int_{a}^{b} \\left[f(x)-g(x)\\right] dx$'],
+          ],
+        },
+      ],
+    },
+    {
+      id: 'contoh',
+      kind: 'contoh',
+      title: 'Contoh Terbimbing',
+      body: `**Contoh 1 (integral tak tentu polinomial).** Tentukan $\\displaystyle\\int \\left(3x^{2} - 4x + 5\\right) dx$.
+
+*Penyelesaian.* Integrasikan suku demi suku dengan aturan pangkat:
+$$\\int \\left(3x^{2} - 4x + 5\\right) dx = x^{3} - 2x^{2} + 5x + C.$$
+Periksa dengan menurunkan: $\\dfrac{d}{dx}\\left(x^{3} - 2x^{2} + 5x\\right) = 3x^{2} - 4x + 5$, benar.
+
+**Contoh 2 (integral tentu dan teorema dasar kalkulus).** Hitung $\\displaystyle\\int_{1}^{3} (2x + 1)\\,dx$ dan $\\displaystyle\\int_{0}^{2} x^{2}\\,dx$.
+
+*Penyelesaian.*
+$$\\int_{1}^{3} (2x + 1)\\,dx = \\Big[x^{2} + x\\Big]_{1}^{3} = (9 + 3) - (1 + 1) = 12 - 2 = 10.$$
+$$\\int_{0}^{2} x^{2}\\,dx = \\left[\\frac{x^{3}}{3}\\right]_{0}^{2} = \\frac{8}{3} - 0 = \\frac{8}{3}.$$
+
+**Contoh 3 (luas antara dua kurva).** Tentukan luas daerah antara $y = x$ dan $y = x^{2}$ pada selang $[0, 1]$.
+
+*Penyelesaian.* Kedua kurva berpotongan di $x = 0$ dan $x = 1$. Karena $x \\geq x^{2}$ pada selang itu:
+$$L = \\int_{0}^{1} \\left(x - x^{2}\\right) dx = \\left[\\frac{x^{2}}{2} - \\frac{x^{3}}{3}\\right]_{0}^{1} = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}.$$`,
+    },
+    {
+      id: 'latihan-dasar',
+      kind: 'latihan-dasar',
+      title: 'Latihan Dasar',
+      level: 'dasar',
+      body: `1. Tentukan $\\displaystyle\\int 6x\\,dx$.
+2. Tentukan $\\displaystyle\\int \\left(3x^{2} - 4x + 5\\right) dx$.
+3. Hitung $\\displaystyle\\int_{0}^{1} 3x^{2}\\,dx$.
+4. Tentukan $\\displaystyle\\int \\cos x\\,dx$.`,
+      blocks: [
+        {
+          kind: 'details',
+          summary: 'Lihat kunci dan pembahasan',
+          text: `1. $\\displaystyle\\int 6x\\,dx = 3x^{2} + C$.
+2. $\\displaystyle\\int \\left(3x^{2} - 4x + 5\\right) dx = x^{3} - 2x^{2} + 5x + C$.
+3. $\\displaystyle\\int_{0}^{1} 3x^{2}\\,dx = \\Big[x^{3}\\Big]_{0}^{1} = 1$.
+4. $\\displaystyle\\int \\cos x\\,dx = \\sin x + C$.`,
+        },
+      ],
+    },
+    {
+      id: 'latihan-cakap',
+      kind: 'latihan-cakap',
+      title: 'Latihan Cakap',
+      level: 'cakap',
+      body: `1. Hitung $\\displaystyle\\int_{1}^{2} 3x^{2}\\,dx$.
+2. Hitung $\\displaystyle\\int_{0}^{\\pi} \\sin x\\,dx$.
+3. Hitung $\\displaystyle\\int_{0}^{1} e^{x}\\,dx$.
+4. Hitung $\\displaystyle\\int_{0}^{2} \\left(3x^{2} - 4x + 5\\right) dx$.`,
+      blocks: [
+        {
+          kind: 'details',
+          summary: 'Lihat kunci dan pembahasan',
+          text: `1. $\\Big[x^{3}\\Big]_{1}^{2} = 8 - 1 = 7$.
+2. $\\Big[-\\cos x\\Big]_{0}^{\\pi} = -(-1) - (-1) = 2$.
+3. $\\Big[e^{x}\\Big]_{0}^{1} = e - 1$.
+4. $\\Big[x^{3} - 2x^{2} + 5x\\Big]_{0}^{2} = (8 - 8 + 10) - 0 = 10$.`,
+        },
+      ],
+    },
+    {
+      id: 'latihan-mahir',
+      kind: 'latihan-mahir',
+      title: 'Latihan Mahir',
+      level: 'mahir',
+      body: `1. Hitung luas daerah antara kurva $y = 4 - x^{2}$ dan sumbu-$x$ pada selang $[-2, 2]$.
+2. Tentukan luas daerah yang dibatasi $y = x + 1$ dan $y = x^{2} - 1$.
+3. Tentukan $\\displaystyle\\int 2^{x}\\,dx$ dan jelaskan mengapa hasilnya berbeda dari $\\displaystyle\\int e^{x}\\,dx$.`,
+      blocks: [
+        {
+          kind: 'details',
+          summary: 'Lihat pembahasan',
+          text: `1. $L = \\displaystyle\\int_{-2}^{2} (4 - x^{2})\\,dx = \\left[4x - \\frac{x^{3}}{3}\\right]_{-2}^{2} = \\left(8 - \\frac{8}{3}\\right) - \\left(-8 + \\frac{8}{3}\\right) = \\frac{32}{3}$.
+2. Titik potong: $x + 1 = x^{2} - 1$ memberi $x = 2$ atau $x = -1$. Maka $L = \\displaystyle\\int_{-1}^{2} \\left(-x^{2} + x + 2\\right) dx = \\left[-\\frac{x^{3}}{3} + \\frac{x^{2}}{2} + 2x\\right]_{-1}^{2} = \\frac{10}{3} - \\left(-\\frac{7}{6}\\right) = \\frac{9}{2}$.
+3. $\\displaystyle\\int 2^{x}\\,dx = \\dfrac{2^{x}}{\\ln 2} + C$, sedangkan $\\displaystyle\\int e^{x}\\,dx = e^{x} + C$ karena $\\ln e = 1$.`,
+        },
+      ],
+    },
+    {
+      id: 'dunia-nyata',
+      kind: 'dunia-nyata',
+      title: 'Penerapan di Dunia Nyata',
+      body: `Integral dipakai untuk menghitung akumulasi. Dari grafik kecepatan terhadap waktu, luas di bawah kurva adalah jarak tempuh. Dari laju aliran air, integral memberi volume total. Dalam ekonomi, integral biaya marginal memberi biaya total.
+Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listrik adalah integral arus terhadap waktu. Dalam statistika, luas di bawah kurva peluang menunjukkan besarnya peluang suatu kejadian. Kemampuan menghitung integral membuka jalan memahami perubahan yang menumpuk.`,
+    },
+    {
+      id: 'kesalahan-umum',
+      kind: 'kesalahan-umum',
+      title: 'Kesalahan Umum',
+      body: `**1. Lupa menambahkan konstanta $C$.** Integral tak tentu selalu menghasilkan keluarga fungsi, jadi $C$ wajib ditulis.
+**2. Keliru memakai aturan pangkat untuk $x^{-1}$.** Rumus $\\dfrac{x^{n+1}}{n+1}$ tidak berlaku untuk $n = -1$.
+**3. Salah tanda pada integral sinus dan kosinus.** $\\displaystyle\\int \\sin x\\,dx = -\\cos x + C$, bukan $\\cos x + C$.
+**4. Menukar $F(a)$ dan $F(b)$.** Nilai integral tentu adalah $F(b) - F(a)$, bukan sebaliknya.
+**5. Menghitung luas tanpa memeriksa urutan kurva.** Pada luas antara dua kurva, pastikan fungsi atas dikurangi fungsi bawah agar hasilnya positif.`,
+    },
+    {
+      id: 'refleksi',
+      kind: 'refleksi',
+      title: 'Refleksi',
+      body: `Jawab dengan jujur:
+1. Mengapa integral disebut kebalikan turunan?
+2. Apa perbedaan integral tak tentu dan integral tentu dari segi hasilnya?
+3. Bagaimana teorema dasar kalkulus menghubungkan limit jumlah dengan antiturunan?`,
+    },
+    {
+      id: 'rangkuman',
+      kind: 'rangkuman',
+      title: 'Rangkuman',
+      blocks: [
+        {
+          kind: 'table',
+          headers: ['Konsep', 'Bentuk / Rumus'],
+          rows: [
+            ['Integral tak tentu', '$\\int f(x)\\,dx = F(x) + C$ dengan $F\' = f$'],
+            ['Aturan pangkat', '$\\int x^{n}\\,dx = \\dfrac{x^{n+1}}{n+1} + C$'],
+            ['Eksponensial', '$\\int e^{x}\\,dx = e^{x} + C$, $\\int a^{x}\\,dx = \\dfrac{a^{x}}{\\ln a} + C$'],
+            ['Trigonometri', '$\\int \\cos x\\,dx = \\sin x + C$, $\\int \\sin x\\,dx = -\\cos x + C$'],
+            ['Integral tentu', '$\\int_{a}^{b} f(x)\\,dx = F(b) - F(a)$'],
+            ['Luas di bawah kurva', '$L = \\int_{a}^{b} f(x)\\,dx$'],
+            ['Luas antara dua kurva', '$L = \\int_{a}^{b} \\left[f(x)-g(x)\\right] dx$'],
+          ],
+        },
+      ],
+    },
+    {
+      id: 'evaluasi',
+      kind: 'evaluasi',
+      title: 'Evaluasi',
+      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Integral**.
+`,
+    },
+  ],
+};

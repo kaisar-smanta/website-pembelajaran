@@ -1,0 +1,240 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
+import TopicCard from '@/components/content/TopicCard.astro';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+import {
+  ELEMENTS,
+  GRADES,
+  SUBJECTS,
+  SUBJECT_ORDER,
+  elementOrderFor,
+  gradesFor,
+} from '@/data/curriculum';
+import { topicsBySubject, topicSubject } from '@/data/topics';
+import { topicIdsWithQuestions } from '@/data/questions';
+import { url, gradeUrl, elementOverviewUrl } from '@/utils/url';
+import type { SubjectId } from '@/types/content';
+
+export function getStaticPaths() {
+  return SUBJECT_ORDER.map((subject) => ({ params: { subject } }));
+}
+
+const subject = Astro.params.subject as SubjectId;
+const meta = SUBJECTS[subject];
+const allTopics = topicsBySubject(subject);
+const practiceIds = new Set(topicIdsWithQuestions());
+
+const grades = gradesFor(subject).map((grade) => ({
+  grade,
+  meta: GRADES[grade],
+  description: meta.gradeDescriptions?.[grade] ?? GRADES[grade].description,
+  count: allTopics.filter((t) => t.grade === grade).length,
+  url: gradeUrl(grade, subject),
+}));
+
+const elements = elementOrderFor(subject).map((element) => {
+  const topics = allTopics.filter((t) => t.element === element);
+  return {
+    element,
+    meta: ELEMENTS[element],
+    count: topics.length,
+    practice: topics.some((t) => practiceIds.has(t.id)),
+    url: elementOverviewUrl(element, subject),
+  };
+});
+
+const featured = allTopics.filter((t) => t.featured).slice(0, 6);
+const featuredList = featured.length ? featured : allTopics.slice(0, 6);
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: meta.name },
+];
+---
+
+<BaseLayout title={meta.name} description={meta.description}>
+  <PageHeader
+    eyebrow={meta.elective ? 'Mata Pelajaran Pilihan · Fase F' : 'Mata Pelajaran Wajib · Fase E–F'}
+    title={meta.name}
+    lead={meta.description}
+    crumbs={crumbs}
+    meta={[
+      `${allTopics.length} topik`,
+      `${elements.length} elemen`,
+      ...(meta.hours ? [`${meta.hours} JP`] : []),
+    ]}
+  />
+
+  <div class="container">
+    <section class="section" aria-labelledby="subject-grades">
+      <SectionHeading
+        id="subject-grades"
+        eyebrow="Jenjang"
+        title="Pilih Kelas"
+        lead="Setiap kelas menyusun materi per elemen kurikulum."
+      />
+      <div class="grid grid-3">
+        {
+          grades.map((g) => (
+            <a class="subject-stat card hover-lift reveal" href={g.url}>
+              <span class="badge">{g.meta.label}</span>
+              <h3>{g.meta.name}</h3>
+              <p class="text-muted">{g.description}</p>
+              <span class="stat-count">{g.count} topik</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="subject-elements">
+      <SectionHeading
+        id="subject-elements"
+        eyebrow="Cakupan"
+        title="Elemen Kurikulum"
+        lead="Telusuri seluruh materi per elemen, lintas kelas."
+      />
+      <div class="grid grid-2">
+        {
+          elements.map((el) => (
+            <a class:list={['element-card', 'card', 'card-accent', `accent-${el.element}`, 'hover-lift', 'reveal']} href={el.url}>
+              <span class="icon-tile" aria-hidden="true">
+                <ElementIcon element={el.element} size={20} />
+              </span>
+              <div>
+                <h3>{el.meta.name}</h3>
+                <p class="text-muted">{el.meta.description}</p>
+                <span class="stat-count">{el.count} topik</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="subject-topics">
+      <SectionHeading
+        id="subject-topics"
+        eyebrow="Mulai belajar"
+        title="Topik Pilihan"
+        lead="Beberapa topik untuk memulai."
+      />
+      <div class="grid grid-3">
+        {
+          featuredList.map((t, i) => (
+            <TopicCard
+              title={t.title}
+              summary={t.summary}
+              grade={t.grade}
+              element={t.element}
+              slug={t.slug}
+              subject={topicSubject(t)}
+              delay={i * 60}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section practice-cta no-print" aria-labelledby="subject-practice">
+      <div class="card practice-cta-inner">
+        <div>
+          <p class="eyebrow-badge">Latihan</p>
+          <h2 id="subject-practice">Uji pemahamanmu</h2>
+          <p class="text-muted">
+            Latihan berjenjang dasar, cakap, dan mahir, atau telusuri peta konsepnya.
+          </p>
+        </div>
+        <div class="practice-cta-actions">
+          <a class="btn btn-primary" href={url('/latihan')}>Mulai latihan</a>
+          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: 2rem;
+  }
+  .section + .section {
+    border-top: 1px solid var(--color-border);
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1rem;
+  }
+  .subject-stat {
+    display: grid;
+    gap: 0.4rem;
+    padding: 1.1rem 1.2rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .subject-stat .badge {
+    justify-self: start;
+  }
+  .subject-stat h3 {
+    margin: 0;
+  }
+  .subject-stat p {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .stat-count {
+    margin-top: 0.3rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent, var(--color-primary));
+  }
+  .element-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1.1rem 1.2rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .element-card h3 {
+    margin: 0 0 0.25rem;
+  }
+  .element-card p {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .icon-tile {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    flex: none;
+    border-radius: 12px;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+  }
+  .practice-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-top: 3px solid var(--accent, var(--color-primary));
+  }
+  .practice-cta-inner h2 {
+    margin-bottom: 0.25rem;
+  }
+  .practice-cta-inner p {
+    margin: 0;
+    max-width: 46ch;
+  }
+  .practice-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

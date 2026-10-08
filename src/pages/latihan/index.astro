@@ -3,9 +3,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import PracticeCard from '@/components/exercises/PracticeCard.astro';
-import { topics } from '@/data/topics';
+import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic, practiceCounts, topicIdsWithQuestions } from '@/data/questions';
-import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { ELEMENTS, ALL_ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
 import { url } from '@/utils/url';
 
 const crumbs = [
@@ -53,7 +53,7 @@ const practiceTopics = topics.filter((t) => withQuestions.has(t.id));
 const groups = GRADE_ORDER.map((grade) => ({
   grade,
   label: GRADES[grade].name,
-  elements: ELEMENT_ORDER.map((element) => ({
+  elements: ALL_ELEMENT_ORDER.map((element) => ({
     element,
     label: ELEMENTS[element].name,
     topics: practiceTopics.filter((t) => t.grade === grade && t.element === element),
@@ -134,7 +134,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
           <div class="filter-options">
             <button type="button" class="filter-btn" data-filter="elemen" data-value="" aria-pressed="true">Semua</button>
             {
-              ELEMENT_ORDER.map((element) => (
+              ALL_ELEMENT_ORDER.map((element) => (
                 <button
                   type="button"
                   class="filter-btn"
@@ -196,6 +196,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
                       grade={topic.grade}
                       element={topic.element}
                       slug={topic.slug}
+                      subject={topicSubject(topic)}
                       counts={practiceCounts(topic.id)}
                       questionIds={questionsByTopic(topic.id).map((q) => q.id)}
                     />

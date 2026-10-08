@@ -8,12 +8,22 @@ export interface NavItem {
 export const mainNav: NavItem[] = [
   { label: 'Peta Pembelajaran', href: '/peta-pembelajaran' },
   {
-    label: 'Kelas',
-    href: '/kelas/X',
+    label: 'Matematika',
+    href: '/matematika',
     children: [
-      { label: 'Kelas X', href: '/kelas/X' },
-      { label: 'Kelas XI', href: '/kelas/XI' },
-      { label: 'Kelas XII', href: '/kelas/XII' },
+      { label: 'Ringkasan', href: '/matematika' },
+      { label: 'Kelas X', href: '/matematika/kelas/X' },
+      { label: 'Kelas XI', href: '/matematika/kelas/XI' },
+      { label: 'Kelas XII', href: '/matematika/kelas/XII' },
+    ],
+  },
+  {
+    label: 'Matematika Lanjut',
+    href: '/matematika-lanjut',
+    children: [
+      { label: 'Ringkasan', href: '/matematika-lanjut' },
+      { label: 'Kelas XI', href: '/matematika-lanjut/kelas/XI' },
+      { label: 'Kelas XII', href: '/matematika-lanjut/kelas/XII' },
     ],
   },
   { label: 'Latihan', href: '/latihan' },
@@ -29,9 +39,11 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
     heading: 'Kurikulum',
     items: [
       { label: 'Peta Pembelajaran', href: '/peta-pembelajaran' },
-      { label: 'Kelas X', href: '/kelas/X' },
-      { label: 'Kelas XI', href: '/kelas/XI' },
-      { label: 'Kelas XII', href: '/kelas/XII' },
+      { label: 'Matematika', href: '/matematika' },
+      { label: 'Matematika Tingkat Lanjut', href: '/matematika-lanjut' },
+      { label: 'Kelas X', href: '/matematika/kelas/X' },
+      { label: 'Kelas XI', href: '/matematika/kelas/XI' },
+      { label: 'Kelas XII', href: '/matematika/kelas/XII' },
     ],
   },
   {
