@@ -35,6 +35,12 @@ const meta = [
   `${learningPaths.length} jalur konsep`,
   `${applications.length} studi kasus`,
 ];
+
+const pathGroups = SUBJECT_ORDER.map((subject) => ({
+  id: subject,
+  name: SUBJECTS[subject].name,
+  paths: learningPaths.filter((path) => (path.subject ?? 'matematika') === subject),
+})).filter((group) => group.paths.length > 0);
 ---
 
 <BaseLayout
@@ -59,11 +65,20 @@ const meta = [
         id="jalur-heading"
         eyebrow="Alur belajar"
         title="Jalur Konsep"
-        lead="Tiga rute yang saling bertumpu: setiap tahap menyiapkan tahap berikutnya."
+        lead={`${learningPaths.length} rute pada Matematika dan Matematika Tingkat Lanjut yang saling bertumpu: setiap tahap menyiapkan tahap berikutnya.`}
       />
-      <div class="chain-grid">
-        {learningPaths.map((path, i) => <LearningPath path={path} delay={i * 80} />)}
-      </div>
+      {
+        pathGroups.map((group) => (
+          <div class="path-group">
+            <h3 class="path-group-title">{group.name}</h3>
+            <div class="chain-grid">
+              {group.paths.map((path, i) => (
+                <LearningPath path={path} delay={i * 80} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
     </section>
   </div>
 
@@ -197,6 +212,8 @@ const meta = [
       var status = document.querySelector('[data-map-status]');
       var cols = Array.prototype.slice.call(document.querySelectorAll('.elem-col'));
       var items = Array.prototype.slice.call(document.querySelectorAll('.topic-item'));
+      var pendings = Array.prototype.slice.call(document.querySelectorAll('[data-pending]'));
+      var strips = Array.prototype.slice.call(document.querySelectorAll('[data-pending-strip]'));
       var filter = 'all';
       var hidePlanned = false;
 
@@ -219,16 +236,32 @@ const meta = [
           });
           col.classList.toggle('is-hidden', !anyVisible);
         });
+        pendings.forEach(function (p) {
+          var el = p.getAttribute('data-element');
+          var match = filter === 'all' || el === filter;
+          p.classList.toggle('is-hidden', !match);
+        });
+        strips.forEach(function (strip) {
+          var own = Array.prototype.slice.call(strip.querySelectorAll('[data-pending]'));
+          var anyVisible = own.some(function (p) {
+            return !p.classList.contains('is-hidden');
+          });
+          strip.classList.toggle('is-hidden', own.length > 0 && !anyVisible);
+        });
         chips.forEach(function (c) {
           var active = c.getAttribute('data-map-filter') === filter;
           c.classList.toggle('is-active', active);
           c.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
         if (status) {
-          var shown = cols.filter(function (c) {
-            return !c.classList.contains('is-hidden');
-          }).length;
-          status.textContent = 'Menampilkan ' + shown + ' dari ' + cols.length + ' kelompok elemen.';
+          if (filter === 'all') {
+            status.textContent = cols.length + ' kelompok elemen tersedia.';
+          } else {
+            var shown = cols.filter(function (c) {
+              return !c.classList.contains('is-hidden');
+            }).length;
+            status.textContent = 'Menampilkan ' + shown + ' dari ' + cols.length + ' kelompok elemen.';
+          }
         }
       }
 
@@ -266,6 +299,26 @@ const meta = [
   .map-panel {
     background-color: var(--color-bg-alt);
     border-block: 1px solid var(--color-border);
+  }
+  .path-group + .path-group {
+    margin-top: 2rem;
+  }
+  .path-group-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .path-group-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
   }
   .chain-grid {
     display: grid;

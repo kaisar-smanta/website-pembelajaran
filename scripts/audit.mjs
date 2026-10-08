@@ -215,6 +215,13 @@ const AUDIT_EXPR = `(() => {
     var t = interactive[ti];
     var ts = getComputedStyle(t);
     var tr = t.getBoundingClientRect();
+    // Kontrol formulir yang dibungkus <label> memakai label sebagai sasaran
+    // klik sebenarnya, jadi ukur labelnya bila lebih besar.
+    var lbl = t.closest ? t.closest('label') : null;
+    if (lbl && lbl !== t) {
+      var lr = lbl.getBoundingClientRect();
+      if (lr.width >= tr.width && lr.height >= tr.height) tr = lr;
+    }
     if (tr.width < 2 || tr.height < 2 || ts.visibility === 'hidden' || ts.display === 'none') continue;
     if (t.tagName === 'A' && ts.display === 'inline' && t.closest('.prose')) continue;
     if (tr.height < 24 || tr.width < 24) {
@@ -281,6 +288,8 @@ const INTERACT_EXPR = `(() => {
 const JOBS = [
   { name: 'beranda', path: '/', width: 1440, height: 900 },
   { name: 'beranda-gelap', path: '/', width: 1440, height: 900, dark: true },
+  { name: 'beranda-1200', path: '/', width: 1200, height: 900 },
+  { name: 'beranda-1200-gelap', path: '/', width: 1200, height: 900, dark: true },
   { name: 'beranda-mobile', path: '/', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'kelas-x', path: '/kelas/X', width: 1440, height: 900 },
   { name: 'kelas-x-geometri', path: '/kelas/X/geometri', width: 1440, height: 900 },

@@ -83,12 +83,26 @@ function formatDate(iso: string): string {
 
   <div class="cp-phases">
     {
-      groups.map(({ phase, grades, elements }) => (
-        <section class="cp-phase" aria-labelledby={`cp-phase-${phase}`}>
-          <div class="cp-phase-head">
-            <h3 id={`cp-phase-${phase}`}>Fase {phase}</h3>
-            <p class="cp-phase-sub text-soft">{grades.map((grade) => GRADES[grade].name).join(' · ')}</p>
-          </div>
+      groups.map(({ phase, grades, elements }) => {
+        const Wrapper = compact ? 'details' : 'section';
+        const sub = grades.map((grade) => GRADES[grade].name).join(' · ');
+        const elementCount = elements.length;
+        const statementCount = elements.reduce((sum, group) => sum + group.statements.length, 0);
+        return (
+        <Wrapper class="cp-phase" aria-labelledby={`cp-phase-${phase}`}>
+          {compact ? (
+            <summary class="cp-phase-head">
+              <h3 id={`cp-phase-${phase}`}>Fase {phase}</h3>
+              <p class="cp-phase-sub text-soft">
+                {sub} · {elementCount} elemen · {statementCount} pernyataan
+              </p>
+            </summary>
+          ) : (
+            <div class="cp-phase-head">
+              <h3 id={`cp-phase-${phase}`}>Fase {phase}</h3>
+              <p class="cp-phase-sub text-soft">{sub}</p>
+            </div>
+          )}
           <div class="cp-elements">
             {elements.map(({ element, statements }) => (
               <div class={`cp-element card card-accent accent-${element}`}>
@@ -128,8 +142,9 @@ function formatDate(iso: string): string {
               </div>
             ))}
           </div>
-        </section>
-      ))
+        </Wrapper>
+        );
+      })
     }
   </div>
 </div>
@@ -312,6 +327,56 @@ function formatDate(iso: string): string {
   }
   .cp-coverage.is-compact .cp-elements {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    align-items: start;
+    align-content: start;
+    padding: 1rem;
+  }
+  .cp-coverage.is-compact .cp-phase {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+  .cp-coverage.is-compact .cp-phase-head {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cp-coverage.is-compact .cp-phase:not([open]) .cp-phase-head {
+    border-bottom-color: transparent;
+  }
+  .cp-coverage.is-compact summary.cp-phase-head {
+    cursor: pointer;
+    list-style: none;
+    background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface-2));
+    transition: background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .cp-coverage.is-compact summary.cp-phase-head::-webkit-details-marker {
+    display: none;
+  }
+  .cp-coverage.is-compact summary.cp-phase-head::after {
+    content: '';
+    flex: none;
+    width: 0.55rem;
+    height: 0.55rem;
+    margin-left: 0.35rem;
+    border-right: 2px solid var(--color-text-muted);
+    border-bottom: 2px solid var(--color-text-muted);
+    transform: rotate(45deg);
+    transition: transform var(--dur-fast) var(--ease-out-soft);
+  }
+  .cp-coverage.is-compact .cp-phase[open] summary.cp-phase-head::after {
+    transform: rotate(-135deg);
+  }
+  .cp-coverage.is-compact summary.cp-phase-head:hover {
+    background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface-2));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cp-coverage.is-compact summary.cp-phase-head,
+    .cp-coverage.is-compact summary.cp-phase-head::after {
+      transition: none;
+    }
   }
 
   @media (max-width: 30rem) {

@@ -15,14 +15,19 @@ const { grade, subject = 'matematika', delay = 0 } = Astro.props;
 const subjectMeta = SUBJECTS[subject];
 const elements = elementOrderFor(subject);
 
-const totalCount = elements.reduce((sum, element) => {
+const groups = elements.map((element) => {
   const complete = topicsBySubjectGradeElement(subject, grade, element);
   const planned =
     subject === 'matematika'
       ? plannedTopics.filter((p) => p.grade === grade && p.element === element)
       : [];
-  return sum + complete.length + planned.length;
-}, 0);
+  const count = complete.length + planned.length;
+  return { element, complete, planned, count };
+});
+
+const totalCount = groups.reduce((sum, group) => sum + group.count, 0);
+const withTopics = groups.filter((group) => group.count > 0);
+const pending = groups.filter((group) => group.count === 0);
 ---
 
 <div
@@ -39,23 +44,17 @@ const totalCount = elements.reduce((sum, element) => {
     <p class="grade-count text-soft">{totalCount} topik</p>
   </div>
 
-  <div class="grade-columns">
-    {
-      elements.map((element) => {
-        const complete = topicsBySubjectGradeElement(subject, grade, element);
-        const planned =
-          subject === 'matematika'
-            ? plannedTopics.filter((p) => p.grade === grade && p.element === element)
-            : [];
-        const count = complete.length + planned.length;
-        return (
+  {
+    withTopics.length > 0 && (
+      <div class="grade-columns">
+        {withTopics.map(({ element, complete, planned, count }) => (
           <div class={`elem-col card card-accent accent-${element}`} data-element={element}>
             <h4>
               <span class="icon-tile elem-icon" aria-hidden="true">
                 <ElementIcon element={element} size={14} />
               </span>
               <span class="elem-name">{ELEMENTS[element].short}</span>
-              {count > 0 && <span class="elem-count">{count}</span>}
+              <span class="elem-count">{count}</span>
             </h4>
             <p class="elem-desc text-soft">{ELEMENTS[element].description}</p>
 
@@ -72,36 +71,43 @@ const totalCount = elements.reduce((sum, element) => {
               </div>
             )}
 
-            {count > 0 ? (
-              <ul class="elem-list">
-                {complete.map((t) => (
-                  <li class="topic-item" data-status="lengkap" data-element={element}>
-                    <a href={topicUrl(grade, element, t.slug, subject)}>{t.title}</a>
-                    {t.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
-                  </li>
-                ))}
-                {planned.map((t) => (
-                  <li class="topic-item planned-item" data-status="rencana" data-element={element}>
-                    <span class="planned-label">{t.title}</span>
-                    <span class="badge badge-rencana">Segera hadir</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <ul class="elem-list">
-                <li class="elem-empty">
-                  <span class="elem-empty-icon" aria-hidden="true">
-                    <ElementIcon element={element} size={16} />
-                  </span>
-                  <span>Segera disusun untuk jenjang ini.</span>
+            <ul class="elem-list">
+              {complete.map((t) => (
+                <li class="topic-item" data-status="lengkap" data-element={element}>
+                  <a href={topicUrl(grade, element, t.slug, subject)}>{t.title}</a>
+                  {t.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
                 </li>
-              </ul>
-            )}
+              ))}
+              {planned.map((t) => (
+                <li class="topic-item planned-item" data-status="rencana" data-element={element}>
+                  <span class="planned-label">{t.title}</span>
+                  <span class="badge badge-rencana">Segera hadir</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        );
-      })
-    }
-  </div>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    pending.length > 0 && (
+      <div class="elem-pending" data-pending-strip>
+        <span class="elem-pending-label">Segera disusun:</span>
+        <ul class="elem-pending-list">
+          {pending.map(({ element }) => (
+            <li class={`pending-chip accent-${element}`} data-element={element} data-pending>
+              <span class="icon-tile pending-icon" aria-hidden="true">
+                <ElementIcon element={element} size={14} />
+              </span>
+              {ELEMENTS[element].short}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 </div>
 
 <style>
@@ -236,27 +242,54 @@ const totalCount = elements.reduce((sum, element) => {
   .planned-item .badge {
     flex: none;
   }
-  .elem-empty {
+  .elem-pending {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1.1rem 0.85rem;
-    text-align: center;
-    font-size: 0.82rem;
-    color: var(--color-text-soft);
+    gap: 0.5rem 0.85rem;
+    margin-top: 1rem;
+    padding: 0.6rem 0.9rem;
     border: 1px dashed var(--color-border);
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--color-surface-2) 60%, transparent);
+    background: color-mix(in srgb, var(--color-surface-2) 55%, transparent);
   }
-  .elem-empty-icon {
-    display: grid;
-    place-items: center;
-    width: 2rem;
-    height: 2rem;
+  .elem-pending-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .elem-pending-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pending-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.65rem 0.2rem 0.3rem;
+    border-radius: 999px;
+    border: 1px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .pending-icon {
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
-    color: var(--accent, var(--color-primary));
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+    flex: none;
+  }
+  .pending-chip.is-hidden,
+  .elem-pending.is-hidden {
+    display: none !important;
   }
 
   @media (max-width: 30rem) {

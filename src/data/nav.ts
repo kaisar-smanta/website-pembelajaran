@@ -18,7 +18,7 @@ export const mainNav: NavItem[] = [
     ],
   },
   {
-    label: 'Matematika Lanjut',
+    label: 'Matematika Tingkat Lanjut',
     href: '/matematika-lanjut',
     children: [
       { label: 'Ringkasan', href: '/matematika-lanjut' },

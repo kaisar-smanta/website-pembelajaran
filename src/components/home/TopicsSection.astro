@@ -1,5 +1,7 @@
 ---
+import type { SubjectId } from '@/types/content';
 import TopicCard from '@/components/content/TopicCard.astro';
+import { SUBJECTS } from '@/data/curriculum';
 import { resolveTopics, topicSubject } from '@/data/topics';
 import { url } from '@/utils/url';
 
@@ -7,39 +9,55 @@ const featuredIds = [
   'eksponen',
   'fungsi-kuadrat',
   'trigonometri',
-  'bunga-majemuk',
-  'data-bivariat',
-  'peluang',
+  'polinomial',
+  'turunan',
+  'vektor',
 ];
 const featured = resolveTopics(featuredIds);
+const subjectOrder: SubjectId[] = ['matematika', 'matematika-lanjut'];
+const featuredGroups = subjectOrder
+  .map((subjectId) => ({
+    subjectId,
+    name: SUBJECTS[subjectId].name,
+    topics: featured.filter((topic) => topicSubject(topic) === subjectId),
+  }))
+  .filter((group) => group.topics.length > 0);
 ---
 
-<section class="section band-plain topics-section" aria-labelledby="home-topics-title">
+<section class="section band-tint topics-section" aria-labelledby="home-topics-title">
   <div class="container">
     <div class="section-heading section-head--row reveal" data-reveal>
       <div class="heading-copy">
         <p class="eyebrow-badge">Pilih dan pelajari</p>
         <h2 id="home-topics-title">Topik pilihan</h2>
         <p class="text-muted">
-          Pilih topik untuk mulai, lalu jelajahi peta lengkapnya.
+          Mulai dari Matematika wajib atau Matematika Tingkat Lanjut, lalu jelajahi peta lengkapnya.
         </p>
       </div>
       <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat semua topik</a>
     </div>
 
-    <div class="grid grid-3 topics-grid">
+    <div class="topics-groups">
       {
-        featured.map((topic, i) => (
-          <div class="topics-slot">
-            <TopicCard
-              title={topic.title}
-              summary={topic.summary}
-              grade={topic.grade}
-              element={topic.element}
-              slug={topic.slug}
-              subject={topicSubject(topic)}
-              delay={i * 60}
-            />
+        featuredGroups.map((group) => (
+          <div class:list={['topics-group', group.subjectId === 'matematika-lanjut' && 'is-lanjut']}>
+            <div class="topics-group-head">
+              <h3 class="topics-group-title">{group.name}</h3>
+              <span class="topics-group-count">{group.topics.length} topik</span>
+            </div>
+            <div class="grid grid-3 topics-grid">
+              {group.topics.map((topic, i) => (
+                <TopicCard
+                  title={topic.title}
+                  summary={topic.summary}
+                  grade={topic.grade}
+                  element={topic.element}
+                  slug={topic.slug}
+                  subject={group.subjectId}
+                  delay={i * 60}
+                />
+              ))}
+            </div>
           </div>
         ))
       }
@@ -60,12 +78,46 @@ const featured = resolveTopics(featuredIds);
   .heading-copy p {
     margin-bottom: 0;
   }
+  .topics-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .topics-group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .topics-group-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .topics-group-title::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 3px;
+    background: var(--color-primary);
+    transform: rotate(10deg);
+  }
+  .topics-group.is-lanjut .topics-group-title::before {
+    background: var(--color-calculus);
+  }
+  .topics-group-count {
+    font-size: 0.82rem;
+    color: var(--color-text-soft);
+    white-space: nowrap;
+  }
   .topics-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
     align-items: stretch;
-  }
-  .topics-slot {
-    display: flex;
-    min-width: 0;
   }
 </style>

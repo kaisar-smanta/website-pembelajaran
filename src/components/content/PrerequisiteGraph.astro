@@ -1,13 +1,16 @@
 ---
-import type { ElementId, Grade } from '@/types/content';
-import { ALL_ELEMENT_ORDER, GRADES } from '@/data/curriculum';
-import { topics } from '@/data/topics';
+import type { ElementId, Grade, SubjectId } from '@/types/content';
+import { ALL_ELEMENT_ORDER, ELEMENTS, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { topics, topicSubject } from '@/data/topics';
+import { topicUrl } from '@/utils/url';
 
 interface GraphNode {
   id: string;
   title: string;
   grade: Grade;
   element: ElementId;
+  slug: string;
+  subject: SubjectId;
   prereqs: string[];
 }
 
@@ -35,13 +38,16 @@ interface GraphEdge {
   d: string;
 }
 
-const COLUMN_GAP = 230;
-const NODE_W = 190;
+const NODE_W = 176;
 const NODE_H = 58;
-const ROW_GAP = 18;
+const ROW_GAP = 16;
 const PADDING = 24;
 const CORNER = 10;
-const TITLE_WRAP = 23;
+const TITLE_WRAP = 21;
+const GAP_MIN = 52;
+const GAP_MAX = 132;
+const GAP_BASE = 44;
+const GAP_PER_EDGE = 10;
 const ARROW_ID = 'prereq-arrow';
 
 const idSet = new Set(topics.map((t) => t.id));
@@ -51,6 +57,8 @@ const nodes: GraphNode[] = topics.map((t) => ({
   title: t.title,
   grade: t.grade,
   element: t.element,
+  slug: t.slug,
+  subject: topicSubject(t),
   prereqs: (t.prerequisites ?? []).filter((id) => idSet.has(id)),
 }));
 
@@ -260,14 +268,31 @@ for (let round = 0; round < 8; round++) {
 }
 
 const maxColumnCount = Math.max(1, ...layers.map((layer) => layer.length));
-const width = PADDING * 2 + (maxRank + 1) * COLUMN_GAP;
+
+const corridorCount: number[] = new Array(Math.max(0, maxRank)).fill(0);
+for (const edge of edges) {
+  for (let r = edge.source.rank; r < edge.target.rank; r++) corridorCount[r]++;
+}
+
+function gapAfter(rank: number): number {
+  const count = corridorCount[rank] ?? 0;
+  return Math.min(GAP_MAX, Math.max(GAP_MIN, GAP_BASE + count * GAP_PER_EDGE));
+}
+
+const columnX: number[] = new Array(maxRank + 1);
+let cursorX = PADDING;
+for (let r = 0; r <= maxRank; r++) {
+  columnX[r] = cursorX;
+  if (r < maxRank) cursorX += NODE_W + gapAfter(r);
+}
+const width = columnX[maxRank] + NODE_W + PADDING;
 const height = PADDING * 2 + maxColumnCount * (NODE_H + ROW_GAP);
 
 for (let r = 0; r <= maxRank; r++) {
   const layer = layers[r];
   const offset = ((maxColumnCount - layer.length) * (NODE_H + ROW_GAP)) / 2;
   layer.forEach((node, i) => {
-    node.x = PADDING + r * COLUMN_GAP;
+    node.x = columnX[r];
     node.y = PADDING + i * (NODE_H + ROW_GAP) + offset;
   });
 }
@@ -313,8 +338,6 @@ function roundedPath(rawPoints: Array<{ x: number; y: number }>): string {
   return d;
 }
 
-const corridorWidth = COLUMN_GAP - NODE_W;
-
 edges.forEach((edge, edgeIndex) => {
   const a = edge.source.rank;
   const b = edge.target.rank;
@@ -339,7 +362,9 @@ edges.forEach((edge, edgeIndex) => {
     const users = corridorUse.get(corridor) ?? [];
     const lane = users.indexOf(edgeIndex);
     const step = users.length > 0 && lane >= 0 ? (lane + 1) / (users.length + 1) : 0.5;
-    const corridorX = PADDING + corridor * COLUMN_GAP + NODE_W + corridorWidth * step;
+    const corridorStart = columnX[corridor] + NODE_W;
+    const corridorEnd = columnX[corridor + 1];
+    const corridorX = corridorStart + (corridorEnd - corridorStart) * step;
     points.push({ x: corridorX, y: currentY });
     points.push({ x: corridorX, y: nextY });
     currentY = nextY;
@@ -381,100 +406,212 @@ const renderNodes = positioned.map((node) => {
     ...node,
     lines,
     titleY: node.y + (lines.length > 1 ? 22 : 30),
+    href: topicUrl(node.grade, node.element, node.slug, node.subject),
   };
 });
+
+const succById = new Map<string, string[]>();
+for (const n of nodes) {
+  for (const p of n.prereqs) {
+    const list = succById.get(p);
+    if (list) list.push(n.id);
+    else succById.set(p, [n.id]);
+  }
+}
+
+const listGroups = GRADE_ORDER.map((grade) => {
+  const items = nodes
+    .filter((n) => n.grade === grade)
+    .sort((a, b) => {
+      const ea = elementIndex.get(a.element) ?? 0;
+      const eb = elementIndex.get(b.element) ?? 0;
+      if (ea !== eb) return ea - eb;
+      return a.title.localeCompare(b.title, 'id');
+    });
+  return { grade, items };
+}).filter((group) => group.items.length > 0);
 ---
 
 <div class="prereq-wrap card reveal" data-reveal>
-  <p class="prereq-hint text-soft">
-    Peta menampilkan prasyarat utama tiap topik. Sorot atau ketuk sebuah topik untuk menelusuri
-    seluruh prasyarat dan lanjutannya.
-  </p>
-
-  <div class="prereq-scroll">
-    <svg
-      class="prereq-svg"
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      style={`--prereq-w:${width}px`}
-      role="img"
-      aria-label="Grafik prasyarat antar topik"
-    >
-      <title>Grafik prasyarat antar topik</title>
-      <defs>
-        <marker
-          id={ARROW_ID}
-          viewBox="0 0 10 10"
-          refX="9"
-          refY="5"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto"
-        >
-          <path d="M0 0 L10 5 L0 10 Z" fill="context-stroke"></path>
-        </marker>
-      </defs>
-
-      <g class="prereq-edges">
-        {
-          edges.map((edge) => (
-            <path
-              class="prereq-edge"
-              data-from={edge.from}
-              data-to={edge.to}
-              data-primary={edge.primary ? 'true' : 'false'}
-              d={edge.d}
-              marker-end={`url(#${ARROW_ID})`}
-            />
-          ))
-        }
-      </g>
-
-      <g class="prereq-nodes">
-        {
-          renderNodes.map((node) => (
-            <g
-              class={`prereq-node accent-${node.element}`}
-              data-id={node.id}
-              tabindex="0"
-              role="button"
-              aria-label={`${node.title}, ${GRADES[node.grade].name}`}
-            >
-              <rect x={node.x} y={node.y} width={NODE_W} height={NODE_H} rx="12" ry="12" />
-              <text class="prereq-title" x={node.x + 14} y={node.titleY}>
-                {node.lines.map((line, i) => (
-                  <tspan x={node.x + 14} dy={i === 0 ? 0 : 14}>
-                    {line}
-                  </tspan>
-                ))}
-              </text>
-              <text class="prereq-meta" x={node.x + 14} y={node.y + 50}>
-                {GRADES[node.grade].name}
-              </text>
-            </g>
-          ))
-        }
-      </g>
-    </svg>
-  </div>
-
-  <details class="prereq-fallback">
-    <summary>Daftar prasyarat (teks)</summary>
-    <ul>
+  <div class="prereq-grade-toolbar" role="group" aria-label="Fokus kelas">
+    <span class="prereq-grade-label">Fokus kelas</span>
+    <div class="prereq-grade-chips">
+      <button type="button" class="prereq-grade-chip is-active" data-grade-filter="all" aria-pressed="true">
+        Semua
+      </button>
       {
-        nodes.map((node) => (
-          <li>
-            <strong>{node.title}</strong>
-            {' — '}
-            {node.prereqs.length
-              ? node.prereqs.map((id) => nodeById.get(id)?.title ?? id).join(', ')
-              : 'Tanpa prasyarat'}
-          </li>
+        GRADE_ORDER.map((grade) => (
+          <button type="button" class="prereq-grade-chip" data-grade-filter={grade} aria-pressed="false">
+            {GRADES[grade].name}
+          </button>
         ))
       }
-    </ul>
-  </details>
+    </div>
+  </div>
+
+  <div class="prereq-desktop">
+    <p class="prereq-hint text-soft">
+      Peta menampilkan prasyarat utama tiap topik. Sorot atau fokuskan sebuah topik untuk menelusuri
+      prasyarat dan lanjutannya; klik topik untuk membuka halaman materi.
+    </p>
+
+    <div class="prereq-scroll">
+      <svg
+        class="prereq-svg"
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        role="group"
+        aria-label="Grafik prasyarat antar topik"
+      >
+        <title>Grafik prasyarat antar topik</title>
+        <defs>
+          <marker
+            id={ARROW_ID}
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto"
+          >
+            <path d="M0 0 L10 5 L0 10 Z" fill="context-stroke"></path>
+          </marker>
+        </defs>
+
+        <g class="prereq-edges">
+          {
+            edges.map((edge) => (
+              <path
+                class="prereq-edge"
+                data-from={edge.from}
+                data-to={edge.to}
+                data-primary={edge.primary ? 'true' : 'false'}
+                d={edge.d}
+                marker-end={`url(#${ARROW_ID})`}
+              />
+            ))
+          }
+        </g>
+
+        <g class="prereq-nodes">
+          {
+            renderNodes.map((node) => (
+              <a
+                class={`prereq-node accent-${node.element}`}
+                data-id={node.id}
+                data-grade={node.grade}
+                href={node.href}
+                aria-label={`${node.title}, ${GRADES[node.grade].name}`}
+              >
+                <rect x={node.x} y={node.y} width={NODE_W} height={NODE_H} rx="12" ry="12" />
+                <text class="prereq-title" x={node.x + 14} y={node.titleY}>
+                  {node.lines.map((line, i) => (
+                    <tspan x={node.x + 14} dy={i === 0 ? 0 : 14}>
+                      {line}
+                    </tspan>
+                  ))}
+                </text>
+                <text class="prereq-meta" x={node.x + 14} y={node.y + 50}>
+                  {GRADES[node.grade].name}
+                </text>
+              </a>
+            ))
+          }
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="prereq-mobile">
+    <p class="prereq-hint text-soft">
+      Ketuk sebuah topik untuk melihat prasyarat dan lanjutannya, lalu ikuti tautan untuk membuka
+      halaman materi.
+    </p>
+
+    <div class="prereq-groups">
+      {
+        listGroups.map((group) => (
+          <section class="prereq-group" data-grade={group.grade}>
+            <h3 class="prereq-group-title">{GRADES[group.grade].name}</h3>
+            <ul class="prereq-list" role="list">
+              {group.items.map((item) => (
+                <li>
+                  <details class={`prereq-item accent-${item.element}`}>
+                    <summary class="prereq-item-summary">
+                      <a
+                        class="prereq-item-title"
+                        href={topicUrl(item.grade, item.element, item.slug, item.subject)}
+                      >
+                        {item.title}
+                      </a>
+                      <span class="prereq-item-meta">{ELEMENTS[item.element].short}</span>
+                    </summary>
+                    <div class="prereq-item-body">
+                      <div class="prereq-chip-group">
+                        <p class="prereq-chips-label">Prasyarat</p>
+                        {item.prereqs.length ? (
+                          <ul class="prereq-chips" role="list">
+                            {item.prereqs.map((id) => {
+                              const target = nodeById.get(id);
+                              return target ? (
+                                <li>
+                                  <a
+                                    class={`prereq-chip accent-${target.element}`}
+                                    href={topicUrl(
+                                      target.grade,
+                                      target.element,
+                                      target.slug,
+                                      target.subject,
+                                    )}
+                                  >
+                                    {target.title}
+                                  </a>
+                                </li>
+                              ) : null;
+                            })}
+                          </ul>
+                        ) : (
+                          <p class="prereq-empty">Tanpa prasyarat.</p>
+                        )}
+                      </div>
+                      <div class="prereq-chip-group">
+                        <p class="prereq-chips-label">Lanjutan</p>
+                        {(succById.get(item.id) ?? []).length ? (
+                          <ul class="prereq-chips" role="list">
+                            {(succById.get(item.id) ?? []).map((id) => {
+                              const target = nodeById.get(id);
+                              return target ? (
+                                <li>
+                                  <a
+                                    class={`prereq-chip accent-${target.element}`}
+                                    href={topicUrl(
+                                      target.grade,
+                                      target.element,
+                                      target.slug,
+                                      target.subject,
+                                    )}
+                                  >
+                                    {target.title}
+                                  </a>
+                                </li>
+                              ) : null;
+                            })}
+                          </ul>
+                        ) : (
+                          <p class="prereq-empty">Belum ada lanjutan tercatat.</p>
+                        )}
+                      </div>
+                    </div>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </div>
 </div>
 
 <script is:inline>
@@ -484,12 +621,18 @@ const renderNodes = positioned.map((node) => {
       if (!wraps.length) return;
 
       function init(wrap) {
-        var svg = wrap.querySelector('.prereq-svg');
-        if (!svg) return;
         var nodeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-node'));
         var edgeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-edge'));
         if (!nodeEls.length) return;
         wrap.classList.add('is-ready');
+
+        var gradeChips = Array.prototype.slice.call(wrap.querySelectorAll('[data-grade-filter]'));
+        var gradeGroups = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-group[data-grade]'));
+        var gradeMap = {};
+        nodeEls.forEach(function (el) {
+          gradeMap[el.getAttribute('data-id')] = el.getAttribute('data-grade');
+        });
+        var gradeFilter = 'all';
 
         var incoming = {};
         var outgoing = {};
@@ -500,8 +643,6 @@ const renderNodes = positioned.map((node) => {
           (outgoing[from] || (outgoing[from] = [])).push(to);
           (incoming[to] || (incoming[to] = [])).push(from);
         });
-
-        var pinnedId = null;
 
         function apply(active) {
           nodeEls.forEach(function (el) {
@@ -527,6 +668,32 @@ const renderNodes = positioned.map((node) => {
           edgeEls.forEach(function (edge) {
             edge.classList.remove('is-active');
             edge.classList.remove('is-dim');
+          });
+        }
+
+        function applyGrade() {
+          nodeEls.forEach(function (el) {
+            var id = el.getAttribute('data-id');
+            var match = gradeFilter === 'all' || gradeMap[id] === gradeFilter;
+            el.classList.toggle('is-grade-dim', !match);
+          });
+          edgeEls.forEach(function (edge) {
+            var from = edge.getAttribute('data-from');
+            var to = edge.getAttribute('data-to');
+            var match =
+              gradeFilter === 'all' ||
+              gradeMap[from] === gradeFilter ||
+              gradeMap[to] === gradeFilter;
+            edge.classList.toggle('is-grade-dim', !match);
+          });
+          gradeGroups.forEach(function (group) {
+            var match = gradeFilter === 'all' || group.getAttribute('data-grade') === gradeFilter;
+            group.classList.toggle('is-grade-hidden', !match);
+          });
+          gradeChips.forEach(function (chip) {
+            var active = chip.getAttribute('data-grade-filter') === gradeFilter;
+            chip.classList.toggle('is-active', active);
+            chip.setAttribute('aria-pressed', active ? 'true' : 'false');
           });
         }
 
@@ -579,43 +746,21 @@ const renderNodes = positioned.map((node) => {
           el.addEventListener('mouseenter', function () {
             highlight(id);
           });
-          el.addEventListener('focus', function () {
+          el.addEventListener('focusin', function () {
             highlight(id);
           });
-          el.addEventListener('mouseleave', function () {
-            if (pinnedId) highlight(pinnedId);
-            else clear();
-          });
-          el.addEventListener('blur', function () {
-            if (pinnedId) highlight(pinnedId);
-            else clear();
-          });
-          el.addEventListener('click', function (event) {
-            event.stopPropagation();
-            if (pinnedId === id) {
-              pinnedId = null;
-              clear();
-            } else {
-              pinnedId = id;
-              highlight(id);
-            }
-          });
-          el.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
-              event.preventDefault();
-              el.click();
-            }
-          });
+          el.addEventListener('mouseleave', clear);
+          el.addEventListener('focusout', clear);
         });
 
-        document.addEventListener('click', function (event) {
-          var target = event.target;
-          if (target && wrap.contains(target)) return;
-          if (pinnedId) {
-            pinnedId = null;
+        gradeChips.forEach(function (chip) {
+          chip.addEventListener('click', function () {
+            gradeFilter = chip.getAttribute('data-grade-filter') || 'all';
             clear();
-          }
+            applyGrade();
+          });
         });
+        applyGrade();
       }
 
       Array.prototype.forEach.call(wraps, init);
@@ -631,7 +776,7 @@ const renderNodes = positioned.map((node) => {
     gap: 0.85rem;
   }
   .prereq-hint {
-    margin: 0;
+    margin: 0 0 0.85rem;
     font-size: 0.9rem;
   }
   .prereq-scroll {
@@ -705,34 +850,188 @@ const renderNodes = positioned.map((node) => {
   .prereq-wrap.is-ready .prereq-edge[data-primary='false'].is-dim {
     opacity: 0;
   }
-  .prereq-fallback {
-    font-size: 0.9rem;
+  .prereq-mobile {
+    display: none;
   }
-  .prereq-fallback summary {
+  .prereq-groups {
+    display: grid;
+    gap: 1.15rem;
+  }
+  .prereq-group-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .prereq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .prereq-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .prereq-item[open] {
+    border-color: color-mix(in srgb, var(--accent, var(--color-primary)) 45%, var(--color-border));
+  }
+  .prereq-item-summary {
     cursor: pointer;
-    font-weight: 600;
+    padding: 0.6rem 0.75rem;
+    min-height: 44px;
+  }
+  .prereq-item-title {
     display: inline-flex;
     align-items: center;
-    min-height: 24px;
+    min-height: 1.5rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+    text-decoration: none;
   }
-  .prereq-fallback ul {
-    margin: 0.6rem 0 0;
-    padding-left: 1.2rem;
+  .prereq-item-title:hover {
+    text-decoration: underline;
   }
-  .prereq-fallback li {
-    margin-bottom: 0.3rem;
+  .prereq-item-meta {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--color-text-soft);
+  }
+  .prereq-item-body {
+    display: grid;
+    gap: 0.65rem;
+    padding: 0 0.75rem 0.8rem;
+  }
+  .prereq-chip-group {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .prereq-chips-label {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .prereq-chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .prereq-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.62rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
+    border: 1px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 30%, var(--color-border));
+    transition:
+      border-color var(--dur) var(--ease-out-soft),
+      background-color var(--dur) var(--ease-out-soft);
+  }
+  .prereq-chip:hover {
+    border-color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 18%, var(--color-surface));
+    text-decoration: underline;
+  }
+  .prereq-empty {
+    margin: 0;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--color-text-soft);
+  }
+  .prereq-grade-toolbar {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+  .prereq-wrap.is-ready .prereq-grade-toolbar {
+    display: flex;
+  }
+  .prereq-grade-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .prereq-grade-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .prereq-grade-chip {
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.32rem 0.8rem;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft);
+  }
+  .prereq-grade-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .prereq-grade-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .prereq-grade-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .prereq-node.is-grade-dim {
+    opacity: 0.18;
+  }
+  .prereq-edge.is-grade-dim {
+    opacity: 0.08;
+  }
+  .prereq-group.is-grade-hidden {
+    display: none;
   }
   @media (prefers-reduced-motion: reduce) {
     .prereq-node,
     .prereq-node rect,
-    .prereq-edge {
+    .prereq-edge,
+    .prereq-chip,
+    .prereq-grade-chip {
       transition: none;
     }
   }
   @media (max-width: 48rem) {
-    .prereq-svg {
-      width: var(--prereq-w);
-      max-width: none;
+    .prereq-desktop {
+      display: none;
+    }
+    .prereq-mobile {
+      display: block;
     }
   }
 </style>

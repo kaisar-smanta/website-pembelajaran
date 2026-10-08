@@ -4,6 +4,8 @@ import { GRADES, SUBJECTS, SUBJECT_ORDER, gradesFor } from '@/data/curriculum';
 import { cpStatements } from '@/data/curriculum/cp';
 import { topics, topicSubject, plannedTopics } from '@/data/topics';
 
+const prereqCount = topics.reduce((sum, topic) => sum + (topic.prerequisites?.length ?? 0), 0);
+
 const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
   gradesFor(subject).map((grade) => {
     const complete = topics.filter(
@@ -64,6 +66,10 @@ const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
           <span class="quick-text">Cakupan Capaian Pembelajaran</span>
           <span class="quick-count">{cpStatements.length} pernyataan</span>
         </a>
+        <a class="quick-link" href="#prasyarat">
+          <span class="quick-text">Peta Prasyarat</span>
+          <span class="quick-count">{prereqCount} relasi</span>
+        </a>
       </div>
     </section>
   </div>
@@ -84,6 +90,12 @@ const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
   }
   .quicknav-group {
     min-width: 0;
+  }
+  .quicknav-group:last-child {
+    grid-column: 1 / -1;
+  }
+  .quicknav-group:last-child .quicknav-list {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
   .quicknav-heading {
     margin: 0 0 0.4rem;

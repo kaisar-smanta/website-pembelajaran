@@ -20,7 +20,7 @@ const { url, title, height = 480 } = Astro.props;
     ></iframe>
   </div>
   <p class="text-muted embed-note">
-    Aktivitas interaktif ini dimuat dari GeoGebra. Jika tidak muncul, buka langsung di
+    Aktivitas interaktif ini dimuat dari GeoGebra. Jika tidak muncul, buka langsung di{' '}
     <a href={url} target="_blank" rel="noopener noreferrer">situs GeoGebra</a>.
   </p>
 </figure>
@@ -46,5 +46,10 @@ const { url, title, height = 480 } = Astro.props;
   .embed-note {
     font-size: 0.85rem;
     margin: 0.5rem 0 0;
+  }
+  .embed-note a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
   }
 </style>

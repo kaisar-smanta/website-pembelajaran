@@ -6,7 +6,6 @@ import PracticeSection from '@/components/home/PracticeSection.astro';
 import BrowseSection from '@/components/home/BrowseSection.astro';
 import SubjectDoors from '@/components/home/SubjectDoors.astro';
 import TopicsSection from '@/components/home/TopicsSection.astro';
-import ExplorationSection from '@/components/home/ExplorationSection.astro';
 import RealWorldSection from '@/components/home/RealWorldSection.astro';
 import TrustSection from '@/components/home/TrustSection.astro';
 import FinalCta from '@/components/home/FinalCta.astro';
@@ -17,14 +16,14 @@ const featuredIds = [
   'eksponen',
   'fungsi-kuadrat',
   'trigonometri',
-  'bunga-majemuk',
-  'data-bivariat',
-  'peluang',
+  'polinomial',
+  'turunan',
+  'vektor',
 ];
 const featured = resolveTopics(featuredIds);
 const featuredList = {
   '@type': 'ItemList',
-  name: 'Topik pilihan Matematika SMA',
+  name: 'Topik pilihan Matematika dan Matematika Tingkat Lanjut SMA',
   itemListElement: featured.map((topic, i) => ({
     '@type': 'ListItem',
     position: i + 1,
@@ -36,16 +35,15 @@ const featuredList = {
 
 <BaseLayout
   title="Pahami Konsep Matematika SMA, Bukan Hafal Rumus"
-  description="Pusat belajar Matematika SMA kelas X–XII sesuai Kurikulum Merdeka: eksplorasi interaktif, latihan berjenjang, dan studi kasus nyata. Gratis, tanpa akun."
+  description="Pusat belajar Matematika dan Matematika Tingkat Lanjut SMA kelas X–XII sesuai Kurikulum Merdeka: eksplorasi interaktif, latihan berjenjang, dan studi kasus nyata. Gratis, tanpa akun."
   structuredData={featuredList}
 >
   <Hero />
   <MethodSection />
   <SubjectDoors />
-  <PracticeSection />
   <BrowseSection />
   <TopicsSection />
-  <ExplorationSection />
+  <PracticeSection />
   <RealWorldSection />
   <TrustSection />
   <FinalCta />

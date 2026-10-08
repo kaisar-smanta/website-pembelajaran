@@ -7,38 +7,47 @@ const featured = explorations.filter((e) => e.featured);
 const list = (featured.length ? featured : explorations).slice(0, 3);
 ---
 
-<section class="section band-paper exploration-section" aria-labelledby="explorations">
-  <div class="container">
-    <div class="section-head--row reveal" data-reveal>
-      <div class="exploration-heading">
-        <p class="eyebrow-badge">Laboratorium mini</p>
-        <h2 id="explorations">Eksplorasi interaktif</h2>
-        <p class="text-muted">Ubah parameter, amati perubahan, lalu temukan polanya sendiri.</p>
-      </div>
-      <p class="exploration-action">
-        <a class="btn btn-secondary" href={url('/eksplorasi')}>Semua eksplorasi</a>
-      </p>
-    </div>
-    <div class="grid grid-3">
-      {list.map((e, i) => <ExplorationPreviewCard exploration={e} delay={i * 70} />)}
-    </div>
+<div class="exploration-block">
+  <div class="exploration-head reveal" data-reveal>
+    <h3 id="explorations" class="exploration-subtitle">Eksplorasi lainnya</h3>
+    <a class="btn btn-secondary" href={url('/eksplorasi')}>Semua eksplorasi</a>
   </div>
-</section>
+  <div class="grid grid-3">
+    {list.map((e, i) => <ExplorationPreviewCard exploration={e} delay={i * 70} />)}
+  </div>
+</div>
 
 <style>
-  .exploration-heading {
-    min-width: 0;
+  .exploration-block {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px dashed var(--color-border);
   }
-  .exploration-heading .eyebrow-badge {
-    margin-bottom: 0.55rem;
+  .exploration-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.1rem;
   }
-  .exploration-heading p:last-child {
-    margin-bottom: 0;
-  }
-  .exploration-action {
+  .exploration-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     margin: 0;
+    font-size: 1.15rem;
   }
-  .exploration-section :global(.exploration-card .cta) {
+  .exploration-subtitle::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 3px;
+    background: var(--color-algebra);
+    transform: rotate(-8deg);
+  }
+  .exploration-block :global(.exploration-card .cta) {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -49,15 +58,15 @@ const list = (featured.length ? featured : explorations).slice(0, 3);
     text-underline-offset: 0.2em;
     transition: text-decoration-color var(--dur) var(--ease-out-soft);
   }
-  .exploration-section :global(.exploration-card:hover .cta),
-  .exploration-section :global(.exploration-card:focus-visible .cta) {
+  .exploration-block :global(.exploration-card:hover .cta),
+  .exploration-block :global(.exploration-card:focus-visible .cta) {
     text-decoration-color: currentColor;
   }
   @media (max-width: 40rem) {
-    .exploration-action {
-      width: 100%;
+    .exploration-head {
+      align-items: stretch;
     }
-    .exploration-action .btn {
+    .exploration-head .btn {
       width: 100%;
       justify-content: center;
     }

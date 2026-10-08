@@ -23,8 +23,20 @@ const crumbs = [
   />
 
   <div class="container container-narrow doc">
+    <nav class="doc-toc card reveal" aria-label="Isi halaman">
+      <h2 class="doc-toc-title">Isi halaman</h2>
+      <ul>
+        <li><a href="#hubungan-kurikulum">Hubungan dengan Kurikulum</a></li>
+        <li><a href="#pemetaan-cp">Pemetaan Capaian Pembelajaran</a></li>
+        <li><a href="#sumber-rujukan">Sumber Rujukan</a></li>
+        <li><a href="#prinsip-penyusunan">Prinsip Penyusunan Materi</a></li>
+        <li><a href="#lisensi-penggunaan">Lisensi dan Penggunaan</a></li>
+        <li><a href="#catatan-teknis">Catatan Teknis</a></li>
+      </ul>
+    </nav>
+
     <div class="prose reveal">
-      <h2>Hubungan dengan Kurikulum</h2>
+      <h2 id="hubungan-kurikulum">Hubungan dengan Kurikulum</h2>
       <p>
         Situs ini disusun mengikuti kerangka <strong>Capaian Pembelajaran (CP)</strong> matematika
         SMA pada <strong>Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025</strong> tentang
@@ -36,8 +48,9 @@ const crumbs = [
       </p>
       <p>
         Situs kini memuat dua mata pelajaran. <strong>Matematika</strong> (wajib) mencakup Fase E–F
-        pada empat elemen: Bilangan, Aljabar dan Fungsi, Geometri, serta Analisis Data dan Peluang.
-        <strong>Matematika Tingkat Lanjut</strong> adalah mata pelajaran <em>pilihan</em> Fase F
+        pada empat elemen: Bilangan, Aljabar dan Fungsi, Geometri, serta Analisis Data dan Peluang.{' '}
+        <strong>Matematika Tingkat Lanjut</strong> adalah mata pelajaran <em>pilihan</em>{' '}
+        Fase F
         (Kelas XI–XII) dengan alokasi <strong>800 JP</strong>; elemennya Aljabar dan Fungsi,
         Geometri, <strong>Kalkulus</strong>, serta Analisis Data dan Peluang (tanpa elemen Bilangan).
       </p>
@@ -60,12 +73,12 @@ const crumbs = [
         teks. Guru dan sekolah tetap merujuk pada dokumen resmi yang berlaku.
       </p>
 
-      <h2>Pemetaan Capaian Pembelajaran</h2>
+      <h2 id="pemetaan-cp">Pemetaan Capaian Pembelajaran</h2>
       <p>
-        Tabel berikut memetakan setiap pernyataan CP beserta topik yang memenuhinya. Kode seperti
-        <code>E-BIL-1</code> menandai fase dan elemen untuk Matematika, sedangkan kode berawalan
+        Tabel berikut memetakan setiap pernyataan CP beserta topik yang memenuhinya. Kode seperti{' '}
+        <code>E-BIL-1</code> menandai fase dan elemen untuk Matematika, sedangkan kode berawalan{' '}
         <code>FL-</code> (mis. <code>FL-KAL-1</code>) menandai Matematika Tingkat Lanjut Fase F.
-        Riwayat regulasi dan pemetaan ini disimpan sebagai data di
+        Riwayat regulasi dan pemetaan ini disimpan sebagai data di{' '}
         <code>src/data/curriculum/cp.ts</code> sehingga dapat diperbarui saat regulasi berganti.
       </p>
     </div>
@@ -75,7 +88,7 @@ const crumbs = [
     </div>
 
     <div class="prose reveal">
-      <h2>Sumber Rujukan</h2>
+      <h2 id="sumber-rujukan">Sumber Rujukan</h2>
       <ul>
         <li>
           Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025 tentang Capaian Pembelajaran
@@ -93,7 +106,7 @@ const crumbs = [
         <li>Catatan dan praktik pembelajaran matematika di kelas.</li>
       </ul>
 
-      <h2>Prinsip Penyusunan Materi</h2>
+      <h2 id="prinsip-penyusunan">Prinsip Penyusunan Materi</h2>
       <ol>
         <li>Konsep dibangun sebelum prosedur; rumus muncul dari pemahaman.</li>
         <li>Setiap contoh dihitung dan diverifikasi secara mandiri.</li>
@@ -102,14 +115,14 @@ const crumbs = [
         <li>Penerapan nyata selalu dikaitkan kembali dengan konsep dasarnya.</li>
       </ol>
 
-      <h2>Lisensi dan Penggunaan</h2>
+      <h2 id="lisensi-penggunaan">Lisensi dan Penggunaan</h2>
       <p>
         Materi pada situs ini disediakan untuk keperluan pendidikan. Kamu dapat menggunakannya
         untuk belajar, mengajar, atau menyusun latihan tambahan. Jika menemukan kekeliruan,
         mohon sampaikan agar dapat diperbaiki.
       </p>
 
-      <h2>Catatan Teknis</h2>
+      <h2 id="catatan-teknis">Catatan Teknis</h2>
       <p>
         Situs ini adalah situs statis tanpa server, tanpa basis data, dan tanpa akun pengguna.
         Seluruh materi dibundel saat pembuatan situs sehingga dapat dibuka dengan cepat dan
@@ -141,6 +154,66 @@ const crumbs = [
   .doc {
     padding-block: 1rem 2.5rem;
   }
+  .doc-toc {
+    margin-block: 0 1.75rem;
+  }
+  .doc-toc-title {
+    margin: 0 0 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .doc-toc ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.15rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .doc-toc a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    transition:
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft);
+  }
+  .doc-toc a::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+    transition: background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .doc-toc a:hover,
+  .doc-toc a:focus-visible {
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .doc-toc a:hover::before,
+  .doc-toc a:focus-visible::before {
+    background: var(--color-primary);
+  }
+  .doc-toc a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  @media (max-width: 30rem) {
+    .doc-toc ul {
+      grid-template-columns: 1fr;
+    }
+  }
   .cp-block {
     margin-block: 0.5rem 2.25rem;
   }
@@ -149,6 +222,7 @@ const crumbs = [
     padding-left: 0.85rem;
     border-left: 3px solid var(--color-primary);
     line-height: 1.25;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
   }
   .prose h2:first-child {
     margin-top: 0;
