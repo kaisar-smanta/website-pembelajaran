@@ -112,6 +112,20 @@ const { stats = computed } = Astro.props;
   .hero-stat-strip .stat-value.is-counted {
     animation: count-pop var(--dur) var(--ease-out-soft) both;
   }
+  .hero-stat-strip .stat:nth-child(2) .stat-value.is-counted {
+    animation-delay: 60ms;
+  }
+  .hero-stat-strip .stat:nth-child(3) .stat-value.is-counted {
+    animation-delay: 120ms;
+  }
+  .hero-stat-strip .stat:nth-child(4) .stat-value.is-counted {
+    animation-delay: 180ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-stat-strip .stat-value.is-counted {
+      animation: none;
+    }
+  }
   @media (max-width: 30rem) {
     .hero-stat-strip {
       display: grid;

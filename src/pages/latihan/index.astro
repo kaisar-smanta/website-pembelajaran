@@ -4,6 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import PracticeCard from '@/components/exercises/PracticeCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic, practiceCounts, topicIdsWithQuestions } from '@/data/questions';
 import {
@@ -243,6 +244,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         ))
       }
       <p class="empty-state card" data-empty hidden>
+        <MathMascot size={6} state="oops" label="Maskot tidak menemukan latihan yang cocok" />
         <strong>Belum ada latihan yang cocok.</strong>
         <span class="text-muted">Coba ubah atau reset filter untuk melihat topik lain.</span>
       </p>
@@ -414,6 +416,9 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     text-align: center;
     border-style: dashed;
     color: var(--color-text);
+  }
+  .empty-state :global(.mascot) {
+    margin-inline: auto;
   }
   .cta-section {
     padding-block: 2.5rem;

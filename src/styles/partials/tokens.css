@@ -51,6 +51,22 @@
   --maxw: 74rem;
   --header-h: 3.75rem;
 
+  /* Skala breakpoint kanonik (satu-satunya acuan untuk seluruh situs).
+     Catatan: custom property TIDAK dapat dipakai di dalam kondisi @media pada
+     CSS murni, jadi nilai literal `@media (max-width: 40rem)` harus mengacu ke
+     nama token yang sesuai, dan var(--bp-*) hanya dipakai pada properti biasa
+     (mis. max-width), bukan di @media.
+     384px xs · 480px sm · 544px md · 640px lg · 768px xl · 896px 2xl ·
+     1024px 3xl · 1280px 4xl */
+  --bp-xs: 24rem;
+  --bp-sm: 30rem;
+  --bp-md: 34rem;
+  --bp-lg: 40rem;
+  --bp-xl: 48rem;
+  --bp-2xl: 56rem;
+  --bp-3xl: 64rem;
+  --bp-4xl: 80rem;
+
   /* Gerak & kepribadian */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);

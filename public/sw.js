@@ -1,4 +1,4 @@
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = `matematika-sma-${VERSION}`;
 const CACHE_PREFIX = 'matematika-sma-';
 

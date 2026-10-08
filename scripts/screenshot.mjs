@@ -50,6 +50,20 @@ const JOBS = [
   { name: 'referensi-desktop', pathname: '/referensi', width: 1440, height: 900 },
   { name: 'cari-desktop', pathname: '/cari', width: 1440, height: 900 },
   { name: 'peta-pembelajaran-mobile', pathname: '/peta-pembelajaran', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'review-desktop', pathname: '/review', width: 1440, height: 900 },
+  { name: 'review-mobile', pathname: '/review', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'tantangan-desktop', pathname: '/tantangan', width: 1440, height: 900 },
+  { name: 'tantangan-mobile', pathname: '/tantangan', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'glosarium-desktop', pathname: '/glosarium', width: 1440, height: 900 },
+  { name: 'glosarium-mobile', pathname: '/glosarium', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'rumus-desktop', pathname: '/rumus', width: 1440, height: 900 },
+  { name: 'rumus-mobile', pathname: '/rumus', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'kemajuan-desktop', pathname: '/kemajuan', width: 1440, height: 900 },
+  { name: 'kemajuan-mobile', pathname: '/kemajuan', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'peta-situs-desktop', pathname: '/peta-situs', width: 1440, height: 900 },
+  { name: 'peta-situs-mobile', pathname: '/peta-situs', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'kontak-desktop', pathname: '/kontak', width: 1440, height: 900 },
+  { name: 'aksesibilitas-desktop', pathname: '/aksesibilitas', width: 1440, height: 900 },
 ];
 
 async function capture(cdp, port, job) {
@@ -71,7 +85,7 @@ async function capture(cdp, port, job) {
     x: 0,
     y: 0,
     width: Math.ceil(size.width),
-    height: Math.min(Math.ceil(size.height), 16000),
+    height: Math.min(Math.ceil(size.height), 24000),
     scale: 1,
   };
   const shot = await page.s('Page.captureScreenshot', {

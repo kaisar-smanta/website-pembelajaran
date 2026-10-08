@@ -1,8 +1,9 @@
 ---
-import type { Application, Topic } from '@/types/content';
+import type { Application, Section, Topic } from '@/types/content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
 import SectionBlock from '@/components/content/SectionBlock.astro';
+import ReadingProgress from '@/components/content/ReadingProgress.astro';
 import TopicApplications from '@/components/content/TopicApplications.astro';
 import TopicProgress from '@/components/content/TopicProgress.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
@@ -65,6 +66,11 @@ const relatedApplications = Array.from(
   ).values(),
 );
 
+const applicationsSection: Section | undefined =
+  relatedApplications.length > 0
+    ? { id: 'penerapan', kind: 'dunia-nyata', title: 'Penerapan di Dunia Nyata' }
+    : undefined;
+
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: subjectMeta.name, href: subjectUrl(subject) },
@@ -80,6 +86,7 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
 ---
 
 <BaseLayout title={`${topic.title} — ${gradeMeta.name}`} description={description} ogType="article">
+  <ReadingProgress accent={accent} />
   <div class="topic-wrap container" style={`--accent: ${accent}`}>
     <Breadcrumbs items={crumbs} />
 
@@ -121,9 +128,38 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
       </div>
     </header>
 
+    <nav class="section-jump no-print" aria-label="Navigasi bagian halaman" data-section-nav>
+      <span class="section-jump-label">Bagian</span>
+      <ol class="section-jump-list">
+        {
+          sectionList.map((s) => (
+            <li>
+              <a href={`#${s.id}`}>{s.title ?? s.id}</a>
+            </li>
+          ))
+        }
+        {
+          relatedApplications.length > 0 && (
+            <li>
+              <a href="#penerapan">Penerapan</a>
+            </li>
+          )
+        }
+      </ol>
+    </nav>
+
     <div class="topic-layout">
       <article class="topic-main">
-        {sectionList.map((section, index) => <SectionBlock section={section} index={index} topicId={topic.id} />)}
+        {
+          sectionList.map((section, index) => (
+            <SectionBlock
+              section={section}
+              index={index}
+              topicId={topic.id}
+              next={sectionList[index + 1] ?? applicationsSection}
+            />
+          ))
+        }
 
         <TopicApplications applications={relatedApplications} />
 
@@ -179,7 +215,7 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
                 <h2 class="aside-heading">Isi Halaman</h2>
                 <span class="outline-chevron" aria-hidden="true"></span>
               </summary>
-              <ol class="outline" data-outline>
+              <ol class="outline" data-outline data-section-nav>
                 {
                   sectionList.map((s) => (
                     <li>
@@ -331,25 +367,49 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
     });
   }
 
-  const outline = document.querySelector('[data-outline]');
-  if (outline && 'IntersectionObserver' in window) {
-    const links = Array.from(outline.querySelectorAll<HTMLAnchorElement>('a'));
-    const sections = links
-      .map((link) => {
-        const id = link.getAttribute('href')?.slice(1) ?? '';
-        const el = id ? document.getElementById(id) : null;
-        return el ? { link, el } : null;
-      })
-      .filter((entry): entry is { link: HTMLAnchorElement; el: HTMLElement } => entry !== null);
+  const navRoots = Array.from(document.querySelectorAll<HTMLElement>('[data-section-nav]'));
+  if (navRoots.length && 'IntersectionObserver' in window) {
+    const links = navRoots.flatMap((root) =>
+      Array.from(root.querySelectorAll<HTMLAnchorElement>('a')),
+    );
+    const byElement = new Map<HTMLElement, HTMLAnchorElement[]>();
+    for (const link of links) {
+      const id = link.getAttribute('href')?.slice(1) ?? '';
+      const el = id ? document.getElementById(id) : null;
+      if (!el) continue;
+      const group = byElement.get(el);
+      if (group) group.push(link);
+      else byElement.set(el, [link]);
+    }
 
+    const sections = Array.from(byElement.keys());
     if (sections.length) {
+      const jumpList = document.querySelector<HTMLElement>('.section-jump-list');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       const setActive = (el: HTMLElement) => {
-        sections.forEach((entry) => {
-          const active = entry.el === el;
-          entry.link.classList.toggle('is-active', active);
-          if (active) entry.link.setAttribute('aria-current', 'true');
-          else entry.link.removeAttribute('aria-current');
+        byElement.forEach((group, target) => {
+          const active = target === el;
+          group.forEach((link) => {
+            link.classList.toggle('is-active', active);
+            if (active) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+          });
         });
+
+        const activeChip = jumpList?.querySelector<HTMLAnchorElement>('a.is-active');
+        if (jumpList && activeChip) {
+          const chipRect = activeChip.getBoundingClientRect();
+          const listRect = jumpList.getBoundingClientRect();
+          const left =
+            jumpList.scrollLeft +
+            (chipRect.left - listRect.left) -
+            (listRect.width - chipRect.width) / 2;
+          jumpList.scrollTo({
+            left: Math.max(0, left),
+            behavior: reduceMotion ? 'auto' : 'smooth',
+          });
+        }
       };
 
       const observer = new IntersectionObserver(
@@ -361,7 +421,7 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
         },
         { rootMargin: '-18% 0px -68% 0px', threshold: 0 },
       );
-      sections.forEach((entry) => observer.observe(entry.el));
+      sections.forEach((el) => observer.observe(el));
     }
   }
 
@@ -588,6 +648,67 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
     line-height: 1.5;
   }
 
+  .section-jump {
+    position: sticky;
+    top: calc(var(--header-h) + 3px);
+    z-index: 39;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .section-jump-label {
+    flex: 0 0 auto;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .section-jump-list {
+    list-style: none;
+    display: flex;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .section-jump-list::-webkit-scrollbar {
+    display: none;
+  }
+  .section-jump-list a {
+    display: block;
+    padding: 0.28rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .section-jump-list a:hover,
+  .section-jump-list a:focus-visible {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+  .section-jump-list a.is-active {
+    background: color-mix(in srgb, var(--accent) 14%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--accent) 42%, var(--color-border));
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
   .topic-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 17rem;
@@ -810,6 +931,9 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
   }
 
   @media (max-width: 62rem) {
+    .section-jump {
+      display: flex;
+    }
     .topic-layout {
       grid-template-columns: minmax(0, 1fr);
     }

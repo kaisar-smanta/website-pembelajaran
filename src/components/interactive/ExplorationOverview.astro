@@ -4,6 +4,7 @@ import { ELEMENTS, ALL_ELEMENT_ORDER } from '@/data/curriculum';
 import type { GradeMeta } from '@/data/curriculum';
 import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
 import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 
 interface Props {
   groups: Array<{ grade: Grade; meta: GradeMeta; items: Exploration[] }>;
@@ -137,6 +138,7 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
   </div>
 
   <p class="ex-empty" data-ex-empty hidden>
+    <MathMascot size={6} state="oops" label="Maskot tidak menemukan eksplorasi" />
     Tidak ada eksplorasi yang cocok dengan saringan ini. Coba ubah kata kunci atau pilih saringan lain.
   </p>
 </section>
@@ -385,6 +387,10 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     color: var(--color-text-muted);
     font-size: 0.92rem;
     text-align: center;
+  }
+  .ex-empty :global(.mascot) {
+    margin-inline: auto;
+    margin-bottom: 0.5rem;
   }
 
   @media (max-width: 30rem) {

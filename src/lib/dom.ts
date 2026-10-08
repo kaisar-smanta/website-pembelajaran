@@ -40,8 +40,15 @@ export function initWhenVisible(
 ): void {
   const list = Array.from(nodes);
   if (list.length === 0) return;
+  const reveal = (node: Element): void => {
+    const shell = node.closest('[data-sim-shell]');
+    shell?.querySelector('[data-sim-skeleton]')?.remove();
+  };
   if (typeof IntersectionObserver === 'undefined') {
-    list.forEach((node) => setup(node));
+    list.forEach((node) => {
+      setup(node);
+      reveal(node);
+    });
     return;
   }
   const observer = new IntersectionObserver(
@@ -50,6 +57,7 @@ export function initWhenVisible(
         if (!entry.isIntersecting) continue;
         observer.unobserve(entry.target);
         setup(entry.target);
+        reveal(entry.target);
       }
     },
     { rootMargin },

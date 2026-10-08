@@ -1,0 +1,112 @@
+---
+interface Props {
+  accent?: string;
+  label?: string;
+  target?: string;
+}
+const {
+  accent = 'var(--color-primary)',
+  label = 'Kemajuan membaca halaman',
+  target = '.topic-main',
+} = Astro.props;
+---
+
+<div
+  class="reading-progress no-print"
+  data-reading-progress
+  data-reading-target={target}
+  style={`--rp-accent: ${accent}`}
+  role="progressbar"
+  aria-label={label}
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="0"
+>
+  <span class="reading-progress-fill" data-reading-fill></span>
+</div>
+
+<style>
+  .reading-progress {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 46;
+    width: 100%;
+    height: 3px;
+    background: color-mix(in srgb, var(--rp-accent, var(--color-primary)) 14%, transparent);
+    pointer-events: none;
+  }
+  .reading-progress-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--rp-accent, var(--color-primary))
+    );
+    transition: transform var(--dur) var(--ease-out-soft);
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress-fill {
+      transition: none;
+    }
+  }
+  @media print {
+    .reading-progress {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function setupReadingProgress() {
+    const bar = document.querySelector<HTMLElement>('[data-reading-progress]');
+    const fill = bar?.querySelector<HTMLElement>('[data-reading-fill]');
+    if (!bar || !fill) return;
+
+    const target =
+      document.querySelector<HTMLElement>(bar.dataset.readingTarget || '.topic-main') ??
+      document.querySelector<HTMLElement>('main');
+    if (!target) return;
+
+    const header = document.querySelector<HTMLElement>('.site-header');
+    let frame = 0;
+
+    const applyTop = () => {
+      if (header) bar.style.top = `${Math.round(header.getBoundingClientRect().height)}px`;
+    };
+
+    const update = () => {
+      frame = 0;
+      applyTop();
+      const rect = target.getBoundingClientRect();
+      const viewport = window.innerHeight || document.documentElement.clientHeight;
+      const start = header ? header.getBoundingClientRect().height : 0;
+      const distance = Math.max(1, rect.height - viewport + start);
+      const traveled = start - rect.top;
+      const ratio = Math.max(0, Math.min(1, traveled / distance));
+      fill.style.transform = `scaleX(${ratio})`;
+      bar.setAttribute('aria-valuenow', String(Math.round(ratio * 100)));
+    };
+
+    const schedule = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('pageshow', schedule);
+    window.addEventListener('load', schedule);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupReadingProgress);
+  } else {
+    setupReadingProgress();
+  }
+</script>

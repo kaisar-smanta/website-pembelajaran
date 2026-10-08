@@ -1,0 +1,147 @@
+---
+import { url } from '@/utils/url';
+
+interface Item {
+  label: string;
+  href: string;
+  paths: string[];
+}
+
+const items: Item[] = [
+  { label: 'Beranda', href: '/', paths: ['M4 11 12 4l8 7', 'M6 10v9h12v-9'] },
+  {
+    label: 'Peta',
+    href: '/peta-pembelajaran',
+    paths: ['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z', 'M9 4v14', 'M15 6v14'],
+  },
+  {
+    label: 'Latihan',
+    href: '/latihan',
+    paths: ['M4 20l3.6-.9L19.4 7.3a2 2 0 0 0-2.8-2.8L4.9 16.4 4 20Z', 'M15.4 6.2l2.4 2.4'],
+  },
+  { label: 'Cari', href: '/cari', paths: ['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z', 'm20 20-3.6-3.6'] },
+  { label: 'Kemajuan', href: '/kemajuan', paths: ['M3 17l5-5 4 3 6-7', 'M3 20h18'] },
+];
+
+const base = import.meta.env.BASE_URL;
+const current = Astro.url.pathname.replace(base, '/');
+
+function isCurrent(href: string): boolean {
+  return href === '/' ? current === '/' : current === href.replace(/\/$/, '');
+}
+
+function isActive(href: string): boolean {
+  if (href === '/') return current === '/';
+  const clean = href.replace(/\/$/, '');
+  return current === clean || current.startsWith(`${clean}/`);
+}
+---
+
+<nav class="bottom-nav no-print" aria-label="Navigasi cepat">
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <a
+            href={url(item.href)}
+            class={isActive(item.href) ? 'bottom-nav-link is-active' : 'bottom-nav-link'}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              {item.paths.map((d) => <path d={d} />)}
+            </svg>
+            <span>{item.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .bottom-nav {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 46;
+    display: none;
+    background: color-mix(in srgb, var(--color-bg) 97%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-top: 1px solid var(--color-border);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-shadow: 0 -6px 22px -16px color-mix(in srgb, #000 45%, transparent);
+  }
+  .bottom-nav ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+  }
+  .bottom-nav li {
+    min-width: 0;
+  }
+  .bottom-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    min-height: 3.5rem;
+    padding: 0.45rem 0.2rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.1;
+    transition:
+      color var(--dur-fast),
+      background-color var(--dur-fast);
+  }
+  .bottom-nav-link span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .bottom-nav-link:hover {
+    color: var(--color-text);
+  }
+  .bottom-nav-link.is-active {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+  }
+  .bottom-nav-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+  @media (max-width: 48rem) {
+    .bottom-nav {
+      display: block;
+    }
+    :global(body) {
+      padding-bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px));
+    }
+  }
+  @media print {
+    :global(body) {
+      padding-bottom: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bottom-nav-link {
+      transition: none;
+    }
+  }
+</style>

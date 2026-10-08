@@ -56,10 +56,26 @@
   font-size: 0.9rem;
 }
 
-/* Sasaran sentuh yang nyaman untuk penggeser rentang. */
+/* Penjaga luapan horizontal. Tabel dan KaTeX sudah punya penggeser internal
+   sendiri, sehingga `clip` pada body aman dari pemotongan konten yang memang
+   bisa digulir. `clip` (bukan `hidden`) dipilih agar header `sticky` tetap
+   bekerja karena tidak membentuk scroll container. */
+body {
+  overflow-x: clip;
+}
+
+/* Sasaran sentuh yang nyaman untuk penggeser rentang. 1.5rem (24px) adalah
+   ambang WCAG 2.5.8; pada perangkat sentuh dinaikkan ke 2.75rem (44px) tanpa
+   mengubah ukuran visual thumb (track tetap di tengah). */
 input[type='range'] {
   min-height: 1.5rem;
   cursor: pointer;
+}
+@media (pointer: coarse), (max-width: 48rem) {
+  /* --bp-xl */
+  input[type='range'] {
+    min-height: 2.75rem;
+  }
 }
 
 /* ---------- Cards ---------- */

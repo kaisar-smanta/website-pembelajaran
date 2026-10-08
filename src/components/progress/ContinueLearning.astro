@@ -181,6 +181,33 @@ const entriesJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     font-size: 0.84rem;
     color: var(--color-text-muted);
   }
+  @keyframes cl-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .continue-learning :global(.cl-enter) {
+    animation: cl-enter var(--dur) var(--ease-out-soft) both;
+  }
+  .continue-learning :global(.cl-item.cl-enter:nth-child(2)) {
+    animation-delay: 55ms;
+  }
+  .continue-learning :global(.cl-item.cl-enter:nth-child(3)) {
+    animation-delay: 110ms;
+  }
+  .continue-learning :global(.cl-item.cl-enter:nth-child(4)) {
+    animation-delay: 165ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .continue-learning :global(.cl-enter) {
+      animation: none;
+    }
+  }
 </style>
 
 <script>
@@ -215,11 +242,11 @@ const entriesJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     const leadEl = root.querySelector<HTMLElement>('[data-cl-lead]');
     const list = root.querySelector<HTMLOListElement>('[data-cl-list]');
     if (!list) return;
-    if (!list) return;
+    let hasEntered = false;
 
     function renderItem(topic: TopicOverview, withProgress: boolean): HTMLLIElement {
       const item = document.createElement('li');
-      item.className = `cl-item accent-${topic.element}`;
+      item.className = `cl-item accent-${topic.element}${hasEntered ? '' : ' cl-enter'}`;
 
       const main = document.createElement('div');
       main.className = 'cl-main';
@@ -279,6 +306,7 @@ const entriesJson = JSON.stringify(entries).replace(/</g, '\\u003c');
         }
         list.replaceChildren(...suggestions.map((topic) => renderItem(topic, false)));
       }
+      hasEntered = true;
     }
 
     render();

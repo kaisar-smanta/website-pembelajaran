@@ -15,6 +15,10 @@ export interface SchoolLink {
 export interface SiteIdentity {
   name: string;
   tagline: string;
+  mascot: {
+    name: string;
+    tagline: string;
+  };
   author: {
     name: string;
     role: string;
@@ -32,6 +36,10 @@ export interface SiteIdentity {
 export const site: SiteIdentity = {
   name: 'Matematika SMA',
   tagline: 'Pusat Pembelajaran',
+  mascot: {
+    name: 'Numi',
+    tagline: 'Sahabat kecil untuk belajar matematika',
+  },
   author: {
     name: 'Kaisar Titoniran Akbar, S.Pd',
     role: 'Penyusun materi',

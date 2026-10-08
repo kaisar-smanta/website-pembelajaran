@@ -51,6 +51,11 @@ const label = 'Kembali ke atas';
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
   }
+  @media (max-width: 48rem) {
+    .back-to-top {
+      bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px));
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .back-to-top {
       transition: none;

@@ -1,5 +1,6 @@
 ---
 import MathMascot from './MathMascot.astro';
+import { site } from '@/data/site';
 import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 
@@ -28,7 +29,11 @@ const factItems = facts.map((fact) => {
     <span class="hero-chip chip-b float-slow float-delayed" aria-hidden="true">√</span>
     <span class="hero-chip chip-c bob" aria-hidden="true">x²</span>
     <span class="hero-chip chip-d float-slow" aria-hidden="true">π</span>
-    <button type="button" class="mascot-button" aria-label="Tampilkan kesalahpahaman umum berikutnya">
+    <button
+      type="button"
+      class="mascot-button"
+      aria-label={`Tampilkan kesalahpahaman umum berikutnya dari ${site.mascot.name}`}
+    >
       <span class="mascot-halo" aria-hidden="true"></span>
       <MathMascot size={13} interactive />
       <span class="mascot-ground" aria-hidden="true"></span>
@@ -36,7 +41,9 @@ const factItems = facts.map((fact) => {
   </div>
 
   <p class="mascot-bubble" data-bubble role="status" aria-live="polite" set:html={factItems[0].html}></p>
-  <p class="mascot-hint">Kesalahpahaman berganti otomatis · ketuk maskot untuk lanjut</p>
+  <p class="mascot-hint">
+    Kesalahpahaman berganti otomatis · ketuk {site.mascot.name} untuk lanjut
+  </p>
 
   <div class="math-facts" hidden>
     {factItems.map((item) => <span hidden data-math-fact set:html={item.html}></span>)}

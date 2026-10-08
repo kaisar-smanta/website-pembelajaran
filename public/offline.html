@@ -3,26 +3,49 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#2f4fd8" />
+    <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1526" media="(prefers-color-scheme: dark)" />
     <title>Mode Luring — Matematika SMA</title>
     <style>
       :root {
-        color-scheme: light dark;
-        --bg: #f7f8fb;
-        --surface: #ffffff;
-        --text: #1c2333;
-        --muted: #55607a;
-        --brand: #2f4fd8;
-        --border: #dde2ee;
+        color-scheme: light;
+        --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+          'Noto Sans', sans-serif;
+        --color-bg: #f7f8fb;
+        --color-surface: #ffffff;
+        --color-surface-2: #f2f4f9;
+        --color-border: #d9dee8;
+        --color-text: #1a2233;
+        --color-text-muted: #5a6478;
+        --color-primary: #2f4fd8;
+        --color-primary-soft: #e6ebfd;
+        --color-on-primary: #ffffff;
+        --color-algebra: #7b3fd6;
+        --color-geometry: #0c7c6a;
+        --color-data: #a85a0b;
+        --radius: 10px;
+        --radius-lg: 16px;
+        --radius-pill: 999px;
+        --shadow: 0 4px 14px rgba(16, 24, 40, 0.08);
+        --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg: #0d1526;
-          --surface: #16213a;
-          --text: #eef2ff;
-          --muted: #aab4d0;
-          --brand: #7f97ff;
-          --border: #26324f;
+          color-scheme: dark;
+          --color-bg: #0d1526;
+          --color-surface: #141f38;
+          --color-surface-2: #1b2846;
+          --color-border: #2a3a5c;
+          --color-text: #e7ecf6;
+          --color-text-muted: #a9b4cc;
+          --color-primary: #7b9bff;
+          --color-primary-soft: #1c2b52;
+          --color-on-primary: #0b1224;
+          --color-algebra: #b58cff;
+          --color-geometry: #4fd0b8;
+          --color-data: #f0a94e;
+          --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+          --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
         }
       }
       * {
@@ -35,19 +58,42 @@
         align-items: center;
         justify-content: center;
         padding: 1.5rem;
-        background: var(--bg);
-        color: var(--text);
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-sans);
         line-height: 1.6;
       }
       main {
         width: 100%;
         max-width: 34rem;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 1rem;
-        padding: 2.5rem 2rem;
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: 2.25rem 1.75rem;
+        box-shadow: var(--shadow-lg);
+      }
+      .numi {
+        display: block;
+        width: 100%;
+        max-width: 9rem;
+        height: auto;
+        margin-bottom: 0.75rem;
+        filter: drop-shadow(0 10px 20px rgba(16, 24, 40, 0.14));
+      }
+      .eyebrow {
+        margin: 0 0 0.35rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: var(--radius-pill);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--color-primary);
+        background: var(--color-primary-soft);
       }
       h1 {
         margin: 0 0 0.75rem;
@@ -56,11 +102,18 @@
       }
       p {
         margin: 0 0 1rem;
-        color: var(--muted);
+        color: var(--color-text-muted);
+      }
+      strong {
+        color: var(--color-text);
+      }
+      .hint {
+        margin-bottom: 0;
       }
       .actions {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 0.75rem;
         margin-top: 1.5rem;
       }
@@ -68,36 +121,144 @@
       button {
         font: inherit;
         font-weight: 600;
-        border-radius: 0.6rem;
-        padding: 0.65rem 1.1rem;
+        border-radius: var(--radius);
+        padding: 0.65rem 1.15rem;
         cursor: pointer;
         text-decoration: none;
         border: 1px solid transparent;
       }
       a.button {
-        background: var(--brand);
-        color: #ffffff;
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+        box-shadow: var(--shadow);
+      }
+      a.button:hover {
+        text-decoration: underline;
       }
       button {
         background: transparent;
-        color: var(--text);
-        border-color: var(--border);
+        color: var(--color-text);
+        border-color: var(--color-border);
+      }
+      button:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
       }
       a.button:focus-visible,
       button:focus-visible {
-        outline: 3px solid var(--brand);
+        outline: 3px solid var(--color-primary);
         outline-offset: 2px;
+      }
+      @keyframes numi-bob {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+        50% {
+          transform: translateY(-6px) rotate(1.5deg);
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .numi {
+          animation: numi-bob 5.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+        }
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>Anda sedang luring</h1>
+      <svg
+        class="numi"
+        viewBox="0 0 200 200"
+        role="img"
+        aria-label="Numi, sahabat belajar matematika"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <g stroke="var(--color-algebra)" stroke-width="4">
+            <path d="M28 44h16M36 36v16" />
+          </g>
+          <g stroke="var(--color-geometry)" stroke-width="4">
+            <path d="m162 156 9 16h-18z" />
+          </g>
+          <g stroke="var(--color-data)" stroke-width="4">
+            <path d="M170 40 182 52M182 40 170 52" />
+          </g>
+        </g>
+
+        <g fill="var(--color-primary-soft)" stroke="var(--color-primary)" stroke-width="4">
+          <rect x="16" y="96" width="22" height="46" rx="11" />
+          <rect x="162" y="96" width="22" height="46" rx="11" />
+        </g>
+
+        <g fill="var(--color-primary-soft)" stroke="var(--color-primary)" stroke-width="4">
+          <rect x="66" y="152" width="24" height="24" rx="9" />
+          <rect x="110" y="152" width="24" height="24" rx="9" />
+        </g>
+
+        <rect
+          x="42"
+          y="50"
+          width="116"
+          height="106"
+          rx="30"
+          fill="var(--color-surface)"
+          stroke="var(--color-primary)"
+          stroke-width="4"
+        />
+        <rect x="58" y="66" width="84" height="56" rx="18" fill="var(--color-primary-soft)" />
+
+        <g fill="none" stroke="var(--color-text)" stroke-width="4.5" stroke-linecap="round">
+          <path d="M74 90q8 5 16 0" />
+          <path d="M110 90q8 5 16 0" />
+        </g>
+
+        <g fill="none" stroke="var(--color-primary)" stroke-width="3.5" stroke-linecap="round">
+          <path d="M70 79l20-6" />
+          <path d="M130 79l-20-6" />
+        </g>
+
+        <path
+          d="M84 114q16-13 32 0"
+          fill="none"
+          stroke="var(--color-primary)"
+          stroke-width="4.5"
+          stroke-linecap="round"
+        />
+
+        <circle cx="64" cy="106" r="6" fill="var(--color-data)" opacity="0.25" />
+        <circle cx="136" cy="106" r="6" fill="var(--color-data)" opacity="0.25" />
+
+        <line
+          x1="100"
+          y1="50"
+          x2="100"
+          y2="28"
+          stroke="var(--color-primary)"
+          stroke-width="4"
+          stroke-linecap="round"
+        />
+        <circle cx="100" cy="20" r="10" fill="var(--color-data)" />
+        <path
+          d="M96 20h8M100 16v8"
+          stroke="var(--color-surface)"
+          stroke-width="2.6"
+          stroke-linecap="round"
+        />
+
+        <path d="M148 66c-3 6-3 10 0 12 3-2 3-6 0-12z" fill="var(--color-data)" />
+      </svg>
+
+      <p class="eyebrow">Mode luring</p>
+      <h1>Sepertinya sinyalnya sedang menghilang</h1>
       <p>
-        Sepertinya koneksi internet terputus. Beberapa halaman yang pernah dibuka mungkin masih
-        tersedia dari simpanan sementara. Sambungkan kembali perangkat Anda lalu coba lagi.
+        <strong>Numi</strong> menunggu di sini. Koneksi internet tampaknya terputus, jadi beberapa
+        halaman yang pernah kamu buka mungkin masih bisa diakses dari simpanan sementara.
       </p>
-      <p>Setelah daring kembali, seluruh materi akan tersedia seperti biasa.</p>
+      <p class="hint">
+        Sambungkan kembali perangkatmu, lalu muat ulang halaman ini. Numi siap melanjutkan belajar
+        bersamamu begitu kembali daring.
+      </p>
       <div class="actions">
         <a class="button" href="./">Buka beranda</a>
         <button type="button" onclick="location.reload()">Muat ulang</button>

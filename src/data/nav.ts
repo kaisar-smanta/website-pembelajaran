@@ -37,11 +37,11 @@ export const mainNav: NavItem[] = [
     children: [
       { label: 'Glosarium', href: '/glosarium' },
       { label: 'Kumpulan Rumus', href: '/rumus' },
+      { label: 'Referensi', href: '/referensi' },
       { label: 'Kemajuan Saya', href: '/kemajuan' },
       { label: 'Tinjauan lintas topik', href: '/review' },
     ],
   },
-  { label: 'Referensi', href: '/referensi' },
   { label: 'Tentang', href: '/tentang' },
 ];
 

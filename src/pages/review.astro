@@ -4,6 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { topics, topicSubject } from '@/data/topics';
 import { questionsByTopic } from '@/data/questions';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
@@ -64,6 +65,7 @@ const meta = [
     </p>
 
     <section class="empty card" data-review-empty aria-labelledby="review-kosong">
+      <MathMascot size={6} state="sleep" label="Maskot menunggu soal untuk ditinjau" />
       <h2 id="review-kosong" data-empty-title>Belum ada soal untuk ditinjau</h2>
       <p class="text-muted" data-empty-text>
         Kerjakan beberapa latihan dulu, lalu kembali ke sini untuk meninjau soal yang belum

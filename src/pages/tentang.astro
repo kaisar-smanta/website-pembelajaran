@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { site } from '@/data/site';
 import { url } from '@/utils/url';
 
@@ -33,6 +34,22 @@ const crumbs = [{ label: 'Beranda', href: url('/') }, { label: 'Tentang' }];
           <a class="btn btn-primary btn-sm" href={url('/peta-pembelajaran')}>Jelajahi materi</a>
           <a class="btn btn-secondary btn-sm" href={url('/referensi')}>Catatan referensi</a>
         </div>
+      </div>
+    </section>
+
+    <section class="mascot-intro card reveal" aria-labelledby="maskot">
+      <span class="mascot-intro-art">
+        <MathMascot size={7} state="happy" label={`${site.mascot.name}, maskot situs Matematika SMA`} />
+      </span>
+      <div class="mascot-intro-body">
+        <p class="eyebrow">Kenalan dulu</p>
+        <h2 id="maskot" class="id-name">{site.mascot.name}</h2>
+        <p class="text-muted">
+          Perkenalkan {site.mascot.name}, {site.mascot.tagline.toLowerCase()}. Ia menemani kamu
+          menelusuri materi, menyemangati saat berlatih, dan mengingatkan bahwa salah itu bagian
+          biasa dari belajar. Saat sebuah halaman masih kosong, {site.mascot.name}-lah yang
+          menunggu di sana.
+        </p>
       </div>
     </section>
 
@@ -147,6 +164,25 @@ const crumbs = [{ label: 'Beranda', href: url('/') }, { label: 'Tentang' }];
   .id-body p {
     margin-bottom: 0.85rem;
   }
+  .mascot-intro {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-block: 0 2rem;
+  }
+  .mascot-intro-art {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 7rem;
+    max-width: 34vw;
+  }
+  .mascot-intro-body {
+    min-width: 0;
+  }
+  .mascot-intro-body p {
+    margin-bottom: 0;
+  }
   .prose h2 {
     margin-top: 2.25rem;
     padding-left: 0.85rem;
@@ -174,6 +210,10 @@ const crumbs = [{ label: 'Beranda', href: url('/') }, { label: 'Tentang' }];
   }
   @media (max-width: 34rem) {
     .id-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .mascot-intro {
       flex-direction: column;
       align-items: flex-start;
     }

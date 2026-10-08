@@ -118,16 +118,8 @@
     transform: none;
   }
 }
-@keyframes sheen {
-  from {
-    background-position: -150% 0;
-  }
-  to {
-    background-position: 250% 0;
-  }
-}
 
-/* ---------- Kepribadian siswa: stiker, tag, goyang ---------- */
+/* ---------- Kepribadian siswa: stiker, tag ---------- */
 .sticker {
   display: grid;
   place-items: center;
@@ -157,18 +149,6 @@
   color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
   border: 1px solid
     color-mix(in srgb, var(--accent, var(--color-primary)) 30%, var(--color-border));
-}
-@keyframes wobble {
-  0%,
-  100% {
-    transform: rotate(-2deg);
-  }
-  50% {
-    transform: rotate(2deg);
-  }
-}
-.wobble {
-  animation: wobble 3.4s var(--ease-out-soft) infinite;
 }
 @keyframes confetti-pop {
   0% {

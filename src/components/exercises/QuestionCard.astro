@@ -320,6 +320,21 @@ const competencies = question.competencies ?? [];
     accent-color: var(--color-primary);
     cursor: pointer;
   }
+  /* Seluruh label kriteria menjadi sasaran sentuh >= 2.75rem (44px) pada
+     perangkat sentuh; kotak centangnya ikut diperbesar sedikit. */
+  @media (pointer: coarse), (max-width: 48rem) {
+    /* --bp-xl */
+    .q-rubric-item {
+      min-height: 2.75rem;
+      align-items: center;
+      padding-block: 0.35rem;
+    }
+    .q-rubric-check {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-top: 0;
+    }
+  }
   .q-feedback {
     margin: 0.5rem 0;
     padding: 0.5rem 0.75rem;

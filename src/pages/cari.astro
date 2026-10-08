@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { url } from '@/utils/url';
 import { ALL_ELEMENT_ORDER, GRADE_ORDER, ELEMENTS } from '@/data/curriculum';
 
@@ -71,7 +72,12 @@ const meta = [
 
     <p class="search-status" data-search-status aria-live="polite"></p>
     <p class="search-hint" data-search-hint aria-live="polite" hidden></p>
-    <ol class="search-results" data-search-results></ol>
+    <ol class="search-results" data-search-results>
+      <li class="result-empty card" data-search-empty hidden>
+        <MathMascot size={6} state="oops" label="Maskot tidak menemukan hasil pencarian" />
+        <p class="result-empty-text" data-search-empty-text></p>
+      </li>
+    </ol>
   </div>
 
   <section class="section-alt cta-section">
@@ -214,6 +220,24 @@ const meta = [
     display: grid;
     gap: 0.75rem;
   }
+  .result-empty {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: center;
+    padding: 1.6rem 1rem;
+    border-style: dashed;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+  .result-empty[hidden] {
+    display: none;
+  }
+  .result-empty-text {
+    margin: 0;
+  }
+  .result-empty :global(.mascot) {
+    margin-inline: auto;
+  }
   .cta-section {
     padding-block: 2.5rem;
   }
@@ -240,6 +264,8 @@ const meta = [
     const results = root.querySelector('[data-search-results]') as HTMLElement;
     const status = root.querySelector('[data-search-status]') as HTMLElement;
     const hint = root.querySelector('[data-search-hint]') as HTMLElement;
+    const emptyItem = results.querySelector('[data-search-empty]') as HTMLElement | null;
+    const emptyText = results.querySelector('[data-search-empty-text]') as HTMLElement | null;
 
     let items: SearchItem[] = [];
 
@@ -333,17 +359,16 @@ const meta = [
       renderSuggestion(suggestion);
 
       if (out.length === 0) {
-        const empty = document.createElement('li');
-        empty.className = 'result-empty card';
-        empty.setAttribute(
-          'style',
-          'text-align:center;color:var(--color-text-muted);padding:1.6rem 1rem;border-style:dashed;display:grid;gap:0.35rem;justify-items:center',
-        );
-        empty.textContent =
-          raw.length === 0
-            ? 'Belum ada entri untuk filter ini.'
-            : 'Tidak ada hasil. Coba kata kunci lain atau ubah filter.';
-        results.appendChild(empty);
+        if (emptyItem) {
+          if (emptyText) {
+            emptyText.textContent =
+              raw.length === 0
+                ? 'Belum ada entri untuk filter ini.'
+                : 'Tidak ada hasil. Coba kata kunci lain atau ubah filter.';
+          }
+          emptyItem.hidden = false;
+          results.appendChild(emptyItem);
+        }
         return;
       }
 

@@ -1,14 +1,33 @@
 ---
+type MascotState = 'default' | 'happy' | 'thinking' | 'celebrate' | 'oops' | 'sleep';
+
 interface Props {
   /** Bila diisi, maskot diberi label aksesibel. Default dekoratif. */
   label?: string;
   size?: number;
   /** Bila true, tambahkan respons hover/fokus halus. Default dekoratif & statis. */
   interactive?: boolean;
+  /** Karakter ekspresi maskot. Default tampil seperti semula. */
+  state?: MascotState;
 }
-const { label, size = 15, interactive = false } = Astro.props;
+const { label, size = 15, interactive = false, state = 'default' } = Astro.props;
 const decorative = !label;
-const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
+const motionClass = state === 'sleep' ? 'mascot-sleep' : 'bob';
+const classList = `mascot ${motionClass} mascot--${state}${interactive ? ' mascot--interactive' : ''}`;
+const eyesClass = `mascot-eyes${state === 'thinking' ? ' mascot-eyes--up' : ''}`;
+
+const cheek =
+  state === 'happy'
+    ? { r: 7, o: 0.5 }
+    : state === 'celebrate'
+      ? { r: 7.5, o: 0.55 }
+      : state === 'oops'
+        ? { r: 6, o: 0.25 }
+        : state === 'sleep'
+          ? { r: 6, o: 0.2 }
+          : state === 'thinking'
+            ? { r: 6, o: 0.3 }
+            : { r: 6, o: 0.35 };
 ---
 
 <svg
@@ -35,8 +54,8 @@ const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
   </g>
 
   <g class="mascot-arms" fill="var(--color-primary-soft)" stroke="var(--color-primary)" stroke-width="4">
-    <rect x="16" y="96" width="22" height="46" rx="11" />
-    <rect x="162" y="96" width="22" height="46" rx="11" />
+    <rect class="mascot-arm mascot-arm-left" x="16" y="96" width="22" height="46" rx="11" />
+    <rect class="mascot-arm mascot-arm-right" x="162" y="96" width="22" height="46" rx="11" />
   </g>
 
   <g class="mascot-legs" fill="var(--color-primary-soft)" stroke="var(--color-primary)" stroke-width="4">
@@ -48,17 +67,112 @@ const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
 
   <rect x="58" y="66" width="84" height="56" rx="18" fill="var(--color-primary-soft)" />
 
-  <circle class="mascot-eye" cx="82" cy="90" r="7.5" fill="var(--color-text)" />
-  <circle class="mascot-eye" cx="118" cy="90" r="7.5" fill="var(--color-text)" />
+  <g class={eyesClass} fill="none" stroke="var(--color-text)" stroke-width="4.5" stroke-linecap="round">
+    {
+      state === 'oops' ? (
+        <>
+          <path class="mascot-eye" d="M74 90q8 5 16 0" />
+          <path class="mascot-eye" d="M110 90q8 5 16 0" />
+        </>
+      ) : state === 'sleep' ? (
+        <>
+          <path class="mascot-eye" d="M74 90h16" />
+          <path class="mascot-eye" d="M110 90h16" />
+        </>
+      ) : (
+        <>
+          <circle class="mascot-eye" cx="82" cy="90" r="7.5" fill="var(--color-text)" stroke="none" />
+          <circle class="mascot-eye" cx="118" cy="90" r="7.5" fill="var(--color-text)" stroke="none" />
+        </>
+      )
+    }
+  </g>
 
-  <path d="M80 108q20 15 40 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+  {
+    (state === 'happy' || state === 'thinking' || state === 'oops') && (
+      <g class="mascot-brows" fill="none" stroke="var(--color-primary)" stroke-width="3.5" stroke-linecap="round">
+        {state === 'oops' ? (
+          <>
+            <path d="M70 79l20-6" />
+            <path d="M130 79l-20-6" />
+          </>
+        ) : state === 'thinking' ? (
+          <>
+            <path d="M70 78q10-5 20-2" />
+            <path d="M110 73q10-4 20 0" />
+          </>
+        ) : (
+          <>
+            <path d="M71 76q10-6 19-3" />
+            <path d="M110 73q10-3 19 3" />
+          </>
+        )}
+      </g>
+    )
+  }
 
-  <circle cx="64" cy="106" r="6" fill="var(--color-data)" opacity="0.35" />
-  <circle cx="136" cy="106" r="6" fill="var(--color-data)" opacity="0.35" />
+  {
+    state === 'happy' ? (
+      <path d="M74 104q26 22 52 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+    ) : state === 'thinking' ? (
+      <path d="M92 111q8 5 16 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+    ) : state === 'celebrate' ? (
+      <path d="M76 102q24 24 48 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+    ) : state === 'oops' ? (
+      <path d="M84 114q16-13 32 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+    ) : state === 'sleep' ? (
+      <path d="M94 112q6 4 12 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+    ) : (
+      <path d="M80 108q20 15 40 0" fill="none" stroke="var(--color-primary)" stroke-width="4.5" stroke-linecap="round" />
+    )
+  }
+
+  <g class="mascot-cheeks">
+    <circle cx="64" cy="106" r={cheek.r} fill="var(--color-data)" opacity={cheek.o} />
+    <circle cx="136" cy="106" r={cheek.r} fill="var(--color-data)" opacity={cheek.o} />
+  </g>
 
   <line x1="100" y1="50" x2="100" y2="28" stroke="var(--color-primary)" stroke-width="4" stroke-linecap="round" />
   <circle cx="100" cy="20" r="10" fill="var(--color-data)" />
   <path d="M96 20h8M100 16v8" stroke="var(--color-surface)" stroke-width="2.6" stroke-linecap="round" />
+
+  {
+    state === 'thinking' && (
+      <g class="mascot-think">
+        <path
+          d="M132 14q0-9 9-9t9 7q0 6-6 8-3 2-3 5"
+          fill="none"
+          stroke="var(--color-data)"
+          stroke-width="4"
+          stroke-linecap="round"
+        />
+        <circle cx="141" cy="31" r="2.6" fill="var(--color-data)" />
+      </g>
+    )
+  }
+
+  {
+    state === 'celebrate' && (
+      <g class="mascot-sparkle" fill="none" stroke="var(--color-data)" stroke-width="4" stroke-linecap="round">
+        <path d="M78 12v12M72 18h12" />
+        <path d="M122 10v12M116 16h12" />
+      </g>
+    )
+  }
+
+  {
+    state === 'oops' && (
+      <path class="mascot-sweat" d="M148 66c-3 6-3 10 0 12 3-2 3-6 0-12z" fill="var(--color-data)" />
+    )
+  }
+
+  {
+    state === 'sleep' && (
+      <g class="mascot-zzz" fill="none" stroke="var(--color-data)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M150 40h16l-16 16h16" />
+      </g>
+    )
+  }
 </svg>
 
 <style>
@@ -68,9 +182,24 @@ const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
   .mascot:hover .mascot-arms {
     transform: rotate(-3deg);
   }
+  .mascot-arm {
+    transform-box: fill-box;
+    transform-origin: center top;
+  }
+  .mascot--celebrate .mascot-arm-left {
+    --arm-raise: 150deg;
+    transform: rotate(150deg);
+  }
+  .mascot--celebrate .mascot-arm-right {
+    --arm-raise: -150deg;
+    transform: rotate(-150deg);
+  }
   .mascot-eye {
     transform-box: fill-box;
     transform-origin: center;
+  }
+  .mascot-eyes--up {
+    transform: translateY(-3px);
   }
   .mascot--interactive {
     transition: filter var(--dur) var(--ease-out-soft);
@@ -100,6 +229,35 @@ const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
     .mascot-eye {
       animation: blink 4.6s var(--ease-out-soft) infinite;
     }
+    .mascot-sleep {
+      animation: mascot-sleep-bob 8s var(--ease-out-soft) infinite;
+    }
+    .mascot--happy .mascot-cheeks {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: mascot-cheek 2.8s var(--ease-out-soft) infinite;
+    }
+    .mascot--thinking .mascot-think {
+      animation: mascot-float 4s var(--ease-out-soft) infinite;
+    }
+    .mascot--celebrate .mascot-sparkle {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: mascot-twinkle 1.8s var(--ease-out-soft) infinite;
+    }
+    .mascot--celebrate .mascot-arm {
+      animation: mascot-wave 2.2s var(--ease-out-soft) infinite;
+    }
+    .mascot--oops .mascot-sweat {
+      animation: mascot-sweat 2.4s var(--ease-out-soft) infinite;
+    }
+    .mascot--sleep .mascot-zzz {
+      animation: mascot-float 5s var(--ease-out-soft) infinite;
+    }
+    .mascot--oops .mascot-eye,
+    .mascot--sleep .mascot-eye {
+      animation: none;
+    }
   }
   @keyframes blink {
     0%,
@@ -109,6 +267,68 @@ const classList = `mascot bob${interactive ? ' mascot--interactive' : ''}`;
     }
     96% {
       transform: scaleY(0.15);
+    }
+  }
+  @keyframes mascot-sleep-bob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+      transform: translateY(-4px) rotate(1deg);
+    }
+  }
+  @keyframes mascot-cheek {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.18);
+    }
+  }
+  @keyframes mascot-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  @keyframes mascot-twinkle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.82);
+    }
+  }
+  @keyframes mascot-wave {
+    0%,
+    100% {
+      transform: rotate(var(--arm-raise, 0deg));
+    }
+    50% {
+      transform: rotate(calc(var(--arm-raise, 0deg) + 6deg));
+    }
+  }
+  @keyframes mascot-sweat {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.85;
+    }
+    45% {
+      transform: translateY(4px);
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(0);
+      opacity: 0.9;
     }
   }
 </style>

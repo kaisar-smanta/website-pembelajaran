@@ -97,15 +97,6 @@
     transform: translate(6px, -10px);
   }
 }
-@keyframes marker-sweep {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
 /* Reveal on scroll — hanya aktif bila JS & motion diizinkan (lihat BaseLayout). */
 .motion-ready .reveal {
   opacity: 0;
@@ -208,6 +199,23 @@
 .streak-pop {
   animation: pop-in var(--dur) var(--ease-bounce) both;
 }
+@keyframes settle-pop {
+  0% {
+    transform: scale(0.92);
+  }
+  55% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.settle-pop {
+  animation: settle-pop var(--dur) var(--ease-bounce);
+}
+.nudge {
+  animation: nudge var(--dur-slow) var(--ease-out-soft);
+}
 
 /* Karakter/maskot matematika sederhana (dekoratif). */
 .mascot {
@@ -232,6 +240,10 @@
   .wiggle-on-hover:focus-within .wiggle-target,
   .pop-on-hover:hover,
   .pop-on-hover:focus-visible,
+  .burst-ring,
+  .streak-pop,
+  .settle-pop,
+  .nudge,
   .hero-copy > * {
     animation: none !important;
   }

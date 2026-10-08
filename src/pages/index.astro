@@ -34,12 +34,20 @@ const featuredList = {
 >
   <Hero />
   <ContinueLearning />
-  <MethodSection />
+  <TopicsSection />
   <SubjectDoors />
   <BrowseSection />
-  <TopicsSection />
   <PracticeSection />
+  <div class="home-mobile-hide"><MethodSection /></div>
   <RealWorldSection />
-  <TrustSection />
+  <div class="home-mobile-hide"><TrustSection /></div>
   <FinalCta />
 </BaseLayout>
+
+<style>
+  @media (max-width: 40rem) {
+    .home-mobile-hide {
+      display: none;
+    }
+  }
+</style>
