@@ -205,4 +205,34 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     ],
     competencies: ['pemodelan pertumbuhan', 'persamaan eksponen'],
   },
+  {
+    id: 'ekslog-13',
+    topicId: 'persamaan-eksponen-logaritma',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah investasi Rp2.000.000 tumbuh dengan bunga majemuk $10\\%$ per tahun. (a) Susun model nilainya $M(t)$. (b) Dengan logaritma, tentukan lama waktu agar nilainya menjadi Rp4.000.000. Gunakan $\\log 2\\approx0{,}301$ dan $\\log 1{,}1\\approx0{,}0414$.',
+    answer:
+      '(a) $M(t)=2.000.000(1{,}1)^{t}$ rupiah. (b) Nilai dua kali lipat berarti $(1{,}1)^{t}=2$, sehingga $t=\\dfrac{\\log 2}{\\log 1{,}1}=\\dfrac{0{,}301}{0{,}0414}\\approx7{,}27$ tahun. Jadi investasi menjadi Rp4.000.000 setelah sekitar $7{,}3$ tahun, yaitu mulai tahun ke-$8$.',
+    explanation:
+      'Kunci: menyusun model eksponensial, mengubah persamaan menjadi bentuk logaritma, lalu menghitung dan menafsirkan hasilnya.',
+    hints: ['Bagi kedua ruas dengan modal awal.', 'Gunakan $t=\\dfrac{\\log 2}{\\log 1{,}1}$.'],
+    competencies: ['logaritma', 'pemodelan keuangan', 'evaluasi'],
+  },
+  {
+    id: 'ekslog-14',
+    topicId: 'persamaan-eksponen-logaritma',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Kekuatan gempa dinyatakan $M=\\log_{10}\\!\\left(\\dfrac{A}{A_0}\\right)$. Gempa A bermagnitudo $7$ dan gempa B bermagnitudo $5$. (a) Tentukan berapa kali amplitudo gempa A dibandingkan gempa B. (b) Jelaskan mengapa skala logaritma dipakai untuk menggambarkan kekuatan gempa.',
+    answer:
+      '(a) $M_A-M_B=\\log_{10}\\!\\left(\\dfrac{A_A}{A_0}\\right)-\\log_{10}\\!\\left(\\dfrac{A_B}{A_0}\\right)=\\log_{10}\\!\\left(\\dfrac{A_A}{A_B}\\right)=7-5=2$, sehingga $\\dfrac{A_A}{A_B}=10^{2}=100$. Amplitudo gempa A $100$ kali gempa B. (b) Skala logaritma dipakai karena jangkauan amplitudo gempa sangat lebar; dengan logaritma, perbedaan besar dipadatkan menjadi angka kecil yang mudah dibaca dan dibandingkan.',
+    explanation:
+      'Kunci: memakai sifat selisih logaritma menjadi logaritma hasil bagi, lalu menafsirkan manfaat skala logaritma.',
+    hints: ['Selisih logaritma sama dengan logaritma hasil bagi.', 'Perhatikan bahwa pangkat $10$ menghasilkan perbandingan amplitudo.'],
+    competencies: ['logaritma', 'skala logaritma', 'kontekstual'],
+  },
 ];

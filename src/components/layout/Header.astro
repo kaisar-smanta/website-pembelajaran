@@ -41,7 +41,7 @@ function itemActive(item: NavItem): boolean {
     <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama" data-primary-nav>
       <ul>
         {
-          mainNav.map((item) => (
+          mainNav.map((item, index) => (
             <li data-nav-item>
               {item.children ? (
                 <>
@@ -49,8 +49,8 @@ function itemActive(item: NavItem): boolean {
                   <button
                     type="button"
                     class={itemActive(item) ? 'nav-trigger active' : 'nav-trigger'}
-                    aria-haspopup="true"
                     aria-expanded="false"
+                    aria-controls={`submenu-${index}`}
                     data-nav-trigger
                   >
                     {item.label}
@@ -67,7 +67,7 @@ function itemActive(item: NavItem): boolean {
                       <path d="m6 9 6 6 6-6" />
                     </svg>
                   </button>
-                  <ul class="submenu" aria-label={item.label}>
+                  <ul class="submenu" id={`submenu-${index}`} aria-label={item.label}>
                     {item.children.map((child) => (
                       <li>
                         <a

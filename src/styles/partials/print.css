@@ -20,7 +20,6 @@
   footer.site-footer,
   nav.breadcrumbs,
   .topic-aside,
-  .back-to-top,
   .theme-toggle,
   .mobile-nav-toggle {
     display: none !important;
@@ -52,5 +51,53 @@
   }
   details > summary {
     list-style: none;
+  }
+  /* Buka isi <details> yang tertutup agar pembahasan/petunjuk ikut tercetak. */
+  details > *:not(summary) {
+    display: block !important;
+  }
+  details::details-content {
+    content-visibility: visible !important;
+  }
+  /*
+   * Kunci jawaban disembunyikan dengan atribut `[hidden]` (lihat layout.css)
+   * sampai soal dijawab. Saat dicetak, paksa tampil agar lembar latihan
+   * menyertakan pembahasan, contoh jawaban, dan umpan balik.
+   */
+  [data-explanation][hidden],
+  [data-model][hidden],
+  [data-feedback][hidden]:not(:empty) {
+    display: block !important;
+  }
+  [data-explanation],
+  [data-model] {
+    display: block !important;
+  }
+  /* Soal latihan jangan terpotong saat berganti halaman. */
+  .question-card,
+  .q-item {
+    break-inside: avoid;
+  }
+  /* Matematika display panjang tidak terpotong horizontal saat dicetak. */
+  .katex-display {
+    overflow: visible;
+    font-size: 0.92em;
+  }
+  .katex-display > .katex {
+    font-size: 1em;
+  }
+  /* Tabel tetap utuh (aturan .prose table ada di prose.css; ini pelengkap). */
+  table,
+  .prose table {
+    display: table !important;
+    width: 100% !important;
+    overflow: visible !important;
+    break-inside: auto;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr {
+    break-inside: avoid;
   }
 }

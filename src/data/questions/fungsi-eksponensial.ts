@@ -157,4 +157,19 @@ export const fungsiEksponensialQuestions: Question[] = [
     hints: ['$b^{x+1}$ menggeser grafik secara horizontal, sedangkan $-3$ menggesernya secara vertikal.'],
     competencies: ['transformasi grafik eksponensial'],
   },
+  {
+    id: 'fe-11',
+    topicId: 'fungsi-eksponensial',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Dua zat memiliki nilai awal sama, $100$ satuan. Zat A mengikuti $A(t)=100(1{,}2)^{t}$ dan zat B mengikuti $B(t)=100(0{,}8)^{t}$. (a) Manakah yang tumbuh dan manakah yang meluruh? (b) Bandingkan nilainya pada $t=5$, lalu jelaskan mengapa keduanya berbeda meskipun nilai awalnya sama.',
+    answer:
+      '(a) Zat A tumbuh karena basis $1{,}2>1$, sedangkan zat B meluruh karena basis $0{,}8<1$. (b) $A(5)=100(1{,}2)^{5}\\approx100(2{,}488)=248{,}8$ dan $B(5)=100(0{,}8)^{5}\\approx100(0{,}328)=32{,}8$. Keduanya berbeda karena setiap langkah zat A dikalikan faktor lebih dari $1$ sedangkan zat B dikalikan faktor kurang dari $1$; perbedaan kecil pada basis terakumulasi menjadi perbedaan besar setelah beberapa periode.',
+    explanation:
+      'Kunci: mengenali basis sebagai penentu pertumbuhan/peluruhan dan menunjukkan efek akumulasi basis terhadap nilai jangka panjang.',
+    hints: ['Periksa apakah basis lebih besar atau lebih kecil dari $1$.', 'Bandingkan hasil perpangkatan pada $t=5$.'],
+    competencies: ['pertumbuhan dan peluruhan', 'evaluasi'],
+  },
 ];

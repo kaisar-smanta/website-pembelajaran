@@ -1,0 +1,282 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import {
+  ELEMENTS,
+  GRADES,
+  SUBJECTS,
+  SUBJECT_ORDER,
+  elementOrderFor,
+  gradesFor,
+} from '@/data/curriculum';
+import { topicsBySubjectGradeElement } from '@/data/topics';
+import { stripMarkdown } from '@/utils/markdown';
+import { topicUrl, url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Peta Situs' },
+];
+
+const subjectGroups = SUBJECT_ORDER.map((subject) => {
+  const grades = gradesFor(subject)
+    .map((grade) => {
+      const elements = elementOrderFor(subject)
+        .map((element) => ({
+          element,
+          meta: ELEMENTS[element],
+          topics: topicsBySubjectGradeElement(subject, grade, element).filter(
+            (topic) => topic.status !== 'rencana',
+          ),
+        }))
+        .filter((group) => group.topics.length > 0);
+      return { grade, meta: GRADES[grade], elements };
+    })
+    .filter((group) => group.elements.length > 0);
+  return { subject, meta: SUBJECTS[subject], grades };
+}).filter((group) => group.grades.length > 0);
+
+const staticLinks: { label: string; href: string; note: string }[] = [
+  { label: 'Latihan & Asesmen', href: url('/latihan'), note: 'Bank soal berjenjang' },
+  { label: 'Eksplorasi', href: url('/eksplorasi'), note: 'Simulasi interaktif' },
+  { label: 'Matematika dalam Kehidupan', href: url('/aplikasi'), note: 'Studi kasus penerapan' },
+  { label: 'Alat Matematika', href: url('/alat'), note: 'Perangkat bantu' },
+  { label: 'Glosarium', href: url('/glosarium'), note: 'Daftar istilah' },
+  { label: 'Kumpulan Rumus', href: url('/rumus'), note: 'Lembar rujukan rumus' },
+  { label: 'Kemajuan Saya', href: url('/kemajuan'), note: 'Rekap belajar tersimpan' },
+  { label: 'Referensi', href: url('/referensi'), note: 'Catatan kurikulum' },
+  { label: 'Kontak', href: url('/kontak'), note: 'Hubungi penyusun' },
+  { label: 'Aksesibilitas', href: url('/aksesibilitas'), note: 'Catatan aksesibilitas' },
+  { label: 'Tentang', href: url('/tentang'), note: 'Kredit dan lisensi' },
+  { label: 'Pencarian', href: url('/cari'), note: 'Cari di seluruh situs' },
+];
+
+const topicCount = subjectGroups.reduce(
+  (sum, group) =>
+    sum +
+    group.grades.reduce(
+      (gradeSum, gradeGroup) =>
+        gradeSum +
+        gradeGroup.elements.reduce(
+          (elementSum, elementGroup) => elementSum + elementGroup.topics.length,
+          0,
+        ),
+      0,
+    ),
+  0,
+);
+
+const meta = [`${topicCount} topik`, `${subjectGroups.length} mata pelajaran`, 'Navigasi lengkap'];
+---
+
+<BaseLayout
+  title="Peta Situs"
+  description="Peta situs dalam bentuk halaman: daftar seluruh topik Matematika dan Matematika Tingkat Lanjut per kelas dan elemen, beserta tautan ke halaman utama lainnya."
+>
+  <PageHeader
+    title="Peta Situs"
+    eyebrow="Navigasi"
+    lead="Daftar lengkap isi situs dalam bentuk yang mudah dibaca: seluruh topik per mata pelajaran, kelas, dan elemen, ditambah tautan ke halaman-halaman utama lainnya."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container container-narrow sitemap">
+    <section class="sitemap-static card reveal" data-reveal aria-labelledby="sitemap-halaman">
+      <h2 id="sitemap-halaman" class="sitemap-title">Halaman</h2>
+      <ul class="sitemap-links" role="list">
+        {staticLinks.map((link) => (
+          <li>
+            <a href={link.href}>
+              <span class="sitemap-link-label">{link.label}</span>
+              <span class="sitemap-link-note">{link.note}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {subjectGroups.map((subject) => (
+      <section class="sitemap-subject" aria-labelledby={`sitemap-${subject.subject}`}>
+        <h2 id={`sitemap-${subject.subject}`} class="sitemap-title">
+          {subject.meta.name}
+        </h2>
+        {subject.grades.map((gradeGroup) => (
+          <div class="sitemap-grade">
+            <h3 class="sitemap-grade-title">
+              {gradeGroup.meta.name}
+              <span class="sitemap-grade-phase">{gradeGroup.meta.label}</span>
+            </h3>
+            {gradeGroup.elements.map((elementGroup) => (
+              <div class:list={['sitemap-element', `accent-${elementGroup.element}`]}>
+                <h4 class="sitemap-element-title">{elementGroup.meta.name}</h4>
+                <ul class="sitemap-topics" role="list">
+                  {elementGroup.topics.map((topic) => (
+                    <li>
+                      <a
+                        href={topicUrl(
+                          topic.grade,
+                          topic.element,
+                          topic.slug,
+                          subject.subject,
+                        )}
+                      >
+                        {topic.title}
+                      </a>
+                      {topic.summary && (
+                        <span class="sitemap-topic-note">{stripMarkdown(topic.summary)}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ))}
+      </section>
+    ))}
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Mulai dari mana saja"
+        text="Buka peta pembelajaran untuk melihat alur konsep, atau langsung telusuri topik lewat pencarian."
+        reveal
+        actions={[
+          { label: 'Peta Pembelajaran', href: url('/peta-pembelajaran'), variant: 'primary' },
+          { label: 'Cari materi', href: url('/cari'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sitemap {
+    padding-block: 1.5rem 2.5rem;
+  }
+  .sitemap-static {
+    margin-bottom: 2rem;
+  }
+  .sitemap-title {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0 0 0.9rem;
+    font-size: 1.25rem;
+  }
+  .sitemap-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+  .sitemap-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.4rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sitemap-links a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--color-text-muted);
+    transition:
+      background-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .sitemap-links a:hover,
+  .sitemap-links a:focus-visible {
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .sitemap-link-label {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .sitemap-links a:hover .sitemap-link-label,
+  .sitemap-links a:focus-visible .sitemap-link-label {
+    color: var(--color-primary);
+  }
+  .sitemap-link-note {
+    font-size: 0.82rem;
+  }
+
+  .sitemap-subject + .sitemap-subject {
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .sitemap-grade + .sitemap-grade {
+    margin-top: 1.5rem;
+  }
+  .sitemap-grade-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0 0 0.6rem;
+    font-size: 1.05rem;
+    color: var(--color-primary);
+  }
+  .sitemap-grade-phase {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .sitemap-element {
+    margin: 0 0 0.9rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid color-mix(in srgb, var(--accent, var(--color-primary)) 55%, transparent);
+  }
+  .sitemap-element-title {
+    margin: 0 0 0.35rem;
+    font-size: 0.95rem;
+    color: var(--accent, var(--color-primary));
+  }
+  .sitemap-topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 0.25rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sitemap-topics li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+  .sitemap-topics a {
+    padding-block: 0.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .sitemap-topics a:hover,
+  .sitemap-topics a:focus-visible {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .sitemap-topic-note {
+    font-size: 0.82rem;
+    color: var(--color-text-soft);
+  }
+
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+</style>

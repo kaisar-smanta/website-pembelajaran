@@ -178,4 +178,19 @@ export const peluangQuestions: Question[] = [
     ],
     competencies: ['frekuensi harapan', 'pemodelan', 'pencacahan'],
   },
+  {
+    id: 'pl-11',
+    topicId: 'peluang',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Kantong I berisi $3$ bola merah dan $2$ bola biru, sedangkan Kantong II berisi $4$ bola merah dan $1$ bola biru. Satu bola diambil dari tiap kantong. (a) Tentukan peluang kedua bola merah. (b) Tentukan peluang tepat satu bola merah. (c) Jelaskan mengapa kejadian dari kedua kantong saling bebas.',
+    answer:
+      'Peluang dari Kantong I: $P(M_1)=\\dfrac{3}{5}$; dari Kantong II: $P(M_2)=\\dfrac{4}{5}$. (a) Karena saling bebas, $P(M_1\\cap M_2)=\\dfrac{3}{5}\\cdot\\dfrac{4}{5}=\\dfrac{12}{25}$. (b) Tepat satu merah berarti (merah, biru) atau (biru, merah): $P=\\dfrac{3}{5}\\cdot\\dfrac{1}{5}+\\dfrac{2}{5}\\cdot\\dfrac{4}{5}=\\dfrac{3}{25}+\\dfrac{8}{25}=\\dfrac{11}{25}$. (c) Kedua kejadian saling bebas karena hasil pengambilan dari satu kantong tidak mengubah isi maupun peluang pada kantong lain.',
+    explanation:
+      'Kunci: memakai aturan perkalian untuk kejadian saling bebas, menjumlahkan dua jalur untuk tepat satu merah, dan menjelaskan mengapa keduanya bebas.',
+    hints: ['Hasil dari satu kantong tidak memengaruhi kantong lain.', 'Untuk tepat satu merah, jumlahkan dua urutan kejadian.'],
+    competencies: ['kejadian saling bebas', 'aturan perkalian', 'evaluasi'],
+  },
 ];

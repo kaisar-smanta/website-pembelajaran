@@ -40,7 +40,8 @@ export const integral: Topic = {
     { text: 'Peserta didik dapat menafsirkan integral tentu sebagai limit jumlah dan sebagai luas.' },
     { text: 'Peserta didik dapat menggunakan teorema dasar kalkulus untuk menghitung luas di bawah kurva dan antara dua kurva.' },
   ],
-  applications: ['pengukuran', 'pertumbuhan'],
+  applications: ['mtl-gerak-kecepatan'],
+  explorations: ['mtl-integral-riemann'],
   sections: [
     {
       id: "tujuan",
@@ -184,6 +185,18 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
               "$\\int_{a}^{b} \\left[f(x)-g(x)\\right] dx$",
             ],
           ],
+        },
+      ],
+    },
+    {
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Jumlah Riemann dan Luas",
+      body: `Gagasan integral tentu sebagai limit jumlah paling mudah dipahami dengan mencoba menghitungnya sendiri. Pada simulasi berikut, atur selang $[a,b]$ dan banyak persegi panjang $n$ untuk fungsi $f(x)=x^{2}$. Amati bagaimana hampiran jumlah Riemann makin mendekati nilai integral eksaknya ketika $n$ diperbesar.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-integral-riemann",
         },
       ],
     },

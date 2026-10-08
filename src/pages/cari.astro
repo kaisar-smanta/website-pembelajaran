@@ -188,9 +188,12 @@ const meta = [
     buildSnippet,
     type SearchItem,
   } from '@/lib/search';
+  import { elementColor } from '@/data/display';
+  import type { ElementId } from '@/types/content';
 
   function setupSearch(root: Element) {
     const base = root.getAttribute('data-base') || '/';
+    const form = root.querySelector('[data-search-form]') as HTMLFormElement;
     const input = root.querySelector('[data-search-input]') as HTMLInputElement;
     const gradeFilter = root.querySelector('[data-filter-grade]') as HTMLSelectElement;
     const elementFilter = root.querySelector('[data-filter-element]') as HTMLSelectElement;
@@ -199,15 +202,42 @@ const meta = [
 
     let items: SearchItem[] = [];
 
-    /* Cermin ELEMENT_COLOR di `src/data/display.ts`. Disalin apa adanya karena
-       skrip klien tidak boleh mengimpor modul data sisi server. */
-    const accentMap: Record<string, string> = {
-      bilangan: 'var(--color-number)',
-      'aljabar-fungsi': 'var(--color-algebra)',
-      geometri: 'var(--color-geometry)',
-      kalkulus: 'var(--color-calculus)',
-      'data-peluang': 'var(--color-data)',
-    };
+    /* Menyelaraskan kueri + saringan ke URL (pola sama dengan
+       `src/lib/filter-dom.ts`) agar tautan yang dibagikan memulihkan hasil. */
+    function syncUrl() {
+      try {
+        const params = new URLSearchParams(location.search);
+        const raw = input.value.trim();
+        if (raw) params.set('q', raw);
+        else params.delete('q');
+        if (gradeFilter.value) params.set('grade', gradeFilter.value);
+        else params.delete('grade');
+        if (elementFilter.value) params.set('element', elementFilter.value);
+        else params.delete('element');
+        const search = params.toString();
+        const next = `${location.pathname}${search ? `?${search}` : ''}${location.hash}`;
+        history.replaceState(null, '', next);
+      } catch {
+        /* abaikan bila riwayat/URL tidak dapat diubah */
+      }
+    }
+
+    /* Membaca kueri + saringan dari URL; mengembalikan true bila `?q=` ada. */
+    function readUrl() {
+      const params = new URLSearchParams(location.search);
+      const q = params.get('q');
+      if (q) input.value = q;
+      const g = params.get('grade');
+      if (g) gradeFilter.value = g;
+      const e = params.get('element');
+      if (e) elementFilter.value = e;
+      return Boolean(q);
+    }
+
+    function update() {
+      render();
+      syncUrl();
+    }
 
     function render() {
       const raw = input.value.trim();
@@ -256,7 +286,7 @@ const meta = [
       for (const item of out) {
         const li = document.createElement('li');
         li.className = 'result-item card hover-lift';
-        const accent = (item.element && accentMap[item.element]) || 'var(--color-primary)';
+        const accent = elementColor(item.element as ElementId | undefined);
         li.setAttribute('style', `--accent:${accent};border-left:4px solid var(--accent)`);
         const gradeLabel = item.grade ? `Kelas ${item.grade}` : '';
         li.innerHTML = `
@@ -272,22 +302,28 @@ const meta = [
       }
     }
 
+    results.setAttribute('aria-busy', 'true');
     fetch(`${base}search.json`)
       .then((r) => r.json())
       .then((data) => {
         items = data;
-        const params = new URLSearchParams(location.search);
-        const initial = params.get('q');
-        if (initial) input.value = initial;
+        const hasQuery = readUrl();
         render();
+        results.setAttribute('aria-busy', 'false');
+        if (hasQuery) input.focus();
       })
       .catch(() => {
+        results.setAttribute('aria-busy', 'false');
         status.textContent = 'Indeks pencarian gagal dimuat.';
       });
 
-    input.addEventListener('input', render);
-    gradeFilter.addEventListener('change', render);
-    elementFilter.addEventListener('change', render);
+    input.addEventListener('input', update);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      update();
+    });
+    gradeFilter.addEventListener('change', update);
+    elementFilter.addEventListener('change', update);
   }
 
   document.querySelectorAll('[data-search-root]').forEach(setupSearch);

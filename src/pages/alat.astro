@@ -14,6 +14,12 @@ const crumbs = [
   { label: 'Alat Matematika' },
 ];
 
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
 const accentElements = ALL_ELEMENT_ORDER;
 const totalTools = toolGroups.reduce((sum, group) => sum + group.tools.length, 0);
 const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
@@ -42,10 +48,11 @@ const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
     {
       toolGroups.map((group, gi) => {
         const elementId = accentElements[gi % accentElements.length];
+        const sectionId = slugify(group.heading);
         return (
-          <section class:list={['block', `accent-${elementId}`]} aria-labelledby={`g-${group.heading}`}>
+          <section class:list={['block', `accent-${elementId}`]} aria-labelledby={sectionId}>
             <SectionHeading
-              id={`g-${group.heading}`}
+              id={sectionId}
               eyebrow={`Kelompok ${gi + 1}`}
               title={group.heading}
               lead={group.intro}

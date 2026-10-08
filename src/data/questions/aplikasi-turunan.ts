@@ -181,4 +181,19 @@ export const aplikasiTurunanQuestions: Question[] = [
     ],
     competencies: ['optimasi', 'uji turunan kedua', 'pemodelan'],
   },
+  {
+    id: 'ap-12',
+    topicId: 'aplikasi-turunan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Keuntungan sebuah usaha (juta rupiah) dimodelkan $K(x)=-x^{3}+6x^{2}$ dengan $x$ menyatakan banyak unit produksi (dalam ratusan), $x\\geq0$. (a) Tentukan titik stasionernya. (b) Tentukan titik yang memberi keuntungan maksimum beserta nilainya. (c) Jelaskan mengapa keuntungan menurun setelah titik maksimum.',
+    answer:
+      '(a) $K\'(x)=-3x^{2}+12x=-3x(x-4)=0$ memberi $x=0$ dan $x=4$. (b) $K\'\'(x)=-6x+12$; $K\'\'(4)=-12<0$ sehingga $x=4$ maksimum lokal. Nilai $K(4)=-64+96=32$ juta rupiah. Titik $x=0$ memberi $K\'\'(0)=12>0$ (minimum lokal). (c) Setelah $x=4$, turunan $K\'(x)<0$ untuk $x>4$, artinya penambahan produksi justru menurunkan keuntungan karena biaya tambahan melebihi tambahan pendapatan.',
+    explanation:
+      'Kunci: mencari titik stasioner, menguji jenisnya dengan turunan kedua, dan menafsirkan tanda turunan sebagai arah perubahan keuntungan.',
+    hints: ['Faktorkan $K\'(x)=-3x(x-4)$.', 'Turunan pertama negatif berarti fungsi menurun.'],
+    competencies: ['optimasi', 'uji turunan kedua', 'evaluasi'],
+  },
 ];

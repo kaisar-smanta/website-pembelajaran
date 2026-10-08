@@ -180,4 +180,19 @@ export const dataBivariatQuestions: Question[] = [
     ],
     competencies: ['koefisien korelasi', 'interpretasi'],
   },
+  {
+    id: 'db-12',
+    topicId: 'data-bivariat',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah toko mencatat pengeluaran iklan $x$ (juta rupiah) dan penjualan $y$ (juta rupiah) sebagai berikut: $x: 1,2,3,4,5$ dan $y: 3,5,7,9,11$. (a) Tentukan arah hubungan kedua variabel. (b) Perkirakan penjualan bila iklan $6$ juta dengan menganggap pola linear, dan sebutkan asumsinya. (c) Sebutkan satu variabel lain yang mungkin ikut memengaruhi penjualan.',
+    answer:
+      '(a) Arahnya positif: setiap kenaikan $x$ diikuti kenaikan $y$ secara teratur, bahkan membentuk garis lurus. (b) Polanya $y=2x+1$, sehingga untuk $x=6$ diperkirakan $y=2(6)+1=13$ juta rupiah. Asumsinya pola linear tetap berlaku pada nilai $x$ yang masih dekat dengan rentang data. (c) Faktor lain misalnya musim liburan, harga pesaing, atau daya beli pelanggan.',
+    explanation:
+      'Kunci: mengenali hubungan linear positif, menyusun prediksi, serta menyadari asumsi dan variabel luar.',
+    hints: ['Perhatikan selisih $y$ yang tetap sebesar $2$.', 'Prediksi di luar data tetap bergantung pada asumsi.'],
+    competencies: ['hubungan linear', 'pemodelan', 'prediksi'],
+  },
 ];

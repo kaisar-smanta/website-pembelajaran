@@ -1,0 +1,260 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const paramValue = (name: string, fallback: number): number => {
+  const found = exploration.params?.find((p) => p.name === name);
+  return found && Number.isFinite(found.value) ? found.value : fallback;
+};
+
+const a0 = paramValue('a', 4);
+const b0 = paramValue('b', 3);
+const h0 = paramValue('h', 0);
+const k0 = paramValue('k', 0);
+const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0}`;
+---
+
+<figure class="sim conic-sim" data-conic data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Pilih jenis irisan, lalu geser setengah sumbu dan titik pusatnya untuk melihat perubahan
+    bentuk serta posisi fokus.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Jenis irisan</span>
+      <select data-kind>
+        <option value="ellipse" selected>Elips</option>
+        <option value="parabola">Parabola</option>
+        <option value="hyperbola">Hiperbola</option>
+      </select>
+    </label>
+    <label class="sim-field">
+      <span>Setengah sumbu a <output data-value="a">{a0}</output></span>
+      <input type="range" min="0.5" max="6" step="0.1" value={a0} data-field="a" />
+    </label>
+    <label class="sim-field" data-b-field>
+      <span>Setengah sumbu b <output data-value="b">{b0}</output></span>
+      <input type="range" min="0.5" max="6" step="0.1" value={b0} data-field="b" />
+    </label>
+    <label class="sim-field">
+      <span>Pusat h <output data-value="h">{h0}</output></span>
+      <input type="range" min="-4" max="4" step="0.5" value={h0} data-field="h" />
+    </label>
+    <label class="sim-field">
+      <span>Pusat k <output data-value="k">{k0}</output></span>
+      <input type="range" min="-4" max="4" step="0.5" value={k0} data-field="k" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-conic-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 320" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Kurva irisan</span>
+      <span class="l2">Fokus</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field select {
+    padding: 0.3rem 0.4rem;
+    font: inherit;
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 34rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-geometry);
+  }
+  .legend .l2 {
+    color: var(--color-warning);
+  }
+  .conic-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .conic-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { sampleConic, conicFoci, parabolaDirectrix, describeConic } from '../../lib/sim/conic';
+  import type { ConicKind, ConicParams } from '../../lib/sim/conic';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+
+  function setupConic(root: Element) {
+    const kindInput = root.querySelector('[data-kind]') as HTMLSelectElement;
+    const bField = root.querySelector('[data-b-field]') as HTMLElement;
+    const names = ['a', 'b', 'h', 'k'] as const;
+    type Name = (typeof names)[number];
+    const inputs = {} as Record<Name, HTMLInputElement>;
+    const outputs = {} as Record<Name, HTMLOutputElement>;
+    for (const name of names) {
+      inputs[name] = root.querySelector(`[data-field="${name}"]`) as HTMLInputElement;
+      outputs[name] = root.querySelector(`[data-value="${name}"]`) as HTMLOutputElement;
+    }
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-conic-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 320;
+    const pad = 30;
+
+    const kindLabel: Record<ConicKind, string> = {
+      ellipse: 'elips',
+      parabola: 'parabola',
+      hyperbola: 'hiperbola',
+    };
+
+    function currentParams(): ConicParams {
+      return {
+        a: Number(inputs.a.value),
+        b: Number(inputs.b.value),
+        h: Number(inputs.h.value),
+        k: Number(inputs.k.value),
+      };
+    }
+
+    function draw(kind: ConicKind, p: ConicParams) {
+      const { sx, sy } = linearScale(
+        { xMin: -9, xMax: 9, yMin: -7, yMax: 7 },
+        { width: W, height: H, pad },
+      );
+      clear(svg);
+      for (let i = 0; i <= 8; i++) {
+        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 6) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 6) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+
+      if (kind === 'parabola') {
+        const dy = parabolaDirectrix(p);
+        svg.appendChild(el('line', { x1: pad, y1: sy(dy), x2: W - pad, y2: sy(dy), stroke: 'var(--color-text-soft)', 'stroke-width': 1, 'stroke-dasharray': '4 4' }));
+      }
+
+      const points = sampleConic(kind, p, 200).map((q) => {
+        if (!q) return null;
+        const py = sy(q[1]);
+        if (py < -400 || py > H + 400) return null;
+        return [sx(q[0]), py] as [number, number];
+      });
+      svg.appendChild(
+        el('path', {
+          d: polyline(points),
+          fill: 'none',
+          stroke: 'var(--color-geometry)',
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+
+      conicFoci(kind, p).forEach((f) => {
+        if (f.x < -9 || f.x > 9 || f.y < -7 || f.y > 7) return;
+        svg.appendChild(el('circle', { cx: sx(f.x), cy: sy(f.y), r: 4.5, fill: 'var(--color-warning)', stroke: 'var(--color-surface)' }));
+      });
+    }
+
+    function render() {
+      const kind = kindInput.value as ConicKind;
+      bField.hidden = kind === 'parabola';
+      const p = currentParams();
+      names.forEach((name) => {
+        outputs[name].textContent = inputs[name].value;
+      });
+      draw(kind, p);
+      readout.textContent = describeConic(kind, p);
+      svg.setAttribute('aria-label', `${kindLabel[kind]} berpusat (${p.h}, ${p.k}) dengan a = ${p.a} dan b = ${p.b}`);
+    }
+
+    names.forEach((name) => inputs[name].addEventListener('input', render));
+    kindInput.addEventListener('change', render);
+
+    reset.addEventListener('click', () => {
+      kindInput.value = 'ellipse';
+      names.forEach((name) => {
+        inputs[name].value = inputs[name].defaultValue;
+      });
+      render();
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('[data-conic]').forEach(setupConic);
+</script>

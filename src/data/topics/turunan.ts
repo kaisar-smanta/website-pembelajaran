@@ -43,9 +43,9 @@ export const turunan: Topic = {
     { text: 'Peserta didik dapat menerapkan aturan hasil kali, hasil bagi, dan aturan rantai.' },
     { text: 'Peserta didik dapat menentukan turunan fungsi polinomial, eksponensial, dan trigonometri.' },
   ],
-  applications: ['pertumbuhan'],
+  applications: ['mtl-optimasi-produksi'],
   explorations: [
-    "mtl-turunan-garis-singgung",
+    "mtl-aplikasi-turunan-garis-singgung",
   ],
   sections: [
     {
@@ -203,11 +203,11 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi interaktif berikut untuk menguji dugaanmu dan melihat polanya sendiri.",
+      body: "Gunakan simulasi berikut untuk melihat bagaimana gradien garis singgung berubah ketika titik singgung digeser sepanjang kurva. Perhatikan kapan garis singgung menanjak, mendatar di titik stasioner, dan menurun.",
       blocks: [
         {
           kind: "exploration",
-          explorationId: "mtl-turunan-garis-singgung",
+          explorationId: "mtl-aplikasi-turunan-garis-singgung",
         },
       ],
     },

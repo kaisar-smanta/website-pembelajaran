@@ -23,9 +23,13 @@
 
   --color-number: #2f6fd8;
   --color-algebra: #7b3fd6;
-  --color-geometry: #0f8f7a;
-  --color-data: #c26a10;
+  --color-geometry: #0c7c6a;
+  --color-data: #a85a0b;
   --color-calculus: #d6336c;
+
+  /* Varian teks aksen yang memenuhi WCAG AA (>= 4.5:1) pada latar terang. */
+  --color-geometry-strong: #0c7c6a;
+  --color-data-strong: #a85a0b;
 
   --color-success: #17795e;
   --color-success-soft: #e2f5ee;
@@ -85,6 +89,10 @@
   --color-geometry: #4fd0b8;
   --color-data: #f0a94e;
   --color-calculus: #f478a8;
+
+  /* Di latar gelap warna dasar sudah terang, jadi varian teks sama. */
+  --color-geometry-strong: #4fd0b8;
+  --color-data-strong: #f0a94e;
 
   --color-success: #5fd0a8;
   --color-success-soft: #12332a;

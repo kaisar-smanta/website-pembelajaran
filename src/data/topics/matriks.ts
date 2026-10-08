@@ -40,7 +40,7 @@ export const matriks: Topic = {
     { text: 'Peserta didik dapat menghitung determinan matriks $2 \\times 2$ dan $3 \\times 3$.' },
     { text: 'Peserta didik dapat menentukan invers matriks $2 \\times 2$ dan menggunakannya untuk menyelesaikan SPLDV.' },
   ],
-  applications: ['penyajian-data', 'penyelesaian-sistem'],
+  applications: ['transformasi-matriks'],
   explorations: [
     "matriks-transformasi",
   ],

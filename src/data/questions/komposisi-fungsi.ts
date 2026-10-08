@@ -169,4 +169,34 @@ export const komposisiFungsiQuestions: Question[] = [
     hints: ['Diskon $25\\%$ berarti membayar $75\\%$ dari harga awal.'],
     competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
   },
+  {
+    id: 'kf-11',
+    topicId: 'komposisi-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diketahui $f(x)=2x-1$ dan $g(x)=x^{2}$. (a) Tentukan $(f\\circ g)(x)$ dan $(g\\circ f)(x)$. (b) Selidiki apakah berlaku $(f\\circ g)(x)=(g\\circ f)(x)$. (c) Jelaskan syarat agar dua komposisi fungsi bernilai sama.',
+    answer:
+      '(a) $(f\\circ g)(x)=f(x^{2})=2x^{2}-1$ dan $(g\\circ f)(x)=g(2x-1)=(2x-1)^{2}=4x^{2}-4x+1$. (b) Keduanya tidak sama, misalnya pada $x=0$ diperoleh $-1$ dan $1$. Jadi $(f\\circ g)(x)\\neq(g\\circ f)(x)$. (c) Kesamaan hanya berlaku pada kasus khusus, misalnya jika kedua fungsi saling invers atau jika salah satunya fungsi identitas; secara umum komposisi tidak komutatif.',
+    explanation:
+      'Kunci: menghitung kedua urutan komposisi, mengujinya dengan nilai, dan menyimpulkan sifat tidak komutatif komposisi fungsi.',
+    hints: ['Kerjakan fungsi yang lebih dekat dengan $x$ terlebih dahulu.', 'Uji kedua hasil pada satu nilai $x$.'],
+    competencies: ['komposisi fungsi', 'sifat tidak komutatif', 'evaluasi'],
+  },
+  {
+    id: 'kf-12',
+    topicId: 'komposisi-fungsi',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah barang diberi diskon $20\\%$, sehingga harga menjadi $h(x)=0{,}8x$. Setelah itu dikenakan pajak $10\\%$ dari harga diskon, yaitu $p(x)=1{,}1x$. (a) Susun komposisi fungsi untuk total harga akhir. (b) Hitung total harga untuk harga awal Rp500.000. (c) Jelaskan apakah hasilnya berubah jika pajak dihitung lebih dahulu, baru didiskon.',
+    answer:
+      '(a) Pajak dikenakan atas harga setelah diskon, sehingga total $=(p\\circ h)(x)=p(0{,}8x)=1{,}1(0{,}8x)=0{,}88x$. (b) Untuk $x=500.000$: $0{,}88(500.000)=440.000$. Jadi totalnya Rp440.000. (c) Jika pajak lebih dahulu: $(h\\circ p)(x)=0{,}8(1{,}1x)=0{,}88x$, ternyata hasilnya sama. Hal ini karena kedua operasi hanya berupa perkalian dengan konstanta sehingga urutannya tidak mengubah hasil.',
+    explanation:
+      'Kunci: menyusun komposisi dengan urutan yang benar, menghitung nilai, lalu menguji apakah urutan memengaruhi hasil.',
+    hints: ['Diskon berlaku lebih dahulu, baru pajak.', 'Kalikan kedua faktor dan bandingkan urutannya.'],
+    competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
+  },
 ];

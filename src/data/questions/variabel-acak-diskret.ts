@@ -184,4 +184,34 @@ export const variabelAcakDiskretQuestions: Question[] = [
     hints: ['Timbang setiap hasil dengan peluangnya, lalu jumlahkan.'],
     competencies: ['nilai harapan', 'penalaran'],
   },
+  {
+    id: 'vad-12',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah perusahaan menawarkan dua skema bonus tahunan. Skema A memberi bonus acak $X$ (juta rupiah) dengan distribusi $P(X=0)=0{,}5$, $P(X=2)=0{,}3$, dan $P(X=5)=0{,}2$. Skema B memberi bonus tetap $1{,}5$ juta rupiah. (a) Hitung nilai harapan Skema A. (b) Skema mana yang sebaiknya dipilih berdasarkan nilai harapan? (c) Sebutkan satu pertimbangan lain selain nilai harapan.',
+    answer:
+      '(a) $E(X)=0(0{,}5)+2(0{,}3)+5(0{,}2)=0+0{,}6+1=1{,}6$ juta rupiah. (b) Karena $E(X)=1{,}6>1{,}5$, secara nilai harapan Skema A lebih menguntungkan. (c) Pertimbangan lain adalah risiko: Skema A memiliki peluang $0{,}5$ tidak mendapat bonus sama sekali, sehingga orang yang menghindari risiko mungkin memilih bonus tetap meskipun nilai harapannya sedikit lebih kecil.',
+    explanation:
+      'Kunci: menghitung nilai harapan dan membandingkannya, serta menyadari bahwa nilai harapan bukan satu-satunya dasar keputusan karena ada risiko.',
+    hints: ['Kalikan tiap nilai dengan peluangnya lalu jumlahkan.', 'Pertimbangkan sebaran dan peluang mendapat nol.'],
+    competencies: ['nilai harapan', 'risiko', 'evaluasi'],
+  },
+  {
+    id: 'vad-13',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah asuransi perjalanan membayar klaim $X$ (juta rupiah) dengan distribusi $P(X=0)=0{,}9$, $P(X=5)=0{,}08$, dan $P(X=20)=0{,}02$. (a) Hitung nilai harapan klaim $E(X)$. (b) Jika premi yang dibayar setiap nasabah Rp1,0 juta, apakah perusahaan untung secara rata-rata? Jelaskan perhitungannya.',
+    answer:
+      '(a) $E(X)=0(0{,}9)+5(0{,}08)+20(0{,}02)=0+0{,}4+0{,}4=0{,}8$ juta rupiah. (b) Premi Rp1,0 juta lebih besar daripada nilai harapan klaim Rp0,8 juta, sehingga secara rata-rata perusahaan memperoleh selisih $1{,}0-0{,}8=0{,}2$ juta rupiah per nasabah. Jadi perusahaan untung secara rata-rata, meskipun tetap ada risiko membayar klaim besar pada sebagian kecil kasus.',
+    explanation:
+      'Kunci: menghitung nilai harapan klaim lalu membandingkannya dengan premi, serta menafsirkan selisih sebagai keuntungan rata-rata.',
+    hints: ['Nilai $X=0$ tetap disertakan dalam perhitungan meskipun hasilnya nol.', 'Bandingkan premi dengan $E(X)$.'],
+    competencies: ['nilai harapan', 'kontekstual', 'interpretasi'],
+  },
 ];

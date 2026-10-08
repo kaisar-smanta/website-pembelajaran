@@ -1,9 +1,10 @@
 ---
-import type { Difficulty, ElementId, Exploration } from '@/types/content';
+import type { Exploration } from '@/types/content';
 import ExplorationSim from './ExplorationSim.astro';
 import ExplorationBrief from './ExplorationBrief.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS } from '@/data/curriculum';
+import { DIFFICULTY_LABELS, elementColor } from '@/data/display';
 import { getTopic, topicSubject } from '@/data/topics';
 import { url, topicUrl } from '@/utils/url';
 
@@ -13,22 +14,10 @@ interface Props {
 }
 const { exploration, index } = Astro.props;
 
-const levelLabels: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
 const tags = (exploration.tags ?? []).slice(0, 3);
 
-const elementAccents: Record<ElementId, string> = {
-  bilangan: 'var(--color-number)',
-  'aljabar-fungsi': 'var(--color-algebra)',
-  geometri: 'var(--color-geometry)',
-  kalkulus: 'var(--color-calculus)',
-  'data-peluang': 'var(--color-data)',
-};
 const element = exploration.element ? ELEMENTS[exploration.element] : undefined;
-const accent = exploration.element ? elementAccents[exploration.element] : 'var(--color-primary)';
+const accent = elementColor(exploration.element);
 const topic = exploration.topicId ? getTopic(exploration.topicId) : undefined;
 const topicHref = topic
   ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))
@@ -64,7 +53,7 @@ const topicHref = topic
           {exploration.grade && <span class="chip chip-grade">Kelas {exploration.grade}</span>}
           {element && <span class="chip">{element.short}</span>}
           {exploration.level && (
-            <span class="chip chip-level">{levelLabels[exploration.level]}</span>
+            <span class="chip chip-level">{DIFFICULTY_LABELS[exploration.level]}</span>
           )}
           {typeof exploration.estimatedMinutes === 'number' && (
             <span class="chip chip-time">±{exploration.estimatedMinutes} menit</span>
@@ -229,7 +218,9 @@ const topicHref = topic
     border: 1px solid var(--color-border);
   }
   .panel-topic {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     padding-block: 0.22rem;
     font-size: 0.85rem;
     color: var(--color-text-muted);

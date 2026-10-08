@@ -1,18 +1,12 @@
 ---
-import type { Difficulty } from '@/types/content';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import {
   applicationsByCategory,
   applicationCategories,
   applicationCategoryOrder,
 } from '@/data/applications';
+import { DIFFICULTY_LABELS } from '@/data/display';
 import { url } from '@/utils/url';
-
-const levelLabels: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
 
 const groups = applicationCategoryOrder.map((cat) => {
   const apps = applicationsByCategory(cat);
@@ -62,7 +56,7 @@ const groups = applicationCategoryOrder.map((cat) => {
                 <li>
                   <a href={url(`/aplikasi/${a.id}`)}>
                     <span>{a.title}</span>
-                    <span class="apps-level">{levelLabels[a.level]}</span>
+                    <span class="apps-level">{DIFFICULTY_LABELS[a.level]}</span>
                   </a>
                 </li>
               ))}

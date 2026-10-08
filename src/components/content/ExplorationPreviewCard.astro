@@ -1,5 +1,6 @@
 ---
-import type { Difficulty, ElementId, Exploration } from '@/types/content';
+import type { Exploration } from '@/types/content';
+import { DIFFICULTY_LABELS, EXPLORATION_TYPE_LABELS, elementColorVar } from '@/data/display';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { url, topicUrl } from '@/utils/url';
 import { getTopic, topicSubject } from '@/data/topics';
@@ -13,48 +14,14 @@ interface Props {
 }
 const { exploration, delay = 0, href: hrefProp } = Astro.props;
 
-const levelLabels: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
-
-const labels: Record<Exploration['type'], string> = {
-  'function-slider': 'Grafik interaktif',
-  'compound-interest': 'Simulasi keuangan',
-  probability: 'Simulasi peluang',
-  'linear-regression': 'Visualisasi regresi',
-  sequence: 'Pola barisan',
-  distribution: 'Sebaran data',
-  'conditional-probability': 'Peluang bersyarat',
-  circle: 'Eksplorasi lingkaran',
-  matrix: 'Simulasi matriks',
-  'linear-system': 'Sistem persamaan',
-  'function-composition': 'Komposisi fungsi',
-  'function-inverse': 'Fungsi invers',
-  polynomial: 'Pola polinomial',
-  vector: 'Eksplorasi vektor',
-  conic: 'Irisan kerucut',
-  derivative: 'Garis singgung & turunan',
-  integral: 'Luas & integral',
-  'random-variable': 'Variabel acak',
-  geogebra: 'GeoGebra',
-};
-const label = labels[exploration.type];
+const label = EXPLORATION_TYPE_LABELS[exploration.type];
 
 const topic = exploration.topicId ? getTopic(exploration.topicId) : undefined;
 const linkHref =
   hrefProp ??
   (topic ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic)) : url('/eksplorasi'));
 
-const elementAccents: Record<ElementId, string> = {
-  bilangan: '--color-number',
-  'aljabar-fungsi': '--color-algebra',
-  geometri: '--color-geometry',
-  kalkulus: '--color-calculus',
-  'data-peluang': '--color-data',
-};
-const accent = topic ? elementAccents[topic.element] : '--color-primary';
+const accent = topic ? elementColorVar(topic.element) : '--color-primary';
 
 const descHtml = renderInlineMarkdown(exploration.description);
 const titleAttr = stripMarkdown(exploration.description);
@@ -195,7 +162,7 @@ const points = dots[exploration.type];
   </div>
   <div class="exploration-badges">
     <span class="badge">{label}</span>
-    {exploration.level && <span class="badge badge-level">{levelLabels[exploration.level]}</span>}
+    {exploration.level && <span class="badge badge-level">{DIFFICULTY_LABELS[exploration.level]}</span>}
   </div>
   <h3 class="exploration-title">{exploration.title}</h3>
   <p class="exploration-desc" set:html={descHtml}></p>

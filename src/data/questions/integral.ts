@@ -177,4 +177,34 @@ export const integralQuestions: Question[] = [
     ],
     competencies: ['luas antara dua kurva', 'teorema dasar kalkulus', 'penalaran'],
   },
+  {
+    id: 'in-12',
+    topicId: 'integral',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diketahui kurva $y=6x-x^{2}$ dan sumbu-$x$ pada selang $[0,6]$. (a) Hitung $\\displaystyle\\int_{0}^{6}(6x-x^{2})\\,dx$. (b) Jelaskan mengapa integrannya boleh ditulis $6x-x^{2}$, bukan $x^{2}-6x$. (c) Tafsirkan hasil integral itu secara geometris.',
+    answer:
+      '(a) $\\displaystyle\\int_{0}^{6}(6x-x^{2})\\,dx=\\left[3x^{2}-\\dfrac{x^{3}}{3}\\right]_{0}^{6}=108-72=36$. (b) Pada selang $[0,6]$, kurva $y=6x-x^{2}=x(6-x)$ bernilai tidak negatif, sehingga kurva berada di atas sumbu-$x$; fungsi atas adalah $6x-x^{2}$. Menulis $x^{2}-6x$ akan memberi tanda berlawanan. (c) Hasil $36$ menyatakan luas daerah yang dibatasi kurva dan sumbu-$x$ pada selang itu, yaitu $36$ satuan luas.',
+    explanation:
+      'Kunci: menghitung integral tentu, memeriksa posisi kurva terhadap sumbu-$x$, lalu menafsirkan nilai sebagai luas.',
+    hints: ['Antiturunan $6x-x^{2}$ adalah $3x^{2}-\\dfrac{x^{3}}{3}$.', 'Periksa tanda $x(6-x)$ pada selang $[0,6]$.'],
+    competencies: ['integral tentu', 'luas daerah', 'evaluasi'],
+  },
+  {
+    id: 'in-13',
+    topicId: 'integral',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Debit air yang masuk ke sebuah tangki (liter per menit) dimodelkan $r(t)=30+10t$ untuk $0\\leq t\\leq5$. (a) Tentukan total volume air yang masuk selama $5$ menit. (b) Jelaskan makna integral tentu dalam konteks ini.',
+    answer:
+      '(a) Volume $=\\displaystyle\\int_{0}^{5}(30+10t)\\,dt=\\left[30t+5t^{2}\\right]_{0}^{5}=150+125=275$ liter. (b) Integral debit terhadap waktu menjumlahkan seluruh laju aliran sepanjang selang, sehingga hasilnya adalah akumulasi air yang masuk tangki selama $5$ menit, yaitu $275$ liter.',
+    explanation:
+      'Kunci: mengintegralkan laju untuk memperoleh akumulasi, lalu menafsirkannya sebagai volume total.',
+    hints: ['Antiturunan $30+10t$ adalah $30t+5t^{2}$.', 'Integral laju terhadap waktu menghasilkan akumulasi (volume).'],
+    competencies: ['integral tentu', 'kontekstual', 'akumulasi'],
+  },
 ];

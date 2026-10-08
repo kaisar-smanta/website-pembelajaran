@@ -189,4 +189,19 @@ export const pemodelanFungsiQuestions: Question[] = [
     hints: ['Persen pertumbuhan $r$ memberi faktor $b=1+r$.', 'Tanyakan: apa yang dianggap konstan selama periode itu?'],
     competencies: ['pemodelan eksponensial', 'pertumbuhan persen', 'asumsi model'],
   },
+  {
+    id: 'pmf-12',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Jumlah penderita suatu wabah dicatat tiap minggu: minggu ke-$0$ ada $20$ orang, minggu ke-$1$ ada $30$, minggu ke-$2$ ada $45$, dan minggu ke-$3$ ada $67{,}5$ (dibulatkan). (a) Tentukan jenis model yang paling tepat (linear, kuadrat, atau eksponensial) dan jelaskan alasannya. (b) Tuliskan modelnya, lalu ramalkan jumlah penderita pada minggu ke-$4$. (c) Sebutkan satu keterbatasan model ini.',
+    answer:
+      '(a) Rasio antar minggu tetap: $\\dfrac{30}{20}=\\dfrac{45}{30}=\\dfrac{67{,}5}{45}=1{,}5$, sehingga model yang tepat adalah eksponensial. (b) Modelnya $N(t)=20(1{,}5)^{t}$. Maka $N(4)=20(1{,}5)^{4}=20(5{,}0625)=101{,}25$, diperkirakan sekitar $101$ orang. (c) Model ini mengasumsikan pertumbuhan terus berlipat tanpa batas, padahal pada kenyataannya jumlah penduduk, sumber daya, atau intervensi kesehatan akan memperlambat penyebaran sehingga pertumbuhan tidak mungkin berlangsung selamanya.',
+    explanation:
+      'Kunci: mengenali pola eksponensial dari rasio tetap, menyusun model dan prediksi, serta menyadari batas keberlakuan model.',
+    hints: ['Periksa rasio, bukan selisih, antar nilai berurutan.', 'Pertimbangkan batas populasi atau sumber daya.'],
+    competencies: ['pemodelan eksponensial', 'evaluasi', 'interpretasi'],
+  },
 ];

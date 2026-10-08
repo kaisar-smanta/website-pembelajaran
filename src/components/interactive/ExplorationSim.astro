@@ -12,6 +12,11 @@ import MatrixExplorer from './MatrixExplorer.astro';
 import LinearSystemExplorer from './LinearSystemExplorer.astro';
 import FunctionCompositionSim from './FunctionCompositionSim.astro';
 import FunctionInverseSim from './FunctionInverseSim.astro';
+import PolynomialExplorer from './PolynomialExplorer.astro';
+import ConicExplorer from './ConicExplorer.astro';
+import DerivativeExplorer from './DerivativeExplorer.astro';
+import IntegralExplorer from './IntegralExplorer.astro';
+import RandomVariableExplorer from './RandomVariableExplorer.astro';
 import GeogebraEmbed from './GeogebraEmbed.astro';
 
 interface Props {
@@ -38,12 +43,12 @@ const SIM_COMPONENTS = {
   'linear-system': LinearSystemExplorer,
   'function-composition': FunctionCompositionSim,
   'function-inverse': FunctionInverseSim,
-  polynomial: null,
+  polynomial: PolynomialExplorer,
   vector: null,
-  conic: null,
-  derivative: null,
-  integral: null,
-  'random-variable': null,
+  conic: ConicExplorer,
+  derivative: DerivativeExplorer,
+  integral: IntegralExplorer,
+  'random-variable': RandomVariableExplorer,
   geogebra: null,
 } satisfies Record<ExplorationType, unknown>;
 

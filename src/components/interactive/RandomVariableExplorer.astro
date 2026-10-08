@@ -1,0 +1,261 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const rows = [
+  { x: 0, p: 0.1 },
+  { x: 1, p: 0.2 },
+  { x: 2, p: 0.3 },
+  { x: 3, p: 0.3 },
+  { x: 4, p: 0.1 },
+];
+const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X) = 2,3';
+---
+
+<figure class="sim rv-sim" data-random-variable data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Ubah nilai dan peluang setiap hasil, lalu amati diagram batang serta nilai harapan,
+    varians, dan simpangan bakunya. Jumlah peluang harus sama dengan 1.
+  </p>
+
+  <div class="rv-rows" role="group" aria-label="Tabel distribusi peluang">
+    {
+      rows.map((row, i) => (
+        <div class="rv-row">
+          <label class="rv-x">
+            <span>Nilai x</span>
+            <input type="number" min="-5" max="10" step="1" value={row.x} data-x={i} />
+          </label>
+          <label class="rv-p">
+            <span>P(X = x) <output data-p-out={i}>{row.p}</output></span>
+            <input type="range" min="0" max="1" step="0.025" value={row.p} data-p={i} />
+          </label>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-rv-preset="uniform">Seragam</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-rv-preset="coin">Tiga koin</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-rv-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 260" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">P(X = x)</span>
+      <span class="l2">Garis nilai harapan E(X)</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .rv-rows {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .rv-row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0.55rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+  }
+  .rv-x,
+  .rv-p {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .rv-p span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .rv-p output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .rv-x input[type='number'] {
+    width: 5rem;
+    padding: 0.2rem 0.35rem;
+    font: inherit;
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+  .rv-p input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 34rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-data);
+  }
+  .legend .l2 {
+    color: var(--color-warning);
+  }
+  @media (max-width: 430px) {
+    .rv-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  .rv-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rv-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { computePmfStats, buildPmfReadout } from '../../lib/sim/random-variable';
+  import type { Outcome } from '../../lib/sim/random-variable';
+  import { formatPlain } from '../../lib/format';
+  import { el, clear, linearScale } from '../../lib/dom';
+
+  function setupRandomVariable(root: Element) {
+    const xInputs = Array.from(root.querySelectorAll('[data-x]')) as HTMLInputElement[];
+    const pInputs = Array.from(root.querySelectorAll('[data-p]')) as HTMLInputElement[];
+    const pOutputs = Array.from(root.querySelectorAll('[data-p-out]')) as HTMLOutputElement[];
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-rv-reset]') as HTMLButtonElement;
+
+    const defaults = {
+      x: xInputs.map((i) => i.value),
+      p: pInputs.map((i) => i.value),
+    };
+    const fmt = (v: number) => formatPlain(Number(v.toFixed(3)));
+
+    function collect(): Outcome[] {
+      return xInputs.map((input, i) => ({ x: Number(input.value), p: Number(pInputs[i].value) }));
+    }
+
+    function draw(pmf: Outcome[]) {
+      const W = 480;
+      const H = 260;
+      const pad = 34;
+      const xs = pmf.map((o) => o.x);
+      let lo = Math.min(...xs, 0);
+      let hi = Math.max(...xs, 1);
+      if (hi === lo) hi = lo + 1;
+      const maxP = Math.max(0.05, ...pmf.map((o) => o.p));
+      const { sx, sy } = linearScale(
+        { xMin: lo, xMax: hi, yMin: 0, yMax: maxP },
+        { width: W, height: H, pad },
+      );
+      clear(svg);
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      const slot = (W - 2 * pad) / pmf.length;
+      const barW = Math.min(46, slot * 0.6);
+      pmf.forEach((o) => {
+        const topY = sy(o.p);
+        svg.appendChild(el('rect', { x: sx(o.x) - barW / 2, y: topY, width: barW, height: sy(0) - topY, rx: 3, fill: 'var(--color-data)', 'fill-opacity': 0.3, stroke: 'var(--color-data)', 'stroke-width': 1.4 }));
+        const label = el('text', { x: sx(o.x), y: H - pad + 16, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--color-text-muted)' });
+        label.textContent = String(o.x);
+        svg.appendChild(label);
+      });
+      const st = computePmfStats(pmf);
+      if (st.mean >= lo && st.mean <= hi) {
+        svg.appendChild(el('line', { x1: sx(st.mean), y1: pad - 6, x2: sx(st.mean), y2: sy(0), stroke: 'var(--color-warning)', 'stroke-width': 2, 'stroke-dasharray': '5 4' }));
+      }
+      svg.setAttribute('aria-label', `Diagram batang distribusi peluang; E(X) = ${fmt(st.mean)}, varians ${fmt(st.variance)}`);
+    }
+
+    function render() {
+      const pmf = collect();
+      pInputs.forEach((input, i) => {
+        pOutputs[i].textContent = input.value;
+      });
+      draw(pmf);
+      readout.textContent = buildPmfReadout(pmf, fmt);
+    }
+
+    function setValues(nextX: number[], nextP: number[]) {
+      xInputs.forEach((input, i) => {
+        input.value = String(nextX[i] ?? 0);
+      });
+      pInputs.forEach((input, i) => {
+        input.value = String(nextP[i] ?? 0);
+      });
+      render();
+    }
+
+    xInputs.forEach((input) => input.addEventListener('input', render));
+    pInputs.forEach((input) => input.addEventListener('input', render));
+
+    root.querySelectorAll<HTMLButtonElement>('[data-rv-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (button.dataset.rvPreset === 'uniform') {
+          setValues([1, 2, 3, 4, 5], [0.2, 0.2, 0.2, 0.2, 0.2]);
+        } else if (button.dataset.rvPreset === 'coin') {
+          setValues([0, 1, 2, 3, 4], [0.125, 0.375, 0.375, 0.125, 0]);
+        }
+      });
+    });
+
+    reset.addEventListener('click', () => {
+      xInputs.forEach((input, i) => {
+        input.value = defaults.x[i];
+      });
+      pInputs.forEach((input, i) => {
+        input.value = defaults.p[i];
+      });
+      render();
+    });
+
+    render();
+  }
+
+  document.querySelectorAll('[data-random-variable]').forEach(setupRandomVariable);
+</script>

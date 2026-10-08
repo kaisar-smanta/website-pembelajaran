@@ -178,4 +178,19 @@ export const spltvQuestions: Question[] = [
     ],
     competencies: ['SPLTV', 'parameter', 'banyak solusi'],
   },
+  {
+    id: 'sp-12',
+    topicId: 'spltv',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Jumlah tiga bilangan adalah $36$. Bilangan kedua dua kali bilangan pertama, dan bilangan ketiga $6$ lebihnya dari bilangan kedua. (a) Susun SPLTV untuk situasi ini. (b) Tentukan ketiga bilangan tersebut. (c) Periksa bahwa solusinya memenuhi semua persamaan.',
+    answer:
+      '(a) Misal bilangan pertama $x$, kedua $y$, ketiga $z$. Maka $x+y+z=36$, $y=2x$, dan $z=y+6$. (b) Substitusi $y=2x$ dan $z=2x+6$: $x+2x+(2x+6)=36 \\Rightarrow 5x+6=36 \\Rightarrow x=6$. Maka $y=12$ dan $z=18$. (c) Periksa: $6+12+18=36$, $12=2(6)$, dan $18=12+6$. Semua benar.',
+    explanation:
+      'Kunci: menerjemahkan hubungan antarbilangan menjadi sistem, menyelesaikan dengan substitusi, dan memverifikasi solusi.',
+    hints: ['Nyatakan $y$ dan $z$ dalam $x$.', 'Substitusikan ke persamaan jumlah.'],
+    competencies: ['SPLTV', 'pemodelan', 'evaluasi'],
+  },
 ];

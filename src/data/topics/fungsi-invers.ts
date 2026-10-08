@@ -39,7 +39,7 @@ export const fungsiInvers: Topic = {
     { text: 'Peserta didik dapat menggambarkan grafik fungsi dan inversnya serta menjelaskan pencerminannya terhadap garis $y=x$.' },
     { text: 'Peserta didik dapat menggunakan fungsi invers untuk menyelesaikan masalah kontekstual sederhana.' },
   ],
-  applications: ['konversi-satuan', 'kode-rahasia'],
+  applications: ['diskon-berlapis', 'konversi-mata-uang'],
   sections: [
     {
       id: "tujuan",

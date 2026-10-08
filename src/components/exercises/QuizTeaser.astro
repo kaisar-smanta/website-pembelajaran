@@ -3,6 +3,7 @@ import type { Question } from '@/types/content';
 import { getQuestion, questions } from '@/data/questions';
 import { renderMarkdown } from '@/utils/markdown';
 import { url } from '@/utils/url';
+import { seededShuffle } from '@/lib/learner';
 
 interface Props {
   questionIds?: string[];
@@ -40,7 +41,12 @@ const quizData = selected.map((q) => ({
   id: q.id,
   difficulty: q.difficulty,
   promptHtml: renderMarkdown(q.prompt),
-  options: (q.options ?? []).map((o) => ({ key: o.key, textHtml: renderMarkdown(o.text) })),
+  // Urutan tampil opsi diacak deterministik per id soal untuk mengurangi bias
+  // posisi jawaban; pasangan key–teks tetap utuh sehingga penilaian aman.
+  options: seededShuffle(q.options ?? [], `opsi-${q.id}`).map((o) => ({
+    key: o.key,
+    textHtml: renderMarkdown(o.text),
+  })),
   answer: q.answer,
   explanationHtml: q.explanation ? renderMarkdown(q.explanation) : '',
 }));

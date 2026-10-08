@@ -199,4 +199,49 @@ export const matriksTransformasiQuestions: Question[] = [
     hints: ['Determinan matriks adalah faktor skala luas.'],
     competencies: ['determinan sebagai faktor skala luas'],
   },
+  {
+    id: 'mtf-12',
+    topicId: 'matriks-transformasi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Titik $P(4,-3)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal, lalu direfleksikan terhadap sumbu-$y$. (a) Tentukan bayangan akhirnya. (b) Tuliskan matriks transformasi tunggalnya. (c) Jelaskan mengapa hasilnya berbeda jika urutan kedua transformasi dibalik.',
+    answer:
+      '(a) Rotasi $90^\\circ$: $(4,-3)\\rightarrow(3,4)$. Refleksi terhadap sumbu-$y$: $(3,4)\\rightarrow(-3,4)$. Jadi bayangan akhirnya $(-3,4)$. (b) Matriks gabungan $M=\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}=\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$, yaitu refleksi terhadap garis $y=x$. (c) Jika urutan dibalik, refleksi lebih dahulu lalu rotasi, matriksnya menjadi $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$ (refleksi terhadap garis $y=-x$) sehingga bayangannya berbeda. Perkalian matriks tidak komutatif.',
+    explanation:
+      'Kunci: mengerjakan komposisi sesuai urutan, menyusun matriks gabungan, dan menjelaskan pengaruh urutan karena matriks tidak komutatif.',
+    hints: ['Kalikan matriks dengan urutan "kedua" $\\times$ "pertama".', 'Bandingkan $(-3,4)$ dengan hasil urutan terbalik.'],
+    competencies: ['komposisi transformasi', 'matriks transformasi', 'evaluasi'],
+  },
+  {
+    id: 'mtf-13',
+    topicId: 'matriks-transformasi',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah motif pada papan koordinat diperbesar $2$ kali pada arah-$x$ dan $3$ kali pada arah-$y$ terhadap titik asal. (a) Tuliskan matriks transformasinya. (b) Tentukan bayangan titik $(2,1)$. (c) Berapa kali luas motif berubah?',
+    answer:
+      '(a) Matriksnya $\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$. (b) $\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}\\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} 4 \\\\ 3 \\end{pmatrix}$, jadi bayangannya $(4,3)$. (c) Determinan $\\det=2(3)-0(0)=6$, sehingga luas motif menjadi $6$ kali luas semula.',
+    explanation:
+      'Kunci: menyusun matriks dilatasi tak seragam, menerapkannya pada titik, dan menghubungkan determinan dengan faktor skala luas.',
+    hints: ['Faktor arah-$x$ dan arah-$y$ menjadi entri diagonal.', 'Faktor skala luas adalah $|\\det|$.'],
+    competencies: ['dilatasi', 'determinan', 'pemodelan'],
+  },
+  {
+    id: 'mtf-14',
+    topicId: 'matriks-transformasi',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah pola hiasan diputar $180^\\circ$ terhadap titik asal, lalu digeser oleh translasi $(2,-1)$. (a) Nyatakan transformasi ini pada koordinat. (b) Tentukan bayangan titik $(3,2)$. (c) Jelaskan mengapa transformasi ini bukan transformasi linear murni.',
+    answer:
+      '(a) Rotasi $180^\\circ$ memetakan $(x,y)\\rightarrow(-x,-y)$, lalu translasi menambah: $(x,y)\\rightarrow(-x+2,\\,-y-1)$. (b) Untuk $(3,2)$: $(-3+2,\\,-2-1)=(-1,-3)$. (c) Transformasi ini bukan linear murni karena adanya pergeseran konstanta $(2,-1)$ yang tidak dapat dinyatakan sebagai perkalian matriks $2\\times2$ terhadap titik asal; translasi memindahkan titik asal.',
+    explanation:
+      'Kunci: menggabungkan rotasi dan translasi pada koordinat, menerapkannya, serta membedakan transformasi linear (melalui titik asal) dari translasi.',
+    hints: ['Rotasi $180^\\circ$ membalik tanda kedua koordinat.', 'Translasi menambahkan konstanta, bukan mengalikan matriks.'],
+    competencies: ['rotasi', 'translasi', 'kontekstual'],
+  },
 ];

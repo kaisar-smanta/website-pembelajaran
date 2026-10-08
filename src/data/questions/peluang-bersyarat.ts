@@ -197,4 +197,34 @@ export const peluangBersyaratQuestions: Question[] = [
     ],
     competencies: ['aturan Bayes', 'peluang total', 'penalaran'],
   },
+  {
+    id: 'pb-12',
+    topicId: 'peluang-bersyarat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah tes cepat penyakit memiliki sensitivitas $P(+\\mid D)=0{,}95$ dan spesifisitas $P(-\\mid D^{c})=0{,}90$. Prevalensi penyakit $P(D)=0{,}02$. (a) Hitung $P(D\\mid+)$ menggunakan aturan Bayes. (b) Jelaskan mengapa hasil positif belum tentu berarti benar-benar sakit.',
+    answer:
+      '(a) $P(+)=P(+\\mid D)P(D)+P(+\\mid D^{c})P(D^{c})=0{,}95(0{,}02)+0{,}10(0{,}98)=0{,}019+0{,}098=0{,}117$. Maka $P(D\\mid+)=\\dfrac{0{,}019}{0{,}117}\\approx0{,}162$, yaitu sekitar $16\\%$. (b) Karena prevalensinya rendah, banyak orang sehat yang keliru dinyatakan positif (positif palsu) sehingga mendominasi seluruh hasil positif. Akibatnya, meskipun tesnya akurat, peluang seseorang benar-benar sakit setelah hasil positif tetap kecil.',
+    explanation:
+      'Kunci: menghitung peluang total hasil positif lalu menerapkan Bayes, serta menafsirkan pengaruh prevalensi rendah terhadap nilai prediktif positif.',
+    hints: ['Hitung $P(+)$ sebagai jumlah dua jalur.', 'Perhatikan peran besar kelompok sehat pada prevalensi rendah.'],
+    competencies: ['aturan Bayes', 'nilai prediktif', 'evaluasi'],
+  },
+  {
+    id: 'pb-13',
+    topicId: 'peluang-bersyarat',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah kotak berisi $8$ kelereng merah dan $4$ kelereng putih. Dua kelereng diambil satu per satu tanpa pengembalian. (a) Susun model peluang bersyarat untuk menghitung peluang kedua kelereng merah. (b) Hitung nilai peluang tersebut.',
+    answer:
+      'Peluang kelereng pertama merah adalah $P(M_1)=\\dfrac{8}{12}=\\dfrac{2}{3}$. Setelah satu merah terambil, tersisa $7$ merah dari $11$ kelereng, sehingga $P(M_2\\mid M_1)=\\dfrac{7}{11}$. Dengan aturan perkalian, $P(M_1\\cap M_2)=P(M_1)\\cdot P(M_2\\mid M_1)=\\dfrac{2}{3}\\cdot\\dfrac{7}{11}=\\dfrac{14}{33}\\approx0{,}424$.',
+    explanation:
+      'Kunci: memodelkan pengambilan tanpa pengembalian sebagai peluang bersyarat dan menerapkan aturan perkalian.',
+    hints: ['Setelah pengambilan pertama, jumlah kelereng berkurang satu.', 'Gunakan $P(A\\cap B)=P(A)\\cdot P(B\\mid A)$.'],
+    competencies: ['peluang bersyarat', 'aturan perkalian', 'pemodelan'],
+  },
 ];

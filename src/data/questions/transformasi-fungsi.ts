@@ -168,4 +168,34 @@ export const transformasiFungsiQuestions: Question[] = [
     hints: ['Bentuk puncak $a(t-p)^{2}+q$ memiliki puncak $(p, q)$; gunakan titik lain untuk mencari $a$.'],
     competencies: ['pemodelan transformasi', 'bentuk puncak'],
   },
+  {
+    id: 'tf-11',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diberikan grafik $y=x^{2}$. (a) Tuliskan rumus grafik setelah dicerminkan terhadap sumbu-$x$, lalu digeser ke atas $2$ satuan. (b) Tentukan titik puncak grafik hasilnya. (c) Jelaskan apakah hasilnya sama jika translasi dilakukan lebih dahulu, baru dicerminkan.',
+    answer:
+      '(a) Refleksi terhadap sumbu-$x$ memberi $y=-x^{2}$, lalu digeser ke atas $2$ satuan menjadi $y=-x^{2}+2$. (b) Grafik membuka ke bawah dengan puncak di $(0,2)$. (c) Jika urutan dibalik, digeser dahulu menjadi $y=x^{2}+2$, lalu dicerminkan menjadi $y=-(x^{2}+2)=-x^{2}-2$ dengan puncak $(0,-2)$. Jadi hasilnya berbeda; urutan transformasi memengaruhi rumus akhir.',
+    explanation:
+      'Kunci: menerapkan refleksi dan translasi sesuai urutan, membaca puncak, lalu membandingkan hasil saat urutan dibalik.',
+    hints: ['Refleksi sumbu-$x$ mengubah tanda seluruh fungsi.', 'Geser ke atas menambah konstanta di luar fungsi.'],
+    competencies: ['refleksi', 'translasi', 'evaluasi'],
+  },
+  {
+    id: 'tf-12',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Grafik biaya marjinal sebuah usaha dimodelkan $y=f(x)$. Grafik itu digeser $2$ satuan ke kanan dan $3$ satuan ke bawah. (a) Tuliskan rumus transformasinya. (b) Jika titik $(4,5)$ terletak pada grafik awal, tentukan titik padanannya pada grafik baru. (c) Jelaskan arti pergeseran itu dalam konteks biaya.',
+    answer:
+      '(a) Geser ke kanan $2$ dan ke bawah $3$ memberi $y=f(x-2)-3$. (b) Titik $(4,5)$ berpindah menjadi $(4+2,\\,5-3)=(6,2)$. (c) Pergeseran ke kanan menunda terjadinya nilai biaya tertentu (muncul pada $x$ yang lebih besar), sedangkan pergeseran ke bawah menurunkan tingkat biaya marjinal secara keseluruhan — misalnya karena efisiensi atau perubahan struktur biaya.',
+    explanation:
+      'Kunci: menulis transformasi $f(x-h)+k$, memindahkan titik dengan aturan $(a,b)\\to(a+h,b+k)$, lalu menafsirkan pergeseran secara kontekstual.',
+    hints: ['Geser ke kanan berarti $x$ diganti $x-2$.', 'Geser ke bawah mengurangi nilai fungsi dengan $3$.'],
+    competencies: ['translasi grafik', 'kontekstual', 'interpretasi'],
+  },
 ];

@@ -1,0 +1,278 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Aksesibilitas' },
+];
+---
+
+<BaseLayout
+  title="Pernyataan Aksesibilitas"
+  description="Komitmen, pola papan tik, target kontras, dan keterbatasan aksesibilitas situs Matematika SMA, serta cara melaporkan hambatan."
+>
+  <PageHeader
+    title="Pernyataan Aksesibilitas"
+    eyebrow="Tentang Situs"
+    lead="Situs ini diusahakan dapat dipakai oleh sebanyak mungkin orang. Halaman ini menjelaskan apa yang sudah kami kerjakan, batas yang masih ada, dan cara melaporkan hambatan."
+    crumbs={crumbs}
+  />
+
+  <div class="container container-narrow doc">
+    <nav class="doc-toc card reveal" aria-label="Isi halaman">
+      <h2 class="doc-toc-title">Isi halaman</h2>
+      <ul>
+        <li><a href="#komitmen">Komitmen Aksesibilitas</a></li>
+        <li><a href="#papan-tik">Dukungan Papan Tik</a></li>
+        <li><a href="#kontras">Warna dan Kontras</a></li>
+        <li><a href="#gerak">Gerak dan Cetak</a></li>
+        <li><a href="#tanpa-js">Tanpa JavaScript</a></li>
+        <li><a href="#keterbatasan">Keterbatasan yang Diketahui</a></li>
+        <li><a href="#lapor">Melaporkan Masalah</a></li>
+      </ul>
+    </nav>
+
+    <div class="prose reveal">
+      <h2 id="komitmen">Komitmen Aksesibilitas</h2>
+      <p>
+        Situs ini adalah situs statis tanpa akun dan tanpa pelacakan. Fokus kami adalah materi
+        yang dapat dibaca, dinavigasi, dan dikerjakan tanpa bergantung pada perangkat penunjuk
+        tertentu. Beberapa hal yang sudah diterapkan:
+      </p>
+      <ul>
+        <li>
+          <strong>Struktur semantik.</strong> Halaman memakai landmark
+          (<code>header</code>, <code>main</code>, <code>nav</code>, <code>footer</code>),
+          urutan judul yang berjenjang, dan daftar yang tepat. Bahasa halaman ditandai{' '}
+          <code>lang="id"</code>.
+        </li>
+        <li>
+          <strong>Tautan lewati.</strong> Tautan “Lewati ke konten utama” berada di awal halaman
+          dan muncul saat difokuskan, sehingga pengguna papan tik dapat melompati navigasi.
+        </li>
+        <li>
+          <strong>Fokus yang terlihat.</strong> Setiap elemen yang dapat difokuskan memakai
+          garis fokus <code>:focus-visible</code> yang jelas dan konsisten.
+        </li>
+        <li>
+          <strong>Label dan teks alternatif.</strong> Kontrol memiliki label yang terbaca, ikon
+          hias ditandai <code>aria-hidden</code>, dan logo memiliki teks alternatif.
+        </li>
+        <li>
+          <strong>Status yang diumumkan.</strong> Perubahan penting, seperti umpan balik jawaban
+          dan pesan kemajuan, diumumkan lewat wilayah <code>aria-live</code>.
+        </li>
+        <li>
+          <strong>Tata letak lentur.</strong> Halaman responsif terhadap ukuran layar dan dapat
+          diperbesar tanpa kehilangan fungsionalitas.
+        </li>
+      </ul>
+
+      <h2 id="papan-tik">Dukungan Papan Tik</h2>
+      <p>
+        Seluruh kontrol yang bersifat interaktif dapat dijangkau dan dijalankan dengan papan tik.
+        Beberapa pola yang dipakai secara khusus:
+      </p>
+      <ul>
+        <li>
+          <strong>Latihan pilihan ganda.</strong> Opsi disusun sebagai{' '}
+          <code>radiogroup</code> dengan pola roving tabindex. Satu opsi masuk urutan Tab; papan
+          tik panah memindahkan fokus antaropsi, sedangkan Home dan End menuju opsi pertama dan
+          terakhir. Spasi atau Enter memilih jawaban. Setelah dijawab, opsi dikunci dan tersedia
+          tombol “Coba lagi”.
+        </li>
+        <li>
+          <strong>Panel representasi.</strong> Beberapa materi memakai pola{' '}
+          <code>tablist</code>, <code>tab</code>, dan <code>tabpanel</code>. Papan tik kiri dan
+          kanan berpindah tab, dan panel aktif dapat difokuskan.
+        </li>
+        <li>
+          <strong>Pembahasan bertahap.</strong> Blok yang dapat dibuka memakai elemen{' '}
+          <code>details</code> dan <code>summary</code> bawaan sehingga perilaku papan tiknya
+          sesuai peramban dan pembaca layar.
+        </li>
+        <li>
+          <strong>Dasbor kemajuan.</strong> Tombol reset menampilkan langkah konfirmasi yang
+          memindahkan fokus ke tombol konfirmasi; pesan hasil muncul di wilayah status yang
+          diumumkan pembaca layar. Ekspor menyediakan tombol yang dapat dijalankan dengan papan
+          tik beserta kotak teks cadangan.
+        </li>
+      </ul>
+
+      <h2 id="kontras">Warna dan Kontras</h2>
+      <p>
+        Warna didefinisikan sebagai token terpusat dan diterapkan pada mode terang maupun gelap.
+        Teks aksen memakai varian warna yang diperkuat
+        (<code>--color-geometry-strong</code>, <code>--color-data-strong</code>) agar tetap
+        memenuhi target rasio kontras minimal <strong>4,5:1 untuk teks normal</strong> dan{' '}
+        <strong>3:1 untuk teks besar serta elemen antarmuka</strong> pada latar masing-masing.
+      </p>
+      <p>
+        Warna tidak pernah menjadi satu-satunya penanda makna. Jawaban benar dan salah juga
+        ditandai teks dan ikon, dan tingkat kesulitan soal selalu disertai label “Dasar”,
+        “Cakap”, atau “Mahir”.
+      </p>
+
+      <h2 id="gerak">Gerak dan Cetak</h2>
+      <p>
+        Animasi masuk elemen diaktifkan hanya bila perangkat tidak meminta gerak minimal. Saat{' '}
+        <code>prefers-reduced-motion</code> aktif, hampir seluruh animasi dan transisi
+        dinonaktifkan. Setiap halaman juga dilengkapi gaya cetak: navigasi, tombol tema, dan
+        kontrol serupa disembunyikan, warna disederhanakan, dan konten yang terlipat ditampilkan
+        agar dapat dicetak ke kertas.
+      </p>
+
+      <h2 id="tanpa-js">Tanpa JavaScript</h2>
+      <p>
+        Materi inti disajikan sebagai HTML dan dapat dibaca tanpa JavaScript. Beberapa fitur
+        interaktif, seperti pemeriksaan jawaban otomatis dan dasbor kemajuan, memerlukan
+        JavaScript. Bila JavaScript mati atau penyimpanan peramban diblokir, halaman tetap
+        menampilkan penjelasan yang jujur dan tidak menyembunyikan konten penting. Data kemajuan
+        tetap tersimpan di peramban selama penyimpanan tersedia.
+      </p>
+
+      <h2 id="keterbatasan">Keterbatasan yang Diketahui</h2>
+      <p>
+        Kami berusaha transparan. Situs ini dirawat secara sukarela dan belum melalui audit
+        aksesibilitas menyeluruh oleh pihak ketiga. Batas yang kami ketahui:
+      </p>
+      <ul>
+        <li>
+          Sebagian eksplorasi dan simulasi menggambar grafik pada <code>canvas</code> atau{' '}
+          <code>svg</code>. Isinya dijelaskan lewat teks, tetapi pengalaman grafik bagi pengguna
+          pembaca layar belum setara dengan pengguna yang melihat.
+        </li>
+        <li>
+          Konten tertanam dari pihak ketiga, misalnya GeoGebra, berada di luar kendali kami dan
+          dapat memiliki keterbatasan sendiri.
+        </li>
+        <li>
+          Notasi matematika dirender dengan KaTeX. Pembacaan rumus bergantung pada dukungan
+          pembaca layar dan peramban yang dipakai.
+        </li>
+        <li>
+          Beberapa tabel atau gambar yang lebih lama mungkin belum memiliki deskripsi tambahan
+          yang cukup.
+        </li>
+        <li>
+          Tampilan cetak merupakan pendekatan ringkas, bukan salinan lengkap setiap interaksi.
+        </li>
+      </ul>
+      <p>
+        Kami mencatat keterbatasan ini sebagai pekerjaan yang masih berjalan dan akan
+        memperbaikinya secara bertahap.
+      </p>
+
+      <h2 id="lapor">Melaporkan Masalah</h2>
+      <p>
+        Jika kamu menemukan hambatan akses, sampaikan melalui halaman{' '}
+        <a href={url('/kontak')}>Kontak &amp; Masukan</a>. Agar cepat ditindaklanjuti, sebutkan
+        halaman atau topiknya, perangkat dan peramban yang dipakai, serta jenis bantuan yang
+        kamu gunakan, misalnya pembaca layar atau navigasi papan tik. Masukan semacam ini sangat
+        membantu perbaikan.
+      </p>
+    </div>
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Ada hambatan yang ingin dilaporkan?"
+        text="Ceritakan halaman dan alat bantu yang kamu pakai agar kami dapat menindaklanjutinya."
+        reveal
+        actions={[
+          { label: 'Kontak & Masukan', href: url('/kontak'), variant: 'primary' },
+          { label: 'Tentang & Kredit', href: url('/tentang'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .doc {
+    padding-block: 1rem 2.5rem;
+  }
+  .doc-toc {
+    margin-block: 0 1.75rem;
+  }
+  .doc-toc-title {
+    margin: 0 0 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .doc-toc ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.15rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .doc-toc a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    transition:
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft);
+  }
+  .doc-toc a::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+    transition: background-color var(--dur-fast) var(--ease-out-soft);
+  }
+  .doc-toc a:hover,
+  .doc-toc a:focus-visible {
+    background: var(--color-surface-2);
+    color: var(--color-primary);
+  }
+  .doc-toc a:hover::before,
+  .doc-toc a:focus-visible::before {
+    background: var(--color-primary);
+  }
+  .doc-toc a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  @media (max-width: 30rem) {
+    .doc-toc ul {
+      grid-template-columns: 1fr;
+    }
+  }
+  .prose h2 {
+    margin-top: 2.25rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--color-primary);
+    line-height: 1.25;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .prose > p:first-of-type {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+</style>

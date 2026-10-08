@@ -141,6 +141,8 @@ const listGroups = GRADE_ORDER.map((grade) => {
                 data-id={node.id}
                 data-grade={node.grade}
                 href={node.href}
+                role="link"
+                tabindex="0"
                 aria-label={`${node.title}, ${GRADES[node.grade].name}`}
               >
                 <rect x={node.x} y={node.y} width={NODE_W} height={NODE_H} rx="12" ry="12" />
@@ -390,6 +392,15 @@ const listGroups = GRADE_ORDER.map((grade) => {
           });
           el.addEventListener('mouseleave', clear);
           el.addEventListener('focusout', clear);
+          el.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
+            var href =
+              el.getAttribute('href') ||
+              el.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+            if (!href) return;
+            event.preventDefault();
+            window.location.href = href;
+          });
         });
 
         gradeChips.forEach(function (chip) {

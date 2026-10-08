@@ -37,7 +37,7 @@ export const komposisiFungsi: Topic = {
     { text: 'Peserta didik dapat melakukan operasi penjumlahan, pengurangan, perkalian, dan pembagian dua fungsi.' },
     { text: 'Peserta didik dapat menggunakan sifat $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$ pada masalah sederhana.' },
   ],
-  applications: ['diskon-pajak', 'konversi-bertingkat'],
+  applications: ['diskon-berlapis', 'konversi-mata-uang'],
   sections: [
     {
       id: "tujuan",
@@ -304,11 +304,11 @@ Kedua hasil berbeda, menegaskan komposisi tidak komutatif.
               text: "Pada $(f \\circ g)(x)=f(g(x))$, fungsi $g$ dikerjakan lebih dahulu, lalu hasilnya dimasukkan ke $f$.",
             },
             {
-              title: "Substitusi $g$ ke $f$",
+              title: "Substitusi g ke f",
               text: "$(f \\circ g)(x)=f(x^2-1)=(x^2-1)+3=x^2+2$.",
             },
             {
-              title: "Substitusi $f$ ke $g$",
+              title: "Substitusi f ke g",
               text: "$(g \\circ f)(x)=g(x+3)=(x+3)^2-1=x^2+6x+8$.",
             },
             {

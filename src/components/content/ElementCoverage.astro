@@ -1,7 +1,7 @@
 ---
-import type { Grade, SubjectId } from '@/types/content';
+import type { ElementId, Grade, SubjectId } from '@/types/content';
 import { ELEMENTS, SUBJECTS, elementOrderFor, GRADES } from '@/data/curriculum';
-import { topicsBySubjectGradeElement, plannedTopics } from '@/data/topics';
+import { topics, topicSubject, topicsBySubjectGradeElement, plannedTopics } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 
@@ -13,14 +13,43 @@ interface Props {
 
 const { grade, subject = 'matematika', delay = 0 } = Astro.props;
 const subjectMeta = SUBJECTS[subject];
-const elements = elementOrderFor(subject);
+const subjectElements = elementOrderFor(subject);
+
+// Peta elemen -> kelas tempat elemen itu benar-benar dipakai mata pelajaran ini,
+// diambil dari data topik (bukan daftar statis). Dipakai agar elemen yang
+// sengaja hanya dibuka di kelas lain — mis. Kalkulus/Data pada Matematika
+// Tingkat Lanjut Kelas XI — tidak tampil sebagai "segera disusun" di kelas
+// yang salah.
+const elementGradesForSubject = new Map<ElementId, Set<Grade>>();
+for (const t of topics) {
+  if (topicSubject(t) !== subject) continue;
+  const seen = elementGradesForSubject.get(t.element) ?? new Set<Grade>();
+  seen.add(t.grade);
+  elementGradesForSubject.set(t.element, seen);
+}
+
+// Elemen dianggap "milik kelas ini" bila dipakai di kelas ini, dipakai di lebih
+// dari satu kelas (elemen lintas jenjang seperti pada Matematika wajib), atau
+// belum punya data sama sekali (masih benar-benar kosong untuk semua kelas).
+function isInScope(element: ElementId, grade: Grade): boolean {
+  const seen = elementGradesForSubject.get(element);
+  if (!seen || seen.size === 0) return true;
+  return seen.has(grade) || seen.size > 1;
+}
+
+// Topik rencana lama tidak menyimpan mata pelajaran; entri tanpa penanda
+// dianggap Matematika agar perilaku lama tetap terjaga.
+function plannedBelongsTo(p: { element: ElementId; subject?: SubjectId }): boolean {
+  return (p.subject ?? 'matematika') === subject;
+}
+
+const elements = subjectElements.filter((element) => isInScope(element, grade));
 
 const groups = elements.map((element) => {
   const complete = topicsBySubjectGradeElement(subject, grade, element);
-  const planned =
-    subject === 'matematika'
-      ? plannedTopics.filter((p) => p.grade === grade && p.element === element)
-      : [];
+  const planned = plannedTopics.filter(
+    (p) => p.grade === grade && p.element === element && plannedBelongsTo(p),
+  );
   const count = complete.length + planned.length;
   return { element, complete, planned, count };
 });

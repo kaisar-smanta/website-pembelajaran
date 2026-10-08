@@ -39,6 +39,7 @@ export const polinomial: Topic = {
     { text: 'Peserta didik dapat menerapkan teorema sisa dan teorema faktor.' },
     { text: 'Peserta didik dapat menentukan faktor dan akar polinomial serta menyelesaikan identitas polinomial.' },
   ],
+  explorations: ['mtl-polinomial-grafik'],
   sections: [
     {
       id: "tujuan",
@@ -166,7 +167,13 @@ $$P(x)Q(x) = 2x^{5} + x^{4} - 6x - 5.$$`,
       body: `Pembagian polinomial mengikuti **algoritma pembagian**: jika $P(x)$ dibagi oleh $Q(x)$ menghasilkan hasil bagi $H(x)$ dan sisa $S(x)$, maka
 $$P(x) = Q(x)\\,H(x) + S(x), \\qquad \\deg S < \\deg Q.$$
 
-**Cara bersusun** mirip pembagian bilangan: bagi suku berderajat tertinggi, kalikan, kurangkan, lalu ulangi.
+**Cara bersusun** mirip pembagian bilangan: bagi suku berderajat tertinggi, kalikan, kurangkan, lalu ulangi. Sebagai contoh, bagi $x^{3}+2x^{2}-5x-6$ oleh $(x+2)$:
+- $x^{3} \\div x = x^{2}$, lalu $x^{2}(x+2) = x^{3}+2x^{2}$; mengurangkan memberi sisa sementara $-5x-6$;
+- $(-5x) \\div x = -5$, lalu $-5(x+2) = -5x-10$; mengurangkan memberi sisa $4$.
+
+Jadi
+$$x^{3}+2x^{2}-5x-6 = (x+2)(x^{2}-5) + 4,$$
+dengan hasil bagi $x^{2}-5$ dan sisa $4$. Sisa itu juga sama dengan $P(-2) = -8 + 8 + 10 - 6 = 4$, sesuai teorema sisa.
 
 **Metode Horner** lebih ringkas untuk pembagi linear. Untuk membagi $2x^{3}+x^{2}-3x+4$ oleh $(x-2)$, tulis koefisien $2, 1, -3, 4$, turunkan $2$, lalu secara bergantian kalikan dengan $2$ dan jumlahkan ke koefisien berikut. Diperoleh
 $$2x^{3}+x^{2}-3x+4 = (x-2)(2x^{2}+5x+7) + 18,$$
@@ -209,6 +216,18 @@ $$(x-1)(x+2) = x^{2}+x-2, \\qquad (x^{2}+x-2)(x-3) = x^{3}-2x^{2}-5x+6.$$
 Menyamakan koefisien suku sejenis memberi $a=-2$ dan $b=6$.`,
     },
     {
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Grafik Polinomial",
+      body: `Sebelum terbiasa membaca bentuk polinomial dari koefisiennya, ada baiknya kamu melihat langsung bagaimana setiap koefisien mengubah kurvanya. Pada simulasi berikut, koefisien $a$, $b$, $c$, dan $d$ dapat kamu geser satu per satu. Amati berapa kali kurva memotong sumbu-$x$ (yaitu banyak akar real) dan di mana kurva berbelok (titik stasioner).`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-polinomial-grafik",
+        },
+      ],
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -243,9 +262,11 @@ dengan akar $x=3$, $x=2$, dan $x=-1$.`,
             },
             {
               title: "Contoh 4",
-              text: `Tentukan $a$ dan $b$ dari $x^{3}+ax^{2}-5x+b = (x-1)(x+2)(x-3)$.
+              text: `Tentukan $a$, $b$, dan $c$ dari kesamaan $x^{3}+ax^{2}+bx+c = (x-1)(x^{2}+4x+3)$.
 
-*Penyelesaian.* Ruas kanan menjabar menjadi $x^{3}-2x^{2}-5x+6$. Menyamakan koefisien memberi $a=-2$ dan $b=6$.`,
+*Penyelesaian.* Jabarkan ruas kanan:
+$$(x-1)(x^{2}+4x+3) = x^{3}+4x^{2}+3x - x^{2}-4x-3 = x^{3}+3x^{2}-x-3.$$
+Menyamakan koefisien suku sejenis memberi $a=3$, $b=-1$, dan $c=-3$.`,
             },
           ],
         },
@@ -297,7 +318,7 @@ dengan akar $x=3$, $x=2$, dan $x=-1$.`,
       title: "Latihan Mahir",
       level: "mahir",
       body: `1. Tentukan semua akar dari $P(x)=x^{3}-4x^{2}+x+6$ beserta pemfaktorannya.
-2. Tentukan $a$ dan $b$ dari kesamaan $x^{3}+ax^{2}-5x+b=(x-1)(x+2)(x-3)$.
+2. Tentukan $a$ dan $b$ dari kesamaan $x^{3}+ax^{2}+bx+4=(x+1)(x+2)^{2}$.
 3. Jika polinomial $P(x)$ berderajat $4$ dan dibagi $(x-1)$ bersisa $5$, tentukan $P(1)$ lalu jelaskan kaitannya dengan teorema sisa.
 4. Tentukan sisa pembagian $x^{4}-3x^{2}+2x-5$ oleh $(x+2)$.`,
       blocks: [
@@ -305,7 +326,7 @@ dengan akar $x=3$, $x=2$, dan $x=-1$.`,
           kind: "details",
           summary: "Lihat pembahasan",
           text: `1. $P(3)=0$ sehingga $(x-3)$ faktor. Hasil bagi $x^{2}-x-2=(x-2)(x+1)$, maka $P(x)=(x-3)(x-2)(x+1)$ dengan akar $x=3$, $x=2$, dan $x=-1$.
-2. Ruas kanan $=x^{3}-2x^{2}-5x+6$, maka $a=-2$ dan $b=6$.
+2. Ruas kanan $=(x+1)(x^{2}+4x+4)=x^{3}+5x^{2}+8x+4$, maka $a=5$ dan $b=8$.
 3. Teorema sisa menyatakan sisa pembagian oleh $(x-1)$ adalah $P(1)$, jadi $P(1)=5$.
 4. Sisa $=P(-2)=16-12-4-5=-5$.`,
         },

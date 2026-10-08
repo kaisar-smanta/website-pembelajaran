@@ -2,7 +2,7 @@ import type { Question } from '@/types/content';
 
 export const polinomialQuestions: Question[] = [
   {
-    id: 'pl-01',
+    id: 'pol-01',
     topicId: 'polinomial',
     difficulty: 'dasar',
     type: 'multiple-choice',
@@ -22,7 +22,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['derajat polinomial'],
   },
   {
-    id: 'pl-02',
+    id: 'pol-02',
     topicId: 'polinomial',
     difficulty: 'dasar',
     type: 'multiple-choice',
@@ -42,7 +42,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['penjumlahan polinomial'],
   },
   {
-    id: 'pl-03',
+    id: 'pol-03',
     topicId: 'polinomial',
     difficulty: 'dasar',
     type: 'short-answer',
@@ -56,7 +56,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['derajat hasil kali polinomial'],
   },
   {
-    id: 'pl-04',
+    id: 'pol-04',
     topicId: 'polinomial',
     difficulty: 'dasar',
     type: 'short-answer',
@@ -70,7 +70,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['teorema sisa'],
   },
   {
-    id: 'pl-05',
+    id: 'pol-05',
     topicId: 'polinomial',
     difficulty: 'cakap',
     type: 'multiple-choice',
@@ -90,7 +90,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['pembagian polinomial', 'metode Horner'],
   },
   {
-    id: 'pl-06',
+    id: 'pol-06',
     topicId: 'polinomial',
     difficulty: 'cakap',
     type: 'multiple-choice',
@@ -110,7 +110,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['teorema faktor'],
   },
   {
-    id: 'pl-07',
+    id: 'pol-07',
     topicId: 'polinomial',
     difficulty: 'cakap',
     type: 'short-answer',
@@ -124,7 +124,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['teorema sisa'],
   },
   {
-    id: 'pl-08',
+    id: 'pol-08',
     topicId: 'polinomial',
     difficulty: 'cakap',
     type: 'open-response',
@@ -139,7 +139,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['pembagian polinomial', 'metode Horner'],
   },
   {
-    id: 'pl-09',
+    id: 'pol-09',
     topicId: 'polinomial',
     difficulty: 'mahir',
     type: 'multiple-choice',
@@ -159,7 +159,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['teorema faktor', 'penalaran aljabar'],
   },
   {
-    id: 'pl-10',
+    id: 'pol-10',
     topicId: 'polinomial',
     difficulty: 'mahir',
     type: 'open-response',
@@ -177,7 +177,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['identitas polinomial', 'perkalian polinomial'],
   },
   {
-    id: 'pl-11',
+    id: 'pol-11',
     topicId: 'polinomial',
     difficulty: 'mahir',
     type: 'open-response',
@@ -192,7 +192,7 @@ export const polinomialQuestions: Question[] = [
     competencies: ['faktor polinomial', 'akar polinomial'],
   },
   {
-    id: 'pl-12',
+    id: 'pol-12',
     topicId: 'polinomial',
     difficulty: 'mahir',
     type: 'open-response',
@@ -208,5 +208,50 @@ export const polinomialQuestions: Question[] = [
       'Setelah $a$ diketahui, bagi $P(x)$ oleh $(x-1)$.',
     ],
     competencies: ['teorema faktor', 'pembagian polinomial', 'pemfaktoran'],
+  },
+  {
+    id: 'pol-13',
+    topicId: 'polinomial',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diberikan $P(x)=x^{3}-6x^{2}+11x-6$. (a) Tunjukkan bahwa $(x-1)$ merupakan faktor $P(x)$. (b) Faktorkan $P(x)$ sepenuhnya dan tentukan semua akarnya. (c) Jelaskan hubungan akar-akar itu dengan titik potong grafik terhadap sumbu-$x$.',
+    answer:
+      '(a) $P(1)=1-6+11-6=0$, sehingga menurut teorema faktor $(x-1)$ adalah faktor. (b) Membagi $P(x)$ oleh $(x-1)$ memberi $x^{2}-5x+6=(x-2)(x-3)$. Jadi $P(x)=(x-1)(x-2)(x-3)$ dengan akar $x=1$, $x=2$, dan $x=3$. (c) Setiap akar real $x=c$ berarti $P(c)=0$, sehingga grafik memotong sumbu-$x$ di titik $(c,0)$. Jadi grafik memotong sumbu-$x$ di $(1,0)$, $(2,0)$, dan $(3,0)$.',
+    explanation:
+      'Kunci: memakai teorema faktor, membagi untuk menurunkan derajat, memfaktorkan hasil bagi, dan menafsirkan akar sebagai titik potong sumbu-$x$.',
+    hints: ['Uji $P(1)$ lebih dahulu.', 'Setelah membagi, faktorkan kuadrat yang tersisa.'],
+    competencies: ['teorema faktor', 'akar polinomial', 'evaluasi'],
+  },
+  {
+    id: 'pol-14',
+    topicId: 'polinomial',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah kotak berbentuk balok memiliki panjang $(x+2)$ cm, lebar $(x-1)$ cm, dan tinggi $x$ cm. (a) Nyatakan volume kotak sebagai polinomial dalam $x$. (b) Tentukan volume kotak bila $x=5$ cm.',
+    answer: '140',
+    acceptedAnswers: ['140', '140 cm^3', '140 cm3'],
+    explanation:
+      'Volume $V(x)=x(x+2)(x-1)=x(x^{2}+x-2)=x^{3}+x^{2}-2x$. Untuk $x=5$: $V(5)=125+25-10=140$ cm$^{3}$.',
+    hints: ['Kalikan $(x+2)(x-1)$ terlebih dahulu, lalu kalikan dengan $x$.', 'Substitusikan $x=5$ ke polinomial.'],
+    competencies: ['perkalian polinomial', 'pemodelan volume'],
+  },
+  {
+    id: 'pol-15',
+    topicId: 'polinomial',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Biaya produksi sebuah usaha (ratus ribu rupiah) untuk $x$ ratus unit dimodelkan $C(x)=x^{3}-6x^{2}+13x+5$. (a) Tentukan biaya tetap usaha tersebut. (b) Hitung biaya produksi ketika $x=2$ (yaitu $200$ unit). (c) Tafsirkan hasil (b) dalam rupiah.',
+    answer:
+      '(a) Biaya tetap adalah nilai saat $x=0$, yaitu $C(0)=5$ ratus ribu rupiah $=$ Rp500.000. (b) $C(2)=2^{3}-6(2^{2})+13(2)+5=8-24+26+5=15$ ratus ribu rupiah. (c) Jadi biaya produksi $200$ unit adalah Rp1.500.000.',
+    explanation:
+      'Kunci: membaca konstanta sebagai biaya tetap, mensubstitusi $x=2$, lalu mengubah satuan ratus ribu menjadi rupiah.',
+    hints: ['Biaya tetap diperoleh pada $x=0$.', 'Hasil $C(2)=15$ masih dalam ratus ribu rupiah.'],
+    competencies: ['nilai polinomial', 'kontekstual', 'interpretasi'],
   },
 ];

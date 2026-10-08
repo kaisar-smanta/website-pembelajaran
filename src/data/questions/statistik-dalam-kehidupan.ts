@@ -190,4 +190,19 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     hints: ['Ubah rata-rata menjadi jumlah total terlebih dahulu.', 'Bandingkan jumlah sebelum dan sesudah penambahan.'],
     competencies: ['mean', 'penalaran'],
   },
+  {
+    id: 'sdk-12',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah kelas berisi $30$ siswa dengan rata-rata nilai $76$. Setelah remedial, $4$ siswa yang semula bernilai $60$ memperoleh nilai baru sehingga rata-rata kelas menjadi $78$. (a) Tentukan jumlah nilai kelas sebelum dan sesudah remedial. (b) Tentukan rata-rata nilai baru keempat siswa tersebut.',
+    answer:
+      '(a) Jumlah sebelum $=30\\times76=2280$ dan jumlah sesudah $=30\\times78=2340$. (b) Kenaikan jumlah nilai adalah $2340-2280=60$. Jumlah nilai awal keempat siswa $=4\\times60=240$, sehingga jumlah nilai barunya $=240+60=300$. Rata-rata nilai baru keempat siswa $=\\dfrac{300}{4}=75$.',
+    explanation:
+      'Kunci: mengubah rata-rata menjadi jumlah total, mencari perubahan jumlah, lalu menghitung rata-rata baru kelompok kecil.',
+    hints: ['Ubah rata-rata kelas menjadi total nilai.', 'Selisih total nilai berasal dari perubahan keempat siswa.'],
+    competencies: ['mean', 'pemodelan', 'interpretasi'],
+  },
 ];

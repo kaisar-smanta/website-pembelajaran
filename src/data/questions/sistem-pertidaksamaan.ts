@@ -197,4 +197,34 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     hints: ['Bayangkan garis $f = k$ bergeser sejajar hingga menyentuh daerah penyelesaian.'],
     competencies: ['penalaran', 'program linear', 'titik sudut'],
   },
+  {
+    id: 'spt-12',
+    topicId: 'sistem-pertidaksamaan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah toko memproduksi dua jenis roti. Roti A memberi laba Rp4.000 per unit dan Roti B Rp5.000 per unit. Kendala bahan: $3x+2y\\leq120$ dan $2x+3y\\leq130$, dengan $x,y\\geq0$. (a) Tentukan titik-titik sudut daerah penyelesaian. (b) Tentukan kombinasi yang memberi laba maksimum beserta nilainya.',
+    answer:
+      '(a) Titik potong sumbu: $(40,0)$ dan $(0,60)$ dari garis pertama, serta $(65,0)$ dan $(0,\\tfrac{130}{3})$ dari garis kedua. Titik potong kedua garis: dari $3x+2y=120$ dan $2x+3y=130$ diperoleh $x=20$ dan $y=30$, yaitu $(20,30)$. Titik sudut yang layak: $(0,0)$, $(40,0)$, $(20,30)$, dan $(0,\\tfrac{130}{3}\\approx43{,}33)$. (b) Fungsi objektif $L=4000x+5000y$. Nilainya: $(0,0)=0$, $(40,0)=160.000$, $(20,30)=80.000+150.000=230.000$, dan $(0,43{,}33)\\approx216.667$. Laba maksimum Rp230.000 dicapai dengan membuat $20$ roti A dan $30$ roti B.',
+    explanation:
+      'Kunci: mencari titik potong dan menyaring titik sudut yang layak, lalu menguji fungsi objektif pada tiap titik sudut.',
+    hints: ['Cari titik potong kedua garis dengan eliminasi.', 'Uji laba pada setiap titik sudut yang masuk daerah penyelesaian.'],
+    competencies: ['program linear', 'optimasi', 'evaluasi'],
+  },
+  {
+    id: 'spt-13',
+    topicId: 'sistem-pertidaksamaan',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Seorang petani memiliki $10$ hektar lahan dan modal Rp70 juta. Ia ingin menanam jagung (biaya Rp5 juta per hektar, laba Rp8 juta per hektar) dan padi (biaya Rp8 juta per hektar, laba Rp12 juta per hektar). (a) Susun model kendala dengan $x$ hektar jagung dan $y$ hektar padi. (b) Tuliskan fungsi objektif laba. (c) Sebutkan dua kendala nyata lain yang mungkin muncul.',
+    answer:
+      '(a) Kendala: $x+y\\leq10$ (lahan), $5x+8y\\leq70$ (modal, dalam juta rupiah), serta $x\\geq0$ dan $y\\geq0$. (b) Fungsi objektif laba $L=8x+12y$ juta rupiah. (c) Kendala nyata lain misalnya ketersediaan air/irigasi, jumlah tenaga kerja, waktu tanam, atau harga jual yang berubah.',
+    explanation:
+      'Kunci: menerjemahkan batas lahan, modal, dan syarat tak negatif menjadi pertidaksamaan, menulis fungsi objektif, serta mengenali faktor luar model.',
+    hints: ['Satu kendala untuk lahan dan satu untuk modal.', 'Laba tiap komoditas menjadi koefisien fungsi objektif.'],
+    competencies: ['pemodelan program linear', 'kontekstual'],
+  },
 ];

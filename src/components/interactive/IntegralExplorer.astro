@@ -1,0 +1,211 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialAria = 'Grafik f(x) = x² dengan 6 persegi panjang Riemann pada selang [0, 2]';
+---
+
+<figure class="sim int-sim" data-integral data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Atur batas a dan b serta banyak persegi panjang n pada f(x)=x², lalu
+    bandingkan jumlah Riemann dengan nilai integral eksaknya.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Batas bawah a <output data-value="a">0</output></span>
+      <input type="range" min="-3" max="0" step="0.1" value="0" data-field="a" />
+    </label>
+    <label class="sim-field">
+      <span>Batas atas b <output data-value="b">2</output></span>
+      <input type="range" min="0" max="3" step="0.1" value="2" data-field="b" />
+    </label>
+    <label class="sim-field">
+      <span>Banyak persegi n <output data-value="n">6</output></span>
+      <input type="range" min="1" max="40" step="1" value="6" data-field="n" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-int-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Kurva f(x) = x²</span>
+      <span class="l2">Persegi Riemann (titik tengah)</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-calculus);
+  }
+  .int-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .int-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { evalIntegrand, riemannSum, describeIntegral } from '../../lib/sim/integral';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+
+  function setupIntegral(root: Element) {
+    const inputA = root.querySelector('[data-field="a"]') as HTMLInputElement;
+    const inputB = root.querySelector('[data-field="b"]') as HTMLInputElement;
+    const inputN = root.querySelector('[data-field="n"]') as HTMLInputElement;
+    const outA = root.querySelector('[data-value="a"]') as HTMLOutputElement;
+    const outB = root.querySelector('[data-value="b"]') as HTMLOutputElement;
+    const outN = root.querySelector('[data-value="n"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-int-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 300;
+    const pad = 32;
+    const xMin = -3;
+    const xMax = 3;
+    const yMin = 0;
+    const yMax = 10;
+
+    function draw(a: number, b: number, n: number) {
+      const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
+      clear(svg);
+      for (let i = 0; i <= 8; i++) {
+        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 5; i++) {
+        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 5) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 5) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+
+      const dx = (b - a) / n;
+      for (let i = 0; i < n; i++) {
+        const x0 = a + i * dx;
+        const mid = a + (i + 0.5) * dx;
+        const height = evalIntegrand(mid);
+        const barX = sx(x0);
+        const barW = sx(x0 + dx) - barX;
+        const topY = sy(Math.min(height, yMax + 2));
+        svg.appendChild(
+          el('rect', {
+            x: barX,
+            y: topY,
+            width: Math.max(0.5, barW),
+            height: sy(0) - topY,
+            fill: 'var(--color-calculus)',
+            'fill-opacity': 0.22,
+            stroke: 'var(--color-calculus)',
+            'stroke-width': 1,
+          }),
+        );
+      }
+
+      const curve: Array<[number, number] | null> = [];
+      for (let i = 0; i <= W; i++) {
+        const x = xMin + (i / W) * (xMax - xMin);
+        const py = sy(evalIntegrand(x));
+        curve.push(py < -400 ? null : [sx(x), py]);
+      }
+      svg.appendChild(el('path', { d: polyline(curve), fill: 'none', stroke: 'var(--color-primary)', 'stroke-width': 2.6, 'stroke-linecap': 'round' }));
+    }
+
+    function render() {
+      const a = Number(inputA.value);
+      const b = Number(inputB.value);
+      const n = Math.max(1, Math.round(Number(inputN.value)));
+      outA.textContent = inputA.value;
+      outB.textContent = inputB.value;
+      outN.textContent = String(n);
+      draw(a, b, n);
+      readout.textContent = describeIntegral(a, b, n, 'mid');
+      svg.setAttribute('aria-label', `Grafik f(x) = x² dengan ${n} persegi Riemann pada selang [${a}, ${b}], jumlah ≈ ${riemannSum(a, b, n, 'mid').toFixed(3)}`);
+    }
+
+    [inputA, inputB, inputN].forEach((input) => input.addEventListener('input', render));
+    reset.addEventListener('click', () => {
+      [inputA, inputB, inputN].forEach((input) => {
+        input.value = input.defaultValue;
+      });
+      render();
+    });
+    render();
+  }
+
+  document.querySelectorAll('[data-integral]').forEach(setupIntegral);
+</script>

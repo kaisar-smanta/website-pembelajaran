@@ -9,7 +9,7 @@ import { ELEMENTS } from '@/data/curriculum';
 import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
 import { difficultyCounts, groupByDifficulty } from '@/lib/practice';
 import { url, topicUrl } from '@/utils/url';
-import { renderInlineMarkdown } from '@/utils/markdown';
+import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import type { Difficulty } from '@/types/content';
 
 export function getStaticPaths() {
@@ -39,6 +39,20 @@ const levelAccent: Record<Difficulty, string> = {
 };
 const counts = difficultyCounts(all);
 const byDifficulty = groupByDifficulty(all);
+const reviewNumber = new Map<string, number>();
+for (const d of DIFFICULTY_ORDER) {
+  byDifficulty[d].forEach((q, i) => reviewNumber.set(q.id, i + 1));
+}
+const reviewEntries = all.map((q) => {
+  const text = stripMarkdown(
+    q.prompt.replace(/\$\$[\s\S]+?\$\$/g, ' ').replace(/\$[^\n$]+?\$/g, ' '),
+  );
+  return {
+    id: q.id,
+    number: reviewNumber.get(q.id) ?? 0,
+    snippet: text.length > 96 ? `${text.slice(0, 96).trimEnd()}…` : text,
+  };
+});
 const prerequisites = resolveTopics(topic?.prerequisites);
 const related = resolveTopics(topic?.relatedTopics);
 const objectives = topic?.objectives ?? [];
@@ -185,6 +199,18 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
         <a class="btn btn-secondary btn-sm" data-review-link href="#">
           Tinjau soal yang belum tepat
         </a>
+        <ul class="review-list" data-review-list aria-label="Daftar soal yang belum tepat" hidden>
+          {
+            reviewEntries.map((entry) => (
+              <li class="review-item" data-review-item={entry.id} hidden>
+                <a class="review-item-link" href={`#q-${entry.id}`}>
+                  <span class="review-num" aria-hidden="true">{entry.number}</span>
+                  <span class="review-text">{entry.snippet}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </aside>
 
@@ -381,6 +407,47 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
   .progress-review {
     margin-top: 0.85rem;
   }
+  .review-list {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .review-item-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .review-item-link:hover,
+  .review-item-link:focus-visible {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .review-num {
+    display: grid;
+    place-items: center;
+    flex: none;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .review-text {
+    min-width: 0;
+  }
 
   .level-section {
     padding-block: 1.5rem;
@@ -472,6 +539,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     const noteEl = root.querySelector<HTMLElement>('[data-progress-note]');
     const reviewWrap = root.querySelector<HTMLElement>('[data-review]');
     const reviewLink = root.querySelector<HTMLAnchorElement>('[data-review-link]');
+    const reviewList = root.querySelector<HTMLElement>('[data-review-list]');
 
     let storage: Storage | undefined;
     try {
@@ -517,6 +585,9 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 
       const missed = missedQuestionIds(attempts, ids);
       if (reviewWrap && reviewLink) {
+        const reviewItems = reviewList
+          ? Array.from(reviewList.querySelectorAll<HTMLElement>('[data-review-item]'))
+          : [];
         if (missed.length > 0) {
           reviewWrap.hidden = false;
           reviewLink.href = `#q-${missed[0]}`;
@@ -524,8 +595,22 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
             missed.length === 1
               ? 'Tinjau 1 soal yang belum tepat'
               : `Tinjau ${missed.length} soal yang belum tepat`;
+
+          // Daftar seluruh soal yang belum tepat; hanya ditampilkan bila lebih
+          // dari satu agar perilaku lama (satu tautan) tetap terjaga.
+          const missedSet = new Set(missed);
+          let visible = 0;
+          for (const item of reviewItems) {
+            const id = item.getAttribute('data-review-item');
+            const show = id !== null && missedSet.has(id);
+            item.hidden = !show;
+            if (show) visible += 1;
+          }
+          if (reviewList) reviewList.hidden = visible <= 1;
         } else {
           reviewWrap.hidden = true;
+          if (reviewList) reviewList.hidden = true;
+          for (const item of reviewItems) item.hidden = true;
         }
       }
     };

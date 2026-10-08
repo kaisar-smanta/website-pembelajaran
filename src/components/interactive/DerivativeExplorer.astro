@@ -1,0 +1,179 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const x0 = 1.5;
+const initialAria = `Grafik f(x) = x³ - 3x dengan garis singgung di x = ${x0}`;
+---
+
+<figure class="sim deriv-sim" data-derivative data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Geser titik singgung x₀ pada kurva f(x)=x³−3x dan amati bagaimana gradien
+    garis singgung berubah.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Titik singgung x₀ <output data-value="x0">{x0}</output></span>
+      <input type="range" min="-2.5" max="2.5" step="0.1" value={x0} data-field="x0" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-deriv-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Kurva f(x)</span>
+      <span class="l2">Garis singgung</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-calculus);
+  }
+  .deriv-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .deriv-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { DEFAULT_MODEL, evalFunction, tangentAt, describeAt } from '../../lib/sim/derivative';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+
+  function setupDerivative(root: Element) {
+    const input = root.querySelector('[data-field="x0"]') as HTMLInputElement;
+    const output = root.querySelector('[data-value="x0"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-deriv-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 300;
+    const pad = 34;
+    const xMin = -2.6;
+    const xMax = 2.6;
+    const yMin = -8;
+    const yMax = 8;
+
+    function draw(x0: number) {
+      const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
+      clear(svg);
+      for (let i = 0; i <= 8; i++) {
+        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 6) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 6) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+
+      const curve: Array<[number, number] | null> = [];
+      for (let i = 0; i <= W; i++) {
+        const x = xMin + (i / W) * (xMax - xMin);
+        const py = sy(evalFunction(DEFAULT_MODEL, x));
+        curve.push(py < -400 || py > H + 400 ? null : [sx(x), py]);
+      }
+      svg.appendChild(el('path', { d: polyline(curve), fill: 'none', stroke: 'var(--color-primary)', 'stroke-width': 2.6, 'stroke-linecap': 'round' }));
+
+      const t = tangentAt(DEFAULT_MODEL, x0);
+      const tangent: Array<[number, number] | null> = [];
+      for (let i = 0; i <= W; i++) {
+        const x = xMin + (i / W) * (xMax - xMin);
+        const y = t.slope * (x - x0) + t.y0;
+        const py = sy(y);
+        tangent.push(py < -400 || py > H + 400 ? null : [sx(x), py]);
+      }
+      svg.appendChild(el('path', { d: polyline(tangent), fill: 'none', stroke: 'var(--color-calculus)', 'stroke-width': 2, 'stroke-dasharray': '6 4' }));
+      svg.appendChild(el('circle', { cx: sx(x0), cy: sy(t.y0), r: 5, fill: 'var(--color-warning)', stroke: 'var(--color-surface)', 'stroke-width': 1.5 }));
+    }
+
+    function render() {
+      let x0 = Number(input.value);
+      if (!Number.isFinite(x0)) x0 = 1.5;
+      output.textContent = String(x0);
+      draw(x0);
+      readout.textContent = describeAt(DEFAULT_MODEL, x0);
+      svg.setAttribute('aria-label', `Grafik f(x) = x³ - 3x dengan garis singgung di x = ${x0}`);
+    }
+
+    input.addEventListener('input', render);
+    reset.addEventListener('click', () => {
+      input.value = input.defaultValue;
+      render();
+    });
+    render();
+  }
+
+  document.querySelectorAll('[data-derivative]').forEach(setupDerivative);
+</script>

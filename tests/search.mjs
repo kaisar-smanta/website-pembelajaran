@@ -44,7 +44,7 @@ check('scoreItem mengurutkan judul persis > judul > kata kunci > ringkasan > isi
   assert.ok(exact > title && title > keywords && keywords > summary && summary > text);
 });
 
-check('scoreItem menjumlahkan bobot untuk kecocokan berlapis', () => {
+check('scoreItem menjumlahkan bobot per istilah untuk kecocokan berlapis', () => {
   const item = {
     ...base,
     title: 'Bunga Majemuk',
@@ -52,8 +52,34 @@ check('scoreItem menjumlahkan bobot untuk kecocokan berlapis', () => {
     keywords: 'bunga investasi',
     text: 'Isi tentang anuitas dan bunga.',
   };
-  assert.equal(scoreItem(item, 'Bunga Majemuk'), 100 + 50 + 12);
-  assert.equal(scoreItem(item, 'bunga'), 50 + 25 + 12 + 6);
+  // 'bunga': judul 50 + kata kunci 25 + ringkasan 12 + isi 6 = 93.
+  // 'majemuk': judul 50 + ringkasan 12 = 62. Total 155.
+  assert.equal(scoreItem(item, 'Bunga Majemuk'), 155);
+  assert.equal(scoreItem(item, 'bunga'), 93);
+});
+
+check('scoreItem menuntut semua istilah cocok (AND)', () => {
+  const item = {
+    ...base,
+    title: 'Fungsi Kuadrat',
+    keywords: 'parabola',
+    text: 'akar dan titik puncak',
+  };
+  assert.ok(scoreItem(item, 'fungsi kuadrat') > 0);
+  assert.ok(scoreItem(item, 'fungsi kuadrat akar') > 0, 'akar ada di isi');
+  assert.equal(scoreItem(item, 'fungsi kuadrat peluang'), 0, 'istilah hilang membatalkan hasil');
+  assert.equal(scoreItem(item, 'fungsi integral'), 0);
+});
+
+check('scoreItem memberi peringkat per istilah: judul > kata kunci > isi', () => {
+  const q = 'fungsi kuadrat akar';
+  const inTitle = scoreItem({ ...base, title: 'Fungsi Kuadrat dan Akar' }, q);
+  const inKeywords = scoreItem({ ...base, keywords: 'fungsi kuadrat akar' }, q);
+  const inText = scoreItem({ ...base, text: 'fungsi kuadrat akar' }, q);
+  assert.equal(inTitle, 50 * 3);
+  assert.equal(inKeywords, 25 * 3);
+  assert.equal(inText, 6 * 3);
+  assert.ok(inTitle > inKeywords && inKeywords > inText);
 });
 
 check('scoreItem mengembalikan 0 untuk kata kunci kosong', () => {
@@ -81,6 +107,14 @@ check('highlight menemukan kata berdiakritik lewat bentuk ternormalisasi', () =>
   assert.ok(html.includes('<mark'), 'kata berdiakritik ikut disorot');
 });
 
+check('highlight menyorot setiap istilah kueri multi-kata', () => {
+  const html = highlight('Fungsi kuadrat memiliki akar', 'fungsi akar');
+  const marks = html.match(/<mark/g) ?? [];
+  assert.equal(marks.length, 2);
+  assert.ok(html.includes('>Fungsi</mark>'), 'istilah pertama disorot');
+  assert.ok(html.includes('>akar</mark>'), 'istilah kedua disorot');
+});
+
 check('highlight mengembalikan teks kosong dengan aman', () => {
   assert.equal(highlight('', 'bunga'), '');
   assert.equal(highlight('<x>', ''), '&lt;x&gt;');
@@ -102,6 +136,18 @@ check('buildSnippet mengambil potongan isi bila kata kunci hanya ada di isi', ()
   const snippet = buildSnippet(item, 'anuitas');
   assert.ok(snippet.includes('<mark'));
   assert.ok(snippet.endsWith('…'));
+});
+
+check('buildSnippet memusatkan cuplikan pada istilah yang tidak ada di ringkasan', () => {
+  const item = {
+    ...base,
+    summary: 'Fungsi kuadrat dan grafiknya.',
+    text: `${'kata '.repeat(30)}mencari akar persamaan kuadrat.`,
+  };
+  const snippet = buildSnippet(item, 'fungsi kuadrat akar');
+  assert.ok(snippet.includes('<mark'), 'istilah disorot di cuplikan');
+  assert.ok(snippet.includes('akar'), 'istilah non-pertama ikut tampil');
+  assert.ok(snippet.startsWith('…'), 'cuplikan berasal dari isi, bukan ringkasan');
 });
 
 check('kata kunci kosong membuat cuplikan sama dengan ringkasan yang di-escape', () => {

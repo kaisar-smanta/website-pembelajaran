@@ -165,7 +165,7 @@ Jika suatu bangun seluas $L$ ditransformasi oleh matriks $M$, luas bayangannya a
     {
       id: "invers",
       kind: "konsep",
-      title: "Invers Matriks $2 \\times 2$",
+      title: "Invers Matriks 2×2",
       body: `Jika $\\det(M) \\neq 0$, matriks $M$ memiliki invers
 $$M^{-1} = \\frac{1}{\\det(M)}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}, \\qquad M = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}.$$
 Invers memetakan bayangan kembali ke titik asalnya. Sebagai contoh, matriks dilatasi

@@ -1,5 +1,9 @@
 name: Deploy ke GitHub Pages
 
+# SENGAJA MINIMAL (deploy-only). Pemeriksaan mutu dijalankan secara lokal lewat
+# `npm run verify` untuk menghemat kuota GitHub Actions. Jangan menambahkan job
+# verifikasi/test/lint atau pemicu pull_request di sini — lihat AGENTS.md.
+
 on:
   push:
     branches: [main]
@@ -24,16 +28,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '22.18'
           cache: npm
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Verifikasi konten
-        run: |
-          npm run lint:content
-          npm run test
 
       - name: Build situs statis
         run: npm run build

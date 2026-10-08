@@ -44,7 +44,8 @@ export const aplikasiTurunan: Topic = {
     { text: 'Peserta didik dapat menyelidiki kecekungan dan titik belok melalui turunan kedua.' },
     { text: 'Peserta didik dapat menghitung kecepatan dan percepatan sesaat serta menyelesaikan soal optimasi.' },
   ],
-  applications: ['pertumbuhan', 'pengukuran'],
+  applications: ['mtl-optimasi-produksi', 'mtl-gerak-kecepatan'],
+  explorations: ['mtl-aplikasi-turunan-garis-singgung'],
   sections: [
     {
       id: "tujuan",
@@ -176,6 +177,18 @@ Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}
 **Optimasi.** Nyatakan besaran yang dicari sebagai fungsi satu variabel, tentukan titik stasioner, lalu periksa bahwa titik itu memang memberi nilai maksimum atau minimum.`,
     },
     {
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Garis Singgung dan Gradien",
+      body: `Rumus garis singgung baru bermakna jika kamu melihat sendiri bagaimana kemiringannya berubah dari titik ke titik. Pada simulasi berikut, geser titik singgung sepanjang kurva $f(x)=x^{3}-3x$. Perhatikan kapan garis singgung menanjak, kapan mendatar tepat di titik stasioner, dan kapan menurun.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-aplikasi-turunan-garis-singgung",
+        },
+      ],
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -199,9 +212,11 @@ Garis normal bergradien $\\dfrac{-1}{6}$, sehingga $y - 9 = \\dfrac{-1}{6}(x - 3
             },
             {
               title: "Contoh 3",
-              text: `Posisi sebuah partikel adalah $s(t) = t^{3} - 6t^{2} + 9t$ meter. Tentukan kecepatan dan percepatan pada $t = 2$ s. Lalu tentukan ukuran kandang berluas maksimum dari $40$ m kawat yang satu sisinya berupa sungai.
+              text: `Posisi sebuah partikel adalah $s(t) = t^{3} - 9t^{2} + 24t$ meter, dengan $t$ dalam sekon. Tentukan kecepatan dan percepatan pada $t = 3$ s, lalu tentukan kapan partikel berhenti sesaat.
 
-*Penyelesaian.* Kecepatan $v(t) = s'(t) = 3t^{2} - 12t + 9$ dan percepatan $a(t) = 6t - 12$. Maka $v(2) = 12 - 24 + 9 = -3$ m/s dan $a(2) = 0$ m/s$^{2}$. Untuk kandang, $L(x) = x(40 - 2x)$ dengan $L'(x) = 40 - 4x = 0$ memberi $x = 10$ dan luas $L(10) = 10 \\cdot 20 = 200$ m$^{2}$.`,
+*Penyelesaian.* Kecepatan $v(t) = s'(t) = 3t^{2} - 18t + 24$ dan percepatan $a(t) = v'(t) = 6t - 18$. Maka $v(3) = 27 - 54 + 24 = -3$ m/s dan $a(3) = 18 - 18 = 0$ m/s$^{2}$. Partikel berhenti sesaat ketika $v(t) = 0$:
+$$3t^{2} - 18t + 24 = 3(t-2)(t-4) = 0,$$
+yaitu pada $t = 2$ s dan $t = 4$ s.`,
             },
           ],
         },
@@ -252,14 +267,14 @@ Garis normal bergradien $\\dfrac{-1}{6}$, sehingga $y - 9 = \\dfrac{-1}{6}(x - 3
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Sebuah kandang persegi panjang memanfaatkan tepi sungai pada satu sisinya dan memakai $40$ m kawat untuk tiga sisi lainnya. Tentukan ukuran yang membuat luas maksimum.
+      body: `1. Sebuah tabung tertutup memiliki volume $16\pi$ cm$^{3}$. Tentukan jari-jari dan tinggi yang membuat luas permukaannya minimum.
 2. Dari selembar karton $20 \\text{ cm} \\times 20 \\text{ cm}$ akan dibuat kotak terbuka dengan memotong persegi bersisi $x$ di setiap sudut. Tentukan $x$ agar volume maksimum dan hitung volume itu.
 3. Dua bilangan berjumlah $20$. Tentukan kedua bilangan agar hasil kalinya maksimum.`,
       blocks: [
         {
           kind: "details",
           summary: "Lihat pembahasan",
-          text: `1. $L(x) = x(40 - 2x)$, $L'(x) = 40 - 4x = 0$ memberi $x = 10$. Ukurannya $10$ m dan $20$ m dengan luas maksimum $200$ m$^{2}$.
+          text: `1. $V = \pi r^{2}h = 16\pi$ memberi $h = \dfrac{16}{r^{2}}$. Luas permukaan $S = 2\pi r^{2} + 2\pi rh = 2\pi r^{2} + \dfrac{32\pi}{r}$. Maka $S'(r) = 4\pi r - \dfrac{32\pi}{r^{2}} = 0$ memberi $r^{3} = 8$, yaitu $r = 2$ cm. Tingginya $h = \dfrac{16}{4} = 4$ cm dan luas minimumnya $S = 8\pi + 16\pi = 24\pi$ cm$^{2}$.
 2. $V(x) = x(20 - 2x)^{2}$. Turunannya $V'(x) = (20 - 2x)(20 - 6x) = 0$ memberi $x = 10$ (tidak sah) atau $x = \\dfrac{10}{3}$. Volumenya $V\\left(\\dfrac{10}{3}\\right) = \\dfrac{10}{3}\\left(\\dfrac{40}{3}\\right)^{2} = \\dfrac{16000}{27} \\approx 592{,}59$ cm$^{3}$.
 3. $P(x) = x(20 - x) = 20x - x^{2}$, $P'(x) = 20 - 2x = 0$ memberi $x = 10$. Kedua bilangan $10$ dan $10$ dengan hasil kali maksimum $100$.`,
         },

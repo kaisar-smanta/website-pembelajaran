@@ -193,4 +193,49 @@ export const trigonometriLanjutQuestions: Question[] = [
     hints: ['Gunakan $b^{2}=a^{2}+c^{2}-2ac\\cos B$ lalu selesaikan untuk $\\cos B$.'],
     competencies: ['aturan kosinus', 'penalaran'],
   },
+  {
+    id: 'tl-12',
+    topicId: 'trigonometri-lanjut',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Pada segitiga $ABC$ diketahui $a=6$, $b=8$, dan $c=10$. (a) Hitung $\\cos C$ lalu tentukan besar sudut $C$. (b) Jelaskan jenis segitiga berdasarkan hasil itu. (c) Tentukan luas segitiga $ABC$.',
+    answer:
+      '(a) $\\cos C=\\dfrac{a^{2}+b^{2}-c^{2}}{2ab}=\\dfrac{36+64-100}{2\\cdot6\\cdot8}=\\dfrac{0}{96}=0$, sehingga $C=90^\\circ$. (b) Karena salah satu sudutnya siku-siku, segitiga $ABC$ adalah segitiga siku-siku di $C$. (c) Luas $=\\dfrac{1}{2}ab\\sin C=\\dfrac{1}{2}(6)(8)(1)=24$ satuan luas.',
+    explanation:
+      'Kunci: menerapkan aturan kosinus, mengenali $\\cos C=0$ sebagai sudut siku-siku, lalu menghitung luas dengan dua sisi dan sudut apit.',
+    hints: ['Gunakan aturan kosinus untuk sudut $C$ yang menghadap sisi $c$.', 'Jika $\\cos C=0$, maka $C=90^\\circ$.'],
+    competencies: ['aturan kosinus', 'luas segitiga', 'evaluasi'],
+  },
+  {
+    id: 'tl-13',
+    topicId: 'trigonometri-lanjut',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah jalan menanjak membentuk sudut $12^\\circ$ terhadap horizontal. Panjang jalan dari kaki sampai puncak adalah $500$ m. (a) Susun model trigonometri yang menghubungkan tinggi puncak dengan panjang jalan. (b) Hitung tinggi puncak (gunakan $\\sin12^\\circ\\approx0{,}2079$). (c) Sebutkan satu asumsi model.',
+    answer:
+      '(a) Tinggi puncak $h$ adalah sisi depan sudut $12^\\circ$ dan panjang jalan adalah sisi miring, sehingga $\\sin12^\\circ=\\dfrac{h}{500}$ atau $h=500\\sin12^\\circ$. (b) $h=500\\times0{,}2079\\approx103{,}95$ m, jadi tinggi puncaknya sekitar $104$ m. (c) Asumsinya jalan berupa garis lurus dengan kemiringan tetap dan permukaan tanah rata.',
+    explanation:
+      'Kunci: mengidentifikasi sisi depan dan sisi miring untuk memakai sinus, menghitung nilai, dan menyebutkan asumsi.',
+    hints: ['Tinggi adalah sisi depan; panjang jalan adalah sisi miring.', 'Gunakan $\\sin\\theta=\\dfrac{\\text{sisi depan}}{\\text{sisi miring}}$.'],
+    competencies: ['pemodelan trigonometri', 'sudut elevasi'],
+  },
+  {
+    id: 'tl-14',
+    topicId: 'trigonometri-lanjut',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Dua kapal berangkat dari pelabuhan yang sama. Kapal P bergerak $20$ km ke arah timur, sedangkan kapal Q bergerak $15$ km pada arah $60^\\circ$ dari timur. Tentukan jarak antara kedua kapal.',
+    answer:
+      'Posisi Kapal P: $(20,0)$. Posisi Kapal Q: $(15\\cos60^\\circ,\\,15\\sin60^\\circ)=\\left(7{,}5,\\,15\\cdot\\dfrac{\\sqrt{3}}{2}\\right)\\approx(7{,}5,\\,12{,}99)$. Jarak $=\\sqrt{(20-7{,}5)^{2}+(0-12{,}99)^{2}}=\\sqrt{156{,}25+168{,}75}=\\sqrt{325}\\approx18{,}03$ km. Jadi jarak kedua kapal sekitar $18$ km.',
+    explanation:
+      'Kunci: menguraikan vektor perpindahan menjadi komponen, menentukan posisi tiap kapal, lalu menghitung jarak dengan rumus jarak.',
+    hints: ['Uraikan perpindahan $15$ km menjadi komponen $x$ dan $y$.', 'Gunakan rumus jarak antara dua titik.'],
+    competencies: ['vektor', 'aturan kosinus', 'kontekstual'],
+  },
 ];

@@ -63,7 +63,7 @@ const meta = [
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Matematika dalam Kehidupan', href: url('/aplikasi') },
-  { label: category.name },
+  { label: category.name, href: url('/aplikasi') },
   { label: app.title },
 ];
 
@@ -81,7 +81,7 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout title={app.title} description={app.summary} ogType="article">
+<BaseLayout title={app.title} description={stripMarkdown(app.summary)} ogType="article">
   <PageHeader
     title={app.title}
     eyebrow="Matematika dalam Kehidupan"

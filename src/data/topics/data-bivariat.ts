@@ -38,7 +38,7 @@ export const dataBivariat: Topic = {
     { text: 'Menilai kekuatan hubungan secara visual dan menyebut korelasinya.' },
     { text: 'Menyadari keterbatasan diagram pencar dan membedakan korelasi dari sebab-akibat.' },
   ],
-  explorations: ['regresi-sim'],
+  explorations: ['data-bivariat-korelasi'],
   applications: ['regresi-nilai-ujian', 'survei-statistik'],
   sections: [
     {

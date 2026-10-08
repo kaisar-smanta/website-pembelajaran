@@ -157,4 +157,19 @@ export const analisisDistribusiDataQuestions: Question[] = [
     hints: ['Hitung jumlah total data sebelum dan sesudah.'],
     competencies: ['mean', 'pemodelan'],
   },
+  {
+    id: 'ad-11',
+    topicId: 'analisis-distribusi-data',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Dua kelas memiliki rata-rata nilai yang sama, yaitu $75$. Namun jangkauan Kelas P adalah $6$, sedangkan jangkauan Kelas Q adalah $40$. (a) Kelas mana yang datanya lebih seragam? (b) Mengapa jangkauan saja kurang andal untuk menilai sebaran, dan ukuran apa yang sebaiknya dilengkapi?',
+    answer:
+      '(a) Kelas P lebih seragam karena jangkauannya jauh lebih kecil, sehingga nilai-nilainya lebih rapat. (b) Jangkauan hanya memakai dua nilai ekstrem (terbesar dan terkecil), sehingga sangat sensitif terhadap pencilan dan tidak menggambarkan sebaran bagian tengah data. Sebaiknya dilengkapi dengan jangkauan interkuartil (IQR) atau simpangan baku yang memakai lebih banyak informasi dari data.',
+    explanation:
+      'Kunci: membandingkan keragaman dari jangkauan, lalu menyadari keterbatasan jangkauan yang hanya bergantung pada dua nilai ekstrem.',
+    hints: ['Bandingkan besar jangkauan kedua kelas.', 'Ingat bahwa jangkauan hanya melihat nilai terkecil dan terbesar.'],
+    competencies: ['ukuran sebaran', 'penalaran statistik', 'evaluasi'],
+  },
 ];

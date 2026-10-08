@@ -183,4 +183,34 @@ export const lingkaranQuestions: Question[] = [
     ],
     competencies: ['garis singgung lingkaran', 'teorema Pythagoras', 'luas'],
   },
+  {
+    id: 'lk-12',
+    topicId: 'lingkaran',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Dua lingkaran masing-masing berjari-jari $8$ cm dan $2$ cm memiliki jarak pusat $10$ cm. (a) Tentukan panjang garis singgung persekutuan luarnya. (b) Tentukan panjang garis singgung persekutuan dalamnya. (c) Jelaskan kapan garis singgung persekutuan dalam tidak ada.',
+    answer:
+      '(a) $\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}=\\sqrt{10^{2}-(8-2)^{2}}=\\sqrt{100-36}=8$ cm. (b) $\\ell_{\\text{dalam}}=\\sqrt{d^{2}-(R+r)^{2}}=\\sqrt{100-(8+2)^{2}}=\\sqrt{100-100}=0$ cm; kedua lingkaran bersinggungan luar sehingga garis singgung dalamnya berimpit di satu titik. (c) Garis singgung persekutuan dalam tidak ada jika $d<R+r$, yaitu ketika kedua lingkaran saling berpotongan sehingga tidak ada garis yang menyinggung keduanya secara bersamaan di sisi dalam.',
+    explanation:
+      'Kunci: memakai rumus garis singgung persekutuan luar dan dalam dengan benar, serta menafsirkan syarat keberadaannya.',
+    hints: ['Gunakan $(R-r)$ untuk singgung luar dan $(R+r)$ untuk singgung dalam.', 'Periksa nilai di bawah akar.'],
+    competencies: ['garis singgung persekutuan', 'evaluasi'],
+  },
+  {
+    id: 'lk-13',
+    topicId: 'lingkaran',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah taman berbentuk juring lingkaran berjari-jari $10$ m dengan sudut pusat $120^\\circ$ dan $\\pi=3{,}14$. (a) Tentukan panjang busur taman. (b) Tentukan luas juringnya. (c) Jika seluruh tepi juring (dua jari-jari dan busur) dipagari, tentukan total panjang pagar.',
+    answer:
+      '(a) $s=\\dfrac{120}{360}\\times2\\times3{,}14\\times10=\\dfrac{1}{3}\\times62{,}8\\approx20{,}93$ m. (b) $L=\\dfrac{120}{360}\\times3{,}14\\times10^{2}=\\dfrac{1}{3}\\times314\\approx104{,}67$ m$^{2}$. (c) Total pagar $=2r+s=20+20{,}93=40{,}93$ m.',
+    explanation:
+      'Kunci: membedakan panjang busur dari keliling tepi, menghitung luas juring, dan menjumlahkan dua jari-jari untuk total pagar.',
+    hints: ['Sudut $120^\\circ$ sama dengan sepertiga putaran.', 'Total pagar mencakup dua jari-jari lurus dan satu busur.'],
+    competencies: ['panjang busur', 'luas juring', 'kontekstual'],
+  },
 ];

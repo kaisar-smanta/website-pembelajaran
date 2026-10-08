@@ -197,4 +197,34 @@ export const irisanKerucutQuestions: Question[] = [
     hints: ['Panjang sumbu mayor adalah $2a$ dan sumbu minor $2b$.'],
     competencies: ['persamaan elips', 'eksentrisitas elips'],
   },
+  {
+    id: 'ik-13',
+    topicId: 'irisan-kerucut',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah elips memiliki persamaan $\\dfrac{x^{2}}{36}+\\dfrac{y^{2}}{16}=1$. (a) Tentukan panjang sumbu mayor, jarak fokus dari pusat, dan eksentrisitasnya. (b) Jelaskan bentuk elips ketika eksentrisitas mendekati $0$ dan ketika mendekati $1$.',
+    answer:
+      '(a) $a^{2}=36$ dan $b^{2}=16$, sehingga $a=6$ dan $b=4$. Sumbu mayor $2a=12$. Jarak fokus $c=\\sqrt{36-16}=\\sqrt{20}=2\\sqrt{5}\\approx4{,}47$. Eksentrisitas $e=\\dfrac{c}{a}=\\dfrac{2\\sqrt{5}}{6}=\\dfrac{\\sqrt{5}}{3}\\approx0{,}745$. (b) Ketika $e\\to0$, fokus hampir berimpit di pusat sehingga elips mendekati lingkaran. Ketika $e\\to1$, fokus makin dekat ke tepi sehingga elips makin pipih/memanjang.',
+    explanation:
+      'Kunci: membaca $a$ dan $b$ dari persamaan, menghitung $c$ dan $e$, serta menafsirkan rentang eksentrisitas.',
+    hints: ['Penyebut terbesar menempel pada sumbu mayor.', 'Gunakan $c^{2}=a^{2}-b^{2}$ dan $e=\\dfrac{c}{a}$.'],
+    competencies: ['unsur elips', 'eksentrisitas', 'evaluasi'],
+  },
+  {
+    id: 'ik-14',
+    topicId: 'irisan-kerucut',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Langit-langit sebuah gedung berbentuk lengkung elips dengan persamaan $\\dfrac{x^{2}}{100}+\\dfrac{y^{2}}{64}=1$ (dalam meter). (a) Tentukan tinggi maksimum langit-langit dari garis pusatnya. (b) Tentukan jarak antara kedua titik fokusnya.',
+    answer:
+      '(a) Karena penyebut $y$ adalah $64$, semi-sumbu vertikalnya $b=8$, sehingga tinggi maksimum langit-langit adalah $8$ m. (b) Dari $a^{2}=100$ dan $b^{2}=64$, diperoleh $c=\\sqrt{100-64}=\\sqrt{36}=6$. Kedua fokus berada di $(\\pm6,0)$, sehingga jarak antarfokus adalah $2c=12$ m.',
+    explanation:
+      'Kunci: membaca orientasi elips dari penyebut, menentukan puncak teratas, lalu menghitung $c$ dan jarak antarfokus.',
+    hints: ['Tinggi maksimum adalah semi-sumbu pada arah $y$.', 'Jarak antarfokus adalah $2c$ dengan $c^{2}=a^{2}-b^{2}$.'],
+    competencies: ['unsur elips', 'fokus elips', 'kontekstual'],
+  },
 ];

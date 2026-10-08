@@ -279,7 +279,7 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
               text: "$f(3)=9-18+8=-1$, sehingga titik puncaknya $(3,-1)$.",
             },
             {
-              title: "Arah dan potongan sumbu-$y$",
+              title: "Arah dan potongan sumbu-y",
               text: "Karena $a=1>0$ parabola terbuka ke atas, dan $c=8$ memberi titik potong $(0,8)$.",
             },
           ],

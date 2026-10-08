@@ -1,0 +1,242 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const paramValue = (name: string, fallback: number): number => {
+  const found = exploration.params?.find((p) => p.name === name);
+  return found && Number.isFinite(found.value) ? found.value : fallback;
+};
+
+const a0 = paramValue('a', 1);
+const b0 = paramValue('b', -6);
+const c0 = paramValue('c', 11);
+const d0 = paramValue('d', -6);
+const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c0}, d = ${d0}`;
+---
+
+<figure class="sim poly-sim" data-polynomial data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Geser koefisien a, b, c, dan d pada f(x)=ax³+bx²+cx+d, lalu amati
+    akar dan titik stasionernya.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Koefisien a <output data-value="a">{a0}</output></span>
+      <input type="range" min="-2" max="2" step="0.1" value={a0} data-field="a" />
+    </label>
+    <label class="sim-field">
+      <span>Koefisien b <output data-value="b">{b0}</output></span>
+      <input type="range" min="-8" max="8" step="0.5" value={b0} data-field="b" />
+    </label>
+    <label class="sim-field">
+      <span>Koefisien c <output data-value="c">{c0}</output></span>
+      <input type="range" min="-12" max="12" step="0.5" value={c0} data-field="c" />
+    </label>
+    <label class="sim-field">
+      <span>Konstanta d <output data-value="d">{d0}</output></span>
+      <input type="range" min="-8" max="8" step="0.5" value={d0} data-field="d" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-poly-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Kurva f(x)</span>
+      <span class="l2">Akar dan titik stasioner</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-warning);
+  }
+  .poly-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .poly-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { evalCubic, criticalPoints, findRoots, cubicDomain, describeCubic } from '../../lib/sim/polynomial';
+  import type { Cubic } from '../../lib/sim/polynomial';
+  import { el, clear, linearScale, polyline } from '../../lib/dom';
+
+  function setupPolynomial(root: Element) {
+    const names = ['a', 'b', 'c', 'd'] as const;
+    type Name = (typeof names)[number];
+    const inputs = {} as Record<Name, HTMLInputElement>;
+    const outputs = {} as Record<Name, HTMLOutputElement>;
+    for (const name of names) {
+      inputs[name] = root.querySelector(`[data-field="${name}"]`) as HTMLInputElement;
+      outputs[name] = root.querySelector(`[data-value="${name}"]`) as HTMLOutputElement;
+    }
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-poly-reset]') as HTMLButtonElement;
+
+    const state: Cubic = {
+      a: Number(inputs.a.value),
+      b: Number(inputs.b.value),
+      c: Number(inputs.c.value),
+      d: Number(inputs.d.value),
+    };
+
+    const W = 480;
+    const H = 300;
+    const pad = 34;
+
+    function draw() {
+      const { xMin, xMax, yMin, yMax } = cubicDomain();
+      const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
+      clear(svg);
+      const gridColor = 'var(--color-border)';
+      const axisColor = 'var(--color-text-soft)';
+      for (let i = 0; i <= 8; i++) {
+        const x = pad + (i / 8) * (W - 2 * pad);
+        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: gridColor, 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        const y = pad + (i / 6) * (H - 2 * pad);
+        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: gridColor, 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: axisColor, 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: axisColor, 'stroke-width': 1.6 }));
+
+      const points: Array<[number, number] | null> = [];
+      for (let i = 0; i <= W; i++) {
+        const x = xMin + (i / W) * (xMax - xMin);
+        const y = evalCubic(state, x);
+        const px = sx(x);
+        const py = sy(y);
+        points.push(py < -400 || py > H + 400 ? null : [px, py]);
+      }
+      svg.appendChild(
+        el('path', {
+          d: polyline(points),
+          fill: 'none',
+          stroke: 'var(--color-primary)',
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+        }),
+      );
+
+      findRoots(state, xMin, xMax).forEach((r) => {
+        if (state.a === 0) return;
+        svg.appendChild(el('circle', { cx: sx(r), cy: sy(0), r: 4, fill: 'var(--color-warning)' }));
+      });
+      criticalPoints(state).forEach((p) => {
+        if (p.x < xMin || p.x > xMax || p.y < yMin || p.y > yMax) return;
+        svg.appendChild(el('circle', { cx: sx(p.x), cy: sy(p.y), r: 4.5, fill: 'var(--color-warning)', stroke: 'var(--color-surface)' }));
+      });
+    }
+
+    function updateReadout() {
+      readout.textContent = describeCubic(state);
+      const label = `Grafik polinomial dengan a = ${state.a}, b = ${state.b}, c = ${state.c}, d = ${state.d}`;
+      svg.setAttribute('aria-label', label);
+    }
+
+    function sync() {
+      draw();
+      updateReadout();
+    }
+
+    names.forEach((name) => {
+      inputs[name].addEventListener('input', () => {
+        state[name] = Number(inputs[name].value);
+        outputs[name].textContent = inputs[name].value;
+        sync();
+      });
+    });
+
+    reset.addEventListener('click', () => {
+      names.forEach((name) => {
+        inputs[name].value = inputs[name].defaultValue;
+        state[name] = Number(inputs[name].defaultValue);
+        outputs[name].textContent = inputs[name].defaultValue;
+      });
+      sync();
+    });
+
+    sync();
+  }
+
+  document.querySelectorAll('[data-polynomial]').forEach(setupPolynomial);
+</script>

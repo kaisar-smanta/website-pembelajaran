@@ -53,6 +53,9 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
       { label: 'Eksplorasi', href: '/eksplorasi' },
       { label: 'Alat Matematika', href: '/alat' },
       { label: 'Kehidupan', href: '/aplikasi' },
+      { label: 'Glosarium', href: '/glosarium' },
+      { label: 'Kumpulan Rumus', href: '/rumus' },
+      { label: 'Kemajuan Saya', href: '/kemajuan' },
     ],
   },
   {
@@ -60,6 +63,9 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
     items: [
       { label: 'Tentang & Kredit', href: '/tentang' },
       { label: 'Referensi', href: '/referensi' },
+      { label: 'Peta Situs', href: '/peta-situs' },
+      { label: 'Kontak', href: '/kontak' },
+      { label: 'Aksesibilitas', href: '/aksesibilitas' },
       { label: 'Cari materi', href: '/cari' },
     ],
   },

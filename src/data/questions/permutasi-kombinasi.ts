@@ -179,4 +179,34 @@ export const permutasiKombinasiQuestions: Question[] = [
     hints: ['Pilih dahulu pasangan mana yang menyumbang anggota.', 'Setiap pasangan terpilih menyumbang $2$ kemungkinan.'],
     competencies: ['kombinasi', 'aturan perkalian', 'peluang'],
   },
+  {
+    id: 'perkom-12',
+    topicId: 'permutasi-kombinasi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah organisasi akan memilih pengurus dari $10$ calon. (a) Tentukan banyak susunan jika dipilih ketua, wakil, sekretaris, dan bendahara. (b) Tentukan banyak susunan jika hanya dipilih $4$ anggota tanpa jabatan. (c) Jelaskan mengapa kedua hasil berbeda.',
+    answer:
+      '(a) Karena jabatan berbeda, urutan penting: $P(10,4)=10\\cdot9\\cdot8\\cdot7=5040$. (b) Tanpa jabatan, urutan tidak penting: $\\binom{10}{4}=\\dfrac{10\\cdot9\\cdot8\\cdot7}{4!}=\\dfrac{5040}{24}=210$. (c) Keduanya berbeda karena setiap kelompok $4$ orang dapat disusun menjadi $4!=24$ urutan jabatan, sehingga hasil permutasi $24$ kali hasil kombinasi.',
+    explanation:
+      'Kunci: membedakan kapan urutan penting (permutasi) dan tidak (kombinasi), serta menjelaskan hubungan $P(10,4)=4!\\,\\binom{10}{4}$.',
+    hints: ['Jabatan membuat urutan penting.', 'Gunakan $P(n,k)=k!\\,\\binom{n}{k}$.'],
+    competencies: ['permutasi', 'kombinasi', 'evaluasi'],
+  },
+  {
+    id: 'perkom-13',
+    topicId: 'permutasi-kombinasi',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah kode akses terdiri atas $3$ huruf berbeda yang dipilih dari $\\{A, B, C, D, E\\}$ tanpa pengulangan. Berapa banyak kode yang mungkin?',
+    answer: '60',
+    acceptedAnswers: ['60', '60 kode'],
+    explanation:
+      'Urutan huruf penting karena "ABC" berbeda dari "ACB", sehingga memakai permutasi: $P(5,3)=5\\cdot4\\cdot3=60$.',
+    hints: ['Urutan huruf pada kode penting.', 'Gunakan $P(5,3)$ karena tanpa pengulangan.'],
+    competencies: ['permutasi', 'pemodelan'],
+  },
 ];

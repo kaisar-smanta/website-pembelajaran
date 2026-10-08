@@ -202,4 +202,49 @@ export const vektorQuestions: Question[] = [
     hints: ['Ketegaklurusan berarti perkalian titik kedua vektor sama dengan nol.'],
     competencies: ['ketegaklurusan', 'penalaran aljabar'],
   },
+  {
+    id: 'vk-13',
+    topicId: 'vektor',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diketahui $\\vec{a}=\\begin{pmatrix} 4 \\\\ 3 \\end{pmatrix}$ dan $\\vec{b}=\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. (a) Hitung $\\vec{a}\\cdot\\vec{b}$ dan tentukan besar sudut antara keduanya. (b) Tentukan proyeksi skalar $\\vec{a}$ pada $\\vec{b}$. (c) Jelaskan mengapa proyeksi skalar dapat bernilai negatif, padahal panjang selalu positif.',
+    answer:
+      '(a) $\\vec{a}\\cdot\\vec{b}=4(1)+3(2)=10$. Karena $\\lVert\\vec{a}\\rVert=5$ dan $\\lVert\\vec{b}\\rVert=\\sqrt{5}$, maka $\\cos\\theta=\\dfrac{10}{5\\sqrt{5}}=\\dfrac{2}{\\sqrt{5}}\\approx0{,}894$, sehingga $\\theta\\approx26{,}57^\\circ$. (b) Proyeksi skalar $=\\dfrac{\\vec{a}\\cdot\\vec{b}}{\\lVert\\vec{b}\\rVert}=\\dfrac{10}{\\sqrt{5}}=2\\sqrt{5}\\approx4{,}47$. (c) Proyeksi skalar mengukur panjang bayangan yang diberi tanda arah; jika sudut antara kedua vektor tumpul, bayangannya berlawanan arah dengan $\\vec{b}$ sehingga nilainya negatif. Jadi tandanya menunjukkan arah relatif, bukan panjang geometris.',
+    explanation:
+      'Kunci: menghitung perkalian titik dan sudut, menentukan proyeksi skalar, lalu menafsirkan arti tanda pada proyeksi skalar.',
+    hints: ['Gunakan $\\cos\\theta=\\dfrac{\\vec a\\cdot\\vec b}{\\lVert\\vec a\\rVert\\lVert\\vec b\\rVert}$.', 'Tanda proyeksi skalar bergantung pada tanda $\\cos\\theta$.'],
+    competencies: ['perkalian titik', 'proyeksi', 'evaluasi'],
+  },
+  {
+    id: 'vk-14',
+    topicId: 'vektor',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah pesawat bergerak dengan kecepatan $\\vec{v}=\\begin{pmatrix} 200 \\\\ 0 \\end{pmatrix}$ km/jam, tetapi bertemu angin $\\vec{u}=\\begin{pmatrix} 0 \\\\ 40 \\end{pmatrix}$ km/jam. (a) Tentukan vektor kecepatan resultan. (b) Hitung besar kecepatan resultan. (c) Tentukan arahnya terhadap arah timur.',
+    answer:
+      '(a) Kecepatan resultan $\\vec{r}=\\vec{v}+\\vec{u}=\\begin{pmatrix} 200 \\\\ 40 \\end{pmatrix}$ km/jam. (b) $\\lVert\\vec{r}\\rVert=\\sqrt{200^{2}+40^{2}}=\\sqrt{40000+1600}=\\sqrt{41600}\\approx203{,}96$ km/jam. (c) Arahnya $\\tan\\theta=\\dfrac{40}{200}=0{,}2$, sehingga $\\theta\\approx11{,}31^\\circ$ di atas arah timur.',
+    explanation:
+      'Kunci: menjumlahkan vektor kecepatan dan angin, menghitung besar dengan Pythagoras, lalu menentukan arah lewat tangen.',
+    hints: ['Jumlahkan komponen yang bersesuaian.', 'Gunakan $\\tan\\theta=\\dfrac{\\text{komponen } y}{\\text{komponen } x}$.'],
+    competencies: ['penjumlahan vektor', 'pemodelan kecepatan'],
+  },
+  {
+    id: 'vk-15',
+    topicId: 'vektor',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Dua gaya bekerja pada satu titik: $\\vec{F_1}=\\begin{pmatrix} 6 \\\\ 2 \\end{pmatrix}$ N dan $\\vec{F_2}=\\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}$ N. (a) Tentukan gaya resultan. (b) Hitung besarnya. (c) Tentukan sudut antara gaya resultan dan sumbu-$x$.',
+    answer:
+      '(a) $\\vec{R}=\\vec{F_1}+\\vec{F_2}=\\begin{pmatrix} 4 \\\\ 5 \\end{pmatrix}$ N. (b) $\\lVert\\vec{R}\\rVert=\\sqrt{4^{2}+5^{2}}=\\sqrt{16+25}=\\sqrt{41}\\approx6{,}40$ N. (c) $\\tan\\theta=\\dfrac{5}{4}=1{,}25$, sehingga $\\theta\\approx51{,}34^\\circ$ terhadap sumbu-$x$.',
+    explanation:
+      'Kunci: menjumlahkan dua vektor gaya, menghitung besar resultan, dan menentukan arah dengan tangen.',
+    hints: ['Gaya resultan adalah jumlah kedua vektor.', 'Gunakan komponen resultan untuk mencari besar dan arah.'],
+    competencies: ['resultan gaya', 'vektor', 'kontekstual'],
+  },
 ];

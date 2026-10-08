@@ -191,4 +191,34 @@ export const matriksQuestions: Question[] = [
     ],
     competencies: ['sifat determinan', 'invers matriks', 'penalaran'],
   },
+  {
+    id: 'mt-12',
+    topicId: 'matriks',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diberikan matriks $A=\\begin{pmatrix} 2 & 1 \\\\ 3 & 2 \\end{pmatrix}$. (a) Tentukan $\\det(A)$ dan $A^{-1}$. (b) Gunakan $A^{-1}$ untuk menyelesaikan sistem $2x+y=7$ dan $3x+2y=12$. (c) Jelaskan mengapa cara ini tidak dapat dipakai jika $\\det(A)=0$.',
+    answer:
+      '(a) $\\det(A)=2(2)-1(3)=1$, sehingga $A^{-1}=\\begin{pmatrix} 2 & -1 \\\\ -3 & 2 \\end{pmatrix}$. (b) $\\begin{pmatrix} x \\\\ y \\end{pmatrix}=A^{-1}\\begin{pmatrix} 7 \\\\ 12 \\end{pmatrix}=\\begin{pmatrix} 2(7)-1(12) \\\\ -3(7)+2(12) \\end{pmatrix}=\\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix}$, jadi $x=2$ dan $y=3$. Periksa: $2(2)+3=7$ dan $3(2)+2(3)=12$. (c) Jika $\\det(A)=0$, matriks $A$ tidak memiliki invers sehingga langkah $A^{-1}$ tidak terdefinisi; sistem mungkin tidak memiliki solusi atau memiliki tak berhingga solusi.',
+    explanation:
+      'Kunci: menghitung determinan dan invers, memakai $A^{-1}$ untuk menyelesaikan sistem, serta mengaitkan determinan nol dengan ketiadaan invers.',
+    hints: ['Untuk $2\\times2$, $A^{-1}=\\dfrac{1}{\\det A}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$.', 'Matriks singular tidak memiliki invers.'],
+    competencies: ['invers matriks', 'penyelesaian SPLDV', 'evaluasi'],
+  },
+  {
+    id: 'mt-13',
+    topicId: 'matriks',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah toko menjual dua paket. Paket A berisi $2$ roti dan $3$ kue, sedangkan Paket B berisi $4$ roti dan $1$ kue. Harga satu roti Rp5.000 dan satu kue Rp4.000. (a) Nyatakan komposisi paket sebagai matriks dan harga sebagai matriks kolom, lalu hitung total harga tiap paket. (b) Jelaskan makna setiap entri hasilnya.',
+    answer:
+      '(a) Komposisi $S=\\begin{pmatrix} 2 & 3 \\\\ 4 & 1 \\end{pmatrix}$ (baris paket A, B; kolom roti, kue) dan harga $H=\\begin{pmatrix} 5000 \\\\ 4000 \\end{pmatrix}$. Maka $SH=\\begin{pmatrix} 2(5000)+3(4000) \\\\ 4(5000)+1(4000) \\end{pmatrix}=\\begin{pmatrix} 22000 \\\\ 24000 \\end{pmatrix}$. (b) Entri pertama berarti harga Paket A Rp22.000 dan entri kedua harga Paket B Rp24.000.',
+    explanation:
+      'Kunci: menyusun matriks komposisi dan vektor harga, mengalikannya, lalu menafsirkan tiap entri sebagai total harga paket.',
+    hints: ['Baris menyatakan paket dan kolom menyatakan jenis barang.', 'Ukuran $S$ adalah $2\\times2$ dan $H$ adalah $2\\times1$.'],
+    competencies: ['perkalian matriks', 'pemodelan matriks', 'kontekstual'],
+  },
 ];

@@ -38,7 +38,6 @@ export const transformasiFungsi: Topic = {
     { text: 'Peserta didik dapat menentukan urutan transformasi yang menghasilkan grafik tertentu.' },
     { text: 'Peserta didik dapat memodelkan situasi nyata menggunakan transformasi fungsi.' },
   ],
-  applications: ['lintasan-bola', 'desain-grafik'],
   sections: [
     {
       id: "tujuan",

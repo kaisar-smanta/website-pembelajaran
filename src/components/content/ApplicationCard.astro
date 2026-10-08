@@ -1,7 +1,8 @@
 ---
-import type { Application, Difficulty } from '@/types/content';
+import type { Application } from '@/types/content';
 import { applicationCategories } from '@/data/applications';
 import { SUBJECTS } from '@/data/curriculum';
+import { DIFFICULTY_LABELS } from '@/data/display';
 import { renderInlineMarkdown } from '@/utils/markdown';
 import { url } from '@/utils/url';
 
@@ -13,12 +14,6 @@ interface Props {
 
 const { application, delay = 0 } = Astro.props;
 const meta = applicationCategories[application.category];
-
-const levelLabels: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
 
 const summaryHtml = renderInlineMarkdown(application.summary);
 ---
@@ -35,7 +30,7 @@ const summaryHtml = renderInlineMarkdown(application.summary);
       )
     }
     <span class="badge badge-category">{meta.name}</span>
-    <span class:list={['badge', `badge-${application.level}`]}>{levelLabels[application.level]}</span>
+    <span class:list={['badge', `badge-${application.level}`]}>{DIFFICULTY_LABELS[application.level]}</span>
     {
       application.estimatedMinutes && (
         <span class="badge badge-time">± {application.estimatedMinutes} menit</span>

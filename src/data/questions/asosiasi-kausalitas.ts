@@ -50,16 +50,12 @@ export const asosiasiKausalitasQuestions: Question[] = [
     id: 'ak-03',
     topicId: 'asosiasi-kausalitas',
     difficulty: 'dasar',
-    type: 'short-answer',
+    type: 'open-response',
     category: 'konsep',
     prompt:
       'Jelaskan secara singkat apa yang dimaksud dengan variabel perancu (confounding variable).',
     answer:
       'Variabel perancu adalah variabel ketiga yang berkaitan dengan variabel yang diduga sebagai penyebab sekaligus berkaitan dengan variabel akibat, sehingga dapat menciptakan asosiasi yang tidak mencerminkan hubungan sebab-akibat langsung.',
-    acceptedAnswers: [
-      'variabel ketiga yang memengaruhi kedua variabel',
-      'variabel yang berkaitan dengan sebab dan akibat sehingga menimbulkan korelasi semu',
-    ],
     explanation:
       'Penekanan jawaban ada pada dua syarat: berkaitan dengan variabel "penyebab" dan berkaitan dengan variabel "akibat", sehingga asosiasi bisa tampak tanpa sebab-akibat langsung.',
     hints: ['Pikirkan variabel ketiga yang memengaruhi keduanya sekaligus.'],
@@ -89,16 +85,12 @@ export const asosiasiKausalitasQuestions: Question[] = [
     id: 'ak-05',
     topicId: 'asosiasi-kausalitas',
     difficulty: 'cakap',
-    type: 'short-answer',
+    type: 'open-response',
     category: 'penalaran',
     prompt:
       'Sebuah studi menemukan korelasi positif antara konsumsi kopi dan penyakit jantung. Jelaskan bagaimana kausalitas terbalik dapat menjelaskan temuan tersebut.',
     answer:
       'Kausalitas terbalik berarti arah sebab-akibat justru berlawanan dari dugaan. Mungkin penyakit jantung atau gejalanya (misalnya kelelahan atau gangguan tidur) yang membuat penderita lebih banyak minum kopi, bukan kopi yang menyebabkan penyakit jantung. Karena itu urutan waktunya harus diperiksa sebelum menyimpulkan arah sebab-akibat.',
-    acceptedAnswers: [
-      'penyakit atau gejalanya membuat orang lebih banyak minum kopi',
-      'arah sebab-akibat berkebalikan dari dugaan',
-    ],
     explanation:
       'Jawaban benar mengenali bahwa data korelasi tidak menentukan arah, sehingga penyebab bisa jadi justru akibat.',
     hints: ['Pikirkan apakah penyakitnya yang menyebabkan kebiasaan minum kopi.'],
@@ -131,16 +123,12 @@ export const asosiasiKausalitasQuestions: Question[] = [
     id: 'ak-07',
     topicId: 'asosiasi-kausalitas',
     difficulty: 'cakap',
-    type: 'short-answer',
+    type: 'open-response',
     category: 'konsep',
     prompt:
       'Mengapa pengacakan (randomisasi) dalam sebuah eksperimen dapat menekan pengaruh variabel perancu?',
     answer:
       'Pembagian subjek secara acak membuat kelompok perlakuan dan kelompok kontrol cenderung sebanding pada semua karakteristik, baik yang diamati maupun yang tidak diamati (misalnya gaya hidup dan riwayat kesehatan). Dengan begitu pengaruh variabel perancu terbagi rata antar kelompok, sehingga perbedaan hasil lebih mungkin disebabkan oleh perlakuan.',
-    acceptedAnswers: [
-      'karena kelompok menjadi sebanding pada semua variabel',
-      'pengaruh variabel perancu terbagi rata antar kelompok',
-    ],
     explanation:
       'Inti jawaban: randomisasi menyeimbangkan variabel perancu yang mungkin tidak terukur, sehingga perbandingan kelompok menjadi lebih adil.',
     hints: ['Pikirkan mengapa dua kelompok yang diacak cenderung mirip.'],

@@ -138,6 +138,12 @@ export const GET: APIRoute = () => {
     alat: 'Alat bantu matematika daring.',
     aplikasi: 'Studi kasus penerapan matematika.',
     referensi: 'Sumber dan catatan kurikulum.',
+    glosarium: 'Daftar istilah matematika dari seluruh topik, menurut abjad.',
+    rumus: 'Kumpulan rumus matematika dari seluruh topik per elemen.',
+    'peta-situs': 'Peta situs: seluruh topik dan halaman dalam satu halaman.',
+    kemajuan: 'Ringkasan kemajuan belajar tersimpan di peramban kamu.',
+    kontak: 'Cara menghubungi penyusun dan kanal resmi sekolah.',
+    aksesibilitas: 'Komitmen dan catatan aksesibilitas situs ini.',
     tentang: 'Tentang situs dan cara belajar di sini.',
     cari: 'Pencarian materi di seluruh situs.',
   };

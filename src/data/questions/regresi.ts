@@ -178,4 +178,19 @@ export const regresiQuestions: Question[] = [
     ],
     competencies: ['regresi linear', 'prediksi', 'pemodelan'],
   },
+  {
+    id: 'rg-12',
+    topicId: 'regresi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah penelitian melaporkan korelasi $r=0{,}88$ antara lama olahraga dan tingkat kesehatan. (a) Hitung koefisien determinasi $r^{2}$ dan tafsirkan. (b) Tentukan persentase variasi kesehatan yang tidak dijelaskan model. (c) Jelaskan mengapa $r$ yang tinggi tidak membuktikan hubungan sebab-akibat, dan sebutkan satu variabel perantara yang mungkin.',
+    answer:
+      '(a) $r^{2}=(0{,}88)^{2}=0{,}7744$, artinya sekitar $77{,}44\\%$ variasi tingkat kesehatan dapat dijelaskan oleh lama olahraga melalui model linear. (b) Sisanya $100\\%-77{,}44\\%=22{,}56\\%$ dijelaskan faktor lain atau variasi acak. (c) Korelasi hanya menunjukkan kedua besaran bergerak bersama, bukan bahwa olahraga pasti menyebabkan kesehatan. Bisa saja orang yang sehat memang lebih mampu berolahraga (arah sebaliknya), atau ada faktor ketiga seperti pola makan dan istirahat yang memengaruhi keduanya.',
+    explanation:
+      'Kunci: menghitung dan menafsirkan $r^{2}$, menghitung sisa variasi, serta membedakan korelasi dari kausalitas dengan variabel perantara.',
+    hints: ['Kuadratkan $r$ untuk mendapatkan determinasi.', 'Pikirkan faktor ketiga yang memengaruhi keduanya.'],
+    competencies: ['koefisien determinasi', 'korelasi vs kausalitas', 'evaluasi'],
+  },
 ];

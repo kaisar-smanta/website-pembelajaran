@@ -28,7 +28,11 @@
   color: var(--color-text-muted);
 }
 .prose table {
-  width: 100%;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   font-size: 0.95rem;
   margin: 1rem 0;
@@ -47,6 +51,15 @@
 }
 .prose img {
   border-radius: var(--radius);
+}
+
+/* Di cetak, kembalikan tabel ke tata letak normal agar tidak terpotong. */
+@media print {
+  .prose table {
+    display: table;
+    width: 100%;
+    overflow: visible;
+  }
 }
 
 /* ---------- Math ---------- */

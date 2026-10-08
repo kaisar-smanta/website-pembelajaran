@@ -62,7 +62,7 @@ export const spltv: Topic = {
 - berat Ani dan Cita bersama $8$ kg.
 
 Dapatkah kamu menentukan berat masing-masing anak? Jumlahkan ketiga informasi itu: dua kali total berat mereka adalah $10+12+8=30$ kg. Berapa berat Ani, Budi, dan Cita?`,
-          reveal: "Jumlah Ketiga persamaan: $2(A+B+C)=30$, jadi $A+B+C=15$. Karena $A+B=10$, maka $C=5$. Karena $B+C=12$, maka $A=3$. Karena $A+C=8$, maka $B=7$. Jadi Ani $3$ kg, Budi $7$ kg, dan Cita $5$ kg. Periksa: $3+7=10$, $7+5=12$, $3+5=8$. Semua terpenuhi.",
+          reveal: "Jumlahkan ketiga persamaan: $2(A+B+C)=30$, jadi $A+B+C=15$. Karena $A+B=10$, maka $C=5$. Karena $B+C=12$, maka $A=3$. Karena $A+C=8$, maka $B=7$. Jadi Ani $3$ kg, Budi $7$ kg, dan Cita $5$ kg. Periksa: $3+7=10$, $7+5=12$, $3+5=8$. Semua terpenuhi.",
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],

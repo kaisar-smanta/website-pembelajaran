@@ -400,7 +400,7 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
           prompts: [
             "Bagaimana kamu membedakan soal yang memerlukan sudut pusat dan sudut keliling?",
             "Kapan kamu memakai $\\pi=\\dfrac{22}{7}$ dan kapan $3{,}14$? Apa pertimbanganmu?",
-            "Kapan kamu memakai $\\pi=\\dfrac{22}{7}$ dan kapan $3{,}14$ atau $\\pi$? Apa pertimbanganmu?",
+            "Mengapa panjang busur dan luas juring sebanding dengan besar sudut pusatnya? Jelaskan dengan perbandingan pecahan.",
             "Sebutkan satu benda nyata yang bentuknya melibatkan garis singgung dua lingkaran.",
           ],
           confidenceLabel: "Seberapa yakin kamu menghitung busur, juring, dan garis singgung?",

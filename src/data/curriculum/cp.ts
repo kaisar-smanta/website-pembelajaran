@@ -1,10 +1,5 @@
 import type { ElementId, Grade, Phase, SubjectId } from '@/types/content';
 
-/** Mata pelajaran pernyataan; tanpa penanda dianggap Matematika. */
-function subjectOf(statement: { subject?: SubjectId }): SubjectId {
-  return statement.subject ?? 'matematika';
-}
-
 /**
  * Registri Capaian Pembelajaran (CP) yang berlaku beserta pemetaannya ke topik.
  *
@@ -385,21 +380,6 @@ export function cpStatementsByPhase(phase: Phase): CpStatement[] {
   return cpStatements.filter((s) => s.phase === phase);
 }
 
-/** Pernyataan CP untuk satu mata pelajaran. */
-export function cpStatementsForSubject(subject: SubjectId): CpStatement[] {
-  return cpStatements.filter((s) => subjectOf(s) === subject);
-}
-
-/** Pernyataan CP untuk satu mata pelajaran dan fase. */
-export function cpStatementsBySubjectPhase(subject: SubjectId, phase: Phase): CpStatement[] {
-  return cpStatements.filter((s) => subjectOf(s) === subject && s.phase === phase);
-}
-
-/** Pernyataan CP untuk satu fase dan elemen. */
-export function cpStatementsByElement(phase: Phase, element: ElementId): CpStatement[] {
-  return cpStatements.filter((s) => s.phase === phase && s.element === element);
-}
-
 /** Pernyataan CP yang dipetakan ke sebuah topik. */
 export function cpForTopic(topicId: string): CpStatement[] {
   return cpStatements.filter((s) => s.topicIds.includes(topicId));
@@ -408,11 +388,4 @@ export function cpForTopic(topicId: string): CpStatement[] {
 /** Seluruh id topik yang diacu oleh minimal satu pernyataan CP. */
 export function cpCoveredTopicIds(): Set<string> {
   return new Set(cpStatements.flatMap((s) => s.topicIds));
-}
-
-/** Seluruh id topik yang dipetakan pada satu mata pelajaran. */
-export function cpCoveredTopicIdsForSubject(subject: SubjectId): Set<string> {
-  return new Set(
-    cpStatements.filter((s) => subjectOf(s) === subject).flatMap((s) => s.topicIds),
-  );
 }

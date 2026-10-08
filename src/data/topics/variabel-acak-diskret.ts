@@ -41,6 +41,7 @@ export const variabelAcakDiskret: Topic = {
     { text: 'Peserta didik dapat menghitung varians dan simpangan baku variabel acak diskret.' },
     { text: 'Peserta didik dapat memakai nilai harapan dan sebaran untuk memodelkan dan menafsirkan data nyata.' },
   ],
+  explorations: ['mtl-variabel-acak-pmf'],
   sections: [
     {
       id: "tujuan",
@@ -205,6 +206,18 @@ Keduanya memberi hasil yang sama. **Simpangan baku** $\\sigma$ adalah akar kuadr
 $$\\sigma = \\sqrt{\\operatorname{Var}(X)}.$$
 
 Simpangan baku bersatuan sama dengan $X$, sehingga sering lebih mudah ditafsirkan daripada varians. Karena varians adalah jumlah kuadrat, nilainya selalu tidak negatif.`,
+    },
+    {
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Distribusi Peluang Diskret",
+      body: `Nilai harapan dan varians menjadi lebih konkret jika kamu menyusun distribusinya sendiri. Pada simulasi berikut, ubah nilai $x$ dan peluang $P(X=x)$ tiap hasil, lalu perhatikan tinggi batang, letak garis nilai harapan, serta lebar sebarannya. Pastikan jumlah seluruh peluang tetap $1$ agar tabelmu sah.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-variabel-acak-pmf",
+        },
+      ],
     },
     {
       id: "contoh",

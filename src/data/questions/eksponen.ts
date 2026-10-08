@@ -172,4 +172,34 @@ export const eksponenQuestions: Question[] = [
     hints: ['Bentuk sekawan dari $\\sqrt{5}-\\sqrt{2}$ adalah $\\sqrt{5}+\\sqrt{2}$.'],
     competencies: ['merasionalkan penyebut'],
   },
+  {
+    id: 'eks-11',
+    topicId: 'eksponen',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Seorang siswa menulis $(a+b)^{2}=a^{2}+b^{2}$ dan menganggap $\\sqrt{a+b}=\\sqrt{a}+\\sqrt{b}$. (a) Tunjukkan dengan satu contoh bilangan bahwa kedua pernyataan itu salah. (b) Tuliskan sifat eksponen yang benar untuk $(ab)^{n}$ dan $\\left(\\dfrac{a}{b}\\right)^{n}$.',
+    answer:
+      '(a) Untuk $a=3$ dan $b=4$: $(3+4)^{2}=49$, sedangkan $3^{2}+4^{2}=25$, jadi pernyataan pertama salah. Untuk akar: $\\sqrt{9+16}=\\sqrt{25}=5$, sedangkan $\\sqrt{9}+\\sqrt{16}=3+4=7$, jadi pernyataan kedua juga salah. (b) Sifat yang benar adalah $(ab)^{n}=a^{n}b^{n}$ dan $\\left(\\dfrac{a}{b}\\right)^{n}=\\dfrac{a^{n}}{b^{n}}$ untuk $b\\neq0$.',
+    explanation:
+      'Kunci: menguji klaim dengan bilangan konkret, lalu menyatakan sifat distribusi pangkat atas perkalian dan pembagian.',
+    hints: ['Coba bilangan yang membentuk Pythagoras seperti $3$ dan $4$.', 'Pangkat dapat disebar pada perkalian, bukan pada penjumlahan.'],
+    competencies: ['sifat eksponen', 'penalaran', 'evaluasi'],
+  },
+  {
+    id: 'eks-12',
+    topicId: 'eksponen',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Nilai sebuah perangkat elektronik menyusut mengikuti $V(t)=8.000.000\\times(0{,}8)^{t}$ rupiah, dengan $t$ dalam tahun. (a) Tentukan nilai perangkat setelah $3$ tahun. (b) Jelaskan arti faktor $0{,}8$ pada model tersebut.',
+    answer:
+      '(a) $V(3)=8.000.000\\times(0{,}8)^{3}=8.000.000\\times0{,}512=4.096.000$. Jadi nilainya sekitar Rp4.096.000. (b) Faktor $0{,}8$ berarti nilai perangkat setiap tahun menjadi $80\\%$ dari nilai tahun sebelumnya, yaitu menyusut $20\\%$ per tahun.',
+    explanation:
+      'Kunci: mensubstitusi $t=3$ dan menafsirkan basis $0<b<1$ sebagai faktor penyusutan.',
+    hints: ['Hitung $(0{,}8)^{3}$ lebih dahulu.', 'Basis kurang dari $1$ menandakan peluruhan.'],
+    competencies: ['pemodelan eksponen', 'peluruhan'],
+  },
 ];

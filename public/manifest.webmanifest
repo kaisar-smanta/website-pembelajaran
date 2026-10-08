@@ -1,0 +1,32 @@
+{
+  "name": "Matematika SMA — SMAN 1 Tanjung",
+  "short_name": "Matematika SMA",
+  "description": "Pusat pembelajaran Matematika SMA kelas X–XII: Kurikulum Merdeka, eksplorasi interaktif, latihan berjenjang, dan studi kasus nyata.",
+  "lang": "id",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#2f4fd8",
+  "background_color": "#f7f8fb",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "logo-sman1-tanjung.jpg",
+      "sizes": "200x200",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "og-default.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

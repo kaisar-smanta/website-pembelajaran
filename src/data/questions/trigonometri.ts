@@ -159,4 +159,34 @@ export const trigonometriQuestions: Question[] = [
     hints: ['Berapa nilai $\\cos 90^\\circ$?', 'Setelah $a^{2}$ diperoleh, ambil akar positif.'],
     competencies: ['aturan kosinus', 'penalaran'],
   },
+  {
+    id: 'tr-11',
+    topicId: 'trigonometri',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah tiang ditopang kabel dari puncak tiang ke titik di tanah sejauh $12$ m dari kaki tiang. Sudut antara kabel dan tanah $50^\\circ$ (gunakan $\\sin50^\\circ\\approx0{,}766$, $\\cos50^\\circ\\approx0{,}643$, $\\tan50^\\circ\\approx1{,}192$). (a) Tentukan tinggi tiang. (b) Tentukan panjang kabel. (c) Jelaskan mengapa tangen, bukan kosinus, dipakai untuk mencari tinggi tiang.',
+    answer:
+      '(a) $\\tan50^\\circ=\\dfrac{h}{12}$, sehingga $h=12\\tan50^\\circ\\approx12(1{,}192)=14{,}30$ m. (b) $\\cos50^\\circ=\\dfrac{12}{L}$, sehingga $L=\\dfrac{12}{0{,}643}\\approx18{,}66$ m. (c) Tinggi tiang adalah sisi depan sudut, sedangkan $12$ m adalah sisi samping; perbandingan yang menghubungkan sisi depan dan sisi samping adalah tangen. Kosinus menghubungkan sisi samping dengan sisi miring sehingga tidak langsung memberi tinggi.',
+    explanation:
+      'Kunci: memilih perbandingan trigonometri yang tepat sesuai sisi yang diketahui, menghitung tinggi dan panjang kabel, lalu menjelaskan alasan pemilihannya.',
+    hints: ['Sisi $12$ m berperan sebagai sisi samping sudut.', 'Gunakan tangen untuk depan–samping dan kosinus untuk samping–miring.'],
+    competencies: ['trigonometri', 'sudut elevasi', 'evaluasi'],
+  },
+  {
+    id: 'tr-12',
+    topicId: 'trigonometri',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Seorang pendaki melihat puncak gunung dengan sudut elevasi $30^\\circ$. Setelah berjalan mendekat sejauh $200$ m, sudut elevasi menjadi $45^\\circ$. (a) Susun model untuk menentukan tinggi gunung. (b) Hitung tinggi gunung tersebut.',
+    answer:
+      '(a) Misal tinggi gunung $h$ dan jarak dari posisi kedua ke kaki gunung $x$. Dari sudut $45^\\circ$: $h=x$. Dari sudut $30^\\circ$: $h=(x+200)\\tan30^\\circ=\\dfrac{x+200}{\\sqrt{3}}$. Menyamakan: $x=\\dfrac{x+200}{\\sqrt{3}}$, sehingga $\\sqrt{3}\\,x=x+200$ dan $x(\\sqrt{3}-1)=200$. (b) Maka $x=\\dfrac{200}{\\sqrt{3}-1}=\\dfrac{200(\\sqrt{3}+1)}{2}=100(\\sqrt{3}+1)\\approx273{,}2$ m. Karena $h=x$, tinggi gunung sekitar $273$ m.',
+    explanation:
+      'Kunci: menyusun dua persamaan tangen dari dua sudut elevasi, mengeliminasi jarak, lalu menghitung tinggi.',
+    hints: ['Tulis tinggi dalam dua cara memakai $\\tan30^\\circ$ dan $\\tan45^\\circ$.', 'Rasionalkan penyebut $\\sqrt{3}-1$ dengan bentuk sekawan.'],
+    competencies: ['pemodelan trigonometri', 'sudut elevasi'],
+  },
 ];

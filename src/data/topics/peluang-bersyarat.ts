@@ -14,7 +14,7 @@ export const peluangBersyarat: Topic = {
   summary:
     'Menghitung peluang bersyarat, menggunakan aturan perkalian dan aturan Bayes, membaca tabel kontingensi, serta memakai permutasi dan kombinasi sebagai alat pencacahan.',
   description:
-    'Peluang bersyarat menjawab pertanyaan "berapa peluang $A$ jika kita tahu $B$ sudah terjadi?". Topik ini membangun rumus $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$, aturan perkalian,dan aturan Bayes sederhana, serta melatih pembacaan tabel kontingensi. Permutasi dan kombinasi dipakai sebagai alat mencacah ketika ruang sampel perlu dihitung dengan cermat.',
+    'Peluang bersyarat menjawab pertanyaan "berapa peluang $A$ jika kita tahu $B$ sudah terjadi?". Topik ini membangun rumus $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$, aturan perkalian dan aturan Bayes sederhana, serta melatih pembacaan tabel kontingensi. Permutasi dan kombinasi dipakai sebagai alat mencacah ketika ruang sampel perlu dihitung dengan cermat.',
   keywords: [
     'peluang bersyarat',
     'aturan perkalian',
@@ -422,7 +422,7 @@ Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**
           prompts: [
             "Bagaimana informasi tambahan mempersempit ruang sampel, dan mengapa itu mengubah peluang?",
             "Kapan kamu harus memakai aturan Bayes, dan mengapa peluang awal begitu penting?",
-            "Bagaimana informasi tambahan \"mempersempit\" ruang sampel, dan mengapa itu mengubah peluang?",
+            "Mengapa $P(A\\mid B)$ dan $P(B\\mid A)$ umumnya tidak sama? Berikan satu contoh untuk menjelaskan perbedaannya.",
             "Apa perbedaan mendasar antara permutasi dan kombinasi, serta bagaimana kamu memutuskan mana yang dipakai?",
           ],
           confidenceLabel: "Seberapa yakin kamu menghitung peluang bersyarat dari tabel dan rumus?",

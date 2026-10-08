@@ -1,4 +1,4 @@
-import type { Difficulty, ElementId, Grade, SubjectId } from '@/types/content';
+import type { Difficulty, ElementId, ExplorationType, SubjectId } from '@/types/content';
 
 /**
  * Metadata tampilan terpusat (warna aksen, label tingkat, kelas unggulan,
@@ -53,11 +53,27 @@ export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
 
 export const DIFFICULTY_ORDER: Difficulty[] = ['dasar', 'cakap', 'mahir'];
 
-/** Elemen yang menjadi aksen tiap kelas pada kartu jelajah. */
-export const GRADE_ACCENT_ELEMENT: Record<Grade, ElementId> = {
-  X: 'bilangan',
-  XI: 'aljabar-fungsi',
-  XII: 'geometri',
+/** Label ramah untuk tiap tipe eksplorasi. */
+export const EXPLORATION_TYPE_LABELS: Record<ExplorationType, string> = {
+  'function-slider': 'Grafik interaktif',
+  'compound-interest': 'Simulasi keuangan',
+  probability: 'Simulasi peluang',
+  'linear-regression': 'Visualisasi regresi',
+  sequence: 'Pola barisan',
+  distribution: 'Sebaran data',
+  'conditional-probability': 'Peluang bersyarat',
+  circle: 'Eksplorasi lingkaran',
+  matrix: 'Simulasi matriks',
+  'linear-system': 'Sistem persamaan',
+  'function-composition': 'Komposisi fungsi',
+  'function-inverse': 'Fungsi invers',
+  polynomial: 'Pola polinomial',
+  vector: 'Eksplorasi vektor',
+  conic: 'Irisan kerucut',
+  derivative: 'Garis singgung & turunan',
+  integral: 'Luas & integral',
+  'random-variable': 'Variabel acak',
+  geogebra: 'GeoGebra',
 };
 
 /** Topik yang ditonjolkan pada beranda (beranda & bagian topik). */
@@ -89,6 +105,12 @@ export const STATIC_PAGES: StaticPage[] = [
   { path: 'alat', title: 'Alat Matematika' },
   { path: 'aplikasi', title: 'Matematika dalam Kehidupan' },
   { path: 'referensi', title: 'Referensi' },
+  { path: 'glosarium', title: 'Glosarium' },
+  { path: 'rumus', title: 'Kumpulan Rumus' },
+  { path: 'peta-situs', title: 'Peta Situs' },
+  { path: 'kemajuan', title: 'Kemajuan Saya' },
+  { path: 'kontak', title: 'Kontak' },
+  { path: 'aksesibilitas', title: 'Aksesibilitas' },
   { path: 'tentang', title: 'Tentang' },
   { path: 'cari', title: 'Pencarian' },
 ];

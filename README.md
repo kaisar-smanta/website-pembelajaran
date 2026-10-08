@@ -46,6 +46,10 @@ Tanpa backend, tanpa basis data, tanpa autentikasi. Seluruh konten dibundel saat
 
 ## Menjalankan Secara Lokal
 
+Memerlukan **Node.js >= 22.18** (lihat `engines` pada `package.json`). Versi ini dipakai
+karena test memanfaatkan fitur pemisahan TypeScript bawaan Node. Versi Node di CI (`.github/workflows/deploy.yml`)
+disamakan dengan persyaratan tersebut.
+
 ```bash
 npm install
 npm run dev        # http://localhost:4321/website-pembelajaran/
@@ -58,11 +62,13 @@ npm run build      # membangun situs statis ke dist/
 npm run preview    # pratinjau hasil build
 npm run check      # pemeriksaan tipe (astro check)
 npm run lint:content   # memindai materi dari pola LaTeX berisiko
+npm run check:latex    # memeriksa blok LaTeX/KaTeX pada materi (dijalankan setelah build)
 npm run test       # memverifikasi nilai matematika & logika simulasi (tests/run-all.mjs)
 npm run test:links # memeriksa tautan & anchor internal pada dist/
-npm run verify     # jalankan seluruh pemeriksaan di atas
+npm run verify     # jalankan seluruh pemeriksaan di atas (check, lint, build, check:latex, test, test:links)
 npm run audit      # audit tata letak & aksesibilitas hasil build (Chrome/Edge)
 npm run screenshot # tangkapan layar hasil build ke artifacts/ (Chrome/Edge)
+npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
 ```
 
 ---
@@ -246,7 +252,8 @@ dibangkitkan dari data ini.
 1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu dari
    `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
    `distribution`, `conditional-probability`, `circle`, `matrix`, `linear-system`,
-   `function-composition`, `function-inverse`, atau `geogebra`. Isi juga `grade`, `element`,
+   `function-composition`, `function-inverse`, `polynomial`, `conic`, `derivative`, `integral`,
+   `random-variable`, atau `geogebra`. Isi juga `grade`, `element`,
    `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
    dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
    (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
@@ -284,8 +291,8 @@ Metadata terpusat ada di `src/data/curriculum.ts`:
   elemen lintas mata pelajaran untuk halaman global (mis. peta, pencarian, alat).
 
 Topik, eksplorasi, studi kasus, dan jalur konsep memiliki opsional `subject`. Fungsi registri
-seperti `topicsBySubject*` dan `cpStatementsForSubject` menyaring per mata pelajaran. Rute lama
-tanpa segmen mata pelajaran dipertahankan sebagai pengalih ke `/matematika/...`.
+seperti `topicsBySubject*`, `cpForTopic`, dan `cpCoveredTopicIds` menyaring per mata pelajaran.
+Rute lama tanpa segmen mata pelajaran dipertahankan sebagai pengalih ke `/matematika/...`.
 
 ## Capaian Pembelajaran & Regulasi
 
@@ -343,8 +350,11 @@ src/
 ├── layouts/            BaseLayout.astro
 ├── lib/                Pustaka murni & dapat diuji: sim/ (perhitungan),
 │                       graph/layout.ts, storage.ts, learner.ts, progress.ts,
-│                       format.ts, dom.ts, interaction.ts, filter.ts,
-│                       content-text.ts, search.ts (skor & sorot pencarian),
+│                       progress-overview.ts (rekap belajar), answer.ts
+│                       (normalisasi & pencocokan jawaban), reference.ts
+│                       (agregasi glosarium & rumus), format.ts, dom.ts,
+│                       interaction.ts, filter.ts, content-text.ts,
+│                       search.ts (skor & sorot pencarian),
 │                       practice.ts (hitung & kelompokin soal per tingkat)
 ├── pages/              Rute (lihat tabel di bawah)
 ├── styles/             global.css (perakit @import berurutan) +
@@ -374,6 +384,12 @@ src/
 | `/eksplorasi/[slug]` | Halaman rincian satu eksplorasi (simulasi, brief, navigasi) |
 | `/alat` | Alat matematika daring |
 | `/aplikasi`, `/aplikasi/[id]` | Matematika dalam kehidupan |
+| `/glosarium` | Glosarium istilah dari seluruh topik (saring & cari) |
+| `/rumus` | Lembar kumpulan rumus per mata pelajaran & elemen |
+| `/kemajuan` | Dasbor kemajuan belajar tersimpan (reset & ekspor data) |
+| `/peta-situs` | Peta situs ramah manusia (seluruh topik & halaman) |
+| `/kontak` | Kanal kontak penyusun & sekolah |
+| `/aksesibilitas` | Pernyataan aksesibilitas situs |
 | `/referensi` | Catatan kurikulum & sumber |
 | `/tentang` | Profil penyusun, sekolah, kredit, & catatan penggunaan |
 | `/cari` | Pencarian sisi klien (indeks `search.json`) |
@@ -401,12 +417,20 @@ src/
 
 ## Deployment ke GitHub Pages
 
-Repositori menyertakan workflow `.github/workflows/deploy.yml` yang:
+Proyek ini **sengaja tidak memakai CI/CD penuh** demi menghemat kuota GitHub Actions.
+Workflow `.github/workflows/deploy.yml` dibuat **minimal (deploy-only)**: ia hanya
+membangun (`npm run build`) dan menerbitkan `dist/` ketika ada `push` ke `main` atau
+`workflow_dispatch`. Tidak ada job test/lint dan tidak ada pemicu `pull_request`.
 
-1. memasang dependensi (`npm ci`);
-2. memverifikasi konten (`npm run lint:content`, `npm run test`);
-3. membangun situs (`npm run build`) dengan `BASE_PATH` dan `SITE_URL` otomatis dari repositori;
-4. mengunggah `dist/` dan menerbitkannya ke GitHub Pages.
+> **Penting untuk sesi berikutnya:** jangan menambahkan job verifikasi, pemicu
+> `pull_request`, atau pipeline CI apa pun. Seluruh pemeriksaan mutu dijalankan
+> **secara lokal**. Lihat `AGENTS.md`.
+
+Jalankan pemeriksaan mutu secara lokal sebelum push:
+
+```bash
+npm run verify
+```
 
 Aktifkan **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
@@ -416,7 +440,10 @@ Aktifkan **Settings → Pages → Build and deployment → Source: GitHub Action
 
 - `BASE_PATH` — default `/website-pembelajaran` (project page). Gunakan `/` untuk
   user/organization page.
-- `SITE_URL` — domain situs, mis. `https://<user>.github.io`.
+- `SITE_URL` — domain situs, mis. `https://<user>.github.io`. Saat `CI` diset (atau
+  `REQUIRE_SITE_URL=1`), build akan **gagal** bila `SITE_URL` kosong agar canonical tidak
+  pernah diam-diam memakai default `https://example.github.io`. Build lokal tanpa keduanya
+  tetap memakai default.
 
 Build lokal yang meniru GitHub Pages:
 

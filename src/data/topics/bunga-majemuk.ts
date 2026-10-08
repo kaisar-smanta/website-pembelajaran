@@ -341,7 +341,7 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: "Bunga majemuk menjelaskan mengapa menabung lebih awal sangat menguntungkan, dan mengapa utang kartu kredit bisa cepat membengkak. Bandingkan dua studi kasus pada halaman [Memilih Tabungan](aplikasi/bunga-investasi) dan [Kredit Motor](aplikasi/anuitas-pinjaman).",
+      body: "Bunga majemuk menjelaskan mengapa menabung lebih awal sangat menguntungkan, dan mengapa utang kartu kredit bisa cepat membengkak. Bandingkan dua studi kasus pada halaman [Memilih Tabungan](/aplikasi/bunga-investasi) dan [Kredit Motor](/aplikasi/anuitas-pinjaman).",
     },
     {
       id: "kesalahan-umum",

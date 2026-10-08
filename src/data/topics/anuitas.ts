@@ -256,8 +256,8 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
         {
           kind: "details",
           summary: "Lihat kunci dan pembahasan",
-          text: `1. $A = \\dfrac{8.000.000(0{,}01)}{1-(1{,}01)^{-18}} = \\dfrac{80.000}{1-0{,}836017} = \\dfrac{80.000}{0{,}163983} \\approx \\text{Rp}487.960$.
-2. Total $\\approx 18 \\times 487.960 = \\text{Rp}8.783.280$, sehingga bunga $\\approx \\text{Rp}783.280$.
+          text: `1. $A = \\dfrac{8.000.000(0{,}01)}{1-(1{,}01)^{-18}} = \\dfrac{80.000}{1-0{,}836017} = \\dfrac{80.000}{0{,}163983} \\approx \\text{Rp}487.856$.
+2. Total $\\approx 18 \\times 487.856 = \\text{Rp}8.781.408$, sehingga bunga $\\approx \\text{Rp}781.408$.
 3. $FV = 1.000.000 \\cdot \\dfrac{(1{,}06)^5-1}{0{,}06} = 1.000.000 \\cdot \\dfrac{0{,}338226}{0{,}06} \\approx \\text{Rp}5.637.093$.`,
         },
       ],
@@ -286,7 +286,7 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: "Anuitas dipakai pada KPR, kredit kendaraan, dan dana pensiun. Lihat analisis lengkap pada halaman [Kredit Motor](aplikasi/anuitas-pinjaman) untuk memahami mengapa saldo pokok turun perlahan di awal periode.",
+      body: "Anuitas dipakai pada KPR, kredit kendaraan, dan dana pensiun. Lihat analisis lengkap pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk memahami mengapa saldo pokok turun perlahan di awal periode.",
     },
     {
       id: "kesalahan-umum",

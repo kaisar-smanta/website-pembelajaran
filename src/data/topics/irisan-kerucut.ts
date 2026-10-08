@@ -44,6 +44,7 @@ export const irisanKerucut: Topic = {
     { text: 'Mengidentifikasi unsur elips: pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas.' },
     { text: 'Menentukan persamaan garis singgung elips di sebuah titik.' },
   ],
+  explorations: ['mtl-irisan-kerucut-sim'],
   sections: [
     {
       id: "tujuan",
@@ -82,7 +83,7 @@ Garis singgung adalah garis yang menyentuh kurva di tepat satu titik. Pada lingk
       id: "konteks",
       kind: "konteks",
       title: "Situasi dan Konteks",
-      body: `Irisan kerucut ada di banyak tempat: gelombang air melingkar, orbit planet yang elips, lengkungan jembatan, hingga antena parabola. Lingkaran dan elips adalah dua bentuk paling dasar. Memahami persamaannya memungkinkan kita merancang lintasan, menghitung jarak fokus, dan menentukan letak garis singgung.
+      body: `Irisan kerucut ada di banyak tempat: gelombang air melingkar, orbit planet yang elips, lengkungan jembatan, hingga ruang sidang berkubah. Lingkaran dan elips adalah dua bentuk paling dasar. Memahami persamaannya memungkinkan kita merancang lintasan, menghitung jarak fokus, dan menentukan letak garis singgung.
 
 Sifat fokus elips juga menjelaskan mengapa ruangan berkubah berbentuk elips mampu menyebarkan bisikan dari satu fokus ke fokus lain: setiap gelombang dari satu titik fokus akan dipantulkan menuju titik fokus lainnya.`,
     },
@@ -110,23 +111,23 @@ Perhatikan bahwa tanda di dalam kurung **berlawanan** dengan tanda koordinat pus
         },
         {
           kind: "flip-cards",
-          intro: "Uji ingatanmu tentang unsur elips.",
+          intro: "Uji ingatanmu tentang unsur lingkaran.",
           cards: [
             {
-              front: "Sumbu mayor",
-              back: "Ruas terpanjang melalui pusat; panjangnya $2a$",
+              front: "Bentuk baku",
+              back: "$(x-a)^{2} + (y-b)^{2} = r^{2}$",
             },
             {
-              front: "Sumbu minor",
-              back: "Ruas terpendek melalui pusat; panjangnya $2b$",
+              front: "Pusat lingkaran",
+              back: "$(a, b)$",
             },
             {
-              front: "Fokus",
-              back: "Dua titik berjarak $c=\\sqrt{a^{2}-b^{2}}$ dari pusat",
+              front: "Jari-jari",
+              back: "Akar dari ruas kanan, $r = \\sqrt{r^{2}}$",
             },
             {
-              front: "Eksentrisitas",
-              back: "$e=\\dfrac{c}{a}$, bernilai $0<e<1$",
+              front: "Bentuk umum",
+              back: "$x^{2} + y^{2} + Dx + Ey + F = 0$",
             },
           ],
         },
@@ -233,6 +234,28 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
             ],
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Uji ingatanmu tentang unsur elips.",
+          cards: [
+            {
+              front: "Sumbu mayor",
+              back: "Ruas terpanjang melalui pusat; panjangnya $2a$",
+            },
+            {
+              front: "Sumbu minor",
+              back: "Ruas terpendek melalui pusat; panjangnya $2b$",
+            },
+            {
+              front: "Fokus",
+              back: "Dua titik berjarak $c=\\sqrt{a^{2}-b^{2}}$ dari pusat",
+            },
+            {
+              front: "Eksentrisitas",
+              back: "$e=\\dfrac{c}{a}$, bernilai $0<e<1$",
+            },
+          ],
+        },
       ],
     },
     {
@@ -254,6 +277,18 @@ $$\\frac{4x}{25} + \\frac{(9/5)y}{9} = 1 \\quad\\Longrightarrow\\quad \\frac{4x}
 Periksa: $4(4) + 5\\left(\\tfrac{9}{5}\\right) = 16 + 9 = 25$. Benar.
 
 Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat, atau dengan menuliskan bentuk baku terlebih dahulu.`,
+    },
+    {
+      id: "eksplorasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Elips dan Keluarga Irisan Kerucut",
+      body: `Topik ini menitikberatkan lingkaran dan elips, sesuai capaian pembelajaran. Simulasi berikut membantumu melihat bagaimana perubahan setengah sumbu $a$ dan $b$ mengubah bentuk elips serta memindahkan kedua fokusnya, dan bagaimana titik pusat menggeser seluruh kurva. Pilihan parabola dan hiperbola disediakan sebagai jendela pengayaan agar kamu mengenali keluarganya, tetapi keduanya tidak menjadi tuntutan penilaian pada topik ini.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-irisan-kerucut-sim",
+        },
+      ],
     },
     {
       id: "contoh",
@@ -369,7 +404,7 @@ Dalam astronomi, hukum Kepler menyatakan orbit planet berbentuk elips dengan Mat
 
 **4. Menukar sumbu mayor dan minor pada elips.** Sumbu mayor berkaitan dengan $a$ (penyebut terbesar), dan fokus selalu berada pada sumbu mayor. Pastikan letak $a$ dan $b$ benar.
 
-**5. Menghitung $c$ dengan menjumlah.** Untuk elips berlaku $c^{2} = a^{2} - b^{2}$, bukan $a^{2} + b^{2}$. Penjumlahan berlaku untuk hiperbola, bukan elips.`,
+**5. Menghitung $c$ dengan menjumlah.** Untuk elips selalu berlaku $c^{2} = a^{2} - b^{2}$, bukan $a^{2} + b^{2}$. Pastikan operasi pengurangan yang dipakai sebelum menentukan fokus.`,
       blocks: [
         {
           kind: "spot-mistake",

@@ -2,6 +2,7 @@
 import type { ElementId } from '@/types/content';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.astro';
+import { elementColor } from '@/data/display';
 
 interface Crumb {
   label: string;
@@ -40,14 +41,7 @@ const {
   meta,
 } = Astro.props;
 
-const accentVar: Record<ElementId, string> = {
-  bilangan: 'var(--color-number)',
-  'aljabar-fungsi': 'var(--color-algebra)',
-  geometri: 'var(--color-geometry)',
-  kalkulus: 'var(--color-calculus)',
-  'data-peluang': 'var(--color-data)',
-};
-const accent = element ? accentVar[element] : undefined;
+const accent = element ? elementColor(element) : undefined;
 ---
 
 <header class="page-hero" style={accent ? `--accent: ${accent}` : undefined}>

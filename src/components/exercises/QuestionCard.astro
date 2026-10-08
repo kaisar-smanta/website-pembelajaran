@@ -3,6 +3,7 @@ import type { Question } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
+import { seededShuffle } from '@/lib/learner';
 
 interface Props {
   question: Question;
@@ -15,6 +16,14 @@ const promptHtml = renderMarkdown(question.prompt);
 const explanationHtml = question.explanation ? renderMarkdown(question.explanation) : '';
 const topic = getTopic(question.topicId);
 const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.difficulty];
+
+// Urutan tampil opsi diacak secara deterministik per id soal untuk mengurangi
+// bias posisi jawaban. Kunci (key) dan teks tiap opsi tetap berpasangan, dan
+// kunci jawaban tersimpan pada `data-answer` sehingga penilaian tidak berubah.
+const displayOptions =
+  question.type === 'multiple-choice' && question.options
+    ? seededShuffle(question.options, `opsi-${question.id}`)
+    : [];
 ---
 
 <article
@@ -43,13 +52,14 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
     question.type === 'multiple-choice' && question.options && (
       <div role="radiogroup" aria-label="Pilihan jawaban">
         <ul class="q-options" role="list">
-          {question.options.map((opt) => (
+          {displayOptions.map((opt, i) => (
             <li>
               <button
                 type="button"
                 class="q-option"
                 role="radio"
                 aria-checked="false"
+                tabindex={i === 0 ? 0 : -1}
                 data-key={opt.key}
               >
                 <span class="q-key" aria-hidden="true">{opt.key}</span>
@@ -294,17 +304,7 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
     type Attempt,
     type AttemptState,
   } from '@/lib/progress';
-
-  function normalize(value: string): string {
-    return value
-      .toLowerCase()
-      .replace(/\s+/g, '')
-      .replace(/[\\{}]/g, '')
-      .replace(/[·×*]/g, '')
-      .replace(/²/g, '^2')
-      .replace(/³/g, '^3')
-      .replace(/√/g, '√');
-  }
+  import { isAcceptedAnswer, normalizeAnswer } from '@/lib/answer';
 
   function record(
     root: Element,
@@ -352,6 +352,7 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
     const feedback = root.querySelector('[data-feedback]') as HTMLElement;
     const explanation = root.querySelector('[data-explanation]') as HTMLElement;
     const reset = root.querySelector('[data-reset]') as HTMLButtonElement | null;
+    const hasExplanation = Boolean(explanation.innerHTML.trim());
 
     // Pulihkan percobaan yang tersimpan agar soal yang sudah dikerjakan tidak
     // tampak sama dengan soal yang belum dikerjakan setelah halaman dimuat ulang.
@@ -363,6 +364,9 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
       attempt = undefined;
     }
 
+    // Dijalankan saat soal dikembalikan ke keadaan belum dijawab.
+    let unlock: (() => void) | null = null;
+
     function showFeedback(kind: 'ok' | 'no' | 'info', text: string) {
       feedback.hidden = false;
       feedback.className = `q-feedback ${kind}`;
@@ -371,6 +375,14 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
 
     function showReset() {
       if (reset) reset.hidden = false;
+    }
+
+    function showExplanation() {
+      if (hasExplanation) explanation.hidden = false;
+    }
+
+    function hideExplanation() {
+      explanation.hidden = true;
     }
 
     function resetQuestion() {
@@ -384,6 +396,8 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
         input.value = '';
         input.disabled = false;
       }
+      const check = root.querySelector('[data-short-check]') as HTMLButtonElement | null;
+      if (check) check.disabled = false;
       const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
       if (openInput) openInput.value = '';
       const model = root.querySelector('[data-model]') as HTMLElement | null;
@@ -393,15 +407,34 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
       feedback.hidden = true;
       feedback.className = 'q-feedback';
       feedback.textContent = '';
-      explanation.hidden = true;
+      hideExplanation();
       if (reset) reset.hidden = true;
+      unlock?.();
       // Hapus percobaan tersimpan agar hitungan "dikerjakan" tidak menghitung
       // soal yang sudah dikembalikan ke keadaan belum dijawab.
       clearQuestion(root);
     }
 
     if (type === 'multiple-choice') {
-      const options = root.querySelectorAll('[data-key]');
+      const options = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-key]'));
+      let answered = false;
+
+      // Roving tabindex: hanya satu opsi masuk urutan Tab pada satu waktu.
+      const setRoving = (activeKey: string | null) => {
+        options.forEach((o) => {
+          const k = o.getAttribute('data-key');
+          o.tabIndex = activeKey !== null && k === activeKey ? 0 : -1;
+        });
+      };
+
+      const focusByIndex = (i: number) => {
+        if (!options.length) return;
+        const clamped = (i + options.length) % options.length;
+        const btn = options[clamped];
+        setRoving(btn.getAttribute('data-key'));
+        btn.focus();
+      };
+
       const apply = (key: string | null) => {
         const isCorrect = key !== null && key === answer;
         options.forEach((o) => {
@@ -409,26 +442,77 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
           o.classList.remove('correct', 'incorrect');
           if (k === answer) o.classList.add('correct');
           else if (key !== null && k === key && !isCorrect) o.classList.add('incorrect');
-          (o as HTMLButtonElement).setAttribute('aria-checked', String(key !== null && k === key));
+          o.setAttribute('aria-checked', String(key !== null && k === key));
         });
         return isCorrect;
       };
+
       const reveal = () => {
-        explanation.hidden = false;
+        showExplanation();
         showReset();
       };
-      options.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const key = btn.getAttribute('data-key');
-          const isCorrect = apply(key);
-          showFeedback(
-            isCorrect ? 'ok' : 'no',
-            isCorrect ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
-          );
-          reveal();
-          record(root, isCorrect, { selected: key ?? undefined });
+
+      // Kunci pilihan setelah dijawab agar tidak bisa merekam ulang.
+      const lock = () => {
+        answered = true;
+        options.forEach((o) => {
+          o.disabled = true;
+        });
+      };
+
+      const choose = (key: string | null) => {
+        if (answered || key === null) return;
+        const isCorrect = apply(key);
+        showFeedback(
+          isCorrect ? 'ok' : 'no',
+          isCorrect ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
+        );
+        reveal();
+        record(root, isCorrect, { selected: key });
+        lock();
+      };
+
+      unlock = () => {
+        answered = false;
+        options.forEach((o) => {
+          o.disabled = false;
+        });
+        setRoving(options[0]?.getAttribute('data-key') ?? null);
+      };
+
+      setRoving(options[0]?.getAttribute('data-key') ?? null);
+
+      options.forEach((btn, i) => {
+        btn.addEventListener('click', () => choose(btn.getAttribute('data-key')));
+        btn.addEventListener('keydown', (e) => {
+          switch (e.key) {
+            case 'ArrowDown':
+            case 'ArrowRight':
+              e.preventDefault();
+              focusByIndex(i + 1);
+              break;
+            case 'ArrowUp':
+            case 'ArrowLeft':
+              e.preventDefault();
+              focusByIndex(i - 1);
+              break;
+            case 'Home':
+              e.preventDefault();
+              focusByIndex(0);
+              break;
+            case 'End':
+              e.preventDefault();
+              focusByIndex(options.length - 1);
+              break;
+            case ' ':
+            case 'Enter':
+              e.preventDefault();
+              choose(btn.getAttribute('data-key'));
+              break;
+          }
         });
       });
+
       if (attempt) {
         apply(attempt.selected ?? (attempt.correct ? answer : null));
         showFeedback(
@@ -436,29 +520,42 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
           attempt.correct ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
         );
         reveal();
+        lock();
       }
     }
 
     if (type === 'short-answer') {
       const input = root.querySelector('[data-short-input]') as HTMLInputElement;
       const check = root.querySelector('[data-short-check]') as HTMLButtonElement;
+      let answered = false;
+
       const run = () => {
-        const value = normalize(input.value);
+        if (answered) return;
+        const value = normalizeAnswer(input.value);
         if (!value) {
           showFeedback('info', 'Tulis jawabanmu terlebih dahulu.');
           return;
         }
-        const pool = [answer, ...accepted].map(normalize);
-        const isCorrect = pool.includes(value);
+        const isCorrect = isAcceptedAnswer(input.value, answer, accepted);
         if (isCorrect) {
           showFeedback('ok', 'Benar!');
         } else {
           showFeedback('no', 'Belum tepat, coba periksa langkahmu.');
         }
-        explanation.hidden = false;
+        showExplanation();
         showReset();
         record(root, isCorrect, { input: input.value });
+        answered = true;
+        input.disabled = true;
+        check.disabled = true;
       };
+
+      unlock = () => {
+        answered = false;
+        input.disabled = false;
+        check.disabled = false;
+      };
+
       check.addEventListener('click', run);
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') run();
@@ -469,8 +566,11 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
           attempt.correct ? 'ok' : 'no',
           attempt.correct ? 'Benar!' : 'Belum tepat, coba periksa langkahmu.',
         );
-        explanation.hidden = false;
+        showExplanation();
         showReset();
+        answered = true;
+        input.disabled = true;
+        check.disabled = true;
       }
     }
 
@@ -478,25 +578,44 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
       const reveal = root.querySelector('[data-open-reveal]') as HTMLButtonElement;
       const model = root.querySelector('[data-model]') as HTMLElement;
       const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
+      let recorded = false;
+
+      // Rubrik (`data-explanation`) dibuka bersama jawaban model.
+      const syncExplanation = () => {
+        if (model.hidden) hideExplanation();
+        else showExplanation();
+      };
+
       reveal.addEventListener('click', () => {
         model.hidden = !model.hidden;
         reveal.textContent = model.hidden ? 'Lihat contoh jawaban' : 'Sembunyikan contoh jawaban';
+        syncExplanation();
         if (!model.hidden) {
           showReset();
-          // Soal uraian tidak dinilai otomatis; tandai "dikerjakan" tanpa
-          // memengaruhi ketepatan begitu siswa membuka pembahasan.
-          record(root, true, {
-            graded: false,
-            revealed: true,
-            input: openInput ? openInput.value : undefined,
-          });
+          if (!recorded) {
+            recorded = true;
+            // Soal uraian tidak dinilai otomatis; tandai "dikerjakan" tanpa
+            // memengaruhi ketepatan begitu siswa membuka pembahasan.
+            record(root, true, {
+              graded: false,
+              revealed: true,
+              input: openInput ? openInput.value : undefined,
+            });
+          }
         }
       });
+
+      unlock = () => {
+        recorded = false;
+      };
+
       if (attempt) {
         if (openInput && attempt.input !== undefined) openInput.value = attempt.input;
         model.hidden = false;
         reveal.textContent = 'Sembunyikan contoh jawaban';
+        syncExplanation();
         showReset();
+        recorded = Boolean(attempt.revealed);
       }
     }
 

@@ -421,7 +421,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
             "Apa perbedaan penting antara fungsi kuadrat dan fungsi eksponensial?",
             "Bagaimana kamu menentukan apakah suatu model menggambarkan pertumbuhan atau peluruhan?",
             "Mengapa besaran yang tumbuh eksponensial akhirnya dapat melampaui besaran yang tumbuh linear?",
-            "Mengapa sebuah besaran yang tumbuh eksponensial akhirnya bisa melampaui besaran yang tumbuh linear?",
+            "Mengapa grafik $f(x)=a\\cdot b^{x}$ tidak pernah memotong sumbu-$x$, dan apa artinya bagi nilai fungsi?",
           ],
           confidenceLabel: "Seberapa yakin kamu membedakan pertumbuhan dan peluruhan?",
         },

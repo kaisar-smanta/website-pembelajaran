@@ -2,6 +2,7 @@
 import type { Difficulty, ElementId, Exploration, Grade } from '@/types/content';
 import { ELEMENTS, ALL_ELEMENT_ORDER } from '@/data/curriculum';
 import type { GradeMeta } from '@/data/curriculum';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
 import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
 
 interface Props {
@@ -13,13 +14,6 @@ const { groups, total } = Astro.props;
 const totalCount = total ?? groups.reduce((sum, g) => sum + g.items.length, 0);
 const allItems = groups.flatMap((g) => g.items);
 
-const levelLabels: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
-const levelOrder: Difficulty[] = ['dasar', 'cakap', 'mahir'];
-
 const elementChips: Array<{ id: ElementId; label: string; count: number }> = ALL_ELEMENT_ORDER.map(
   (id) => ({
     id,
@@ -27,10 +21,10 @@ const elementChips: Array<{ id: ElementId; label: string; count: number }> = ALL
     count: allItems.filter((item) => item.element === id).length,
   }),
 );
-const levelChips: Array<{ id: Difficulty; label: string; count: number }> = levelOrder.map(
+const levelChips: Array<{ id: Difficulty; label: string; count: number }> = DIFFICULTY_ORDER.map(
   (level) => ({
     id: level,
-    label: levelLabels[level],
+    label: DIFFICULTY_LABELS[level],
     count: allItems.filter((item) => item.level === level).length,
   }),
 );

@@ -1,0 +1,624 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import Callout from '@/components/content/Callout.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { topics } from '@/data/topics';
+import {
+  ALL_ELEMENT_ORDER,
+  ELEMENTS,
+  SUBJECTS,
+  SUBJECT_ORDER,
+  elementOrderFor,
+} from '@/data/curriculum';
+import {
+  collectFormulaEntries,
+  type FormulaEntry,
+  type ReferenceTopic,
+} from '@/lib/reference';
+import { normalizeText } from '@/lib/filter';
+import { renderMarkdown, stripMarkdown } from '@/utils/markdown';
+import { topicUrl, url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Kumpulan Rumus' },
+];
+
+const formulaEntries = collectFormulaEntries(topics);
+
+interface TopicGroup {
+  topic: ReferenceTopic;
+  sections: FormulaEntry[];
+}
+
+const subjectGroups = SUBJECT_ORDER.map((subject) => {
+  const subjectEntries = formulaEntries.filter((entry) => entry.topic.subject === subject);
+  const elements = elementOrderFor(subject)
+    .map((element) => {
+      const elementEntries = subjectEntries.filter((entry) => entry.topic.element === element);
+      const byTopic = new Map<string, TopicGroup>();
+      for (const entry of elementEntries) {
+        const existing = byTopic.get(entry.topic.id);
+        if (existing) existing.sections.push(entry);
+        else byTopic.set(entry.topic.id, { topic: entry.topic, sections: [entry] });
+      }
+      return {
+        element,
+        meta: ELEMENTS[element],
+        topics: Array.from(byTopic.values()),
+      };
+    })
+    .filter((group) => group.topics.length > 0);
+  return { subject, meta: SUBJECTS[subject], elements };
+}).filter((group) => group.elements.length > 0);
+
+const elementChips = ALL_ELEMENT_ORDER.map((id) => ({
+  id,
+  label: ELEMENTS[id].short,
+  count: formulaEntries.filter((entry) => entry.topic.element === id).length,
+})).filter((chip) => chip.count > 0);
+
+const topicSearch = (group: TopicGroup): string =>
+  normalizeText(
+    [
+      group.topic.title,
+      ...group.sections.map((section) => `${section.title} ${stripMarkdown(section.body)}`),
+    ].join(' '),
+  );
+
+const topicCount = new Set(formulaEntries.map((entry) => entry.topic.id)).size;
+const meta = [
+  `${formulaEntries.length} bagian rumus`,
+  `${topicCount} topik`,
+  `${subjectGroups.length} mata pelajaran`,
+];
+---
+
+<BaseLayout
+  title="Kumpulan Rumus"
+  description="Kumpulan rumus matematika SMA dari seluruh topik, dikelompokkan per mata pelajaran, elemen, dan topik. Ringkas, dapat dipindai, dan bertaut kembali ke materinya."
+>
+  <PageHeader
+    title="Kumpulan Rumus"
+    eyebrow="Lembar rujukan"
+    lead="Semua rumus dan generalisasi penting dari seluruh topik dalam satu halaman. Gunakan saringan elemen atau pencarian untuk menemukan rumus dengan cepat, lalu buka topiknya untuk memahami asal-usulnya."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container ref-body">
+    {
+      formulaEntries.length === 0 ? (
+        <Callout
+          variant="info"
+          title="Belum ada rumus"
+          text="Halaman ini terisi otomatis dari bagian bertipe rumus pada tiap topik. Saat ini belum ada rumus yang dapat dikumpulkan."
+        />
+      ) : (
+        <>
+          <div class="ref-toolbar" data-rumus-toolbar>
+            <div class="ref-filter">
+              <span class="ref-filter-label">Elemen</span>
+              <div class="ref-chip-row" data-rumus-chips role="group" aria-label="Saring menurut elemen">
+                <button
+                  type="button"
+                  class="ref-chip is-active"
+                  data-rumus-filter="all"
+                  aria-pressed="true"
+                >
+                  Semua <span class="ref-chip-count">{formulaEntries.length}</span>
+                </button>
+                {elementChips.map((chip) => (
+                  <button
+                    type="button"
+                    class="ref-chip"
+                    data-rumus-filter={chip.id}
+                    aria-pressed="false"
+                  >
+                    {chip.label} <span class="ref-chip-count">{chip.count}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div class="ref-search">
+              <label class="visually-hidden" for="rumus-search">Cari rumus</label>
+              <input
+                id="rumus-search"
+                type="search"
+                class="ref-search-input"
+                data-rumus-search
+                placeholder="Cari topik atau rumus"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <p class="ref-result" data-rumus-result aria-live="polite">
+            Menampilkan {formulaEntries.length} bagian rumus
+          </p>
+
+          {subjectGroups.map((subject) => (
+            <section class="rumus-subject" data-rumus-subject aria-label={subject.meta.name}>
+              <h2 class="rumus-subject-title">{subject.meta.name}</h2>
+              <nav
+                class="rumus-jump"
+                aria-label={`Lompat ke elemen ${subject.meta.name}`}
+              >
+                {subject.elements.map((group) => (
+                  <a href={`#elemen-${subject.subject}-${group.element}`}>{group.meta.short}</a>
+                ))}
+              </nav>
+
+              {subject.elements.map((group) => (
+                <section
+                  class:list={['rumus-element', `accent-${group.element}`]}
+                  id={`elemen-${subject.subject}-${group.element}`}
+                  data-rumus-element
+                  aria-labelledby={`elemen-${subject.subject}-${group.element}-title`}
+                >
+                  <h3
+                    class="rumus-element-title"
+                    id={`elemen-${subject.subject}-${group.element}-title`}
+                  >
+                    {group.meta.name}
+                  </h3>
+
+                  {group.topics.map((topicGroup) => (
+                    <article
+                      class="rumus-topic card"
+                      data-rumus-topic
+                      data-elements={topicGroup.topic.element}
+                      data-search={topicSearch(topicGroup)}
+                    >
+                      <header class="rumus-topic-head">
+                        <h4>
+                          <a
+                            href={topicUrl(
+                              topicGroup.topic.grade,
+                              topicGroup.topic.element,
+                              topicGroup.topic.slug,
+                              topicGroup.topic.subject,
+                            )}
+                          >
+                            {topicGroup.topic.title}
+                          </a>
+                        </h4>
+                        <p class="rumus-topic-meta">
+                          Kelas {topicGroup.topic.grade} · {group.meta.short}
+                        </p>
+                      </header>
+
+                      {topicGroup.sections.map((section) => (
+                        <div class="rumus-block">
+                          <h5 class="rumus-block-title">
+                            {section.title}
+                            <span class={`rumus-kind rumus-kind-${section.kind}`}>
+                              {section.kind === 'rumus' ? 'Rumus' : 'Generalisasi'}
+                            </span>
+                          </h5>
+                          <div class="prose rumus-block-body" set:html={renderMarkdown(section.body)} />
+                          <a
+                            class="rumus-block-link"
+                            href={`${topicUrl(
+                              topicGroup.topic.grade,
+                              topicGroup.topic.element,
+                              topicGroup.topic.slug,
+                              topicGroup.topic.subject,
+                            )}#${section.sectionId}`}
+                          >
+                            Buka di topik <span aria-hidden="true">→</span>
+                          </a>
+                        </div>
+                      ))}
+                    </article>
+                  ))}
+                </section>
+              ))}
+            </section>
+          ))}
+
+          <p class="ref-empty" data-rumus-empty hidden>
+            Tidak ada rumus yang cocok dengan saringan ini. Coba kata kunci lain atau pilih elemen
+            yang berbeda.
+          </p>
+        </>
+      )
+    }
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Rumus lebih bermakna bila dipahami"
+        text="Buka glosarium untuk mengingat istilahnya, atau uji pemahaman lewat latihan berjenjang."
+        reveal
+        actions={[
+          { label: 'Latihan berjenjang', href: url('/latihan'), variant: 'primary' },
+          { label: 'Glosarium', href: url('/glosarium'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { normalizeText } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
+
+  const toolbar = document.querySelector<HTMLElement>('[data-rumus-toolbar]');
+
+  if (toolbar) {
+    const chips = toolbar.querySelector<HTMLElement>('[data-rumus-chips]');
+    const searchInput = toolbar.querySelector<HTMLInputElement>('[data-rumus-search]');
+    const result = document.querySelector<HTMLElement>('[data-rumus-result]');
+    const empty = document.querySelector<HTMLElement>('[data-rumus-empty]');
+    const topics = Array.from(document.querySelectorAll<HTMLElement>('[data-rumus-topic]'));
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-rumus-element]'));
+    const subjects = Array.from(document.querySelectorAll<HTMLElement>('[data-rumus-subject]'));
+
+    try {
+      const initial = new URLSearchParams(location.search).get('q');
+      if (initial && searchInput) searchInput.value = initial;
+    } catch {
+      /* abaikan URL yang tidak dapat dibaca */
+    }
+
+    const apply = (values: Record<string, string>, query: string): void => {
+      const element = values.element || 'all';
+      const q = normalizeText(query);
+      let visible = 0;
+
+      for (const topic of topics) {
+        const topicElement = topic.getAttribute('data-elements') ?? '';
+        const haystack = topic.getAttribute('data-search') ?? '';
+        const show =
+          (element === 'all' || topicElement === element) &&
+          (q === '' || haystack.includes(q));
+        topic.classList.toggle('is-hidden', !show);
+        if (show) visible += 1;
+      }
+
+      for (const group of elements) {
+        const any = Array.from(group.querySelectorAll<HTMLElement>('[data-rumus-topic]')).some(
+          (topic) => !topic.classList.contains('is-hidden'),
+        );
+        group.classList.toggle('is-hidden', !any);
+      }
+
+      for (const subject of subjects) {
+        const any = Array.from(subject.querySelectorAll<HTMLElement>('[data-rumus-element]')).some(
+          (group) => !group.classList.contains('is-hidden'),
+        );
+        subject.classList.toggle('is-hidden', !any);
+      }
+
+      if (empty) empty.hidden = visible !== 0;
+      if (result) result.textContent = `Menampilkan ${visible} dari ${topics.length} topik`;
+    };
+
+    const syncQuery = (): void => {
+      try {
+        const params = new URLSearchParams(location.search);
+        const value = searchInput?.value.trim() ?? '';
+        if (value) params.set('q', value);
+        else params.delete('q');
+        const search = params.toString();
+        history.replaceState(
+          null,
+          '',
+          `${location.pathname}${search ? `?${search}` : ''}${location.hash}`,
+        );
+      } catch {
+        /* abaikan bila riwayat/URL tidak dapat diubah */
+      }
+    };
+
+    if (chips) {
+      setupFilterPage({
+        groups: [
+          {
+            key: 'element',
+            group: chips,
+            chipSelector: '[data-rumus-filter]',
+            valueAttr: 'data-rumus-filter',
+            activeClass: 'is-active',
+            allValue: 'all',
+          },
+        ],
+        searchInput,
+        apply,
+        syncUrl: true,
+      });
+      searchInput?.addEventListener('input', syncQuery);
+    } else {
+      apply({ element: 'all' }, searchInput?.value ?? '');
+    }
+  }
+</script>
+
+<style>
+  .ref-body {
+    padding-block: 1.5rem 2.5rem;
+  }
+
+  .ref-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .ref-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    min-width: 0;
+  }
+  .ref-filter-label {
+    flex: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .ref-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .ref-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.42rem 0.9rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      background var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .ref-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .ref-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .ref-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .ref-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .ref-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+  }
+  .ref-chip.is-active .ref-chip-count {
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+  }
+  .ref-search {
+    flex: 1 1 15rem;
+    max-width: 22rem;
+    min-width: 0;
+  }
+  .ref-search-input {
+    width: 100%;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    font: inherit;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    transition:
+      border-color var(--dur-fast),
+      box-shadow var(--dur-fast);
+  }
+  .ref-search-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+
+  .ref-result {
+    margin: 0 0 1.35rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .rumus-subject + .rumus-subject {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .rumus-subject-title {
+    margin: 0 0 0.6rem;
+    font-size: 1.35rem;
+  }
+  .rumus-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.35rem;
+  }
+  .rumus-jump a {
+    display: inline-flex;
+    padding: 0.28rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .rumus-jump a:hover,
+  .rumus-jump a:focus-visible {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .rumus-element {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .rumus-element + .rumus-element {
+    margin-top: 1.75rem;
+  }
+  .rumus-element-title {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 0.9rem;
+    font-size: 1.08rem;
+    color: var(--accent, var(--color-primary));
+  }
+  .rumus-element-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .rumus-topic {
+    padding: 1.1rem 1.2rem;
+    border-left: 4px solid var(--accent, var(--color-primary));
+  }
+  .rumus-topic + .rumus-topic {
+    margin-top: 1rem;
+  }
+  .rumus-topic-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .rumus-topic-head h4 {
+    margin: 0;
+    font-size: 1.12rem;
+  }
+  .rumus-topic-head h4 a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .rumus-topic-head h4 a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .rumus-topic-meta {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--color-text-soft);
+  }
+
+  .rumus-block {
+    padding: 0.75rem 0;
+    border-top: 1px dashed var(--color-border);
+  }
+  .rumus-block-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+  }
+  .rumus-kind {
+    display: inline-flex;
+    padding: 0.16rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 32%, var(--color-border));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 10%, var(--color-surface));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 72%, var(--color-text));
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .rumus-kind-generalisasi {
+    border-style: dashed;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+  }
+  .rumus-block-body :global(> *:last-child) {
+    margin-bottom: 0.35rem;
+  }
+  .rumus-block-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .ref-empty {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.15rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  .is-hidden {
+    display: none !important;
+  }
+
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+
+  @media (max-width: 30rem) {
+    .ref-chip {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+    }
+    .rumus-topic-head {
+      justify-content: flex-start;
+    }
+  }
+</style>

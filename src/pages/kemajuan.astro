@@ -1,0 +1,927 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import SectionHeading from '@/components/content/SectionHeading.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { topics, topicSubject } from '@/data/topics';
+import { questionsByTopic } from '@/data/questions';
+import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
+import { url, topicUrl } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Kemajuan Saya' },
+];
+
+interface Entry {
+  id: string;
+  slug: string;
+  title: string;
+  grade: string;
+  gradeName: string;
+  element: string;
+  elementName: string;
+  subject: string;
+  subjectName: string;
+  questionIds: string[];
+  predictions: number;
+  reflections: number;
+  practiceHref: string;
+  materialHref: string;
+}
+
+const entries: Entry[] = topics.map((topic) => {
+  const subject = topicSubject(topic);
+  let predictions = 0;
+  let reflections = 0;
+  for (const section of topic.sections) {
+    for (const block of section.blocks ?? []) {
+      if (block.kind === 'prediction') predictions += 1;
+      else if (block.kind === 'reflection') reflections += 1;
+    }
+  }
+  return {
+    id: topic.id,
+    slug: topic.slug,
+    title: topic.title,
+    grade: topic.grade,
+    gradeName: GRADES[topic.grade].name,
+    element: topic.element,
+    elementName: ELEMENTS[topic.element].name,
+    subject,
+    subjectName: SUBJECTS[subject].name,
+    questionIds: questionsByTopic(topic.id).map((q) => q.id),
+    predictions,
+    reflections,
+    practiceHref: url(`/latihan/${topic.slug}`),
+    materialHref: topicUrl(topic.grade, topic.element, topic.slug, subject),
+  };
+});
+
+const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
+---
+
+<BaseLayout
+  title="Kemajuan Saya"
+  description="Dasbor kemajuan belajar Matematika SMA: soal yang dikerjakan, ketepatan, dugaan dan refleksi tersimpan, serta saran topik untuk dilanjutkan. Tersimpan lokal di peramban, tanpa akun."
+>
+  <PageHeader
+    title="Kemajuan Saya"
+    eyebrow="Belajar"
+    lead="Dasbor pribadi untuk melihat sejauh mana kamu berlatih: soal yang dikerjakan, ketepatan, dugaan dan refleksi tersimpan, serta langkah berikutnya."
+    crumbs={crumbs}
+    meta={[`${entries.length} topik`, 'Tersimpan lokal', 'Tanpa akun']}
+  />
+
+  <div class="container container-narrow dashboard" data-kemajuan-root>
+    <p class="notice">
+      Seluruh data di halaman ini tersimpan <strong>hanya di peramban</strong> yang kamu
+      pakai saat ini. Tidak ada akun, server, maupun pengiriman data ke mana pun. Karena itu,
+      kemajuan tidak otomatis muncul di perangkat atau peramban lain.
+    </p>
+
+    <section class="empty card" data-empty aria-labelledby="kosong">
+      <h2 id="kosong">Belum ada kemajuan yang tersimpan</h2>
+      <p class="text-muted">
+        Mulai kerjakan latihan, simpan dugaan pada bagian pemantik, atau tulis refleksi di
+        halaman materi. Setelah itu, ringkasanmu akan muncul di sini secara otomatis.
+      </p>
+      <div class="row">
+        <a class="btn btn-primary" href={url('/latihan')}>Mulai berlatih</a>
+        <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Lihat peta pembelajaran</a>
+      </div>
+      <p class="text-soft empty-note">
+        Catatan: halaman ini memerlukan JavaScript karena membaca data dari perambanmu. Tanpa
+        JavaScript, data tetap aman tersimpan, hanya belum dapat ditampilkan.
+      </p>
+    </section>
+
+    <section data-summary hidden aria-labelledby="ringkasan">
+      <SectionHeading
+        id="ringkasan"
+        eyebrow="Ringkasan"
+        title="Gambaran umum"
+        lead="Angka-angka ini diperbarui setiap kali kamu menjawab soal atau menyimpan interaksi."
+        reveal={false}
+      />
+      <dl class="stats">
+        <div class="stat">
+          <dt>Soal dikerjakan</dt>
+          <dd data-stat-answered>0/0</dd>
+        </div>
+        <div class="stat">
+          <dt>Ketepatan</dt>
+          <dd data-stat-accuracy>0%</dd>
+        </div>
+        <div class="stat">
+          <dt>Topik dimulai</dt>
+          <dd data-stat-topics>0/0</dd>
+        </div>
+        <div class="stat">
+          <dt>Dugaan &amp; refleksi</dt>
+          <dd data-stat-interactions>0</dd>
+        </div>
+      </dl>
+
+      <div
+        class="track"
+        data-overall-track
+        role="progressbar"
+        aria-label="Kemajuan menjawab soal"
+        aria-valuemin="0"
+        aria-valuemax="0"
+        aria-valuenow="0"
+        aria-valuetext="Belum ada soal yang dijawab"
+      >
+        <span class="bar" data-overall-bar style="width: 0%"></span>
+      </div>
+      <p class="last-activity text-soft" data-stat-last></p>
+    </section>
+
+    <section data-continue hidden aria-labelledby="lanjutkan">
+      <SectionHeading
+        id="lanjutkan"
+        eyebrow="Lanjutkan"
+        title="Lanjutkan belajar"
+        lead="Topik yang sudah kamu buka tetapi belum tuntas, diurutkan dari aktivitas terakhir."
+        reveal={false}
+      />
+      <ol class="continue-list" data-continue-list></ol>
+    </section>
+
+    <section data-suggest hidden aria-labelledby="mulai-baru">
+      <SectionHeading
+        id="mulai-baru"
+        eyebrow="Mulai"
+        title="Topik yang bisa kamu mulai"
+        lead="Belum ada topik yang perlu dilanjutkan. Pilih salah satu titik awal berikut."
+        reveal={false}
+      />
+      <ol class="continue-list" data-suggest-list></ol>
+    </section>
+
+    <section data-breakdown hidden aria-labelledby="rincian">
+      <SectionHeading
+        id="rincian"
+        eyebrow="Rincian"
+        title="Kemajuan per mata pelajaran"
+        lead="Capaian dikelompokkan menurut mata pelajaran, kelas, lalu elemen kurikulum."
+        reveal={false}
+      />
+      <div class="breakdown" data-breakdown-body></div>
+    </section>
+
+    <section data-manage hidden class="no-print" aria-labelledby="kelola">
+      <SectionHeading
+        id="kelola"
+        eyebrow="Data"
+        title="Kelola data kemajuan"
+        lead="Kamu memegang kendali penuh atas data yang tersimpan di peramban ini."
+        reveal={false}
+      />
+      <div class="manage-grid">
+        <div class="card manage-card">
+          <h3>Ekspor</h3>
+          <p class="text-muted">
+            Salin atau unduh seluruh data sebagai berkas JSON untuk arsip pribadi atau
+            dipindahkan ke peramban lain.
+          </p>
+          <div class="row">
+            <button type="button" class="btn btn-secondary btn-sm" data-export-copy>
+              Salin data (JSON)
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm" data-export-download>
+              Unduh berkas JSON
+            </button>
+          </div>
+          <label class="visually-hidden" for="kemajuan-export">Data kemajuan dalam format JSON</label>
+          <textarea
+            id="kemajuan-export"
+            class="export-output"
+            data-export-output
+            readonly
+            rows="6"
+            hidden
+          ></textarea>
+          <p class="status" data-export-status role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="card manage-card">
+          <h3>Reset</h3>
+          <p class="text-muted">
+            Hapus seluruh kemajuan, dugaan, dan refleksi dari peramban ini. Tindakan ini tidak
+            dapat dibatalkan.
+          </p>
+          <button type="button" class="btn btn-secondary btn-sm" data-reset-start>
+            Hapus semua kemajuan
+          </button>
+          <div class="reset-confirm" data-reset-confirm hidden role="group" aria-label="Konfirmasi hapus data">
+            <p>
+              Yakin ingin menghapus semua data? Setelah dihapus, data tidak dapat dikembalikan.
+            </p>
+            <div class="row">
+              <button type="button" class="btn btn-primary btn-sm" data-reset-yes>
+                Ya, hapus permanen
+              </button>
+              <button type="button" class="btn btn-ghost btn-sm" data-reset-cancel>Batal</button>
+            </div>
+          </div>
+          <p class="status" data-reset-status role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <script type="application/json" id="kemajuan-data" is:inline set:html={topicsJson}></script>
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Tingkatkan ketepatanmu"
+        text="Ulangi soal yang belum tepat, atau perdalam konsepnya lewat eksplorasi interaktif."
+        reveal
+        actions={[
+          { label: 'Kerjakan latihan', href: url('/latihan'), variant: 'primary' },
+          { label: 'Coba eksplorasi', href: url('/eksplorasi'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .dashboard {
+    padding-block: 1rem 2.5rem;
+    display: grid;
+    gap: 2rem;
+  }
+  .notice {
+    margin: 0;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+    font-size: 0.92rem;
+  }
+  .empty {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+    text-align: left;
+  }
+  .empty h2 {
+    margin: 0;
+  }
+  .empty-note {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 0.85rem;
+    margin: 0 0 1.1rem;
+  }
+  .stat {
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .stat dt {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .stat dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+  }
+  .track {
+    height: 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    overflow: hidden;
+  }
+  .bar {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-geometry));
+    transition: width var(--dur) var(--ease-out-soft);
+  }
+  .last-activity {
+    margin: 0.6rem 0 0;
+    font-size: 0.88rem;
+  }
+  section[data-summary],
+  section[data-continue],
+  section[data-suggest],
+  section[data-breakdown],
+  section[data-manage] {
+    display: grid;
+    gap: 1rem;
+  }
+  section[data-summary] :global(.section-heading),
+  section[data-continue] :global(.section-heading),
+  section[data-suggest] :global(.section-heading),
+  section[data-breakdown] :global(.section-heading),
+  section[data-manage] :global(.section-heading) {
+    margin-bottom: 0;
+  }
+  .continue-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .continue-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--accent, var(--color-primary));
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .continue-main {
+    min-width: 0;
+    display: grid;
+    gap: 0.25rem;
+  }
+  .continue-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+  }
+  .continue-title:hover {
+    text-decoration: underline;
+  }
+  .continue-meta {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .breakdown {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .subject-block {
+    display: grid;
+    gap: 1rem;
+  }
+  .subject-block h3 {
+    margin: 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-border-strong);
+    font-size: 1.35rem;
+  }
+  .subject-meta {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+  }
+  .grade-block {
+    display: grid;
+    gap: 0.75rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--color-border);
+  }
+  .grade-block h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+  }
+  .element-block {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .element-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .element-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .element-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--accent, var(--color-primary));
+    flex: 0 0 auto;
+  }
+  .element-count {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .element-topics {
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .element-topics a {
+    font-size: 0.9rem;
+  }
+  .element-topics .ratio {
+    margin-left: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .element-empty {
+    margin: 0.1rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+  }
+  .manage-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+  .manage-card {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+  }
+  .manage-card h3 {
+    margin: 0;
+  }
+  .manage-card p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .export-output {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.6rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    resize: vertical;
+  }
+  .reset-confirm {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--color-danger);
+    border-radius: var(--radius);
+    background: var(--color-danger-soft);
+  }
+  .reset-confirm p {
+    margin: 0;
+    color: var(--color-text);
+  }
+  .status {
+    margin: 0;
+    min-height: 1.1em;
+    font-size: 0.85rem;
+    color: var(--color-success);
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+</style>
+
+<script>
+  import { loadProgress, STORAGE_KEY, type ProgressMap } from '@/lib/progress';
+  import {
+    loadPredictions,
+    loadReflections,
+    PREDICTION_KEY,
+    REFLECTION_KEY,
+    type PredictionMap,
+    type ReflectionMap,
+  } from '@/lib/learner';
+  import { safeStorage } from '@/lib/storage';
+  import {
+    buildOverview,
+    continueLearning,
+    suggestedStart,
+    groupOverview,
+    type SiteOverview,
+    type TopicEntry,
+    type TopicOverview,
+  } from '@/lib/progress-overview';
+
+  function boot() {
+    const rootEl = document.querySelector<HTMLElement>('[data-kemajuan-root]');
+    if (!rootEl) return;
+    const root = rootEl;
+
+    const dataEl = document.getElementById('kemajuan-data');
+    let entries: TopicEntry[] = [];
+    try {
+      const parsed: unknown = dataEl ? JSON.parse(dataEl.textContent ?? '[]') : [];
+      if (Array.isArray(parsed)) entries = parsed as TopicEntry[];
+    } catch {
+      entries = [];
+    }
+
+    const storage = safeStorage();
+    const emptyEl = root.querySelector<HTMLElement>('[data-empty]');
+    const sections = {
+      summary: root.querySelector<HTMLElement>('[data-summary]'),
+      continue: root.querySelector<HTMLElement>('[data-continue]'),
+      suggest: root.querySelector<HTMLElement>('[data-suggest]'),
+      breakdown: root.querySelector<HTMLElement>('[data-breakdown]'),
+      manage: root.querySelector<HTMLElement>('[data-manage]'),
+    };
+
+    const dateFmt = new Intl.DateTimeFormat('id-ID', { dateStyle: 'long', timeStyle: 'short' });
+    const percent = (ratio: number) => `${Math.round(ratio * 100)}%`;
+    const formatDate = (value: number) => {
+      try {
+        return dateFmt.format(new Date(value));
+      } catch {
+        return '';
+      }
+    };
+
+    function setSectionVisible(el: HTMLElement | null, visible: boolean) {
+      if (el) el.hidden = !visible;
+    }
+
+    function readStores(): {
+      progress: ProgressMap;
+      predictions: PredictionMap;
+      reflections: ReflectionMap;
+    } {
+      return {
+        progress: loadProgress(storage),
+        predictions: loadPredictions(storage),
+        reflections: loadReflections(storage),
+      };
+    }
+
+    function makeTrack(answered: number, total: number, label: string): HTMLElement {
+      const track = document.createElement('div');
+      track.className = 'track';
+      track.setAttribute('role', 'progressbar');
+      track.setAttribute('aria-label', label);
+      track.setAttribute('aria-valuemin', '0');
+      track.setAttribute('aria-valuemax', String(total));
+      track.setAttribute('aria-valuenow', String(answered));
+      track.setAttribute(
+        'aria-valuetext',
+        `${answered} dari ${total} soal dikerjakan`,
+      );
+      const bar = document.createElement('span');
+      bar.className = 'bar';
+      bar.style.width = total ? `${Math.round((answered / total) * 100)}%` : '0%';
+      track.appendChild(bar);
+      return track;
+    }
+
+    function topicListItem(topic: TopicOverview): HTMLLIElement {
+      const item = document.createElement('li');
+      item.className = 'continue-item';
+      item.style.setProperty('--accent', `var(--color-${accentKey(topic.element)})`);
+
+      const main = document.createElement('div');
+      main.className = 'continue-main';
+
+      const link = document.createElement('a');
+      link.className = 'continue-title';
+      link.href = topic.practiceHref;
+      link.textContent = topic.title;
+
+      const meta = document.createElement('span');
+      meta.className = 'continue-meta';
+      const ratio = topic.total ? `${topic.answered}/${topic.total} soal (${percent(topic.answered / topic.total)})` : 'belum ada soal';
+      const accuracy = topic.gradedAnswered ? ` · ketepatan ${percent(topic.accuracy)}` : '';
+      const when = topic.lastAt ? ` · terakhir ${formatDate(topic.lastAt)}` : '';
+      meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy}${when}`;
+
+      main.append(link, meta);
+
+      const material = document.createElement('a');
+      material.className = 'btn btn-secondary btn-sm';
+      material.href = topic.materialHref;
+      material.textContent = 'Baca materi';
+
+      item.append(main, material);
+      return item;
+    }
+
+    function accentKey(element: string): string {
+      const map: Record<string, string> = {
+        bilangan: 'number',
+        'aljabar-fungsi': 'algebra',
+        geometri: 'geometry',
+        kalkulus: 'calculus',
+        'data-peluang': 'data',
+      };
+      return map[element] ?? 'primary';
+    }
+
+    function renderContinue(overview: SiteOverview) {
+      const list = sections.continue?.querySelector<HTMLOListElement>('[data-continue-list]');
+      const items = continueLearning(overview, 6);
+      setSectionVisible(sections.continue, items.length > 0);
+      if (!list) return;
+      list.replaceChildren(...items.map(topicListItem));
+    }
+
+    function renderSuggest(overview: SiteOverview) {
+      const list = sections.suggest?.querySelector<HTMLOListElement>('[data-suggest-list]');
+      const items = suggestedStart(overview, 4);
+      const hasContinue =
+        sections.continue instanceof HTMLElement && !sections.continue.hidden;
+      setSectionVisible(sections.suggest, !hasContinue && items.length > 0);
+      if (list) list.replaceChildren(...items.map(topicListItem));
+    }
+
+    function renderBreakdown(overview: SiteOverview) {
+      const body = root.querySelector<HTMLElement>('[data-breakdown-body]');
+      if (!body) return;
+      body.replaceChildren();
+
+      for (const subject of groupOverview(overview)) {
+        const subjectBlock = document.createElement('article');
+        subjectBlock.className = 'card subject-block';
+
+        const heading = document.createElement('h3');
+        heading.textContent = subject.subjectName;
+        subjectBlock.appendChild(heading);
+
+        const subjectMeta = document.createElement('p');
+        subjectMeta.className = 'subject-meta';
+        subjectMeta.textContent = `${subject.answered}/${subject.total} soal dikerjakan · ketepatan ${percent(subject.accuracy)}`;
+        subjectBlock.appendChild(subjectMeta);
+
+        for (const grade of subject.grades) {
+          const gradeBlock = document.createElement('div');
+          gradeBlock.className = 'grade-block';
+
+          const gradeHeading = document.createElement('h4');
+          gradeHeading.textContent = `${grade.gradeName} · ${grade.answered}/${grade.total} soal`;
+          gradeBlock.appendChild(gradeHeading);
+
+          for (const element of grade.elements) {
+            const elementBlock = document.createElement('div');
+            elementBlock.className = `element-block accent-${element.element}`;
+
+            const head = document.createElement('div');
+            head.className = 'element-head';
+            const name = document.createElement('span');
+            name.className = 'element-name';
+            const dot = document.createElement('span');
+            dot.className = 'element-dot';
+            dot.setAttribute('aria-hidden', 'true');
+            name.append(dot, document.createTextNode(element.elementName));
+            const count = document.createElement('span');
+            count.className = 'element-count';
+            count.textContent = `${element.answered}/${element.total} soal · ${percent(element.accuracy)}`;
+            head.append(name, count);
+
+            const started = element.topics
+              .filter((topic) => topic.started)
+              .sort((a, b) => b.lastAt - a.lastAt);
+
+            elementBlock.append(head, makeTrack(element.answered, element.total, `Kemajuan ${element.elementName}`));
+
+            if (started.length > 0) {
+              const list = document.createElement('ul');
+              list.className = 'element-topics';
+              for (const topic of started) {
+                const item = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = topic.practiceHref;
+                link.textContent = topic.title;
+                const ratio = document.createElement('span');
+                ratio.className = 'ratio';
+                ratio.textContent = `${topic.answered}/${topic.total}`;
+                item.append(link, ratio);
+                list.appendChild(item);
+              }
+              elementBlock.appendChild(list);
+            } else {
+              const note = document.createElement('p');
+              note.className = 'element-empty';
+              note.textContent = 'Belum ada yang dikerjakan pada elemen ini.';
+              elementBlock.appendChild(note);
+            }
+
+            gradeBlock.appendChild(elementBlock);
+          }
+
+          subjectBlock.appendChild(gradeBlock);
+        }
+
+        body.appendChild(subjectBlock);
+      }
+    }
+
+    function renderSummary(overview: SiteOverview) {
+      const answered = root.querySelector('[data-stat-answered]');
+      const accuracy = root.querySelector('[data-stat-accuracy]');
+      const topicsEl = root.querySelector('[data-stat-topics]');
+      const interactions = root.querySelector('[data-stat-interactions]');
+      const lastEl = root.querySelector('[data-stat-last]');
+      const bar = root.querySelector<HTMLElement>('[data-overall-bar]');
+      const track = root.querySelector<HTMLElement>('[data-overall-track]');
+
+      if (answered) answered.textContent = `${overview.answered}/${overview.totalQuestions}`;
+      if (accuracy) accuracy.textContent = percent(overview.accuracy);
+      if (topicsEl) topicsEl.textContent = `${overview.topicsStarted}/${overview.topics.length}`;
+      if (interactions) {
+        interactions.textContent = String(overview.predictions + overview.reflections);
+      }
+      const ratio = overview.totalQuestions ? overview.answered / overview.totalQuestions : 0;
+      if (bar) bar.style.width = `${Math.round(ratio * 100)}%`;
+      if (track) {
+        track.setAttribute('aria-valuemax', String(overview.totalQuestions));
+        track.setAttribute('aria-valuenow', String(overview.answered));
+        track.setAttribute(
+          'aria-valuetext',
+          `${overview.answered} dari ${overview.totalQuestions} soal dijawab`,
+        );
+      }
+      if (lastEl) {
+        lastEl.textContent = overview.lastAt
+          ? `Aktivitas terakhir: ${formatDate(overview.lastAt)}.`
+          : '';
+      }
+    }
+
+    function render() {
+      const { progress, predictions, reflections } = readStores();
+      const overview = buildOverview(entries, progress, predictions, reflections);
+
+      if (!overview.hasData) {
+        if (emptyEl) emptyEl.hidden = false;
+        setSectionVisible(sections.summary, false);
+        setSectionVisible(sections.continue, false);
+        setSectionVisible(sections.suggest, false);
+        setSectionVisible(sections.breakdown, false);
+        setSectionVisible(sections.manage, false);
+        return;
+      }
+
+      if (emptyEl) emptyEl.hidden = true;
+      setSectionVisible(sections.summary, true);
+      setSectionVisible(sections.breakdown, true);
+      setSectionVisible(sections.manage, true);
+      renderSummary(overview);
+      renderContinue(overview);
+      renderSuggest(overview);
+      renderBreakdown(overview);
+    }
+
+    function setupExport() {
+      const copyBtn = root.querySelector<HTMLButtonElement>('[data-export-copy]');
+      const downloadBtn = root.querySelector<HTMLButtonElement>('[data-export-download]');
+      const output = root.querySelector<HTMLTextAreaElement>('[data-export-output]');
+      const status = root.querySelector<HTMLElement>('[data-export-status]');
+
+      const collect = () => {
+        const { progress, predictions, reflections } = readStores();
+        return JSON.stringify(
+          {
+            aplikasi: 'Matematika SMA',
+            versiSkema: 1,
+            dieksporPada: new Date().toISOString(),
+            progress,
+            predictions,
+            reflections,
+          },
+          null,
+          2,
+        );
+      };
+
+      copyBtn?.addEventListener('click', () => {
+        const text = collect();
+        const fail = () => {
+          if (output) {
+            output.value = text;
+            output.hidden = false;
+            output.focus();
+            output.select();
+          }
+          if (status) {
+            status.textContent =
+              'Penyimpanan papan klip tidak tersedia. Data ditampilkan di kotak teks, silakan salin manual.';
+          }
+        };
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(
+              () => {
+                if (status) status.textContent = 'Data kemajuan disalin ke papan klip.';
+              },
+              fail,
+            );
+            return;
+          }
+        } catch {
+          /* jatuh ke cadangan di bawah */
+        }
+        fail();
+      });
+
+      downloadBtn?.addEventListener('click', () => {
+        try {
+          const blob = new Blob([collect()], { type: 'application/json' });
+          const objectUrl = URL.createObjectURL(blob);
+          const anchor = document.createElement('a');
+          anchor.href = objectUrl;
+          anchor.download = `kemajuan-matematika-${new Date().toISOString().slice(0, 10)}.json`;
+          document.body.appendChild(anchor);
+          anchor.click();
+          anchor.remove();
+          window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+          if (status) status.textContent = 'Berkas JSON sedang diunduh.';
+        } catch {
+          if (status) status.textContent = 'Tidak dapat mengunduh berkas di peramban ini.';
+        }
+      });
+    }
+
+    function setupReset() {
+      const start = root.querySelector<HTMLButtonElement>('[data-reset-start]');
+      const confirm = root.querySelector<HTMLElement>('[data-reset-confirm]');
+      const yes = root.querySelector<HTMLButtonElement>('[data-reset-yes]');
+      const cancel = root.querySelector<HTMLButtonElement>('[data-reset-cancel]');
+      const status = root.querySelector<HTMLElement>('[data-reset-status]');
+
+      const showConfirm = (visible: boolean) => {
+        if (confirm) confirm.hidden = !visible;
+        if (start) start.hidden = visible;
+      };
+
+      start?.addEventListener('click', () => {
+        showConfirm(true);
+        yes?.focus();
+      });
+
+      cancel?.addEventListener('click', () => {
+        showConfirm(false);
+        start?.focus();
+      });
+
+      yes?.addEventListener('click', () => {
+        let ok = false;
+        if (storage) {
+          try {
+            storage.removeItem(STORAGE_KEY);
+            storage.removeItem(PREDICTION_KEY);
+            storage.removeItem(REFLECTION_KEY);
+            ok = true;
+          } catch {
+            ok = false;
+          }
+        }
+        if (status) {
+          status.textContent = ok
+            ? 'Semua data kemajuan di peramban ini telah dihapus.'
+            : 'Tidak dapat mengakses penyimpanan peramban untuk menghapus data.';
+        }
+        showConfirm(false);
+        render();
+      });
+    }
+
+    render();
+    setupExport();
+    setupReset();
+
+    window.addEventListener('mtk:progress', render);
+    window.addEventListener('mtk:interaction', render);
+    window.addEventListener('pageshow', render);
+    window.addEventListener('storage', render);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>

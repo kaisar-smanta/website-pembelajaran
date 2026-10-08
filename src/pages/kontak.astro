@@ -1,0 +1,233 @@
+---
+// TODO(kontak): Kanal khusus (email/formulir) belum tersedia di src/data/site.ts.
+// Bila penyusun menetapkan alamat surel resmi atau formulir, tambahkan di sana
+// lalu tampilkan tautannya di halaman ini (mis. di bawah daftar tautan sekolah).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { site } from '@/data/site';
+import { url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Kontak & Masukan' },
+];
+---
+
+<BaseLayout
+  title="Kontak & Masukan"
+  description="Cara menyampaikan koreksi materi, pertanyaan, dan masukan untuk situs Matematika SMA, serta kanal resmi sekolah."
+>
+  <PageHeader
+    title="Kontak & Masukan"
+    eyebrow="Bantuan"
+    lead="Situs ini tumbuh dari koreksi dan masukan. Jika menemukan kekeliruan materi, tautan yang rusak, atau punya usulan perbaikan, kami senang mendengarnya."
+    crumbs={crumbs}
+  />
+
+  <div class="container container-narrow contact">
+    <section class="id-card card section-paper" aria-labelledby="penyusun">
+      <span class="id-logo">
+        <img src={url(site.school.logo)} alt={site.school.logoAlt} width="96" height="96" />
+      </span>
+      <div class="id-body">
+        <p class="eyebrow">Disusun oleh</p>
+        <h2 id="penyusun" class="id-name">{site.author.name}</h2>
+        <p class="text-muted">{site.author.role} · {site.school.name}</p>
+        <p class="text-soft id-note">
+          Materi disusun untuk mendampingi pembelajaran matematika SMA, bukan sebagai dokumen
+          resmi. Untuk hal administratif, silakan menghubungi sekolah melalui kanal resmi.
+        </p>
+      </div>
+    </section>
+
+    <div class="prose reveal">
+      <h2>Kanal Resmi</h2>
+      <p>
+        Situs ini tidak mengumpulkan data pribadi dan tidak memiliki akun pengguna. Karena itu,
+        tidak ada kotak masuk khusus pada situs. Jalur resmi yang tersedia adalah kanal{' '}
+        {site.school.name} berikut.
+      </p>
+
+      <!-- TODO(kontak): tambahkan tautan surel/kontak resmi bila sudah ditetapkan. -->
+      <ul class="link-list">
+        {
+          site.links.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <aside class="callout" aria-labelledby="kanal-belum">
+        <p class="callout-title" id="kanal-belum">Catatan tentang kanal khusus</p>
+        <p>
+          Kanal surel atau formulir khusus untuk situs ini belum ditetapkan. Sementara itu,
+          masukan dapat disampaikan melalui kanal resmi sekolah di atas
+          (<a href={site.school.url} target="_blank" rel="noopener noreferrer">website sekolah</a>).
+          Halaman ini akan diperbarui begitu kanal langsung tersedia.
+        </p>
+      </aside>
+
+      <h2>Menyampaikan Koreksi Materi</h2>
+      <p>
+        Koreksi yang rinci jauh lebih cepat ditindaklanjuti. Agar mudah diperiksa, sertakan
+        informasi berikut saat menyampaikan masukan.
+      </p>
+      <ol>
+        <li>
+          <strong>Halaman dan topik.</strong> Sebutkan judul topik serta kelas dan elemennya,
+          misalnya “Turunan, Kelas XII, Kalkulus”.
+        </li>
+        <li>
+          <strong>Bagian yang bermasalah.</strong> Tunjukkan nomor bagian atau kutipan singkat
+          teks/rumus yang keliru.
+        </li>
+        <li>
+          <strong>Keterangan kekeliruan.</strong> Jelaskan letak kesalahannya dan, bila memungkinkan,
+          usulan perbaikan atau rujukan yang mendukung.
+        </li>
+        <li>
+          <strong>Tangkapan layar (opsional).</strong> Bermanfaat untuk masalah tampilan di
+          perangkat tertentu.
+        </li>
+      </ol>
+
+      <h2>Pertanyaan dan Usulan</h2>
+      <p>
+        Pertanyaan tentang cara memakai materi, usulan topik baru, atau ide kegiatan kelas juga
+        diterima. Sampaikan dengan bahasa yang ringkas dan jelas agar mudah dipahami.
+      </p>
+
+      <h2>Masalah Aksesibilitas</h2>
+      <p>
+        Jika menemukan hambatan akses, misalnya kontras warna yang kurang, kontrol yang sulit
+        dijangkau papan tik, atau teks yang tidak terbaca pembaca layar, sampaikan melalui jalur
+        yang sama. Rincian komitmen kami ada di halaman{' '}
+        <a href={url('/aksesibilitas')}>Pernyataan Aksesibilitas</a>.
+      </p>
+
+      <h2>Waktu Tanggapan</h2>
+      <p>
+        Situs ini dirawat secara sukarela di sela kegiatan mengajar, sehingga tanggapan mungkin
+        tidak langsung. Setiap masukan tetap dicatat dan diperiksa.
+      </p>
+    </div>
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Kenali penyusun dan sumbernya"
+        text="Lihat kredit penyusunan, atau periksa catatan kurikulum dan sumber rujukan yang dipakai."
+        reveal
+        actions={[
+          { label: 'Tentang & Kredit', href: url('/tentang'), variant: 'primary' },
+          { label: 'Referensi', href: url('/referensi'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact {
+    padding-block: 1rem 2.5rem;
+  }
+  .id-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    overflow: hidden;
+    margin-block: 0 2rem;
+  }
+  .id-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--color-primary), var(--color-algebra));
+  }
+  .id-logo {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 6.5rem;
+    height: 6.5rem;
+    padding: 0.6rem;
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+  .id-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+  .id-name {
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
+    margin: 0.1rem 0 0.35rem;
+  }
+  .id-body p {
+    margin-bottom: 0.6rem;
+  }
+  .id-note {
+    margin-bottom: 0;
+    font-size: 0.88rem;
+  }
+  .prose h2 {
+    margin-top: 2.25rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--color-primary);
+    line-height: 1.25;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .link-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .link-list a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .link-list a:hover {
+    text-decoration: underline;
+  }
+  .callout {
+    margin: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+  }
+  .callout-title {
+    margin: 0 0 0.35rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .callout p {
+    margin: 0;
+    font-size: 0.94rem;
+  }
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+  @media (max-width: 34rem) {
+    .id-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

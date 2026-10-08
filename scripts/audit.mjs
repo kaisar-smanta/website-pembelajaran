@@ -285,7 +285,7 @@ const INTERACT_EXPR = `(() => {
   return { issues: issues };
 })()`;
 
-const JOBS = [
+const BASE_JOBS = [
   { name: 'beranda', path: '/', width: 1440, height: 900 },
   { name: 'beranda-gelap', path: '/', width: 1440, height: 900, dark: true },
   { name: 'beranda-1200', path: '/', width: 1200, height: 900 },
@@ -309,7 +309,64 @@ const JOBS = [
   { name: 'eksplorasi-mobile', path: '/eksplorasi', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'eksplorasi-interaktif', path: '/eksplorasi', width: 1440, height: 900, interact: true },
   { name: 'eksplorasi-interaktif-mobile', path: '/eksplorasi', width: 390, height: 844, dsf: 2, mobile: true, interact: true },
+  // Halaman baru (glosarium, rumus, peta situs, kemajuan, kontak, aksesibilitas)
+  { name: 'glosarium', path: '/glosarium', width: 1440, height: 900 },
+  { name: 'glosarium-gelap', path: '/glosarium', width: 1440, height: 900, dark: true },
+  { name: 'glosarium-mobile', path: '/glosarium', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'rumus', path: '/rumus', width: 1440, height: 900 },
+  { name: 'rumus-mobile', path: '/rumus', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'peta-situs', path: '/peta-situs', width: 1440, height: 900 },
+  { name: 'peta-situs-mobile', path: '/peta-situs', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'kemajuan', path: '/kemajuan', width: 1440, height: 900 },
+  { name: 'kemajuan-mobile', path: '/kemajuan', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'kontak', path: '/kontak', width: 1440, height: 900 },
+  { name: 'aksesibilitas', path: '/aksesibilitas', width: 1440, height: 900 },
 ];
+
+// Halaman rincian eksplorasi yang baru dibuat; diberi varian seluler juga.
+const NEW_EXPLORATION_SLUGS = new Set([
+  'mtl-polinomial-grafik',
+  'mtl-irisan-kerucut-sim',
+  'mtl-aplikasi-turunan-garis-singgung',
+  'mtl-integral-riemann',
+  'mtl-variabel-acak-pmf',
+]);
+
+// Setiap halaman rincian `/eksplorasi/<slug>` yang ada di dist diaudit secara
+// interaktif (penggeser & readout), sehingga eksplorasi baru ikut terjaring
+// otomatis tanpa perlu menyunting daftar ini.
+function explorationDetailJobs() {
+  const dir = path.join(DIST, 'eksplorasi');
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(dir, entry.name, 'index.html')))
+    .map((entry) => entry.name)
+    .sort()
+    .flatMap((slug) => {
+      const jobs = [
+        {
+          name: `eksplorasi-detail-${slug}`,
+          path: `/eksplorasi/${slug}`,
+          width: 1440,
+          height: 900,
+          interact: true,
+        },
+      ];
+      if (NEW_EXPLORATION_SLUGS.has(slug)) {
+        jobs.push({
+          name: `eksplorasi-detail-${slug}-mobile`,
+          path: `/eksplorasi/${slug}`,
+          width: 390,
+          height: 844,
+          dsf: 2,
+          mobile: true,
+          interact: true,
+        });
+      }
+      return jobs;
+    });
+}
 
 let handle;
 async function main() {
@@ -318,6 +375,8 @@ async function main() {
     process.exit(1);
   }
   fs.mkdirSync(OUT, { recursive: true });
+
+  const jobs = BASE_JOBS.concat(explorationDetailJobs());
 
   const browser = findBrowser();
   if (!browser) {
@@ -329,7 +388,7 @@ async function main() {
   const report = { generatedAt: new Date().toISOString(), base: BASE, pages: [] };
 
   try {
-    for (const job of JOBS) {
+    for (const job of jobs) {
       const page = await preparePage(handle.cdp, {
         url: `http://127.0.0.1:${port}${BASE}${job.path}`,
         width: job.width,

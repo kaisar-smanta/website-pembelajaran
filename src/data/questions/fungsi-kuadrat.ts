@@ -153,4 +153,19 @@ export const fungsiKuadratQuestions: Question[] = [
     hints: ['Gunakan bentuk puncak $f(x)=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{D}{4a}$.'],
     competencies: ['penalaran diskriminan'],
   },
+  {
+    id: 'fk-11',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diketahui $f(x)=x^{2}-4x+3$. (a) Tentukan titik potong grafik dengan sumbu-$x$ dan titik puncaknya. (b) Tentukan selang nilai $x$ yang membuat $f(x)<0$. (c) Jelaskan hubungan tanda diskriminan dengan banyaknya titik potong sumbu-$x$.',
+    answer:
+      '(a) $f(x)=(x-1)(x-3)$ sehingga memotong sumbu-$x$ di $x=1$ dan $x=3$. Titik puncak pada $x=-\\dfrac{-4}{2}=2$ dengan $f(2)=4-8+3=-1$, yaitu $(2,-1)$. (b) Karena parabola membuka ke atas dan akarnya $1$ dan $3$, nilai $f(x)<0$ pada selang $1<x<3$. (c) Diskriminan $D=b^{2}-4ac=16-12=4>0$ menandakan dua titik potong sumbu-$x$. Secara umum $D>0$ berarti dua akar real, $D=0$ satu akar, dan $D<0$ tidak ada akar real.',
+    explanation:
+      'Kunci: memfaktorkan untuk akar, menemukan puncak, membaca selang tanda dari posisi akar, dan mengaitkan $D$ dengan banyak titik potong.',
+    hints: ['Faktorkan $x^{2}-4x+3$.', 'Parabola membuka ke atas karena koefisien $x^{2}$ positif.'],
+    competencies: ['akar fungsi kuadrat', 'diskriminan', 'evaluasi'],
+  },
 ];

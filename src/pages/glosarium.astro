@@ -1,0 +1,504 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import Callout from '@/components/content/Callout.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
+import { topics } from '@/data/topics';
+import { ALL_ELEMENT_ORDER, ELEMENTS } from '@/data/curriculum';
+import {
+  collectGlossaryEntries,
+  glossaryLetter,
+  type GlossaryEntry,
+} from '@/lib/reference';
+import { normalizeText } from '@/lib/filter';
+import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
+import { topicUrl, url } from '@/utils/url';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Glosarium' },
+];
+
+const entries = collectGlossaryEntries(topics);
+
+const groups: { letter: string; items: GlossaryEntry[] }[] = (() => {
+  const byLetter = new Map<string, GlossaryEntry[]>();
+  for (const entry of entries) {
+    const letter = glossaryLetter(entry);
+    const list = byLetter.get(letter) ?? [];
+    list.push(entry);
+    byLetter.set(letter, list);
+  }
+  return Array.from(byLetter.entries())
+    .sort(([a], [b]) => a.localeCompare(b, 'id'))
+    .map(([letter, items]) => ({ letter, items }));
+})();
+
+const elementChips = ALL_ELEMENT_ORDER.map((id) => ({
+  id,
+  label: ELEMENTS[id].short,
+  count: entries.filter((entry) => entry.elements.includes(id)).length,
+})).filter((chip) => chip.count > 0);
+
+const entrySearch = (entry: GlossaryEntry): string =>
+  normalizeText(
+    [
+      entry.termText,
+      stripMarkdown(entry.meaning),
+      ...entry.topics.map((topic) => topic.title),
+    ].join(' '),
+  );
+
+const topicCount = new Set(entries.flatMap((entry) => entry.topics.map((t) => t.id))).size;
+const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCount} topik`];
+---
+
+<BaseLayout
+  title="Glosarium Matematika"
+  description="Glosarium istilah matematika SMA dari seluruh topik: definisi singkat, makna, dan tautan ke topik asalnya. Dilengkapi pencarian dan saringan elemen."
+>
+  <PageHeader
+    title="Glosarium"
+    eyebrow="Daftar istilah"
+    lead="Kumpulan istilah penting dari seluruh topik, tersusun menurut abjad. Setiap istilah memuat makna singkat dan tautan ke topik tempat istilah itu dipelajari."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container ref-body">
+    {
+      entries.length === 0 ? (
+        <Callout
+          variant="info"
+          title="Belum ada istilah"
+          text="Glosarium terisi otomatis dari kartu istilah pada tiap topik. Saat ini belum ada istilah yang dapat dikumpulkan."
+        />
+      ) : (
+        <>
+          <div class="ref-toolbar" data-glos-toolbar>
+            <div class="ref-filter">
+              <span class="ref-filter-label">Elemen</span>
+              <div class="ref-chip-row" data-glos-chips role="group" aria-label="Saring menurut elemen">
+                <button
+                  type="button"
+                  class="ref-chip is-active"
+                  data-glos-filter="all"
+                  aria-pressed="true"
+                >
+                  Semua <span class="ref-chip-count">{entries.length}</span>
+                </button>
+                {elementChips.map((chip) => (
+                  <button
+                    type="button"
+                    class="ref-chip"
+                    data-glos-filter={chip.id}
+                    aria-pressed="false"
+                  >
+                    {chip.label} <span class="ref-chip-count">{chip.count}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div class="ref-search">
+              <label class="visually-hidden" for="glos-search">Cari istilah</label>
+              <input
+                id="glos-search"
+                type="search"
+                class="ref-search-input"
+                data-glos-search
+                placeholder="Cari istilah atau makna"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <p class="ref-result" data-glos-result aria-live="polite">
+            Menampilkan {entries.length} istilah
+          </p>
+
+          {groups.map((group) => (
+            <section
+              class="glos-group"
+              data-glos-group
+              data-letter={group.letter}
+              aria-labelledby={`glos-${group.letter}`}
+            >
+              <h2 class="glos-letter" id={`glos-${group.letter}`}>
+                {group.letter}
+              </h2>
+              <dl class="glos-list">
+                {group.items.map((entry) => (
+                  <div
+                    class="glos-item"
+                    data-glos-item
+                    data-elements={entry.elements.join(' ')}
+                    data-search={entrySearch(entry)}
+                  >
+                    <dt class="glos-term" set:html={renderInlineMarkdown(entry.term)} />
+                    <dd class="glos-body">
+                      <p class="glos-meaning" set:html={renderInlineMarkdown(entry.meaning)} />
+                      <p class="glos-source">
+                        <span class="glos-source-label">Topik</span>
+                        {entry.topics.map((topic, i) => (
+                          <>
+                            {i > 0 ? ' · ' : ''}
+                            <a
+                              href={topicUrl(
+                                topic.grade,
+                                topic.element,
+                                topic.slug,
+                                topic.subject,
+                              )}
+                            >
+                              {topic.title}
+                            </a>
+                          </>
+                        ))}
+                      </p>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+
+          <p class="ref-empty" data-glos-empty hidden>
+            Tidak ada istilah yang cocok dengan saringan ini. Coba kata kunci lain atau pilih elemen
+            yang berbeda.
+          </p>
+        </>
+      )
+    }
+  </div>
+
+  <section class="section-alt cta-section">
+    <div class="container">
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Butuh rumus, bukan istilah?"
+        text="Buka kumpulan rumus untuk melihat ringkasan formula per topik, atau telusuri materi lewat pencarian."
+        reveal
+        actions={[
+          { label: 'Kumpulan Rumus', href: url('/rumus'), variant: 'primary' },
+          { label: 'Cari materi', href: url('/cari'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { normalizeText } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
+
+  const toolbar = document.querySelector<HTMLElement>('[data-glos-toolbar]');
+
+  if (toolbar) {
+    const chips = toolbar.querySelector<HTMLElement>('[data-glos-chips]');
+    const searchInput = toolbar.querySelector<HTMLInputElement>('[data-glos-search]');
+    const result = document.querySelector<HTMLElement>('[data-glos-result]');
+    const empty = document.querySelector<HTMLElement>('[data-glos-empty]');
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-glos-item]'));
+    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-glos-group]'));
+
+    // Pulihkan kueri pencarian dari URL sebelum saringan pertama dijalankan.
+    try {
+      const initial = new URLSearchParams(location.search).get('q');
+      if (initial && searchInput) searchInput.value = initial;
+    } catch {
+      /* abaikan URL yang tidak dapat dibaca */
+    }
+
+    const apply = (values: Record<string, string>, query: string): void => {
+      const element = values.element || 'all';
+      const q = normalizeText(query);
+      let visible = 0;
+
+      for (const item of items) {
+        const elements = (item.getAttribute('data-elements') ?? '').split(' ').filter(Boolean);
+        const haystack = item.getAttribute('data-search') ?? '';
+        const show =
+          (element === 'all' || elements.includes(element)) &&
+          (q === '' || haystack.includes(q));
+        item.classList.toggle('is-hidden', !show);
+        if (show) visible += 1;
+      }
+
+      for (const group of groups) {
+        const any = Array.from(group.querySelectorAll<HTMLElement>('[data-glos-item]')).some(
+          (item) => !item.classList.contains('is-hidden'),
+        );
+        group.classList.toggle('is-hidden', !any);
+      }
+
+      if (empty) empty.hidden = visible !== 0;
+      if (result) result.textContent = `Menampilkan ${visible} dari ${items.length} istilah`;
+    };
+
+    // Selaraskan kata kunci pencarian ke URL (?q=) agar tautan dapat dibagikan.
+    const syncQuery = (): void => {
+      try {
+        const params = new URLSearchParams(location.search);
+        const value = searchInput?.value.trim() ?? '';
+        if (value) params.set('q', value);
+        else params.delete('q');
+        const search = params.toString();
+        history.replaceState(
+          null,
+          '',
+          `${location.pathname}${search ? `?${search}` : ''}${location.hash}`,
+        );
+      } catch {
+        /* abaikan bila riwayat/URL tidak dapat diubah */
+      }
+    };
+
+    if (chips) {
+      setupFilterPage({
+        groups: [
+          {
+            key: 'element',
+            group: chips,
+            chipSelector: '[data-glos-filter]',
+            valueAttr: 'data-glos-filter',
+            activeClass: 'is-active',
+            allValue: 'all',
+          },
+        ],
+        searchInput,
+        apply,
+        syncUrl: true,
+      });
+      searchInput?.addEventListener('input', syncQuery);
+    } else {
+      apply({ element: 'all' }, searchInput?.value ?? '');
+    }
+  }
+</script>
+
+<style>
+  .ref-body {
+    padding-block: 1.5rem 2.5rem;
+  }
+
+  .ref-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .ref-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    min-width: 0;
+  }
+  .ref-filter-label {
+    flex: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .ref-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .ref-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.42rem 0.9rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      background var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .ref-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .ref-chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .ref-chip.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .ref-chip.is-active:hover {
+    color: var(--color-on-primary);
+  }
+  .ref-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+  }
+  .ref-chip.is-active .ref-chip-count {
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+  }
+  .ref-search {
+    flex: 1 1 15rem;
+    max-width: 22rem;
+    min-width: 0;
+  }
+  .ref-search-input {
+    width: 100%;
+    appearance: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    font: inherit;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    transition:
+      border-color var(--dur-fast),
+      box-shadow var(--dur-fast);
+  }
+  .ref-search-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+
+  .ref-result {
+    margin: 0 0 1.35rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .glos-group {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+  .glos-group + .glos-group {
+    margin-top: 1.75rem;
+  }
+  .glos-letter {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    color: var(--color-primary);
+  }
+  .glos-letter::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+  .glos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .glos-item {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--color-border);
+    border-left: 3px solid color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .glos-term {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .glos-term :global(> *:last-child),
+  .glos-meaning :global(> *:last-child) {
+    margin-bottom: 0;
+  }
+  .glos-body {
+    margin: 0;
+  }
+  .glos-meaning {
+    margin: 0.15rem 0 0.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+  .glos-source {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 0.82rem;
+  }
+  .glos-source-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+  .glos-source a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    color: var(--color-primary);
+  }
+
+  .ref-empty {
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.15rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  .is-hidden {
+    display: none !important;
+  }
+
+  .cta-section {
+    padding-block: 2.5rem;
+  }
+
+  @media (max-width: 30rem) {
+    .ref-chip {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>

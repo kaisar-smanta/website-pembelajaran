@@ -52,10 +52,7 @@ const curatedApplications = (topic.applications ?? [])
   .filter((a): a is Application => a !== undefined);
 const relatedApplications = Array.from(
   new Map(
-    (curatedApplications.length ? curatedApplications : applicationsForTopic(topic.id)).map((a) => [
-      a.id,
-      a,
-    ]),
+    [...curatedApplications, ...applicationsForTopic(topic.id)].map((a) => [a.id, a]),
   ).values(),
 );
 
@@ -170,6 +167,14 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
 
         <TopicProgress />
 
+        <div class="aside-card review-card" data-topic-review hidden>
+          <h2 class="aside-heading">Ulas kesalahan</h2>
+          <p class="review-lead" data-review-lead>
+            Tinjau kembali soal yang belum tepat.
+          </p>
+          <ul class="aside-links review-list" data-review-list></ul>
+        </div>
+
         {
           prerequisiteTopics.length ? (
             <div class="aside-card">
@@ -234,6 +239,8 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
 </BaseLayout>
 
 <script>
+  import { loadProgress, missedQuestionIds, type ProgressMap } from '@/lib/progress';
+
   document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
 
   const outline = document.querySelector('[data-outline]');
@@ -268,6 +275,103 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
       );
       sections.forEach((entry) => observer.observe(entry.el));
     }
+  }
+
+  // Daftar "Ulas kesalahan": menautkan langsung ke setiap soal yang belum tepat
+  // di halaman ini, bukan hanya yang pertama.
+  function setupTopicReview() {
+    const wrap = document.querySelector<HTMLElement>('[data-topic-review]');
+    const list = wrap?.querySelector<HTMLElement>('[data-review-list]');
+    const lead = wrap?.querySelector<HTMLElement>('[data-review-lead]');
+    if (!wrap || !list) return;
+
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>('.topic-main [data-question]'),
+    );
+    const byId = new Map<string, HTMLElement>();
+    for (const card of cards) {
+      const id = card.getAttribute('data-question-id');
+      if (!id) continue;
+      card.style.scrollMarginTop = 'calc(var(--header-h) + 1rem)';
+      if (byId.has(id)) continue;
+      if (!card.id) card.id = `q-${id}`;
+      byId.set(id, card);
+    }
+    const ids = Array.from(byId.keys());
+    if (!ids.length) return;
+
+    let storage: Storage | undefined;
+    try {
+      storage = window.localStorage;
+    } catch {
+      storage = undefined;
+    }
+
+    let reduceMotion = false;
+    try {
+      reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch {
+      reduceMotion = false;
+    }
+
+    const labelFor = (id: string): string => {
+      const card = byId.get(id);
+      const prompt = card?.querySelector('.q-prompt');
+      const text = (prompt?.textContent ?? '').replace(/\s+/g, ' ').trim();
+      if (!text) return `Soal ${id}`;
+      return text.length > 68 ? `${text.slice(0, 68)}…` : text;
+    };
+
+    const render = () => {
+      let attempts: ProgressMap = {};
+      try {
+        attempts = loadProgress(storage);
+      } catch {
+        attempts = {};
+      }
+      const missed = missedQuestionIds(attempts, ids);
+      list.innerHTML = '';
+      if (!missed.length) {
+        wrap.hidden = true;
+        return;
+      }
+      wrap.hidden = false;
+      if (lead) {
+        lead.textContent =
+          missed.length === 1
+            ? 'Satu soal belum tepat. Tinjau lagi langkahmu.'
+            : `${missed.length} soal belum tepat. Tinjau lagi langkahmu.`;
+      }
+      for (const id of missed) {
+        const card = byId.get(id);
+        if (!card) continue;
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#${card.id}`;
+        link.textContent = labelFor(id);
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          card.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'start',
+          });
+          if (window.history.replaceState) {
+            window.history.replaceState(null, '', `#${card.id}`);
+          }
+        });
+        item.appendChild(link);
+        list.appendChild(item);
+      }
+    };
+
+    render();
+    window.addEventListener('mtk:progress', render);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTopicReview);
+  } else {
+    setupTopicReview();
   }
 </script>
 
@@ -504,6 +608,22 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
   }
   .aside-actions .btn {
     justify-content: center;
+  }
+  .review-lead {
+    margin: 0 0 0.5rem;
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+  }
+  .review-list a {
+    align-items: flex-start;
+    line-height: 1.35;
+  }
+  .review-list a::before {
+    content: '→';
+    flex: 0 0 auto;
+    margin-top: 0.05rem;
+    color: var(--accent);
+    font-weight: 700;
   }
 
   .topic-pager {

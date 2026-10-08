@@ -5,7 +5,6 @@ export interface LearningPathNode {
   id?: string;
   grade?: Grade;
   element?: ElementId;
-  planned?: boolean;
 }
 
 export interface LearningPath {
@@ -68,6 +67,12 @@ export const learningPaths: LearningPath[] = [
         element: 'aljabar-fungsi',
       },
       {
+        label: 'Transformasi Fungsi',
+        id: 'transformasi-fungsi',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
+      {
         label: 'Fungsi Invers',
         id: 'fungsi-invers',
         grade: 'XI',
@@ -90,6 +95,26 @@ export const learningPaths: LearningPath[] = [
     ],
   },
   {
+    id: 'geometri',
+    accent: 'geometri',
+    title: 'Jalur Geometri: dari sudut dan sisi ke busur dan juring',
+    note: 'Trigonometri menyiapkan perhitungan sudut dan panjang; lingkaran memperluasnya ke busur, juring, dan garis singgung.',
+    nodes: [
+      { label: 'Trigonometri', id: 'trigonometri', grade: 'X', element: 'geometri' },
+      { label: 'Lingkaran', id: 'lingkaran', grade: 'XI', element: 'geometri' },
+    ],
+  },
+  {
+    id: 'aljabar-matriks',
+    accent: 'aljabar-fungsi',
+    title: 'Jalur Aljabar: dari sistem linear ke matriks',
+    note: 'Topik pengayaan: SPLTV menyiapkan cara menyelesaikan sistem, lalu matriks menawarkan notasi dan penyelesaian yang lebih ringkas.',
+    nodes: [
+      { label: 'SPLTV (pengayaan)', id: 'spltv', grade: 'X', element: 'aljabar-fungsi' },
+      { label: 'Matriks (pengayaan)', id: 'matriks', grade: 'XI', element: 'aljabar-fungsi' },
+    ],
+  },
+  {
     id: 'peluang',
     accent: 'data-peluang',
     title: 'Jalur Peluang: dari data ke kesimpulan yang sahih',
@@ -109,6 +134,7 @@ export const learningPaths: LearningPath[] = [
       },
       { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
       { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
+      { label: 'Peluang', id: 'peluang', grade: 'XI', element: 'data-peluang' },
       {
         label: 'Asosiasi & Kausalitas',
         id: 'asosiasi-kausalitas',

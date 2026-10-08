@@ -165,4 +165,34 @@ export const fungsiInversQuestions: Question[] = [
     hints: ['Kurangi $32$ terlebih dahulu, lalu kalikan dengan $\\dfrac{5}{9}$.'],
     competencies: ['fungsi invers', 'pemodelan kontekstual'],
   },
+  {
+    id: 'fi-11',
+    topicId: 'fungsi-invers',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diberikan $f(x)=x^{2}+2x-3$ dengan domain $x\\geq-1$. (a) Tentukan rumus $f^{-1}(x)$ beserta domainnya. (b) Periksa bahwa $f(f^{-1}(x))=x$. (c) Jelaskan mengapa pembatasan domain diperlukan.',
+    answer:
+      '(a) Tulis $y=(x+1)^{2}-4$, maka $(x+1)^{2}=y+4$ dan $x=-1+\\sqrt{y+4}$ karena $x\\geq-1$. Jadi $f^{-1}(x)=\\sqrt{x+4}-1$ dengan domain $x\\geq-4$. (b) $f(f^{-1}(x))=\\left(\\sqrt{x+4}-1+1\\right)^{2}-4=(x+4)-4=x$, benar. (c) Tanpa pembatasan, $f(x)=x^{2}+2x-3$ tidak satu-satu (misalnya $f(0)=f(-2)=-3$), sehingga inversnya bukan fungsi. Pembatasan domain membuat $f$ satu-satu.',
+    explanation:
+      'Kunci: melengkapi kuadrat untuk memperoleh invers, memverifikasi komposisi, dan menghubungkan pembatasan domain dengan sifat satu-satu.',
+    hints: ['Ubah $x^{2}+2x-3$ menjadi bentuk puncak.', 'Ambil akar dengan memperhatikan tanda domain $x\\geq-1$.'],
+    competencies: ['invers fungsi kuadrat', 'pembatasan domain', 'evaluasi'],
+  },
+  {
+    id: 'fi-12',
+    topicId: 'fungsi-invers',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Biaya sewa sebuah mobil (dalam ribu rupiah) dimodelkan $B(x)=350x+500$ dengan $x$ lama sewa dalam hari. (a) Nyatakan lama sewa $x$ sebagai fungsi dari biaya $B$. (b) Tentukan lama sewa jika biaya yang dibayar Rp4.000 ribu.',
+    answer:
+      '(a) Dari $B=350x+500$ diperoleh $350x=B-500$, sehingga $x=\\dfrac{B-500}{350}$. Inilah fungsi inversnya. (b) Untuk $B=4000$: $x=\\dfrac{4000-500}{350}=\\dfrac{3500}{350}=10$ hari.',
+    explanation:
+      'Kunci: menyusun invers fungsi linear dengan menjadikan $x$ subjek rumus, lalu menerapkannya pada nilai biaya tertentu.',
+    hints: ['Kurangi $500$ terlebih dahulu, lalu bagi dengan $350$.', 'Periksa dengan $B(10)=350(10)+500=4000$.'],
+    competencies: ['invers fungsi linear', 'pemodelan'],
+  },
 ];

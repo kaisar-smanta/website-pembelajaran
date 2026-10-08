@@ -336,7 +336,7 @@ Saldo akhirnya sekitar Rp12.715.978, yaitu sekitar Rp715.978 lebih besar daripad
       title: "Penerapan di Dunia Nyata",
       body: `Model pinjaman dan investasi dipakai pada KPR, kredit kendaraan, kartu kredit, dana pensiun, dan reksa dana. Pola pengambilan keputusan selalu sama: tentukan tujuan, susun model, hitung total biaya atau hasil, bandingkan alternatif, lalu putuskan.
 
-Lihat analisis penerapan pada halaman [Kredit Motor](aplikasi/anuitas-pinjaman) untuk melihat bagaimana total bunga dihitung dari tabel amortisasi.`,
+Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk melihat bagaimana total bunga dihitung dari tabel amortisasi.`,
     },
     {
       id: "kesalahan-umum",

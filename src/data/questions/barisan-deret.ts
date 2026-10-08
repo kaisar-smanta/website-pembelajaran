@@ -177,4 +177,19 @@ export const barisanDeretQuestions: Question[] = [
     ],
     competencies: ['pemodelan deret aritmetika', 'pertidaksamaan'],
   },
+  {
+    id: 'bd-12',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Dua barisan sama-sama dimulai dari $2$. Barisan aritmetika bertambah $3$ setiap suku, sedangkan barisan geometri dikalikan $2$ setiap suku. (a) Tuliskan empat suku pertama masing-masing barisan. (b) Bandingkan suku ke-$10$ keduanya. (c) Jelaskan mengapa barisan geometri akhirnya jauh melampaui barisan aritmetika.',
+    answer:
+      '(a) Aritmetika: $2, 5, 8, 11, \\dots$; geometri: $2, 4, 8, 16, \\dots$. (b) Suku ke-$10$ aritmetika $U_{10}=2+9\\cdot3=29$, sedangkan geometri $U_{10}=2\\cdot2^{9}=1024$. (c) Barisan geometri bertambah secara perkalian sehingga tumbuh makin cepat (eksponensial), sedangkan barisan aritmetika bertambah secara penjumlahan tetap (linear). Akibatnya, untuk suku yang cukup jauh, nilai geometri jauh lebih besar.',
+    explanation:
+      'Kunci: membedakan pertumbuhan linear dan eksponensial, dibuktikan dengan perbandingan suku ke-10.',
+    hints: ['Gunakan $U_n=a+(n-1)b$ untuk aritmetika dan $U_n=ar^{n-1}$ untuk geometri.', 'Bandingkan laju pertambahan keduanya.'],
+    competencies: ['barisan aritmetika', 'barisan geometri', 'evaluasi'],
+  },
 ];

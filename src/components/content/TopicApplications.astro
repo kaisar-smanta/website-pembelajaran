@@ -1,6 +1,7 @@
 ---
 import type { Application } from '@/types/content';
 import { applicationCategories } from '@/data/applications';
+import { DIFFICULTY_LABELS } from '@/data/display';
 import { url } from '@/utils/url';
 
 interface Props {
@@ -14,12 +15,6 @@ const {
   title = 'Penerapan di Dunia Nyata',
   eyebrow = 'Koneksi',
 } = Astro.props;
-
-const levelLabel: Record<string, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
 
 const items = applications.filter((a) => applicationCategories[a.category]);
 ---
@@ -51,7 +46,7 @@ const items = applications.filter((a) => applicationCategories[a.category]);
               >
                 <span class="app-card-top">
                   <span class="app-category">{category.name}</span>
-                  <span class={`badge badge-${a.level}`}>{levelLabel[a.level]}</span>
+                  <span class={`badge badge-${a.level}`}>{DIFFICULTY_LABELS[a.level]}</span>
                 </span>
                 <span class="app-title">{a.title}</span>
                 <span class="app-summary">{a.summary}</span>

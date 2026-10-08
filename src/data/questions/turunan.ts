@@ -2,7 +2,7 @@ import type { Question } from '@/types/content';
 
 export const turunanQuestions: Question[] = [
   {
-    id: 'tr-01',
+    id: 'tur-01',
     topicId: 'turunan',
     difficulty: 'dasar',
     type: 'multiple-choice',
@@ -21,7 +21,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['aturan pangkat', 'turunan di titik'],
   },
   {
-    id: 'tr-02',
+    id: 'tur-02',
     topicId: 'turunan',
     difficulty: 'dasar',
     type: 'multiple-choice',
@@ -40,7 +40,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['aturan pangkat', 'aturan konstanta'],
   },
   {
-    id: 'tr-03',
+    id: 'tur-03',
     topicId: 'turunan',
     difficulty: 'dasar',
     type: 'short-answer',
@@ -53,7 +53,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['turunan trigonometri'],
   },
   {
-    id: 'tr-04',
+    id: 'tur-04',
     topicId: 'turunan',
     difficulty: 'dasar',
     type: 'short-answer',
@@ -66,7 +66,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['laju perubahan rata-rata'],
   },
   {
-    id: 'tr-05',
+    id: 'tur-05',
     topicId: 'turunan',
     difficulty: 'cakap',
     type: 'multiple-choice',
@@ -85,7 +85,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['aturan hasil kali'],
   },
   {
-    id: 'tr-06',
+    id: 'tur-06',
     topicId: 'turunan',
     difficulty: 'cakap',
     type: 'multiple-choice',
@@ -104,7 +104,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['aturan hasil bagi'],
   },
   {
-    id: 'tr-07',
+    id: 'tur-07',
     topicId: 'turunan',
     difficulty: 'cakap',
     type: 'short-answer',
@@ -117,7 +117,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['aturan rantai'],
   },
   {
-    id: 'tr-08',
+    id: 'tur-08',
     topicId: 'turunan',
     difficulty: 'cakap',
     type: 'open-response',
@@ -135,7 +135,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['aturan hasil kali', 'aturan rantai', 'penalaran'],
   },
   {
-    id: 'tr-09',
+    id: 'tur-09',
     topicId: 'turunan',
     difficulty: 'mahir',
     type: 'multiple-choice',
@@ -154,7 +154,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['turunan eksponensial', 'penalaran'],
   },
   {
-    id: 'tr-10',
+    id: 'tur-10',
     topicId: 'turunan',
     difficulty: 'mahir',
     type: 'open-response',
@@ -172,7 +172,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['turunan trigonometri', 'aturan hasil bagi', 'pembuktian'],
   },
   {
-    id: 'tr-11',
+    id: 'tur-11',
     topicId: 'turunan',
     difficulty: 'mahir',
     type: 'short-answer',
@@ -185,7 +185,7 @@ export const turunanQuestions: Question[] = [
     competencies: ['turunan eksponensial', 'aturan rantai'],
   },
   {
-    id: 'tr-12',
+    id: 'tur-12',
     topicId: 'turunan',
     difficulty: 'mahir',
     type: 'short-answer',
@@ -196,5 +196,50 @@ export const turunanQuestions: Question[] = [
       'Aturan hasil kali: $q\'(x) = 1 \\cdot \\cos x + x \\cdot (-\\sin x) = \\cos x - x\\sin x$. Maka $q\'(0) = \\cos 0 - 0 = 1$.',
     hints: ['Gunakan $\\dfrac{d}{dx}(x\\cos x) = \\cos x - x\\sin x$.'],
     competencies: ['aturan hasil kali', 'turunan trigonometri'],
+  },
+  {
+    id: 'tur-13',
+    topicId: 'turunan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Diberikan $f(x)=x^{3}-3x+2$. (a) Tentukan $f\'(x)$ dan titik stasionernya. (b) Tentukan jenis setiap titik stasioner dengan uji turunan kedua. (c) Jelaskan mengapa $f\'(x)=0$ saja belum cukup untuk menyimpulkan maksimum atau minimum.',
+    answer:
+      '(a) $f\'(x)=3x^{2}-3=3(x-1)(x+1)=0$ memberi $x=-1$ dan $x=1$. (b) $f\'\'(x)=6x$; $f\'\'(-1)=-6<0$ sehingga $x=-1$ maksimum lokal ($f(-1)=4$), dan $f\'\'(1)=6>0$ sehingga $x=1$ minimum lokal ($f(1)=0$). (c) Karena $f\'(x)=0$ juga dapat terjadi pada titik belok, misalnya $g(x)=x^{3}$ di $x=0$ yang memiliki $g\'(0)=0$ tetapi bukan titik ekstrem. Karena itu jenis titik stasioner perlu diperiksa, misalnya dengan turunan kedua atau perubahan tanda $f\'$.',
+    explanation:
+      'Kunci: menyelesaikan $f\'(x)=0$, memakai tanda $f\'\'$, dan menyadari bahwa titik stasioner bisa berupa titik belok.',
+    hints: ['Faktorkan $3x^{2}-3$.', 'Ingat contoh $y=x^{3}$ di titik asal.'],
+    competencies: ['titik stasioner', 'uji turunan kedua', 'evaluasi'],
+  },
+  {
+    id: 'tur-14',
+    topicId: 'turunan',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'pemodelan',
+    prompt:
+      'Biaya total produksi (juta rupiah) $x$ unit barang dimodelkan $C(x)=x^{2}+4x+16$, $x>0$. Tentukan nilai $x$ agar biaya rata-rata per unit, $\\bar{C}(x)=\\dfrac{C(x)}{x}$, minimum.',
+    answer: '4',
+    acceptedAnswers: ['4', 'x=4'],
+    explanation:
+      'Biaya rata-rata $\\bar{C}(x)=x+4+\\dfrac{16}{x}$. Turunannya $\\bar{C}\'(x)=1-\\dfrac{16}{x^{2}}=0$ memberi $x^{2}=16$ sehingga $x=4$ (nilai positif). Uji turunan kedua $\\bar{C}\'\'(x)=\\dfrac{32}{x^{3}}>0$ menandakan minimum. Jadi $x=4$ unit.',
+    hints: ['Bagi $C(x)$ dengan $x$ terlebih dahulu.', 'Cari titik stasioner $\\bar{C}\'(x)=0$ dan buang akar negatif.'],
+    competencies: ['optimasi', 'biaya rata-rata', 'pemodelan'],
+  },
+  {
+    id: 'tur-15',
+    topicId: 'turunan',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Populasi bakteri (dalam ribuan) setelah $t$ jam dimodelkan $P(t)=t^{3}-9t^{2}+24t$. Tentukan laju perubahan populasi pada $t=2$ jam.',
+    answer: '0',
+    acceptedAnswers: ['0', '0 ribu/jam'],
+    explanation:
+      'Laju perubahan adalah $P\'(t)=3t^{2}-18t+24$. Pada $t=2$: $P\'(2)=3(4)-18(2)+24=12-36+24=0$. Artinya populasi sedang berhenti berubah sesaat pada $t=2$ jam.',
+    hints: ['Turunkan $P(t)$ terhadap $t$.', 'Substitusikan $t=2$ ke $P\'(t)$.'],
+    competencies: ['laju perubahan', 'kontekstual'],
   },
 ];
