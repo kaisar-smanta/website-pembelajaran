@@ -83,35 +83,67 @@ for (const item of explorations) {
     `${label}: deskripsi kosong`,
   );
 
+  // Setiap eksplorasi wajib punya tujuan, skema prediksi-observasi-penjelasan,
+  // dan minimal satu peringatan agar sisi panduan tidak kosong.
+  ok(typeof item.goal === 'string' && item.goal.trim().length > 0, `${label}: goal kosong`);
+  ok(
+    item.prompts !== null && typeof item.prompts === 'object',
+    `${label}: prompts hilang`,
+  );
+  if (item.prompts) {
+    for (const field of ['predict', 'observe', 'explain']) {
+      const value = item.prompts[field];
+      ok(
+        typeof value === 'string' && value.trim().length > 0,
+        `${label}: prompt ${field} kosong`,
+      );
+    }
+  }
+  ok(
+    Array.isArray(item.cautions) && item.cautions.length > 0,
+    `${label}: cautions kosong`,
+  );
+  if (Array.isArray(item.cautions)) {
+    item.cautions.forEach((caution, i) => {
+      ok(
+        typeof caution === 'string' && caution.trim().length > 0,
+        `${label}: caution #${i + 1} kosong`,
+      );
+    });
+  }
+
   if (item.topicId) {
     ok(topicIds.has(item.topicId), `${label}: topik tidak ditemukan -> ${item.topicId}`);
   }
 
   if (item.type === 'function-slider') {
-    if (item.params === undefined) {
-      console.warn(`Peringatan: ${label}: function-slider tanpa params`);
-    } else {
-      ok(Array.isArray(item.params), `${label}: params bukan larik`);
-      for (const p of item.params) {
-        ok(typeof p.name === 'string' && p.name.length > 0, `${label}: param tanpa name`);
-        ok(typeof p.label === 'string' && p.label.length > 0, `${label}: param ${p.name} tanpa label`);
-        for (const field of ['min', 'max', 'step', 'value']) {
-          ok(
-            typeof p[field] === 'number' && Number.isFinite(p[field]),
-            `${label}: param ${p.name} ${field} bukan angka`,
-          );
-        }
-        ok(p.min <= p.value, `${label}: param ${p.name}: min (${p.min}) > value (${p.value})`);
-        ok(p.value <= p.max, `${label}: param ${p.name}: value (${p.value}) > max (${p.max})`);
+    ok(
+      Array.isArray(item.params) && item.params.length > 0,
+      `${label}: function-slider tanpa params`,
+    );
+    for (const p of item.params ?? []) {
+      ok(typeof p.name === 'string' && p.name.length > 0, `${label}: param tanpa name`);
+      ok(typeof p.label === 'string' && p.label.length > 0, `${label}: param ${p.name} tanpa label`);
+      for (const field of ['min', 'max', 'step', 'value']) {
+        ok(
+          typeof p[field] === 'number' && Number.isFinite(p[field]),
+          `${label}: param ${p.name} ${field} bukan angka`,
+        );
       }
+      ok(p.min <= p.value, `${label}: param ${p.name}: min (${p.min}) > value (${p.value})`);
+      ok(p.value <= p.max, `${label}: param ${p.name}: value (${p.value}) > max (${p.max})`);
     }
   }
 
   if (item.type === 'geogebra') {
     ok(typeof item.url === 'string' && item.url.length > 0, `${label}: url kosong`);
-    if (item.url === 'https://www.geogebra.org/classic') {
-      console.warn(`Peringatan: ${label}: url hanya beranda GeoGebra generik`);
-    }
+    // Tautan beranda generik tidak dapat dipakai siswa; geogebra wajib menunjuk
+    // applet spesifik, atau diganti simulasi native. Dipertahankan sebagai
+    // kegagalan berlabel (bukan peringatan senyap) sampai perbaikan tuntas.
+    ok(
+      item.url !== 'https://www.geogebra.org/classic',
+      `${label}: url hanya beranda GeoGebra generik (menunggu applet spesifik/simulasi native)`,
+    );
   }
 
   if (item.order !== undefined && item.grade && item.element) {

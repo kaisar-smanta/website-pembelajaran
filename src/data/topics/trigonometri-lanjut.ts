@@ -40,9 +40,6 @@ export const trigonometriLanjut: Topic = {
     { text: 'Peserta didik dapat menerapkan aturan sinus dan aturan kosinus.' },
     { text: 'Peserta didik dapat menghitung luas segitiga sebarang.' },
   ],
-  explorations: [
-    "mtl-trigonometri-gelombang",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -123,7 +120,7 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
               right: "$\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$",
             },
             {
-              left: "Aturan cosinus",
+              left: "Aturan kosinus",
               right: "$a^{2}=b^{2}+c^{2}-2bc\\cos A$",
             },
           ],
@@ -249,6 +246,16 @@ $$L = \\frac{1}{2}\\cdot5\\cdot8\\cdot\\sin 60^\\circ = 20\\cdot\\frac{\\sqrt{3}
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Benang Merah Identitas dan Aturan Trigonometri",
+      body: `Semua rumus pada topik ini berasal dari dua akar. Akar pertama adalah **identitas jumlah sudut**. Dengan mengambil $\\beta=\\alpha$ lahirlah identitas sudut rangkap, dan dari penggabungan bentuk-bentuknya diperoleh tiga penulisan setara untuk $\\cos 2\\alpha$. Jadi menghafal satu identitas inti lebih berguna daripada menghafal semua turunannya.
+
+Akar kedua adalah **hubungan sisi dan sudut pada segitiga**. Aturan sinus dan aturan kosinus menghubungkan panjang sisi dengan besar sudut, dan keduanya saling terkait: ketika $A=90^\\circ$, $\\cos A=0$ sehingga aturan kosinus menyusut menjadi teorema Pythagoras. Dari pasangan itu pula muncul rumus luas $L=\\dfrac{1}{2}bc\\sin A$.
+
+Untuk fungsi periodik $f(x)=A\\sin\\big(B(x-C)\\big)+D$, parameter-parameternya dapat dibaca langsung dari rumus: $\\lvert A\\rvert$ amplitudo, $\\dfrac{360^\\circ}{\\lvert B\\rvert}$ periode, $C$ pergeseran fase, dan $D$ garis tengah.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -294,60 +301,18 @@ $$L = \\frac{1}{2}bc\\sin A = 20\\cdot\\frac{\\sqrt{3}}{2} = 10\\sqrt{3} \\appro
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan amplitudo dan periode $y=4\\sin(2x)$.
-2. Hitung $\\sin 30^\\circ\\cos 60^\\circ+\\cos 30^\\circ\\sin 60^\\circ$.
-3. Diketahui $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip. Tentukan $\\cos\\alpha$.
-4. Hitung $1-2\\sin^{2}30^\\circ$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Amplitudo $4$ dan periode $\\dfrac{360^\\circ}{2}=180^\\circ$.
-2. Bentuk itu sama dengan $\\sin(30^\\circ+60^\\circ)=\\sin 90^\\circ=1$.
-3. $\\cos\\alpha=\\sqrt{1-\\dfrac{9}{25}}=\\dfrac{4}{5}$.
-4. $1-2\\left(\\dfrac{1}{2}\\right)^{2}=1-\\dfrac{1}{2}=\\dfrac{1}{2}$, sesuai $\\cos 60^\\circ=\\dfrac{1}{2}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan $\\cos 75^\\circ$ menggunakan identitas jumlah sudut.
-2. Diketahui $\\tan\\alpha=\\dfrac{1}{2}$. Tentukan $\\tan 2\\alpha$.
-3. Pada segitiga $ABC$ diketahui $b=5$, $c=8$, dan $A=60^\\circ$. Tentukan panjang $a$ dan luas segitiga.
-4. Pada segitiga $ABC$ diketahui $a=8$, $A=30^\\circ$, dan $B=45^\\circ$. Tentukan panjang sisi $b$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\cos 75^\\circ = \\cos(45^\\circ+30^\\circ) = \\dfrac{\\sqrt{6}-\\sqrt{2}}{4} \\approx 0{,}259$.
-2. $\\tan 2\\alpha = \\dfrac{2\\tan\\alpha}{1-\\tan^{2}\\alpha} = \\dfrac{2(1/2)}{1-1/4} = \\dfrac{1}{3/4} = \\dfrac{4}{3}$.
-3. $a^{2}=25+64-40=49$, jadi $a=7$; luas $=10\\sqrt{3}\\approx 17{,}32$.
-4. $\\dfrac{a}{\\sin A}=\\dfrac{8}{1/2}=16$, maka $b=16\\sin 45^\\circ = 8\\sqrt{2}\\approx 11{,}31$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan amplitudo, periode, dan nilai maksimum $f(x)=2\\sin\\big(3(x-30^\\circ)\\big)+1$.
-2. Sederhanakan $\\cos(\\alpha+\\beta)\\cos\\beta+\\sin(\\alpha+\\beta)\\sin\\beta$.
-3. Pada segitiga $ABC$ dengan $a=5$, $b=7$, dan $c=8$, tentukan besar sudut $B$.
-4. Buktikan $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha$ dengan identitas jumlah sudut, lalu hitung $\\sin 2\\alpha$ untuk $\\alpha=30^\\circ$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Amplitudo $2$, periode $\\dfrac{360^\\circ}{3}=120^\\circ$, nilai maksimum $2+1=3$.
-2. Bentuk itu sama dengan $\\cos\\big((\\alpha+\\beta)-\\beta\\big)=\\cos\\alpha$.
-3. $\\cos B = \\dfrac{a^{2}+c^{2}-b^{2}}{2ac} = \\dfrac{25+64-49}{2\\cdot5\\cdot8} = \\dfrac{40}{80} = \\dfrac{1}{2}$, sehingga $B=60^\\circ$.
-4. $\\sin 2\\alpha = \\sin(\\alpha+\\alpha) = \\sin\\alpha\\cos\\alpha+\\cos\\alpha\\sin\\alpha = 2\\sin\\alpha\\cos\\alpha$. Untuk $\\alpha=30^\\circ$: $2\\cdot\\dfrac{1}{2}\\cdot\\dfrac{\\sqrt{3}}{2} = \\dfrac{\\sqrt{3}}{2}$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -365,6 +330,20 @@ Aturan sinus dan kosinus dipakai dalam **triangulasi** untuk mengukur jarak anta
 **2. Menganggap $\\sin 2\\alpha=2\\sin\\alpha$.** Sudut rangkap bukan kelipatan biasa; gunakan $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha$.
 **3. Tertukar periode dan amplitudo.** Amplitudo mengatur tinggi gelombang, periode mengatur panjang satu siklus.
 **4. Salah memasangkan sisi dan sudut pada aturan sinus.** Sisi $a$ selalu berhadapan dengan sudut $A$.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Diketahui $\\sin\\alpha=\\dfrac{3}{5}$ dengan $\\alpha$ lancip. Perhatikan perhitungan $\\sin 2\\alpha$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Karena $\\alpha$ lancip, $\\cos\\alpha=\\sqrt{1-\\dfrac{9}{25}}=\\dfrac{4}{5}$.",
+            "Gunakan identitas sudut rangkap $\\sin 2\\alpha = 2\\sin\\alpha$.",
+            "Substitusi: $\\sin 2\\alpha = 2 \\cdot \\dfrac{3}{5} = \\dfrac{6}{5}$.",
+            "Simpulkan $\\sin 2\\alpha = \\dfrac{6}{5}$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Langkah kedua keliru. Identitas yang benar adalah $\\sin 2\\alpha = 2\\sin\\alpha\\cos\\alpha$, sehingga $\\sin 2\\alpha = 2 \\cdot \\dfrac{3}{5} \\cdot \\dfrac{4}{5} = \\dfrac{24}{25}$, bukan $2\\sin\\alpha$.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -439,8 +418,7 @@ Aturan sinus dan kosinus dipakai dalam **triangulasi** untuk mengukur jarak anta
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Trigonometri Lanjut**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa identitas sudut rangkap cukup diturunkan dari identitas jumlah sudut? (2) Kapan aturan sinus lebih tepat dipakai, dan kapan aturan kosinus? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri Lanjut** untuk latihan tambahan.`,
     },
   ],
 };

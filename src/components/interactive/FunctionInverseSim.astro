@@ -201,7 +201,7 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
 
 <script>
   import { computeInverse, evaluateLinear, verifyInverse } from '../../lib/sim/function-inverse';
-  import { el, clear, linearScale } from '../../lib/dom';
+  import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
   import { formatPlain } from '../../lib/format';
 
   const initialA = 2;
@@ -387,5 +387,5 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     render();
   }
 
-  document.querySelectorAll('[data-inverse-sim]').forEach(setup);
+  initWhenVisible(document.querySelectorAll('[data-inverse-sim]'), setup);
 </script>

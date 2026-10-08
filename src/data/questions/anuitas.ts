@@ -10,12 +10,12 @@ export const anuitasQuestions: Question[] = [
     prompt:
       'Pinjaman Rp10.000.000 dikenai suku bunga 1,5% per bulan. Besar angsuran bunga pada bulan pertama adalah …',
     options: [
-      { key: 'A', text: 'Rp150.000,00' },
+      { key: 'A', text: 'Rp100.000,00' },
       { key: 'B', text: 'Rp1.500.000,00' },
       { key: 'C', text: 'Rp15.000,00' },
-      { key: 'D', text: 'Rp100.000,00' },
+      { key: 'D', text: 'Rp150.000,00' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Bunga bulan pertama dihitung dari pokok pinjaman: $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Opsi B salah karena memakai $15\\%$, bukan $1{,}5\\%$.',
     hints: ['Bunga periode ke-$k$ dihitung dari sisa utang sebelumnya.'],
@@ -73,12 +73,12 @@ export const anuitasQuestions: Question[] = [
     prompt:
       'Suatu pinjaman pokok Rp10.000.000 dilunasi dengan angsuran Rp499.241,02 per bulan selama 24 bulan. Total bunga yang dibayar adalah …',
     options: [
-      { key: 'A', text: 'Rp1.981.784' },
+      { key: 'A', text: 'Rp1.750.000' },
       { key: 'B', text: 'Rp2.000.000' },
       { key: 'C', text: 'Rp350.000' },
-      { key: 'D', text: 'Rp1.750.000' },
+      { key: 'D', text: 'Rp1.981.784' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Total pembayaran $= 24 \\times 499.241,02 = \\text{Rp}11.981.784,48$. Total bunga $= 11.981.784,48 - 10.000.000 = \\text{Rp}1.981.784,48 \\approx \\text{Rp}1.981.784$.',
     hints: ['Total bunga = total pembayaran − pokok pinjaman.'],
@@ -123,7 +123,7 @@ export const anuitasQuestions: Question[] = [
     prompt:
       'Seseorang menabung Rp1.000.000 setiap akhir tahun selama 5 tahun dengan bunga 6% per tahun. Gunakan rumus nilai masa depan untuk menghitung saldo akhir (bulatkan ke rupiah terdekat).',
     answer: 'Rp5.637.093',
-    acceptedAnswers: ['Rp5.637.092,96', '5.637.093', '5637093', 'Rp 5.637.093'],
+    acceptedAnswers: ['Rp5.637.092,96', 'Rp5.637.093,00', '5.637.093,00', '5637093,00', '5.637.093', '5637093', 'Rp 5.637.093'],
     explanation:
       '$FV = A \\cdot \\dfrac{(1+i)^n - 1}{i} = 1.000.000 \\cdot \\dfrac{(1{,}06)^5 - 1}{0{,}06} = 1.000.000 \\cdot \\dfrac{0{,}338226}{0{,}06} \\approx \\text{Rp}5.637.093$.',
     hints: ['Gunakan rumus nilai masa depan anuitas, bukan bunga majemuk biasa.'],
@@ -173,5 +173,28 @@ export const anuitasQuestions: Question[] = [
       'Penilaian mencakup tiga hal: total bunga yang benar, perhitungan nilai wajar anuitas, dan penafsiran kritis bahwa angsuran penawaran di atas nilai wajar.',
     hints: ['Bandingkan angsuran penawaran dengan nilai wajar anuitas pada suku bunga wajar $1{,}5\\%$ per bulan.'],
     competencies: ['rumus anuitas', 'evaluasi penawaran', 'literasi keuangan'],
+  },
+  {
+    id: 'an-11',
+    topicId: 'anuitas',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Pinjaman Rp12.000.000 akan dilunasi dengan anuitas selama 12 bulan dan bunga 1% per bulan. Besar angsuran bulanan adalah …',
+    options: [
+      { key: 'A', text: 'Rp1.000.000,00' },
+      { key: 'B', text: 'Rp1.200.000,00' },
+      { key: 'C', text: 'Rp1.120.000,00' },
+      { key: 'D', text: 'Rp1.066.185,46' },
+    ],
+    answer: 'D',
+    explanation:
+      '$A=\\dfrac{M i}{1-(1+i)^{-n}}=\\dfrac{12.000.000(0{,}01)}{1-(1{,}01)^{-12}}=\\dfrac{120.000}{0{,}112551}\\approx\\text{Rp}1.066.185{,}46$. Opsi A mengabaikan bunga, opsi C sekadar menambahkan bunga satu periode.',
+    hints: [
+      'Gunakan rumus anuitas dengan $(1{,}01)^{-12}\\approx0{,}887449$.',
+      'Angsuran harus lebih kecil dari pokok ditambah bunga satu bulan penuh.',
+    ],
+    competencies: ['rumus anuitas', 'penerapan keuangan'],
   },
 ];

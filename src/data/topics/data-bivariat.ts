@@ -38,7 +38,6 @@ export const dataBivariat: Topic = {
     { text: 'Menilai kekuatan hubungan secara visual dan menyebut korelasinya.' },
     { text: 'Menyadari keterbatasan diagram pencar dan membedakan korelasi dari sebab-akibat.' },
   ],
-  explorations: ['data-bivariat-korelasi'],
   applications: ['regresi-nilai-ujian', 'survei-statistik'],
   sections: [
     {
@@ -255,6 +254,18 @@ Untuk data lama belajar dan nilai di atas, koefisien korelasinya sekitar $r \\ap
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Membaca Hubungan Secara Umum",
+      body: `Dari contoh-contoh di atas, cara membaca data bivariat selalu mengikuti urutan yang sama: tentukan dulu **arah** (menanjak, menurun, atau tanpa arah), lalu **kekuatan** (rapat atau menyebar), baru diringkas dengan bilangan. Koefisien korelasi $r$ menempatkan kekuatan itu pada skala tetap:
+
+$$-1 \\le r \\le 1.$$
+
+Tanda $r$ menyatakan arah, sedangkan besarnya menyatakan keeratan hubungan linear. Karena $r$ hanya mengukur kedekatan titik pada sebuah garis lurus, pola melengkung yang jelas pun dapat menghasilkan $r$ yang kecil.
+
+Setiap kesimpulan tetap dibatasi rentang data. Pola yang teramati pada $x$ dari $1$ sampai $8$ belum tentu berlaku di luar rentang itu.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -299,78 +310,18 @@ Untuk data lama belajar dan nilai di atas, koefisien korelasinya sekitar $r \\ap
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Data bivariat memiliki dua variabel. Sebutkan mana yang lazim menjadi variabel bebas: (a) jumlah pupuk dan hasil panen; (b) lama menabung dan saldo tabungan.
-
-2. Deskripsikan arah hubungan jika titik-titik diagram pencar menanjak dari kiri bawah ke kanan atas.
-
-3. Deskripsikan arah hubungan antara suhu udara dan penjualan jaket tebal.
-
-4. Sebuah diagram pencar berbentuk lengkung menaik lalu mendatar. Termasuk pola apa?
-
-5. Jika titik-titik menyebar tanpa arah, apa yang dapat disimpulkan mengenai hubungan kedua variabel?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. (a) jumlah pupuk; (b) lama menabung.
-2. Hubungan **positif**: ketika $x$ bertambah, $y$ cenderung bertambah.
-3. Hubungan **negatif**: makin tinggi suhu, makin sedikit orang membeli jaket tebal.
-4. Pola **nonlinear**.
-5. Tidak ada hubungan linear yang jelas antara kedua variabel.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Perhatikan data berikut.
-
-| $x$ | $1$ | $2$ | $3$ | $4$ | $5$ |
-|---|---|---|---|---|---|
-| $y$ | $10$ | $8$ | $7$ | $4$ | $3$ |
-
-Tentukan arah hubungan dan perkirakan kekuatannya.
-
-2. Untuk data $x: 1,2,3,4,5$ dan $y: 1,4,9,16,25$, jelaskan mengapa hubungannya **bukan** linear meskipun $y$ selalu naik.
-
-3. Sebuah penelitian menemukan korelasi positif kuat antara jumlah kembang api yang dinyalakan dan penjualan es krim. Apakah ini berarti kembang api menyebabkan penjualan es krim naik? Jelaskan.
-
-4. Dua variabel memiliki $r=-0{,}85$. Tafsirkan arah dan kekuatannya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Arah **negatif**: setiap kenaikan $x$ diikuti penurunan $y$ yang cukup teratur, sehingga hubungannya cenderung kuat.
-2. Nilai $y$ mengikuti $y=x^{2}$, yang merupakan **lengkung** (parabola), bukan garis lurus. Kenaikan $y$ makin cepat, sehingga hubungannya nonlinear.
-3. Tidak. Keduanya dipengaruhi faktor ketiga, yaitu **cuaca panas**: saat panas orang menyalakan kembang api sekaligus membeli es krim. Ini contoh korelasi tanpa sebab-akibat.
-4. $r=-0{,}85$ berarti hubungan linear **negatif yang kuat**: ketika satu variabel naik, variabel lain cenderung turun secara cukup konsisten.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Pada data lama belajar dan nilai (rentang $x=1$ sampai $8$), seseorang menyimpulkan bahwa belajar $30$ jam menjamin nilai $35$ pada skala $0$--$10$. Jelaskan dua kesalahan penalaran dalam kesimpulan itu.
-
-2. Sebuah diagram pencar menunjukkan hubungan positif kuat antara banyak sepatu yang dijual dan banyak payung yang terjual di sebuah mal. Usulkan satu variabel perantara yang masuk akal dan jelaskan.
-
-3. Dua himpunan data sama-sama memiliki $r \\approx 0{,}6$. Himpunan pertama mengikuti garis lurus dengan beberapa pencilan jauh; himpunan kedua melengkung. Mengapa satu nilai $r$ saja tidak cukup untuk menjelaskan keduanya?
-
-4. Rancang langkah-langkah yang tepat untuk menyelidiki apakah "waktu belajar" benar-benar memengaruhi "nilai", bukan sekadar berkorelasi.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Pertama, ini **ekstrapolasi** jauh di luar rentang data ($x$ hanya sampai $8$) sehingga model linear belum tentu berlaku. Kedua, nilai $35$ **melampaui skala** yang mungkin ($0$--$10$), jadi tidak bermakna.
-2. Banyak pengunjung mal (misalnya hari hujan atau musim liburan). Peningkatan pengunjung menaikkan penjualan sepatu **dan** payung sekaligus, tanpa salah satu menyebabkan yang lain.
-3. Koefisien $r$ hanya mengukur seberapa dekat titik dengan **garis lurus**. Pencilan jauh dapat menekan $r$ meski bagian utama data sangat linear, sedangkan data melengkung dapat menghasilkan $r$ sedang meski polanya teratur. Bentuk diagram pencar tetap perlu dilihat.
-4. Bandingkan kelompok dengan waktu belajar berbeda, jaga faktor lain tetap (kualitas materi, kehadiran, latihan soal), dan bila memungkinkan gunakan **percobaan terkontrol** atau perlakuan acak, bukan sekadar pengamatan korelasi.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -472,8 +423,7 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Data Bivariat**.
-`,
+      body: `**Tiket keluar.** (1) Apa perbedaan antara arah dan kekuatan hubungan pada diagram pencar? (2) Mengapa nilai $r$ tidak cukup untuk menyimpulkan sebab-akibat? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Data Bivariat** untuk latihan tambahan.`,
     },
   ],
 };

@@ -1,6 +1,7 @@
 export interface NavItem {
   label: string;
-  href: string;
+  /** Tautan halaman. Kosong untuk grup dropdown tanpa halaman sendiri. */
+  href?: string;
   description?: string;
   children?: NavItem[];
 }
@@ -28,8 +29,16 @@ export const mainNav: NavItem[] = [
   },
   { label: 'Latihan', href: '/latihan' },
   { label: 'Eksplorasi', href: '/eksplorasi' },
-  { label: 'Alat', href: '/alat' },
-  { label: 'Kehidupan', href: '/aplikasi' },
+  { label: 'Alat Matematika', href: '/alat' },
+  { label: 'Matematika dalam Kehidupan', href: '/aplikasi' },
+  {
+    label: 'Rujukan',
+    children: [
+      { label: 'Glosarium', href: '/glosarium' },
+      { label: 'Kumpulan Rumus', href: '/rumus' },
+      { label: 'Kemajuan Saya', href: '/kemajuan' },
+    ],
+  },
   { label: 'Referensi', href: '/referensi' },
   { label: 'Tentang', href: '/tentang' },
 ];
@@ -52,7 +61,7 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
       { label: 'Latihan & Asesmen', href: '/latihan' },
       { label: 'Eksplorasi', href: '/eksplorasi' },
       { label: 'Alat Matematika', href: '/alat' },
-      { label: 'Kehidupan', href: '/aplikasi' },
+      { label: 'Matematika dalam Kehidupan', href: '/aplikasi' },
       { label: 'Glosarium', href: '/glosarium' },
       { label: 'Kumpulan Rumus', href: '/rumus' },
       { label: 'Kemajuan Saya', href: '/kemajuan' },

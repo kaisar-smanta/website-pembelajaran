@@ -4,7 +4,7 @@
 // trigonometri, vektor) ditambah kasus tepi (superskrip, tanda minus, simbol
 // perkalian, pecahan/akar LaTeX vs Unicode).
 import assert from 'node:assert/strict';
-import { normalizeAnswer, isAcceptedAnswer } from '../src/lib/answer.ts';
+import { normalizeAnswer, isAcceptedAnswer, answerCandidates } from '../src/lib/answer.ts';
 
 let passed = 0;
 function check(label, fn) {
@@ -168,6 +168,80 @@ check('pencocokan tidak memutasi input', () => {
   const accepted = ['0,75'];
   isAcceptedAnswer('0,75', '3/4', accepted);
   assert.deepEqual(accepted, ['0,75']);
+});
+
+// ---- Nol di belakang koma ----
+check('nol di belakang koma diabaikan', () => {
+  assert.equal(isAcceptedAnswer('0,90', '0,9'), true);
+  assert.equal(isAcceptedAnswer('0,9', '0,90'), true);
+  assert.equal(isAcceptedAnswer('.9', '0,90'), true);
+  assert.equal(isAcceptedAnswer('0,90', '.9'), true);
+  assert.equal(isAcceptedAnswer('1,30', '1,3'), true);
+  assert.equal(isAcceptedAnswer('1,50', '1,5'), true);
+  assert.equal(isAcceptedAnswer('120000,00', '120000'), true);
+});
+
+// ---- Pecahan dan desimal ----
+check('pecahan cocok dengan desimalnya', () => {
+  assert.equal(isAcceptedAnswer('1/2', '0,5'), true);
+  assert.equal(isAcceptedAnswer('0,5', '1/2'), true);
+  assert.equal(isAcceptedAnswer('0.5', '1/2'), true);
+  assert.equal(isAcceptedAnswer('3/4', '0,75'), true);
+  assert.equal(isAcceptedAnswer('3/4', '\\dfrac{3}{4}'), true);
+  assert.equal(isAcceptedAnswer('11/36', '0,305556'), true);
+  assert.equal(isAcceptedAnswer('11/36', '0.3055556'), true);
+  assert.equal(isAcceptedAnswer('0.3055556', '11/36'), true);
+});
+
+check('toleransi numerik tidak menerima pembulatan yang salah', () => {
+  assert.equal(isAcceptedAnswer('0.34', '1/3'), false);
+  assert.equal(isAcceptedAnswer('1/3', '0.34'), false);
+  assert.equal(isAcceptedAnswer('0.4', '1/3'), false);
+});
+
+// ---- Derajat ----
+check('bentuk derajat saling cocok', () => {
+  const accepted = ['45°', '45 derajat', '45^\\circ'];
+  assert.equal(isAcceptedAnswer('45', '45', accepted), true);
+  assert.equal(isAcceptedAnswer('45°', '45', accepted), true);
+  assert.equal(isAcceptedAnswer('45 derajat', '45', accepted), true);
+  assert.equal(isAcceptedAnswer('45^\\circ', '45', accepted), true);
+  assert.equal(isAcceptedAnswer('45', '45°', accepted), true);
+  assert.equal(isAcceptedAnswer('45 derajat', '45^\\circ'), true);
+  assert.equal(isAcceptedAnswer('46', '45', accepted), false);
+});
+
+// ---- Mata uang dan pemisah ribuan ----
+check('rupiah dengan dan tanpa ,00 cocok', () => {
+  assert.equal(isAcceptedAnswer('Rp5.637.093,00', 'Rp5.637.093'), true);
+  assert.equal(isAcceptedAnswer('Rp5.637.093', 'Rp5.637.093,00'), true);
+  assert.equal(isAcceptedAnswer('5637093', 'Rp5.637.093,00'), true);
+  assert.equal(isAcceptedAnswer('Rp 5.637.093', 'Rp5.637.093,00'), true);
+});
+
+check('titik ribuan ambigu: 1.234 juga dibaca desimal', () => {
+  const candidates = answerCandidates('1.234');
+  assert.equal(candidates.has('1234'), true);
+  assert.equal(candidates.has('1.234'), true);
+  assert.equal(isAcceptedAnswer('1.234', '1234'), true);
+  assert.equal(isAcceptedAnswer('1.234', '1.234'), true);
+  assert.equal(isAcceptedAnswer('1234', '1.234'), true);
+  assert.equal(isAcceptedAnswer('1.234', '1235'), false);
+  assert.equal(isAcceptedAnswer('1.234', '1234.5'), false);
+});
+
+check('pemisah ribuan berganda tetap bilangan bulat', () => {
+  assert.equal(isAcceptedAnswer('120.000,00', '120000'), true);
+  assert.equal(isAcceptedAnswer('5.637.093', '5637093'), true);
+  assert.equal(isAcceptedAnswer('1.234.567', '1234567'), true);
+  assert.equal(isAcceptedAnswer('1.234.567', '1.234567'), false);
+});
+
+// ---- Tetap menolak jawaban salah ----
+check('perkalian tidak disamakan dengan penggabungan digit', () => {
+  assert.equal(isAcceptedAnswer('34', '3*4'), false);
+  assert.equal(isAcceptedAnswer('3*4', '34'), false);
+  assert.notEqual(normalizeAnswer('3×4'), normalizeAnswer('34'));
 });
 
 console.log(`\nPASS answer (${passed} pemeriksaan)`);

@@ -242,7 +242,7 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
 <script>
   import { evalFormula, mapFor, describe } from '../../lib/sim/function-slider';
   import type { Formula } from '../../lib/sim/function-slider';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
   import { formatPlain } from '../../lib/format';
 
   type Params = { name: string; value: number };
@@ -375,5 +375,5 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     sync();
   }
 
-  document.querySelectorAll('[data-fn-plot]').forEach(setup);
+  initWhenVisible(document.querySelectorAll('[data-fn-plot]'), setup);
 </script>

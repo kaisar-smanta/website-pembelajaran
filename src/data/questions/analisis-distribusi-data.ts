@@ -23,11 +23,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
     prompt: 'Modus dari data $4, 5, 5, 6, 6, 6, 7, 9$ adalah …',
     options: [
       { key: 'A', text: '$5$' },
-      { key: 'B', text: '$6$' },
+      { key: 'B', text: '$7$' },
       { key: 'C', text: '$6{,}5$' },
-      { key: 'D', text: '$7$' },
+      { key: 'D', text: '$6$' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Nilai $6$ muncul tiga kali, lebih sering daripada nilai lain ($5$ muncul dua kali), sehingga modusnya $6$.',
     hints: ['Modus adalah nilai yang paling sering muncul.'],
@@ -53,7 +53,7 @@ export const analisisDistribusiDataQuestions: Question[] = [
     category: 'penerapan',
     prompt: 'Tentukan jangkauan interkuartil (IQR) dari data $4, 5, 5, 6, 6, 6, 7, 9$.',
     answer: '1,5',
-    acceptedAnswers: ['1.5', '3/2'],
+    acceptedAnswers: ['1.5', '3/2', '1,5', '1,50', '1.50'],
     explanation:
       'Kuartil bawah $Q_1=5$ (median dari $4,5,5,6$) dan kuartil atas $Q_3=6{,}5$ (median dari $6,6,7,9$), sehingga $\\text{IQR}=6{,}5-5=1{,}5$.',
     hints: ['Bagi data menjadi dua bagian sama banyak terlebih dahulu.', 'IQR $=Q_3-Q_1$.'],
@@ -68,12 +68,12 @@ export const analisisDistribusiDataQuestions: Question[] = [
     prompt:
       'Diberikan data $3, 4, 5, 5, 6, 6, 7, 8, 10, 16$. Batas atas untuk menentukan pencilan dengan aturan $1{,}5\\times\\text{IQR}$ adalah …',
     options: [
-      { key: 'A', text: '$3$' },
-      { key: 'B', text: '$8$' },
-      { key: 'C', text: '$12{,}5$' },
-      { key: 'D', text: '$15{,}5$' },
+      { key: 'A', text: '$3{,}0$' },
+      { key: 'B', text: '$8{,}0$' },
+      { key: 'C', text: '$15{,}5$' },
+      { key: 'D', text: '$12{,}5$' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       '$Q_1=5$ (median dari $3,4,5,5,6$) dan $Q_3=8$ (median dari $6,7,8,10,16$), sehingga IQR $=3$. Batas atas $=Q_3+1{,}5\\times\\text{IQR}=8+1{,}5(3)=12{,}5$.',
     hints: ['Hitung $Q_1$ dan $Q_3$ lebih dahulu.', 'Batas atas $=Q_3+1{,}5\\times\\text{IQR}$.'],
@@ -171,5 +171,23 @@ export const analisisDistribusiDataQuestions: Question[] = [
       'Kunci: membandingkan keragaman dari jangkauan, lalu menyadari keterbatasan jangkauan yang hanya bergantung pada dua nilai ekstrem.',
     hints: ['Bandingkan besar jangkauan kedua kelas.', 'Ingat bahwa jangkauan hanya melihat nilai terkecil dan terbesar.'],
     competencies: ['ukuran sebaran', 'penalaran statistik', 'evaluasi'],
+  },
+  {
+    id: 'ad-12',
+    topicId: 'analisis-distribusi-data',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Nilai ulangan 20 siswa dikelompokkan: kelas $50$–$59$ frekuensi $2$; $60$–$69$ frekuensi $5$; $70$–$79$ frekuensi $8$; $80$–$89$ frekuensi $4$; $90$–$99$ frekuensi $1$. Tentukan modus data berkelompok tersebut (bulatkan ke dua angka di belakang koma).',
+    answer: '73,79',
+    acceptedAnswers: ['73,79', '73.79', '73,8', '73.8', '73,7857', '73.7857'],
+    explanation:
+      'Kelas modus adalah $70$–$79$ karena frekuensinya terbesar ($8$). Dengan $L=69{,}5$, $d_1=8-5=3$, $d_2=8-4=4$, dan $c=10$: modus $=L+\\dfrac{d_1}{d_1+d_2}c=69{,}5+\\dfrac{3}{7}(10)=69{,}5+4{,}2857\\approx73{,}79$.',
+    hints: [
+      'Pilih kelas dengan frekuensi terbesar.',
+      'Gunakan rumus modus data berkelompok $L+\\dfrac{d_1}{d_1+d_2}c$.',
+    ],
+    competencies: ['modus data berkelompok', 'interpretasi'],
   },
 ];

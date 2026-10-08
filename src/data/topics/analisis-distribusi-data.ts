@@ -29,7 +29,6 @@ export const analisisDistribusiData: Topic = {
   ],
   prerequisites: [],
   relatedTopics: ['data-bivariat', 'statistik-dalam-kehidupan'],
-  explorations: ['distribusi-sebaran'],
   prerequisiteKnowledge: [
     'Membaca tabel dan diagram',
     'Operasi bilangan bulat dan pecahan',
@@ -161,6 +160,23 @@ $$\\bar{x}=\\frac{x_1+x_2+\\cdots+x_n}{n}.$$
               "Membandingkan dua kelompok",
               "Median, kuartil, dan pencilan",
             ],
+          ],
+        },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Tabel",
+              body: "Data $2, 3, 4, 4, 6, 6, 6, 7, 9, 13$ disusun berurutan sehingga median dan modus mudah dibaca.",
+            },
+            {
+              label: "Dot plot",
+              body: "Setiap titik mewakili satu data; nilai $6$ menumpuk paling tinggi karena muncul tiga kali.",
+            },
+            {
+              label: "Box plot",
+              body: "Kotak membentang dari $Q_1=4$ sampai $Q_3=7$ dengan garis median di $6$, sedangkan $13$ berdiri sendiri sebagai pencilan.",
+            },
           ],
         },
       ],
@@ -303,6 +319,18 @@ Jika pasangan itu diplot, titik-titiknya menanjak sehingga hubungannya **positif
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Menggeneralisasi Pola Sebaran",
+      body: `Dari contoh-contoh di atas muncul pola umum: **semakin jauh sebuah nilai dari pusat data, semakin besar pengaruhnya terhadap ukuran yang memakai seluruh nilai.** Karena itu mean berubah ketika sebuah nilai digeser, sedangkan median dan kuartil hanya bergeser bila nilai itu melewati posisi tengah.
+
+Aturan pencilan merangkum pola ini untuk data apa pun. Sebuah nilai dicurigai sebagai pencilan bila berada di luar
+
+$$Q_1 - 1{,}5\\,\\text{IQR} \\qquad \\text{atau} \\qquad Q_3 + 1{,}5\\,\\text{IQR}, \\qquad \\text{IQR}=Q_3-Q_1.$$
+
+IQR mengukur lebar separuh data yang paling rapat, sehingga nilai yang jatuh jauh di luar rentang itu layak diperiksa lebih dahulu sebelum disimpulkan.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -348,70 +376,18 @@ Maka $\\text{IQR}=79{,}5-65{,}5=14$.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `Diberikan data tunggal: $4, 5, 5, 6, 6, 6, 7, 9$.
-
-1. Tentukan mean data tersebut.
-2. Tentukan mediannya.
-3. Tentukan modusnya.
-4. Tentukan jangkauannya.
-5. Tentukan $Q_1$ dan $Q_3$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Mean $=\\dfrac{4+5+5+6+6+6+7+9}{8}=\\dfrac{48}{8}=6$.
-2. $n=8$ genap, median $=\\dfrac{6+6}{2}=6$.
-3. Modus $=6$ (muncul tiga kali).
-4. Jangkauan $=9-4=5$.
-5. $Q_1=$ median dari $4,5,5,6$ $=5$; $Q_3=$ median dari $6,6,7,9$ $=6{,}5$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Untuk data $5, 6, 6, 7, 8, 9, 10, 12$, tentukan mean, median, $Q_1$, $Q_3$, dan IQR.
-
-2. Gunakan tabel data nilai ujian di bagian konsep. Tentukan mean data berkelompok tersebut.
-
-3. Dengan data yang sama, tentukan median data berkelompok.
-
-4. Pada data soal nomor 1, selidiki apakah nilai $14$ merupakan pencilan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Mean $=\\dfrac{63}{8}=7{,}875$; median $=\\dfrac{7+8}{2}=7{,}5$; $Q_1=$ median dari $5,6,6,7$ $=6$; $Q_3=$ median dari $8,9,10,12$ $=9{,}5$; IQR $=3{,}5$.
-2. Mean $=\\dfrac{1460}{20}=73$.
-3. Kelas median $70$–$79$, sehingga median $=69{,}5+\\left(\\dfrac{10-7}{8}\\right)(10)=73{,}25$.
-4. Batas bawah $=6-1{,}5(3{,}5)=0{,}75$; batas atas $=9{,}5+5{,}25=14{,}75$. Karena $14<14{,}75$, nilai $14$ **bukan** pencilan.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Diberikan data $3, 4, 5, 5, 6, 6, 7, 8, 10, 16$. Tentukan mean, median, $Q_1$, $Q_3$, IQR, dan identifikasi pencilan. Bandingkan mean dengan dan tanpa pencilan.
-
-2. Rata-rata lima bilangan adalah $8$. Setelah satu bilangan baru ditambahkan, rata-ratanya menjadi $9$. Tentukan bilangan baru itu.
-
-3. Jelaskan mengapa median lebih stabil daripada mean ketika ada data ekstrem.
-
-4. Sebuah kotak data memiliki $Q_1=20$, median $=28$, dan $Q_3=34$. Tentukan IQR dan batas atas untuk pencilan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Mean $=\\dfrac{70}{10}=7$; median $=\\dfrac{6+6}{2}=6$; $Q_1=5$ (median dari $3,4,5,5,6$); $Q_3=8$ (median dari $6,7,8,10,16$); IQR $=3$. Batas atas $=8+1{,}5(3)=12{,}5$, jadi $16$ adalah pencilan. Tanpa $16$: mean $=\\dfrac{54}{9}=6$ — turun dari $7$ menjadi $6$, menunjukkan mean sangat terpengaruh pencilan.
-2. Jumlah lima bilangan $=5\\times8=40$. Jumlah enam bilangan $=6\\times9=54$. Bilangan baru $=54-40=14$.
-3. Median hanya bergantung pada **posisi tengah** setelah data diurutkan, sehingga satu nilai ekstrem cukup menggeser posisi tanpa mengubah nilai tengah secara besar. Mean menjumlahkan seluruh nilai, sehingga nilai ekstrem menariknya langsung.
-4. IQR $=34-20=14$; batas atas $=34+1{,}5(14)=55$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -498,8 +474,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Analisis Distribusi Data**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa menambahkan satu nilai ekstrem lebih mengubah mean daripada median? (2) Kapan sebuah nilai disebut pencilan, dan mengapa nilai itu tidak otomatis dibuang? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Analisis Distribusi Data** untuk latihan tambahan.`,
     },
   ],
 };

@@ -344,10 +344,11 @@ const uid = exploration.id;
 <script>
   import { computeConditional } from '../../lib/sim/conditional';
   import { formatPercent } from '../../lib/format';
+  import { initWhenVisible } from '../../lib/dom';
 
   const DEFAULTS = { a: '0.5', ba: '0.5', bac: '0.5' };
 
-  function setupConditional(root: HTMLElement) {
+  function setupConditional(root: Element) {
     const fieldA = root.querySelector('[data-field="a"]') as HTMLInputElement;
     const fieldBA = root.querySelector('[data-field="ba"]') as HTMLInputElement;
     const fieldBAc = root.querySelector('[data-field="bac"]') as HTMLInputElement;
@@ -435,5 +436,5 @@ const uid = exploration.id;
     render();
   }
 
-  document.querySelectorAll<HTMLElement>('[data-condsim]').forEach(setupConditional);
+  initWhenVisible(document.querySelectorAll('[data-condsim]'), setupConditional);
 </script>

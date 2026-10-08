@@ -209,7 +209,7 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     annuityPayment,
     annuityTotalInterest,
   } from '../../lib/sim/compound-interest';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
   import { formatId } from '../../lib/format';
 
   const rupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
@@ -268,6 +268,10 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       }
 
       legend.innerHTML = '<span class="l1">Bunga tunggal</span><span class="l2">Bunga majemuk</span>';
+      chart.setAttribute(
+        'aria-label',
+        `Grafik perbandingan saldo bunga tunggal dan bunga majemuk selama ${n} tahun; saldo akhir bunga majemuk ${rupiah.format(lastComp)}`,
+      );
       drawChart([
           { values: simple, color: 'var(--color-primary)' },
           { values: compound, color: 'var(--color-data)' },
@@ -292,22 +296,24 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
       const balances: number[] = [p];
       let sisa = p;
       const maxRows = Math.min(m, 12);
-      const step = Math.max(1, Math.ceil(m / 12));
       for (let k = 1; k <= m; k++) {
         const bunga = sisa * r;
         const pokok = A - bunga;
         sisa = Math.max(0, sisa - pokok);
+        balances.push(sisa);
         if (k <= maxRows || k === m) {
           tbody.appendChild(row([String(k), rupiah.format(A), rupiah.format(pokok), rupiah.format(bunga), rupiah.format(sisa)]));
         } else if (k === maxRows + 1 && m > maxRows + 1) {
           const tr = row(['…', '…', '…', '…', '…']);
           tbody.appendChild(tr);
         }
-        if (k % step === 0 || k === m) balances.push(sisa);
       }
-      if (balances.length < 2) balances.push(sisa);
 
       legend.innerHTML = '<span class="l2">Sisa pinjaman</span>';
+      chart.setAttribute(
+        'aria-label',
+        `Grafik penurunan sisa pinjaman dari bulan ke bulan selama ${m} bulan; angsuran per bulan ${rupiah.format(A)}`,
+      );
       drawChart([{ values: balances, color: 'var(--color-data)' }]);
     }
 
@@ -376,5 +382,5 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     render();
   }
 
-  document.querySelectorAll('[data-finance]').forEach(setupFinance);
+  initWhenVisible(document.querySelectorAll('[data-finance]'), setupFinance);
 </script>

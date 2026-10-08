@@ -23,7 +23,6 @@ export const permutasiKombinasi: Topic = {
   ],
   prerequisites: ['peluang'],
   relatedTopics: ['peluang-bersyarat'],
-  explorations: ['peluang-sim'],
   prerequisiteKnowledge: [
     'Aturan perkalian dan aturan penjumlahan pada proses bertahap',
     'Operasi bilangan bulat dan pecahan',
@@ -228,6 +227,18 @@ Jalankan simulasi berkali-kali. Apakah frekuensi relatif kejadian ini mendekati 
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Aturan Umum Pencacahan",
+      body: `Semua rumus di atas tumbuh dari satu prinsip: **aturan perkalian**. Bila suatu proses berlangsung dalam tahap-tahap berurutan, banyak cara total adalah hasil kali banyak cara tiap tahap. Rumus permutasi dan kombinasi hanyalah bentuk ringkas dari aturan itu ketika beberapa tahap memiliki pola yang sama.
+
+Yang menentukan pilihan rumus bukan panjangnya rumus, melainkan pertanyaan: **apakah urutan penting?**
+
+$$\\text{urutan penting} \\Rightarrow P(n,k) = \\frac{n!}{(n-k)!}, \\qquad \\text{urutan tidak penting} \\Rightarrow \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
+
+Karena menyusun ulang $k$ objek dapat dilakukan dalam $k!$ cara, setiap kombinasi bersesuaian dengan $k!$ permutasi, sehingga $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$ dan hasil kombinasi selalu $k!$ kali lebih kecil. Untuk keperluan peluang, banyak cara yang menguntungkan dibagi banyak cara seluruhnya.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -285,64 +296,18 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Hitung nilai $5!$.
-2. Hitung $P(5,2)$.
-3. Hitung $\\binom{6}{2}$.
-4. Berapa banyak susunan huruf dari kata "BUKU"?
-5. Tiga orang akan berfoto berjajar. Berapa banyak urutan berfoto yang mungkin?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $5! = 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1 = 120$.
-2. $P(5,2) = \\dfrac{5!}{3!} = 5 \\cdot 4 = 20$.
-3. $\\binom{6}{2} = \\dfrac{6!}{2!\\,4!} = \\dfrac{6 \\cdot 5}{2} = 15$.
-4. Huruf U muncul dua kali, sehingga $\\dfrac{4!}{2!} = 12$.
-5. Tiga orang berbeda berjajar: $3! = 6$ urutan.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Dari $7$ siswa akan dipilih ketua, sekretaris, dan bendahara. Berapa banyak susunan pengurus?
-2. Berapa banyak susunan huruf dari kata "MATEMATIKA"?
-3. Dari $6$ siswa laki-laki dan $4$ siswa perempuan akan dibentuk komite berisi $3$ orang dengan tepat $1$ perempuan. Berapa banyak komite yang mungkin?
-4. Sebuah kotak berisi $4$ bola merah dan $6$ bola biru. Tiga bola diambil sekaligus. Tentukan peluang terambil tepat $2$ bola merah.
-5. Berapa banyak bilangan tiga angka **berbeda** yang dapat dibentuk dari angka $1, 2, 3, 4, 5$?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Urutan penting: $P(7,3) = \\dfrac{7!}{4!} = 7 \\cdot 6 \\cdot 5 = 210$.
-2. Huruf pada "MATEMATIKA": M $2$, A $3$, T $2$, E $1$, I $1$, K $1$ (total $10$ huruf). Maka $\\dfrac{10!}{2!\\,3!\\,2!} = \\dfrac{3628800}{24} = 151200$.
-3. Pilih $1$ perempuan dari $4$ dan $2$ laki-laki dari $6$: $\\binom{4}{1}\\binom{6}{2} = 4 \\cdot 15 = 60$.
-4. $\\dfrac{\\binom{4}{2}\\binom{6}{1}}{\\binom{10}{3}} = \\dfrac{6 \\cdot 6}{120} = \\dfrac{36}{120} = \\dfrac{3}{10}$.
-5. Urutan penting dan angka harus berbeda: $P(5,3) = 5 \\cdot 4 \\cdot 3 = 60$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Berapa banyak susunan huruf dari kata "STATISTIKA"?
-2. Dari $5$ pasangan suami istri akan dipilih $4$ orang. Tentukan peluang tidak ada pasangan suami istri yang terpilih.
-3. Empat buku matematika, $3$ buku fisika, dan $2$ buku kimia disusun pada rak. Berapa banyak susunan bila buku sejenis harus berdampingan?
-4. Dari $10$ calon akan dibentuk komite $4$ orang. Tentukan peluang komite tersebut memuat dua orang tertentu.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Huruf pada "STATISTIKA": S $2$, T $3$, A $2$, I $2$, K $1$ (total $10$ huruf). Maka $\\dfrac{10!}{2!\\,3!\\,2!\\,2!} = \\dfrac{3628800}{48} = 75600$.
-2. Total cara memilih $4$ dari $10$ adalah $\\binom{10}{4} = 210$. Agar tidak ada pasangan, pilih $4$ pasangan dari $5$ pasangan $(\\binom{5}{4} = 5)$, lalu pilih $1$ orang dari tiap pasangan $(2^4 = 16)$. Jadi $5 \\cdot 16 = 80$ cara, dan $P = \\dfrac{80}{210} = \\dfrac{8}{21}$.
-3. Perlakukan setiap jenis sebagai satu blok: $3!$ cara menyusun blok, lalu di dalamnya $4!$, $3!$, dan $2!$. Total $3! \\cdot 4! \\cdot 3! \\cdot 2! = 6 \\cdot 24 \\cdot 6 \\cdot 2 = 1728$.
-4. Total $\\binom{10}{4} = 210$. Bila komite harus memuat dua orang tertentu, pilih $2$ orang lagi dari $8$ sisanya: $\\binom{8}{2} = 28$. Jadi $P = \\dfrac{28}{210} = \\dfrac{2}{15}$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -447,7 +412,7 @@ Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lot
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Permutasi dan Kombinasi**.",
+      body: `**Tiket keluar.** (1) Apa satu pertanyaan penentu yang memisahkan permutasi dari kombinasi? (2) Mengapa hasil kombinasi selalu $k!$ kali lebih kecil daripada permutasi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Permutasi dan Kombinasi** untuk latihan tambahan.`,
     },
   ],
 };

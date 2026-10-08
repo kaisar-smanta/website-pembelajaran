@@ -50,7 +50,7 @@ export const trigonometriLanjutQuestions: Question[] = [
     prompt:
       'Diketahui $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip. Tentukan $\\sin 2\\alpha$.',
     answer: '24/25',
-    acceptedAnswers: ['24/25', '0,96'],
+    acceptedAnswers: ['24/25', '0,96', '0.96', '0,960', '0.960'],
     explanation:
       'Karena $\\alpha$ lancip, $\\cos\\alpha=\\dfrac{4}{5}$. Maka $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha=2\\cdot\\dfrac{3}{5}\\cdot\\dfrac{4}{5}=\\dfrac{24}{25}$.',
     hints: ['Cari $\\cos\\alpha$ dengan identitas Pythagoras, lalu pakai $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha$.'],
@@ -65,7 +65,7 @@ export const trigonometriLanjutQuestions: Question[] = [
     prompt:
       'Diketahui $\\cos\\alpha=\\dfrac{4}{5}$ dan $\\alpha$ lancip. Tentukan $\\cos 2\\alpha$.',
     answer: '7/25',
-    acceptedAnswers: ['7/25', '0,28'],
+    acceptedAnswers: ['7/25', '0,28', '0.28', '0,280', '0.280'],
     explanation:
       'Gunakan $\\cos 2\\alpha=2\\cos^{2}\\alpha-1 = 2\\left(\\dfrac{4}{5}\\right)^{2}-1 = 2\\cdot\\dfrac{16}{25}-1=\\dfrac{32}{25}-1=\\dfrac{7}{25}$.',
     hints: ['Pilih bentuk $\\cos 2\\alpha=2\\cos^{2}\\alpha-1$ karena $\\cos\\alpha$ diketahui.'],

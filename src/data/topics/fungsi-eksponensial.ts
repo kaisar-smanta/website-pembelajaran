@@ -37,7 +37,6 @@ export const fungsiEksponensial: Topic = {
     { text: 'Menyelesaikan persamaan eksponen dengan menyamakan basis.' },
     { text: 'Memodelkan dan menafsirkan masalah pertumbuhan serta peluruhan.' },
   ],
-  explorations: ['fungsi-eksponensial-grafik'],
   applications: ['pertumbuhan-populasi', 'peluruhan-zat'],
   sections: [
     {
@@ -303,78 +302,18 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Diketahui $f(x)=4^{x}$. Hitung $f(3)$.
-
-2. Diketahui $f(x)=2\\cdot3^{x}$. Hitung $f(2)$.
-
-3. Selesaikan $5^{x}=125$.
-
-4. Tentukan asimtot horizontal $f(x)=3^{x}-2$.
-
-5. Tentukan apakah fungsi berikut menggambarkan pertumbuhan atau peluruhan: $f(x)=0{,}6^{x}$, $g(x)=1{,}5^{x}$, $h(x)=2^{x}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $f(3)=4^{3}=64$.
-2. $f(2)=2\\cdot3^{2}=2\\cdot9=18$.
-3. $125=5^{3}$, maka $x=3$.
-4. Grafik $y=3^{x}$ bergeser turun $2$ satuan, sehingga asimtotnya $y=-2$.
-5. Karena $0<b<1$, $f(x)=0{,}6^{x}$ **peluruhan**; karena $b>1$, $g(x)=1{,}5^{x}$ dan $h(x)=2^{x}$ **pertumbuhan**.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Selesaikan $9^{x+1}=27^{x}$.
-
-2. Selesaikan $2^{x^{2}-3x}=16$.
-
-3. Populasi kota $500$ jiwa tumbuh $8\\%$ per tahun. Tentukan populasi setelah $10$ tahun (bulatkan ke satuan terdekat).
-
-4. Konsentrasi obat $120$ mg/L berkurang setengah setiap $6$ jam. Berapa konsentrasinya setelah $18$ jam?
-
-5. Selesaikan $2^{2x}-5\\cdot2^{x}+4=0$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $9^{x+1}=3^{2x+2}$ dan $27^{x}=3^{3x}$, maka $2x+2=3x \\Rightarrow x=2$.
-2. $16=2^{4}$, maka $x^{2}-3x=4 \\Rightarrow x^{2}-3x-4=0 \\Rightarrow (x-4)(x+1)=0$, jadi $x=4$ atau $x=-1$.
-3. $N(t)=500(1{,}08)^{t}$. Karena $1{,}08^{10}\\approx2{,}1589$, maka $N(10)\\approx500\\cdot2{,}1589\\approx1079$ jiwa.
-4. $C(t)=120\\left(\\tfrac12\\right)^{t/6}$. Untuk $t=18$: $120\\left(\\tfrac12\\right)^{3}=120\\cdot\\tfrac18=15$ mg/L.
-5. Misal $u=2^{x}>0$. Maka $u^{2}-5u+4=0 \\Rightarrow (u-1)(u-4)=0$, jadi $u=1$ atau $u=4$. Dari $2^{x}=1$ diperoleh $x=0$; dari $2^{x}=4$ diperoleh $x=2$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Selesaikan $3^{2x}-10\\cdot3^{x}+9=0$.
-
-2. Modal Rp5.000.000 tumbuh dengan bunga majemuk $6\\%$ per tahun. Setelah berapa tahun nilainya menjadi dua kali lipat? (Petunjuk: gunakan $1{,}06^{11}\\approx1{,}90$ dan $1{,}06^{12}\\approx2{,}01$.)
-
-3. Buktikan bahwa $f(x)=b^{x}$ dengan $b>0$ selalu bernilai positif untuk setiap bilangan real $x$.
-
-4. Sebuah zat radioaktif berkurang setengah setiap $8$ tahun. Tentukan bagian zat yang tersisa setelah $24$ tahun.
-
-5. Jelaskan transformasi grafik $f(x)=2^{x+1}-3$ dari grafik $y=2^{x}$, lalu tentukan asimtot dan titik potong sumbu-$y$-nya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Misal $u=3^{x}>0$. $u^{2}-10u+9=0 \\Rightarrow (u-1)(u-9)=0$, jadi $u=1$ atau $u=9$. Maka $x=0$ atau $x=2$.
-2. Cari $t$ dengan $(1{,}06)^{t}=2$. Karena $1{,}06^{11}\\approx1{,}90<2$ dan $1{,}06^{12}\\approx2{,}01>2$, nilai dua kali lipat tercapai pada tahun ke-$12$.
-3. Untuk $x$ bulat, $b^{x}>0$ jelas dari definisi; untuk $x=\\tfrac{m}{n}$, $b^{m/n}=\\sqrt[n]{b^{m}}$ dengan $b^{m}>0$ sehingga akarnya positif; untuk $x$ real, $b^{x}$ didefinisikan sebagai limit nilai positif. Karena itu $b^{x}$ selalu positif.
-4. Setelah $24$ tahun ada $24/8=3$ selang paruh, sehingga tersisa $\\left(\\tfrac12\\right)^{3}=\\tfrac18$ bagian.
-5. Grafik bergeser ke kiri $1$ satuan (dari $2^{x+1}$) lalu turun $3$ satuan. Asimtot $y=-3$. Titik potong sumbu-$y$: $f(0)=2^{1}-3=2-3=-1$, yaitu $(0,-1)$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -475,7 +414,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Fungsi Eksponensial**.",
+      body: `**Tiket keluar.** (1) Bagaimana nilai basis $b$ membedakan pertumbuhan dari peluruhan? (2) Mengapa grafik $y=b^{x}$ memiliki asimtot mendatar dan tidak pernah memotong sumbu-$x$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Eksponensial** untuk latihan tambahan.`,
     },
   ],
 };

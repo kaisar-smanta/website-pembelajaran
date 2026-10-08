@@ -37,19 +37,19 @@ const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0
     </label>
     <label class="sim-field">
       <span>Setengah sumbu a <output data-value="a">{a0}</output></span>
-      <input type="range" min="0.5" max="6" step="0.1" value={a0} data-field="a" />
+      <input type="range" min="0.5" max="6" step="0.1" value={a0} data-field="a" aria-label="Setengah sumbu a" />
     </label>
     <label class="sim-field" data-b-field>
       <span>Setengah sumbu b <output data-value="b">{b0}</output></span>
-      <input type="range" min="0.5" max="6" step="0.1" value={b0} data-field="b" />
+      <input type="range" min="0.5" max="6" step="0.1" value={b0} data-field="b" aria-label="Setengah sumbu b" />
     </label>
     <label class="sim-field">
       <span>Pusat h <output data-value="h">{h0}</output></span>
-      <input type="range" min="-4" max="4" step="0.5" value={h0} data-field="h" />
+      <input type="range" min="-4" max="4" step="0.5" value={h0} data-field="h" aria-label="Pusat h" />
     </label>
     <label class="sim-field">
       <span>Pusat k <output data-value="k">{k0}</output></span>
-      <input type="range" min="-4" max="4" step="0.5" value={k0} data-field="k" />
+      <input type="range" min="-4" max="4" step="0.5" value={k0} data-field="k" aria-label="Pusat k" />
     </label>
   </div>
 
@@ -152,7 +152,7 @@ const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0
 <script>
   import { sampleConic, conicFoci, parabolaDirectrix, describeConic } from '../../lib/sim/conic';
   import type { ConicKind, ConicParams } from '../../lib/sim/conic';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
 
   function setupConic(root: Element) {
     const kindInput = root.querySelector('[data-kind]') as HTMLSelectElement;
@@ -256,5 +256,5 @@ const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0
     render();
   }
 
-  document.querySelectorAll('[data-conic]').forEach(setupConic);
+  initWhenVisible(document.querySelectorAll('[data-conic]'), setupConic);
 </script>

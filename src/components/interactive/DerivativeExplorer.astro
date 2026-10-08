@@ -21,7 +21,7 @@ const initialAria = `Grafik f(x) = x³ - 3x dengan garis singgung di x = ${x0}`;
   <div class="sim-fields">
     <label class="sim-field">
       <span>Titik singgung x₀ <output data-value="x0">{x0}</output></span>
-      <input type="range" min="-2.5" max="2.5" step="0.1" value={x0} data-field="x0" />
+      <input type="range" min="-2.5" max="2.5" step="0.1" value={x0} data-field="x0" aria-label="Titik singgung x₀" />
     </label>
   </div>
 
@@ -109,7 +109,7 @@ const initialAria = `Grafik f(x) = x³ - 3x dengan garis singgung di x = ${x0}`;
 
 <script>
   import { DEFAULT_MODEL, evalFunction, tangentAt, describeAt } from '../../lib/sim/derivative';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
 
   function setupDerivative(root: Element) {
     const input = root.querySelector('[data-field="x0"]') as HTMLInputElement;
@@ -175,5 +175,5 @@ const initialAria = `Grafik f(x) = x³ - 3x dengan garis singgung di x = ${x0}`;
     render();
   }
 
-  document.querySelectorAll('[data-derivative]').forEach(setupDerivative);
+  initWhenVisible(document.querySelectorAll('[data-derivative]'), setupDerivative);
 </script>

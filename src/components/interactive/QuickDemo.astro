@@ -1,6 +1,7 @@
 ---
 import { getExploration } from '@/data/explorations';
 import ExplorationSim from './ExplorationSim.astro';
+import ExplorationBrief from './ExplorationBrief.astro';
 import { url } from '@/utils/url';
 
 interface Props {
@@ -26,6 +27,7 @@ const exploration = getExploration(explorationId);
       <p class="quick-demo-prompt">
         {prompt ?? 'Geser penggeser dan lihat grafiknya berubah seketika.'}
       </p>
+      <ExplorationBrief exploration={exploration} showCautions />
       <ExplorationSim exploration={exploration} />
       <p class="quick-demo-more">
         <a class="btn btn-secondary btn-sm pop-on-hover" href={url('/eksplorasi')}>

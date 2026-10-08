@@ -1,0 +1,380 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialA = { x: 3, y: 1 };
+const initialB = { x: 1, y: 3 };
+const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${initialB.x}, ${initialB.y}), dan jumlah A + B = (${initialA.x + initialB.x}, ${initialA.y + initialB.y})`;
+---
+
+<figure class="sim vector-sim" data-vector data-exploration={exploration.id}>
+  <p class="sim-hint">
+    Ubah komponen vektor A dan B, lalu amati jumlah, hasil kali titik, sudut, panjang, dan
+    proyeksinya pada diagram.
+  </p>
+
+  <div class="sim-fields">
+    <fieldset class="vector-field">
+      <legend>Vektor A</legend>
+      <label class="sim-field">
+        <span>Komponen x <output data-value="ax">{initialA.x}</output></span>
+        <input
+          type="number"
+          min="-10"
+          max="10"
+          step="0.5"
+          value={initialA.x}
+          data-field="ax"
+          aria-label="Komponen x vektor A"
+        />
+      </label>
+      <label class="sim-field">
+        <span>Komponen y <output data-value="ay">{initialA.y}</output></span>
+        <input
+          type="number"
+          min="-8"
+          max="8"
+          step="0.5"
+          value={initialA.y}
+          data-field="ay"
+          aria-label="Komponen y vektor A"
+        />
+      </label>
+    </fieldset>
+
+    <fieldset class="vector-field">
+      <legend>Vektor B</legend>
+      <label class="sim-field">
+        <span>Komponen x <output data-value="bx">{initialB.x}</output></span>
+        <input
+          type="number"
+          min="-10"
+          max="10"
+          step="0.5"
+          value={initialB.x}
+          data-field="bx"
+          aria-label="Komponen x vektor B"
+        />
+      </label>
+      <label class="sim-field">
+        <span>Komponen y <output data-value="by">{initialB.y}</output></span>
+        <input
+          type="number"
+          min="-8"
+          max="8"
+          step="0.5"
+          value={initialB.y}
+          data-field="by"
+          aria-label="Komponen y vektor B"
+        />
+      </label>
+    </fieldset>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-vector-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 340" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Vektor A</span>
+      <span class="l2">Vektor B</span>
+      <span class="l3">Jumlah A + B</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.75rem;
+  }
+  .vector-field {
+    margin: 0;
+    padding: 0.6rem 0.7rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+    display: grid;
+    gap: 0.5rem;
+  }
+  .vector-field legend {
+    padding: 0 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='number'] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.4rem 0.5rem;
+    font: inherit;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-primary);
+  }
+  .legend .l2 {
+    color: var(--color-data);
+  }
+  .legend .l3 {
+    color: var(--color-warning);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    font-size: 0.9rem;
+  }
+  .vector-sim svg :global(*) {
+    transition: opacity var(--dur) var(--ease-out-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vector-sim svg :global(*) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    magnitude,
+    add,
+    dot,
+    angle,
+    unit,
+    projection,
+  } from '../../lib/sim/vector';
+  import type { Vec2 } from '../../lib/sim/vector';
+  import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  function setupVector(root: Element) {
+    const names = ['ax', 'ay', 'bx', 'by'] as const;
+    type Name = (typeof names)[number];
+    const inputs = {} as Record<Name, HTMLInputElement>;
+    const outputs = {} as Record<Name, HTMLOutputElement>;
+    for (const name of names) {
+      inputs[name] = root.querySelector(`[data-field="${name}"]`) as HTMLInputElement;
+      outputs[name] = root.querySelector(`[data-value="${name}"]`) as HTMLOutputElement;
+    }
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-vector-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 340;
+    const pad = 30;
+    const xMin = -10;
+    const xMax = 10;
+    const yMin = -8;
+    const yMax = 8;
+
+    const colorA = 'var(--color-primary)';
+    const colorB = 'var(--color-data)';
+    const colorS = 'var(--color-warning)';
+
+    function read(name: Name): number {
+      const value = Number(inputs[name].value);
+      return Number.isFinite(value) ? value : 0;
+    }
+    const vecA = (): Vec2 => ({ x: read('ax'), y: read('ay') });
+    const vecB = (): Vec2 => ({ x: read('bx'), y: read('by') });
+
+    const fmt = (v: number): string => formatPlain(Number(v.toFixed(2)));
+    const fmtVec = (v: Vec2): string => `(${fmt(v.x)}, ${fmt(v.y)})`;
+
+    function segment(from: [number, number], to: [number, number], color: string) {
+      svg.appendChild(
+        el('line', {
+          x1: from[0],
+          y1: from[1],
+          x2: to[0],
+          y2: to[1],
+          stroke: color,
+          'stroke-width': 1.5,
+          'stroke-dasharray': '5 4',
+          opacity: 0.75,
+        }),
+      );
+    }
+
+    function arrow(from: [number, number], to: [number, number], color: string) {
+      svg.appendChild(
+        el('line', {
+          x1: from[0],
+          y1: from[1],
+          x2: to[0],
+          y2: to[1],
+          stroke: color,
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+      const tip = Math.atan2(to[1] - from[1], to[0] - from[0]);
+      const len = 10;
+      const spread = Math.PI / 7;
+      const p1: [number, number] = [
+        to[0] - len * Math.cos(tip - spread),
+        to[1] - len * Math.sin(tip - spread),
+      ];
+      const p2: [number, number] = [
+        to[0] - len * Math.cos(tip + spread),
+        to[1] - len * Math.sin(tip + spread),
+      ];
+      svg.appendChild(
+        el('polygon', { points: `${to[0]},${to[1]} ${p1[0]},${p1[1]} ${p2[0]},${p2[1]}`, fill: color }),
+      );
+    }
+
+    function draw() {
+      const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
+      clear(svg);
+
+      for (let i = 0; i <= 10; i++) {
+        const x = pad + (i / 10) * (W - 2 * pad);
+        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 8; i++) {
+        const y = pad + (i / 8) * (H - 2 * pad);
+        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+
+      const A = vecA();
+      const B = vecB();
+      const S = add(A, B);
+      const origin: [number, number] = [sx(0), sy(0)];
+      const tipA: [number, number] = [sx(A.x), sy(A.y)];
+      const tipB: [number, number] = [sx(B.x), sy(B.y)];
+      const tipS: [number, number] = [sx(S.x), sy(S.y)];
+
+      if (magnitude(B) > 0) {
+        const foot = projection(A, B);
+        const footPx: [number, number] = [sx(foot.x), sy(foot.y)];
+        segment(tipA, footPx, colorB);
+        svg.appendChild(el('circle', { cx: footPx[0], cy: footPx[1], r: 3.4, fill: colorB }));
+      }
+
+      arrow(origin, tipS, colorS);
+      arrow(origin, tipA, colorA);
+      arrow(origin, tipB, colorB);
+    }
+
+    function render() {
+      const A = vecA();
+      const B = vecB();
+      const S = add(A, B);
+      const mA = magnitude(A);
+      const mB = magnitude(B);
+      const product = dot(A, B);
+      const angleText = mA === 0 || mB === 0 ? 'tidak terdefinisi' : `${fmt(angle(A, B))}°`;
+
+      names.forEach((name) => {
+        outputs[name].textContent = formatPlain(read(name));
+      });
+
+      readout.innerHTML =
+        `<div class="stat"><span>Vektor A</span><strong>${fmtVec(A)}</strong></div>` +
+        `<div class="stat"><span>Vektor B</span><strong>${fmtVec(B)}</strong></div>` +
+        `<div class="stat"><span>Jumlah A + B</span><strong>${fmtVec(S)}</strong></div>` +
+        `<div class="stat"><span>Besar |A|</span><strong>${fmt(mA)}</strong></div>` +
+        `<div class="stat"><span>Besar |B|</span><strong>${fmt(mB)}</strong></div>` +
+        `<div class="stat"><span>Hasil kali titik A · B</span><strong>${fmt(product)}</strong></div>` +
+        `<div class="stat"><span>Sudut antara A dan B</span><strong>${angleText}</strong></div>` +
+        `<div class="stat"><span>Vektor satuan A</span><strong>${fmtVec(unit(A))}</strong></div>` +
+        `<div class="stat"><span>Proyeksi A pada B</span><strong>${fmtVec(projection(A, B))}</strong></div>`;
+
+      svg.setAttribute(
+        'aria-label',
+        `Diagram vektor A = (${fmt(A.x)}, ${fmt(A.y)}), B = (${fmt(B.x)}, ${fmt(B.y)}), jumlah A + B = (${fmt(S.x)}, ${fmt(S.y)}), sudut ${angleText}`,
+      );
+
+      draw();
+    }
+
+    names.forEach((name) => {
+      inputs[name].addEventListener('input', render);
+    });
+
+    reset.addEventListener('click', () => {
+      names.forEach((name) => {
+        inputs[name].value = inputs[name].defaultValue;
+      });
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-vector]'), setupVector);
+</script>

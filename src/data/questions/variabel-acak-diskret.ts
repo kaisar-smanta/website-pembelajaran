@@ -11,10 +11,10 @@ export const variabelAcakDiskretQuestions: Question[] = [
     options: [
       { key: 'A', text: 'Tinggi badan siswa dalam sentimeter' },
       { key: 'B', text: 'Berat badan siswa dalam kilogram' },
-      { key: 'C', text: 'Jumlah mata dua dadu yang dilempar' },
-      { key: 'D', text: 'Waktu tunggu bus dalam menit' },
+      { key: 'C', text: 'Waktu tunggu bus dalam menit' },
+      { key: 'D', text: 'Jumlah mata dua dadu yang dilempar' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       'Variabel acak diskret memiliki nilai yang tercacah dan terpisah. Jumlah mata dua dadu hanya bernilai $2, 3, \\ldots, 12$, sehingga diskret. Tinggi, berat, dan waktu adalah besaran kontinu karena dapat bernilai sembarang dalam suatu selang.',
     hints: ['Variabel diskret umumnya bernilai bilangan bulat yang tercacah.'],
@@ -29,7 +29,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
     prompt:
       'Distribusi peluang variabel acak $X$ adalah $P(X=1) = 0{,}2$, $P(X=2) = 0{,}3$, $P(X=3) = 0{,}3$, dan $P(X=4) = p$. Tentukan nilai $p$.',
     answer: '0,2',
-    acceptedAnswers: ['0.2', '0,20', '0.20'],
+    acceptedAnswers: ['0.2', '0,20', '0.20', '1/5'],
     explanation:
       'Karena jumlah seluruh peluang harus $1$, maka $p = 1 - (0{,}2 + 0{,}3 + 0{,}3) = 1 - 0{,}8 = 0{,}2$.',
     hints: ['Gunakan syarat $\\sum P(X=x) = 1$.'],
@@ -94,11 +94,11 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Untuk distribusi $P(X=1) = 0{,}1$, $P(X=2) = 0{,}2$, $P(X=3) = 0{,}3$, dan $P(X=4) = 0{,}4$, varians $X$ adalah …',
     options: [
       { key: 'A', text: '$0{,}5$' },
-      { key: 'B', text: '$1$' },
+      { key: 'B', text: '$3$' },
       { key: 'C', text: '$1{,}5$' },
-      { key: 'D', text: '$3$' },
+      { key: 'D', text: '$1$' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       '$E(X) = 3$ dan $E(X^{2}) = 1^{2}(0{,}1) + 2^{2}(0{,}2) + 3^{2}(0{,}3) + 4^{2}(0{,}4) = 0{,}1 + 0{,}8 + 2{,}7 + 6{,}4 = 10$. Maka $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 10 - 9 = 1$.',
     hints: ['Hitung $E(X^{2})$ lebih dahulu, lalu kurangi kuadrat $E(X)$.'],
@@ -113,7 +113,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
     prompt:
       'Tiga koin dilempar dan $X$ menyatakan banyak gambar yang muncul. Tentukan nilai harapan $E(X)$.',
     answer: '1,5',
-    acceptedAnswers: ['1.5', '3/2', '1,50'],
+    acceptedAnswers: ['1.5', '3/2', '1,5', '1,50', '1.50', '1,500'],
     explanation:
       'Distribusinya $P(X=0) = \\frac{1}{8}$, $P(X=1) = \\frac{3}{8}$, $P(X=2) = \\frac{3}{8}$, $P(X=3) = \\frac{1}{8}$. Maka $E(X) = \\frac{0(1) + 1(3) + 2(3) + 3(1)}{8} = \\frac{12}{8} = 1{,}5$.',
     hints: ['Susun dahulu distribusi banyak gambar dengan koefisien binomial.'],
@@ -143,7 +143,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
     prompt:
       'Dua dadu dilempar dan $X$ menyatakan jumlah mata. Diketahui $E(X) = 7$. Tentukan varians $X$ (tuliskan sebagai pecahan paling sederhana).',
     answer: '35/6',
-    acceptedAnswers: ['5,83', '5.83', '5,833'],
+    acceptedAnswers: ['5,83', '5.83', '5,833', '5.833', '5,8333', '5.8333', '35/6'],
     explanation:
       '$E(X^{2}) = \\frac{1974}{36}$. Maka $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = \\frac{1974}{36} - 49 = \\frac{1974 - 1764}{36} = \\frac{210}{36} = \\frac{35}{6} \\approx 5{,}83$.',
     hints: ['Hitung $E(X^{2}) = \\sum x^{2} f(x)$, lalu kurangi $7^{2}$.'],

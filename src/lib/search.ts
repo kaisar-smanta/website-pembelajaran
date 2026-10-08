@@ -111,6 +111,221 @@ export function scoreItem(item: SearchItem, query: string): number {
   return total;
 }
 
+/** Panjang istilah minimum yang boleh ditoleransi salah ketik. */
+const MIN_FUZZY = 4;
+
+/** Batas jumlah kata kosakata yang dipakai untuk saran koreksi. */
+const MAX_VOCAB = 6000;
+
+/** Batas jarak edit berdasarkan panjang istilah (dibuat tetap agar murah). */
+function fuzzyLimit(length: number): number {
+  return length <= 4 ? 1 : 2;
+}
+
+/** Memecah teks ternormalisasi menjadi token alfanumerik. */
+function tokenize(text: string): string[] {
+  return text.split(/[^a-z0-9]+/).filter(Boolean);
+}
+
+/**
+ * Menghitung jarak edit (Levenshtein) dengan pemangkasan: berhenti lebih awal
+ * bila seluruh baris sudah melampaui `limit` sehingga biayanya tetap murah.
+ */
+function editDistance(a: string, b: string, limit: number): number {
+  if (Math.abs(a.length - b.length) > limit) return limit + 1;
+  let prev: number[] = [];
+  for (let j = 0; j <= b.length; j++) prev.push(j);
+  for (let i = 1; i <= a.length; i++) {
+    const curr: number[] = [i];
+    let rowMin = i;
+    const ai = a.charCodeAt(i - 1);
+    for (let j = 1; j <= b.length; j++) {
+      const cost = ai === b.charCodeAt(j - 1) ? 0 : 1;
+      const value = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+      curr.push(value);
+      if (value < rowMin) rowMin = value;
+    }
+    if (rowMin > limit) return limit + 1;
+    prev = curr;
+  }
+  return prev[b.length];
+}
+
+/**
+ * Mencocokkan satu istilah terhadap token sebuah teks dengan toleransi awalan
+ * (prefix) atau jarak edit terbatas. Dipakai hanya pada lintasan fuzzy.
+ */
+function fuzzyTokenMatch(term: string, haystack: string): boolean {
+  if (term.length < MIN_FUZZY) return false;
+  const limit = fuzzyLimit(term.length);
+  for (const token of tokenize(haystack)) {
+    if (token === term) return true;
+    if (Math.abs(token.length - term.length) > limit) continue;
+    const shorter = Math.min(token.length, term.length);
+    if (shorter >= MIN_FUZZY && (token.startsWith(term) || term.startsWith(token))) return true;
+    if (editDistance(term, token, limit) <= limit) return true;
+  }
+  return false;
+}
+
+/**
+ * Skor toleran salah ketik: istilah yang tidak cocok ketat dinilai lewat
+ * kecocokan token berjarak edit kecil dengan bobot lebih rendah, sehingga
+ * peringkat judul tetap di atas kata kunci, ringkasan, dan isi.
+ */
+export function scoreItemFuzzy(item: SearchItem, query: string): number {
+  const terms = queryTerms(query);
+  if (terms.length === 0) return 0;
+  const title = normalizeSearch(item.title);
+  const keywords = normalizeSearch(item.keywords);
+  const summary = normalizeSearch(item.summary);
+  const text = normalizeSearch(item.text);
+  let total = 0;
+  for (const term of terms) {
+    let s = 0;
+    if (title === term) s += 100;
+    if (title.includes(term)) s += 50;
+    if (keywords.includes(term)) s += 25;
+    if (summary.includes(term)) s += 12;
+    if (text.includes(term)) s += 6;
+    if (s === 0) {
+      if (fuzzyTokenMatch(term, title)) s += 30;
+      if (fuzzyTokenMatch(term, keywords)) s += 15;
+      if (fuzzyTokenMatch(term, summary)) s += 8;
+      if (fuzzyTokenMatch(term, text)) s += 4;
+    }
+    if (s === 0) return 0;
+    total += s;
+  }
+  return total;
+}
+
+/** Mengumpulkan kosakata (judul, kata kunci, ringkasan) untuk saran koreksi. */
+export function buildVocabulary(items: SearchItem[]): string[] {
+  const seen = new Set<string>();
+  const words: string[] = [];
+  const add = (value: string): void => {
+    if (words.length >= MAX_VOCAB) return;
+    for (const token of tokenize(normalizeSearch(value))) {
+      if (token.length < MIN_FUZZY || seen.has(token)) continue;
+      seen.add(token);
+      words.push(token);
+      if (words.length >= MAX_VOCAB) return;
+    }
+  };
+  for (const item of items) {
+    add(item.title);
+    add(item.keywords);
+    add(item.summary);
+  }
+  return words;
+}
+
+/** Mencari koreksi terdekat sebuah istilah, atau `null` bila sudah cocok. */
+function correctTerm(term: string, vocabulary: string[]): string | null {
+  if (term.length < MIN_FUZZY) return null;
+  const limit = fuzzyLimit(term.length);
+  let best: string | null = null;
+  let bestDistance = Infinity;
+  for (const word of vocabulary) {
+    if (word.includes(term)) return null;
+    if (Math.abs(word.length - term.length) > limit) continue;
+    const distance = editDistance(term, word, limit);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = word;
+      if (distance <= 1) break;
+    }
+  }
+  return bestDistance <= limit ? best : null;
+}
+
+/**
+ * Menyusun kueri koreksi dari kosakata indeks, mis. "eksopnen" → "eksponen".
+ * Mengembalikan `null` bila tidak ada istilah yang perlu dikoreksi.
+ */
+export function suggestQuery(items: SearchItem[], query: string): string | null {
+  const terms = queryTerms(query);
+  if (terms.length === 0) return null;
+  const vocabulary = buildVocabulary(items);
+  let changed = false;
+  const corrected = terms.map((term) => {
+    const fix = correctTerm(term, vocabulary);
+    if (fix && fix !== term) {
+      changed = true;
+      return fix;
+    }
+    return term;
+  });
+  return changed ? corrected.join(' ') : null;
+}
+
+/** Entri hasil pencarian beserta skornya. */
+export interface SearchResult extends SearchItem {
+  score: number;
+}
+
+/** Hasil pencarian: daftar terurut, saran koreksi, dan penanda lintasan fuzzy. */
+export interface SearchOutcome {
+  results: SearchResult[];
+  suggestion: string | null;
+  fuzzy: boolean;
+}
+
+/**
+ * Menjalankan pencarian dua lintasan: ketat lebih dulu, lalu toleran salah
+ * ketik bila lintasan ketat kosong. Saran "mungkin maksud" hanya dibangun dari
+ * kosakata indeks pada lintasan fuzzy.
+ */
+export function searchItems(items: SearchItem[], query: string, limit = 40): SearchOutcome {
+  const strict: SearchResult[] = [];
+  for (const item of items) {
+    const score = scoreItem(item, query);
+    if (score > 0) strict.push({ ...item, score });
+  }
+  const rank = (a: SearchResult, b: SearchResult): number => b.score - a.score;
+  if (strict.length > 0) {
+    strict.sort(rank);
+    return { results: strict.slice(0, limit), suggestion: null, fuzzy: false };
+  }
+
+  const fuzzy: SearchResult[] = [];
+  for (const item of items) {
+    const score = scoreItemFuzzy(item, query);
+    if (score > 0) fuzzy.push({ ...item, score });
+  }
+  if (fuzzy.length === 0) return { results: [], suggestion: null, fuzzy: true };
+  fuzzy.sort(rank);
+  return {
+    results: fuzzy.slice(0, limit),
+    suggestion: suggestQuery(items, query),
+    fuzzy: true,
+  };
+}
+
+/** Saringan indeks: kelas, elemen, dan jenis hasil. */
+export interface SearchFilters {
+  grade?: string;
+  element?: string;
+  type?: string;
+}
+
+/**
+ * Menyaring entri menurut kelas, elemen, dan jenis. Halaman statis tanpa kelas
+ * atau elemen tetap lolos saringan kelas/elemen agar tetap dapat ditemukan.
+ */
+export function filterItems(items: SearchItem[], filters: SearchFilters): SearchItem[] {
+  const grade = filters.grade ?? '';
+  const element = filters.element ?? '';
+  const type = filters.type ?? '';
+  return items.filter((item) => {
+    if (type && item.type !== type) return false;
+    if (grade && item.grade !== grade && item.type !== 'halaman') return false;
+    if (element && item.element !== element && item.type !== 'halaman') return false;
+    return true;
+  });
+}
+
 /**
  * Menyorot setiap istilah kueri di dalam teks sebagai HTML yang aman. Teks
  * di-escape lebih dulu, lalu seluruh istilah (baik literal maupun lewat bentuk

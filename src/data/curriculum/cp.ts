@@ -123,7 +123,7 @@ export const cpStatements: CpStatement[] = [
     element: 'aljabar-fungsi',
     grades: ['X'],
     text: 'Menyelesaikan masalah persamaan dan fungsi eksponensial dengan basis sama.',
-    topicIds: ['fungsi-eksponensial'],
+    topicIds: ['fungsi-eksponensial', 'persamaan-eksponen-logaritma'],
   },
   {
     id: 'E-GEO-1',
@@ -233,7 +233,7 @@ export const cpStatements: CpStatement[] = [
     element: 'data-peluang',
     grades: ['XI', 'XII'],
     text: 'Melakukan penyelidikan statistika untuk menjelaskan asosiasi antara dua variabel kategorikal dan antara dua variabel numerik.',
-    topicIds: ['data-bivariat', 'asosiasi-kausalitas', 'peluang-bersyarat'],
+    topicIds: ['data-bivariat', 'asosiasi-kausalitas'],
   },
   {
     id: 'F-DAT-2',
@@ -300,7 +300,7 @@ export const cpStatements: CpStatement[] = [
     phase: 'F',
     element: 'aljabar-fungsi',
     grades: ['XI'],
-    text: 'Memodelkan fenomena periodik dengan fungsi trigonometri, serta membuktikan dan menerapkan identitas trigonometri dan aturan cosinus dan sinus.',
+    text: 'Memodelkan fenomena periodik dengan fungsi trigonometri, serta membuktikan dan menerapkan identitas trigonometri dan aturan kosinus dan sinus.',
     topicIds: ['trigonometri-lanjut'],
   },
   {

@@ -179,6 +179,7 @@ const cellIndex = [0, 1];
   import { multiply, determinant, equals } from '../../lib/sim/matrix';
   import type { Matrix2 } from '../../lib/sim/matrix';
   import { formatId as fmt } from '../../lib/format';
+  import { initWhenVisible } from '../../lib/dom';
 
   const fmtMatrix = (m: Matrix2) =>
     `[[${fmt(m[0][0])}, ${fmt(m[0][1])}], [${fmt(m[1][0])}, ${fmt(m[1][1])}]]`;
@@ -271,5 +272,5 @@ const cellIndex = [0, 1];
     render();
   }
 
-  document.querySelectorAll('[data-matrix]').forEach(setupMatrix);
+  initWhenVisible(document.querySelectorAll('[data-matrix]'), setupMatrix);
 </script>

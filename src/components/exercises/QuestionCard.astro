@@ -20,10 +20,20 @@ const levelLabel = { dasar: 'Dasar', cakap: 'Cakap', mahir: 'Mahir' }[question.d
 // Urutan tampil opsi diacak secara deterministik per id soal untuk mengurangi
 // bias posisi jawaban. Kunci (key) dan teks tiap opsi tetap berpasangan, dan
 // kunci jawaban tersimpan pada `data-answer` sehingga penilaian tidak berubah.
+// Lapisan klien mengacak ulang dengan benih sesi agar urutannya bervariasi.
 const displayOptions =
   question.type === 'multiple-choice' && question.options
     ? seededShuffle(question.options, `opsi-${question.id}`)
     : [];
+
+// Jawaban model yang ditampilkan setelah siswa menjawab. Untuk pilihan ganda,
+// `answer` hanyalah kunci opsi, sehingga teks opsi yang benar yang ditampilkan.
+const modelSource =
+  question.type === 'multiple-choice'
+    ? (question.options?.find((opt) => opt.key === question.answer)?.text ?? question.answer)
+    : question.answer;
+const modelHtml = renderMarkdown(`**Jawaban:** ${modelSource}`);
+const competencies = question.competencies ?? [];
 ---
 
 <article
@@ -33,6 +43,7 @@ const displayOptions =
   data-type={question.type}
   data-answer={question.answer}
   data-accepted={JSON.stringify(question.acceptedAnswers ?? [])}
+  data-competencies={JSON.stringify(competencies)}
 >
   <header class="q-head">
     <span class="q-number" aria-hidden="true">{number ?? index + 1}</span>
@@ -132,7 +143,7 @@ const displayOptions =
 
   <div class="q-explanation prose" data-explanation hidden set:html={explanationHtml} />
 
-  <div class="q-model prose" data-model hidden set:html={renderMarkdown(question.answer)} />
+  <div class="q-model prose" data-model hidden set:html={modelHtml} />
 </article>
 
 <style>
@@ -305,6 +316,25 @@ const displayOptions =
     type AttemptState,
   } from '@/lib/progress';
   import { isAcceptedAnswer, normalizeAnswer } from '@/lib/answer';
+  import { seededShuffle } from '@/lib/learner';
+  import { combineSeed } from '@/lib/practice';
+
+  const SESSION_SEED_KEY = 'mtk-session-seed';
+
+  /** Benih sesi per tab; stabil selama satu percobaan sehingga urutan opsi tetap. */
+  function sessionSeed(): string {
+    try {
+      const storage = window.sessionStorage;
+      let seed = storage.getItem(SESSION_SEED_KEY);
+      if (!seed) {
+        seed = Math.random().toString(36).slice(2) + Date.now().toString(36);
+        storage.setItem(SESSION_SEED_KEY, seed);
+      }
+      return seed;
+    } catch {
+      return 'sesi-tetap';
+    }
+  }
 
   function record(
     root: Element,
@@ -351,8 +381,24 @@ const displayOptions =
     const accepted: string[] = JSON.parse(root.getAttribute('data-accepted') ?? '[]');
     const feedback = root.querySelector('[data-feedback]') as HTMLElement;
     const explanation = root.querySelector('[data-explanation]') as HTMLElement;
+    const model = root.querySelector('[data-model]') as HTMLElement | null;
     const reset = root.querySelector('[data-reset]') as HTMLButtonElement | null;
     const hasExplanation = Boolean(explanation.innerHTML.trim());
+    let competencies: string[] = [];
+    try {
+      const parsed: unknown = JSON.parse(root.getAttribute('data-competencies') ?? '[]');
+      if (Array.isArray(parsed)) competencies = parsed.filter((c): c is string => typeof c === 'string');
+    } catch {
+      competencies = [];
+    }
+
+    // Menyebut konsep yang perlu diperiksa agar umpan balik menuntun siswa, bukan
+    // sekadar menyatakan jawaban salah.
+    function conceptHint(): string {
+      return competencies.length
+        ? `Periksa kembali: ${competencies.join(', ')}.`
+        : 'Periksa kembali langkah-langkahmu.';
+    }
 
     // Pulihkan percobaan yang tersimpan agar soal yang sudah dikerjakan tidak
     // tampak sama dengan soal yang belum dikerjakan setelah halaman dimuat ulang.
@@ -385,6 +431,14 @@ const displayOptions =
       explanation.hidden = true;
     }
 
+    function showModel() {
+      if (model) model.hidden = false;
+    }
+
+    function hideModel() {
+      if (model) model.hidden = true;
+    }
+
     function resetQuestion() {
       root.querySelectorAll('[data-key]').forEach((o) => {
         o.classList.remove('correct', 'incorrect');
@@ -400,8 +454,7 @@ const displayOptions =
       if (check) check.disabled = false;
       const openInput = root.querySelector('[data-open-input]') as HTMLTextAreaElement | null;
       if (openInput) openInput.value = '';
-      const model = root.querySelector('[data-model]') as HTMLElement | null;
-      if (model) model.hidden = true;
+      hideModel();
       const reveal = root.querySelector('[data-open-reveal]') as HTMLButtonElement | null;
       if (reveal) reveal.textContent = 'Lihat contoh jawaban';
       feedback.hidden = true;
@@ -416,6 +469,14 @@ const displayOptions =
     }
 
     if (type === 'multiple-choice') {
+      // Acak ulang urutan opsi dengan benih sesi. Karena pasangan key–teks tetap
+      // utuh, penilaian lewat `data-answer` tidak terpengaruh.
+      const list = root.querySelector<HTMLElement>('.q-options');
+      if (list) {
+        const qid = root.getAttribute('data-question-id') ?? '';
+        const ordered = seededShuffle(Array.from(list.children), combineSeed(sessionSeed(), qid));
+        for (const node of ordered) list.appendChild(node);
+      }
       const options = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-key]'));
       let answered = false;
 
@@ -449,6 +510,7 @@ const displayOptions =
 
       const reveal = () => {
         showExplanation();
+        showModel();
         showReset();
       };
 
@@ -465,7 +527,7 @@ const displayOptions =
         const isCorrect = apply(key);
         showFeedback(
           isCorrect ? 'ok' : 'no',
-          isCorrect ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
+          isCorrect ? 'Tepat! Bandingkan dengan jawaban model di bawah.' : `Belum tepat. ${conceptHint()}`,
         );
         reveal();
         record(root, isCorrect, { selected: key });
@@ -517,7 +579,7 @@ const displayOptions =
         apply(attempt.selected ?? (attempt.correct ? answer : null));
         showFeedback(
           attempt.correct ? 'ok' : 'no',
-          attempt.correct ? 'Tepat!' : 'Belum tepat. Perhatikan pilihan yang benar.',
+          attempt.correct ? 'Tepat!' : `Belum tepat. ${conceptHint()}`,
         );
         reveal();
         lock();
@@ -538,11 +600,12 @@ const displayOptions =
         }
         const isCorrect = isAcceptedAnswer(input.value, answer, accepted);
         if (isCorrect) {
-          showFeedback('ok', 'Benar!');
+          showFeedback('ok', 'Benar! Bandingkan dengan jawaban model di bawah.');
         } else {
-          showFeedback('no', 'Belum tepat, coba periksa langkahmu.');
+          showFeedback('no', `Belum tepat. ${conceptHint()}`);
         }
         showExplanation();
+        showModel();
         showReset();
         record(root, isCorrect, { input: input.value });
         answered = true;
@@ -564,9 +627,10 @@ const displayOptions =
         if (attempt.input !== undefined) input.value = attempt.input;
         showFeedback(
           attempt.correct ? 'ok' : 'no',
-          attempt.correct ? 'Benar!' : 'Belum tepat, coba periksa langkahmu.',
+          attempt.correct ? 'Benar!' : `Belum tepat. ${conceptHint()}`,
         );
         showExplanation();
+        showModel();
         showReset();
         answered = true;
         input.disabled = true;

@@ -112,7 +112,7 @@ export const spltvQuestions: Question[] = [
     prompt:
       'Harga $2$ buku, $1$ pena, dan $1$ pensil adalah Rp13.000. Harga $1$ buku, $2$ pena, dan $1$ pensil Rp17.000. Harga $1$ buku, $1$ pena, dan $2$ pensil Rp12.000. Tentukan harga satu buku dalam rupiah.',
     answer: '2500',
-    acceptedAnswers: ['2500', '2.500', 'Rp2.500'],
+    acceptedAnswers: ['2500', '2.500', '2.500,00', '2500,00', 'Rp2.500', 'Rp2.500,00'],
     explanation:
       'Jumlahkan ketiga persamaan: $4x+4y+4z=42000$, sehingga $x+y+z=10500$. Dari persamaan pertama $2x+y+z=13000$, yaitu $x+(x+y+z)=13000$, maka $x=13000-10500=2500$. Jadi harga satu buku Rp2.500.',
     hints: ['Jumlahkan ketiga persamaan untuk memperoleh $x+y+z$.'],

@@ -7,7 +7,6 @@ import ElementIcon from '@/components/content/ElementIcon.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import { url } from '@/utils/url';
 import { toolGroups } from '@/data/tools';
-import { ALL_ELEMENT_ORDER } from '@/data/curriculum';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -20,7 +19,6 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-const accentElements = ALL_ELEMENT_ORDER;
 const totalTools = toolGroups.reduce((sum, group) => sum + group.tools.length, 0);
 const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
 ---
@@ -47,7 +45,7 @@ const meta = [`${totalTools} alat`, `${toolGroups.length} kategori`];
 
     {
       toolGroups.map((group, gi) => {
-        const elementId = accentElements[gi % accentElements.length];
+        const elementId = group.element;
         const sectionId = slugify(group.heading);
         return (
           <section class:list={['block', `accent-${elementId}`]} aria-labelledby={sectionId}>

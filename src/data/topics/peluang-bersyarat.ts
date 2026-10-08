@@ -26,7 +26,6 @@ export const peluangBersyarat: Topic = {
   ],
   prerequisites: ['peluang'],
   relatedTopics: ['peluang', 'asosiasi-kausalitas'],
-  explorations: ['peluang-bersyarat-sim'],
   prerequisiteKnowledge: [
     'Ruang sampel, kejadian, dan peluang teoretis',
     'Aturan komplemen dan aturan penjumlahan',
@@ -317,62 +316,18 @@ Jadi setelah melihat bola merah, peluang memilih Kantong A naik menjadi $\\tfrac
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `Diketahui $P(A) = 0{,}5$, $P(B) = 0{,}4$, dan $P(A \\cap B) = 0{,}2$.
-
-1. Hitung $P(A \\mid B)$.
-2. Hitung $P(B \\mid A)$.
-3. Periksa apakah $A$ dan $B$ saling bebas.
-4. Hitung $P(A \\cup B)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $P(A \\mid B) = \\dfrac{0{,}2}{0{,}4} = 0{,}5$.
-2. $P(B \\mid A) = \\dfrac{0{,}2}{0{,}5} = 0{,}4$.
-3. Karena $P(A \\cap B) = 0{,}2 = P(A)P(B) = 0{,}5 \\cdot 0{,}4$, maka $A$ dan $B$ **saling bebas** (dan $P(A \\mid B) = P(A) = 0{,}5$).
-4. $P(A \\cup B) = 0{,}5 + 0{,}4 - 0{,}2 = 0{,}7$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Dua anak dipilih dari keluarga yang memiliki dua anak. Diketahui paling sedikit satu anak laki-laki. Berapa peluang kedua anak laki-laki?
-2. Sebuah tes penyakit memiliki sensitivitas $P(+ \\mid D) = 0{,}9$ dan spesifisitas $P(- \\mid D^c) = 0{,}9$. Jika prevalensi penyakit $P(D) = 0{,}01$, hitung $P(D \\mid +)$.
-3. Dua bola diambil tanpa pengembalian dari kantong berisi 5 merah dan 3 biru. Tentukan peluang bola kedua merah jika bola pertama merah.
-4. Hitung $\\binom{6}{2}$ dan $P(6,2)$. Jelaskan mengapa keduanya berbeda.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Ruang sampel $\\{LL, LP, PL, PP\\}$; syarat "paling sedikit satu laki-laki" menyisakan $\\{LL, LP, PL\\}$, sehingga $P = \\tfrac13$.
-2. $P(+) = P(+ \\mid D)P(D) + P(+ \\mid D^c)P(D^c) = 0{,}9(0{,}01) + 0{,}1(0{,}99) = 0{,}009 + 0{,}099 = 0{,}108$. Maka $P(D \\mid +) = \\dfrac{0{,}009}{0{,}108} = \\dfrac{1}{12} \\approx 0{,}083$. Meski tes "90% akurat", sebagian besar hasil positif justru berasal dari orang sehat karena penyakitnya jarang.
-3. Setelah satu merah terambil, tersisa 4 merah dan 3 biru dari 7 bola, sehingga $P(M_2 \\mid M_1) = \\tfrac47$.
-4. $\\binom{6}{2} = 15$ (urutan tidak penting) dan $P(6,2) = 30$ (urutan penting), tepat dua kali lipat karena 2 objek memiliki $2! = 2$ susunan.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Kantong A dipilih dengan peluang $\\tfrac23$ dan Kantong B dengan peluang $\\tfrac13$. Kantong A berisi 3 merah dan 2 putih; Kantong B berisi 1 merah dan 4 putih. Jika terambil bola merah, tentukan $P(A \\mid \\text{merah})$.
-2. Dari 6 siswa laki-laki dan 4 siswa perempuan akan dipilih 3 orang. Tentukan peluang terpilih tepat 2 siswa laki-laki.
-3. Buktikan bahwa bila $P(A) > 0$, $P(B) > 0$, dan $A$, $B$ saling lepas, maka $A$ dan $B$ **tidak** saling bebas.
-4. Dari kantong berisi 5 merah dan 3 biru, dua bola diambil tanpa pengembalian. Hitung peluang kedua bola merah, lalu bandingkan dengan hasil aturan perkalian $P(M_1)P(M_2 \\mid M_1)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. $P(\\text{merah}) = \\tfrac23 \\cdot \\tfrac35 + \\tfrac13 \\cdot \\tfrac15 = \\tfrac25 + \\tfrac{1}{15} = \\tfrac{6}{15} + \\tfrac{1}{15} = \\tfrac{7}{15}$. Maka $P(A \\mid \\text{merah}) = \\dfrac{\\tfrac23 \\cdot \\tfrac35}{\\tfrac{7}{15}} = \\dfrac{2/5}{7/15} = \\dfrac{6}{7}$.
-2. Banyak cara memilih 3 dari 10 adalah $\\binom{10}{3} = 120$. Cara memilih tepat 2 laki-laki dan 1 perempuan adalah $\\binom{6}{2}\\binom{4}{1} = 15 \\cdot 4 = 60$. Jadi $P = \\tfrac{60}{120} = \\tfrac12$.
-3. Karena saling lepas, $A \\cap B = \\varnothing$ sehingga $P(A \\cap B) = 0$. Padahal $P(A)P(B) > 0$ (keduanya positif). Karena $0 \\neq P(A)P(B)$, kedua kejadian tidak saling bebas.
-4. $P(M_1 \\cap M_2) = \\dfrac{\\binom{5}{2}}{\\binom{8}{2}} = \\dfrac{10}{28} = \\dfrac{5}{14}$. Dengan aturan perkalian: $P(M_1) = \\tfrac58$ dan $P(M_2 \\mid M_1) = \\tfrac47$, sehingga $\\tfrac58 \\cdot \\tfrac47 = \\tfrac{20}{56} = \\tfrac{5}{14}$. Keduanya cocok.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -473,7 +428,7 @@ Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Peluang Bersyarat**.",
+      body: `**Tiket keluar.** (1) Bagaimana aturan perkalian $P(A\\cap B)=P(A\\mid B)\\,P(B)$ membantu menghitung kejadian yang berurutan? (2) Kapan $P(A\\mid B)$ sama dengan $P(A)$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Peluang Bersyarat** untuk latihan tambahan.`,
     },
   ],
 };

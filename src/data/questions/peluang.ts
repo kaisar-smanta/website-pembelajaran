@@ -11,10 +11,10 @@ export const peluangQuestions: Question[] = [
     options: [
       { key: 'A', text: '$\\dfrac{1}{6}$' },
       { key: 'B', text: '$\\dfrac{1}{3}$' },
-      { key: 'C', text: '$\\dfrac{1}{2}$' },
-      { key: 'D', text: '$\\dfrac{2}{3}$' },
+      { key: 'C', text: '$\\dfrac{2}{3}$' },
+      { key: 'D', text: '$\\dfrac{1}{2}$' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       'Mata dadu prima adalah $\\{2, 3, 5\\}$, sehingga $n(A) = 3$ dari $n(S) = 6$. Jadi $P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$.',
     hints: ['Bilangan prima terkecil adalah 2, jadi 1 bukan bilangan prima.'],
@@ -28,7 +28,7 @@ export const peluangQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Sebuah dadu dilempar satu kali. Tentukan peluang muncul mata dadu lebih dari 4.',
     answer: '1/3',
-    acceptedAnswers: ['1/3', '2/6'],
+    acceptedAnswers: ['1/3', '2/6', '0,33', '0.33', '0,333', '0.333', '0,3333', '0.3333'],
     explanation:
       'Mata dadu lebih dari 4 adalah $\\{5, 6\\}$ sehingga $n(A) = 2$. Jadi $P(A) = \\dfrac{2}{6} = \\dfrac{1}{3}$.',
     hints: ['Tuliskan anggota kejadian, lalu bandingkan dengan $n(S) = 6$.'],
@@ -44,11 +44,11 @@ export const peluangQuestions: Question[] = [
       'Dua dadu dilempar bersama. Peluang jumlah kedua mata dadu sama dengan 7 atau 11 adalah …',
     options: [
       { key: 'A', text: '$\\dfrac{1}{6}$' },
-      { key: 'B', text: '$\\dfrac{2}{9}$' },
+      { key: 'B', text: '$\\dfrac{5}{18}$' },
       { key: 'C', text: '$\\dfrac{1}{4}$' },
-      { key: 'D', text: '$\\dfrac{5}{18}$' },
+      { key: 'D', text: '$\\dfrac{2}{9}$' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Jumlah 7 muncul dari 6 cara, jumlah 11 dari 2 cara yaitu $(5,6)$ dan $(6,5)$. Kedua kejadian saling lepas, sehingga $P = \\dfrac{6 + 2}{36} = \\dfrac{8}{36} = \\dfrac{2}{9}$.',
     hints: ['Hitung banyak cara tiap jumlah dari 36 hasil yang sama mungkin.'],
@@ -98,7 +98,7 @@ export const peluangQuestions: Question[] = [
     prompt:
       'Sebuah dadu dilempar dua kali. Tentukan peluang munculnya paling sedikit satu mata 6.',
     answer: '11/36',
-    acceptedAnswers: ['11/36'],
+    acceptedAnswers: ['11/36', '0,3056', '0.3056', '0,30556', '0.30556', '0,31', '0.31'],
     explanation:
       'Gunakan komplemen. Peluang tidak muncul mata 6 pada kedua lemparan adalah $\\dfrac{5}{6} \\cdot \\dfrac{5}{6} = \\dfrac{25}{36}$, sehingga $P(\\text{paling sedikit satu } 6) = 1 - \\dfrac{25}{36} = \\dfrac{11}{36}$.',
     hints: ['Hitung peluang kejadian komplemennya lebih dahulu.'],
@@ -113,15 +113,15 @@ export const peluangQuestions: Question[] = [
     prompt:
       'Pada satu lemparan dadu, $A$ adalah kejadian muncul mata genap dan $B$ adalah kejadian muncul mata prima. Pernyataan yang benar adalah …',
     options: [
-      { key: 'A', text: '$A$ dan $B$ saling bebas karena $P(A) = P(B)$.' },
+      { key: 'A', text: 'Saling bebas karena $P(A)=P(B)$.' },
+      { key: 'B', text: 'Saling lepas karena $A \\cap B = \\varnothing$.' },
+      { key: 'C', text: 'Saling bebas karena $P(A \\mid B)=P(A)$.' },
       {
-        key: 'B',
-        text: '$A$ dan $B$ tidak saling bebas karena $P(A \\cap B) \\neq P(A) \\cdot P(B)$.',
+        key: 'D',
+        text: 'Tidak saling bebas karena $P(A \\cap B) \\neq P(A)\\,P(B)$.',
       },
-      { key: 'C', text: '$A$ dan $B$ saling lepas karena $A \\cap B = \\varnothing$.' },
-      { key: 'D', text: '$P(A \\mid B) = P(A)$.' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       '$P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$, $P(B) = \\dfrac{3}{6} = \\dfrac{1}{2}$, dan $A \\cap B = \\{2\\}$ sehingga $P(A \\cap B) = \\dfrac{1}{6}$. Karena $P(A)P(B) = \\dfrac{1}{4} \\neq \\dfrac{1}{6}$, keduanya tidak saling bebas. $A \\cap B$ tidak kosong, jadi bukan saling lepas.',
     hints: ['Periksa apakah berlaku $P(A \\cap B) = P(A) \\cdot P(B)$.'],
@@ -192,5 +192,24 @@ export const peluangQuestions: Question[] = [
       'Kunci: memakai aturan perkalian untuk kejadian saling bebas, menjumlahkan dua jalur untuk tepat satu merah, dan menjelaskan mengapa keduanya bebas.',
     hints: ['Hasil dari satu kantong tidak memengaruhi kantong lain.', 'Untuk tepat satu merah, jumlahkan dua urutan kejadian.'],
     competencies: ['kejadian saling bebas', 'aturan perkalian', 'evaluasi'],
+  },
+  {
+    id: 'pl-12',
+    topicId: 'peluang',
+    difficulty: 'dasar',
+    type: 'multiple-choice',
+    category: 'konsep',
+    prompt: 'Sebuah koin dilempar satu kali. Peluang muncul sisi angka adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{1}{4}$' },
+      { key: 'B', text: '$\\dfrac{1}{3}$' },
+      { key: 'C', text: '$\\dfrac{3}{4}$' },
+      { key: 'D', text: '$\\dfrac{1}{2}$' },
+    ],
+    answer: 'D',
+    explanation:
+      'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$ dengan dua hasil sama mungkin, sehingga $P(\\text{angka})=\\dfrac{1}{2}$.',
+    hints: ['Ada berapa hasil yang sama mungkin, dan berapa yang termasuk kejadian?'],
+    competencies: ['peluang teoretis', 'ruang sampel'],
   },
 ];

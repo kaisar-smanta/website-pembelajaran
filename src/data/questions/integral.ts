@@ -74,7 +74,7 @@ export const integralQuestions: Question[] = [
     category: 'penerapan',
     prompt: 'Hitung $\\displaystyle\\int_{0}^{2} x^{2}\\,dx$.',
     answer: '8/3',
-    acceptedAnswers: ['2,67', '2.67', '8 per 3', '2 2/3'],
+    acceptedAnswers: ['2,67', '2.67', '2,667', '2.667', '2,6667', '2.6667', '8/3', '8 per 3', '2 2/3'],
     explanation:
       '$\\displaystyle\\int_{0}^{2} x^{2}\\,dx = \\left[\\dfrac{x^{3}}{3}\\right]_{0}^{2} = \\dfrac{8}{3} - 0 = \\dfrac{8}{3}$.',
     hints: ['Antiturunan $x^{2}$ adalah $\\dfrac{x^{3}}{3}$.'],
@@ -136,7 +136,7 @@ export const integralQuestions: Question[] = [
       { key: 'A', text: '$\\dfrac{1}{6}$' },
       { key: 'B', text: '$\\dfrac{1}{3}$' },
       { key: 'C', text: '$\\dfrac{1}{2}$' },
-      { key: 'D', text: '$\\dfrac{2}{3}$' },
+      { key: 'D', text: '$\\dfrac{5}{6}$' },
     ],
     answer: 'A',
     explanation:
@@ -153,7 +153,7 @@ export const integralQuestions: Question[] = [
     prompt:
       'Hitung luas daerah yang dibatasi kurva $y = 4 - x^{2}$ dan sumbu-$x$ pada selang $[-2, 2]$.',
     answer: '32/3',
-    acceptedAnswers: ['10,67', '10.67', '32 per 3', '10 2/3'],
+    acceptedAnswers: ['10,67', '10.67', '10,667', '10.667', '32/3', '32 per 3', '10 2/3'],
     explanation:
       'Karena $4 - x^{2} \\geq 0$ pada $[-2, 2]$, luasnya $\\displaystyle\\int_{-2}^{2} (4 - x^{2})\\,dx = \\left[4x - \\dfrac{x^{3}}{3}\\right]_{-2}^{2} = \\left(8 - \\dfrac{8}{3}\\right) - \\left(-8 + \\dfrac{8}{3}\\right) = \\dfrac{32}{3}$.',
     hints: ['Integrasikan $4 - x^{2}$ dari $-2$ hingga $2$.'],

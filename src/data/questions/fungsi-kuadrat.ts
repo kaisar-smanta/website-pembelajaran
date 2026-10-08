@@ -92,7 +92,7 @@ export const fungsiKuadratQuestions: Question[] = [
     prompt:
       'Laba suatu usaha (dalam ribu rupiah) mengikuti $P(x)=-x^{2}+40x-300$ dengan $x$ banyak barang terjual. Tentukan laba maksimum dalam rupiah.',
     answer: '100000',
-    acceptedAnswers: ['100000', '100.000', 'Rp100.000'],
+    acceptedAnswers: ['100000', '100.000', '100.000,00', '100000,00', 'Rp100.000', 'Rp100.000,00'],
     explanation:
       'Sumbu simetri $x=-\\dfrac{40}{2\\cdot(-1)}=20$. Laba maksimum $P(20)=-400+800-300=100$ (dalam ribu rupiah), yaitu Rp100.000.',
     hints: ['Karena $a<0$, laba maksimum berada di titik puncak.'],

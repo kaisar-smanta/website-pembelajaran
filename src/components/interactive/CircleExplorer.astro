@@ -32,11 +32,11 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
   <div class="sim-fields">
     <label class="sim-field">
       <span>Jari-jari r <output data-value="r">{r0}</output></span>
-      <input type="range" min="1" max="10" step="0.5" value={r0} data-field="r" />
+      <input type="range" min="1" max="10" step="0.5" value={r0} data-field="r" aria-label="Jari-jari r" />
     </label>
     <label class="sim-field">
       <span>Sudut pusat θ (°) <output data-value="sudut">{theta0}</output></span>
-      <input type="range" min="0" max="360" step="5" value={theta0} data-field="sudut" />
+      <input type="range" min="0" max="360" step="5" value={theta0} data-field="sudut" aria-label="Sudut pusat θ dalam derajat" />
     </label>
   </div>
 
@@ -153,7 +153,7 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     degToRad,
     formatNumber,
   } from '../../lib/sim/circle';
-  import { el, clear, clamp, polyline } from '../../lib/dom';
+  import { el, clear, clamp, polyline, initWhenVisible } from '../../lib/dom';
 
   function setupCircle(root: Element) {
     const inR = root.querySelector('[data-field="r"]') as HTMLInputElement;
@@ -274,5 +274,5 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
     render();
   }
 
-  document.querySelectorAll('[data-circle]').forEach(setupCircle);
+  initWhenVisible(document.querySelectorAll('[data-circle]'), setupCircle);
 </script>

@@ -62,7 +62,7 @@ export const vektorQuestions: Question[] = [
     prompt:
       'Tentukan komponen pertama (arah-$x$) dari vektor satuan $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. Tulis dalam bentuk pecahan.',
     answer: '3/5',
-    acceptedAnswers: ['0.6', '3/5'],
+    acceptedAnswers: ['0.6', '3/5', '0,6', '0,60', '0.60'],
     explanation:
       '$\\lVert \\vec{a} \\rVert = 5$, sehingga $\\hat{a} = \\dfrac{1}{5}\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 3/5 \\\\ 4/5 \\end{pmatrix}$. Komponen pertamanya $\\dfrac{3}{5}$.',
     hints: ['Bagi setiap komponen dengan panjang vektor.'],
@@ -131,7 +131,7 @@ export const vektorQuestions: Question[] = [
     prompt:
       'Tentukan besar sudut (dalam derajat) antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.',
     answer: '45',
-    acceptedAnswers: ['45°', '45 derajat'],
+    acceptedAnswers: ['45°', '45 derajat', '45^\\circ'],
     explanation:
       '$\\vec{u} \\cdot \\vec{v} = 5$, $\\lVert \\vec{u} \\rVert = \\sqrt{5}$, $\\lVert \\vec{v} \\rVert = \\sqrt{10}$, sehingga $\\cos\\theta = \\dfrac{5}{\\sqrt{50}} = \\dfrac{1}{\\sqrt{2}}$. Jadi $\\theta = 45^\\circ$.',
     hints: ['Gunakan $\\cos\\theta = \\dfrac{\\vec{u} \\cdot \\vec{v}}{\\lVert \\vec{u} \\rVert \\lVert \\vec{v} \\rVert}$.'],

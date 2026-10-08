@@ -47,7 +47,7 @@ export const trigonometriQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Hitung nilai $\\sin 60^\\circ \\cdot \\cos 30^\\circ$.',
     answer: '3/4',
-    acceptedAnswers: ['0,75', '0.75', '\\dfrac{3}{4}'],
+    acceptedAnswers: ['0,75', '0.75', '0,750', '0.750', '\\dfrac{3}{4}'],
     explanation:
       '$\\sin 60^\\circ=\\dfrac{\\sqrt{3}}{2}$ dan $\\cos 30^\\circ=\\dfrac{\\sqrt{3}}{2}$, sehingga hasilnya $\\dfrac{\\sqrt{3}}{2}\\cdot\\dfrac{\\sqrt{3}}{2}=\\dfrac{3}{4}$.',
     hints: ['Perhatikan bahwa nilai $\\sin 60^\\circ$ dan $\\cos 30^\\circ$ sama.'],

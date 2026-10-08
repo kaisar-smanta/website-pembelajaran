@@ -176,7 +176,7 @@ const { exploration } = Astro.props;
 
 <script>
   import { sequenceTerms } from '../../lib/sim/sequence';
-  import { el, clear, clamp, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, clamp, linearScale, polyline, initWhenVisible } from '../../lib/dom';
   import { formatId } from '../../lib/format';
 
   const subDigits = '₀₁₂₃₄₅₆₇₈₉';
@@ -338,5 +338,5 @@ const { exploration } = Astro.props;
     render();
   }
 
-  document.querySelectorAll('[data-sequence]').forEach(setupSequence);
+  initWhenVisible(document.querySelectorAll('[data-sequence]'), setupSequence);
 </script>

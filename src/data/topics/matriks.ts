@@ -41,9 +41,6 @@ export const matriks: Topic = {
     { text: 'Peserta didik dapat menentukan invers matriks $2 \\times 2$ dan menggunakannya untuk menyelesaikan SPLDV.' },
   ],
   applications: ['transformasi-matriks'],
-  explorations: [
-    "matriks-transformasi",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -284,6 +281,18 @@ Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Determinan sebagai Penentu",
+      body: `Dari seluruh operasi di atas, satu bilangan ternyata mengendalikan banyak hal, yaitu **determinan**. Untuk matriks $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ berlaku $\\det(A) = ad - bc$.
+
+Nilai nol atau tidaknya determinan memisahkan dua kemungkinan. Jika $\\det(A) \\neq 0$, matriks **tak singular**, memiliki invers
+
+$$A^{-1} = \\frac{1}{\\det(A)}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix},$$
+
+dan sistem $A\\mathbf{x} = \\mathbf{b}$ memiliki penyelesaian tunggal $\\mathbf{x} = A^{-1}\\mathbf{b}$. Jika $\\det(A) = 0$, matriks singular, invers tidak ada, dan sistem tidak memiliki penyelesaian tunggal. Memeriksa determinan lebih dahulu menghemat langkah sekaligus menghindari pembagian oleh nol.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -324,58 +333,18 @@ Jadi $x=2$ dan $y=3$. Periksa: $2(2)+3=7$ dan $2+3(3)=11$. Benar.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan ordo matriks $\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}$.
-2. Diketahui $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ dan $B = \\begin{pmatrix} 0 & 1 \\\\ 2 & 1 \\end{pmatrix}$. Hitunglah $A+B$.
-3. Hitunglah $\\det \\begin{pmatrix} 4 & 2 \\\\ 1 & 3 \\end{pmatrix}$.
-4. Hitunglah hasil kali $\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 5 & 6 \\\\ 7 & 8 \\end{pmatrix}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Matriks itu memiliki $2$ baris dan $3$ kolom, jadi ordonya $2 \\times 3$.
-2. $A+B = \\begin{pmatrix} 1+0 & 2+1 \\\\ 3+2 & 4+1 \\end{pmatrix} = \\begin{pmatrix} 1 & 3 \\\\ 5 & 5 \\end{pmatrix}$.
-3. $\\det = 4(3) - 2(1) = 12 - 2 = 10$.
-4. Karena perkalian dengan matriks identitas, hasilnya tetap $\\begin{pmatrix} 5 & 6 \\\\ 7 & 8 \\end{pmatrix}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Hitunglah $\\det \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 5 & 6 & 0 \\end{pmatrix}$.
-2. Tentukan invers dari $A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix}$.
-3. Diketahui $\\begin{pmatrix} x & 2 \\\\ 3 & y \\end{pmatrix} = \\begin{pmatrix} 1 & 2 \\\\ 3 & 5 \\end{pmatrix}$. Tentukan $x$ dan $y$.
-4. Selesaikan $2x + 3y = 8$ dan $x + 2y = 5$ dengan matriks.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Ekspansi baris pertama: $1(1 \\cdot 0 - 4 \\cdot 6) - 2(0 \\cdot 0 - 4 \\cdot 5) + 3(0 \\cdot 6 - 1 \\cdot 5) = -24 + 40 - 15 = 1$.
-2. $\\det(A) = 3(4) - 1(2) = 10$, maka $A^{-1} = \\dfrac{1}{10}\\begin{pmatrix} 4 & -1 \\\\ -2 & 3 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{2}{5} & -\\tfrac{1}{10} \\\\ -\\tfrac{1}{5} & \\tfrac{3}{10} \\end{pmatrix}$.
-3. Dari kesamaan entri: $x=1$ dan $y=5$.
-4. $\\det = 2(2) - 3(1) = 1$, $A^{-1} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$, sehingga $\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}\\begin{pmatrix} 8 \\\\ 5 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Jadi $x=1$, $y=2$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan nilai $x$ agar matriks $\\begin{pmatrix} x & 2 \\\\ 2 & x \\end{pmatrix}$ singular.
-2. Diketahui $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ dan $B = \\begin{pmatrix} 2 & 0 \\\\ 1 & 3 \\end{pmatrix}$. Tunjukkan bahwa $(AB)^{T} = B^{T}A^{T}$.
-3. Dengan aturan Cramer, tentukan $x$ dan $y$ dari $2x + 3y = 8$ dan $x + 2y = 5$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Matriks singular bila determinannya nol: $x \\cdot x - 2 \\cdot 2 = x^{2} - 4 = 0$, sehingga $x = 2$ atau $x = -2$.
-2. Dari Contoh sebelumnya, $AB = \\begin{pmatrix} 4 & 6 \\\\ 10 & 12 \\end{pmatrix}$ sehingga $(AB)^{T} = \\begin{pmatrix} 4 & 10 \\\\ 6 & 12 \\end{pmatrix}$. Sementara $B^{T} = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$ dan $A^{T} = \\begin{pmatrix} 1 & 3 \\\\ 2 & 4 \\end{pmatrix}$, sehingga $B^{T}A^{T} = \\begin{pmatrix} 2(1)+1(2) & 2(3)+1(4) \\\\ 0(1)+3(2) & 0(3)+3(4) \\end{pmatrix} = \\begin{pmatrix} 4 & 10 \\\\ 6 & 12 \\end{pmatrix}$. Keduanya sama.
-3. $D = 2(2) - 1(3) = 1$; $D_{x} = 8(2) - 5(3) = 1$; $D_{y} = 2(5) - 1(8) = 2$. Maka $x = \\dfrac{D_{x}}{D} = 1$ dan $y = \\dfrac{D_{y}}{D} = 2$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -392,6 +361,20 @@ Dalam grafika komputer, matriks mentransformasi posisi titik sehingga gambar dap
 **2. Menganggap perkalian matriks komutatif.** Untuk $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ dan $B = \\begin{pmatrix} 2 & 0 \\\\ 1 & 3 \\end{pmatrix}$, $AB \\neq BA$.
 **3. Salah urutan entri pada invers $2 \\times 2$.** Rumusnya $\\dfrac{1}{\\det(A)}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$; entri $a$ dan $d$ bertukar posisi, sedangkan $b$ dan $c$ berganti tanda.
 **4. Menghitung invers matriks singular.** Matriks dengan determinan nol tidak memiliki invers; periksa $\\det(A) \\neq 0$ lebih dahulu.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan perhitungan $\\det\\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix}$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Tuliskan rumus determinan $2\\times2$: $\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc$.",
+            "Substitusi nilai: $a=3$, $b=1$, $c=2$, $d=4$.",
+            "Hitung: $3 \\cdot 4 + 1 \\cdot 2 = 12 + 2 = 14$.",
+            "Simpulkan $\\det\\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix} = 14$.",
+          ],
+          wrongIndex: 2,
+          explanation: "Langkah ketiga keliru. Rumusnya $ad - bc$, sehingga $3 \\cdot 4 - 1 \\cdot 2 = 12 - 2 = 10$, bukan jumlah kedua hasil kali.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -462,8 +445,7 @@ Dalam grafika komputer, matriks mentransformasi posisi titik sehingga gambar dap
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Matriks**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa perkalian matriks tidak komutatif, dan apa akibatnya saat menyusun transformasi? (2) Mengapa determinan perlu diperiksa sebelum menghitung invers? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Matriks** untuk latihan tambahan.`,
     },
   ],
 };

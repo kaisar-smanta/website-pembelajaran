@@ -10,11 +10,11 @@ export const regresiQuestions: Question[] = [
     prompt: 'Pada persamaan garis regresi $\\hat{y}=bx+a$, besaran $b$ menyatakan …',
     options: [
       { key: 'A', text: 'intersep' },
-      { key: 'B', text: 'gradien (kemiringan)' },
-      { key: 'C', text: 'koefisien determinasi' },
-      { key: 'D', text: 'residu' },
+      { key: 'B', text: 'determinasi' },
+      { key: 'C', text: 'residu' },
+      { key: 'D', text: 'gradien' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Pada $\\hat{y}=bx+a$, $b$ adalah gradien, yaitu perubahan rata-rata $y$ untuk setiap kenaikan satu satuan $x$, sedangkan $a$ adalah intersep.',
     hints: ['Gradien adalah koefisien yang menempel pada $x$.'],
@@ -43,7 +43,7 @@ export const regresiQuestions: Question[] = [
     prompt:
       'Dengan data $x=1,2,3,4,5$ dan $y=2,3,5,4,6$, tentukan gradien $b$ garis regresi. Diketahui $\\sum x_i=15$, $\\sum y_i=20$, $\\sum x_iy_i=69$, $\\sum x_i^2=55$, dan $n=5$.',
     answer: '0,9',
-    acceptedAnswers: ['0.9', '9/10'],
+    acceptedAnswers: ['0.9', '9/10', '0,9', '0,90', '0.90'],
     explanation:
       '$b=\\dfrac{n\\sum x_iy_i-\\left(\\sum x_i\\right)\\left(\\sum y_i\\right)}{n\\sum x_i^2-\\left(\\sum x_i\\right)^2}=\\dfrac{5(69)-(15)(20)}{5(55)-15^{2}}=\\dfrac{345-300}{275-225}=\\dfrac{45}{50}=0{,}9$.',
     hints: ['Substitusikan nilai sigma ke rumus gradien kuadrat terkecil.'],
@@ -57,7 +57,7 @@ export const regresiQuestions: Question[] = [
     category: 'penerapan',
     prompt: 'Dengan $b=0{,}9$, $\\bar{x}=3$, dan $\\bar{y}=4$, tentukan intersep $a$ garis regresi.',
     answer: '1,3',
-    acceptedAnswers: ['1.3', '13/10'],
+    acceptedAnswers: ['1.3', '13/10', '1,3', '1,30', '1.30'],
     explanation: '$a=\\bar{y}-b\\bar{x}=4-0{,}9(3)=4-2{,}7=1{,}3$.',
     hints: ['Gunakan $a=\\bar{y}-b\\bar{x}$.'],
     competencies: ['intersep regresi'],
@@ -71,12 +71,12 @@ export const regresiQuestions: Question[] = [
     prompt:
       'Sebuah model regresi memiliki koefisien determinasi $r^{2}=0{,}81$. Persentase variasi $y$ yang **tidak** dijelaskan oleh model adalah …',
     options: [
-      { key: 'A', text: '$9\\%$' },
-      { key: 'B', text: '$19\\%$' },
+      { key: 'A', text: '$90\\%$' },
+      { key: 'B', text: '$9\\%$' },
       { key: 'C', text: '$81\\%$' },
-      { key: 'D', text: '$90\\%$' },
+      { key: 'D', text: '$19\\%$' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       '$r^2=0{,}81=81\\%$ variasi $y$ dijelaskan model, sehingga sisanya $100\\%-81\\%=19\\%$ tidak dijelaskan.',
     hints: ['$r^2$ menyatakan proporsi variasi yang dijelaskan.'],
@@ -91,12 +91,12 @@ export const regresiQuestions: Question[] = [
     prompt:
       'Pada data waktu belajar (jam) dan nilai ujian, garis regresinya $\\hat{y}=1{,}190x+0{,}893$. Tafsiran gradien $1{,}190$ yang tepat adalah …',
     options: [
-      { key: 'A', text: 'Setiap tambahan $1$ jam belajar dikaitkan dengan kenaikan nilai sekitar $1{,}19$ poin.' },
+      { key: 'A', text: 'Nilai maksimum yang mungkin adalah $1{,}19$.' },
       { key: 'B', text: 'Setiap tambahan $1$ poin nilai dikaitkan dengan tambahan $1{,}19$ jam belajar.' },
       { key: 'C', text: 'Siswa tanpa waktu belajar diprediksi bernilai $1{,}19$.' },
-      { key: 'D', text: 'Nilai maksimum yang mungkin adalah $1{,}19$.' },
+      { key: 'D', text: 'Setiap tambahan $1$ jam belajar dikaitkan dengan kenaikan nilai sekitar $1{,}19$ poin.' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Gradien menyatakan perubahan rata-rata $y$ per satuan $x$: setiap tambahan $1$ jam belajar, nilai ujian naik sekitar $1{,}19$ poin.',
     hints: ['Satuan gradien adalah satuan $y$ per satuan $x$.'],
@@ -110,7 +110,7 @@ export const regresiQuestions: Question[] = [
     category: 'penerapan',
     prompt: 'Gunakan garis regresi $\\hat{y}=1{,}190x+0{,}893$ untuk memperkirakan $\\hat{y}$ ketika $x=5$.',
     answer: '6,85',
-    acceptedAnswers: ['6.85', '6,84', '6,843'],
+    acceptedAnswers: ['6.85', '6,84', '6,843', '6,85', '6,850', '6.850'],
     explanation:
       '$\\hat{y}=1{,}190(5)+0{,}893=5{,}95+0{,}893=6{,}843\\approx6{,}85$.',
     hints: ['Substitusikan $x=5$ ke persamaan garis regresi.'],

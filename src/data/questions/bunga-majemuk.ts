@@ -35,10 +35,10 @@ export const bungaMajemukQuestions: Question[] = [
     options: [
       { key: 'A', text: '$12\\%$' },
       { key: 'B', text: '$6\\%$' },
-      { key: 'C', text: '$1\\%$' },
-      { key: 'D', text: '$0{,}12\\%$' },
+      { key: 'C', text: '$0{,}12\\%$' },
+      { key: 'D', text: '$1\\%$' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       'Suku bunga per periode $i = \\dfrac{j}{m} = \\dfrac{0{,}12}{12} = 0{,}01$, yaitu $1\\%$ per bulan. Memakai langsung $12\\%$ untuk perhitungan bulanan adalah kesalahan mencampur nominal dan suku bunga per periode.',
     hints: ['Bagi suku bunga nominal dengan banyaknya periode per tahun.'],
@@ -55,10 +55,10 @@ export const bungaMajemukQuestions: Question[] = [
     options: [
       { key: 'A', text: '$12{,}00\\%$' },
       { key: 'B', text: '$12{,}36\\%$' },
-      { key: 'C', text: '$12{,}68\\%$' },
-      { key: 'D', text: '$13{,}00\\%$' },
+      { key: 'C', text: '$13{,}00\\%$' },
+      { key: 'D', text: '$12{,}68\\%$' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       '$i_{\\text{efektif}} = \\left(1+\\dfrac{j}{m}\\right)^{m}-1 = (1{,}01)^{12}-1 \\approx 0{,}126825 = 12{,}68\\%$. Opsi A adalah nominal, opsi B muncul bila dihitung per semester, bukan bulanan.',
     hints: ['Gunakan $m = 12$ karena bunga dihitung tiap bulan.'],
@@ -73,12 +73,12 @@ export const bungaMajemukQuestions: Question[] = [
     prompt:
       'Modal Rp5.000.000 dibungakan 8% per tahun selama 5 tahun. Selisih saldo antara bunga majemuk dan bunga tunggal adalah …',
     options: [
-      { key: 'A', text: 'Rp0,00' },
-      { key: 'B', text: 'Rp346.640,38' },
-      { key: 'C', text: 'Rp400.000,00' },
-      { key: 'D', text: 'Rp2.000.000,00' },
+      { key: 'A', text: 'Rp2.000.000,00' },
+      { key: 'B', text: 'Rp400.000,00' },
+      { key: 'C', text: 'Rp0,00' },
+      { key: 'D', text: 'Rp346.640,38' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Bunga majemuk: $5.000.000(1{,}08)^5 \\approx \\text{Rp}7.346.640,38$. Bunga tunggal: $5.000.000(1+0{,}08\\cdot5) = \\text{Rp}7.000.000$. Selisihnya Rp346.640,38, yaitu bunga atas bunga. Opsi A keliru menganggap keduanya sama.',
     hints: ['Hitung kedua saldo lalu kurangkan.'],
@@ -93,7 +93,7 @@ export const bungaMajemukQuestions: Question[] = [
     prompt:
       'Modal Rp1.000.000 dibungakan majemuk 10% per tahun. Hitung saldo setelah 2 tahun (tulis dalam rupiah).',
     answer: 'Rp1.210.000',
-    acceptedAnswers: ['Rp1.210.000,00', '1.210.000', '1210000', 'Rp 1.210.000'],
+    acceptedAnswers: ['Rp1.210.000,00', 'Rp1.210.000', '1.210.000,00', '1210000,00', '1.210.000', '1210000', 'Rp 1.210.000'],
     explanation:
       '$M_2 = 1.000.000(1{,}1)^2 = 1.000.000(1{,}21) = \\text{Rp}1.210.000$.',
     hints: ['Hitung dulu $(1{,}1)^2 = 1{,}21$.'],
@@ -108,7 +108,7 @@ export const bungaMajemukQuestions: Question[] = [
     prompt:
       'Modal Rp3.000.000 dibungakan majemuk 1,5% per bulan selama 8 bulan. Hitung saldo akhir dan bulatkan ke rupiah terdekat.',
     answer: 'Rp3.379.478',
-    acceptedAnswers: ['Rp3.379.477,76', '3.379.478', '3379478', 'Rp 3.379.478'],
+    acceptedAnswers: ['Rp3.379.477,76', 'Rp3.379.478,00', '3.379.478,00', '3379478,00', '3.379.478', '3379478', 'Rp 3.379.478'],
     explanation:
       '$M_8 = 3.000.000(1{,}015)^8 = 3.000.000(1{,}126493) \\approx \\text{Rp}3.379.478$.',
     hints: ['Karena dihitung per bulan, gunakan $i = 0{,}015$ dan $n = 8$.'],
@@ -123,7 +123,7 @@ export const bungaMajemukQuestions: Question[] = [
     prompt:
       'Modal Rp2.000.000 dibungakan majemuk 6% per tahun selama 4 tahun. Hitung saldo akhir dan bulatkan ke rupiah terdekat.',
     answer: 'Rp2.524.954',
-    acceptedAnswers: ['Rp2.524.953,92', '2.524.954', '2524954', 'Rp 2.524.954'],
+    acceptedAnswers: ['Rp2.524.953,92', 'Rp2.524.954,00', '2.524.954,00', '2524954,00', '2.524.954', '2524954', 'Rp 2.524.954'],
     explanation:
       '$M_4 = 2.000.000(1{,}06)^4 = 2.000.000(1{,}262477) \\approx \\text{Rp}2.524.954$.',
     hints: ['Hitung $(1{,}06)^4$ dengan teliti sebelum dikalikan.'],
@@ -173,5 +173,28 @@ export const bungaMajemukQuestions: Question[] = [
       'Penilaian mencakup perhitungan kedua suku bunga efektif dan alasan konseptual mengapa frekuensi pemajemukan menaikkan suku bunga efektif.',
     hints: ['Hitung suku bunga efektif tiap bank dengan rumus $(1+i)^{m}-1$ sesuai frekuensi pemajemukannya.'],
     competencies: ['suku bunga efektif', 'analisis kritis'],
+  },
+  {
+    id: 'bm-11',
+    topicId: 'bunga-majemuk',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Modal Rp4.000.000 dibungakan dengan suku bunga nominal 12% per tahun yang dihitung triwulanan selama 2 tahun. Saldo akhirnya adalah …',
+    options: [
+      { key: 'A', text: 'Rp5.000.000,00' },
+      { key: 'B', text: 'Rp5.120.000,00' },
+      { key: 'C', text: 'Rp4.960.000,00' },
+      { key: 'D', text: 'Rp5.067.080,33' },
+    ],
+    answer: 'D',
+    explanation:
+      'Suku bunga per triwulan $i=\\dfrac{0{,}12}{4}=0{,}03$ dan banyak periode $n=4\\times2=8$. Maka $M_8=4.000.000(1{,}03)^8=4.000.000(1{,}266770)\\approx\\text{Rp}5.067.080{,}33$.',
+    hints: [
+      'Bagi suku bunga nominal dengan frekuensi pemajemukan per tahun.',
+      'Kalikan frekuensi dengan lama tahun untuk memperoleh banyak periode.',
+    ],
+    competencies: ['suku bunga per periode', 'rumus bunga majemuk'],
   },
 ];

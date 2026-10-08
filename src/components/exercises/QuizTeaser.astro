@@ -86,6 +86,13 @@ const first = quizData[0];
         <button type="button" class="btn btn-primary btn-sm pop-on-hover" data-next hidden>
           Lanjut, soal berikutnya
         </button>
+        <div class="quiz-complete" data-complete hidden>
+          <p class="quiz-complete-title">Kuis selesai!</p>
+          <p class="quiz-complete-score" data-complete-score />
+          <button type="button" class="btn btn-primary btn-sm" data-restart>
+            Ulangi kuis
+          </button>
+        </div>
       </div>
     ) : (
       <div class="callout callout-info" role="note">
@@ -233,6 +240,29 @@ const first = quizData[0];
   .quiz-feedback :global(> *:last-child) {
     margin-bottom: 0;
   }
+  .quiz-complete {
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+    margin-top: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-success) 40%, var(--color-border));
+    border-radius: var(--radius);
+    background: var(--color-success-soft);
+  }
+  .quiz-complete[hidden] {
+    display: none;
+  }
+  .quiz-complete-title {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-success);
+  }
+  .quiz-complete-score {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
   .quiz-score {
     display: inline-flex;
     align-items: center;
@@ -336,9 +366,46 @@ const first = quizData[0];
 
 <script>
   import { loadProgress, saveProgress, recordAttempt } from '@/lib/progress';
+  import { seededShuffle } from '@/lib/learner';
+  import { combineSeed } from '@/lib/practice';
+
+  const SESSION_SEED_KEY = 'mtk-session-seed';
+  const QUIZ_STREAK_KEY = 'mtk-quiz-streak';
 
   (() => {
     try {
+      function sessionSeed(): string {
+        try {
+          const storage = window.sessionStorage;
+          let seed = storage.getItem(SESSION_SEED_KEY);
+          if (!seed) {
+            seed = Math.random().toString(36).slice(2) + Date.now().toString(36);
+            storage.setItem(SESSION_SEED_KEY, seed);
+          }
+          return seed;
+        } catch {
+          return 'sesi-tetap';
+        }
+      }
+
+      function loadStreak(): number {
+        try {
+          const raw = window.localStorage.getItem(QUIZ_STREAK_KEY);
+          const parsed = raw ? Number.parseInt(raw, 10) : 0;
+          return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+        } catch {
+          return 0;
+        }
+      }
+
+      function saveStreak(value: number): void {
+        try {
+          window.localStorage.setItem(QUIZ_STREAK_KEY, String(value));
+        } catch {
+          /* abaikan */
+        }
+      }
+
       const boxes = document.querySelectorAll<HTMLElement>('[data-quiz]');
       boxes.forEach((box) => {
         type QuizOption = { key: string; textHtml?: string };
@@ -365,11 +432,17 @@ const first = quizData[0];
         const streakEl = scope.querySelector<HTMLElement>('[data-streak]');
         const rewardEl = scope.querySelector<HTMLElement>('[data-reward]');
         const rewardTextEl = scope.querySelector<HTMLElement>('[data-reward-text]');
+        const completeEl = box.querySelector<HTMLElement>('[data-complete]');
+        const completeScoreEl = box.querySelector<HTMLElement>('[data-complete-score]');
+        const restartBtn = box.querySelector<HTMLButtonElement>('[data-restart]');
+        const promptWrap = box.querySelector<HTMLElement>('.quiz-prompt');
         let burst = box.querySelector<HTMLElement>('.quiz-burst');
 
         let index = 0;
         let answered = false;
-        let streak = 0;
+        let streak = loadStreak();
+        let correctCount = 0;
+        let answeredCount = 0;
 
         if (streakEl) streakEl.textContent = String(streak);
 
@@ -444,18 +517,27 @@ const first = quizData[0];
           box.setAttribute('data-question-id', q.id);
           answered = false;
           hideReward();
+          if (completeEl) completeEl.hidden = true;
+          if (promptWrap) promptWrap.hidden = false;
+          if (optionsEl) optionsEl.hidden = false;
           if (feedbackEl) {
             feedbackEl.className = 'quiz-feedback';
             feedbackEl.innerHTML = '';
           }
-          if (nextBtn) nextBtn.hidden = true;
+          if (nextBtn) {
+            nextBtn.hidden = true;
+            nextBtn.textContent =
+              index === quiz.length - 1 ? 'Lihat hasil' : 'Lanjut, soal berikutnya';
+          }
           if (promptEl) promptEl.innerHTML = q.promptHtml || '';
           if (optionsEl) {
             optionsEl.querySelectorAll('.quiz-option').forEach((el) => {
               el.removeAttribute('aria-disabled');
             });
             optionsEl.innerHTML = '';
-            (q.options || []).forEach((opt) => {
+            // Urutan opsi diacak ulang dengan benih sesi agar bias posisi tidak tetap.
+            const ordered = seededShuffle(q.options || [], combineSeed(sessionSeed(), q.id));
+            ordered.forEach((opt) => {
               const btn = document.createElement('button');
               btn.type = 'button';
               btn.className = 'quiz-option';
@@ -469,6 +551,22 @@ const first = quizData[0];
               btn.addEventListener('click', () => choose(btn, opt.key));
               optionsEl.appendChild(btn);
             });
+          }
+        }
+
+        function showComplete() {
+          if (promptWrap) promptWrap.hidden = true;
+          if (optionsEl) optionsEl.hidden = true;
+          if (feedbackEl) {
+            feedbackEl.className = 'quiz-feedback';
+            feedbackEl.innerHTML = '';
+          }
+          if (nextBtn) nextBtn.hidden = true;
+          hideReward();
+          if (completeEl) completeEl.hidden = false;
+          if (completeScoreEl) {
+            const pct = answeredCount ? Math.round((correctCount / answeredCount) * 100) : 0;
+            completeScoreEl.textContent = `Kamu benar ${correctCount} dari ${answeredCount} soal (ketepatan ${pct}%).`;
           }
         }
 
@@ -498,6 +596,8 @@ const first = quizData[0];
           if (nextBtn) nextBtn.hidden = false;
 
           recordProgress(q.id, isCorrect);
+          answeredCount += 1;
+          if (isCorrect) correctCount += 1;
 
           if (isCorrect) {
             streak += 1;
@@ -511,6 +611,7 @@ const first = quizData[0];
             streak = 0;
             softenReward();
           }
+          saveStreak(streak);
           if (streakEl) {
             streakEl.textContent = String(streak);
             if (isCorrect && !reduceMotion) {
@@ -523,7 +624,23 @@ const first = quizData[0];
 
         if (nextBtn) {
           nextBtn.addEventListener('click', () => {
-            index = (index + 1) % quiz.length;
+            if (index === quiz.length - 1) {
+              showComplete();
+              return;
+            }
+            index += 1;
+            render();
+          });
+        }
+
+        if (restartBtn) {
+          restartBtn.addEventListener('click', () => {
+            index = 0;
+            correctCount = 0;
+            answeredCount = 0;
+            streak = 0;
+            saveStreak(0);
+            if (streakEl) streakEl.textContent = '0';
             render();
           });
         }

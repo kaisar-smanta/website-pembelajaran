@@ -10,11 +10,11 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     prompt: 'Diberikan data $5, 6, 6, 7, 7, 7, 8, 10$. Mean data tersebut adalah …',
     options: [
       { key: 'A', text: '$6$' },
-      { key: 'B', text: '$7$' },
+      { key: 'B', text: '$8$' },
       { key: 'C', text: '$7{,}5$' },
-      { key: 'D', text: '$8$' },
+      { key: 'D', text: '$7$' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Jumlah data $=5+6+6+7+7+7+8+10=56$ dan banyak data $=8$, sehingga mean $=\\dfrac{56}{8}=7$.',
     hints: ['Jumlahkan semua nilai terlebih dahulu, lalu bagi dengan banyak data.'],
@@ -78,15 +78,15 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     prompt:
       'Waktu layar harian (jam) delapan siswa: $2, 3, 3, 4, 4, 4, 5, 15$. Seorang siswa menyimpulkan, "rata-ratanya $5$ jam, jadi hampir semua siswa bermain selama $5$ jam." Mengapa kesimpulan itu kurang tepat?',
     options: [
-      { key: 'A', text: 'Karena mean seharusnya dihitung tanpa membagi dengan banyak data.' },
+      { key: 'A', text: 'Mean dihitung tanpa membagi dengan banyak data.' },
+      { key: 'B', text: 'Modus selalu lebih penting daripada mean.' },
+      { key: 'C', text: 'Nilai $15$ seharusnya dibuang dari data.' },
       {
-        key: 'B',
-        text: 'Karena median $4$ jam menunjukkan sebagian besar data di sekitar $4$, sedangkan mean terangkat oleh pencilan $15$.',
+        key: 'D',
+        text: 'Median $4$ jam lebih mewakili data; mean terangkat pencilan $15$.',
       },
-      { key: 'C', text: 'Karena modus selalu lebih penting daripada mean.' },
-      { key: 'D', text: 'Karena nilai $15$ harus dibuang dari data.' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Jumlah data $=40$, mean $=\\dfrac{40}{8}=5$, sedangkan median $=\\dfrac{4+4}{2}=4$. Nilai $15$ adalah pencilan yang menarik mean ke atas, sehingga mean bukan gambaran tipikal. Median $4$ jam lebih mewakili kebiasaan siswa. Pencilan tetap bagian data dan tidak otomatis dibuang.',
     hints: ['Hitung median data terlebih dahulu.', 'Lihat pengaruh nilai $15$ terhadap mean.'],
@@ -101,12 +101,12 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     prompt:
       'Kelas A berisi $30$ siswa dengan rata-rata nilai $72$, dan Kelas B berisi $20$ siswa dengan rata-rata nilai $84$. Rata-rata nilai gabungan kedua kelas adalah …',
     options: [
-      { key: 'A', text: '$76{,}8$' },
+      { key: 'A', text: '$80$' },
       { key: 'B', text: '$78$' },
       { key: 'C', text: '$79{,}2$' },
-      { key: 'D', text: '$80$' },
+      { key: 'D', text: '$76{,}8$' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Rata-rata gabungan $=\\dfrac{30\\cdot 72+20\\cdot 84}{30+20}=\\dfrac{2160+1680}{50}=\\dfrac{3840}{50}=76{,}8$. Angka $78$ keliru karena mengabaikan bahwa kedua kelas berukuran berbeda.',
     hints: ['Gunakan bobot ukuran kelompok, bukan rata-rata kedua mean.'],
@@ -136,7 +136,7 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     prompt:
       'Sebuah perusahaan memiliki $9$ karyawan bergaji Rp4.000.000 per bulan dan $1$ direktur bergaji Rp40.000.000 per bulan. Tentukan median gaji bulanan (dalam rupiah).',
     answer: '4000000',
-    acceptedAnswers: ['4000000', '4.000.000', 'Rp4.000.000', '4 juta'],
+    acceptedAnswers: ['4000000', '4.000.000', '4.000.000,00', '4000000,00', 'Rp4.000.000', 'Rp4.000.000,00', '4 juta'],
     explanation:
       'Data terurut memuat sembilan nilai Rp4.000.000 dan satu nilai Rp40.000.000. Karena $n=10$, median adalah rata-rata data ke-5 dan ke-6, yaitu $\\dfrac{4.000.000+4.000.000}{2}=4.000.000$. Jadi median gajinya Rp4.000.000.',
     hints: ['Urutkan data lalu cari dua nilai tengah.'],
@@ -204,5 +204,20 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Kunci: mengubah rata-rata menjadi jumlah total, mencari perubahan jumlah, lalu menghitung rata-rata baru kelompok kecil.',
     hints: ['Ubah rata-rata kelas menjadi total nilai.', 'Selisih total nilai berasal dari perubahan keempat siswa.'],
     competencies: ['mean', 'pemodelan', 'interpretasi'],
+  },
+  {
+    id: 'sdk-13',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'dasar',
+    type: 'short-answer',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah tim mengikuti tiga babak lomba. Rata-rata skor tiga babak adalah $10$. Skor babak pertama $8$ dan babak kedua $11$. Tentukan skor babak ketiga dengan menyusun model rata-ratanya.',
+    answer: '11',
+    acceptedAnswers: ['11'],
+    explanation:
+      'Model rata-rata: $\\bar{x}=\\dfrac{8+11+x}{3}=10$. Maka $19+x=30$, sehingga $x=11$. Jadi skor babak ketiga adalah $11$.',
+    hints: ['Jumlah tiga skor $=$ rata-rata $\\times$ banyak babak.'],
+    competencies: ['mean', 'pemodelan'],
   },
 ];

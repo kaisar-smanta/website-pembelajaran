@@ -54,8 +54,28 @@ export function criticalPoints(k: Cubic): CriticalPoint[] {
 }
 
 /**
- * Akar real pada selang $[lo, hi]$ dengan memindai perubahan tanda lalu
- * memperhalus dengan bagi dua. Akar di luar selang tidak dikembalikan.
+ * Akar-akar real dari $f'(x)=3ax^{2}+2bx+c$, termasuk saat $a=0$ (turunan
+ * berupa fungsi linear).
+ */
+function derivativeRoots(k: Cubic): number[] {
+  const { a, b, c } = derivativeCubic(k);
+  if (Math.abs(a) > 1e-9) {
+    const disc = b * b - 4 * a * c;
+    if (disc < 0) return [];
+    const sq = Math.sqrt(disc);
+    return disc === 0 ? [-b / (2 * a)] : [(-b - sq) / (2 * a), (-b + sq) / (2 * a)];
+  }
+  if (Math.abs(b) > 1e-9) return [-c / b];
+  return [];
+}
+
+/**
+ * Akar real pada selang $[lo, hi]$.
+ *
+ * Memakai dua cara: (1) memindai perubahan tanda lalu memperhalus dengan bagi
+ * dua untuk akar berganti tanda (multiplisitas ganjil), dan (2) memeriksa titik
+ * stasioner tempat $f$ menyentuh nol untuk akar bermultiplisitas genap
+ * (menyinggung sumbu-$x$). Akar di luar selang tidak dikembalikan.
  */
 export function findRoots(k: Cubic, lo = -10, hi = 10, steps = 2000): number[] {
   const roots: number[] = [];
@@ -90,6 +110,11 @@ export function findRoots(k: Cubic, lo = -10, hi = 10, steps = 2000): number[] {
     }
     prevX = x;
     prevY = y;
+  }
+
+  for (const x of derivativeRoots(k)) {
+    if (x < lo || x > hi) continue;
+    if (Math.abs(evalCubic(k, x)) < 1e-6) push(x);
   }
 
   return roots.sort((p, q) => p - q);

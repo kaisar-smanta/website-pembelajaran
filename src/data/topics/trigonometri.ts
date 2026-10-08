@@ -28,7 +28,6 @@ export const trigonometri: Topic = {
   ],
   prerequisites: [],
   relatedTopics: ['lingkaran'],
-  explorations: ['trigonometri-gelombang'],
   prerequisiteKnowledge: [
     'Teorema Pythagoras pada segitiga siku-siku',
     'Operasi bilangan dan bentuk akar',
@@ -295,11 +294,7 @@ Perhatikan bahwa bila $A=90^\\circ$, maka $\\cos 90^\\circ=0$ sehingga aturan ko
 
 *Penyelesaian.* Sisi depan $=10\\sin 30^\\circ=10\\cdot\\dfrac{1}{2}=5$ cm. Sisi samping $=10\\cos 30^\\circ=10\\cdot\\dfrac{\\sqrt{3}}{2}=5\\sqrt{3}\\approx 8{,}66$ cm. Periksa: $5^{2}+(5\\sqrt{3})^{2}=25+75=100=10^{2}$.
 
-**Contoh 2.** Pada jarak $40$ m dari kaki menara, sudut elevasi ke puncak adalah $30^\\circ$. Tentukan tinggi menara.
-
-*Penyelesaian.* $\\tan 30^\\circ=\\dfrac{h}{40}$ sehingga
-
-$$h=40\\tan 30^\\circ=40\\cdot\\frac{\\sqrt{3}}{3}=\\frac{40\\sqrt{3}}{3}\\approx 23{,}09 \\text{ m}.$$
+**Contoh 2.** Pada jarak $40$ m dari kaki menara, sudut elevasi ke puncak adalah $30^\\circ$. Tentukan tinggi menara. Ikuti langkah pembahasannya pada panel di bawah.
 
 **Contoh 3.** Pada segitiga $ABC$ diketahui $b=5$, $c=8$, dan $A=60^\\circ$. Tentukan panjang sisi $a$.
 
@@ -336,74 +331,18 @@ $$a^{2}=b^{2}+c^{2}-2bc\\cos A=25+64-2\\cdot5\\cdot8\\cdot\\frac{1}{2}=89-40=49 
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Pada segitiga siku-siku, sisi depan sudut $A$ adalah $6$, sisi samping $8$, dan sisi miring $10$. Tentukan $\\sin A$, $\\cos A$, dan $\\tan A$.
-
-2. Hitung $\\sin 30^\\circ+\\cos 60^\\circ$.
-
-3. Hitung $\\sin 60^\\circ\\cdot\\cos 30^\\circ$.
-
-4. Diketahui $\\cos\\alpha=\\dfrac{4}{5}$ dan $\\alpha$ lancip. Tentukan $\\sin\\alpha$ dan $\\tan\\alpha$.
-
-5. Hitung $\\sin 90^\\circ-\\cos 0^\\circ$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\sin A=\\dfrac{6}{10}=\\dfrac{3}{5}$, $\\cos A=\\dfrac{8}{10}=\\dfrac{4}{5}$, $\\tan A=\\dfrac{6}{8}=\\dfrac{3}{4}$. Periksa: $\\left(\\dfrac{3}{5}\\right)^{2}+\\left(\\dfrac{4}{5}\\right)^{2}=\\dfrac{9}{25}+\\dfrac{16}{25}=1$.
-2. $\\dfrac{1}{2}+\\dfrac{1}{2}=1$.
-3. $\\dfrac{\\sqrt{3}}{2}\\cdot\\dfrac{\\sqrt{3}}{2}=\\dfrac{3}{4}$.
-4. $\\sin^{2}\\alpha=1-\\dfrac{16}{25}=\\dfrac{9}{25}$, jadi $\\sin\\alpha=\\dfrac{3}{5}$; $\\tan\\alpha=\\dfrac{3/5}{4/5}=\\dfrac{3}{4}$.
-5. $1-1=0$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Sebuah tangga bersandar pada dinding dan membentuk sudut $60^\\circ$ dengan tanah. Jika panjang tangga $6$ m, berapa tinggi ujung tangga dari tanah?
-
-2. Pada segitiga $ABC$ diketahui $a=8$, $A=30^\\circ$, dan $B=45^\\circ$. Tentukan panjang sisi $b$ dengan aturan sinus.
-
-3. Tentukan panjang sisi $a$ jika $b=3$, $c=5$, dan $A=120^\\circ$.
-
-4. Dari jarak $30$ m, sudut elevasi ke puncak tiang bendera adalah $30^\\circ$. Tentukan tinggi tiang.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Tinggi $=6\\sin 60^\\circ=6\\cdot\\dfrac{\\sqrt{3}}{2}=3\\sqrt{3}\\approx 5{,}20$ m.
-2. $\\dfrac{a}{\\sin A}=\\dfrac{8}{1/2}=16$, maka $b=16\\sin 45^\\circ=16\\cdot\\dfrac{\\sqrt{2}}{2}=8\\sqrt{2}\\approx 11{,}31$.
-3. $a^{2}=3^{2}+5^{2}-2\\cdot3\\cdot5\\cos 120^\\circ=9+25-30\\cdot\\left(-\\dfrac{1}{2}\\right)=34+15=49$, jadi $a=7$.
-4. $h=30\\tan 30^\\circ=30\\cdot\\dfrac{\\sqrt{3}}{3}=10\\sqrt{3}\\approx 17{,}32$ m.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Pada segitiga $ABC$ diketahui $a=5$, $b=7$, dan $c=8$. Tentukan besar sudut $B$ menggunakan aturan kosinus.
-
-2. Sederhanakan $(\\sin\\alpha+\\cos\\alpha)^{2}+(\\sin\\alpha-\\cos\\alpha)^{2}$ dan jelaskan mengapa hasilnya konstan.
-
-3. Dari puncak gedung setinggi $30$ m, sudut depresi ke sebuah mobil di jalan adalah $30^\\circ$. Tentukan jarak mobil dari kaki gedung.
-
-4. Diketahui $\\sin\\alpha=\\dfrac{5}{13}$ dan $\\alpha$ lancip. Tentukan $\\cos\\alpha$, $\\tan\\alpha$, lalu hitung $\\dfrac{\\cos\\alpha}{1-\\sin\\alpha}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Sudut $B$ menghadap sisi $b=7$:
-$$\\cos B=\\frac{a^{2}+c^{2}-b^{2}}{2ac}=\\frac{25+64-49}{2\\cdot5\\cdot8}=\\frac{40}{80}=\\frac{1}{2},$$
-sehingga $B=60^\\circ$.
-2. Hasil penjabaran: $(\\sin^{2}\\alpha+2\\sin\\alpha\\cos\\alpha+\\cos^{2}\\alpha)+(\\sin^{2}\\alpha-2\\sin\\alpha\\cos\\alpha+\\cos^{2}\\alpha)=2(\\sin^{2}\\alpha+\\cos^{2}\\alpha)=2$. Hasilnya konstan karena identitas $\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$ selalu berlaku.
-3. Sudut depresi $30^\\circ$ membentuk segitiga siku-siku dengan tinggi $30$ m, sehingga $d=\\dfrac{30}{\\tan 30^\\circ}=\\dfrac{30}{\\sqrt{3}/3}=30\\sqrt{3}\\approx 51{,}96$ m.
-4. $\\cos\\alpha=\\sqrt{1-\\dfrac{25}{169}}=\\sqrt{\\dfrac{144}{169}}=\\dfrac{12}{13}$ dan $\\tan\\alpha=\\dfrac{5}{12}$. Maka $\\dfrac{\\cos\\alpha}{1-\\sin\\alpha}=\\dfrac{12/13}{1-5/13}=\\dfrac{12/13}{8/13}=\\dfrac{12}{8}=\\dfrac{3}{2}$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -499,8 +438,7 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Trigonometri**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa nilai perbandingan trigonometri tidak bergantung pada ukuran segitiga? (2) Kapan aturan kosinus dipakai alih-alih perbandingan pada segitiga siku-siku? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri** untuk latihan tambahan.`,
     },
   ],
 };

@@ -136,8 +136,11 @@ function normalizeIndonesianNumber(source: string): string {
   return s.replace(/,/g, '.');
 }
 
-/** Menormalkan satu jawaban menjadi bentuk kanonik untuk dibandingkan. */
-export function normalizeAnswer(value: string): string {
+/**
+ * Tahap normalisasi sebelum penyesuaian angka ala Indonesia. Dipisahkan agar
+ * pencocokan dapat membaca ulang angka asli (lihat `answerCandidates`).
+ */
+function normalizeCore(value: string): string {
   let s = String(value ?? '')
     .toLowerCase()
     .trim();
@@ -176,24 +179,145 @@ export function normalizeAnswer(value: string): string {
   // Simbol perkalian diseragamkan; jangan dihapus agar `3×4` bukan `34`.
   s = s.replace(/[×·]/g, '*');
 
-  // Awalan mata uang rupiah lalu angka ala Indonesia.
+  // Buang awalan mata uang rupiah, sisa penyesuaian angka dilakukan terpisah.
   if (s.startsWith('rp')) s = s.slice(2);
-  s = normalizeIndonesianNumber(s);
 
   return s;
 }
 
+/** Menormalkan satu jawaban menjadi bentuk kanonik untuk dibandingkan. */
+export function normalizeAnswer(value: string): string {
+  return normalizeIndonesianNumber(normalizeCore(value));
+}
+
+/**
+ * Membuang nol di belakang koma sekaligus menyeragamkan bentuk desimal
+ * (`0,90` -> `0.9`, `.9` -> `0.9`, `1.50` -> `1.5`). Mengembalikan `null`
+ * untuk nilai yang bukan bilangan.
+ */
+function trimNumericZeros(value: string): string | null {
+  const decimal = /^([+-]?)(\d*)\.(\d*)$/.exec(value);
+  if (decimal) {
+    const sign = decimal[1] === '-' ? '-' : '';
+    const integer = decimal[2] || '0';
+    const fraction = decimal[3].replace(/0+$/, '');
+    return fraction ? `${sign}${integer}.${fraction}` : `${sign}${integer}`;
+  }
+  return /^[+-]?\d+$/.test(value) ? value : null;
+}
+
+/**
+ * Menerjemahkan kandidat menjadi nilai numerik, termasuk pecahan biasa maupun
+ * pecahan ber-tanda-kurung hasil konversi LaTeX (`(3)/(4)` -> `0.75`).
+ */
+function numericValue(value: string): number | null {
+  const fraction = /^\(?([+-]?\d+(?:\.\d+)?)\)?\/\(?(\d+(?:\.\d+)?)\)?$/.exec(value);
+  if (fraction) {
+    const numerator = Number(fraction[1]);
+    const denominator = Number(fraction[2]);
+    if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator === 0) {
+      return null;
+    }
+    return numerator / denominator;
+  }
+  if (/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(value)) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
+/** Toleransi relatif 1e-6 (dengan lantai 1e-6 untuk nilai berukuran < 1). */
+function approximatelyEqual(a: number, b: number): boolean {
+  return Math.abs(a - b) <= 1e-6 * Math.max(Math.abs(a), Math.abs(b), 1);
+}
+
+/**
+ * Menghasilkan himpunan tafsir kanonik dari satu jawaban. Selain bentuk
+ * normalnya, ditambahkan varian yang setara: nol di belakang koma, bacaan
+ * desimal dari angka ber-titik yang ambigu (`1.234` juga dibaca `1.234`,
+ * `120.000` juga dibaca `120`), dan bentuk derajat (`45`, `45°`,
+ * `45 derajat`, `45^\circ`).
+ */
+export function answerCandidates(value: string): Set<string> {
+  const core = normalizeCore(String(value ?? ''));
+  const candidates = new Set<string>();
+  const add = (candidate: string) => {
+    if (candidate) candidates.add(candidate);
+  };
+
+  const base = normalizeIndonesianNumber(core);
+  add(base);
+  const trimmedBase = trimNumericZeros(base);
+  if (trimmedBase !== null) add(trimmedBase);
+
+  // Titik pada `1.234` ambigu: pemisah ribuan (1234) atau desimal (1,234).
+  // Tambahkan bacaan desimalnya tanpa menghapus titik.
+  if (!core.includes(',') && /^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(core)) {
+    add(core);
+    const trimmedCore = trimNumericZeros(core);
+    if (trimmedCore !== null) add(trimmedCore);
+  }
+
+  const numberBases = new Set<string>();
+  for (const candidate of [...candidates]) {
+    const bare = candidate.replace(/(?:°|derajat|\^circ)$/, '');
+    if (bare !== candidate) numberBases.add(bare);
+    if (/^[+-]?\d+(?:\.\d+)?$/.test(candidate)) numberBases.add(candidate);
+  }
+  for (const bare of numberBases) {
+    if (!/^[+-]?\d+(?:\.\d+)?$/.test(bare)) continue;
+    add(`${bare}°`);
+    add(`${bare}derajat`);
+    add(`${bare}^circ`);
+  }
+
+  return candidates;
+}
+
 /**
  * Memeriksa apakah `input` cocok dengan `answer` atau salah satu
- * `acceptedAnswers` setelah dinormalkan. Jawaban kosong selalu ditolak.
+ * `acceptedAnswers`. Pencocokan dilakukan dengan mengiris himpunan kandidat
+ * tafsir; bila tidak bertemu, pecahan dan desimal dibandingkan secara numerik
+ * dengan toleransi kecil. Jawaban kosong selalu ditolak.
  */
+export function answersMatch(
+  input: string,
+  answer: string,
+  acceptedAnswers: string[] = [],
+): boolean {
+  const inputCandidates = answerCandidates(input);
+  if (inputCandidates.size === 0) return false;
+
+  const inputNumbers: number[] = [];
+  for (const candidate of inputCandidates) {
+    const parsed = numericValue(candidate);
+    if (parsed !== null) inputNumbers.push(parsed);
+  }
+
+  const pool = [answer, ...(acceptedAnswers ?? [])];
+  for (const entry of pool) {
+    const entryCandidates = answerCandidates(entry);
+    for (const candidate of inputCandidates) {
+      if (entryCandidates.has(candidate)) return true;
+    }
+    if (inputNumbers.length === 0) continue;
+    for (const candidate of entryCandidates) {
+      const parsed = numericValue(candidate);
+      if (parsed === null) continue;
+      for (const inputNumber of inputNumbers) {
+        if (approximatelyEqual(inputNumber, parsed)) return true;
+      }
+    }
+  }
+  return false;
+}
+
+/** Nama lama yang dipertahankan untuk pemanggil komponen. */
 export function isAcceptedAnswer(
   input: string,
   answer: string,
   acceptedAnswers: string[] = [],
 ): boolean {
-  const value = normalizeAnswer(input);
-  if (!value) return false;
-  const pool = [answer, ...(acceptedAnswers ?? [])].map((entry) => normalizeAnswer(entry));
-  return pool.includes(value);
+  return answersMatch(input, answer, acceptedAnswers);
 }

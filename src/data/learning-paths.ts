@@ -26,14 +26,14 @@ export const learningPaths: LearningPath[] = [
     nodes: [
       { label: 'Eksponen', id: 'eksponen', grade: 'X', element: 'bilangan' },
       {
-        label: 'Persamaan Eksponen & Logaritma',
-        id: 'persamaan-eksponen-logaritma',
-        grade: 'X',
-        element: 'bilangan',
-      },
-      {
         label: 'Fungsi Eksponensial',
         id: 'fungsi-eksponensial',
+        grade: 'X',
+        element: 'aljabar-fungsi',
+      },
+      {
+        label: 'Persamaan Eksponen & Logaritma',
+        id: 'persamaan-eksponen-logaritma',
         grade: 'X',
         element: 'aljabar-fungsi',
       },
@@ -142,14 +142,14 @@ export const learningPaths: LearningPath[] = [
         element: 'data-peluang',
       },
       {
-        label: 'Peluang Bersyarat',
-        id: 'peluang-bersyarat',
+        label: 'Permutasi & Kombinasi',
+        id: 'permutasi-kombinasi',
         grade: 'XII',
         element: 'data-peluang',
       },
       {
-        label: 'Permutasi & Kombinasi',
-        id: 'permutasi-kombinasi',
+        label: 'Peluang Bersyarat',
+        id: 'peluang-bersyarat',
         grade: 'XII',
         element: 'data-peluang',
       },

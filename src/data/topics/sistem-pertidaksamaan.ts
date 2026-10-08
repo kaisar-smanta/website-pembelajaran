@@ -35,7 +35,6 @@ export const sistemPertidaksamaan: Topic = {
     { text: 'Memodelkan kendala situasi nyata sebagai sistem pertidaksamaan linear.' },
     { text: 'Menentukan nilai optimum fungsi objektif dengan memeriksa titik sudut.' },
   ],
-  explorations: ['spltv-perpotongan'],
   sections: [
     {
       id: "tujuan",
@@ -187,6 +186,14 @@ Cara memakainya untuk setengah bidang: anggap setiap garis sebagai garis pembata
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Umum Program Linear Dua Variabel",
+      body: `Sistem pertidaksamaan linear selalu menghasilkan daerah penyelesaian berupa **irisan setengah bidang**, yaitu sebuah poligon yang disebut daerah layak. Cara menentukannya mengikuti langkah tetap: gambar tiap garis pembatas, uji satu titik untuk memilih setengah bidang, lalu ambil irisannya.
+
+Dari bentuk daerah layak muncul sifat penting program linear. Fungsi objektif linear $f = px + qy$ mencapai nilai maksimum atau minimumnya di **titik sudut** daerah layak, bukan di tengah. Karena itu pencarian nilai optimum cukup memeriksa titik-titik sudut, yaitu titik potong antargaris pembatas dan titik potong dengan sumbu koordinat.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -230,72 +237,18 @@ Titik sudutnya adalah $(0,0)$, $(5,0)$, $(0,4)$, dan titik potong kedua garis. D
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan titik potong garis $3x + 2y = 12$ dengan sumbu-$x$ dan sumbu-$y$.
-
-2. Periksa apakah titik $(3,1)$ memenuhi pertidaksamaan $2x - y \\ge 4$.
-
-3. Tentukan dua titik yang dilalui garis $x - 2y = 6$.
-
-4. Sebutkan titik-titik sudut daerah yang dibatasi $x \\ge 0$, $y \\ge 0$, dan $x + y \\le 5$.
-
-5. Tentukan nilai maksimum $f = x + 3y$ pada daerah dengan titik sudut $(0,0)$, $(4,0)$, dan $(0,4)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Saat $y = 0$, $3x = 12$ sehingga $x = 4$, titik $(4,0)$. Saat $x = 0$, $2y = 12$ sehingga $y = 6$, titik $(0,6)$.
-2. $2(3) - 1 = 5 \\ge 4$ benar, jadi titik $(3,1)$ memenuhi.
-3. Saat $y = 0$, $x = 6$ sehingga $(6,0)$; saat $y = -3$, $x = 0$ sehingga $(0,-3)$. Jawaban lain yang memenuhi juga benar.
-4. Titik sudutnya $(0,0)$, $(5,0)$, dan $(0,5)$.
-5. Nilai $f$: $(0,0) = 0$, $(4,0) = 4$, dan $(0,4) = 12$. Maksimum $12$ di titik $(0,4)$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Gambarkan daerah penyelesaian sistem $x + y \\le 6$, $2x + y \\ge 8$, $x \\ge 0$, dan $y \\ge 0$, lalu tentukan titik sudutnya.
-
-2. Tentukan nilai maksimum $f = 2x + 3y$ dengan kendala $x + y \\le 5$, $x + 2y \\le 8$, $x \\ge 0$, dan $y \\ge 0$.
-
-3. Tentukan sistem pertidaksamaan untuk daerah segitiga dengan titik sudut $(0,0)$, $(5,0)$, dan $(0,4)$.
-
-4. Sebuah koperasi siswa menjual dua jenis minuman. Minuman A memberi keuntungan Rp2.000 dan memerlukan $2$ sendok sirup serta $1$ gelas air; minuman B memberi keuntungan Rp3.000 dan memerlukan $1$ sendok sirup serta $2$ gelas air. Tersedia $8$ sendok sirup dan $10$ gelas air. Modelkan kendalanya dan tentukan keuntungan maksimum.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Titik potong $x + y = 6$ dan $2x + y = 8$ adalah $(2,4)$. Titik sudut daerah penyelesaian: $(4,0)$, $(6,0)$, dan $(2,4)$.
-2. Titik sudut: $(0,0)$, $(5,0)$, $(2,3)$, dan $(0,4)$. Nilai $f$: $0$, $10$, $13$, dan $12$. Maksimum $13$ di titik $(2,3)$.
-3. Garis melalui $(5,0)$ dan $(0,4)$ adalah $4x + 5y = 20$. Sistemnya: $x \\ge 0$, $y \\ge 0$, dan $4x + 5y \\le 20$.
-4. Kendala: $2x + y \\le 8$ (sirup), $x + 2y \\le 10$ (air), $x \\ge 0$, $y \\ge 0$. Fungsi objektif $f = 2000x + 3000y$. Titik sudut: $(0,0)$, $(4,0)$, $(2,4)$, dan $(0,5)$. Nilai $f$: $0$, $8000$, $16000$, dan $15000$. Keuntungan maksimum Rp16.000 pada $x = 2$ dan $y = 4$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Selidiki apakah titik $(3,2)$ termasuk penyelesaian sistem $x + y \\le 6$, $2x - y \\ge 3$, $x \\ge 0$, dan $y \\ge 0$.
-
-2. Tentukan nilai maksimum $f = 5x + 4y$ dengan kendala $2x + y \\le 10$, $x + 3y \\le 15$, $x \\ge 0$, dan $y \\ge 0$.
-
-3. Sebuah usaha memproduksi dua jenis kerajinan. Jenis A memerlukan $3$ jam kerja dan $2$ unit bahan, sedangkan jenis B memerlukan $1$ jam kerja dan $3$ unit bahan. Tersedia $12$ jam kerja dan $15$ unit bahan. Keuntungan jenis A Rp40.000 dan jenis B Rp30.000. Tentukan banyak tiap jenis agar keuntungan maksimum.
-
-4. Jelaskan mengapa pencarian nilai optimum program linear cukup dilakukan dengan memeriksa titik-titik sudut daerah penyelesaian.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Substitusi $(3,2)$: $3 + 2 = 5 \\le 6$ benar; $2(3) - 2 = 4 \\ge 3$ benar; $x = 3 \\ge 0$ dan $y = 2 \\ge 0$ benar. Jadi $(3,2)$ termasuk penyelesaian.
-2. Titik sudut: $(0,0)$, $(5,0)$, $(3,4)$, dan $(0,5)$. Nilai $f$: $0$, $25$, $31$, dan $20$. Maksimum $31$ di titik $(3,4)$.
-3. Misal $x$ banyak jenis A dan $y$ banyak jenis B. Kendala: $3x + y \\le 12$, $2x + 3y \\le 15$, $x \\ge 0$, $y \\ge 0$. Fungsi objektif $f = 40000x + 30000y$. Titik sudut: $(0,0)$, $(4,0)$, $(3,3)$, dan $(0,5)$. Nilai $f$: $0$, $160000$, $210000$, dan $150000$. Keuntungan maksimum Rp210.000 pada $3$ jenis A dan $3$ jenis B.
-4. Fungsi objektif linear selalu mencapai nilai terbesar atau terkecil di titik sudut, karena di sepanjang sisi daerah nilainya berubah secara linear sehingga nilai ekstrem muncul di ujung sisi, yaitu titik sudut. Karena itu memeriksa semua titik sudut sudah cukup.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -377,7 +330,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Sistem Pertidaksamaan Linear**.",
+      body: `**Tiket keluar.** (1) Bagaimana kamu menentukan setengah bidang yang benar untuk sebuah pertidaksamaan? (2) Mengapa nilai optimum program linear cukup dicari di titik sudut daerah layak? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Pertidaksamaan Linear** untuk latihan tambahan.`,
     },
   ],
 };

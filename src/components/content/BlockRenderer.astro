@@ -3,7 +3,6 @@ import type { Block } from '@/types/content';
 import Callout from './Callout.astro';
 import DataTable from './DataTable.astro';
 import ExplorationEmbed from '@/components/interactive/ExplorationEmbed.astro';
-import GeogebraEmbed from '@/components/interactive/GeogebraEmbed.astro';
 import PredictionBlock from '@/components/interactive/PredictionBlock.astro';
 import ReflectionBlock from '@/components/interactive/ReflectionBlock.astro';
 import StepReveal from '@/components/interactive/StepReveal.astro';
@@ -24,11 +23,6 @@ const { block, storageId } = Astro.props;
 }
 {block.kind === 'table' && <DataTable block={block} />}
 {block.kind === 'exploration' && <ExplorationEmbed explorationId={block.explorationId} />}
-{
-  block.kind === 'geogebra' && (
-    <GeogebraEmbed url={block.url} title={block.title} height={block.height} />
-  )
-}
 {block.kind === 'prediction' && <PredictionBlock block={block} storageId={storageId} />}
 {block.kind === 'reflection' && <ReflectionBlock block={block} storageId={storageId} />}
 {block.kind === 'step-reveal' && <StepReveal block={block} storageId={storageId} />}

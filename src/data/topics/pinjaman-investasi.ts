@@ -37,7 +37,6 @@ export const pinjamanInvestasi: Topic = {
     { text: 'Membandingkan dua penawaran pinjaman berdasarkan total bunga dan total biaya.' },
     { text: 'Mengambil keputusan finansial dan menilai risiko sederhana seperti kenaikan suku bunga serta biaya administrasi.' },
   ],
-  explorations: ['anuitas-sim'],
   sections: [
     {
       id: "tujuan",
@@ -198,6 +197,18 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Hubungan Umum Pinjaman dan Investasi",
+      body: `Pinjaman dan investasi ternyata dua sisi dari hubungan yang sama. Pada pinjaman, nilai sekarang seluruh angsuran harus sama dengan pokok yang diterima:
+
+$$M = A \\cdot \\frac{1-(1+i)^{-n}}{i}.$$
+
+Pada investasi, nilai masa depan dari setoran rutin adalah $FV = A \\cdot \\frac{(1+i)^{n}-1}{i}$. Keduanya berasal dari jumlah deret geometri berasio $(1+i)$; yang berbeda hanya arah waktunya.
+
+Dari sana muncul ukuran pembanding yang jujur: **total pembayaran** $nA$ dan **total bunga** $nA-M$. Karena memperpanjang tenor memperkecil $A$ tetapi menambah banyak periode, total bunga bisa justru bertambah. Sebab itu penawaran dibandingkan dari total biaya, bukan besar angsuran bulanan.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -263,72 +274,18 @@ Saldo akhirnya sekitar Rp12.715.978, yaitu sekitar Rp715.978 lebih besar daripad
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Pinjaman Rp8.000.000 dikenai bunga $1\\%$ per bulan selama $18$ bulan. Tentukan angsuran bunga pada bulan pertama.
-
-2. Dari soal 1, jika angsuran anuitasnya Rp487.856, tentukan angsuran pokok pada bulan pertama.
-
-3. Seseorang menabung Rp300.000 tiap bulan dengan bunga $0{,}6\\%$ per bulan selama $12$ bulan. Tentukan saldo akhirnya (nilai masa depan).
-
-4. Pinjaman Rp5.000.000 dengan bunga $1\\%$ per bulan dilunasi dalam $10$ bulan dengan angsuran Rp527.910. Tentukan total pembayarannya.
-
-5. Jelaskan dengan kalimatmu sendiri mengapa total pembayaran pinjaman selalu lebih besar daripada pokok pinjaman.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Bunga bulan pertama $= 0{,}01 \\times 8.000.000 = \\text{Rp}80.000$.
-2. Angsuran pokok $= 487.856 - 80.000 = \\text{Rp}407.856$.
-3. $FV = 300.000 \\cdot \\dfrac{(1{,}006)^{12}-1}{0{,}006} \\approx 300.000 \\cdot \\dfrac{0{,}074424}{0{,}006} \\approx \\text{Rp}3.721.208$.
-4. Total pembayaran $= 10 \\times 527.910 = \\text{Rp}5.279.100$.
-5. Setiap angsuran memuat bunga atas sisa utang, sehingga jumlah seluruh angsuran melampaui pokok tepat sebesar total bunga.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Hitung angsuran anuitas pinjaman Rp10.000.000 dengan bunga $1{,}5\\%$ per bulan selama $12$ bulan (bulatkan ke rupiah terdekat).
-
-2. Tentukan total bunga yang dibayar pada soal 1.
-
-3. Bu Sari ingin memiliki Rp10.000.000 dalam $12$ bulan dengan setoran bulanan tetap dan bunga $1\\%$ per bulan. Tentukan besar setoran bulanannya.
-
-4. Harga tunai sebuah barang Rp9.500.000. Jika dibeli kredit dengan skema soal 1 (total pembayaran hasil nomor 1), berapa selisih yang harus dibayar dibanding membeli tunai?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $A = \\dfrac{10.000.000(0{,}015)}{1-(1{,}015)^{-12}} = \\dfrac{150.000}{1-0{,}836387} = \\dfrac{150.000}{0{,}163613} \\approx \\text{Rp}916.800$.
-2. Total $\\approx 12 \\times 916.800 = \\text{Rp}11.001.600$, sehingga total bunga $\\approx \\text{Rp}1.001.600$.
-3. $A = \\dfrac{10.000.000 \\times 0{,}01}{(1{,}01)^{12}-1} = \\dfrac{100.000}{0{,}126825} \\approx \\text{Rp}788.488$.
-4. Selisih $= 11.001.600 - 9.500.000 = \\text{Rp}1.501.600$; membeli kredit lebih mahal sekitar Rp1.501.600.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Pinjaman Rp20.000.000 dengan bunga $1\\%$ per bulan. Hitung angsuran bulanan dan total bunga untuk tenor $24$ bulan serta $48$ bulan. Jelaskan mengapa angsuran turun tetapi total bunga naik.
-
-2. Pak Tono meminjam Rp15.000.000 dengan bunga $0{,}8\\%$ per bulan selama $20$ bulan dan dikenai biaya administrasi Rp500.000. Tentukan total yang harus ia bayar.
-
-3. Tentukan nilai sekarang dari $10$ setoran sebesar Rp800.000 yang dibayar tiap bulan dengan bunga $1{,}5\\%$ per bulan.
-
-4. Seseorang menolak tenor $48$ bulan karena angsurannya lebih kecil. Berikan argumen kritis mengapa pilihan itu belum tentu menguntungkan, kaitkan dengan total bunga dan risiko suku bunga naik.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Tenor $24$: $A = \\dfrac{200.000}{1-(1{,}01)^{-24}} \\approx \\text{Rp}941.469{,}44$, total bunga $= 24 \\times 941.469{,}44 - 20.000.000 \\approx \\text{Rp}2.595.267$. Tenor $48$: $A = \\dfrac{200.000}{1-(1{,}01)^{-48}} \\approx \\text{Rp}526.676{,}71$, total bunga $= 48 \\times 526.676{,}71 - 20.000.000 \\approx \\text{Rp}5.280.482$. Angsuran turun karena utang dicicil lebih lama, tetapi bunga berjalan lebih panjang sehingga total bunga naik.
-2. $A = \\dfrac{15.000.000(0{,}008)}{1-(1{,}008)^{-20}} \\approx \\text{Rp}814.589$; total angsuran $= 20 \\times 814.589 \\approx \\text{Rp}16.291.780$; ditambah administrasi Rp500.000 menjadi $\\approx \\text{Rp}16.791.780$.
-3. $PV = 800.000 \\cdot \\dfrac{1-(1{,}015)^{-10}}{0{,}015} \\approx 800.000 \\cdot \\dfrac{0{,}138333}{0{,}015} \\approx \\text{Rp}7.377.748$.
-4. Angsuran yang kecil diperoleh dengan memperbanyak periode, sehingga total bunga membengkak. Pada suku bunga mengambang, tenor panjang juga memperbesar risiko kenaikan bunga di masa depan. Karena itu tenor panjang hanya masuk akal bila arus kas bulanan sangat terbatas atau dana dialihkan ke investasi dengan imbal hasil melebihi bunga pinjaman.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -424,7 +381,7 @@ Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman)
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Pinjaman dan Investasi**.",
+      body: `**Tiket keluar.** (1) Mengapa total pembayaran pinjaman selalu lebih besar daripada pokoknya? (2) Ukuran apa yang paling jujur untuk membandingkan dua penawaran pinjaman? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Pinjaman dan Investasi** untuk latihan tambahan.`,
     },
   ],
 };

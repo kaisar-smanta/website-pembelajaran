@@ -30,7 +30,6 @@ export const anuitas: Topic = {
     { text: 'Menghitung nilai sekarang dan nilai masa depan suatu anuitas.' },
     { text: 'Membaca dan menafsirkan tabel amortisasi, termasuk komposisi pokok dan bunga.' },
   ],
-  explorations: ['anuitas-sim'],
   applications: ['anuitas-pinjaman'],
   sections: [
     {
@@ -80,9 +79,9 @@ Pertanyaan: apakah setiap bulan ia membayar bunga yang sama? Jika bunga per bula
 Memahami anuitas membantu kita menghitung kemampuan membayar, membandingkan penawaran, dan menyadari bahwa angsuran "terjangkau" belum tentu totalnya murah.`,
     },
     {
-      id: "konsep",
-      kind: "konsep",
-      title: "Konsep Inti: Menurunkan Rumus Anuitas",
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Menurunkan Rumus Anuitas",
       body: `Misalkan pokok pinjaman $M$, suku bunga per periode $i$, dan $n$ periode. Misalkan besar angsuran tetap $A$ dibayar di **akhir** setiap periode. Nilai tunai seluruh angsuran harus sama dengan pokok pinjaman:
 
 $$M = \\frac{A}{1+i} + \\frac{A}{(1+i)^2} + \\cdots + \\frac{A}{(1+i)^n}.$$
@@ -227,60 +226,18 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Pinjaman Rp6.000.000, bunga 2% per bulan, 12 bulan. Hitung angsuran bunga pada bulan pertama.
-
-2. Untuk pinjaman pada soal 1, tentukan angsuran pokok bulan pertama jika angsurannya Rp567.000.
-
-3. Jelaskan dengan kalimatmu sendiri mengapa total pembayaran selalu lebih besar daripada pokok pinjaman.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Bunga bulan pertama $= 0{,}02 \\times 6.000.000 = \\text{Rp}120.000$.
-2. Angsuran pokok $= 567.000 - 120.000 = \\text{Rp}447.000$.
-3. Karena setiap angsuran mencakup bunga atas sisa pinjaman, jumlah seluruh angsuran melampaui pokok sebesar total bunga.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Hitung angsuran bulanan pinjaman Rp8.000.000 dengan bunga 1% per bulan selama 18 bulan (bulatkan ke rupiah terdekat).
-
-2. Tentukan total bunga yang dibayar pada soal 1.
-
-3. Seseorang menabung Rp1.000.000 setiap tahun selama 5 tahun dengan bunga 6% per tahun. Gunakan rumus nilai masa depan untuk menentukan saldo akhirnya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $A = \\dfrac{8.000.000(0{,}01)}{1-(1{,}01)^{-18}} = \\dfrac{80.000}{1-0{,}836017} = \\dfrac{80.000}{0{,}163983} \\approx \\text{Rp}487.856$.
-2. Total $\\approx 18 \\times 487.856 = \\text{Rp}8.781.408$, sehingga bunga $\\approx \\text{Rp}781.408$.
-3. $FV = 1.000.000 \\cdot \\dfrac{(1{,}06)^5-1}{0{,}06} = 1.000.000 \\cdot \\dfrac{0{,}338226}{0{,}06} \\approx \\text{Rp}5.637.093$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Bandingkan dua penawaran pinjaman Rp30.000.000: (A) bunga 1% per bulan, 36 bulan; (B) bunga 1,2% per bulan, 30 bulan. Manakah yang total bunganya lebih kecil? Jelaskan.
-
-2. Pinjaman Rp20.000.000 dengan anuitas bulanan. Jelaskan mengapa memperpanjang tenor (misalnya dari 24 menjadi 48 bulan) menurunkan angsuran bulanan tetapi menaikkan total bunga.
-
-3. Sebuah pinjaman menetapkan angsuran dari aplikasi sebesar Rp1.500.000 per bulan selama 12 bulan untuk pinjaman Rp16.000.000. Taksirlah suku bunga bulanannya dan nilai wajar angsuran jika suku bunga 1,5% per bulan. Berikan penilaian kritis.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. A: $i=0{,}01, n=36$: $A = \\dfrac{300.000}{1-(1{,}01)^{-36}} \\approx \\dfrac{300.000}{0{,}301075} = \\text{Rp}996.429$; total $\\approx 36 \\times 996.429 = \\text{Rp}35.871.455$; bunga $\\approx 5,87$ juta. B: $i=0{,}012, n=30$: $A = \\dfrac{360.000}{1-(1{,}012)^{-30}} \\approx \\dfrac{360.000}{0{,}300827} \\approx \\text{Rp}1.196.701$; total $\\approx 30 \\times 1.196.701 = \\text{Rp}35.901.028$; bunga $\\approx 5,90$ juta. Penawaran A **sedikit** lebih murah; perbedaannya kecil sehingga perlu mempertimbangkan besar angsuran bulanan.
-2. Memperpanjang tenor memperkecil $i$ pada setiap periode sekaligus memperbanyak periode. Angsuran turun, tetapi bunga berjalan lebih lama, sehingga total bunga naik.
-3. Angsuran total $= 18.000.000$ untuk pokok 16.000.000, bunga total Rp2.000.000. Untuk $n=12$, angsuran $1.500.000$ menghasilkan $i$ sekitar $1{,}5\\%$–$1{,}8\\%$ per bulan. Pada $1{,}5\\%$ per bulan, nilai wajar $A \\approx \\dfrac{16.000.000(0{,}015)}{1-(1{,}015)^{-12}} \\approx \\dfrac{240.000}{0{,}163584} \\approx \\text{Rp}1.467.135$. Karena penawaran Rp1.500.000 lebih tinggi, tersangka menawarkan bunga efektif lebih besar — perlu kehati-hatian.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -372,7 +329,7 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Uji pemahamanmu pada halaman [Latihan & Asesmen](/latihan) topik **Anuitas**.",
+      body: `**Tiket keluar.** (1) Mengapa bunga tiap periode berbeda meskipun besar angsuran tetap? (2) Jika tenor diperpanjang, mengapa angsuran bulanan turun tetapi total bunga justru naik? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Anuitas** untuk latihan tambahan.`,
     },
   ],
 };

@@ -73,6 +73,26 @@ for (const app of applications) {
   ok(typeof app.summary === 'string' && app.summary.length > 0, `${app.id}: ringkasan kosong`);
   ok(Array.isArray(app.topicIds) && app.topicIds.length > 0, `${app.id}: topicIds kosong`);
 
+  // Isi studi kasus wajib lengkap: narasi, analisis, poin kunci, refleksi, dan
+  // estimasi waktu yang masuk akal.
+  ok(typeof app.body === 'string' && app.body.trim().length > 0, `${app.id}: body kosong`);
+  ok(
+    typeof app.analysis === 'string' && app.analysis.trim().length > 0,
+    `${app.id}: analysis kosong`,
+  );
+  ok(
+    Array.isArray(app.takeaways) && app.takeaways.length >= 2,
+    `${app.id}: takeaways kurang dari 2`,
+  );
+  ok(
+    Array.isArray(app.reflection) && app.reflection.length >= 2,
+    `${app.id}: reflection kurang dari 2`,
+  );
+  ok(
+    typeof app.estimatedMinutes === 'number' && app.estimatedMinutes > 0,
+    `${app.id}: estimatedMinutes tidak valid (${app.estimatedMinutes})`,
+  );
+
   for (const tid of app.topicIds) {
     ok(topicIds.has(tid), `${app.id}: topik tidak ditemukan -> ${tid}`);
   }

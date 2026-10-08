@@ -1,9 +1,8 @@
 ---
-import type { Block, Difficulty, Question, Section, SectionKind } from '@/types/content';
+import type { Block, Difficulty, Section, SectionKind } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
 import BlockRenderer from './BlockRenderer.astro';
-import QuestionCard from '@/components/exercises/QuestionCard.astro';
-import { getQuestion, questionsByTopicAndDifficulty } from '@/data/questions';
+import PracticeSet from '@/components/exercises/PracticeSet.astro';
 
 interface Props {
   section: Section;
@@ -12,17 +11,14 @@ interface Props {
 }
 const { section, index, topicId } = Astro.props;
 
-const practiceKinds: SectionKind[] = ['latihan-dasar', 'latihan-cakap', 'latihan-mahir'];
-const practiceLevel: Difficulty | undefined = section.practiceLevel ?? section.level;
-
-let practiceQuestions: Question[] = [];
-if (section.questionIds?.length) {
-  practiceQuestions = section.questionIds
-    .map((id) => getQuestion(id))
-    .filter((q): q is Question => q !== undefined);
-} else if (practiceKinds.includes(section.kind) && topicId && practiceLevel) {
-  practiceQuestions = questionsByTopicAndDifficulty(topicId, practiceLevel);
-}
+const practiceLevelByKind: Partial<Record<SectionKind, Difficulty>> = {
+  'latihan-dasar': 'dasar',
+  'latihan-cakap': 'cakap',
+  'latihan-mahir': 'mahir',
+};
+const practiceLevel: Difficulty | undefined =
+  section.practiceLevel ?? practiceLevelByKind[section.kind] ?? section.level;
+const showPractice = Boolean(section.questionIds?.length || (topicId && practiceLevel));
 
 const kindTitles: Record<SectionKind, string> = {
   tujuan: 'Tujuan Pembelajaran',
@@ -82,57 +78,23 @@ function blockStorageId(blockIndex: number): string {
   }
 
   {
-    practiceQuestions.length > 0 ? (
-      <>
-        <div class="practice-embed">
-          <p class="practice-lead">
-            Kerjakan langsung di sini. Jawaban dan pembahasannya diperiksa otomatis.
-          </p>
-          <div class="practice-list">
-            {practiceQuestions.map((question, i) => (
-              <QuestionCard question={question} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {blockList(section.blocks).map((block, bi) =>
-          block.kind === 'details' ? null : (
-            <BlockRenderer block={block} storageId={blockStorageId(bi)} />
-          ),
-        )}
-
-        {(bodyHtml || blockList(section.blocks).some((block) => block.kind === 'details')) && (
-          <details class="practice-legacy">
-            <summary>Latihan tambahan (uraian &amp; kunci)</summary>
-            <div class="practice-legacy-body">
-              {bodyHtml && <div class="prose section-body" set:html={bodyHtml} />}
-              {blockList(section.blocks).map((block) => {
-                if (block.kind === 'details') {
-                  return (
-                    <details class="details-block">
-                      <summary>{block.summary}</summary>
-                      <div class="prose details-body" set:html={renderMarkdown(block.text)} />
-                    </details>
-                  );
-                }
-                return null;
-              })}
-            </div>
-          </details>
-        )}
-      </>
-    ) : (
-      <>
-        {bodyHtml && <div class="prose section-body" set:html={bodyHtml} />}
-
-        {blockList(section.blocks).map((block, bi) =>
-          block.kind === 'details' ? null : (
-            <BlockRenderer block={block} storageId={blockStorageId(bi)} />
-          ),
-        )}
-      </>
+    showPractice && topicId && (
+      <PracticeSet topicId={topicId} level={practiceLevel ?? 'dasar'} questionIds={section.questionIds} />
     )
   }
+
+  {bodyHtml && <div class="prose section-body" set:html={bodyHtml} />}
+
+  {blockList(section.blocks).map((block, bi) =>
+    block.kind === 'details' ? (
+      <details class="details-block">
+        <summary>{block.summary}</summary>
+        <div class="prose details-body" set:html={renderMarkdown(block.text)} />
+      </details>
+    ) : (
+      <BlockRenderer block={block} storageId={blockStorageId(bi)} />
+    ),
+  )}
 </section>
 
 <style>
@@ -229,92 +191,6 @@ function blockStorageId(blockIndex: number): string {
   .section-body {
     max-width: 70ch;
     min-width: 0;
-  }
-
-  .practice-embed {
-    margin: 0.5rem 0 1.1rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--sec) 24%, var(--color-border));
-    border-left: 3px solid color-mix(in srgb, var(--sec) 70%, transparent);
-    border-radius: var(--radius);
-    background: color-mix(in srgb, var(--sec) 6%, var(--color-surface));
-  }
-  .practice-lead {
-    margin: 0 0 0.85rem;
-    color: var(--color-text-muted);
-    font-size: 0.92rem;
-  }
-  .practice-list {
-    display: grid;
-    gap: 0.9rem;
-  }
-  .practice-list :global(.question-card) {
-    margin-bottom: 0;
-  }
-
-  .practice-legacy {
-    margin: 1rem 0;
-    border: 1px solid color-mix(in srgb, var(--sec) 22%, var(--color-border));
-    border-radius: var(--radius);
-    background: var(--color-surface);
-    overflow: hidden;
-    transition: border-color var(--dur-fast) var(--ease-out-soft);
-  }
-  .practice-legacy > summary {
-    cursor: pointer;
-    padding: 0.7rem 1rem;
-    font-weight: 600;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    color: color-mix(in srgb, var(--sec) 72%, var(--color-text));
-    transition:
-      background-color var(--dur-fast) var(--ease-out-soft),
-      color var(--dur-fast) var(--ease-out-soft);
-  }
-  .practice-legacy > summary::before {
-    content: '+';
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-    width: 1.3rem;
-    height: 1.3rem;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    line-height: 1;
-    border-radius: 50%;
-    color: var(--sec);
-    background: color-mix(in srgb, var(--sec) 14%, transparent);
-    transition:
-      transform var(--dur) var(--ease-bounce),
-      background-color var(--dur-fast) var(--ease-out-soft);
-  }
-  .practice-legacy[open] > summary::before {
-    content: '−';
-  }
-  .practice-legacy > summary:hover {
-    background: color-mix(in srgb, var(--sec) 8%, var(--color-surface-2));
-  }
-  .practice-legacy > summary:hover::before {
-    transform: scale(1.12);
-  }
-  .practice-legacy > summary::-webkit-details-marker {
-    display: none;
-  }
-  .practice-legacy[open] > summary {
-    border-bottom: 1px solid var(--color-border);
-    background: color-mix(in srgb, var(--sec) 7%, var(--color-surface-2));
-  }
-  .practice-legacy-body {
-    padding: 0.9rem 1rem;
-  }
-  .practice-legacy-body :global(> *:last-child) {
-    margin-bottom: 0;
-  }
-  .practice-legacy-body .details-block {
-    margin-top: 0.9rem;
   }
 
   .details-block {

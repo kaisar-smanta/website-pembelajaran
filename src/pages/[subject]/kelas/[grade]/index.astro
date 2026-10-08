@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
+import ContinueLearning from '@/components/progress/ContinueLearning.astro';
 import {
   ELEMENTS,
   GRADES,
@@ -76,6 +77,8 @@ const crumbs = [
     crumbs={crumbs}
     meta={[`${completeTotal} topik`, ...(plannedTotal > 0 ? [`${plannedTotal} rencana`] : [])]}
   />
+
+  <ContinueLearning subject={subject} grade={grade} />
 
   <div class="container">
     <div class="grade-switch no-print">

@@ -265,7 +265,7 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
     buildReadout,
   } from '../../lib/sim/distribution';
   import type { DistributionStats } from '../../lib/sim/distribution';
-  import { el, clear } from '../../lib/dom';
+  import { el, clear, initWhenVisible } from '../../lib/dom';
   import { formatId } from '../../lib/format';
 
   const MAX_VALUES = 200;
@@ -595,5 +595,5 @@ const initialData = '4, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 9, 10, 24';
     render();
   }
 
-  document.querySelectorAll('[data-distribution]').forEach(setupDistribution);
+  initWhenVisible(document.querySelectorAll('[data-distribution]'), setupDistribution);
 </script>

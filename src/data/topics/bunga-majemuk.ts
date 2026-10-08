@@ -31,7 +31,6 @@ export const bungaMajemuk: Topic = {
     { text: 'Menghitung saldo akhir, suku bunga efektif, dan lama waktu menabung.' },
     { text: 'Mengenali kesalahan umum dalam menyelesaikan masalah bunga majemuk.' },
   ],
-  explorations: ['bunga-majemuk-sim'],
   applications: ['bunga-investasi'],
   sections: [
     {
@@ -234,6 +233,22 @@ Contoh: nominal $12\\%$ dihitung bulanan memberi $i_{\\text{efektif}} = (1{,}01)
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Menggeneralisasi Pertumbuhan Majemuk",
+      body: `Setiap penambahan periode mengalikan saldo dengan faktor tetap $(1+i)$. Karena itu saldo setelah $n$ periode selalu berbentuk pangkat:
+
+$$M_n = M_0(1+i)^n.$$
+
+Sifat faktor tetap ini membuat saldo menjadi barisan geometri, sehingga pertumbuhan hanya bergantung pada **panjang selang**: $M_{n+k} = M_n(1+i)^k$.
+
+Ketika bunga dihitung $m$ kali setahun dengan nominal $j$, faktor pengali setahun menjadi $(1+j/m)^m$, sehingga suku bunga efektif setahun adalah
+
+$$i_{\\text{efektif}} = \\left(1+\\frac{j}{m}\\right)^m - 1.$$
+
+Memperbesar $m$ menaikkan $i_{\\text{efektif}}$, tetapi tambahannya makin lama makin kecil.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -282,60 +297,18 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Modal Rp1.000.000 dengan bunga majemuk 10% per tahun. Tentukan saldo setelah 2 tahun.
-
-2. Tentukan suku bunga per periode jika nominal 24% per tahun dihitung bulanan.
-
-3. Hitung $(1{,}05)^{2}$ kemudian tentukan saldo Rp4.000.000 setelah 2 tahun pada bunga majemuk 5% per tahun.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $1.000.000(1{,}1)^2 = 1.000.000(1{,}21) = \\text{Rp}1.210.000$.
-2. $i = 0{,}24/12 = 0{,}02$ per bulan.
-3. $(1{,}05)^2 = 1{,}1025$, sehingga saldo $= 4.000.000(1{,}1025) = \\text{Rp}4.410.000$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Modal Rp3.000.000 dibungakan majemuk 1,5% per bulan. Tentukan saldo setelah 8 bulan.
-
-2. Nominal 9% per tahun dihitung kuartalan. Tentukan suku bunga per periode dan saldo Rp2.000.000 setelah 1 tahun.
-
-3. Berapa lama modal harus ditabung pada bunga majemuk 8% per tahun agar menjadi dua kali lipat? Gunakan pendekatan dengan tabel perhitungan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $3.000.000(1{,}015)^8 \\approx 3.000.000(1{,}126493) \\approx \\text{Rp}3.379.479$.
-2. $i = 0{,}09/4 = 0{,}0225$ per kuartal, $n = 4$; saldo $= 2.000.000(1{,}0225)^4 \\approx 2.000.000(1{,}093083) \\approx \\text{Rp}2.186.166$.
-3. Cari $n$ dengan $1{,}08^n \\ge 2$. Karena $1{,}08^9 \\approx 1{,}999$ dan $1{,}08^{10} \\approx 2{,}159$, maka modal berlipat dua setelah sekitar **10 tahun**.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Dua bank menawarkan suku bunga nominal yang sama, 12% per tahun. Bank A menghitung tiap semester, Bank B tiap bulan. Bandingkan suku bunga efektif keduanya dan jelaskan mengapa berbeda.
-
-2. Sebuah pinjaman tidak dibayar sehingga bunga majemuk 2% per bulan menumpuk pada sisa utang. Jika utang awal Rp4.000.000 dan tidak ada pembayaran selama 6 bulan, berapa utangnya? Jelaskan mengapa utang tumbuh lebih cepat dari dugaan awal.
-
-3. Sebuah barang naik harga 5% per tahun (inflasi). Jika harga awal Rp200.000, tentukan harga setelah 4 tahun dan diskusikan keterbatasan model inflasi konstan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Bank A: $(1{,}06)^2 - 1 = 0{,}1236 = 12{,}36\\%$. Bank B: $(1{,}01)^{12} - 1 \\approx 0{,}126825 = 12{,}68\\%$. Bank B lebih besar karena bunga lebih sering dihitung majemuk (semakin sering, semakin besar efek bunga atas bunga).
-2. $4.000.000(1{,}02)^6 \\approx 4.000.000(1{,}126162) \\approx \\text{Rp}4.504.649$. Utang tumbuh karena bunga bulan berikutnya dihitung dari sisa utang yang sudah bertambah.
-3. $200.000(1{,}05)^4 = 200.000(1{,}215506) \\approx \\text{Rp}243.101$. Keterbatasan: inflasi nyata tidak selalu tetap; harga pangan dan energi dapat berubah tidak seragam.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -427,7 +400,7 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Uji pemahamanmu pada halaman [Latihan & Asesmen](/latihan) topik **Bunga Majemuk**.",
+      body: `**Tiket keluar.** (1) Mengapa saldo pada bunga majemuk membentuk barisan geometri? (2) Mengapa suku bunga efektif selalu lebih besar daripada suku bunga nominal? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Bunga Majemuk** untuk latihan tambahan.`,
     },
   ],
 };

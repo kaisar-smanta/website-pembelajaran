@@ -19,7 +19,7 @@ async function load(file) {
   return import(pathToFileURL(path.join(root, file)).href);
 }
 
-const { SUBJECTS } = await load('src/data/curriculum.ts');
+const { SUBJECTS, GRADE_ORDER } = await load('src/data/curriculum.ts');
 
 // Node ESM tidak menyelesaikan impor tanpa ekstensi di `topics/index.ts`,
 // jadi baca metadata topik langsung dari berkasnya (seperti cp-coverage.mjs).
@@ -162,7 +162,84 @@ for (const pathEntry of learningPaths) {
   }
 }
 
+// ---- Integritas graf prasyarat (data nyata) ----
+// Invarianta: prasyarat harus menunjuk topik nyata, tidak menuntut kelas yang
+// lebih tinggi, konsisten dengan urutan jalur konsep, dan membentuk DAG.
+const gradeIndex = new Map(GRADE_ORDER.map((grade, index) => [grade, index]));
+const missingPrereqs = [];
+const gradeViolations = [];
+const edges = [];
+for (const topic of topics) {
+  for (const prereqId of topic.prerequisites ?? []) {
+    const prereq = byId.get(prereqId);
+    if (!prereq) {
+      missingPrereqs.push(`${topic.id} -> ${prereqId}`);
+      continue;
+    }
+    edges.push([prereqId, topic.id]);
+    if (gradeIndex.get(prereq.grade) > gradeIndex.get(topic.grade)) {
+      gradeViolations.push(
+        `${topic.id} (kelas ${topic.grade}) menuntut ${prereqId} (kelas ${prereq.grade})`,
+      );
+    }
+  }
+}
+ok(
+  missingPrereqs.length === 0,
+  `prasyarat menunjuk topik nyata. Tidak ditemukan:\n  ${missingPrereqs.join('\n  ')}`,
+);
+ok(
+  gradeViolations.length === 0,
+  `prasyarat tidak menuntut kelas yang lebih tinggi:\n  ${gradeViolations.join('\n  ')}`,
+);
+
+// Konsistensi jalur: prasyarat yang juga ada di jalur yang sama harus muncul lebih dulu.
+const pathViolations = [];
+for (const pathEntry of learningPaths) {
+  const indexById = new Map();
+  pathEntry.nodes.forEach((node, index) => {
+    if (node.id) indexById.set(node.id, index);
+  });
+  pathEntry.nodes.forEach((node, index) => {
+    if (!node.id) return;
+    const topic = byId.get(node.id);
+    if (!topic) return;
+    for (const prereqId of topic.prerequisites ?? []) {
+      if (indexById.has(prereqId) && indexById.get(prereqId) > index) {
+        pathViolations.push(
+          `${pathEntry.id}: ${node.id} (ke-${index + 1}) setelah prasyarat ${prereqId} (ke-${indexById.get(prereqId) + 1})`,
+        );
+      }
+    }
+  });
+}
+ok(
+  pathViolations.length === 0,
+  `urutan jalur menghormati prasyarat:\n  ${pathViolations.join('\n  ')}`,
+);
+
+// Graf prasyarat harus asiklik (DAG).
+const state = new Map(topics.map((topic) => [topic.id, 0]));
+const cycleReports = [];
+function visit(id, stack) {
+  state.set(id, 1);
+  for (const [from, to] of edges) {
+    if (from !== id) continue;
+    if (state.get(to) === 1) {
+      cycleReports.push([...stack.slice(stack.indexOf(to)), to].join(' -> '));
+    } else if (state.get(to) === 0) {
+      visit(to, [...stack, to]);
+    }
+  }
+  state.set(id, 2);
+}
+for (const topic of topics) {
+  if (state.get(topic.id) === 0) visit(topic.id, [topic.id]);
+}
+ok(cycleReports.length === 0, `graf prasyarat asiklik:\n  ${cycleReports.join('\n  ')}`);
+
 const mtl = topics.filter((t) => topicSubject(t) === 'matematika-lanjut');
 console.log(`Mata pelajaran: ${[...subjectIds].join(', ')}`);
 console.log(`Topik: ${topics.length} (Matematika Lanjut: ${mtl.length})`);
 console.log(`Integritas mata pelajaran diperiksa: ${checks} asersi`);
+console.log(`Graf prasyarat: ${edges.length} sisi, ${learningPaths.length} jalur konsep`);

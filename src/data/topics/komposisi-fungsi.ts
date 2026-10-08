@@ -24,7 +24,6 @@ export const komposisiFungsi: Topic = {
   ],
   prerequisites: ['fungsi-invers'],
   relatedTopics: ['transformasi-fungsi', 'fungsi-invers'],
-  explorations: ['komposisi-fungsi-sim'],
   prerequisiteKnowledge: [
     'Pengertian fungsi, domain, dan range',
     'Mensubstitusi nilai atau bentuk aljabar ke dalam fungsi',
@@ -324,56 +323,18 @@ Kedua hasil berbeda, menegaskan komposisi tidak komutatif.
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Diketahui $f(x)=x+2$ dan $g(x)=3x$. Tentukan $(f \\circ g)(x)$.
-2. Dengan fungsi yang sama, tentukan $(g \\circ f)(x)$.
-3. Diketahui $f(x)=x^2$ dan $g(x)=x+1$. Hitunglah $(f \\circ g)(3)$.
-4. Diketahui $f(x)=2x$ dan $g(x)=x-4$. Tentukan $(g \\circ f)(5)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $(f \\circ g)(x)=f(3x)=3x+2$.
-2. $(g \\circ f)(x)=g(x+2)=3(x+2)=3x+6$.
-3. $g(3)=4$, sehingga $(f \\circ g)(3)=f(4)=4^2=16$.
-4. $f(5)=10$, sehingga $(g \\circ f)(5)=g(10)=10-4=6$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Diketahui $f(x)=x^2+1$ dan $g(x)=x-3$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$.
-2. Diketahui $f(x)=\\dfrac{1}{x}$ dan $g(x)=x-2$. Tentukan $(f \\circ g)(x)$ beserta domainnya.
-3. Diketahui $f(x)=x+1$, $g(x)=x^2-1$. Tentukan $(f \\cdot g)(x)$ dan $\\left(\\dfrac{f}{g}\\right)(x)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $(f \\circ g)(x)=f(x-3)=(x-3)^2+1=x^2-6x+10$. $(g \\circ f)(x)=g(x^2+1)=x^2+1-3=x^2-2$.
-2. $(f \\circ g)(x)=f(x-2)=\\dfrac{1}{x-2}$, dengan domain $x \\neq 2$ (nilai $x=2$ membuat penyebut nol).
-3. $(f \\cdot g)(x)=(x+1)(x^2-1)=x^3+x^2-x-1$. $\\left(\\dfrac{f}{g}\\right)(x)=\\dfrac{x+1}{x^2-1}=\\dfrac{x+1}{(x-1)(x+1)}=\\dfrac{1}{x-1}$ untuk $x \\neq \\pm 1$; domain asli mengecualikan $x=1$ dan $x=-1$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Diketahui $f(x)=3x+1$ dan $g(x)=x-2$. Tentukan $(f \\circ g)^{-1}(x)$ dengan dua cara.
-2. Tentukan fungsi $g$ jika $f(x)=2x+1$ dan $(f \\circ g)(x)=4x+7$.
-3. Sebuah toko memberi diskon $25\\%$ lalu menambah biaya layanan tetap $5$ (dalam ribuan rupiah). Nyatakan total biaya sebagai komposisi fungsi dan hitung untuk harga awal $40$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Cara pertama: $(f \\circ g)(x)=3(x-2)+1=3x-5$. Invers: $y=3x-5 \\Rightarrow x=\\dfrac{y+5}{3}$, jadi $(f \\circ g)^{-1}(x)=\\dfrac{x+5}{3}$. Cara kedua: $f^{-1}(x)=\\dfrac{x-1}{3}$ dan $g^{-1}(x)=x+2$, maka $(f \\circ g)^{-1}(x)=(g^{-1} \\circ f^{-1})(x)=g^{-1}\\!\\left(\\dfrac{x-1}{3}\\right)=\\dfrac{x-1}{3}+2=\\dfrac{x+5}{3}$. Kedua cara menghasilkan rumus yang sama.
-2. $(f \\circ g)(x)=f(g(x))=2g(x)+1$. Diketahui hasilnya $4x+7$, sehingga $2g(x)+1=4x+7 \\Rightarrow 2g(x)=4x+6 \\Rightarrow g(x)=2x+3$. Periksa: $f(2x+3)=2(2x+3)+1=4x+7$. Benar.
-3. Misal $f(x)=0{,}75x$ (diskon) dan $g(x)=x+5$ (biaya layanan). Total $(g \\circ f)(x)=0{,}75x+5$. Untuk $x=40$: $0{,}75(40)+5=30+5=35$. Jadi biayanya $35$ ribu rupiah.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -469,8 +430,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Komposisi Fungsi**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa $(f\\circ g)(x)$ umumnya berbeda dari $(g\\circ f)(x)$? (2) Syarat apa saja yang harus dipenuhi agar domain komposisi terdefinisi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Komposisi Fungsi** untuk latihan tambahan.`,
     },
   ],
 };

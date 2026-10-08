@@ -45,7 +45,6 @@ export const aplikasiTurunan: Topic = {
     { text: 'Peserta didik dapat menghitung kecepatan dan percepatan sesaat serta menyelesaikan soal optimasi.' },
   ],
   applications: ['mtl-optimasi-produksi', 'mtl-gerak-kecepatan'],
-  explorations: ['mtl-aplikasi-turunan-garis-singgung'],
   sections: [
     {
       id: "tujuan",
@@ -189,6 +188,18 @@ Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Umum: Dari Turunan ke Bentuk Grafik",
+      body: `Pola yang muncul pada setiap contoh dapat diringkas menjadi satu rangkaian. Tanda $f'$ menentukan arah gerak grafik, sedangkan tanda $f''$ menentukan cara grafik melengkung:
+
+$$f'(x) > 0 \\Rightarrow \\text{naik}, \\qquad f'(x) < 0 \\Rightarrow \\text{turun},$$
+
+$$f''(x) > 0 \\Rightarrow \\text{cekung ke atas}, \\qquad f''(x) < 0 \\Rightarrow \\text{cekung ke bawah}.$$
+
+Akibatnya, titik dengan $f'(x)=0$ adalah satu-satunya calon nilai ekstrem, dan jenisnya diputuskan oleh tanda $f''$ di titik itu. Untuk masalah nyata, pola ini dipakai dengan urutan tetap: nyatakan besaran yang dicari sebagai fungsi satu variabel, selesaikan $f'(x)=0$, lalu periksa jenisnya dan buang solusi yang tidak masuk domain.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -227,58 +238,18 @@ yaitu pada $t = 2$ s dan $t = 4$ s.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan gradien garis singgung $y = x^{2}$ di $x = 3$.
-2. Tentukan $f'(x)$ dari $f(x) = x^{3} - 3x^{2} + 2$ dan cari titik stasionernya.
-3. Tentukan turunan kedua $f(x) = x^{3} - 3x^{2} + 2$.
-4. Sebuah partikel bergerak dengan posisi $s(t) = t^{3} - 6t^{2} + 9t$. Tentukan $v(t)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $y' = 2x$, maka gradien di $x = 3$ adalah $6$.
-2. $f'(x) = 3x^{2} - 6x = 3x(x - 2)$; titik stasioner di $x = 0$ dan $x = 2$.
-3. $f''(x) = 6x - 6$.
-4. $v(t) = s'(t) = 3t^{2} - 12t + 9$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan persamaan garis singgung kurva $y = x^{2}$ di $x = 3$.
-2. Tentukan jenis titik stasioner $f(x) = x^{3} - 3x^{2} + 2$ dengan uji turunan kedua.
-3. Tentukan kecepatan dan percepatan pada $t = 2$ s untuk $s(t) = t^{3} - 6t^{2} + 9t$.
-4. Tentukan titik belok $f(x) = x^{3} - 3x^{2} + 2$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Gradien $6$, titik $(3, 9)$, sehingga garis singgungnya $y = 6x - 9$.
-2. $f''(0) = -6 < 0$ sehingga $(0, 2)$ maksimum lokal; $f''(2) = 6 > 0$ sehingga $(2, -2)$ minimum lokal.
-3. $v(2) = 3(4) - 12(2) + 9 = -3$ m/s dan $a(2) = 6(2) - 12 = 0$ m/s$^{2}$.
-4. $f''(x) = 6x - 6 = 0$ memberi $x = 1$ dan $f(1) = 0$, jadi titik belok $(1, 0)$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Sebuah tabung tertutup memiliki volume $16\pi$ cm$^{3}$. Tentukan jari-jari dan tinggi yang membuat luas permukaannya minimum.
-2. Dari selembar karton $20 \\text{ cm} \\times 20 \\text{ cm}$ akan dibuat kotak terbuka dengan memotong persegi bersisi $x$ di setiap sudut. Tentukan $x$ agar volume maksimum dan hitung volume itu.
-3. Dua bilangan berjumlah $20$. Tentukan kedua bilangan agar hasil kalinya maksimum.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. $V = \pi r^{2}h = 16\pi$ memberi $h = \dfrac{16}{r^{2}}$. Luas permukaan $S = 2\pi r^{2} + 2\pi rh = 2\pi r^{2} + \dfrac{32\pi}{r}$. Maka $S'(r) = 4\pi r - \dfrac{32\pi}{r^{2}} = 0$ memberi $r^{3} = 8$, yaitu $r = 2$ cm. Tingginya $h = \dfrac{16}{4} = 4$ cm dan luas minimumnya $S = 8\pi + 16\pi = 24\pi$ cm$^{2}$.
-2. $V(x) = x(20 - 2x)^{2}$. Turunannya $V'(x) = (20 - 2x)(20 - 6x) = 0$ memberi $x = 10$ (tidak sah) atau $x = \\dfrac{10}{3}$. Volumenya $V\\left(\\dfrac{10}{3}\\right) = \\dfrac{10}{3}\\left(\\dfrac{40}{3}\\right)^{2} = \\dfrac{16000}{27} \\approx 592{,}59$ cm$^{3}$.
-3. $P(x) = x(20 - x) = 20x - x^{2}$, $P'(x) = 20 - 2x = 0$ memberi $x = 10$. Kedua bilangan $10$ dan $10$ dengan hasil kali maksimum $100$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -296,6 +267,20 @@ Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posi
 **3. Menukar tanda uji turunan kedua.** $f''(c) < 0$ berarti **maksimum** (kurva cekung ke bawah), bukan minimum.
 **4. Lupa gradien normal.** Gradien garis normal adalah $\\dfrac{-1}{f'(a)}$, yaitu kebalikan negatif gradien garis singgung.
 **5. Menyimpulkan optimasi tanpa memeriksa batas domain.** Ukuran panjang tidak boleh negatif; akar yang tidak masuk akal harus dibuang.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan penentuan jenis titik stasioner $f(x)=x^{3}-3x^{2}+2$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Turunan pertama: $f'(x)=3x^{2}-6x=3x(x-2)$, sehingga $x=0$ dan $x=2$ stasioner.",
+            "Turunan kedua: $f''(x)=6x-6$.",
+            "Karena $f''(2)=6>0$, simpulkan $(2,-2)$ adalah **maksimum lokal**.",
+            "Karena $f''(0)=-6<0$, simpulkan $(0,2)$ adalah **maksimum lokal**.",
+          ],
+          wrongIndex: 2,
+          explanation: "Langkah ketiga keliru. Bila $f''(c)>0$ grafik cekung ke atas sehingga titik itu **minimum** lokal, bukan maksimum. Sebaliknya $f''(c)<0$ menandakan maksimum. Jadi $(2,-2)$ minimum dan $(0,2)$ maksimum.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -370,8 +355,7 @@ Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posi
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Aplikasi Turunan**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa $f'(x)=0$ saja belum cukup untuk memastikan sebuah nilai ekstrem? (2) Apa yang diberitahukan tanda $f''$ tentang bentuk kurva? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Aplikasi Turunan** untuk latihan tambahan.`,
     },
   ],
 };

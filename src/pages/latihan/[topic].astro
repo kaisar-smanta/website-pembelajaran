@@ -4,7 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import { getTopic, resolveTopics, topicSubject } from '@/data/topics';
-import { questions, questionsByTopic } from '@/data/questions';
+import { assessmentCategories, questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS } from '@/data/curriculum';
 import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
 import { difficultyCounts, groupByDifficulty } from '@/lib/practice';
@@ -72,6 +72,11 @@ const meta = [
   `${counts.dasar} dasar · ${counts.cakap} cakap · ${counts.mahir} mahir`,
 ];
 const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
+
+// Faset kategori hanya menampilkan kategori yang benar-benar ada di topik ini.
+const presentCategories = assessmentCategories.filter((category) =>
+  all.some((q) => q.category === category.id),
+);
 ---
 
 <BaseLayout title={`Latihan ${topic?.title ?? ''}`} description={`Latihan soal ${topic?.title} berjenjang.`}>
@@ -214,6 +219,107 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
       </div>
     </aside>
 
+    <section class="filter-block" data-practice-filter aria-labelledby="saring-soal">
+      <SectionHeading
+        id="saring-soal"
+        eyebrow="Saring"
+        title="Temukan soal"
+        lead="Saring soal menurut tingkat, kategori, atau status pengerjaanmu, lalu telusuri tiap halaman."
+      />
+      <div class="filter-bar">
+        <div class="filter-group" role="group" aria-labelledby="filter-tingkat-label">
+          <span class="filter-label" id="filter-tingkat-label">Tingkat</span>
+          <div class="filter-options">
+            <button type="button" class="filter-btn" data-filter="tingkat" data-value="" aria-pressed="true">
+              Semua
+            </button>
+            {
+              DIFFICULTY_ORDER.filter((d) => counts[d] > 0).map((d) => (
+                <button
+                  type="button"
+                  class="filter-btn"
+                  data-filter="tingkat"
+                  data-value={d}
+                  aria-pressed="false"
+                >
+                  {DIFFICULTY_LABELS[d]}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+        {
+          presentCategories.length > 0 && (
+            <div class="filter-group" role="group" aria-labelledby="filter-kategori-label">
+              <span class="filter-label" id="filter-kategori-label">
+                Kategori
+              </span>
+              <div class="filter-options">
+                <button
+                  type="button"
+                  class="filter-btn"
+                  data-filter="kategori"
+                  data-value=""
+                  aria-pressed="true"
+                >
+                  Semua
+                </button>
+                {presentCategories.map((category) => (
+                  <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter="kategori"
+                    data-value={category.id}
+                    aria-pressed="false"
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        }
+        <div class="filter-group" role="group" aria-labelledby="filter-tinjau-label">
+          <span class="filter-label" id="filter-tinjau-label">
+            Tinjau ulang
+          </span>
+          <div class="filter-options">
+            <button type="button" class="filter-btn" data-filter="tinjau" data-value="" aria-pressed="true">
+              Semua
+            </button>
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="tinjau"
+              data-value="missed"
+              aria-pressed="false"
+            >
+              Belum tepat
+            </button>
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="tinjau"
+              data-value="unanswered"
+              aria-pressed="false"
+            >
+              Belum dicoba
+            </button>
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="tinjau"
+              data-value="both"
+              aria-pressed="false"
+            >
+              Keduanya
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="filter-result" data-filter-count aria-live="polite"></p>
+    </section>
+
     {
       DIFFICULTY_ORDER.map((d, di) => {
         const items = byDifficulty[d];
@@ -231,7 +337,15 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
             </div>
             <div class="level-cards">
               {items.map((q, i) => (
-                <div id={`q-${q.id}`} class="q-item hover-lift reveal" style={revealStyle(i)} data-reveal>
+                <div
+                  id={`q-${q.id}`}
+                  class="q-item hover-lift reveal"
+                  style={revealStyle(i)}
+                  data-reveal
+                  data-question-row={q.id}
+                  data-difficulty={q.difficulty}
+                  data-category={q.category ?? ''}
+                >
                   <QuestionCard question={q} index={i} />
                 </div>
               ))}
@@ -240,6 +354,16 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
         );
       })
     }
+
+    <nav class="pagination" data-pagination hidden aria-label="Navigasi halaman soal">
+      <button type="button" class="btn btn-secondary btn-sm" data-page-prev>
+        Sebelumnya
+      </button>
+      <span class="pagination-status" data-page-status aria-live="polite"></span>
+      <button type="button" class="btn btn-secondary btn-sm" data-page-next>
+        Berikutnya
+      </button>
+    </nav>
 
     <aside
       class={`topic-cta card card-accent hover-lift reveal${topic ? ` accent-${topic.element}` : ''}`}
@@ -505,6 +629,93 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
+
+  .filter-block {
+    padding-block: 1.5rem;
+  }
+  .filter-block :global(.section-heading) {
+    margin-bottom: 1rem;
+  }
+  .filter-bar {
+    display: grid;
+    gap: 1rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-group {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .filter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .filter-btn {
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text);
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    background: var(--color-surface);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .filter-btn[aria-pressed='true'] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .filter-btn:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .filter-result {
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .q-item[hidden],
+  .level-section[hidden] {
+    display: none !important;
+  }
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .pagination[hidden] {
+    display: none;
+  }
+  .pagination-status {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
 </style>
 
 <script>
@@ -514,6 +725,11 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     missedQuestionIds,
     type ProgressMap,
   } from '@/lib/progress';
+  import { matchesAny } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
+  import { reviewQuestionIds, type ReviewMode } from '@/lib/practice';
+
+  const PAGE_SIZE = 6;
 
   function setupProgress() {
     const root = document.querySelector<HTMLElement>('[data-question-ids]');
@@ -617,6 +833,125 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 
     render();
     window.addEventListener('mtk:progress', render);
+
+    // ---- Saringan tingkat/kategori/tinjau + paginasi soal ----
+    const rows = Array.from(document.querySelectorAll<HTMLElement>('[data-question-row]'));
+    const filterBar = document.querySelector<HTMLElement>('[data-practice-filter]');
+    if (!rows.length || !filterBar) return;
+
+    const countEl = filterBar.querySelector<HTMLElement>('[data-filter-count]');
+    const pagination = document.querySelector<HTMLElement>('[data-pagination]');
+    const pageStatus = pagination?.querySelector<HTMLElement>('[data-page-status]');
+    const pagePrev = pagination?.querySelector<HTMLButtonElement>('[data-page-prev]');
+    const pageNext = pagination?.querySelector<HTMLButtonElement>('[data-page-next]');
+    const levelSections = Array.from(document.querySelectorAll<HTMLElement>('.level-section'));
+
+    let page = 0;
+    let values: Record<string, string> = {};
+
+    function readAttempts(): ProgressMap {
+      try {
+        return loadProgress(storage);
+      } catch {
+        return {};
+      }
+    }
+
+    function reviewSet(mode: string): Set<string> | null {
+      if (!mode) return null;
+      const normalized: ReviewMode =
+        mode === 'missed' ? 'missed' : mode === 'unanswered' ? 'unanswered' : 'both';
+      return new Set(reviewQuestionIds(readAttempts(), ids, normalized));
+    }
+
+    function applyFilters(): void {
+      const selected = (value: string | undefined): Set<string> =>
+        value ? new Set([value]) : new Set<string>();
+      const tingkat = selected(values.tingkat);
+      const kategori = selected(values.kategori);
+      const review = reviewSet(values.tinjau ?? '');
+
+      const matched: HTMLElement[] = [];
+      for (const row of rows) {
+        const difficulty = row.getAttribute('data-difficulty') ?? '';
+        const category = row.getAttribute('data-category') ?? '';
+        const id = row.getAttribute('data-question-row') ?? '';
+        const show =
+          matchesAny(tingkat, [difficulty]) &&
+          matchesAny(kategori, [category]) &&
+          (!review || review.has(id));
+        if (show) matched.push(row);
+      }
+
+      // Sesi tinjau menampilkan seluruh soal yang cocok sekaligus agar tautan
+      // "belum tepat" dapat melompat ke soal mana pun tanpa terpotong halaman.
+      const pageSize = values.tinjau ? Math.max(1, matched.length) : PAGE_SIZE;
+      const totalPages = Math.max(1, Math.ceil(matched.length / pageSize));
+      if (page >= totalPages) page = totalPages - 1;
+      if (page < 0) page = 0;
+
+      const visible = new Set(matched.slice(page * pageSize, page * pageSize + pageSize));
+      for (const row of rows) row.hidden = !visible.has(row);
+      for (const section of levelSections) {
+        section.hidden =
+          section.querySelector<HTMLElement>('[data-question-row]:not([hidden])') === null;
+      }
+
+      if (countEl) {
+        countEl.textContent =
+          matched.length === 0
+            ? 'Tidak ada soal yang cocok dengan saringan ini.'
+            : `Menampilkan ${visible.size} dari ${matched.length} soal yang cocok (total ${rows.length} soal).`;
+      }
+
+      if (pagination) {
+        pagination.hidden = Boolean(values.tinjau) || totalPages <= 1;
+        if (pageStatus) pageStatus.textContent = `Halaman ${page + 1} dari ${totalPages}`;
+        if (pagePrev) pagePrev.disabled = page <= 0;
+        if (pageNext) pageNext.disabled = page >= totalPages - 1;
+      }
+    }
+
+    const groups = Array.from(filterBar.querySelectorAll<HTMLElement>('.filter-group'))
+      .map((group) => ({
+        key: group.querySelector<HTMLElement>('[data-filter]')?.getAttribute('data-filter') ?? '',
+        group,
+        chipSelector: '[data-filter]',
+        valueAttr: 'data-value',
+        allValue: '',
+      }))
+      .filter((spec) => ['tingkat', 'kategori', 'tinjau'].includes(spec.key));
+
+    const filter = setupFilterPage({
+      groups,
+      apply: (next) => {
+        values = next;
+        page = 0;
+        applyFilters();
+      },
+      syncUrl: true,
+    });
+
+    pagePrev?.addEventListener('click', () => {
+      page -= 1;
+      applyFilters();
+    });
+    pageNext?.addEventListener('click', () => {
+      page += 1;
+      applyFilters();
+    });
+
+    // Tautan "belum tepat" pada ringkasan kemajuan membuka sesi tinjau.
+    reviewLink?.addEventListener('click', (event) => {
+      event.preventDefault();
+      filter.setValue('tinjau', 'missed');
+      document.getElementById('saring-soal')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Sesi tinjau sengaja tidak diperbarui setiap jawaban agar soal yang baru
+    // dijawab beserta jawaban modelnya tidak langsung hilang dari layar;
+    // saringan disegarkan saat halaman ditampilkan kembali.
+    window.addEventListener('pageshow', applyFilters);
   }
 
   if (document.readyState === 'loading') {

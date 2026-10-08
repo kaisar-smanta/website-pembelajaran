@@ -280,7 +280,7 @@ const helpId = `reg-help-${exploration.id}`;
     RANDOM_BATCH_SIZE,
     type Domain,
   } from '../../lib/sim/regression';
-  import { el, clear, linearScale } from '../../lib/dom';
+  import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
   import { formatFixed } from '../../lib/format';
 
   interface Pt {
@@ -504,5 +504,5 @@ const helpId = `reg-help-${exploration.id}`;
     draw();
   }
 
-  document.querySelectorAll('[data-reg]').forEach(setupReg);
+  initWhenVisible(document.querySelectorAll('[data-reg]'), setupReg);
 </script>

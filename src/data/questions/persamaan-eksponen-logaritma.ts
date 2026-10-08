@@ -9,7 +9,7 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Tentukan nilai $x$ yang memenuhi $2^{x+1}=32$.',
     options: [
-      { key: 'A', text: '$3$' },
+      { key: 'A', text: '$2$' },
       { key: 'B', text: '$4$' },
       { key: 'C', text: '$5$' },
       { key: 'D', text: '$6$' },
@@ -30,10 +30,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     options: [
       { key: 'A', text: '$2$' },
       { key: 'B', text: '$3$' },
-      { key: 'C', text: '$4$' },
-      { key: 'D', text: '$5$' },
+      { key: 'C', text: '$5$' },
+      { key: 'D', text: '$4$' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       'Karena $3^{4}=81$, maka menurut definisi logaritma $\\log_{3}81=4$.',
     hints: ['Cari pangkat yang membuat $3$ menjadi $81$.'],
@@ -61,7 +61,7 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'konsep',
     prompt: 'Tentukan nilai $x$ dari $5^{2x}=125$. Tulis jawaban dalam bentuk pecahan.',
     answer: '3/2',
-    acceptedAnswers: ['3/2', '1,5', '1.5'],
+    acceptedAnswers: ['3/2', '1,5', '1.5', '1,50', '1.50'],
     explanation:
       '$125=5^{3}$, maka $5^{2x}=5^{3} \\Rightarrow 2x=3 \\Rightarrow x=\\dfrac{3}{2}$.',
     hints: ['Nyatakan $125$ sebagai $5^{3}$.', 'Selesaikan $2x=3$.'],
@@ -75,10 +75,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'konsep',
     prompt: 'Tentukan nilai $x$ yang memenuhi $4^{x+1}=8^{x-1}$.',
     options: [
-      { key: 'A', text: '$3$' },
-      { key: 'B', text: '$4$' },
+      { key: 'A', text: '$4$' },
+      { key: 'B', text: '$6$' },
       { key: 'C', text: '$5$' },
-      { key: 'D', text: '$6$' },
+      { key: 'D', text: '$7$' },
     ],
     answer: 'C',
     explanation:
@@ -109,10 +109,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'penerapan',
     prompt: 'Nilai dari $\\log_{2}12+\\log_{2}6-\\log_{2}9$ adalah …',
     options: [
-      { key: 'A', text: '$2$' },
+      { key: 'A', text: '$1$' },
       { key: 'B', text: '$3$' },
-      { key: 'C', text: '$4$' },
-      { key: 'D', text: '$5$' },
+      { key: 'C', text: '$2$' },
+      { key: 'D', text: '$4$' },
     ],
     answer: 'B',
     explanation:
@@ -144,10 +144,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     options: [
       { key: 'A', text: '$5$' },
       { key: 'B', text: '$6$' },
-      { key: 'C', text: '$7$' },
-      { key: 'D', text: '$8$' },
+      { key: 'C', text: '$8$' },
+      { key: 'D', text: '$7$' },
     ],
-    answer: 'C',
+    answer: 'D',
     explanation:
       'Karena $27=3^{3}$, maka $27^{x-2}=3^{3(x-2)}=3^{3x-6}$. Samakan pangkat: $2x+1=3x-6 \\Rightarrow x=7$. Periksa: kedua ruas bernilai $3^{15}$.',
     hints: ['Ubahlah $27$ menjadi pangkat basis $3$.'],

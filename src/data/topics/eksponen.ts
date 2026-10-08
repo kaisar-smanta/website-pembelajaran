@@ -37,7 +37,6 @@ export const eksponen: Topic = {
     { text: 'Menyederhanakan bentuk akar dan merasionalkan penyebut.' },
     { text: 'Memodelkan situasi pertumbuhan sederhana menggunakan eksponen.' },
   ],
-  explorations: ['eksponen-pertumbuhan'],
   applications: ['pertumbuhan-populasi', 'bunga-investasi'],
   sections: [
     {
@@ -338,69 +337,18 @@ $$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Hitung nilai $3^{4}$ dan $2^{-3}$.
-
-2. Sederhanakan $a^{5} \\cdot a^{-2}$.
-
-3. Hitung $16^{\\frac{3}{4}}$.
-
-4. Sederhanakan $\\sqrt{75}$.
-
-5. Tentukan nilai $\\left(\\dfrac{2}{3}\\right)^{-2}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $3^{4}=81$; $2^{-3}=\\dfrac{1}{8}$.
-2. $a^{5}\\cdot a^{-2}=a^{3}$.
-3. $16^{3/4}=(2^{4})^{3/4}=2^{3}=8$.
-4. $\\sqrt{75}=\\sqrt{25\\cdot3}=5\\sqrt{3}$.
-5. $\\left(\\dfrac{2}{3}\\right)^{-2}=\\left(\\dfrac{3}{2}\\right)^{2}=\\dfrac{9}{4}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Sederhanakan $\\dfrac{(3a^{2}b^{3})^{2}}{a^{4}b}$.
-
-2. Rasionalkan penyebut dari $\\dfrac{4}{\\sqrt{7}+\\sqrt{3}}$.
-
-3. Populasi bakteri berlipat dua setiap 30 menit. Jika mula-mula ada 200 bakteri, berapa banyak bakteri setelah 3 jam?
-
-4. Tentukan $x$ dari $9^{x} = 243$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\dfrac{9a^{4}b^{6}}{a^{4}b}=9b^{5}$.
-2. $\\dfrac{4(\\sqrt7-\\sqrt3)}{7-3}=\\sqrt7-\\sqrt3$.
-3. 3 jam = 6 selang 30 menit, sehingga $200\\cdot2^{6}=200\\cdot64=12\\,800$ bakteri.
-4. $9^{x}=3^{2x}$ dan $243=3^{5}$, maka $2x=5$ sehingga $x=\\dfrac{5}{2}$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Jika $2^{a}=5$, nyatakan $8^{a+1}$ dalam bentuk pangkat dari 5. Jelaskan langkahmu.
-
-2. Buktikan bahwa $\\dfrac{a^{m}}{a^{n}}=a^{m-n}$ untuk $a\\neq0$ dengan menggunakan definisi eksponen dan sifat pembagian.
-
-3. Sebuah alat menurunkan konsentrasi zat sebesar setengah setiap 4 jam. Konsentrasi awal $80$ mg/L. Setelah berapa jam konsentrasinya pertama kali kurang dari $5$ mg/L? Jelaskan strategimu.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. $8^{a+1}=(2^{3})^{a+1}=2^{3a+3}=2^{3a}\\cdot2^{3}=(2^{a})^{3}\\cdot8=5^{3}\\cdot8=1000$. (Bentuk pangkat 5: $1000=5^{3}\\cdot2^{3}$ tidak tunggal sebagai pangkat murni; yang diminta adalah nilainya, yaitu $125\\cdot8=1000$.)
-2. Tulis $\\dfrac{a^{m}}{a^{n}}=\\dfrac{\\overbrace{a\\cdots a}^{m}}{\\underbrace{a\\cdots a}_{n}}$. Setelah mencoret $n$ faktor yang sama, tersisa $m-n$ faktor $a$, yaitu $a^{m-n}$.
-3. Model: $C(t)=80\\left(\\frac12\\right)^{t/4}$. Cari $t$ terkecil dengan $80(1/2)^{t/4}<5 \\Rightarrow (1/2)^{t/4}<1/16=(1/2)^{4} \\Rightarrow t/4>4 \\Rightarrow t>16$. Jadi setelah **lebih dari 16 jam**, pertama kali kurang dari 5 mg/L (pada $t=16$ tepat 5 mg/L).`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -503,8 +451,7 @@ Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuha
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Eksponen dan Bentuk Akar**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa $a^{m}\\cdot a^{n}=a^{m+n}$ hanya berlaku bila basisnya sama? (2) Bagaimana kamu menjelaskan arti pangkat negatif dan pangkat nol? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Eksponen dan Bentuk Akar** untuk latihan tambahan.`,
     },
   ],
 };

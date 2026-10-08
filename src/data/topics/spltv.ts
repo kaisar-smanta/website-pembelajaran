@@ -39,9 +39,6 @@ export const spltv: Topic = {
     { text: 'Memodelkan masalah kontekstual ke dalam SPLTV.' },
     { text: 'Menafsirkan solusi serta mengenali kasus tanpa solusi atau tak berhingga banyak solusi.' },
   ],
-  explorations: [
-    "spltv-perpotongan",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -199,6 +196,14 @@ Kurangkan persamaan (1) dengan (2). Variabel apa yang hilang? Lalu kurangkan per
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Umum Eliminasi dan Substitusi",
+      body: `Baik eliminasi maupun substitusi bermuara pada satu ide yang sama: **kurangi banyak variabel satu per satu sampai tersisa satu**. Setiap langkah memilih dua persamaan, menyetel koefisien satu variabel agar berlawanan atau sama, lalu menjumlahkan atau mengurangkannya. Hasilnya adalah sistem baru dengan satu variabel lebih sedikit yang memiliki solusi sama.
+
+Pola ini menjelaskan mengapa SPLTV selalu dapat diredam menjadi dua persamaan dua variabel, lalu menjadi satu. Setelah satu nilai diperoleh, nilainya disubstitusi kembali ke belakang. Hasil akhirnya hanya mungkin salah satu dari tiga kemungkinan: solusi tunggal, tak berhingga banyak solusi, atau tidak ada solusi, bergantung pada apakah tiga bidangnya berpotongan di satu titik, sepanjang garis, atau tidak bertemu.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -241,72 +246,18 @@ Masukkan $z=4-x$ ke $2x+z=7$: $2x+(4-x)=7 \\Rightarrow x=3$. Maka $y=4$ dan $z=1
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Selesaikan $x+y+z=9$, $2x+y+z=12$, $x+y+2z=11$.
-
-2. Selesaikan $x-y+z=4$, $x+y-z=2$, $2x+y+z=9$.
-
-3. Diketahui $y=x+1$, $z=2x$, dan $x+y+z=9$. Tentukan $x$, $y$, dan $z$.
-
-4. Selesaikan $x+y+z=0$, $x-y+z=-2$, $x+y-z=2$.
-
-5. Diketahui $z=4$, $x+y+z=10$, dan $x-y=2$. Tentukan $x$ dan $y$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Kurangkan persamaan 2 dengan 1: $x=3$. Kurangkan persamaan 3 dengan 1: $z=2$. Maka $y=9-3-2=4$. Solusi $(3,4,2)$.
-2. Jumlahkan persamaan 1 dan 2: $2x=6 \\Rightarrow x=3$. Sisa $y-z=-1$ dan $y+z=3$ (dari $6+y+z=9$). Maka $y=1$, $z=2$. Solusi $(3,1,2)$.
-3. $x+(x+1)+2x=9 \\Rightarrow 4x=8 \\Rightarrow x=2$, lalu $y=3$, $z=4$.
-4. Kurangkan 1 dengan 2: $2y=2 \\Rightarrow y=1$. Kurangkan 1 dengan 3: $2z=-2 \\Rightarrow z=-1$. Maka $x=0$. Solusi $(0,1,-1)$.
-5. $x+y=10-4=6$ dan $x-y=2$. Jumlahkan: $2x=8 \\Rightarrow x=4$, lalu $y=2$. Solusi $(4,2,4)$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Selesaikan $x+2y+z=8$, $2x+y-z=1$, $x-y+2z=5$.
-
-2. Sebuah kotak berisi $30$ keping uang logam terdiri dari pecahan Rp100, Rp200, dan Rp500. Nilai totalnya Rp9.000 dan banyak koin Rp500 adalah dua kali banyak koin Rp100. Tentukan banyak masing-masing koin.
-
-3. Selesaikan $x+y+z=7$, $2x-y+z=7$, $x-y+2z=9$.
-
-4. Harga $2$ buku, $1$ pena, dan $1$ pensil adalah Rp13.000. Harga $1$ buku, $2$ pena, dan $1$ pensil Rp17.000. Harga $1$ buku, $1$ pena, dan $2$ pensil Rp12.000. Tentukan harga satuan setiap barang.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Eliminasi menghasilkan solusi $(1,2,3)$. Periksa: $1+4+3=8$, $2+2-3=1$, $1-2+6=5$.
-2. Misal $a,b,c$ banyak koin Rp100, Rp200, Rp500. Maka $a+b+c=30$, $a+2b+5c=90$ (dibagi 100), dan $c=2a$. Substitusi: $3a+b=30$ dan $11a+2b=90$. Dari $b=30-3a$: $11a+60-6a=90 \\Rightarrow 5a=30 \\Rightarrow a=6$. Maka $b=12$ dan $c=12$. Jadi $6$ koin Rp100, $12$ koin Rp200, $12$ koin Rp500.
-3. Solusi $(2,1,4)$. Periksa: $2+1+4=7$, $4-1+4=7$, $2-1+8=9$.
-4. Misal harga buku $x$, pena $y$, pensil $z$. Jumlahkan ketiga persamaan: $4x+4y+4z=42000 \\Rightarrow x+y+z=10500$. Kurangkan dengan tiap persamaan: $x=2500$, $y=6500$, $z=1500$. Jadi buku Rp2.500, pena Rp6.500, pensil Rp1.500.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Selidiki banyak solusi sistem $x+y+z=6$, $2x+2y+2z=12$, $x-y=0$. Tafsirkan secara geometris.
-
-2. Jumlah tiga bilangan adalah $24$. Bilangan kedua dua kali bilangan pertama, dan bilangan ketiga $4$ lebihnya dari bilangan kedua. Tentukan ketiga bilangan itu.
-
-3. Selesaikan $x+y+z=6$, $x+2y+3z=14$, $x+4y+9z=36$.
-
-4. Dari Contoh 2, jelaskan mengapa memilih persamaan yang sudah menyatakan satu variabel (misalnya $y=x+1$) mempermudah substitusi. Kapan metode eliminasi lebih menguntungkan?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Persamaan kedua sama dengan dua kali persamaan pertama, sehingga tidak memberi informasi baru. Dari $x-y=0$ diperoleh $x=y$, lalu $2x+z=6$ atau $z=6-2x$. Jadi ada tak berhingga banyak solusi $(x,x,6-2x)$. Secara geometris ketiga bidang berpotongan pada satu garis.
-2. Misal bilangan itu $x, 2x, 2x+4$. Maka $x+2x+(2x+4)=24 \\Rightarrow 5x=20 \\Rightarrow x=4$. Bilangan itu $4, 8, 12$. Periksa: $8=2\\cdot4$ dan $12=8+4$.
-3. Kurangkan persamaan 1 dari 2: $y+2z=8$. Kurangkan persamaan 1 dari 3: $3y+8z=30$. Dari $y=8-2z$: $3(8-2z)+8z=30 \\Rightarrow 24+2z=30 \\Rightarrow z=3$. Maka $y=2$ dan $x=1$. Solusi $(1,2,3)$.
-4. Persamaan yang sudah berbentuk eksplisit mengurangi langkah karena satu variabel langsung diganti tanpa perlu mengeliminasi lebih dahulu. Eliminasi lebih menguntungkan bila koefisien variabel mudah dibuat sama atau berlawanan, misalnya kelipatan sederhana.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -388,7 +339,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan artinya, (2) susun tiga p
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Sistem Persamaan Linear Tiga Variabel**.",
+      body: `**Tiket keluar.** (1) Mengapa tujuan utama eliminasi adalah menurunkan banyak variabel satu per satu? (2) Apa perbedaan sistem dengan solusi tunggal, tak berhingga banyak solusi, dan tanpa solusi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Persamaan Linear Tiga Variabel** untuk latihan tambahan.`,
     },
   ],
 };

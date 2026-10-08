@@ -129,9 +129,9 @@ const AUDIT_EXPR = `(() => {
     }
     return { r: 255, g: 255, b: 255, a: 1 };
   }
-  var samples = ['.hero-lead', '.hero-desc', '.hero-note', '.text-muted', '.text-soft', '.eyebrow',
-    '.badge', '.credit-body p', '.philosophy-step p', 'footer a', '.primary-nav a', '.topic-summary',
-    '.card p', '.btn-primary', '.btn-secondary', '.id-body p', '.link-list a'];
+  // Sampel kecil: teks utama, teks sekunder, teks redup, tautan, dan lencana.
+  var samples = ['.hero-lead', '.lead', '.prose p', '.text-soft', '.text-muted',
+    '.badge', '.prose a', '.primary-nav a', 'footer a', '.btn-primary', '.btn-secondary'];
   var contrast = [];
   for (var si = 0; si < samples.length; si++) {
     var list = document.querySelectorAll(samples[si]);
@@ -277,6 +277,35 @@ const INTERACT_EXPR = `(() => {
     if (resultEl && !/^Menampilkan/.test(resultEl.textContent || '')) {
       issues.push({ type: 'filter-result-stuck', severity: 'medium', detail: String(resultEl.textContent).slice(0, 40) });
     }
+
+    // Saringan halaman lain: latihan, aplikasi, glosarium, dan rumus memakai
+    // kelompok chip dengan atribut masing-masing. Tekan semua chip agar jalur
+    // saring dieksekusi, lalu ubah saringan select di halaman pencarian.
+    var chipSelectors = ['[data-filter]', '[data-app-filter]', '[data-glos-filter]', '[data-rumus-filter]'];
+    for (var cs = 0; cs < chipSelectors.length; cs++) {
+      var chips = document.querySelectorAll(chipSelectors[cs]);
+      for (var cc = 0; cc < chips.length; cc++) chips[cc].click();
+    }
+    var filterSelects = document.querySelectorAll('[data-filter-grade], [data-filter-element]');
+    for (var fs = 0; fs < filterSelects.length; fs++) {
+      var selEl = filterSelects[fs];
+      if (selEl.options && selEl.options.length > 1) {
+        selEl.selectedIndex = 1;
+        selEl.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    var searchInputs = document.querySelectorAll(
+      '[data-search-input], [data-app-search-input], [data-glos-search], [data-rumus-search]',
+    );
+    for (var si = 0; si < searchInputs.length; si++) {
+      searchInputs[si].value = 'a';
+      searchInputs[si].dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    // Dasbor kemajuan: buka lalu batalkan konfirmasi hapus data.
+    var resetStart = document.querySelector('[data-reset-start]');
+    if (resetStart) resetStart.click();
+    var resetCancel = document.querySelector('[data-reset-cancel]');
+    if (resetCancel) resetCancel.click();
   } catch (e) {
     issues.push({ type: 'interactive-exception', severity: 'high', detail: String((e && e.message) || e) });
   }
@@ -291,15 +320,17 @@ const BASE_JOBS = [
   { name: 'beranda-1200', path: '/', width: 1200, height: 900 },
   { name: 'beranda-1200-gelap', path: '/', width: 1200, height: 900, dark: true },
   { name: 'beranda-mobile', path: '/', width: 390, height: 844, dsf: 2, mobile: true },
-  { name: 'kelas-x', path: '/kelas/X', width: 1440, height: 900 },
-  { name: 'kelas-x-geometri', path: '/kelas/X/geometri', width: 1440, height: 900 },
+  { name: 'kelas-x', path: '/matematika/kelas/X', width: 1440, height: 900 },
+  { name: 'kelas-x-geometri', path: '/matematika/kelas/X/geometri', width: 1440, height: 900 },
   { name: 'tentang', path: '/tentang', width: 1440, height: 900 },
   { name: 'tentang-mobile', path: '/tentang', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'peta', path: '/peta-pembelajaran', width: 1440, height: 900 },
   { name: 'peta-mobile', path: '/peta-pembelajaran', width: 390, height: 844, dsf: 2, mobile: true },
-  { name: 'topik', path: '/kelas/X/geometri/trigonometri', width: 1440, height: 900 },
-  { name: 'topik-gelap', path: '/kelas/X/geometri/trigonometri', width: 1440, height: 900, dark: true },
-  { name: 'topik-mobile', path: '/kelas/X/geometri/trigonometri', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'topik', path: '/matematika/kelas/X/geometri/trigonometri', width: 1440, height: 900 },
+  { name: 'topik-gelap', path: '/matematika/kelas/X/geometri/trigonometri', width: 1440, height: 900, dark: true },
+  { name: 'topik-mobile', path: '/matematika/kelas/X/geometri/trigonometri', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'topik-lanjut', path: '/matematika-lanjut/kelas/XII/kalkulus/turunan', width: 1440, height: 900 },
+  { name: 'topik-lanjut-mobile', path: '/matematika-lanjut/kelas/XII/kalkulus/turunan', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'latihan', path: '/latihan', width: 1440, height: 900 },
   { name: 'aplikasi', path: '/aplikasi', width: 1440, height: 900 },
   { name: 'alat', path: '/alat', width: 1440, height: 900 },
@@ -321,6 +352,14 @@ const BASE_JOBS = [
   { name: 'kemajuan-mobile', path: '/kemajuan', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'kontak', path: '/kontak', width: 1440, height: 900 },
   { name: 'aksesibilitas', path: '/aksesibilitas', width: 1440, height: 900 },
+  // Halaman dengan saringan/dashboard dijalankan interaktif agar chip, select,
+  // dan kolom cari benar-benar dieksekusi.
+  { name: 'latihan-interaktif', path: '/latihan', width: 1440, height: 900, interact: true },
+  { name: 'cari-interaktif', path: '/cari', width: 1440, height: 900, interact: true },
+  { name: 'kemajuan-interaktif', path: '/kemajuan', width: 1440, height: 900, interact: true },
+  { name: 'aplikasi-interaktif', path: '/aplikasi', width: 1440, height: 900, interact: true },
+  { name: 'glosarium-interaktif', path: '/glosarium', width: 1440, height: 900, interact: true },
+  { name: 'rumus-interaktif', path: '/rumus', width: 1440, height: 900, interact: true },
 ];
 
 // Halaman rincian eksplorasi yang baru dibuat; diberi varian seluler juga.

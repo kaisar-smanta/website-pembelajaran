@@ -38,7 +38,6 @@ export const regresi: Topic = {
     { text: 'Membuat prediksi dari garis regresi dan membedakan interpolasi dengan ekstrapolasi.' },
     { text: 'Menilai keterbatasan model regresi dan menghindari penafsiran yang berlebihan.' },
   ],
-  explorations: ['regresi-sim'],
   applications: ['regresi-nilai-ujian'],
   sections: [
     {
@@ -325,64 +324,18 @@ Karena $\\sqrt{336 \\cdot 508} \\approx 413{,}14$, diperoleh $r \\approx 0{,}968
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `Diberikan data $x = 1, 2, 3, 4, 5$ dan $y = 2, 3, 5, 4, 6$.
-
-1. Hitung $\\bar{x}$ dan $\\bar{y}$.
-2. Tentukan gradien $b$ garis regresi.
-3. Tentukan intersep $a$, lalu tuliskan persamaan garisnya.
-4. Hitung koefisien korelasi $r$ dan determinasi $r^2$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `Diperoleh $\\sum x_i = 15$, $\\sum y_i = 20$, $\\sum x_i y_i = 69$, $\\sum x_i^2 = 55$, $\\sum y_i^2 = 90$, dan $n = 5$.
-
-1. $\\bar{x} = \\dfrac{15}{5} = 3$; $\\bar{y} = \\dfrac{20}{5} = 4$.
-2. $b = \\dfrac{5(69) - (15)(20)}{5(55) - 15^2} = \\dfrac{345 - 300}{275 - 225} = \\dfrac{45}{50} = 0{,}9$.
-3. $a = 4 - 0{,}9(3) = 4 - 2{,}7 = 1{,}3$, sehingga $\\hat{y} = 0{,}9x + 1{,}3$.
-4. $r = \\dfrac{45}{\\sqrt{(50)(5 \\cdot 90 - 20^2)}} = \\dfrac{45}{\\sqrt{50 \\cdot 50}} = \\dfrac{45}{50} = 0{,}9$, sehingga $r^2 = 0{,}81$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `Gunakan garis $\\hat{y} = 0{,}9x + 1{,}3$ dari latihan sebelumnya.
-
-1. Tafsirkan makna gradien $0{,}9$ dalam konteks nilai per satuan $x$.
-2. Perkirakan $y$ ketika $x = 5$ dan ketika $x = 1$.
-3. Jika $r^2 = 0{,}81$, berapa persen variasi $y$ yang **tidak** dijelaskan oleh model?
-4. Jika satu pengamatan ekstrem ditambahkan dan nilai $r$ turun menjadi $0{,}45$, apa artinya bagi keandalan prediksi?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Setiap kenaikan 1 satuan $x$ dikaitkan dengan kenaikan rata-rata $y$ sebesar $0{,}9$ satuan.
-2. $\\hat{y}(5) = 0{,}9(5) + 1{,}3 = 5{,}8$; $\\hat{y}(1) = 0{,}9(1) + 1{,}3 = 2{,}2$.
-3. Karena $r^2 = 0{,}81 = 81\\%$, maka $100\\% - 81\\% = 19\\%$ variasi $y$ tidak dijelaskan oleh model linear.
-4. Turunnya $r$ menjadi $0{,}45$ (dan $r^2 \\approx 0{,}20$) berarti hubungan linear melemah; prediksi menjadi jauh kurang andal dan model linear mungkin tidak lagi tepat.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Data $x = 1, 2, 3, 4$ dengan $y = 3, 5, 7, 9$ membentuk garis lurus sempurna. Tentukan $\\hat{y}$ dan $r$ tanpa menghitung panjang, lalu jelaskan nilainya.
-2. Sebuah model menghasilkan $r = 0{,}99$ pada rentang $x \\in [10, 20]$. Seorang analis memakainya untuk memprediksi $x = 100$. Jelaskan mengapa prediksi ini berisiko meskipun $r$ sangat tinggi.
-3. Buktikan bahwa garis kuadrat terkecil selalu melalui titik $(\\bar{x}, \\bar{y})$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Karena $y$ naik tepat 2 setiap $x$ naik 1 dan $\\hat{y}(0) = 1$, maka $\\hat{y} = 2x + 1$. Semua titik tepat di garis, sehingga tidak ada residu: $r = 1$ dan $r^2 = 1$ (variasi $y$ dijelaskan 100%).
-2. $r$ hanya mengukur kekuatan hubungan linear **pada rentang data yang diamati**. Di luar rentang itu (ekstrapolasi jauh), pola bisa berubah, misalnya melengkung atau mendatar. Koefisien korelasi tinggi tidak menjamin model tetap valid jauh di luar data.
-3. Substitusikan $x = \\bar{x}$ ke $\\hat{y} = b x + a$ dengan $a = \\bar{y} - b\\bar{x}$: maka $\\hat{y} = b\\bar{x} + (\\bar{y} - b\\bar{x}) = \\bar{y}$. Jadi titik $(\\bar{x},\\bar{y})$ selalu berada pada garis regresi.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -405,6 +358,20 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
 **4. Berprediksi jauh di luar rentang data tanpa peringatan.** Model dari $x = 1$ sampai $8$ tidak otomatis berlaku untuk $x = 100$.
 
 **5. Mengabaikan residu besar.** Nilai $r$ tinggi bisa menyembunyikan beberapa titik yang menyimpang jauh (pencilan). Periksa selalu diagram pencarnya, bukan hanya angkanya.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan perhitungan gradien regresi dari data $n=8$, $\\sum x_i=36$, $\\sum y_i=50$, $\\sum x_i y_i=275$, dan $\\sum x_i^2=204$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Gunakan rumus $b = \\dfrac{n\\sum x_i y_i - \\left(\\sum x_i\\right)\\left(\\sum y_i\\right)}{n\\sum x_i^2 - \\left(\\sum x_i\\right)^2}$.",
+            "Substitusi angka: $b = \\dfrac{8(275) - (36)(50)}{8(204) - (36)}$.",
+            "Hitung pembilang: $2200 - 1800 = 400$.",
+            "Sederhanakan: $b = \\dfrac{400}{1632 - 36} = \\dfrac{400}{1596} \\approx 0{,}251$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Langkah kedua keliru. Suku $(\\sum x_i)^2$ berarti $36^2 = 1296$, bukan $36$. Penyebut yang benar adalah $8(204) - 1296 = 336$, sehingga $b = \\dfrac{400}{336} = \\dfrac{25}{21} \\approx 1{,}190$.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -471,7 +438,7 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Regresi Linear**.",
+      body: `**Tiket keluar.** (1) Apa perbedaan peran $r$ dan $r^2$ dalam menilai sebuah model? (2) Mengapa prediksi jauh di luar rentang data berisiko? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Regresi Linear** untuk latihan tambahan.`,
     },
   ],
 };

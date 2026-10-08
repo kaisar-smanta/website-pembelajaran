@@ -218,7 +218,7 @@ const initialAria =
     formatLinear,
   } from '../../lib/sim/function-composition';
   import type { Linear } from '../../lib/sim/function-composition';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
   import { formatPlain } from '../../lib/format';
 
   type ParamName = 'a' | 'b' | 'c' | 'd';
@@ -392,5 +392,5 @@ const initialAria =
     render();
   }
 
-  document.querySelectorAll('[data-compose]').forEach(setupCompose);
+  initWhenVisible(document.querySelectorAll('[data-compose]'), setupCompose);
 </script>

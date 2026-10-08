@@ -50,7 +50,7 @@ export const peluangBersyaratQuestions: Question[] = [
     prompt:
       'Dari 200 siswa, 70 siswa suka Fisika dan di antaranya 40 siswa juga suka Matematika. Jika $F$ = suka Fisika dan $M$ = suka Matematika, tentukan $P(M \\mid F)$.',
     answer: '4/7',
-    acceptedAnswers: ['4/7', '40/70'],
+    acceptedAnswers: ['4/7', '40/70', '0,57', '0.57', '0,571', '0.571', '0,5714', '0.5714'],
     explanation:
       'Karena yang diketahui adalah suka Fisika, gunakan total milik $F$: $P(M \\mid F) = \\dfrac{n(M \\cap F)}{n(F)} = \\dfrac{40}{70} = \\dfrac{4}{7}$.',
     hints: ['Untuk $P(M \\mid F)$, bagi irisan dengan total siswa yang suka Fisika.'],
@@ -85,7 +85,7 @@ export const peluangBersyaratQuestions: Question[] = [
     prompt:
       'Dari 6 siswa laki-laki dan 4 siswa perempuan akan dipilih 3 orang secara acak. Tentukan peluang terpilih tepat 2 siswa laki-laki.',
     answer: '1/2',
-    acceptedAnswers: ['1/2', '60/120'],
+    acceptedAnswers: ['1/2', '60/120', '0,5', '0.5', '0,50', '0.50'],
     explanation:
       'Banyak cara memilih 3 dari 10 siswa adalah $\\binom{10}{3} = 120$. Cara memilih tepat 2 laki-laki dan 1 perempuan adalah $\\binom{6}{2}\\binom{4}{1} = 15 \\cdot 4 = 60$. Jadi $P = \\dfrac{60}{120} = \\dfrac{1}{2}$.',
     hints: ['Gunakan kombinasi karena urutan pemilihan tidak diperhatikan.'],
@@ -120,7 +120,7 @@ export const peluangBersyaratQuestions: Question[] = [
     prompt:
       'Dua kartu diambil berturut-turut dari 52 kartu tanpa pengembalian. Tentukan peluang kedua kartu tersebut As.',
     answer: '1/221',
-    acceptedAnswers: ['1/221', '4/2652'],
+    acceptedAnswers: ['1/221', '4/2652', '0,0045', '0.0045', '0,00452', '0.00452', '0,004525', '0.004525'],
     explanation:
       '$P(\\text{As}_1) = \\dfrac{4}{52} = \\dfrac{1}{13}$ dan $P(\\text{As}_2 \\mid \\text{As}_1) = \\dfrac{3}{51} = \\dfrac{1}{17}$, sehingga $P(\\text{As}_1 \\cap \\text{As}_2) = \\dfrac{1}{13} \\cdot \\dfrac{1}{17} = \\dfrac{1}{221}$.',
     hints: ['Gunakan aturan perkalian $P(A \\cap B) = P(A \\mid B)P(B)$.'],

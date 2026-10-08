@@ -94,6 +94,10 @@ npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
      prerequisites: ['eksponen'],     // id topik (referensi, bukan teks)
      relatedTopics: ['barisan-deret'],
      objectives: [{ text: 'Peserta didik dapat ...' }],
+     applications: ['contoh-studi'], // id studi kasus terkait (opsional)
+     status: 'lengkap',              // 'lengkap' | 'rencana' (lihat planned.ts)
+     supplementary: true,            // pengayaan di luar CP (opsional)
+     cpNote: 'Catatan kaitan dengan CP.', // opsional
      sections: [
        {
          id: 'konsep',
@@ -101,6 +105,8 @@ npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
          title: 'Konsep Inti',
          body: 'Tulis markdown di sini. Matematika memakai $x^2$ atau $$\\int x\\,dx$$.',
        },
+       // Tarik otomatis soal topik pada tingkat ini dari bank soal.
+       { id: 'latihan-dasar', kind: 'latihan-dasar', level: 'dasar' },
      ],
    };
    ```
@@ -110,10 +116,27 @@ npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
    `src/data/questions/index.ts`.
 4. Halaman topik, peta kurikulum, pencarian, dan breadcrumb otomatis dibuat.
 
+Topik yang materinya belum ditulis cukup dicantumkan sebagai roadmap di
+`src/data/topics/planned.ts` (`PlannedTopic`, `status: 'rencana'`). Entri tersebut
+ditampilkan sebagai penanda **rencana** pada halaman kelas, bukan tautan kosong
+(daftarnya saat ini kosong dan dipertahankan sebagai wadah topik berikutnya).
+Field `status` pada `Topic` menandai materi `'lengkap'` atau `'rencana'`.
+
 Jenis bagian (`SectionKind`) yang tersedia: `tujuan`, `pemantik`, `prasyarat`, `konteks`,
 `konsep`, `representasi`, `eksplorasi`, `generalisasi`, `rumus`, `contoh`, `latihan-dasar`,
 `latihan-cakap`, `latihan-mahir`, `dunia-nyata`, `kesalahan-umum`, `refleksi`, `rangkuman`,
 `evaluasi`, `catatan`.
+
+Bagian `latihan-dasar`, `latihan-cakap`, dan `latihan-mahir` menarik soal topik dari bank
+soal secara otomatis lewat `src/components/exercises/PracticeSet.astro`. Sebuah bagian juga
+dapat menyematkan soal lewat `questionIds` (daftar id eksplisit) atau `practiceLevel`
+(menarik seluruh soal topik pada tingkat tersebut). Soal dirender `QuestionCard.astro`,
+sehingga penilaian dan pembahasan konsisten dengan halaman `/latihan`. Tingkat dan jumlah
+soal dihitung `src/lib/practice.ts`.
+
+Bagian `generalisasi` yang memuat rumus tampil (`$$...$$`) turut dihimpun halaman
+`/rumus` bersama bagian `rumus` (`src/lib/reference.ts`), sehingga rumus tidak perlu
+ditulis ulang di dua tempat.
 
 Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
 `src/components/content/BlockRenderer.astro`:
@@ -123,7 +146,6 @@ Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
 | `callout` | Sorotan info/perhatian/tips/konsep. |
 | `table` | Tabel (opsional sel matematika). |
 | `exploration` | Menyisipkan simulasi dari `explorations.ts`. |
-| `geogebra` | Sematan GeoGebra. |
 | `details` | Pembahasan berbalut tombol buka-tutup. |
 | `prediction` | Pertanyaan pemantik: siswa menyimpan dugaan lebih dulu, lalu penjelasan terbuka. |
 | `reflection` | Pertanyaan refleksi dengan jawaban + skala keyakinan tersimpan di peramban. |
@@ -132,6 +154,9 @@ Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
 | `match` | Mencocokkan istilah–makna dengan kartu. |
 | `flip-cards` | Kartu bolak-balik untuk istilah. |
 | `tabs` | Penukar representasi (simbolik/grafik/tabel). |
+
+> Blok `geogebra` sudah dihapus. Sematan GeoGebra kini hanya melalui tipe eksplorasi
+> `geogebra` (lihat bagian Aktivitas Interaktif), bukan blok di dalam `Section`.
 
 Contoh blok interaktif:
 
@@ -176,7 +201,8 @@ dikerjakan.
 
 Soal disimpan terpisah dari UI di `src/data/questions/`. Tipe `Question` mendukung
 `multiple-choice`, `short-answer`, dan `open-response`. Pemeriksaan jawaban berjalan di
-peramban (tanpa server) melalui komponen `QuestionCard.astro`.
+peramban (tanpa server) melalui komponen `QuestionCard.astro`; logika murninya berada di
+`src/lib/answer.ts` sehingga dapat diuji terpisah.
 
 ```ts
 import type { Question } from '@/types/content';
@@ -200,18 +226,65 @@ export const topikBaruQuestions: Question[] = [
 ];
 ```
 
-Untuk `short-answer`, tambahkan `acceptedAnswers` berisi bentuk ekuivalen.
+Untuk `short-answer`, isi `answer` dengan kunci utama dan `acceptedAnswers` dengan
+padanan formatnya. `tests/questions.mjs` mewajibkan `acceptedAnswers` untuk jawaban
+bertipe selain bilangan bulat telanjang (bilangan bulat seperti cacah, derajat
+polinomial, atau sisa bagi boleh tanpa padanan).
+
+### Format jawaban singkat yang diterima
+
+Pencocokan jawaban dilakukan murni di `src/lib/answer.ts`, dipakai bersama oleh
+`QuestionCard.astro` (peramban) dan `tests/answer.mjs` (Node). Jawaban dinormalkan lebih
+dulu sehingga perbedaan penulisan tidak menghukum siswa:
+
+- spasi, `$`, kurung, `\left`/`\right`, dan pemisah LaTeX (`\,`, `\;`, `\!`) diabaikan;
+- tanda minus Unicode (`−`, en/em dash) disamakan ke `-`; superskrip (`x²`, `x⁻¹`)
+  menjadi `^n`;
+- `\frac`/`\dfrac` ↔ pecahan biasa dan `\sqrt`/`√` dianggap sama;
+- simbol perkalian `×`, `·`, `\cdot`, dan `*` diseragamkan (tidak dihapus, sehingga
+  `3×4` tetap berbeda dari `34`);
+- angka ala Indonesia: koma desimal ↔ titik desimal, pemisah ribuan dibuang
+  (`Rp120.000,00` = `120.000` = `120000`), awalan `Rp` opsional.
+
+Setelah penormalan, nilai numerik yang sama diterima (mis. `3/4` = `0,75` = `0.75`;
+`0,90` = `0,9` = `.9`) dengan toleransi relatif `1e-6`. Bentuk derajat saling cocok
+(`45`, `45°`, `45 derajat`, `45^\circ`). Pembulatan yang benar-benar berbeda tetap
+ditolak (mis. `0,34` ≠ `1/3`).
+
+---
+
+## Latihan & Asesmen
+
+Bank soal dari `src/data/questions/` tampil di dua halaman: katalog `/latihan` dan
+halaman per topik `/latihan/[topic]`.
+
+- **Katalog `/latihan`** dikelompokkan per mata pelajaran, kelas, lalu elemen.
+  Saringan kelas, elemen, dan tingkat disinkronkan ke URL (`setupFilterPage` di
+  `src/lib/filter-dom.ts`) sehingga tautan dapat dibagikan. Kartu topik menampilkan
+  progres soal yang sudah dikerjakan dari `localStorage`.
+- **Halaman per topik** menambahkan saringan tingkat, kategori asesmen, dan status
+  tinjau (belum tepat / belum dicoba / keduanya), paginasi enam soal per halaman,
+  ringkasan kemajuan, serta daftar **tinjau soal yang belum tepat** yang melompat ke
+  soal terkait. Jawaban salah tetap menampilkan jawaban model penuh beserta pembahasan.
+- Mode **tinjau** memakai `reviewQuestionIds` (`src/lib/practice.ts`) dan menampilkan
+  seluruh soal yang cocok sekaligus (tanpa paginasi).
+- **Kuis kilat** (`QuizTeaser.astro`) pada beranda/halaman terkait memiliki status
+  selesai: setelah semua soal dijawab, skor ketepatan dan tombol "Ulangi kuis"
+  ditampilkan.
+
+Uji terkait: `tests/practice.mjs`, `tests/questions.mjs`, `tests/answer.mjs`, dan
+`tests/progress.mjs`.
 
 ---
 
 ## Menambah Studi Kasus (Matematika dalam Kehidupan)
 
 Studi kasus disimpan per kategori di `src/data/applications/`
-(`keuangan.ts`, `data.ts`, `pertumbuhan.ts`, `pengukuran.ts`) dan digabung oleh
-`src/data/applications/index.ts`. Berkas `index.ts` juga menyimpan metadata
-kategori terpusat (`applicationCategories`) — nama, deskripsi, elemen, dan aksen
-— sehingga halaman `/aplikasi`, beranda, dan peta kurikulum tidak lagi
-menduplikasi pemetaan.
+(`keuangan.ts`, `data.ts`, `pertumbuhan.ts`, `pengukuran.ts`, plus `lanjut.ts`
+untuk Matematika Tingkat Lanjut) dan digabung oleh `src/data/applications/index.ts`.
+Berkas `index.ts` juga menyimpan metadata kategori terpusat (`applicationCategories`) —
+nama, deskripsi, elemen, dan aksen — sehingga halaman `/aplikasi`, beranda, dan peta
+kurikulum tidak lagi menduplikasi pemetaan.
 
 ```ts
 import type { Application } from '@/types/content';
@@ -252,12 +325,14 @@ dibangkitkan dari data ini.
 1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu dari
    `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
    `distribution`, `conditional-probability`, `circle`, `matrix`, `linear-system`,
-   `function-composition`, `function-inverse`, `polynomial`, `conic`, `derivative`, `integral`,
-   `random-variable`, atau `geogebra`. Isi juga `grade`, `element`,
+   `function-composition`, `function-inverse`, `polynomial`, `vector`, `conic`, `derivative`,
+   `integral`, `random-variable`, atau `geogebra`. Isi juga `grade`, `element`,
    `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
    dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
    (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
    `/eksplorasi/[slug]`, pencarian, dan peta sitemap sepenuhnya dibangkitkan dari registri ini.
+   Tipe `geogebra` menyematkan applet lewat `url` dan hanya boleh menunjuk applet spesifik,
+   bukan beranda GeoGebra generik (diperiksa `tests/explorations.mjs`).
 2. Untuk tipe yang sudah ada, cukup menautkan `explorationId` pada blok `exploration` di dalam
    sebuah `section`:
 
@@ -265,15 +340,13 @@ dibangkitkan dari data ini.
    blocks: [{ kind: 'exploration', explorationId: 'regresi-sim' }]
    ```
 
-3. Untuk **GeoGebra**, gunakan blok `geogebra` (tidak ada ID yang di-hardcode di komponen):
-
-   ```ts
-   blocks: [{ kind: 'geogebra', url: 'https://www.geogebra.org/classic', title: 'Aktivitas' }]
-   ```
-
-4. Untuk tipe baru, buat komponen di `src/components/interactive/`, letakkan logika murni di
+3. Untuk tipe baru, buat komponen di `src/components/interactive/`, letakkan logika murni di
    `src/lib/sim/` (agar dapat diuji tanpa DOM), lalu daftarkan pada
    `src/components/interactive/ExplorationSim.astro`. Tambahkan uji `tests/sim-<tipe>.mjs`.
+4. Simulasi disiapkan **lazy** saat mendekati viewport lewat `initWhenVisible`
+   (`src/lib/dom.ts`), sehingga halaman dengan banyak simulasi (mis. `/eksplorasi`) tidak
+   menyiapkan semuanya sekaligus. Bila `IntersectionObserver` tidak tersedia, simulasi
+   langsung disiapkan.
 
 ---
 
@@ -330,11 +403,13 @@ Topik pengayaan yang melampaui CP (mis. SPLTV, aljabar matriks) ditandai
 ```
 src/
 ├── components/
-│   ├── layout/        Header, Footer, ThemeToggle, BaseLayout
+│   ├── layout/        Header, Footer, ThemeToggle, BackToTop, BaseLayout
 │   ├── navigation/    Breadcrumbs
-│   ├── content/       SectionBlock, TopicCard, Callout, DataTable, ElementIcon, MathMascot
-│   ├── exercises/     QuestionCard, QuizTeaser
-│   ├── interactive/   FunctionSlider, CompoundInterestSim, ... + sim.css (gaya bersama)
+│   ├── content/       SectionBlock, TopicCard, TopicProgress, TopicApplications,
+│   │                  PrerequisiteGraph, Callout, DataTable, ElementIcon, MathMascot
+│   ├── exercises/     QuestionCard, PracticeCard, QuizTeaser
+│   ├── progress/      ContinueLearning (modul "Lanjutkan belajar")
+│   ├── interactive/   FunctionSlider, VectorExplorer, ... + sim.css (gaya bersama)
 │   └── ui/            CtaCard (kartu ajakan bersama)
 ├── data/
 │   ├── curriculum.ts   Daftar kelas & elemen + meta
@@ -342,20 +417,24 @@ src/
 │   ├── curriculum/     Registri CP & riwayat regulasi (cp.ts)
 │   ├── site.ts         Identitas situs, penyusun, sekolah, & tautan resmi
 │   ├── nav.ts          Navigasi header/footer
+│   ├── tools.ts        Kelompok alat matematika (beraksen elemen)
+│   ├── learning-paths.ts  Jalur konsep pada peta pembelajaran
 │   ├── explorations.ts Registri eksplorasi interaktif
 │   ├── applications/   Studi kasus "Matematika dalam Kehidupan"
 │   │                   (index.ts + satu berkas per kategori)
 │   ├── topics/         Satu berkas per topik (materi, blok interaktif ditulis langsung)
+│   │                   + index.ts dan planned.ts (roadmap)
 │   └── questions/      Satu berkas per topik (bank soal)
 ├── layouts/            BaseLayout.astro
 ├── lib/                Pustaka murni & dapat diuji: sim/ (perhitungan),
-│                       graph/layout.ts, storage.ts, learner.ts, progress.ts,
-│                       progress-overview.ts (rekap belajar), answer.ts
-│                       (normalisasi & pencocokan jawaban), reference.ts
-│                       (agregasi glosarium & rumus), format.ts, dom.ts,
-│                       interaction.ts, filter.ts, content-text.ts,
-│                       search.ts (skor & sorot pencarian),
-│                       practice.ts (hitung & kelompokin soal per tingkat)
+│                       graph/layout.ts (tata letak graf prasyarat), storage.ts,
+│                       learner.ts, progress.ts, progress-overview.ts (rekap
+│                       belajar), answer.ts (normalisasi & pencocokan jawaban),
+│                       reference.ts (agregasi glosarium & rumus), format.ts,
+│                       dom.ts (initWhenVisible untuk simulasi lazy),
+│                       interaction.ts, filter.ts, filter-dom.ts,
+│                       content-text.ts, search.ts (skor, fuzzy, sorot
+│                       pencarian), practice.ts (hitung & kelompokin soal)
 ├── pages/              Rute (lihat tabel di bawah)
 ├── styles/             global.css (perakit @import berurutan) +
 │                       partials/ (tokens, base, layout, components, decor,
@@ -372,27 +451,27 @@ src/
 
 | Pola | Halaman |
 | --- | --- |
-| `/` | Beranda |
+| `/` | Beranda (termasuk modul "Lanjutkan belajar") |
 | `/peta-pembelajaran` | Peta kurikulum + jalur konsep |
 | `/matematika`, `/matematika-lanjut` | Halaman mata pelajaran |
-| `/[subject]/kelas/[grade]` | Kelas X/XI/XII (`subject` = `matematika` \| `matematika-lanjut`) |
+| `/[subject]/kelas/[grade]` | Kelas X/XI/XII (`subject` = `matematika` \| `matematika-lanjut`), dengan modul "Lanjutkan belajar" |
 | `/[subject]/kelas/[grade]/[element]` | Elemen dalam kelas |
-| `/[subject]/kelas/[grade]/[element]/[topic]` | Halaman materi (breadcrumb, prasyarat, terkait, peta isi) |
+| `/[subject]/kelas/[grade]/[element]/[topic]` | Halaman materi (breadcrumb, prasyarat, terkait, peta isi, pager lintas elemen, latihan tertanam; aside direorder di layar sempit) |
 | `/kelas/...`, `/elemen/...` | Pengalih statis rute lama ke `/matematika/...` |
-| `/latihan`, `/latihan/[topic]` | Latihan berjenjang dengan pemeriksaan sisi klien |
+| `/latihan`, `/latihan/[topic]` | Latihan berjenjang: saringan, paginasi, sesi tinjau, pemeriksaan sisi klien |
 | `/eksplorasi` | Katalog & simulasi interaktif (dapat disaring) |
 | `/eksplorasi/[slug]` | Halaman rincian satu eksplorasi (simulasi, brief, navigasi) |
-| `/alat` | Alat matematika daring |
+| `/alat` | Alat matematika daring (kelompok beraksen elemen) |
 | `/aplikasi`, `/aplikasi/[id]` | Matematika dalam kehidupan |
 | `/glosarium` | Glosarium istilah dari seluruh topik (saring & cari) |
-| `/rumus` | Lembar kumpulan rumus per mata pelajaran & elemen |
+| `/rumus` | Kumpulan rumus & generalisasi per mata pelajaran & elemen |
 | `/kemajuan` | Dasbor kemajuan belajar tersimpan (reset & ekspor data) |
 | `/peta-situs` | Peta situs ramah manusia (seluruh topik & halaman) |
 | `/kontak` | Kanal kontak penyusun & sekolah |
 | `/aksesibilitas` | Pernyataan aksesibilitas situs |
 | `/referensi` | Catatan kurikulum & sumber |
 | `/tentang` | Profil penyusun, sekolah, kredit, & catatan penggunaan |
-| `/cari` | Pencarian sisi klien (indeks `search.json`) |
+| `/cari` | Pencarian sisi klien (indeks `search.json`; toleran salah ketik) |
 | `/sitemap.xml`, `/robots.txt` | SEO |
 
 ---
@@ -400,6 +479,17 @@ src/
 ## Personalisasi, Gerak, dan Kredit
 
 - **Bahasa & nada**: sapaan ramah untuk siswa tanpa emoji; kualitas materi tetap akurat dan serius.
+- **Lanjutkan belajar**: modul `ContinueLearning.astro` pada beranda dan halaman kelas memilih
+  topik yang sudah dimulai tetapi belum tuntas (atau titik awal sesuai kelas/prasyarat) dari
+  `src/lib/progress-overview.ts`, lalu menyegarkan diri saat ada progres atau interaksi baru.
+- **Kembali ke atas**: tombol global `BackToTop.astro` muncul setelah menggulir jauh dan
+  mengembalikan fokus ke konten setelah diklik.
+- **Pencarian toleran salah ketik**: `/cari` menjalankan lintasan ketat lebih dulu, lalu
+  lintasan fuzzy (jarak edit Levenshtein) dengan saran koreksi. Indeks `search.json` mencakup
+  topik, latihan, studi kasus, eksplorasi, halaman, serta **glosarium** dan **rumus**
+  (`src/lib/search.ts`, `src/lib/reference.ts`).
+- **Navigasi terpusat**: menu header/footer disimpan di `src/data/nav.ts`; grup **Rujukan**
+  mengelompokkan Glosarium, Kumpulan Rumus, dan Kemajuan Saya.
 - **Gerak playful**: design token durasi/easing, keyframes (`rise-in`, `pop-in`, `float-slow`,
   `bob`, `wiggle`), kelas utilitas reveal saat scroll (IntersectionObserver), hover lift, dan
   mikrointeraksi pada tombol, kartu, badge, serta header. Semua gerak **dimatikan** saat

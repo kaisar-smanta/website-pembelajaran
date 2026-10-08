@@ -40,7 +40,6 @@ export const peluang: Topic = {
     { text: 'Menghitung frekuensi harapan dan menafsirkannya dalam konteks.' },
     { text: 'Menghitung frekuensi harapan kejadian majemuk, seperti jumlah tertentu pada dua dadu atau hasil pada dua koin.' },
   ],
-  explorations: ['peluang-sim'],
   applications: ['survei-statistik'],
   sections: [
     {
@@ -286,7 +285,7 @@ $$P(A \\cup B) = \\tfrac12 + \\tfrac12 - \\tfrac16 = \\tfrac56.$$
 
 **Contoh 2 — Dua dadu.** Ruang sampelnya $36$ hasil. Jumlah $7$ dapat muncul dari $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, yaitu $6$ cara, sehingga $P(\\text{jumlah }7) = \\tfrac{6}{36} = \\tfrac16$. Adapun jumlah $\\geq 10$ muncul dari $3 + 2 + 1 = 6$ cara, sehingga peluangnya juga $\\tfrac{6}{36} = \\tfrac16$.
 
-**Contoh 3 — Tiga koin.** Ruang sampel berukuran $8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Kejadian "paling sedikit satu gambar" adalah komplemen dari "tidak ada gambar" (yaitu $GGG$ dengan peluang $\\tfrac18$), maka $P = 1 - \\tfrac18 = \\tfrac78$.
+**Contoh 3 — Tiga koin.** Ruang sampel berukuran $8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Kejadian "paling sedikit satu gambar" adalah komplemen dari "tidak ada gambar" (yaitu $AAA$ dengan peluang $\\tfrac18$), maka $P = 1 - \\tfrac18 = \\tfrac78$.
 
 **Contoh 4 — Frekuensi harapan.** Dua dadu dilempar $180$ kali. Karena $P(\\text{jumlah }7) = \\tfrac16$, frekuensi harapan muncul jumlah $7$ adalah $180 \\cdot \\tfrac16 = 30$ kali.`,
       blocks: [
@@ -329,58 +328,18 @@ Jadi kita mengharapkan sekitar $90$ dari $240$ pelemparan menghasilkan tepat dua
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Sebuah dadu dilempar sekali. Tentukan peluang muncul mata lebih dari 4.
-2. Pada percobaan yang sama, tentukan peluang muncul mata **bukan** bilangan prima.
-3. Sebuah koin dilempar tiga kali. Tentukan peluang muncul tiga-tiganya gambar.
-4. Tentukan banyak anggota ruang sampel pelemparan dua koin.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Mata lebih dari 4 adalah $\\{5,6\\}$, sehingga $P = \\tfrac{2}{6} = \\tfrac13$.
-2. Prima $= \\{2,3,5\\}$ sehingga $P(\\text{prima}) = \\tfrac36 = \\tfrac12$; maka $P(\\text{bukan prima}) = 1 - \\tfrac12 = \\tfrac12$.
-3. $n(S) = 2^3 = 8$ dan hanya ada satu hasil $GGG$, sehingga $P = \\tfrac18$.
-4. $n(S) = 2 \\times 2 = 4$, yaitu $\\{AA, AG, GA, GG\\}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Dua dadu dilempar bersama. Tentukan peluang jumlah kedua mata dadu sama dengan 7 atau 11.
-2. Dua dadu dilempar $108$ kali. Berapa frekuensi harapan munculnya jumlah 7 atau 11 berdasarkan hasil nomor 1?
-3. Sebuah kotak berisi 4 bola merah dan 6 bola biru. Diambil satu bola. Tentukan peluang terambil bola merah atau bola biru.
-4. Dua koin dilempar bersamaan. Apakah kejadian "koin pertama gambar" dan "koin kedua gambar" saling bebas? Jelaskan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Jumlah $7$ ada $6$ cara dan jumlah $11$ ada $2$ cara ($(5,6),(6,5)$), keduanya saling lepas, sehingga $P = \\tfrac{6+2}{36} = \\tfrac{8}{36} = \\tfrac29$.
-2. $F_h = 108 \\cdot \\tfrac29 = 24$ kali.
-3. Kedua kejadian saling lepas dan menutupi seluruh ruang sampel, sehingga $P = \\tfrac{4}{10} + \\tfrac{6}{10} = 1$ (pasti terambil salah satunya).
-4. Ya, saling bebas, karena hasil satu koin tidak memengaruhi koin lain: $P(\\text{keduanya gambar}) = \\tfrac12 \\cdot \\tfrac12 = \\tfrac14$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Sebuah dadu dilempar dua kali. Tentukan peluang munculnya **paling sedikit satu** mata 6.
-2. Pada satu lemparan dadu, $A = \\{2,4,6\\}$ (genap) dan $B = \\{2,3,5\\}$ (prima). Periksa apakah $A$ dan $B$ saling bebas. Apa kesimpulanmu?
-3. Tiga koin dilempar. Hitung peluang muncul tepat dua gambar **atau** tepat satu gambar.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Gunakan komplemen. $P(\\text{tidak ada 6}) = \\tfrac56 \\cdot \\tfrac56 = \\tfrac{25}{36}$, maka $P(\\text{paling sedikit satu 6}) = 1 - \\tfrac{25}{36} = \\tfrac{11}{36} \\approx 0{,}306$.
-2. $P(A) = \\tfrac12$, $P(B) = \\tfrac12$, dan $P(A \\cap B) = P(\\{2\\}) = \\tfrac16$. Karena $P(A)P(B) = \\tfrac14 \\neq \\tfrac16$, maka $A$ dan $B$ **tidak saling bebas**. Mengetahui muncul mata genap mengubah peluang muncul mata prima.
-3. Tepat dua gambar: $\\binom32 = 3$ cara; tepat satu gambar: $\\binom31 = 3$ cara. Keduanya saling lepas, sehingga $P = \\tfrac{3+3}{8} = \\tfrac68 = \\tfrac34$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -484,7 +443,7 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Peluang**.",
+      body: `**Tiket keluar.** (1) Kapan aturan $P(A\\cup B)=P(A)+P(B)$ boleh dipakai? (2) Apa perbedaan kejadian saling lepas dan kejadian saling bebas? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Peluang** untuk latihan tambahan.`,
     },
   ],
 };

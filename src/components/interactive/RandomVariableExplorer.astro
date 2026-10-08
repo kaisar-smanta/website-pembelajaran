@@ -30,11 +30,11 @@ const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X)
         <div class="rv-row">
           <label class="rv-x">
             <span>Nilai x</span>
-            <input type="number" min="-5" max="10" step="1" value={row.x} data-x={i} />
+            <input type="number" min="-5" max="10" step="1" value={row.x} data-x={i} aria-label={`Nilai hasil x ke-${i + 1}`} />
           </label>
           <label class="rv-p">
             <span>P(X = x) <output data-p-out={i}>{row.p}</output></span>
-            <input type="range" min="0" max="1" step="0.025" value={row.p} data-p={i} />
+            <input type="range" min="0" max="1" step="0.025" value={row.p} data-p={i} aria-label={`Peluang P(X = ${row.x})`} />
           </label>
         </div>
       ))
@@ -161,7 +161,7 @@ const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X)
   import { computePmfStats, buildPmfReadout } from '../../lib/sim/random-variable';
   import type { Outcome } from '../../lib/sim/random-variable';
   import { formatPlain } from '../../lib/format';
-  import { el, clear, linearScale } from '../../lib/dom';
+  import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
 
   function setupRandomVariable(root: Element) {
     const xInputs = Array.from(root.querySelectorAll('[data-x]')) as HTMLInputElement[];
@@ -257,5 +257,5 @@ const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X)
     render();
   }
 
-  document.querySelectorAll('[data-random-variable]').forEach(setupRandomVariable);
+  initWhenVisible(document.querySelectorAll('[data-random-variable]'), setupRandomVariable);
 </script>

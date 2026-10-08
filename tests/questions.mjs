@@ -131,7 +131,11 @@ for (const { q, file } of all) {
   } else if (q.type === 'short-answer') {
     ok(typeof q.answer === 'string' && q.answer.length > 0, `${label}: jawaban kosong`);
     if (!Array.isArray(q.acceptedAnswers) || q.acceptedAnswers.length === 0) {
-      console.warn(`Peringatan: ${label}: tidak punya acceptedAnswers`);
+      // Bilangan bulat telanjang (mis. cacah, derajat polinomial, sisa bagi)
+      // tidak punya format alternatif yang wajar, jadi dikecualikan. Jawaban
+      // bertipe lain wajib punya acceptedAnswers berisi padanan formatnya.
+      const bareInteger = /^[+-]?\d+$/.test(q.answer.trim());
+      ok(bareInteger, `${label}: short-answer tanpa acceptedAnswers (${q.answer})`);
     }
   } else if (q.type === 'open-response') {
     ok(!q.options, `${label}: open-response tidak boleh punya options`);

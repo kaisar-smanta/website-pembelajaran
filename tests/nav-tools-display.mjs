@@ -19,6 +19,7 @@ async function load(file) {
 
 const { mainNav, footerNav } = await load('src/data/nav.ts');
 const { toolGroups, featuredTools } = await load('src/data/tools.ts');
+const { ELEMENTS } = await load('src/data/curriculum.ts');
 const { FEATURED_TOPIC_IDS, STATIC_PAGES } = await load('src/data/display.ts');
 
 let checks = 0;
@@ -48,9 +49,14 @@ for (const file of fs.readdirSync(path.join(root, 'src/data/topics'))) {
 function walkNav(items, source) {
   for (const item of items) {
     ok(typeof item.label === 'string' && item.label.length > 0, `nav ${source}: label kosong`);
-    ok(typeof item.href === 'string' && item.href.startsWith('/'), `nav ${source}: href tidak internal (${item.href})`);
-    ok(item.href.length > 1, `nav ${source}: href kosong (${item.href})`);
-    if (item.children) walkNav(item.children, `${source}>${item.label}`);
+    const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+    if (item.href !== undefined) {
+      ok(typeof item.href === 'string' && item.href.startsWith('/'), `nav ${source}: href tidak internal (${item.href})`);
+      ok(item.href.length > 1, `nav ${source}: href kosong (${item.href})`);
+    } else {
+      ok(hasChildren, `nav ${source}: tanpa href harus berupa grup berisi submenu (${item.label})`);
+    }
+    if (hasChildren) walkNav(item.children, `${source}>${item.label}`);
   }
 }
 walkNav(mainNav, 'mainNav');
@@ -58,6 +64,50 @@ for (const group of footerNav) {
   ok(typeof group.heading === 'string' && group.heading.length > 0, 'footerNav: heading kosong');
   walkNav(group.items, `footerNav>${group.heading}`);
 }
+
+// ---- Label header selaras judul halaman (D5) ----
+function flattenNav(items) {
+  const out = [];
+  for (const item of items) {
+    out.push(item);
+    if (item.children) out.push(...flattenNav(item.children));
+  }
+  return out;
+}
+const mainItems = flattenNav(mainNav);
+const staticTitles = new Map(
+  STATIC_PAGES.map((page) => [page.path ? `/${page.path}` : '/', page.title]),
+);
+for (const href of ['/aplikasi', '/alat']) {
+  const item = mainItems.find((entry) => entry.href === href);
+  ok(item, `mainNav: tidak memuat halaman ${href}`);
+  ok(
+    item && item.label === staticTitles.get(href),
+    `mainNav ${href}: label "${item?.label}" tidak selaras judul "${staticTitles.get(href)}"`,
+  );
+}
+
+// ---- Halaman rujukan tampil di header (D5) ----
+for (const href of ['/glosarium', '/rumus', '/kemajuan']) {
+  ok(
+    mainItems.some((entry) => entry.href === href),
+    `mainNav: halaman ${href} belum tampil di header`,
+  );
+}
+
+// Grup dropdown tanpa halaman harus tetap punya submenu berisi tautan.
+for (const item of mainNav) {
+  if (item.children && !item.href) {
+    ok(
+      item.children.some((child) => typeof child.href === 'string'),
+      `mainNav ${item.label}: grup tanpa tautan`,
+    );
+  }
+}
+
+// ---- Struktur header: pemicu dropdown harus mengumumkan popup (D5) ----
+const headerSource = fs.readFileSync(path.join(root, 'src/components/layout/Header.astro'), 'utf8');
+ok(headerSource.includes('aria-haspopup="true"'), 'Header: menu dropdown tanpa aria-haspopup');
 
 // ---- Topik unggulan ----
 for (const id of FEATURED_TOPIC_IDS) {
@@ -74,8 +124,16 @@ for (const page of STATIC_PAGES) {
 
 // ---- Alat matematika ----
 const groupToolNames = new Set();
+const groupHeadings = new Set();
 for (const group of toolGroups) {
   ok(typeof group.heading === 'string' && group.heading.length > 0, 'toolGroups: heading kosong');
+  ok(!groupHeadings.has(group.heading), `toolGroups: heading duplikat -> ${group.heading}`);
+  groupHeadings.add(group.heading);
+  // Elemen eksplisit menentukan aksen dan ikon kelompok, jadi harus ada dan sah.
+  ok(
+    typeof group.element === 'string' && Object.hasOwn(ELEMENTS, group.element),
+    `toolGroups ${group.heading}: elemen tidak dikenal (${group.element})`,
+  );
   ok(Array.isArray(group.tools) && group.tools.length > 0, `toolGroups ${group.heading}: tools kosong`);
   for (const tool of group.tools) {
     ok(typeof tool.name === 'string' && tool.name.length > 0, `toolGroups ${group.heading}: nama kosong`);

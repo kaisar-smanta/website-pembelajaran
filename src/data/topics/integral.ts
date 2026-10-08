@@ -41,7 +41,6 @@ export const integral: Topic = {
     { text: 'Peserta didik dapat menggunakan teorema dasar kalkulus untuk menghitung luas di bawah kurva dan antara dua kurva.' },
   ],
   applications: ['mtl-gerak-kecepatan'],
-  explorations: ['mtl-integral-riemann'],
   sections: [
     {
       id: "tujuan",
@@ -201,6 +200,18 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Dari Jumlah Riemann ke Teorema Dasar",
+      body: `Pola yang sama muncul pada setiap perhitungan. Memperbanyak persegi panjang ($n \\to \\infty$) membuat jumlah Riemann mendekati sebuah bilangan tetap, yaitu integral tentu. Yang mengejutkan, bilangan itu dapat dihitung tanpa menjumlahkan suku satu per satu sampai tak berhingga: cukup mencari antiturunan $F$, lalu mengevaluasi selisihnya:
+
+$$\\int_{a}^{b} f(x)\\,dx = F(b) - F(a), \\qquad F'(x) = f(x).$$
+
+Teorema dasar kalkulus inilah yang menyatukan dua wajah integral — limit jumlah dan antiturunan. Dari sini semua luas, termasuk luas antara dua kurva, menjadi selisih nilai antiturunan:
+
+$$L = \\int_{a}^{b} \\left[f(x) - g(x)\\right] dx.$$`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -240,58 +251,18 @@ $$L = \\int_{0}^{1} \\left(x - x^{2}\\right) dx = \\left[\\frac{x^{2}}{2} - \\fr
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan $\\displaystyle\\int 6x\\,dx$.
-2. Tentukan $\\displaystyle\\int \\left(3x^{2} - 4x + 5\\right) dx$.
-3. Hitung $\\displaystyle\\int_{0}^{1} 3x^{2}\\,dx$.
-4. Tentukan $\\displaystyle\\int \\cos x\\,dx$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\displaystyle\\int 6x\\,dx = 3x^{2} + C$.
-2. $\\displaystyle\\int \\left(3x^{2} - 4x + 5\\right) dx = x^{3} - 2x^{2} + 5x + C$.
-3. $\\displaystyle\\int_{0}^{1} 3x^{2}\\,dx = \\Big[x^{3}\\Big]_{0}^{1} = 1$.
-4. $\\displaystyle\\int \\cos x\\,dx = \\sin x + C$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Hitung $\\displaystyle\\int_{1}^{2} 3x^{2}\\,dx$.
-2. Hitung $\\displaystyle\\int_{0}^{\\pi} \\sin x\\,dx$.
-3. Hitung $\\displaystyle\\int_{0}^{1} e^{x}\\,dx$.
-4. Hitung $\\displaystyle\\int_{0}^{2} \\left(3x^{2} - 4x + 5\\right) dx$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\Big[x^{3}\\Big]_{1}^{2} = 8 - 1 = 7$.
-2. $\\Big[-\\cos x\\Big]_{0}^{\\pi} = -(-1) - (-1) = 2$.
-3. $\\Big[e^{x}\\Big]_{0}^{1} = e - 1$.
-4. $\\Big[x^{3} - 2x^{2} + 5x\\Big]_{0}^{2} = (8 - 8 + 10) - 0 = 10$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Hitung luas daerah antara kurva $y = 4 - x^{2}$ dan sumbu-$x$ pada selang $[-2, 2]$.
-2. Tentukan luas daerah yang dibatasi $y = x + 1$ dan $y = x^{2} - 1$.
-3. Tentukan $\\displaystyle\\int 2^{x}\\,dx$ dan jelaskan mengapa hasilnya berbeda dari $\\displaystyle\\int e^{x}\\,dx$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. $L = \\displaystyle\\int_{-2}^{2} (4 - x^{2})\\,dx = \\left[4x - \\frac{x^{3}}{3}\\right]_{-2}^{2} = \\left(8 - \\frac{8}{3}\\right) - \\left(-8 + \\frac{8}{3}\\right) = \\frac{32}{3}$.
-2. Titik potong: $x + 1 = x^{2} - 1$ memberi $x = 2$ atau $x = -1$. Maka $L = \\displaystyle\\int_{-1}^{2} \\left(-x^{2} + x + 2\\right) dx = \\left[-\\frac{x^{3}}{3} + \\frac{x^{2}}{2} + 2x\\right]_{-1}^{2} = \\frac{10}{3} - \\left(-\\frac{7}{6}\\right) = \\frac{9}{2}$.
-3. $\\displaystyle\\int 2^{x}\\,dx = \\dfrac{2^{x}}{\\ln 2} + C$, sedangkan $\\displaystyle\\int e^{x}\\,dx = e^{x} + C$ karena $\\ln e = 1$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -309,6 +280,20 @@ Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listri
 **3. Salah tanda pada integral sinus dan kosinus.** $\\displaystyle\\int \\sin x\\,dx = -\\cos x + C$, bukan $\\cos x + C$.
 **4. Menukar $F(a)$ dan $F(b)$.** Nilai integral tentu adalah $F(b) - F(a)$, bukan sebaliknya.
 **5. Menghitung luas tanpa memeriksa urutan kurva.** Pada luas antara dua kurva, pastikan fungsi atas dikurangi fungsi bawah agar hasilnya positif.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan perhitungan $\\displaystyle\\int x^{-1}\\,dx$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Tulis integral yang diminta: $\\displaystyle\\int x^{-1}\\,dx$.",
+            "Gunakan aturan pangkat $\\displaystyle\\int x^{n}\\,dx = \\frac{x^{n+1}}{n+1}+C$.",
+            "Substitusi $n=-1$ sehingga diperoleh $\\dfrac{x^{0}}{0}+C$.",
+            "Sederhanakan $x^{0}=1$ dan tulis hasil akhirnya.",
+          ],
+          wrongIndex: 1,
+          explanation: "Langkah kedua keliru. Aturan pangkat $\\dfrac{x^{n+1}}{n+1}+C$ hanya berlaku untuk $n \\neq -1$. Untuk $\\displaystyle\\int x^{-1}\\,dx$ hasilnya adalah $\\ln\\lvert x\\rvert + C$.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -375,8 +360,7 @@ Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listri
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Integral**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa integral tak tentu selalu memuat konstanta $C$? (2) Bagaimana teorema dasar kalkulus menghubungkan limit jumlah dengan antiturunan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Integral** untuk latihan tambahan.`,
     },
   ],
 };

@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import 'katex/dist/katex.min.css';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
+import BackToTop from '@/components/layout/BackToTop.astro';
 import { site as identity } from '@/data/site';
 import { BASE } from '@/utils/url';
 
@@ -172,6 +173,7 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+    <BackToTop />
     <script is:inline>
       document.addEventListener('click', function (event) {
         var anchor = event.target.closest && event.target.closest('a[href^="#"]');

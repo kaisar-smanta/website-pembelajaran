@@ -26,6 +26,37 @@ export function clear(node: Element): void {
   while (node.firstChild) node.removeChild(node.firstChild);
 }
 
+/**
+ * Menunda `setup` tiap elemen sampai mendekati viewport.
+ *
+ * Dipakai simulasi interaktif agar halaman dengan banyak simulasi (mis.
+ * `/eksplorasi`) tidak menyiapkan semuanya sekaligus. Bila
+ * `IntersectionObserver` tidak tersedia, elemen langsung disiapkan.
+ */
+export function initWhenVisible(
+  nodes: Iterable<Element>,
+  setup: (node: Element) => void,
+  rootMargin = '200px 0px',
+): void {
+  const list = Array.from(nodes);
+  if (list.length === 0) return;
+  if (typeof IntersectionObserver === 'undefined') {
+    list.forEach((node) => setup(node));
+    return;
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        observer.unobserve(entry.target);
+        setup(entry.target);
+      }
+    },
+    { rootMargin },
+  );
+  list.forEach((node) => observer.observe(node));
+}
+
 /** Menjepit `value` ke rentang `[lo, hi]`. */
 export function clamp(value: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, value));

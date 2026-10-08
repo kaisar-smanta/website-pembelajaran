@@ -144,6 +144,14 @@ function stripMathFromLine(line) {
   return out;
 }
 
+// Istilah baku dan sapaan seragam. Setiap pelanggaran dilaporkan sebagai galat
+// dengan pesan yang menyebutkan bentuk penggantinya.
+const FORBIDDEN_TERMS = [
+  { pattern: /cosinus/gi, hint: 'gunakan "kosinus" (bukan "cosinus")' },
+  { pattern: /tidak berhingga/gi, hint: 'gunakan "tak berhingga" (bukan "tidak berhingga")' },
+  { pattern: /\bAnda\b/gi, hint: 'gunakan sapaan "kamu" atau "kita" (bukan "Anda")' },
+];
+
 // Lingkungan KaTeX yang memerlukan spesifikasi kolom/alignment wajib setelah
 // \begin{...}: array butuh {kolom} dan alignedat butuh {jumlah kolom}.
 // matrix/pmatrix/bmatrix/cases/aligned/align TIDAK memerlukan argumen kolom,
@@ -171,6 +179,14 @@ const TABLE_ENVS = new Set([
 for (const full of files) {
   const f = path.relative(process.cwd(), full).split(path.sep).join('/');
   const text = fs.readFileSync(full, 'utf8');
+
+  for (const { pattern, hint } of FORBIDDEN_TERMS) {
+    pattern.lastIndex = 0;
+    let term;
+    while ((term = pattern.exec(text))) {
+      problems.push(`${f}:${lineOf(text, term.index)} istilah tidak baku "${term[0]}" -> ${hint}`);
+    }
+  }
 
   // Jumlah dolar tak ter-escape yang ganjil menandakan math tidak tertutup.
   const dollars = (text.match(/(?<!\\)\$(?!\{)/g) || []).length;

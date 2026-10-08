@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
+import ApplicationCard from '@/components/content/ApplicationCard.astro';
 import ExplorationSim from '@/components/interactive/ExplorationSim.astro';
 import ExplorationBrief from '@/components/interactive/ExplorationBrief.astro';
 import { orderedExplorations } from '@/data/explorations';
+import { applications } from '@/data/applications';
 import { getTopic, topicSubject } from '@/data/topics';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { elementColor, DIFFICULTY_LABELS } from '@/data/display';
@@ -34,6 +36,12 @@ const topic = e.topicId ? getTopic(e.topicId) : undefined;
 const topicHref = topic
   ? topicUrl(topic.grade, topic.element, topic.slug, topicSubject(topic))
   : undefined;
+
+// Studi kasus yang terhubung lewat eksplorasi ini secara langsung atau lewat
+// topik yang sama; yang menyebut eksplorasi ini secara eksplisit didahulukan.
+const relatedApps = applications
+  .filter((a) => a.explorationId === e.id || (e.topicId && a.topicIds.includes(e.topicId)))
+  .sort((a, b) => Number(b.explorationId === e.id) - Number(a.explorationId === e.id));
 
 const accent = elementColor(e.element);
 
@@ -105,6 +113,21 @@ const jsonLd = {
       </div>
 
       {
+        relatedApps.length > 0 && (
+          <section class="related-apps no-print" aria-labelledby="heading-studi-kasus">
+            <h2 class="block-title" id="heading-studi-kasus">
+              Studi kasus terkait
+            </h2>
+            <div class="app-grid">
+              {relatedApps.map((a, i) => (
+                <ApplicationCard application={a} delay={i * 60} />
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
         (prev || next) && (
           <nav class="pager no-print" aria-label="Navigasi eksplorasi">
             {prev ? (
@@ -171,6 +194,15 @@ const jsonLd = {
   }
   .detail-sim {
     margin-top: 0.5rem;
+  }
+  .related-apps {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.9rem;
   }
   .pager {
     display: flex;

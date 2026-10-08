@@ -171,7 +171,7 @@ const initialAria = `Grafik dua garis dari sistem persamaan linear ${a1}x + ${b1
 
 <script>
   import { solve2x2, lineYAt, lineXAt } from '../../lib/sim/linear-system';
-  import { el, clear, linearScale } from '../../lib/dom';
+  import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
 
   function setupLinearSystem(root: Element) {
     const inA1 = root.querySelector('[data-field="a1"]') as HTMLInputElement;
@@ -332,5 +332,5 @@ const initialAria = `Grafik dua garis dari sistem persamaan linear ${a1}x + ${b1
     render();
   }
 
-  document.querySelectorAll('[data-linear-system]').forEach(setupLinearSystem);
+  initWhenVisible(document.querySelectorAll('[data-linear-system]'), setupLinearSystem);
 </script>

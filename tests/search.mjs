@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import {
   normalizeSearch,
   scoreItem,
+  scoreItemFuzzy,
+  suggestQuery,
+  searchItems,
+  filterItems,
   highlight,
   buildSnippet,
 } from '../src/lib/search.ts';
@@ -153,6 +157,91 @@ check('buildSnippet memusatkan cuplikan pada istilah yang tidak ada di ringkasan
 check('kata kunci kosong membuat cuplikan sama dengan ringkasan yang di-escape', () => {
   const item = { ...base, summary: '<b>Ringkas</b>', text: 'isi' };
   assert.equal(buildSnippet(item, ''), '&lt;b&gt;Ringkas&lt;/b&gt;');
+});
+
+check('scoreItem mencocokkan awalan kata (prefix) tanpa fuzzy', () => {
+  const item = { ...base, title: 'Fungsi Kuadrat' };
+  assert.ok(scoreItem(item, 'kuadr') > 0, 'awalan judul cocok');
+  assert.ok(scoreItem(item, 'fung') > 0, 'awalan kata pertama cocok');
+});
+
+check('scoreItemFuzzy menoleransi salah ketik yang gagal di lintasan ketat', () => {
+  const item = { ...base, title: 'Fungsi Eksponen', keywords: 'pertumbuhan' };
+  assert.equal(scoreItem(item, 'eksopnen'), 0);
+  assert.equal(scoreItem(item, 'pertumbuan'), 0);
+  assert.ok(scoreItemFuzzy(item, 'eksopnen') > 0, 'transposisi huruf diterima');
+  assert.ok(scoreItemFuzzy(item, 'pertumbuan') > 0, 'huruf hilang diterima');
+  assert.equal(scoreItemFuzzy(item, 'logaritma'), 0, 'kata jauh tetap ditolak');
+});
+
+check('scoreItemFuzzy tetap memprioritaskan judul di atas isi', () => {
+  const q = 'eksopnen';
+  const inTitle = scoreItemFuzzy({ ...base, title: 'Eksponen' }, q);
+  const inText = scoreItemFuzzy({ ...base, text: 'eksponen' }, q);
+  assert.ok(inTitle > inText, 'bobot judul lebih tinggi');
+});
+
+check('suggestQuery membangun koreksi dari kosakata indeks', () => {
+  const items = [
+    { ...base, title: 'Fungsi Eksponen', keywords: 'pertumbuhan peluruhan' },
+    { ...base, title: 'Bunga Majemuk', keywords: 'investasi' },
+  ];
+  assert.equal(suggestQuery(items, 'eksponen'), null, 'kata benar tidak diusulkan');
+  assert.equal(suggestQuery(items, 'bunga majemuk'), null);
+  assert.equal(suggestQuery(items, 'eksopnen'), 'eksponen');
+  assert.equal(suggestQuery(items, 'bunga majemk'), 'bunga majemuk');
+  assert.equal(suggestQuery(items, 'zzzzzz'), null, 'tanpa kandidat dekat → null');
+});
+
+check('searchItems memberi saran saat lintasan ketat kosong', () => {
+  const items = [{ ...base, title: 'Fungsi Eksponen', type: 'topik' }];
+  const fuzzy = searchItems(items, 'eksopnen');
+  assert.equal(fuzzy.results.length, 1);
+  assert.equal(fuzzy.fuzzy, true);
+  assert.equal(fuzzy.suggestion, 'eksponen');
+  const exact = searchItems(items, 'eksponen');
+  assert.equal(exact.fuzzy, false);
+  assert.equal(exact.suggestion, null);
+  assert.equal(searchItems(items, 'zzzzzz').results.length, 0);
+});
+
+check('filterItems menyaring menurut jenis hasil rujukan', () => {
+  const items = [
+    { ...base, title: 'Eksponen', type: 'topik', grade: 'X', element: 'bilangan' },
+    { ...base, title: 'Anuitas', type: 'istilah', grade: 'XI', element: 'aljabar' },
+    { ...base, title: 'Rumus Anuitas', type: 'rumus', grade: 'XI', element: 'aljabar' },
+    { ...base, title: 'Cari', type: 'halaman' },
+  ];
+  assert.equal(filterItems(items, {}).length, 4);
+  assert.equal(filterItems(items, { type: 'istilah' }).length, 1);
+  assert.equal(filterItems(items, { type: 'rumus' }).length, 1);
+  assert.equal(filterItems(items, { type: 'topik' })[0].title, 'Eksponen');
+  assert.equal(
+    filterItems(items, { grade: 'XI', element: 'aljabar' }).length,
+    3,
+    'dua rujukan + halaman tetap lolos',
+  );
+});
+
+check('scoreItem mengenali entri istilah dan rumus sebagai hasil', () => {
+  const istilah = {
+    ...base,
+    title: 'Anuitas',
+    summary: 'Pembayaran berkala dengan bunga.',
+    type: 'istilah',
+    keywords: 'istilah glosarium',
+  };
+  const rumus = {
+    ...base,
+    title: 'Rumus dan Prosedur — Anuitas',
+    type: 'rumus',
+    keywords: 'rumus formula',
+    text: 'A = P \\cdot \\frac{i}{1-(1+i)^{-n}}',
+  };
+  assert.ok(scoreItem(istilah, 'anuitas') > 0);
+  assert.ok(scoreItem(rumus, 'anuitas') > 0);
+  assert.ok(scoreItem(rumus, 'rumus') > 0);
+  assert.ok(scoreItemFuzzy(istilah, 'anuitass') > 0);
 });
 
 console.log(`PASS search (${passed} pemeriksaan)`);

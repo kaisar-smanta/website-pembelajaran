@@ -173,7 +173,7 @@ const { exploration } = Astro.props;
     type Outcome,
     type ProbKind,
   } from '../../lib/sim/probability';
-  import { el, clear, polyline } from '../../lib/dom';
+  import { el, clear, polyline, initWhenVisible } from '../../lib/dom';
   import { formatId, formatFixed } from '../../lib/format';
 
   const MAX_POINTS = 60;
@@ -424,5 +424,5 @@ const { exploration } = Astro.props;
     initExperiment();
   }
 
-  document.querySelectorAll('[data-prob]').forEach(setupProb);
+  initWhenVisible(document.querySelectorAll('[data-prob]'), setupProb);
 </script>

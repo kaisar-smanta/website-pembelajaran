@@ -29,19 +29,19 @@ const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c
   <div class="sim-fields">
     <label class="sim-field">
       <span>Koefisien a <output data-value="a">{a0}</output></span>
-      <input type="range" min="-2" max="2" step="0.1" value={a0} data-field="a" />
+      <input type="range" min="-2" max="2" step="0.1" value={a0} data-field="a" aria-label="Koefisien a" />
     </label>
     <label class="sim-field">
       <span>Koefisien b <output data-value="b">{b0}</output></span>
-      <input type="range" min="-8" max="8" step="0.5" value={b0} data-field="b" />
+      <input type="range" min="-8" max="8" step="0.5" value={b0} data-field="b" aria-label="Koefisien b" />
     </label>
     <label class="sim-field">
       <span>Koefisien c <output data-value="c">{c0}</output></span>
-      <input type="range" min="-12" max="12" step="0.5" value={c0} data-field="c" />
+      <input type="range" min="-12" max="12" step="0.5" value={c0} data-field="c" aria-label="Koefisien c" />
     </label>
     <label class="sim-field">
       <span>Konstanta d <output data-value="d">{d0}</output></span>
-      <input type="range" min="-8" max="8" step="0.5" value={d0} data-field="d" />
+      <input type="range" min="-8" max="8" step="0.5" value={d0} data-field="d" aria-label="Konstanta d" />
     </label>
   </div>
 
@@ -135,7 +135,7 @@ const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c
 <script>
   import { evalCubic, criticalPoints, findRoots, cubicDomain, describeCubic } from '../../lib/sim/polynomial';
   import type { Cubic } from '../../lib/sim/polynomial';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
 
   function setupPolynomial(root: Element) {
     const names = ['a', 'b', 'c', 'd'] as const;
@@ -238,5 +238,5 @@ const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c
     sync();
   }
 
-  document.querySelectorAll('[data-polynomial]').forEach(setupPolynomial);
+  initWhenVisible(document.querySelectorAll('[data-polynomial]'), setupPolynomial);
 </script>

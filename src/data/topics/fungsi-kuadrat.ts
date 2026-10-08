@@ -40,7 +40,6 @@ export const fungsiKuadrat: Topic = {
     { text: 'Menyelesaikan persamaan kuadrat yang memiliki akar imajiner atau kompleks.' },
     { text: 'Memodelkan dan menyelesaikan masalah optimasi dengan fungsi kuadrat.' },
   ],
-  explorations: ['kuadrat-parameter'],
   applications: ['regresi-nilai-ujian'],
   sections: [
     {
@@ -246,9 +245,7 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Gambarkan ciri-ciri grafik $f(x)=x^{2}-6x+8$.
-
-*Penyelesaian.* Faktorkan: $f(x)=(x-2)(x-4)$, sehingga akarnya $x=2$ dan $x=4$. Sumbu simetri $x=-\\dfrac{-6}{2\\cdot1}=3$. Nilai puncak $f(3)=9-18+8=-1$. Titik puncaknya $(3,-1)$, terbuka ke atas karena $a=1>0$. Titik potong sumbu-$y$ adalah $(0,8)$.
+      body: `**Contoh 1.** Gambarkan ciri-ciri grafik $f(x)=x^{2}-6x+8$. Ikuti langkah pembahasannya pada panel di bawah.
 
 **Contoh 2.** Tentukan titik puncak $f(x)=-2x^{2}+4x+6$.
 
@@ -303,75 +300,18 @@ Periksa $x=-1+2i$: $(-1+2i)^{2}+2(-1+2i)+5 = (-3-4i)+(-2+4i)+5 = 0$, sehingga be
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan akar-akar $f(x)=x^{2}-5x+6$.
-
-2. Tentukan sumbu simetri $f(x)=x^{2}-8x+7$.
-
-3. Tentukan titik puncak $f(x)=x^{2}+2x-3$.
-
-4. Hitung diskriminan $f(x)=2x^{2}-3x+5$ dan tentukan banyak akar realnya.
-
-5. Tentukan akar dan titik puncak $f(x)=-x^{2}+4$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $x^{2}-5x+6=(x-2)(x-3)$, akarnya $x=2$ dan $x=3$.
-2. $x=-\\dfrac{-8}{2}=4$.
-3. $x=-\\dfrac{2}{2}=-1$, $f(-1)=1-2-3=-4$, jadi titik puncak $(-1,-4)$.
-4. $D=(-3)^{2}-4\\cdot2\\cdot5=9-40=-31<0$, sehingga tidak ada akar real.
-5. $-x^{2}+4=0 \\Rightarrow x^{2}=4 \\Rightarrow x=\\pm2$. Sumbu simetri $x=0$, titik puncak $(0,4)$ (maksimum).`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan fungsi kuadrat yang grafiknya memotong sumbu-$x$ di $x=2$ dan $x=3$ serta melalui $(0,6)$.
-
-2. Tentukan fungsi kuadrat dengan titik puncak $(2,-1)$ yang melalui $(0,3)$.
-
-3. Tentukan nilai minimum dan daerah hasil $f(x)=x^{2}-6x+10$.
-
-4. Untuk $-1 \\leq x \\leq 3$, tentukan daerah hasil $f(x)=x^{2}-2x-3$.
-
-5. Laba suatu usaha (dalam ribu rupiah) mengikuti $P(x)=-x^{2}+40x-300$ dengan $x$ banyak barang. Tentukan laba maksimum dan rentang $x$ agar usaha tidak merugi.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $f(x)=a(x-2)(x-3)$. Substitusi $(0,6)$: $6=a\\cdot(-2)(-3)=6a \\Rightarrow a=1$. Jadi $f(x)=x^{2}-5x+6$.
-2. $f(x)=a(x-2)^{2}-1$. Substitusi $(0,3)$: $3=4a-1 \\Rightarrow a=1$. Jadi $f(x)=(x-2)^{2}-1=x^{2}-4x+3$.
-3. $x=-\\dfrac{-6}{2}=3$, $f(3)=9-18+10=1$. Minimum $1$, daerah hasil $y\\geq1$.
-4. $f(-1)=1+2-3=0$, $f(3)=9-6-3=0$, dan titik puncak di $x=1$ dengan $f(1)=1-2-3=-4$. Jadi daerah hasil $-4 \\leq y \\leq 0$.
-5. Puncak $x=-\\dfrac{40}{2\\cdot(-1)}=20$, $P(20)=-400+800-300=100$. Laba maksimum Rp100.000. Tidak merugi saat $P(x)\\geq0$: $x^{2}-40x+300\\leq0 \\Rightarrow (x-10)(x-30)\\leq0$, jadi $10\\leq x\\leq30$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan nilai $m$ agar $f(x)=x^{2}+(m-2)x+9$ memiliki tepat satu akar real.
-
-2. Buktikan dengan melengkapi kuadrat bahwa titik puncak $f(x)=ax^{2}+bx+c$ terletak di $x=-\\dfrac{b}{2a}$.
-
-3. Ketinggian sebuah roket mainan $h(t)=-5t^{2}+30t$ meter pada detik ke-$t$. Tentukan tinggi maksimum dan selang waktu ketika roket berada pada ketinggian minimal $40$ m.
-
-4. Jika $a>0$ dan $D<0$, jelaskan mengapa $f(x)=ax^{2}+bx+c$ selalu bernilai positif untuk setiap $x$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Tepat satu akar berarti $D=0$: $(m-2)^{2}-4\\cdot1\\cdot9=0 \\Rightarrow (m-2)^{2}=36 \\Rightarrow m-2=\\pm6$. Jadi $m=8$ atau $m=-4$.
-2. Tulis $f(x)=a\\left(x^{2}+\\dfrac{b}{a}x\\right)+c=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{b^{2}}{4a}+c$. Karena $(x+\\frac{b}{2a})^{2}\\geq0$, untuk $a>0$ nilai terkecil terjadi saat $x+\\frac{b}{2a}=0$, yaitu $x=-\\frac{b}{2a}$ (untuk $a<0$ ini nilai terbesar). Terbukti.
-3. Puncak $t=-\\dfrac{30}{2\\cdot(-5)}=3$, $h(3)=-45+90=45$ m. Untuk $h\\geq40$: $-5t^{2}+30t\\geq40 \\Rightarrow t^{2}-6t+8\\leq0 \\Rightarrow (t-2)(t-4)\\leq0$, jadi $2\\leq t\\leq4$ detik.
-4. Dengan melengkapi kuadrat, $f(x)=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{D}{4a}$. Karena $a>0$, suku pertama $\\geq0$; karena $D<0$ maka $-\\dfrac{D}{4a}>0$. Jumlah keduanya selalu positif.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -470,7 +410,7 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Fungsi Kuadrat**.",
+      body: `**Tiket keluar.** (1) Bagaimana diskriminan menunjukkan banyak akar real dan posisi grafik? (2) Mengapa titik puncak selalu berada di $x=-\\dfrac{b}{2a}$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Kuadrat** untuk latihan tambahan.`,
     },
   ],
 };

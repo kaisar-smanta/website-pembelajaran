@@ -2,18 +2,11 @@
 import type { SubjectId } from '@/types/content';
 import TopicCard from '@/components/content/TopicCard.astro';
 import { SUBJECTS } from '@/data/curriculum';
+import { FEATURED_TOPIC_IDS } from '@/data/display';
 import { resolveTopics, topicSubject } from '@/data/topics';
 import { url } from '@/utils/url';
 
-const featuredIds = [
-  'eksponen',
-  'fungsi-kuadrat',
-  'trigonometri',
-  'polinomial',
-  'turunan',
-  'vektor',
-];
-const featured = resolveTopics(featuredIds);
+const featured = resolveTopics(FEATURED_TOPIC_IDS);
 const subjectOrder: SubjectId[] = ['matematika', 'matematika-lanjut'];
 const featuredGroups = subjectOrder
   .map((subjectId) => ({

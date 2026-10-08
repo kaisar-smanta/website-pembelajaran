@@ -305,4 +305,171 @@ check('STATISTIKA', fact(10) / (fact(2) * fact(3) * fact(2) * fact(2)), 75_600);
 check('peluang 2 merah', (C(4, 2) * C(6, 1)) / C(10, 3), 0.3, 1e-12);
 check('peluang tanpa pasangan', (C(5, 4) * 2 ** 4) / C(10, 4), 8 / 21, 1e-12);
 
+// ---------- Turunan ----------
+// Turunan numerik (beda tengah) dipakai untuk memverifikasi nilai turunan
+// yang diklaim pada contoh materi tanpa mengulang rumus yang sama.
+const numDeriv = (f, x, h = 1e-6) => (f(x + h) - f(x - h)) / (2 * h);
+const numSecond = (f, x, h = 1e-3) => (f(x + h) - 2 * f(x) + f(x - h)) / (h * h);
+check('turunan 2x³-5x²+3x-7 di 1', numDeriv((x) => 2 * x ** 3 - 5 * x ** 2 + 3 * x - 7, 1), -1, 1e-4);
+check('turunan hasil kali di 1', numDeriv((x) => (x * x + 1) * (2 * x - 3), 1), 2, 1e-4);
+check('turunan rantai (3x+1)⁴ di 0', numDeriv((x) => (3 * x + 1) ** 4, 0), 12, 1e-4);
+check('turunan e^(3x) di 0', numDeriv((x) => Math.exp(3 * x), 0), 3, 1e-4);
+check('turunan 2^x di 0', numDeriv((x) => 2 ** x, 0), Math.LN2, 1e-4);
+check('turunan x·cos x di 0', numDeriv((x) => x * Math.cos(x), 0), 1, 1e-4);
+check('turunan (2x+1)/(x-1) di 2', numDeriv((x) => (2 * x + 1) / (x - 1), 2), -3, 1e-4);
+check('turunan x³-3x²+2 di 2', numDeriv((x) => x ** 3 - 3 * x ** 2 + 2, 2), 0, 1e-4);
+check('turunan 4x⁵-2x²+7 di 1', numDeriv((x) => 4 * x ** 5 - 2 * x ** 2 + 7, 1), 16, 1e-4);
+check('turunan x²·sin x di 0', numDeriv((x) => x * x * Math.sin(x), 0), 0, 1e-4);
+
+// ---------- Integral ----------
+const integralNum = (f, a, b, steps = 1000) => {
+  const h = (b - a) / steps;
+  let s = f(a) + f(b);
+  for (let i = 1; i < steps; i++) s += f(a + i * h) * (i % 2 ? 4 : 2);
+  return (s * h) / 3;
+};
+check('∫_0^1 3x² dx', integralNum((x) => 3 * x * x, 0, 1), 1, 1e-9);
+check('∫_0^2 x² dx', integralNum((x) => x * x, 0, 2), 8 / 3, 1e-9);
+check('∫_1^3 (2x+1) dx', (3 ** 2 + 3) - (1 ** 2 + 1), 10);
+check('luas y=x dan y=x² pada [0,1]', 1 / 2 - 1 / 3, 1 / 6, 1e-12);
+check('∫_1^2 3x² dx', 2 ** 3 - 1 ** 3, 7);
+check('∫_0^π sin x dx', -Math.cos(Math.PI) - -Math.cos(0), 2, 1e-12);
+check('∫_0^1 e^x dx', Math.E - 1, 1.718281828459045, 1e-12);
+check('∫_0^2 (3x²-4x+5) dx', (8 - 8 + 10) - 0, 10);
+check('∫_{-2}^{2} (4-x²) dx', (4 * 2 - 2 ** 3 / 3) - (4 * -2 - (-2) ** 3 / 3), 32 / 3, 1e-12);
+check(
+  'luas y=x+1 dan y=x²-1',
+  (-(2 ** 3) / 3 + 2 ** 2 / 2 + 2 * 2) - (-((-1) ** 3) / 3 + (-1) ** 2 / 2 + 2 * -1),
+  9 / 2,
+  1e-12,
+);
+check(
+  'antiturunan 3x²-4x+5 menurunkan kembali',
+  numDeriv((x) => x ** 3 - 2 * x ** 2 + 5 * x, 1.3),
+  3 * 1.3 ** 2 - 4 * 1.3 + 5,
+  1e-4,
+);
+check('antiturunan 2^x/ln2', numDeriv((x) => 2 ** x / Math.LN2, 1), 2, 1e-4);
+
+// ---------- Vektor ----------
+const vlen = (x, y) => Math.hypot(x, y);
+const vdot = (ax, ay, bx, by) => ax * bx + ay * by;
+check('panjang (3,4)', vlen(3, 4), 5, 1e-12);
+check('panjang (5,12)', vlen(5, 12), 13, 1e-12);
+check('panjang (6,8)', vlen(6, 8), 10, 1e-12);
+check('vektor satuan (3,4) berunit', vlen(3 / 5, 4 / 5), 1, 1e-12);
+check('perkalian titik (3,4)·(1,2)', vdot(3, 4, 1, 2), 11);
+check('perkalian titik (1,2)·(3,1)', vdot(1, 2, 3, 1), 5);
+check('cos sudut (1,2),(3,1)', vdot(1, 2, 3, 1) / (vlen(1, 2) * vlen(3, 1)), Math.SQRT2 / 2, 1e-12);
+check('sudut (1,2),(3,1)', Math.acos(vdot(1, 2, 3, 1) / (vlen(1, 2) * vlen(3, 1))) * (180 / Math.PI), 45, 1e-9);
+check('tegak lurus (3,4)·(4,-3)', vdot(3, 4, 4, -3), 0);
+check('proyeksi skalar pada (1,0)', vdot(3, 4, 1, 0) / vlen(1, 0), 3, 1e-12);
+check('proyeksi vektor pada (1,2) x', (vdot(3, 4, 1, 2) / vlen(1, 2) ** 2) * 1, 11 / 5, 1e-12);
+check('proyeksi vektor pada (1,2) y', (vdot(3, 4, 1, 2) / vlen(1, 2) ** 2) * 2, 22 / 5, 1e-12);
+check('panjang proyeksi vektor', vlen(11 / 5, 22 / 5), 11 / Math.sqrt(5), 1e-12);
+check('kolinear AC = 2·AB', (5 - 1) / (3 - 1), 2, 1e-12);
+check('titik tengah MN', vlen(0 - 2, 3 - 0), Math.sqrt(13), 1e-12);
+check('BC = 2·MN', vlen(0 - 4, 6 - 0), 2 * vlen(0 - 2, 3 - 0), 1e-12);
+check('kolinear C(5,k) => k=5', 2 * 2 + 1, 5);
+check('tegak lurus x=6', 2 * 6 - 12, 0);
+check('resultan pesawat (300,80)', Math.round(vlen(300, 80) * 10) / 10, 310.5, 0.05);
+
+// ---------- Polinomial ----------
+const polyAt = (coefs, x) => coefs.reduce((acc, c) => acc * x + c, 0);
+const polP = [2, -3, 4, -5];
+const polQ = [1, 2, 1];
+for (const x of [0, 1, 2, -1]) {
+  check(`polinomial P+Q x=${x}`, polyAt([2, -2, 6, -4], x), polyAt(polP, x) + polyAt(polQ, x), 1e-9);
+  check(`polinomial P·Q x=${x}`, polyAt([2, 1, 0, 0, -6, -5], x), polyAt(polP, x) * polyAt(polQ, x), 1e-9);
+}
+for (const x of [-3, 0, 1, 4]) {
+  check(`bagi (x+2) x=${x}`, (x + 2) * (x * x - 5) + 4, x ** 3 + 2 * x ** 2 - 5 * x - 6, 1e-9);
+  check(`Horner (x-2) x=${x}`, (x - 2) * (2 * x * x + 5 * x + 7) + 18, 2 * x ** 3 + x ** 2 - 3 * x + 4, 1e-9);
+}
+check('sisa P(2) 2x³-5x²+4x-7', 2 * 2 ** 3 - 5 * 2 ** 2 + 4 * 2 - 7, -3);
+check('sisa P(-1) 2x³-5x²+4x-7', 2 * (-1) ** 3 - 5 * (-1) ** 2 + 4 * (-1) - 7, -18);
+const polFaktor = (x) => x ** 3 - 4 * x ** 2 + x + 6;
+check('faktor x=3', polFaktor(3), 0);
+check('faktor x=2', polFaktor(2), 0);
+check('faktor x=-1', polFaktor(-1), 0);
+check('sisa x⁴-3x²+2x-5 di -2', (-2) ** 4 - 3 * (-2) ** 2 + 2 * (-2) - 5, -5);
+for (const x of [0, 2, 4]) {
+  check(`identitas (x-1)(x+2)(x-3) x=${x}`, (x - 1) * (x + 2) * (x - 3), polyAt([1, -2, -5, 6], x));
+  check(`identitas (x-1)(x²+4x+3) x=${x}`, (x - 1) * (x * x + 4 * x + 3), polyAt([1, 3, -1, -3], x));
+  check(`identitas (x+1)(x+2)² x=${x}`, (x + 1) * (x + 2) ** 2, polyAt([1, 5, 8, 4], x));
+}
+
+// ---------- Operasi matriks ----------
+const mA = [[1, 2], [3, 4]];
+const mB = [[2, 0], [1, 3]];
+const matMul = (M, N) =>
+  M.map((row, i) => N[0].map((_, j) => row.reduce((s, _, k) => s + M[i][k] * N[k][j], 0)));
+const matAdd = (M, N) => M.map((row, i) => row.map((v, j) => v + N[i][j]));
+const matSub = (M, N) => M.map((row, i) => row.map((v, j) => v - N[i][j]));
+const matVec = (M, v) => M.map((row) => row.reduce((s, _, k) => s + row[k] * v[k], 0));
+const eqMat = (M, N) => JSON.stringify(M) === JSON.stringify(N);
+check('matriks A+B', eqMat(matAdd(mA, mB), [[3, 2], [4, 7]]), true);
+check('matriks A-B', eqMat(matSub(mA, mB), [[-1, 2], [2, 1]]), true);
+check('matriks AB', eqMat(matMul(mA, mB), [[4, 6], [10, 12]]), true);
+check('matriks BA', eqMat(matMul(mB, mA), [[2, 4], [10, 14]]), true);
+check('matriks 3A-B', eqMat(matSub(mA.map((row) => row.map((v) => 3 * v)), mB), [[1, 6], [8, 9]]), true);
+const det3 = (M) =>
+  M[0][0] * det2(M[1][1], M[1][2], M[2][1], M[2][2]) -
+  M[0][1] * det2(M[1][0], M[1][2], M[2][0], M[2][2]) +
+  M[0][2] * det2(M[1][0], M[1][1], M[2][0], M[2][1]);
+check('determinan 3x3 #1', det3([[1, 2, 3], [0, 1, 4], [5, 6, 0]]), 1);
+check('determinan 3x3 #2', det3([[2, 1, 3], [0, 4, 1], [1, 2, 0]]), -15);
+const matInv = [[4 / 10, -1 / 10], [-2 / 10, 3 / 10]];
+check('invers A entri a', matInv[0][0], 0.4, 1e-12);
+check('invers A entri b', matInv[0][1], -0.1, 1e-12);
+check(
+  'A·A⁻¹ = I',
+  eqMat(matMul([[3, 1], [2, 4]], matInv).map((row) => row.map((v) => Math.round(v))), [[1, 0], [0, 1]]),
+  true,
+);
+check(
+  'B^T·A^T = (AB)^T',
+  eqMat(matMul([[2, 1], [0, 3]], [[1, 3], [2, 4]]), [[4, 10], [6, 12]]),
+  true,
+);
+check('matriks singular det = 0', det2(2, 4, 1, 2), 0);
+check('singular x² - 4', 2 * 2 - 4, 0);
+const solMat = matVec([[2, -3], [-1, 2]], [8, 5]);
+check('SPLDV matriks x=1', solMat[0], 1);
+check('SPLDV matriks y=2', solMat[1], 2);
+const solMat2 = matVec([[3 / 5, -1 / 5], [-1 / 5, 2 / 5]], [7, 11]);
+check('SPLDV matriks 2x+y=7 x=2', solMat2[0], 2, 1e-12);
+check('SPLDV matriks 2x+y=7 y=3', solMat2[1], 3, 1e-12);
+check('Cramer D', det2(2, 3, 1, 2), 1);
+check('Cramer Dx', det2(8, 3, 5, 2), 1);
+check('Cramer Dy', det2(2, 8, 1, 5), 2);
+
+// ---------- Aplikasi turunan ----------
+check('gradien y=x² di 3', numDeriv((x) => x * x, 3), 6, 1e-4);
+check('garis singgung y=6x-9 di x=4', 6 * 4 - 9, 15);
+const polApp = (x) => x ** 3 - 3 * x ** 2 + 2;
+check('stasioner f(0) = 2', polApp(0), 2);
+check('stasioner f(2) = -2', polApp(2), -2);
+check('uji f\'\'(0) = -6 maksimum', numSecond(polApp, 0), -6, 1e-2);
+check('uji f\'\'(2) = 6 minimum', numSecond(polApp, 2), 6, 1e-2);
+check('titik belok f(1) = 0', polApp(1), 0);
+const sPos = (t) => t ** 3 - 9 * t ** 2 + 24 * t;
+check('kecepatan v(3) = -3', numDeriv(sPos, 3), -3, 1e-4);
+check('percepatan a(3) = 0', numDeriv((t) => 3 * t * t - 18 * t + 24, 3), 0, 1e-4);
+check('berhenti sesaat t=2', 3 * 2 * 2 - 18 * 2 + 24, 0);
+check('berhenti sesaat t=4', 3 * 4 * 4 - 18 * 4 + 24, 0);
+const sPos2 = (t) => t ** 3 - 6 * t ** 2 + 9 * t;
+check('latihan v(2) = -3', numDeriv(sPos2, 2), -3, 1e-4);
+check('latihan a(2) = 0', numDeriv((t) => 3 * t * t - 12 * t + 9, 2), 0, 1e-4);
+check('optimasi kandang x=10', 40 - 4 * 10, 0);
+check('luas kandang maksimum 200', 10 * (40 - 2 * 10), 200);
+check('kotak volume V(10/3)', (10 / 3) * (20 - 2 * (10 / 3)) ** 2, 16000 / 27, 1e-9);
+check('dua bilangan hasil kali maksimum', 10 * (20 - 10), 100);
+check('tabung minimum S=24π', 2 * Math.PI * 2 ** 2 + 2 * Math.PI * 2 * 4, 24 * Math.PI, 1e-9);
+
+// ---------- Peluang: komplemen tiga koin ----------
+// Kunci numerik agar salah tulis komplemen (mis. menukar GGG dengan AAA) tertangkap.
+check('tiga koin tanpa gambar (AAA)', (1 / 2) ** 3, 1 / 8);
+check('tiga koin paling sedikit satu gambar', 1 - (1 / 2) ** 3, 7 / 8);
+
 console.log(`\nSemua ${passed} pemeriksaan matematika lulus.`);

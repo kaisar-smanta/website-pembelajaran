@@ -26,7 +26,6 @@ export const barisanDeret: Topic = {
   ],
   prerequisites: ['eksponen'],
   relatedTopics: ['fungsi-eksponensial', 'bunga-majemuk'],
-  explorations: ['barisan-pola'],
   prerequisiteKnowledge: [
     'Operasi bilangan bulat, pecahan, dan desimal',
     'Sifat-sifat eksponen dan bentuk pangkat',
@@ -253,7 +252,7 @@ Khusus untuk $r=1$, seluruh suku sama sehingga $S_n = na$.
 
 $$S_\\infty = \\frac{a}{1-r}.$$
 
-Jika $\\lvert r\\rvert \\geq 1$, suku-sukunya tidak menuju nol dan deret **divergen** (jumlahnya tidak berhingga).`,
+Jika $\\lvert r\\rvert \\geq 1$, suku-sukunya tidak menuju nol dan deret **divergen** (jumlahnya tak berhingga).`,
       blocks: [
         {
           kind: "callout",
@@ -325,72 +324,18 @@ $$S_\\infty = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan suku ke-$15$ dari barisan aritmetika $4, 9, 14, 19, \\dots$.
-
-2. Tentukan suku ke-$8$ dari barisan geometri $5, 10, 20, 40, \\dots$.
-
-3. Hitung jumlah $20$ suku pertama deret aritmetika $2 + 5 + 8 + \\cdots$.
-
-4. Diketahui barisan geometri dengan $U_1 = 3$ dan $U_4 = 24$. Tentukan rasionya.
-
-5. Suku keberapakah $47$ pada barisan aritmetika $3, 7, 11, 15, \\dots$?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $a=4$, $b=5$, maka $U_{15}=4+(15-1)\\cdot5=4+70=74$.
-2. $a=5$, $r=2$, maka $U_8=5\\cdot2^{7}=5\\cdot128=640$.
-3. $a=2$, $b=3$, $U_{20}=2+19\\cdot3=59$, sehingga $S_{20}=\\dfrac{20}{2}(2+59)=10\\cdot61=610$.
-4. $U_4=3r^{3}=24 \\Rightarrow r^{3}=8 \\Rightarrow r=2$.
-5. $47=3+(n-1)\\cdot4 \\Rightarrow 44=4(n-1) \\Rightarrow n-1=11 \\Rightarrow n=12$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Suku ke-$3$ dan suku ke-$7$ suatu barisan aritmetika berturut-turut adalah $11$ dan $27$. Tentukan $U_{20}$ dan $S_{20}$.
-
-2. Pada barisan geometri diketahui $U_2 = 6$ dan $U_5 = 48$. Tentukan $U_{10}$.
-
-3. Hitung jumlah deret geometri tak hingga $12 + 6 + 3 + \\cdots$.
-
-4. Gaji awal seorang karyawan Rp3.000.000 per bulan dan naik Rp250.000 setiap tahun. Berapa total gaji yang diterima selama $10$ tahun pertama?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $U_3=a+2b=11$ dan $U_7=a+6b=27$. Kurangkan: $4b=16 \\Rightarrow b=4$, lalu $a=11-8=3$. Jadi $U_{20}=3+19\\cdot4=79$ dan $S_{20}=\\dfrac{20}{2}(3+79)=10\\cdot82=820$.
-2. $\\dfrac{U_5}{U_2}=r^{3}=\\dfrac{48}{6}=8 \\Rightarrow r=2$. Karena $U_2=ar=6$, maka $a=3$. Jadi $U_{10}=3\\cdot2^{9}=3\\cdot512=1536$.
-3. $a=12$, $r=\\tfrac12$, maka $S_\\infty=\\dfrac{12}{1-\\tfrac12}=24$.
-4. $a=3.000.000$, $b=250.000$. $U_{10}=3.000.000+9\\cdot250.000=5.250.000$. Total $S_{10}=\\dfrac{10}{2}(3.000.000+5.250.000)=5\\cdot8.250.000=\\text{Rp}41.250.000$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Buktikan bahwa $S_n=\\dfrac{n}{2}\\big(2a+(n-1)b\\big)$ dengan menjumlahkan barisan dari urutan terbalik.
-
-2. Sebuah gedung pertunjukan memiliki $25$ baris kursi. Baris pertama $20$ kursi dan setiap baris berikutnya bertambah $3$ kursi. Berapa kapasitas gedung itu?
-
-3. Sebuah bola dijatuhkan dari ketinggian $3$ m. Setiap kali memantul, bola mencapai $\\tfrac23$ dari ketinggian sebelumnya. Berapa total jarak yang ditempuh bola sampai berhenti?
-
-4. Sebuah perusahaan menargetkan penjualan bulan pertama $200$ unit, dan setiap bulan naik $50$ unit. Setelah berapa bulan total penjualan mencapai $4.250$ unit?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Tulis $S_n=a+(a+b)+\\cdots+\\big(a+(n-1)b\\big)$ dan kebalikannya $S_n=\\big(a+(n-1)b\\big)+\\cdots+a$. Jumlahkan kedua baris: setiap kolom berjumlah $2a+(n-1)b$ dan ada $n$ kolom, sehingga $2S_n=n\\big(2a+(n-1)b\\big)$. Terbukti.
-2. $a=20$, $b=3$, $n=25$. $S_{25}=\\dfrac{25}{2}\\big(2\\cdot20+24\\cdot3\\big)=\\dfrac{25}{2}(40+72)=\\dfrac{25}{2}\\cdot112=25\\cdot56=1400$ kursi.
-3. Turun pertama $3$ m, lalu setiap pantulan naik-turun. Pantulan berurutan $3\\cdot\\tfrac23=2$, $2\\cdot\\tfrac23=\\tfrac43,\\dots$ membentuk geometri $a=2$, $r=\\tfrac23$. Total pantulan dua arah: $2\\cdot\\dfrac{2}{1-\\tfrac23}=2\\cdot\\dfrac{2}{\\tfrac13}=12$. Ditambah jatuh awal: $3+12=15$ m.
-4. $S_n=\\dfrac{n}{2}\\big(2\\cdot200+(n-1)\\cdot50\\big)=4250$, sehingga $n(400+50n-50)=8500$, yaitu $50n^{2}+350n-8500=0$ atau $n^{2}+7n-170=0$. Faktorkan: $(n+17)(n-10)=0$, jadi $n=10$ bulan.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -483,7 +428,7 @@ Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Barisan dan Deret**.",
+      body: `**Tiket keluar.** (1) Bagaimana pola beda tetap membedakan barisan aritmetika dari barisan geometri? (2) Kapan jumlah deret geometri tak hingga memiliki nilai berhingga? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Barisan dan Deret** untuk latihan tambahan.`,
     },
   ],
 };

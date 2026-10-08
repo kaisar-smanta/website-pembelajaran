@@ -83,12 +83,6 @@ export type Block =
       text: string;
     }
   | {
-      kind: 'geogebra';
-      url: string;
-      title: string;
-      height?: number;
-    }
-  | {
       kind: 'prediction';
       /** Pertanyaan prediksi (markdown, mendukung $...$). */
       prompt: string;
@@ -192,7 +186,6 @@ export interface Topic {
   prerequisiteKnowledge?: string[];
   estimatedMinutes?: number;
   sections: Section[];
-  explorations?: string[];
   applications?: string[];
   featured?: boolean;
   /** 'lengkap' = materi sudah ditulis; 'rencana' = masih dalam roadmap. */

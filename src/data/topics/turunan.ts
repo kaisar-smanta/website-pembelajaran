@@ -44,9 +44,6 @@ export const turunan: Topic = {
     { text: 'Peserta didik dapat menentukan turunan fungsi polinomial, eksponensial, dan trigonometri.' },
   ],
   applications: ['mtl-optimasi-produksi'],
-  explorations: [
-    "mtl-aplikasi-turunan-garis-singgung",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -161,7 +158,7 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
             [
               "Selang waktu",
               "terbatas",
-              "sepuluh sangat kecil di sekitar $a$",
+              "selang sangat kecil di sekitar $a$",
             ],
           ],
         },
@@ -212,6 +209,18 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Umum: Aturan Turunan sebagai Pola Pangkat",
+      body: `Aturan-aturan turunan bukan kumpulan hafalan yang terpisah, melainkan pola yang berulang. Aturan pangkat $\\dfrac{d}{dx}x^{n} = n x^{n-1}$ menyatakan bahwa turunan selalu **menurunkan pangkat satu** dan memindahkan pangkat lama menjadi koefisien. Aturan konstanta dan kelipatan hanyalah kejadian khususnya, sedangkan aturan jumlah memungkinkan kita menurunkan suku demi suku.
+
+Untuk bentuk yang lebih rumit, peraturannya juga mengikuti pola komposisi. Aturan hasil kali $(uv)' = u'v + uv'$ memastikan setiap komponen "berkesempatan" diturunkan sekali, sedangkan aturan rantai menangani fungsi bersarang dengan mengalikan turunan lapisan luar dan dalam:
+
+$$\\frac{d}{dx}f\\big(g(x)\\big) = f'\\big(g(x)\\big)\\,g'(x).$$
+
+Mengenali struktur fungsinya — pangkat, hasil kali, hasil bagi, atau komposisi — menjadi kunci memilih aturan yang tepat.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -253,58 +262,18 @@ Karena itu $h'(0) = \\ln 2$, $p'(0) = 3$, dan $q'(0) = \\cos 0 - 0 = 1$.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan turunan $f(x) = x^{3} - 3x^{2} + 2$ dan hitung $f'(2)$.
-2. Tentukan turunan $y = 4x^{5} - 2x^{2} + 7$.
-3. Tentukan turunan $f(x) = \\sin x + \\cos x$.
-4. Hitung laju perubahan rata-rata $f(x) = x^{2}$ pada selang $[1, 3]$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $f'(x) = 3x^{2} - 6x$, maka $f'(2) = 12 - 12 = 0$.
-2. $y' = 20x^{4} - 4x$.
-3. $f'(x) = \\cos x - \\sin x$.
-4. $\\dfrac{f(3) - f(1)}{3 - 1} = \\dfrac{9 - 1}{2} = 4$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan turunan $f(x) = (x^{2} + 1)(2x - 3)$, lalu hitung $f'(1)$.
-2. Tentukan turunan $f(x) = \\dfrac{2x + 1}{x - 1}$, lalu hitung $f'(2)$.
-3. Tentukan turunan $g(x) = (3x + 1)^{4}$, lalu hitung $g'(0)$.
-4. Tentukan turunan $p(x) = e^{3x}$ dan $h(x) = 2^{x}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $f'(x) = 2x(2x - 3) + (x^{2} + 1)(2) = 6x^{2} - 6x + 2$, sehingga $f'(1) = 2$.
-2. $f'(x) = \\dfrac{2(x - 1) - (2x + 1)}{(x - 1)^{2}} = \\dfrac{-3}{(x - 1)^{2}}$, sehingga $f'(2) = -3$.
-3. $g'(x) = 12(3x + 1)^{3}$, sehingga $g'(0) = 12$.
-4. $p'(x) = 3e^{3x}$ dan $h'(x) = 2^{x}\\ln 2$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan turunan $f(x) = x^{3} - 3x^{2} + 2$ dengan **definisi limit**, lalu bandingkan hasilnya dengan aturan pangkat.
-2. Jika $f(x) = \\tan x$, buktikan dengan aturan hasil bagi bahwa $f'(x) = \\sec^{2} x$.
-3. Tentukan turunan $y = x^{2}\\sin x$ dan hitung nilainya di $x = 0$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Hasil bagi selisih $\\dfrac{f(x+h) - f(x)}{h} = \\dfrac{(x+h)^{3} - 3(x+h)^{2} + 2 - (x^{3} - 3x^{2} + 2)}{h}$. Setelah dijabarkan dan $h \\to 0$, sisanya $3x^{2} - 6x$, sama dengan aturan pangkat.
-2. $\\tan x = \\dfrac{\\sin x}{\\cos x}$. Aturan hasil bagi memberi $\\dfrac{\\cos x \\cdot \\cos x - \\sin x \\cdot (-\\sin x)}{\\cos^{2} x} = \\dfrac{\\cos^{2} x + \\sin^{2} x}{\\cos^{2} x} = \\dfrac{1}{\\cos^{2} x} = \\sec^{2} x$.
-3. $y' = 2x\\sin x + x^{2}\\cos x$, maka $y'(0) = 0$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -322,6 +291,20 @@ Pada bidang kesehatan, laju penyebaran penyakit dimodelkan melalui turunan. Dala
 **3. Salah tanda pada turunan kosinus.** $\\dfrac{d}{dx}(\\cos x) = -\\sin x$, bukan $\\sin x$.
 **4. Menganggap turunan hasil kali sama dengan hasil kali turunan.** $(fg)' \\neq f'g'$; gunakan $f'g + fg'$.
 **5. Menukar urutan pada aturan hasil bagi.** Pembilangnya $f'g - fg'$, dengan tanda minus di suku kedua.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan penurunan $g(x)=(3x+1)^{4}$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Tulis $g(x)=(3x+1)^{4}$ dan misalkan $u=3x+1$.",
+            "Turunkan fungsi luar: $\\dfrac{d}{du}u^{4} = 4u^{3} = 4(3x+1)^{3}$.",
+            "Karena aturan rantai, kalikan dengan turunan dalam $\\dfrac{du}{dx} = 3$.",
+            "Tulis hasil akhir $g'(x) = 4(3x+1)^{3}$.",
+          ],
+          wrongIndex: 3,
+          explanation: "Langkah keempat keliru. Karena langkah ketiga meminta mengalikan dengan $\\dfrac{du}{dx}=3$, hasil yang benar adalah $g'(x) = 4(3x+1)^{3} \\cdot 3 = 12(3x+1)^{3}$, bukan $4(3x+1)^{3}$.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -396,8 +379,7 @@ Pada bidang kesehatan, laju penyebaran penyakit dimodelkan melalui turunan. Dala
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Turunan**.
-`,
+      body: `**Tiket keluar.** (1) Bagaimana definisi limit melahirkan gagasan gradien garis singgung? (2) Aturan mana yang dipakai untuk menurunkan $(3x+1)^{4}$, dan mengapa faktornya tidak boleh dilupakan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Turunan** untuk latihan tambahan.`,
     },
   ],
 };

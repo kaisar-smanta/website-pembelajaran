@@ -26,7 +26,6 @@ export const fungsiInvers: Topic = {
   ],
   prerequisites: ['fungsi-kuadrat'],
   relatedTopics: ['komposisi-fungsi', 'transformasi-fungsi'],
-  explorations: ['fungsi-invers-sim'],
   prerequisiteKnowledge: [
     'Pengertian relasi dan fungsi',
     'Notasi fungsi serta cara mensubstitusi nilai ke dalam fungsi',
@@ -325,58 +324,18 @@ $$f^{-1}(x) = \\sqrt{x}, \\qquad x \\geq 0.$$`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan $f^{-1}(x)$ untuk $f(x)=2x+3$.
-2. Tentukan $f^{-1}(x)$ untuk $f(x)=5x-10$.
-3. Diketahui $f(x)=2x+3$. Hitunglah $f^{-1}(7)$.
-4. Tentukan $f^{-1}(x)$ untuk $f(x)=x^{3}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $y=2x+3 \\Rightarrow x=\\dfrac{y-3}{2}$, jadi $f^{-1}(x)=\\dfrac{x-3}{2}$.
-2. $y=5x-10 \\Rightarrow x=\\dfrac{y+10}{5}$, jadi $f^{-1}(x)=\\dfrac{x+10}{5}$.
-3. Karena $f(2)=2(2)+3=7$, maka $f^{-1}(7)=2$.
-4. $y=x^{3} \\Rightarrow x=\\sqrt[3]{y}$, jadi $f^{-1}(x)=\\sqrt[3]{x}=x^{1/3}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan invers dari $f(x)=\\dfrac{x+2}{x-1}$, $x \\neq 1$.
-2. Tentukan invers dari $f(x)=\\dfrac{3x-1}{x+2}$, $x \\neq -2$.
-3. Tentukan invers dari $f(x)=x^{2}+1$ dengan domain $x \\geq 0$.
-4. Grafik $f$ melalui titik $(5,4)$. Tentukan titik yang pasti dilalui grafik $f^{-1}$ dan jelaskan alasannya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $y(x-1)=x+2 \\Rightarrow xy-y=x+2 \\Rightarrow x(y-1)=y+2 \\Rightarrow x=\\dfrac{y+2}{y-1}$, sehingga $f^{-1}(x)=\\dfrac{x+2}{x-1}$. Fungsi ini **invers terhadap dirinya sendiri**: $f^{-1}=f$. Periksa: $f(3)=\\dfrac{5}{2}$ dan $f^{-1}\\!\\left(\\dfrac{5}{2}\\right)=\\dfrac{(5/2)+2}{(5/2)-1}=\\dfrac{9/2}{3/2}=3$.
-2. $y(x+2)=3x-1 \\Rightarrow xy+2y=3x-1 \\Rightarrow x(y-3)=-1-2y \\Rightarrow x=\\dfrac{2y+1}{3-y}$, sehingga $f^{-1}(x)=\\dfrac{2x+1}{3-x}$. Periksa: $f(1)=\\dfrac{2}{3}$ dan $f^{-1}\\!\\left(\\dfrac{2}{3}\\right)=\\dfrac{2(2/3)+1}{3-2/3}=\\dfrac{7/3}{7/3}=1$.
-3. $y=x^{2}+1 \\Rightarrow x^{2}=y-1 \\Rightarrow x=\\sqrt{y-1}$ (karena $x \\geq 0$), jadi $f^{-1}(x)=\\sqrt{x-1}$ dengan $x \\geq 1$. Periksa: $f(2)=5$ dan $f^{-1}(5)=2$.
-4. Karena $f(5)=4$, maka $f^{-1}(4)=5$, sehingga $f^{-1}$ melalui $(4,5)$. Titik ini adalah pencerminan $(5,4)$ terhadap garis $y=x$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Diketahui $f^{-1}(x)=2x+3$. Tentukan rumus $f(x)$.
-2. Buktikan bahwa invers dari $f^{-1}$ adalah $f$ sendiri, yaitu $\\left(f^{-1}\\right)^{-1}=f$.
-3. Diketahui $f(x)=2x+3$ dan $f^{-1}(x)=\\dfrac{x-3}{2}$. Tunjukkan bahwa $f^{-1}\\!\\left(f(x)\\right)=x$ untuk setiap $x$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Misal $f^{-1}(x)=y$, maka $y=2x+3$. Untuk memperoleh $f$, tukar peran $x$ dan $y$: $x=2y+3 \\Rightarrow y=\\dfrac{x-3}{2}$. Jadi $f(x)=\\dfrac{x-3}{2}$. Periksa: $f(7)=2$ dan $f^{-1}(2)=2(2)+3=7$.
-2. Secara umum, $f^{-1}$ memetakan $y$ kembali ke $x$ bila $f$ memetakan $x$ ke $y$. Menerapkan pembalikan dua kali mengembalikan pemetaan semula, sehingga $\\left(f^{-1}\\right)^{-1}=f$. Untuk memastikannya, invers dari $f^{-1}$ diperoleh dengan menukar $x$ dan $y$ pada $y=f^{-1}(x)$ dan hasilnya adalah rumus $f$.
-3. Substitusi langsung: $f^{-1}\\!\\left(f(x)\\right)=f^{-1}(2x+3)=\\dfrac{(2x+3)-3}{2}=\\dfrac{2x}{2}=x$. Terbukti.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -456,8 +415,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Fungsi Invers**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa hanya fungsi satu-satu yang memiliki invers? (2) Mengapa grafik $f$ dan $f^{-1}$ saling mencerminkan terhadap garis $y=x$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Invers** untuk latihan tambahan.`,
     },
   ],
 };

@@ -37,9 +37,6 @@ export const asosiasiKausalitas: Topic = {
     { text: 'Membandingkan kekuatan bukti dari studi observasional dan eksperimen terkontrol.' },
     { text: 'Menyimpulkan hubungan antar-variabel dengan hati-hati dan tanpa berlebihan.' },
   ],
-  explorations: [
-    "asosiasi-kausalitas-tabel",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -265,56 +262,18 @@ Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya ko
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `Untuk tiap pernyataan, tentukan apakah itu **asosiasi** atau **kausalitas**, serta sebutkan variabel perancu yang mungkin bila ada.
-
-1. "Angka penjualan payung naik bersamaan dengan angka kecelakaan lalu lintas."
-2. "Menekan tombol lampu membuat ruangan menjadi terang."
-3. "Anak yang menonton lebih banyak televisi cenderung kurang tidur."`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. **Asosiasi** (korelasi semu). Perancu: curah hujan — hujan membuat orang membeli payung dan jalanan licin.
-2. **Kausalitas**. Hubungan mekanistik jelas dan dapat diuji: menekan tombol mengalirkan arus sehingga lampu menyala.
-3. **Asosiasi**, belum tentu kausal. Perancu mungkin kebiasaan orang tua atau jadwal keluarga; bisa juga arah sebab-akibat terbalik (anak yang sulit tidur menonton televisi lebih lama).`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Sebuah artikel menulis: "Siswa yang ikut les tambahan nilainya lebih tinggi, jadi les tambahan meningkatkan nilai." Sebutkan dua variabel perancu yang mungkin, dan jelaskan mengapa kesimpulan itu terlalu cepat.
-2. Sebuah studi menemukan korelasi positif antara konsumsi kopi dan penyakit jantung. Bagaimana **kausalitas terbalik** mungkin menjelaskan temuan itu?
-3. Mengapa melakukan **pengacakan** pada eksperimen dapat menekan pengaruh variabel perancu?`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Perancu misalnya **motivasi belajar** dan **dukungan keluarga**. Siswa yang termotivasi dan didukung lebih mungkin ikut les **dan** memperoleh nilai tinggi, sehingga hubungan les-nilai bisa muncul tanpa les sebagai penyebab. Diperlukan eksperimen atau pengontrolan variabel untuk menyimpulkan kausalitas.
-2. Mungkin **penyakit atau gejalanya** membuat orang lebih banyak minum kopi (misalnya untuk mengatasi kelelahan), bukan kopi yang menyebabkan penyakit. Urutan waktunya harus diperiksa.
-3. Karena pembagian acak cenderung membuat kelompok sebanding pada **semua** variabel, baik yang diamati maupun yang tidak (misalnya gaya hidup, riwayat kesehatan). Dengan begitu pengaruh perancu "terbagi rata" antar kelompok, sehingga perbedaan hasil lebih mungkin disebabkan perlakuan.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Rancang sebuah **eksperimen sederhana** untuk menguji apakah mendengarkan musik klasik saat belajar meningkatkan hasil tes. Sebutkan kelompok perlakuan, kelompok kontrol, dan cara pengacakan.
-2. Diberikan klaim: "Kota dengan lebih banyak tempat olahraga memiliki penduduk yang lebih sehat." Uraikan rantai penalaran yang mungkin, variabel perancunya, dan bagaimana kamu akan menguji klaim tersebut.
-3. Jelaskan mengapa **korelasi kuat** justru bisa berbahaya bila disalahartikan sebagai kausalitas. Berikan satu contoh nyata.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Contoh rancangan: pilih siswa secara acak, bagi menjadi dua kelompok. Kelompok perlakuan belajar sambil mendengarkan musik klasik; kelompok kontrol belajar dalam kondisi sunyi (selain perlakuan, semua kondisi dibuat sama). Bandingkan rata-rata nilai tes. Pengacakan dilakukan agar kedua kelompok sebanding pada faktor seperti kebiasaan belajar dan kemampuan awal, sehingga perbedaan yang tersisa lebih layak dikaitkan dengan perlakuan.
-2. Rantai yang mungkin: banyak tempat olahraga di kota besar; kota besar juga punya fasilitas kesehatan dan pendapatan lebih tinggi, yang memengaruhi kesehatan. Perancu: **pendapatan rata-rata** dan **akses layanan kesehatan**. Uji dengan membandingkan kota berpendapatan serupa, atau gunakan eksperimen/analisis yang mengontrol variabel tersebut.
-3. Karena korelasi tidak menentukan sebab-akibat, kebijakan yang salah sasaran bisa diambil. Contoh: "siswa yang membawa bekal lebih berprestasi, maka bagikan bekal agar nilai naik" — padahal bekal hanya penanda keluarga mapan, sehingga intervensi itu mungkin tidak berpengaruh. Bukti kuat (eksperimen acak) diperlukan sebelum mengambil keputusan besar.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -399,7 +358,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Asosiasi dan Kausalitas**.",
+      body: `**Tiket keluar.** (1) Bukti apa yang perlu dikumpulkan sebelum mengubah asosiasi menjadi klaim sebab-akibat? (2) Bagaimana sebuah variabel perancu dapat menciptakan korelasi semu? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Asosiasi dan Kausalitas** untuk latihan tambahan.`,
     },
   ],
 };

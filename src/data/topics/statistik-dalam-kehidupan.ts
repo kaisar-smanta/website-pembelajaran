@@ -28,7 +28,6 @@ export const statistikDalamKehidupan: Topic = {
   ],
   prerequisites: ['analisis-distribusi-data'],
   relatedTopics: ['data-bivariat'],
-  explorations: ['distribusi-sebaran'],
   prerequisiteKnowledge: [
     'Menghitung mean, median, dan modus data tunggal',
     'Menentukan kuartil dan jangkauan data terurut',
@@ -186,6 +185,23 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
             ],
           ],
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Tabel",
+              body: "Angka mentah paling jujur: setiap nilai ditulis apa adanya sehingga sebaran dan pencilan tidak tersembunyi.",
+            },
+            {
+              label: "Diagram batang",
+              body: "Tinggi batang harus proporsional; memotong sumbu vertikal membuat perbedaan kecil tampak besar.",
+            },
+            {
+              label: "Diagram garis",
+              body: "Baik untuk menunjukkan tren waktu, tetapi pilihan rentang sumbu tetap dapat membesar-besarkan perubahan.",
+            },
+          ],
+        },
       ],
     },
     {
@@ -241,6 +257,18 @@ Pada eksplorasi **Eksplorasi Sebaran dan Pencilan**, mulailah dengan data yang m
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Prinsip Umum: Ukuran yang Tahan dan Penyajian yang Jujur",
+      body: `Dari contoh-contoh di atas muncul satu prinsip yang berulang: **setiap ukuran punya kepekaan berbeda terhadap pencilan**. Mean memakai seluruh nilai sehingga sangat terpengaruh nilai ekstrem, sedangkan median dan modus lebih tahan karena hanya bergantung pada posisi atau frekuensi. Karena itu mean lebih tepat untuk data yang relatif simetris, sedangkan median lebih mewakili nilai tipikal ketika ada pencilan atau data condong.
+
+Prinsip serupa berlaku saat menggabungkan kelompok. Mean gabungan harus dibobot ukuran kelompok:
+
+$$\\bar{x}_{\\text{gab}} = \\frac{n_1\\bar{x}_1 + n_2\\bar{x}_2}{n_1 + n_2},$$
+
+bukan rata-rata dari kedua mean. Terakhir, penyajian grafis yang memotong sumbu atau menyembunyikan sebaran dapat membuat perbedaan kecil tampak dramatis. Sebab itu angka yang benar belum tentu jujur: periksa ukuran, skala, dan sebaran sebelum mempercayai sebuah klaim.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -279,77 +307,18 @@ Rata-rata gabungan bukan $(72+84)/2=78$, karena kedua kelas berukuran berbeda.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `Perhatikan data berikut (misalnya banyak buku yang dibaca sekelompok siswa dalam sebulan):
-$$5,\\ 6,\\ 6,\\ 7,\\ 7,\\ 7,\\ 8,\\ 10.$$
-
-1. Tentukan mean data tersebut.
-2. Tentukan mediannya.
-3. Tentukan modusnya.
-4. Tentukan jangkauannya.
-5. Jika nilai $10$ digantikan oleh $50$, tentukan mean dan median yang baru, lalu jelaskan mana yang lebih berubah.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Jumlah $=5+6+6+7+7+7+8+10=56$, sehingga mean $=\\dfrac{56}{8}=7$.
-2. $n=8$ genap, median $=\\dfrac{7+7}{2}=7$.
-3. Modus $=7$ (muncul tiga kali).
-4. Jangkauan $=10-5=5$.
-5. Data baru: $5, 6, 6, 7, 7, 7, 8, 50$. Mean $=\\dfrac{5+6+6+7+7+7+8+50}{8}=\\dfrac{96}{8}=12$, sedangkan median tetap $7$. Mean berubah dari $7$ menjadi $12$, sedangkan median tidak berubah — mean jauh lebih terpengaruh pencilan.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Waktu layar harian (jam) delapan siswa: $2, 3, 3, 4, 4, 4, 5, 15$. Tentukan mean dan median, lalu tentukan ukuran yang lebih mewakili kebiasaan siswa.
-
-2. Data usia (tahun) peserta sebuah lomba: $12, 15, 15, 16, 18, 20, 22, 45$. Tentukan $Q_1$, $Q_3$, dan IQR, lalu selidiki apakah $45$ merupakan pencilan.
-
-3. Sebuah sekolah menggabungkan dua kelas. Kelas A berisi $30$ siswa dengan rata-rata $72$; Kelas B berisi $20$ siswa dengan rata-rata $84$. Tentukan rata-rata gabungan.
-
-4. Nilai sepuluh siswa: $60, 65, 70, 70, 75, 80, 85, 90, 95, 100$. Tentukan mean dan median. Sebuah artikel menulis "rata-rata nilai 79". Berikan tanggapan kritis terhadap pernyataan itu.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Jumlah $=40$, mean $=\\dfrac{40}{8}=5$. Median $=\\dfrac{4+4}{2}=4$. Karena ada pencilan $15$, median $4$ jam lebih mewakili kebiasaan siswa, sedangkan mean tertarik ke atas oleh nilai ekstrem.
-
-2. $Q_1=$ median dari $12, 15, 15, 16$ $=15$; $Q_3=$ median dari $18, 20, 22, 45$ $=21$; IQR $=21-15=6$. Batas atas $=21+1{,}5(6)=30$. Karena $45>30$, nilai $45$ adalah pencilan.
-
-3. $\\bar{x}_{gab}=\\dfrac{30\\cdot 72+20\\cdot 84}{50}=\\dfrac{2160+1680}{50}=\\dfrac{3840}{50}=76{,}8$.
-
-4. Jumlah $=790$, mean $=\\dfrac{790}{10}=79$; median $=\\dfrac{75+80}{2}=77{,}5$. Pernyataan itu benar secara hitung, tetapi perlu dilengkapi: tidak ada siswa yang nilainya tepat $79$, dan sebaiknya disebutkan juga sebaran atau median agar gambaran lebih lengkap. Klaim rata-rata tunggal tanpa sebaran berpotensi menyesatkan.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Sebuah perusahaan memiliki $9$ karyawan bergaji Rp4.000.000 per bulan dan $1$ direktur bergaji Rp40.000.000. Tentukan mean dan median gaji, lalu tentukan angka yang lebih jujur untuk menggambarkan gaji karyawan biasa.
-
-2. Rata-rata delapan bilangan adalah $12$. Setelah satu bilangan baru ditambahkan, rata-ratanya menjadi $13$. Tentukan bilangan baru tersebut.
-
-3. Sebuah grafik batang menunjukkan penjualan Januari $100$ unit dan Februari $105$ unit, tetapi sumbu vertikalnya dimulai dari $95$ sehingga batang Februari tampak dua kali batang Januari. Jelaskan mengapa grafik ini menyesatkan dan bagaimana cara menyajikannya dengan jujur.
-
-4. Sebuah artikel menyimpulkan "minum kopi menurunkan nilai ujian" berdasarkan survei terhadap $12$ siswa. Berikan kritik terhadap kesimpulan tersebut dan sebutkan informasi tambahan yang diperlukan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Mean $=\\dfrac{9\\times 4.000.000+40.000.000}{10}=\\dfrac{76.000.000}{10}=7.600.000$. Data terurut memuat sembilan nilai Rp4.000.000 dan satu nilai Rp40.000.000; karena $n=10$, median $=\\dfrac{4.000.000+4.000.000}{2}=4.000.000$. Median Rp4.000.000 lebih jujur menggambarkan karyawan biasa; mean Rp7.600.000 terangkat oleh gaji direktur.
-
-2. Jumlah delapan bilangan $=8\\times 12=96$. Jumlah sembilan bilangan $=9\\times 13=117$. Bilangan baru $=117-96=21$.
-
-3. Perbedaan sebenarnya hanya $5$ unit dari $100$, yaitu $5\\%$, tetapi karena skala dimulai dari $95$, tinggi batang Januari hanya $5$ satuan dan batang Februari menjadi $10$ satuan — tampak dua kali lipat. Ini menyesatkan karena memotong sumbu. Penyajian jujur memulai sumbu dari $0$ atau menuliskan angka sebenarnya secara jelas.
-
-4. Kesimpulan itu lemah karena (a) sampel hanya $12$ siswa, terlalu kecil untuk menyimpulkan hubungan umum; (b) tidak jelas apakah siswa dibandingkan pada kondisi lain yang setara; (c) korelasi antara kebiasaan minum kopi dan nilai ujian tidak membuktikan sebab-akibat. Informasi tambahan yang diperlukan: ukuran sampel lebih besar, cara pemilihan sampel, definisi dan pengukuran variabel, serta faktor lain seperti jam belajar dan waktu tidur.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -438,7 +407,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Statistik dalam Kehidupan**.",
+      body: `**Tiket keluar.** (1) Mengapa mean lebih berubah daripada median ketika sebuah pencilan ditambahkan? (2) Mengapa mean gabungan dua kelompok harus dibobot ukurannya? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Statistik dalam Kehidupan** untuk latihan tambahan.`,
     },
   ],
 };

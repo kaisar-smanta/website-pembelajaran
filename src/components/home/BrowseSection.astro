@@ -1,6 +1,6 @@
 ---
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { ELEMENTS, GRADES, GRADE_ORDER, SUBJECTS, SUBJECT_ORDER, elementOrderFor } from '@/data/curriculum';
 import { elementOverviewUrl, gradeUrl } from '@/utils/url';
 
 const gradeAccent: Record<string, string> = {
@@ -9,6 +9,11 @@ const gradeAccent: Record<string, string> = {
   XII: 'accent-geometri',
 };
 const revealStyle = (i: number) => `--reveal-delay:${i * 70}ms`;
+const elementSubjects = SUBJECT_ORDER.map((subject) => ({
+  subject,
+  name: SUBJECTS[subject].name,
+  elements: elementOrderFor(subject),
+}));
 ---
 
 <section class="section band-plain entry-doors" aria-labelledby="entry-doors-title">
@@ -81,20 +86,27 @@ const revealStyle = (i: number) => `--reveal-delay:${i * 70}ms`;
       role="region"
       aria-label="Telusuri menurut elemen"
     >
-      <ul class="entry-element-grid" role="list">
+      <ul class="entry-element-groups" role="list">
         {
-          ELEMENT_ORDER.map((elementId, i) => (
-            <li class="entry-slot reveal" style={revealStyle(i)} data-reveal>
-              <a
-                class={`entry-door entry-door--element wiggle-on-hover accent-${elementId}`}
-                href={elementOverviewUrl(elementId)}
-              >
-                <span class="icon-tile wiggle-target" aria-hidden="true">
-                  <ElementIcon element={elementId} size={22} />
-                </span>
-                <h3>{ELEMENTS[elementId].name}</h3>
-                <span class="cta">Semua kelas →</span>
-              </a>
+          elementSubjects.map((group) => (
+            <li class="entry-element-group">
+              <p class="entry-element-subject">{group.name}</p>
+              <ul class="entry-element-grid" role="list">
+                {group.elements.map((elementId, i) => (
+                  <li class="entry-slot reveal" style={revealStyle(i)} data-reveal>
+                    <a
+                      class={`entry-door entry-door--element wiggle-on-hover accent-${elementId}`}
+                      href={elementOverviewUrl(elementId, group.subject)}
+                    >
+                      <span class="icon-tile wiggle-target" aria-hidden="true">
+                        <ElementIcon element={elementId} size={22} />
+                      </span>
+                      <h3>{ELEMENTS[elementId].name}</h3>
+                      <span class="cta">Semua kelas →</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))
         }
@@ -221,6 +233,18 @@ const revealStyle = (i: number) => `--reveal-delay:${i * 70}ms`;
   }
   .entry-element-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr));
+  }
+  .entry-element-groups {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+  }
+  .entry-element-subject {
+    margin: 0 0 0.65rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
   }
   .entry-slot {
     display: flex;

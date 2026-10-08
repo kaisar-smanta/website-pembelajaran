@@ -1,6 +1,11 @@
 // Uji logika latihan murni: node tests/practice.mjs
 import assert from 'node:assert/strict';
-import { difficultyCounts, groupByDifficulty } from '../src/lib/practice.ts';
+import {
+  difficultyCounts,
+  groupByDifficulty,
+  combineSeed,
+  reviewQuestionIds,
+} from '../src/lib/practice.ts';
 
 let passed = 0;
 function check(label, fn) {
@@ -51,6 +56,26 @@ check('groupByDifficulty tidak memutasi daftar asal', () => {
   const copy = items.slice();
   groupByDifficulty(items);
   assert.deepEqual(items, copy);
+});
+
+check('combineSeed deterministik dan bergantung pada sesi', () => {
+  assert.equal(combineSeed('sesi-1', 'q-1'), combineSeed('sesi-1', 'q-1'));
+  assert.notEqual(combineSeed('sesi-1', 'q-1'), combineSeed('sesi-2', 'q-1'));
+  assert.notEqual(combineSeed('sesi-1', 'q-1'), combineSeed('sesi-1', 'q-2'));
+});
+
+check('reviewQuestionIds menggabungkan belum tepat dan belum dicoba', () => {
+  let attempts = {};
+  attempts = {
+    a: { questionId: 'a', correct: false, at: 1, graded: true },
+    b: { questionId: 'b', correct: true, at: 1, graded: true },
+    c: { questionId: 'c', correct: false, at: 1, graded: false },
+  };
+  const ids = ['a', 'b', 'c', 'd'];
+  assert.deepEqual(reviewQuestionIds(attempts, ids, 'both'), ['a', 'd']);
+  assert.deepEqual(reviewQuestionIds(attempts, ids, 'missed'), ['a']);
+  assert.deepEqual(reviewQuestionIds(attempts, ids, 'unanswered'), ['d']);
+  assert.deepEqual(reviewQuestionIds({}, ids, 'both'), ['a', 'b', 'c', 'd']);
 });
 
 console.log(`PASS practice (${passed} pemeriksaan)`);

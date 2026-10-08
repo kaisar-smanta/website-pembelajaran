@@ -7,11 +7,11 @@ export const persamaanEksponenLogaritma: Topic = {
   subtitle: 'Menyelesaikan persamaan dan memahami logaritma sebagai invers',
   grade: 'X',
   phase: 'E',
-  element: 'bilangan',
+  element: 'aljabar-fungsi',
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Persamaan eksponen basis sama termasuk CP Fase E (lihat E-ALJ-3, topik Fungsi Eksponensial). Topik ini ditandai pengayaan karena menambahkan logaritma yang melampaui tuntutan CP.',
+    'Persamaan eksponen basis sama termasuk CP Fase E pada elemen Aljabar dan Fungsi (E-ALJ-3), sehingga topik ini ditempatkan pada elemen tersebut. Topik tetap ditandai pengayaan karena menambahkan logaritma yang melampaui tuntutan CP.',
   estimatedMinutes: 90,
   summary:
     'Menyelesaikan persamaan eksponen dengan menyamakan basis dan substitusi, serta memahami logaritma sebagai invers eksponen beserta sifat-sifatnya.',
@@ -20,7 +20,6 @@ export const persamaanEksponenLogaritma: Topic = {
   keywords: ['eksponen', 'logaritma', 'persamaan', 'sifat logaritma', 'basis'],
   prerequisites: ['eksponen', 'fungsi-eksponensial'],
   relatedTopics: ['barisan-deret', 'bunga-majemuk'],
-  explorations: ['fungsi-eksponensial-grafik'],
   prerequisiteKnowledge: [
     'Sifat-sifat eksponen seperti $a^{m}\\cdot a^{n}=a^{m+n}$ dan $(a^{m})^{n}=a^{mn}$',
     'Menyelesaikan persamaan linear satu variabel',
@@ -227,6 +226,18 @@ Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Kunci Umum: Hubungan Balik Eksponen dan Logaritma",
+      body: `Seluruh soal pada topik ini bertumpu pada satu kesetaraan. Untuk $a>0$, $a\\neq1$, dan $b>0$:
+
+$$a^{c}=b \\iff \\log_{a}b=c.$$
+
+Dari kesetaraan itu lahir dua strategi umum. Persamaan eksponen diselesaikan dengan **menyamakan basis** — karena fungsi eksponen satu-satu, $a^{m}=a^{n}$ hanya mungkin bila $m=n$ — atau dengan **substitusi** $t=a^{x}$ untuk mengubahnya menjadi persamaan kuadrat. Persamaan logaritma diselesaikan dengan mengubahnya kembali ke bentuk eksponen, atau menggabungkan suku dengan sifat $\\log_{a}m+\\log_{a}n=\\log_{a}(mn)$.
+
+Kedua arah selalu ditutup dengan pemeriksaan: solusi eksponen harus memenuhi $t=a^{x}>0$, sedangkan solusi logaritma harus memenuhi syarat **numerus positif**.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -287,78 +298,18 @@ Periksa dengan $2^{3}=8$ ✓.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan $x$ dari $2^{x}=64$.
-
-2. Tentukan $x$ dari $3^{x-1}=27$.
-
-3. Hitung nilai $\\log_{3}81$.
-
-4. Hitung nilai $\\log_{2}8+\\log_{2}4$.
-
-5. Tentukan $x$ dari $5^{2x}=125$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $64=2^{6}$, maka $x=6$.
-2. $27=3^{3}$, maka $x-1=3 \\Rightarrow x=4$.
-3. $81=3^{4}$, maka $\\log_{3}81=4$.
-4. $\\log_{2}8=3$ dan $\\log_{2}4=2$, jadi jumlahnya $5$.
-5. $125=5^{3}$, maka $2x=3 \\Rightarrow x=\\dfrac{3}{2}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan $x$ dari $4^{x+1}=8^{x-1}$.
-
-2. Tentukan $x$ dari $9^{x}-4\\cdot3^{x}+3=0$.
-
-3. Hitung nilai $\\log_{2}12+\\log_{2}6-\\log_{2}9$.
-
-4. Tentukan $x$ dari $\\log_{3}(x+2)=2$.
-
-5. Tentukan $x$ dari $2^{2x}-5\\cdot2^{x}+4=0$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Samakan basis $2$: $4^{x+1}=2^{2(x+1)}$ dan $8^{x-1}=2^{3(x-1)}$. Maka $2x+2=3x-3 \\Rightarrow x=5$. Periksa: $4^{6}=4096$ dan $8^{4}=4096$ ✓.
-2. Misalkan $t=3^{x}$, sehingga $t^{2}-4t+3=0 \\Rightarrow (t-1)(t-3)=0$. Maka $t=1 \\Rightarrow x=0$ atau $t=3 \\Rightarrow x=1$.
-3. $\\log_{2}\\left(\\dfrac{12\\cdot6}{9}\\right)=\\log_{2}8=3$.
-4. Bentuk eksponen: $x+2=3^{2}=9 \\Rightarrow x=7$. Syarat numerus $x+2=9>0$ ✓.
-5. Misalkan $t=2^{x}>0$, maka $t^{2}-5t+4=0 \\Rightarrow (t-1)(t-4)=0$. Jadi $t=1 \\Rightarrow x=0$ atau $t=4=2^{2} \\Rightarrow x=2$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan $x$ dari $3^{2x+1}=27^{x-2}$.
-
-2. Tentukan $x$ dari $\\log_{2}x+\\log_{2}(x-2)=3$.
-
-3. Diketahui $2^{a}=3$. Tentukan nilai $4^{a+1}$.
-
-4. Tentukan semua $x$ yang memenuhi $2^{x^{2}-3x}=16^{x-3}$.
-
-5. Selidiki mengapa $x=-2$ harus ditolak pada soal nomor 2.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Tulis $27=3^{3}$, maka $27^{x-2}=3^{3(x-2)}$. Samakan pangkat: $2x+1=3x-6 \\Rightarrow x=7$. Periksa: $3^{15}$ di kedua ruas ✓.
-2. Gabungkan: $\\log_{2}[x(x-2)]=3 \\Rightarrow x(x-2)=2^{3}=8 \\Rightarrow x^{2}-2x-8=0 \\Rightarrow (x-4)(x+2)=0$. Kandidat $x=4$ atau $x=-2$. Syarat numerus $x>0$ dan $x-2>0$ menolak $x=-2$; jadi $x=4$.
-3. $4^{a+1}=(2^{2})^{a+1}=2^{2a+2}=(2^{a})^{2}\\cdot2^{2}=3^{2}\\cdot4=9\\cdot4=36$.
-4. Tulis $16=2^{4}$, maka $16^{x-3}=2^{4(x-3)}$. Samakan pangkat: $x^{2}-3x=4x-12 \\Rightarrow x^{2}-7x+12=0 \\Rightarrow (x-3)(x-4)=0$. Jadi $x=3$ atau $x=4$. Keduanya valid karena basis $2>0$ dan $2\\neq1$.
-5. Untuk $x=-2$, numerus kedua $x-2=-4$ bernilai negatif, sehingga $\\log_{2}(x-2)$ tidak terdefinisi. Karena itu $x=-2$ bukan solusi meskipun memenuhi persamaan kuadratnya.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -460,7 +411,7 @@ Skala logaritma juga memampatkan rentang yang sangat lebar: skala pH, skala Rich
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Persamaan Eksponen dan Logaritma**.",
+      body: `**Tiket keluar.** (1) Bagaimana kesetaraan $a^{c}=b \\iff \\log_{a}b=c$ dipakai untuk menyelesaikan kedua jenis persamaan? (2) Mengapa setiap solusi persamaan logaritma wajib diperiksa terhadap syarat numerus? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Persamaan Eksponen dan Logaritma** untuk latihan tambahan.`,
     },
   ],
 };

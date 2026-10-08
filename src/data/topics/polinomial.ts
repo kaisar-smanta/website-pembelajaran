@@ -39,7 +39,6 @@ export const polinomial: Topic = {
     { text: 'Peserta didik dapat menerapkan teorema sisa dan teorema faktor.' },
     { text: 'Peserta didik dapat menentukan faktor dan akar polinomial serta menyelesaikan identitas polinomial.' },
   ],
-  explorations: ['mtl-polinomial-grafik'],
   sections: [
     {
       id: "tujuan",
@@ -228,6 +227,16 @@ Menyamakan koefisien suku sejenis memberi $a=-2$ dan $b=6$.`,
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Algoritma Pembagian sebagai Induk Teorema",
+      body: `Semua sifat pada topik ini mengalir dari satu identitas, yaitu **algoritma pembagian**. Jika $P(x)$ dibagi oleh $Q(x)$, selalu ada hasil bagi $H(x)$ dan sisa $S(x)$ berderajat lebih kecil daripada derajat $Q$ sehingga
+
+$$P(x) = Q(x)\\,H(x) + S(x), \\qquad \\deg S < \\deg Q.$$
+
+Ketika pembaginya linear, $Q(x)=x-c$, sisanya berderajat nol, yaitu sebuah konstanta. Menyubstitusi $x=c$ menghapus suku $Q(c)H(c)$ sehingga tersisa $S(c)=P(c)$ — itulah **teorema sisa**. Bila $P(c)=0$, sisa menjadi nol dan $P(x)$ habis dibagi $(x-c)$ — itulah **teorema faktor**. Jadi kedua teorema itu bukan rumus terpisah, melainkan akibat langsung dari algoritma pembagian.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -277,60 +286,18 @@ Menyamakan koefisien suku sejenis memberi $a=3$, $b=-1$, dan $c=-3$.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan derajat dan koefisien utama dari $4x^{5}-x^{3}+2x-9$.
-2. Diketahui $P(x)=x^{3}+2x^{2}-x+1$ dan $Q(x)=x^{2}-3x+2$. Tentukan $P(x)+Q(x)$.
-3. Hitunglah $P(x)Q(x)$ untuk $P(x)=x+2$ dan $Q(x)=x^{2}-x+3$.
-4. Tentukan sisa pembagian $x^{3}-2x^{2}+4x-1$ oleh $(x-1)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Derajatnya $5$ dengan koefisien utama $4$.
-2. $P(x)+Q(x) = x^{3} + 3x^{2} - 4x + 3$.
-3. $(x+2)(x^{2}-x+3) = x^{3} + x^{2} + x + 6$.
-4. $P(1) = 1 - 2 + 4 - 1 = 2$, jadi sisanya $2$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan hasil bagi dan sisa pembagian $2x^{3}+x^{2}-3x+4$ oleh $(x-2)$ dengan metode Horner.
-2. Jika $P(x)=x^{3}+2x^{2}-5x+3$, tentukan $P(-2)$.
-3. Tunjukkan bahwa $(x-2)$ adalah faktor dari $x^{3}-4x^{2}+5x-2$.
-4. Tentukan nilai $k$ agar $(x-1)$ menjadi faktor dari $x^{3}+kx^{2}-3x+2$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Hasil baginya $2x^{2}+5x+7$ dan sisanya $18$, karena $2x^{3}+x^{2}-3x+4 = (x-2)(2x^{2}+5x+7)+18$.
-2. $P(-2) = -8 + 8 + 10 + 3 = 13$.
-3. $P(2) = 8 - 16 + 10 - 2 = 0$, sehingga $(x-2)$ faktor.
-4. $(x-1)$ faktor berarti $P(1)=0$: $1 + k - 3 + 2 = k = 0$, jadi $k=0$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan semua akar dari $P(x)=x^{3}-4x^{2}+x+6$ beserta pemfaktorannya.
-2. Tentukan $a$ dan $b$ dari kesamaan $x^{3}+ax^{2}+bx+4=(x+1)(x+2)^{2}$.
-3. Jika polinomial $P(x)$ berderajat $4$ dan dibagi $(x-1)$ bersisa $5$, tentukan $P(1)$ lalu jelaskan kaitannya dengan teorema sisa.
-4. Tentukan sisa pembagian $x^{4}-3x^{2}+2x-5$ oleh $(x+2)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. $P(3)=0$ sehingga $(x-3)$ faktor. Hasil bagi $x^{2}-x-2=(x-2)(x+1)$, maka $P(x)=(x-3)(x-2)(x+1)$ dengan akar $x=3$, $x=2$, dan $x=-1$.
-2. Ruas kanan $=(x+1)(x^{2}+4x+4)=x^{3}+5x^{2}+8x+4$, maka $a=5$ dan $b=8$.
-3. Teorema sisa menyatakan sisa pembagian oleh $(x-1)$ adalah $P(1)$, jadi $P(1)=5$.
-4. Sisa $=P(-2)=16-12-4-5=-5$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -348,6 +315,20 @@ Dalam teknologi, kurva Bézier pada desain grafis dan animasi dibangun dari poli
 **2. Menyamakan suku tidak sejenis.** Hanya koefisien dari pangkat yang sama boleh disamakan pada identitas polinomial.
 **3. Berhenti saat menemukan satu faktor.** Setelah $(x-c)$ diperoleh, hasil bagi masih perlu difaktorkan untuk menemukan akar lainnya.
 **4. Mengabaikan derajat hasil bagi.** Derajat hasil bagi adalah derajat $P$ dikurangi derajat pembagi; periksa kembali agar tidak ada suku yang hilang.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan penentuan sisa pembagian $P(x)=x^{3}-4x^{2}+x+6$ oleh $(x+1)$ dengan teorema sisa. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Menurut teorema sisa, sisa pembagian $P(x)$ oleh $(x-c)$ adalah $P(c)$.",
+            "Pembagi $(x+1)$ berarti $c=1$, sehingga sisa $=P(1)$.",
+            "Hitung $P(1)=1-4+1+6=4$.",
+            "Jadi sisanya $4$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Langkah kedua keliru. Pembagi $(x+1)$ sama dengan $(x-(-1))$, sehingga $c=-1$, bukan $1$. Sisa yang benar adalah $P(-1)=-1-4-1+6=0$.",
+        },
+      ],
     },
     {
       id: "refleksi",
@@ -414,8 +395,7 @@ Dalam teknologi, kurva Bézier pada desain grafis dan animasi dibangun dari poli
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Polinomial**.
-`,
+      body: `**Tiket keluar.** (1) Bagaimana algoritma pembagian melahirkan teorema sisa dan teorema faktor? (2) Mengapa derajat sisa selalu lebih kecil daripada derajat pembagi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Polinomial** untuk latihan tambahan.`,
     },
   ],
 };

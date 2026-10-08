@@ -39,9 +39,6 @@ export const matriksTransformasi: Topic = {
     { text: 'Peserta didik dapat menghitung komposisi transformasi menggunakan perkalian matriks.' },
     { text: 'Peserta didik dapat menafsirkan determinan sebagai faktor skala luas.' },
   ],
-  explorations: [
-    "mtl-matriks-transformasi",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -280,6 +277,18 @@ yang tidak lain adalah refleksi terhadap garis $y=-x$.`,
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Determinan dan Komposisi sebagai Pola Umum",
+      body: `Semua transformasi linear pada topik ini dapat ditulis dengan satu matriks $2\\times2$, dan satu bilangan merangkum pengaruhnya terhadap luas, yaitu **determinan**:
+
+$$\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc.$$
+
+Nilai $\\lvert\\det(M)\\rvert$ menyatakan berapa kali luas sebuah bangun berubah setelah ditransformasi; khususnya $\\det(M)=1$ untuk rotasi dan refleksi, serta $\\det(M)=0$ membuat bangun menyusut menjadi garis.
+
+Pola kedua muncul saat beberapa transformasi dirangkai. Bila $T_1$ dengan matriks $M_1$ dikerjakan lebih dahulu lalu $T_2$ dengan matriks $M_2$, matriks gabungannya adalah $M_2M_1$. Karena perkalian matriks tidak komutatif, **urutan langkah menentukan hasil**, seperti yang tampak ketika rotasi dan refleksi ditukar.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -322,60 +331,18 @@ Jadi $B'(-4,-1)$.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan bayangan titik $A(3,-2)$ oleh refleksi terhadap sumbu $x$.
-2. Tentukan bayangan $B(1,4)$ oleh translasi $\\binom{-2}{3}$.
-3. Tentukan bayangan $C(2,5)$ oleh rotasi $180^\\circ$ terhadap titik asal.
-4. Tentukan determinan matriks dilatasi $\\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Refleksi terhadap sumbu $x$: $(3,2)$.
-2. Translasi: $(1-2, 4+3) = (-1,7)$.
-3. Rotasi $180^\\circ$: $(-2,-5)$.
-4. $\\det = 3(3) - 0(0) = 9$, sehingga luas menjadi $9$ kali semula.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan bayangan titik $D(3,1)$ oleh rotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal.
-2. Tentukan matriks refleksi terhadap garis $y=x$, lalu tentukan bayangan $E(4,-1)$.
-3. Titik $F(2,-3)$ didilatasi dengan pusat titik asal dan faktor skala $-2$. Tentukan bayangannya.
-4. Tentukan determinan matriks rotasi $60^\\circ$, lalu tafsirkan maknanya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $R_{90^\\circ}$ memetakan $(3,1)$ ke $(-1,3)$.
-2. Matriksnya $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$, sehingga $E(4,-1) \\rightarrow E'(-1,4)$.
-3. $(2,-3) \\rightarrow (-2(2), -2(-3)) = (-4,6)$.
-4. $\\det = \\cos^{2}60^\\circ + \\sin^{2}60^\\circ = 1$; rotasi tidak mengubah luas bangun.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Titik $G(2,1)$ dirotasi $90^\\circ$ berlawanan arah jarum jam lalu direfleksikan terhadap sumbu $x$. Tentukan bayangannya dan identifikasi transformasi tunggal yang setara.
-2. Tentukan bayangan titik $H(4,6)$ oleh matriks $\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$, lalu cari peta baliknya menggunakan matriks invers.
-3. Tunjukkan bahwa komposisi refleksi terhadap sumbu $x$ dilanjutkan refleksi terhadap sumbu $y$ sama dengan rotasi $180^\\circ$.
-4. Sebuah bangun memiliki luas $5$ satuan. Tentukan luas bayangannya setelah ditransformasi oleh matriks dengan determinan $-3$, lalu jelaskan arti tanda negatifnya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Rotasi memberi $(-1,2)$, lalu refleksi sumbu $x$ memberi $(-1,-2)$. Ini setara dengan refleksi terhadap garis $y=-x$.
-2. Bayangannya $(2 \\cdot 4, 3 \\cdot 6) = (8,18)$. Inversnya $\\dfrac{1}{6}\\begin{pmatrix} 3 & 0 \\\\ 0 & 2 \\end{pmatrix}$ mengembalikan $(8,18)$ ke $(4,6)$.
-3. $\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix} = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix} = R_{180^\\circ}$.
-4. Luas bayangan $= \\lvert \\det(M) \\rvert \\cdot L = 3 \\cdot 5 = 15$ satuan. Tanda negatif menandakan orientasi bangun terbalik (tercermin).`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -459,8 +426,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Matriks Transformasi**.
-`,
+      body: `**Tiket keluar.** (1) Apa arti geometris dari $\\lvert\\det(M)\\rvert$ pada sebuah transformasi? (2) Mengapa urutan dua transformasi tidak boleh ditukar? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Matriks Transformasi** untuk latihan tambahan.`,
     },
   ],
 };

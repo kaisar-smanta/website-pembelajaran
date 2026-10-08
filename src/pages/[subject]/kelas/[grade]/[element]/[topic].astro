@@ -6,9 +6,10 @@ import SectionBlock from '@/components/content/SectionBlock.astro';
 import TopicApplications from '@/components/content/TopicApplications.astro';
 import TopicProgress from '@/components/content/TopicProgress.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
+import { ELEMENTS, GRADES, SUBJECTS, elementOrderFor } from '@/data/curriculum';
 import { cpForTopic } from '@/data/curriculum/cp';
 import { topicsBySubjectGradeElement, topicSubject, topics, resolveTopics } from '@/data/topics';
+import { topicIdsWithQuestions } from '@/data/questions';
 import { elementColor } from '@/data/display';
 import { applicationsForTopic, getApplication } from '@/data/applications';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
@@ -39,10 +40,18 @@ const gradeMeta = GRADES[topic.grade];
 
 const accent = elementColor(topic.element);
 
-const siblings = topicsBySubjectGradeElement(subject, topic.grade, topic.element);
-const currentIndex = siblings.findIndex((t) => t.id === topic.id);
-const prev = currentIndex > 0 ? siblings[currentIndex - 1] : undefined;
-const next = currentIndex >= 0 && currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : undefined;
+const gradeTopics = elementOrderFor(subject).flatMap((element) =>
+  topicsBySubjectGradeElement(subject, topic.grade, element),
+);
+const currentIndex = gradeTopics.findIndex((t) => t.id === topic.id);
+const prev = currentIndex > 0 ? gradeTopics[currentIndex - 1] : undefined;
+const next =
+  currentIndex >= 0 && currentIndex < gradeTopics.length - 1
+    ? gradeTopics[currentIndex + 1]
+    : undefined;
+
+const practiceTopicIds = new Set(topicIdsWithQuestions());
+const hasPractice = practiceTopicIds.has(topic.id);
 
 const prerequisiteTopics = resolveTopics(topic.prerequisites);
 const related = resolveTopics(topic.relatedTopics);
@@ -118,119 +127,152 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
 
         <TopicApplications applications={relatedApplications} />
 
-        {(prev || next) && (
-          <nav class="topic-pager no-print" aria-label="Navigasi topik">
-            {
-              prev ? (
-                <a class="pager-link pager-prev hover-lift" href={topicUrl(prev.grade, prev.element, prev.slug, subject)}>
-                  <span class="pager-label">Sebelumnya</span>
-                  <span class="pager-title">← {prev.title}</span>
-                </a>
-              ) : (
-                <span />
-              )
-            }
-            {
-              next ? (
-                <a class="pager-link pager-next hover-lift" href={topicUrl(next.grade, next.element, next.slug, subject)}>
-                  <span class="pager-label">Selanjutnya</span>
-                  <span class="pager-title">{next.title} →</span>
-                </a>
-              ) : (
-                <span />
-              )
-            }
-          </nav>
-        )}
+        <nav class="topic-pager no-print" aria-label="Navigasi topik">
+          {
+            prev ? (
+              <a
+                class="pager-link pager-prev hover-lift"
+                rel="prev"
+                href={topicUrl(topic.grade, prev.element, prev.slug, subject)}
+              >
+                <span class="pager-label">Sebelumnya</span>
+                <span class="pager-title">← {prev.title}</span>
+              </a>
+            ) : (
+              <a
+                class="pager-link pager-prev pager-boundary hover-lift"
+                href={elementUrl(topic.grade, topic.element, subject)}
+              >
+                <span class="pager-label">Kembali ke elemen</span>
+                <span class="pager-title">← {elementMeta.name}</span>
+              </a>
+            )
+          }
+          {
+            next ? (
+              <a
+                class="pager-link pager-next hover-lift"
+                rel="next"
+                href={topicUrl(topic.grade, next.element, next.slug, subject)}
+              >
+                <span class="pager-label">Selanjutnya</span>
+                <span class="pager-title">{next.title} →</span>
+              </a>
+            ) : (
+              <a
+                class="pager-link pager-next pager-boundary hover-lift"
+                href={gradeUrl(topic.grade, subject)}
+              >
+                <span class="pager-label">Lihat semua topik</span>
+                <span class="pager-title">{gradeMeta.name} →</span>
+              </a>
+            )
+          }
+        </nav>
       </article>
 
       <aside class="topic-aside no-print" aria-label="Informasi topik">
-        <div class="aside-card">
-          <h2 class="aside-heading">Isi Halaman</h2>
-          <ol class="outline" data-outline>
-            {
-              sectionList.map((s) => (
-                <li>
-                  <a href={`#${s.id}`}>{s.title ?? s.id}</a>
-                </li>
-              ))
-            }
-            {
-              relatedApplications.length > 0 && (
-                <li>
-                  <a href="#penerapan">Penerapan di Dunia Nyata</a>
-                </li>
-              )
-            }
-          </ol>
+        <div class="aside-primary">
+          <div class="aside-card">
+            <details class="outline-disclosure" data-outline-disclosure>
+              <summary class="outline-summary">
+                <h2 class="aside-heading">Isi Halaman</h2>
+                <span class="outline-chevron" aria-hidden="true"></span>
+              </summary>
+              <ol class="outline" data-outline>
+                {
+                  sectionList.map((s) => (
+                    <li>
+                      <a href={`#${s.id}`}>{s.title ?? s.id}</a>
+                    </li>
+                  ))
+                }
+                {
+                  relatedApplications.length > 0 && (
+                    <li>
+                      <a href="#penerapan">Penerapan di Dunia Nyata</a>
+                    </li>
+                  )
+                }
+              </ol>
+            </details>
+          </div>
+
+          <TopicProgress />
         </div>
 
-        <TopicProgress />
+        <div class="aside-secondary">
+          <div class="aside-card review-card" data-topic-review hidden>
+            <h2 class="aside-heading">Ulas kesalahan</h2>
+            <p class="review-lead" data-review-lead>
+              Tinjau kembali soal yang belum tepat.
+            </p>
+            <ul class="aside-links review-list" data-review-list></ul>
+          </div>
 
-        <div class="aside-card review-card" data-topic-review hidden>
-          <h2 class="aside-heading">Ulas kesalahan</h2>
-          <p class="review-lead" data-review-lead>
-            Tinjau kembali soal yang belum tepat.
-          </p>
-          <ul class="aside-links review-list" data-review-list></ul>
-        </div>
+          {
+            prerequisiteTopics.length ? (
+              <div class="aside-card">
+                <h2 class="aside-heading">Prasyarat</h2>
+                <ul class="aside-links">
+                  {prerequisiteTopics.map((t) => (
+                    <li>
+                      <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>
+                        <ElementIcon element={t.element} size={16} />
+                        {t.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null
+          }
 
-        {
-          prerequisiteTopics.length ? (
-            <div class="aside-card">
-              <h2 class="aside-heading">Prasyarat</h2>
-              <ul class="aside-links">
-                {prerequisiteTopics.map((t) => (
-                  <li>
-                    <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>
-                      <ElementIcon element={t.element} size={16} />
-                      {t.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {
+            related.length ? (
+              <div class="aside-card">
+                <h2 class="aside-heading">Topik Terkait</h2>
+                <ul class="aside-links">
+                  {related.map((t) => (
+                    <li>
+                      <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>
+                        <ElementIcon element={t.element} size={16} />
+                        {t.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null
+          }
+
+          {
+            relatedApplications.length ? (
+              <div class="aside-card">
+                <h2 class="aside-heading">Penerapan Nyata</h2>
+                <ul class="aside-links">
+                  {relatedApplications.map((a) => (
+                    <li>
+                      <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null
+          }
+
+          <div class="aside-card">
+            <h2 class="aside-heading">Aksi</h2>
+            <div class="aside-actions">
+              {
+                hasPractice && (
+                  <a class="btn btn-secondary btn-sm" href={url(`/latihan/${topic.slug}`)}>
+                    Latihan topik ini
+                  </a>
+                )
+              }
+              <button type="button" class="btn btn-ghost btn-sm" data-print>Cetak halaman</button>
             </div>
-          ) : null
-        }
-
-        {
-          related.length ? (
-            <div class="aside-card">
-              <h2 class="aside-heading">Topik Terkait</h2>
-              <ul class="aside-links">
-                {related.map((t) => (
-                  <li>
-                    <a href={topicUrl(t.grade, t.element, t.slug, topicSubject(t))}>
-                      <ElementIcon element={t.element} size={16} />
-                      {t.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null
-        }
-
-        {
-          relatedApplications.length ? (
-            <div class="aside-card">
-              <h2 class="aside-heading">Penerapan Nyata</h2>
-              <ul class="aside-links">
-                {relatedApplications.map((a) => (
-                  <li>
-                    <a href={url(`/aplikasi/${a.id}`)}>{a.title}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null
-        }
-
-        <div class="aside-card">
-          <h2 class="aside-heading">Aksi</h2>
-          <div class="aside-actions">
-            <a class="btn btn-secondary btn-sm" href={url(`/latihan/${topic.slug}`)}>Latihan topik ini</a>
-            <button type="button" class="btn btn-ghost btn-sm" data-print>Cetak halaman</button>
           </div>
         </div>
       </aside>
@@ -238,10 +280,31 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
   </div>
 </BaseLayout>
 
+<script is:inline>
+  (function () {
+    var disclosure = document.querySelector('[data-outline-disclosure]');
+    if (disclosure && window.matchMedia('(min-width: 62rem)').matches) {
+      disclosure.open = true;
+    }
+  })();
+</script>
+
 <script>
   import { loadProgress, missedQuestionIds, type ProgressMap } from '@/lib/progress';
 
   document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+
+  const disclosure = document.querySelector<HTMLDetailsElement>('[data-outline-disclosure]');
+  if (disclosure) {
+    const desktop = window.matchMedia('(min-width: 62rem)');
+    const syncDisclosure = () => {
+      disclosure.open = desktop.matches;
+    };
+    desktop.addEventListener('change', syncDisclosure);
+    disclosure.addEventListener('toggle', () => {
+      if (desktop.matches && !disclosure.open) disclosure.open = true;
+    });
+  }
 
   const outline = document.querySelector('[data-outline]');
   if (outline && 'IntersectionObserver' in window) {
@@ -518,6 +581,11 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
     display: grid;
     gap: 1rem;
   }
+  .aside-primary,
+  .aside-secondary {
+    display: grid;
+    gap: 1rem;
+  }
   .aside-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -544,10 +612,45 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
     border-radius: 50%;
     background: var(--accent);
   }
+  .outline-disclosure {
+    display: block;
+  }
+  .outline-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .outline-summary::-webkit-details-marker {
+    display: none;
+  }
+  .outline-summary::marker {
+    content: '';
+  }
+  .outline-summary .aside-heading {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+  }
+  .outline-chevron {
+    flex: 0 0 auto;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.15rem;
+    border-right: 2px solid var(--color-text-soft);
+    border-bottom: 2px solid var(--color-text-soft);
+    transform: rotate(45deg);
+    transition: transform var(--dur-fast) var(--ease-out-soft);
+  }
+  .outline-disclosure[open] .outline-chevron {
+    transform: rotate(225deg);
+  }
   .outline {
     list-style: none;
     counter-reset: outline;
-    margin: 0;
+    margin: 0.6rem 0 0;
     padding: 0;
     display: grid;
     gap: 0.15rem;
@@ -670,14 +773,35 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
       grid-template-columns: minmax(0, 1fr);
     }
     .topic-aside {
-      position: static;
-      order: -1;
+      display: contents;
+    }
+    .aside-primary {
+      order: 1;
+    }
+    .topic-main {
+      order: 2;
+    }
+    .aside-secondary {
+      order: 3;
     }
   }
   @media (min-width: 62rem) {
     .outline {
       max-height: 55vh;
       overflow-y: auto;
+    }
+    .outline-summary {
+      cursor: default;
+      pointer-events: none;
+    }
+    .outline-chevron {
+      display: none;
+    }
+    .outline-disclosure:not([open]) > .outline {
+      display: block !important;
+    }
+    .outline-disclosure::details-content {
+      content-visibility: visible !important;
     }
   }
 </style>

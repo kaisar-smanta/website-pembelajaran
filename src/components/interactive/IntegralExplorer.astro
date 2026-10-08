@@ -20,15 +20,15 @@ const initialAria = 'Grafik f(x) = x² dengan 6 persegi panjang Riemann pada sel
   <div class="sim-fields">
     <label class="sim-field">
       <span>Batas bawah a <output data-value="a">0</output></span>
-      <input type="range" min="-3" max="0" step="0.1" value="0" data-field="a" />
+      <input type="range" min="-3" max="0" step="0.1" value="0" data-field="a" aria-label="Batas bawah a" />
     </label>
     <label class="sim-field">
       <span>Batas atas b <output data-value="b">2</output></span>
-      <input type="range" min="0" max="3" step="0.1" value="2" data-field="b" />
+      <input type="range" min="0" max="3" step="0.1" value="2" data-field="b" aria-label="Batas atas b" />
     </label>
     <label class="sim-field">
       <span>Banyak persegi n <output data-value="n">6</output></span>
-      <input type="range" min="1" max="40" step="1" value="6" data-field="n" />
+      <input type="range" min="1" max="40" step="1" value="6" data-field="n" aria-label="Banyak persegi panjang n" />
     </label>
   </div>
 
@@ -121,7 +121,7 @@ const initialAria = 'Grafik f(x) = x² dengan 6 persegi panjang Riemann pada sel
 
 <script>
   import { evalIntegrand, riemannSum, describeIntegral } from '../../lib/sim/integral';
-  import { el, clear, linearScale, polyline } from '../../lib/dom';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
 
   function setupIntegral(root: Element) {
     const inputA = root.querySelector('[data-field="a"]') as HTMLInputElement;
@@ -207,5 +207,5 @@ const initialAria = 'Grafik f(x) = x² dengan 6 persegi panjang Riemann pada sel
     render();
   }
 
-  document.querySelectorAll('[data-integral]').forEach(setupIntegral);
+  initWhenVisible(document.querySelectorAll('[data-integral]'), setupIntegral);
 </script>

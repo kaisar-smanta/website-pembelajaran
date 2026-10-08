@@ -77,6 +77,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     prompt:
       'Untuk $s(t) = t^{3} - 6t^{2} + 9t$, hitung kecepatan pada $t = 2$ s.',
     answer: '-3',
+    acceptedAnswers: ['-3 m/s', '-3m/s', '-3,0', '-3.0'],
     explanation:
       '$v(t) = 3t^{2} - 12t + 9$, maka $v(2) = 3(4) - 12(2) + 9 = 12 - 24 + 9 = -3$ m/s. Tanda negatif berarti partikel bergerak ke arah berlawanan.',
     hints: ['Substitusikan $t = 2$ ke $v(t) = 3t^{2} - 12t + 9$.'],
@@ -91,6 +92,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     prompt:
       'Masih dengan $s(t) = t^{3} - 6t^{2} + 9t$, hitung percepatan pada $t = 2$ s.',
     answer: '0',
+    acceptedAnswers: ['0 m/s^2', '0 m/s2', '0,0', '0.0'],
     explanation:
       'Percepatan adalah turunan kecepatan: $a(t) = v\'(t) = 6t - 12$. Maka $a(2) = 12 - 12 = 0$ m/s$^{2}$.',
     hints: ['Turunkan $v(t) = 3t^{2} - 12t + 9$.'],
@@ -143,6 +145,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     prompt:
       'Seorang peternak memakai $40$ m kawat untuk membuat kandang persegi panjang dengan satu sisi memanfaatkan tepi sungai. Tentukan luas maksimum kandang.',
     answer: '200',
+    acceptedAnswers: ['200 m^2', '200 m2', '200 m²'],
     explanation:
       'Misalkan sisi tegak lurus sungai berukuran $x$, maka sisi sejajar sungai berukuran $40 - 2x$. Luas $L(x) = x(40 - 2x)$ dengan $L\'(x) = 40 - 4x = 0$, sehingga $x = 10$. Luas maksimum $L(10) = 10 \\cdot 20 = 200$ m$^{2}$.',
     hints: ['Nyatakan luas sebagai fungsi satu variabel, lalu cari titik stasionernya.'],
@@ -157,7 +160,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     prompt:
       'Kotak terbuka dibuat dari karton $20 \\text{ cm} \\times 20 \\text{ cm}$ dengan memotong persegi bersisi $x$ di tiap sudut. Tentukan nilai $x$ yang membuat volume maksimum.',
     answer: '10/3',
-    acceptedAnswers: ['3,33', '3.33', '10 per 3', '3 1/3'],
+    acceptedAnswers: ['3,33', '3.33', '3,333', '3.333', '10/3', '10 per 3', '3 1/3'],
     explanation:
       'Volume $V(x) = x(20 - 2x)^{2}$. Turunan $V\'(x) = (20 - 2x)(20 - 6x) = 0$ memberi $x = 10$ atau $x = \\dfrac{10}{3}$. Nilai $x = 10$ tidak sah karena membuat lebar nol, jadi $x = \\dfrac{10}{3} \\approx 3{,}33$ cm.',
     hints: ['Faktorkan $V\'(x)$ dan buang akar yang membuat ukuran tidak positif.'],

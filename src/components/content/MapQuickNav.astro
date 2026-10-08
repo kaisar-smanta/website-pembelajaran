@@ -11,10 +11,9 @@ const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
     const complete = topics.filter(
       (t) => t.grade === grade && topicSubject(t) === subject,
     ).length;
-    const planned =
-      subject === 'matematika'
-        ? plannedTopics.filter((p) => p.grade === grade).length
-        : 0;
+    const planned = plannedTopics.filter(
+      (p) => p.grade === grade && (p.subject ?? 'matematika') === subject,
+    ).length;
     return {
       subject,
       grade,

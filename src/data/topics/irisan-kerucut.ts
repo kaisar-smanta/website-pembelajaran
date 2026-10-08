@@ -44,7 +44,6 @@ export const irisanKerucut: Topic = {
     { text: 'Mengidentifikasi unsur elips: pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas.' },
     { text: 'Menentukan persamaan garis singgung elips di sebuah titik.' },
   ],
-  explorations: ['mtl-irisan-kerucut-sim'],
   sections: [
     {
       id: "tujuan",
@@ -291,6 +290,18 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Bentuk Baku Irisan Kerucut",
+      body: `Lingkaran dan elips menunjukkan pola yang sama: setelah ditulis dalam **bentuk baku** yang berpusat di $(h,k)$, posisi setiap unsur dapat dibaca langsung dari koefisiennya. Lingkaran hanyalah kejadian khusus elips ketika kedua setengah sumbu sama, $a=b=r$, sehingga $c^{2}=a^{2}-b^{2}=0$ dan kedua fokus berimpit di pusat.
+
+Pola ini meluas ke seluruh keluarga irisan kerucut. Setiap irisan kerucut dapat dinyatakan dalam bentuk baku berpusat di $(h,k)$, dan hubungan antar unsurnya mengikuti aturan tetap. Untuk elips:
+
+$$c^{2}=a^{2}-b^{2}, \\qquad e=\\frac{c}{a}.$$
+
+Dari bentuk baku pula rumus garis singgung dibentuk: setiap suku pangkat dua diganti dengan bentuk rata-rata di titik singgung, misalnya $x^{2} \\to x\\,x_{1}$, sehingga menghasilkan rumus $x\\,x_{1}+y\\,y_{1}=r^{2}$ pada lingkaran.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -325,64 +336,18 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan pusat dan jari-jari lingkaran $(x-2)^{2} + (y+3)^{2} = 16$.
-2. Tentukan jari-jari lingkaran $x^{2} + y^{2} = 49$.
-3. Diketahui lingkaran $x^{2} + y^{2} - 6x + 4y - 12 = 0$. Tentukan pusatnya.
-4. Tentukan jari-jari lingkaran $x^{2} + y^{2} - 4x + 6y - 3 = 0$.
-5. Tentukan fokus elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Pusat $(2,-3)$ dan $r = \\sqrt{16} = 4$.
-2. $r = \\sqrt{49} = 7$.
-3. Bentuk baku: $(x-3)^{2} + (y+2)^{2} = 25$, jadi pusatnya $(3,-2)$.
-4. $D = -4$, $E = 6$, $F = -3$, sehingga $r = \\sqrt{4 + 9 + 3} = \\sqrt{16} = 4$.
-5. $a = 5$, $b = 3$, $c = \\sqrt{25-9} = 4$, jadi fokusnya $(4,0)$ dan $(-4,0)$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan garis singgung lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$.
-2. Tentukan garis singgung lingkaran $(x-2)^{2} + (y-1)^{2} = 25$ di titik $(5,5)$.
-3. Tentukan eksentrisitas elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$.
-4. Tentukan pusat, fokus, dan eksentrisitas elips $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$.
-5. Tentukan garis singgung elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $3x + 4y = 25$.
-2. $3(x-2) + 4(y-1) = 25$, yaitu $3x + 4y = 35$.
-3. $c = \\sqrt{25-9} = 4$, sehingga $e = \\dfrac{4}{5} = 0{,}8$.
-4. Pusat $(2,1)$; $c = \\sqrt{25-16} = 3$; fokus $(-1,1)$ dan $(5,1)$; $e = \\dfrac{3}{5} = 0{,}6$.
-5. $\\dfrac{4x}{25} + \\dfrac{y}{5} = 1$, yaitu $4x + 5y = 25$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan pusat dan jari-jari lingkaran $2x^{2} + 2y^{2} - 8x + 12y - 6 = 0$.
-2. Diketahui elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$. Tentukan panjang sumbu mayor, sumbu minor, dan jarak kedua fokus.
-3. Tentukan persamaan garis singgung elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$ dan tuliskan dalam bentuk umum.
-4. Sebuah lingkaran berpusat $(3,-2)$ menyinggung sumbu-$x$. Tentukan jari-jari dan persamaannya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Bagi dengan $2$: $x^{2} + y^{2} - 4x + 6y - 3 = 0$, sehingga pusatnya $(2,-3)$ dan $r = \\sqrt{4 + 9 + 3} = \\sqrt{16} = 4$.
-2. $a = 5$, $b = 3$, sehingga sumbu mayor $2a = 10$, sumbu minor $2b = 6$, dan $c = \\sqrt{25-9} = 4$. Jarak kedua fokus adalah $2c = 8$.
-3. $\\dfrac{4x}{25} + \\dfrac{y}{5} = 1$. Kalikan dengan $25$: $4x + 5y = 25$, atau $4x + 5y - 25 = 0$.
-4. Lingkaran menyinggung sumbu-$x$ berarti jarak pusat ke sumbu-$x$ sama dengan jari-jari, sehingga $r = \\lvert -2 \\rvert = 2$. Persamaannya $(x-3)^{2} + (y+2)^{2} = 4$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -484,8 +449,7 @@ Dalam astronomi, hukum Kepler menyatakan orbit planet berbentuk elips dengan Mat
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Irisan Kerucut**.
-`,
+      body: `**Tiket keluar.** (1) Mengapa bentuk umum lingkaran perlu diubah ke bentuk baku, dan bagaimana caranya? (2) Pada elips $\\dfrac{x^{2}}{a^{2}}+\\dfrac{y^{2}}{b^{2}}=1$, bagaimana kamu menentukan letak kedua fokus? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Irisan Kerucut** untuk latihan tambahan.`,
     },
   ],
 };

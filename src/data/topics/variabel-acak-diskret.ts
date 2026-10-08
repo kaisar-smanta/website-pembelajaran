@@ -41,7 +41,6 @@ export const variabelAcakDiskret: Topic = {
     { text: 'Peserta didik dapat menghitung varians dan simpangan baku variabel acak diskret.' },
     { text: 'Peserta didik dapat memakai nilai harapan dan sebaran untuk memodelkan dan menafsirkan data nyata.' },
   ],
-  explorations: ['mtl-variabel-acak-pmf'],
   sections: [
     {
       id: "tujuan",
@@ -220,6 +219,16 @@ Simpangan baku bersatuan sama dengan $X$, sehingga sering lebih mudah ditafsirka
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Umum Distribusi, Harapan, dan Sebaran",
+      body: `Semua besaran pada topik ini dihitung dengan cara yang sama, yaitu **jumlah berbobot**. Peluang bertindak sebagai bobot, dan total bobotnya selalu $1$:
+
+$$\\sum_{x} f(x) = 1, \\qquad E(X) = \\sum_{x} x\\,f(x), \\qquad \\operatorname{Var}(X) = \\sum_{x} (x-\\mu)^{2} f(x) = E(X^{2})-\\mu^{2}.$$
+
+Pola berbobot ini menjelaskan mengapa $E(X)$ tidak harus sama dengan salah satu nilai $X$; ia adalah titik keseimbangan distribusi. Karena setiap suku varians memuat kuadrat jarak $(x-\\mu)^{2}$, varians selalu tidak negatif dan makin besar bila nilai-nilai $X$ menyebar jauh dari nilai harapannya. Simpangan baku $\\sigma=\\sqrt{\\operatorname{Var}(X)}$ mengembalikan hasil ke satuan yang sama dengan $X$, sehingga lebih mudah ditafsirkan.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -258,58 +267,18 @@ $$\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 3 - (1{,}5)^{2} = 3 - 2{,}25 
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Distribusi peluang $X$ adalah $P(X=1) = 0{,}2$, $P(X=2) = 0{,}3$, $P(X=3) = 0{,}3$, dan $P(X=4) = p$. Tentukan $p$.
-2. Dari distribusi pada nomor 1, tentukan $P(X \\geq 3)$.
-3. Sebuah koin dilempar dua kali dan $X$ menyatakan banyak gambar. Tuliskan tabel distribusi peluang $X$.
-4. Tentukan $E(X)$ untuk distribusi pada nomor 1.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Karena $\\sum P(X=x) = 1$, maka $p = 1 - (0{,}2 + 0{,}3 + 0{,}3) = 1 - 0{,}8 = 0{,}2$.
-2. $P(X \\geq 3) = P(X=3) + P(X=4) = 0{,}3 + 0{,}2 = 0{,}5$.
-3. Ruang sampel $\\{GG, GA, AG, AA\\}$ dengan $X$ = banyak gambar, sehingga $P(X=0) = \\frac{1}{4}$, $P(X=1) = \\frac{1}{2}$, $P(X=2) = \\frac{1}{4}$.
-4. $E(X) = 1(0{,}2) + 2(0{,}3) + 3(0{,}3) + 4(0{,}2) = 0{,}2 + 0{,}6 + 0{,}9 + 0{,}8 = 2{,}5$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Dua dadu dilempar dan $X$ menyatakan jumlah mata. Tentukan $P(X \\geq 10)$.
-2. Fungsi peluang $f(x) = kx$ untuk $x = 1, 2, 3, 4$. Tentukan $k$ dan $E(X)$.
-3. Tiga koin dilempar dan $X$ menyatakan banyak gambar. Tentukan $E(X)$.
-4. Diketahui $E(X) = 4$ dan $E(X^{2}) = 20$. Tentukan varians dan simpangan baku $X$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Jumlah $\\geq 10$ muncul dari $3 + 2 + 1 = 6$ cara, sehingga $P(X \\geq 10) = \\frac{6}{36} = \\frac{1}{6}$.
-2. $k(1+2+3+4) = 10k = 1$, jadi $k = 0{,}1$. Maka $E(X) = 1(0{,}1) + 2(0{,}2) + 3(0{,}3) + 4(0{,}4) = 3$.
-3. Distribusinya $\\frac{1}{8}, \\frac{3}{8}, \\frac{3}{8}, \\frac{1}{8}$, sehingga $E(X) = \\frac{0 + 3 + 6 + 3}{8} = \\frac{12}{8} = 1{,}5$.
-4. $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 20 - 4^{2} = 20 - 16 = 4$, dan $\\sigma = \\sqrt{4} = 2$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Dua dadu dilempar dan $X$ menyatakan jumlah mata. Tentukan varians dan simpangan baku $X$.
-2. Sebuah kotak memuat 4 bola merah dan 2 bola biru. Dua bola diambil tanpa pengembalian dan $X$ menyatakan banyak bola merah. Susun distribusi $X$, lalu tentukan $E(X)$.
-3. Diberikan $f(x) = c(x+1)$ untuk $x = 0, 1, 2, 3$. Tentukan $c$, $E(X)$, dan $\\operatorname{Var}(X)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Dari distribusi dua dadu, $E(X) = 7$ dan $E(X^{2}) = \\frac{1974}{36}$. Maka $\\operatorname{Var}(X) = \\frac{1974}{36} - 49 = \\frac{1974 - 1764}{36} = \\frac{210}{36} = \\frac{35}{6} \\approx 5{,}83$, dan $\\sigma = \\sqrt{\\frac{35}{6}} \\approx 2{,}42$.
-2. Banyak cara mengambil 2 dari 6 bola adalah $\\binom{6}{2} = 15$. Maka $P(X=0) = \\frac{\\binom{2}{2}}{15} = \\frac{1}{15}$, $P(X=1) = \\frac{\\binom{4}{1}\\binom{2}{1}}{15} = \\frac{8}{15}$, dan $P(X=2) = \\frac{\\binom{4}{2}}{15} = \\frac{6}{15}$. Jumlahnya $\\frac{1+8+6}{15} = 1$. Nilai harapannya $E(X) = 0 \\cdot \\frac{1}{15} + 1 \\cdot \\frac{8}{15} + 2 \\cdot \\frac{6}{15} = \\frac{20}{15} = \\frac{4}{3}$.
-3. $\\sum c(x+1) = c(1+2+3+4) = 10c = 1$, jadi $c = 0{,}1$. Maka $f(0) = 0{,}1$, $f(1) = 0{,}2$, $f(2) = 0{,}3$, $f(3) = 0{,}4$. $E(X) = 0(0{,}1) + 1(0{,}2) + 2(0{,}3) + 3(0{,}4) = 2$ dan $E(X^{2}) = 0(0{,}1) + 1(0{,}2) + 4(0{,}3) + 9(0{,}4) = 5$, sehingga $\\operatorname{Var}(X) = 5 - 2^{2} = 1$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -418,7 +387,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Variabel Acak Diskret**.",
+      body: `**Tiket keluar.** (1) Mengapa jumlah seluruh peluang harus sama dengan $1$, dan bagaimana syarat itu dipakai mencari konstanta? (2) Mengapa nilai harapan tidak harus salah satu nilai $X$ yang mungkin? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Variabel Acak Diskret** untuk latihan tambahan.`,
     },
   ],
 };

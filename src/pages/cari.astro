@@ -53,10 +53,24 @@ const meta = [
             {ALL_ELEMENT_ORDER.map((e) => <option value={e}>{ELEMENTS[e].name}</option>)}
           </select>
         </label>
+        <label>
+          <span class="visually-hidden">Filter jenis hasil</span>
+          <select data-filter-type>
+            <option value="">Semua jenis</option>
+            <option value="topik">Topik</option>
+            <option value="latihan">Latihan</option>
+            <option value="eksplorasi">Eksplorasi</option>
+            <option value="aplikasi">Aplikasi</option>
+            <option value="istilah">Istilah</option>
+            <option value="rumus">Rumus</option>
+            <option value="halaman">Halaman</option>
+          </select>
+        </label>
       </div>
     </form>
 
     <p class="search-status" data-search-status aria-live="polite"></p>
+    <p class="search-hint" data-search-hint aria-live="polite" hidden></p>
     <ol class="search-results" data-search-results></ol>
   </div>
 
@@ -169,6 +183,30 @@ const meta = [
     border-radius: 50%;
     background: var(--color-primary);
   }
+  .search-hint {
+    margin: -0.35rem 0 0.9rem;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+  .search-hint[hidden] {
+    display: none;
+  }
+  .search-hint-btn {
+    appearance: none;
+    border: 0;
+    background: none;
+    padding: 0;
+    font: inherit;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .search-hint-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
   .search-results {
     list-style: none;
     margin: 0;
@@ -183,7 +221,8 @@ const meta = [
 
 <script>
   import {
-    scoreItem,
+    searchItems,
+    filterItems,
     highlight,
     buildSnippet,
     type SearchItem,
@@ -197,8 +236,10 @@ const meta = [
     const input = root.querySelector('[data-search-input]') as HTMLInputElement;
     const gradeFilter = root.querySelector('[data-filter-grade]') as HTMLSelectElement;
     const elementFilter = root.querySelector('[data-filter-element]') as HTMLSelectElement;
+    const typeFilter = root.querySelector('[data-filter-type]') as HTMLSelectElement;
     const results = root.querySelector('[data-search-results]') as HTMLElement;
     const status = root.querySelector('[data-search-status]') as HTMLElement;
+    const hint = root.querySelector('[data-search-hint]') as HTMLElement;
 
     let items: SearchItem[] = [];
 
@@ -214,6 +255,8 @@ const meta = [
         else params.delete('grade');
         if (elementFilter.value) params.set('element', elementFilter.value);
         else params.delete('element');
+        if (typeFilter.value) params.set('type', typeFilter.value);
+        else params.delete('type');
         const search = params.toString();
         const next = `${location.pathname}${search ? `?${search}` : ''}${location.hash}`;
         history.replaceState(null, '', next);
@@ -231,6 +274,8 @@ const meta = [
       if (g) gradeFilter.value = g;
       const e = params.get('element');
       if (e) elementFilter.value = e;
+      const t = params.get('type');
+      if (t) typeFilter.value = t;
       return Boolean(q);
     }
 
@@ -239,24 +284,42 @@ const meta = [
       syncUrl();
     }
 
+    function renderSuggestion(suggestion: string | null): void {
+      hint.innerHTML = '';
+      if (!suggestion) {
+        hint.hidden = true;
+        return;
+      }
+      hint.hidden = false;
+      hint.append(document.createTextNode('Mungkin maksud: '));
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'search-hint-btn';
+      button.textContent = suggestion;
+      button.addEventListener('click', () => {
+        input.value = suggestion;
+        update();
+        input.focus();
+      });
+      hint.append(button);
+    }
+
     function render() {
       const raw = input.value.trim();
-      const g = gradeFilter.value;
-      const e = elementFilter.value;
-
-      let filtered = items;
-      if (g) filtered = filtered.filter((it) => it.grade === g || it.type === 'halaman');
-      if (e) filtered = filtered.filter((it) => it.element === e || it.type === 'halaman');
+      const filtered = filterItems(items, {
+        grade: gradeFilter.value,
+        element: elementFilter.value,
+        type: typeFilter.value,
+      });
 
       let out: (SearchItem & { score: number })[];
+      let suggestion: string | null = null;
       if (raw.length === 0) {
         out = filtered.map((it) => ({ ...it, score: 0 })).slice(0, 12);
       } else {
-        out = filtered
-          .map((it) => ({ ...it, score: scoreItem(it, raw) }))
-          .filter((it) => it.score > 0)
-          .sort((a, b) => b.score - a.score)
-          .slice(0, 40);
+        const outcome = searchItems(filtered, raw);
+        out = outcome.results;
+        suggestion = outcome.suggestion;
       }
 
       results.innerHTML = '';
@@ -267,6 +330,7 @@ const meta = [
       } else {
         status.textContent = `${out.length} hasil untuk "${raw}".`;
       }
+      renderSuggestion(suggestion);
 
       if (out.length === 0) {
         const empty = document.createElement('li');
@@ -324,6 +388,7 @@ const meta = [
     });
     gradeFilter.addEventListener('change', update);
     elementFilter.addEventListener('change', update);
+    typeFilter.addEventListener('change', update);
   }
 
   document.querySelectorAll('[data-search-root]').forEach(setupSearch);

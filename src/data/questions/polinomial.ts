@@ -12,7 +12,7 @@ export const polinomialQuestions: Question[] = [
     options: [
       { key: 'A', text: '$3$' },
       { key: 'B', text: '$4$' },
-      { key: 'C', text: '$5$' },
+      { key: 'C', text: '$6$' },
       { key: 'D', text: '$7$' },
     ],
     answer: 'B',

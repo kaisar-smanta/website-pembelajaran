@@ -25,7 +25,6 @@ export const transformasiFungsi: Topic = {
   ],
   prerequisites: ['fungsi-kuadrat'],
   relatedTopics: ['komposisi-fungsi', 'fungsi-invers'],
-  explorations: ['transformasi-fungsi-sim'],
   prerequisiteKnowledge: [
     'Menggambar grafik fungsi dasar seperti $y=x^2$, $y=x^3$, dan $y=2x+1$',
     'Mensubstitusi bentuk aljabar ke dalam fungsi',
@@ -303,58 +302,18 @@ Sumbu simetrinya $x=\\dfrac{4}{2}=2$ dan nilai minimumnya $y=2^2-4(2)+7=3$. Bena
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Grafik $y=f(x)$ digeser ke atas $4$ satuan. Tuliskan rumus barunya.
-2. Grafik $y=x^2$ digeser ke kiri $5$ satuan. Tuliskan rumus barunya.
-3. Tentukan hasil refleksi $y=x^2$ terhadap sumbu-$x$.
-4. Grafik $y=f(x)$ dengan $f(3)=7$. Tentukan nilai fungsi baru pada $x=3$ jika $y=-f(x)$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $y=f(x)+4$.
-2. Geser ke kiri $5$ satuan berarti $h=-5$, sehingga $y=(x-(-5))^2=(x+5)^2$.
-3. $y=-x^2$.
-4. Karena $y=-f(x)$, maka nilainya $-f(3)=-7$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Tentukan titik puncak grafik $y=(x+1)^2-4$ dan sebutkan transformasinya dari $y=x^2$.
-2. Grafik $y=2x+1$ direfleksikan terhadap sumbu-$y$, lalu digeser ke atas $3$ satuan. Tentukan rumus akhirnya.
-3. Grafik $y=x^2$ melalui titik $(3,9)$. Tentukan titik padanannya pada grafik $y=f(3x)$.
-4. Tentukan rumus yang diperoleh dari $y=x^2$ setelah diregangkan vertikal dengan faktor $3$ lalu digeser ke bawah $2$ satuan.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Bentuk $y=(x+1)^2-4$ berasal dari $y=x^2$ yang digeser ke kiri $1$ satuan (karena $x+1=x-(-1)$) dan ke bawah $4$ satuan. Titik puncaknya $(-1,-4)$.
-2. Refleksi terhadap sumbu-$y$ dari $y=2x+1$ menghasilkan $y=2(-x)+1=-2x+1$. Digeser ke atas $3$ satuan menjadi $y=-2x+1+3=-2x+4$.
-3. Pada $y=f(3x)$, titik $(3,9)$ menjadi $\\left(\\dfrac{3}{3},9\\right)=(1,9)$. Periksa: $f(3\\cdot1)=f(3)=9$.
-4. Regang vertikal faktor $3$: $y=3x^2$. Geser ke bawah $2$: $y=3x^2-2$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Tentukan rumus $g(x)$ jika grafik $y=x^2$ digeser ke kanan $3$ satuan lalu diregangkan horizontal dengan faktor pengali $2$ (yaitu $g(x)=f\\!\\left(\\tfrac{x}{2}\\right)$).
-2. Jelaskan mengapa menggeser lalu meregangkan dapat memberi hasil berbeda, dengan contoh $f(x)=x^2$.
-3. Sebuah lintasan bola dimodelkan $h(t)=a(t-p)^2+q$ dengan puncak $(2,5)$ dan melalui titik $(0,1)$. Tentukan $a$, $p$, dan $q$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Geser ke kanan $3$: $y=(x-3)^2$. Regang horizontal dengan $g(x)=f\\!\\left(\\tfrac{x}{2}\\right)$ berarti mengganti $x$ dengan $\\tfrac{x}{2}$: $g(x)=\\left(\\tfrac{x}{2}-3\\right)^2=\\left(\\dfrac{x-6}{2}\\right)^2=\\dfrac{(x-6)^2}{4}$.
-2. Contoh: dari $f(x)=x^2$, jika diregangkan vertikal faktor $2$ dulu lalu digeser naik $3$ diperoleh $2x^2+3$. Jika digeser naik $3$ dulu lalu diregangkan vertikal faktor $2$ diperoleh $2(x^2+3)=2x^2+6$. Nilai di setiap titik berbeda, sehingga urutan berpengaruh.
-3. Puncak $(p,q)=(2,5)$. Substitusi titik $(0,1)$: $a(0-2)^2+5=1 \\Rightarrow 4a=-4 \\Rightarrow a=-1$. Jadi $h(t)=-(t-2)^2+5$. Periksa puncak: $h(2)=5$; titik $(0,1)$: $-(0-2)^2+5=-4+5=1$. Benar.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -453,8 +412,7 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Transformasi Fungsi**.
-`,
+      body: `**Tiket keluar.** (1) Bagaimana bentuk umum $y=a\\,f\\big(k(x-h)\\big)+c$ menunjukkan jenis transformasi yang terjadi? (2) Mengapa urutan langkah transformasi dapat mengubah hasil akhir? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Transformasi Fungsi** untuk latihan tambahan.`,
     },
   ],
 };

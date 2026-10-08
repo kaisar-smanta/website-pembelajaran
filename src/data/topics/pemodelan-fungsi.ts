@@ -24,7 +24,6 @@ export const pemodelanFungsi: Topic = {
   ],
   prerequisites: ['fungsi-kuadrat', 'fungsi-eksponensial'],
   relatedTopics: ['transformasi-fungsi', 'regresi'],
-  explorations: ['kuadrat-parameter'],
   prerequisiteKnowledge: [
     'Fungsi kuadrat dan fungsi eksponensial beserta grafiknya',
     'Membaca dan menafsirkan grafik pada bidang koordinat',
@@ -274,6 +273,16 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Pola Umum Pemodelan",
+      body: `Setiap contoh di atas mengikuti alur yang sama: kenali **pola perubahan** data, pilih bentuk fungsi yang sesuai, tentukan konstantanya dari titik yang diketahui, lalu periksa dan batasi domain. Pemilihan bentuk fungsi sepenuhnya ditentukan oleh pola perubahan:
+
+$$\\text{beda tetap} \\Rightarrow \\text{linear}, \\qquad \\text{beda kedua tetap} \\Rightarrow \\text{kuadrat}, \\qquad \\text{rasio tetap} \\Rightarrow \\text{eksponensial}.$$
+
+Setelah bentuk dipilih, konstanta diperoleh dengan menyubstitusi titik data yang diketahui. Langkah terakhir tidak boleh dilewati: tafsirkan arti tiap konstanta beserta satuannya, lalu tentukan rentang variabel yang bermakna. Model yang benar secara aljabar tetap keliru bila menghasilkan nilai yang tidak masuk akal.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -334,86 +343,18 @@ Faktor $b=2$ berarti populasi berlipat dua setiap jam.`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Biaya tetap sebuah layanan cetak Rp20.000 ditambah Rp1.500 per lembar. Susun model biaya $C(n)$ untuk $n$ lembar, lalu hitung biaya mencetak $40$ lembar.
-
-2. Perhatikan data berikut: $x=0,1,2,3$ dengan $y=2,5,8,11$. Tentukan jenis fungsi yang sesuai dan tuliskan modelnya.
-
-3. Fungsi kuadrat memiliki titik puncak $(3,2)$ dan melalui titik $(0,11)$. Tentukan modelnya.
-
-4. Populasi mengikuti $N(t)=N_0\\cdot b^{t}$ dengan $N(0)=300$ dan $N(2)=1200$. Tentukan $b$ dan ramalkan $N(3)$.
-
-5. Grafik laba harian (juta rupiah) memuncak di titik $(5,8)$. Tentukan laba maksimum dan jelaskan artinya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $C(n)=1500n+20000$. Untuk $n=40$: $C(40)=1500\\cdot40+20000=60000+20000=80000$, yaitu Rp80.000.
-
-2. Selisih $y$ tetap $3$, jadi polanya linear $y=3x+2$. Periksa: $3(0)+2=2$ dan $3(3)+2=11$.
-
-3. $y=a(x-3)^2+2$. Substitusi $(0,11)$: $a(0-3)^2+2=11 \\Rightarrow 9a=9 \\Rightarrow a=1$. Model $y=(x-3)^2+2=x^2-6x+11$.
-
-4. $N(2)=N_0\\,b^{2}=300\\,b^{2}=1200 \\Rightarrow b^{2}=4 \\Rightarrow b=2$ (ambil nilai positif). Maka $N(3)=300\\cdot2^{3}=300\\cdot8=2400$.
-
-5. Puncak $(5,8)$ memberi laba maksimum $8$ juta rupiah yang dicapai pada tingkat produksi $5$. Karena puncak model kuadrat merupakan titik tertinggi, laba tidak melebihi nilai itu.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Ongkos perjalanan tercatat Rp17.000 untuk $3$ km dan Rp32.000 untuk $8$ km. Susun model linear $C(s)$ (rupiah) dan ramalkan ongkos $12$ km.
-
-2. Perhatikan data berikut: $t=0,1,2,3$ dengan $P=500,1500,4500,13500$. Tentukan jenis fungsi, modelnya, dan ramalkan $P(4)$.
-
-3. Tentukan model kuadrat yang melalui titik $(1,2)$, $(2,5)$, dan $(3,10)$.
-
-4. Lintasan bola memenuhi $h(t)=a(t-p)^2+q$ dengan puncak $(2,12)$ dan mulai dari tanah pada $t=0$. Tentukan modelnya, kapan bola kembali menyentuh tanah, dan tinggi pada $t=3$.
-
-5. Sebuah model linear $y=2x+5$ menyatakan jumlah penduduk (ribu jiwa) dengan $x$ tahun sejak 2020. Tentukan prediksi tahun 2025 dan sebutkan satu batasan domain yang masuk akal.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $m=\\dfrac{32000-17000}{8-3}=\\dfrac{15000}{5}=3000$ dan $c=17000-3000\\cdot3=8000$. Model $C(s)=3000s+8000$. Untuk $s=12$: $C(12)=3000\\cdot12+8000=36000+8000=44000$, yaitu Rp44.000.
-
-2. Rasio $\\dfrac{1500}{500}=3$, $\\dfrac{4500}{1500}=3$, dan $\\dfrac{13500}{4500}=3$, jadi polanya eksponensial $P(t)=500\\cdot3^{t}$. Ramalan $P(4)=500\\cdot3^{4}=500\\cdot81=40500$.
-
-3. Misal $y=ax^2+bx+c$. Dari $(1,2)$: $a+b+c=2$; dari $(2,5)$: $4a+2b+c=5$; dari $(3,10)$: $9a+3b+c=10$. Kurangkan berturut-turut: $3a+b=3$ dan $5a+b=5$, sehingga $2a=2$, $a=1$, $b=0$, dan $c=1$. Model $y=x^2+1$. Periksa $(3,10)$: $9+1=10$.
-
-4. Puncak $(2,12)$ memberi $h(t)=a(t-2)^2+12$. Mulai dari tanah: $h(0)=4a+12=0 \\Rightarrow a=-3$. Model $h(t)=-3(t-2)^2+12=-3t^2+12t$. Bola kembali ke tanah saat $-3t(t-4)=0$, yaitu $t=4$ selain $t=0$. Tinggi pada $t=3$: $h(3)=-3(1)+12=9$ m.
-
-5. Tahun 2025 berarti $x=5$, sehingga $y=2\\cdot5+5=15$ ribu jiwa. Karena $x$ menyatakan tahun sejak 2020, domain yang wajar $x\\geq0$; model tidak bermakna untuk tahun sebelum 2020 dan sebaiknya tidak dipakai jauh di luar rentang data.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Pengamatan bakteri memberi $N(1)=750$ dan $N(4)=6000$. Tentukan model $N(t)=N_0\\cdot b^{t}$ dan ramalkan $N(7)$.
-
-2. Laba (juta rupiah) mengikuti $P(x)=-2x^2+24x-40$ dengan $x$ banyak produksi (ratus unit). Tentukan laba maksimum dan rentang $x$ agar usaha tidak merugi.
-
-3. Nilai sebuah mesin Rp80 juta menyusut $15\\%$ per tahun. Susun model nilainya dan tentukan kira-kira pada tahun ke berapa nilainya tinggal setengah.
-
-4. Bandingkan pertumbuhan linear dan eksponensial. Jelaskan mengapa model eksponensial akhirnya melampaui model linear, lalu berikan satu contoh situasi untuk masing-masing.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Bagi $\\dfrac{N(4)}{N(1)}$: $\\dfrac{N_0 b^{4}}{N_0 b^{1}}=b^{3}=\\dfrac{6000}{750}=8$, sehingga $b=2$. Dari $N(1)=N_0\\cdot2=750$ diperoleh $N_0=375$. Model $N(t)=375\\cdot2^{t}$. Ramalan $N(7)=375\\cdot2^{7}=375\\cdot128=48000$.
-
-2. Puncak di $x=-\\dfrac{b}{2a}=-\\dfrac{24}{2\\cdot(-2)}=6$, sehingga $P(6)=-2(36)+24(6)-40=-72+144-40=32$ juta rupiah. Tidak merugi saat $P(x)\\geq0$: $-2x^2+24x-40\\geq0$; bagi dengan $-2$ dan balik tanda menjadi $x^2-12x+20\\leq0$, yaitu $(x-2)(x-10)\\leq0$. Jadi $2\\leq x\\leq10$ (ratus unit).
-
-3. Model $V(t)=80\\cdot(0{,}85)^{t}$ juta rupiah. Setengah dari $80$ adalah $40$, sehingga $(0{,}85)^{t}=0{,}5$. Dengan logaritma, $t=\\dfrac{\\ln 0{,}5}{\\ln 0{,}85}\\approx\\dfrac{-0{,}693}{-0{,}163}\\approx4{,}3$. Jadi nilainya tinggal setengah setelah sekitar $4{,}3$ tahun, yaitu selama tahun ke-5.
-
-4. Linear bertambah dengan beda tetap, sedangkan eksponensial bertambah dengan rasio tetap sehingga pertumbuhannya makin cepat. Karena itu, meskipun awalnya lebih kecil, model eksponensial akhirnya melampaui model linear. Contoh linear: tarif taksi per kilometer. Contoh eksponensial: populasi yang berlipat dua atau bunga majemuk.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -502,7 +443,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: "Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Pemodelan Fungsi**.",
+      body: `**Tiket keluar.** (1) Bagaimana pola perubahan data menunjukkan jenis fungsi yang paling tepat? (2) Mengapa domain model perlu dibatasi meskipun rumusnya berlaku untuk semua bilangan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Pemodelan Fungsi** untuk latihan tambahan.`,
     },
   ],
 };

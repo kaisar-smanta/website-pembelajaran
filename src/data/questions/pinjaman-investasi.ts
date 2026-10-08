@@ -50,7 +50,7 @@ export const pinjamanInvestasiQuestions: Question[] = [
     prompt:
       'Pinjaman Rp10.000.000 dengan bunga $1{,}5\\%$ per bulan dilunasi dengan angsuran anuitas Rp499.241,02. Berapa sisa utang setelah angsuran pertama (dibulatkan ke rupiah terdekat)?',
     answer: '9650759',
-    acceptedAnswers: ['9650759', '9.650.759', 'Rp9.650.759'],
+    acceptedAnswers: ['9650759', '9.650.759', '9.650.759,00', '9650759,00', 'Rp9.650.759', 'Rp9.650.759,00'],
     explanation:
       'Bunga bulan pertama $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Angsuran pokok $= 499.241{,}02 - 150.000 = \\text{Rp}349.241{,}02$. Sisa utang $= 10.000.000 - 349.241{,}02 = 9.650.758{,}98 \\approx \\text{Rp}9.650.759$.',
     hints: ['Hitung bunga bulan pertama, lalu kurangkan dari angsuran untuk memperoleh angsuran pokok.'],
@@ -103,7 +103,7 @@ export const pinjamanInvestasiQuestions: Question[] = [
     prompt:
       'Seseorang menabung Rp500.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan. Berapa saldo akhir setelah $24$ bulan (dibulatkan ke ribuan rupiah terdekat)?',
     answer: '12716000',
-    acceptedAnswers: ['12716000', '12.716.000', 'Rp12.716.000', '12715978'],
+    acceptedAnswers: ['12716000', '12.716.000', '12.716.000,00', '12716000,00', 'Rp12.716.000', 'Rp12.716.000,00', '12715978'],
     explanation:
       '$FV = A \\cdot \\dfrac{(1+i)^{n}-1}{i} = 500.000 \\cdot \\dfrac{(1{,}005)^{24}-1}{0{,}005} \\approx 500.000 \\cdot 25{,}431955 \\approx \\text{Rp}12.715.978$, dibulatkan menjadi Rp12.716.000.',
     hints: ['Gunakan rumus nilai masa depan anuitas, bukan bunga majemuk biasa.'],
@@ -177,7 +177,7 @@ export const pinjamanInvestasiQuestions: Question[] = [
     prompt:
       'Dengan data pinjaman Rp20.000.000 dan bunga $1\\%$ per bulan, berapa selisih total bunga antara tenor $48$ bulan dan tenor $24$ bulan? Bulatkan ke ribuan rupiah terdekat.',
     answer: '2685000',
-    acceptedAnswers: ['2685000', '2.685.000', 'Rp2.685.000', '2685215'],
+    acceptedAnswers: ['2685000', '2.685.000', '2.685.000,00', '2685000,00', 'Rp2.685.000', 'Rp2.685.000,00', '2685215'],
     explanation:
       'Total bunga tenor $48$ bulan $= 48 \\times 526.676{,}71 - 20.000.000 \\approx \\text{Rp}5.280.482{,}01$. Total bunga tenor $24$ bulan $= 24 \\times 941.469{,}44 - 20.000.000 \\approx \\text{Rp}2.595.266{,}67$. Selisih $= 5.280.482{,}01 - 2.595.266{,}67 = 2.685.215{,}34 \\approx \\text{Rp}2.685.000$.',
     hints: [

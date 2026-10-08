@@ -31,6 +31,8 @@ export interface TopicEntry {
   practiceHref: string;
   /** Tautan halaman materi topik. */
   materialHref: string;
+  /** Id topik prasyarat, dipakai untuk mengurutkan saran awal. */
+  prerequisites?: string[];
 }
 
 /** Rekaman berstempel waktu; hanya `at` yang dipakai di sini. */
@@ -228,9 +230,52 @@ export function continueLearning(overview: SiteOverview, limit = 6): TopicOvervi
     .slice(0, limit);
 }
 
-/** Topik yang belum pernah disentuh, sebagai titik awal ketika masih kosong. */
+const GRADE_RANK: Partial<Record<Grade, number>> = { X: 0, XI: 1, XII: 2 };
+
+/**
+ * Topik yang belum pernah disentuh, sebagai titik awal ketika masih kosong.
+ *
+ * Saran diurutkan sadar kelas dan prasyarat: kelas paling awal lebih dulu, dan
+ * sebuah topik tidak pernah didahulukan atas prasyaratnya yang juga belum
+ * disentuh. Urutan asli `overview.topics` dipakai sebagai pemecah seri agar
+ * hasilnya deterministik meski tanpa metadata kelas.
+ */
 export function suggestedStart(overview: SiteOverview, limit = 4): TopicOverview[] {
-  return overview.topics.filter((topic) => !topic.started && topic.total > 0).slice(0, limit);
+  if (limit <= 0) return [];
+  const candidates = overview.topics.filter((topic) => !topic.started && topic.total > 0);
+  if (candidates.length === 0) return [];
+
+  const position = new Map<string, number>(
+    overview.topics.map((topic, index) => [topic.id, index]),
+  );
+  const candidateIds = new Set<string>(candidates.map((topic) => topic.id));
+  const ordered = candidates.slice().sort((a, b) => {
+    const rankA = GRADE_RANK[a.grade] ?? Number.MAX_SAFE_INTEGER;
+    const rankB = GRADE_RANK[b.grade] ?? Number.MAX_SAFE_INTEGER;
+    if (rankA !== rankB) return rankA - rankB;
+    return (position.get(a.id) ?? 0) - (position.get(b.id) ?? 0);
+  });
+
+  const chosen = new Set<string>();
+  const result: TopicOverview[] = [];
+
+  while (result.length < limit) {
+    let advanced = false;
+    for (const topic of ordered) {
+      if (chosen.has(topic.id)) continue;
+      const blocked = (topic.prerequisites ?? []).some(
+        (id) => candidateIds.has(id) && !chosen.has(id),
+      );
+      if (blocked) continue;
+      chosen.add(topic.id);
+      result.push(topic);
+      advanced = true;
+      if (result.length >= limit) break;
+    }
+    if (!advanced) break;
+  }
+
+  return result;
 }
 
 /** Mengelompokkan kemajuan per mata pelajaran, kelas, lalu elemen. */

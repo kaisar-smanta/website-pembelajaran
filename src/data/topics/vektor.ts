@@ -46,9 +46,6 @@ export const vektor: Topic = {
     { text: 'Menentukan proyeksi skalar dan proyeksi vektor.' },
     { text: 'Membuktikan sifat geometri (kolinear, tegak lurus, teorema titik tengah) menggunakan vektor.' },
   ],
-  explorations: [
-    "mtl-vektor-bidang",
-  ],
   sections: [
     {
       id: "tujuan",
@@ -298,6 +295,16 @@ Karena $\\vec{BC} = 2\\,\\vec{MN}$, kedua ruas garis **sejajar**, dan panjangnya
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Perkalian Titik sebagai Alat Serbaguna",
+      body: `Hampir semua sifat geometri pada topik ini dapat dibaca dari satu operasi, yaitu **perkalian titik**. Dari bentuk komponen $\\vec{a}\\cdot\\vec{b}=a_{1}b_{1}+a_{2}b_{2}$ dan bentuk geometris $\\vec{a}\\cdot\\vec{b}=\\lVert\\vec{a}\\rVert\\lVert\\vec{b}\\rVert\\cos\\theta$, kita memperoleh panjang, sudut, ketegaklurusan, dan proyeksi sekaligus:
+
+$$\\lVert\\vec{a}\\rVert=\\sqrt{\\vec{a}\\cdot\\vec{a}}, \\qquad \\cos\\theta=\\frac{\\vec{a}\\cdot\\vec{b}}{\\lVert\\vec{a}\\rVert\\lVert\\vec{b}\\rVert}, \\qquad \\vec{a}\\perp\\vec{b}\\iff\\vec{a}\\cdot\\vec{b}=0, \\qquad \\vec{a}\\parallel\\vec{b}\\iff\\vec{a}=k\\vec{b}.$$
+
+Dengan menghubungkan titik-titik menjadi vektor, pertanyaan geometri berubah menjadi perhitungan aljabar. Itulah sebabnya vektor dipakai membuktikan teorema titik tengah dan sifat segitiga tanpa menggambar ulang.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -336,64 +343,18 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Tentukan panjang vektor $\\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$.
-2. Tentukan panjang vektor $\\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$.
-3. Diketahui $A(1,2)$ dan $B(4,6)$. Tentukan $\\vec{AB}$.
-4. Diketahui $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Hitunglah $\\vec{a} + \\vec{b}$.
-5. Hitunglah $\\vec{a} - \\vec{b}$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\lVert \\vec{a} \\rVert = \\sqrt{36 + 64} = \\sqrt{100} = 10$.
-2. $\\lVert \\vec{a} \\rVert = \\sqrt{25 + 144} = \\sqrt{169} = 13$.
-3. $\\vec{AB} = \\begin{pmatrix} 4 - 1 \\\\ 6 - 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$, panjangnya $5$.
-4. $\\vec{a} + \\vec{b} = \\begin{pmatrix} 3 + 1 \\\\ 4 + 2 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 6 \\end{pmatrix}$.
-5. $\\vec{a} - \\vec{b} = \\begin{pmatrix} 3 - 1 \\\\ 4 - 2 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Hitunglah $\\vec{a} \\cdot \\vec{b}$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$.
-2. Tentukan sudut antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.
-3. Buktikan bahwa $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ tegak lurus dengan $\\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix}$.
-4. Tentukan proyeksi skalar $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada $\\vec{b} = \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$.
-5. Tentukan vektor satuan dari $\\vec{a} = \\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. $\\vec{a} \\cdot \\vec{b} = 3(1) + 4(2) = 11$.
-2. $\\vec{u} \\cdot \\vec{v} = 1(3) + 2(1) = 5$; $\\lVert \\vec{u} \\rVert = \\sqrt{5}$, $\\lVert \\vec{v} \\rVert = \\sqrt{10}$; $\\cos\\theta = \\dfrac{5}{\\sqrt{50}} = \\dfrac{1}{\\sqrt{2}}$, jadi $\\theta = 45^\\circ$.
-3. $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, sehingga tegak lurus.
-4. $c = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert} = \\dfrac{3}{1} = 3$.
-5. $\\lVert \\vec{a} \\rVert = 13$, maka $\\hat{a} = \\dfrac{1}{13}\\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{5}{13} \\\\ \\tfrac{12}{13} \\end{pmatrix}$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Diketahui $A(1,1)$, $B(3,3)$, dan $C(5,k)$ kolinear. Tentukan nilai $k$.
-2. Tentukan nilai $x$ agar $\\vec{u} = \\begin{pmatrix} x \\\\ 3 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 2 \\\\ -4 \\end{pmatrix}$ saling tegak lurus.
-3. Pada segitiga $A(0,0)$, $B(4,0)$, $C(0,6)$, tunjukkan dengan vektor bahwa ruas garis yang menghubungkan titik tengah $AB$ dan $AC$ sejajar $BC$ dan panjangnya setengah $BC$.
-4. Diketahui $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Tentukan proyeksi vektor $\\vec{a}$ pada $\\vec{b}$ dan panjang proyeksinya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. $\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$ dan $\\vec{AC} = \\begin{pmatrix} 4 \\\\ k - 1 \\end{pmatrix}$. Agar kolinear, $\\vec{AC} = 2\\,\\vec{AB} = \\begin{pmatrix} 4 \\\\ 4 \\end{pmatrix}$, sehingga $k - 1 = 4$ dan $k = 5$.
-2. Tegak lurus berarti $\\vec{u} \\cdot \\vec{v} = 0$: $2x - 12 = 0$, sehingga $x = 6$.
-3. Titik tengah $AB$: $M = (2,0)$; titik tengah $AC$: $N = (0,3)$. Maka $\\vec{MN} = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}$ dan $\\vec{BC} = \\begin{pmatrix} -4 \\\\ 6 \\end{pmatrix} = 2\\,\\vec{MN}$. Karena kelipatan positif, $MN \\parallel BC$; karena faktor $2$, panjang $MN = \\tfrac{1}{2}BC$. Terbukti.
-4. $\\vec{a} \\cdot \\vec{b} = 11$ dan $\\lVert \\vec{b} \\rVert^{2} = 5$, sehingga $\\vec{p} = \\dfrac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{11}{5} \\\\ \\tfrac{22}{5} \\end{pmatrix}$ dan panjangnya $\\lVert \\vec{p} \\rVert = \\dfrac{11}{\\sqrt{5}} = \\dfrac{11\\sqrt{5}}{5}$.`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -511,8 +472,7 @@ Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor;
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Vektor**.
-`,
+      body: `**Tiket keluar.** (1) Bagaimana satu operasi perkalian titik dapat menentukan panjang, sudut, dan ketegaklurusan sekaligus? (2) Bagaimana vektor dipakai untuk membuktikan sifat geometri seperti teorema titik tengah? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Vektor** untuk latihan tambahan.`,
     },
   ],
 };

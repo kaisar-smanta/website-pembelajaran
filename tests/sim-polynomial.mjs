@@ -68,6 +68,43 @@ run('criticalPoints x^3 - 3x di x = -1 (maks) dan x = 1 (min)', () => {
   assert.equal(crit[1].kind, 'min');
 });
 
+run('findRoots menemukan akar rangkap (x-1)^2(x+2) di x = 1 dan -2', () => {
+  const roots = findRoots({ a: 1, b: 0, c: -3, d: 2 });
+  assert.equal(roots.length, 2, `jumlah akar: ${roots.length}`);
+  close(roots[0], -2, 'akar -2');
+  close(roots[1], 1, 'akar rangkap 1');
+});
+
+run('findRoots menemukan akar rangkap saat a = 0 (kuadrat)', () => {
+  const roots = findRoots({ a: 0, b: 1, c: -1, d: 0.25 });
+  assert.equal(roots.length, 1, `jumlah akar: ${roots.length}`);
+  close(roots[0], 0.5, 'akar rangkap 0,5');
+});
+
+run('findRoots a = 0 menemukan akar rangkap tak di grid sampel', () => {
+  const roots = findRoots({ a: 0, b: 9, c: -6, d: 1 });
+  assert.equal(roots.length, 1, `jumlah akar: ${roots.length}`);
+  close(roots[0], 1 / 3, 'akar rangkap 1/3');
+});
+
+run('findRoots a = 0 pada kuadrat dengan dua akar berbeda', () => {
+  const roots = findRoots({ a: 0, b: 1, c: 0, d: -1 });
+  assert.equal(roots.length, 2, `jumlah akar: ${roots.length}`);
+  close(roots[0], -1, 'akar -1');
+  close(roots[1], 1, 'akar 1');
+});
+
+run('findRoots a = 0 tanpa akar real', () => {
+  const roots = findRoots({ a: 0, b: 1, c: 0, d: 1 });
+  assert.equal(roots.length, 0, `jumlah akar: ${roots.length}`);
+});
+
+run('findRoots a = 0 dan b = 0 (linear) menemukan satu akar', () => {
+  const roots = findRoots({ a: 0, b: 0, c: 2, d: -4 });
+  assert.equal(roots.length, 1, `jumlah akar: ${roots.length}`);
+  close(roots[0], 2, 'akar 2');
+});
+
 if (failed > 0) {
   console.error(`\n${failed} pemeriksaan gagal.`);
   process.exit(1);

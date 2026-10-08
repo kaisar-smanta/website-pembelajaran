@@ -12,6 +12,11 @@ import {
   saveProgress,
   STORAGE_KEY,
 } from '../src/lib/progress.ts';
+import {
+  buildOverview,
+  continueLearning,
+  suggestedStart,
+} from '../src/lib/progress-overview.ts';
 
 function mockStorage() {
   const data = new Map();
@@ -163,6 +168,83 @@ check('clearAttempt pada penyimpanan membuat soal kembali belum dikerjakan', () 
   const cleared = clearAttempt(loadProgress(storage), 'a');
   saveProgress(storage, cleared);
   assert.equal(loadProgress(storage).a, undefined);
+});
+
+function topicEntry(id, overrides = {}) {
+  return {
+    id,
+    slug: id,
+    title: `Topik ${id}`,
+    grade: 'X',
+    gradeName: 'Kelas X',
+    element: 'bilangan',
+    elementName: 'Bilangan',
+    subject: 'matematika',
+    subjectName: 'Matematika',
+    questionIds: [`${id}-q1`],
+    predictions: 0,
+    reflections: 0,
+    practiceHref: `/latihan/${id}`,
+    materialHref: `/matematika/kelas/X/bilangan/${id}`,
+    ...overrides,
+  };
+}
+
+function overviewOf(entries, progress = {}) {
+  return buildOverview(entries, progress, {}, {});
+}
+
+check('continueLearning memilih topik yang dimulai tetapi belum tuntas', () => {
+  const entries = [
+    topicEntry('a', { questionIds: ['a-q1', 'a-q2'] }),
+    topicEntry('b', { questionIds: ['b-q1', 'b-q2'] }),
+  ];
+  const progress = {
+    'a-q1': { questionId: 'a-q1', correct: true, at: 5, graded: true },
+    'b-q1': { questionId: 'b-q1', correct: false, at: 9, graded: true },
+  };
+  const overview = overviewOf(entries, progress);
+  assert.deepEqual(continueLearning(overview).map((t) => t.id), ['b', 'a']);
+});
+
+check('suggestedStart mengutamakan kelas paling awal', () => {
+  const entries = [
+    topicEntry('c', { grade: 'XII', gradeName: 'Kelas XII' }),
+    topicEntry('a', { grade: 'X' }),
+    topicEntry('b', { grade: 'XI', gradeName: 'Kelas XI' }),
+  ];
+  const overview = overviewOf(entries);
+  assert.deepEqual(suggestedStart(overview, 3).map((t) => t.id), ['a', 'b', 'c']);
+});
+
+check('suggestedStart tidak mendahulukan topik atas prasyaratnya', () => {
+  const entries = [topicEntry('b', { prerequisites: ['a'] }), topicEntry('a')];
+  const overview = overviewOf(entries);
+  assert.deepEqual(suggestedStart(overview, 2).map((t) => t.id), ['a', 'b']);
+});
+
+check('suggestedStart melewatkan topik yang sudah dimulai', () => {
+  const entries = [topicEntry('a'), topicEntry('b', { prerequisites: ['a'] })];
+  const progress = { 'a-q1': { questionId: 'a-q1', correct: true, at: 1, graded: true } };
+  const overview = overviewOf(entries, progress);
+  assert.deepEqual(suggestedStart(overview, 5).map((t) => t.id), ['b']);
+});
+
+check('suggestedStart deterministik dan menghormati limit', () => {
+  const entries = [topicEntry('a'), topicEntry('b'), topicEntry('c'), topicEntry('d')];
+  const overview = overviewOf(entries);
+  assert.deepEqual(suggestedStart(overview, 2).map((t) => t.id), ['a', 'b']);
+  assert.deepEqual(suggestedStart(overview, 2).map((t) => t.id), ['a', 'b']);
+  assert.equal(suggestedStart(overview, 0).length, 0);
+});
+
+check('suggestedStart mengabaikan prasyarat di luar kandidat', () => {
+  const entries = [
+    topicEntry('a', { questionIds: [] }),
+    topicEntry('b', { prerequisites: ['a', 'tidak-ada'] }),
+  ];
+  const overview = overviewOf(entries);
+  assert.deepEqual(suggestedStart(overview, 3).map((t) => t.id), ['b']);
 });
 
 console.log(`PASS progress (${passed} pemeriksaan)`);

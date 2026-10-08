@@ -5,6 +5,7 @@ import { orderedExplorations } from '@/data/explorations';
 import { topicIdsWithQuestions, questionsByTopic, practiceCounts } from '@/data/questions';
 import { ELEMENTS, GRADES, SUBJECTS, SUBJECT_ORDER, elementOrderFor } from '@/data/curriculum';
 import { DIFFICULTY_ORDER, STATIC_PAGES } from '@/data/display';
+import { collectFormulaEntries, collectGlossaryEntries } from '@/lib/reference';
 import { stripMarkdown } from '@/utils/markdown';
 
 export const prerender = true;
@@ -13,7 +14,7 @@ interface SearchItem {
   title: string;
   summary: string;
   url: string;
-  type: 'topik' | 'aplikasi' | 'eksplorasi' | 'latihan' | 'halaman';
+  type: 'topik' | 'aplikasi' | 'eksplorasi' | 'latihan' | 'istilah' | 'rumus' | 'halaman';
   grade?: string;
   element?: string;
   keywords: string;
@@ -127,6 +128,62 @@ export const GET: APIRoute = () => {
         .filter(Boolean)
         .join(' '),
       text: stripMarkdown(parts.join(' ')).slice(0, 800),
+    });
+  }
+
+  for (const entry of collectGlossaryEntries(topics)) {
+    const topic = entry.topics[0];
+    const meaning = stripMarkdown(entry.meaning);
+    items.push({
+      title: entry.termText,
+      summary: meaning,
+      url: `/glosarium/?q=${encodeURIComponent(entry.termText)}`,
+      type: 'istilah',
+      grade: topic?.grade,
+      element: entry.elements[0],
+      keywords: [
+        entry.termText,
+        ...entry.elements.map((id) => ELEMENTS[id].name),
+        ...entry.topics.map(
+          (t) => `${t.title} ${GRADES[t.grade].name} ${ELEMENTS[t.element].name}`,
+        ),
+        'istilah',
+        'glosarium',
+        'kamus',
+        'definisi',
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .trim(),
+      text: stripMarkdown(`${meaning} ${entry.topics.map((t) => t.title).join(' ')}`).slice(0, 1000),
+    });
+  }
+
+  for (const formula of collectFormulaEntries(topics)) {
+    const topic = formula.topic;
+    const body = stripMarkdown(formula.body);
+    items.push({
+      title: `${formula.title} — ${topic.title}`,
+      summary: body.slice(0, 200),
+      url: `/${topic.subject}/kelas/${topic.grade}/${topic.element}/${topic.slug}/#${formula.sectionId}`,
+      type: 'rumus',
+      grade: topic.grade,
+      element: topic.element,
+      keywords: [
+        formula.title,
+        formula.kind,
+        topic.title,
+        GRADES[topic.grade].name,
+        ELEMENTS[topic.element].name,
+        SUBJECTS[topic.subject].name,
+        'rumus',
+        'formula',
+        'generalisasi',
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .trim(),
+      text: body.slice(0, 2000),
     });
   }
 

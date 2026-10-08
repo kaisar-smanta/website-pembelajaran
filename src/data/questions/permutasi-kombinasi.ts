@@ -143,7 +143,7 @@ export const permutasiKombinasiQuestions: Question[] = [
     prompt:
       'Sebuah kotak berisi $4$ bola merah dan $6$ bola biru. Tiga bola diambil sekaligus. Tentukan peluang terambil tepat $2$ bola merah (nyatakan dalam pecahan paling sederhana).',
     answer: '3/10',
-    acceptedAnswers: ['3/10', '0,3', '0.3'],
+    acceptedAnswers: ['3/10', '0,3', '0.3', '0,30', '0.30'],
     explanation:
       'Banyak cara mengambil $3$ dari $10$ bola adalah $\\binom{10}{3} = 120$. Banyak cara memperoleh tepat $2$ merah adalah $\\binom{4}{2}\\binom{6}{1} = 6 \\cdot 6 = 36$. Jadi $P = \\dfrac{36}{120} = \\dfrac{3}{10}$.',
     hints: ['Cacah pembilang dan penyebut dengan kombinasi.', 'Penyebutnya adalah $\\binom{10}{3}$.'],

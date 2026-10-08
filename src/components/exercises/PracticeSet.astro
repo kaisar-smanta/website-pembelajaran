@@ -1,0 +1,63 @@
+---
+import type { Difficulty, Question } from '@/types/content';
+import { getQuestion, questionsByTopicAndDifficulty } from '@/data/questions';
+import QuestionCard from './QuestionCard.astro';
+
+interface Props {
+  /** Id topik pemilik soal; menarik bank soal topik ini. */
+  topicId?: string;
+  /** Tingkat kesulitan yang ditampilkan. */
+  level: Difficulty;
+  /** Bila diisi, pakai daftar soal eksplisit alih-alih seluruh bank tingkat ini. */
+  questionIds?: string[];
+}
+
+const { topicId, level, questionIds } = Astro.props;
+
+let questions: Question[];
+if (questionIds?.length) {
+  questions = questionIds
+    .map((id) => getQuestion(id))
+    .filter((q): q is Question => q !== undefined);
+} else {
+  questions = topicId ? questionsByTopicAndDifficulty(topicId, level) : [];
+}
+---
+
+{
+  questions.length > 0 && (
+    <div class="practice-embed">
+      <p class="practice-lead">
+        Kerjakan langsung di sini. Jawaban dan pembahasannya diperiksa otomatis.
+      </p>
+      <div class="practice-list">
+        {questions.map((question, i) => (
+          <QuestionCard question={question} index={i} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .practice-embed {
+    margin: 0.5rem 0 1.1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--sec) 24%, var(--color-border));
+    border-left: 3px solid color-mix(in srgb, var(--sec) 70%, transparent);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--sec) 6%, var(--color-surface));
+  }
+  .practice-lead {
+    margin: 0 0 0.85rem;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+  .practice-list {
+    display: grid;
+    gap: 0.9rem;
+  }
+  .practice-list :global(.question-card) {
+    margin-bottom: 0;
+  }
+</style>

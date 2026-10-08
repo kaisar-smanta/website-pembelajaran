@@ -10,12 +10,12 @@ export const matriksQuestions: Question[] = [
     prompt:
       'Determinan dari matriks $A = \\begin{pmatrix} 4 & 2 \\\\ 1 & 3 \\end{pmatrix}$ adalah …',
     options: [
-      { key: 'A', text: '$10$' },
+      { key: 'A', text: '$2$' },
       { key: 'B', text: '$14$' },
       { key: 'C', text: '$6$' },
-      { key: 'D', text: '$2$' },
+      { key: 'D', text: '$10$' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ berlaku $\\det(A) = ad - bc$. Maka $\\det(A) = 4(3) - 2(1) = 12 - 2 = 10$.',
     hints: ['Kalikan unsur diagonal utama lalu kurangi hasil kali diagonal lainnya.'],
@@ -31,11 +31,11 @@ export const matriksQuestions: Question[] = [
       'Ordo dari matriks $\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}$ adalah …',
     options: [
       { key: 'A', text: '$3 \\times 2$' },
-      { key: 'B', text: '$2 \\times 3$' },
+      { key: 'B', text: '$6 \\times 1$' },
       { key: 'C', text: '$2 \\times 2$' },
-      { key: 'D', text: '$6 \\times 1$' },
+      { key: 'D', text: '$2 \\times 3$' },
     ],
-    answer: 'B',
+    answer: 'D',
     explanation:
       'Ordo ditulis sebagai (banyak baris) $\\times$ (banyak kolom). Matriks itu memiliki $2$ baris dan $3$ kolom, sehingga ordonya $2 \\times 3$.',
     hints: ['Hitung baris lebih dahulu, lalu kolom.'],
@@ -78,12 +78,12 @@ export const matriksQuestions: Question[] = [
     prompt:
       'Diketahui $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ dan $B = \\begin{pmatrix} 2 & 0 \\\\ 1 & 3 \\end{pmatrix}$. Hasil kali $AB$ adalah …',
     options: [
-      { key: 'A', text: '$\\begin{pmatrix} 4 & 6 \\\\ 10 & 12 \\end{pmatrix}$' },
+      { key: 'A', text: '$\\begin{pmatrix} 6 & 4 \\\\ 12 & 10 \\end{pmatrix}$' },
       { key: 'B', text: '$\\begin{pmatrix} 2 & 4 \\\\ 10 & 14 \\end{pmatrix}$' },
       { key: 'C', text: '$\\begin{pmatrix} 4 & 10 \\\\ 6 & 12 \\end{pmatrix}$' },
-      { key: 'D', text: '$\\begin{pmatrix} 6 & 4 \\\\ 12 & 10 \\end{pmatrix}$' },
+      { key: 'D', text: '$\\begin{pmatrix} 4 & 6 \\\\ 10 & 12 \\end{pmatrix}$' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Baris pertama: $1(2)+2(1)=4$ dan $1(0)+2(3)=6$. Baris kedua: $3(2)+4(1)=10$ dan $3(0)+4(3)=12$. Jadi $AB = \\begin{pmatrix} 4 & 6 \\\\ 10 & 12 \\end{pmatrix}$. Opsi B adalah $BA$, yang nilainya berbeda karena perkalian matriks tidak komutatif.',
     hints: ['Kalikan baris $A$ dengan kolom $B$, lalu jumlahkan hasilnya.'],
@@ -98,12 +98,12 @@ export const matriksQuestions: Question[] = [
     prompt:
       'Invers dari matriks $A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix}$ adalah …',
     options: [
-      { key: 'A', text: '$\\dfrac{1}{10}\\begin{pmatrix} 4 & -1 \\\\ -2 & 3 \\end{pmatrix}$' },
+      { key: 'A', text: '$\\dfrac{1}{10}\\begin{pmatrix} 4 & -2 \\\\ -1 & 3 \\end{pmatrix}$' },
       { key: 'B', text: '$\\dfrac{1}{10}\\begin{pmatrix} 4 & 1 \\\\ 2 & 3 \\end{pmatrix}$' },
       { key: 'C', text: '$\\dfrac{1}{10}\\begin{pmatrix} 3 & -1 \\\\ -2 & 4 \\end{pmatrix}$' },
-      { key: 'D', text: '$\\dfrac{1}{10}\\begin{pmatrix} 4 & -2 \\\\ -1 & 3 \\end{pmatrix}$' },
+      { key: 'D', text: '$\\dfrac{1}{10}\\begin{pmatrix} 4 & -1 \\\\ -2 & 3 \\end{pmatrix}$' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       '$\\det(A) = 3(4) - 1(2) = 10 \\neq 0$, maka $A$ memiliki invers. Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$, $A^{-1} = \\dfrac{1}{ad-bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix} = \\dfrac{1}{10}\\begin{pmatrix} 4 & -1 \\\\ -2 & 3 \\end{pmatrix}$.',
     hints: ['Tukar posisi $a$ dan $d$, lalu ubah tanda $b$ dan $c$.'],
@@ -147,12 +147,12 @@ export const matriksQuestions: Question[] = [
     prompt:
       'Nilai $x$ yang membuat matriks $\\begin{pmatrix} x & 2 \\\\ 2 & x \\end{pmatrix}$ singular adalah …',
     options: [
-      { key: 'A', text: '$x = 2$ atau $x = -2$' },
-      { key: 'B', text: '$x = 2$ saja' },
-      { key: 'C', text: '$x = -2$ saja' },
-      { key: 'D', text: '$x = 0$' },
+      { key: 'A', text: '$x = 2$' },
+      { key: 'B', text: '$x = -2$' },
+      { key: 'C', text: '$x = 0$' },
+      { key: 'D', text: '$x = \\pm 2$' },
     ],
-    answer: 'A',
+    answer: 'D',
     explanation:
       'Matriks singular jika determinannya nol: $x \\cdot x - 2 \\cdot 2 = x^{2} - 4 = 0$, sehingga $x^{2} = 4$ dan $x = 2$ atau $x = -2$. Kedua nilai harus disertakan.',
     hints: ['Matriks singular berarti determinannya nol.'],

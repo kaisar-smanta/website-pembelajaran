@@ -26,7 +26,6 @@ export const lingkaran: Topic = {
   ],
   prerequisites: [],
   relatedTopics: ['trigonometri'],
-  explorations: ['lingkaran-eksplorasi'],
   prerequisiteKnowledge: [
     'Teorema Pythagoras',
     'Sifat segitiga sama kaki',
@@ -237,6 +236,18 @@ Semua rumus ini berasal dari teorema Pythagoras pada segitiga yang dibentuk gari
       ],
     },
     {
+      id: "generalisasi",
+      kind: "generalisasi",
+      title: "Benang Merah Rumus Lingkaran",
+      body: `Hampir semua rumus pada topik ini berasal dari dua gagasan sederhana. Pertama, **bagian lingkaran sebanding dengan sudut pusatnya**. Karena satu putaran penuh $360^\\circ$, setiap besaran diperoleh dengan mengalikan nilai penuh dengan pecahan $\\dfrac{\\theta}{360^\\circ}$:
+
+$$s=\\frac{\\theta}{360^\\circ}\\cdot 2\\pi r, \\qquad L_{\\text{juring}}=\\frac{\\theta}{360^\\circ}\\cdot \\pi r^{2}.$$
+
+Kedua, **garis singgung selalu tegak lurus jari-jari**, sehingga jari-jari, garis singgung, dan garis dari pusat ke titik luar membentuk segitiga siku-siku. Dari Pythagoras itulah muncul $\\ell=\\sqrt{d^{2}-r^{2}}$, sedangkan untuk dua lingkaran jari-jari $R$ dan $r$ cukup mengganti $r$ dengan selisih atau jumlah jari-jarinya:
+
+$$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}, \\qquad \\ell_{\\text{dalam}}=\\sqrt{d^{2}-(R+r)^{2}}.$$`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -284,75 +295,18 @@ $$\\ell=\\sqrt{13^{2}-5^{2}}=\\sqrt{169-25}=\\sqrt{144}=12 \\text{ cm}.$$`,
       kind: "latihan-dasar",
       title: "Latihan Dasar",
       level: "dasar",
-      body: `1. Sudut pusat sebuah lingkaran $70^\\circ$. Berapa besar sudut keliling yang menghadap busur yang sama?
-
-2. Berapa besar sudut keliling yang menghadap diameter? Sebutkan alasannya.
-
-3. Lingkaran berjari-jari $14$ cm, $\\pi=\\dfrac{22}{7}$. Tentukan panjang busur dan luas juring untuk sudut pusat $90^\\circ$.
-
-4. Lingkaran berjari-jari $10$ cm, $\\pi=3{,}14$. Tentukan panjang busur untuk sudut pusat $90^\\circ$.
-
-5. Titik $P$ berjarak $10$ cm dari pusat lingkaran berjari-jari $6$ cm. Tentukan panjang garis singgung dari $P$.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Sudut keliling $=\\dfrac{1}{2}\\times70^\\circ=35^\\circ$.
-2. $90^\\circ$, karena sudut pusat yang menghadap diameter adalah $180^\\circ$ dan sudut keliling setengahnya.
-3. $s=\\dfrac{1}{4}\\times2\\times\\dfrac{22}{7}\\times14=22$ cm; $L=\\dfrac{1}{4}\\times\\dfrac{22}{7}\\times196=154$ cm².
-4. $s=\\dfrac{1}{4}\\times2\\times3{,}14\\times10=15{,}7$ cm.
-5. $\\ell=\\sqrt{10^{2}-6^{2}}=\\sqrt{100-36}=8$ cm.`,
-        },
-      ],
     },
     {
       id: "latihan-cakap",
       kind: "latihan-cakap",
       title: "Latihan Cakap",
       level: "cakap",
-      body: `1. Dua sudut keliling menghadap busur yang sama. Jika salah satunya $55^\\circ$, berapa besar sudut keliling lainnya?
-
-2. Tentukan luas tembereng lingkaran berjari-jari $14$ cm dengan sudut pusat $90^\\circ$ dan $\\pi=\\dfrac{22}{7}$.
-
-3. Dua lingkaran berjari-jari $8$ cm dan $3$ cm dengan jarak pusat $13$ cm. Tentukan panjang garis singgung persekutuan luarnya.
-
-4. Dua lingkaran berjari-jari $5$ cm dan $1$ cm dengan jarak pusat $10$ cm. Tentukan panjang garis singgung persekutuan dalamnya.
-
-5. Sebuah lingkaran berjari-jari $21$ cm memiliki panjang busur $22$ cm dengan $\\pi=\\dfrac{22}{7}$. Tentukan besar sudut pusatnya.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat kunci dan pembahasan",
-          text: `1. Sama besar, yaitu $55^\\circ$.
-2. Luas juring $=154$ cm²; luas segitiga $=\\dfrac{1}{2}\\times14\\times14=98$ cm²; tembereng $=154-98=56$ cm².
-3. $\\ell_{\\text{luar}}=\\sqrt{13^{2}-(8-3)^{2}}=\\sqrt{169-25}=12$ cm.
-4. $\\ell_{\\text{dalam}}=\\sqrt{10^{2}-(5+1)^{2}}=\\sqrt{100-36}=8$ cm.
-5. $\\dfrac{\\theta}{360}\\times2\\times\\dfrac{22}{7}\\times21=\\dfrac{\\theta}{360}\\times132$. Karena nilainya $22$, maka $\\dfrac{\\theta}{360}=\\dfrac{22}{132}=\\dfrac{1}{6}$, sehingga $\\theta=60^\\circ$.`,
-        },
-      ],
     },
     {
       id: "latihan-mahir",
       kind: "latihan-mahir",
       title: "Latihan Mahir",
       level: "mahir",
-      body: `1. Jelaskan mengapa sudut keliling sama dengan setengah sudut pusat yang menghadap busur yang sama. Gunakan bantuan segitiga sama kaki yang dibentuk jari-jari.
-
-2. Sebuah lingkaran berjari-jari $7$ cm berada di dalam persegi berukuran $14\\times14$ cm dan menyinggung keempat sisinya. Dengan $\\pi=\\dfrac{22}{7}$, tentukan luas daerah persegi di luar lingkaran.
-
-3. Dua lingkaran berjari-jari $8$ cm dan $3$ cm berjarak pusat $13$ cm. Hitung panjang garis singgung persekutuan luar **dan** dalamnya.
-
-4. Sebuah juring lingkaran berjari-jari $10$ cm memiliki sudut pusat $72^\\circ$ dengan $\\pi=3{,}14$. Tentukan luas juring tersebut.`,
-      blocks: [
-        {
-          kind: "details",
-          summary: "Lihat pembahasan",
-          text: `1. Hubungkan $O$ (pusat) dengan $C$ (titik sudut keliling). Terbentuk segitiga sama kaki $OAC$ dan $OBC$ karena $OA=OC=OB=r$. Misalkan $\\angle OAC=\\angle OCA=a$ dan $\\angle OBC=\\angle OCB=b$. Sudut luar di $O$ pada $\\triangle OAC$ besarnya $2a$ dan pada $\\triangle OBC$ besarnya $2b$, sehingga $\\angle AOB=2a+2b=2(a+b)=2\\angle ACB$. Terbukti.
-2. Luas persegi $=14\\times14=196$ cm²; luas lingkaran $=\\dfrac{22}{7}\\times7^{2}=154$ cm²; selisihnya $=196-154=42$ cm².
-3. Luar: $\\sqrt{13^{2}-(8-3)^{2}}=\\sqrt{169-25}=12$ cm. Dalam: $\\sqrt{13^{2}-(8+3)^{2}}=\\sqrt{169-121}=\\sqrt{48}=4\\sqrt{3}\\approx6{,}93$ cm.
-4. $L=\\dfrac{72}{360}\\times3{,}14\\times100=\\dfrac{1}{5}\\times314=62{,}8$ cm².`,
-        },
-      ],
     },
     {
       id: "dunia-nyata",
@@ -455,8 +409,7 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `Kerjakan kuis topik ini untuk memeriksa pemahamanmu. Buka halaman [Latihan & Asesmen](/latihan) lalu pilih topik **Lingkaran**.
-`,
+      body: `**Tiket keluar.** (1) Kapan sudut pusat sama dengan dua kali sudut keliling, dan mengapa syarat busur yang sama penting? (2) Dari mana asal rumus panjang garis singgung dari sebuah titik di luar lingkaran? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Lingkaran** untuk latihan tambahan.`,
     },
   ],
 };

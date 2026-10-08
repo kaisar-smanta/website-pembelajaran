@@ -34,11 +34,13 @@ const year = new Date().getFullYear();
         <nav class="footer-col" aria-label={group.heading}>
           <h2 class="footer-heading">{group.heading}</h2>
           <ul>
-            {group.items.map((item) => (
-              <li>
-                <a href={url(item.href)}>{item.label}</a>
-              </li>
-            ))}
+            {group.items.map((item) =>
+              item.href ? (
+                <li>
+                  <a href={url(item.href)}>{item.label}</a>
+                </li>
+              ) : null,
+            )}
           </ul>
         </nav>
       ))
