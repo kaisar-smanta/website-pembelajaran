@@ -1,16 +1,23 @@
 # Matematika SMA — Pusat Pembelajaran Matematika
 
 Situs statis berbahasa Indonesia untuk pembelajaran matematika SMA, disusun mengikuti kerangka
-**Capaian Pembelajaran (CP)** Kurikulum Merdeka pada empat elemen: **Bilangan**, **Aljabar dan
+**Capaian Pembelajaran (CP)** pada empat elemen: **Bilangan**, **Aljabar dan
 Fungsi**, **Geometri**, serta **Analisis Data dan Peluang**.
+
+Acuan CP yang dipakai adalah **Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025**
+tentang Capaian Pembelajaran pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan
+Jenjang Pendidikan Menengah, berlaku sejak **16 Juli 2025**. Untuk Matematika SMA, CP ada pada
+**Lampiran II**; regulasi ini menggantikan Kepka BSKAP No. 032/H/KR/2024. Pemetaan CP beserta
+riwayat regulasi disimpan di `src/data/curriculum/cp.ts` dan diperiksa `tests/cp-coverage.mjs`.
+
+> Catatan: susunan materi merupakan **tafsir instruksional** atas CP, bukan salinan resmi daftar
+> isi buku teks maupun dokumen kurikulum. Cocokkan selalu dengan dokumen resmi yang berlaku.
+> Lihat halaman `/referensi` dan registri `src/data/curriculum/cp.ts`.
 
 Situs ini bukan kumpulan PDF. Setiap topik mengikuti alur belajar
 **konteks → pertanyaan → konsep → representasi → eksplorasi → generalisasi → contoh → latihan
 → penalaran → penerapan nyata → refleksi**, dilengkapi eksplorasi interaktif, latihan berjenjang,
 prasyarat, dan topik terkait.
-
-> Catatan: susunan materi merupakan **tafsir instruksional** atas CP, bukan salinan resmi daftar
-> isi buku teks. Lihat halaman `/referensi`.
 
 Disusun oleh **Kaisar Titoniran Akbar, S.Pd** untuk **SMAN 1 Tanjung**. Lihat `/tentang`.
 
@@ -144,6 +151,15 @@ untuk pencarian. Halaman materi juga menampilkan kartu **Kemajuan halaman**
 (`TopicProgress.astro`) yang menghitung dugaan, refleksi, dan latihan yang sudah
 dikerjakan.
 
+> **Perhatian saat menambah contoh.** Bila sebuah bagian `contoh` sudah punya blok
+> `step-reveal` manual, `enhanceContoh` akan **menghapus** isi `body`-nya begitu
+> jumlah langkah manual tidak lebih sedikit daripada jumlah contoh ("Contoh N").
+> Menambah contoh baru ke `body` bagian seperti itu bisa tidak tampil (atau malah
+> memunculkan kembali seluruh `body` dan menduplikasi `step-reveal`). Untuk
+> contoh tambahan, buat **bagian `contoh` baru** dengan satu contoh di dalamnya —
+> `enhanceContoh` tidak akan mengubahnya. Contoh: bagian `contoh-imajiner`
+> (fungsi kuadrat) dan `contoh-majemuk` (peluang).
+
 ---
 
 ## Menambah Soal
@@ -250,6 +266,37 @@ dibangkitkan dari data ini.
 
 ---
 
+## Capaian Pembelajaran & Regulasi
+
+Pemetaan CP disimpan di `src/data/curriculum/cp.ts` — satu-satunya tempat CP "dikodekan". Berkas
+ini memuat:
+
+- `regulations` — riwayat regulasi (nomor, penerbit, tanggal berlaku, `supersedes`, `status`);
+- `cpStatements` — pernyataan CP berkode (mis. `E-BIL-1`, `F-ALG-3`) beserta `phase`, `element`,
+  `grades`, teks parafrasa, dan `topicIds` yang memenuhinya.
+
+Halaman `/referensi` dan peta pembelajaran membangkitkan tampilan langsung dari registri ini,
+sehingga tidak ada daftar CP yang diduplikasi di komponen.
+
+### Menghadapi perubahan regulasi
+
+Saat ada Kepka BSKAP baru:
+
+1. **Tandai yang lama.** Ubah `status` regulasi lama menjadi `'digantikan'`.
+2. **Tambah regulasi baru.** Tambahkan entri dengan `supersedes: ['<id-lama>']` dan `status: 'berlaku'`.
+3. **Perbarui pernyataan.** Tambah/ubah/hapus entri `cpStatements` beserta `topicIds`.
+4. **Jalankan `npm test`.** `tests/cp-coverage.mjs` akan:
+   - menolak lebih dari satu regulasi `berlaku` atau rujukan `supersedes` yang tidak ada;
+   - melaporkan pernyataan CP yang tidak punya topik;
+   - melaporkan topik lengkap yang belum dipetakan dan tidak ditandai `supplementary`;
+   - memastikan fase/elemen/kelas setiap pernyataan cocok dengan topik yang dipetakan.
+5. **Perbarui salinan situs** bila nomor regulasi disebut (footer, beranda, `/tentang`).
+
+Topik pengayaan yang melampaui CP (mis. SPLTV, aljabar matriks) ditandai
+`supplementary: true` pada data topik agar pemeriksaan cakupan tidak menganggapnya celah.
+
+---
+
 ## Arsitektur Konten
 
 ```
@@ -263,6 +310,7 @@ src/
 │                       LinearRegressionSim, GeogebraEmbed, ExplorationEmbed
 ├── data/
 │   ├── curriculum.ts   Daftar kelas & elemen + meta
+│   ├── curriculum/     Registri CP & riwayat regulasi (cp.ts)
 │   ├── site.ts         Identitas situs, penyusun, sekolah, & tautan resmi
 │   ├── nav.ts          Navigasi header/footer
 │   ├── explorations.ts Registri eksplorasi interaktif

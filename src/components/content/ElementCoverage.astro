@@ -64,6 +64,7 @@ const totalCount = ELEMENT_ORDER.reduce((sum, element) => {
                 {complete.map((t) => (
                   <li class="topic-item" data-status="lengkap" data-element={element}>
                     <a href={topicUrl(grade, element, t.slug)}>{t.title}</a>
+                    {t.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
                   </li>
                 ))}
                 {planned.map((t) => (
@@ -193,10 +194,17 @@ const totalCount = ELEMENT_ORDER.reduce((sum, element) => {
     gap: 0.4rem;
   }
   .elem-col a {
-    display: inline-block;
-    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
     padding-block: 0.18rem;
     text-decoration: none;
+  }
+  .topic-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
   }
   .elem-col a:hover {
     text-decoration: underline;

@@ -7,6 +7,7 @@ import TopicApplications from '@/components/content/TopicApplications.astro';
 import TopicProgress from '@/components/content/TopicProgress.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
+import { cpForTopic } from '@/data/curriculum/cp';
 import { topicsByGradeElement, topics, resolveTopics } from '@/data/topics';
 import { applicationsForTopic, getApplication } from '@/data/applications';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
@@ -65,6 +66,8 @@ const crumbs = [
 
 const sectionList = topic.sections.filter((s) => s.kind !== 'catatan');
 const description = stripMarkdown(topic.summary);
+
+const cpCodes = cpForTopic(topic.id).map((s) => s.id);
 ---
 
 <BaseLayout title={`${topic.title} — ${gradeMeta.name}`} description={description} ogType="article">
@@ -94,6 +97,18 @@ const description = stripMarkdown(topic.summary);
           )}
           {related.length > 0 && <li><strong>{related.length}</strong> topik terkait</li>}
         </ul>
+        {
+          (cpCodes.length > 0 || topic.supplementary) && (
+            <div class="cp-chips">
+              <span class="cp-chips-label">Capaian Pembelajaran</span>
+              {cpCodes.map((code) => (
+                <span class="badge cp-chip">CP {code}</span>
+              ))}
+              {topic.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
+            </div>
+          )
+        }
+        {topic.cpNote && <p class="cp-note text-soft">{topic.cpNote}</p>}
       </div>
     </header>
 
@@ -349,6 +364,33 @@ const description = stripMarkdown(topic.summary);
   }
   .topic-facts strong {
     color: var(--color-text);
+  }
+  .cp-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+  .cp-chips-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+    margin-right: 0.15rem;
+  }
+  .cp-chip {
+    font-family: var(--font-mono);
+    color: color-mix(in srgb, var(--accent) 70%, var(--color-text));
+    background: color-mix(in srgb, var(--accent) 10%, var(--color-surface));
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--color-border));
+  }
+  .cp-note {
+    margin: 0.5rem 0 0;
+    max-width: 60ch;
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
 
   .topic-layout {

@@ -9,6 +9,9 @@ export const persamaanEksponenLogaritma: Topic = {
   phase: 'E',
   element: 'bilangan',
   status: 'lengkap',
+  supplementary: true,
+  cpNote:
+    'Persamaan eksponen basis sama termasuk CP Fase E (lihat E-ALJ-3, topik Fungsi Eksponensial). Topik ini ditandai pengayaan karena menambahkan logaritma yang melampaui tuntutan CP.',
   estimatedMinutes: 90,
   summary:
     'Menyelesaikan persamaan eksponen dengan menyamakan basis dan substitusi, serta memahami logaritma sebagai invers eksponen beserta sifat-sifatnya.',

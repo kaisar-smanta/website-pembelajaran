@@ -24,6 +24,8 @@ export const analisisDistribusiData: Topic = {
     'histogram',
     'box plot',
     'pencilan',
+    'diagram pencar',
+    'data bivariat',
   ],
   prerequisites: [],
   relatedTopics: ['data-bivariat', 'statistik-dalam-kehidupan'],
@@ -38,6 +40,7 @@ export const analisisDistribusiData: Topic = {
     { text: 'Menentukan kuartil, jangkauan, dan jangkauan interkuartil (IQR).' },
     { text: 'Menyajikan data dengan dot plot, histogram, dan box plot.' },
     { text: 'Mengenali dan menafsirkan pencilan (outlier) dengan aturan $1{,}5\\times\\text{IQR}$.' },
+    { text: 'Menyajikan pasangan dua variabel numerik pada diagram pencar dan menafsirkan arah hubungannya.' },
     { text: 'Membandingkan dua distribusi dan menarik kesimpulan yang wajar.' },
   ],
   sections: [
@@ -188,6 +191,31 @@ dengan $L$ tepi bawah kelas median, $F$ frekuensi kumulatif sebelum kelas median
           ],
         },
       ],
+    },
+    {
+      id: 'diagram-pencar',
+      kind: 'representasi',
+      title: 'Mengenal Diagram Pencar',
+      body: `Sejauh ini setiap diagram menampilkan **satu** variabel. Kadang kita ingin melihat apakah **dua** variabel numerik saling berkaitan, misalnya lama belajar dan nilai ujian. Untuk itu dipakai **diagram pencar** (*scatter plot*): setiap objek digambar sebagai satu titik $(x, y)$ pada bidang koordinat, dengan $x$ nilai variabel pertama dan $y$ nilai variabel kedua.
+
+Dari arah sebaran titik kita membaca kecenderungan hubungan:
+- titik cenderung menanjak dari kiri bawah ke kanan atas → **hubungan positif**;
+- titik cenderung menurun ke kanan bawah → **hubungan negatif**;
+- titik menyebar tanpa arah → **tidak tampak hubungan**.
+
+Diagram pencar hanya menunjukkan **keterkaitan**, bukan sebab-akibat. Dua variabel bisa naik-turun bersama karena kebetulan dipengaruhi faktor lain. Pembacaan yang lebih mendalam, termasuk garis tren terbaik dan koefisien korelasi, dibahas pada topik Data Bivariat dan Regresi di kelas XI.
+
+Contoh data bivariat sederhana:
+
+| Lama belajar (jam, $x$) | Nilai ujian ($y$) |
+| --- | --- |
+| $1$ | $60$ |
+| $2$ | $68$ |
+| $3$ | $75$ |
+| $4$ | $82$ |
+| $5$ | $88$ |
+
+Jika pasangan itu diplot, titik-titiknya menanjak sehingga hubungannya **positif**: makin lama belajar, nilai cenderung makin tinggi.`,
     },
     {
       id: 'eksplorasi',

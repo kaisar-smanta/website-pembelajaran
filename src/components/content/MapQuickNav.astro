@@ -1,6 +1,7 @@
 ---
 import { learningPaths } from '@/data/learning-paths';
 import { GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { cpStatements } from '@/data/curriculum/cp';
 import { topics, plannedTopics } from '@/data/topics';
 
 const gradeTotals = GRADE_ORDER.map((grade) => ({
@@ -40,6 +41,15 @@ const gradeTotals = GRADE_ORDER.map((grade) => ({
             </a>
           ))
         }
+      </div>
+    </section>
+    <section class="quicknav-group">
+      <h3 class="quicknav-heading">Kurikulum</h3>
+      <div class="quicknav-list">
+        <a class="quick-link" href="#cakupan-cp">
+          <span class="quick-text">Cakupan Capaian Pembelajaran</span>
+          <span class="quick-count">{cpStatements.length} pernyataan</span>
+        </a>
       </div>
     </section>
   </div>

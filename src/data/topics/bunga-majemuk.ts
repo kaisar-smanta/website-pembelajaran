@@ -25,6 +25,7 @@ export const bungaMajemuk: Topic = {
   ],
   objectives: [
     { text: 'Menjelaskan perbedaan bunga tunggal dan bunga majemuk melalui situasi nyata.' },
+    { text: 'Menghitung saldo akhir dengan bunga tunggal menggunakan rumus $M_n = M_0(1 + i\\,n)$.' },
     { text: 'Menurunkan rumus saldo bunga majemuk dari pola barisan geometri.' },
     { text: 'Membedakan suku bunga nominal per tahun dan suku bunga per periode.' },
     { text: 'Menghitung saldo akhir, suku bunga efektif, dan lama waktu menabung.' },
@@ -37,7 +38,7 @@ export const bungaMajemuk: Topic = {
       id: 'tujuan',
       kind: 'tujuan',
       title: 'Tujuan Pembelajaran',
-      body: `Peserta didik dapat memodelkan pertumbuhan saldo dengan bunga majemuk, menghitung saldo akhir dan suku bunga efektif, serta menggunakan model tersebut untuk membandingkan pilihan menabung atau meminjam secara kritis.`,
+      body: `Peserta didik dapat memodelkan pertumbuhan saldo dengan bunga majemuk, menghitung saldo akhir dengan bunga tunggal maupun bunga majemuk, menentukan suku bunga efektif, serta menggunakan model tersebut untuk membandingkan pilihan menabung atau meminjam secara kritis.`,
     },
     {
       id: 'pemantik',
@@ -78,6 +79,20 @@ Diskusikan: jika bunga tahun pertama ditambahkan ke saldo, apakah bunga tahun ke
       body: `Bank menghitung bunga tabungan berdasarkan **saldo terkini**, bukan saldo awal. Karena itu saldo tumbuh mengikuti pola perkalian berulang — inilah bunga majemuk. Prinsip yang sama dipakai pada pinjaman: sisa utang pun dikenai bunga, sehingga utang dapat membengkak bila tidak dibayar.
 
 Memahami bunga majemuk membantu kita membandingkan produk keuangan, memahami inflasi, dan memutuskan antara menabung sekarang atau kemudian.`,
+    },
+    {
+      id: 'bunga-tunggal',
+      kind: 'konsep',
+      title: 'Mengenal Bunga Tunggal',
+      body: `Sebelum mendalami bunga majemuk, ingat kembali **bunga tunggal**. Pada bunga tunggal, bunga selalu dihitung dari modal awal, bukan dari saldo terbaru. Jika modal awal $M_0$, suku bunga $i$ per periode, dan lama $n$ periode, saldo akhirnya adalah
+
+$$M_n = M_0(1 + i\\,n).$$
+
+Karena setiap periode menambah besar bunga yang sama, pertumbuhannya **linear**. Berbeda dari bunga majemuk yang memakai pangkat $(1+i)^n$ sehingga bunganya makin besar setiap periode.
+
+Contoh: modal Rp5.000.000 dengan bunga tunggal $8\\%$ per tahun selama $5$ tahun memberi
+$$M_5 = 5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000,$$
+sedangkan bunga majemuk dengan suku bunga yang sama menghasilkan $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$. Selisih Rp346.640 itulah bunga atas bunga yang hanya muncul pada bunga majemuk.`,
     },
     {
       id: 'konsep',

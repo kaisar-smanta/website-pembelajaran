@@ -1,7 +1,9 @@
 ---
 import { ELEMENTS, ELEMENT_ORDER } from '@/data/curriculum';
-import { plannedTopics } from '@/data/topics';
+import { topics, plannedTopics } from '@/data/topics';
 import ElementIcon from '@/components/content/ElementIcon.astro';
+
+const hasSupplementary = topics.some((t) => t.supplementary);
 ---
 
 <div class="map-legend card reveal" data-reveal>
@@ -25,6 +27,16 @@ import ElementIcon from '@/components/content/ElementIcon.astro';
         </span>
         <span class="legend-note">
           <span class="legend-bar"><span class="legend-bar-fill"></span></span> bagian topik yang sudah siap
+        </span>
+      </>
+    )
+  }
+  {
+    hasSupplementary && (
+      <>
+        <span class="legend-divider" aria-hidden="true"></span>
+        <span class="legend-note">
+          <span class="badge badge-pengayaan">Pengayaan</span> melampaui tuntutan CP
         </span>
       </>
     )

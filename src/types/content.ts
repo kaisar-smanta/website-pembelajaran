@@ -184,6 +184,14 @@ export interface Topic {
   featured?: boolean;
   /** 'lengkap' = materi sudah ditulis; 'rencana' = masih dalam roadmap. */
   status?: 'lengkap' | 'rencana';
+  /**
+   * Materi pengayaan yang melampaui atau tidak dipersyaratkan langsung oleh CP
+   * resmi (mis. SPLTV, aljabar matriks). Topik seperti ini ditandai agar
+   * pemeriksaan cakupan CP (tests/cp-coverage.mjs) tidak menganggapnya celah.
+   */
+  supplementary?: boolean;
+  /** Catatan singkat tentang kaitan topik dengan CP, bila perlu. */
+  cpNote?: string;
 }
 
 export interface QuestionOption {

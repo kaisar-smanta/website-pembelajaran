@@ -22,6 +22,8 @@ export const fungsiKuadrat: Topic = {
     'titik puncak',
     'diskriminan',
     'akar',
+    'akar imajiner',
+    'bilangan kompleks',
   ],
   prerequisites: [],
   relatedTopics: ['fungsi-eksponensial', 'fungsi-invers'],
@@ -35,6 +37,7 @@ export const fungsiKuadrat: Topic = {
     { text: 'Menentukan akar, sumbu simetri, dan titik puncak fungsi kuadrat.' },
     { text: 'Menggambar grafik fungsi kuadrat berdasarkan ciri-cirinya.' },
     { text: 'Menganalisis hubungan tanda diskriminan dan koefisien dengan bentuk grafik.' },
+    { text: 'Menyelesaikan persamaan kuadrat yang memiliki akar imajiner atau kompleks.' },
     { text: 'Memodelkan dan menyelesaikan masalah optimasi dengan fungsi kuadrat.' },
   ],
   explorations: ['kuadrat-parameter'],
@@ -176,6 +179,12 @@ Bilangan $D = b^{2}-4ac$ disebut **diskriminan** dan menentukan banyak akar real
 - $D = 0$: satu akar real kembar (grafik menyinggung sumbu-$x$);
 - $D < 0$: tidak ada akar real (grafik tidak menyentuh sumbu-$x$).
 
+Meskipun $D < 0$ tidak memberi akar real, persamaan tetap memiliki **dua akar kompleks konjugat**. Dengan mengenalkan bilangan imajiner $i$ yang memenuhi $i^{2} = -1$, akarnya adalah
+
+$$x_{1,2} = \\frac{-b \\pm i\\sqrt{\\lvert D \\rvert}}{2a}.$$
+
+Kedua akar ini berbentuk $p \\pm qi$ dengan $p=-\\dfrac{b}{2a}$ dan $q=\\dfrac{\\sqrt{\\lvert D \\rvert}}{2a}$, sehingga parabolanya tidak pernah memotong sumbu-$x$.
+
 Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
       blocks: [
         {
@@ -214,6 +223,18 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
           ],
         },
       ],
+    },
+    {
+      id: 'contoh-imajiner',
+      kind: 'contoh',
+      title: 'Contoh: Akar Imajiner',
+      body: `**Contoh (akar imajiner).** Tentukan akar-akar $x^{2}+2x+5=0$.
+
+*Penyelesaian.* Di sini $a=1$, $b=2$, dan $c=5$, sehingga diskriminannya
+$$D = b^{2}-4ac = 2^{2}-4\\cdot1\\cdot5 = 4-20 = -16 < 0.$$
+Karena $D<0$ tidak ada akar real, tetapi ada dua akar kompleks konjugat:
+$$x_{1,2} = \\frac{-2 \\pm i\\sqrt{\\lvert -16 \\rvert}}{2\\cdot1} = \\frac{-2 \\pm 4i}{2} = -1 \\pm 2i.$$
+Periksa $x=-1+2i$: $(-1+2i)^{2}+2(-1+2i)+5 = (-3-4i)+(-2+4i)+5 = 0$, sehingga benar.`,
     },
     {
       id: 'latihan-dasar',
@@ -356,6 +377,7 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
             ['Titik puncak', '$\\left(-\\dfrac{b}{2a},\\ -\\dfrac{D}{4a}\\right)$'],
             ['Bentuk puncak', '$f(x)=a(x-h)^{2}+k$'],
             ['Akar (rumus abc)', '$x_{1,2}=\\dfrac{-b\\pm\\sqrt{b^{2}-4ac}}{2a}$'],
+            ['Akar kompleks ($D<0$)', '$x_{1,2}=\\dfrac{-b\\pm i\\sqrt{\\lvert D \\rvert}}{2a}$'],
             ['Diskriminan', '$D=b^{2}-4ac$'],
           ],
         },

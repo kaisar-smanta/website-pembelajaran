@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
+import CpCoverage from '@/components/content/CpCoverage.astro';
 import { url } from '@/utils/url';
 
 const crumbs = [
@@ -26,7 +27,11 @@ const crumbs = [
       <h2>Hubungan dengan Kurikulum</h2>
       <p>
         Situs ini disusun mengikuti kerangka <strong>Capaian Pembelajaran (CP)</strong> matematika
-        SMA pada Kurikulum Merdeka, dengan empat elemen utama: Bilangan, Aljabar dan Fungsi,
+        SMA pada <strong>Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025</strong> tentang
+        Capaian Pembelajaran pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang
+        Pendidikan Menengah, berlaku sejak <strong>16 Juli 2025</strong>. Untuk Matematika SMA, CP
+        tercantum pada <strong>Lampiran II</strong>. Regulasi ini menggantikan Kepka BSKAP
+        No. 032/H/KR/2024. CP ini disusun pada empat elemen utama: Bilangan, Aljabar dan Fungsi,
         Geometri, serta Analisis Data dan Peluang.
       </p>
       <p>
@@ -36,11 +41,30 @@ const crumbs = [
         teks. Guru dan sekolah tetap merujuk pada dokumen resmi yang berlaku.
       </p>
 
+      <h2>Pemetaan Capaian Pembelajaran</h2>
+      <p>
+        Tabel berikut memetakan setiap pernyataan CP beserta topik yang memenuhinya. Kode seperti
+        <code>E-BIL-1</code> menandai fase dan elemen. Riwayat regulasi dan pemetaan ini disimpan
+        sebagai data di <code>src/data/curriculum/cp.ts</code> sehingga dapat diperbarui saat
+        regulasi berganti.
+      </p>
+    </div>
+
+    <div class="cp-block reveal">
+      <CpCoverage />
+    </div>
+
+    <div class="prose reveal">
       <h2>Sumber Rujukan</h2>
       <ul>
         <li>
-          Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia — Capaian
-          Pembelajaran dan panduan pembelajaran matematika SMA.
+          Keputusan Kepala BSKAP Kemendikdasmen Nomor 046/H/KR/2025 tentang Capaian Pembelajaran
+          pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah
+          (Matematika SMA pada Lampiran II).
+        </li>
+        <li>
+          Kementerian Pendidikan Dasar dan Menengah Republik Indonesia — panduan pembelajaran dan
+          asesmen matematika SMA.
         </li>
         <li>
           Buku teks matematika SMA yang diterbitkan secara resmi dan digunakan di sekolah.
@@ -95,6 +119,9 @@ const crumbs = [
 <style>
   .doc {
     padding-block: 1rem 2.5rem;
+  }
+  .cp-block {
+    margin-block: 0.5rem 2.25rem;
   }
   .prose h2 {
     margin-top: 2.25rem;

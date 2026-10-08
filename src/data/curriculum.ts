@@ -79,7 +79,7 @@ export const GRADES: Record<Grade, GradeMeta> = {
     name: 'Kelas XI',
     label: 'Fase F',
     description:
-      'Penguatan fungsi, matriks, lingkaran, statistika bivariat, dan peluang pada jenjang menengah.',
+      'Penguatan barisan dan deret, fungsi, matriks, lingkaran, statistika bivariat, dan peluang pada jenjang menengah.',
   },
   XII: {
     id: 'XII',

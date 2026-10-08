@@ -9,6 +9,9 @@ export const matriks: Topic = {
   phase: 'F',
   element: 'aljabar-fungsi',
   status: 'lengkap',
+  supplementary: true,
+  cpNote:
+    'Pengayaan: CP menyebut matriks terutama sebagai penyajian data (Fase E), sedangkan aljabar matriks di sini melampaui tuntutan itu.',
   estimatedMinutes: 90,
   summary:
     'Mengenal notasi dan jenis matriks, melakukan operasi matriks, menghitung determinan dan invers, serta menyelesaikan SPLDV.',

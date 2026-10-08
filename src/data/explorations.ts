@@ -96,7 +96,7 @@ export const explorations: Exploration[] = [
     title: 'Eksplorasi Pola Barisan dan Deret',
     topicId: 'barisan-deret',
     type: 'sequence',
-    grade: 'X',
+    grade: 'XI',
     element: 'bilangan',
     order: 50,
     description:

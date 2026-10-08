@@ -24,6 +24,7 @@ export const statistikDalamKehidupan: Topic = {
     'grafik',
     'rata-rata gabungan',
     'kesimpulan',
+    'matriks',
   ],
   prerequisites: ['analisis-distribusi-data'],
   relatedTopics: ['data-bivariat'],
@@ -38,6 +39,7 @@ export const statistikDalamKehidupan: Topic = {
     { text: 'Memilih ukuran pemusatan (mean, median, modus) yang tepat sesuai bentuk data dan tujuan.' },
     { text: 'Menganalisis pengaruh pencilan terhadap mean dan median.' },
     { text: 'Mengenali penyajian grafik dan klaim statistik yang menyesatkan.' },
+    { text: 'Menafsirkan data yang disajikan dalam bentuk matriks (baris sebagai objek, kolom sebagai variabel) untuk menilai klaim media.' },
     { text: 'Menyusun kesimpulan yang sahih berdasarkan data dan sampel yang memadai.' },
   ],
   sections: [
@@ -130,6 +132,28 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
             ['Gambar tiga dimensi berlebihan', 'Luas atau volume menonjolkan perbedaan'],
             ['Hanya menyebut rata-rata', 'Sebaran dan pencilan disembunyikan'],
             ['Korelasi dianggap sebab-akibat', 'Hubungan sebab-akibat tidak terbukti'],
+          ],
+        },
+      ],
+    },
+    {
+      id: 'matriks',
+      kind: 'representasi',
+      title: 'Data dalam Bentuk Matriks',
+      body: `Selain tabel dan diagram, data sering disusun sebagai **matriks**: susunan bilangan dalam baris dan kolom. Kesepakatan yang lazim adalah **baris menyatakan objek** (orang, sekolah, atau bulan) dan **kolom menyatakan variabel** (nilai, tinggi badan, atau penjualan). Dengan begitu, satu baris merangkum seluruh informasi tentang satu objek, sedangkan satu kolom merangkum satu variabel untuk semua objek.
+
+Membaca klaim media dari penyajian seperti ini menuntut kehati-hatian. Periksa apakah baris dan kolomnya jelas, apakah satuannya seragam, dan apakah angka yang dibandingkan memang berasal dari kolom yang sama. Menyamakan angka dari kolom berbeda, atau membandingkan objek yang jumlah datanya tidak sama, adalah cara umum klaim menyesatkan muncul.
+
+Penyajian matriks ini dikembangkan lebih lanjut pada topik **Matriks** di kelas XI, tempat operasi seperti penjumlahan, perkalian, dan determinan dipelajari. Di sini kita cukup memakainya sebagai cara membaca dan menyusun data secara rapi.`,
+      blocks: [
+        {
+          kind: 'table',
+          caption: 'Nilai dua mata pelajaran tiga siswa sebagai matriks $3 \\times 2$',
+          headers: ['Siswa', 'Matematika', 'Fisika'],
+          rows: [
+            ['Ayu', '80', '75'],
+            ['Bima', '70', '85'],
+            ['Citra', '90', '80'],
           ],
         },
       ],

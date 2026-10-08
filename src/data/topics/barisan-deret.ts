@@ -5,10 +5,12 @@ export const barisanDeret: Topic = {
   slug: 'barisan-deret',
   title: 'Barisan dan Deret',
   subtitle: 'Pola, aritmetika, dan geometri dalam satu kerangka',
-  grade: 'X',
-  phase: 'E',
+  grade: 'XI',
+  phase: 'F',
   element: 'bilangan',
   status: 'lengkap',
+  cpNote:
+    'CP Fase F (Kelas XI) menempatkan barisan dan deret pada elemen Bilangan — lihat F-BIL-1.',
   estimatedMinutes: 90,
   summary:
     'Mengenali pola bilangan serta menentukan suku ke-$n$ dan jumlah suku pada barisan dan deret aritmetika maupun geometri.',

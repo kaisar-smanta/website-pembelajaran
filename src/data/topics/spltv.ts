@@ -9,6 +9,9 @@ export const spltv: Topic = {
   phase: 'E',
   element: 'aljabar-fungsi',
   status: 'lengkap',
+  supplementary: true,
+  cpNote:
+    'Pengayaan: CP SMA tidak lagi memuat SPLTV secara eksplisit. Dipertahankan sebagai jembatan menuju sistem pertidaksamaan dan matriks.',
   estimatedMinutes: 90,
   summary:
     'Menyusun dan menyelesaikan sistem persamaan linear tiga variabel dengan eliminasi dan substitusi, serta menafsirkan solusinya.',

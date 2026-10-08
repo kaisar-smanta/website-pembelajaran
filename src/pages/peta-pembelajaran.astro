@@ -5,6 +5,7 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import MapQuickNav from '@/components/content/MapQuickNav.astro';
 import LearningPath from '@/components/content/LearningPath.astro';
 import ElementCoverage from '@/components/content/ElementCoverage.astro';
+import CpCoverage from '@/components/content/CpCoverage.astro';
 import MapLegend from '@/components/content/MapLegend.astro';
 import PrerequisiteGraph from '@/components/content/PrerequisiteGraph.astro';
 import { ELEMENTS, ELEMENT_ORDER, GRADE_ORDER } from '@/data/curriculum';
@@ -131,6 +132,16 @@ const meta = [
   </section>
 
   <div class="container">
+    <section id="cakupan-cp" aria-labelledby="cakupan-cp-heading" class="block">
+      <SectionHeading
+        id="cakupan-cp-heading"
+        eyebrow="Acuan kurikulum"
+        title="Cakupan Capaian Pembelajaran"
+        lead="Setiap pernyataan Capaian Pembelajaran dan topik yang memenuhinya, dikelompokkan per fase dan elemen."
+      />
+      <CpCoverage compact />
+    </section>
+
     <section id="prasyarat" aria-labelledby="prasyarat-heading" class="block">
       <SectionHeading
         id="prasyarat-heading"

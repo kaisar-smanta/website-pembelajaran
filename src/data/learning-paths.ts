@@ -36,7 +36,7 @@ export const learningPaths: LearningPath[] = [
         grade: 'X',
         element: 'aljabar-fungsi',
       },
-      { label: 'Barisan & Deret', id: 'barisan-deret', grade: 'X', element: 'bilangan' },
+      { label: 'Barisan & Deret', id: 'barisan-deret', grade: 'XI', element: 'bilangan' },
       { label: 'Bunga Majemuk', id: 'bunga-majemuk', grade: 'XI', element: 'bilangan' },
       { label: 'Anuitas', id: 'anuitas', grade: 'XI', element: 'bilangan' },
       {

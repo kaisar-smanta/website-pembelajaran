@@ -1,0 +1,322 @@
+---
+import type { Phase } from '@/types/content';
+import { ELEMENTS, ELEMENT_ORDER, GRADES, GRADE_ORDER } from '@/data/curriculum';
+import { activeRegulation, cpStatementsByPhase, getRegulation } from '@/data/curriculum/cp';
+import { resolveTopics } from '@/data/topics';
+import { topicUrl } from '@/utils/url';
+import ElementIcon from '@/components/content/ElementIcon.astro';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const active = activeRegulation();
+const superseded = active.supersedes
+  .map((id) => getRegulation(id))
+  .filter((reg): reg is NonNullable<typeof reg> => Boolean(reg));
+
+const phases: Phase[] = ['E', 'F'];
+const groups = phases.map((phase) => {
+  const statements = cpStatementsByPhase(phase);
+  const grades = GRADE_ORDER.filter((grade) => GRADES[grade].phase === phase);
+  const elements = ELEMENT_ORDER.map((element) => ({
+    element,
+    statements: statements.filter((s) => s.element === element),
+  })).filter((group) => group.statements.length > 0);
+  return { phase, grades, elements };
+});
+
+function formatDate(iso: string): string {
+  const [year, month, day] = iso.split('-').map(Number);
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(year, month - 1, day)));
+}
+---
+
+<div class:list={['cp-coverage', compact && 'is-compact']}>
+  <div class="cp-regcard card card-accent reveal" data-reveal>
+    <div class="cp-reg-main">
+      <p class="cp-reg-label">Regulasi acuan</p>
+      <p class="cp-reg-number">{active.number}</p>
+      {
+        !compact && (
+          <>
+            <p class="cp-reg-title">{active.title}</p>
+            <p class="cp-reg-issuer text-soft">{active.issuer}</p>
+          </>
+        )
+      }
+    </div>
+    <dl class="cp-reg-meta">
+      <div>
+        <dt>Berlaku sejak</dt>
+        <dd>
+          {active.effectiveDate ? (
+            <time datetime={active.effectiveDate}>{formatDate(active.effectiveDate)}</time>
+          ) : (
+            <span class="text-soft">—</span>
+          )}
+        </dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd><span class="badge badge-cakap">Berlaku</span></dd>
+      </div>
+    </dl>
+  </div>
+
+  {
+    superseded.length > 0 && (
+      <p class="cp-supersede text-soft">
+        Menggantikan{' '}
+        <strong>{superseded.map((reg) => reg.number).join('; ')}</strong>
+      </p>
+    )
+  }
+  {!compact && active.note && <p class="cp-reg-note text-soft">{active.note}</p>}
+
+  <div class="cp-phases">
+    {
+      groups.map(({ phase, grades, elements }) => (
+        <section class="cp-phase" aria-labelledby={`cp-phase-${phase}`}>
+          <div class="cp-phase-head">
+            <h3 id={`cp-phase-${phase}`}>Fase {phase}</h3>
+            <p class="cp-phase-sub text-soft">{grades.map((grade) => GRADES[grade].name).join(' · ')}</p>
+          </div>
+          <div class="cp-elements">
+            {elements.map(({ element, statements }) => (
+              <div class={`cp-element card card-accent accent-${element}`}>
+                <h4>
+                  <span class="icon-tile cp-el-icon" aria-hidden="true">
+                    <ElementIcon element={element} size={14} />
+                  </span>
+                  {ELEMENTS[element].short}
+                </h4>
+                <ul class="cp-list">
+                  {statements.map((statement) => {
+                    const topicList = resolveTopics(statement.topicIds);
+                    return (
+                      <li class="cp-statement">
+                        <div class="cp-statement-head">
+                          <span class="cp-code">{statement.id}</span>
+                          {!compact && (
+                            <span class="badge">{statement.grades.join(' / ')}</span>
+                          )}
+                        </div>
+                        <p class="cp-text">{statement.text}</p>
+                        {topicList.length > 0 && (
+                          <ul class="cp-topics" aria-label="Topik terkait">
+                            {topicList.map((topicItem) => (
+                              <li>
+                                <a href={topicUrl(topicItem.grade, topicItem.element, topicItem.slug)}>
+                                  {topicItem.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .cp-regcard {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem 1.75rem;
+  }
+  .cp-reg-main {
+    min-width: 0;
+    max-width: 46ch;
+  }
+  .cp-reg-label {
+    margin: 0 0 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .cp-reg-number {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .cp-reg-title {
+    margin: 0.45rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .cp-reg-issuer {
+    margin: 0.2rem 0 0;
+    font-size: 0.82rem;
+  }
+  .cp-reg-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin: 0;
+  }
+  .cp-reg-meta dt {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .cp-reg-meta dd {
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
+  }
+  .cp-supersede {
+    margin: 0.6rem 0 0;
+    font-size: 0.85rem;
+  }
+  .cp-reg-note {
+    margin: 0.3rem 0 0;
+    font-size: 0.85rem;
+    max-width: 70ch;
+  }
+
+  .cp-phases {
+    display: grid;
+    gap: 1.75rem;
+    margin-top: 1.5rem;
+  }
+  .cp-phase-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .cp-phase-head h3 {
+    margin: 0;
+  }
+  .cp-phase-sub {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+  .cp-elements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1rem;
+  }
+  .cp-element {
+    padding: 1rem 1.1rem;
+    min-width: 0;
+  }
+  .cp-element h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin: 0 0 0.65rem;
+  }
+  .cp-el-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 8px;
+    flex: none;
+  }
+  .cp-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .cp-statement {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .cp-statement-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .cp-code {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.12rem 0.45rem;
+    border-radius: 6px;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+    border: 1px solid
+      color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
+  }
+  .cp-text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .cp-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.85rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.85rem;
+  }
+  .cp-topics li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .cp-topics li::before {
+    content: '→';
+    color: var(--accent, var(--color-primary));
+    font-size: 0.8em;
+  }
+  .cp-topics a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+  }
+
+  .cp-coverage.is-compact .cp-phases {
+    margin-top: 1.1rem;
+    gap: 1.4rem;
+  }
+  .cp-coverage.is-compact .cp-elements {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+
+  @media (max-width: 30rem) {
+    .cp-elements {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

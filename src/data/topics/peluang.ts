@@ -23,6 +23,7 @@ export const peluang: Topic = {
     'saling lepas',
     'saling bebas',
     'frekuensi harapan',
+    'kejadian majemuk',
   ],
   prerequisites: [],
   relatedTopics: ['peluang-bersyarat'],
@@ -37,6 +38,7 @@ export const peluang: Topic = {
     { text: 'Menggunakan aturan komplemen dan aturan penjumlahan (termasuk kejadian saling lepas).' },
     { text: 'Menggunakan aturan perkalian untuk kejadian saling bebas.' },
     { text: 'Menghitung frekuensi harapan dan menafsirkannya dalam konteks.' },
+    { text: 'Menghitung frekuensi harapan kejadian majemuk, seperti jumlah tertentu pada dua dadu atau hasil pada dua koin.' },
   ],
   explorations: ['peluang-sim'],
   applications: ['survei-statistik'],
@@ -204,7 +206,13 @@ $$P(GG) = \\tfrac12 \\cdot \\tfrac12 = \\tfrac14.$$
 
 $$F_h = N \\cdot P(A).$$
 
-Jika dadu dilempar $90$ kali, frekuensi harapan muncul mata 6 adalah $90 \\cdot \\tfrac16 = 15$ kali. Ini adalah **nilai harapan**, bukan jaminan; hasil nyata dapat berbeda.`,
+Jika dadu dilempar $90$ kali, frekuensi harapan muncul mata 6 adalah $90 \\cdot \\tfrac16 = 15$ kali. Ini adalah **nilai harapan**, bukan jaminan; hasil nyata dapat berbeda.
+
+**Frekuensi harapan kejadian majemuk.** Percobaan sering melibatkan lebih dari satu benda, misalnya dua dadu atau dua koin sekaligus. Langkahnya sama: hitung dahulu peluang kejadian majemuk dari ruang sampel gabungan, baru kalikan dengan banyak percobaan.
+
+$$F_h = N \\cdot P(\\text{kejadian majemuk}).$$
+
+Contoh: dua dadu dilempar $180$ kali. Peluang jumlah mata $7$ adalah $P=\\tfrac{6}{36}=\\tfrac16$ dan peluang jumlah mata minimal $10$ juga $\\tfrac{6}{36}=\\tfrac16$, sehingga frekuensi harapan masing-masing adalah $180 \\cdot \\tfrac16 = 30$ kali. Untuk dua koin, peluang muncul dua gambar adalah $\\tfrac14$, jadi dari $200$ lemparan diharapkan $200 \\cdot \\tfrac14 = 50$ kali muncul dua gambar.`,
       blocks: [
         {
           kind: 'callout',
@@ -239,6 +247,16 @@ $$P(A \\cup B) = \\tfrac12 + \\tfrac12 - \\tfrac16 = \\tfrac56.$$
           ],
         },
       ],
+    },
+    {
+      id: 'contoh-majemuk',
+      kind: 'contoh',
+      title: 'Contoh: Frekuensi Harapan Kejadian Majemuk',
+      body: `**Contoh (kejadian majemuk).** Tiga koin dilempar $240$ kali. Tentukan frekuensi harapan muncul tepat dua gambar.
+
+*Penyelesaian.* Ruang sampelnya $n(S) = 2^{3} = 8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Maka
+$$F_h = N \\cdot P(\\text{kejadian majemuk}) = 240 \\cdot \\tfrac{3}{8} = 90.$$
+Jadi kita mengharapkan sekitar $90$ dari $240$ pelemparan menghasilkan tepat dua gambar.`,
     },
     {
       id: 'latihan-dasar',
@@ -370,6 +388,7 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
             ['Saling lepas', '$P(A \\cup B) = P(A) + P(B)$'],
             ['Saling bebas', '$P(A \\cap B) = P(A) \\cdot P(B)$'],
             ['Frekuensi harapan', '$F_h = N \\cdot P(A)$'],
+            ['Frekuensi harapan majemuk', '$F_h = N \\cdot P(\\text{kejadian majemuk})$'],
           ],
         },
       ],
