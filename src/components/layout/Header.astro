@@ -1,12 +1,13 @@
 ---
 import { mainNav, type NavItem } from '@/data/nav';
 import { site } from '@/data/site';
-import { url } from '@/utils/url';
+import { url, BASE } from '@/utils/url';
 import ThemeToggle from '@/components/layout/ThemeToggle.astro';
 
-const current = Astro.url.pathname.replace(import.meta.env.BASE_URL, '/');
+const current = (Astro.url.pathname.replace(BASE, '/').replace(/\/+$/, '') || '/');
 function isActive(href?: string): boolean {
   if (!href) return false;
+  if (href === '/') return current === '/';
   const clean = href.replace(/\/$/, '');
   return current === clean || current.startsWith(clean + '/');
 }
@@ -17,9 +18,60 @@ function isCurrent(href?: string): boolean {
 function itemActive(item: NavItem): boolean {
   return isActive(item.href) || (item.children?.some((child) => isActive(child.href)) ?? false);
 }
+
+/** Kumpulan ikon garis sederhana (viewBox 0 0 24 24, gaya stroke). */
+const ICONS: Record<string, string[]> = {
+  dot: ['M12 12h.01'],
+  map: ['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z', 'M9 4v14', 'M15 6v14'],
+  book: [
+    'M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z',
+    'M4 17h16',
+    'M9 7h7',
+  ],
+  sigma: ['M18 5H7l5 7-5 7h11', 'M18 19v-3', 'M18 5V2'],
+  function: ['M5 20c2 0 3-1.3 3-3V7c0-1.7 1-3 3-3', 'M6.5 12H13', 'M15 15l5-6', 'M15 9l5 6'],
+  pencil: ['M4 20l3.6-.9L19.4 7.3a2 2 0 0 0-2.8-2.8L4.9 16.4 4 20Z', 'M15.4 6.2l2.4 2.4'],
+  compass: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z', 'm15.5 8.5-2 5-5 2 2-5 5-2Z'],
+  sliders: [
+    'M4 21v-6',
+    'M4 11V3',
+    'M12 21v-9',
+    'M12 8V3',
+    'M20 21v-4',
+    'M20 13V3',
+    'M1.5 15h5',
+    'M9.5 8h5',
+    'M17.5 17h5',
+  ],
+  tools: [
+    'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2.4-.6-.6-2.4Z',
+  ],
+  globe: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z', 'M2 12h20', 'M12 2a15 15 0 0 1 0 20', 'M12 2a15 15 0 0 0 0 20'],
+  star: ['M12 2.5l2.9 6.1 6.6.6-5 4.4 1.5 6.5L12 17.2 5.9 20.1l1.5-6.5-5-4.4 6.6-.6Z'],
+  library: ['M4 4h5v16H4z', 'M11 4h5v16h-5z', 'm17 4 3.2 15.2-3 .6L14 4.6Z'],
+  chart: ['M3 17l5-5 4 3 6-7', 'M3 20h18'],
+  formula: ['M4 6h16', 'M4 12h16', 'M4 18h10'],
+  link: ['M9 15l6-6', 'M10 6l1-1a4 4 0 1 1 6 6l-1 1', 'M14 18l-1 1a4 4 0 1 1-6-6l1-1'],
+  refresh: ['M21 12a9 9 0 1 1-2.6-6.4', 'M21 4v5h-5'],
+  info: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z', 'M12 11v5', 'M12 8h.01'],
+};
+
+const ACCENT_VARS = [
+  'var(--color-number)',
+  'var(--color-algebra)',
+  'var(--color-geometry)',
+  'var(--color-data)',
+  'var(--color-calculus)',
+];
+
+function alignClass(index: number): string {
+  // Panel mulai (start) untuk grup di paruh kiri, panel berakhir (end) untuk
+  // grup di paruh kanan agar panel 2 kolom tidak meluber ke luar layar.
+  return index >= Math.ceil(mainNav.length / 2) ? 'submenu--end' : 'submenu--start';
+}
 ---
 
-<header class="site-header no-print">
+<header class="site-header no-print" data-site-header>
   <div class="header-inner container">
     <a class="brand" href={url('/')} aria-label={`Beranda ${site.name}`}>
       <span class="brand-logo">
@@ -40,111 +92,138 @@ function itemActive(item: NavItem): boolean {
       data-mobile-toggle
     >
       <span class="bars" aria-hidden="true"></span>
-      <span>Menu</span>
+      <span class="toggle-label">Menu</span>
     </button>
 
     <nav class="primary-nav" id="primary-nav" aria-label="Navigasi utama" data-primary-nav>
       <ul>
+        <li class="drawer-search">
+          <a href={url('/cari')}>
+            <svg class="nav-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <span>Cari materi…</span>
+          </a>
+        </li>
         {
-          mainNav.map((item, index) => (
-            <li data-nav-item>
-              {item.children?.length ? (
-                <>
-                  {item.href ? (
-                    <div class="nav-parent">
-                      <a
-                        href={url(item.href)}
-                        aria-current={isCurrent(item.href) ? 'page' : undefined}
-                        class={itemActive(item) ? 'nav-link active' : 'nav-link'}
-                      >
-                        {item.label}
-                      </a>
-                      <button
-                        type="button"
-                        class={itemActive(item) ? 'nav-trigger active' : 'nav-trigger'}
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-controls={`submenu-${index}`}
-                        aria-label={`Buka submenu ${item.label}`}
-                        data-nav-trigger
-                      >
-                        <svg
-                          class="chevron"
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                          aria-hidden="true"
+          mainNav.map((item, index) => {
+            const hasChildren = Boolean(item.children?.length);
+            const active = itemActive(item);
+            const paths = ICONS[item.icon ?? 'dot'] ?? ICONS.dot;
+            const chevron = (
+              <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            );
+            if (!hasChildren) {
+              return (
+                <li>
+                  <a
+                    href={url(item.href ?? '/')}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    class={active ? 'nav-link active' : 'nav-link'}
+                  >
+                    <svg class="nav-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      {paths.map((d) => <path d={d} />)}
+                    </svg>
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              );
+            }
+            const submenu = (
+              <div class={`submenu ${alignClass(index)}`} id={`submenu-${index}`}>
+                <ul class={item.children!.length > 3 ? 'submenu-list submenu-list--2col' : 'submenu-list'}>
+                  {item.children!.map((child, childIndex) =>
+                    child.href ? (
+                      <li>
+                        <a
+                          href={url(child.href)}
+                          aria-current={isActive(child.href) ? 'page' : undefined}
+                          class={isActive(child.href) ? 'submenu-link active' : 'submenu-link'}
                         >
-                          <path d="m6 9 6 6 6-6" />
-                        </svg>
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <span class="nav-group-label">{item.label}</span>
-                      <button
-                        type="button"
-                        class={itemActive(item) ? 'nav-trigger nav-trigger--text active' : 'nav-trigger nav-trigger--text'}
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-controls={`submenu-${index}`}
-                        data-nav-trigger
-                      >
-                        {item.label}
-                        <svg
-                          class="chevron"
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2.5"
-                          aria-hidden="true"
-                        >
-                          <path d="m6 9 6 6 6-6" />
-                        </svg>
-                      </button>
-                    </>
-                  )}
-                  <ul class="submenu" id={`submenu-${index}`} aria-label={item.label}>
-                    {item.children.map((child) =>
-                      child.href ? (
-                        <li>
-                          <a
-                            href={url(child.href)}
-                            aria-current={isActive(child.href) ? 'page' : undefined}
-                            class={isActive(child.href) ? 'active' : ''}
+                          <span
+                            class="submenu-tile"
+                            style={`--accent: ${ACCENT_VARS[(index + childIndex) % ACCENT_VARS.length]}`}
+                            aria-hidden="true"
                           >
-                            {child.label}
-                          </a>
-                        </li>
-                      ) : null,
-                    )}
-                  </ul>
-                </>
-              ) : (
-                <a
-                  href={url(item.href ?? '/')}
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
-                  class={isActive(item.href) ? 'active' : ''}
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                              {(ICONS[child.icon ?? 'dot'] ?? ICONS.dot).map((d) => <path d={d} />)}
+                            </svg>
+                          </span>
+                          <span class="submenu-text">
+                            <strong>{child.label}</strong>
+                            {child.description && <small>{child.description}</small>}
+                          </span>
+                        </a>
+                      </li>
+                    ) : null,
+                  )}
+                </ul>
+              </div>
+            );
+
+            if (item.href) {
+              return (
+                <li data-nav-item>
+                  <div class={active ? 'nav-parent active' : 'nav-parent'}>
+                    <a
+                      href={url(item.href)}
+                      aria-current={isCurrent(item.href) ? 'page' : undefined}
+                      class={active ? 'nav-link active' : 'nav-link'}
+                    >
+                      <svg class="nav-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        {paths.map((d) => <path d={d} />)}
+                      </svg>
+                      <span>{item.label}</span>
+                    </a>
+                    <button
+                      type="button"
+                      class="nav-trigger"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      aria-controls={`submenu-${index}`}
+                      aria-label={`Buka submenu ${item.label}`}
+                      data-nav-trigger
+                    >
+                      {chevron}
+                    </button>
+                  </div>
+                  {submenu}
+                </li>
+              );
+            }
+
+            return (
+              <li data-nav-item>
+                <button
+                  type="button"
+                  class={active ? 'nav-trigger nav-trigger--group active' : 'nav-trigger nav-trigger--group'}
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-controls={`submenu-${index}`}
+                  data-nav-trigger
                 >
-                  {item.label}
-                </a>
-              )}
-            </li>
-          ))
+                  <svg class="nav-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    {paths.map((d) => <path d={d} />)}
+                  </svg>
+                  <span>{item.label}</span>
+                  {chevron}
+                </button>
+                {submenu}
+              </li>
+            );
+          })
         }
       </ul>
     </nav>
 
     <div class="header-actions">
       <a class="search-link" href={url('/cari')} aria-label="Cari materi">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="m20 20-3.5-3.5"></path>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
         </svg>
         <span class="search-label">Cari</span>
       </a>
@@ -158,16 +237,19 @@ function itemActive(item: NavItem): boolean {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--color-bg) 97%, transparent);
+    background: color-mix(in srgb, var(--color-bg) 96%, transparent);
     backdrop-filter: saturate(1.4) blur(10px);
     border-bottom: 1px solid var(--color-border);
+    transition: box-shadow var(--dur) var(--ease-out-soft);
+  }
+  .site-header.is-scrolled {
+    box-shadow: var(--shadow);
   }
   .header-inner {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     min-height: var(--header-h);
-    flex-wrap: wrap;
   }
   .brand {
     display: flex;
@@ -175,7 +257,8 @@ function itemActive(item: NavItem): boolean {
     gap: 0.6rem;
     text-decoration: none;
     color: var(--color-text);
-    margin-right: auto;
+    flex: 0 0 auto;
+    min-width: 0;
   }
   .brand-logo {
     display: grid;
@@ -183,9 +266,10 @@ function itemActive(item: NavItem): boolean {
     width: 2.4rem;
     height: 2.4rem;
     padding: 0.2rem;
-    border-radius: 10px;
-    background: #fff;
+    border-radius: 11px;
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
     transition: transform var(--dur) var(--ease-bounce);
   }
@@ -193,24 +277,241 @@ function itemActive(item: NavItem): boolean {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 6px;
+    border-radius: 7px;
   }
   .brand:hover .brand-logo,
   .brand:focus-visible .brand-logo {
-    transform: rotate(-4deg) scale(1.05);
+    transform: rotate(-5deg) scale(1.06);
   }
   .brand-text {
     display: flex;
     flex-direction: column;
     line-height: 1.1;
+    min-width: 0;
   }
   .brand-text strong {
     font-family: var(--font-serif);
     font-size: 1.05rem;
+    white-space: nowrap;
   }
   .brand-text small {
     color: var(--color-text-muted);
     font-size: 0.72rem;
+  }
+
+  .primary-nav {
+    margin-inline-start: auto;
+    min-width: 0;
+  }
+  .primary-nav > ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    margin: 0;
+    padding: 0;
+  }
+  .primary-nav > ul > li {
+    position: relative;
+  }
+  .drawer-search {
+    display: none;
+  }
+  .nav-ico {
+    flex: 0 0 auto;
+    opacity: 0.9;
+  }
+  .primary-nav a,
+  .primary-nav .nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: var(--radius-pill);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      color var(--dur-fast),
+      background-color var(--dur-fast),
+      transform var(--dur-fast) var(--ease-bounce);
+  }
+  .primary-nav .nav-trigger {
+    background: none;
+    border: 0;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .nav-trigger .chevron {
+    transition: transform var(--dur) var(--ease-out-soft);
+    opacity: 0.7;
+  }
+  .primary-nav li[data-open='true'] .nav-trigger .chevron {
+    transform: rotate(180deg);
+  }
+  .nav-parent {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: var(--radius-pill);
+  }
+  .nav-parent > .nav-trigger {
+    padding-inline: 0.15rem 0.55rem;
+    margin-inline-start: -0.35rem;
+  }
+  .primary-nav a:hover,
+  .primary-nav .nav-trigger:hover {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    transform: translateY(-1px);
+  }
+  .primary-nav .nav-link.active,
+  .primary-nav .nav-trigger.active {
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+  }
+  .primary-nav .nav-link.active .nav-ico,
+  .primary-nav .nav-trigger.active .nav-ico {
+    color: var(--color-primary);
+  }
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0.18rem;
+    width: 1.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    transform: translateX(-50%);
+  }
+  .primary-nav a:focus-visible,
+  .primary-nav .nav-trigger:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .submenu {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    z-index: 60;
+    display: none;
+    padding: 0.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  .submenu--start {
+    left: 0;
+  }
+  .submenu--end {
+    right: 0;
+  }
+  /* Jembatan hover menutup celah 0.45rem antara pemicu dan panel agar kursor
+     tidak "keluar" dari item saat menuju panel dropdown. */
+  .submenu::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+  }
+  .primary-nav li[data-open='true'] > .submenu {
+    display: block;
+    animation: submenu-in var(--dur) var(--ease-out-soft) both;
+  }
+  .submenu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+    min-width: 19rem;
+  }
+  .submenu-list--2col {
+    grid-template-columns: repeat(2, minmax(15rem, 1fr));
+    min-width: 33rem;
+  }
+  .submenu-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.7rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .submenu-link:hover {
+    background: var(--color-surface-2);
+  }
+  .submenu-tile {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 10px;
+    color: var(--accent, var(--color-primary));
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface-2));
+    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
+  }
+  .submenu-text {
+    display: block;
+    min-width: 0;
+  }
+  .submenu-text strong {
+    display: block;
+    font-size: 0.88rem;
+    line-height: 1.25;
+  }
+  .submenu-text small {
+    display: block;
+    margin-top: 0.1rem;
+    color: var(--color-text-soft);
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+  .submenu-link.active {
+    background: var(--color-primary-soft);
+  }
+  .submenu-link.active strong {
+    color: var(--color-primary);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 0 0 auto;
+  }
+  .search-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.4rem;
+    gap: 0.35rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition:
+      color var(--dur-fast),
+      border-color var(--dur-fast);
+  }
+  .search-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+  .search-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
   .mobile-nav-toggle {
     display: none;
@@ -234,6 +535,7 @@ function itemActive(item: NavItem): boolean {
     display: block;
     width: 1.05rem;
     height: 2px;
+    border-radius: 2px;
     background: currentColor;
     content: '';
     position: relative;
@@ -244,196 +546,67 @@ function itemActive(item: NavItem): boolean {
   .bars::after {
     top: 3px;
   }
-  .primary-nav > ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.1rem;
-    margin: 0;
-    padding: 0;
+  .mobile-nav-toggle[aria-expanded='true'] .bars {
+    background: transparent;
   }
-  .primary-nav > ul > li {
-    position: relative;
+  .mobile-nav-toggle[aria-expanded='true'] .bars::before {
+    top: 0;
+    transform: rotate(45deg);
   }
-  .nav-parent {
-    display: inline-flex;
-    align-items: stretch;
-    border-radius: var(--radius-sm);
+  .mobile-nav-toggle[aria-expanded='true'] .bars::after {
+    top: -2px;
+    transform: rotate(-45deg);
   }
-  .primary-nav .nav-parent > a {
-    padding-right: 0.15rem;
+
+  @keyframes submenu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  .primary-nav .nav-parent > .nav-trigger {
-    padding-left: 0.15rem;
-    padding-right: 0.4rem;
-  }
-  .nav-parent > .nav-trigger::after {
-    display: none;
-  }
-  .nav-parent:hover > a,
-  .nav-parent:focus-within > a {
-    color: var(--color-text);
-    background: var(--color-surface-2);
-  }
-  .primary-nav a,
-  .primary-nav .nav-trigger {
-    position: relative;
-    display: block;
-    padding: 0.4rem 0.4rem;
-    border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-size: 0.83rem;
-    font-weight: 600;
-    white-space: nowrap;
-    transition:
-      color var(--dur-fast),
-      background-color var(--dur-fast);
-  }
-  .primary-nav .nav-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
-    gap: 0.3rem;
-    background: none;
-    border: 0;
-    font-family: inherit;
-    line-height: inherit;
-    cursor: pointer;
-  }
-  .nav-trigger .chevron {
-    transition: transform var(--dur) var(--ease-out-soft);
-  }
-  .primary-nav li[data-open='true'] .nav-trigger .chevron {
-    transform: rotate(180deg);
-  }
-  .nav-group-label {
-    display: none;
-  }
-  .primary-nav a::after,
-  .primary-nav .nav-trigger::after {
-    content: '';
-    position: absolute;
-    left: 0.55rem;
-    right: 0.55rem;
-    bottom: 0.15rem;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--color-primary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur) var(--ease-out-soft);
-  }
-  .primary-nav a:hover,
-  .primary-nav .nav-trigger:hover {
-    color: var(--color-text);
-    background: var(--color-surface-2);
-  }
-  .primary-nav a:hover::after,
-  .primary-nav a:focus-visible::after,
-  .primary-nav .nav-trigger:hover::after,
-  .primary-nav .nav-trigger:focus-visible::after {
-    transform: scaleX(1);
-  }
-  .primary-nav a.active,
-  .primary-nav .nav-trigger.active {
-    color: var(--color-primary);
-    background: var(--color-primary-soft);
-  }
-  .primary-nav a.active::after,
-  .primary-nav .nav-trigger.active::after {
-    transform: scaleX(1);
-  }
-  .primary-nav a:focus-visible,
-  .primary-nav .nav-trigger:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-  .primary-nav .submenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 60;
-    min-width: 10rem;
-    margin: 0;
-    padding: 0.35rem;
-    list-style: none;
-    display: none;
-    flex-direction: column;
-    gap: 0.1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    box-shadow: 0 14px 30px -14px color-mix(in srgb, #000 40%, transparent);
-  }
-  .primary-nav li[data-open='true'] > .submenu {
-    display: flex;
-  }
-  .primary-nav .submenu a {
-    display: block;
-    padding: 0.45rem 0.6rem;
-  }
-  .primary-nav .submenu a::after {
-    display: none;
-  }
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .search-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.4rem;
-    gap: 0.3rem;
-    padding: 0.4rem 0.55rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-  .search-link:hover {
-    color: var(--color-text);
-    border-color: var(--color-border-strong);
-  }
-  @media (max-width: 79.99rem) {
+
+  /* ---- Tata letak ringkas: satu baris mulai 70rem; di bawahnya drawer ---- */
+  @media (max-width: 69.99rem) {
     .header-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto auto;
-      grid-template-rows: auto;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
     .brand {
-      grid-row: 1;
-      grid-column: 1;
-      min-width: 0;
-      margin-right: 0;
+      order: 1;
     }
-    .brand-text {
-      min-width: 0;
+    .header-actions {
+      order: 2;
+      margin-inline-start: auto;
     }
-    .brand-text strong {
-      font-size: 1rem;
-      line-height: 1.15;
+    .mobile-nav-toggle {
+      order: 3;
     }
     .brand-text small {
       display: none;
     }
-    .header-actions {
-      grid-row: 1;
-      grid-column: 2;
+    .brand-text strong {
+      font-size: 1rem;
+    }
+    .brand-logo {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+    .primary-nav {
+      margin-inline-start: 0;
     }
     .mobile-nav-toggle {
-      grid-row: 1;
-      grid-column: 3;
       display: inline-flex;
-      padding: 0.4rem 0.55rem;
     }
+    .search-label {
+      display: none;
+    }
+    .search-link {
+      padding-inline: 0.65rem;
+    }
+
     .primary-nav {
       position: absolute;
       top: 100%;
@@ -444,7 +617,7 @@ function itemActive(item: NavItem): boolean {
       max-height: calc(100vh - var(--header-h));
       max-height: calc(100dvh - var(--header-h));
       overflow-y: auto;
-      padding: 0.5rem clamp(1rem, 4vw, 2rem) 1rem;
+      padding: 0.4rem clamp(1rem, 4vw, 2rem) 1.1rem;
       background: var(--color-surface);
       border-bottom: 1px solid var(--color-border);
       box-shadow: var(--shadow-lg);
@@ -455,65 +628,126 @@ function itemActive(item: NavItem): boolean {
     }
     .primary-nav > ul {
       flex-direction: column;
+      align-items: stretch;
       gap: 0;
-      padding-bottom: 0.25rem;
     }
-    .primary-nav a {
-      padding: 0.65rem 0.5rem;
-      font-size: 1rem;
+    .drawer-search {
+      display: block;
+      margin: 0.35rem 0 0.5rem;
     }
-    .primary-nav .nav-trigger {
+    .drawer-search a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface-2);
+      color: var(--color-text-soft);
+      font-size: 0.95rem;
+    }
+    .primary-nav a,
+    .primary-nav .nav-trigger,
+    .primary-nav .nav-trigger--group {
+      width: 100%;
+      justify-content: flex-start;
+      border-radius: var(--radius);
+      padding: 0.7rem 0.7rem;
+      font-size: 1.02rem;
+      text-align: left;
+    }
+    .primary-nav a:hover,
+    .primary-nav .nav-trigger:hover {
+      transform: none;
+      background: var(--color-surface-2);
+    }
+    .nav-link.active::after {
       display: none;
     }
-    .primary-nav .nav-parent {
-      display: block;
+    .primary-nav .nav-link.active,
+    .primary-nav .nav-trigger.active {
+      background: var(--color-primary-soft);
     }
-    .primary-nav .nav-parent > a {
-      padding-right: 0.5rem;
+    .nav-parent {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
     }
-    .nav-group-label {
-      display: block;
-      padding: 0.7rem 0.5rem 0.3rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-text-soft);
+    .nav-parent > .nav-link {
+      flex: 1 1 auto;
+    }
+    .nav-parent > .nav-trigger {
+      width: auto;
+      flex: 0 0 auto;
+      margin-inline-start: 0;
+      padding: 0.7rem 0.8rem;
+    }
+    .primary-nav .nav-trigger--group .chevron,
+    .nav-parent .nav-trigger .chevron {
+      margin-inline-start: auto;
+    }
+    .primary-nav .nav-trigger--group .nav-ico {
+      margin-inline-end: 0.15rem;
     }
     .primary-nav .submenu {
       position: static;
-      display: flex;
-      min-width: 0;
-      padding: 0 0 0.3rem 0.9rem;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-    .search-label {
       display: none;
+      margin: 0.15rem 0 0.35rem;
+      padding: 0.1rem 0 0.1rem 0.6rem;
+      border: 0;
+      border-left: 2px solid var(--color-border);
+      border-radius: 0;
+      box-shadow: none;
+      animation: none;
+    }
+    .primary-nav li[data-open='true'] > .submenu {
+      display: block;
+    }
+    .primary-nav .submenu::before {
+      display: none;
+    }
+    .submenu-list,
+    .submenu-list--2col {
+      grid-template-columns: 1fr;
+      min-width: 0;
+    }
+    .submenu-link {
+      padding: 0.6rem 0.6rem;
+    }
+    .submenu-tile {
+      width: 1.9rem;
+      height: 1.9rem;
+    }
+    .submenu-text small {
+      font-size: 0.78rem;
     }
     :global(body.nav-open) {
       overflow: hidden;
     }
   }
-  @media (max-width: 23rem) {
-    .brand-text small {
+
+  @media (max-width: 26rem) {
+    .toggle-label {
       display: none;
     }
-    .mobile-nav-toggle > span:not(.bars) {
-      display: none;
+    .mobile-nav-toggle {
+      padding-inline: 0.6rem;
     }
   }
+
   @media (prefers-reduced-motion: reduce) {
     .brand:hover .brand-logo,
-    .brand:focus-visible .brand-logo {
+    .brand:focus-visible .brand-logo,
+    .primary-nav a:hover,
+    .primary-nav .nav-trigger:hover {
       transform: none;
     }
-    .primary-nav a::after,
-    .primary-nav .nav-trigger::after,
-    .nav-trigger .chevron {
+    .nav-trigger .chevron,
+    .site-header {
       transition: none;
+    }
+    .primary-nav li[data-open='true'] > .submenu {
+      animation: none;
     }
   }
 </style>
@@ -521,7 +755,8 @@ function itemActive(item: NavItem): boolean {
 <script>
   const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
   const nav = document.querySelector('[data-primary-nav]');
-  const header = toggle?.closest('.site-header') || nav?.closest('.site-header');
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const desktopQuery = window.matchMedia('(min-width: 70rem)');
 
   function isOpen() {
     return nav?.getAttribute('data-open') === 'true';
@@ -548,9 +783,9 @@ function itemActive(item: NavItem): boolean {
     setOpen(!isOpen());
   });
 
-  const desktopQuery = window.matchMedia('(min-width: 64rem)');
   desktopQuery.addEventListener('change', (event) => {
     if (event.matches) setOpen(false);
+    closeDropdowns();
   });
 
   const dropdownItems = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-item]'));
@@ -578,11 +813,13 @@ function itemActive(item: NavItem): boolean {
     });
 
     item.addEventListener('mouseenter', () => {
+      if (!desktopQuery.matches) return;
       closeDropdowns(item);
       setDropdown(item, true);
     });
 
     item.addEventListener('mouseleave', () => {
+      if (!desktopQuery.matches) return;
       if (!item.contains(document.activeElement)) setDropdown(item, false);
     });
 
@@ -623,7 +860,7 @@ function itemActive(item: NavItem): boolean {
       }
     });
 
-    if (!isOpen()) return;
+    if (desktopQuery.matches || !isOpen()) return;
     if (header && header.contains(target)) return;
     setOpen(false);
   });
@@ -631,4 +868,10 @@ function itemActive(item: NavItem): boolean {
   nav?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => setOpen(false));
   });
+
+  const onScroll = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 4);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 </script>

@@ -2,47 +2,112 @@ export interface NavItem {
   label: string;
   /** Tautan halaman. Kosong untuk grup dropdown tanpa halaman sendiri. */
   href?: string;
+  /** Ringkasan singkat yang tampil pada panel dropdown (desktop). */
   description?: string;
+  /** Nama ikon (dipetakan ke SVG di Header.astro). */
+  icon?: string;
   children?: NavItem[];
 }
 
+/**
+ * Navigasi utama — sengaja dijaga ringkas (enam pintu tingkat atas) agar header
+ * tetap satu baris di desktop dan ramah bagi pelajar. Rincian tiap minat
+ * ditampilkan pada panel dropdown, bukan dibebankan ke bilah utama.
+ */
 export const mainNav: NavItem[] = [
-  { label: 'Peta Pembelajaran', href: '/peta-pembelajaran' },
+  { label: 'Peta Pembelajaran', href: '/peta-pembelajaran', icon: 'map' },
   {
-    label: 'Matematika',
-    href: '/matematika',
+    label: 'Belajar',
+    icon: 'book',
     children: [
-      { label: 'Ringkasan', href: '/matematika' },
-      { label: 'Kelas X', href: '/matematika/kelas/X' },
-      { label: 'Kelas XI', href: '/matematika/kelas/XI' },
-      { label: 'Kelas XII', href: '/matematika/kelas/XII' },
+      {
+        label: 'Matematika',
+        href: '/matematika',
+        description: 'Wajib · Fase E–F, kelas X–XII',
+        icon: 'sigma',
+      },
+      {
+        label: 'Matematika Tingkat Lanjut',
+        href: '/matematika-lanjut',
+        description: 'Pilihan · kelas XI–XII',
+        icon: 'function',
+      },
     ],
   },
+  { label: 'Latihan', href: '/latihan', icon: 'pencil' },
   {
-    label: 'Matematika Tingkat Lanjut',
-    href: '/matematika-lanjut',
+    label: 'Jelajah',
+    icon: 'compass',
     children: [
-      { label: 'Ringkasan', href: '/matematika-lanjut' },
-      { label: 'Kelas XI', href: '/matematika-lanjut/kelas/XI' },
-      { label: 'Kelas XII', href: '/matematika-lanjut/kelas/XII' },
+      {
+        label: 'Eksplorasi',
+        href: '/eksplorasi',
+        description: 'Simulasi & grafik interaktif',
+        icon: 'sliders',
+      },
+      {
+        label: 'Alat Matematika',
+        href: '/alat',
+        description: 'Kalkulator & perkakas',
+        icon: 'tools',
+      },
+      {
+        label: 'Matematika dalam Kehidupan',
+        href: '/aplikasi',
+        description: 'Studi kasus nyata',
+        icon: 'globe',
+      },
+      {
+        label: 'Tantangan',
+        href: '/tantangan',
+        description: 'Soal mahir & pengayaan',
+        icon: 'star',
+      },
     ],
   },
-  { label: 'Latihan', href: '/latihan' },
-  { label: 'Tantangan', href: '/tantangan' },
-  { label: 'Eksplorasi', href: '/eksplorasi' },
-  { label: 'Alat Matematika', href: '/alat' },
-  { label: 'Matematika dalam Kehidupan', href: '/aplikasi' },
   {
     label: 'Rujukan',
+    icon: 'library',
     children: [
-      { label: 'Glosarium', href: '/glosarium' },
-      { label: 'Kumpulan Rumus', href: '/rumus' },
-      { label: 'Referensi', href: '/referensi' },
-      { label: 'Kemajuan Saya', href: '/kemajuan' },
-      { label: 'Tinjauan lintas topik', href: '/review' },
+      {
+        label: 'Kemajuan Saya',
+        href: '/kemajuan',
+        description: 'Progres & tinjauan berkala',
+        icon: 'chart',
+      },
+      {
+        label: 'Kumpulan Rumus',
+        href: '/rumus',
+        description: 'Ringkasan rumus per topik',
+        icon: 'formula',
+      },
+      {
+        label: 'Glosarium',
+        href: '/glosarium',
+        description: 'Istilah penting A–Z',
+        icon: 'book',
+      },
+      {
+        label: 'Referensi',
+        href: '/referensi',
+        description: 'Sumber & bacaan lanjutan',
+        icon: 'link',
+      },
+      {
+        label: 'Tinjauan lintas topik',
+        href: '/review',
+        description: 'Antrean ulangan pintar',
+        icon: 'refresh',
+      },
+      {
+        label: 'Peta Situs',
+        href: '/peta-situs',
+        description: 'Semua halaman situs',
+        icon: 'map',
+      },
     ],
   },
-  { label: 'Tentang', href: '/tentang' },
+  { label: 'Tentang', href: '/tentang', icon: 'info' },
 ];
 
 export const footerNav: { heading: string; items: NavItem[] }[] = [

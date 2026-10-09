@@ -26,23 +26,35 @@ const label = 'Ganti tema terang/gelap';
     place-items: center;
     width: 2.3rem;
     height: 2.3rem;
-    border-radius: var(--radius);
+    border-radius: var(--radius-pill);
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text-muted);
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
     transition:
       transform var(--dur) var(--ease-bounce),
       color var(--dur-fast),
-      border-color var(--dur-fast);
+      background-color var(--dur-fast),
+      border-color var(--dur-fast),
+      box-shadow var(--dur-fast);
   }
   .theme-toggle:hover {
     color: var(--color-text);
+    background: var(--color-surface-2);
     border-color: var(--color-border-strong);
-    transform: rotate(12deg);
+    box-shadow: var(--shadow);
+    transform: translateY(-1px) rotate(14deg);
+  }
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    color: var(--color-text);
+    border-color: var(--color-primary);
   }
   .theme-toggle:active {
-    transform: rotate(12deg) scale(0.94);
+    transform: scale(0.92);
+    box-shadow: var(--shadow-sm);
   }
   .theme-toggle svg {
     transition: transform var(--dur) var(--ease-out-soft);
@@ -57,8 +69,10 @@ const label = 'Ganti tema terang/gelap';
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
     .theme-toggle:hover,
     .theme-toggle:active {
+      transition: none;
       transform: none;
     }
   }
