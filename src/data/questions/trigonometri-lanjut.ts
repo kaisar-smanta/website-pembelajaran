@@ -139,6 +139,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Kunci menekankan pemilihan rumus luas dengan dua sisi dan sudut apit, serta substitusi nilai $\\sin 60^\\circ$.',
     hints: ['Gunakan $L=\\dfrac{1}{2}bc\\sin A$.'],
     competencies: ['luas segitiga'],
+    rubric: [
+      'Memilih rumus luas $L=\\dfrac{1}{2}bc\\sin A$',
+      'Mensubstitusikan $b=5$, $c=8$, dan $A=60^\\circ$',
+      'Memakai $\\sin60^\\circ=\\dfrac{\\sqrt{3}}{2}$',
+      'Memperoleh luas $10\\sqrt{3}\\approx17{,}32$ satuan luas',
+    ],
   },
   {
     id: 'tl-09',
@@ -152,7 +158,7 @@ export const trigonometriLanjutQuestions: Question[] = [
       { key: 'A', text: '$\\dfrac{4}{3}$' },
       { key: 'B', text: '$\\dfrac{3}{4}$' },
       { key: 'C', text: '$\\dfrac{1}{2}$' },
-      { key: 'D', text: '$1$' },
+      { key: 'D', text: '$-\\dfrac{4}{3}$' },
     ],
     answer: 'A',
     explanation:
@@ -177,6 +183,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Nilai maksimum adalah $D+|A|$.',
     ],
     competencies: ['fungsi periodik', 'amplitudo dan periode'],
+    rubric: [
+      'Mengenali $A=2$, $B=3$, $C=30^\\circ$, dan $D=1$',
+      'Menghitung periode $120^\\circ$',
+      'Menentukan amplitudo $2$',
+      'Menentukan nilai maksimum $3$',
+    ],
   },
   {
     id: 'tl-11',
@@ -192,6 +204,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Kunci menekankan penulisan aturan kosinus untuk sudut yang dicari, identifikasi sisi yang benar, lalu penentuan sudut dari nilai kosinus.',
     hints: ['Gunakan $b^{2}=a^{2}+c^{2}-2ac\\cos B$ lalu selesaikan untuk $\\cos B$.'],
     competencies: ['aturan kosinus', 'penalaran'],
+    rubric: [
+      'Menuliskan aturan kosinus untuk sudut $B$ yang menghadap $b=7$',
+      'Menghitung $\\cos B=\\dfrac{1}{2}$',
+      'Menyimpulkan $B=60^\\circ$',
+      'Mengidentifikasi sisi $b$ sebagai sisi di hadapan sudut $B$',
+    ],
   },
   {
     id: 'tl-12',
@@ -207,6 +225,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Kunci: menerapkan aturan kosinus, mengenali $\\cos C=0$ sebagai sudut siku-siku, lalu menghitung luas dengan dua sisi dan sudut apit.',
     hints: ['Gunakan aturan kosinus untuk sudut $C$ yang menghadap sisi $c$.', 'Jika $\\cos C=0$, maka $C=90^\\circ$.'],
     competencies: ['aturan kosinus', 'luas segitiga', 'evaluasi'],
+    rubric: [
+      'Menghitung $\\cos C=0$ dengan aturan kosinus',
+      'Menyimpulkan $C=90^\\circ$',
+      'Mengenali segitiga siku-siku di $C$',
+      'Menghitung luas segitiga $24$ satuan luas',
+    ],
   },
   {
     id: 'tl-13',
@@ -222,6 +246,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Kunci: mengidentifikasi sisi depan dan sisi miring untuk memakai sinus, menghitung nilai, dan menyebutkan asumsi.',
     hints: ['Tinggi adalah sisi depan; panjang jalan adalah sisi miring.', 'Gunakan $\\sin\\theta=\\dfrac{\\text{sisi depan}}{\\text{sisi miring}}$.'],
     competencies: ['pemodelan trigonometri', 'sudut elevasi'],
+    rubric: [
+      'Menyusun model $\\sin12^\\circ=\\dfrac{h}{500}$',
+      'Menghitung tinggi puncak sekitar $104$ m',
+      'Menyebut satu asumsi seperti jalan lurus atau kemiringan tetap',
+      'Menyajikan hasil dengan satuan meter',
+    ],
   },
   {
     id: 'tl-14',
@@ -237,6 +267,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Kunci: menguraikan vektor perpindahan menjadi komponen, menentukan posisi tiap kapal, lalu menghitung jarak dengan rumus jarak.',
     hints: ['Uraikan perpindahan $15$ km menjadi komponen $x$ dan $y$.', 'Gunakan rumus jarak antara dua titik.'],
     competencies: ['vektor', 'aturan kosinus', 'kontekstual'],
+    rubric: [
+      'Menguraikan perpindahan $15$ km menjadi komponen $x$ dan $y$',
+      'Menentukan posisi kedua kapal',
+      'Menghitung jarak dengan rumus jarak antara dua titik',
+      'Memperoleh jarak sekitar $18{,}03$ km',
+    ],
   },
   {
     id: 'tl-15',
@@ -256,6 +292,12 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Selesaikan $\\cos(30^\\circ t)=-\\dfrac{1}{2}$.',
     ],
     competencies: ['pemodelan fungsi trigonometri', 'persamaan trigonometri', 'amplitudo dan periode'],
+    rubric: [
+      'Menentukan amplitudo $3$ dan nilai tengah $5$',
+      'Memilih bentuk $h(t)=5-3\\cos(30^\\circ t)$',
+      'Menghitung $h(4)=6{,}5$ m',
+      'Menyelesaikan $\\cos(30^\\circ t)=-\\dfrac{1}{2}$ sehingga $t=4$ jam',
+    ],
   },
   {
     id: 'tl-16',
@@ -268,7 +310,7 @@ export const trigonometriLanjutQuestions: Question[] = [
     options: [
       { key: 'A', text: '$-\\dfrac{3}{8}$' },
       { key: 'B', text: '$\\dfrac{3}{8}$' },
-      { key: 'C', text: '$-\\dfrac{1}{4}$' },
+      { key: 'C', text: '$-\\dfrac{3}{4}$' },
       { key: 'D', text: '$\\dfrac{5}{8}$' },
     ],
     answer: 'A',

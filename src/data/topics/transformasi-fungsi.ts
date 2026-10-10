@@ -224,6 +224,12 @@ Perhatikan bahwa $y=2x^2$ dan $y=4x^2$ memiliki bentuk berbeda: yang pertama leb
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Grafik parabola dasar f(x) sama dengan x kuadrat dengan tiga grafik hasil transformasi: digeser ke atas, digeser ke kanan, dan diregang vertikal, masing-masing dibedakan oleh gaya garis.",
+          caption: "Grafik dasar $f(x)=x^{2}$ dan hasil transformasinya: $f(x)+2$ (putus-putus), $f(x-2)$ (titik-garis), serta $2f(x)$ (titik-titik).",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-trf-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="14" y1="178" x2="300" y2="178" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-trf-axis)"/><line x1="150" y1="190" x2="150" y2="55" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-trf-axis)"/><polyline points="58.2,68.7 82,118 99,144.3 116,163 133,174.3 150,178 167,174.3 184,163 201,144.3 218,118 241.8,68.7" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="65,54.3 82,88 116,133 150,148 184,133 218,88 235,54.3" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><polyline points="150,118 167,144.3 184,163 201,174.3 218,178 235,174.3 252,163 269,144.3 286,118 303,84.3" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="8 3 2 3"/><polyline points="85.4,69.7 99,110.5 116,148 133,170.5 150,178 167,170.5 184,148 201,110.5 214.6,69.7" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><line x1="20" y1="22" x2="44" y2="22" stroke="currentColor" stroke-width="2.2"/><text x="50" y="26" font-size="11" fill="currentColor">f(x) = x²</text><line x1="160" y1="22" x2="184" y2="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><text x="190" y="26" font-size="11" fill="currentColor">f(x) + 2</text><line x1="20" y1="40" x2="44" y2="40" stroke="currentColor" stroke-width="2" stroke-dasharray="8 3 2 3"/><text x="50" y="44" font-size="11" fill="currentColor">f(x − 2)</text><line x1="160" y1="40" x2="184" y2="40" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="190" y="44" font-size="11" fill="currentColor">2f(x)</text><text x="296" y="172" font-size="11" fill="currentColor">x</text><text x="156" y="62" font-size="11" fill="currentColor">y</text></svg>',
+        },
       ],
     },
     {
@@ -241,6 +247,23 @@ Di sini $a$ mengatur peregangan vertikal dan refleksi terhadap sumbu-$x$, $k$ me
 - menggeser ke atas $3$ lalu meregangkan vertikal dengan faktor $2$ menghasilkan $2(x^2+3)=2x^2+6$.
 
 Kedua hasil berbeda. Karena itu, transformasi pada sumbu yang sama sebaiknya dikerjakan dengan urutan yang jelas.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `Untuk grafik $y=f(x)$:
+
+**Translasi.** $y=f(x)+k$ menggeser naik sejauh $k$; $y=f(x-h)$ menggeser kanan sejauh $h$.
+
+**Refleksi.** $y=-f(x)$ mencerminkan terhadap sumbu-$x$; $y=f(-x)$ mencerminkan terhadap sumbu-$y$.
+
+**Dilatasi.** $y=a\\,f(x)$ meregang vertikal dengan faktor $a$; $y=f(kx)$ menyusut horizontal dengan faktor $\\dfrac{1}{k}$.
+
+**Bentuk umum:**
+$$y = a\\,f\\big(k(x-h)\\big)+c.$$
+
+**Prosedur.** (1) Kenali grafik dasarnya. (2) Kerjakan transformasi horizontal (di dalam fungsi) lebih dahulu, lalu vertikal (di luar fungsi). (3) Lacak perpindahan titik kunci seperti puncak. (4) Periksa hasilnya dengan mensubstitusi satu titik.`,
     },
     {
       id: "eksplorasi",
@@ -344,6 +367,46 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
           explanation: "Pergeseran ke kanan \"berlawanan tanda\": ganti $x$ dengan $x-h$, yaitu $x-2$. Rumus yang benar $y=(x-2)^2$.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Grafik $y=x^{2}$ digeser sehingga titik puncaknya berada di $(-3,2)$ dan grafiknya melalui titik $(-1,10)$. Tentukan rumus fungsi hasil transformasi itu.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Kita gunakan bentuk puncak dan satu titik untuk menentukan faktor regangannya.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Puncak di $(-3,2)$ memberi bentuk $y = a(x+3)^2 + 2$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Grafik melalui $(-1,10):$ substitusi $x=-1$ dan $y=10$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "$10 = a(-1+3)^2 + 2 = a(2)^2 + 2 = 4a + 2$, sehingga $4a = 8$ dan $a = 2$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Jadi rumusnya $y = 2(x+3)^2 + 2 = 2x^2 + 12x + 20$.",
+            },
+            {
+              title: "Langkah 5",
+              text: "Periksa titik $(-1,10)$: $2(-1+3)^2+2 = 2(4)+2 = 10$. Benar.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Pergeseran, pencerminan, dan perputaran bangun telah dibahas sejak lama, tetapi baru pada abad ke-19 transformasi dipelajari sebagai objek aljabar tersendiri. Pada 1872 Felix Klein dalam *Erlanger Programm*-nya mengusulkan agar setiap cabang geometri dikenali dari jenis transformasi yang membiarkan sifat tertentu tetap. Gagasan bahwa grafik fungsi dapat digeser dan diregangkan dengan mengganti $x$ menjadi $x-h$ atau $f(x)$ menjadi $a\\,f(x)$ menjadi bahasa baku di sekolah pada abad ke-20. Aturan yang sama kini dipakai ketika menyesuaikan kurva dengan data atau merancang animasi.`,
     },
     {
       id: "refleksi",

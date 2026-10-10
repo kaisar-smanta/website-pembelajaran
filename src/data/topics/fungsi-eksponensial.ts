@@ -217,6 +217,12 @@ Pada kedua kasus, grafik mendekati sumbu-$x$ tetapi tidak pernah menyentuhnya. G
 Untuk $a>0$, domain fungsi adalah seluruh bilangan real dan daerah hasilnya $y>0$. Titik $(0,a)$ selalu dilalui grafik, dan grafik tidak pernah memotong sumbu-$x$.`,
       blocks: [
         {
+          kind: "figure",
+          alt: "Grafik fungsi eksponensial y sama dengan 2 pangkat x yang naik, dan y sama dengan setengah pangkat x yang turun, keduanya melalui titik nol koma satu dan mendekati sumbu x sebagai asimtot y sama dengan nol.",
+          caption: "Pertumbuhan $y=2^{x}$ (garis penuh) dan peluruhan $y=\\left(\\tfrac12\\right)^{x}$ (garis putus-putus). Keduanya melalui $(0,1)$ dan mendekati asimtot mendatar $y=0$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-feks-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="20" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-feks-arrow)"/><line x1="50" y1="215" x2="50" y2="20" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-feks-arrow)"/><polyline points="20,175 50,160 65,147.6 80,130 95,105.2 110,70 118,48 124,30" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="20,130 50,160 80,175 110,182.5 140,186.3 170,188.1 200,189.1 230,189.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="6 3"/><circle cx="50" cy="160" r="3" fill="currentColor"/><text x="57" y="156" font-size="12" fill="currentColor">(0,1)</text><text x="128" y="58" font-size="12" fill="currentColor">y = 2^x</text><text x="150" y="176" font-size="12" fill="currentColor">y = (1/2)^x</text><text x="246" y="184" font-size="12" fill="currentColor">y = 0</text><text x="296" y="208" font-size="12" fill="currentColor">x</text><text x="34" y="30" font-size="12" fill="currentColor">y</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "warning",
           title: "Hati-hati",
@@ -271,7 +277,11 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
 
 **Contoh 4 (pemodelan).** Modal Rp5.000.000 ditabung dengan bunga majemuk $10\\%$ per tahun. Tentukan saldo setelah $3$ tahun.
 
-*Penyelesaian.* $M(t)=5.000.000(1{,}1)^{t}$, maka $M(3)=5.000.000\\cdot1{,}331=6.655.000$. Saldo menjadi **Rp6.655.000**.`,
+*Penyelesaian.* $M(t)=5.000.000(1{,}1)^{t}$, maka $M(3)=5.000.000\\cdot1{,}331=6.655.000$. Saldo menjadi **Rp6.655.000**.
+
+**Contoh 5.** Selesaikan $9^{x}=\\dfrac{1}{27}$.
+
+*Penyelesaian.* Ubah kedua ruas ke basis $3$: $9^{x}=(3^{2})^{x}=3^{2x}$ dan $\\dfrac{1}{27}=3^{-3}$. Maka $3^{2x}=3^{-3}$, sehingga $2x=-3 \\Rightarrow x=-\\dfrac{3}{2}$. Periksa: $9^{-3/2}=(3^{2})^{-3/2}=3^{-3}=\\dfrac{1}{27}$ ✓.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -333,7 +343,9 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
 
 **3. Menukar pertumbuhan dan peluruhan.** Basis $b>1$ berarti **pertumbuhan**; $0<b<1$ berarti **peluruhan**. Jangan terbalik.
 
-**4. Mengganggap grafik memotong sumbu-$x$.** Untuk $a>0$, $b^{x}$ tidak pernah nol; sumbu-$x$ hanyalah asimtot.`,
+**4. Mengganggap grafik memotong sumbu-$x$.** Untuk $a>0$, $b^{x}$ tidak pernah nol; sumbu-$x$ hanyalah asimtot.
+
+**5. Mengubah basis hanya pada satu ruas.** Saat menyelesaikan persamaan eksponen, **kedua** ruas harus dinyatakan dalam basis yang sama. Mengubah $9^{x}$ menjadi $3^{2x}$ tetapi membiarkan $\\dfrac{1}{27}$ tanpa diubah membuat eksponen tidak dapat disamakan.`,
       blocks: [
         {
           kind: "spot-mistake",
@@ -348,6 +360,46 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
           explanation: "Sifat eksponen bekerja pada **perkalian**, bukan penjumlahan. Hasil yang benar adalah $2^{x+1}=2\\cdot2^{x}$, bukan $2^{x}+2$.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah laboratorium menumbuhkan dua kultur bakteri sekaligus. Kultur A mula-mula berisi $500$ bakteri dan berlipat dua setiap $20$ menit. Kultur B mula-mula berisi $8.000$ bakteri, tetapi setiap $20$ menit jumlahnya menjadi setengah karena pemberian antiseptik. Setelah berapa selang $20$ menit populasi kedua kultur menjadi sama, dan berapa populasi itu?`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Susun model tiap kultur, samakan, lalu selesaikan dengan sifat eksponen.",
+          steps: [
+            {
+              title: "Model kultur A",
+              text: "Karena berlipat dua setiap selang, setelah $n$ selang $A(n)=500\\cdot 2^{n}$.",
+            },
+            {
+              title: "Model kultur B",
+              text: "Karena menyusut menjadi setengah, $B(n)=8.000\\left(\\tfrac{1}{2}\\right)^{n}=8.000\\cdot 2^{-n}$.",
+            },
+            {
+              title: "Samakan kedua model",
+              text: "$500\\cdot 2^{n}=8.000\\cdot 2^{-n}$. Bagi kedua ruas dengan $500$: $2^{n}=16\\cdot 2^{-n}$.",
+            },
+            {
+              title: "Selesaikan eksponen",
+              text: "Kalikan dengan $2^{n}$: $2^{n}\\cdot 2^{n}=16 \\Rightarrow 2^{2n}=2^{4} \\Rightarrow 2n=4 \\Rightarrow n=2$.",
+            },
+            {
+              title: "Tafsirkan",
+              text: "Setelah $n=2$ selang, yaitu $40$ menit, populasi keduanya sama. Periksa: $A(2)=500\\cdot4=2.000$ dan $B(2)=8.000\\cdot\\tfrac14=2.000$. Jadi keduanya berjumlah $2.000$ bakteri.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Fungsi eksponensial tumbuh dari penyelidikan bunga majemuk. Pada akhir abad ke-17, Jacob Bernoulli menelaah nilai tabungan yang dibungakan berkali-kali dalam setahun dan memperhatikan bahwa batas $(1+1/n)^{n}$ menuju suatu bilangan tetap. Leonhard Euler kemudian menandai bilangan itu dengan $e$ dan memperkenalkan fungsi $e^{x}$ sebagai fungsi yang lajunya sebanding dengan nilainya sendiri. Sejak itu bentuk $a\\cdot b^{x}$ dipakai untuk memodelkan pertumbuhan populasi, peluruhan zat, dan penyebaran penyakit. Karena itulah topik ini menjadi bahasa baku bagi perubahan yang berlipat.`,
     },
     {
       id: "refleksi",

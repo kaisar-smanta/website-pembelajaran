@@ -14,6 +14,7 @@ import { topicIdsWithQuestions } from '@/data/questions';
 import { elementColor } from '@/data/display';
 import { applicationsForTopic, getApplication } from '@/data/applications';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
+import { sectionTitle } from '@/lib/content-text';
 import { url, subjectUrl, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
 
 export function getStaticPaths() {
@@ -66,9 +67,14 @@ const relatedApplications = Array.from(
   ).values(),
 );
 
+const hasAuthoredDuniaNyata = topic.sections.some((s) => s.kind === 'dunia-nyata');
 const applicationsSection: Section | undefined =
   relatedApplications.length > 0
-    ? { id: 'penerapan', kind: 'dunia-nyata', title: 'Penerapan di Dunia Nyata' }
+    ? {
+        id: 'penerapan',
+        kind: 'dunia-nyata',
+        title: hasAuthoredDuniaNyata ? 'Studi Kasus Terkait' : 'Penerapan di Dunia Nyata',
+      }
     : undefined;
 
 const crumbs = [
@@ -79,7 +85,7 @@ const crumbs = [
   { label: topic.title },
 ];
 
-const sectionList = topic.sections.filter((s) => s.kind !== 'catatan');
+const sectionList = topic.sections;
 const description = stripMarkdown(topic.summary);
 
 const cpCodes = cpForTopic(topic.id).map((s) => s.id);
@@ -134,14 +140,14 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
         {
           sectionList.map((s) => (
             <li>
-              <a href={`#${s.id}`}>{s.title ?? s.id}</a>
+              <a href={`#${s.id}`}>{sectionTitle(s)}</a>
             </li>
           ))
         }
         {
           relatedApplications.length > 0 && (
             <li>
-              <a href="#penerapan">Penerapan</a>
+              <a href="#penerapan">Studi Kasus</a>
             </li>
           )
         }
@@ -161,7 +167,10 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
           ))
         }
 
-        <TopicApplications applications={relatedApplications} />
+        <TopicApplications
+          applications={relatedApplications}
+          title={hasAuthoredDuniaNyata ? 'Studi Kasus Terkait' : 'Penerapan di Dunia Nyata'}
+        />
 
         <nav class="topic-pager no-print" aria-label="Navigasi topik">
           {
@@ -219,14 +228,14 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
                 {
                   sectionList.map((s) => (
                     <li>
-                      <a href={`#${s.id}`}>{s.title ?? s.id}</a>
+                      <a href={`#${s.id}`}>{sectionTitle(s)}</a>
                     </li>
                   ))
                 }
                 {
                   relatedApplications.length > 0 && (
                     <li>
-                      <a href="#penerapan">Penerapan di Dunia Nyata</a>
+                      <a href="#penerapan">Studi Kasus Terkait</a>
                     </li>
                   )
                 }
@@ -942,6 +951,10 @@ const cpCodes = cpForTopic(topic.id).map((s) => s.id);
     }
     .aside-primary {
       order: 1;
+    }
+    /* Daftar isi ringkas sudah disediakan bilah "Bagian" yang lengket di atas. */
+    .aside-primary .aside-card:has([data-outline-disclosure]) {
+      display: none;
     }
     .topic-main {
       order: 2;

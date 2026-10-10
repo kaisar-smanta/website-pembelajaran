@@ -37,10 +37,10 @@ export const fungsiKuadrat: Topic = {
     { text: 'Menentukan akar, sumbu simetri, dan titik puncak fungsi kuadrat.' },
     { text: 'Menggambar grafik fungsi kuadrat berdasarkan ciri-cirinya.' },
     { text: 'Menganalisis hubungan tanda diskriminan dan koefisien dengan bentuk grafik.' },
-    { text: 'Menyelesaikan persamaan kuadrat yang memiliki akar imajiner atau kompleks.' },
+    { text: 'Menentukan akar real fungsi kuadrat sebagai target utama, dengan kasus akar imajiner sebagai pengayaan opsional.' },
     { text: 'Memodelkan dan menyelesaikan masalah optimasi dengan fungsi kuadrat.' },
   ],
-  applications: ['regresi-nilai-ujian'],
+  applications: ['lintasan-bola'],
   sections: [
     {
       id: "tujuan",
@@ -184,6 +184,12 @@ Ketiga bentuk itu menyingkap informasi berbeda: bentuk faktor menunjukkan akar, 
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Parabola terbuka ke atas dengan titik puncak di bawah sumbu-x, garis putus-putus vertikal sebagai sumbu simetri, dua titik potong pada sumbu-x, dan satu titik potong pada sumbu-y.",
+          caption: "Grafik $f(x)=x^{2}-6x+8$: titik puncak $(3,-1)$, sumbu simetri $x=3$ (garis putus-putus), akar $x=2$ dan $x=4$ pada sumbu-$x$, serta titik potong sumbu-$y$ di $(0,8)$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="25" y1="190" x2="310" y2="190" stroke="currentColor" stroke-width="1"/><line x1="60" y1="20" x2="60" y2="225" stroke="currentColor" stroke-width="1"/><line x1="180" y1="25" x2="180" y2="220" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/><polyline points="60,46 80,95.5 100,136 120,167.5 140,190 160,203.5 180,208 200,203.5 220,190 240,167.5 260,136 280,95.5 300,46" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="180" cy="208" r="3.5" fill="currentColor"/><circle cx="140" cy="190" r="3.5" fill="currentColor"/><circle cx="220" cy="190" r="3.5" fill="currentColor"/><circle cx="60" cy="46" r="3.5" fill="currentColor"/><text x="304" y="205" font-size="12" fill="currentColor">x</text><text x="66" y="30" font-size="12" fill="currentColor">y</text><text x="184" y="224" font-size="12" fill="currentColor">puncak</text><text x="108" y="214" font-size="12" fill="currentColor">x = 2</text><text x="234" y="214" font-size="12" fill="currentColor">x = 4</text><text x="66" y="60" font-size="11" fill="currentColor">potong sumbu-y</text><text x="118" y="40" font-size="11" fill="currentColor">sumbu simetri</text></svg>',
+        },
       ],
     },
     {
@@ -239,6 +245,36 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
           title: "Hati-hati",
           text: "Sumbu simetri adalah garis $x=-\\dfrac{b}{2a}$, bukan nilai $x$ itu saja. Tanda negatif di depan $b$ sering terlewat; periksa kembali sebelum menggambar.",
         },
+        {
+          kind: "table",
+          caption: "Tiga kasus diskriminan $D = b^{2} - 4ac$",
+          headers: [
+            "Diskriminan",
+            "Akar real",
+            "Grafik terhadap sumbu-$x$",
+            "Contoh",
+          ],
+          rows: [
+            [
+              "$D > 0$",
+              "dua akar real berbeda",
+              "memotong sumbu-$x$ di dua titik",
+              "$x^{2}-6x+8$: akar $2$ dan $4$",
+            ],
+            [
+              "$D = 0$",
+              "satu akar real kembar",
+              "menyinggung sumbu-$x$ di satu titik",
+              "$x^{2}-4x+4$: akar $2$",
+            ],
+            [
+              "$D < 0$",
+              "tidak ada akar real",
+              "tidak memotong sumbu-$x$",
+              "$x^{2}+2x+5$ (pengayaan)",
+            ],
+          ],
+        },
       ],
     },
     {
@@ -253,7 +289,11 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
 
 **Contoh 3 (optimasi).** Seutas kawat panjang $40$ m akan dibuat pagar persegi panjang. Tentukan ukuran agar luasnya maksimum.
 
-*Penyelesaian.* Misal panjang $x$, maka lebarnya $20-x$ (karena keliling $2(x+\\text{lebar})=40$). Luas $L(x)=x(20-x)=20x-x^{2}$, yaitu fungsi kuadrat dengan $a=-1<0$. Puncaknya di $x=-\\dfrac{20}{2\\cdot(-1)}=10$, sehingga $L(10)=10\\cdot10=100$. Luas maksimum $100$ m² dicapai saat persegi berukuran $10 \\times 10$ m.`,
+*Penyelesaian.* Misal panjang $x$, maka lebarnya $20-x$ (karena keliling $2(x+\\text{lebar})=40$). Luas $L(x)=x(20-x)=20x-x^{2}$, yaitu fungsi kuadrat dengan $a=-1<0$. Puncaknya di $x=-\\dfrac{20}{2\\cdot(-1)}=10$, sehingga $L(10)=10\\cdot10=100$. Luas maksimum $100$ m² dicapai saat persegi berukuran $10 \\times 10$ m.
+
+**Contoh 4 (kasus $D=0$).** Tentukan akar dan titik puncak $f(x)=x^{2}-4x+4$, lalu jelaskan mengapa parabolanya menyinggung sumbu-$x$.
+
+*Penyelesaian.* Di sini $a=1$, $b=-4$, dan $c=4$, sehingga $D=(-4)^{2}-4\\cdot1\\cdot4=16-16=0$. Karena $D=0$, hanya ada satu akar real kembar, yaitu $x=-\\dfrac{b}{2a}=\\dfrac{4}{2}=2$. Bentuk kuadrat sempurnanya $f(x)=(x-2)^{2}\\ge0$, sehingga grafik menyentuh sumbu-$x$ tepat di titik $(2,0)$ tanpa memotongnya. Titik puncaknya pun $(2,0)$, tepat pada sumbu-$x$: di sinilah parabola menyinggung sumbu-$x$ di satu titik.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -286,7 +326,7 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
     {
       id: "contoh-imajiner",
       kind: "contoh",
-      title: "Contoh: Akar Imajiner",
+      title: "Pengayaan: Akar Imajiner (opsional)",
       body: `**Contoh (akar imajiner).** Tentukan akar-akar $x^{2}+2x+5=0$.
 
 *Penyelesaian.* Di sini $a=1$, $b=2$, dan $c=5$, sehingga diskriminannya
@@ -294,6 +334,14 @@ $$D = b^{2}-4ac = 2^{2}-4\\cdot1\\cdot5 = 4-20 = -16 < 0.$$
 Karena $D<0$ tidak ada akar real, tetapi ada dua akar kompleks konjugat:
 $$x_{1,2} = \\frac{-2 \\pm i\\sqrt{\\lvert -16 \\rvert}}{2\\cdot1} = \\frac{-2 \\pm 4i}{2} = -1 \\pm 2i.$$
 Periksa $x=-1+2i$: $(-1+2i)^{2}+2(-1+2i)+5 = (-3-4i)+(-2+4i)+5 = 0$, sehingga benar.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "info",
+          title: "Pengayaan opsional",
+          text: "Akar imajiner berada di luar CP Fase E dan boleh dilewati. Target inti topik ini adalah akar real; bahasan ini disediakan sebagai pengayaan bagi yang ingin melangkah lebih jauh.",
+        },
+      ],
     },
     {
       id: "latihan-dasar",
@@ -343,6 +391,86 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
           ],
           wrongIndex: 2,
           explanation: "Substitusinya keliru karena tanda negatif di depan rumus ikut terlewat. Seharusnya $x=-\\dfrac{-6}{2\\cdot1}=3$, sehingga sumbu simetri $x=3$.",
+        },
+      ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Seorang peternak ingin membuat dua kandang persegi panjang berdampingan yang berbagi satu sekat di tengah. Seluruh pagar yang tersedia panjangnya $60$ m, termasuk sekat pemisah itu. Tentukan ukuran kandang agar **luas total** kedua kandang maksimum, lalu hitung luas maksimumnya.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: "Misalkan lebar total $x$ dan tinggi $y$. Pagar yang dipakai adalah dua sisi lebar, dua sisi tinggi, dan satu sekat sepanjang $y$, sehingga $2x+3y=60$. Susun luas $L=x y$ sebagai fungsi kuadrat satu variabel.",
+        },
+        {
+          kind: "step-reveal",
+          intro: "Ubah kendala menjadi fungsi kuadrat, lalu cari titik puncaknya.",
+          steps: [
+            {
+              title: "Tentukan variabel",
+              text: "Misalkan lebar total $x$ meter dan tinggi $y$ meter. Luas total $L=xy$.",
+            },
+            {
+              title: "Susun kendala pagar",
+              text: "Pagar terdiri dari $2x$ (dua sisi lebar) ditambah $3y$ (dua sisi tinggi dan satu sekat), sehingga $2x+3y=60$.",
+            },
+            {
+              title: "Nyatakan $x$ dalam $y$",
+              text: "Dari kendala, $2x=60-3y$, sehingga $x=\\dfrac{60-3y}{2}=30-1{,}5y$.",
+            },
+            {
+              title: "Bentuk fungsi luas",
+              text: "$L(y)=y(30-1{,}5y)=30y-1{,}5y^{2}$, yaitu fungsi kuadrat terbuka ke bawah.",
+            },
+            {
+              title: "Cari titik puncak",
+              text: "Sumbu simetri $y=-\\dfrac{30}{2\\cdot(-1{,}5)}=\\dfrac{30}{3}=10$. Maka $x=30-1{,}5(10)=15$.",
+            },
+            {
+              title: "Hitung luas maksimum",
+              text: "$L(10)=15\\cdot 10=150$. Jadi ukuran terbaik adalah lebar $15$ m dan tinggi $10$ m, dengan luas maksimum $150\\ \\text{m}^{2}$. Periksa pagar: $2(15)+3(10)=30+30=60$ m, sesuai.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Penyelesaian soal yang setara dengan persamaan kuadrat sudah tercatat pada lempeng tanah liat Babilonia kuno, ribuan tahun sebelum Masehi, meskipun disajikan sebagai resep hitung dan hanya untuk akar positif. Di India, Brahmagupta pada abad ke-7 memberi aturan penyelesaian yang lebih umum, termasuk penanganan akar negatif. Al-Khwarizmi dalam *Al-Jabr* (sekitar 820) menyusun metode sistematis lengkap dengan langkah melengkapi kuadrat, dan karyanya menjadi rujukan aljabar di dunia Islam lalu Eropa. Kedua akar persamaan kuadrat dihubungkan dengan koefisiennya melalui rumus jumlah dan hasil kali yang kemudian dikembangkan François Viète. Adapun kurva parabolanya baru dipahami sebagai grafik fungsi setelah geometri koordinat Descartes dan Fermat pada abad ke-17.
+
+Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya akar real tumbuh menjadi bagian baku aljabar.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tokoh kunci dalam perkembangan persamaan kuadrat",
+          headers: [
+            "Tokoh",
+            "Sumbangan",
+          ],
+          rows: [
+            [
+              "Babilonia kuno",
+              "Resep menyelesaikan soal setara persamaan kuadrat untuk akar positif.",
+            ],
+            [
+              "Brahmagupta (abad ke-7)",
+              "Aturan penyelesaian yang lebih umum, termasuk akar negatif.",
+            ],
+            [
+              "Al-Khwarizmi (sekitar 820)",
+              "Metode sistematis dengan melengkapi kuadrat.",
+            ],
+            [
+              "François Viète (abad ke-16)",
+              "Hubungan akar dengan koefisien.",
+            ],
+          ],
         },
       ],
     },

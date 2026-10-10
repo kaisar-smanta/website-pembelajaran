@@ -156,6 +156,12 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Kunci jawaban: mengenali pemotongan sumbu sebagai sumber distorsi dan mengusulkan skala mulai dari nol.',
     hints: ['Hitung berapa persen kenaikan sebenarnya.', 'Perhatikan titik awal sumbu vertikal.'],
     competencies: ['grafik menyesatkan', 'penalaran'],
+    rubric: [
+      'Menyebut pemotongan sumbu vertikal sebagai sumber distorsi',
+      'Menghitung kenaikan sebenarnya hanya $5\\%$',
+      'Mengusulkan sumbu dimulai dari nol atau skala tetap',
+      'Menegaskan datanya benar, yang keliru penyajiannya',
+    ],
   },
   {
     id: 'sdk-10',
@@ -174,6 +180,12 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Hitung median setelah mengurutkan data.',
     ],
     competencies: ['mean vs median', 'evaluasi klaim'],
+    rubric: [
+      'Membenarkan mean $7.600.000$ secara perhitungan',
+      'Mengidentifikasi gaji direktur sebagai pencilan',
+      'Menghitung median $4.000.000$',
+      'Menyimpulkan median lebih jujur untuk gaji karyawan biasa',
+    ],
   },
   {
     id: 'sdk-11',
@@ -204,6 +216,12 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Kunci: mengubah rata-rata menjadi jumlah total, mencari perubahan jumlah, lalu menghitung rata-rata baru kelompok kecil.',
     hints: ['Ubah rata-rata kelas menjadi total nilai.', 'Selisih total nilai berasal dari perubahan keempat siswa.'],
     competencies: ['mean', 'pemodelan', 'interpretasi'],
+    rubric: [
+      'Menghitung jumlah nilai sebelum $2280$ dan sesudah $2340$',
+      'Menemukan kenaikan jumlah nilai sebesar $60$',
+      'Menghitung jumlah nilai baru keempat siswa $300$',
+      'Menyimpulkan rata-rata baru keempat siswa $75$',
+    ],
   },
   {
     id: 'sdk-13',
@@ -237,6 +255,12 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Perhatikan bobot banyak siswa tiap kelompok, bukan sekadar rata-ratanya.',
     ],
     competencies: ['rata-rata gabungan', 'pemodelan', 'interpretasi'],
+    rubric: [
+      'Menghitung rata-rata gabungan awal $75{,}2$',
+      'Menghitung rata-rata gabungan baru sekitar $76{,}27$',
+      'Menjelaskan pengaruh porsi kelas X-A sebesar $\\dfrac{32}{60}$',
+      'Menyimpulkan kenaikan gabungan lebih kecil daripada kenaikan X-A',
+    ],
   },
   {
     id: 'sdk-15',
@@ -255,5 +279,11 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Jangkauan $=$ nilai terbesar $-$ nilai terkecil.',
     ],
     competencies: ['ukuran penyebaran', 'jangkauan', 'penalaran'],
+    rubric: [
+      'Menegaskan rata-rata sama tidak menjamin sebaran sama',
+      'Menghitung jangkauan kelas P $=10$ dan kelas Q $=60$',
+      'Menyebut jangkauan, simpangan baku, atau IQR sebagai ukuran sebaran',
+      'Menyimpulkan kelas Q lebih beragam daripada kelas P',
+    ],
   },
 ];

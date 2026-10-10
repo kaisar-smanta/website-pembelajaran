@@ -44,13 +44,13 @@ export const peluangQuestions: Question[] = [
       'Dua dadu dilempar bersama. Peluang jumlah kedua mata dadu sama dengan 7 atau 11 adalah …',
     options: [
       { key: 'A', text: '$\\dfrac{1}{6}$' },
-      { key: 'B', text: '$\\dfrac{5}{18}$' },
-      { key: 'C', text: '$\\dfrac{1}{4}$' },
+      { key: 'B', text: '$\\dfrac{1}{18}$' },
+      { key: 'C', text: '$\\dfrac{4}{9}$' },
       { key: 'D', text: '$\\dfrac{2}{9}$' },
     ],
     answer: 'D',
     explanation:
-      'Jumlah 7 muncul dari 6 cara, jumlah 11 dari 2 cara yaitu $(5,6)$ dan $(6,5)$. Kedua kejadian saling lepas, sehingga $P = \\dfrac{6 + 2}{36} = \\dfrac{8}{36} = \\dfrac{2}{9}$.',
+      'Jumlah 7 muncul dari 6 cara, jumlah 11 dari 2 cara yaitu $(5,6)$ dan $(6,5)$. Kedua kejadian saling lepas, sehingga $P = \\dfrac{6 + 2}{36} = \\dfrac{8}{36} = \\dfrac{2}{9}$. Opsi $\\dfrac{1}{6}$ muncul bila hanya menghitung jumlah 7, opsi $\\dfrac{1}{18}$ bila hanya menghitung jumlah 11, dan opsi $\\dfrac{4}{9}$ bila salah mengambil ruang sampel 18.',
     hints: ['Hitung banyak cara tiap jumlah dari 36 hasil yang sama mungkin.'],
     competencies: ['aturan penjumlahan', 'kejadian saling lepas'],
   },
@@ -144,6 +144,12 @@ export const peluangQuestions: Question[] = [
       'Perhatikan bahwa dua kejadian berpeluang positif yang saling lepas justru tidak saling bebas.',
     ],
     competencies: ['kejadian saling lepas', 'kejadian saling bebas', 'penalaran'],
+    rubric: [
+      'Membedakan definisi saling lepas dan saling bebas',
+      'Menyebut syarat $P(A\\cap B)=0$ untuk saling lepas',
+      'Menyebut syarat $P(A\\cap B)=P(A)P(B)$ untuk saling bebas',
+      'Memberi satu contoh yang tepat untuk masing-masing',
+    ],
   },
   {
     id: 'pl-09',
@@ -159,6 +165,12 @@ export const peluangQuestions: Question[] = [
       'Jawaban benar membedakan peluang empiris (berdasarkan hasil percobaan) dari peluang teoretis, serta mengaitkannya dengan hukum bilangan besar.',
     hints: ['Bagi banyak munculnya gambar dengan banyak lemparan.'],
     competencies: ['peluang empiris', 'hukum bilangan besar'],
+    rubric: [
+      'Menghitung peluang empiris sebagai hasil bagi',
+      'Menyebut peluang teoretis koin',
+      'Menjelaskan sumber perbedaan hasil',
+      'Mengaitkan dengan hukum bilangan besar',
+    ],
   },
   {
     id: 'pl-10',
@@ -177,6 +189,12 @@ export const peluangQuestions: Question[] = [
       'Gunakan $F_h = N \\cdot P(A)$ setelah peluang ditemukan.',
     ],
     competencies: ['frekuensi harapan', 'pemodelan', 'pencacahan'],
+    rubric: [
+      'Mencacah cara jumlah 10, 11, dan 12',
+      'Menghitung peluang kejadian',
+      'Menerapkan rumus frekuensi harapan',
+      'Menafsirkan hasil sebagai perkiraan',
+    ],
   },
   {
     id: 'pl-11',
@@ -192,6 +210,12 @@ export const peluangQuestions: Question[] = [
       'Kunci: memakai aturan perkalian untuk kejadian saling bebas, menjumlahkan dua jalur untuk tepat satu merah, dan menjelaskan mengapa keduanya bebas.',
     hints: ['Hasil dari satu kantong tidak memengaruhi kantong lain.', 'Untuk tepat satu merah, jumlahkan dua urutan kejadian.'],
     competencies: ['kejadian saling bebas', 'aturan perkalian', 'evaluasi'],
+    rubric: [
+      'Menentukan peluang merah tiap kantong',
+      'Mengalikan peluang untuk kedua bola merah',
+      'Menjumlahkan dua jalur untuk tepat satu merah',
+      'Menjelaskan mengapa kedua kejadian saling bebas',
+    ],
   },
   {
     id: 'pl-12',
@@ -203,12 +227,12 @@ export const peluangQuestions: Question[] = [
     options: [
       { key: 'A', text: '$\\dfrac{1}{4}$' },
       { key: 'B', text: '$\\dfrac{1}{3}$' },
-      { key: 'C', text: '$\\dfrac{3}{4}$' },
+      { key: 'C', text: '$\\dfrac{2}{3}$' },
       { key: 'D', text: '$\\dfrac{1}{2}$' },
     ],
     answer: 'D',
     explanation:
-      'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$ dengan dua hasil sama mungkin, sehingga $P(\\text{angka})=\\dfrac{1}{2}$.',
+      'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$ dengan dua hasil sama mungkin, sehingga $P(\\text{angka})=\\dfrac{1}{2}$. Opsi $\\dfrac{1}{4}$ keliru memakai ruang sampel empat hasil (seperti dua koin), $\\dfrac{1}{3}$ menganggap ada tiga hasil sama mungkin, dan $\\dfrac{2}{3}$ menganggap sisi angka lebih mungkin daripada gambar.',
     hints: ['Ada berapa hasil yang sama mungkin, dan berapa yang termasuk kejadian?'],
     competencies: ['peluang teoretis', 'ruang sampel'],
   },
@@ -229,6 +253,12 @@ export const peluangQuestions: Question[] = [
       'Dua kejadian saling bebas bila $P(M\\cap F)=P(M)P(F)$.',
     ],
     competencies: ['peluang bersyarat', 'kejadian saling bebas', 'penalaran'],
+    rubric: [
+      'Menghitung peluang irisan dari data',
+      'Menerapkan rumus peluang bersyarat',
+      'Membandingkan $P(M)P(F)$ dengan $P(M\\cap F)$',
+      'Menyimpulkan ketidakbebasan kedua kejadian',
+    ],
   },
   {
     id: 'pl-14',
@@ -252,5 +282,25 @@ export const peluangQuestions: Question[] = [
       'Kalikan peluang pengambilan pertama dengan peluang bersyarat pengambilan kedua.',
     ],
     competencies: ['peluang bersyarat', 'aturan perkalian', 'penalaran'],
+  },
+  {
+    id: 'pl-15',
+    topicId: 'peluang',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Pada suatu hari hujan, dari $20$ siswa di sebuah kelas hanya $8$ yang membawa payung. Seorang siswa dipilih secara acak. Peluang siswa terpilih tidak membawa payung adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{2}{5}$' },
+      { key: 'B', text: '$\\dfrac{3}{5}$' },
+      { key: 'C', text: '$\\dfrac{1}{2}$' },
+      { key: 'D', text: '$\\dfrac{3}{4}$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Siswa yang tidak membawa payung ada $20-8=12$, sehingga $P=\\dfrac{12}{20}=\\dfrac{3}{5}$. Bisa juga dengan komplemen: $1-\\dfrac{8}{20}=\\dfrac{3}{5}$. Opsi A adalah peluang membawa payung.',
+    hints: ['Hitung banyak siswa yang tidak membawa payung, atau gunakan aturan komplemen.'],
+    competencies: ['aturan komplemen', 'kontekstual'],
   },
 ];

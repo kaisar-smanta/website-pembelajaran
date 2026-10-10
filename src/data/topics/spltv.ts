@@ -131,6 +131,12 @@ bentuk aljabarnya adalah himpunan tiga persamaan di atas, sedangkan tiap persama
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Dua garis lurus berpotongan di satu titik pada bidang koordinat, dan titik potong itu diberi tanda.",
+          caption: "Analogi dua dimensi dari SPLTV: solusi sistem dua variabel adalah titik potong dua garis, sedangkan pada tiga variabel solusinya adalah titik potong tiga bidang.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="190" x2="40" y2="20" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="170" x2="260" y2="40" stroke="currentColor" stroke-width="2"/><line x1="60" y1="40" x2="260" y2="170" stroke="currentColor" stroke-width="2"/><circle cx="160" cy="105" r="4" fill="currentColor"/><text x="292" y="208" font-size="12" fill="currentColor">x</text><text x="20" y="26" font-size="12" fill="currentColor">y</text><text x="168" y="98" font-size="12" fill="currentColor">solusi</text></svg>',
+        },
       ],
     },
     {
@@ -203,6 +209,24 @@ Kurangkan persamaan (1) dengan (2). Variabel apa yang hilang? Lalu kurangkan per
       body: `Baik eliminasi maupun substitusi bermuara pada satu ide yang sama: **kurangi banyak variabel satu per satu sampai tersisa satu**. Setiap langkah memilih dua persamaan, menyetel koefisien satu variabel agar berlawanan atau sama, lalu menjumlahkan atau mengurangkannya. Hasilnya adalah sistem baru dengan satu variabel lebih sedikit yang memiliki solusi sama.
 
 Pola ini menjelaskan mengapa SPLTV selalu dapat diredam menjadi dua persamaan dua variabel, lalu menjadi satu. Setelah satu nilai diperoleh, nilainya disubstitusi kembali ke belakang. Hasil akhirnya hanya mungkin salah satu dari tiga kemungkinan: solusi tunggal, tak berhingga banyak solusi, atau tidak ada solusi, bergantung pada apakah tiga bidangnya berpotongan di satu titik, sepanjang garis, atau tidak bertemu.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Bentuk umum.**
+$$\\begin{cases} a_{1}x+b_{1}y+c_{1}z=d_{1} \\\\ a_{2}x+b_{2}y+c_{2}z=d_{2} \\\\ a_{3}x+b_{3}y+c_{3}z=d_{3} \\end{cases}$$
+
+**Eliminasi.** Kalikan persamaan dengan konstanta agar koefisien satu variabel berlawanan, lalu jumlahkan atau kurangkan untuk menghapus variabel itu. Ulangi sampai tersisa satu variabel, kemudian substitusi balik.
+
+**Substitusi.** Nyatakan satu variabel dari satu persamaan, gantikan pada persamaan lain, lalu selesaikan sistem yang lebih kecil.
+
+**Jenis solusi.**
+- Solusi tunggal: ketiga bidang berpotongan di satu titik.
+- Tak berhingga banyak solusi: ada persamaan yang bergantung pada persamaan lain.
+- Tanpa solusi: tidak ada titik yang memenuhi ketiga persamaan.
+
+**Prosedur pemodelan.** (1) Tetapkan variabel dan artinya; (2) susun tiga persamaan dari informasi; (3) reduksi tiga variabel menjadi dua, lalu satu; (4) substitusi balik; (5) periksa solusi pada ketiga persamaan; (6) tafsirkan dalam konteks.`,
     },
     {
       id: "contoh",
@@ -279,6 +303,55 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan artinya, (2) susun tiga p
 **3. Tidak memeriksa solusi pada semua persamaan.** Solusi harus memenuhi **ketiga** persamaan. Periksa selalu agar kesalahan aritmetika terdeteksi.
 
 **4. Mengira setiap SPLTV punya solusi tunggal.** Bisa saja sistem konsisten dengan tak berhingga solusi, atau tidak punya solusi sama sekali.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Di sebuah kios buah, tiga pembeli membayar sebagai berikut.
+- Pembeli A membeli $2$ mangga, $1$ jeruk, dan $1$ apel dengan total Rp34.000.
+- Pembeli B membeli $1$ mangga, $3$ jeruk, dan $2$ apel dengan total Rp47.000.
+- Pembeli C membeli $3$ mangga, $1$ jeruk, dan $2$ apel dengan total Rp53.000.
+
+Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Ubah situasi menjadi SPLTV, lalu eliminasi dan substitusi bertahap.",
+          steps: [
+            {
+              title: "Tetapkan variabel",
+              text: "Misalkan $m$, $j$, dan $a$ berturut-turut harga satu mangga, satu jeruk, dan satu apel dalam ribu rupiah.",
+            },
+            {
+              title: "Susun persamaan",
+              text: "Dari ketiga pembeli: (1) $2m+j+a=34$; (2) $m+3j+2a=47$; (3) $3m+j+2a=53$.",
+            },
+            {
+              title: "Eliminasi mangga dan apel",
+              text: "Kurangkan (1) dari (3): $(3m+j+2a)-(2m+j+a)=53-34$, sehingga $m+a=19$.",
+            },
+            {
+              title: "Substitusi ke persamaan (2)",
+              text: "Dari $m+a=19$ diperoleh $a=19-m$. Substitusi ke (2): $m+3j+2(19-m)=47 \\Rightarrow 3j=9+m$.",
+            },
+            {
+              title: "Tentukan harga mangga",
+              text: "Substitusi $j=\\dfrac{9+m}{3}$ dan $a=19-m$ ke (1): $2m+\\dfrac{9+m}{3}+(19-m)=34$. Sederhanakan: $3m+9+m=45$, sehingga $4m=36$ dan $m=9$.",
+            },
+            {
+              title: "Kembalikan dan periksa",
+              text: "$a=19-9=10$ dan $j=\\dfrac{9+9}{3}=6$. Jadi mangga Rp9.000, jeruk Rp6.000, dan apel Rp10.000. Periksa (2): $9+18+20=47$ ✓.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Sistem persamaan linear sudah diselesaikan jauh sebelum notasi aljabar modern. Kitab Tiongkok kuno *Sembilan Bab tentang Seni Matematika* (*Jiuzhang Suanshu*) yang disusun sekitar dua ribu tahun lalu memuat bab "fangcheng" yang menyusun koefisien dalam susunan tabel lalu mengeliminasi variabel — cara yang pada dasarnya sama dengan eliminasi modern. Bangsa Babilonia juga memecahkan soal campuran dengan bantuan tabel. Nama "eliminasi Gauss" dipakai karena Carl Friedrich Gauss mempopulerkan metode eliminasi sistematis pada awal abad ke-19, antara lain untuk menghitung orbit benda langit. Dari penjadwalan hingga grafika komputer, gagasan yang sama masih dipakai sampai sekarang.`,
     },
     {
       id: "refleksi",

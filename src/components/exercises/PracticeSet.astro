@@ -39,6 +39,14 @@ if (questionIds?.length) {
   )
 }
 
+{
+  questions.length === 0 && (
+    <p class="practice-empty">
+      Belum ada soal pada tingkat ini untuk topik tersebut. Soal akan ditambahkan menyusul.
+    </p>
+  )
+}
+
 <style>
   .practice-embed {
     margin: 0.5rem 0 1.1rem;
@@ -59,5 +67,11 @@ if (questionIds?.length) {
   }
   .practice-list :global(.question-card) {
     margin-bottom: 0;
+  }
+  .practice-empty {
+    margin: 0.5rem 0 1.1rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
   }
 </style>

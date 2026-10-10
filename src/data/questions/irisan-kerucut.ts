@@ -132,6 +132,13 @@ export const irisanKerucutQuestions: Question[] = [
       'Kunci menekankan pembacaan pusat dari bentuk baku, penentuan $a$ dan $b$, perhitungan $c^{2} = a^{2} - b^{2}$, lalu penentuan fokus dan eksentrisitas.',
     hints: ['Fokus berada pada sumbu mayor, yaitu sejajar sumbu-$x$ karena $a$ pada suku $x$.'],
     competencies: ['unsur elips', 'fokus elips', 'eksentrisitas elips'],
+    rubric: [
+      'Membaca pusat $(2,1)$ dari bentuk baku',
+      'Menentukan $a=5$, $b=4$, dan $c=\\sqrt{25-16}=3$',
+      'Menulis fokus $(-1,1)$ dan $(5,1)$',
+      'Menyebut sumbu mayor $10$ dan sumbu minor $8$',
+      'Menghitung eksentrisitas $e=\\dfrac{3}{5}$',
+    ],
   },
   {
     id: 'ik-09',
@@ -181,6 +188,12 @@ export const irisanKerucutQuestions: Question[] = [
       'Kunci menekankan langkah awal membagi dengan koefisien $x^{2}$ dan $y^{2}$ sebelum menerapkan rumus bentuk umum.',
     hints: ['Koefisien $x^{2}$ dan $y^{2}$ harus $1$ sebelum memakai rumus pusat.'],
     competencies: ['persamaan lingkaran bentuk umum', 'melengkapkan kuadrat'],
+    rubric: [
+      'Membagi persamaan dengan $2$ terlebih dahulu',
+      'Menentukan pusat $(2,-3)$',
+      'Menghitung jari-jari $r=4$',
+      'Menulis bentuk baku $(x-2)^{2}+(y+3)^{2}=16$',
+    ],
   },
   {
     id: 'ik-12',
@@ -196,6 +209,12 @@ export const irisanKerucutQuestions: Question[] = [
       'Kunci menekankan penafsiran panjang sumbu menjadi nilai $a$ dan $b$, penulisan persamaan baku, dan perhitungan eksentrisitas melalui $c$.',
     hints: ['Panjang sumbu mayor adalah $2a$ dan sumbu minor $2b$.'],
     competencies: ['persamaan elips', 'eksentrisitas elips'],
+    rubric: [
+      'Mengubah sumbu mayor $10$ menjadi $a=5$ dan minor $6$ menjadi $b=3$',
+      'Menulis persamaan $\\dfrac{x^{2}}{25}+\\dfrac{y^{2}}{9}=1$',
+      'Menghitung $c=\\sqrt{25-9}=4$',
+      'Menghitung eksentrisitas $e=\\dfrac{4}{5}=0{,}8$',
+    ],
   },
   {
     id: 'ik-13',
@@ -211,6 +230,13 @@ export const irisanKerucutQuestions: Question[] = [
       'Kunci: membaca $a$ dan $b$ dari persamaan, menghitung $c$ dan $e$, serta menafsirkan rentang eksentrisitas.',
     hints: ['Penyebut terbesar menempel pada sumbu mayor.', 'Gunakan $c^{2}=a^{2}-b^{2}$ dan $e=\\dfrac{c}{a}$.'],
     competencies: ['unsur elips', 'eksentrisitas', 'evaluasi'],
+    rubric: [
+      'Menentukan $a=6$ dan $b=4$, sehingga sumbu mayor $2a=12$',
+      'Menghitung $c=\\sqrt{36-16}=2\\sqrt{5}\\approx4{,}47$',
+      'Menghitung eksentrisitas $e=\\dfrac{\\sqrt{5}}{3}\\approx0{,}745$',
+      'Menjelaskan $e\\to0$ membuat elips mendekati lingkaran',
+      'Menjelaskan $e\\to1$ membuat elips makin pipih',
+    ],
   },
   {
     id: 'ik-14',
@@ -226,5 +252,11 @@ export const irisanKerucutQuestions: Question[] = [
       'Kunci: membaca orientasi elips dari penyebut, menentukan puncak teratas, lalu menghitung $c$ dan jarak antarfokus.',
     hints: ['Tinggi maksimum adalah semi-sumbu pada arah $y$.', 'Jarak antarfokus adalah $2c$ dengan $c^{2}=a^{2}-b^{2}$.'],
     competencies: ['unsur elips', 'fokus elips', 'kontekstual'],
+    rubric: [
+      'Membaca semi-sumbu vertikal $b=8$ sebagai tinggi maksimum',
+      'Menyimpulkan tinggi langit-langit $8$ m',
+      'Menghitung $c=\\sqrt{100-64}=6$',
+      'Menentukan jarak antarfokus $2c=12$ m',
+    ],
   },
 ];

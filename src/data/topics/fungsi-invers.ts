@@ -222,6 +222,23 @@ $$f\\left(f^{-1}(x)\\right) = x \\qquad \\text{dan} \\qquad f^{-1}\\left(f(x)\\r
 Kedua identitas ini berguna untuk memeriksa kebenaran jawaban: memasukkan hasil invers ke fungsi asal harus mengembalikan nilai semula.`,
     },
     {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Syarat invers ada.** Fungsi $f$ memiliki invers $f^{-1}$ bila $f$ **bijektif**, yaitu injektif (satu-satu) sekaligus surjektif (pada).
+
+**Identitas invers:**
+$$f\\left(f^{-1}(x)\\right)=x \\qquad \\text{dan} \\qquad f^{-1}\\left(f(x)\\right)=x.$$
+
+**Rumus praktis.**
+- Linear $f(x)=ax+b$: $f^{-1}(x)=\\dfrac{x-b}{a}$.
+- Rasional $f(x)=\\dfrac{ax+b}{cx+d}$: $f^{-1}(x)=\\dfrac{-dx+b}{cx-a}$.
+
+**Prosedur.** (1) Tulis $y=f(x)$. (2) Nyatakan $x$ dalam $y$. (3) Tukar nama $x$ dan $y$. (4) Tulis hasilnya sebagai $f^{-1}(x)$ dan periksa dengan $f\\left(f^{-1}(x)\\right)=x$.
+
+**Grafik.** Grafik $f$ dan $f^{-1}$ saling mencerminkan terhadap garis $y=x$.`,
+    },
+    {
       id: "grafik",
       kind: "representasi",
       title: "Grafik Fungsi dan Inversnya",
@@ -252,6 +269,12 @@ Contoh: grafik $f(x)=2x+1$ melalui $(1,3)$. Maka grafik $f^{-1}(x)=\\dfrac{x-1}{
               "$(1,0)$",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Grafik fungsi f yang naik melalui titik satu koma satu dan grafik inversnya yang juga melalui titik itu, keduanya saling mencerminkan terhadap garis putus-putus y sama dengan x.",
+          caption: "Grafik $f(x)=2x-1$ dan inversnya $f^{-1}(x)=\\dfrac{x+1}{2}$ bercermin terhadap garis $y=x$; keduanya berpotongan di $(1,1)$ yang terletak pada $y=x$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-inv-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="20" y1="185" x2="300" y2="185" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-inv-arrow)"/><line x1="80" y1="225" x2="80" y2="25" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-inv-arrow)"/><line x1="80" y1="185" x2="245" y2="20" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5 4"/><line x1="80" y1="215" x2="155" y2="65" stroke="currentColor" stroke-width="2.2"/><line x1="50" y1="185" x2="230" y2="95" stroke="currentColor" stroke-width="2.2"/><circle cx="110" cy="155" r="2.6" fill="currentColor"/><text x="116" y="152" font-size="11" fill="currentColor">(1,1)</text><text x="160" y="80" font-size="12" fill="currentColor">f</text><text x="200" y="128" font-size="12" fill="currentColor">f⁻¹</text><text x="212" y="44" font-size="12" fill="currentColor">y = x</text><text x="66" y="200" font-size="12" fill="currentColor">O</text><text x="304" y="182" font-size="12" fill="currentColor">x</text><text x="64" y="34" font-size="12" fill="currentColor">y</text></svg>',
         },
       ],
     },
@@ -315,6 +338,16 @@ $$f^{-1}(x) = \\frac{3x+1}{x-2}, \\qquad x \\neq 2.$$
 
 $$f^{-1}(x) = \\sqrt{x}, \\qquad x \\geq 0.$$`,
             },
+            {
+              title: "Contoh 4",
+              text: `Tentukan invers dari $f(x)=x^{3}+1$ untuk $x \\in \\mathbb{R}$.
+
+*Penyelesaian.* Fungsi kubik selalu naik, sehingga satu-satu dan memiliki invers. Tulis $y=x^{3}+1$, maka $x^{3}=y-1$ sehingga $x=\\sqrt[3]{y-1}$. Tukar nama variabel:
+
+$$f^{-1}(x) = \\sqrt[3]{x-1}.$$
+
+*Periksa:* $f(2)=2^{3}+1=9$ dan $f^{-1}(9)=\\sqrt[3]{8}=2$. Benar.`,
+            },
           ],
         },
       ],
@@ -352,7 +385,49 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       body: `**1. Menganggap $f^{-1}(x)$ sama dengan $\\dfrac{1}{f(x)}$.** Keduanya sangat berbeda. Untuk $f(x)=2x+3$, $f^{-1}(x)=\\dfrac{x-3}{2}$ bukan $\\dfrac{1}{2x+3}$.
 **2. Lupa menukar $x$ dan $y$.** Jika langkah terakhir tidak menukar nama variabel, rumus invers akan salah.
 **3. Tidak memeriksa syarat bijektif.** $f(x)=x^2$ pada $\\mathbb{R}$ tidak memiliki invers; perlu pembatasan domain seperti $x \\geq 0$.
-**4. Mengabaikan domain hasil akhir.** Pada $f(x)=\\dfrac{2x+1}{x-3}$, nilai $x=3$ dikecualikan; pada inversnya, nilai $x=2$ juga harus dikecualikan.`,
+**4. Mengabaikan domain hasil akhir.** Pada $f(x)=\\dfrac{2x+1}{x-3}$, nilai $x=3$ dikecualikan; pada inversnya, nilai $x=2$ juga harus dikecualikan.
+
+**5. Menuliskan domain $f^{-1}$ tanpa melihat range $f$.** Domain $f^{-1}$ sama dengan range $f$. Untuk $f(x)=x^{2}$ dengan $x \\geq 0$ diperoleh range $y \\geq 0$, sehingga $f^{-1}(x)=\\sqrt{x}$ hanya terdefinisi untuk $x \\geq 0$. Melupakan syarat ini membuat rumus invers tidak lengkap.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Tentukan rumus invers dari $f(x)=x^{2}-4x+7$ dengan domain $x \\ge 2$. Jelaskan mengapa pembatasan domain itu diperlukan.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Kita lengkapi kuadrat, lalu balik arah pemetaannya.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Tanpa pembatasan, $f(x)=x^2-4x+7$ tidak satu-satu karena satu nilai $y$ dapat berasal dari dua nilai $x$. Pembatasan $x \\ge 2$ membuatnya satu-satu.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Lengkapi kuadrat: $f(x)=x^2-4x+7=(x-2)^2+3$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Tulis $y=(x-2)^2+3$, sehingga $(x-2)^2=y-3$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Karena $x \\ge 2$, maka $x-2 \\ge 0$, sehingga $x-2=\\sqrt{y-3}$ dan $x=2+\\sqrt{y-3}$.",
+            },
+            {
+              title: "Langkah 5",
+              text: "Tukar nama variabel: $f^{-1}(x)=2+\\sqrt{x-3}$ dengan domain $x \\ge 3$. Periksa: $f(5)=25-20+7=12$ dan $f^{-1}(12)=2+\\sqrt{9}=5$.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Gagasan fungsi baru matang pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* pada akhir abad ke-17 untuk menyatakan besaran yang bergantung pada variabel, dan Leonhard Euler pada abad ke-18 memberi notasi $f(x)$ yang kita pakai sekarang. Gagasan membalik pemetaan juga tumbuh dari kebutuhan operasi kebalikan, misalnya dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers dibakukan seiring berkembangnya notasi himpunan dan pemetaan pada abad ke-19 dan ke-20. Sejak itu fungsi invers menjadi alat baku untuk "membaca kembali" nilai semula dari suatu hasil.`,
     },
     {
       id: "refleksi",

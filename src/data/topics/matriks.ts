@@ -209,6 +209,12 @@ Karena $AB \\neq BA$, perkalian matriks **tidak komutatif**. Perhatikan juga bah
           title: "Hati-hati",
           text: "Penjumlahan matriks menuntut ordo yang sama. Matriks $2 \\times 3$ tidak dapat dijumlahkan dengan matriks $3 \\times 2$.",
         },
+        {
+          kind: "figure",
+          alt: "Perkalian matriks A berukuran 2 kali 3 dengan matriks B berukuran 3 kali 2 menghasilkan matriks C berukuran 2 kali 2; dimensi dalam 3 dan 3 disorot.",
+          caption: "Perkalian $A_{2\\times 3}\\,B_{3\\times 2}=C_{2\\times 2}$: banyak kolom $A$ ($3$) harus sama dengan banyak baris $B$ ($3$), sehingga hasilnya berordo $2\\times 2$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><g fill="none" stroke="currentColor"><rect x="30" y="98" width="66" height="44" stroke-width="2"/><line x1="52" y1="98" x2="52" y2="142"/><line x1="74" y1="98" x2="74" y2="142"/><line x1="30" y1="120" x2="96" y2="120"/><rect x="124" y="87" width="44" height="66" stroke-width="2"/><line x1="146" y1="87" x2="146" y2="153"/><line x1="124" y1="109" x2="168" y2="109"/><line x1="124" y1="131" x2="168" y2="131"/><rect x="196" y="98" width="44" height="44" stroke-width="2"/><line x1="218" y1="98" x2="218" y2="142"/><line x1="196" y1="120" x2="240" y2="120"/></g><text x="63" y="90" font-size="13" fill="currentColor" text-anchor="middle">A</text><text x="146" y="79" font-size="13" fill="currentColor" text-anchor="middle">B</text><text x="218" y="90" font-size="13" fill="currentColor" text-anchor="middle">C</text><text x="110" y="126" font-size="13" fill="currentColor" text-anchor="middle">\u00d7</text><text x="182" y="126" font-size="13" fill="currentColor" text-anchor="middle">=</text><text x="63" y="158" font-size="11" fill="currentColor" text-anchor="middle">2 baris \u00d7 <tspan font-weight="bold">3</tspan> kolom</text><text x="146" y="174" font-size="11" fill="currentColor" text-anchor="middle"><tspan font-weight="bold">3</tspan> baris \u00d7 2 kolom</text><text x="218" y="158" font-size="11" fill="currentColor" text-anchor="middle">2 baris \u00d7 2 kolom</text></svg>',
+        },
       ],
     },
     {
@@ -373,6 +379,42 @@ Dalam grafika komputer, matriks mentransformasi posisi titik sehingga gambar dap
           ],
           wrongIndex: 2,
           explanation: "Langkah ketiga keliru. Rumusnya $ad - bc$, sehingga $3 \\cdot 4 - 1 \\cdot 2 = 12 - 2 = 10$, bukan jumlah kedua hasil kali.",
+        },
+      ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Diketahui matriks $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$. Buktikan identitas yang dikenal sebagai **teorema Cayley–Hamilton** untuk matriks $2 \\times 2$:
+$$A^{2} - (a+d)\\,A + (ad-bc)\\,I = O,$$
+dengan $I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ dan $O = \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$. Setelah itu, turunkan rumus invers $A$ dari identitas tersebut ketika $\\det(A) \\neq 0$.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Hitung $A^{2}$, bandingkan dengan kelipatan $A$ dan $I$, lalu baca invers yang tersembunyi di dalamnya.",
+          steps: [
+            {
+              title: "Hitung kuadrat matriks",
+              text: "Kalikan $A$ dengan dirinya sendiri: $A^{2} = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = \\begin{pmatrix} a^{2}+bc & ab+bd \\\\ ac+cd & bc+d^{2} \\end{pmatrix}$.",
+            },
+            {
+              title: "Bandingkan dengan $(a+d)A$",
+              text: "Karena $a+d$ adalah jumlah entri diagonal, $(a+d)A = \\begin{pmatrix} a^{2}+ad & ab+bd \\\\ ac+cd & ad+d^{2} \\end{pmatrix}$.",
+            },
+            {
+              title: "Kurangkan kedua bentuk",
+              text: "Selisihnya hanya menyisakan diagonal: $A^{2} - (a+d)A = \\begin{pmatrix} bc-ad & 0 \\\\ 0 & bc-ad \\end{pmatrix} = -(ad-bc)\\,I$.",
+            },
+            {
+              title: "Peroleh identitasnya",
+              text: "Jadi $A^{2} - (a+d)A + (ad-bc)\\,I = O$. Terbukti.",
+            },
+            {
+              title: "Turunkan rumus invers",
+              text: "Dari $(ad-bc)\\,I = (a+d)A - A^{2} = A\\big((a+d)I - A\\big)$ diperoleh $A\\cdot\\dfrac{(a+d)I - A}{ad-bc} = I$ untuk $\\det(A)=ad-bc \\neq 0$. Maka $A^{-1} = \\dfrac{(a+d)I - A}{ad-bc}$, yang setara dengan $A^{-1} = \\dfrac{1}{ad-bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$, sesuai rumus yang sudah kita kenal.",
+            },
+          ],
         },
       ],
     },

@@ -175,6 +175,12 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
             ],
           ],
         },
+        {
+          kind: "figure",
+          alt: "Dua grafik gelombang pada rentang nol sampai tiga ratus enam puluh derajat: y sama dengan sin x bergelombang landai, dan y sama dengan dua sin tiga x bergelombang lebih tinggi dan tiga kali lebih rapat.",
+          caption: "Grafik $y=\\sin x$ (garis penuh) dan $y=2\\sin 3x$ (putus-putus) pada $0^\\circ$ sampai $360^\\circ$: amplitudo menaikkan puncak, faktor $3$ memampatkan periode menjadi $120^\\circ$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-tri-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="130" x2="305" y2="130" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-tri-axis)"/><line x1="40" y1="215" x2="40" y2="25" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-tri-axis)"/><polyline points="40,130 61.7,110 83.3,95.4 105,90 126.7,95.4 148.3,110 170,130 191.7,150 213.3,164.6 235,170 256.7,164.6 278.3,150 300,130" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="40,130 50.8,73.4 61.7,50 72.5,73.4 83.3,130 94.2,186.6 105,210 115.8,186.6 126.7,130 137.5,73.4 148.3,50 159.2,73.4 170,130 180.8,186.6 191.7,210 202.5,186.6 213.3,130 224.2,73.4 235,50 245.8,73.4 256.7,130 267.5,186.6 278.3,210 289.2,186.6 300,130" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 3"/><line x1="48" y1="22" x2="72" y2="22" stroke="currentColor" stroke-width="2.2"/><text x="78" y="26" font-size="11" fill="currentColor">y = sin x</text><line x1="178" y1="22" x2="202" y2="22" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 3"/><text x="208" y="26" font-size="11" fill="currentColor">y = 2 sin 3x</text><text x="296" y="124" font-size="11" fill="currentColor">x</text><text x="30" y="146" font-size="10" fill="currentColor">0</text><text x="284" y="146" font-size="10" fill="currentColor">360</text></svg>',
+        },
       ],
     },
     {
@@ -391,6 +397,12 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
           ],
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Rumus jumlah dan selisih sudut berakar pada tabel tali busur yang disusun astronom Yunani seperti Ptolemaeus, yang sifat-sifatnya setara dengan identitas trigonometri kita. Astronom India dan dunia Islam mengembangkan fungsi sinus serta aturan sinus untuk segitiga, termasuk bentuk bola, dan sekitar abad ke-15 Ghiyats al-Din al-Kashi menyatakan aturan kosinus dalam bentuk modernnya. Aturan kosinus sebenarnya memperumum teorema Pythagoras; dalam bentuk geometris, kasus tumpul dan lancip sudah dibahas Euclid dalam *Elements*. Identitas sudut rangkap serta bentuk baku trigonometri pada lingkaran satuan banyak dirapikan oleh Leonhard Euler pada abad ke-18.`,
     },
     {
       id: "refleksi",

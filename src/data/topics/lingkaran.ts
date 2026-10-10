@@ -257,6 +257,14 @@ $$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}.$$
 $$\\ell_{\\text{dalam}}=\\sqrt{d^{2}-(R+r)^{2}}.$$
 
 Semua rumus ini berasal dari teorema Pythagoras pada segitiga yang dibentuk garis singgung, jari-jari, dan garis pusat.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Lingkaran berpusat di titik (a, b) dengan jari-jari r, sebuah titik P pada lingkaran, dan garis singgung di P yang tegak lurus jari-jari.",
+          caption: "Garis singgung menyentuh lingkaran di $P$ dan tegak lurus jari-jari: lingkaran berpusat $(a,b)$ berjari-jari $r$, dengan $OP\\perp$ garis singgung.",
+          svg: '<svg viewBox="0 0 320 260" aria-hidden="true" role="presentation"><circle cx="120" cy="150" r="90" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="120" y1="150" x2="171.6" y2="76.3" stroke="currentColor" stroke-width="2"/><line x1="122.4" y1="41.9" x2="220.8" y2="110.7" stroke="currentColor" stroke-width="2"/><path d="M 164.7,86.1 L 174.5,93 L 181.4,83.2" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="120" cy="150" r="3" fill="currentColor"/><circle cx="171.6" cy="76.3" r="3" fill="currentColor"/><text x="86" y="168" font-size="13" fill="currentColor">(a, b)</text><text x="134" y="112" font-size="13" fill="currentColor">r</text><text x="178" y="72" font-size="13" fill="currentColor">P</text><text x="196" y="58" font-size="12" fill="currentColor">garis singgung</text></svg>',
+        },
+      ],
     },
     {
       id: "eksplorasi",
@@ -375,6 +383,44 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
           ],
           wrongIndex: 2,
           explanation: "Langkah terakhir memakai $14$ sebagai jari-jari, padahal $r=7$. Seharusnya luas $=\\dfrac{22}{7}\\times7^{2}=\\dfrac{22}{7}\\times49=154$ cm².",
+        },
+      ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Lingkaran berpusat $O$ berjari-jari $6$ cm. Sebuah titik $P$ berada $10$ cm dari $O$. Dari $P$ ditarik satu **garis singgung** yang menyentuh lingkaran di $A$, dan satu **garis potong** melalui $P$ yang memotong lingkaran berturut-turut di $C$ (dekat $P$) lalu $D$. Diketahui $PC = 4$ cm. Dengan teorema garis singgung–garis potong berlaku $PA^{2} = PC \\cdot PD$. Hitunglah $PA$, $PD$, dan panjang tali busur $CD$.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Mulai dari segitiga siku-siku pada garis singgung, lalu pakai kesebangunan untuk menghubungkan garis singgung dengan garis potong.",
+          steps: [
+            {
+              title: "Panjang garis singgung",
+              text: "Karena $PA \\perp OA$, segitiga $POA$ siku-siku di $A$, sehingga $PA = \\sqrt{OP^{2} - r^{2}} = \\sqrt{10^{2} - 6^{2}} = \\sqrt{64} = 8$ cm.",
+            },
+            {
+              title: "Kuadrat garis singgung",
+              text: "Dari hasil itu, $PA^{2} = 8^{2} = 64$.",
+            },
+            {
+              title: "Mengapa $PA^{2} = PC \\cdot PD$",
+              text: "Sudut antara garis singgung $PA$ dan tali busur $AC$ besarnya sama dengan sudut keliling $\\angle ADC$ (teorema sudut garis singgung–tali busur). Karena $\\angle APC = \\angle APD$ dan $P, C, D$ segaris, segitiga $PAC$ sebangun dengan segitiga $PDA$.",
+            },
+            {
+              title: "Gunakan kesebangunan",
+              text: "Dari kesebangunan itu berlaku $\\dfrac{PA}{PD} = \\dfrac{PC}{PA}$, sehingga $PA^{2} = PC \\cdot PD$.",
+            },
+            {
+              title: "Hitung panjang $PD$",
+              text: "Substitusi $PA^{2} = 64$ dan $PC = 4$: $64 = 4 \\cdot PD$, maka $PD = 16$ cm. Periksa lewat kuasa titik: $OP^{2} - r^{2} = 100 - 36 = 64$. Cocok.",
+            },
+            {
+              title: "Hitung tali busur $CD$",
+              text: "Karena $P, C, D$ segaris, $CD = PD - PC = 16 - 4 = 12$ cm.",
+            },
+          ],
         },
       ],
     },

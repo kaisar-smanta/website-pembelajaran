@@ -133,6 +133,12 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Kunci menekankan penurunan distribusi dari $36$ hasil sama mungkin, pemeriksaan jumlah peluang sama dengan $1$, dan penafsiran $E(X)$ sebagai rata-rata jangka panjang.',
     hints: ['Cacah banyak cara tiap jumlah mata, misalnya jumlah $7$ ada $6$ cara.'],
     competencies: ['distribusi peluang', 'nilai harapan', 'pemodelan'],
+    rubric: [
+      'Menuliskan peluang jumlah $2$ sampai $12$ dari $36$ hasil sama mungkin',
+      'Memeriksa jumlah peluang sama dengan $1$',
+      'Menghitung $E(X)=7$',
+      'Menafsirkan $E(X)$ sebagai rata-rata jangka panjang',
+    ],
   },
   {
     id: 'vad-09',
@@ -163,6 +169,12 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Kunci mencakup pemeriksaan syarat distribusi, perhitungan $E(X)$, $E(X^{2})$, varians, dan penafsiran nilai harapan serta simpangan baku dalam konteks usaha.',
     hints: ['Hitung $E(X^{2}) = \\sum x^{2} f(x)$ untuk memperoleh varians.'],
     competencies: ['nilai harapan', 'varians variabel acak', 'pemodelan'],
+    rubric: [
+      'Memeriksa syarat jumlah peluang sama dengan $1$',
+      'Menghitung $E(X)=1$',
+      'Menghitung $E(X^{2})=2$ dan varians $1$',
+      'Menafsirkan nilai harapan bagi pemilik usaha',
+    ],
   },
   {
     id: 'vad-11',
@@ -198,6 +210,12 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Kunci: menghitung nilai harapan dan membandingkannya, serta menyadari bahwa nilai harapan bukan satu-satunya dasar keputusan karena ada risiko.',
     hints: ['Kalikan tiap nilai dengan peluangnya lalu jumlahkan.', 'Pertimbangkan sebaran dan peluang mendapat nol.'],
     competencies: ['nilai harapan', 'risiko', 'evaluasi'],
+    rubric: [
+      'Menghitung $E(X)=1{,}6$ juta rupiah',
+      'Membandingkan dengan bonus tetap $1{,}5$ juta rupiah',
+      'Menyimpulkan Skema A lebih baik menurut nilai harapan',
+      'Menyebut risiko sebagai pertimbangan lain',
+    ],
   },
   {
     id: 'vad-13',
@@ -213,6 +231,12 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Kunci: menghitung nilai harapan klaim lalu membandingkannya dengan premi, serta menafsirkan selisih sebagai keuntungan rata-rata.',
     hints: ['Nilai $X=0$ tetap disertakan dalam perhitungan meskipun hasilnya nol.', 'Bandingkan premi dengan $E(X)$.'],
     competencies: ['nilai harapan', 'kontekstual', 'interpretasi'],
+    rubric: [
+      'Menghitung $E(X)=0{,}8$ juta rupiah',
+      'Membandingkan premi $1{,}0$ juta dengan $E(X)$',
+      'Menyimpulkan perusahaan untung $0{,}2$ juta per nasabah',
+      'Menyebut tetap adanya risiko klaim besar',
+    ],
   },
   {
     id: 'vad-14',
@@ -232,5 +256,11 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Nilai harapan negatif berarti pembeli rugi secara rata-rata.',
     ],
     competencies: ['distribusi peluang', 'nilai harapan', 'kontekstual', 'interpretasi'],
+    rubric: [
+      'Menyusun distribusi keuntungan bersih tiap hasil',
+      'Menghitung $E(\\text{hadiah})=1.900$ rupiah',
+      'Menghitung $E(X)=-3.100$ rupiah',
+      'Menyimpulkan undian tidak adil bagi pembeli',
+    ],
   },
 ];

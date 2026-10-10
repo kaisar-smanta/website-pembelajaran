@@ -209,6 +209,12 @@ Bentuk distribusi bergantung pada $p$. Bila $p = 0{,}5$ distribusinya **simetris
           variant: "tip",
           text: "Baris ke-$n$ **segitiga Pascal** memberi koefisien binomial $\\binom{n}{0}, \\binom{n}{1}, \\ldots, \\binom{n}{n}$ secara cepat, misalnya baris $n=5$ adalah $1, 5, 10, 10, 5, 1$.",
         },
+        {
+          kind: "figure",
+          alt: "Diagram batang peluang binom, banyak sukses dari n sama dengan 5, peluang sukses sama dengan 0,5, dengan batang pada k sama dengan nol sampai lima.",
+          caption: "Fungsi peluang $X \\sim B(5;\\,0{,}5)$: $P(X=k)=\\binom{5}{k}(0{,}5)^{5}$. Sebarannya simetris, tertinggi di $k=2$ dan $k=3$ dengan $P=\\tfrac{10}{32}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="295" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="190" x2="40" y2="45" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="86" x2="290" y2="86" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3"/><rect x="46" y="177" width="28" height="13" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="86" y="125" width="28" height="65" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="126" y="60" width="28" height="130" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="166" y="60" width="28" height="130" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="206" y="125" width="28" height="65" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="246" y="177" width="28" height="13" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><text x="2" y="90" font-size="11" fill="currentColor">0,25</text><text x="16" y="194" font-size="11" fill="currentColor">0</text><text x="60" y="205" font-size="11" text-anchor="middle" fill="currentColor">0</text><text x="100" y="205" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="140" y="205" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="180" y="205" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="220" y="205" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="260" y="205" font-size="11" text-anchor="middle" fill="currentColor">5</text><text x="285" y="186" font-size="11" fill="currentColor">k</text><text x="46" y="40" font-size="11" fill="currentColor">P(X=k)</text></svg>',
+        },
       ],
     },
     {
@@ -415,6 +421,12 @@ $$E(X)=np\\sum_{j=0}^{n-1}\\binom{n-1}{j}p^{j}(1-p)^{(n-1)-j}=np\\big(p+(1-p)\\b
 Terbukti.`,
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Distribusi binomial tumbuh dari kajian percobaan berulang yang hanya punya dua hasil. Blaise Pascal dan Pierre de Fermat membahas pola peluang semacam itu pada 1654, dan koefisiennya tampak pada segitiga Pascal. Jacob Bernoulli dalam *Ars Conjectandi* (1713) mengembangkan percobaan berulang dengan peluang sukses tetap, yang kemudian disebut percobaan Bernoulli, beserta rumus peluang banyaknya keberhasilan. Abraham de Moivre pada 1733 mempelajari distribusi ini dalam jumlah besar dan menemukan hampiran lengkung normalnya. Sejak itu distribusi binomial menjadi salah satu model peluang diskret yang paling banyak dipakai.`,
     },
     {
       id: "refleksi",

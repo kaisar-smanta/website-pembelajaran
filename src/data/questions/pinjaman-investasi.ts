@@ -73,6 +73,12 @@ export const pinjamanInvestasiQuestions: Question[] = [
       'Bunga tiap bulan dihitung dari sisa utang periode sebelumnya.',
     ],
     competencies: ['konsep anuitas', 'penalaran'],
+    rubric: [
+      'Mengaitkan total pembayaran dengan $n\\times A$',
+      'Menjelaskan bunga dihitung dari sisa utang',
+      'Menjelaskan porsi bunga menurun tiap bulan',
+      'Menjelaskan porsi pokok meningkat tiap bulan',
+    ],
   },
   {
     id: 'pinv-05',
@@ -126,6 +132,12 @@ export const pinjamanInvestasiQuestions: Question[] = [
       'Gunakan $A = \\dfrac{FV \\cdot i}{(1+i)^{n}-1}$.',
     ],
     competencies: ['pemodelan keuangan', 'nilai masa depan'],
+    rubric: [
+      'Mengubah 5 tahun menjadi 60 bulan',
+      'Memilih rumus nilai masa depan anuitas',
+      'Membalik rumus untuk mencari setoran',
+      'Menuliskan besaran setoran bulanan',
+    ],
   },
   {
     id: 'pinv-08',
@@ -167,6 +179,12 @@ export const pinjamanInvestasiQuestions: Question[] = [
       'Total bunga $= n \\times A - M$.',
     ],
     competencies: ['anuitas', 'penalaran keuangan'],
+    rubric: [
+      'Menghitung angsuran tiap tenor',
+      'Menghitung total bunga tiap tenor',
+      'Membandingkan angsuran dan total bunga',
+      'Menjelaskan hubungan tenor dengan total bunga',
+    ],
   },
   {
     id: 'pinv-10',
@@ -203,6 +221,12 @@ export const pinjamanInvestasiQuestions: Question[] = [
       'Bandingkan angsuran penawaran dengan angsuran anuitas pada $1{,}5\\%$ per bulan.',
     ],
     competencies: ['evaluasi pinjaman', 'pengambilan keputusan'],
+    rubric: [
+      'Menghitung total pembayaran dan total bunga',
+      'Menghitung angsuran wajar pada bunga $1{,}5\\%$',
+      'Membandingkan angsuran penawaran dengan angsuran wajar',
+      'Memberi penilaian disertai alasan',
+    ],
   },
   {
     id: 'pinv-12',
@@ -221,6 +245,12 @@ export const pinjamanInvestasiQuestions: Question[] = [
       'Gunakan $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}$ lalu balik untuk mencari $A$.',
     ],
     competencies: ['pemodelan keuangan', 'nilai masa depan', 'anuitas'],
+    rubric: [
+      'Menyusun model nilai masa depan anuitas',
+      'Menghitung saldo akhir',
+      'Membalik rumus untuk mencapai target',
+      'Menyimpulkan kecukupan setoran',
+    ],
   },
   {
     id: 'pinv-13',
@@ -239,5 +269,36 @@ export const pinjamanInvestasiQuestions: Question[] = [
       'Manfaatkan $(1+i)^{-n}\\cdot(1+i)^{n}=1$.',
     ],
     competencies: ['anuitas', 'nilai sekarang dan masa depan', 'penalaran'],
+    rubric: [
+      'Mengubah bentuk rumus angsuran',
+      'Membuktikan identitas dengan aljabar eksponen',
+      'Menjelaskan makna nilai sekarang',
+      'Menjelaskan makna nilai masa depan',
+    ],
+  },
+  {
+    id: 'pinv-14',
+    topicId: 'pinjaman-investasi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Sebuah pinjaman Rp10.000.000 dilunasi dengan anuitas bulanan pada bunga $2\\%$ per bulan selama $12$ bulan. Diketahui $(1{,}02)^{-12}\\approx0{,}7885$. (a) Hitung besar angsuran bulanan. (b) Hitung total bunga yang dibayarkan. (c) Jelaskan mengapa memperpanjang tenor menurunkan angsuran tetapi menaikkan total bunga.',
+    answer:
+      '(a) Dengan $M=10.000.000$, $i=0{,}02$, dan $n=12$, angsuran $A=\\dfrac{M\\cdot i}{1-(1+i)^{-n}}=\\dfrac{10.000.000\\times0{,}02}{1-0{,}7885}=\\dfrac{200.000}{0{,}2115}\\approx\\text{Rp}945.626$. (b) Total pembayaran $=12\\times945.626=\\text{Rp}11.347.509$, sehingga total bunga $\\approx\\text{Rp}1.347.509$. (c) Memperpanjang tenor memperkecil angsuran karena pokok dicicil dalam lebih banyak periode, tetapi bunga dihitung dari sisa utang selama periode yang lebih panjang, sehingga total bunga justru bertambah.',
+    explanation:
+      'Kunci: menerapkan rumus anuitas, menghitung total bunga sebagai $n\\times A-M$, dan menjelaskan hubungan tenor dengan besar angsuran serta total bunga.',
+    hints: [
+      'Gunakan $A=\\dfrac{M\\cdot i}{1-(1+i)^{-n}}$.',
+      'Total bunga adalah total pembayaran dikurangi pokok.',
+      'Tenor lebih panjang berarti lebih banyak periode bunga berjalan.',
+    ],
+    competencies: ['anuitas', 'total bunga', 'penalaran'],
+    rubric: [
+      'Menghitung angsuran bulanan dengan rumus anuitas',
+      'Menghitung total pembayaran',
+      'Menentukan total bunga',
+      'Menjelaskan pengaruh tenor terhadap angsuran dan total bunga',
+    ],
   },
 ];

@@ -10,13 +10,13 @@ export const eksponenQuestions: Question[] = [
     prompt: 'Bentuk sederhana dari $2^{3} \\cdot 2^{5}$ adalah …',
     options: [
       { key: 'A', text: '$2^{15}$' },
-      { key: 'B', text: '$4^{15}$' },
+      { key: 'B', text: '$2^{2}$' },
       { key: 'C', text: '$4^{8}$' },
       { key: 'D', text: '$2^{8}$' },
     ],
     answer: 'D',
     explanation:
-      'Karena basisnya sama, eksponen dijumlahkan: $2^{3} \\cdot 2^{5} = 2^{3+5} = 2^{8}$. Basis tidak berubah.',
+      'Karena basisnya sama, eksponen dijumlahkan: $2^{3} \\cdot 2^{5} = 2^{3+5} = 2^{8}$. Basis tidak berubah. Opsi A mengalikan eksponen ($3\\times5$); opsi B mengurangi eksponen ($5-3$); opsi C mengalikan basis menjadi $4$ sambil menjumlahkan eksponen.',
     hints: ['Jika basis sama dan dikalikan, apa yang terjadi pada eksponennya?'],
     competencies: ['sifat eksponen'],
   },
@@ -29,13 +29,13 @@ export const eksponenQuestions: Question[] = [
     prompt: 'Nilai dari $2^{-3}$ adalah …',
     options: [
       { key: 'A', text: '$-0{,}125$' },
-      { key: 'B', text: '$0{,}25$' },
+      { key: 'B', text: '$8$' },
       { key: 'C', text: '$-0{,}25$' },
       { key: 'D', text: '$0{,}125$' },
     ],
     answer: 'D',
     explanation:
-      'Pangkat negatif berarti kebalikan: $2^{-3} = \\dfrac{1}{2^{3}} = \\dfrac{1}{8}$. Tanda menjadi negatif hanya jika basisnya negatif dan eksponennya ganjil.',
+      'Pangkat negatif berarti kebalikan: $2^{-3} = \\dfrac{1}{2^{3}} = \\dfrac{1}{8}$. Tanda menjadi negatif hanya jika basisnya negatif dan eksponennya ganjil. Opsi B mengabaikan tanda negatif dan menghitung $2^{3}$; opsi A dan C menganggap pangkat negatif menghasilkan bilangan negatif.',
     hints: ['Pangkat negatif bukan berarti hasilnya bilangan negatif.'],
     competencies: ['pangkat negatif'],
   },
@@ -157,6 +157,11 @@ export const eksponenQuestions: Question[] = [
       'Kunci jawaban menekankan pendekatan dari kesamaan dua cara menghitung hasil bagi yang sama, lalu perluasan definisi ke eksponen negatif.',
     hints: ['Mulai dari $a^{n}/a^{n}=1$, lalu terapkan sifat pengurangan eksponen pada hasil bagi yang sama.'],
     competencies: ['pembuktian', 'pangkat nol dan negatif'],
+    rubric: [
+      'Memulai dari $a^{n}/a^{n}=1$',
+      'Menerapkan $a^{n}/a^{n}=a^{n-n}=a^{0}$ untuk menyimpulkan $a^{0}=1$',
+      'Menjelaskan $m<n$ memberi eksponen negatif yang berarti kebalikan',
+    ],
   },
   {
     id: 'eks-10',
@@ -186,6 +191,11 @@ export const eksponenQuestions: Question[] = [
       'Kunci: menguji klaim dengan bilangan konkret, lalu menyatakan sifat distribusi pangkat atas perkalian dan pembagian.',
     hints: ['Coba bilangan yang membentuk Pythagoras seperti $3$ dan $4$.', 'Pangkat dapat disebar pada perkalian, bukan pada penjumlahan.'],
     competencies: ['sifat eksponen', 'penalaran', 'evaluasi'],
+    rubric: [
+      'Menguji $(a+b)^{2}\\ne a^{2}+b^{2}$ dengan contoh angka',
+      'Menguji $\\sqrt{a+b}\\ne\\sqrt{a}+\\sqrt{b}$ dengan contoh angka',
+      'Menuliskan $(ab)^{n}=a^{n}b^{n}$ dan $\\left(\\dfrac{a}{b}\\right)^{n}=\\dfrac{a^{n}}{b^{n}}$',
+    ],
   },
   {
     id: 'eks-12',
@@ -201,6 +211,11 @@ export const eksponenQuestions: Question[] = [
       'Kunci: mensubstitusi $t=3$ dan menafsirkan basis $0<b<1$ sebagai faktor penyusutan.',
     hints: ['Hitung $(0{,}8)^{3}$ lebih dahulu.', 'Basis kurang dari $1$ menandakan peluruhan.'],
     competencies: ['pemodelan eksponen', 'peluruhan'],
+    rubric: [
+      'Menghitung $V(3)=8.000.000\\times0{,}512=4.096.000$',
+      'Menafsirkan faktor $0{,}8$ sebagai sisa $80\\%$ tiap tahun',
+      'Menyebut nilai menyusut $20\\%$ per tahun',
+    ],
   },
   {
     id: 'eks-13',
@@ -219,6 +234,11 @@ export const eksponenQuestions: Question[] = [
       'Bandingkan dengan membagi kedua model sehingga muncul $\\left(\\dfrac{1{,}03}{1{,}01}\\right)^t>1{,}6$.',
     ],
     competencies: ['pemodelan eksponen', 'pertidaksamaan', 'interpretasi'],
+    rubric: [
+      'Menuliskan $A(t)=500.000(1{,}03)^{t}$ dan $B(t)=800.000(1{,}01)^{t}$',
+      'Mengubah perbandingan menjadi $\\left(\\dfrac{1{,}03}{1{,}01}\\right)^{t}>1{,}6$ dan menguji nilai $t$',
+      'Menyimpulkan Kota A melampaui pada tahun ke-$24$ dan menyebut keterbatasan laju tetap',
+    ],
   },
   {
     id: 'eks-14',
@@ -237,5 +257,10 @@ export const eksponenQuestions: Question[] = [
       'Setelah waktu paruh diketahui, bagi lama waktu dengan $T$ untuk memperoleh banyak waktu paruh.',
     ],
     competencies: ['peluruhan eksponen', 'waktu paruh', 'persamaan eksponen', 'pemodelan'],
+    rubric: [
+      'Menyusun $320\\left(\\tfrac12\\right)^{15/T}=40$ lalu $\\left(\\tfrac12\\right)^{15/T}=\\left(\\tfrac12\\right)^{3}$',
+      'Memperoleh waktu paruh $T=5$ tahun dan menuliskan model lengkapnya',
+      'Menghitung $M(25)=10$ gram',
+    ],
   },
 ];

@@ -138,6 +138,12 @@ $$\\bar{x}=\\frac{x_1+x_2+\\cdots+x_n}{n}.$$
       body: "Data yang sama dapat disajikan dengan berbagai cara. Setiap penyajian menonjolkan aspek yang berbeda.",
       blocks: [
         {
+          kind: "figure",
+          alt: "Histogram empat kelas dari data 2, 3, 4, 4, 6, 6, 6, 7, 9, 13, dengan dua kelas tertinggi pada rentang 2 sampai 8 dan satu garis putus-putus di posisi median.",
+          caption: "Histogram data $2, 3, 4, 4, 6, 6, 6, 7, 9, 13$; garis putus-putus menandai median $6$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><rect x="40" y="50" width="65" height="150" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><rect x="105" y="50" width="65" height="150" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><rect x="170" y="162.5" width="65" height="37.5" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><rect x="235" y="162.5" width="65" height="37.5" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><line x1="126.7" y1="45" x2="126.7" y2="200" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><text x="112" y="40" font-size="11" fill="currentColor">median</text><text x="46" y="18" font-size="11" fill="currentColor">frekuensi</text><text x="26" y="54" font-size="10" fill="currentColor">4</text><text x="27" y="203" font-size="10" fill="currentColor">0</text><text x="56" y="216" font-size="10" fill="currentColor">2–5</text><text x="121" y="216" font-size="10" fill="currentColor">5–8</text><text x="185" y="216" font-size="10" fill="currentColor">8–11</text><text x="247" y="216" font-size="10" fill="currentColor">11–14</text></svg>',
+        },
+        {
           kind: "table",
           caption: "Jenis penyajian data dan kegunaannya",
           headers: [
@@ -332,6 +338,34 @@ $$Q_1 - 1{,}5\\,\\text{IQR} \\qquad \\text{atau} \\qquad Q_3 + 1{,}5\\,\\text{IQ
 IQR mengukur lebar separuh data yang paling rapat, sehingga nilai yang jatuh jauh di luar rentang itu layak diperiksa lebih dahulu sebelum disimpulkan.`,
     },
     {
+      id: "analisis-distribusi-data-rumus",
+      kind: "rumus",
+      title: "Rumus: Pemusatan dan Penyebaran",
+      body: `**Ukuran pemusatan** untuk data tunggal berukuran $n$:
+
+$$\\bar{x} = \\frac{\\sum x_i}{n},$$
+
+dengan median adalah nilai tengah data terurut dan modus adalah nilai yang paling sering muncul.
+
+**Kuartil** membagi data terurut menjadi empat bagian sama banyak:
+
+$$Q_1 = \\text{median separuh bawah}, \\quad Q_2 = \\text{median}, \\quad Q_3 = \\text{median separuh atas}.$$
+
+**Ukuran penyebaran** mengukur seberapa jauh data tersebar dari pusatnya:
+
+$$\\text{Jangkauan} = x_{\\max} - x_{\\min}, \\qquad \\text{IQR} = Q_3 - Q_1.$$
+
+**Simpangan baku** (deviasi standar) merangkum seberapa jauh nilai-nilai menyimpang dari mean. Untuk data **populasi** dipakai
+
+$$\\sigma = \\sqrt{\\frac{\\sum (x_i-\\bar{x})^2}{n}},$$
+
+sedangkan untuk data **sampel** dipakai
+
+$$s = \\sqrt{\\frac{\\sum (x_i-\\bar{x})^2}{n-1}}.$$
+
+Semakin besar simpangan baku, semakin lebar sebaran data di sekitar mean.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -409,6 +443,46 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
 **3. Menyamakan kuartil dengan membagi data menjadi empat sama besar tanpa aturan.** Untuk $n$ kecil, $Q_1$ dan $Q_3$ ditentukan sebagai median separuh data, bukan dengan mencari persentil secara sembarangan.
 
 **4. Langsung membuang pencilan.** Pencilan dapat berasal dari kesalahan pencatatan, tetapi bisa juga peristiwa nyata. Selidiki dahulu sebelum mengambil keputusan.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Nilai ulangan enam siswa adalah $6, 7, 7, 8, 9$, dan $x$. Diketahui rata-ratanya sama dengan mediannya. Tentukan semua nilai $x$ yang mungkin.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Tulis rata-rata, lalu periksa median untuk tiap kemungkinan posisi $x$.",
+          steps: [
+            {
+              title: "Tulis rata-rata",
+              text: "$\\bar{x}=\\dfrac{6+7+7+8+9+x}{6}=\\dfrac{37+x}{6}$.",
+            },
+            {
+              title: "Median bergantung posisi $x$",
+              text: "Setelah data diurutkan, median adalah rata-rata data ke-3 dan ke-4. Nilainya berubah bergantung pada letak $x$, sehingga perlu diperiksa per selang.",
+            },
+            {
+              title: "Kasus $x\\le 6$",
+              text: "Data terurut $x,6,7,7,8,9$, median $=\\dfrac{7+7}{2}=7$. Dari $\\dfrac{37+x}{6}=7$ diperoleh $x=5$, dan $5\\le6$ memenuhi.",
+            },
+            {
+              title: "Kasus $7<x\\le 8$",
+              text: "Data terurut $6,7,7,x,8,9$, median $=\\dfrac{7+x}{2}$. Dari $\\dfrac{37+x}{6}=\\dfrac{7+x}{2}$ diperoleh $3(7+x)=37+x$, sehingga $2x=16$ dan $x=8$; karena $7<8\\le8$, nilai ini memenuhi.",
+            },
+            {
+              title: "Selang lain",
+              text: "Untuk $6<x\\le7$ mediannya $7$ dan untuk $x>8$ mediannya $7{,}5$; keduanya hanya menghasilkan $x=5$ atau $x=8$ yang berada di luar selangnya. Jadi solusinya $x=5$ atau $x=8$.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Penggunaan rata-rata untuk meringkas data sudah sangat tua, tetapi gagasan **median** sebagai nilai tengah yang tahan terhadap nilai ekstrem baru dipopulerkan Francis Galton pada akhir abad ke-19. Kata "statistik" sendiri berasal dari bahasa Latin *status* (keadaan), karena awalnya statistik dipakai untuk mencatat keadaan penduduk dan ekonomi suatu negara. Pada awal abad ke-20, Karl Pearson membantu meletakkan dasar statistika modern dengan ukuran-ukuran yang lebih teliti. Adapun **box plot** yang kita pakai untuk membandingkan sebaran diperkenalkan John Tukey pada 1977 dalam bukunya *Exploratory Data Analysis*. Jadi ukuran pemusatan dan penyebaran yang kita pelajari adalah hasil akumulasi gagasan selama berabad-abad.`,
     },
     {
       id: "refleksi",

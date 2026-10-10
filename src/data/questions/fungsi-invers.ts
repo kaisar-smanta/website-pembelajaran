@@ -34,6 +34,11 @@ export const fungsiInversQuestions: Question[] = [
       'Kunci menekankan gagasan injektif: satu hasil tidak boleh berasal dari lebih dari satu masukan, dan pembatasan domain adalah cara memperbaikinya.',
     hints: ['Cari dua nilai $x$ berbeda yang menghasilkan $f(x)$ sama.'],
     competencies: ['fungsi bijektif', 'domain fungsi'],
+    rubric: [
+      'Menunjukkan $f(2)=f(-2)=4$ sehingga $f$ tidak satu-satu',
+      'Menjelaskan fungsi punya invers bila bijektif/khususnya injektif',
+      'Membatasi domain misalnya $x\\ge0$ dan menyebut $f^{-1}(x)=\\sqrt{x}$',
+    ],
   },
   {
     id: 'fi-03',
@@ -129,6 +134,11 @@ export const fungsiInversQuestions: Question[] = [
       'Kunci menekankan perbedaan makna notasi: $-1$ pada $f^{-1}$ menandakan fungsi invers, bukan pangkat $-1$ yang berarti kebalikan.',
     hints: ['Hitung $f^{-1}(3)$ dan $\\dfrac{1}{f(3)}$ lalu bandingkan.'],
     competencies: ['pemahaman notasi invers'],
+    rubric: [
+      'Menjelaskan $f^{-1}$ membalik pemetaan, bukan kebalikan nilai $f$',
+      'Menghitung $f^{-1}(x)=\\dfrac{x-3}{2}$ untuk $f(x)=2x+3$',
+      'Membandingkan $f^{-1}(3)=0$ dengan $\\dfrac{1}{f(3)}=\\dfrac{1}{9}$',
+    ],
   },
   {
     id: 'fi-09',
@@ -164,6 +174,11 @@ export const fungsiInversQuestions: Question[] = [
       'Kunci menekankan langkah menurunkan invers (menyatakan $C$ dalam $F$) dan penerapannya pada nilai $F = 77$ yang menghasilkan $C = 25$.',
     hints: ['Kurangi $32$ terlebih dahulu, lalu kalikan dengan $\\dfrac{5}{9}$.'],
     competencies: ['fungsi invers', 'pemodelan kontekstual'],
+    rubric: [
+      'Menyelesaikan $F=\\dfrac{9}{5}C+32$ menjadi $C=\\dfrac{5}{9}(F-32)$',
+      'Mensubstitusi $F=77$ ke rumus invers',
+      'Memperoleh $C=25$ derajat Celsius',
+    ],
   },
   {
     id: 'fi-11',
@@ -179,6 +194,11 @@ export const fungsiInversQuestions: Question[] = [
       'Kunci: melengkapi kuadrat untuk memperoleh invers, memverifikasi komposisi, dan menghubungkan pembatasan domain dengan sifat satu-satu.',
     hints: ['Ubah $x^{2}+2x-3$ menjadi bentuk puncak.', 'Ambil akar dengan memperhatikan tanda domain $x\\geq-1$.'],
     competencies: ['invers fungsi kuadrat', 'pembatasan domain', 'evaluasi'],
+    rubric: [
+      'Melengkapi kuadrat menjadi $(x+1)^{2}-4$',
+      'Memperoleh $f^{-1}(x)=\\sqrt{x+4}-1$ dengan domain $x\\ge-4$',
+      'Memeriksa $f(f^{-1}(x))=x$ dan menjelaskan perlunya pembatasan domain',
+    ],
   },
   {
     id: 'fi-12',
@@ -194,6 +214,11 @@ export const fungsiInversQuestions: Question[] = [
       'Kunci: menyusun invers fungsi linear dengan menjadikan $x$ subjek rumus, lalu menerapkannya pada nilai biaya tertentu.',
     hints: ['Kurangi $500$ terlebih dahulu, lalu bagi dengan $350$.', 'Periksa dengan $B(10)=350(10)+500=4000$.'],
     competencies: ['invers fungsi linear', 'pemodelan'],
+    rubric: [
+      'Menyusun invers $x=\\dfrac{B-500}{350}$',
+      'Menghitung $x=10$ hari untuk $B=4000$',
+      'Memeriksa hasil dengan $B(10)=4000$',
+    ],
   },
   {
     id: 'fi-13',
@@ -209,6 +234,12 @@ export const fungsiInversQuestions: Question[] = [
       'Kunci: menjadikan $x$ subjek rumus, menerapkan invers pada nilai total, dan menjelaskan manfaat praktisnya.',
     hints: ['Kurangi biaya layanan terlebih dahulu, lalu bagi dengan $1{,}1$.'],
     competencies: ['invers fungsi linear', 'pemodelan'],
+    rubric: [
+      'Menyusun invers $T^{-1}(x)=\\dfrac{x-20.000}{1{,}1}$',
+      'Menghitung harga menu Rp200.000 ketika $T=240.000$',
+      'Memeriksa hasil dengan $T(200.000)=240.000$',
+      'Menjelaskan invers berguna untuk memeriksa kembali ketepatan tagihan',
+    ],
   },
   {
     id: 'fi-14',
@@ -227,5 +258,11 @@ export const fungsiInversQuestions: Question[] = [
       'Pencerminan terhadap $y=x$ menukar koordinat, sehingga asimtot horizontal menjadi vertikal dan sebaliknya.',
     ],
     competencies: ['invers fungsi rasional', 'asimtot', 'penalaran'],
+    rubric: [
+      'Menyusun $f^{-1}(x)=\\dfrac{3x+1}{x-2}$ dengan $x\\neq2$',
+      'Memverifikasi $f^{-1}(f(x))=x$ melalui komposisi',
+      'Menjelaskan pencerminan terhadap $y=x$ membuat asimtot bertukar peran',
+      'Menyebut asimtot $f$: $x=3$ dan $y=2$; asimtot $f^{-1}$: $x=2$ dan $y=3$',
+    ],
   },
 ];

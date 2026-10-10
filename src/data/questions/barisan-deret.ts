@@ -9,14 +9,14 @@ export const barisanDeretQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Suku ke-$15$ dari barisan aritmetika $4, 9, 14, 19, \\dots$ adalah …',
     options: [
-      { key: 'A', text: '$69$' },
+      { key: 'A', text: '$75$' },
       { key: 'B', text: '$74$' },
       { key: 'C', text: '$79$' },
       { key: 'D', text: '$84$' },
     ],
     answer: 'B',
     explanation:
-      'Suku pertama $a=4$ dan beda $b=9-4=5$. Dengan $U_n=a+(n-1)b$ diperoleh $U_{15}=4+(15-1)\\cdot5=4+70=74$.',
+      'Suku pertama $a=4$ dan beda $b=9-4=5$. Dengan $U_n=a+(n-1)b$ diperoleh $U_{15}=4+(15-1)\\cdot5=4+70=74$. Opsi A lupa menambahkan suku pertama ($15\\times5$); opsi C memakai $U_n=a+nb$ yaitu $4+15\\cdot5$; opsi D memakai indeks kelebihan satu, $4+16\\cdot5$.',
     hints: ['Tentukan dulu suku pertama $a$ dan beda $b$.', 'Gunakan $U_n=a+(n-1)b$; eksponen indeksnya $(n-1)$, bukan $n$.'],
     competencies: ['suku ke-n barisan aritmetika'],
   },
@@ -31,11 +31,11 @@ export const barisanDeretQuestions: Question[] = [
       { key: 'A', text: '$320$' },
       { key: 'B', text: '$640$' },
       { key: 'C', text: '$1.280$' },
-      { key: 'D', text: '$2.560$' },
+      { key: 'D', text: '$40$' },
     ],
     answer: 'B',
     explanation:
-      'Suku pertama $a=5$ dan rasio $r=\\dfrac{10}{5}=2$. Maka $U_8=5\\cdot2^{7}=5\\cdot128=640$.',
+      'Suku pertama $a=5$ dan rasio $r=\\dfrac{10}{5}=2$. Maka $U_8=5\\cdot2^{7}=5\\cdot128=640$. Opsi A memakai pangkat $6$ (kurang satu langkah); opsi C memakai pangkat $8$ (memakai $r^{n}$, bukan $r^{n-1}$); opsi D keliru memperlakukan barisan geometri sebagai perkalian biasa $5\\times8$.',
     hints: ['Rasio $r$ diperoleh dari pembagian dua suku berdekatan.'],
     competencies: ['suku ke-n barisan geometri'],
   },
@@ -55,7 +55,7 @@ export const barisanDeretQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Dari $U_3=a+2b=11$ dan $U_7=a+6b=27$. Kurangkan: $4b=16$ sehingga $b=4$, lalu $a=11-2\\cdot4=3$. Jadi $U_{20}=3+(20-1)\\cdot4=3+76=79$.',
+      'Dari $U_3=a+2b=11$ dan $U_7=a+6b=27$. Kurangkan: $4b=16$ sehingga $b=4$, lalu $a=11-2\\cdot4=3$. Jadi $U_{20}=3+(20-1)\\cdot4=3+76=79$. Opsi A memakai $U_{19}$ (kurang satu suku); opsi C memakai $3+20\\cdot4$ karena lupa bentuk $(n-1)$; opsi D salah menghitung suku pertama menjadi $7$.',
     hints: ['Susun dua persamaan dari $U_3$ dan $U_7$, lalu eliminasi.'],
     competencies: ['barisan aritmetika'],
   },
@@ -132,6 +132,11 @@ export const barisanDeretQuestions: Question[] = [
       'Uji nilai $n$ pada $S_n=n(n+29)$ sampai melewati $1500$.',
     ],
     competencies: ['pemodelan barisan aritmetika', 'deret aritmetika', 'pertidaksamaan'],
+    rubric: [
+      'Memodelkan kursi baris ke-$n$ sebagai $U_n=30+2(n-1)=2n+28$',
+      'Menyusun $S_n=n(n+29)$ lalu menyelesaikan $n(n+29)\\le1500$',
+      'Memperoleh paling banyak $26$ baris dan sisa $70$ kursi',
+    ],
   },
   {
     id: 'bd-09',
@@ -147,6 +152,11 @@ export const barisanDeretQuestions: Question[] = [
       'Kunci jawaban: memisahkan jarak jatuh pertama dari deret pantulan, lalu memakai $S_\\infty=\\dfrac{a}{1-r}$ untuk $\\lvert r\\rvert<1$.',
     hints: ['Pisahkan jarak jatuh pertama dari jarak pantulan naik-turun.', 'Gunakan $S_\\infty=\\dfrac{a}{1-r}$ karena $\\lvert r\\rvert<1$.'],
     competencies: ['deret geometri tak hingga', 'pemodelan'],
+    rubric: [
+      'Memisahkan jarak jatuh pertama $3$ m dari deret pantulan',
+      'Memakai $S_\\infty=\\dfrac{a}{1-r}$ dengan $a=2$ dan $r=\\tfrac23$ untuk lintasan naik-turun',
+      'Menjumlahkan menjadi $15$ m dan menyebut $\\lvert r\\rvert<1$ sebagai alasan konvergen',
+    ],
   },
   {
     id: 'bd-10',
@@ -161,6 +171,11 @@ export const barisanDeretQuestions: Question[] = [
     explanation: 'Kunci jawaban menekankan syarat $\\lvert r\\rvert<1$ dan alasan suku-sukunya menuju nol.',
     hints: ['Apa yang terjadi pada $r^{n}$ ketika $n$ membesar jika $\\lvert r\\rvert<1$?', 'Bandingkan dengan kasus $\\lvert r\\rvert\\geq1$.'],
     competencies: ['kekonvergenan deret geometri'],
+    rubric: [
+      'Menyebut syarat konvergen $\\lvert r\\rvert<1$ dan alasan $r^{n}\\to0$',
+      'Menjelaskan $\\lvert r\\rvert\\ge1$ membuat deret divergen',
+      'Memberikan satu contoh konvergen dan satu contoh divergen yang benar',
+    ],
   },
   {
     id: 'bd-11',
@@ -179,6 +194,11 @@ export const barisanDeretQuestions: Question[] = [
       'Selesaikan pertidaksamaan lalu uji $n$ bilangan bulat terkecil.',
     ],
     competencies: ['pemodelan deret aritmetika', 'pertidaksamaan'],
+    rubric: [
+      'Memodelkan setoran sebagai deret aritmetika dengan $a=100.000$ dan $b=25.000$',
+      'Menyusun $S_n=12.500\\,n(n+7)$ dan pertidaksamaan $n(n+7)>240$',
+      'Menguji nilai bulat dan memperoleh $n=13$ bulan',
+    ],
   },
   {
     id: 'bd-12',
@@ -194,6 +214,11 @@ export const barisanDeretQuestions: Question[] = [
       'Kunci: membedakan pertumbuhan linear dan eksponensial, dibuktikan dengan perbandingan suku ke-10.',
     hints: ['Gunakan $U_n=a+(n-1)b$ untuk aritmetika dan $U_n=ar^{n-1}$ untuk geometri.', 'Bandingkan laju pertambahan keduanya.'],
     competencies: ['barisan aritmetika', 'barisan geometri', 'evaluasi'],
+    rubric: [
+      'Menuliskan empat suku pertama kedua barisan dengan benar',
+      'Menghitung $U_{10}$ aritmetika $29$ dan geometri $1024$',
+      'Menjelaskan pertumbuhan linear versus eksponensial',
+    ],
   },
   {
     id: 'bd-13',
@@ -212,6 +237,12 @@ export const barisanDeretQuestions: Question[] = [
       'Jumlahkan suku secara berpasangan dari kedua ujung.',
     ],
     competencies: ['barisan aritmetika', 'pembuktian', 'jumlah deret'],
+    rubric: [
+      'Menghitung $U_k+U_{n+1-k}=2a+(n-1)b$ sehingga tidak bergantung pada $k$',
+      'Menyimpulkan tiap pasangan suku berjarak sama dari ujung berjumlah $U_1+U_n$',
+      'Menafsirkan terdapat $\\dfrac{n}{2}$ pasangan (termasuk penanganan $n$ ganjil)',
+      'Memperoleh rumus $S_n=\\dfrac{n}{2}(U_1+U_n)$',
+    ],
   },
   {
     id: 'bd-14',
@@ -230,5 +261,11 @@ export const barisanDeretQuestions: Question[] = [
       'Setelah $a=8$, gunakan jumlah kuadrat untuk mencari $d^2$.',
     ],
     competencies: ['barisan aritmetika', 'sistem persamaan', 'penalaran'],
+    rubric: [
+      'Memisalkan bilangan $a-d$, $a$, $a+d$ dan memakai jumlahnya untuk memperoleh $a=8$',
+      'Menyusun jumlah kuadrat $192+2d^2=200$ sehingga $d^2=4$',
+      'Menyelesaikan $d=\\pm2$ dan memperoleh bilangan $6,8,10$',
+      'Menjelaskan tanda $d$ hanya membedakan barisan naik atau turun',
+    ],
   },
 ];

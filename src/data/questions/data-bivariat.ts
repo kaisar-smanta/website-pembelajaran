@@ -9,14 +9,14 @@ export const dataBivariatQuestions: Question[] = [
     category: 'konsep',
     prompt: 'Pada data bivariat "jumlah pupuk dan hasil panen", yang lazim menjadi variabel bebas adalah …',
     options: [
-      { key: 'A', text: 'hasil panen' },
+      { key: 'A', text: 'hasil panen, sebab hasil panen berubah ketika pupuk diubah' },
       { key: 'B', text: 'jumlah pupuk' },
-      { key: 'C', text: 'keduanya' },
-      { key: 'D', text: 'tidak ada' },
+      { key: 'C', text: 'keduanya, sebab keduanya saling berubah bersama' },
+      { key: 'D', text: 'tidak ada, sebab keduanya tidak dapat dipisahkan' },
     ],
     answer: 'B',
     explanation:
-      'Variabel bebas adalah variabel yang diatur atau diduga memengaruhi, yaitu jumlah pupuk. Hasil panen merupakan variabel terikat (respons).',
+      'Variabel bebas adalah variabel yang diatur atau diduga memengaruhi, yaitu jumlah pupuk. Hasil panen merupakan variabel terikat (respons). Opsi A menukar peran bebas dan terikat; opsi C salah menganggap keduanya bebas karena berubah bersama; opsi D menyamakan korelasi dengan ketiadaan variabel yang dapat diatur.',
     hints: ['Variabel bebas biasanya yang diatur peneliti.'],
     competencies: ['variabel bebas dan terikat'],
   },
@@ -57,14 +57,14 @@ export const dataBivariatQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Sebuah diagram pencar membentuk lengkung yang menaik lalu mendatar. Pola hubungan tersebut termasuk …',
     options: [
-      { key: 'A', text: 'positif linear' },
-      { key: 'B', text: 'negatif linear' },
+      { key: 'A', text: 'positif linear, sebab arahnya menanjak' },
+      { key: 'B', text: 'negatif linear, sebab bentuknya melengkung' },
       { key: 'C', text: 'nonlinear' },
-      { key: 'D', text: 'tidak ada hubungan' },
+      { key: 'D', text: 'tidak ada hubungan, sebab titik-titik tidak segaris lurus' },
     ],
     answer: 'C',
     explanation:
-      'Pola yang tidak berbentuk garis lurus disebut nonlinear. Di sini $y$ naik lalu melandai mengikuti lengkung.',
+      'Pola yang tidak berbentuk garis lurus disebut nonlinear. Di sini $y$ naik lalu melandai mengikuti lengkung. Opsi A hanya melihat arah naik tanpa memperhatikan lengkungan; opsi D keliru menyamakan pola lengkung dengan ketiadaan hubungan.',
     hints: ['Linear berarti titik-titik mengikuti garis lurus.'],
     competencies: ['pola hubungan'],
   },
@@ -91,14 +91,14 @@ export const dataBivariatQuestions: Question[] = [
     category: 'penalaran',
     prompt: 'Dua variabel memiliki koefisien korelasi $r=-0{,}85$. Tafsiran yang tepat adalah …',
     options: [
-      { key: 'A', text: 'hubungan linear positif yang lemah' },
+      { key: 'A', text: 'hubungan linear negatif yang lemah, sebab $|r|$ belum sama dengan $1$' },
       { key: 'B', text: 'hubungan linear negatif yang kuat' },
-      { key: 'C', text: 'tidak ada hubungan' },
-      { key: 'D', text: 'hubungan nonlinear sempurna' },
+      { key: 'C', text: 'tidak ada hubungan, sebab tanda $r$ negatif' },
+      { key: 'D', text: 'hubungan nonlinear sempurna, sebab $|r|=0{,}85$ dianggap sempurna' },
     ],
     answer: 'B',
     explanation:
-      'Tanda negatif menunjukkan arah berlawanan, dan $|r|=0{,}85$ mendekati $1$ sehingga hubungan linearnya kuat.',
+      'Tanda negatif menunjukkan arah berlawanan, dan $|r|=0{,}85$ mendekati $1$ sehingga hubungan linearnya kuat. Opsi A menganggap kekuatan menuntut $|r|=1$; opsi C keliru menafsirkan tanda negatif sebagai tidak ada hubungan; opsi D salah menganggap $r$ mengukur pola nonlinear.',
     hints: ['Tanda $r$ menunjukkan arah; besar $|r|$ menunjukkan kekuatan.'],
     competencies: ['koefisien korelasi'],
   },
@@ -131,6 +131,11 @@ export const dataBivariatQuestions: Question[] = [
       'Arah ditentukan dari kecenderungan $y$ saat $x$ naik; kekuatan ditentukan dari kerapatan titik terhadap pola.',
     hints: ['Amati apakah $y$ naik atau turun saat $x$ bertambah.', 'Perhatikan kerapatan titik terhadap pola.'],
     competencies: ['menafsirkan diagram pencar'],
+    rubric: [
+      'Menyimpulkan arah negatif karena $y$ turun saat $x$ naik',
+      'Menaksir kekuatan dari kerapatan titik terhadap garis menurun',
+      'Menyebut hubungan negatif sangat kuat (misalnya $r\\approx-0{,}99$)',
+    ],
   },
   {
     id: 'db-09',
@@ -146,6 +151,11 @@ export const dataBivariatQuestions: Question[] = [
       'Kunci: bahaya ekstrapolasi dan nilai yang keluar dari rentang yang masuk akal.',
     hints: ['Perhatikan rentang data yang diamati.', 'Periksa apakah nilai prediksinya masih masuk akal.'],
     competencies: ['ekstrapolasi', 'penalaran kritis'],
+    rubric: [
+      'Menyebut kesalahan ekstrapolasi jauh di luar rentang data $x\\le8$',
+      'Menyebut nilai $35$ melampaui skala nilai yang masuk akal',
+      'Menegaskan korelasi tidak membuktikan sebab-akibat',
+    ],
   },
   {
     id: 'db-10',
@@ -161,6 +171,11 @@ export const dataBivariatQuestions: Question[] = [
       'Kunci: $r$ mengukur kedekatan terhadap garis lurus saja; bentuk dan pencilan perlu dilihat pada diagram pencar.',
     hints: ['Apa yang sebenarnya diukur oleh $r$?', 'Pertimbangkan pengaruh pencilan dan lengkungan.'],
     competencies: ['keterbatasan korelasi', 'penalaran'],
+    rubric: [
+      'Menjelaskan $r$ hanya mengukur kedekatan titik terhadap garis lurus',
+      'Menjelaskan pencilan jauh dapat menekan nilai $r$',
+      'Menyimpulkan bentuk diagram pencar tetap harus diperiksa, bukan hanya angka $r$',
+    ],
   },
   {
     id: 'db-11',
@@ -179,6 +194,11 @@ export const dataBivariatQuestions: Question[] = [
       'Gunakan $r = \\dfrac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum(x_i-\\bar{x})^2\\sum(y_i-\\bar{y})^2}}$.',
     ],
     competencies: ['koefisien korelasi', 'interpretasi'],
+    rubric: [
+      'Menghitung $\\bar{x}=3$ dan $\\bar{y}=5$',
+      'Menghitung $\\sum(x_i-\\bar{x})^{2}=10$, $\\sum(y_i-\\bar{y})^{2}=10$, dan $\\sum(x_i-\\bar{x})(y_i-\\bar{y})=8$',
+      'Memperoleh $r=0{,}8$ dan menyimpulkan hubungan positif kuat',
+    ],
   },
   {
     id: 'db-12',
@@ -194,6 +214,11 @@ export const dataBivariatQuestions: Question[] = [
       'Kunci: mengenali hubungan linear positif, menyusun prediksi, serta menyadari asumsi dan variabel luar.',
     hints: ['Perhatikan selisih $y$ yang tetap sebesar $2$.', 'Prediksi di luar data tetap bergantung pada asumsi.'],
     competencies: ['hubungan linear', 'pemodelan', 'prediksi'],
+    rubric: [
+      'Menyimpulkan arah positif dan pola $y=2x+1$',
+      'Memprediksi $y=13$ juta untuk $x=6$ beserta asumsi pola linear',
+      'Menyebut setidaknya satu variabel luar yang memengaruhi penjualan',
+    ],
   },
   {
     id: 'db-13',
@@ -212,6 +237,12 @@ export const dataBivariatQuestions: Question[] = [
       'Gunakan $a=\\dfrac{\\sum x_iy_i-n\\bar{x}\\bar{y}}{\\sum x_i^2-n\\bar{x}^2}$ lalu $b=\\bar{y}-a\\bar{x}$.',
     ],
     competencies: ['regresi linear', 'metode kuadrat terkecil', 'pemodelan'],
+    rubric: [
+      'Menghitung $\\bar{x}=3$, $\\bar{y}=67$, $\\sum x_iy_i=1067$, dan $\\sum x_i^2=55$',
+      'Memperoleh $a=6{,}2$ dan $b=48{,}4$ sehingga $y=6{,}2x+48{,}4$',
+      'Memprediksi $y=85{,}6$ juta rupiah untuk $x=6$',
+      'Menyebut keterbatasan ekstrapolasi karena $x=6$ di luar rentang $x=1$ sampai $5$',
+    ],
   },
   {
     id: 'db-14',

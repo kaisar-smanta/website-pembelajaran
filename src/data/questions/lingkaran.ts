@@ -84,6 +84,11 @@ export const lingkaranQuestions: Question[] = [
       'Tembereng selalu lebih kecil daripada juring karena sebagian daerah ditempati segitiga yang dibentuk dua jari-jari dan tali busurnya.',
     hints: ['Hitung luas juring dan luas segitiga lebih dahulu.', 'Tembereng $=$ juring $-$ segitiga.'],
     competencies: ['luas tembereng'],
+    rubric: [
+      'Menghitung luas juring $\\dfrac{90}{360}\\times\\dfrac{22}{7}\\times14^{2}=154$ cm²',
+      'Menghitung luas segitiga $\\dfrac{1}{2}\\times14\\times14=98$ cm²',
+      'Mengurangkan segitiga dari juring sehingga tembereng $154-98=56$ cm²',
+    ],
   },
   {
     id: 'lk-06',
@@ -149,6 +154,12 @@ export const lingkaranQuestions: Question[] = [
       'Kunci: sifat dua sudut alas segitiga sama kaki dan sifat sudut luar segitiga.',
     hints: ['Manfaatkan $OA=OC=OB=r$.', 'Sudut luar segitiga sama dengan jumlah dua sudut dalam yang tidak berdekatan.'],
     competencies: ['pembuktian', 'sudut pusat dan sudut keliling'],
+    rubric: [
+      'Menyebut $OA=OC=OB=r$ sehingga terbentuk segitiga sama kaki',
+      'Menamai sudut alas $\\angle OAC=\\angle OCA$ dan $\\angle OBC=\\angle OCB$',
+      'Memakai sifat sudut luar untuk memperoleh $\\angle AOB=2a+2b$',
+      'Menyimpulkan $\\angle AOB=2\\angle ACB$',
+    ],
   },
   {
     id: 'lk-10',
@@ -164,6 +175,12 @@ export const lingkaranQuestions: Question[] = [
       'Karena lingkaran menyinggung keempat sisi, diameternya sama dengan panjang sisi persegi ($14$ cm).',
     hints: ['Hitung luas persegi dan luas lingkaran, lalu kurangkan.'],
     competencies: ['luas lingkaran', 'pemodelan'],
+    rubric: [
+      'Menyimpulkan diameter lingkaran $14$ cm sama dengan sisi persegi',
+      'Menghitung luas persegi $14\\times14=196$ cm²',
+      'Menghitung luas lingkaran $\\dfrac{22}{7}\\times7^{2}=154$ cm²',
+      'Mengurangkan sehingga luas di luar lingkaran $42$ cm²',
+    ],
   },
   {
     id: 'lk-11',
@@ -182,6 +199,12 @@ export const lingkaranQuestions: Question[] = [
       'Luas $OAPB$ sama dengan dua kali luas segitiga siku-siku $OAP$.',
     ],
     competencies: ['garis singgung lingkaran', 'teorema Pythagoras', 'luas'],
+    rubric: [
+      'Memakai $OA\\perp PA$ sehingga segitiga $OAP$ siku-siku di $A$',
+      'Menghitung $PA=\\sqrt{10^{2}-6^{2}}=8$ cm',
+      'Membagi $OAPB$ menjadi dua segitiga siku-siku kongruen',
+      'Menghitung luas $6\\times8=48$ cm²',
+    ],
   },
   {
     id: 'lk-12',
@@ -197,6 +220,12 @@ export const lingkaranQuestions: Question[] = [
       'Kunci: memakai rumus garis singgung persekutuan luar dan dalam dengan benar, serta menafsirkan syarat keberadaannya.',
     hints: ['Gunakan $(R-r)$ untuk singgung luar dan $(R+r)$ untuk singgung dalam.', 'Periksa nilai di bawah akar.'],
     competencies: ['garis singgung persekutuan', 'evaluasi'],
+    rubric: [
+      'Menghitung garis singgung luar $\\sqrt{10^{2}-(8-2)^{2}}=8$ cm',
+      'Menghitung garis singgung dalam $\\sqrt{10^{2}-(8+2)^{2}}=0$ cm',
+      'Menyimpulkan kedua lingkaran bersinggungan luar',
+      'Menjelaskan garis singgung dalam tidak ada saat $d<R+r$',
+    ],
   },
   {
     id: 'lk-13',
@@ -212,6 +241,11 @@ export const lingkaranQuestions: Question[] = [
       'Kunci: membedakan panjang busur dari keliling tepi, menghitung luas juring, dan menjumlahkan dua jari-jari untuk total pagar.',
     hints: ['Sudut $120^\\circ$ sama dengan sepertiga putaran.', 'Total pagar mencakup dua jari-jari lurus dan satu busur.'],
     competencies: ['panjang busur', 'luas juring', 'kontekstual'],
+    rubric: [
+      'Menghitung panjang busur $\\dfrac13\\times2\\times3{,}14\\times10\\approx20{,}93$ m',
+      'Menghitung luas juring $\\dfrac13\\times3{,}14\\times100\\approx104{,}67$ m$^{2}$',
+      'Menjumlahkan dua jari-jari dan busur menjadi $40{,}93$ m',
+    ],
   },
   {
     id: 'lk-14',

@@ -125,7 +125,7 @@ Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan r
       blocks: [
         {
           kind: "table",
-          caption: "Matriks refleksi terhadap titik asal",
+          caption: "Matriks refleksi terhadap sumbu dan garis",
           headers: [
             "Sumbu / garis",
             "Pemetaan titik",
@@ -155,6 +155,12 @@ Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan r
           title: "Cek cepat",
           text: "Setiap matriks refleksi memiliki determinan $-1$, sehingga luas bangun tetap tetapi orientasinya terbalik. Selalu pilih refleksi yang tepat sesuai garis yang diminta.",
         },
+        {
+          kind: "figure",
+          alt: "Segitiga ABC pada bidang koordinat dicerminkan terhadap sumbu-y sehingga muncul bayangan A aksen, B aksen, dan C aksen di sebelah kiri sumbu-y.",
+          caption: "Refleksi terhadap sumbu-$y$ memetakan segitiga $ABC$ (garis padat) menjadi bayangannya $A^{\\prime}B^{\\prime}C^{\\prime}$ (garis putus-putus). Jarak setiap titik ke sumbu-$y$ tetap, hanya tandanya yang berubah.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="160" y1="15" x2="160" y2="205" stroke="currentColor" stroke-width="1"/><line x1="25" y1="120" x2="295" y2="120" stroke="currentColor" stroke-width="1"/><polygon points="200,100 240,100 220,60" fill="none" stroke="currentColor" stroke-width="2.5"/><polygon points="120,100 80,100 100,60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="5 4"/><circle cx="200" cy="100" r="3" fill="currentColor"/><circle cx="240" cy="100" r="3" fill="currentColor"/><circle cx="220" cy="60" r="3" fill="currentColor"/><circle cx="120" cy="100" r="3" fill="currentColor"/><circle cx="80" cy="100" r="3" fill="currentColor"/><circle cx="100" cy="60" r="3" fill="currentColor"/><text x="292" y="135" font-size="12" fill="currentColor">x</text><text x="166" y="20" font-size="12" fill="currentColor">y</text><text x="206" y="108" font-size="12" fill="currentColor">A</text><text x="244" y="112" font-size="12" fill="currentColor">B</text><text x="224" y="55" font-size="12" fill="currentColor">C</text><text x="106" y="108" font-size="12" fill="currentColor">A&#8242;</text><text x="64" y="112" font-size="12" fill="currentColor">B&#8242;</text><text x="86" y="55" font-size="12" fill="currentColor">C&#8242;</text></svg>',
+        },
       ],
     },
     {
@@ -182,7 +188,7 @@ $$(x,y)\\rightarrow(kx,\\,ky),$$
 dan diwakili matriks
 $$D_{k}=\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}.$$
 
-Jika $k>1$ bangun diperbesar; jika $0<k<1$ bangun diperkecil; dan jika $k<0$ bangun diperbesar sekaligus dicerminkan terhadap titik asal. Determinan matriksnya adalah $k^{2}$, sehingga luas bayangan menjadi $k^{2}$ kali luas semula.
+Jika $k>1$ bangun diperbesar; jika $0<k<1$ bangun diperkecil; dan jika $k<0$ ukurannya dikalikan $\\lvert k \\rvert$ sekaligus dicerminkan terhadap titik asal. Determinan matriksnya adalah $k^{2}$, sehingga luas bayangan menjadi $k^{2}$ kali luas semula.
 
 Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun menjadi $4$ kali semula.`,
       blocks: [
@@ -211,6 +217,12 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
               "$1$",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Persegi satuan dan bayangan dilatasinya berpusat di titik asal dengan faktor dua; persegi besar memiliki luas empat kali persegi kecil.",
+          caption: "Dilatasi berpusat $O$ dengan faktor skala $k=2$: setiap panjang menjadi $2$ kali, sehingga luas menjadi $k^{2}=2^{2}=4$ kali. Persegi kecil berluas $1$ satuan luas, sedangkan bayangannya berluas $4$ satuan luas.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="30" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1"/><line x1="100" y1="25" x2="100" y2="205" stroke="currentColor" stroke-width="1"/><rect x="100" y="130" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="100" y="90" width="80" height="80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="5 4"/><line x1="100" y1="170" x2="180" y2="90" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><circle cx="100" cy="170" r="3" fill="currentColor"/><text x="106" y="164" font-size="12" fill="currentColor">O</text><text x="292" y="185" font-size="12" fill="currentColor">x</text><text x="106" y="35" font-size="12" fill="currentColor">y</text><text x="112" y="155" font-size="11" fill="currentColor">luas 1</text><text x="184" y="86" font-size="11" fill="currentColor">luas 4</text></svg>',
         },
       ],
     },
@@ -310,7 +322,7 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
       blocks: [
         {
           kind: "exploration",
-          explorationId: "mtl-matriks-transformasi",
+          explorationId: "transformasi-geometri-matriks",
         },
       ],
     },
@@ -491,6 +503,12 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
           ],
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Gagasan memindahkan dan mencerminkan bangun sudah lama hadir dalam seni, misalnya pola simetri pada ornamen dan motif batik. Perhitungan transformasi sebagai perubahan koordinat menjadi mungkin setelah René Descartes memperkenalkan geometri koordinat pada 1637. Pada 1872 Felix Klein dalam *Erlanger Programm* mengusulkan memandang geometri sebagai kajian sifat yang tetap di bawah sekelompok transformasi, sebuah cara pandang yang menyatukan berbagai cabang geometri. Perwakilan transformasi oleh matriks dikembangkan sejalan dengan aljabar matriks pada abad ke-19 dan kini menjadi dasar grafika komputer.`,
     },
     {
       id: "refleksi",

@@ -124,6 +124,12 @@ export const fungsiKuadratQuestions: Question[] = [
     explanation: 'Kunci jawaban: menyusun fungsi luas, lalu mencari titik puncaknya.',
     hints: ['Nyatakan lebar dalam $x$ menggunakan keliling.', 'Luas maksimum terjadi di titik puncak parabola.'],
     competencies: ['pemodelan optimasi'],
+    rubric: [
+      'Menyatakan lebar sebagai $20-x$ dari keliling $40$',
+      'Menyusun fungsi luas $L(x)=x(20-x)$',
+      'Menentukan absis puncak $x=10$',
+      'Menyimpulkan ukuran $10\\times10$ m dan luas $100$ m$^2$',
+    ],
   },
   {
     id: 'fk-09',
@@ -138,6 +144,12 @@ export const fungsiKuadratQuestions: Question[] = [
     explanation: 'Pembuktian memanfaatkan sifat kuadrat setiap bilangan real selalu tak negatif.',
     hints: ['Faktorkan $a$ dari dua suku pertama.', 'Ingat bahwa $(x+p)^{2}\\geq0$ untuk setiap $x$.'],
     competencies: ['pembuktian', 'melengkapi kuadrat'],
+    rubric: [
+      'Memfaktorkan $a$ dari suku $x^2$ dan $x$',
+      'Menulis bentuk kuadrat sempurna $a\\left(x+\\dfrac{b}{2a}\\right)^2-\\dfrac{b^2}{4a}+c$',
+      'Menggunakan sifat $\\left(x+\\dfrac{b}{2a}\\right)^2\\ge0$',
+      'Menyimpulkan absis puncak $x=-\\dfrac{b}{2a}$',
+    ],
   },
   {
     id: 'fk-10',
@@ -152,6 +164,12 @@ export const fungsiKuadratQuestions: Question[] = [
     explanation: 'Kunci jawaban menghubungkan bentuk puncak dengan tanda $a$ dan $D$.',
     hints: ['Gunakan bentuk puncak $f(x)=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{D}{4a}$.'],
     competencies: ['penalaran diskriminan'],
+    rubric: [
+      'Menggunakan bentuk puncak yang memuat $-\\dfrac{D}{4a}$',
+      'Menyatakan suku kuadrat selalu $\\ge0$ karena $a>0$',
+      'Menunjukkan $-\\dfrac{D}{4a}>0$ ketika $D<0$',
+      'Menyimpulkan $f(x)>0$ untuk semua bilangan real $x$',
+    ],
   },
   {
     id: 'fk-11',
@@ -167,6 +185,12 @@ export const fungsiKuadratQuestions: Question[] = [
       'Kunci: memfaktorkan untuk akar, menemukan puncak, membaca selang tanda dari posisi akar, dan mengaitkan $D$ dengan banyak titik potong.',
     hints: ['Faktorkan $x^{2}-4x+3$.', 'Parabola membuka ke atas karena koefisien $x^{2}$ positif.'],
     competencies: ['akar fungsi kuadrat', 'diskriminan', 'evaluasi'],
+    rubric: [
+      'Menentukan akar $x=1$ dan $x=3$ serta puncak $(2,-1)$',
+      'Menetapkan selang $1<x<3$ sebagai tempat $f(x)<0$',
+      'Menghitung $D=4>0$ dan menafsirkannya dua titik potong',
+      'Membandingkan $D>0$, $D=0$, dan $D<0$ dengan banyak titik potong',
+    ],
   },
   {
     id: 'fk-12',
@@ -190,5 +214,67 @@ export const fungsiKuadratQuestions: Question[] = [
       '$D=0$ berarti akar kembar, yaitu grafik menyinggung sumbu-$x$.',
     ],
     competencies: ['diskriminan', 'bentuk grafik fungsi kuadrat'],
+  },
+  {
+    id: 'fk-13',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Grafik $f(x)=x^{2}+bx+c$ menyinggung sumbu-$x$ tepat di $x=3$. Tentukan nilai $c$.',
+    answer: '9',
+    acceptedAnswers: ['9'],
+    explanation:
+      'Menyinggung sumbu-$x$ di $x=3$ berarti titik puncaknya $(3,0)$, sehingga sumbu simetri $x=-\\dfrac{b}{2}=3$ memberi $b=-6$. Substitusi $f(3)=9-18+c=0$ menghasilkan $c=9$. Periksa: $D=b^{2}-4c=36-36=0$, benar menyinggung.',
+    hints: [
+      'Menyinggung berarti diskriminan nol dan puncak berada di sumbu-$x$.',
+      'Gunakan sumbu simetri $x=-\\dfrac{b}{2a}$ untuk menemukan $b$.',
+    ],
+    competencies: ['diskriminan', 'titik puncak', 'penalaran'],
+  },
+  {
+    id: 'fk-14',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah bola dilempar ke atas sehingga tingginya (meter) setelah $t$ detik dimodelkan $h(t)=-5t^{2}+20t+1$. (a) Tentukan tinggi maksimum bola. (b) Tentukan selang waktu ketika bola berada di atas $16$ m.',
+    answer:
+      '(a) Karena $a=-5<0$, tinggi maksimum di titik puncak: $t=-\\dfrac{20}{2\\cdot(-5)}=2$, sehingga $h(2)=-20+40+1=21$ m. (b) Selesaikan $h(t)>16$: $-5t^{2}+20t+1>16 \\Rightarrow -5t^{2}+20t-15>0 \\Rightarrow t^{2}-4t+3<0 \\Rightarrow (t-1)(t-3)<0$. Karena parabola terbuka ke atas, ketaksamaan berlaku pada $1<t<3$. Jadi bola berada di atas $16$ m selama $1<t<3$ detik.',
+    explanation:
+      'Kunci: mengambil titik puncak untuk tinggi maksimum, lalu menyelesaikan pertidaksamaan kuadrat melalui pemfaktoran dan uji tanda.',
+    hints: [
+      'Tinggi maksimum ada di titik puncak karena koefisien $t^{2}$ negatif.',
+      'Untuk $h(t)>16$, susun ulang menjadi $t^{2}-4t+3<0$ lalu faktorkan.',
+    ],
+    competencies: ['titik puncak', 'pertidaksamaan kuadrat', 'pemodelan'],
+    rubric: [
+      'Menentukan absis puncak $t=2$',
+      'Menghitung tinggi maksimum $h(2)=21$ m',
+      'Menyusun pertidaksamaan $t^{2}-4t+3<0$',
+      'Menyimpulkan selang $1<t<3$',
+    ],
+  },
+  {
+    id: 'fk-15',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Tinggi sebuah roket mainan (meter) setelah $t$ detik dimodelkan $h(t)=-t^{2}+8t$. Tinggi maksimum roket adalah …',
+    options: [
+      { key: 'A', text: '$8$ m' },
+      { key: 'B', text: '$12$ m' },
+      { key: 'C', text: '$16$ m' },
+      { key: 'D', text: '$32$ m' },
+    ],
+    answer: 'C',
+    explanation:
+      'Karena $a=-1<0$, tinggi maksimum ada di titik puncak. Absis puncak $t=-\\dfrac{8}{2\\cdot(-1)}=4$, sehingga $h(4)=-16+32=16$ m. Opsi A hanya membaca koefisien $8$, sedangkan opsi D keliru menghitung $2\\times16$.',
+    hints: ['Tinggi maksimum ada di titik puncak karena koefisien $t^{2}$ negatif.'],
+    competencies: ['optimasi fungsi kuadrat', 'kontekstual'],
   },
 ];

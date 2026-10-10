@@ -105,6 +105,12 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
           text: "Angka yang benar belum tentu jujur. Perhitungan dapat tepat, tetapi pemilihan ukuran atau penyajian grafik tetap bisa menyesatkan.",
         },
         {
+          kind: "figure",
+          alt: "Histogram data yang condong ke kanan; sebuah garis putus-putus menandai median dan garis putus berbeda menandai mean yang lebih besar.",
+          caption: "Karena data condong ke kanan, mean bergeser ke kanan median — keduanya ditandai pada sumbu nilai.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-stat-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="200" x2="305" y2="200" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-stat-axis)"/><line x1="45" y1="200" x2="45" y2="30" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-stat-axis)"/><rect x="56" y="80" width="12" height="120" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="73" y="100" width="12" height="100" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="90" y="140" width="12" height="60" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="107" y="160" width="12" height="40" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="124" y="160" width="12" height="40" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="141" y="180" width="12" height="20" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="277" y="180" width="12" height="20" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><line x1="79" y1="200" x2="79" y2="62" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 3"/><line x1="99" y1="200" x2="99" y2="62" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 3"/><text x="77" y="56" font-size="11" fill="currentColor" text-anchor="end">median</text><text x="103" y="56" font-size="11" fill="currentColor" text-anchor="start">mean</text><text x="300" y="220" font-size="11" fill="currentColor">nilai</text><text x="14" y="120" font-size="11" fill="currentColor" transform="rotate(-90 14 120)" text-anchor="middle">frekuensi</text></svg>',
+        },
+        {
           kind: "table",
           caption: "Memilih ukuran pemusatan",
           headers: [
@@ -241,6 +247,17 @@ Penyajian matriks ini dikembangkan lebih lanjut pada topik **Matriks** di kelas 
             ],
           ],
         },
+        {
+          kind: "details",
+          summary: "Contoh terbimbing: membaca matriks nilai $3 \\times 2$",
+          text: `Dari matriks di atas, hitung **jumlah tiap baris** (total dua mapel per siswa) dan **jumlah tiap kolom** (total satu mapel untuk semua siswa), lalu tafsirkan.
+
+- **Baris (per siswa):** Ayu $80+75=155$, Bima $70+85=155$, Citra $90+80=170$. Total tertinggi dimiliki Citra, sedangkan Ayu dan Bima sama.
+- **Kolom (per mapel):** Matematika $80+70+90=240$; Fisika $75+85+80=240$. Dengan $3$ siswa, rata-rata tiap mapel adalah $\\dfrac{240}{3}=80$.
+- **Keseluruhan:** jumlah seluruh entri $80+75+70+85+90+80=480$, sehingga rata-rata keenam nilai adalah $\\dfrac{480}{6}=80$.
+
+Baris dan kolom tidak boleh tertukar: menjumlahkan sepanjang baris memberi total **per siswa**, sedangkan sepanjang kolom memberi total **per variabel**. Menukar tafsir keduanya adalah salah satu sumber klaim menyesatkan.`,
+        },
       ],
     },
     {
@@ -253,7 +270,7 @@ Pada eksplorasi **Eksplorasi Sebaran dan Pencilan**, mulailah dengan data yang m
       blocks: [
         {
           kind: "exploration",
-          explorationId: "distribusi-sebaran",
+          explorationId: "statistik-sebaran-ukuran",
         },
       ],
     },
@@ -268,6 +285,23 @@ Prinsip serupa berlaku saat menggabungkan kelompok. Mean gabungan harus dibobot 
 $$\\bar{x}_{\\text{gab}} = \\frac{n_1\\bar{x}_1 + n_2\\bar{x}_2}{n_1 + n_2},$$
 
 bukan rata-rata dari kedua mean. Terakhir, penyajian grafis yang memotong sumbu atau menyembunyikan sebaran dapat membuat perbedaan kecil tampak dramatis. Sebab itu angka yang benar belum tentu jujur: periksa ukuran, skala, dan sebaran sebelum mempercayai sebuah klaim.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Ukuran pemusatan.**
+$$\\bar{x}=\\frac{\\sum x_{i}}{n}, \\qquad \\text{Median}=\\text{nilai tengah data terurut}, \\qquad \\text{Modus}=\\text{nilai paling sering muncul}.$$
+
+**Rata-rata gabungan.** Untuk dua kelompok berukuran $n_1$ dan $n_2$,
+$$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
+
+**Pengaruh pencilan.** Menambah atau mengubah satu nilai ekstrem menggeser mean, sedangkan median hampir tidak berubah.
+
+**Batas pencilan.**
+$$Q_1-1{,}5\\,\\text{IQR} \\qquad \\text{dan} \\qquad Q_3+1{,}5\\,\\text{IQR}, \\qquad \\text{IQR}=Q_3-Q_1.$$
+
+**Penyajian jujur.** Mulai sumbu dari nol, gunakan skala konsisten, cantumkan ukuran sampel, dan jangan menyimpulkan sebab-akibat dari korelasi.`,
     },
     {
       id: "contoh",
@@ -342,6 +376,48 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
 **4. Menyimpulkan sebab-akibat dari korelasi.** Dua hal bisa bergerak bersamaan tanpa salah satunya menyebabkan yang lain.
 
 **5. Mengabaikan ukuran sampel.** Kesimpulan dari beberapa orang tidak dapat digeneralisasi ke seluruh populasi.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah kantor mengumumkan, "Rata-rata bonus karyawan tahun ini Rp11,4 juta." Data bonus dalam juta rupiah adalah: $1$ direktur menerima $60$, $2$ manajer masing-masing menerima $20$, dan $7$ staf masing-masing menerima $2$.
+
+(a) Hitung mean dan median bonus. (b) Ukuran mana yang lebih mewakili bonus karyawan tipikal? (c) Mengapa pengumuman itu berpotensi menyesatkan?`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Hitung kedua ukuran pemusatan, lalu bandingkan maknanya dalam konteks.",
+          steps: [
+            {
+              title: "Hitung total dan banyak data",
+              text: "Total bonus $=60+2\\cdot20+7\\cdot2=60+40+14=114$ juta, dengan $1+2+7=10$ karyawan.",
+            },
+            {
+              title: "Hitung mean",
+              text: "$\\bar{x}=\\dfrac{114}{10}=11{,}4$ juta. Angka ini memang sama dengan pengumuman.",
+            },
+            {
+              title: "Urutkan dan cari median",
+              text: "Data terurut: $2,2,2,2,2,2,2,20,20,60$. Karena $n=10$ genap, median $=\\dfrac{2+2}{2}=2$ juta.",
+            },
+            {
+              title: "Bandingkan makna",
+              text: "Median $2$ juta mewakili $7$ dari $10$ karyawan (semua staf), sedangkan mean $11{,}4$ juta jauh di atas penghasilan kebanyakan karyawan.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Mean ditarik ke atas oleh satu nilai ekstrem $60$ juta. Pengumuman itu benar secara hitung, tetapi menyesatkan karena menyembunyikan sebaran. Menyebut median akan memberi gambaran yang lebih jujur.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Kata "statistik" berasal dari bahasa Latin *status* (keadaan) dan pada abad ke-18 dipakai di Eropa untuk mencatat keadaan negara: jumlah penduduk, hasil panen, dan pajak. Dari kebutuhan itu lahir kebiasaan menyajikan data dalam tabel dan grafik. Florence Nightingale pada 1850-an memakai diagram untuk meyakinkan pemerintah tentang buruknya sanitasi rumah sakit, sedangkan John Snow pada 1854 memetakan kasus kolera di London untuk menelusuri sumber wabah. Keduanya menunjukkan bahwa penyajian data yang jujur dapat mengubah kebijakan. Sejak itu, membaca grafik secara kritis menjadi keterampilan warga yang penting.`,
     },
     {
       id: "refleksi",

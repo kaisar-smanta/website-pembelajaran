@@ -60,6 +60,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Penekanan jawaban ada pada dua syarat: berkaitan dengan variabel "penyebab" dan berkaitan dengan variabel "akibat", sehingga asosiasi bisa tampak tanpa sebab-akibat langsung.',
     hints: ['Pikirkan variabel ketiga yang memengaruhi keduanya sekaligus.'],
     competencies: ['variabel perancu'],
+    rubric: [
+      'Menyebut variabel perancu sebagai variabel ketiga',
+      'Menjelaskan ia berkaitan dengan variabel yang diduga sebagai penyebab',
+      'Menjelaskan ia juga berkaitan dengan variabel akibat sehingga muncul asosiasi semu',
+    ],
   },
   {
     id: 'ak-04',
@@ -95,6 +100,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Jawaban benar mengenali bahwa data korelasi tidak menentukan arah, sehingga penyebab bisa jadi justru akibat.',
     hints: ['Pikirkan apakah penyakitnya yang menyebabkan kebiasaan minum kopi.'],
     competencies: ['kausalitas terbalik', 'berpikir kritis'],
+    rubric: [
+      'Menjelaskan kausalitas terbalik sebagai arah sebab-akibat yang berlawanan dari dugaan',
+      'Mengajukan penyakit atau gejalanya sebagai penyebab kebiasaan minum kopi',
+      'Menyimpulkan urutan waktu perlu diperiksa sebelum menetapkan arah',
+    ],
   },
   {
     id: 'ak-06',
@@ -133,6 +143,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Inti jawaban: randomisasi menyeimbangkan variabel perancu yang mungkin tidak terukur, sehingga perbandingan kelompok menjadi lebih adil.',
     hints: ['Pikirkan mengapa dua kelompok yang diacak cenderung mirip.'],
     competencies: ['eksperimen acak', 'variabel perancu'],
+    rubric: [
+      'Menjelaskan pengacakan membuat kelompok perlakuan dan kontrol sebanding',
+      'Menyebut variabel perancu yang diamati maupun tidak terukur menjadi seimbang',
+      'Menyimpulkan perbedaan hasil lebih layak dikaitkan dengan perlakuan',
+    ],
   },
   {
     id: 'ak-08',
@@ -151,6 +166,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Jelaskan mengapa pembagian harus acak.',
     ],
     competencies: ['desain eksperimen', 'randomisasi', 'pemodelan'],
+    rubric: [
+      'Menyebut kelompok perlakuan (belajar sambil mendengarkan musik klasik)',
+      'Menyebut kelompok kontrol (belajar dalam kondisi sunyi) dan menyamakan kondisi lain',
+      'Menjelaskan pembagian subjek secara acak beserta tujuannya',
+    ],
   },
   {
     id: 'ak-09',
@@ -169,6 +189,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Kendalikan variabel tersebut saat membandingkan kota.',
     ],
     competencies: ['variabel perancu', 'evaluasi klaim', 'penalaran'],
+    rubric: [
+      'Menguraikan rantai penalaran menghubungkan fasilitas olahraga dengan kesehatan',
+      'Menyebut variabel perancu seperti pendapatan atau akses layanan kesehatan',
+      'Menawarkan cara menguji klaim dengan mengontrol variabel tersebut atau eksperimen acak',
+    ],
   },
   {
     id: 'ak-10',
@@ -184,6 +209,12 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Jawaban benar menekankan pengendalian perlakuan dan pengacakan yang menyeimbangkan variabel perancu, berbeda dengan studi observasional.',
     hints: ['Bandingkan siapa yang menentukan perlakuan pada tiap jenis studi.'],
     competencies: ['eksperimen acak', 'kausalitas', 'penalaran'],
+    rubric: [
+      'Menjelaskan peneliti menentukan perlakuan dan membagi subjek secara acak',
+      'Menjelaskan pengacakan menyeimbangkan variabel perancu termasuk yang tidak terukur',
+      'Membandingkan dengan studi observasional yang tidak mengendalikan perlakuan dan perancu',
+      'Menyimpulkan perbedaan hasil lebih layak dikaitkan dengan perlakuan',
+    ],
   },
   {
     id: 'ak-11',
@@ -241,5 +272,34 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Apa yang membuat kelompok perlakuan dan kontrol setara pada eksperimen acak?',
     ],
     competencies: ['bias pemilihan', 'eksperimen acak', 'evaluasi klaim'],
+    rubric: [
+      'Mengenali bias pemilihan diri (self-selection) karena program bersifat sukarela',
+      'Menjelaskan peserta cenderung sudah lebih sehat atau disiplin sehingga kelompok tidak setara',
+      'Menjelaskan eksperimen acak membagi karakteristik secara merata ke kelompok perlakuan dan kontrol',
+      'Menyebut pengukuran sebelum-sesudah atau pengendalian faktor untuk memperkuat bukti',
+    ],
+  },
+  {
+    id: 'ak-14',
+    topicId: 'asosiasi-kausalitas',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah artikel menulis, "Siswa yang sering bermain gim sampai larut malam nilainya lebih rendah, jadi bermain gim sampai larut malam menurunkan nilai." Tanggapan yang paling tepat adalah …',
+    options: [
+      { key: 'A', text: 'Klaim benar karena kedua hal berasosiasi kuat.' },
+      {
+        key: 'B',
+        text: 'Hubungan itu mungkin hanya asosiasi; perlu diperiksa variabel perancu seperti kebiasaan tidur dan waktu belajar.',
+      },
+      { key: 'C', text: 'Tidak ada hubungan apa pun antara bermain gim dan nilai.' },
+      { key: 'D', text: 'Bermain gim pasti menurunkan nilai setiap siswa.' },
+    ],
+    answer: 'B',
+    explanation:
+      'Korelasi saja tidak membuktikan sebab-akibat. Kurang tidur atau berkurangnya waktu belajar merupakan variabel perancu yang dapat memengaruhi nilai, dan arah sebab-akibatnya pun mungkin terbalik. Simpulan sebaiknya dinyatakan lebih hati-hati setelah memeriksa urutan waktu dan mengendalikan variabel perancu.',
+    hints: ['Cari faktor ketiga yang dapat memengaruhi nilai sekaligus kebiasaan bermain gim.'],
+    competencies: ['asosiasi', 'kausalitas', 'evaluasi klaim'],
   },
 ];

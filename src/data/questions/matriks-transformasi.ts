@@ -140,6 +140,11 @@ export const matriksTransformasiQuestions: Question[] = [
       'Untuk matriks diagonal, invers diperoleh dengan membalik tiap entri diagonal.',
     ],
     competencies: ['dilatasi', 'invers matriks'],
+    rubric: [
+      'Menghitung bayangan $D\\begin{pmatrix}1\\\\-2\\end{pmatrix}=\\begin{pmatrix}2\\\\-6\\end{pmatrix}$',
+      'Menghitung $\\det(D)=6$ dan $D^{-1}=\\dfrac{1}{6}\\begin{pmatrix}3&0\\\\0&2\\end{pmatrix}$',
+      'Menerapkan $D^{-1}$ untuk mengembalikan titik ke $(1,-2)$',
+    ],
   },
   {
     id: 'mtf-09',
@@ -158,6 +163,12 @@ export const matriksTransformasiQuestions: Question[] = [
       'Determinan matriks refleksi adalah $-1$, sedangkan determinan rotasi $1$.',
     ],
     competencies: ['komposisi transformasi', 'matriks refleksi', 'pembuktian', 'determinan'],
+    rubric: [
+      'Menuliskan matriks refleksi $R_\\phi$ untuk $\\phi=\\alpha$ dan $\\phi=\\beta$',
+      'Mengalikan $R_\\beta R_\\alpha$ dan memakai identitas sudut',
+      'Memperoleh matriks rotasi sebesar $2\\theta$',
+      'Memakai argumen determinan: refleksi $-1$ sedangkan rotasi $1$',
+    ],
   },
   {
     id: 'mtf-10',
@@ -176,6 +187,12 @@ export const matriksTransformasiQuestions: Question[] = [
       'Matriks $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$ memetakan $(x,y)\\rightarrow(-y,-x)$.',
     ],
     competencies: ['komposisi transformasi', 'rotasi', 'refleksi'],
+    rubric: [
+      'Menerapkan rotasi $90^\\circ$ pada $(2,1)$ menjadi $(-1,2)$',
+      'Menerapkan refleksi sumbu-$x$ menjadi $(-1,-2)$',
+      'Mengalikan matriks gabungan menjadi $\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$',
+      'Mengenali hasilnya sebagai refleksi terhadap $y=-x$',
+    ],
   },
   {
     id: 'mtf-11',
@@ -194,6 +211,12 @@ export const matriksTransformasiQuestions: Question[] = [
       'Luas bayangan $=|\\det(T)|\\times$ luas bangun awal; ingat determinan boleh negatif.',
     ],
     competencies: ['matriks transformasi', 'determinan sebagai faktor luas', 'penalaran'],
+    rubric: [
+      'Menyusun $T=\\begin{pmatrix}2&1\\\\1&c\\end{pmatrix}$ dari bayangan vektor basis',
+      'Memakai $|\\det(T)|=|2c-1|=5$',
+      'Menyelesaikan sehingga $c=3$ atau $c=-2$',
+      'Menghitung luas bayangan segitiga $5\\times3=15$',
+    ],
   },
   {
     id: 'mtf-12',
@@ -209,6 +232,12 @@ export const matriksTransformasiQuestions: Question[] = [
       'Kunci: mengerjakan komposisi sesuai urutan, menyusun matriks gabungan, dan menjelaskan pengaruh urutan karena matriks tidak komutatif.',
     hints: ['Kalikan matriks dengan urutan "kedua" $\\times$ "pertama".', 'Bandingkan $(-3,4)$ dengan hasil urutan terbalik.'],
     competencies: ['komposisi transformasi', 'matriks transformasi', 'evaluasi'],
+    rubric: [
+      'Menerapkan rotasi dan refleksi sehingga bayangan akhir $(-3,4)$',
+      'Menyusun matriks tunggal $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$',
+      'Mengenali matriks itu sebagai refleksi $y=x$',
+      'Menjelaskan urutan terbalik memberi matriks berbeda karena tidak komutatif',
+    ],
   },
   {
     id: 'mtf-13',
@@ -224,6 +253,11 @@ export const matriksTransformasiQuestions: Question[] = [
       'Kunci: menyusun matriks dilatasi tak seragam, menerapkannya pada titik, dan menghubungkan determinan dengan faktor skala luas.',
     hints: ['Faktor arah-$x$ dan arah-$y$ menjadi entri diagonal.', 'Faktor skala luas adalah $|\\det|$.'],
     competencies: ['dilatasi', 'determinan', 'pemodelan'],
+    rubric: [
+      'Menulis matriks $\\begin{pmatrix}2&0\\\\0&3\\end{pmatrix}$',
+      'Menghitung bayangan $(2,1)$ menjadi $(4,3)$',
+      'Menghubungkan $\\det=6$ dengan luas menjadi $6$ kali semula',
+    ],
   },
   {
     id: 'mtf-14',
@@ -239,6 +273,11 @@ export const matriksTransformasiQuestions: Question[] = [
       'Kunci: menggabungkan rotasi dan translasi pada koordinat, menerapkannya, serta membedakan transformasi linear (melalui titik asal) dari translasi.',
     hints: ['Rotasi $180^\\circ$ membalik tanda kedua koordinat.', 'Translasi menambahkan konstanta, bukan mengalikan matriks.'],
     competencies: ['rotasi', 'translasi', 'kontekstual'],
+    rubric: [
+      'Menulis pemetaan $(x,y)\\to(-x+2,\\,-y-1)$',
+      'Menghitung bayangan $(3,2)$ menjadi $(-1,-3)$',
+      'Menjelaskan pergeseran konstanta membuatnya bukan transformasi linear murni',
+    ],
   },
   {
     id: 'mtf-15',
@@ -257,6 +296,12 @@ export const matriksTransformasiQuestions: Question[] = [
       'Faktor skala luas adalah $|\\det(M)|$.',
     ],
     competencies: ['komposisi transformasi', 'determinan sebagai faktor luas', 'pemodelan'],
+    rubric: [
+      'Menyusun matriks tunggal $M=DR=\\begin{pmatrix}0&2\\\\2&0\\end{pmatrix}$',
+      'Menghitung bayangan $A(1,1)$ menjadi $(2,2)$',
+      'Menghitung $|\\det(M)|=4$',
+      'Menyimpulkan luas persegi bayangan $4\\times4=16$',
+    ],
   },
   {
     id: 'mtf-16',
@@ -275,5 +320,11 @@ export const matriksTransformasiQuestions: Question[] = [
       'Selesaikan $a,b$ dan $c,d$ secara terpisah.',
     ],
     competencies: ['matriks transformasi', 'determinan', 'penalaran'],
+    rubric: [
+      'Menyusun sistem $a+b=3$, $2a-b=3$ sehingga $a=2$, $b=1$',
+      'Menemukan $c=1$, $d=3$ dari $c+d=4$, $2c-d=-1$',
+      'Menghitung $\\det(T)=5$',
+      'Menjelaskan $|\\det(T)|=5$ membuat luas menjadi $5$ kali semula',
+    ],
   },
 ];

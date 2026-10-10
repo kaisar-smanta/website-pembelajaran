@@ -128,6 +128,11 @@ export const fungsiEksponensialQuestions: Question[] = [
     explanation: 'Kunci jawaban: menyusun model eksponensial lalu mencari periode saat faktor mencapai $2$.',
     hints: ['Bagi kedua ruas dengan modal awal untuk memperoleh $(1{,}06)^{t}=2$.'],
     competencies: ['pemodelan bunga majemuk'],
+    rubric: [
+      'Menyusun $M(t)=5.000.000(1{,}06)^{t}$ dan $(1{,}06)^{t}=2$',
+      'Memakai $1{,}06^{11}\\approx1{,}90$ dan $1{,}06^{12}\\approx2{,}01$',
+      'Menyimpulkan nilai dua kali lipat tercapai pada tahun ke-$12$',
+    ],
   },
   {
     id: 'fe-09',
@@ -142,6 +147,11 @@ export const fungsiEksponensialQuestions: Question[] = [
     explanation: 'Kunci jawaban: memperluas kesimpulan dari eksponen bulat ke rasional, lalu ke real.',
     hints: ['Mulai dari kasus $x$ bilangan bulat, lalu perluas ke rasional.'],
     competencies: ['pembuktian', 'sifat eksponen'],
+    rubric: [
+      'Menjelaskan kasus eksponen bulat sebagai perkalian bilangan positif',
+      'Memperluas ke eksponen rasional lewat bentuk akar',
+      'Menyimpulkan $b^{x}>0$ tetap berlaku untuk semua $x$ real',
+    ],
   },
   {
     id: 'fe-10',
@@ -156,6 +166,11 @@ export const fungsiEksponensialQuestions: Question[] = [
     explanation: 'Kunci jawaban: membedakan pergeseran horizontal dan vertikal serta menyesuaikan asimtot.',
     hints: ['$b^{x+1}$ menggeser grafik secara horizontal, sedangkan $-3$ menggesernya secara vertikal.'],
     competencies: ['transformasi grafik eksponensial'],
+    rubric: [
+      'Menjelaskan pergeseran horizontal $1$ satuan ke kiri dari $x+1$',
+      'Menjelaskan pergeseran vertikal $3$ satuan ke bawah',
+      'Menentukan asimtot $y=-3$ dan titik potong sumbu-$y$ $(0,-1)$',
+    ],
   },
   {
     id: 'fe-11',
@@ -171,6 +186,11 @@ export const fungsiEksponensialQuestions: Question[] = [
       'Kunci: mengenali basis sebagai penentu pertumbuhan/peluruhan dan menunjukkan efek akumulasi basis terhadap nilai jangka panjang.',
     hints: ['Periksa apakah basis lebih besar atau lebih kecil dari $1$.', 'Bandingkan hasil perpangkatan pada $t=5$.'],
     competencies: ['pertumbuhan dan peluruhan', 'evaluasi'],
+    rubric: [
+      'Mengenali zat A tumbuh ($1{,}2>1$) dan zat B meluruh ($0{,}8<1$)',
+      'Menghitung $A(5)\\approx248{,}8$ dan $B(5)\\approx32{,}8$',
+      'Menjelaskan akumulasi basis berbeda meski nilai awal sama',
+    ],
   },
   {
     id: 'fe-12',
@@ -209,6 +229,11 @@ export const fungsiEksponensialQuestions: Question[] = [
       'Nyatakan $4$ sebagai $2^{2}$ agar basisnya sama.',
     ],
     competencies: ['pemodelan pertumbuhan', 'pemodelan peluruhan', 'persamaan eksponen'],
+    rubric: [
+      'Menyusun $P(t)=200\\cdot2^{t/3}$ dan $Q(t)=800\\cdot2^{-t/2}$',
+      'Menyelesaikan persamaan eksponen dan memperoleh $t=2{,}4$ jam',
+      'Menjelaskan setelah itu P bertambah dan Q berkurang sehingga P selalu lebih besar',
+    ],
   },
   {
     id: 'fe-14',
@@ -227,5 +252,26 @@ export const fungsiEksponensialQuestions: Question[] = [
       'Hitung rasio $g(x+1)/g(x)$ untuk polinomial dan lihat kecenderungannya saat $x$ besar.',
     ],
     competencies: ['perbandingan pertumbuhan', 'penalaran'],
+    rubric: [
+      'Menunjukkan rasio eksponen $\\dfrac{f(x+1)}{f(x)}=2$ selalu konstan',
+      'Menunjukkan rasio polinomial $\\left(\\dfrac{x+1}{x}\\right)^{10}$ menuju $1$ saat $x$ membesar',
+      'Menyimpulkan pertumbuhan eksponen akhirnya melampaui polinomial',
+      'Memberi ilustrasi numerik, misalnya membandingkan pada $x=100$',
+    ],
+  },
+  {
+    id: 'fe-15',
+    topicId: 'fungsi-eksponensial',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Jumlah penduduk sebuah desa $1.200$ jiwa dan bertambah $25\\%$ setiap tahun. Tentukan jumlah penduduk setelah $2$ tahun.',
+    answer: '1875',
+    acceptedAnswers: ['1875', '1.875', '1875 jiwa'],
+    explanation:
+      'Model pertumbuhan $N(t)=1.200(1{,}25)^t$. Untuk $t=2$: $N(2)=1.200(1{,}25)^2=1.200(1{,}5625)=1.875$ jiwa.',
+    hints: ['Faktor pertumbuhan $b=1+0{,}25=1{,}25$.'],
+    competencies: ['pemodelan pertumbuhan'],
   },
 ];

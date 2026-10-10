@@ -143,6 +143,11 @@ export const bungaMajemukQuestions: Question[] = [
       'Penilaian menekankan penjelasan mekanisme bunga atas bunga dan syarat kesamaan ($n=1$ atau $i=0$), didukung contoh perhitungan yang benar.',
     hints: ['Bandingkan dasar perhitungan bunga majemuk (saldo terbaru) dengan bunga tunggal (modal awal).'],
     competencies: ['membandingkan model', 'penalaran keuangan'],
+    rubric: [
+      'Menjelaskan majemuk dihitung dari saldo terbaru, tunggal dari modal awal',
+      'Memberikan contoh angka yang benar untuk kedua jenis bunga',
+      'Menyebut keduanya sama hanya saat $n=1$ atau $i=0$',
+    ],
   },
   {
     id: 'bm-09',
@@ -158,6 +163,11 @@ export const bungaMajemukQuestions: Question[] = [
       'Kunci jawaban menuntut pemodelan pertidaksamaan $(1{,}08)^n \\ge 2$ dan pemeriksaan numerik bertahap, bukan sekadar menebak.',
     hints: ['Cari $n$ terkecil yang memenuhi $(1{,}08)^{n} \\ge 2$ dengan mencoba nilai $n$ secara berurutan.'],
     competencies: ['pemodelan eksponen', 'penyelesaian numerik'],
+    rubric: [
+      'Memodelkan pertidaksamaan $(1{,}08)^{n}\\ge2$',
+      'Memeriksa bertahap hingga $1{,}08^{9}<2$ dan $1{,}08^{10}>2$',
+      'Menyimpulkan lama waktu sekitar $10$ tahun',
+    ],
   },
   {
     id: 'bm-10',
@@ -173,6 +183,11 @@ export const bungaMajemukQuestions: Question[] = [
       'Penilaian mencakup perhitungan kedua suku bunga efektif dan alasan konseptual mengapa frekuensi pemajemukan menaikkan suku bunga efektif.',
     hints: ['Hitung suku bunga efektif tiap bank dengan rumus $(1+i)^{m}-1$ sesuai frekuensi pemajemukannya.'],
     competencies: ['suku bunga efektif', 'analisis kritis'],
+    rubric: [
+      'Menghitung $i_{\\text{efektif}}$ Bank A $=12{,}36\\%$',
+      'Menghitung $i_{\\text{efektif}}$ Bank B $\\approx12{,}68\\%$',
+      'Menjelaskan makin sering pemajemukan makin besar suku bunga efektif',
+    ],
   },
   {
     id: 'bm-11',
@@ -191,6 +206,11 @@ export const bungaMajemukQuestions: Question[] = [
       'Untuk mencari nominal, selesaikan $\\left(1+\\dfrac{j}{4}\\right)^8=1{,}3$ dengan menarik akar pangkat delapan.',
     ],
     competencies: ['suku bunga per periode', 'rumus bunga majemuk', 'persamaan eksponen', 'pemodelan'],
+    rubric: [
+      'Menggunakan $i=3\\%$ dan $n=8$ untuk menghitung saldo bagian (a)',
+      'Menyusun $\\left(1+\\dfrac{j}{4}\\right)^{8}=1{,}3$ pada bagian (b)',
+      'Menarik akar pangkat delapan dan memperoleh $j\\approx13{,}34\\%$',
+    ],
   },
   {
     id: 'bm-12',
@@ -209,6 +229,11 @@ export const bungaMajemukQuestions: Question[] = [
       'Sisi kanan $1+ni$ adalah faktor pertumbuhan bunga tunggal.',
     ],
     competencies: ['rumus bunga majemuk', 'ekspansi binomial', 'pembuktian'],
+    rubric: [
+      'Mengembangkan $(1+i)^{n}$ dengan teorema binomial',
+      'Menunjukkan suku tambahan positif sehingga $(1+i)^{n}>1+ni$',
+      'Menafsirkan kedua sisi sebagai faktor bunga majemuk dan bunga tunggal',
+    ],
   },
   {
     id: 'bm-13',
@@ -227,5 +252,31 @@ export const bungaMajemukQuestions: Question[] = [
       'Perhatikan bahwa selisih antar nilai makin kecil, tanda menuju batas.',
     ],
     competencies: ['suku bunga efektif', 'limit eksponen', 'penalaran'],
+    rubric: [
+      'Menghitung $i_{\\text{efektif}}$ untuk $m=1,2,4,12$ sebagai $12{,}00\\%$, $12{,}36\\%$, $12{,}56\\%$, $12{,}68\\%$',
+      'Mengenali pola naik yang melandai seiring bertambahnya frekuensi $m$',
+      'Menghubungkan batas dengan $e^{0{,}12}-1\\approx12{,}75\\%$ memakai $\\left(1+\\dfrac{r}{m}\\right)^{m}\\to e^{r}$',
+      'Menafsirkan batas itu sebagai suku bunga efektif pemajemukan kontinu',
+    ],
+  },
+  {
+    id: 'bm-14',
+    topicId: 'bunga-majemuk',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Pak Dedi menabung Rp2.000.000 dengan bunga majemuk $5\\%$ per tahun. Saldo setelah $3$ tahun adalah …',
+    options: [
+      { key: 'A', text: 'Rp2.300.000,00' },
+      { key: 'B', text: 'Rp2.315.250,00' },
+      { key: 'C', text: 'Rp2.310.000,00' },
+      { key: 'D', text: 'Rp2.250.000,00' },
+    ],
+    answer: 'B',
+    explanation:
+      'Gunakan $M_n=M_0(1+i)^n$: $M_3=2.000.000(1{,}05)^3=2.000.000(1{,}157625)=\\text{Rp}2.315.250$. Opsi A memakai bunga tunggal $2.000.000(1+0{,}05\\cdot3)=\\text{Rp}2.300.000$.',
+    hints: ['Substitusikan $i=0{,}05$ dan $n=3$ ke $M_n=M_0(1+i)^n$.'],
+    competencies: ['rumus bunga majemuk', 'kontekstual'],
   },
 ];

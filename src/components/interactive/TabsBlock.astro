@@ -131,10 +131,14 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
     buttons.forEach((btn, i) => {
       btn.addEventListener('click', () => activate(i));
       btn.addEventListener('keydown', (event) => {
-        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
+        if (!keys.includes(event.key)) return;
         event.preventDefault();
-        const dir = event.key === 'ArrowRight' ? 1 : -1;
-        const next = (i + dir + buttons.length) % buttons.length;
+        let next: number;
+        if (event.key === 'ArrowRight') next = (i + 1) % buttons.length;
+        else if (event.key === 'ArrowLeft') next = (i - 1 + buttons.length) % buttons.length;
+        else if (event.key === 'Home') next = 0;
+        else next = buttons.length - 1;
         buttons[next].focus();
         activate(next);
       });

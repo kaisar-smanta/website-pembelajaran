@@ -99,7 +99,7 @@ Pemodelan membuat perkiraan menjadi terukur. Alih-alih menebak, kita menyusun fu
 5. **Periksa model.** Bandingkan hasil model dengan data dan bentuk grafiknya.
 6. **Tafsirkan dan batasi domain.** Jelaskan arti tiap konstanta beserta satuannya, lalu tentukan rentang nilai variabel yang bermakna.
 
-Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
+Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selain itu, ada pula **model periodik** untuk pola yang berulang secara teratur, seperti pasang surut air laut, suhu harian, atau gerak bandul.`,
       blocks: [
         {
           kind: "table",
@@ -125,6 +125,11 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
               "Eksponensial",
               "$y=a\\cdot b^{x}$",
             ],
+            [
+              "Nilai berulang teratur dengan periode tetap",
+              "Periodik",
+              "$y=A\\sin(Bx)+C$",
+            ],
           ],
         },
         {
@@ -138,6 +143,12 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
           variant: "warning",
           title: "Hati-hati",
           text: "Model hanya berlaku pada domain yang wajar. Memakai model di luar rentang data — ekstrapolasi jauh — dapat memberi nilai yang tidak masuk akal secara fisik.",
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Model periodik",
+          text: "Pola yang berulang pada selang tetap dimodelkan fungsi periodik, misalnya $y=A\\sin(Bx)+C$. Amplitudo $\\lvert A\\rvert$ menentukan besar simpangan, $C$ menggeser grafik ke atas atau ke bawah, dan $B$ menentukan periode $\\dfrac{360^\\circ}{B}$ (atau $\\dfrac{2\\pi}{B}$). Contohnya pasang surut, suhu harian, dan arus listrik bolak-balik.",
         },
         {
           kind: "match",
@@ -259,6 +270,12 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Diagram sebar titik-titik data nyata dengan sebuah kurva model eksponensial yang mencocokkan titik-titik tersebut.",
+          caption: "Titik-titik data hasil pengamatan dan model halus $y=a\\cdot b^{x}$ yang mencocokkannya. Model membantu meramalkan nilai di antara maupun di luar data yang diamati.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="200" x2="50" y2="30" stroke="currentColor" stroke-width="1.5"/><polyline points="50,181 98,170 146,154 194,131 242,95 290,41" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="50" cy="181" r="3.6" fill="currentColor"/><circle cx="98" cy="169" r="3.6" fill="currentColor"/><circle cx="146" cy="153" r="3.6" fill="currentColor"/><circle cx="194" cy="132" r="3.6" fill="currentColor"/><circle cx="242" cy="95" r="3.6" fill="currentColor"/><circle cx="290" cy="45" r="3.6" fill="currentColor"/><text x="292" y="218" font-size="12" fill="currentColor">x</text><text x="30" y="26" font-size="12" fill="currentColor">y</text><text x="196" y="86" font-size="11" fill="currentColor">model</text><text x="54" y="197" font-size="11" fill="currentColor">data</text></svg>',
+        },
       ],
     },
     {
@@ -269,7 +286,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
       blocks: [
         {
           kind: "exploration",
-          explorationId: "kuadrat-parameter",
+          explorationId: "pemodelan-model-data",
         },
       ],
     },
@@ -282,6 +299,23 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas.`,
 $$\\text{beda tetap} \\Rightarrow \\text{linear}, \\qquad \\text{beda kedua tetap} \\Rightarrow \\text{kuadrat}, \\qquad \\text{rasio tetap} \\Rightarrow \\text{eksponensial}.$$
 
 Setelah bentuk dipilih, konstanta diperoleh dengan menyubstitusi titik data yang diketahui. Langkah terakhir tidak boleh dilewati: tafsirkan arti tiap konstanta beserta satuannya, lalu tentukan rentang variabel yang bermakna. Model yang benar secara aljabar tetap keliru bila menghasilkan nilai yang tidak masuk akal.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Memilih model dari pola data.**
+- beda tetap $\\Rightarrow$ linear $y=mx+c$;
+- beda kedua tetap atau ada titik puncak $\\Rightarrow$ kuadrat $y=a(x-h)^2+k$;
+- rasio tetap $\\Rightarrow$ eksponensial $y=a\\cdot b^{x}$;
+- berulang teratur $\\Rightarrow$ periodik $y=A\\sin(Bx)+C$.
+
+**Menentukan konstanta.**
+- Linear dari dua titik: $m=\\dfrac{y_2-y_1}{x_2-x_1}$, lalu $c=y_1-mx_1$.
+- Eksponensial dari dua titik: $b=\\left(\\dfrac{y_2}{y_1}\\right)^{1/(x_2-x_1)}$, lalu $a=\\dfrac{y_1}{b^{x_1}}$.
+- Kuadrat: substitusi titik puncak dan satu titik lain untuk memperoleh $a$.
+
+**Prosedur.** (1) Tentukan variabel dan satuannya. (2) Tuliskan asumsi. (3) Kenali pola perubahan dan pilih jenis fungsi. (4) Tentukan konstanta dari data. (5) Periksa kecocokan dengan grafik. (6) Tafsirkan parameter dan batasi domainnya.`,
     },
     {
       id: "contoh",
@@ -335,6 +369,16 @@ Faktor $b=2$ berarti populasi berlipat dua setiap jam.`,
               title: "Contoh 5",
               text: "Data suhu $y$ (°C) setiap jam $x$: $(0,20)$, $(1,24)$, $(2,28)$, $(3,32)$. Selisih $y$ selalu $4$, jadi polanya linear dengan $m=4$ dan $c=20$, sehingga $y=4x+20$. Bandingkan dengan data $(0,2)$, $(1,6)$, $(2,18)$, $(3,54)$ yang rasionya selalu $3$; model yang tepat adalah eksponensial $y=2\\cdot3^{x}$.",
             },
+            {
+              title: "Contoh 6",
+              text: `Sebuah kota mencatat populasi $8000$ jiwa pada tahun $2018$ dan $11520$ jiwa pada tahun $2020$. Susun model eksponensial $P(t)=a\\cdot b^{t}$ dengan $t$ tahun sejak $2018$, lalu ramalkan populasi tahun $2022$.
+
+*Penyelesaian.* Ambil $t=0$ untuk tahun $2018$, sehingga data menjadi titik $(0,8000)$ dan $(2,11520)$. Dari $P(0)=8000$ diperoleh $a=8000$. Untuk $b$, pakai rumus dua titik:
+$$b=\\left(\\frac{11520}{8000}\\right)^{1/(2-0)}=\\sqrt{1{,}44}=1{,}2.$$
+Jadi $P(t)=8000\\cdot(1{,}2)^{t}$, artinya populasi tumbuh $20\\%$ per tahun. Untuk tahun 2022, $t=4$:
+$$P(4)=8000\\cdot(1{,}2)^{4}=8000\\cdot2{,}0736=16588{,}8\\approx16589.$$
+Perkiraan populasinya sekitar $16.589$ jiwa.`,
+            },
           ],
         },
       ],
@@ -378,6 +422,46 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
 **4. Menganggap laju eksponensial sama dengan $b$.** Faktor $b=1{,}1$ berarti tumbuh $10\\%$ per selang, bukan $1{,}1\\%$. Laju persentasenya adalah $b-1$.
 
 **5. Lupa menuliskan asumsi.** Setiap model dibangun di atas penyederhanaan, misalnya "tidak ada biaya lain" atau "laju pertumbuhan tetap". Asumsi ini perlu disadari agar kesimpulan tidak berlebihan.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah mesin dibeli dengan harga Rp50.000.000. Nilainya menyusut $20\\%$ setiap tahun. (a) Susun model nilainya. (b) Berapa nilainya setelah $3$ tahun? (c) Setelah berapa tahun nilai mesin turun di bawah Rp20.000.000?`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Kita susun model eksponensial lalu memeriksa nilainya tahun demi tahun.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Penyusutan $20\\%$ berarti nilai setiap tahun tersisa $80\\%$, yaitu faktor $0{,}8$. Modelnya $V(t)=50.000.000\\times(0{,}8)^{t}$ dengan $t$ dalam tahun.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Setelah $3$ tahun: $(0{,}8)^{3}=0{,}512$, sehingga $V(3)=50.000.000\\times0{,}512=\\text{Rp}25.600.000$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Ingin $V(t)<20.000.000$, yaitu $50.000.000\\times(0{,}8)^{t}<20.000.000$, sehingga $(0{,}8)^{t}<0{,}4$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Periksa tahun ke-4: $(0{,}8)^{4}=0{,}4096$, nilai $\\text{Rp}20.480.000$ masih **di atas** Rp20.000.000.",
+            },
+            {
+              title: "Langkah 5",
+              text: "Periksa tahun ke-5: $(0{,}8)^{5}=0{,}32768$, nilai $\\text{Rp}16.384.000$ sudah **di bawah** Rp20.000.000. Jadi pada tahun ke-5.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Pemodelan matematis menjadi ciri ilmu modern. Pada abad ke-17, Isaac Newton dan Gottfried Leibniz mengembangkan kalkulus untuk memodelkan gerak dan perubahan, sedangkan pada abad ke-18 Leonhard Euler serta Daniel Bernoulli memakai fungsi eksponensial untuk pertumbuhan dan peluruhan. Abad ke-19 dan ke-20 melihat model dipakai makin luas di fisika, biologi, dan ekonomi; Thomas Malthus merumuskan model pertumbuhan populasi pada 1798, dan Pierre-François Verhulst menambahkan batas pertumbuhan pada 1838. Kini memilih jenis fungsi dari pola data, baik linear, kuadrat, maupun eksponensial, menjadi keterampilan dasar dalam sains dan analisis data.`,
     },
     {
       id: "refleksi",

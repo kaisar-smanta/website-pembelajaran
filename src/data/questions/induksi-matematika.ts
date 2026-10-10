@@ -112,6 +112,12 @@ export const induksiMatematikaQuestions: Question[] = [
       'Kaitkan dengan analogi deretan domino: dorongan pertama dan penjalaran antar domino.',
       'Untuk tiap langkah yang hilang, cari pernyataan yang tampak benar tetapi gagal.'],
     competencies: ['prinsip induksi matematika', 'penalaran'],
+    rubric: [
+      'Menjelaskan basis sebagai titik awal kebenaran',
+      'Menjelaskan langkah induksi sebagai penjalar kebenaran',
+      'Memberi contoh kegagalan bila basis tidak diperiksa',
+      'Memberi contoh kegagalan bila langkah induksi tidak diperiksa',
+    ],
   },
   {
     id: 'ind-07',
@@ -142,6 +148,13 @@ export const induksiMatematikaQuestions: Question[] = [
       'Kunci jawaban: memeriksa basis, mengasumsikan $P(k)$, lalu menambahkan suku berikutnya $2k+1$ dan mengenali $k^2+2k+1=(k+1)^2$.',
     hints: ['Suku setelah $(2k-1)$ adalah $2k+1$.', 'Ingat $k^2+2k+1=(k+1)^2$.'],
     competencies: ['pembuktian induksi', 'jumlah bilangan ganjil'],
+    rubric: [
+      'Memeriksa basis $n=1$: kedua ruas bernilai $1$',
+      'Menulis hipotesis induksi $1+3+\\cdots+(2k-1)=k^2$',
+      'Menambahkan suku berikutnya $2k+1$ pada kedua ruas',
+      'Menyederhanakan $k^2+2k+1=(k+1)^2$',
+      'Menyimpulkan rumus berlaku untuk semua $n\\ge1$',
+    ],
   },
   {
     id: 'ind-09',
@@ -174,6 +187,13 @@ export const induksiMatematikaQuestions: Question[] = [
       'Periksa untuk nilai $k$ berapa $k^2-2k-1$ bernilai positif.',
     ],
     competencies: ['pembuktian induksi', 'ketaksamaan'],
+    rubric: [
+      'Memeriksa basis $n=5$: $2^5=32>25=5^2$',
+      'Mengandaikan $2^k>k^2$ untuk suatu $k\\ge5$',
+      'Menunjukkan $2^{k+1}=2\\cdot2^k>2k^2$',
+      'Membuktikan $2k^2>(k+1)^2$ untuk $k\\ge5$',
+      'Menyimpulkan pertidaksamaan berlaku untuk semua $n\\ge5$',
+    ],
   },
   {
     id: 'ind-11',
@@ -189,6 +209,13 @@ export const induksiMatematikaQuestions: Question[] = [
       'Kunci jawaban: menulis $3^{2k+2}-1$ sebagai $9(3^{2k}-1)+8$, lalu memakai hipotesis dan fakta $8 \\mid 8$.',
     hints: ['Kelompokkan agar muncul bentuk $3^{2k}-1$ dari hipotesis.', 'Perhatikan $9\\cdot 3^{2k}-1=9(3^{2k}-1)+8$.'],
     competencies: ['pembuktian induksi', 'keterbagian'],
+    rubric: [
+      'Memeriksa basis $n=1$: $3^2-1=8$ habis dibagi $8$',
+      'Mengandaikan $8\\mid 3^{2k}-1$',
+      'Menulis $3^{2(k+1)}-1=9(3^{2k}-1)+8$',
+      'Memakai hipotesis keterbagian pada $3^{2k}-1$',
+      'Menyimpulkan $8\\mid 3^{2(k+1)}-1$',
+    ],
   },
   {
     id: 'ind-12',
@@ -204,6 +231,13 @@ export const induksiMatematikaQuestions: Question[] = [
       'Kunci jawaban: memeriksa suku pertama, lalu memakai relasi rekursif bersama hipotesis untuk memperoleh bentuk $n=k+1$.',
     hints: ['Gunakan definisi $a_{k+1}=a_k+2$.', 'Targetnya $2(k+1)-1=2k+1$.'],
     competencies: ['pemodelan barisan', 'pembuktian induksi'],
+    rubric: [
+      'Memeriksa basis $n=1$: $a_1=2(1)-1=1$',
+      'Mengandaikan $a_k=2k-1$',
+      'Memakai relasi $a_{k+1}=a_k+2$',
+      'Menyederhanakan menjadi $a_{k+1}=2k+1=2(k+1)-1$',
+      'Menyimpulkan $a_n=2n-1$ untuk semua $n\\ge1$',
+    ],
   },
   {
     id: 'ind-13',
@@ -219,6 +253,13 @@ export const induksiMatematikaQuestions: Question[] = [
       'Kunci jawaban: mengubah situasi menjadi relasi rekursif, memakai hipotesis, lalu mengfaktorkan agar berbentuk rumus pada $n=k+1$.',
     hints: ['Bonus bulan ke-$(k+1)$ adalah Rp$50.000(k+2)$.', 'Faktorkan $k^2+5k+4=(k+1)(k+4)$.'],
     competencies: ['pemodelan', 'pembuktian induksi', 'kontekstual'],
+    rubric: [
+      'Memeriksa basis $n=1$: total Rp100.000 cocok',
+      'Mengandaikan total sampai bulan ke-$k$ adalah Rp$25.000\\,k(k+3)$',
+      'Menulis bonus bulan ke-$(k+1)$ sebesar Rp$50.000(k+2)$',
+      'Menjumlahkan lalu memfaktorkan menjadi $25.000(k+1)(k+4)$',
+      'Mengenali bentuk itu sebagai rumus untuk $n=k+1$',
+    ],
   },
   {
     id: 'ind-14',
@@ -254,5 +295,12 @@ export const induksiMatematikaQuestions: Question[] = [
       'Kunci jawaban: basis $n=1$, lalu menambahkan suku $r^{k}$ pada hipotesis dan menyederhanakan menuju bentuk $n=k+1$.',
     hints: ['Suku setelah $r^{k-1}$ adalah $r^{k}$.', 'Samakan penyebut $r-1$ saat menambahkan $r^k$.'],
     competencies: ['pemodelan deret geometri', 'pembuktian induksi'],
+    rubric: [
+      'Memeriksa basis $n=1$: kedua ruas bernilai $1$',
+      'Mengandaikan $1+r+\\cdots+r^{k-1}=\\dfrac{r^k-1}{r-1}$',
+      'Menambahkan suku $r^k$ pada hipotesis',
+      'Menyamakan penyebut $r-1$ lalu menyederhanakan',
+      'Memperoleh $\\dfrac{r^{k+1}-1}{r-1}$ untuk $n=k+1$',
+    ],
   },
 ];

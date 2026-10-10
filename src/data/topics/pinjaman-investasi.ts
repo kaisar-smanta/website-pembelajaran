@@ -187,13 +187,19 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
       blocks: [
         {
           kind: "exploration",
-          explorationId: "anuitas-sim",
+          explorationId: "pinjaman-angsuran-sim",
         },
         {
           kind: "callout",
           variant: "tip",
           title: "Cara membaca tabel amortisasi",
           text: "Setiap baris mewakili satu periode. Kolom **bunga** diisi $i \\times$ sisa utang periode sebelumnya. Kolom **pokok** adalah $A$ dikurangi bunga tersebut. Kolom **sisa utang** berkurang sebesar angsuran pokok. Di awal, komposisi bunga besar; di akhir, hampir seluruh angsuran adalah pokok. Jumlahkan kolom pokok untuk memastikan hasilnya sama dengan pokok pinjaman.",
+        },
+        {
+          kind: "figure",
+          alt: "Diagram amortisasi memperlihatkan kurva sisa pinjaman yang menurun dari waktu ke waktu dan garis datar besar angsuran yang tetap sepanjang tenor.",
+          caption: "Sisa pinjaman menyusut tiap periode, sedangkan besar angsuran tetap sepanjang tenor.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-pin-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="200" x2="305" y2="200" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-pin-axis)"/><line x1="45" y1="200" x2="45" y2="20" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-pin-axis)"/><line x1="107" y1="200" x2="107" y2="67" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="170" y1="200" x2="170" y2="107" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="232" y1="200" x2="232" y2="152" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><polyline points="45,30 107,67 170,107 232,152 295,197" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="45" y1="191" x2="295" y2="191" stroke="currentColor" stroke-width="2" stroke-dasharray="7 3"/><circle cx="45" cy="30" r="2.6" fill="currentColor"/><circle cx="295" cy="197" r="2.6" fill="currentColor"/><text x="52" y="24" font-size="12" fill="currentColor">Sisa pinjaman</text><text x="150" y="184" font-size="11" fill="currentColor">angsuran tetap</text><text x="200" y="224" font-size="11" fill="currentColor" text-anchor="middle">periode</text><text x="42" y="215" font-size="11" fill="currentColor">0</text></svg>',
         },
       ],
     },
@@ -208,6 +214,31 @@ $$M = A \\cdot \\frac{1-(1+i)^{-n}}{i}.$$
 Pada investasi, nilai masa depan dari setoran rutin adalah $FV = A \\cdot \\frac{(1+i)^{n}-1}{i}$. Keduanya berasal dari jumlah deret geometri berasio $(1+i)$; yang berbeda hanya arah waktunya.
 
 Dari sana muncul ukuran pembanding yang jujur: **total pembayaran** $nA$ dan **total bunga** $nA-M$. Karena memperpanjang tenor memperkecil $A$ tetapi menambah banyak periode, total bunga bisa justru bertambah. Sebab itu penawaran dibandingkan dari total biaya, bukan besar angsuran bulanan.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Angsuran anuitas.** Untuk pokok $M$, suku bunga per periode $i$, dan $n$ periode:
+$$A = \\frac{M \\cdot i}{1-(1+i)^{-n}}.$$
+
+**Total pembayaran dan total bunga.**
+$$\\text{total pembayaran} = n \\cdot A, \\qquad \\text{total bunga} = n \\cdot A - M.$$
+
+**Nilai masa depan setoran rutin.**
+$$FV = A \\cdot \\frac{(1+i)^{n}-1}{i}.$$
+
+**Nilai sekarang rangkaian pembayaran.**
+$$PV = A \\cdot \\frac{1-(1+i)^{-n}}{i}.$$
+
+**Setoran untuk mencapai target.** Membalik rumus $FV$:
+$$A = \\frac{FV \\cdot i}{(1+i)^{n}-1}.$$
+
+**Prosedur menyelesaikan masalah.**
+1. Samakan satuan periode suku bunga dan tenor (misalnya keduanya bulanan).
+2. Tentukan besaran yang dicari: angsuran, total pembayaran, nilai masa depan, atau nilai sekarang.
+3. Substitusikan ke rumus yang sesuai, lalu hitung dengan teliti.
+4. Bandingkan penawaran lewat **total biaya** (total bunga ditambah biaya administrasi), bukan hanya angsuran bulanan.`,
     },
     {
       id: "contoh",
@@ -317,6 +348,52 @@ Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman)
           text: "Suku bunga yang terlihat kecil bisa disertai biaya administrasi, asuransi, atau denda yang membuat total pembayaran jauh lebih besar. Selalu hitung **total biaya**.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Pak Andi membutuhkan pinjaman Rp20.000.000 dan menerima dua penawaran.
+- **Penawaran A:** bunga $0{,}8\\%$ per bulan, tenor $36$ bulan, tanpa biaya tambahan.
+- **Penawaran B:** bunga $0{,}6\\%$ per bulan, tenor $48$ bulan, dikenakan biaya administrasi Rp500.000 dibayar di muka.
+
+Meskipun suku bunga B lebih rendah, tentukan penawaran yang **total biayanya** lebih kecil, lalu jelaskan mengapa.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Hitung total biaya tiap penawaran, bukan hanya angsuran bulanannya.",
+          steps: [
+            {
+              title: "Langkah 1: Angsuran penawaran A",
+              text: `Dengan $M = 20.000.000$, $i = 0{,}008$, dan $n = 36$:
+$$A_A = \\frac{20.000.000 \\times 0{,}008}{1-(1{,}008)^{-36}} \\approx \\text{Rp}641.594{,}31.$$`,
+            },
+            {
+              title: "Langkah 2: Total biaya penawaran A",
+              text: `Total pembayaran $= 36 \\times 641.594{,}31 \\approx \\text{Rp}23.097.395$, sehingga total bunga $\\approx \\text{Rp}3.097.395$. Karena tanpa biaya tambahan, total biaya A $\\approx \\text{Rp}3.097.395$.`,
+            },
+            {
+              title: "Langkah 3: Angsuran penawaran B",
+              text: `Dengan $i = 0{,}006$ dan $n = 48$:
+$$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp}480.782{,}88.$$`,
+            },
+            {
+              title: "Langkah 4: Total biaya penawaran B",
+              text: `Total pembayaran $= 48 \\times 480.782{,}88 \\approx \\text{Rp}23.077.578$, sehingga total bunga $\\approx \\text{Rp}3.077.578$. Tambahkan biaya administrasi Rp500.000, sehingga total biaya B $\\approx \\text{Rp}3.577.578$.`,
+            },
+            {
+              title: "Langkah 5: Kesimpulan",
+              text: `Karena Rp3.097.395 < Rp3.577.578, penawaran **A** lebih murah. Suku bunga B memang lebih rendah, tetapi tenor yang lebih panjang menambah banyak periode bunga dan biaya administrasi membuat total biayanya lebih besar.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Matematika keuangan bukan penemuan modern. Peradaban Babilonia kuno sudah mencatat perhitungan bunga pada lempeng tanah liat, dan banyak hukum kuno mengatur larangan menarik riba. Leonardo dari Pisa, yang dikenal sebagai Fibonacci, dalam *Liber Abaci* (1202) memuat soal-soal bunga majemuk dan nilai sekarang. Pada akhir abad ke-17 Jacob Bernoulli menyelidiki bunga majemuk yang dihitung makin sering dan menemukan batas yang kini kita kenal sebagai bilangan $e$. Ilmu anuitas dan asuransi jiwa berkembang pada abad ke-17 sampai ke-18, antara lain setelah Edmond Halley menyusun tabel kematian pada 1693.`,
     },
     {
       id: "refleksi",

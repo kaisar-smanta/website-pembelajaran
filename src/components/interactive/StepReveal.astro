@@ -11,7 +11,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 const stepCount = block.steps.length;
 ---
 
-<figure class="itx steps" data-steps data-storage-id={storageId}>
+<figure class="itx steps" data-steps data-activity data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Contoh bertahap</span>
     <span class="itx-progress" data-steps-progress aria-live="polite">Langkah 1 dari {stepCount}</span>
@@ -158,6 +158,13 @@ const stepCount = block.steps.length;
 
 <script>
   import { emitInteraction } from '@/lib/interaction';
+  import {
+    clearCompletion,
+    loadCompletions,
+    recordCompletion,
+    saveCompletions,
+  } from '@/lib/learner';
+  import { safeStorage } from '@/lib/storage';
 
   function setupSteps(root: Element) {
     const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-step]'));
@@ -166,7 +173,13 @@ const stepCount = block.steps.length;
     const progress = root.querySelector<HTMLElement>('[data-steps-progress]');
     if (!next || !steps.length) return;
 
-    let shown = 1;
+    const id = root.getAttribute('data-storage-id') ?? '';
+    const storage = safeStorage();
+    // Pulihkan keadaan selesai agar bilah kemajuan halaman konsisten dengan
+    // tampilan setelah halaman dimuat ulang.
+    const completedBefore = Boolean(storage && loadCompletions(storage)[id]);
+    let shown = completedBefore ? steps.length : 1;
+    let interacted = false;
 
     function render() {
       steps.forEach((step, i) => {
@@ -179,13 +192,14 @@ const stepCount = block.steps.length;
       next!.textContent = done ? 'Selesai' : 'Langkah berikutnya';
       next!.disabled = done;
       if (reset) reset.hidden = shown <= 1;
-      if (done) {
-        const id = root.getAttribute('data-storage-id') ?? '';
+      if (done && interacted) {
+        if (storage) saveCompletions(storage, recordCompletion(loadCompletions(storage), id));
         emitInteraction(id, 'steps');
       }
     }
 
     next.addEventListener('click', () => {
+      interacted = true;
       if (shown < steps.length) {
         shown += 1;
         render();
@@ -193,6 +207,9 @@ const stepCount = block.steps.length;
     });
     reset?.addEventListener('click', () => {
       shown = 1;
+      interacted = false;
+      if (storage) saveCompletions(storage, clearCompletion(loadCompletions(storage), id));
+      emitInteraction(id, 'steps-reset');
       render();
     });
 

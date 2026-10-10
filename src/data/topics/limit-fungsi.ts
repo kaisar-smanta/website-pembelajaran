@@ -175,13 +175,19 @@ Bentuk sederhana $x+1$ berlaku selama $x \\neq 1$, dan ketika $x \\to 1$ nilainy
             ['$f(x)$', '$1{,}9$', '$1{,}99$', '$1{,}999$', 'tidak ada', '$2{,}001$', '$2{,}01$', '$2{,}1$'],
           ],
         },
+        {
+          kind: 'figure',
+          alt: 'Grafik garis dengan satu titik kosong (lubang) yang menandai nilai limit yang didekati, dilengkapi sumbu x dan y.',
+          caption: 'Grafik menuju nilai $2$ di sekitar $x=1$, tetapi titik $(1,2)$ digambarkan sebagai lingkaran kosong karena tidak termasuk domain.',
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="50" y1="160" x2="300" y2="160" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="175" x2="50" y2="22" stroke="currentColor" stroke-width="1.5"/><polyline points="80,152 165,96" fill="none" stroke="currentColor" stroke-width="2.5"/><polyline points="185,80 270,37" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="175" y1="88" x2="175" y2="160" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><line x1="50" y1="88" x2="175" y2="88" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><circle cx="175" cy="88" r="4" fill="none" stroke="currentColor" stroke-width="2"/><text x="292" y="178" font-size="12" fill="currentColor">x</text><text x="30" y="28" font-size="12" fill="currentColor">y</text></svg>',
+        },
       ],
     },
     {
       id: 'eksplorasi',
       kind: 'eksplorasi',
       title: 'Eksplorasi: Mendekati Nilai Grafik',
-      body: `Gunakan simulasi berikut untuk menggeser titik singgung sepanjang kurva dan mengamati gradien garis singgungnya. Perhatikan bagaimana gradien di sebuah titik sebenarnya didefinisikan sebagai limit dari gradien garis sekan ketika dua titik makin berdekatan.`,
+      body: `Gunakan simulasi berikut untuk mengamati nilai grafik di sekitar sebuah titik, mendekati dari kiri dan dari kanan. Perhatikan bagaimana nilainya makin dekat ke suatu bilangan tertentu, yang menjadi gagasan dasar limit.`,
       blocks: [
         {
           kind: 'exploration',
@@ -216,7 +222,10 @@ $$\\lim_{x \\to a}\\left[f(x)\\right]^{n} = \\left(\\lim_{x \\to a} f(x)\\right)
 
 **Limit di tak hingga.**
 $$\\lim_{x \\to \\infty} \\frac{1}{x^{n}} = 0 \\quad (n > 0), \\qquad \\lim_{x \\to \\infty} \\left(c + \\frac{k}{x}\\right) = c.$$
-Untuk bentuk $\\dfrac{\\infty}{\\infty}$, nilai limit ditentukan oleh suku berpangkat tertinggi pada pembilang dan penyebut.
+Untuk bentuk $\\dfrac{\\infty}{\\infty}$, nilai limit ditentukan oleh suku berpangkat tertinggi pada pembilang dan penyebut. Bila pembilang berderajat $m$ dan penyebut berderajat $n$, maka:
+- jika $m = n$, limitnya adalah perbandingan koefisien suku berpangkat tertinggi;
+- jika $m > n$, limitnya $\\infty$ (membesar tanpa batas);
+- jika $m < n$, limitnya $0$.
 
 **Limit hasil bagi selisih (menuju turunan).**
 $$\\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} = f'(x),$$
@@ -261,6 +270,34 @@ Coret $x$ (untuk $x \\neq 0$): $\\dfrac{1}{\\sqrt{x+4}+2}$. Saat $x \\to 0$ hasi
 *Penyelesaian.* Ini bentuk $\\dfrac{\\infty}{\\infty}$. Bagi pembilang dan penyebut dengan pangkat tertinggi $x^{2}$:
 $$\\frac{3 + \\frac{2}{x} - \\frac{1}{x^{2}}}{1 - \\frac{5}{x^{2}}}.$$
 Karena $\\dfrac{1}{x} \\to 0$ dan $\\dfrac{1}{x^{2}} \\to 0$ ketika $x \\to \\infty$, hasilnya $\\dfrac{3+0-0}{1-0} = 3$.`,
+            },
+            {
+              title: 'Contoh 4: Limit yang Tidak Ada',
+              text: `Hitung $\\lim_{x \\to 0} \\dfrac{|x|}{x}$.
+
+*Penyelesaian.* Fungsi tidak terdefinisi di $x = 0$, sehingga perlu diperiksa limit satu arah. Untuk $x > 0$ berlaku $|x| = x$, maka $\\dfrac{|x|}{x} = 1$ dan limit kanannya
+$$\\lim_{x \\to 0^{+}} \\frac{|x|}{x} = 1.$$
+Untuk $x < 0$ berlaku $|x| = -x$, maka $\\dfrac{|x|}{x} = -1$ dan limit kirinya
+$$\\lim_{x \\to 0^{-}} \\frac{|x|}{x} = -1.$$
+Karena limit kiri dan limit kanan berbeda ($-1 \\neq 1$), limit $\\lim_{x \\to 0} \\dfrac{|x|}{x}$ **tidak ada**.`,
+            },
+            {
+              title: 'Contoh 5: Derajat Pembilang Lebih Besar',
+              text: `Hitung $\\lim_{x \\to \\infty} \\dfrac{2x^{3}-x}{x^{2}+5}$.
+
+*Penyelesaian.* Ini bentuk $\\dfrac{\\infty}{\\infty}$ dengan derajat pembilang $3$ lebih besar daripada derajat penyebut $2$. Bagi pembilang dan penyebut dengan $x^{2}$:
+$$\\frac{2x - \\frac{1}{x}}{1 + \\frac{5}{x^{2}}}.$$
+Ketika $x \\to \\infty$, pembilangnya menuju $\\infty$ (seperti $2x$) sedangkan penyebutnya menuju $1$. Karena itu
+$$\\lim_{x \\to \\infty} \\frac{2x^{3}-x}{x^{2}+5} = \\infty.$$`,
+            },
+            {
+              title: 'Contoh 6: Derajat Pembilang Lebih Kecil',
+              text: `Hitung $\\lim_{x \\to \\infty} \\dfrac{3x+1}{x^{2}-4}$.
+
+*Penyelesaian.* Di sini derajat pembilang $1$ lebih kecil daripada derajat penyebut $2$. Bagi pembilang dan penyebut dengan $x^{2}$:
+$$\\frac{\\frac{3}{x} + \\frac{1}{x^{2}}}{1 - \\frac{4}{x^{2}}}.$$
+Karena $\\dfrac{3}{x} \\to 0$ dan $\\dfrac{1}{x^{2}} \\to 0$ ketika $x \\to \\infty$, hasilnya
+$$\\lim_{x \\to \\infty} \\frac{3x+1}{x^{2}-4} = \\frac{0+0}{1-0} = 0.$$`,
             },
           ],
         },
@@ -356,6 +393,12 @@ Karena $\\dfrac{1}{x}\\to 0$ ketika $x\\to\\infty$, hasilnya
 $$\\lim_{x\\to\\infty}\\left(\\sqrt{x^2+x}-x\\right)=\\frac{1}{1+1}=\\frac{1}{2}.$$`,
         },
       ],
+    },
+    {
+      id: 'sejarah',
+      kind: 'sejarah',
+      title: 'Jejak Sejarah',
+      body: `Gagasan "mendekati" muncul sejak awal kalkulus. Isaac Newton berbicara tentang kuantitas yang menyusut menuju nol, dan pada abad ke-18 Jean le Rond d'Alembert mulai merumuskan limit sebagai nilai yang didekati. Pada 1821 Augustin-Louis Cauchy memberikan definisi limit yang sistematis, memperbaiki dasar kalkulus yang sebelumnya bersandar pada bilangan sangat kecil. Karl Weierstrass kemudian, pada pertengahan abad ke-19, memperkenalkan definisi $\\varepsilon$-$\\delta$ yang menjadi bentuk baku hingga kini. Dengan fondasi ini, limit menjadi dasar bagi turunan dan integral.`,
     },
     {
       id: 'refleksi',

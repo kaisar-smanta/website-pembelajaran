@@ -2,6 +2,7 @@
 import type { Block } from '@/types/content';
 import Callout from './Callout.astro';
 import DataTable from './DataTable.astro';
+import Figure from './Figure.astro';
 import ExplorationEmbed from '@/components/interactive/ExplorationEmbed.astro';
 import PredictionBlock from '@/components/interactive/PredictionBlock.astro';
 import ReflectionBlock from '@/components/interactive/ReflectionBlock.astro';
@@ -22,6 +23,7 @@ const { block, storageId } = Astro.props;
   block.kind === 'callout' && <Callout variant={block.variant} title={block.title} text={block.text} />
 }
 {block.kind === 'table' && <DataTable block={block} />}
+{block.kind === 'figure' && <Figure block={block} />}
 {block.kind === 'exploration' && <ExplorationEmbed explorationId={block.explorationId} />}
 {block.kind === 'prediction' && <PredictionBlock block={block} storageId={storageId} />}
 {block.kind === 'reflection' && <ReflectionBlock block={block} storageId={storageId} />}

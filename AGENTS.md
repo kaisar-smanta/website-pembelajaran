@@ -24,6 +24,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - Materi adalah **data terstruktur TypeScript** di `src/data/` (topik, soal, eksplorasi,
   studi kasus). Jangan menduplikasi metadata di komponen; impor dari `src/data/`.
 - Blok interaktif ditulis langsung di data topik (tidak ada konversi otomatis).
+- **Diagram `figure`**: blok `{ kind: 'figure', svg, alt, caption? }` menyisipkan SVG
+  sebaris (wajib `alt`, SVG memakai `currentColor`, id marker unik per topik). `caption`
+  dan `alt` ikut terindeks pencarian (`src/lib/content-text.ts`).
 - **Latihan tertanam**: bagian `latihan-dasar`/`latihan-cakap`/`latihan-mahir` menarik soal
   topik secara otomatis; untuk memilih soal eksplisit pakai `questionIds`, atau `practiceLevel`
   untuk menarik seluruh soal tingkat tertentu. Dihitung di `src/lib/practice.ts` dan dirender
@@ -50,7 +53,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   `tests/pengayaan.mjs` juga menjaga ambang soal mahir per topik.
 - Uji di `tests/*.mjs`, dijalankan `npm test` (lewat `tests/run-all.mjs`, auto-discovery).
   Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
-  (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`), tata
-  letak graf prasyarat, dan setiap simulasi (`tests/sim-*.mjs`, termasuk limit & binomial).
+  (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`),
+  integritas konten (`tests/content-integrity.mjs`: rujukan topik↔studi kasus, id/slug unik,
+  bagian tak kosong, kunci pilihan ganda sehat), tata letak graf prasyarat, dan setiap
+  simulasi (`tests/sim-*.mjs`, termasuk limit & binomial).
 - Simulasi disiapkan lazy lewat `initWhenVisible` (`src/lib/dom.ts`).
 - Bahasa konten: Indonesia, sapaan ramah tanpa emoji.

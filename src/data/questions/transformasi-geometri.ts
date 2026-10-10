@@ -12,7 +12,7 @@ export const transformasiGeometriQuestions: Question[] = [
       { key: 'A', text: '$(6,-2)$' },
       { key: 'B', text: '$(-2,-4)$' },
       { key: 'C', text: '$(6,-4)$' },
-      { key: 'D', text: '$(-2,-2)$' },
+      { key: 'D', text: '$(2,-2)$' },
     ],
     answer: 'A',
     explanation:
@@ -104,6 +104,12 @@ export const transformasiGeometriQuestions: Question[] = [
       'Gunakan $R_{270^\\circ}=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}$.',
     ],
     competencies: ['rotasi', 'matriks transformasi'],
+    rubric: [
+      'Menerapkan pemetaan $(x,y)\\to(y,-x)$ untuk rotasi $270^\\circ$',
+      'Memperoleh bayangan $F\'(2,-4)$',
+      'Menuliskan matriks $R_{270^\\circ}=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}$',
+      'Menyadari $270^\\circ$ berlawanan arah sama dengan $90^\\circ$ searah jarum jam',
+    ],
   },
   {
     id: 'tgeo-07',
@@ -156,6 +162,12 @@ export const transformasiGeometriQuestions: Question[] = [
       'Matriks $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$ menukar koordinat titik.',
     ],
     competencies: ['komposisi transformasi', 'kontekstual'],
+    rubric: [
+      'Menerapkan rotasi $90^\\circ$ terlebih dahulu',
+      'Menerapkan refleksi sumbu-$y$ pada hasil rotasi',
+      'Memperoleh bayangan akhir $(-1,3)$',
+      'Menyusun matriks gabungan dan mengenalinya sebagai refleksi $y=x$',
+    ],
   },
   {
     id: 'tgeo-10',
@@ -174,6 +186,12 @@ export const transformasiGeometriQuestions: Question[] = [
       'Perhatikan bahwa $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$ membalik tanda kedua koordinat.',
     ],
     competencies: ['komposisi transformasi', 'penalaran'],
+    rubric: [
+      'Menuliskan matriks refleksi sumbu-$x$ dan sumbu-$y$',
+      'Mengalikan matriks dengan urutan kedua $\\times$ pertama',
+      'Memperoleh $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$',
+      'Mengenali hasilnya sebagai rotasi $180^\\circ$',
+    ],
   },
   {
     id: 'tgeo-11',
@@ -192,6 +210,12 @@ export const transformasiGeometriQuestions: Question[] = [
       'Faktor skala luas adalah $\\lvert\\det(M)\\rvert$.',
     ],
     competencies: ['komposisi transformasi', 'dilatasi', 'pemodelan'],
+    rubric: [
+      'Memetakan titik $Q(-2,3)$ menjadi $(4,-6)$',
+      'Menyusun matriks gabungan $\\begin{pmatrix} -2 & 0 \\\\ 0 & -2 \\end{pmatrix}$',
+      'Menghitung $\\lvert\\det M\\rvert=4$',
+      'Menyimpulkan luas pola menjadi $4$ kali semula',
+    ],
   },
   {
     id: 'tgeo-12',
@@ -233,5 +257,36 @@ export const transformasiGeometriQuestions: Question[] = [
       'Luas segitiga siku-siku $=\\dfrac{1}{2}\\times$ alas $\\times$ tinggi.',
     ],
     competencies: ['rotasi', 'luas bangun', 'evaluasi'],
+    rubric: [
+      'Menerapkan $(x,y)\\to(-y,x)$ pada setiap titik sudut',
+      "Menuliskan $A'(-1,1)$, $B'(-1,3)$, dan $C'(-2,1)$",
+      'Menghitung luas $ABC$ dan luas bayangan sama dengan $1$',
+      'Menjelaskan determinan $1$ menjaga luas bangun',
+    ],
+  },
+  {
+    id: 'tgeo-14',
+    topicId: 'transformasi-geometri',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      "Titik $P(a,b)$ diputar $90^\\circ$ berlawanan arah jarum jam terhadap titik asal $O$, lalu hasilnya dicerminkan terhadap sumbu-$x$. Jika bayangan akhirnya $P''(-3,4)$, tentukan koordinat titik $P$ dan matriks transformasi tunggalnya.",
+    answer:
+      "Rotasi $90^\\circ$ memetakan $(a,b)\\to(-b,a)$, lalu refleksi terhadap sumbu-$x$ memetakan $(x,y)\\to(x,-y)$, sehingga bayangan akhirnya $(-b,-a)$. Dari $(-b,-a)=(-3,4)$ diperoleh $b=3$ dan $a=-4$, jadi $P(-4,3)$. Matriks gabungannya $M=\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}=\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$, yaitu refleksi terhadap garis $y=-x$. Periksa: $M\\begin{pmatrix} -4 \\\\ 3 \\end{pmatrix}=\\begin{pmatrix} -3 \\\\ 4 \\end{pmatrix}$, benar.",
+    explanation:
+      'Kunci: menuliskan pemetaan tiap tahap, menyusun persamaan dari bayangan akhir, mengalikan matriks dengan urutan yang tepat, lalu mengenali hasilnya sebagai refleksi $y=-x$.',
+    hints: [
+      'Tuliskan pemetaan rotasi $90^\\circ$ lebih dahulu, baru refleksi sumbu-$x$.',
+      'Bayangan akhir $(-b,-a)$ dapat dipakai untuk mencari $a$ dan $b$.',
+      'Matriks gabungan adalah matriks kedua dikali matriks pertama.',
+    ],
+    competencies: ['komposisi transformasi', 'matriks transformasi', 'penalaran'],
+    rubric: [
+      'Menuliskan pemetaan rotasi $90^\\circ$ dan refleksi sumbu-$x$',
+      'Menyusun matriks gabungan $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$',
+      'Menemukan koordinat awal $P(-4,3)$',
+      'Mengenali matriks gabungan sebagai refleksi terhadap garis $y=-x$',
+    ],
   },
 ];

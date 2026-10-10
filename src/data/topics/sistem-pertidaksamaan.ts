@@ -170,6 +170,12 @@ Titik potong dengan sumbu: saat $x = 0$, $y = 4$; saat $y = 0$, $x = 6$. Selanju
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Daerah layak berbentuk segiempat yang dibatasi dua garis dan kedua sumbu koordinat, dengan dua garis kendala diberi label.",
+          caption: "Daerah penyelesaian $x+y\\le 4$, $x+2y\\le 6$, $x\\ge 0$, $y\\ge 0$ adalah irisan setengah bidang, yaitu segiempat dengan titik sudut $(0,0)$, $(4,0)$, $(2,2)$, dan $(0,3)$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="50" y1="190" x2="310" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="190" x2="50" y2="15" stroke="currentColor" stroke-width="1.5"/><polygon points="50,190 230,190 140,100 50,55" fill="currentColor" opacity="0.18"/><line x1="50" y1="10" x2="230" y2="190" stroke="currentColor" stroke-width="2"/><line x1="50" y1="55" x2="300" y2="180" stroke="currentColor" stroke-width="2"/><text x="236" y="178" font-size="12" fill="currentColor">x + y = 4</text><text x="86" y="74" font-size="12" fill="currentColor">x + 2y = 6</text><text x="78" y="158" font-size="11" fill="currentColor">daerah</text><text x="78" y="172" font-size="11" fill="currentColor">layak</text><text x="304" y="208" font-size="12" fill="currentColor">x</text><text x="28" y="22" font-size="12" fill="currentColor">y</text></svg>',
+        },
       ],
     },
     {
@@ -182,7 +188,7 @@ Cara memakainya untuk setengah bidang: anggap setiap garis sebagai garis pembata
       blocks: [
         {
           kind: "exploration",
-          explorationId: "spltv-perpotongan",
+          explorationId: "pertidaksamaan-daerah-sim",
         },
       ],
     },
@@ -193,6 +199,22 @@ Cara memakainya untuk setengah bidang: anggap setiap garis sebagai garis pembata
       body: `Sistem pertidaksamaan linear selalu menghasilkan daerah penyelesaian berupa **irisan setengah bidang**, yaitu sebuah poligon yang disebut daerah layak. Cara menentukannya mengikuti langkah tetap: gambar tiap garis pembatas, uji satu titik untuk memilih setengah bidang, lalu ambil irisannya.
 
 Dari bentuk daerah layak muncul sifat penting program linear. Fungsi objektif linear $f = px + qy$ mencapai nilai maksimum atau minimumnya di **titik sudut** daerah layak, bukan di tengah. Karena itu pencarian nilai optimum cukup memeriksa titik-titik sudut, yaitu titik potong antargaris pembatas dan titik potong dengan sumbu koordinat.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Bentuk umum.** Kendala berupa $ax+by\\le c$ atau $ax+by\\ge c$, ditambah syarat tak negatif $x\\ge0$ dan $y\\ge0$.
+
+**Garis pembatas.** Garis $ax+by=c$ digambar dari titik potong dengan kedua sumbu, yaitu $\\left(\\dfrac{c}{a},0\\right)$ dan $\\left(0,\\dfrac{c}{b}\\right)$.
+
+**Uji titik.** Substitusikan titik di luar garis, biasanya $(0,0)$. Bila pernyataannya benar, arsir sisi yang memuat titik uji; bila salah, arsir sisi seberangnya.
+
+**Titik sudut.** Titik sudut daerah layak berasal dari perpotongan dua garis pembatas atau perpotongan dengan sumbu koordinat.
+
+**Fungsi objektif.** Untuk $f=px+qy$, nilai optimum dicapai di salah satu titik sudut. Hitung $f$ pada setiap titik sudut, lalu pilih nilai terbesar (maksimum) atau terkecil (minimum).
+
+**Prosedur.** (1) Tetapkan variabel; (2) ubah setiap batasan menjadi pertidaksamaan; (3) tambahkan syarat tak negatif; (4) tentukan daerah layak; (5) daftar titik sudut; (6) hitung fungsi objektif; (7) tafsirkan hasilnya.`,
     },
     {
       id: "contoh",
@@ -270,6 +292,50 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
 **3. Lupa syarat tak negatif.** Banyak masalah nyata menuntut $x \\ge 0$ dan $y \\ge 0$. Tanpa itu, daerah penyelesaian bisa membentang tanpa batas.
 
 **4. Menyimpulkan nilai optimum tanpa memeriksa semua titik sudut.** Satu titik sudut belum tentu memberi nilai terbaik; periksa seluruhnya.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah usaha rumahan memproduksi dua jenis tas. Tas jenis A memerlukan $2$ jam menjahit dan $1$ jam penyelesaian; tas jenis B memerlukan $1$ jam menjahit dan $2$ jam penyelesaian. Setiap hari tersedia $12$ jam menjahit dan $12$ jam penyelesaian. Keuntungan tas A Rp40.000 dan tas B Rp30.000. Tentukan banyak tiap jenis tas agar keuntungan maksimum, beserta besar keuntungan itu.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Susun kendala, tentukan daerah layak beserta titik sudutnya, lalu uji fungsi objektif.",
+          steps: [
+            {
+              title: "Tetapkan variabel",
+              text: "Misalkan $x$ banyak tas A dan $y$ banyak tas B. Keuntungan $f=40.000x+30.000y$.",
+            },
+            {
+              title: "Susun kendala",
+              text: "Jam menjahit: $2x+y\\le12$. Jam penyelesaian: $x+2y\\le12$. Ditambah $x\\ge0$ dan $y\\ge0$.",
+            },
+            {
+              title: "Titik sudut pada sumbu",
+              text: "Garis $2x+y=12$ memotong sumbu di $(6,0)$ dan $(0,12)$; garis $x+2y=12$ memotong sumbu di $(12,0)$ dan $(0,6)$. Karena syarat tak negatif, titik sudut yang layak adalah $(0,0)$, $(6,0)$, dan $(0,6)$.",
+            },
+            {
+              title: "Titik potong kedua garis",
+              text: "Selesaikan $2x+y=12$ dan $x+2y=12$. Dari $y=12-2x$ diperoleh $x+2(12-2x)=12$, sehingga $-3x=-12$, $x=4$, dan $y=4$. Titik sudutnya $(4,4)$.",
+            },
+            {
+              title: "Uji fungsi objektif",
+              text: "$(6,0)=240.000$; $(0,6)=180.000$; $(4,4)=40.000\\cdot4+30.000\\cdot4=280.000$. Nilai terbesar ada di $(4,4)$.",
+            },
+            {
+              title: "Tafsirkan",
+              text: "Buat $4$ tas A dan $4$ tas B untuk keuntungan maksimum Rp280.000. Periksa: menjahit $2(4)+4=12$ jam dan penyelesaian $4+2(4)=12$ jam, tepat habis.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Program linear sebagai bidang tersendiri lahir dari kebutuhan mengatur sumber daya yang terbatas. Pada 1939 Leonid Kantorovich merumuskan masalah alokasi produksi sebagai optimasi fungsi linear di bawah kendala pertidaksamaan, dan karyanya kemudian diakui dengan Nobel Ekonomi. Pada 1947 George Dantzig mengembangkan metode simpleks, prosedur sistematis untuk menyelesaikan program linear berukuran besar, sehingga bidang ini cepat menyebar ke industri. Gagasan sistem pertidaksamaan linear sendiri sudah muncul lebih awal, misalnya pada karya Joseph Fourier pada 1820-an, tetapi baru pada abad ke-20 alat hitungnya cukup kuat. Kini program linear dipakai di bidang transportasi, penjadwalan, dan analisis ekonomi.`,
     },
     {
       id: "refleksi",

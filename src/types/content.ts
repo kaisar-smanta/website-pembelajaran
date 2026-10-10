@@ -74,6 +74,15 @@ export type Block =
       scroll?: boolean;
     }
   | {
+      kind: 'figure';
+      /** Markup SVG inline (tepercaya, ditulis pada data materi). */
+      svg: string;
+      /** Deskripsi alternatif untuk pembaca layar. */
+      alt: string;
+      /** Keterangan gambar (markdown singkat, mendukung $...$). */
+      caption?: string;
+    }
+  | {
       kind: 'exploration';
       /** id eksplorasi interaktif pada src/data/explorations.ts */
       explorationId: string;

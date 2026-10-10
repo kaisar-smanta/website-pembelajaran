@@ -12,9 +12,19 @@ import {
   loadRubricChecks,
   saveRubricChecks,
   clearRubricChecks,
+  recordCompletion,
+  clearCompletion,
+  loadCompletions,
+  saveCompletions,
+  recordDraft,
+  clearDraft,
+  loadDrafts,
+  saveDrafts,
   PREDICTION_KEY,
   REFLECTION_KEY,
   RUBRIC_KEY,
+  COMPLETION_KEY,
+  DRAFT_KEY,
 } from '../src/lib/learner.ts';
 
 function mockStorage() {
@@ -42,6 +52,26 @@ check('recordPrediction menyimpan dan menimpa tanpa memutasi peta asal', () => {
 check('recordReflection menyimpan teks dan keyakinan', () => {
   const next = recordReflection({}, 'r', 'alasan', 4, 9);
   assert.deepEqual(next.r, { text: 'alasan', confidence: 4, at: 9 });
+});
+
+check('recordReflection menyimpan jawaban per pertanyaan', () => {
+  const next = recordReflection({}, 'r', 'a\n\u0000\nb', 3, 1, ['a', 'b']);
+  assert.deepEqual(next.r.parts, ['a', 'b']);
+  assert.equal(next.r.text, 'a\n\u0000\nb');
+  assert.equal('parts' in recordReflection({}, 'r', 'a', 3, 1).r, false);
+});
+
+check('loadReflections memulihkan parts dan menyaring nilai rusak', () => {
+  const storage = mockStorage();
+  saveReflections(storage, recordReflection({}, 'z', 'x', 2, 1, ['x']));
+  assert.deepEqual(loadReflections(storage).z.parts, ['x']);
+  storage.setItem(
+    REFLECTION_KEY,
+    JSON.stringify({ q: { text: 't', confidence: 1, at: 0, parts: ['ok', 5] } }),
+  );
+  assert.deepEqual(loadReflections(storage).q.parts, ['ok']);
+  storage.setItem(REFLECTION_KEY, JSON.stringify({ q: { text: 't', confidence: 1, at: 0, parts: [] } }));
+  assert.equal('parts' in loadReflections(storage).q, false);
 });
 
 check('loadPredictions & savePredictions bertukar lewat storage', () => {
@@ -115,6 +145,58 @@ check('loadRubricChecks menolak data rusak tanpa melempar', () => {
   assert.deepEqual(loadRubricChecks(storage), { b: [1, 2] });
   assert.deepEqual(loadRubricChecks(undefined), {});
   saveRubricChecks(undefined, {});
+});
+
+check('recordCompletion menyimpan stempel waktu tanpa memutasi peta asal', () => {
+  const base = {};
+  const next = recordCompletion(base, 'sl-1', 42);
+  assert.deepEqual(next['sl-1'], { at: 42 });
+  assert.deepEqual(base, {});
+});
+
+check('clearCompletion menghapus tanda selesai', () => {
+  const map = recordCompletion({}, 'sl-1', 1);
+  assert.deepEqual(clearCompletion(map, 'sl-1'), {});
+  assert.deepEqual(clearCompletion(map, 'tidak-ada'), map);
+});
+
+check('loadCompletions & saveCompletions bertukar lewat storage', () => {
+  const storage = mockStorage();
+  saveCompletions(storage, recordCompletion({}, 'mt-2', 7));
+  assert.equal(storage.getItem(COMPLETION_KEY) !== null, true);
+  const loaded = loadCompletions(storage);
+  assert.equal(loaded['mt-2'].at, 7);
+});
+
+check('loadCompletions menolak data rusak tanpa melempar', () => {
+  const storage = mockStorage();
+  storage.setItem(COMPLETION_KEY, JSON.stringify({ a: { at: 'x' }, b: { at: 3 } }));
+  assert.deepEqual(loadCompletions(storage), { b: { at: 3 } });
+  assert.deepEqual(loadCompletions(undefined), {});
+  saveCompletions(undefined, {});
+});
+
+check('recordDraft & clearDraft mengelola draf tanpa memutasi peta asal', () => {
+  const base = {};
+  const next = recordDraft(base, 'q1', 'langkah awal', 3);
+  assert.deepEqual(next.q1, { text: 'langkah awal', at: 3 });
+  assert.deepEqual(base, {});
+  assert.deepEqual(clearDraft(next, 'q1'), {});
+});
+
+check('loadDrafts & saveDrafts bertukar lewat storage', () => {
+  const storage = mockStorage();
+  saveDrafts(storage, recordDraft({}, 'q9', 'drafku', 8));
+  assert.equal(storage.getItem(DRAFT_KEY) !== null, true);
+  assert.equal(loadDrafts(storage).q9.text, 'drafku');
+});
+
+check('loadDrafts menolak data rusak tanpa melempar', () => {
+  const storage = mockStorage();
+  storage.setItem(DRAFT_KEY, JSON.stringify({ a: { text: 5 }, b: { text: 'ok', at: 1 } }));
+  assert.deepEqual(loadDrafts(storage), { b: { text: 'ok', at: 1 } });
+  assert.deepEqual(loadDrafts(undefined), {});
+  saveDrafts(undefined, {});
 });
 
 console.log(`\nSeluruh ${passed} uji learner lulus.`);

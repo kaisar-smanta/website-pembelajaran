@@ -80,7 +80,7 @@ export const vektorQuestions: Question[] = [
       { key: 'A', text: '$\\begin{pmatrix} 5 \\\\ 6 \\end{pmatrix}$' },
       { key: 'B', text: '$\\begin{pmatrix} 4 \\\\ 6 \\end{pmatrix}$' },
       { key: 'C', text: '$\\begin{pmatrix} 7 \\\\ 8 \\end{pmatrix}$' },
-      { key: 'D', text: '$\\begin{pmatrix} 5 \\\\ 2 \\end{pmatrix}$' },
+      { key: 'D', text: '$\\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$' },
     ],
     answer: 'A',
     explanation:

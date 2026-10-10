@@ -1,4 +1,37 @@
-import type { Section } from '@/types/content';
+import type { Section, SectionKind } from '@/types/content';
+
+/** Judul bawaan tiap jenis bagian, dipakai seragam oleh konten dan daftar isi. */
+export const sectionKindTitles: Record<SectionKind, string> = {
+  tujuan: 'Tujuan Pembelajaran',
+  pemantik: 'Pertanyaan Pemantik',
+  prasyarat: 'Prasyarat',
+  konteks: 'Situasi dan Konteks',
+  konsep: 'Konsep Inti',
+  representasi: 'Representasi',
+  eksplorasi: 'Eksplorasi',
+  generalisasi: 'Generalisasi',
+  rumus: 'Rumus dan Prosedur',
+  contoh: 'Contoh Terbimbing',
+  'latihan-dasar': 'Latihan Dasar',
+  'latihan-cakap': 'Latihan Cakap',
+  'latihan-mahir': 'Latihan Mahir',
+  'dunia-nyata': 'Masalah Dunia Nyata',
+  'kesalahan-umum': 'Kesalahan Umum',
+  refleksi: 'Refleksi',
+  rangkuman: 'Rangkuman',
+  evaluasi: 'Evaluasi',
+  sejarah: 'Jejak Sejarah',
+  tantangan: 'Tantangan',
+  catatan: 'Catatan',
+};
+
+/**
+ * Judul tampil sebuah bagian. Satu-satunya tempat aturan fallback berada,
+ * sehingga daftar isi dan badan konten tidak pernah menampilkan judul berbeda.
+ */
+export function sectionTitle(section: Section): string {
+  return section.title ?? sectionKindTitles[section.kind];
+}
 
 /**
  * Teks untuk indeks pencarian, termasuk isi blok interaktif. Dipakai
@@ -11,6 +44,9 @@ export function sectionSearchText(section: Section): string {
     switch (block.kind) {
       case 'callout':
         parts.push(block.text);
+        break;
+      case 'figure':
+        parts.push(block.alt, block.caption ?? '');
         break;
       case 'details':
         parts.push(block.summary, block.text);

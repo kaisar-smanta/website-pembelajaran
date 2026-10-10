@@ -40,7 +40,7 @@ export const peluang: Topic = {
     { text: 'Menghitung frekuensi harapan dan menafsirkannya dalam konteks.' },
     { text: 'Menghitung frekuensi harapan kejadian majemuk, seperti jumlah tertentu pada dua dadu atau hasil pada dua koin.' },
   ],
-  applications: ['survei-statistik'],
+  applications: ['kata-sandi'],
   sections: [
     {
       id: "tujuan",
@@ -139,6 +139,12 @@ dengan $n(A)$ menyatakan banyak anggota kejadian $A$. Karena $A \\subseteq S$, s
               right: "Perkiraan banyak munculnya kejadian pada $N$ percobaan",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Grid berukuran enam kali enam sebagai ruang sampel pelemparan dua dadu, dengan enam sel diagonal ditandai.",
+          caption: "Ruang sampel dua dadu memuat $6 \\times 6 = 36$ hasil. Sel bertanda adalah pasangan berjumlah $7$, yaitu $6$ dari $36$ kemungkinan sehingga $P=\\tfrac{6}{36}=\\tfrac16$.",
+          svg: '<svg viewBox="0 0 320 260" aria-hidden="true" role="presentation"><line x1="55" y1="55" x2="55" y2="235" stroke="currentColor" stroke-width="1"/><line x1="85" y1="55" x2="85" y2="235" stroke="currentColor" stroke-width="1"/><line x1="115" y1="55" x2="115" y2="235" stroke="currentColor" stroke-width="1"/><line x1="145" y1="55" x2="145" y2="235" stroke="currentColor" stroke-width="1"/><line x1="175" y1="55" x2="175" y2="235" stroke="currentColor" stroke-width="1"/><line x1="205" y1="55" x2="205" y2="235" stroke="currentColor" stroke-width="1"/><line x1="235" y1="55" x2="235" y2="235" stroke="currentColor" stroke-width="1"/><line x1="55" y1="55" x2="235" y2="55" stroke="currentColor" stroke-width="1"/><line x1="55" y1="85" x2="235" y2="85" stroke="currentColor" stroke-width="1"/><line x1="55" y1="115" x2="235" y2="115" stroke="currentColor" stroke-width="1"/><line x1="55" y1="145" x2="235" y2="145" stroke="currentColor" stroke-width="1"/><line x1="55" y1="175" x2="235" y2="175" stroke="currentColor" stroke-width="1"/><line x1="55" y1="205" x2="235" y2="205" stroke="currentColor" stroke-width="1"/><line x1="55" y1="235" x2="235" y2="235" stroke="currentColor" stroke-width="1"/><circle cx="220" cy="70" r="7" fill="currentColor"/><circle cx="190" cy="100" r="7" fill="currentColor"/><circle cx="160" cy="130" r="7" fill="currentColor"/><circle cx="130" cy="160" r="7" fill="currentColor"/><circle cx="100" cy="190" r="7" fill="currentColor"/><circle cx="70" cy="220" r="7" fill="currentColor"/><text x="70" y="50" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="100" y="50" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="130" y="50" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="160" y="50" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="190" y="50" font-size="11" text-anchor="middle" fill="currentColor">5</text><text x="220" y="50" font-size="11" text-anchor="middle" fill="currentColor">6</text><text x="48" y="74" font-size="11" text-anchor="end" fill="currentColor">1</text><text x="48" y="104" font-size="11" text-anchor="end" fill="currentColor">2</text><text x="48" y="134" font-size="11" text-anchor="end" fill="currentColor">3</text><text x="48" y="164" font-size="11" text-anchor="end" fill="currentColor">4</text><text x="48" y="194" font-size="11" text-anchor="end" fill="currentColor">5</text><text x="48" y="224" font-size="11" text-anchor="end" fill="currentColor">6</text><text x="110" y="252" font-size="11" fill="currentColor">dadu 1</text><text x="6" y="150" font-size="11" fill="currentColor">dadu 2</text></svg>',
         },
       ],
     },
@@ -375,6 +381,52 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
           ],
           wrongIndex: 1,
           explanation: "Menjumlahkan langsung hanya sah untuk kejadian saling lepas. Karena $A\\cap B=\\{2\\}$ dengan $P(A\\cap B)=\\tfrac16$, seharusnya $P(A\\cup B)=\\dfrac12+\\dfrac12-\\dfrac16=\\dfrac56$.",
+        },
+      ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Empat surat akan dimasukkan ke empat amplop yang sudah dialamatkan berbeda-beda. Karena tergesa-gesa, surat-surat itu dimasukkan ke amplop **secara acak**. Berapa peluang bahwa **tidak ada satu pun** surat yang masuk ke amplop yang benar? (Susunan semacam ini disebut *derangement*.)`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Hitung peluang komplemennya memakai prinsip inklusi–eksklusi, lalu kurangkan dari $1$.",
+          steps: [
+            {
+              title: "Ruang sampel",
+              text: "Banyak cara menempatkan $4$ surat ke $4$ amplop adalah $4! = 24$, dan setiap susunan berpeluang sama.",
+            },
+            {
+              title: "Definisikan kejadian",
+              text: "Misalkan $A_i$ menyatakan kejadian \"surat ke-$i$ masuk ke amplop yang benar\". Yang dicari adalah peluang tidak ada $A_i$ yang terjadi, yaitu $1 - P(A_1 \\cup A_2 \\cup A_3 \\cup A_4)$.",
+            },
+            {
+              title: "Kejadian tunggal",
+              text: "Bila satu surat sudah benar, tiga surat sisanya bebas: $\\lvert A_i \\rvert = 3! = 6$. Untuk $4$ pilihan $i$, jumlahnya $\\sum \\lvert A_i \\rvert = 4 \\cdot 6 = 24$.",
+            },
+            {
+              title: "Irisan dua kejadian",
+              text: "Bila dua surat sudah benar, dua sisanya bebas: $\\lvert A_i \\cap A_j \\rvert = 2! = 2$. Ada $\\binom{4}{2} = 6$ pasangan, sehingga jumlahnya $6 \\cdot 2 = 12$.",
+            },
+            {
+              title: "Irisan tiga dan empat kejadian",
+              text: "Dengan cara sama, $\\lvert A_i \\cap A_j \\cap A_k \\rvert = 1! = 1$ untuk $\\binom{4}{3} = 4$ pilihan, dan $\\lvert A_1 \\cap A_2 \\cap A_3 \\cap A_4 \\rvert = 1$.",
+            },
+            {
+              title: "Terapkan inklusi–eksklusi",
+              text: "$\\lvert A_1 \\cup A_2 \\cup A_3 \\cup A_4 \\rvert = 24 - 12 + 4 - 1 = 15$.",
+            },
+            {
+              title: "Hitung peluang",
+              text: "Banyak susunan tanpa satu pun surat yang benar $= 24 - 15 = 9$, sehingga $P = \\dfrac{9}{24} = \\dfrac{3}{8} = 37{,}5\\%$.",
+            },
+            {
+              title: "Tafsirkan",
+              text: "Dalam jangka panjang, sekitar $3$ dari $8$ pengisian acak tidak menyisipkan satu pun surat dengan benar. Perhatikan kesamaan dengan bentuk umum derangement: $9 = 4!\\left(1 - 1 + \\tfrac{1}{2!} - \\tfrac{1}{3!} + \\tfrac{1}{4!}\\right)$.",
+            },
+          ],
         },
       ],
     },

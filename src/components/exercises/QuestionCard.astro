@@ -1,6 +1,6 @@
 ---
 import type { Question } from '@/types/content';
-import { renderMarkdown } from '@/utils/markdown';
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 import { seededShuffle } from '@/lib/learner';
@@ -132,7 +132,7 @@ const competencies = question.competencies ?? [];
                         data-rubric-check
                         value={String(i)}
                       />
-                      <span>{criterion}</span>
+                      <span set:html={renderInlineMarkdown(criterion)} />
                     </label>
                   </li>
                 ))}
@@ -398,6 +398,10 @@ const competencies = question.competencies ?? [];
     saveRubricChecks,
     toggleRubricCheck,
     clearRubricChecks,
+    loadDrafts,
+    saveDrafts,
+    recordDraft,
+    clearDraft,
     type RubricCheckMap,
   } from '@/lib/learner';
   import { combineSeed } from '@/lib/practice';
@@ -744,6 +748,32 @@ const competencies = question.competencies ?? [];
       const questionId = root.getAttribute('data-question-id') ?? '';
       let recorded = false;
 
+      // Draf jawaban uraian disimpan agar tidak hilang saat halaman dimuat ulang.
+      if (openInput) {
+        try {
+          if (!attempt?.input) {
+            const draft = loadDrafts(window.localStorage)[questionId];
+            if (draft) openInput.value = draft.text;
+          }
+        } catch {
+          /* ignore */
+        }
+        let draftTimer: number | undefined;
+        openInput.addEventListener('input', () => {
+          if (draftTimer !== undefined) window.clearTimeout(draftTimer);
+          draftTimer = window.setTimeout(() => {
+            try {
+              saveDrafts(
+                window.localStorage,
+                recordDraft(loadDrafts(window.localStorage), questionId, openInput.value),
+              );
+            } catch {
+              /* ignore */
+            }
+          }, 500);
+        });
+      }
+
       if (rubricBoxes.length) {
         let rubricMap: RubricCheckMap = {};
         try {
@@ -787,12 +817,28 @@ const competencies = question.competencies ?? [];
               revealed: true,
               input: openInput ? openInput.value : undefined,
             });
+            try {
+              saveDrafts(
+                window.localStorage,
+                clearDraft(loadDrafts(window.localStorage), questionId),
+              );
+            } catch {
+              /* ignore */
+            }
           }
         }
       });
 
       unlock = () => {
         recorded = false;
+        try {
+          saveDrafts(
+            window.localStorage,
+            clearDraft(loadDrafts(window.localStorage), questionId),
+          );
+        } catch {
+          /* ignore */
+        }
       };
 
       if (attempt) {

@@ -130,6 +130,12 @@ export const regresiQuestions: Question[] = [
       'Koefisien determinasi adalah kuadrat koefisien korelasi dan menyatakan proporsi variasi $y$ yang dijelaskan model.',
     hints: ['Determinasi adalah kuadrat dari korelasi.', 'Ubah hasil desimal menjadi persen.'],
     competencies: ['koefisien determinasi', 'interpretasi'],
+    rubric: [
+      'Menghitung $r^2$ sebagai kuadrat $r$',
+      'Menyatakan hasil dalam persen',
+      'Menafsirkan proporsi variasi yang dijelaskan',
+      'Menyebut sisa variasi dari faktor lain',
+    ],
   },
   {
     id: 'rg-09',
@@ -145,6 +151,12 @@ export const regresiQuestions: Question[] = [
       'Kunci: $r$ tinggi hanya berlaku pada rentang pengamatan; di luar itu merupakan ekstrapolasi yang berisiko.',
     hints: ['Apa cakupan rentang data yang diamati?', 'Ingat istilah ekstrapolasi.'],
     competencies: ['ekstrapolasi', 'keterbatasan model'],
+    rubric: [
+      'Mengidentifikasi prediksi sebagai ekstrapolasi',
+      'Menjelaskan batas keberlakuan $r$ pada rentang data',
+      'Menjelaskan risiko pola berubah di luar rentang',
+      'Menyimpulkan prediksi tidak dapat diandalkan',
+    ],
   },
   {
     id: 'rg-10',
@@ -159,6 +171,12 @@ export const regresiQuestions: Question[] = [
       'Kunci: manfaatkan hubungan intersep $a=\\bar{y}-b\\bar{x}$, lalu substitusikan $x=\\bar{x}$.',
     hints: ['Gunakan $a=\\bar{y}-b\\bar{x}$.', 'Substitusikan $x=\\bar{x}$ ke persamaan garis.'],
     competencies: ['pembuktian', 'garis regresi'],
+    rubric: [
+      'Menuliskan bentuk garis regresi',
+      'Menggunakan $a=\\bar y-b\\bar x$',
+      'Substitusi $x=\\bar x$',
+      'Menyimpulkan titik terletak pada garis',
+    ],
   },
   {
     id: 'rg-11',
@@ -177,6 +195,12 @@ export const regresiQuestions: Question[] = [
       'Setelah memperoleh $b$, gunakan $a = \\bar{y}-b\\bar{x}$.',
     ],
     competencies: ['regresi linear', 'prediksi', 'pemodelan'],
+    rubric: [
+      'Menghitung $\\sum xy$ dan $\\sum x^2$',
+      'Menentukan gradien dengan rumus kuadrat terkecil',
+      'Menentukan intersep lewat $(\\bar x,\\bar y)$',
+      'Melakukan prediksi pada $x=6$',
+    ],
   },
   {
     id: 'rg-12',
@@ -192,6 +216,12 @@ export const regresiQuestions: Question[] = [
       'Kunci: menghitung dan menafsirkan $r^{2}$, menghitung sisa variasi, serta membedakan korelasi dari kausalitas dengan variabel perantara.',
     hints: ['Kuadratkan $r$ untuk mendapatkan determinasi.', 'Pikirkan faktor ketiga yang memengaruhi keduanya.'],
     competencies: ['koefisien determinasi', 'korelasi vs kausalitas', 'evaluasi'],
+    rubric: [
+      'Menghitung dan menafsirkan $r^2$',
+      'Menentukan sisa variasi yang tidak dijelaskan',
+      'Menjelaskan korelasi bukan kausalitas',
+      'Menyebut variabel perantara yang masuk akal',
+    ],
   },
   {
     id: 'rg-13',
@@ -210,6 +240,12 @@ export const regresiQuestions: Question[] = [
       'Tanda residu menunjukkan titik berada di atas atau di bawah garis.',
     ],
     competencies: ['residu', 'interpretasi regresi', 'penalaran'],
+    rubric: [
+      'Menghitung taksiran $\\hat y$',
+      'Menghitung residu sebagai $y-\\hat y$',
+      'Menafsirkan tanda residu',
+      'Menjelaskan mengapa residu dapat positif atau negatif',
+    ],
   },
   {
     id: 'rg-14',

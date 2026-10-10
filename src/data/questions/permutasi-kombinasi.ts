@@ -9,14 +9,14 @@ export const permutasiKombinasiQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Tiga orang akan berfoto berjajar. Banyak urutan berfoto yang mungkin adalah …',
     options: [
-      { key: 'A', text: '$3$' },
+      { key: 'A', text: '$1$' },
       { key: 'B', text: '$6$' },
       { key: 'C', text: '$9$' },
       { key: 'D', text: '$27$' },
     ],
     answer: 'B',
     explanation:
-      'Ketiga orang berbeda, sehingga banyak susunannya $3! = 3 \\cdot 2 \\cdot 1 = 6$.',
+      'Ketiga orang berbeda, sehingga banyak susunannya $3! = 3 \\cdot 2 \\cdot 1 = 6$. Opsi $1$ muncul bila urutan diabaikan, sedangkan $9$ dan $27$ muncul bila keliru memakai pangkat alih-alih faktorial.',
     hints: ['Gunakan faktorial karena semua orang berbeda dan urutan penting.'],
     competencies: ['permutasi'],
   },
@@ -28,13 +28,14 @@ export const permutasiKombinasiQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Nilai $5!$ adalah …',
     options: [
-      { key: 'A', text: '$25$' },
+      { key: 'A', text: '$20$' },
       { key: 'B', text: '$60$' },
       { key: 'C', text: '$120$' },
       { key: 'D', text: '$720$' },
     ],
     answer: 'C',
-    explanation: '$5! = 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1 = 120$.',
+    explanation:
+      '$5! = 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1 = 120$. Opsi $20 = 5 \\cdot 4$ dan $60 = 5 \\cdot 4 \\cdot 3$ muncul bila berhenti mengalikan terlalu awal, sedangkan $720 = 6!$ muncul bila salah menghitung banyak faktornya.',
     hints: ['Kalikan bilangan dari $5$ turun sampai $1$.'],
     competencies: ['faktorial'],
   },
@@ -133,6 +134,12 @@ export const permutasiKombinasiQuestions: Question[] = [
       'Kunci jawaban: mengenali peran urutan dan menghubungkan $P(5,2) = 2!\\,\\binom{5}{2}$.',
     hints: ['Tanyakan apakah urutan mengubah hasil.', 'Bandingkan nilai $\\binom{5}{2}$ dan $P(5,2)$.'],
     competencies: ['permutasi', 'kombinasi', 'penalaran'],
+    rubric: [
+      'Membedakan peran urutan',
+      'Menghitung kombinasi $\\binom{5}{2}$',
+      'Menghitung permutasi $P(5,2)$',
+      'Menjelaskan hubungan $P=k!\\,\\binom{n}{k}$',
+    ],
   },
   {
     id: 'perkom-09',
@@ -163,6 +170,12 @@ export const permutasiKombinasiQuestions: Question[] = [
       'Kunci jawaban: menghitung frekuensi tiap huruf lalu membagi $10!$ dengan faktorial setiap frekuensi.',
     hints: ['Daftar frekuensi tiap huruf lebih dahulu.', 'Bagi $10!$ dengan $2!\\,3!\\,2!\\,2!$.'],
     competencies: ['permutasi unsur sama', 'penalaran'],
+    rubric: [
+      'Mendaftar frekuensi tiap huruf',
+      'Menyadari adanya huruf berulang',
+      'Membagi $10!$ dengan faktorial tiap frekuensi',
+      'Memperoleh hasil akhir',
+    ],
   },
   {
     id: 'perkom-11',
@@ -178,6 +191,12 @@ export const permutasiKombinasiQuestions: Question[] = [
       'Kunci jawaban: mencacah pilihan pasangan lalu pilihan orang dengan aturan perkalian.',
     hints: ['Pilih dahulu pasangan mana yang menyumbang anggota.', 'Setiap pasangan terpilih menyumbang $2$ kemungkinan.'],
     competencies: ['kombinasi', 'aturan perkalian', 'peluang'],
+    rubric: [
+      'Menentukan total cara memilih 4 dari 10',
+      'Memilih 4 pasangan dari 5',
+      'Mengalikan dengan $2^{4}$ pilihan orang',
+      'Menghitung peluang sebagai hasil bagi',
+    ],
   },
   {
     id: 'perkom-12',
@@ -193,6 +212,12 @@ export const permutasiKombinasiQuestions: Question[] = [
       'Kunci: membedakan kapan urutan penting (permutasi) dan tidak (kombinasi), serta menjelaskan hubungan $P(10,4)=4!\\,\\binom{10}{4}$.',
     hints: ['Jabatan membuat urutan penting.', 'Gunakan $P(n,k)=k!\\,\\binom{n}{k}$.'],
     competencies: ['permutasi', 'kombinasi', 'evaluasi'],
+    rubric: [
+      'Menghitung permutasi dengan jabatan',
+      'Menghitung kombinasi tanpa jabatan',
+      'Menghubungkan keduanya lewat $4!$',
+      'Menjelaskan mengapa hasil berbeda',
+    ],
   },
   {
     id: 'perkom-13',
@@ -226,5 +251,11 @@ export const permutasiKombinasiQuestions: Question[] = [
       'Untuk "paling sedikit $1$", kurangi total dengan susunan tanpa wanita.',
     ],
     competencies: ['kombinasi', 'aturan perkalian', 'strategi komplemen', 'pemodelan'],
+    rubric: [
+      'Menghitung banyak panitia dengan tepat 2 wanita',
+      'Menghitung total semua panitia',
+      'Menggunakan komplemen untuk paling sedikit 1 wanita',
+      'Menafsirkan hasil sesuai konteks',
+    ],
   },
 ];

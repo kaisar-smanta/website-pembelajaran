@@ -97,6 +97,14 @@ Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}
 **Uji turunan kedua.** Bila $f'(c) = 0$ dan $f''(c) < 0$, maka $x = c$ adalah maksimum lokal. Bila $f''(c) > 0$, maka $x = c$ adalah minimum lokal. Bila $f''(c) = 0$, uji ini tidak memberi simpulan sehingga kita kembali ke uji turunan pertama.
 
 **Kecekungan dan titik belok.** Bila $f''(x) > 0$ pada suatu selang, grafik **cekung ke atas** (terbuka ke atas). Bila $f''(x) < 0$, grafik **cekung ke bawah**. Titik tempat kecekungan berubah disebut **titik belok**, yang bersyarat $f''(x) = 0$ dan tanda $f''$ berubah di sekitarnya.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Membaca tanda turunan dan memeriksa ujung selang",
+          text: `Tanda $f'(x)$ menunjukkan arah grafik: $f'(x) > 0$ berarti naik dan $f'(x) < 0$ berarti turun. Pada **selang tertutup** $[a, b]$, nilai maksimum atau minimum global dapat terjadi di titik stasioner **atau** di ujung selang, jadi bandingkan selalu nilai $f(a)$, $f(b)$, dan nilai di setiap titik stasioner.`,
+        },
+      ],
     },
     {
       id: "representasi",
@@ -184,6 +192,12 @@ Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}
         {
           kind: "exploration",
           explorationId: "mtl-aplikasi-turunan-garis-singgung",
+        },
+        {
+          kind: "figure",
+          alt: "Kurva kubik dengan sebuah titik maksimum dan titik minimum yang ditandai, serta sebuah garis singgung yang menyentuh kurva di satu titik.",
+          caption: "Garis singgung menyentuh kurva di satu titik dengan gradien $f'(a)$, sedangkan titik stasioner $f'(x)=0$ menandai maksimum dan minimum lokal.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="115" x2="300" y2="115" stroke="currentColor" stroke-width="1.5"/><line x1="170" y1="210" x2="170" y2="25" stroke="currentColor" stroke-width="1.5"/><polyline points="56,183 85,77 113,47 142,68 170,115 199,162 227,183 256,153 284,47" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="164" y1="116" x2="233" y2="208" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/><circle cx="113" cy="47" r="3.4" fill="currentColor"/><circle cx="227" cy="183" r="3.4" fill="currentColor"/><circle cx="199" cy="162" r="3.4" fill="currentColor"/><text x="292" y="133" font-size="12" fill="currentColor">x</text><text x="174" y="34" font-size="12" fill="currentColor">y</text><text x="74" y="40" font-size="11" fill="currentColor">maksimum</text><text x="234" y="178" font-size="11" fill="currentColor">minimum</text><text x="146" y="204" font-size="11" fill="currentColor">garis singgung</text></svg>',
         },
       ],
     },
@@ -281,6 +295,48 @@ Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posi
           explanation: "Langkah ketiga keliru. Bila $f''(c)>0$ grafik cekung ke atas sehingga titik itu **minimum** lokal, bukan maksimum. Sebaliknya $f''(c)<0$ menandakan maksimum. Jadi $(2,-2)$ minimum dan $(0,2)$ maksimum.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah kotak tanpa tutup dibuat dari karton persegi berukuran $24$ cm $\\times$ $24$ cm. Di setiap sudut dipotong persegi kecil bersisi $x$ cm, lalu sisi-sisinya dilipat ke atas. Tentukan nilai $x$ yang membuat volume kotak **maksimum**, lalu hitung volume maksimum itu.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Ubah soal cerita menjadi fungsi satu variabel, lalu cari titik stasionernya.",
+          steps: [
+            {
+              title: "Langkah 1: Modelkan volume",
+              text: `Setelah sudut dipotong, alas kotak berukuran $(24-2x) \\times (24-2x)$ dan tingginya $x$, sehingga
+$$V(x) = x(24-2x)^{2}, \\qquad 0 < x < 12.$$`,
+            },
+            {
+              title: "Langkah 2: Turunkan",
+              text: `Dengan aturan hasil kali:
+$$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x)(24-6x).$$`,
+            },
+            {
+              title: "Langkah 3: Tentukan titik stasioner",
+              text: `Selesaikan $V'(x)=0$: $(24-2x)(24-6x)=0$ memberi $x=12$ atau $x=4$. Nilai $x=12$ berada di ujung selang dan memberi volume nol, jadi kandidat utama adalah $x=4$.`,
+            },
+            {
+              title: "Langkah 4: Uji jenis titik stasioner",
+              text: `Untuk $0 < x < 4$, keduanya positif sehingga $V'(x) > 0$ (fungsi naik). Untuk $4 < x < 12$, faktor $(24-6x)$ menjadi negatif sehingga $V'(x) < 0$ (fungsi turun). Karena turunan berubah dari positif ke negatif, $x = 4$ memberi **maksimum**.`,
+            },
+            {
+              title: "Langkah 5: Hitung volume maksimum",
+              text: `$V(4) = 4(24-8)^{2} = 4 \\cdot 16^{2} = 4 \\cdot 256 = 1024$. Jadi volume maksimumnya $1024$ cm$^{3}$ dengan potongan sudut $4$ cm.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Masalah mencari nilai terbaik sudah lama menarik perhatian. Pierre de Fermat pada 1620-an menyusun metode mencari nilai maksimum dan minimum yang memuat gagasan inti $f'(x)=0$. Isaac Newton memakai kalkulusnya untuk memecahkan persoalan gerak dan bentuk kurva, termasuk menentukan keadaan ekstrem. Pada 1696 Johann Bernoulli mengajukan masalah *brachistochrone*, yaitu lengkung turun tercepat, yang mendorong lahirnya kalkulus variasi dan diselesaikan oleh Newton, Leibniz, dan L'Hôpital selain Bernoulli sendiri. Sejak abad ke-18, optimasi dengan turunan menjadi alat baku dalam fisika, teknik, dan ekonomi.`,
     },
     {
       id: "refleksi",

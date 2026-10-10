@@ -148,6 +148,12 @@ export const integralQuestions: Question[] = [
       'Hitung $\\displaystyle\\int_{0}^{m}(mx-x^{2})\\,dx$ lalu samakan dengan $\\dfrac{9}{2}$.',
     ],
     competencies: ['luas antara dua kurva', 'integral tentu', 'pemodelan parameter', 'penalaran'],
+    rubric: [
+      'Menentukan titik potong $x=0$ dan $x=m$',
+      'Menyusun integral luas $\\displaystyle\\int_{0}^{m}(mx-x^{2})\\,dx$',
+      'Menghitung luas menjadi $\\dfrac{m^{3}}{6}$',
+      'Menyelesaikan $\\dfrac{m^{3}}{6}=\\dfrac{9}{2}$ dan memperoleh $m=3$',
+    ],
   },
   {
     id: 'in-10',
@@ -166,6 +172,12 @@ export const integralQuestions: Question[] = [
       'Hitung luas bagian $0\\le x\\le1$ dan bandingkan dengan setengah luas total.',
     ],
     competencies: ['luas antara dua kurva', 'integral tentu', 'pembuktian', 'penalaran'],
+    rubric: [
+      'Menentukan titik potong $x=0$ dan $x=2$',
+      'Menghitung luas total $\\dfrac{4}{3}$',
+      'Menghitung luas bagian kiri $x=1$ sebesar $\\dfrac{2}{3}$',
+      'Menunjukkan bagian kanan juga $\\dfrac{2}{3}$ sehingga terbagi sama',
+    ],
   },
   {
     id: 'in-11',

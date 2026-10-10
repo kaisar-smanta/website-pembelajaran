@@ -131,6 +131,12 @@ Contoh:
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Diagram batang peluang banyak gambar pada pelemparan tiga koin untuk nilai 0, 1, 2, dan 3; batang untuk 1 dan 2 paling tinggi, dan garis putus-putus menandai nilai harapan 1,5.",
+          caption: "Fungsi peluang $X$ = banyak gambar pada tiga koin; garis putus-putus menandai nilai harapan $E(X)=1{,}5$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-vad-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="35" y1="195" x2="290" y2="195" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-vad-axis)"/><line x1="35" y1="195" x2="35" y2="35" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-vad-axis)"/><rect x="55" y="155" width="40" height="40" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="110" y="75" width="40" height="120" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="165" y="75" width="40" height="120" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="220" y="155" width="40" height="40" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><line x1="157.5" y1="195" x2="157.5" y2="60" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3"/><text x="157.5" y="54" font-size="11" fill="currentColor" text-anchor="middle">E(X) = 1,5</text><text x="75" y="215" font-size="12" fill="currentColor" text-anchor="middle">0</text><text x="130" y="215" font-size="12" fill="currentColor" text-anchor="middle">1</text><text x="185" y="215" font-size="12" fill="currentColor" text-anchor="middle">2</text><text x="240" y="215" font-size="12" fill="currentColor" text-anchor="middle">3</text><text x="160" y="234" font-size="11" fill="currentColor" text-anchor="middle">banyak gambar</text><text x="12" y="115" font-size="11" fill="currentColor" transform="rotate(-90 12 115)" text-anchor="middle">P(X = x)</text></svg>',
+        },
       ],
     },
     {
@@ -317,6 +323,42 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
           explanation: "Varians adalah selisih, bukan jumlah: $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 5 - 4 = 1$.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah kotak berisi $4$ bola merah dan $2$ bola biru. Dua bola diambil sekaligus. Misalkan $X$ menyatakan banyak bola merah yang terambil. Tentukan distribusi peluang $X$, lalu hitung nilai harapan dan variansnya.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Susun dahulu distribusinya, baru hitung nilai harapan dan sebarannya.",
+          steps: [
+            {
+              title: "Langkah 1: Tentukan nilai dan ruang sampel",
+              text: `Nilai yang mungkin adalah $X = 0, 1, 2$. Banyak cara mengambil $2$ bola dari $6$ bola adalah $\\binom{6}{2} = 15$, sehingga $n(S) = 15$.`,
+            },
+            {
+              title: "Langkah 2: Hitung peluang tiap nilai",
+              text: `$P(X=0) = \\dfrac{\\binom{2}{2}}{15} = \\dfrac{1}{15}$; $P(X=1) = \\dfrac{\\binom{4}{1}\\binom{2}{1}}{15} = \\dfrac{8}{15}$; $P(X=2) = \\dfrac{\\binom{4}{2}}{15} = \\dfrac{6}{15} = \\dfrac{2}{5}$. Periksa jumlahnya: $\\dfrac{1}{15}+\\dfrac{8}{15}+\\dfrac{6}{15}=1$, jadi distribusinya sah.`,
+            },
+            {
+              title: "Langkah 3: Nilai harapan",
+              text: `$E(X) = 0\\left(\\dfrac{1}{15}\\right) + 1\\left(\\dfrac{8}{15}\\right) + 2\\left(\\dfrac{6}{15}\\right) = \\dfrac{8+12}{15} = \\dfrac{20}{15} = \\dfrac{4}{3}$. Jadi rata-rata banyak bola merah per pengambilan adalah sekitar $1{,}33$.`,
+            },
+            {
+              title: "Langkah 4: Varians dan simpangan baku",
+              text: `$E(X^{2}) = 0^{2}\\left(\\dfrac{1}{15}\\right) + 1^{2}\\left(\\dfrac{8}{15}\\right) + 2^{2}\\left(\\dfrac{6}{15}\\right) = \\dfrac{8+24}{15} = \\dfrac{32}{15}$. Maka $\\operatorname{Var}(X) = \\dfrac{32}{15} - \\left(\\dfrac{4}{3}\\right)^{2} = \\dfrac{32}{15} - \\dfrac{16}{9} = \\dfrac{16}{45} \\approx 0{,}356$, dan $\\sigma = \\sqrt{\\dfrac{16}{45}} \\approx 0{,}60$.`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Gagasan nilai harapan muncul bersama teori peluang awal. Christiaan Huygens pada 1657 memakai rata-rata tertimbang hasil untuk menghitung harapan dalam permainan, dan Jacob Bernoulli dalam *Ars Conjectandi* (1713) menjelaskan mengapa rata-rata jangka panjang mendekati nilai harapan. Ukuran sebaran berkembang kemudian; varians dan simpangan baku dibakukan oleh Karl Pearson pada akhir abad ke-19 setelah gagasan kuadrat terkecil dari Legendre dan Gauss. Istilah "variabel acak" dalam arti modern sebagai fungsi dari ruang sampel ke bilangan baru dipandang baku setelah Andrey Kolmogorov meletakkan dasar aksiomatik teori peluang pada 1933.`,
     },
     {
       id: "refleksi",

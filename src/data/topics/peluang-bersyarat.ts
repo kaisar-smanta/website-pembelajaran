@@ -139,6 +139,12 @@ Memang, jika kita tahu muncul mata genap, peluang mata lebih dari 3 adalah $\\tf
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Diagram pohon peluang bersyarat: dari titik awal bercabang hujan dengan peluang 0,3 atau tidak hujan 0,7, lalu tiap cabang bercabang lagi membawa payung atau tidak.",
+          caption: "Diagram pohon: $P(\\text{hujan})=0{,}3$; jika hujan $P(\\text{payung}\\mid\\text{hujan})=0{,}8$; jika tidak hujan $P(\\text{payung}\\mid\\text{tidak hujan})=0{,}1$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-pb-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><g fill="none" stroke="currentColor" stroke-width="1.6"><line x1="26" y1="120" x2="120" y2="62" marker-end="url(#fig-pb-arrow)"/><line x1="26" y1="120" x2="120" y2="178" marker-end="url(#fig-pb-arrow)"/><line x1="120" y1="62" x2="232" y2="32" marker-end="url(#fig-pb-arrow)"/><line x1="120" y1="62" x2="232" y2="92" marker-end="url(#fig-pb-arrow)"/><line x1="120" y1="178" x2="232" y2="148" marker-end="url(#fig-pb-arrow)"/><line x1="120" y1="178" x2="232" y2="208" marker-end="url(#fig-pb-arrow)"/></g><circle cx="26" cy="120" r="3" fill="currentColor"/><circle cx="120" cy="62" r="3" fill="currentColor"/><circle cx="120" cy="178" r="3" fill="currentColor"/><circle cx="232" cy="32" r="3" fill="currentColor"/><circle cx="232" cy="92" r="3" fill="currentColor"/><circle cx="232" cy="148" r="3" fill="currentColor"/><circle cx="232" cy="208" r="3" fill="currentColor"/><text x="26" y="140" font-size="11" fill="currentColor" text-anchor="middle">Awal</text><text x="120" y="50" font-size="12" fill="currentColor" text-anchor="middle">Hujan</text><text x="120" y="196" font-size="12" fill="currentColor" text-anchor="middle">Tidak hujan</text><text x="68" y="86" font-size="11" fill="currentColor" text-anchor="end">0,3</text><text x="68" y="158" font-size="11" fill="currentColor" text-anchor="end">0,7</text><text x="166" y="44" font-size="11" fill="currentColor" text-anchor="end">0,8</text><text x="166" y="78" font-size="11" fill="currentColor" text-anchor="end">0,2</text><text x="166" y="160" font-size="11" fill="currentColor" text-anchor="end">0,1</text><text x="166" y="194" font-size="11" fill="currentColor" text-anchor="end">0,9</text><text x="238" y="36" font-size="11" fill="currentColor">Payung</text><text x="238" y="96" font-size="11" fill="currentColor">Tidak payung</text><text x="238" y="152" font-size="11" fill="currentColor">Payung</text><text x="238" y="212" font-size="11" fill="currentColor">Tidak payung</text></svg>',
+        },
       ],
     },
     {
@@ -411,6 +417,12 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
           ],
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Aturan Bayes berasal dari sebuah karangan Thomas Bayes yang diterbitkan secara anumerta pada 1763 berkat usaha Richard Price. Pierre-Simon Laplace kemudian merumuskannya lebih umum dan sistematis dalam *Théorie analytique des probabilités* (1812) sebagai bagian dari apa yang disebut peluang invers. Gagasan memperbarui peluang ketika informasi baru tersedia inilah inti peluang bersyarat. Istilah "Bayes" untuk pendekatan ini baru populer pada abad ke-20, ketika metode itu dipakai luas dalam statistika, pengambilan keputusan, dan pembelajaran mesin.`,
     },
     {
       id: "refleksi",

@@ -133,6 +133,9 @@ Teorema ini menghubungkan dua gagasan integral, yaitu limit jumlah dan antiturun
       title: "Sifat dan Aturan Dasar",
       body: `**Aturan pangkat.** $\\displaystyle\\int x^{n}\\,dx = \\dfrac{x^{n+1}}{n+1} + C$ untuk $n \\neq -1$.
 
+**Kasus khusus $n = -1$.** Karena aturan pangkat akan memuat pembagian oleh nol, integral $\\dfrac{1}{x}$ dihitung terpisah:
+$$\\int \\dfrac{1}{x}\\,dx = \\ln\\lvert x\\rvert + C, \\quad x \\neq 0.$$
+
 **Konstanta dan kelipatan.** $\\displaystyle\\int c\\,dx = cx + C$ dan $\\displaystyle\\int c\\,f(x)\\,dx = c\\int f(x)\\,dx$.
 
 **Jumlah dan selisih.** $\\displaystyle\\int \\left[f(x) \\pm g(x)\\right] dx = \\int f(x)\\,dx \\pm \\int g(x)\\,dx$.
@@ -143,7 +146,7 @@ Teorema ini menghubungkan dua gagasan integral, yaitu limit jumlah dan antiturun
 
 **Pecah selang.** $\\displaystyle\\int_{a}^{b} f(x)\\,dx = \\int_{a}^{c} f(x)\\,dx + \\int_{c}^{b} f(x)\\,dx$.
 
-**Eksponensial.** $\\displaystyle\\int e^{x}\\,dx = e^{x} + C$ dan $\\displaystyle\\int a^{x}\\,dx = \\dfrac{a^{x}}{\\ln a} + C$.
+**Eksponensial.** $\\displaystyle\\int e^{x}\\,dx = e^{x} + C$ dan $\\displaystyle\\int a^{x}\\,dx = \\dfrac{a^{x}}{\\ln a} + C$ untuk $a > 0$ dan $a \\ne 1$.
 
 **Trigonometri.** $\\displaystyle\\int \\cos x\\,dx = \\sin x + C$ dan $\\displaystyle\\int \\sin x\\,dx = -\\cos x + C$.`,
     },
@@ -184,6 +187,12 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
               "$\\int_{a}^{b} \\left[f(x)-g(x)\\right] dx$",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Kurva yang memotong sumbu x dengan daerah di bawah sumbu diberi bayangan dan diberi label luas negatif.",
+          caption: "Daerah di bawah sumbu-$x$ dihitung negatif pada integral tentu, sehingga $\\int_{0}^{2}(x^{2}-2x)\\,dx=-\\dfrac{4}{3}$, sedangkan luas sebenarnya $\\dfrac{4}{3}$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="110" x2="300" y2="110" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="175" x2="40" y2="22" stroke="currentColor" stroke-width="1.5"/><polygon points="95,110 110,122 140,134 170,138 200,132 230,118 245,110" fill="currentColor" fill-opacity="0.18" stroke="none"/><polyline points="50,80 80,100 110,122 140,134 170,138 200,132 230,118 260,100 290,80" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="118" y="162" font-size="11" fill="currentColor">luas negatif</text><text x="292" y="128" font-size="12" fill="currentColor">x</text><text x="20" y="28" font-size="12" fill="currentColor">y</text></svg>',
         },
       ],
     },
@@ -241,6 +250,25 @@ $$\\int_{0}^{2} x^{2}\\,dx = \\left[\\frac{x^{3}}{3}\\right]_{0}^{2} = \\frac{8}
 
 *Penyelesaian.* Kedua kurva berpotongan di $x = 0$ dan $x = 1$. Karena $x \\geq x^{2}$ pada selang itu:
 $$L = \\int_{0}^{1} \\left(x - x^{2}\\right) dx = \\left[\\frac{x^{2}}{2} - \\frac{x^{3}}{3}\\right]_{0}^{1} = \\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}.$$`,
+            },
+            {
+              title: "Contoh 4: Substitusi",
+              text: `Tentukan $\\displaystyle\\int 2x\\left(x^{2}+1\\right)^{3} dx$.
+
+*Penyelesaian.* Ambil $u = x^{2}+1$, maka $\\dfrac{du}{dx} = 2x$ sehingga $du = 2x\\,dx$. Integral berubah menjadi
+$$\\int 2x\\left(x^{2}+1\\right)^{3} dx = \\int u^{3}\\,du = \\frac{u^{4}}{4} + C.$$
+Substitusikan kembali $u = x^{2}+1$:
+$$\\int 2x\\left(x^{2}+1\\right)^{3} dx = \\frac{\\left(x^{2}+1\\right)^{4}}{4} + C.$$
+Periksa dengan aturan rantai: turunannya kembali menjadi $2x\\left(x^{2}+1\\right)^{3}$, jadi hasil ini benar.`,
+            },
+            {
+              title: "Contoh 5: Luas Bertanda dan Luas Sebenarnya",
+              text: `Hitung $\\displaystyle\\int_{0}^{2} \\left(x^{2}-2x\\right) dx$, lalu tentukan luas daerah yang sebenarnya tertutup antara kurva dan sumbu-$x$ pada selang itu.
+
+*Penyelesaian.* Antiturunannya $\\dfrac{x^{3}}{3} - x^{2}$, sehingga
+$$\\int_{0}^{2} \\left(x^{2}-2x\\right) dx = \\left[\\frac{x^{3}}{3} - x^{2}\\right]_{0}^{2} = \\left(\\frac{8}{3} - 4\\right) - 0 = -\\frac{4}{3}.$$
+Nilai negatif ini disebut **luas bertanda**, karena kurva berada di bawah sumbu-$x$ pada $(0, 2)$. Karena $x^{2}-2x = x(x-2) \\leq 0$ di sana, luas sebenarnya adalah
+$$L = \\left| -\\frac{4}{3} \\right| = \\frac{4}{3}.$$`,
             },
           ],
         },
@@ -338,6 +366,12 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
       ],
     },
     {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Menghitung luas dan volume bangun melengkung sudah dilakukan Archimedes pada abad ke-3 SM dengan metode penghabisan (*exhaustion*). Pada abad ke-17 Bonaventura Cavalieri mengembangkan gagasan "indivisibel" untuk menghitung luas, dan Isaac Barrow, guru Newton, menyadari hubungan antara masalah garis singgung dan masalah luas. Isaac Newton serta Gottfried Wilhelm Leibniz kemudian merumuskan teorema dasar kalkulus yang mengaitkan turunan dan integral sebagai dua proses yang saling membatalkan. Bentuk modern integral tentu sebagai limit jumlah dirumuskan Bernhard Riemann pada pertengahan abad ke-19.`,
+    },
+    {
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
@@ -373,6 +407,10 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
             [
               "Aturan pangkat",
               "$\\int x^{n}\\,dx = \\dfrac{x^{n+1}}{n+1} + C$",
+            ],
+            [
+              "Kasus $n = -1$",
+              "$\\int \\dfrac{1}{x}\\,dx = \\ln\\lvert x\\rvert + C$",
             ],
             [
               "Eksponensial",

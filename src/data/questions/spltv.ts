@@ -11,12 +11,12 @@ export const spltvQuestions: Question[] = [
     options: [
       { key: 'A', text: '$3$' },
       { key: 'B', text: '$5$' },
-      { key: 'C', text: '$7$' },
-      { key: 'D', text: '$6$' },
+      { key: 'C', text: '$6$' },
+      { key: 'D', text: '$7$' },
     ],
     answer: 'A',
     explanation:
-      'Jumlahkan ketiga persamaan: $2(x+y+z)=10+12+8=30$, sehingga $x+y+z=15$. Karena $y+z=12$, maka $x=15-12=3$.',
+      'Jumlahkan ketiga persamaan: $2(x+y+z)=10+12+8=30$, sehingga $x+y+z=15$. Karena $y+z=12$, maka $x=15-12=3$. Opsi $5$ berasal dari $15/3$ (menganggap semua variabel sama), opsi $6$ dari menghitung $2x$ tanpa membagi $2$, dan opsi $7$ sebenarnya nilai $y$.',
     hints: ['Jumlahkan ketiga persamaan untuk memperoleh $x+y+z$.'],
     competencies: ['SPLTV', 'eliminasi'],
   },
@@ -51,12 +51,12 @@ export const spltvQuestions: Question[] = [
     options: [
       { key: 'A', text: '$6$' },
       { key: 'B', text: '$12$' },
-      { key: 'C', text: '$18$' },
+      { key: 'C', text: '$30$' },
       { key: 'D', text: '$24$' },
     ],
     answer: 'B',
     explanation:
-      'Misal $a,b,c$ banyak koin Rp100, Rp200, Rp500. Maka $a+b+c=30$, $a+2b+5c=90$ (dalam ratusan rupiah), dan $c=2a$. Substitusi memberi $3a+b=30$ dan $11a+2b=90$. Dari $b=30-3a$ diperoleh $11a+60-6a=90 \\Rightarrow 5a=30$, jadi $a=6$, $b=12$, dan $c=12$. Banyak koin Rp500 adalah $12$.',
+      'Misal $a,b,c$ banyak koin Rp100, Rp200, Rp500. Maka $a+b+c=30$, $a+2b+5c=90$ (dalam ratusan rupiah), dan $c=2a$. Substitusi memberi $3a+b=30$ dan $11a+2b=90$. Dari $b=30-3a$ diperoleh $11a+60-6a=90 \\Rightarrow 5a=30$, jadi $a=6$, $b=12$, dan $c=12$. Banyak koin Rp500 adalah $12$. Opsi $6$ adalah banyak koin Rp100, $30$ adalah total keping, dan $24$ dua kali jawaban benar.',
     hints: ['Bagi nilai total dengan $100$ agar koefisiennya sederhana.', 'Gunakan $c=2a$ untuk mengurangi banyak variabel.'],
     competencies: ['pemodelan SPLTV'],
   },
@@ -131,6 +131,12 @@ export const spltvQuestions: Question[] = [
     explanation: 'Kunci jawaban: menerjemahkan hubungan antarbilangan menjadi satu persamaan satu variabel.',
     hints: ['Nyatakan semua bilangan dalam satu variabel, misalnya $x$.', 'Periksa kembali jumlah dan hubungan antarbilangan.'],
     competencies: ['pemodelan SPLTV'],
+    rubric: [
+      'Memodelkan hubungan antarbilangan',
+      'Menyusun persamaan satu variabel',
+      'Menyelesaikan persamaan',
+      'Memeriksa solusi pada semua syarat',
+    ],
   },
   {
     id: 'sp-09',
@@ -145,6 +151,12 @@ export const spltvQuestions: Question[] = [
     explanation: 'Kunci jawaban: mengenali persamaan yang bergantung dan menafsirkan solusi tak berhingga.',
     hints: ['Perhatikan hubungan antara persamaan pertama dan kedua.'],
     competencies: ['penalaran SPLTV', 'banyak solusi'],
+    rubric: [
+      'Mengenali persamaan yang bergantung',
+      'Menurunkan bentuk solusi parametrik',
+      'Menjelaskan banyak solusi tak berhingga',
+      'Menafsirkan hasil secara geometris',
+    ],
   },
   {
     id: 'sp-10',
@@ -159,6 +171,12 @@ export const spltvQuestions: Question[] = [
     explanation: 'Kunci jawaban: mendeteksi inkonsistensi dari dua persamaan yang bertentangan.',
     hints: ['Bandingkan ruas kiri dan ruas kanan dua persamaan pertama.'],
     competencies: ['penalaran SPLTV', 'sistem tak konsisten'],
+    rubric: [
+      'Membandingkan dua persamaan yang bertentangan',
+      'Menyimpulkan sistem tak konsisten',
+      'Menjelaskan tidak ada solusi',
+      'Menafsirkan secara geometris (bidang sejajar)',
+    ],
   },
   {
     id: 'sp-11',
@@ -177,6 +195,12 @@ export const spltvQuestions: Question[] = [
       'Sistem memiliki tak berhingga solusi ketika koefisien variabel bebasnya menjadi nol.',
     ],
     competencies: ['SPLTV', 'parameter', 'banyak solusi'],
+    rubric: [
+      'Mengeliminasi dua variabel',
+      'Memperoleh bentuk yang memuat parameter $k$',
+      'Menyimpulkan syarat tak berhingga solusi',
+      'Menuliskan solusi parametrik umum',
+    ],
   },
   {
     id: 'sp-12',
@@ -192,6 +216,12 @@ export const spltvQuestions: Question[] = [
       'Kunci: menerjemahkan hubungan antarbilangan menjadi sistem, menyelesaikan dengan substitusi, dan memverifikasi solusi.',
     hints: ['Nyatakan $y$ dan $z$ dalam $x$.', 'Substitusikan ke persamaan jumlah.'],
     competencies: ['SPLTV', 'pemodelan', 'evaluasi'],
+    rubric: [
+      'Menyusun SPLTV dari hubungan antarbilangan',
+      'Menyelesaikan dengan substitusi',
+      'Menentukan ketiga bilangan',
+      'Memeriksa solusi pada semua persamaan',
+    ],
   },
   {
     id: 'sp-13',
@@ -233,5 +263,11 @@ export const spltvQuestions: Question[] = [
       'Kurangkan pasangan persamaan untuk memperoleh hubungan antarvariabel.',
     ],
     competencies: ['SPLTV', 'pemodelan', 'eliminasi', 'substitusi'],
+    rubric: [
+      'Memodelkan harga tiap minuman',
+      'Menyusun tiga persamaan dari data penjualan',
+      'Menyelesaikan dengan eliminasi-substitusi',
+      'Memeriksa solusi dan menuliskan harga',
+    ],
   },
 ];

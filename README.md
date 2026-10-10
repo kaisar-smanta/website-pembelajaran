@@ -150,6 +150,7 @@ Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
 | --- | --- |
 | `callout` | Sorotan info/perhatian/tips/konsep. |
 | `table` | Tabel (opsional sel matematika). |
+| `figure` | Diagram SVG sebaris (grafik, geometri, distribusi) dengan `alt` wajib dan `caption` opsional; keduanya ikut terindeks pencarian. |
 | `exploration` | Menyisipkan simulasi dari `explorations.ts`. |
 | `details` | Pembahasan berbalut tombol buka-tutup. |
 | `prediction` | Pertanyaan pemantik: siswa menyimpan dugaan lebih dulu, lalu penjelasan terbuka. |
@@ -177,6 +178,7 @@ blocks: [
   { kind: 'flip-cards', cards: [{ front: 'Eksponen', back: 'Banyaknya faktor' }] },
   { kind: 'tabs', items: [{ label: 'Simbolik', body: '$a^n$' }, { label: 'Tabel', body: '...' }] },
   { kind: 'reflection', prompts: ['Kapan sifat eksponen tidak berlaku?'], confidenceLabel: 'Seberapa yakin?' },
+  { kind: 'figure', alt: 'Grafik $y=2^x$ dari kiri bawah ke kanan atas.', caption: 'Kurva $y=2^{x}$ mendekati sumbu-$x$ sebagai asimtot.', svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation">…</svg>' },
 ]
 ```
 
@@ -190,10 +192,13 @@ menjadi blok saat data dimuat. Lapisan itu kini dihapus: seluruh topik pada
 kebenaran dan tidak ada lagi pola rapuh berbasis regex. `tests/content-blocks.mjs`
 menegakkan kontraknya — setiap bagian `pemantik` wajib punya `prediction`,
 `refleksi` wajib punya `reflection`, dan `eksplorasi` wajib punya `exploration`.
-`sectionSearchText` (di `src/lib/content-text.ts`) mengindeks isi blok untuk
-pencarian. Halaman materi juga menampilkan kartu **Kemajuan halaman**
-(`TopicProgress.astro`) yang menghitung dugaan, refleksi, dan latihan yang sudah
-dikerjakan.
+`sectionSearchText` (di `src/lib/content-text.ts`) mengindeks isi blok (termasuk
+`alt` dan keterangan diagram `figure`) untuk pencarian. `tests/content-integrity.mjs`
+menjaga integritas silang (rujukan topik↔studi kasus, id/slug unik, bagian tak
+kosong, kunci pilihan ganda sehat). Halaman materi juga menampilkan kartu
+**Kemajuan halaman** (`TopicProgress.astro`) yang menghitung dugaan, refleksi,
+latihan, serta aktivitas interaktif (contoh bertahap, cari kesalahan, dan
+mencocokkan) yang sudah dikerjakan.
 
 > Untuk menambah blok interaktif baru, tulis langsung pada `blocks` bagian yang
 > bersangkutan (lihat tabel di atas). Tidak ada lagi konversi otomatis, sehingga

@@ -209,6 +209,12 @@ yaitu $5$ pilihan untuk kotak pertama, $4$ untuk kedua, dan $3$ untuk ketiga. Ca
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Diagram pohon dengan dua cabang di tahap pertama dan masing-masing dua cabang lagi di tahap kedua.",
+          caption: "Diagram pohon aturan perkalian: $2$ pilihan pada tahap pertama dan $2$ pilihan pada tahap kedua memberi $2 \\times 2 = 4$ hasil. Banyaknya daun menyatakan banyak cara.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="34" y1="110" x2="126" y2="55" stroke="currentColor" stroke-width="1.5"/><line x1="34" y1="110" x2="126" y2="165" stroke="currentColor" stroke-width="1.5"/><line x1="134" y1="55" x2="246" y2="25" stroke="currentColor" stroke-width="1.5"/><line x1="134" y1="55" x2="246" y2="85" stroke="currentColor" stroke-width="1.5"/><line x1="134" y1="165" x2="246" y2="135" stroke="currentColor" stroke-width="1.5"/><line x1="134" y1="165" x2="246" y2="195" stroke="currentColor" stroke-width="1.5"/><circle cx="30" cy="110" r="4" fill="currentColor"/><circle cx="130" cy="55" r="4" fill="currentColor"/><circle cx="130" cy="165" r="4" fill="currentColor"/><circle cx="250" cy="25" r="4" fill="currentColor"/><circle cx="250" cy="85" r="4" fill="currentColor"/><circle cx="250" cy="135" r="4" fill="currentColor"/><circle cx="250" cy="195" r="4" fill="currentColor"/><text x="106" y="48" font-size="12" fill="currentColor">A1</text><text x="106" y="182" font-size="12" fill="currentColor">A2</text><text x="260" y="28" font-size="12" fill="currentColor">B1</text><text x="260" y="88" font-size="12" fill="currentColor">B2</text><text x="260" y="138" font-size="12" fill="currentColor">B1</text><text x="260" y="198" font-size="12" fill="currentColor">B2</text></svg>',
+        },
       ],
     },
     {
@@ -223,7 +229,7 @@ Jalankan simulasi berkali-kali. Apakah frekuensi relatif kejadian ini mendekati 
       blocks: [
         {
           kind: "exploration",
-          explorationId: "peluang-sim",
+          explorationId: "permutasi-kombinasi-hitung",
         },
       ],
     },
@@ -238,6 +244,32 @@ Yang menentukan pilihan rumus bukan panjangnya rumus, melainkan pertanyaan: **ap
 $$\\text{urutan penting} \\Rightarrow P(n,k) = \\frac{n!}{(n-k)!}, \\qquad \\text{urutan tidak penting} \\Rightarrow \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
 
 Karena menyusun ulang $k$ objek dapat dilakukan dalam $k!$ cara, setiap kombinasi bersesuaian dengan $k!$ permutasi, sehingga $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$ dan hasil kombinasi selalu $k!$ kali lebih kecil. Untuk keperluan peluang, banyak cara yang menguntungkan dibagi banyak cara seluruhnya.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Aturan perkalian.** Tahapan berurutan: $n_1 \\cdot n_2 \\cdots n_k$.
+
+**Aturan penjumlahan.** Pilihan saling lepas: $n_1 + n_2$.
+
+**Faktorial.** $n! = n(n-1)\\cdots 2 \\cdot 1$ dan $0! = 1$.
+
+**Permutasi (urutan diperhatikan).**
+- Semua unsur dari $n$ objek berbeda: $n!$.
+- Sebagian unsur: $P(n,k) = \\dfrac{n!}{(n-k)!}$.
+- Unsur yang sama: $\\dfrac{n!}{k_1!\\,k_2!\\cdots k_m!}$.
+
+**Kombinasi (urutan tidak diperhatikan).**
+$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
+
+**Hubungan keduanya.** $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$.
+
+**Prosedur memilih rumus.**
+1. Tentukan objek yang dihitung dan apakah tahapannya berurutan (perkalian) atau saling lepas (penjumlahan).
+2. Tanyakan: **apakah urutan penting?** Jika ya, pakai permutasi; jika tidak, pakai kombinasi.
+3. Periksa apakah unsur boleh berulang atau ada unsur yang sama; bila ada unsur sama, bagi dengan faktorial pengulangannya.
+4. Untuk peluang, bandingkan banyak cara menguntungkan dengan banyak cara seluruhnya, $P(A) = \\dfrac{n(A)}{n(S)}$.`,
     },
     {
       id: "contoh",
@@ -287,6 +319,28 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
             {
               title: "Tafsirkan",
               text: "Jadi hanya ada $12$ susunan huruf yang berbeda.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Contoh kombinasi $nCr$: dari $10$ siswa dipilih $3$ orang tanpa jabatan. Hitung $\\binom{10}{3}$ langkah demi langkah.",
+          steps: [
+            {
+              title: "Pilih rumus kombinasi",
+              text: "Urutan tidak penting, jadi pakai $\\binom{n}{k}=\\dfrac{n!}{k!\\,(n-k)!}$.",
+            },
+            {
+              title: "Substitusi $n=10$, $k=3$",
+              text: "$\\binom{10}{3}=\\dfrac{10!}{3!\\,7!}$.",
+            },
+            {
+              title: "Sederhanakan faktorial",
+              text: "Faktorial $7!$ saling menghapus: $\\dfrac{10\\cdot 9\\cdot 8}{3\\cdot 2\\cdot 1}$.",
+            },
+            {
+              title: "Hitung hasilnya",
+              text: "$\\dfrac{720}{6}=120$ susunan tim. Bandingkan dengan $P(10,3)=720$ yang $3!=6$ kali lebih besar karena urutan diperhitungkan.",
             },
           ],
         },
@@ -344,6 +398,42 @@ Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lot
           explanation: "Huruf U muncul $2$ kali, sehingga banyak susunan terhitung berulang. Seharusnya dibagi dengan $2!$: $\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Berapa banyak bilangan empat angka berbeda yang **lebih besar dari 5000** dan **habis dibagi 5**, yang dibentuk dari angka $1, 2, 3, 4, 5, 6, 7$ tanpa pengulangan?`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Pecah syaratnya menjadi beberapa tahap, lalu pakai aturan perkalian.",
+          steps: [
+            {
+              title: "Langkah 1: Syarat habis dibagi 5",
+              text: "Bilangan habis dibagi 5 bila angka terakhirnya $0$ atau $5$. Karena tidak tersedia angka $0$, angka terakhir **harus $5$**. Jadi posisi terakhir sudah pasti, tinggal mengatur tiga posisi lain.",
+            },
+            {
+              title: "Langkah 2: Syarat lebih besar dari 5000",
+              text: "Agar bilangan lebih besar dari 5000, angka pertama harus $5$, $6$, atau $7$. Karena angka $5$ sudah dipakai di posisi terakhir, pilihan angka pertama tinggal $6$ atau $7$, yaitu $2$ cara.",
+            },
+            {
+              title: "Langkah 3: Mengisi dua posisi tengah",
+              text: "Tersisa $7 - 2 = 5$ angka yang belum dipakai. Dua posisi tengah diisi dari $5$ angka itu dengan urutan diperhatikan, sehingga ada $P(5,2) = \\dfrac{5!}{3!} = 20$ cara.",
+            },
+            {
+              title: "Langkah 4: Aturan perkalian",
+              text: "Totalnya $2 \\times 20 = 40$ bilangan.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Pencacahan sudah dipelajari jauh sebelum notasi modern. Teks India kuno membahas banyak susunan dan pilihan, dan segitiga koefisien yang kini disebut segitiga Pascal sudah dikenal di Persia dan Tiongkok sekitar abad ke-11, jauh sebelum Blaise Pascal. Notasi faktorial serta aturan permutasi dan kombinasi mulai tertata pada abad ke-17, ketika Pascal dan Pierre de Fermat bertukar gagasan tentang permainan peluang. Jacob Bernoulli dalam *Ars Conjectandi* (1713) menyusun pencacahan permutasi dan kombinasi secara sistematis dan mengaitkannya dengan peluang. Simbol $\\binom{n}{k}$ yang kita pakai sekarang mulai dibakukan pada abad ke-19.`,
     },
     {
       id: "refleksi",

@@ -30,7 +30,7 @@ export const trigonometriQuestions: Question[] = [
     options: [
       { key: 'A', text: '$\\dfrac{3}{5}$' },
       { key: 'B', text: '$\\dfrac{4}{3}$' },
-      { key: 'C', text: '$\\dfrac{1}{5}$' },
+      { key: 'C', text: '$-\\dfrac{3}{5}$' },
       { key: 'D', text: '$\\dfrac{5}{3}$' },
     ],
     answer: 'A',
@@ -59,11 +59,11 @@ export const trigonometriQuestions: Question[] = [
     difficulty: 'cakap',
     type: 'short-answer',
     category: 'penerapan',
-    prompt: 'Pada segitiga $ABC$ diketahui $a=8$, $A=30^\\circ$, dan $B=45^\\circ$. Tentukan panjang sisi $b$ menggunakan aturan sinus.',
-    answer: '8√2',
-    acceptedAnswers: ['8\\sqrt{2}', '8√2', '8 akar 2'],
+    prompt: 'Pada segitiga $ABC$ diketahui $a=12$, $A=30^\\circ$, dan $B=60^\\circ$. Tentukan panjang sisi $b$ menggunakan aturan sinus.',
+    answer: '12√3',
+    acceptedAnswers: ['12\\sqrt{3}', '12√3', '12 akar 3'],
     explanation:
-      'Aturan sinus: $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$, maka $\\dfrac{8}{1/2}=\\dfrac{b}{\\sqrt{2}/2}$. Diperoleh $16=\\dfrac{b}{\\sqrt{2}/2}$ sehingga $b=16\\cdot\\dfrac{\\sqrt{2}}{2}=8\\sqrt{2}$.',
+      'Aturan sinus: $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$, maka $\\dfrac{12}{1/2}=\\dfrac{b}{\\sqrt{3}/2}$. Diperoleh $24=\\dfrac{b}{\\sqrt{3}/2}$ sehingga $b=24\\cdot\\dfrac{\\sqrt{3}}{2}=12\\sqrt{3}$.',
     hints: ['Gunakan $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$ dan pasangkan sisi dengan sudut di hadapannya.'],
     competencies: ['aturan sinus'],
   },
@@ -128,6 +128,12 @@ export const trigonometriQuestions: Question[] = [
       'Kunci: kedua suku silang $2\\sin\\alpha\\cos\\alpha$ dan $-2\\sin\\alpha\\cos\\alpha$ saling menghapus, menyisakan dua kali identitas dasar.',
     hints: ['Jabarkan tiap kuadrat lalu jumlahkan.', 'Perhatikan suku $2\\sin\\alpha\\cos\\alpha$ dan $-2\\sin\\alpha\\cos\\alpha$.'],
     competencies: ['identitas trigonometri', 'pembuktian'],
+    rubric: [
+      'Menjabarkan $(\\sin\\alpha\\pm\\cos\\alpha)^{2}$ dengan benar',
+      'Menunjukkan suku silang $\\pm2\\sin\\alpha\\cos\\alpha$ saling menghapus',
+      'Memakai identitas $\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$',
+      'Menyimpulkan hasilnya konstan yaitu $2$',
+    ],
   },
   {
     id: 'tr-09',
@@ -143,6 +149,12 @@ export const trigonometriQuestions: Question[] = [
       'Gunakan identitas Pythagoras untuk mencari kosinus, definisi tangen, lalu substitusikan ke bentuk pecahan.',
     hints: ['Gunakan $\\cos^{2}\\alpha=1-\\sin^{2}\\alpha$.', 'Setelah $\\cos\\alpha$ dan $\\sin\\alpha$ diketahui, substitusikan langsung.'],
     competencies: ['identitas trigonometri'],
+    rubric: [
+      'Menghitung $\\cos\\alpha=\\dfrac{12}{13}$ dari identitas Pythagoras',
+      'Menghitung $\\tan\\alpha=\\dfrac{5}{12}$',
+      'Menyederhanakan $\\dfrac{\\cos\\alpha}{1-\\sin\\alpha}$',
+      'Memperoleh hasil akhir $\\dfrac{3}{2}$',
+    ],
   },
   {
     id: 'tr-10',
@@ -158,6 +170,12 @@ export const trigonometriQuestions: Question[] = [
       'Kunci: aturan kosinus adalah generalisasi teorema Pythagoras; Pythagoras adalah kasus khusus saat sudutnya siku-siku.',
     hints: ['Berapa nilai $\\cos 90^\\circ$?', 'Setelah $a^{2}$ diperoleh, ambil akar positif.'],
     competencies: ['aturan kosinus', 'penalaran'],
+    rubric: [
+      'Menjelaskan $\\cos90^\\circ=0$ menghapus suku $-2bc\\cos A$',
+      'Menyimpulkan $a^{2}=b^{2}+c^{2}$ sebagai teorema Pythagoras',
+      'Menghitung $a^{2}=25+144=169$',
+      'Menyimpulkan $a=13$',
+    ],
   },
   {
     id: 'tr-11',
@@ -173,6 +191,12 @@ export const trigonometriQuestions: Question[] = [
       'Kunci: memilih perbandingan trigonometri yang tepat sesuai sisi yang diketahui, menghitung tinggi dan panjang kabel, lalu menjelaskan alasan pemilihannya.',
     hints: ['Sisi $12$ m berperan sebagai sisi samping sudut.', 'Gunakan tangen untuk depan–samping dan kosinus untuk samping–miring.'],
     competencies: ['trigonometri', 'sudut elevasi', 'evaluasi'],
+    rubric: [
+      'Memilih tangen karena sisi $12$ m adalah sisi samping',
+      'Menghitung tinggi tiang sekitar $14{,}30$ m',
+      'Menghitung panjang kabel dengan kosinus sekitar $18{,}66$ m',
+      'Menjelaskan alasan tangen lebih tepat daripada kosinus',
+    ],
   },
   {
     id: 'tr-12',
@@ -188,6 +212,12 @@ export const trigonometriQuestions: Question[] = [
       'Kunci: menyusun dua persamaan tangen dari dua sudut elevasi, mengeliminasi jarak, lalu menghitung tinggi.',
     hints: ['Tulis tinggi dalam dua cara memakai $\\tan30^\\circ$ dan $\\tan45^\\circ$.', 'Rasionalkan penyebut $\\sqrt{3}-1$ dengan bentuk sekawan.'],
     competencies: ['pemodelan trigonometri', 'sudut elevasi'],
+    rubric: [
+      'Menuliskan $h=x$ dari sudut elevasi $45^\\circ$',
+      'Menuliskan $h=(x+200)\\tan30^\\circ$',
+      'Mengeliminasi $h$ dan menyelesaikan $x$',
+      'Menghitung tinggi gunung sekitar $273$ m',
+    ],
   },
   {
     id: 'tr-13',
@@ -206,6 +236,12 @@ export const trigonometriQuestions: Question[] = [
       'Pembilangnya menjadi $\\sin^{2}\\theta+\\cos^{2}\\theta=1$.',
     ],
     competencies: ['identitas trigonometri', 'pembuktian', 'penalaran'],
+    rubric: [
+      'Mengubah tangen dan kotangen menjadi sinus dan kosinus',
+      'Menyamakan penyebut dan memakai identitas Pythagoras',
+      'Membuktikan $\\tan\\theta+\\cot\\theta=\\dfrac{1}{\\sin\\theta\\cos\\theta}$',
+      'Mensubstitusikan $\\sin\\theta\\cos\\theta=\\dfrac{1}{4}$ untuk memperoleh $4$',
+    ],
   },
   {
     id: 'tr-14',
@@ -217,9 +253,9 @@ export const trigonometriQuestions: Question[] = [
       'Diketahui sudut lancip $\\alpha$ dengan $\\tan\\alpha=\\dfrac{3}{4}$. Nilai $\\sin\\alpha+\\cos\\alpha$ adalah …',
     options: [
       { key: 'A', text: '$\\dfrac{7}{5}$' },
-      { key: 'B', text: '$\\dfrac{1}{5}$' },
-      { key: 'C', text: '$1$' },
-      { key: 'D', text: '$\\dfrac{7}{25}$' },
+      { key: 'B', text: '$\\dfrac{3}{5}$' },
+      { key: 'C', text: '$\\dfrac{12}{25}$' },
+      { key: 'D', text: '$1$' },
     ],
     answer: 'A',
     explanation:

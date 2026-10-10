@@ -40,7 +40,7 @@ export const induksiMatematika: Topic = {
     { text: 'Membuktikan pernyataan keterbagian dengan induksi matematika.' },
     { text: 'Menilai benar atau kelirunya suatu pembuktian induksi yang diajukan.' },
   ],
-  applications: ['bunga-investasi', 'pertumbuhan-populasi'],
+  applications: ['ind-validasi-angsuran'],
   sections: [
     {
       id: 'tujuan',
@@ -162,6 +162,12 @@ Jika keduanya berhasil, maka $P(n)$ benar untuk setiap $n \\ge n_0$.`,
             },
           ],
         },
+        {
+          kind: 'figure',
+          alt: 'Deretan lima domino berjajar. Domino pertama didorong, lalu tanda panah melengkung menunjukkan setiap domino menumbangkan domino berikutnya.',
+          caption: 'Perumpamaan domino: basis menjatuhkan $P(1)$, sedangkan langkah induksi menjamin $P(k) \\Rightarrow P(k+1)$. Seluruh baris pun jatuh.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-ind-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><rect x="50" y="133" width="12" height="62" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="98" y="133" width="12" height="62" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="146" y="133" width="12" height="62" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="194" y="133" width="12" height="62" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="242" y="133" width="12" height="62" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="22" y1="178" x2="46" y2="178" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-ind-arrow)"/><path d="M 66 148 Q 81 132 96 148" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fig-ind-arrow)"/><path d="M 114 148 Q 129 132 144 148" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fig-ind-arrow)"/><path d="M 162 148 Q 177 132 192 148" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fig-ind-arrow)"/><path d="M 210 148 Q 225 132 240 148" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fig-ind-arrow)"/><text x="56" y="214" font-size="11" fill="currentColor">1</text><text x="104" y="214" font-size="11" fill="currentColor">2</text><text x="152" y="214" font-size="11" fill="currentColor">3</text><text x="200" y="214" font-size="11" fill="currentColor">4</text><text x="248" y="214" font-size="11" fill="currentColor">5</text><text x="40" y="232" font-size="11" fill="currentColor">basis</text><text x="96" y="232" font-size="11" fill="currentColor">langkah induksi</text></svg>',
+        },
       ],
     },
     {
@@ -172,7 +178,7 @@ Jika keduanya berhasil, maka $P(n)$ benar untuk setiap $n \\ge n_0$.`,
       blocks: [
         {
           kind: 'exploration',
-          explorationId: 'barisan-pola',
+          explorationId: 'induksi-pola-langkah',
         },
       ],
     },
@@ -236,7 +242,23 @@ Jadi $P(k+1)$ benar dan rumus terbukti.
 
 $$6^{k+1}-1=6\\cdot 6^k-1=6(6^k-1)+5.$$
 
-Karena $6(6^k-1)$ habis dibagi $5$ (dari hipotesis) dan $5$ juga habis dibagi $5$, maka $6^{k+1}-1$ habis dibagi $5$. Terbukti.`,
+Karena $6(6^k-1)$ habis dibagi $5$ (dari hipotesis) dan $5$ juga habis dibagi $5$, maka $6^{k+1}-1$ habis dibagi $5$. Terbukti.
+
+**Contoh 3.** Buktikan dengan induksi bahwa $1^2+2^2+\\cdots+n^2=\\dfrac{n(n+1)(2n+1)}{6}$ untuk setiap $n \\ge 1$.
+
+*Penyelesaian.* Basis $n=1$: ruas kiri $=1$, ruas kanan $=\\dfrac{1\\cdot2\\cdot3}{6}=1$, benar. Andaikan benar untuk $n=k$, yaitu $1^2+\\cdots+k^2=\\dfrac{k(k+1)(2k+1)}{6}$. Tambahkan suku ke-$(k+1)$, yaitu $(k+1)^2$:
+
+$$\\frac{k(k+1)(2k+1)}{6}+(k+1)^2=\\frac{k(k+1)(2k+1)+6(k+1)^2}{6}.$$
+
+Keluarkan faktor $(k+1)$ dan jabarkan:
+
+$$=\\frac{(k+1)\\big(k(2k+1)+6(k+1)\\big)}{6}=\\frac{(k+1)(2k^2+7k+6)}{6}.$$
+
+Karena $2k^2+7k+6=(k+2)(2k+3)$, diperoleh
+
+$$=\\frac{(k+1)(k+2)(2k+3)}{6}=\\frac{(k+1)\\big((k+1)+1\\big)\\big(2(k+1)+1\\big)}{6},$$
+
+tepat bentuk $P(k+1)$. Jadi $P(n)$ benar untuk semua $n \\ge 1$.`,
       blocks: [
         {
           kind: 'step-reveal',
@@ -298,7 +320,9 @@ Dalam kehidupan sehari-hari, penalaran berantai seperti ini terlihat pada ramala
 
 **3. Salah arah.** Mengandaikan $P(k+1)$ lalu menurunkan $P(k)$ bukanlah bukti yang sah. Arah induksi selalu dari $P(k)$ menuju $P(k+1)$.
 
-**4. Menyamakan variabel.** Hindari memakai $n$ sekaligus $k$ pada langkah induksi; gunakan $k$ untuk hipotesis dan target $k+1$.`,
+**4. Menyamakan variabel.** Hindari memakai $n$ sekaligus $k$ pada langkah induksi; gunakan $k$ untuk hipotesis dan target $k+1$.
+
+**5. Salah menentukan nilai awal $n_0$.** Tidak semua pernyataan berlaku sejak $n=1$. Jika suatu sifat baru benar untuk $n \\ge 2$ atau $n \\ge 3$, basis di $n=1$ justru gagal. Tentukan dahulu $n_0$ yang benar-benar memenuhi, baru mulai induksi dari sana.`,
       blocks: [
         {
           kind: 'spot-mistake',
@@ -361,6 +385,12 @@ Buktikan ketaksamaan ini dengan induksi matematika.`,
           ],
         },
       ],
+    },
+    {
+      id: 'induksi-matematika-sejarah',
+      kind: 'sejarah',
+      title: 'Jejak Sejarah',
+      body: `Gagasan induksi sudah tersirat dalam buku *Ars Conjectandi* karya Jacob Bernoulli (1713), ketika ia membuktikan rumus jumlah pangkat dengan cara yang bergerak dari satu kasus ke kasus berikutnya. Blaise Pascal sebelumnya memakai penalaran serupa untuk segitiga bilangannya. Istilah "induksi matematika" dan penggunaannya yang sistematis baru muncul pada abad ke-19, antara lain melalui karya Augustus De Morgan. Pada akhir abad ke-19, Giuseppe Peano menempatkan induksi sebagai salah satu aksioma dalam sistemnya untuk bilangan asli, sehingga prinsip ini menjadi landasan baku. Sejak itu induksi menjadi alat utama untuk membuktikan pernyataan tentang semua bilangan asli.`,
     },
     {
       id: 'refleksi',

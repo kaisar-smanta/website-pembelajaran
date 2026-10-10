@@ -35,6 +35,7 @@ export const asosiasiKausalitas: Topic = {
     { text: 'Membedakan asosiasi (korelasi) dari hubungan sebab-akibat (kausalitas).' },
     { text: 'Mengidentifikasi variabel perancu yang menjelaskan korelasi semu.' },
     { text: 'Membandingkan kekuatan bukti dari studi observasional dan eksperimen terkontrol.' },
+    { text: 'Menjelaskan kausalitas terbalik dan cara mengontrol variabel perancu.' },
     { text: 'Menyimpulkan hubungan antar-variabel dengan hati-hati dan tanpa berlebihan.' },
   ],
   applications: ['korelasi-sebab-akibat'],
@@ -43,7 +44,7 @@ export const asosiasiKausalitas: Topic = {
       id: "tujuan",
       kind: "tujuan",
       title: "Tujuan Pembelajaran",
-      body: "Setelah mempelajari topik ini, peserta didik dapat membedakan asosiasi dari kausalitas, mengidentifikasi variabel perancu dan korelasi semu, membedakan kekuatan bukti studi observasional dan eksperimen, serta menyusun kesimpulan yang hati-hati dari data.",
+      body: "Setelah mempelajari topik ini, peserta didik dapat membedakan asosiasi dari kausalitas, mengidentifikasi variabel perancu dan korelasi semu, menjelaskan kausalitas terbalik, membedakan kekuatan bukti studi observasional dan eksperimen, serta menyusun kesimpulan yang hati-hati dari data.",
     },
     {
       id: "pemantik",
@@ -164,6 +165,12 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
           ],
         },
         {
+          kind: "figure",
+          alt: "Tiga diagram pencar yang menunjukkan asosiasi positif, negatif, dan tanpa korelasi.",
+          caption: "Arah asosiasi pada diagram pencar: titik naik bersama (positif), turun bersama (negatif), dan menyebar tanpa pola (tanpa korelasi).",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="15" y1="95" x2="95" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="15" y1="95" x2="15" y2="20" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="86" r="2.5" fill="currentColor"/><circle cx="34" cy="74" r="2.5" fill="currentColor"/><circle cx="46" cy="62" r="2.5" fill="currentColor"/><circle cx="58" cy="48" r="2.5" fill="currentColor"/><circle cx="70" cy="36" r="2.5" fill="currentColor"/><circle cx="84" cy="26" r="2.5" fill="currentColor"/><text x="36" y="116" font-size="11" fill="currentColor">positif</text><line x1="117" y1="95" x2="197" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="117" y1="95" x2="117" y2="20" stroke="currentColor" stroke-width="1.5"/><circle cx="122" cy="28" r="2.5" fill="currentColor"/><circle cx="133" cy="40" r="2.5" fill="currentColor"/><circle cx="145" cy="52" r="2.5" fill="currentColor"/><circle cx="157" cy="63" r="2.5" fill="currentColor"/><circle cx="169" cy="75" r="2.5" fill="currentColor"/><circle cx="181" cy="86" r="2.5" fill="currentColor"/><text x="138" y="116" font-size="11" fill="currentColor">negatif</text><line x1="219" y1="95" x2="299" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="219" y1="95" x2="219" y2="20" stroke="currentColor" stroke-width="1.5"/><circle cx="226" cy="42" r="2.5" fill="currentColor"/><circle cx="238" cy="80" r="2.5" fill="currentColor"/><circle cx="250" cy="32" r="2.5" fill="currentColor"/><circle cx="262" cy="68" r="2.5" fill="currentColor"/><circle cx="274" cy="45" r="2.5" fill="currentColor"/><circle cx="286" cy="78" r="2.5" fill="currentColor"/><circle cx="296" cy="55" r="2.5" fill="currentColor"/><text x="230" y="116" font-size="10" fill="currentColor">tanpa korelasi</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "tip",
           text: "Ubah klaim menjadi pertanyaan: \"Apa buktinya bahwa $x$ menyebabkan $y$, dan bukan sekadar keduanya dipengaruhi faktor yang sama?\"",
@@ -217,6 +224,24 @@ Jadi ukuran sepatu tidak menyebabkan kemampuan membaca; usia adalah variabel per
 **Kausalitas terbalik** terjadi ketika kita menukar arah sebab-akibat. Misalnya, data menunjukkan "orang yang rutin berolahraga lebih jarang stres". Mungkin benar olahraga mengurangi stres, tetapi bisa juga **stres yang rendah membuat orang lebih mampu berolahraga**. Data korelasi sering tidak dapat menentukan arah ini sendiri.
 
 Karena itu, jangan langsung menyimpulkan arah sebab-akibat hanya dari kuatnya korelasi.`,
+    },
+    {
+      id: "asosiasi-kausalitas-rumus",
+      kind: "rumus",
+      title: "Rumus: Proporsi Bersyarat dan Selisihnya",
+      body: `Untuk mengukur asosiasi antara dua kejadian dari data, kita memakai **proporsi bersyarat**. Bila dari kelompok $B$ yang berjumlah $n_B$ anggota terdapat $a$ yang juga mengalami $A$, maka
+
+$$P(A \\mid B) = \\frac{a}{n_B}, \\qquad P(A \\mid B^{c}) = \\frac{c}{n_{B^{c}}}.$$
+
+**Selisih proporsi** (*difference in proportions*) mengukur seberapa besar kedua kelompok berbeda:
+
+$$\\Delta = P(A \\mid B) - P(A \\mid B^{c}).$$
+
+Bila $\\Delta \\approx 0$, kedua kelompok hampir sama sehingga asosiasinya lemah; makin jauh dari nol, makin besar perbedaannya. Untuk perbandingan **relatif** dipakai **risiko relatif**:
+
+$$\\text{RR} = \\frac{P(A \\mid B)}{P(A \\mid B^{c})}.$$
+
+Hati-hati: rumus-rumus ini hanya mengukur **kekuatan asosiasi**. Rumus itu tidak dengan sendirinya membuktikan kausalitas, sebab variabel perancu dan urutan waktu tidak terlihat di dalamnya.`,
     },
     {
       id: "eksplorasi",
@@ -297,6 +322,46 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
 **4. Menyamakan studi observasional dengan eksperimen.** Studi observasional mengamati tanpa mengendalikan variabel; eksperimen acak jauh lebih kuat untuk menetapkan sebab-akibat.
 
 **5. Menggeneralisasi dari satu studi kecil.** Satu temuan lemah belum cukup menjadi dasar kebijakan atau keyakinan kuat.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah artikel menulis: "Survei $1.000$ karyawan menunjukkan yang minum lebih dari tiga cangkir kopi sehari rata-rata tidur $6$ jam, sedangkan yang tidak minum kopi rata-rata tidur $7{,}5$ jam. Karena itu kopi mengurangi kebutuhan tidur."
+
+- Sebutkan satu variabel perancu yang mungkin menjelaskan perbedaan ini.
+- Jelaskan kemungkinan kausalitas terbalik.
+- Rancang langkah agar hubungan sebab-akibat dapat diuji dengan lebih meyakinkan.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Bedakan klaim statistik dari klaim sebab-akibat, lalu uji dengan kritis.",
+          steps: [
+            {
+              title: "Langkah 1: Kenali jenis klaimnya",
+              text: "Data hanya menunjukkan **asosiasi**: dua kelompok berbeda rata-rata lama tidurnya. Pernyataan \"kopi mengurangi kebutuhan tidur\" melompat ke **kausalitas** yang belum dibuktikan oleh data observasional.",
+            },
+            {
+              title: "Langkah 2: Cari variabel perancu",
+              text: "Variabel ketiga yang memengaruhi keduanya dapat menjelaskan perbedaan itu. Contohnya tekanan pekerjaan: pekerjaan yang menuntut dan penuh tenggat membuat orang lebih banyak minum kopi sekaligus lebih sedikit tidur. Usia, kebiasaan lembur, atau jadwal shift malam juga dapat berperan.",
+            },
+            {
+              title: "Langkah 3: Pertimbangkan kausalitas terbalik",
+              text: "Arah sebab-akibat bisa saja terbalik. Orang yang kurang tidur memakai kopi untuk tetap terjaga, sehingga kurang tidur **menyebabkan** konsumsi kopi, bukan sebaliknya. Data korelasi sendiri tidak dapat menentukan arah ini.",
+            },
+            {
+              title: "Langkah 4: Rancang pengujian yang lebih kuat",
+              text: "Bukti terkuat datang dari **eksperimen acak**: bagi peserta secara acak menjadi kelompok yang diberi kopi (atau kafein) dan kelompok plasebo, lalu ukur lama tidur secara objektif. Randomisasi menekan pengaruh variabel perancu. Alternatifnya adalah studi longitudinal yang mengikuti orang dari waktu ke waktu sambil mengontrol pekerjaan, usia, dan kebiasaan tidur.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Gagasan korelasi diperkenalkan Francis Galton pada akhir abad ke-19 ketika mempelajari pewarisan sifat, lalu Karl Pearson mengembangkannya menjadi koefisien korelasi. Kesadaran bahwa korelasi dapat menyesatkan muncul sejak masa itu; Pearson sendiri menyoroti apa yang ia sebut *spurious correlation*. Sebelumnya, pada 1843 John Stuart Mill merumuskan metode penalaran untuk menetapkan sebab-akibat. Pada 1920-an Ronald Fisher mengembangkan percobaan dengan pengacakan sebagai cara mengendalikan variabel pengganggu. Pada 1965 Austin Bradford Hill menyusun kriteria penilaian bukti kausal, seperti asosiasi, urutan waktu, dan hubungan dosis-respons, yang antara lain dipakai untuk menetapkan hubungan merokok dan kanker paru.`,
     },
     {
       id: "refleksi",

@@ -11,7 +11,7 @@ export const turunanQuestions: Question[] = [
     options: [
       { key: 'A', text: '$12$' },
       { key: 'B', text: '$4$' },
-      { key: 'C', text: '$-6$' },
+      { key: 'C', text: '$-2$' },
       { key: 'D', text: '$0$' },
     ],
     answer: 'D',
@@ -74,7 +74,7 @@ export const turunanQuestions: Question[] = [
     prompt: 'Diketahui $f(x) = (x^{2} + 1)(2x - 3)$. Nilai $f\'(1)$ adalah …',
     options: [
       { key: 'A', text: '$0$' },
-      { key: 'B', text: '$6$' },
+      { key: 'B', text: '$8$' },
       { key: 'C', text: '$-2$' },
       { key: 'D', text: '$2$' },
     ],

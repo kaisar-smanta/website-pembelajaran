@@ -137,6 +137,12 @@ export const matriksQuestions: Question[] = [
       'Kunci menekankan penulisan sistem dalam bentuk matriks, pemeriksaan $\\det(A) \\neq 0$, penurunan invers, lalu perkalian $A^{-1}$ dengan vektor konstanta.',
     hints: ['Nyatakan koefisien sebagai matriks $A$ dan konstanta sebagai vektor kolom.'],
     competencies: ['invers matriks', 'penyelesaian SPLDV'],
+    rubric: [
+      'Menulis sistem sebagai $A\\begin{pmatrix}x\\\\y\\end{pmatrix}=\\begin{pmatrix}8\\\\5\\end{pmatrix}$',
+      'Menghitung $\\det(A)=1$ dan $A^{-1}=\\begin{pmatrix}2&-3\\\\-1&2\\end{pmatrix}$',
+      'Menghitung $A^{-1}\\begin{pmatrix}8\\\\5\\end{pmatrix}=\\begin{pmatrix}1\\\\2\\end{pmatrix}$',
+      'Memeriksa solusi $x=1$, $y=2$ pada kedua persamaan',
+    ],
   },
   {
     id: 'mt-09',
@@ -172,6 +178,11 @@ export const matriksQuestions: Question[] = [
       'Perkalian matriks $2 \\times 2$ dengan matriks kolom $2 \\times 1$ menghasilkan matriks kolom $2 \\times 1$; setiap entrinya adalah total pendapatan pada hari yang bersangkutan.',
     hints: ['Ukuran $S$ adalah $2 \\times 2$ dan $H$ adalah $2 \\times 1$, sehingga $SH$ berukuran $2 \\times 1$.'],
     competencies: ['pemodelan matriks', 'perkalian matriks'],
+    rubric: [
+      'Menulis harga sebagai $H=\\begin{pmatrix}5\\\\4\\end{pmatrix}$',
+      'Menghitung $SH=\\begin{pmatrix}31\\\\33\\end{pmatrix}$',
+      'Menafsirkan pendapatan Senin Rp31 ribu dan Selasa Rp33 ribu',
+    ],
   },
   {
     id: 'mt-11',
@@ -190,6 +201,12 @@ export const matriksQuestions: Question[] = [
       'Gunakan $\\det(A^{-1}) = \\dfrac{1}{\\det(A)}$.',
     ],
     competencies: ['sifat determinan', 'invers matriks', 'penalaran'],
+    rubric: [
+      'Menghitung $\\det(2A)=2^{2}(-3)=-12$ memakai ordo $n=2$',
+      'Menghitung $\\det(A^{2})=(-3)(-3)=9$',
+      'Menghitung $\\det(A^{-1})=\\dfrac{1}{-3}$',
+      'Menyebut sifat determinan yang dipakai pada tiap bagian',
+    ],
   },
   {
     id: 'mt-12',
@@ -205,6 +222,12 @@ export const matriksQuestions: Question[] = [
       'Kunci: menghitung determinan dan invers, memakai $A^{-1}$ untuk menyelesaikan sistem, serta mengaitkan determinan nol dengan ketiadaan invers.',
     hints: ['Untuk $2\\times2$, $A^{-1}=\\dfrac{1}{\\det A}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$.', 'Matriks singular tidak memiliki invers.'],
     competencies: ['invers matriks', 'penyelesaian SPLDV', 'evaluasi'],
+    rubric: [
+      'Menghitung $\\det(A)=1$ dan $A^{-1}=\\begin{pmatrix}2&-1\\\\-3&2\\end{pmatrix}$',
+      'Menghitung solusi $x=2$, $y=3$',
+      'Memeriksa kedua persamaan terpenuhi',
+      'Menjelaskan $\\det(A)=0$ membuat $A^{-1}$ tidak terdefinisi',
+    ],
   },
   {
     id: 'mt-13',
@@ -220,6 +243,11 @@ export const matriksQuestions: Question[] = [
       'Kunci: menyusun matriks komposisi dan vektor harga, mengalikannya, lalu menafsirkan tiap entri sebagai total harga paket.',
     hints: ['Baris menyatakan paket dan kolom menyatakan jenis barang.', 'Ukuran $S$ adalah $2\\times2$ dan $H$ adalah $2\\times1$.'],
     competencies: ['perkalian matriks', 'pemodelan matriks', 'kontekstual'],
+    rubric: [
+      'Menyusun $S=\\begin{pmatrix}2&3\\\\4&1\\end{pmatrix}$ dan $H=\\begin{pmatrix}5000\\\\4000\\end{pmatrix}$',
+      'Menghitung $SH=\\begin{pmatrix}22000\\\\24000\\end{pmatrix}$',
+      'Menafsirkan Paket A Rp22.000 dan Paket B Rp24.000',
+    ],
   },
   {
     id: 'mt-14',
@@ -238,6 +266,12 @@ export const matriksQuestions: Question[] = [
       'Kalikan $A^{2}-5A-2I=O$ dengan $A^{-1}$ dari kiri.',
     ],
     competencies: ['aljabar matriks', 'determinan', 'invers matriks', 'penalaran'],
+    rubric: [
+      'Menghitung $A^{2}=\\begin{pmatrix}7&10\\\\15&22\\end{pmatrix}$',
+      'Memakai $\\operatorname{tr}(A)=5$ dan $\\det(A)=-2$ untuk $A^{2}-5A-2I=O$',
+      'Memverifikasi hubungan dengan menghitung $5A+2I$',
+      'Menurunkan $A^{-1}=\\dfrac{1}{2}(A-5I)$',
+    ],
   },
   {
     id: 'mt-15',

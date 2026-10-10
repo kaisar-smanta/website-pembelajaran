@@ -214,6 +214,12 @@ Menentukan jenis pola adalah langkah pertama sebelum menghitung ukuran hubungan 
           title: "Cara mengingat arah",
           text: "Bayangkan berjalan dari kiri ke kanan: jika titik-titik **menanjak**, hubungan positif; jika **menurun**, hubungan negatif.",
         },
+        {
+          kind: "figure",
+          alt: "Tiga diagram pencar kecil yang menunjukkan hubungan positif, negatif, dan nonlinear.",
+          caption: "Tiga pola hubungan: titik menanjak (positif), menurun (negatif), dan mengikuti lengkung (nonlinear).",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="15" y1="95" x2="95" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="15" y1="95" x2="15" y2="20" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="86" r="2.5" fill="currentColor"/><circle cx="34" cy="74" r="2.5" fill="currentColor"/><circle cx="46" cy="62" r="2.5" fill="currentColor"/><circle cx="58" cy="48" r="2.5" fill="currentColor"/><circle cx="70" cy="36" r="2.5" fill="currentColor"/><circle cx="84" cy="26" r="2.5" fill="currentColor"/><text x="34" y="116" font-size="11" fill="currentColor">positif</text><line x1="117" y1="95" x2="197" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="117" y1="95" x2="117" y2="20" stroke="currentColor" stroke-width="1.5"/><circle cx="122" cy="28" r="2.5" fill="currentColor"/><circle cx="133" cy="40" r="2.5" fill="currentColor"/><circle cx="145" cy="52" r="2.5" fill="currentColor"/><circle cx="157" cy="63" r="2.5" fill="currentColor"/><circle cx="169" cy="75" r="2.5" fill="currentColor"/><circle cx="181" cy="86" r="2.5" fill="currentColor"/><text x="136" y="116" font-size="11" fill="currentColor">negatif</text><line x1="219" y1="95" x2="299" y2="95" stroke="currentColor" stroke-width="1.5"/><line x1="219" y1="95" x2="219" y2="20" stroke="currentColor" stroke-width="1.5"/><path d="M 224,92 Q 258,22 296,30" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="226" cy="88" r="2.5" fill="currentColor"/><circle cx="240" cy="58" r="2.5" fill="currentColor"/><circle cx="254" cy="40" r="2.5" fill="currentColor"/><circle cx="270" cy="32" r="2.5" fill="currentColor"/><circle cx="292" cy="30" r="2.5" fill="currentColor"/><text x="228" y="116" font-size="11" fill="currentColor">nonlinear</text></svg>',
+        },
       ],
     },
     {
@@ -266,6 +272,20 @@ Tanda $r$ menyatakan arah, sedangkan besarnya menyatakan keeratan hubungan linea
 Setiap kesimpulan tetap dibatasi rentang data. Pola yang teramati pada $x$ dari $1$ sampai $8$ belum tentu berlaku di luar rentang itu.`,
     },
     {
+      id: "data-bivariat-rumus",
+      kind: "rumus",
+      title: "Rumus: Koefisien Korelasi Linear",
+      body: `**Koefisien korelasi** $r$ mengukur arah dan kekuatan hubungan **linear** antara dua variabel, dengan $-1 \\le r \\le 1$:
+
+$$r = \\frac{\\displaystyle\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\displaystyle\\sum (x_i-\\bar{x})^2}\\,\\sqrt{\\displaystyle\\sum (y_i-\\bar{y})^2}}.$$
+
+Bentuk ekuivalen yang lebih mudah dihitung langsung dari data mentah adalah
+
+$$r = \\frac{n\\sum x_i y_i - \\left(\\sum x_i\\right)\\left(\\sum y_i\\right)}{\\sqrt{\\left[n\\sum x_i^2 - \\left(\\sum x_i\\right)^2\\right]\\left[n\\sum y_i^2 - \\left(\\sum y_i\\right)^2\\right]}}.$$
+
+Tanda $r$ menyatakan arah: $r>0$ berarti hubungan positif, sedangkan $r<0$ berarti hubungan negatif. Besarnya $|r|$ menyatakan kekuatan: makin dekat ke $1$, makin rapat titik-titik mengikuti sebuah garis lurus. Ingat, $r$ hanya mengukur hubungan **linear**, sehingga pola melengkung yang kuat pun dapat menghasilkan $r$ yang kecil.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -279,7 +299,15 @@ Setiap kesimpulan tetap dibatasi rentang data. Pola yang teramati pada $x$ dari 
 
 **Contoh 3.** Pada data lama belajar dan nilai, apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu?
 
-*Penyelesaian.* Tidak wajar. Data hanya mencakup $x$ dari $1$ hingga $8$ jam, sedangkan nilai maksimumnya $11$. Memperkirakan di luar rentang data disebut **ekstrapolasi** dan sangat berisiko: pola linear belum tentu berlaku pada jam belajar yang jauh lebih banyak.`,
+*Penyelesaian.* Tidak wajar. Data hanya mencakup $x$ dari $1$ hingga $8$ jam, sedangkan nilai maksimumnya $11$. Memperkirakan di luar rentang data disebut **ekstrapolasi** dan sangat berisiko: pola linear belum tentu berlaku pada jam belajar yang jauh lebih banyak.
+
+**Contoh 4 (menghitung korelasi).** Diberikan lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$. Hitung koefisien korelasinya.
+
+*Penyelesaian.* Dengan $n=5$ diperoleh $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, $\\sum x_i^2 = 55$, dan $\\sum y_i^2 = 135$. Substitusi ke rumus $r$:
+
+$$r = \\frac{5(84) - (15)(25)}{\\sqrt{\\left[5(55) - 15^2\\right]\\left[5(135) - 25^2\\right]}} = \\frac{420 - 375}{\\sqrt{(275-225)(675-625)}} = \\frac{45}{\\sqrt{50 \\cdot 50}} = \\frac{45}{50} = 0{,}9.$$
+
+Jadi $r = 0{,}9$, yaitu hubungan linear positif yang kuat. Karena $r^2 = 0{,}81$, sekitar $81\\%$ variasi nilai $y$ berkaitan dengan variabel $x$.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -343,8 +371,16 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
 
 **4. Mempercayai ekstrapolasi jauh.** Memperkirakan nilai di luar rentang data berbahaya karena tren bisa berubah.
 
-**5. Menganggap satu pencilan sebagai pola.** Satu titik menyimpang dapat menarik garis tren. Periksa apakah titik itu sah atau kesalahan pencatatan.`,
+**5. Menganggap satu pencilan sebagai pola.** Satu titik menyimpang dapat menarik garis tren. Periksa apakah titik itu sah atau kesalahan pencatatan.
+
+**6. Menyamakan arah korelasi dengan urutan sebab-akibat.** Tanda $r$ hanya menyatakan kedua variabel bergerak searah atau berlawanan, bukan mana yang berubah lebih dahulu. Urutan waktu harus diperiksa terpisah, sebab bisa jadi justru terjadi **kausalitas terbalik**, yaitu akibat yang muncul mendahului dugaan penyebab.`,
       blocks: [
+        {
+          kind: "figure",
+          alt: "Diagram pencar dengan titik-titik membentuk tren menanjak dan satu titik menyimpang jauh di bawah yang ditandai sebagai pencilan.",
+          caption: "Sebuah **pencilan** (titik menyimpang) dapat menarik garis tren, sehingga perlu diperiksa dahulu apakah nilainya sah.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><text x="292" y="216" font-size="12" fill="currentColor">x</text><text x="24" y="34" font-size="12" fill="currentColor">y</text><line x1="60" y1="175" x2="245" y2="52" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="66" cy="170" r="3" fill="currentColor"/><circle cx="92" cy="155" r="3" fill="currentColor"/><circle cx="118" cy="132" r="3" fill="currentColor"/><circle cx="144" cy="125" r="3" fill="currentColor"/><circle cx="170" cy="102" r="3" fill="currentColor"/><circle cx="196" cy="87" r="3" fill="currentColor"/><circle cx="222" cy="65" r="3" fill="currentColor"/><circle cx="183" cy="185" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><text x="192" y="196" font-size="11" fill="currentColor">pencilan</text></svg>',
+        },
         {
           kind: "spot-mistake",
           intro: "Seorang siswa menafsirkan diagram pencar antara penjualan es krim dan angka kejahatan. Klik langkah yang keliru.",
@@ -357,6 +393,46 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
           explanation: "Korelasi tidak menyiratkan sebab-akibat. Kedua variabel dipengaruhi faktor ketiga, yaitu suhu panas, sehingga hubungannya semu.",
         },
       ],
+    },
+    {
+      id: "data-bivariat-tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah kota mencatat banyak sepatu terjual $(x)$ dan banyak kacamata hitam terjual $(y)$ setiap bulan. Diagram pencarnya menunjukkan hubungan positif yang sangat kuat, sekitar $r \\approx 0{,}93$. Seorang pengusaha menyimpulkan: "Menjual lebih banyak sepatu akan meningkatkan penjualan kacamata hitam."
+
+- Apa kelemahan kesimpulan itu?
+- Variabel apa yang paling masuk akal menjadi perancunya?
+- Bagaimana cara menguji apakah benar ada hubungan sebab-akibat?`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Bongkar klaim sebab-akibat dari sebuah korelasi yang kuat.",
+          steps: [
+            {
+              title: "Kenali jenis klaimnya",
+              text: "Data hanya menunjukkan **asosiasi**: kedua jenis barang terjual naik-turun bersama. Nilai $r$ yang tinggi mengukur kekuatan pola linear, tetapi tidak membuktikan bahwa salah satunya **menyebabkan** yang lain.",
+            },
+            {
+              title: "Cari variabel perancu",
+              text: "Variabel ketiga yang paling masuk akal adalah **musim atau cuaca**. Pada bulan terang dan hangat, orang lebih banyak beraktivitas di luar rumah sehingga membeli sepatu sekaligus kacamata hitam. Cuaca memengaruhi keduanya, sehingga asosiasinya **semu**.",
+            },
+            {
+              title: "Periksa urutan waktu",
+              text: "Tidak ada mekanisme yang masuk akal antara penjualan sepatu dan kacamata hitam, dan data bulanan tidak menunjukkan mana yang berubah lebih dahulu. Jadi arah sebab-akibatnya tidak dapat disimpulkan dari korelasi saja.",
+            },
+            {
+              title: "Rancang pengujian yang lebih kuat",
+              text: "Untuk menaksir hubungan sebab-akibat, peneliti perlu **eksperimen acak** (misalnya promosi acak pada sebagian toko) atau membandingkan bulan-bulan dengan cuaca yang setara sambil mengontrol musim. Tanpa pengendalian variabel perancu, kesimpulan kausal tetap lemah.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "data-bivariat-sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Diagram pencar dan koefisien korelasi tumbuh dari penyelidikan Francis Galton pada akhir abad ke-19 tentang pewarisan sifat, misalnya kaitan tinggi badan orang tua dan anak. Dari pengamatan itu Galton memakai istilah "regresi", sebab tinggi anak cenderung kembali (regress) ke arah rata-rata populasi. Karl Pearson kemudian mengembangkan gagasan tersebut menjadi **koefisien korelasi** $r$ yang kita pakai sekarang, sehingga ukuran ini juga dikenal sebagai korelasi Pearson. Sejak itu diagram pencar menjadi langkah baku untuk memeriksa hubungan dua variabel sebelum regresi dihitung. Kehati-hatian terhadap korelasi semu pun tumbuh pada masa yang sama, sebab Pearson sendiri mengingatkan bahwa dua hal dapat berkorelasi tanpa saling menyebabkan.`,
     },
     {
       id: "refleksi",

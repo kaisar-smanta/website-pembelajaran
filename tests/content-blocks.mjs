@@ -50,6 +50,7 @@ function ok(condition, message) {
 const blockKinds = new Set([
   'callout',
   'table',
+  'figure',
   'exploration',
   'geogebra',
   'details',

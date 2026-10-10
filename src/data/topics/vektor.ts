@@ -145,7 +145,7 @@ $$\\lVert \\vec{a} \\rVert = \\sqrt{a_{1}^{2} + a_{2}^{2}}.$$
 
 Sebagai contoh, $\\lVert \\vec{a} \\rVert$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ adalah $\\sqrt{9 + 16} = \\sqrt{25} = 5$, dan untuk $\\vec{b} = \\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$ adalah $\\sqrt{25 + 144} = \\sqrt{169} = 13$.
 
-**Vektor satuan** adalah vektor yang panjangnya $1$. Vektor satuan searah $\\vec{a}$ dilambangkan $\\hat{a}$ dan dihitung dengan
+**Vektor satuan** adalah vektor yang panjangnya $1$. Vektor satuan searah $\\vec{a}$ dilambangkan $\\hat{a}$ dan untuk $\\vec{a} \\ne \\vec{0}$ dihitung dengan
 
 $$\\hat{a} = \\frac{\\vec{a}}{\\lVert \\vec{a} \\rVert}.$$
 
@@ -176,6 +176,12 @@ Sebagai contoh, $2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$ dan $3\\v
 Secara geometris, penjumlahan vektor mengikuti **aturan segitiga** atau **aturan jajargenjang**: tempatkan pangkal $\\vec{b}$ di ujung $\\vec{a}$, maka $\\vec{a} + \\vec{b}$ menghubungkan pangkal $\\vec{a}$ ke ujung $\\vec{b}$.`,
       blocks: [
         {
+          kind: "figure",
+          alt: "Dua vektor a dan b dipangkal pada satu titik, membentuk jajargenjang dan segitiga, dengan vektor hasil a ditambah b menghubungkan pangkal ke ujung.",
+          caption: "Penjumlahan vektor dengan aturan jajargenjang dan segitiga: $\\vec{a}+\\vec{b}$ menghubungkan pangkal $\\vec{a}$ ke ujung $\\vec{b}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-vsum-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="50" y1="190" x2="130" y2="130" stroke="currentColor" stroke-width="2" marker-end="url(#fig-vsum-arrow)"/><line x1="50" y1="190" x2="180" y2="160" stroke="currentColor" stroke-width="2" marker-end="url(#fig-vsum-arrow)"/><line x1="130" y1="130" x2="260" y2="100" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="180" y1="160" x2="260" y2="100" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="50" y1="190" x2="260" y2="100" stroke="currentColor" stroke-width="2.4" marker-end="url(#fig-vsum-arrow)"/><circle cx="50" cy="190" r="2.5" fill="currentColor"/><text x="84" y="150" font-size="13" fill="currentColor">a</text><text x="100" y="188" font-size="13" fill="currentColor">b</text><text x="228" y="92" font-size="12" fill="currentColor">a + b</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "warning",
           title: "Hati-hati",
@@ -195,7 +201,7 @@ Selain itu berlaku pula hubungan dengan sudut $\\theta$ di antara kedua vektor:
 
 $$\\vec{a} \\cdot \\vec{b} = \\lVert \\vec{a} \\rVert \\, \\lVert \\vec{b} \\rVert \\cos\\theta.$$
 
-Dari kedua bentuk itu kita memperoleh **rumus sudut**:
+Dari kedua bentuk itu, untuk $\\vec{a} \\ne \\vec{0}$ dan $\\vec{b} \\ne \\vec{0}$, kita memperoleh **rumus sudut**:
 
 $$\\cos\\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{a} \\rVert \\, \\lVert \\vec{b} \\rVert}.$$
 
@@ -247,6 +253,14 @@ Contoh lain, proyeksi $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada
 $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} \\tfrac{11}{5} \\\\ \\tfrac{22}{5} \\end{pmatrix}.$$
 
 Panjang proyeksi vektor ini adalah $\\lVert \\vec{p} \\rVert = \\dfrac{11}{5}\\sqrt{5} = \\dfrac{11}{\\sqrt{5}} = c$, sesuai definisinya.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Vektor a dan vektor b dari titik pangkal yang sama, dengan proyeksi vektor a pada arah b digambar sebagai ruas garis putus-putus beserta sudut antara keduanya.",
+          caption: "Proyeksi $\\vec{a}$ pada $\\vec{b}$: bayangan $\\vec{a}$ di sepanjang arah $\\vec{b}$, dengan $c=\\dfrac{\\vec{a}\\cdot\\vec{b}}{\\lVert\\vec{b}\\rVert}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-vproj-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="200" x2="270" y2="200" stroke="currentColor" stroke-width="2" marker-end="url(#fig-vproj-arrow)"/><line x1="40" y1="200" x2="170" y2="80" stroke="currentColor" stroke-width="2" marker-end="url(#fig-vproj-arrow)"/><line x1="170" y1="80" x2="170" y2="200" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="40" y1="200" x2="170" y2="200" stroke="currentColor" stroke-width="2.4" stroke-dasharray="6 3"/><path d="M 80,200 A 40,40 0 0 0 69.4,172.9" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="246" y="192" font-size="13" fill="currentColor">b</text><text x="108" y="126" font-size="13" fill="currentColor">a</text><text x="52" y="220" font-size="12" fill="currentColor">proyeksi a pada b</text><text x="74" y="190" font-size="12" fill="currentColor">θ</text></svg>',
+        },
+      ],
     },
     {
       id: "pembuktian",
@@ -425,6 +439,12 @@ $$\\vec{SR}=\\vec{r}-\\vec{s}=\\tfrac{1}{2}(\\vec{c}-\\vec{a}).$$
 Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panjang. Jadi $PQRS$ adalah jajargenjang. Terbukti.`,
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Kata "vektor" dipopulerkan oleh William Rowan Hamilton, yang pada 1843 menciptakan kuaternion untuk menyatakan putaran dan gerak dalam ruang. Hermann Grassmann secara terpisah mengembangkan aljabar yang menyerupai vektor dalam *Ausdehnungslehre* (1844). Pada akhir abad ke-19, Josiah Willard Gibbs dan Oliver Heaviside menyaring gagasan-gagasan itu menjadi analisis vektor modern dengan perkalian titik dan perkalian silang seperti yang kita pakai sekarang. Perkalian titik sendiri terkait dengan ketaksamaan Cauchy–Schwarz yang dirumuskan pada abad ke-19. Sejak itu vektor menjadi bahasa baku fisika dan teknik.`,
     },
     {
       id: "refleksi",

@@ -110,6 +110,11 @@ export const distribusiBinomialQuestions: Question[] = [
       'Kunci mencakup penetapan $n=5$ dan $p=\\tfrac14$, penerapan rumus binomial untuk $k=3$ (ingat faktor $\\left(\\tfrac34\\right)^{2}$), dan pemakaian $E(X)=np$.',
     hints: ['Peluang satu soal benar $p=\\tfrac14$ dan salah $1-p=\\tfrac34$.', 'Jangan lupa memangkatkan peluang salah untuk 2 soal yang dijawab keliru.'],
     competencies: ['pemodelan binomial', 'nilai harapan binomial'],
+    rubric: [
+      'Menetapkan $X\\sim B\\!\\left(5,\\tfrac14\\right)$ dan $q=\\tfrac34$',
+      'Menghitung $P(X=3)=\\binom{5}{3}\\left(\\tfrac14\\right)^{3}\\left(\\tfrac34\\right)^{2}=\\tfrac{45}{512}$',
+      'Menghitung $E(X)=np=\\tfrac54=1{,}25$',
+    ],
   },
   {
     id: 'bin-08',
@@ -160,6 +165,11 @@ export const distribusiBinomialQuestions: Question[] = [
       'Kunci menekankan justifikasi keempat syarat binomial beserta asumsi realistisnya, perhitungan satu titik dengan koefisien binomial, dan penggunaan komplemen untuk peluang kumulatif (lebih praktis daripada menjumlahkan $k=0$ sampai $7$).',
     hints: ['Untuk $P(X \\leq 7)$ lebih cepat menghitung komplemen tiga suku terakhir.', 'Pastikan $\\binom{10}{7}=120$ dan $(0{,}6)^{7}(0{,}4)^{3}$ dihitung teliti.'],
     competencies: ['pemodelan binomial', 'peluang kumulatif binomial', 'penalaran'],
+    rubric: [
+      'Menjelaskan keempat syarat binomial beserta asumsi realistisnya',
+      'Menghitung $P(X=7)=\\binom{10}{7}(0{,}6)^{7}(0{,}4)^{3}\\approx0{,}2150$',
+      'Menghitung $P(X\\le7)$ lewat komplemen tiga suku terakhir $\\approx0{,}8327$',
+    ],
   },
   {
     id: 'bin-11',
@@ -175,6 +185,11 @@ export const distribusiBinomialQuestions: Question[] = [
       'Kunci: menetapkan parameter, menghitung $E(X)$ dan $\\sigma=\\sqrt{np(1-p)}$, lalu mengevaluasi target memakai komplemen $P(X \\geq 1)=1-(0{,}95)^{20} \\approx 0{,}6415$ dan membandingkannya dengan $0{,}6$. Kesimpulannya kotak 20 komponen belum memenuhi karena peluangnya masih di atas $0{,}6$.',
     hints: ['Peluang "paling sedikit satu" paling mudah lewat komplemen "tidak ada yang cacat".', 'Bandingkan $1-(0{,}95)^{20}$ dengan ambang $0{,}6$.'],
     competencies: ['pemodelan binomial', 'simpangan baku binomial', 'evaluasi model'],
+    rubric: [
+      'Menetapkan $X\\sim B(20;\\,0{,}05)$',
+      'Menghitung $E(X)=1$ dan $\\sigma=\\sqrt{np(1-p)}\\approx0{,}975$',
+      'Menghitung $P(X\\ge1)=1-(0{,}95)^{20}\\approx0{,}6415$ dan menilai target',
+    ],
   },
   {
     id: 'bin-12',
@@ -205,5 +220,30 @@ export const distribusiBinomialQuestions: Question[] = [
       'Kunci: menghitung $P(X=5)=\\binom{10}{5}/2^{10}=63/256 \\approx 0{,}2461$, menyadari bahwa $0{,}5$ adalah peluang kumulatif akibat simetri, dan membedakan peluang satu titik dengan peluang kumulatif.',
     hints: ['Hitung $\\binom{10}{5}=252$ dan bagi dengan $2^{10}=1024$.', 'Ingat jumlah seluruh peluang $1$; karena simetris, peluang separuh kiri $P(X \\leq 5)=\\tfrac12$.'],
     competencies: ['peluang kumulatif binomial', 'evaluasi penalaran'],
+    rubric: [
+      'Menghitung $P(X=5)=\\binom{10}{5}/2^{10}=\\tfrac{63}{256}\\approx0{,}2461$',
+      'Menjelaskan $0{,}5$ adalah peluang kumulatif $P(X\\le5)$ akibat simetri',
+      'Membedakan peluang satu titik dengan peluang kumulatif',
+    ],
+  },
+  {
+    id: 'bin-14',
+    topicId: 'distribusi-binomial',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Peluang seorang pemain basket memasukkan bola ke ring adalah $0{,}7$. Ia melakukan $4$ tembakan bebas yang saling bebas. Peluang ia memasukkan tepat $3$ bola adalah …',
+    options: [
+      { key: 'A', text: '$0{,}4116$' },
+      { key: 'B', text: '$0{,}2401$' },
+      { key: 'C', text: '$0{,}2646$' },
+      { key: 'D', text: '$0{,}1029$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Dengan $n=4$, $p=0{,}7$, dan $k=3$: $P(X=3)=\\binom{4}{3}(0{,}7)^3(0{,}3)=4\\cdot0{,}343\\cdot0{,}3=0{,}4116$. Opsi B adalah $P(X=4)=(0{,}7)^4$, opsi C adalah $P(X=2)$, dan opsi D lupa mengalikan koefisien $\\binom{4}{3}$.',
+    hints: ['Gunakan $P(X=k)=\\binom{n}{k}p^{k}(1-p)^{n-k}$ dengan $n=4$ dan $p=0{,}7$.'],
+    competencies: ['rumus distribusi binomial', 'kontekstual'],
   },
 ];

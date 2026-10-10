@@ -127,6 +127,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
       'Gunakan rumus median data berkelompok pada kelas yang memuat data ke-$\\dfrac{n}{2}$.',
     hints: ['Tentukan kelas yang memuat data ke-10.', 'Gunakan $L+\\left(\\dfrac{n/2-F}{f}\\right)c$.'],
     competencies: ['median data berkelompok'],
+    rubric: [
+      'Menentukan posisi median $\\dfrac{n}{2}=10$ dan kelas $70$–$79$ sebagai kelas median',
+      'Menetapkan $L=69{,}5$, $F=7$, $f=8$, dan $c=10$ dengan benar',
+      'Menyelesaikan $L+\\left(\\dfrac{n/2-F}{f}\\right)c$ hingga memperoleh $73{,}25$',
+    ],
   },
   {
     id: 'ad-09',
@@ -142,6 +147,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
       'Kunci: perbedaan terletak pada apakah seluruh nilai dipakai (mean) atau hanya posisi tengah (median).',
     hints: ['Bandingkan cara mean dan median menggunakan nilai data.'],
     competencies: ['ukuran pemusatan', 'penalaran statistik'],
+    rubric: [
+      'Menjelaskan median hanya bergantung pada nilai/posisi tengah setelah diurutkan',
+      'Menjelaskan mean memakai seluruh nilai sehingga terpengaruh nilai ekstrem',
+      'Memberi contoh angka bahwa mean bergeser namun median tetap',
+    ],
   },
   {
     id: 'ad-10',
@@ -156,6 +166,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
     explanation: 'Gunakan hubungan jumlah $=$ banyak data $\\times$ rata-rata sebelum dan sesudah penambahan.',
     hints: ['Hitung jumlah total data sebelum dan sesudah.'],
     competencies: ['mean', 'pemodelan'],
+    rubric: [
+      'Menghitung jumlah awal $5\\times8=40$',
+      'Menghitung jumlah akhir $6\\times9=54$',
+      'Menemukan bilangan baru $54-40=14$',
+    ],
   },
   {
     id: 'ad-11',
@@ -171,6 +186,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
       'Kunci: membandingkan keragaman dari jangkauan, lalu menyadari keterbatasan jangkauan yang hanya bergantung pada dua nilai ekstrem.',
     hints: ['Bandingkan besar jangkauan kedua kelas.', 'Ingat bahwa jangkauan hanya melihat nilai terkecil dan terbesar.'],
     competencies: ['ukuran sebaran', 'penalaran statistik', 'evaluasi'],
+    rubric: [
+      'Menyimpulkan Kelas P lebih seragam karena jangkauannya lebih kecil',
+      'Menjelaskan jangkauan hanya memakai dua nilai ekstrem sehingga sensitif terhadap pencilan',
+      'Menyarankan IQR atau simpangan baku sebagai ukuran sebaran yang lebih andal',
+    ],
   },
   {
     id: 'ad-12',
@@ -207,6 +227,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
       'Simpangan baku hanya bergantung pada selisih setiap nilai dengan rata-ratanya.',
     ],
     competencies: ['ukuran pemusatan', 'ukuran penyebaran', 'pembuktian'],
+    rubric: [
+      'Menghitung rata-rata baru $\\bar{x}+c$ dari definisi $\\dfrac{1}{n}\\sum(x_i+c)$',
+      'Menunjukkan simpangan tiap datum $x_i-\\bar{x}$ tidak berubah',
+      'Menyimpulkan $s$ tetap dan menafsirkan sebagai ukuran sebaran relatif',
+    ],
   },
   {
     id: 'ad-14',

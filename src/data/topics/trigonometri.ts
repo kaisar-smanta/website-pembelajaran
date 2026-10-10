@@ -105,6 +105,12 @@ Sebagai contoh, pada segitiga siku-siku dengan panjang sisi $3$, $4$, dan $5$, u
 $$\\sin\\alpha=\\frac{3}{5},\\qquad \\cos\\alpha=\\frac{4}{5},\\qquad \\tan\\alpha=\\frac{3}{4}.$$`,
       blocks: [
         {
+          kind: "figure",
+          alt: "Segitiga siku-siku dengan sisi tegak berlabel depan, sisi datar berlabel samping, sisi miring berlabel miring, dan sudut theta di salah satu sudut lancip.",
+          caption: "Sisi-sisi segitiga siku-siku terhadap sudut $\\theta$: $\\sin\\theta=\\frac{\\text{depan}}{\\text{miring}}$, $\\cos\\theta=\\frac{\\text{samping}}{\\text{miring}}$, $\\tan\\theta=\\frac{\\text{depan}}{\\text{samping}}$.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><polygon points="60,180 60,55 265,180" fill="none" stroke="currentColor" stroke-width="2"/><path d="M 60,166 L 74,166 L 74,180" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M 231,180 A 34,34 0 0 1 236,162" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="244" y="171" font-size="13" fill="currentColor">θ</text><text x="6" y="122" font-size="12" fill="currentColor">depan</text><text x="150" y="205" font-size="12" fill="currentColor">samping</text><text x="150" y="104" font-size="12" fill="currentColor">miring</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "concept",
           title: "Inti yang perlu diingat",
@@ -279,8 +285,14 @@ Perhatikan bahwa bila $A=90^\\circ$, maka $\\cos 90^\\circ=0$ sehingga aturan ko
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi Gelombang Sinus",
-      body: "Fungsi sinus $f(x)=a\\sin(kx)$ muncul dari memutar sebuah titik pada lingkaran satuan. Sebelum melanjutkan, selidiki bagaimana amplitudo $a$ dan bilangan gelombang $k$ mengubah bentuk gelombang.",
+      body: `Fungsi sinus $f(x)=a\\sin(kx)$ muncul dari memutar sebuah titik pada lingkaran satuan. **Lingkaran satuan** adalah lingkaran berjari-jari $1$ berpusat di titik asal $O(0,0)$; jika sebuah titik diputar sejauh **sudut sebarang** $\\theta$ dari sumbu-$x$ positif, koordinatnya menjadi $(\\cos\\theta,\\sin\\theta)$. Dengan cara ini sinus dan kosinus terdefinisi untuk semua sudut, tidak hanya sudut lancip segitiga. Pada $f(x)=a\\sin(kx)$, bilangan $a$ adalah **amplitudo**, yaitu setengah tinggi gelombang, sedangkan **periode** adalah $\\dfrac{2\\pi}{k}$ radian, yaitu panjang satu gelombang penuh. Amati gambar berikut, lalu selidiki bagaimana amplitudo $a$ dan bilangan gelombang $k$ mengubah bentuk gelombang.`,
       blocks: [
+        {
+          kind: "figure",
+          alt: "Lingkaran satuan berjari-jari satu dengan sebuah titik pada lingkaran, sudut theta dari sumbu x positif, serta proyeksi mendatar cos theta dan proyeksi tegak sin theta.",
+          caption: "Lingkaran satuan: titik pada sudut $\\theta$ berkoordinat $(\\cos\\theta,\\sin\\theta)$, dengan proyeksi $\\cos\\theta$ pada sumbu-$x$ dan $\\sin\\theta$ pada sumbu-$y$.",
+          svg: '<svg viewBox="0 0 320 280" aria-hidden="true" role="presentation"><line x1="10" y1="160" x2="235" y2="160" stroke="currentColor" stroke-width="1.5"/><line x1="110" y1="15" x2="110" y2="272" stroke="currentColor" stroke-width="1.5"/><circle cx="110" cy="160" r="100" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="110" y1="160" x2="186.6" y2="95.7" stroke="currentColor" stroke-width="2"/><line x1="186.6" y1="95.7" x2="186.6" y2="160" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="186.6" y1="95.7" x2="110" y2="95.7" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><path d="M 150,160 A 40,40 0 0 0 140.6,134.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="186.6" cy="95.7" r="3" fill="currentColor"/><text x="140" y="132" font-size="12" fill="currentColor">1</text><text x="147" y="152" font-size="12" fill="currentColor">θ</text><text x="63" y="92" font-size="12" fill="currentColor">sin θ</text><text x="158" y="182" font-size="12" fill="currentColor">cos θ</text><text x="192" y="88" font-size="12" fill="currentColor">(cos θ, sin θ)</text></svg>',
+        },
         {
           kind: "exploration",
           explorationId: "trigonometri-gelombang",
@@ -375,6 +387,40 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
           ],
           wrongIndex: 1,
           explanation: "Sifat $\\sin 2\\alpha=2\\sin\\alpha$ tidak berlaku; fungsi trigonometri bukan operasi linear. Nilai yang benar adalah $\\sin 60^\\circ=\\dfrac{\\sqrt{3}}{2}\\approx 0{,}866$, bukan $1$.",
+        },
+      ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Seorang pengamat berdiri di titik $A$ dan mengukur sudut elevasi ke puncak sebuah menara sebesar $30^\\circ$. Ia berjalan $20$ m lurus mendekati kaki menara menuju titik $B$, lalu mengukur lagi sudut elevasinya sebesar $60^\\circ$. Abaikan tinggi alat ukur. Tentukan tinggi menara.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Bentuk dua segitiga siku-siku dari kedua posisi, lalu samakan tinggi menara.",
+          steps: [
+            {
+              title: "Tentukan variabel",
+              text: "Misalkan $h$ tinggi menara dan $x$ jarak dari titik $B$ ke kaki menara.",
+            },
+            {
+              title: "Dari titik dekat $B$",
+              text: "Segitiga siku-siku dengan sudut $60^\\circ$: $\\tan 60^\\circ=\\dfrac{h}{x}$, sehingga $h=x\\sqrt{3}$.",
+            },
+            {
+              title: "Dari titik jauh $A$",
+              text: "Jarak ke kaki menara sekarang $x+20$ dan sudutnya $30^\\circ$: $\\tan 30^\\circ=\\dfrac{h}{x+20}$, sehingga $h=\\dfrac{x+20}{\\sqrt{3}}$.",
+            },
+            {
+              title: "Samakan dan selesaikan",
+              text: "$x\\sqrt{3}=\\dfrac{x+20}{\\sqrt{3}}$. Kalikan dengan $\\sqrt{3}$: $3x=x+20$, sehingga $2x=20$ dan $x=10$ m.",
+            },
+            {
+              title: "Hitung tinggi menara",
+              text: "$h=x\\sqrt{3}=10\\sqrt{3}\\approx 17{,}32$ m. Jadi tinggi menara sekitar $17{,}32$ m.",
+            },
+          ],
         },
       ],
     },

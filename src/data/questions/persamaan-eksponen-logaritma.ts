@@ -9,14 +9,14 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Tentukan nilai $x$ yang memenuhi $2^{x+1}=32$.',
     options: [
-      { key: 'A', text: '$2$' },
+      { key: 'A', text: '$3$' },
       { key: 'B', text: '$4$' },
       { key: 'C', text: '$5$' },
       { key: 'D', text: '$6$' },
     ],
     answer: 'B',
     explanation:
-      'Nyatakan $32=2^{5}$, sehingga $2^{x+1}=2^{5}$. Karena basisnya sama, pangkatnya sama: $x+1=5 \\Rightarrow x=4$. Periksa: $2^{5}=32$.',
+      'Nyatakan $32=2^{5}$, sehingga $2^{x+1}=2^{5}$. Karena basisnya sama, pangkatnya sama: $x+1=5 \\Rightarrow x=4$. Periksa: $2^{5}=32$. Opsi $3$ muncul bila $32$ keliru ditulis $2^{4}$, opsi $5$ bila lupa mengurangi $1$, dan opsi $6$ bila menambah $1$, bukan mengurangi.',
     hints: ['Tulis $32$ sebagai pangkat dari $2$.'],
     competencies: ['persamaan eksponen', 'menyamakan basis'],
   },
@@ -28,14 +28,14 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'cepat',
     prompt: 'Nilai dari $\\log_{3}81$ adalah …',
     options: [
-      { key: 'A', text: '$2$' },
-      { key: 'B', text: '$3$' },
+      { key: 'A', text: '$3$' },
+      { key: 'B', text: '$27$' },
       { key: 'C', text: '$5$' },
       { key: 'D', text: '$4$' },
     ],
     answer: 'D',
     explanation:
-      'Karena $3^{4}=81$, maka menurut definisi logaritma $\\log_{3}81=4$.',
+      'Karena $3^{4}=81$, maka menurut definisi logaritma $\\log_{3}81=4$. Opsi $3$ menjawab basisnya, opsi $27$ berasal dari membagi $81$ dengan $3$, dan opsi $5$ dari menebak pangkat tanpa memeriksa hasilnya.',
     hints: ['Cari pangkat yang membuat $3$ menjadi $81$.'],
     competencies: ['definisi logaritma'],
   },
@@ -75,14 +75,14 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'konsep',
     prompt: 'Tentukan nilai $x$ yang memenuhi $4^{x+1}=8^{x-1}$.',
     options: [
-      { key: 'A', text: '$4$' },
-      { key: 'B', text: '$6$' },
+      { key: 'A', text: '$2$' },
+      { key: 'B', text: '$3$' },
       { key: 'C', text: '$5$' },
-      { key: 'D', text: '$7$' },
+      { key: 'D', text: '$6$' },
     ],
     answer: 'C',
     explanation:
-      'Samakan basis menjadi $2$: $4^{x+1}=2^{2(x+1)}$ dan $8^{x-1}=2^{3(x-1)}$. Maka $2x+2=3x-3 \\Rightarrow x=5$. Periksa: $4^{6}=4096$ dan $8^{4}=4096$.',
+      'Samakan basis menjadi $2$: $4^{x+1}=2^{2(x+1)}$ dan $8^{x-1}=2^{3(x-1)}$. Maka $2x+2=3x-3 \\Rightarrow x=5$. Periksa: $4^{6}=4096$ dan $8^{4}=4096$. Opsi $2$ muncul bila faktor pangkat tidak didistribusikan, opsi $3$ bila salah mengalikan suku dalam tanda kurung, dan opsi $6$ bila salah memindahkan suku.',
     hints: ['Ubahlah kedua ruas ke basis $2$.', 'Gunakan $4=2^{2}$ dan $8=2^{3}$.'],
     competencies: ['persamaan eksponen', 'menyamakan basis'],
   },
@@ -142,14 +142,14 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     category: 'penalaran',
     prompt: 'Tentukan nilai $x$ yang memenuhi $3^{2x+1}=27^{x-2}$.',
     options: [
-      { key: 'A', text: '$5$' },
+      { key: 'A', text: '$3$' },
       { key: 'B', text: '$6$' },
       { key: 'C', text: '$8$' },
       { key: 'D', text: '$7$' },
     ],
     answer: 'D',
     explanation:
-      'Karena $27=3^{3}$, maka $27^{x-2}=3^{3(x-2)}=3^{3x-6}$. Samakan pangkat: $2x+1=3x-6 \\Rightarrow x=7$. Periksa: kedua ruas bernilai $3^{15}$.',
+      'Karena $27=3^{3}$, maka $27^{x-2}=3^{3(x-2)}=3^{3x-6}$. Samakan pangkat: $2x+1=3x-6 \\Rightarrow x=7$. Periksa: kedua ruas bernilai $3^{15}$. Opsi $3$ muncul bila $3$ tidak didistribusikan ke $-2$, opsi $6$ bila salah memindahkan suku, dan opsi $8$ bila menambah $1$, bukan mengurangi.',
     hints: ['Ubahlah $27$ menjadi pangkat basis $3$.'],
     competencies: ['persamaan eksponen', 'menyamakan basis'],
   },
@@ -171,6 +171,12 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
       'Selalu periksa syarat $x>0$ dan $x-2>0$.',
     ],
     competencies: ['persamaan logaritma', 'syarat numerus'],
+    rubric: [
+      'Menggabungkan logaritma dengan sifat perkalian',
+      'Mengubah ke bentuk eksponen',
+      'Menyelesaikan persamaan kuadrat',
+      'Memeriksa dan menolak solusi yang melanggar syarat numerus',
+    ],
   },
   {
     id: 'ekslog-11',
@@ -204,6 +210,12 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
       'Jangan lupa mengubah banyak selang menjadi jam.',
     ],
     competencies: ['pemodelan pertumbuhan', 'persamaan eksponen'],
+    rubric: [
+      'Menyusun model $P(n)=50\\cdot2^{n}$',
+      'Menyamakan basis untuk mencari $n$',
+      'Menentukan banyak selang',
+      'Mengubah selang menjadi jam',
+    ],
   },
   {
     id: 'ekslog-13',
@@ -219,6 +231,12 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
       'Kunci: menyusun model eksponensial, mengubah persamaan menjadi bentuk logaritma, lalu menghitung dan menafsirkan hasilnya.',
     hints: ['Bagi kedua ruas dengan modal awal.', 'Gunakan $t=\\dfrac{\\log 2}{\\log 1{,}1}$.'],
     competencies: ['logaritma', 'pemodelan keuangan', 'evaluasi'],
+    rubric: [
+      'Menyusun model bunga majemuk',
+      'Mengubah persamaan menjadi bentuk logaritma',
+      'Menghitung lama waktu',
+      'Menafsirkan hasil ke satuan tahun',
+    ],
   },
   {
     id: 'ekslog-14',
@@ -234,5 +252,11 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
       'Kunci: memakai sifat selisih logaritma menjadi logaritma hasil bagi, lalu menafsirkan manfaat skala logaritma.',
     hints: ['Selisih logaritma sama dengan logaritma hasil bagi.', 'Perhatikan bahwa pangkat $10$ menghasilkan perbandingan amplitudo.'],
     competencies: ['logaritma', 'skala logaritma', 'kontekstual'],
+    rubric: [
+      'Menggunakan sifat selisih logaritma',
+      'Menghitung rasio amplitudo',
+      'Menyatakan perbandingan sebagai pangkat 10',
+      'Menjelaskan manfaat skala logaritma',
+    ],
   },
 ];

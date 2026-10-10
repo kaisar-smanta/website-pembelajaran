@@ -133,7 +133,7 @@ Perhatikan bahwa eksponen berfungsi sebagai **penghitung banyaknya faktor**, buk
             },
             {
               front: "Pangkat pecahan",
-              back: "$a^{m/n} = \\sqrt[n]{a^{m}}$, misalnya $27^{2/3} = 9$.",
+              back: "$a^{m/n} = \\sqrt[n]{a^{m}}$; $n$ genap: $a \\ge 0$; $n$ ganjil: $a<0$ boleh; pangkat irasional: $a>0$. Misalnya $27^{2/3} = 9$.",
             },
           ],
         },
@@ -206,6 +206,12 @@ Perhatikan bahwa eksponen berfungsi sebagai **penghitung banyaknya faktor**, buk
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Grafik fungsi eksponen yang naik makin cepat membentuk lengkung ke atas.",
+          caption: "Grafik $y=2^{n}$: nilai tumbuh makin cepat ketika $n$ bertambah.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="170" x2="40" y2="18" stroke="currentColor" stroke-width="1.5"/><polyline points="40,170 82,165 124,152 166,124 208,80 250,30 276,20" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="292" y="188" font-size="12" fill="currentColor">n</text><text x="18" y="24" font-size="12" fill="currentColor">y</text></svg>',
+        },
       ],
     },
     {
@@ -230,7 +236,7 @@ Untuk $a \\neq 0$ dan bilangan bulat $m, n$:
 
 $$a^{m} \\cdot a^{n} = a^{m+n} \\qquad \\frac{a^{m}}{a^{n}} = a^{m-n}$$
 
-$$(a^{m})^{n} = a^{mn} \\qquad (ab)^{n} = a^{n}b^{n} \\qquad \\left(\\frac{a}{b}\\right)^{n} = \\frac{a^{n}}{b^{n}}$$
+$$(a^{m})^{n} = a^{mn} \\qquad (ab)^{n} = a^{n}b^{n} \\qquad \\left(\\frac{a}{b}\\right)^{n} = \\frac{a^{n}}{b^{n}},\\quad b \\neq 0$$
 
 Setiap sifat dapat dibuktikan dengan menuliskan kembali definisi perkalian berulang. Misalnya $(a^{m})^{n}$ berarti $a^{m}$ dikalikan sebanyak $n$ kali, sehingga total ada $mn$ faktor $a$.`,
       blocks: [
@@ -256,7 +262,8 @@ $$a^{-n} = \\frac{1}{a^{n}}, \\qquad a \\neq 0.$$
 
 **Pangkat pecahan.** Karena $(a^{1/2})^{2} = a^{1} = a$, maka $a^{1/2}$ haruslah akar kuadrat dari $a$. Secara umum:
 
-$$a^{\\frac{m}{n}} = \\sqrt[n]{a^{m}}, \\qquad a \\geq 0.$$
+$$a^{\\frac{m}{n}} = \\sqrt[n]{a^{m}},$$
+dengan syarat: untuk $n$ genap, $a \\ge 0$; untuk $n$ ganjil, $a$ boleh negatif; untuk pangkat irasional atau negatif, $a > 0$.
 
 Sebagai contoh $27^{\\frac{2}{3}} = \\left(\\sqrt[3]{27}\\right)^{2} = 3^{2} = 9$.`,
     },
@@ -279,6 +286,30 @@ $$\\frac{6}{\\sqrt{5}-\\sqrt{2}} = \\frac{6(\\sqrt{5}+\\sqrt{2})}{(\\sqrt{5}-\\s
           text: "Secara umum $\\sqrt{a+b} \\neq \\sqrt{a}+\\sqrt{b}$. Periksa dengan $a=b=4$: $\\sqrt{8} \\approx 2{,}83$ sedangkan $\\sqrt{4}+\\sqrt{4}=4$.",
         },
       ],
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `Ringkasan sifat eksponen dan bentuk akar yang dipakai sepanjang topik ini.
+
+**Definisi.** Untuk bilangan real $a$ dan bilangan bulat positif $n$,
+$$a^{n}=\\underbrace{a\\cdot a\\cdots a}_{n \\text{ faktor}}.$$
+
+**Sifat dasar** (untuk $a\\neq0$, $b\\neq0$, dan $m,n$ bilangan bulat):
+$$a^{m}\\cdot a^{n}=a^{m+n}, \\qquad \\frac{a^{m}}{a^{n}}=a^{m-n}, \\qquad (a^{m})^{n}=a^{mn},$$
+$$(ab)^{n}=a^{n}b^{n}, \\qquad \\left(\\frac{a}{b}\\right)^{n}=\\frac{a^{n}}{b^{n}}.$$
+
+**Pangkat khusus.**
+$$a^{0}=1, \\qquad a^{-n}=\\frac{1}{a^{n}}, \\qquad a^{\\frac{m}{n}}=\\sqrt[n]{a^{m}}.$$
+
+**Bentuk akar.**
+$$\\sqrt[n]{a^{m}}=a^{\\frac{m}{n}}, \\qquad \\sqrt{ab}=\\sqrt{a}\\,\\sqrt{b}, \\qquad \\sqrt{\\frac{a}{b}}=\\frac{\\sqrt{a}}{\\sqrt{b}}.$$
+
+Merasionalkan penyebut dilakukan dengan mengalikan bentuk sekawan, misalnya
+$$\\frac{1}{\\sqrt{a}-\\sqrt{b}}=\\frac{\\sqrt{a}+\\sqrt{b}}{a-b}.$$
+
+**Prosedur menyederhanakan.** (1) Samakan basis bila memungkinkan; (2) gabungkan pangkat dengan sifat dasar; (3) ubah pangkat negatif menjadi pecahan; (4) sederhanakan bentuk akar dengan mengeluarkan faktor kuadrat sempurna.`,
     },
     {
       id: "contoh",
@@ -385,6 +416,42 @@ Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuha
       ],
     },
     {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Tentukan nilai dari
+$$\\frac{2^{2026}+2^{2024}}{2^{2024}+2^{2022}}$$
+tanpa menghitung nilai setiap pangkat secara langsung. Jelaskan pola yang membuat jawabannya sederhana.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Faktorkan pangkat terkecil pada pembilang dan penyebut, lalu perhatikan faktor yang saling menghapus.",
+          steps: [
+            {
+              title: "Faktorkan pembilang",
+              text: "Suku dengan pangkat terkecil adalah $2^{2024}$, sehingga $2^{2026}+2^{2024}=2^{2024}(2^{2}+1)=2^{2024}\\cdot 5$.",
+            },
+            {
+              title: "Faktorkan penyebut",
+              text: "Dengan cara sama, $2^{2024}+2^{2022}=2^{2022}(2^{2}+1)=2^{2022}\\cdot 5$.",
+            },
+            {
+              title: "Bentuk pecahannya",
+              text: "Pecahan menjadi $\\dfrac{2^{2024}\\cdot 5}{2^{2022}\\cdot 5}=\\dfrac{2^{2024}}{2^{2022}}$.",
+            },
+            {
+              title: "Gunakan sifat hasil bagi",
+              text: "$\\dfrac{2^{2024}}{2^{2022}}=2^{2024-2022}=2^{2}=4$.",
+            },
+            {
+              title: "Kesimpulan",
+              text: "Faktor $5$ saling menghapus dan selisih pangkat menyisakan $2^{2}=4$. Pola ini berlaku setiap kali pangkat pada pembilang dan penyebut berjarak sama.",
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
@@ -487,7 +554,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
             ],
             [
               "Pangkat pecahan",
-              "$a^{m/n}=\\sqrt[n]{a^{m}}$",
+              "$a^{m/n}=\\sqrt[n]{a^{m}}$ ($n$ genap: $a\\ge0$; $n$ ganjil: $a<0$ boleh; pangkat irasional: $a>0$)",
             ],
           ],
         },

@@ -117,6 +117,12 @@ export const limitFungsiQuestions: Question[] = [
       'Penyederhanaan berlaku untuk $x \\neq 2$; justru inilah peran limit.',
     ],
     competencies: ['makna limit', 'pemfaktoran', 'penalaran'],
+    rubric: [
+      'Menegaskan limit memeriksa nilai di sekitar $x=2$, bukan nilai $f(2)$',
+      'Memfaktorkan $x^{2}-4=(x-2)(x+2)$',
+      'Menyederhanakan menjadi $x+2$ untuk $x\\neq2$',
+      'Menyimpulkan limit bernilai $4$',
+    ],
   },
   {
     id: 'lim-08',
@@ -185,6 +191,12 @@ export const limitFungsiQuestions: Question[] = [
       'Setelah menyederhanakan, ambil $h \\to 0$.',
     ],
     competencies: ['hasil bagi selisih', 'limit menuju turunan', 'pemodelan'],
+    rubric: [
+      'Menyusun hasil bagi selisih $\\dfrac{s(2+h)-s(2)}{h}$',
+      'Menghitung $s(2+h)=10+7h+h^{2}$ dan $s(2)=10$',
+      'Menyederhanakan menjadi $7+h$ untuk $h\\neq0$',
+      'Mengambil limit $h\\to0$ sehingga kecepatan sesaat $7$ m/s',
+    ],
   },
   {
     id: 'lim-12',
@@ -203,6 +215,12 @@ export const limitFungsiQuestions: Question[] = [
       'Setelah $a$ ditemukan, faktorkan dan coret $(x-2)$.',
     ],
     competencies: ['parameter limit', 'bentuk tak tentu', 'penalaran'],
+    rubric: [
+      'Menyadari limit ada hanya jika pembilang juga menuju $0$',
+      'Menyelesaikan $4-2a=0$ sehingga $a=2$',
+      'Memfaktorkan $\\dfrac{x(x-2)}{x-2}=x$ untuk $x\\neq2$',
+      'Menyimpulkan limit bernilai $2$',
+    ],
   },
   {
     id: 'lim-13',
@@ -221,6 +239,12 @@ export const limitFungsiQuestions: Question[] = [
       'Faktorkan $x^{2}-1=(x-1)(x+1)$ lalu coret.',
     ],
     competencies: ['bentuk tak tentu', 'pemfaktoran', 'evaluasi'],
+    rubric: [
+      'Menyatakan pernyataan siswa salah',
+      'Menjelaskan $\\dfrac{0}{0}$ adalah bentuk tak tentu, bukan bukti limit tidak ada',
+      'Memfaktorkan $\\dfrac{(x-1)(x+1)}{x-1}=x+1$',
+      'Menyimpulkan limit bernilai $2$',
+    ],
   },
   {
     id: 'lim-14',

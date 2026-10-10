@@ -216,13 +216,19 @@ Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik
       blocks: [
         {
           kind: "exploration",
-          explorationId: "fungsi-eksponensial-grafik",
+          explorationId: "logaritma-invers-grafik",
         },
         {
           kind: "callout",
           variant: "info",
           title: "Menghubungkan dengan logaritma",
           text: "Perhatikan bahwa grafik $y=b^{x}$ tidak pernah menyentuh sumbu-$x$. Akibatnya $b^{x}$ selalu positif, sehingga logaritma hanya terdefinisi untuk bilangan positif. Cerminan grafik juga menunjukkan bahwa sumbu-$y$ menjadi asimtot bagi grafik logaritma.",
+        },
+        {
+          kind: "figure",
+          alt: "Grafik fungsi eksponen yang naik tajam dan grafik logaritma yang merupakan pencerminannya terhadap garis y sama dengan x, dengan titik-titik pasangan koordinat yang saling bertukar.",
+          caption: "Grafik $y=2^{x}$ dan inversnya $y=\\log_{2}x$ saling mencerminkan terhadap garis $y=x$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-eel-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="80" y1="175" x2="305" y2="175" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-eel-axis)"/><line x1="80" y1="175" x2="80" y2="15" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-eel-axis)"/><line x1="80" y1="175" x2="196" y2="59" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="80" y1="151" x2="104" y2="175" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="104" y1="127" x2="128" y2="151" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="56" y1="163" x2="92" y2="199" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><polyline points="8,172 32,169 56,163 80,151 104,127 128,79 140,39" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="86,223 92,199 104,175 128,151 176,127 216,115 272,103 316,96" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="7 3"/><circle cx="80" cy="151" r="2.6" fill="currentColor"/><circle cx="104" cy="127" r="2.6" fill="currentColor"/><circle cx="56" cy="163" r="2.6" fill="currentColor"/><circle cx="104" cy="175" r="2.6" fill="currentColor"/><circle cx="128" cy="151" r="2.6" fill="currentColor"/><circle cx="92" cy="199" r="2.6" fill="currentColor"/><text x="96" y="46" font-size="12" fill="currentColor">y = 2^x</text><text x="196" y="120" font-size="12" fill="currentColor">y = log₂ x</text><text x="150" y="90" font-size="12" fill="currentColor">y = x</text><text x="300" y="168" font-size="11" fill="currentColor">x</text><text x="86" y="24" font-size="11" fill="currentColor">y</text><text x="30" y="185" font-size="11" fill="currentColor">O</text></svg>',
         },
       ],
     },
@@ -237,6 +243,24 @@ $$a^{c}=b \\iff \\log_{a}b=c.$$
 Dari kesetaraan itu lahir dua strategi umum. Persamaan eksponen diselesaikan dengan **menyamakan basis** — karena fungsi eksponen satu-satu, $a^{m}=a^{n}$ hanya mungkin bila $m=n$ — atau dengan **substitusi** $t=a^{x}$ untuk mengubahnya menjadi persamaan kuadrat. Persamaan logaritma diselesaikan dengan mengubahnya kembali ke bentuk eksponen, atau menggabungkan suku dengan sifat $\\log_{a}m+\\log_{a}n=\\log_{a}(mn)$.
 
 Kedua arah selalu ditutup dengan pemeriksaan: solusi eksponen harus memenuhi $t=a^{x}>0$, sedangkan solusi logaritma harus memenuhi syarat **numerus positif**.`,
+    },
+    {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Persamaan eksponen dengan basis sama.** Untuk $a>0$ dan $a\\neq1$, berlaku
+$$a^{f(x)}=a^{g(x)} \\Rightarrow f(x)=g(x).$$
+
+**Substitusi variabel.** Untuk bentuk $a^{2x}+p\\,a^{x}+q=0$, misalkan $t=a^{x}$ dengan $t>0$, selesaikan $t^{2}+pt+q=0$, lalu kembalikan ke $a^{x}=t$.
+
+**Definisi logaritma.** Untuk $a>0$, $a\\neq1$, dan $b>0$,
+$$a^{c}=b \\iff \\log_{a}b=c.$$
+
+**Sifat logaritma.**
+$$\\log_{a}(mn)=\\log_{a}m+\\log_{a}n, \\qquad \\log_{a}\\!\\left(\\frac{m}{n}\\right)=\\log_{a}m-\\log_{a}n, \\qquad \\log_{a}(m^{n})=n\\,\\log_{a}m,$$
+$$\\log_{a}a=1, \\qquad \\log_{a}1=0.$$
+
+**Prosedur.** (1) Samakan basis atau ubah ke bentuk eksponen; (2) gunakan substitusi bila muncul suku $a^{2x}$ dan $a^{x}$; (3) setelah solusi diperoleh, periksa syarat $t=a^{x}>0$ pada persamaan eksponen serta syarat numerus positif pada persamaan logaritma.`,
     },
     {
       id: "contoh",
@@ -345,6 +369,40 @@ Skala logaritma juga memampatkan rentang yang sangat lebar: skala pH, skala Rich
           ],
           wrongIndex: 0,
           explanation: "Langkah pertama keliru. Sifat logaritma mengubah **perkalian** menjadi penjumlahan, bukan sebaliknya. Jadi $\\log_{2}4 + \\log_{2}8 = \\log_{2}(4 \\cdot 8) = \\log_{2}32 = 5$, bukan $\\log_{2}12$.",
+        },
+      ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Tentukan semua nilai $x$ yang memenuhi $\\log_{2}(x+3)+\\log_{2}(x-1)=5$. Periksa syarat numerus sebelum menetapkan jawaban.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Gabungkan kedua logaritma, ubah ke bentuk eksponen, lalu saring jawabannya dengan syarat numerus.",
+          steps: [
+            {
+              title: "Tulis syarat numerus",
+              text: "Numerus harus positif: $x+3>0$ dan $x-1>0$, sehingga berlaku $x>1$.",
+            },
+            {
+              title: "Gabungkan logaritma",
+              text: "Dengan sifat penjumlahan, $\\log_{2}(x+3)+\\log_{2}(x-1)=\\log_{2}\\big((x+3)(x-1)\\big)=5$.",
+            },
+            {
+              title: "Ubah ke bentuk eksponen",
+              text: "$(x+3)(x-1)=2^{5}=32$.",
+            },
+            {
+              title: "Selesaikan persamaan kuadrat",
+              text: "Jabarkan: $x^{2}+2x-3=32 \\Rightarrow x^{2}+2x-35=0 \\Rightarrow (x+7)(x-5)=0$, sehingga $x=-7$ atau $x=5$.",
+            },
+            {
+              title: "Saring dengan syarat",
+              text: "$x=-7$ ditolak karena tidak memenuhi $x>1$, sedangkan $x=5$ memenuhi. Jadi solusinya $x=5$.",
+            },
+          ],
         },
       ],
     },

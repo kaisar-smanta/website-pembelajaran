@@ -164,6 +164,23 @@ Inilah **rumus angsuran anuitas**. Angsuran $A$ terdiri atas **angsuran bunga** 
       ],
     },
     {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Angsuran anuitas** untuk pokok $M$, suku bunga per periode $i$, dan $n$ periode:
+$$A = \\frac{M\\,i}{1-(1+i)^{-n}} = M \\cdot \\frac{i(1+i)^n}{(1+i)^n-1}.$$
+
+**Nilai sekarang dan nilai masa depan:**
+$$PV = A \\cdot \\frac{1-(1+i)^{-n}}{i}, \\qquad FV = A \\cdot \\frac{(1+i)^n-1}{i}.$$
+
+**Tabel amortisasi.** Pada periode ke-$k$:
+- bunga $= i \\times \\text{sisa utang}_{k-1}$;
+- angsuran pokok $= A - \\text{bunga}$;
+- sisa utang $= \\text{sisa utang}_{k-1} - \\text{angsuran pokok}$.
+
+**Prosedur.** (1) Sesuaikan suku bunga per periode dan banyak periode. (2) Hitung besar angsuran $A$. (3) Pisahkan bunga dan pokok pada setiap baris tabel. (4) Total pembayaran $= nA$ dan total bunga $= nA - M$.`,
+    },
+    {
       id: "representasi",
       kind: "representasi",
       title: "Representasi Nilai Sekarang dan Nilai Masa Depan",
@@ -193,6 +210,12 @@ Rumus $PV$ menjawab "berapa pinjaman yang setara dengan angsuran ini", sedangkan
               body: "Dari periode ke periode, porsi bunga menurun dan porsi pokok meningkat meskipun besar angsuran tetap.",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Garis waktu anuitas: pembayaran sama besar A digambarkan sebagai panah ke bawah yang sama panjang pada setiap periode, serta panah nilai sekarang yang menjumlahkan nilai tunai seluruh angsuran.",
+          caption: "Setiap angsuran $A$ dibayar pada akhir periode. Nilai sekarang (PV) menjumlahkan nilai tunai semua angsuran: $PV = A\\cdot\\dfrac{1-(1+i)^{-n}}{i}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-anu-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="110" x2="300" y2="110" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-anu-arrow)"/><line x1="60" y1="110" x2="60" y2="165" stroke="currentColor" stroke-width="2" marker-end="url(#fig-anu-arrow)"/><line x1="106" y1="110" x2="106" y2="165" stroke="currentColor" stroke-width="2" marker-end="url(#fig-anu-arrow)"/><line x1="152" y1="110" x2="152" y2="165" stroke="currentColor" stroke-width="2" marker-end="url(#fig-anu-arrow)"/><line x1="198" y1="110" x2="198" y2="165" stroke="currentColor" stroke-width="2" marker-end="url(#fig-anu-arrow)"/><line x1="244" y1="110" x2="244" y2="165" stroke="currentColor" stroke-width="2" marker-end="url(#fig-anu-arrow)"/><circle cx="40" cy="110" r="3" fill="currentColor"/><line x1="285" y1="205" x2="45" y2="205" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#fig-anu-arrow)"/><text x="18" y="106" font-size="12" fill="currentColor">0</text><text x="51" y="128" font-size="12" fill="currentColor">1</text><text x="97" y="128" font-size="12" fill="currentColor">2</text><text x="143" y="128" font-size="12" fill="currentColor">3</text><text x="189" y="128" font-size="12" fill="currentColor">4</text><text x="235" y="128" font-size="12" fill="currentColor">5</text><text x="63" y="158" font-size="12" fill="currentColor">A</text><text x="250" y="100" font-size="12" fill="currentColor">periode</text><text x="58" y="222" font-size="11" fill="currentColor">PV: jumlah nilai tunai tiap angsuran</text></svg>',
         },
       ],
     },
@@ -228,7 +251,19 @@ Total pembayaran $= 24 \\times 499.241 = \\text{Rp}11.981.784$, dengan **total b
 
 *Penyelesaian.* Bunga bulan 1 $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Angsuran pokok $= 499.241 - 150.000 = \\text{Rp}349.241$. Sisa utang $= 10.000.000 - 349.241 = \\text{Rp}9.650.759$.
 
-Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsuran pokok $\\approx \\text{Rp}354.480$. Terlihat porsi pokok meningkat.`,
+Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsuran pokok $\\approx \\text{Rp}354.480$. Terlihat porsi pokok meningkat.
+
+**Contoh 3 (nilai masa depan).** Seseorang menabung Rp500.000 setiap bulan dengan bunga $0{,}8\\%$ per bulan selama 3 tahun. Berapa saldo yang terkumpul?
+
+*Penyelesaian.* Di sini kita tidak melunasi utang, melainkan mengumpulkan dana, sehingga dipakai rumus nilai masa depan dengan $A = 500.000$, $i = 0{,}008$, dan $n = 36$:
+
+$$FV = A \\cdot \\frac{(1+i)^{n}-1}{i} = 500.000 \\cdot \\frac{(1{,}008)^{36}-1}{0{,}008}.$$
+
+Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} \\approx 41{,}528$, sehingga
+
+$$FV \\approx 500.000 \\times 41{,}528 \\approx \\text{Rp}20.764.000.$$
+
+Total setoran $= 36 \\times 500.000 = \\text{Rp}18.000.000$, jadi bunga yang terkumpul sekitar **Rp2.764.000**.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -249,6 +284,28 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
             {
               title: "Langkah 4",
               text: "Bagi dan bulatkan: $A \\approx \\text{Rp}499.241$ per bulan.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Hitung saldo tabungan dari setoran tetap Rp500.000 per bulan selama 36 bulan dengan bunga 0,8% per bulan (nilai masa depan anuitas).",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Catat besaran yang diketahui: $A = 500.000$, $i = 0{,}008$, dan $n = 36$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Karena ini mengumpulkan dana, pakai rumus nilai masa depan: $FV = A \\cdot \\dfrac{(1+i)^{n}-1}{i}$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Hitung faktornya: $(1{,}008)^{36} \\approx 1{,}332225$, sehingga $\\dfrac{1{,}332225-1}{0{,}008} \\approx 41{,}528$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Kalikan: $FV \\approx 500.000 \\times 41{,}528 = \\text{Rp}20.764.000$. Total setoran Rp18.000.000, jadi bunganya sekitar Rp2.764.000.",
             },
           ],
         },
@@ -290,7 +347,9 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
 
 **4. Membandingkan hanya besar angsuran.** Angsuran kecil karena tenor panjang belum tentu murah; bandingkan **total bunga**.
 
-**5. Membulatkan angsuran terlalu awal.** Membulatkan $A$ ke ribuan sebelum menghitung total membuat kesalahan menumpuk.`,
+**5. Membulatkan angsuran terlalu awal.** Membulatkan $A$ ke ribuan sebelum menghitung total membuat kesalahan menumpuk.
+
+**6. Mengira total bunga $= i \\times M \\times n$.** Untuk pinjaman Contoh 1, cara keliru $0{,}015 \\times 10.000.000 \\times 24 = \\text{Rp}3.600.000$ terlalu besar, karena bunga dihitung dari sisa utang yang terus menurun. Total bunga yang benar adalah $nA - M \\approx \\text{Rp}1.981.784$.`,
       blocks: [
         {
           kind: "spot-mistake",
@@ -305,6 +364,54 @@ Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsura
           explanation: "Langkah kedua keliru. Suku bunga tahunan harus diubah ke per periode: $i = 12\\% / 12 = 1\\% = 0{,}01$ per bulan. Memakai $i = 0{,}12$ per bulan membuat angsuran tampak jauh lebih besar daripada seharusnya.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Misalkan pinjaman $M$ dilunasi dengan angsuran tetap $A$ setiap periode dan suku bunga per periode $i$. Buktikan bahwa sisa utang setelah $k$ angsuran adalah
+$$S_k = M(1+i)^k - A\\,\\frac{(1+i)^k-1}{i}.$$
+Gunakan hasil itu untuk menunjukkan bahwa setelah $n$ angsuran utangnya lunas.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: "Mulailah dari hubungan tiap periode: sisa utang berbunga, lalu dikurangi angsuran, yaitu $S_k = S_{k-1}(1+i) - A$ dengan $S_0 = M$.",
+        },
+        {
+          kind: "step-reveal",
+          intro: "Kita lacak sisa utang periode demi periode, lalu mengenali polanya.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Setiap periode utang berbunga lalu dikurangi angsuran: $S_k = S_{k-1}(1+i) - A$, dengan $S_0 = M$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Hitung beberapa suku: $S_1 = M(1+i)-A$ dan $S_2 = M(1+i)^2 - A(1+i) - A$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Pola yang tampak: $S_k = M(1+i)^k - A\\big[1+(1+i)+\\cdots+(1+i)^{k-1}\\big]$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Jumlah deret geometri dalam kurung adalah $\\dfrac{(1+i)^k-1}{i}$, sehingga $S_k = M(1+i)^k - A\\,\\dfrac{(1+i)^k-1}{i}$.",
+            },
+            {
+              title: "Langkah 5",
+              text: "Untuk $k=n$, gunakan $A = \\dfrac{M\\,i\\,(1+i)^n}{(1+i)^n-1}$. Substitusi memberi $S_n = M(1+i)^n - M(1+i)^n = 0$, jadi utang lunas.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Kata *anuitas* berasal dari bahasa Latin *annus* ("tahun"), karena pembayaran berkala pada awalnya dilakukan setiap tahun. Bangsa Romawi sudah mengenal kontrak pembayaran tahunan, dan pada abad pertengahan lembaga keuangan Eropa mengembangkan skema serupa untuk membiayai kota maupun perang. Abraham de Moivre pada awal abad ke-18 merumuskan teori anuitas dalam bukunya *Annuities upon Lives* (1725), dengan menyertakan perhitungan nilai sekarang. Sejak itu anuitas menjadi alat baku keuangan: kredit, dana pensiun, dan asuransi memakai gagasan angsuran tetap yang komposisinya berubah dari waktu ke waktu.`,
     },
     {
       id: "refleksi",

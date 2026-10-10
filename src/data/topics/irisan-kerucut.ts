@@ -256,6 +256,12 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Elips mendatar dengan pusat di tengah, dua titik fokus pada sumbu mayor, serta sumbu mayor dan sumbu minor yang saling tegak lurus.",
+          caption: "Elips $\\dfrac{x^{2}}{25}+\\dfrac{y^{2}}{9}=1$ berpusat di titik asal, dengan fokus $F_{1}(-4,0)$ dan $F_{2}(4,0)$. Sumbu mayor sepanjang $2a=10$ dan sumbu minor sepanjang $2b=6$.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><ellipse cx="160" cy="110" rx="110" ry="66" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="50" y1="110" x2="270" y2="110" stroke="currentColor" stroke-width="1.5"/><line x1="160" y1="44" x2="160" y2="176" stroke="currentColor" stroke-width="1.5"/><circle cx="72" cy="110" r="3.5" fill="currentColor"/><circle cx="248" cy="110" r="3.5" fill="currentColor"/><circle cx="160" cy="110" r="3" fill="currentColor"/><text x="60" y="100" font-size="12" fill="currentColor">F&#8321;</text><text x="252" y="100" font-size="12" fill="currentColor">F&#8322;</text><text x="164" y="126" font-size="12" fill="currentColor">pusat</text><text x="66" y="130" font-size="11" fill="currentColor">sumbu mayor</text><text x="164" y="58" font-size="11" fill="currentColor">sumbu minor</text></svg>',
+        },
       ],
     },
     {
@@ -291,6 +297,12 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
               body: "Kedua variabel dikuadratkan, tetapi tandanya berlawanan. Grafiknya terdiri atas dua cabang yang saling menjauh.",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Parabola vertikal dengan puncak di titik asal, titik fokus di atas puncak pada sumbu simetri, dan garis direktriks mendatar di bawah puncak.",
+          caption: "Parabola $x^{2}=4py$: puncak di titik asal, fokus terletak pada sumbu simetri, dan direktriks berupa garis mendatar. Setiap titik pada parabola berjarak sama ke fokus dan ke direktriks.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="40" y1="130" x2="295" y2="130" stroke="currentColor" stroke-width="1"/><line x1="160" y1="15" x2="160" y2="205" stroke="currentColor" stroke-width="1"/><polyline points="70,62.5 100,100 130,122.5 160,130 190,122.5 220,100 250,62.5" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="85" y1="160" x2="235" y2="160" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="160" cy="130" r="3.5" fill="currentColor"/><circle cx="160" cy="100" r="3.5" fill="currentColor"/><text x="290" y="145" font-size="12" fill="currentColor">x</text><text x="166" y="20" font-size="12" fill="currentColor">y</text><text x="166" y="148" font-size="12" fill="currentColor">puncak</text><text x="166" y="96" font-size="12" fill="currentColor">fokus</text><text x="112" y="176" font-size="12" fill="currentColor">direktriks</text></svg>',
         },
       ],
     },
@@ -471,6 +483,12 @@ $$PF_1+PF_2=2a.$$`,
           ],
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Irisan kerucut sudah dipelajari sejak zaman Yunani kuno. Menaechmus pada abad ke-4 SM menemukannya ketika mencari cara memperbesar kubus, dan Apollonius dari Perga dalam karyanya *Conics* (sekitar 200 SM) menamai serta mengkaji elips, parabola, dan hiperbola secara sistematis. Berabad-abad kemudian, Johannes Kepler pada 1609 menunjukkan bahwa orbit planet berbentuk elips dengan Matahari di salah satu fokusnya, sebuah penemuan yang mengubah astronomi. Galileo juga menjelaskan lintasan proyektil sebagai parabola. Sifat fokus elips kemudian dijelaskan secara geometris melalui bola-bola Dandelin pada abad ke-19.`,
     },
     {
       id: "refleksi",

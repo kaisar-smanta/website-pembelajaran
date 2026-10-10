@@ -143,6 +143,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Laba tiap kue menjadi koefisien fungsi objektif.',
     ],
     competencies: ['pemodelan program linear', 'nilai maksimum'],
+    rubric: [
+      'Menyusun kendala bahan dan syarat tak negatif',
+      'Menuliskan fungsi objektif laba',
+      'Menentukan titik sudut daerah penyelesaian',
+      'Memperoleh laba maksimum yang tepat',
+    ],
   },
   {
     id: 'spt-09',
@@ -161,6 +167,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Titik $(15,0)$ dan $(0,10)$ bukan titik sudut daerah penyelesaian.',
     ],
     competencies: ['program linear', 'penalaran', 'nilai maksimum'],
+    rubric: [
+      'Menentukan titik potong tiap garis',
+      'Menyaring titik sudut yang layak',
+      'Menguji fungsi objektif di tiap titik sudut',
+      'Menyimpulkan nilai maksimum',
+    ],
   },
   {
     id: 'spt-10',
@@ -173,12 +185,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     options: [
       { key: 'A', text: '$24$' },
       { key: 'B', text: '$27$' },
-      { key: 'C', text: '$30$' },
-      { key: 'D', text: '$12$' },
+      { key: 'C', text: '$10$' },
+      { key: 'D', text: '$0$' },
     ],
     answer: 'B',
     explanation:
-      'Nilai $f$ di tiap titik sudut: $(0,0)=0$, $(4,0)=24$, $(2,3)=12+15=27$, dan $(0,2)=10$. Nilai terbesar adalah $27$ di titik $(2,3)$.',
+      'Nilai $f$ di tiap titik sudut: $(0,0)=0$, $(4,0)=24$, $(2,3)=12+15=27$, dan $(0,2)=10$. Nilai terbesar adalah $27$ di titik $(2,3)$. Opsi $24$ dan $10$ berasal dari titik sudut lain, sedangkan $0$ berasal dari memakai titik asal yang bukan titik optimum.',
     hints: ['Substitusikan setiap titik sudut ke fungsi objektif.'],
     competencies: ['nilai maksimum', 'titik sudut'],
   },
@@ -196,6 +208,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Kunci jawaban: menghubungkan sifat linear fungsi objektif dengan posisi garis sejajar dan munculnya nilai ekstrem di titik sudut.',
     hints: ['Bayangkan garis $f = k$ bergeser sejajar hingga menyentuh daerah penyelesaian.'],
     competencies: ['penalaran', 'program linear', 'titik sudut'],
+    rubric: [
+      'Mengaitkan garis $f=k$ dengan nilai fungsi konstan',
+      'Menjelaskan pergeseran garis sejajar',
+      'Menyimpulkan optimum terjadi di titik sudut',
+      'Menjelaskan perilaku nilai di sepanjang satu sisi',
+    ],
   },
   {
     id: 'spt-12',
@@ -211,6 +229,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Kunci: mencari titik potong dan menyaring titik sudut yang layak, lalu menguji fungsi objektif pada tiap titik sudut.',
     hints: ['Cari titik potong kedua garis dengan eliminasi.', 'Uji laba pada setiap titik sudut yang masuk daerah penyelesaian.'],
     competencies: ['program linear', 'optimasi', 'evaluasi'],
+    rubric: [
+      'Menentukan titik potong antargaris',
+      'Menyaring titik sudut yang layak',
+      'Menguji fungsi objektif di tiap titik sudut',
+      'Memberikan kombinasi dan laba maksimum',
+    ],
   },
   {
     id: 'spt-13',
@@ -226,6 +250,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Kunci: menerjemahkan batas lahan, modal, dan syarat tak negatif menjadi pertidaksamaan, menulis fungsi objektif, serta mengenali faktor luar model.',
     hints: ['Satu kendala untuk lahan dan satu untuk modal.', 'Laba tiap komoditas menjadi koefisien fungsi objektif.'],
     competencies: ['pemodelan program linear', 'kontekstual'],
+    rubric: [
+      'Menyusun kendala lahan dan modal',
+      'Menuliskan fungsi objektif laba',
+      'Menyertakan syarat tak negatif',
+      'Menyebut kendala nyata lain yang relevan',
+    ],
   },
   {
     id: 'spt-14',
@@ -245,6 +275,12 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Uji nilai $L$ di setiap titik sudut.',
     ],
     competencies: ['pemodelan program linear', 'nilai maksimum', 'optimasi'],
+    rubric: [
+      'Menyusun dua kendala dari kebutuhan jam',
+      'Menuliskan fungsi objektif laba',
+      'Menentukan titik sudut dan mengujinya',
+      'Memberikan kombinasi produksi optimum',
+    ],
   },
   {
     id: 'spt-15',

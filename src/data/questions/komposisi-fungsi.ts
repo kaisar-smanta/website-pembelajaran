@@ -35,6 +35,11 @@ export const komposisiFungsiQuestions: Question[] = [
       'Kunci menekankan makna "bundaran" serta urutan pengerjaan dari fungsi yang paling dekat dengan $x$.',
     hints: ['Fungsi yang ditulis lebih dekat ke $x$ dikerjakan lebih dahulu.'],
     competencies: ['konsep komposisi fungsi'],
+    rubric: [
+      'Menjelaskan $(f\\circ g)(x)=f(g(x))$ sebagai $g$ dikerjakan lebih dahulu',
+      'Menjelaskan $(g\\circ f)(x)=g(f(x))$ sebagai $f$ dikerjakan lebih dahulu',
+      'Menyimpulkan urutan pengerjaan berbeda sehingga umumnya tidak komutatif',
+    ],
   },
   {
     id: 'kf-03',
@@ -133,6 +138,11 @@ export const komposisiFungsiQuestions: Question[] = [
       'Kunci menekankan substitusi yang benar pada masing-masing urutan dan kesimpulan bahwa hasilnya tidak sama.',
     hints: ['Untuk $(f \\circ g)$, kerjakan $g$ dahulu; untuk $(g \\circ f)$, kerjakan $f$ dahulu.'],
     competencies: ['sifat komposisi', 'penalaran aljabar'],
+    rubric: [
+      'Menghitung $(f\\circ g)(x)=x^{2}+2$ dengan benar',
+      'Menghitung $(g\\circ f)(x)=x^{2}+6x+8$ dengan benar',
+      'Menyimpulkan $f\\circ g\\neq g\\circ f$ karena hasil keduanya berbeda',
+    ],
   },
   {
     id: 'kf-09',
@@ -168,6 +178,12 @@ export const komposisiFungsiQuestions: Question[] = [
       'Kunci menekankan pemilihan urutan: diskon dikenakan lebih dahulu, baru biaya layanan ditambahkan, sehingga komposisinya $(g \\circ f)(x)$.',
     hints: ['Diskon $25\\%$ berarti membayar $75\\%$ dari harga awal.'],
     competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
+    rubric: [
+      'Memodelkan diskon sebagai $f(x)=0{,}75x$',
+      'Memodelkan biaya layanan sebagai $g(x)=x+5$',
+      'Menyusun komposisi $(g\\circ f)(x)=0{,}75x+5$',
+      'Menghitung total $0{,}75(40)+5=35$ ribu rupiah',
+    ],
   },
   {
     id: 'kf-11',
@@ -183,6 +199,12 @@ export const komposisiFungsiQuestions: Question[] = [
       'Kunci: menghitung kedua urutan komposisi, mengujinya dengan nilai, dan menyimpulkan sifat tidak komutatif komposisi fungsi.',
     hints: ['Kerjakan fungsi yang lebih dekat dengan $x$ terlebih dahulu.', 'Uji kedua hasil pada satu nilai $x$.'],
     competencies: ['komposisi fungsi', 'sifat tidak komutatif', 'evaluasi'],
+    rubric: [
+      'Menghitung $(f\\circ g)(x)=2x^{2}-1$',
+      'Menghitung $(g\\circ f)(x)=4x^{2}-4x+1$',
+      'Menguji dengan satu nilai $x$ untuk menunjukkan kedua hasil berbeda',
+      'Menyimpulkan secara umum $f\\circ g\\neq g\\circ f$',
+    ],
   },
   {
     id: 'kf-12',
@@ -198,6 +220,12 @@ export const komposisiFungsiQuestions: Question[] = [
       'Kunci: menyusun komposisi dengan urutan yang benar, menghitung nilai, lalu menguji apakah urutan memengaruhi hasil.',
     hints: ['Diskon berlaku lebih dahulu, baru pajak.', 'Kalikan kedua faktor dan bandingkan urutannya.'],
     competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
+    rubric: [
+      'Menyusun komposisi $(p\\circ h)(x)=1{,}1(0{,}8x)=0{,}88x$',
+      'Menghitung total harga $0{,}88(500.000)=440.000$',
+      'Membandingkan dengan urutan terbalik $(h\\circ p)(x)$',
+      'Menyimpulkan urutan tidak mengubah hasil karena keduanya perkalian konstanta',
+    ],
   },
   {
     id: 'kf-13',
@@ -216,6 +244,12 @@ export const komposisiFungsiQuestions: Question[] = [
       'Selisih kedua urutan hanya terletak pada apakah ongkos kirim terkena pajak.',
     ],
     competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
+    rubric: [
+      'Menyusun komposisi $(t\\circ s\\circ d)(x)=0{,}77x+16.500$',
+      'Menghitung total untuk $x=250.000$ sebesar Rp209.000',
+      'Membandingkan dengan urutan pajak lebih dahulu Rp207.500',
+      'Menjelaskan selisih Rp1.500 berasal dari pajak atas ongkos kirim',
+    ],
   },
   {
     id: 'kf-14',
@@ -234,5 +268,11 @@ export const komposisiFungsiQuestions: Question[] = [
       'Perhatikan bahwa menerapkan $f$ dua kali mengembalikan $x$.',
     ],
     competencies: ['komposisi fungsi', 'fungsi invers', 'penalaran'],
+    rubric: [
+      'Menyederhanakan $f(x)-1=\\dfrac{1}{x-1}$',
+      'Menghitung $(f\\circ f)(x)=x$',
+      'Menghitung $(f\\circ f\\circ f)(x)=f(x)$',
+      'Menyimpulkan $f$ adalah invers bagi dirinya sendiri',
+    ],
   },
 ];

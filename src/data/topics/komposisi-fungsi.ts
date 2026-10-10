@@ -195,6 +195,12 @@ Hasil $9$ dan $5$ berbeda, meskipun masukan keduanya sama, yaitu $2$.`,
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Diagram mesin dua tahap: masukan x melewati kotak f menghasilkan f dari x, lalu hasil itu melewati kotak g menghasilkan g dari f dari x.",
+          caption: "Model mesin komposisi $(g \\circ f)(x)=g(f(x))$: nilai $x$ diproses $f$ lebih dahulu, lalu hasilnya diproses $g$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-komp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><text x="18" y="125" font-size="13" fill="currentColor">x</text><line x1="34" y1="120" x2="76" y2="120" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komp-arrow)"/><rect x="78" y="94" width="56" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="101" y="125" font-size="14" fill="currentColor">f</text><line x1="136" y1="120" x2="188" y2="120" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komp-arrow)"/><text x="142" y="110" font-size="12" fill="currentColor">f(x)</text><rect x="190" y="94" width="56" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="213" y="125" font-size="14" fill="currentColor">g</text><line x1="248" y1="120" x2="292" y2="120" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komp-arrow)"/><text x="244" y="108" font-size="12" fill="currentColor">g(f(x))</text><text x="24" y="152" font-size="11" fill="currentColor">masuk</text><text x="250" y="152" font-size="11" fill="currentColor">hasil</text></svg>',
+        },
       ],
     },
     {
@@ -255,6 +261,22 @@ Perhatikan bahwa urutannya **berbalik**: invers dari $g$ dikerjakan lebih dahulu
 Dengan cara lain, $f^{-1}(x)=\\dfrac{x-1}{3}$ dan $g^{-1}(x)=x+2$, sehingga
 $$(g^{-1} \\circ f^{-1})(x) = g^{-1}\\!\\left(\\frac{x-1}{3}\\right) = \\frac{x-1}{3}+2 = \\frac{x+5}{3}.$$
 Hasilnya sama, membenarkan sifat tersebut.`,
+    },
+    {
+      id: "komposisi-fungsi-rumus",
+      kind: "rumus",
+      title: "Rumus Komposisi dan Domainnya",
+      body: `**Definisi komposisi.** Menggabungkan dua fungsi $f$ dan $g$ menghasilkan
+$$(f \\circ g)(x) = f(g(x)), \\qquad (g \\circ f)(x) = g(f(x)).$$
+
+**Syarat terdefinisi.** Agar $(f \\circ g)(x)$ terdefinisi, masukan harus sah di $g$ dan hasil $g(x)$ harus sah di $f$:
+$$x \\in D_{g} \\quad \\text{dan} \\quad g(x) \\in D_{f},$$
+sehingga domainnya
+$$D_{f \\circ g} = \\{\\, x \\in D_{g} : g(x) \\in D_{f} \\,\\}.$$
+
+**Contoh.** Untuk $f(x)=\\sqrt{x}$ dan $g(x)=2x+4$: $(f \\circ g)(x)=\\sqrt{2x+4}$ dengan domain $x \\ge -2$, sedangkan $(g \\circ f)(x)=2\\sqrt{x}+4$ dengan domain $x \\ge 0$. Domain keduanya berbeda meski fungsi yang dikomposisikan sama.
+
+**Invers komposisi.** $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$, urutannya berbalik.`,
     },
     {
       id: "eksplorasi",
@@ -364,6 +386,52 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
           explanation: "Urutannya terbalik. Pada $(f \\circ g)(x)=f(g(x))$, fungsi $g$ dikerjakan lebih dahulu. Hasil yang benar adalah $(x^2-1)+3=x^2+2$.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Diketahui $f(x)=2x+3$ dan $(f \\circ g)(x)=6x-1$. Tentukan rumus $g(x)$ beserta inversnya $g^{-1}(x)$.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: "Gunakan definisi $(f \\circ g)(x)=f(g(x))$. Karena $f$ diketahui, kita dapat membaca $g(x)$ dari dalam komposisi.",
+        },
+        {
+          kind: "step-reveal",
+          intro: "Kita uraikan komposisinya lalu membalik $g$.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Tulis definisinya: $(f \\circ g)(x)=f(g(x))=2g(x)+3$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Samakan dengan yang diketahui: $2g(x)+3=6x-1$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Kurangi $3$ lalu bagi $2$: $2g(x)=6x-4$, sehingga $g(x)=3x-2$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Balik $g$: dari $y=3x-2$ diperoleh $x=\\dfrac{y+2}{3}$, jadi $g^{-1}(x)=\\dfrac{x+2}{3}$.",
+            },
+            {
+              title: "Langkah 5",
+              text: "Periksa: $g(1)=1$ dan $g^{-1}(1)=\\dfrac{3}{3}=1$. Benar.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Gagasan merangkai dua fungsi, yaitu keluaran satu fungsi menjadi masukan fungsi berikutnya, tumbuh bersama notasi fungsi itu sendiri. Leonhard Euler pada abad ke-18 sudah memakai $f(x)$ dan menghitung nilai fungsi dari fungsi lain, meskipun lambang khusus untuk komposisi belum ada. Selama bertahun-tahun komposisi ditulis dengan tanda kurung seperti $f(g(x))$ untuk menghindari kerancuan. Lambang bundaran $\\circ$ baru lahir pada abad ke-20 dan menyebar luas melalui buku teks aljabar. Gagasan ini menjadi penting ketika matematikawan mempelajari struktur aljabar dan pemetaan, termasuk sifat bahwa urutan pengerjaan mengubah hasil dan bahwa $(f\\circ g)^{-1}=g^{-1}\\circ f^{-1}$.`,
     },
     {
       id: "refleksi",

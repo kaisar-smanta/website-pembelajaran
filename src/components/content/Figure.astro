@@ -1,0 +1,47 @@
+---
+import { renderInlineMarkdown } from '@/utils/markdown';
+import type { Block } from '@/types/content';
+
+interface Props {
+  block: Extract<Block, { kind: 'figure' }>;
+}
+const { block } = Astro.props;
+---
+
+<figure class="figure-block">
+  <div class="figure-canvas" role="img" aria-label={block.alt} set:html={block.svg} />
+  {block.caption && <figcaption set:html={renderInlineMarkdown(block.caption)} />}
+</figure>
+
+<style>
+  .figure-block {
+    --fig-accent: var(--accent, var(--color-primary));
+    margin: 1.25rem 0;
+  }
+  .figure-canvas {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    overflow-x: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+  .figure-canvas :global(svg) {
+    width: 100%;
+    max-width: 32rem;
+    height: auto;
+    display: block;
+  }
+  .figure-canvas :global(svg text) {
+    font-family: var(--font-body, inherit);
+  }
+  figcaption {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+</style>

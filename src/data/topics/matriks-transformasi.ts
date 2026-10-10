@@ -184,12 +184,12 @@ Sebagai contoh, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$.`,
     {
       id: "pencerminan",
       kind: "konsep",
-      title: "Refleksi",
+      title: "Pencerminan",
       body: "Refleksi (pencerminan) terhadap suatu garis memetakan titik ke bayangannya. Terhadap titik asal, refleksi dinyatakan dengan matriks berikut.",
       blocks: [
         {
           kind: "table",
-          caption: "Matriks refleksi terhadap titik asal",
+          caption: "Matriks refleksi terhadap sumbu, garis, dan titik asal",
           headers: [
             "Sumbu / garis",
             "Pemetaan",
@@ -241,7 +241,15 @@ Sudut-sudut istimewa memberi bentuk sederhana:
 $$R_{90^\\circ} = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}, \\quad R_{180^\\circ} = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}, \\quad R_{270^\\circ} = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}.$$
 Sebagai contoh, $R_{90^\\circ}$ memetakan $(1,0)$ ke $(0,1)$ dan $(3,1)$ ke $(-1,3)$.
 
-Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, sehingga rotasi tidak mengubah luas.`,
+        Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, sehingga rotasi tidak mengubah luas.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Persegi satuan dan bayangannya setelah diputar 90 derajat berlawanan arah jarum jam terhadap titik asal.",
+          caption: "Persegi satuan $A$ (garis penuh) dan bayangannya $B$ (garis putus-putus) oleh rotasi $90^\\circ$ terhadap titik asal.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="50" y1="150" x2="290" y2="150" stroke="currentColor" stroke-width="1.5"/><line x1="140" y1="220" x2="140" y2="40" stroke="currentColor" stroke-width="1.5"/><polygon points="140,150 200,150 200,90 140,90" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="140,150 140,90 80,90 80,150" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><text x="165" y="124" font-size="13" fill="currentColor">A</text><text x="104" y="124" font-size="13" fill="currentColor">B</text><text x="292" y="146" font-size="12" fill="currentColor">x</text><text x="146" y="46" font-size="12" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "dilatasi",
@@ -323,6 +331,16 @@ Jadi $B'(-4,-1)$.`,
 
 *Penyelesaian.* Rotasi memberi $(-1,2)$. Refleksi terhadap sumbu $x$ memberi $(-1,-2)$. Hasil ini sama dengan refleksi terhadap garis $y=-x$, karena $(x,y) \\rightarrow (-y,-x)$ memetakan $(2,1)$ ke $(-1,-2)$.`,
             },
+            {
+              title: "Contoh 5",
+              text: `Tentukan bayangan persegi satuan dengan titik sudut $(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$ oleh matriks rotasi $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$, lalu tentukan luas bayangannya.
+
+*Penyelesaian.* Kalikan matriks dengan vektor kolom setiap titik:
+$$(0,0)\\rightarrow(0,0),\\quad (1,0)\\rightarrow(0,1),\\quad (1,1)\\rightarrow(-1,1),\\quad (0,1)\\rightarrow(-1,0).$$
+Persegi satuan tetap berupa persegi yang berputar $90^\\circ$. Faktor skala luasnya
+$$\\lvert\\det(R_{90^\\circ})\\rvert=\\lvert 0\\cdot0-(-1)(1)\\rvert=1,$$
+sehingga luasnya tetap $1$ satuan luas.`,
+            },
           ],
         },
       ],
@@ -361,6 +379,54 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
 **2. Salah menggunakan matriks rotasi.** Rotasi berlawanan arah jarum jam memakai $\\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}$; tanda pada $\\sin\\theta$ mudah tertukar.
 **3. Mencampur translasi dengan perkalian matriks.** Translasi adalah penjumlahan vektor, bukan perkalian matriks $2 \\times 2$ terhadap titik asal.
 **4. Melupakan nilai mutlak determinan.** Luas memakai $\\lvert \\det(M) \\rvert$, sedangkan tanda determinan hanya menunjukkan orientasi.`,
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah titik dikenai dua transformasi berurutan: pertama **dilatasi** dengan pusat $O$ dan faktor $2$, kemudian **rotasi** $90^\\circ$ berlawanan arah jarum jam terhadap $O$. (a) Tentukan matriks tunggal $M$ yang mewakili kedua transformasi itu. (b) Tentukan $M^{-1}$, nyatakan transformasi balikannya, dan periksa hasilnya pada titik $(1,0)$.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Susun matriks tiap tahap, gabungkan sesuai urutan, lalu balikkan langkahnya.",
+          steps: [
+            {
+              title: "Matriks dilatasi",
+              text: "Dilatasi faktor $2$ terhadap $O$ diwakili $D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}$.",
+            },
+            {
+              title: "Matriks rotasi",
+              text: "Rotasi $90^\\circ$ berlawanan arah jarum jam diwakili $R = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.",
+            },
+            {
+              title: "Gabungkan sesuai urutan",
+              text: "Dilatasi dikerjakan lebih dahulu, sehingga $M = R\\,D$: $$M = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}\\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} = \\begin{pmatrix} 0 & -2 \\\\ 2 & 0 \\end{pmatrix}.$$",
+            },
+            {
+              title: "Periksa determinan",
+              text: "$\\det(M) = 0\\cdot0 - (-2)(2) = 4$, jadi luas bangun menjadi $4$ kali semula. Dilatasi menyumbang faktor $4$, sedangkan rotasi tidak mengubah luas.",
+            },
+            {
+              title: "Tentukan invers",
+              text: "$M^{-1} = \\dfrac{1}{4}\\begin{pmatrix} 0 & 2 \\\\ -2 & 0 \\end{pmatrix} = \\begin{pmatrix} 0 & \\tfrac{1}{2} \\\\ -\\tfrac{1}{2} & 0 \\end{pmatrix}.$",
+            },
+            {
+              title: "Tafsirkan transformasinya",
+              text: "Ini sama dengan rotasi $-90^\\circ$ (searah jarum jam) dilanjutkan dilatasi faktor $\\tfrac{1}{2}$. Hasil itu sesuai aturan bahwa invers komposisi membalik urutan: $(R\\,D)^{-1} = D^{-1}R^{-1}$.",
+            },
+            {
+              title: "Periksa pada titik",
+              text: "$(1,0) \\to$ dilatasi $(2,0) \\to$ rotasi $(0,2)$. Sebaliknya $M^{-1}\\begin{pmatrix} 0 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$, kembali ke titik asal.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Geometri sudah lama mempelajari pergeseran dan pencerminan bangun, tetapi cara menghitungnya dengan tabel bilangan baru matang pada abad ke-19. Arthur Cayley, dalam *A Memoir on the Theory of Matrices* (1858), menunjukkan bahwa sebuah matriks dapat mewakili transformasi linear dan bahwa menyusun dua transformasi setara dengan **mengalikan** matriksnya. Rekan sezamannya, James Joseph Sylvester, memperkaya kosakata aljabar linear, sementara Felix Klein pada 1872 merumuskan Program Erlangen yang memandang geometri sebagai kajian kelompok transformasi, yaitu gagasan bahwa sifat sebuah bangun ditentukan oleh transformasi yang mempertahankannya. Dari sana determinan dibaca sebagai faktor skala luas, dan rotasi, refleksi, serta dilatasi memperoleh bentuk matriksnya. Pada abad ke-20 bahasa yang sama menjadi dasar aljabar linear dan, kemudian, grafika komputer.`,
     },
     {
       id: "refleksi",

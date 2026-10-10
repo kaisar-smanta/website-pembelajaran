@@ -143,6 +143,11 @@ export const anuitasQuestions: Question[] = [
       'Penilaian menekankan pemahaman bahwa dasar perhitungan bunga adalah sisa utang yang terus menyusut, bukan pokok awal.',
     hints: ['Ingat bahwa bunga dihitung dari sisa utang yang terus berkurang, bukan dari pokok awal.'],
     competencies: ['konsep anuitas', 'penalaran'],
+    rubric: [
+      'Menjelaskan bunga dihitung dari sisa utang, bukan pokok awal',
+      'Menghubungkan penurunan sisa utang dengan penurunan porsi bunga',
+      'Menyimpulkan porsi pokok naik karena angsuran total tetap',
+    ],
   },
   {
     id: 'an-09',
@@ -158,6 +163,11 @@ export const anuitasQuestions: Question[] = [
       'Kunci jawaban harus menghubungkan turunnya $A$ dengan naiknya $n$, lalu menjelaskan efek pada total $n \\times A$ dan total bunga.',
     hints: ['Amati pengaruh memperbesar $n$ terhadap penyebut $1-(1+i)^{-n}$ dan terhadap banyaknya pembayaran $nA$.'],
     competencies: ['rumus anuitas', 'pemodelan keuangan', 'analisis kritis'],
+    rubric: [
+      'Menunjukkan menambah $n$ memperbesar penyebut $1-(1+i)^{-n}$ sehingga $A$ menurun',
+      'Menjelaskan total pembayaran $nA$ bertambah karena angsuran lebih banyak',
+      'Menyimpulkan total bunga $nA-M$ meningkat seiring tenor',
+    ],
   },
   {
     id: 'an-10',
@@ -173,6 +183,11 @@ export const anuitasQuestions: Question[] = [
       'Penilaian mencakup tiga hal: total bunga yang benar, perhitungan nilai wajar anuitas, dan penafsiran kritis bahwa angsuran penawaran di atas nilai wajar.',
     hints: ['Bandingkan angsuran penawaran dengan nilai wajar anuitas pada suku bunga wajar $1{,}5\\%$ per bulan.'],
     competencies: ['rumus anuitas', 'evaluasi penawaran', 'literasi keuangan'],
+    rubric: [
+      'Menghitung total pembayaran Rp18.000.000 dan total bunga Rp2.000.000',
+      'Menghitung nilai wajar anuitas $\\approx$Rp1.466.880 pada $i=1{,}5\\%$',
+      'Menyimpulkan angsuran penawaran di atas nilai wajar sehingga bunganya lebih mahal',
+    ],
   },
   {
     id: 'an-11',
@@ -191,6 +206,11 @@ export const anuitasQuestions: Question[] = [
       'Bandingkan $6A+B_6$ dengan $12A$.',
     ],
     competencies: ['rumus anuitas', 'sisa utang', 'pemodelan keuangan'],
+    rubric: [
+      'Menghitung angsuran anuitas Rp1.066.185,46',
+      'Menghitung sisa utang setelah $6$ angsuran lewat nilai sekarang angsuran tersisa',
+      'Membandingkan total $6A+B_6$ dengan $12A$ dan menjelaskan penghematan bunga',
+    ],
   },
   {
     id: 'an-12',
@@ -209,6 +229,11 @@ export const anuitasQuestions: Question[] = [
       'Bandingkan dengan total pembayaran anuitas $n \\times A$ dikurangi pokok.',
     ],
     competencies: ['rumus anuitas', 'literasi keuangan', 'penalaran'],
+    rubric: [
+      'Menghitung total bunga flat $12\\times0{,}01\\times12.000.000=\\text{Rp}1.440.000$',
+      'Menghitung total bunga anuitas dari $12A-M\\approx\\text{Rp}794.225$',
+      'Menjelaskan flat lebih besar karena bunga selalu dihitung dari pokok awal',
+    ],
   },
   {
     id: 'an-13',
@@ -227,5 +252,30 @@ export const anuitasQuestions: Question[] = [
       'Substitusikan $M$ dari hubungan $M=A\\dfrac{1-(1+i)^{-n}}{i}$.',
     ],
     competencies: ['rumus anuitas', 'sisa utang', 'pembuktian'],
+    rubric: [
+      'Menafsirkan $B_k$ sebagai jumlah nilai sekarang $n-k$ angsuran (deret geometri)',
+      'Melakukan substitusi $M=A\\dfrac{1-(1+i)^{-n}}{i}$ untuk membuktikan kesetaraan kedua bentuk',
+      'Memeriksa kasus batas $k=n$ menghasilkan $B_n=0$',
+    ],
+  },
+  {
+    id: 'an-14',
+    topicId: 'anuitas',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Bu Ana membandingkan dua tawaran pinjaman dengan pokok dan suku bunga per bulan yang sama, tetapi tenor berbeda: $12$ bulan dan $24$ bulan. Pernyataan yang benar adalah …',
+    options: [
+      { key: 'A', text: 'Tenor $24$ bulan memberi angsuran bulanan lebih besar dan total bunga lebih besar.' },
+      { key: 'B', text: 'Tenor $24$ bulan memberi angsuran bulanan lebih kecil tetapi total bunga lebih besar.' },
+      { key: 'C', text: 'Tenor $24$ bulan memberi angsuran bulanan lebih kecil dan total bunga lebih kecil.' },
+      { key: 'D', text: 'Kedua tenor memberi total bunga yang sama.' },
+    ],
+    answer: 'B',
+    explanation:
+      'Pada rumus $A=\\dfrac{M i}{1-(1+i)^{-n}}$, memperbesar $n$ memperbesar penyebut sehingga angsuran bulanan $A$ menurun. Namun banyaknya angsuran bertambah, sehingga total pembayaran $nA$ dan total bunga $nA-M$ justru naik. Jadi tenor lebih panjang membuat cicilan lebih ringan tetapi biaya bunga keseluruhan lebih besar.',
+    hints: ['Amati pengaruh memperbesar $n$ pada $A$ dan pada $nA$.'],
+    competencies: ['rumus anuitas', 'literasi keuangan', 'kontekstual'],
   },
 ];

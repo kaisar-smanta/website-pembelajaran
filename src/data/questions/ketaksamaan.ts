@@ -132,6 +132,12 @@ export const ketaksamaanQuestions: Question[] = [
       'Kunci jawaban: rumus AM-GM dua variabel, syarat tak negatif, syarat kesamaan $a = b$, dan satu contoh optimasi yang benar.',
     hints: ['Sebutkan syarat $a, b \\ge 0$.', 'Kesamaan terjadi ketika kedua bilangan sama.'],
     competencies: ['AM-GM', 'komunikasi matematis'],
+    rubric: [
+      'Menulis rumus AM-GM $a+b\\ge2\\sqrt{ab}$ untuk $a,b\\ge0$',
+      'Menyebut syarat kedua bilangan tak negatif',
+      'Menyatakan kesamaan tercapai saat $a=b$',
+      'Memberi satu contoh optimasi dengan nilai minimum yang benar',
+    ],
   },
   {
     id: 'ktk-09',
@@ -167,6 +173,12 @@ export const ketaksamaanQuestions: Question[] = [
       'Kunci jawaban: memulai dari kuadrat tak negatif $(a-b)^2 \\ge 0$, menjabarkannya, dan menafsirkan syarat kesamaan.',
     hints: ['Mulai dari $(a-b)^2 \\ge 0$.', 'Kapan suatu kuadrat bernilai nol?'],
     competencies: ['penalaran', 'pembuktian'],
+    rubric: [
+      'Memulai pembuktian dari $(a-b)^2\\ge0$',
+      'Menjabarkan menjadi $a^2-2ab+b^2\\ge0$',
+      'Menyimpulkan $a^2+b^2\\ge2ab$',
+      'Menunjukkan kesamaan hanya terjadi saat $a=b$',
+    ],
   },
   {
     id: 'ktk-11',
@@ -201,6 +213,12 @@ export const ketaksamaanQuestions: Question[] = [
       'Puncak parabola $f(x) = ax^2 + bx + c$ ada di $x = -\\dfrac{b}{2a}$.',
     ],
     competencies: ['pemodelan', 'optimasi', 'fungsi kuadrat'],
+    rubric: [
+      'Memodelkan $2x+y=40$ karena satu sisi dibatasi tembok',
+      'Menyusun luas $A=x(40-2x)$',
+      'Menemukan puncak parabola di $x=10$',
+      'Menentukan $y=20$ dan luas maksimum $200$ m$^2$',
+    ],
   },
   {
     id: 'ktk-13',
@@ -216,6 +234,12 @@ export const ketaksamaanQuestions: Question[] = [
       'Kunci jawaban: menjabarkan hasil kali, mengenali bentuk $\\dfrac{a}{b} + \\dfrac{b}{a}$, lalu menerapkan AM-GM.',
     hints: ['Jabarkan hasil kalinya lebih dahulu.', 'Terapkan AM-GM pada $\\dfrac{a}{b}$ dan $\\dfrac{b}{a}$.'],
     competencies: ['AM-GM', 'penalaran', 'pembuktian'],
+    rubric: [
+      'Menjabarkan menjadi $2+\\dfrac{a}{b}+\\dfrac{b}{a}$',
+      'Menerapkan AM-GM pada $\\dfrac{a}{b}+\\dfrac{b}{a}\\ge2$',
+      'Menyimpulkan hasil $\\ge4$',
+      'Menentukan kesamaan tercapai saat $a=b$',
+    ],
   },
   {
     id: 'ktk-14',

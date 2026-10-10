@@ -117,6 +117,12 @@ export const transformasiFungsiQuestions: Question[] = [
       'Kunci menekankan aturan perubahan titik $(a, b) \\to \\left(\\tfrac{a}{k}, b\\right)$ untuk dilatasi horizontal $y = f(kx)$ dengan $k = 3$.',
     hints: ['Dilatasi horizontal $f(kx)$ membagi absis dengan $k$, ordinat tetap.'],
     competencies: ['dilatasi horizontal'],
+    rubric: [
+      'Menuliskan aturan $(a,b)\\to\\left(\\dfrac{a}{k},b\\right)$ untuk $y=f(kx)$',
+      'Membagi absis $3$ dengan faktor $3$',
+      'Menyimpulkan titik padanan $(1,9)$',
+      'Memeriksa dengan $f(3\\cdot1)=9$',
+    ],
   },
   {
     id: 'tf-08',
@@ -132,6 +138,12 @@ export const transformasiFungsiQuestions: Question[] = [
       'Kunci menekankan bahwa peregangan vertikal mengalikan seluruh nilai fungsi, sehingga elemen yang sudah digeser ikut dikalikan bila urutannya berbeda.',
     hints: ['Bandingkan $2x^{2}+3$ dengan $2(x^{2}+3)$ lalu jabarkan keduanya.'],
     competencies: ['urutan transformasi', 'penalaran'],
+    rubric: [
+      'Menerapkan regang vertikal $2$ lalu geser $3$ menjadi $2x^{2}+3$',
+      'Menerapkan urutan sebaliknya menjadi $2(x^{2}+3)=2x^{2}+6$',
+      'Menunjukkan kedua hasil berbeda untuk setiap $x$',
+      'Menyimpulkan urutan transformasi memengaruhi rumus akhir',
+    ],
   },
   {
     id: 'tf-09',
@@ -167,6 +179,12 @@ export const transformasiFungsiQuestions: Question[] = [
       'Kunci menekankan pembacaan parameter puncak dari bentuk $a(t-p)^{2}+q$ dan penentuan $a$ melalui substitusi satu titik yang dilalui.',
     hints: ['Bentuk puncak $a(t-p)^{2}+q$ memiliki puncak $(p, q)$; gunakan titik lain untuk mencari $a$.'],
     competencies: ['pemodelan transformasi', 'bentuk puncak'],
+    rubric: [
+      'Membaca $p=2$ dan $q=5$ dari titik puncak',
+      'Menyusun $h(t)=a(t-2)^{2}+5$',
+      'Memakai titik $(0,1)$ untuk memperoleh $a=-1$',
+      'Menuliskan rumus lengkap dan memeriksanya',
+    ],
   },
   {
     id: 'tf-11',
@@ -182,6 +200,12 @@ export const transformasiFungsiQuestions: Question[] = [
       'Kunci: menerapkan refleksi dan translasi sesuai urutan, membaca puncak, lalu membandingkan hasil saat urutan dibalik.',
     hints: ['Refleksi sumbu-$x$ mengubah tanda seluruh fungsi.', 'Geser ke atas menambah konstanta di luar fungsi.'],
     competencies: ['refleksi', 'translasi', 'evaluasi'],
+    rubric: [
+      'Menuliskan $y=-x^{2}+2$ dari refleksi lalu translasi',
+      'Menentukan titik puncak $(0,2)$',
+      'Membandingkan dengan urutan dibalik $y=-x^{2}-2$',
+      'Menyimpulkan urutan transformasi mengubah hasil',
+    ],
   },
   {
     id: 'tf-12',
@@ -197,6 +221,12 @@ export const transformasiFungsiQuestions: Question[] = [
       'Kunci: menulis transformasi $f(x-h)+k$, memindahkan titik dengan aturan $(a,b)\\to(a+h,b+k)$, lalu menafsirkan pergeseran secara kontekstual.',
     hints: ['Geser ke kanan berarti $x$ diganti $x-2$.', 'Geser ke bawah mengurangi nilai fungsi dengan $3$.'],
     competencies: ['translasi grafik', 'kontekstual', 'interpretasi'],
+    rubric: [
+      'Menuliskan rumus transformasi $y=f(x-2)-3$',
+      'Memetakan titik $(4,5)$ menjadi $(6,2)$',
+      'Menafsirkan geser kanan sebagai penundaan nilai biaya',
+      'Menafsirkan geser bawah sebagai penurunan biaya marjinal',
+    ],
   },
   {
     id: 'tf-13',
@@ -215,6 +245,12 @@ export const transformasiFungsiQuestions: Question[] = [
       'Gunakan titik ujung $(0,0)$ untuk mencari $a$.',
     ],
     competencies: ['pemodelan transformasi', 'bentuk puncak'],
+    rubric: [
+      'Menentukan titik puncak $(20,12)$ dari tengah bentang',
+      'Memakai ujung $(0,0)$ untuk memperoleh $a=-0{,}03$',
+      'Menuliskan rumus $y=-0{,}03(x-20)^{2}+12$',
+      'Menghitung tinggi pada $x=10$ sebesar $9$ m',
+    ],
   },
   {
     id: 'tf-14',
@@ -233,5 +269,31 @@ export const transformasiFungsiQuestions: Question[] = [
       'Bandingkan letak titik puncak kedua hasil dengan $f(x)=x^{2}$.',
     ],
     competencies: ['komposisi transformasi', 'urutan transformasi', 'penalaran'],
+    rubric: [
+      'Menuliskan hasil urutan awal $y=3f(2-x)$',
+      'Menuliskan hasil urutan dibalik $y=3f(-x-2)$',
+      'Menguji perbedaan dengan $f(x)=x^{2}$',
+      'Menyimpulkan urutan transformasi memengaruhi hasil',
+    ],
+  },
+  {
+    id: 'tf-15',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Biaya produksi $x$ unit (dalam ribu rupiah) dimodelkan $y=x^{2}$. Karena terjadi efisiensi, grafik biaya digeser $1$ satuan ke kanan dan $4$ satuan ke bawah. Jika titik $(3,9)$ berada pada grafik awal, titik padanannya pada grafik baru adalah …',
+    options: [
+      { key: 'A', text: '$(4,5)$' },
+      { key: 'B', text: '$(2,5)$' },
+      { key: 'C', text: '$(4,13)$' },
+      { key: 'D', text: '$(2,13)$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Geser ke kanan $1$ satuan menambah absis dan geser ke bawah $4$ satuan mengurangi ordinat, sehingga $(3,9)\\to(3+1,\\,9-4)=(4,5)$. Rumus barunya $y=(x-1)^{2}-4$; periksa $x=4$: $(4-1)^{2}-4=9-4=5$.',
+    hints: ['Geser ke kanan berarti $(a,b)\\to(a+1,b)$ dan geser ke bawah $(a,b)\\to(a,b-4)$.'],
+    competencies: ['translasi grafik', 'kontekstual'],
   },
 ];

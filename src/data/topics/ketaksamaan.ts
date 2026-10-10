@@ -41,7 +41,7 @@ export const ketaksamaan: Topic = {
     { text: 'Menggunakan ketaksamaan segitiga untuk menaksir besar suatu besaran.' },
     { text: 'Menyelesaikan masalah optimasi sederhana tanpa kalkulus.' },
   ],
-  applications: ['optimasi-biaya'],
+  applications: ['ktk-optimasi-pagar-taman'],
   sections: [
     {
       id: 'tujuan',
@@ -166,6 +166,12 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
             },
           ],
         },
+        {
+          kind: 'figure',
+          alt: 'Garis bilangan dengan bulatan kosong di titik minus dua dan tiga. Bagian kiri minus dua dan bagian kanan tiga diberi garis tebal sebagai daerah penyelesaian x kurang dari minus dua atau x lebih dari tiga.',
+          caption: 'Penyelesaian $x^2 - x - 6 > 0$: daerah $x < -2$ dan $x > 3$. Bulatan **kosong** di $-2$ dan $3$ menandakan kedua titik itu tidak termasuk.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-ktk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="104" y1="130" x2="44" y2="130" stroke="currentColor" stroke-width="3" marker-end="url(#fig-ktk-arrow)"/><line x1="216" y1="130" x2="286" y2="130" stroke="currentColor" stroke-width="3" marker-end="url(#fig-ktk-arrow)"/><line x1="116" y1="130" x2="204" y2="130" stroke="currentColor" stroke-width="1.3"/><line x1="110" y1="126" x2="110" y2="134" stroke="currentColor" stroke-width="1.3"/><line x1="210" y1="126" x2="210" y2="134" stroke="currentColor" stroke-width="1.3"/><circle cx="110" cy="130" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="210" cy="130" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><text x="44" y="116" font-size="12" fill="currentColor">x &lt; -2</text><text x="222" y="116" font-size="12" fill="currentColor">x &gt; 3</text><text x="100" y="150" font-size="12" fill="currentColor">-2</text><text x="204" y="150" font-size="12" fill="currentColor">3</text><text x="144" y="150" font-size="12" fill="currentColor">0</text><text x="92" y="92" font-size="12" fill="currentColor">x^2 - x - 6 &gt; 0</text></svg>',
+        },
       ],
     },
     {
@@ -177,7 +183,7 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
       blocks: [
         {
           kind: 'exploration',
-          explorationId: 'kuadrat-parameter',
+          explorationId: 'ketaksamaan-tanda-kuadrat',
         },
       ],
     },
@@ -329,6 +335,12 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
             'AM-GM hanya berlaku untuk bilangan **tak negatif**. Dengan $a = b = -1$, ruas kanan $2\\sqrt{ab} = 2$ sementara ruas kiri $-2$, sehingga ketaksamaan gagal. Satu contoh benar tidak membuktikan keberlakuan umum.',
         },
       ],
+    },
+    {
+      id: 'ketaksamaan-sejarah',
+      kind: 'sejarah',
+      title: 'Jejak Sejarah',
+      body: `Ketaksamaan menjadi alat matematika yang berdiri sendiri ketika Augustin-Louis Cauchy membuktikan ketaksamaan jumlah kuadrat pada 1821, yang kemudian dikenal sebagai ketaksamaan Cauchy-Schwarz setelah Hermann Schwarz memperluasnya pada 1885. Sementara itu, hubungan antara rata-rata aritmetika dan geometri atau AM-GM sudah dikenal sejak karya Colin Maclaurin dan Leonhard Euler pada abad ke-18, dan menjadi dasar pembuktian banyak ketaksamaan lain. Pafnuty Chebyshev serta muridnya Andrey Markov menyumbang sekumpulan ketaksamaan yang kini dipakai dalam peluang dan statistika. Ketaksamaan segitiga sendiri jauh lebih tua, sudah muncul dalam geometri Yunani dan menjadi aksioma jarak. Dari sini ketaksamaan tumbuh menjadi bahasa baku untuk membandingkan besaran dan mencari nilai optimum.`,
     },
     {
       id: 'refleksi',

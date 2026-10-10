@@ -211,6 +211,12 @@ Jadi barisan mendaftar (dipisah koma), sedangkan deret menjumlahkan (dihubungkan
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Dua grafik pada satu bidang koordinat: titik barisan aritmetika membentuk garis lurus, sedangkan titik barisan geometri melengkung naik makin cepat.",
+          caption: "Perbandingan barisan aritmetika $2, 5, 8, 11, 14$ (garis lurus, selisih tetap) dengan barisan geometri $1, 2, 4, 8, 16$ (lengkung, rasio tetap) pada sumbu yang sama.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="190" x2="40" y2="15" stroke="currentColor" stroke-width="1.5"/><polyline points="40,178 90,160 140,142 190,124 240,106" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="40,184 90,178 140,166 190,142 240,94" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 3"/><circle cx="40" cy="178" r="3" fill="currentColor"/><circle cx="90" cy="160" r="3" fill="currentColor"/><circle cx="140" cy="142" r="3" fill="currentColor"/><circle cx="190" cy="124" r="3" fill="currentColor"/><circle cx="240" cy="106" r="3" fill="currentColor"/><circle cx="40" cy="184" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="90" cy="178" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="140" cy="166" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="190" cy="142" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="240" cy="94" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="56" y="150" font-size="11" fill="currentColor">aritmetika</text><text x="188" y="72" font-size="11" fill="currentColor">geometri</text><text x="292" y="208" font-size="12" fill="currentColor">n</text><text x="20" y="22" font-size="12" fill="currentColor">U</text></svg>',
+        },
       ],
     },
     {
@@ -371,6 +377,52 @@ Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun 
           explanation: "Rumus suku ke-$n$ barisan geometri adalah $U_n = a r^{\\,n-1}$, bukan $a r^{n}$. Eksponennya $(n-1)$ karena rasio pertama kali muncul pada suku kedua. Maka $U_8 = 5 \\cdot 2^{7} = 640$.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Sebuah bola dijatuhkan dari ketinggian $3$ m. Setiap kali memantul, bola mencapai $\\dfrac{2}{3}$ dari ketinggian sebelumnya. Tentukan panjang seluruh lintasan yang ditempuh bola sampai akhirnya berhenti.`,
+      blocks: [
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: "Setiap pantulan menempuh jarak **dua kali** tinggi pantulannya: sekali naik, sekali turun. Pisahkan lintasan jatuh pertama dari deret pantulan.",
+        },
+        {
+          kind: "step-reveal",
+          intro: "Kita hitung lintasan bola satu bagian demi satu bagian.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Jatuh pertama menempuh $3$ m.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Pantulan pertama mencapai $\\dfrac{2}{3}\\times3 = 2$ m. Naik dan turun, sehingga menambah $2\\times2 = 4$ m.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Tinggi pantulan membentuk barisan geometri $2, \\dfrac{4}{3}, \\dfrac{8}{9}, \\dots$ dengan $a=2$ dan $r=\\dfrac{2}{3}$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Jumlah semua lintasan naik (dan juga turun) adalah $\\dfrac{2}{1-\\tfrac{2}{3}} = \\dfrac{2}{\\tfrac13} = 6$ m.",
+            },
+            {
+              title: "Langkah 5",
+              text: "Total lintasan $= 3 + 6 + 6 = 15$ m. Jadi panjang seluruh lintasan bola adalah $15$ m.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Penjumlahan deret sudah dipakai jauh sebelum lambangnya ada. Di Tiongkok dan India kuno, para matematikawan menjumlahkan deret aritmetika dan geometri untuk menghitung pajak, hasil panen, dan bunga. Kisah terkenal tentang Carl Friedrich Gauss, yang sebagai anak sekolah menemukan cara cepat menjumlahkan $1+2+\\cdots+100$, menggambarkan trik pasangan yang menjadi inti rumus $S_n=\\frac{n}{2}(a+U_n)$. Pada abad ke-12, Bhāskara II membahas deret aritmetika dan geometri secara sistematis dalam karyanya *Līlāvatī*. Pembahasan formal deret tak hingga baru matang kemudian, terutama melalui karya Leonhard Euler pada abad ke-18.`,
     },
     {
       id: "refleksi",

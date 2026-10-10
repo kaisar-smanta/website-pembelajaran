@@ -123,6 +123,12 @@ export const teoriBilanganQuestions: Question[] = [
       'Kunci jawaban: menunjukkan kedua pasangan memiliki himpunan pembagi persekutuan yang sama, sehingga FPB-nya identik.',
     hints: ['Gunakan $a=qb+r$.', 'Tunjukkan arah dua kali: pembagi $a,b$ membagi $r$, dan pembagi $b,r$ membagi $a$.'],
     competencies: ['algoritma Euklides', 'penalaran'],
+    rubric: [
+      'Menuliskan $a=qb+r$ dengan $r=a\\bmod b$',
+      'Menunjukkan pembagi persekutuan $a$ dan $b$ juga membagi $r$',
+      'Menunjukkan pembagi persekutuan $b$ dan $r$ juga membagi $a$',
+      'Menyimpulkan kedua pasangan memiliki FPB yang sama',
+    ],
   },
   {
     id: 'tbil-09',
@@ -153,6 +159,12 @@ export const teoriBilanganQuestions: Question[] = [
       'Kunci jawaban: memakai induksi dan sifat bahwa kongruensi boleh dikalikan suku demi suku, $ac \\equiv bd \\pmod m$ bila $a\\equiv b$ dan $c\\equiv d$.',
     hints: ['Gunakan sifat $a\\equiv b$ dan $c\\equiv d$ mengakibatkan $ac\\equiv bd \\pmod m$.', 'Buktikan dengan induksi pada pangkat $n$.'],
     competencies: ['kongruensi modulo', 'pembuktian'],
+    rubric: [
+      'Menyatakan basis induksi $n=1$',
+      'Mengasumsikan $a^{k}\\equiv b^{k}\\pmod m$',
+      'Mengalikan kedua ruas dengan $a$ dan $b$',
+      'Menyimpulkan berlaku untuk semua $n\\ge 1$',
+    ],
   },
   {
     id: 'tbil-11',
@@ -168,6 +180,12 @@ export const teoriBilanganQuestions: Question[] = [
       'Kunci jawaban: menjabarkan hasil kali lalu mengeluarkan faktor $4$ dari semua suku kecuali konstanta $1$.',
     hints: ['Jabarkan $(4k+1)(4l+1)$.', 'Kelompokkan suku-suku yang memuat faktor $4$.'],
     competencies: ['keterbagian', 'modulo'],
+    rubric: [
+      'Memisalkan kedua bilangan $4k+1$ dan $4l+1$',
+      'Menjabarkan hasil kali menjadi $16kl+4k+4l+1$',
+      'Mengeluarkan faktor $4$ menjadi $4(4kl+k+l)+1$',
+      'Menyimpulkan bentuk $4m+1$ dengan $m=4kl+k+l$',
+    ],
   },
   {
     id: 'tbil-12',
@@ -183,6 +201,12 @@ export const teoriBilanganQuestions: Question[] = [
       'Kunci jawaban: mendaftar atau menggunakan Teorema Sisa Tionghoa sederhana pada modulus $15$, lalu menguji sisa.',
     hints: ['Daftar bilangan dengan sisa $2$ modulo $3$, lalu periksa sisa modulo $5$.', 'Karena modulus $3$ dan $5$ saling prima, solusinya berulang setiap $15$.'],
     competencies: ['kongruensi modulo', 'pemodelan'],
+    rubric: [
+      'Mendaftar bilangan dengan sisa $2$ modulo $3$',
+      'Memeriksa sisa modulo $5$ sehingga memperoleh $x=8$',
+      'Menyebut solusi berulang setiap $15$ karena modulus saling prima',
+      'Memilih $8$ sebagai solusi positif terkecil',
+    ],
   },
   {
     id: 'tbil-13',
@@ -198,6 +222,12 @@ export const teoriBilanganQuestions: Question[] = [
       'Kunci jawaban: menguji kelipatan $3$ yang bersisa $1$ saat dibagi $26$, atau mengamati $27=26+1$.',
     hints: ['Cari kelipatan $3$ yang jika dikurangi $1$ habis dibagi $26$.', 'Perhatikan $27=26+1$.'],
     competencies: ['aritmetika modular', 'invers modulo'],
+    rubric: [
+      'Mengubah syarat menjadi $3x-1$ habis dibagi $26$',
+      'Menguji kelipatan $3$ atau memakai $27=26+1$',
+      'Memperoleh $x=9$',
+      'Memeriksa $3\\cdot9=27\\equiv1\\pmod{26}$',
+    ],
   },
   {
     id: 'tbil-14',
@@ -233,5 +263,11 @@ export const teoriBilanganQuestions: Question[] = [
       'Kunci jawaban: memodelkan "dua angka terakhir" sebagai sisa modulo $100$, menemukan periode $7^4\\equiv 1$, lalu memakai sifat pangkat kongruensi.',
     hints: ['Dua angka terakhir = sisa bagi $100$.', 'Cari pangkat $7$ yang kongruen dengan $1$ modulo $100$.'],
     competencies: ['aritmetika modular', 'pemodelan'],
+    rubric: [
+      'Memodelkan dua angka terakhir sebagai sisa modulo $100$',
+      'Menemukan $7^{4}\\equiv1\\pmod{100}$',
+      'Menuliskan $7^{100}=(7^{4})^{25}$',
+      'Menyimpulkan dua angka terakhir adalah $01$',
+    ],
   },
 ];

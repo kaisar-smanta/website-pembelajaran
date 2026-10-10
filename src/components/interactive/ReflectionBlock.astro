@@ -207,7 +207,8 @@ const levels = [1, 2, 3, 4, 5];
 
     const existing = loadReflections(storage)[id];
     if (existing) {
-      existing.text.split('\n\u0000\n').forEach((part, i) => {
+      const parts = existing.parts ?? existing.text.split('\n\u0000\n');
+      parts.forEach((part, i) => {
         if (inputs[i]) inputs[i].value = part;
       });
       const conf = confs.find((c) => c.value === String(existing.confidence));
@@ -215,7 +216,8 @@ const levels = [1, 2, 3, 4, 5];
     }
 
     save.addEventListener('click', () => {
-      const text = inputs.map((i) => i.value.trim()).join('\n\u0000\n');
+      const parts = inputs.map((i) => i.value.trim());
+      const text = parts.join('\n\u0000\n');
       const confidence = Number(confs.find((c) => c.checked)?.value ?? 0);
       if (!text.replace(/\u0000/g, '').trim()) {
         if (saved) {
@@ -226,7 +228,10 @@ const levels = [1, 2, 3, 4, 5];
         return;
       }
       if (storage) {
-        saveReflections(storage, recordReflection(loadReflections(storage), id, text, confidence));
+        saveReflections(
+          storage,
+          recordReflection(loadReflections(storage), id, text, confidence, Date.now(), parts),
+        );
       }
       if (saved) {
         saved.hidden = false;

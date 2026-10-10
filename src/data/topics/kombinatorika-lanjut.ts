@@ -41,7 +41,7 @@ export const kombinatorikaLanjut: Topic = {
     { text: 'Menentukan koefisien suku pada penjabaran binomial.' },
     { text: 'Menjelaskan hubungan kombinasi dengan segitiga Pascal.' },
   ],
-  applications: ['survei-statistik'],
+  applications: ['komb-sandi-dan-pin'],
   sections: [
     {
       id: 'tujuan',
@@ -168,6 +168,13 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
             },
           ],
         },
+        {
+          kind: 'figure',
+          alt: 'Diagram Venn dua himpunan A dan B yang berpotongan, dengan bagian irisan ditandai berisi tiga anggota.',
+          caption:
+            'Inklusi-eksklusi dua himpunan: $|A \\cup B| = |A| + |B| - |A \\cap B| = 10 + 8 - 3 = 15$. Anggota pada irisan $A \\cap B$ tidak boleh dihitung dua kali.',
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><rect x="15" y="20" width="290" height="170" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="125" cy="105" r="62" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="195" cy="105" r="62" fill="none" stroke="currentColor" stroke-width="2"/><text x="70" y="55" font-size="13" fill="currentColor">A</text><text x="240" y="55" font-size="13" fill="currentColor">B</text><text x="95" y="110" font-size="13" text-anchor="middle" fill="currentColor">7</text><text x="160" y="110" font-size="13" text-anchor="middle" fill="currentColor">3</text><text x="225" y="110" font-size="13" text-anchor="middle" fill="currentColor">5</text><text x="30" y="40" font-size="11" fill="currentColor">S</text></svg>',
+        },
       ],
     },
     {
@@ -179,7 +186,7 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
       blocks: [
         {
           kind: 'exploration',
-          explorationId: 'peluang-sim',
+          explorationId: 'kombinatorika-hitung',
         },
       ],
     },
@@ -324,6 +331,12 @@ Pola berpikirnya: (1) tentukan objek dan "kotak"-nya, (2) pilih antara mencacah 
             'Penjumlahan langsung menghitung bilangan kelipatan $6$ dua kali. Kelipatan $6$ ada $\\left\\lfloor \\dfrac{30}{6} \\right\\rfloor = 5$, sehingga jawaban benar $15 + 10 - 5 = 20$.',
         },
       ],
+    },
+    {
+      id: 'sejarah',
+      kind: 'sejarah',
+      title: 'Jejak Sejarah',
+      body: `Prinsip sarang merpati sering dinamai menurut Peter Gustav Lejeune Dirichlet yang merumuskannya pada abad ke-19, meski gagasan serupa sudah muncul lebih awal. Prinsip inklusi-eksklusi dipakai Abraham de Moivre pada awal abad ke-18 untuk menghitung masalah *derangement*, lalu dikembangkan lebih lanjut. Teorema binomial telah dikenal di Tiongkok dan Persia jauh sebelum Blaise Pascal, sedangkan Isaac Newton pada 1665 memperluasnya ke pangkat rasional. Segitiga koefisien binomial yang kita pakai menghubungkan ketiga gagasan ini dengan segitiga Pascal.`,
     },
     {
       id: 'refleksi',

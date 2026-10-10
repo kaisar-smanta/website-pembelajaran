@@ -120,6 +120,12 @@ export const kombinatorikaLanjutQuestions: Question[] = [
       'Kunci jawaban: menjelaskan cacah ganda pada irisan, menyebut perlunya pengurangan, dan memberi contoh konkret yang benar.',
     hints: ['Fokus pada anggota yang muncul di kedua himpunan.', 'Tunjukkan dengan kelipatan persekutuan.'],
     competencies: ['inklusi-eksklusi', 'komunikasi matematis'],
+    rubric: [
+      'Menjelaskan anggota irisan $A\\cap B$ terhitung dua kali ketika $|A|+|B|$ dijumlahkan',
+      'Menyimpulkan perlunya mengurangi sekali $|A\\cap B|$ agar tiap anggota dihitung tepat sekali',
+      'Memberikan contoh kelipatan persekutuan yang terhitung dua kali',
+      'Menghitung hasil contoh dengan benar',
+    ],
   },
   {
     id: 'komb-08',
@@ -170,6 +176,12 @@ export const kombinatorikaLanjutQuestions: Question[] = [
       'Kunci jawaban: mempartisi himpunan menjadi $4$ pasangan berjumlah $9$, lalu menerapkan pigeonhole pada $5$ objek dan $4$ kotak.',
     hints: ['Bentuk pasangan bilangan yang berjumlah $9$.', 'Gunakan $5 > 4$ untuk memicu pigeonhole.'],
     competencies: ['pigeonhole', 'penalaran', 'pembuktian'],
+    rubric: [
+      'Mempartisi $\\{1,\\ldots,8\\}$ menjadi pasangan $\\{1,8\\},\\{2,7\\},\\{3,6\\},\\{4,5\\}$ yang berjumlah $9$',
+      'Menyebut ada $4$ pasangan yang berperan sebagai kotak',
+      'Menerapkan pigeonhole karena $5$ bilangan lebih banyak daripada $4$ kotak',
+      'Menyimpulkan ada dua bilangan dari pasangan sama sehingga jumlahnya $9$',
+    ],
   },
   {
     id: 'komb-11',
@@ -199,6 +211,12 @@ export const kombinatorikaLanjutQuestions: Question[] = [
       'Kunci jawaban: memakai komplemen, yaitu total susunan dikurangi susunan tanpa wanita.',
     hints: ['Hitung total terlebih dahulu.', 'Kurangi dengan susunan yang semuanya pria.'],
     competencies: ['kombinasi', 'strategi komplemen', 'pemodelan'],
+    rubric: [
+      'Menghitung total cara memilih $3$ dari $9$ yaitu $\\dbinom{9}{3}=84$',
+      'Menghitung cara tanpa wanita (semuanya pria) $\\dbinom{5}{3}=10$',
+      'Memakai strategi komplemen $84-10=74$',
+      'Menyatakan hasil akhir banyak panitia $74$',
+    ],
   },
   {
     id: 'komb-13',
@@ -214,6 +232,12 @@ export const kombinatorikaLanjutQuestions: Question[] = [
       'Kunci jawaban: menggeneralisasi partisi menjadi $n$ pasangan berjumlah $2n+1$ dan menerapkan pigeonhole pada $n+1$ objek.',
     hints: ['Ulangi pola pasangan pada soal sebelumnya.', 'Tunjukkan ada tepat $n$ pasangan.'],
     competencies: ['pigeonhole', 'penalaran', 'pembuktian'],
+    rubric: [
+      'Membentuk $n$ pasangan $\\{1,2n\\},\\{2,2n-1\\},\\ldots,\\{n,n+1\\}$ yang berjumlah $2n+1$',
+      'Menunjukkan tepat ada $n$ pasangan (kotak)',
+      'Menerapkan pigeonhole pada $n+1$ bilangan dan $n$ kotak',
+      'Menyimpulkan dua bilangan dalam satu pasangan berjumlah $2n+1$',
+    ],
   },
   {
     id: 'komb-14',

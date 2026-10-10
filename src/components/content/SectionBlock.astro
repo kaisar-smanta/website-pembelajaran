@@ -1,6 +1,7 @@
 ---
 import type { Block, Difficulty, Section, SectionKind } from '@/types/content';
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
+import { sectionTitle } from '@/lib/content-text';
 import BlockRenderer from './BlockRenderer.astro';
 import PracticeSet from '@/components/exercises/PracticeSet.astro';
 
@@ -21,31 +22,7 @@ const practiceLevel: Difficulty | undefined =
   section.practiceLevel ?? practiceLevelByKind[section.kind] ?? section.level;
 const showPractice = Boolean(section.questionIds?.length || (topicId && practiceLevel));
 
-const kindTitles: Record<SectionKind, string> = {
-  tujuan: 'Tujuan Pembelajaran',
-  pemantik: 'Pertanyaan Pemantik',
-  prasyarat: 'Prasyarat',
-  konteks: 'Situasi dan Konteks',
-  konsep: 'Konsep Inti',
-  representasi: 'Representasi',
-  eksplorasi: 'Eksplorasi',
-  generalisasi: 'Generalisasi',
-  rumus: 'Rumus dan Prosedur',
-  contoh: 'Contoh Terbimbing',
-  'latihan-dasar': 'Latihan Dasar',
-  'latihan-cakap': 'Latihan Cakap',
-  'latihan-mahir': 'Latihan Mahir',
-  'dunia-nyata': 'Masalah Dunia Nyata',
-  'kesalahan-umum': 'Kesalahan Umum',
-  refleksi: 'Refleksi',
-  rangkuman: 'Rangkuman',
-  evaluasi: 'Evaluasi',
-  sejarah: 'Jejak Sejarah',
-  tantangan: 'Tantangan',
-  catatan: 'Catatan',
-};
-
-const title = section.title ?? kindTitles[section.kind];
+const title = sectionTitle(section);
 const bodyHtml = section.body ? renderMarkdown(section.body) : '';
 const levelBadge: Record<string, string> = {
   dasar: 'Dasar',
@@ -68,17 +45,13 @@ function blockStorageId(blockIndex: number): string {
   class:list={['content-section', `kind-${section.kind}`, section.collapsed && 'is-collapsible']}
   aria-labelledby={`heading-${section.id}`}
 >
-  {
-    section.kind !== 'catatan' && (
-      <div class="section-head">
-        <h2 id={`heading-${section.id}`} class="section-title">
-          <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-          {title}
-          {section.level && <span class={`badge badge-${section.level}`}>{levelBadge[section.level]}</span>}
-        </h2>
-      </div>
-    )
-  }
+  <div class="section-head">
+    <h2 id={`heading-${section.id}`} class="section-title">
+      <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+      {title}
+      {section.level && <span class={`badge badge-${section.level}`}>{levelBadge[section.level]}</span>}
+    </h2>
+  </div>
 
   {
     showPractice && topicId && (
@@ -103,7 +76,7 @@ function blockStorageId(blockIndex: number): string {
     next && (
       <a class="section-next" href={`#${next.id}`}>
         <span class="section-next-label">Lanjut</span>
-        <span class="section-next-title">{next.title ?? kindTitles[next.kind]}</span>
+        <span class="section-next-title">{sectionTitle(next)}</span>
         <span class="section-next-arrow" aria-hidden="true">→</span>
       </a>
     )

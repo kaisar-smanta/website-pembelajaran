@@ -153,6 +153,12 @@ Metode yang meminimumkan besaran ini disebut **metode kuadrat terkecil** (least 
       body: "Setelah dihitung (lihat bagian Contoh), garis regresi untuk data di atas adalah $\\hat{y} = 1{,}190x + 0{,}893$. Tabel berikut membandingkan nilai amatan dengan nilai garis serta residunya.",
       blocks: [
         {
+          kind: "figure",
+          alt: "Diagram pencar delapan titik data dengan garis regresi kuadrat terkecil menanjak, dan ruas garis putus-putus yang menunjukkan residu tiap titik terhadap garis.",
+          caption: "Titik data, garis regresi $\\hat{y} = 1{,}190x + 0{,}893$, dan residu sebagai ruas garis putus-putus dari setiap titik ke garis.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><text x="292" y="216" font-size="12" fill="currentColor">x</text><text x="24" y="34" font-size="12" fill="currentColor">y</text><line x1="73.3" y1="168.8" x2="271.7" y2="43.8" stroke="currentColor" stroke-width="2"/><line x1="101.7" y1="140" x2="101.7" y2="150.9" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="130" y1="125" x2="130" y2="133.1" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="158.3" y1="140" x2="158.3" y2="115.2" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="186.7" y1="95" x2="186.7" y2="97.4" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="243.3" y1="65" x2="243.3" y2="61.7" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="271.7" y1="35" x2="271.7" y2="43.8" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="73.3" cy="170" r="3" fill="currentColor"/><circle cx="101.7" cy="140" r="3" fill="currentColor"/><circle cx="130" cy="125" r="3" fill="currentColor"/><circle cx="158.3" cy="140" r="3" fill="currentColor"/><circle cx="186.7" cy="95" r="3" fill="currentColor"/><circle cx="215" cy="80" r="3" fill="currentColor"/><circle cx="243.3" cy="65" r="3" fill="currentColor"/><circle cx="271.7" cy="35" r="3" fill="currentColor"/><text x="162" y="52" font-size="11" fill="currentColor">garis regresi</text><text x="196" y="106" font-size="11" fill="currentColor">residu</text></svg>',
+        },
+        {
           kind: "table",
           caption: "Nilai dugaan dan residu untuk $\\hat{y} = 1{,}190x + 0{,}893$",
           headers: [
@@ -277,7 +283,15 @@ Jika $r = 0{,}9$, maka $r^2 = 0{,}81$, artinya sekitar **81%** variasi $y$ dijel
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: "Kita gunakan data delapan siswa: $\\sum x_i = 36$, $\\sum y_i = 50$, $\\sum x_i y_i = 275$, $\\sum x_i^2 = 204$, $\\sum y_i^2 = 376$, dan $n = 8$.",
+      body: `Kita gunakan data delapan siswa: $\\sum x_i = 36$, $\\sum y_i = 50$, $\\sum x_i y_i = 275$, $\\sum x_i^2 = 204$, $\\sum y_i^2 = 376$, dan $n = 8$.
+
+**Contoh 2 (data kecil).** Tentukan garis regresi untuk lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$, lalu taksir nilai $y$ saat $x = 6$.
+
+*Penyelesaian.* Dengan $n=5$: $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, dan $\\sum x_i^2 = 55$. Maka
+
+$$b = \\frac{5(84) - (15)(25)}{5(55) - 15^2} = \\frac{420 - 375}{275 - 225} = \\frac{45}{50} = 0{,}9.$$
+
+Karena $\\bar{x} = 3$ dan $\\bar{y} = 5$, diperoleh $a = 5 - 0{,}9(3) = 2{,}3$, sehingga $\\hat{y} = 0{,}9x + 2{,}3$. Untuk $x = 6$: $\\hat{y} = 0{,}9(6) + 2{,}3 = 7{,}7$. Karena $x=6$ sedikit di luar rentang $1$ sampai $5$, angka ini termasuk **ekstrapolasi** dan perlu ditafsirkan hati-hati.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -357,7 +371,9 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
 
 **4. Berprediksi jauh di luar rentang data tanpa peringatan.** Model dari $x = 1$ sampai $8$ tidak otomatis berlaku untuk $x = 100$.
 
-**5. Mengabaikan residu besar.** Nilai $r$ tinggi bisa menyembunyikan beberapa titik yang menyimpang jauh (pencilan). Periksa selalu diagram pencarnya, bukan hanya angkanya.`,
+**5. Mengabaikan residu besar.** Nilai $r$ tinggi bisa menyembunyikan beberapa titik yang menyimpang jauh (pencilan). Periksa selalu diagram pencarnya, bukan hanya angkanya.
+
+**6. Menafsirkan intersep tanpa memperhatikan konteks.** Intersep $a$ adalah nilai dugaan saat $x=0$, padahal $x=0$ sering tidak bermakna dalam konteks nyata (misalnya "tinggi $0$ cm" atau "belajar $0$ jam"). Karena itu intersep biasanya lebih bermakna sebagai penyusun persamaan daripada sebagai prediksi yang dapat dipercaya.`,
       blocks: [
         {
           kind: "spot-mistake",
@@ -372,6 +388,46 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
           explanation: "Langkah kedua keliru. Suku $(\\sum x_i)^2$ berarti $36^2 = 1296$, bukan $36$. Penyebut yang benar adalah $8(204) - 1296 = 336$, sehingga $b = \\dfrac{400}{336} = \\dfrac{25}{21} \\approx 1{,}190$.",
         },
       ],
+    },
+    {
+      id: "regresi-tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Dari $12$ pasangan data, seorang siswa memperoleh garis regresi $\\hat{y} = 2{,}5x + 4$ dengan koefisien korelasi $r = 0{,}6$. Data $x$ berada pada rentang $2$ sampai $10$.
+
+- Benarkah ia menyatakan bahwa "$x$ menjelaskan $60\\%$ variasi $y$"?
+- Tafsirkan gradien dan intersepnya, lalu hitung dugaan $y$ untuk $x = 15$.
+- Sebutkan dua alasan mengapa prediksi $x = 15$ kurang dapat dipercaya.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Periksa tafsiran koefisien, prediksi, dan batas keberlakuannya.",
+          steps: [
+            {
+              title: "Perbaiki tafsiran korelasi",
+              text: "Pernyataan itu keliru. Proporsi variasi $y$ yang dijelaskan adalah $r^2 = 0{,}6^2 = 0{,}36$, yaitu **sekitar $36\\%$**, bukan $60\\%$. Nilai $r$ mengukur kekuatan dan arah hubungan linear, bukan persentase variasi.",
+            },
+            {
+              title: "Tafsirkan koefisien",
+              text: "Gradien $b = 2{,}5$ berarti setiap tambahan $1$ satuan $x$ dikaitkan dengan kenaikan rata-rata $2{,}5$ satuan $y$. Intersep $a = 4$ adalah nilai dugaan $\\hat{y}$ saat $x = 0$; karena $x = 0$ di luar rentang data ($2$ sampai $10$), angka ini lebih bermakna sebagai bagian persamaan daripada sebagai prediksi nyata.",
+            },
+            {
+              title: "Hitung prediksi",
+              text: "Untuk $x = 15$: $\\hat{y} = 2{,}5(15) + 4 = 37{,}5 + 4 = 41{,}5$.",
+            },
+            {
+              title: "Sebutkan alasan kehati-hatian",
+              text: "Pertama, $x = 15$ jauh di luar rentang data $2$ sampai $10$ sehingga termasuk **ekstrapolasi** dan pola linear belum tentu berlaku. Kedua, dengan $r^2 = 0{,}36$, sekitar $64\\%$ variasi $y$ dijelaskan faktor lain, sehingga prediksi tunggal pasti meleset dari nilai amatan yang wajar.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "regresi-sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Metode kuadrat terkecil tumbuh dari kebutuhan astronomi untuk mencocokkan pengamatan yang mengandung galat. Pada 1805 Adrien-Marie Legendre menerbitkannya secara terbuka, sedangkan Carl Friedrich Gauss mengaku telah memakainya sejak 1795 dan memberinya dasar yang lebih ketat. Gauss memakai metode ini untuk menghitung kembali orbit Ceres dari sekumpulan kecil pengamatan. Istilah "regresi" kemudian dipopulerkan Francis Galton ketika menelaah tinggi badan orang tua dan anak, sebab tinggi anak cenderung kembali ke arah rata-rata. Pada awal abad ke-20 Karl Pearson merumuskan kaitan antara garis regresi dan koefisien korelasi, sehingga prediksi dan ukuran kekuatan hubungan dapat dipakai bersama. Kini kuadrat terkecil menjadi salah satu metode pemodelan data yang paling luas digunakan.`,
     },
     {
       id: "refleksi",

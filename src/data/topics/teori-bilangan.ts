@@ -42,7 +42,7 @@ export const teoriBilangan: Topic = {
     { text: 'Menuliskan dan memanfaatkan kongruensi modulo beserta sifat operasinya.' },
     { text: 'Menguji keprimaan dan menggunakan dasar aritmetika modular.' },
   ],
-  applications: ['kata-sandi'],
+  applications: ['tbil-jadwal-ronda'],
   sections: [
     {
       id: 'tujuan',
@@ -79,7 +79,7 @@ Karena $45$ habis dibagi $9$, bilangan asalnya juga habis dibagi $9$. Mengapa tr
       kind: 'prasyarat',
       title: 'Prasyarat',
       body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- pembagian bersisa, yaitu menulis $a=qb+r$ dengan $0 \\le r < b$;
+- pembagian bersisa, yaitu menulis $a=qb+r$ dengan $b>0$ dan $0 \\le r < b$;
 - faktorisasi prima, misalnya $60=2^2\\cdot 3\\cdot 5$;
 - bentuk pangkat dan operasi bilangan bulat.`,
     },
@@ -101,7 +101,7 @@ $$b = a \\cdot k.$$
 
 Contoh: $3 \\mid 12$ karena $12 = 3 \\cdot 4$, sedangkan $5 \\nmid 12$ karena tidak ada bilangan bulat $k$ dengan $12 = 5k$.
 
-Setiap pembagian bersisa menuliskan $b = qa + r$ dengan $0 \\le r < a$. Bilangan $q$ adalah hasil bagi dan $r$ adalah **sisa**. Jika $r=0$, maka $a \\mid b$.
+Setiap pembagian bersisa menuliskan $b = qa + r$ dengan $a>0$ dan $0 \\le r < a$. Bilangan $q$ adalah hasil bagi dan $r$ adalah **sisa**. Jika $r=0$, maka $a \\mid b$.
 
 Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ memberi sisa yang sama saat dibagi $m$.`,
       blocks: [
@@ -161,13 +161,19 @@ Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ me
             },
             {
               label: 'Euklides',
-              body: 'FPB dicari dengan pembagian berulang: $\\gcd(a,b)=\\gcd(b, a \\bmod b)$ sampai sisanya nol.',
+              body: 'FPB dicari dengan pembagian berulang: $\\gcd(a,b)=\\gcd(b, a \\bmod b)$ untuk $b>0$, sampai sisanya nol.',
             },
             {
               label: 'Modulo',
               body: 'Sisa pembagian ditulis $r = a \\bmod m$; kongruensi mencatat kesamaan sisa.',
             },
           ],
+        },
+        {
+          kind: 'figure',
+          alt: 'Garis bilangan dengan titik penuh menandai kelipatan 3 dan lingkaran menandai kelipatan 4; keduanya bertemu di 0, 12, dan 24.',
+          caption: 'Kelipatan $3$ (titik penuh) dan kelipatan $4$ (lingkaran) pada garis bilangan; kelipatan bersama terkecilnya adalah $12$.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="25" y1="150" x2="308" y2="150" stroke="currentColor" stroke-width="1.4"/><line x1="25" y1="150" x2="25" y2="156" stroke="currentColor" stroke-width="1"/><line x1="60" y1="150" x2="60" y2="156" stroke="currentColor" stroke-width="1"/><line x1="95" y1="150" x2="95" y2="156" stroke="currentColor" stroke-width="1"/><line x1="130" y1="150" x2="130" y2="156" stroke="currentColor" stroke-width="1"/><line x1="165" y1="150" x2="165" y2="156" stroke="currentColor" stroke-width="1"/><line x1="200" y1="150" x2="200" y2="156" stroke="currentColor" stroke-width="1"/><line x1="235" y1="150" x2="235" y2="156" stroke="currentColor" stroke-width="1"/><line x1="270" y1="150" x2="270" y2="156" stroke="currentColor" stroke-width="1"/><line x1="305" y1="150" x2="305" y2="156" stroke="currentColor" stroke-width="1"/><circle cx="25" cy="150" r="3.5" fill="currentColor"/><circle cx="60" cy="150" r="3.5" fill="currentColor"/><circle cx="95" cy="150" r="3.5" fill="currentColor"/><circle cx="130" cy="150" r="3.5" fill="currentColor"/><circle cx="165" cy="150" r="3.5" fill="currentColor"/><circle cx="200" cy="150" r="3.5" fill="currentColor"/><circle cx="235" cy="150" r="3.5" fill="currentColor"/><circle cx="270" cy="150" r="3.5" fill="currentColor"/><circle cx="305" cy="150" r="3.5" fill="currentColor"/><circle cx="25" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="72" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="118" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="165" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="212" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="258" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="305" cy="150" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="25" y="175" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="60" y="175" font-size="11" fill="currentColor" text-anchor="middle">3</text><text x="95" y="175" font-size="11" fill="currentColor" text-anchor="middle">6</text><text x="130" y="175" font-size="11" fill="currentColor" text-anchor="middle">9</text><text x="165" y="175" font-size="11" fill="currentColor" text-anchor="middle">12</text><text x="200" y="175" font-size="11" fill="currentColor" text-anchor="middle">15</text><text x="235" y="175" font-size="11" fill="currentColor" text-anchor="middle">18</text><text x="270" y="175" font-size="11" fill="currentColor" text-anchor="middle">21</text><text x="305" y="175" font-size="11" fill="currentColor" text-anchor="middle">24</text><circle cx="60" cy="45" r="4" fill="currentColor"/><text x="72" y="49" font-size="11" fill="currentColor">kelipatan 3</text><circle cx="60" cy="70" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="72" y="74" font-size="11" fill="currentColor">kelipatan 4</text><circle cx="60" cy="95" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><text x="72" y="99" font-size="11" fill="currentColor">kelipatan bersama</text><text x="165" y="122" font-size="11" fill="currentColor" text-anchor="middle">KPK = 12</text></svg>',
         },
       ],
     },
@@ -179,7 +185,7 @@ Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ me
       blocks: [
         {
           kind: 'exploration',
-          explorationId: 'barisan-pola',
+          explorationId: 'teori-bilangan-pola',
         },
       ],
     },
@@ -187,7 +193,7 @@ Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ me
       id: 'generalisasi',
       kind: 'generalisasi',
       title: 'Menurunkan Algoritma Euklides',
-      body: `Untuk mencari FPB, tulis $a = qb + r$ dengan $0 \\le r < b$. Klaimnya:
+      body: `Untuk mencari FPB, tulis $a = qb + r$ dengan $b>0$ dan $0 \\le r < b$. Klaimnya:
 
 $$\\gcd(a,b) = \\gcd(b,r).$$
 
@@ -204,7 +210,7 @@ $$\\gcd(a,b)\\cdot \\operatorname{lcm}(a,b) = a\\cdot b.$$`,
       kind: 'rumus',
       title: 'Rumus dan Sifat Penting',
       body: `**Algoritma Euklides:**
-$$\\gcd(a,b)=\\gcd(b,\\, a \\bmod b),\\qquad 0 \\le a \\bmod b < b.$$
+$$\\gcd(a,b)=\\gcd(b,\\, a \\bmod b),\\qquad b>0,\\quad 0 \\le a \\bmod b < b.$$
 
 **Hubungan FPB dan KPK:**
 $$\\gcd(a,b)\\cdot \\operatorname{lcm}(a,b)=a\\cdot b.$$
@@ -240,7 +246,17 @@ $$\\operatorname{lcm}(18,24)=\\frac{18\\cdot 24}{6}=72.$$
 
 **Contoh 3 (modulo).** Tentukan $2^{10} \\bmod 7$. Karena $2^3=8\\equiv 1 \\pmod 7$, maka
 $$2^{10}=2\\cdot(2^3)^3 \\equiv 2\\cdot 1^3 = 2 \\pmod 7.$$
-Jadi sisanya $2$.`,
+Jadi sisanya $2$.
+
+**Contoh 4 (FPB, KPK, dan pemeriksaan).** Tentukan $\\gcd(252,105)$ dan $\\operatorname{lcm}(252,105)$, lalu periksa hubungan $\\gcd(a,b)\\cdot\\operatorname{lcm}(a,b)=ab$.
+
+*Penyelesaian.*
+$$252 = 2\\cdot 105 + 42$$
+$$105 = 2\\cdot 42 + 21$$
+$$42 = 2\\cdot 21 + 0.$$
+Sisa terakhir tak nol adalah $21$, jadi $\\gcd(252,105)=21$. Selanjutnya
+$$\\operatorname{lcm}(252,105)=\\frac{252\\cdot 105}{21}=\\frac{26.460}{21}=1.260.$$
+Periksa: $21\\cdot 1.260=26.460$ dan $252\\cdot 105=26.460$, cocok.`,
       blocks: [
         {
           kind: 'step-reveal',
@@ -261,6 +277,32 @@ Jadi sisanya $2$.`,
             {
               title: 'Langkah 4',
               text: 'Sisa terakhir yang tak nol adalah $21$, sehingga $\\gcd(1071,462)=21$.',
+            },
+          ],
+        },
+        {
+          kind: 'step-reveal',
+          intro: 'Contoh tambahan: tentukan $\\gcd(252,105)$ beserta KPK-nya, satu langkah sekaligus.',
+          steps: [
+            {
+              title: 'Langkah 1',
+              text: 'Bagi $252$ oleh $105$: $252 = 2\\cdot 105 + 42$. Sisanya $42$.',
+            },
+            {
+              title: 'Langkah 2',
+              text: 'Ganti pasangan menjadi $(105, 42)$: $105 = 2\\cdot 42 + 21$. Sisanya $21$.',
+            },
+            {
+              title: 'Langkah 3',
+              text: 'Ganti menjadi $(42, 21)$: $42 = 2\\cdot 21 + 0$. Sisanya $0$, proses berhenti, dan $\\gcd(252,105)=21$.',
+            },
+            {
+              title: 'Langkah 4',
+              text: 'Hitung KPK dengan $\\operatorname{lcm}(a,b)=\\dfrac{ab}{\\gcd(a,b)}$: $\\operatorname{lcm}(252,105)=\\dfrac{252\\cdot 105}{21}=1.260$.',
+            },
+            {
+              title: 'Langkah 5',
+              text: 'Periksa: $21\\cdot 1.260=26.460$ dan $252\\cdot 105=26.460$, jadi hasilnya konsisten.',
             },
           ],
         },
@@ -302,7 +344,9 @@ Sistem sandi kunci publik (seperti RSA) bertumpu pada bilangan prima besar dan o
 
 **3. Mencoret faktor pada kongruensi tanpa syarat.** Dari $ac \\equiv bc \\pmod m$ hanya boleh dibagi $c$ bila $\\gcd(c,m)=1$.
 
-**4. Menukar FPB dan KPK.** FPB adalah pembagi terbesar (memakai pangkat **terkecil**), KPK adalah kelipatan terkecil (memakai pangkat **terbesar**).`,
+**4. Menukar FPB dan KPK.** FPB adalah pembagi terbesar (memakai pangkat **terkecil**), KPK adalah kelipatan terkecil (memakai pangkat **terbesar**).
+
+**5. Menganggap $\\operatorname{lcm}(a,b)$ selalu $ab$.** Itu hanya berlaku bila $\\gcd(a,b)=1$. Untuk $6$ dan $8$ dengan $\\gcd=2$, $\\operatorname{lcm}(6,8)=24$, bukan $48$.`,
       blocks: [
         {
           kind: 'spot-mistake',
@@ -364,6 +408,12 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
       ],
     },
     {
+      id: 'sejarah',
+      kind: 'sejarah',
+      title: 'Jejak Sejarah',
+      body: `Teori bilangan termasuk cabang matematika tertua. Dalam *Elements*-nya (sekitar 300 SM), Euklides sudah membuktikan bahwa banyak bilangan prima tak berhingga dan menyusun algoritma pencarian FPB yang kini menyandang namanya. Bahasa kongruensi dan aritmetika modulo baru matang pada *Disquisitiones Arithmeticae* karya Carl Friedrich Gauss (1801), yang menyebut teori bilangan sebagai "ratu matematika". Di Tiongkok kuno, kitab *Sunzi Suanjing* memuat apa yang kini dikenal sebagai teorema sisa Tiongkok untuk menyelesaikan sistem kongruensi. Pierre de Fermat pada abad ke-17 menemukan hasil penting tentang pangkat dan modulo yang kemudian diperumum Leonhard Euler. Gagasan-gagasan inilah yang kini menopang kriptografi modern seperti RSA.`,
+    },
+    {
       id: 'refleksi',
       kind: 'refleksi',
       title: 'Refleksi',
@@ -390,7 +440,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
           rows: [
             ['Keterbagian', '$a \\mid b \\iff b = ak$ untuk suatu bilangan bulat $k$'],
             ['Kongruensi', '$a \\equiv b \\pmod{m} \\iff m \\mid (a-b)$'],
-            ['Euklides', '$\\gcd(a,b)=\\gcd(b, a \\bmod b)$'],
+            ['Euklides', '$\\gcd(a,b)=\\gcd(b, a \\bmod b),\\ b>0$'],
             ['FPB dan KPK', '$\\gcd(a,b)\\cdot \\operatorname{lcm}(a,b)=ab$'],
             ['Bilangan prima', 'Bilangan $>1$ dengan tepat dua faktor positif'],
           ],

@@ -22,7 +22,7 @@ const { title = 'Kemajuan halaman' } = Astro.props;
     <span class="tp-bar" data-tp-bar style="width: 0%"></span>
   </div>
   <p class="tp-note" data-tp-note aria-live="polite">
-    Jawab tebak-dugaan, refleksi, latihan, dan contoh terbimbing untuk menaikkan kemajuanmu.
+    Jawab tebak-dugaan, refleksi, latihan, dan selesaikan aktivitas interaktif untuk menaikkan kemajuanmu.
   </p>
 </div>
 
@@ -74,7 +74,7 @@ const { title = 'Kemajuan halaman' } = Astro.props;
 
 <script>
   import { loadProgress } from '@/lib/progress';
-  import { loadPredictions, loadReflections } from '@/lib/learner';
+  import { loadCompletions, loadPredictions, loadReflections } from '@/lib/learner';
 
   function setupTopicProgress(root: Element) {
     const countEl = root.querySelector<HTMLElement>('[data-tp-count]');
@@ -93,11 +93,14 @@ const { title = 'Kemajuan halaman' } = Astro.props;
       const questions = Array.from(document.querySelectorAll<HTMLElement>('[data-question-id]'));
       const predictions = Array.from(document.querySelectorAll<HTMLElement>('[data-prediction]'));
       const reflections = Array.from(document.querySelectorAll<HTMLElement>('[data-reflection]'));
-      const total = questions.length + predictions.length + reflections.length;
+      const activities = Array.from(document.querySelectorAll<HTMLElement>('[data-activity]'));
+      const total =
+        questions.length + predictions.length + reflections.length + activities.length;
 
       const progress = loadProgress(storage);
       const preds = loadPredictions(storage);
       const refls = loadReflections(storage);
+      const completions = loadCompletions(storage);
 
       let done = 0;
       for (const el of questions) {
@@ -111,6 +114,10 @@ const { title = 'Kemajuan halaman' } = Astro.props;
       for (const el of reflections) {
         const id = el.getAttribute('data-storage-id');
         if (id && refls[id]) done += 1;
+      }
+      for (const el of activities) {
+        const id = el.getAttribute('data-storage-id');
+        if (id && completions[id]) done += 1;
       }
 
       const pct = total ? Math.round((done / total) * 100) : 0;

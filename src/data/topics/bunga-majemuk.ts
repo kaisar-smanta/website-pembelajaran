@@ -92,6 +92,14 @@ Karena setiap periode menambah besar bunga yang sama, pertumbuhannya **linear**.
 Contoh: modal Rp5.000.000 dengan bunga tunggal $8\\%$ per tahun selama $5$ tahun memberi
 $$M_5 = 5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000,$$
 sedangkan bunga majemuk dengan suku bunga yang sama menghasilkan $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$. Selisih Rp346.640 itulah bunga atas bunga yang hanya muncul pada bunga majemuk.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Grafik yang membandingkan saldo bunga tunggal berupa garis lurus dengan saldo bunga majemuk berupa kurva yang makin menanjak seiring bertambahnya periode.",
+          caption: "Pertumbuhan bunga tunggal (garis putus-putus, linear) dibandingkan bunga majemuk (kurva melengkung ke atas). Keduanya mulai dari nilai yang sama, tetapi selisihnya makin lebar setiap periode.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="45" y1="190" x2="45" y2="25" stroke="currentColor" stroke-width="1.5"/><polyline points="45,181 69,172 93,162 117,152 141,140 165,127 189,113 213,97 237,80 261,61 285,39" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="45" y1="181" x2="285" y2="92" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><text x="292" y="208" font-size="12" fill="currentColor">n</text><text x="8" y="30" font-size="12" fill="currentColor">saldo</text><text x="246" y="34" font-size="12" fill="currentColor">majemuk</text><text x="248" y="116" font-size="12" fill="currentColor">tunggal</text><text x="40" y="206" font-size="11" fill="currentColor">0</text><text x="276" y="206" font-size="11" fill="currentColor">10</text></svg>',
+        },
+      ],
     },
     {
       id: "konsep",
@@ -249,6 +257,22 @@ $$i_{\\text{efektif}} = \\left(1+\\frac{j}{m}\\right)^m - 1.$$
 Memperbesar $m$ menaikkan $i_{\\text{efektif}}$, tetapi tambahannya makin lama makin kecil.`,
     },
     {
+      id: "rumus",
+      kind: "rumus",
+      title: "Rumus dan Prosedur",
+      body: `**Bunga tunggal.** $M_n = M_0(1 + i\\,n)$.
+
+**Bunga majemuk.** Saldo setelah $n$ periode:
+$$M_n = M_0(1+i)^n.$$
+
+**Beberapa kali setahun.** Nominal tahunan $j$ dengan $m$ periode per tahun memberi suku bunga per periode $i = \\dfrac{j}{m}$ dan banyak periode $n = m \\cdot t$.
+
+**Suku bunga efektif per tahun:**
+$$i_{\\text{efektif}} = \\left(1+\\frac{j}{m}\\right)^{m}-1.$$
+
+**Prosedur.** (1) Catat modal awal $M_0$. (2) Ubah suku bunga menjadi suku bunga per periode. (3) Tentukan banyak periode dari lamanya waktu. (4) Substitusikan ke $M_n = M_0(1+i)^n$, dan simpan angka desimal sampai langkah akhir.`,
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
@@ -266,7 +290,15 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 
 **Contoh 3.** Suku bunga nominal 12% per tahun dihitung bulanan. Tentukan suku bunga efektif per tahun.
 
-*Penyelesaian.* $i = 0{,}01$ dan $m = 12$, sehingga $(1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu **12,68%** per tahun.`,
+*Penyelesaian.* $i = 0{,}01$ dan $m = 12$, sehingga $(1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu **12,68%** per tahun.
+
+**Contoh 4 (perhitungan kuartalan).** Suku bunga nominal $9\\%$ per tahun dihitung setiap kuartal. Tentukan saldo Rp4.000.000 setelah 2 tahun.
+
+*Penyelesaian.* Bunga per kuartal $i = \\dfrac{0{,}09}{4} = 0{,}0225$ dan banyak periode $n = 4 \\times 2 = 8$, sehingga
+
+$$M_8 = 4.000.000(1{,}0225)^{8} \\approx 4.000.000(1{,}194831) \\approx \\text{Rp}4.779.324.$$
+
+Jadi saldonya sekitar **Rp4.779.324**.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -287,6 +319,28 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
             {
               title: "Langkah 4",
               text: "Kalikan dengan modal: $M_5 \\approx 5.000.000 \\times 1{,}469328 \\approx \\text{Rp}7.346.640$.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Hitung saldo Rp4.000.000 dengan nominal 9% per tahun yang dihitung tiap kuartal selama 2 tahun.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Ubah suku bunga ke per kuartal: $i = \\dfrac{0{,}09}{4} = 0{,}0225$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Ubah lama waktu ke banyak periode: $n = 4 \\times 2 = 8$ kuartal.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Hitung faktor pangkat: $(1{,}0225)^{8} \\approx 1{,}194831$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Kalikan dengan modal: $M_8 \\approx 4.000.000 \\times 1{,}194831 \\approx \\text{Rp}4.779.324$.",
             },
           ],
         },
@@ -328,7 +382,9 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
 
 **4. Membulatkan terlalu awal.** Membulatkan $(1{,}06)^4 = 1{,}26$ sebelum mengalikan membuat hasil meleset. Simpan angka desimal sampai langkah akhir.
 
-**5. Menganggap suku bunga efektif sama dengan nominal.** Karena efek majemuk, efektif selalu $\\ge$ nominal (sama hanya jika dihitung sekali setahun).`,
+**5. Menganggap suku bunga efektif sama dengan nominal.** Karena efek majemuk, efektif selalu $\\ge$ nominal (sama hanya jika dihitung sekali setahun).
+
+**6. Mengalikan suku bunga per periode dengan banyak periode.** Untuk saldo kuartalan, menghitung $1 + 0{,}03 \\times 8 = 1{,}24$ keliru karena bunga majemuk berlipat, bukan bertambah linear. Yang benar $(1{,}03)^{8} \\approx 1{,}2668$.`,
       blocks: [
         {
           kind: "spot-mistake",
@@ -343,6 +399,42 @@ Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 
           explanation: "Langkah kedua keliru karena bunga majemuk dihitung dari **saldo terbaru**, bukan modal awal. Saldo yang benar adalah $5.000.000(1{,}08)^{5} \\approx \\text{Rp}7.346.640$, bukan Rp7.000.000. Selisihnya berasal dari bunga atas bunga.",
         },
       ],
+    },
+    {
+      id: "tantangan",
+      kind: "tantangan",
+      title: "Tantangan",
+      body: `**Soal.** Modal Rp2.000.000 dibungakan majemuk $8\\%$ per tahun. Setelah berapa tahun penuh saldo menjadi paling sedikit **dua kali** modal? Kerjakan tanpa kalkulator logaritma dengan memeriksa tahun demi tahun.`,
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Kita perlu mencari $n$ terkecil dengan $(1{,}08)^n \\ge 2$.",
+          steps: [
+            {
+              title: "Langkah 1",
+              text: "Syarat berlipat dua: $2.000.000(1{,}08)^n \\ge 4.000.000$, yaitu $(1{,}08)^n \\ge 2$.",
+            },
+            {
+              title: "Langkah 2",
+              text: "Periksa tahun ke-9: $(1{,}08)^{9} \\approx 1{,}999$, yang masih **kurang** dari $2$.",
+            },
+            {
+              title: "Langkah 3",
+              text: "Periksa tahun ke-10: $(1{,}08)^{10} = (1{,}08)^{9}\\times1{,}08 \\approx 1{,}999\\times1{,}08 \\approx 2{,}159 \\ge 2$.",
+            },
+            {
+              title: "Langkah 4",
+              text: "Jadi setelah **10 tahun** saldo mencapai paling sedikit dua kali modal, yaitu sekitar $2.000.000\\times2{,}159 = \\text{Rp}4.318.000$.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Bunga majemuk sudah dikenal sejak lama di dunia perdagangan. Dokumen kuno dari Mesopotamia dan India menunjukkan perhitungan bunga, termasuk bunga atas bunga, untuk mencatat utang dan hasil panen. Pengetahuan itu masuk ke Eropa melalui para pedagang Italia; Leonardo dari Pisa (Fibonacci), dalam *Liber Abaci* (1202), memuat soal-soal pertumbuhan uang. Tabel bunga dan gagasan suku bunga efektif berkembang bersama berdirinya bank-bank modern pada abad ke-16 sampai ke-18. Gagasan kunci yang kita pakai sekarang, yaitu saldo tumbuh sebagai barisan geometri dengan rasio $(1+i)$, sudah tampak pada tabel perhitungan para bankir sejak berabad-abad lalu.`,
     },
     {
       id: "refleksi",

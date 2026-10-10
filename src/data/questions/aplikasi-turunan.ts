@@ -135,6 +135,11 @@ export const aplikasiTurunanQuestions: Question[] = [
       'Gunakan tanda $f\'\'$ untuk jenis stasioner dan kecekungan.',
     ],
     competencies: ['mensketsa kurva', 'uji turunan kedua', 'titik belok'],
+    rubric: [
+      "Menghitung $f'(x)=3x(x-2)$ dan titik stasioner $x=0$ serta $x=2$",
+      "Menguji jenis dengan $f''(x)=6x-6$: maksimum di $(0,2)$, minimum di $(2,-2)$",
+      'Menentukan titik belok $x=1$ serta arah naik-turun dan kecekungan grafik',
+    ],
   },
   {
     id: 'ap-09',
@@ -183,6 +188,11 @@ export const aplikasiTurunanQuestions: Question[] = [
       '$P\'\'(10) < 0$ menandakan maksimum.',
     ],
     competencies: ['optimasi', 'uji turunan kedua', 'pemodelan'],
+    rubric: [
+      'Memodelkan hasil kali $P(x)=x(20-x)$',
+      "Mencari titik stasioner $P'(x)=20-2x=0$ sehingga $x=10$",
+      "Memverifikasi maksimum dengan $P''(x)=-2<0$ dan menyebut hasil kali $100$",
+    ],
   },
   {
     id: 'ap-12',
@@ -198,6 +208,11 @@ export const aplikasiTurunanQuestions: Question[] = [
       'Kunci: mencari titik stasioner, menguji jenisnya dengan turunan kedua, dan menafsirkan tanda turunan sebagai arah perubahan keuntungan.',
     hints: ['Faktorkan $K\'(x)=-3x(x-4)$.', 'Turunan pertama negatif berarti fungsi menurun.'],
     competencies: ['optimasi', 'uji turunan kedua', 'evaluasi'],
+    rubric: [
+      "Memfaktorkan $K'(x)=-3x(x-4)$ dan memperoleh $x=0$ serta $x=4$",
+      "Menguji $K''(4)=-12<0$ sebagai maksimum dan menghitung $K(4)=32$ juta",
+      "Menjelaskan $K'(x)<0$ untuk $x>4$ sehingga keuntungan menurun",
+    ],
   },
   {
     id: 'ap-13',
@@ -239,5 +254,10 @@ export const aplikasiTurunanQuestions: Question[] = [
       'Tunjukkan $L\'\'(r)>0$ supaya titik itu terbukti minimum.',
     ],
     competencies: ['optimasi', 'pemodelan geometri', 'pembuktian'],
+    rubric: [
+      'Menuliskan $h=\\dfrac{V}{\\pi r^{2}}$ dan luas $L=2\\pi r^{2}+\\dfrac{2V}{r}$',
+      "Menyelesaikan $L'(r)=0$ menjadi $V=2\\pi r^{3}$",
+      "Menunjukkan $h=2r$ (diameter) dan memverifikasi minimum dengan $L''(r)>0$",
+    ],
   },
 ];

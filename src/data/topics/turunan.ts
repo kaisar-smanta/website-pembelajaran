@@ -162,6 +162,23 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
             ],
           ],
         },
+        {
+          kind: "table",
+          caption: "Laju perubahan rata-rata $f(x)=x^{2}$ pada selang yang menyusut menuju $x=1$",
+          headers: ["Selang", "Panjang $h$", "Laju perubahan rata-rata"],
+          rows: [
+            ["$[1, 2]$", "$1$", "$3$"],
+            ["$[1, 1{,}5]$", "$0{,}5$", "$2{,}5$"],
+            ["$[1, 1{,}1]$", "$0{,}1$", "$2{,}1$"],
+            ["$[1, 1{,}01]$", "$0{,}01$", "$2{,}01$"],
+          ],
+        },
+        {
+          kind: "figure",
+          alt: "Kurva dengan garis sekan yang memotong dua titik dan garis singgung yang menyentuh satu titik, dilengkapi sumbu x dan y.",
+          caption: "Garis sekan (putus-putus) melalui dua titik kurva; ketika titik kedua mendekat, kemiringannya menuju kemiringan garis singgung di satu titik.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="170" x2="40" y2="18" stroke="currentColor" stroke-width="1.5"/><polyline points="60,155 100,138 140,114 180,84 220,55 260,34 290,26" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="100" y1="143" x2="250" y2="33" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/><line x1="90" y1="137" x2="240" y2="69" stroke="currentColor" stroke-width="1.2"/><circle cx="140" cy="114" r="4" fill="currentColor"/><text x="292" y="188" font-size="12" fill="currentColor">x</text><text x="18" y="24" font-size="12" fill="currentColor">y</text></svg>',
+        },
       ],
     },
     {
@@ -172,7 +189,7 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
 
 **Aturan konstanta.** $\\dfrac{d}{dx}(c) = 0$ untuk konstanta $c$.
 
-**Aturan pangkat.** $\\dfrac{d}{dx}\\left(x^{n}\\right) = n x^{n-1}$ untuk setiap bilangan real $n$.
+**Aturan pangkat.** $\\dfrac{d}{dx}\\left(x^{n}\\right) = n x^{n-1}$ untuk setiap bilangan real $n$. Untuk $n$ negatif atau pecahan, domain $x$ perlu dibatasi agar $x^{n}$ terdefinisi, misalnya $x > 0$ untuk pangkat pecahan.
 
 **Konstanta kali fungsi.** $\\dfrac{d}{dx}\\left(c\\,f(x)\\right) = c\\,f'(x)$.
 
@@ -184,7 +201,7 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
 
 **Aturan rantai.** Jika $y = f\\left(g(x)\\right)$, maka $\\dfrac{dy}{dx} = f'\\left(g(x)\\right) \\cdot g'(x)$.
 
-**Fungsi eksponensial.** $\\dfrac{d}{dx}\\left(a^{x}\\right) = a^{x}\\ln a$, khususnya $\\dfrac{d}{dx}\\left(e^{x}\\right) = e^{x}$ dan $\\dfrac{d}{dx}\\left(e^{kx}\\right) = k e^{kx}$.
+**Fungsi eksponensial.** Untuk $a > 0$ dan $a \\ne 1$, $\\dfrac{d}{dx}\\left(a^{x}\\right) = a^{x}\\ln a$, khususnya $\\dfrac{d}{dx}\\left(e^{x}\\right) = e^{x}$ dan $\\dfrac{d}{dx}\\left(e^{kx}\\right) = k e^{kx}$.
 
 **Fungsi trigonometri.** $\\dfrac{d}{dx}\\left(\\sin x\\right) = \\cos x$, $\\dfrac{d}{dx}\\left(\\cos x\\right) = -\\sin x$, dan $\\dfrac{d}{dx}\\left(\\tan x\\right) = \\sec^{2} x = \\dfrac{1}{\\cos^{2} x}$.`,
       blocks: [
@@ -204,7 +221,7 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
       blocks: [
         {
           kind: "exploration",
-          explorationId: "mtl-aplikasi-turunan-garis-singgung",
+          explorationId: "turunan-garis-singgung-sim",
         },
       ],
     },
@@ -253,6 +270,37 @@ $$g'(x) = 4(3x + 1)^{3} \\cdot 3 = 12(3x + 1)^{3}, \\quad g'(0) = 12.$$`,
 $$h'(x) = 2^{x}\\ln 2, \\qquad p'(x) = 3e^{3x}, \\qquad q'(x) = \\cos x - x\\sin x.$$
 Karena itu $h'(0) = \\ln 2$, $p'(0) = 3$, dan $q'(0) = \\cos 0 - 0 = 1$.`,
             },
+            {
+              title: "Contoh 4: Dari Definisi Limit",
+              text: `Tentukan turunan $f(x) = x^{2}$ langsung dari definisi limit.
+
+*Penyelesaian.* Gunakan definisi turunan:
+$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}.$$
+Bentuk $f(x+h) = (x+h)^{2} = x^{2} + 2xh + h^{2}$, sehingga hasil bagi selisihnya
+$$f'(x) = \\lim_{h \\to 0} \\frac{\\left(x^{2} + 2xh + h^{2}\\right) - x^{2}}{h} = \\lim_{h \\to 0} \\frac{2xh + h^{2}}{h}.$$
+Untuk $h \\neq 0$ kita dapat membagi dengan $h$:
+$$\\frac{2xh + h^{2}}{h} = 2x + h.$$
+Karena itu
+$$f'(x) = \\lim_{h \\to 0} (2x + h) = 2x.$$
+Hasil ini sama dengan aturan pangkat: turunan $x^{2}$ adalah $2x$.`,
+            },
+            {
+              title: "Contoh 5: Aturan Hasil Bagi",
+              text: `Tentukan turunan $f(x) = \\dfrac{2x+1}{x-3}$, lalu hitung $f'(4)$.
+
+*Penyelesaian.* Misalkan $u = 2x+1$ dan $v = x-3$, sehingga $u' = 2$ dan $v' = 1$. Dengan aturan hasil bagi:
+$$f'(x) = \\frac{u'v - uv'}{v^{2}} = \\frac{2(x-3) - (2x+1)(1)}{(x-3)^{2}} = \\frac{2x - 6 - 2x - 1}{(x-3)^{2}} = \\frac{-7}{(x-3)^{2}}.$$
+Maka $f'(4) = \\dfrac{-7}{(4-3)^{2}} = -7$.`,
+            },
+            {
+              title: "Contoh 6: Aturan Rantai pada Fungsi Komposisi",
+              text: `Tentukan turunan $h(x) = \\sin(3x)$ dan $p(x) = e^{2x}$.
+
+*Penyelesaian.* Fungsi $\\sin(3x)$ adalah komposisi, dengan fungsi luar $\\sin u$ dan fungsi dalam $u = 3x$. Karena $\\dfrac{d}{du}\\sin u = \\cos u$ dan $\\dfrac{du}{dx} = 3$:
+$$h'(x) = \\cos(3x) \\cdot 3 = 3\\cos(3x).$$
+Dengan pola yang sama, untuk $e^{2x}$ fungsi dalamnya $u = 2x$ sehingga
+$$p'(x) = e^{2x} \\cdot 2 = 2e^{2x}.$$`,
+            },
           ],
         },
       ],
@@ -286,7 +334,7 @@ Pada bidang kesehatan, laju penyebaran penyakit dimodelkan melalui turunan. Dala
       id: "kesalahan-umum",
       kind: "kesalahan-umum",
       title: "Kesalahan Umum",
-      body: `**1. Menerapkan aturan pangkat pada konstanta kali variabel.** $\\dfrac{d}{dx}(3x) = 3$, bukan $3x^{0}=3$ yang kadang ditulis keliru sebagai $1$.
+      body: `**1. Menerapkan aturan pangkat pada konstanta kali variabel.** $\\dfrac{d}{dx}(3x) = 3\\cdot x^{0} = 3$, bukan $1$. Banyak siswa lupa bahwa turunan $3x$ adalah $3$.
 **2. Lupa aturan rantai.** Turunan $(3x+1)^{4}$ bukan $4(3x+1)^{3}$, melainkan $4(3x+1)^{3} \\cdot 3 = 12(3x+1)^{3}$.
 **3. Salah tanda pada turunan kosinus.** $\\dfrac{d}{dx}(\\cos x) = -\\sin x$, bukan $\\sin x$.
 **4. Menganggap turunan hasil kali sama dengan hasil kali turunan.** $(fg)' \\neq f'g'$; gunakan $f'g + fg'$.
@@ -353,6 +401,12 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
           ],
         },
       ],
+    },
+    {
+      id: "sejarah",
+      kind: "sejarah",
+      title: "Jejak Sejarah",
+      body: `Turunan lahir dari upaya menggambar garis singgung dan mencari nilai terbesar atau terkecil. Pierre de Fermat pada 1620-an mengembangkan metode menentukan titik ekstrem yang menyerupai turunan. Isaac Newton dan Gottfried Wilhelm Leibniz, bekerja secara terpisah pada paruh kedua abad ke-17, menyusun kalkulus diferensial sebagai sistem, dan Leibniz memberi notasi $\\dfrac{dy}{dx}$ yang kita pakai hingga kini. Dasar limit yang ketat baru dibangun kemudian, terutama oleh Augustin-Louis Cauchy pada 1820-an dan Karl Weierstrass melalui definisi $\\varepsilon$-$\\delta$. Sejak itu turunan menjadi alat baku dalam fisika, teknik, dan ekonomi.`,
     },
     {
       id: "refleksi",

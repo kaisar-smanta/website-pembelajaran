@@ -138,6 +138,12 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Kunci menekankan pembacaan puncak dari bentuk $a(t-p)^2+q$ dan penentuan $a$ melalui substitusi satu titik lain.',
     hints: ['Puncak $(p,q)$ langsung terbaca dari bentuk fungsi.', 'Gunakan titik $(0,2)$ untuk mencari $a$.'],
     competencies: ['pemodelan kuadrat', 'bentuk puncak', 'interpretasi maksimum'],
+    rubric: [
+      'Menuliskan model dari titik puncak',
+      'Menggunakan titik lain untuk menentukan $a$',
+      'Menuliskan model lengkap',
+      'Menyebut tinggi maksimum dan waktunya',
+    ],
   },
   {
     id: 'pmf-09',
@@ -156,6 +162,12 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Untuk bagian (c), cari pangkat $3$ terkecil yang melebihi $2000$.',
     ],
     competencies: ['pemodelan eksponensial', 'pertidaksamaan eksponen', 'pemodelan'],
+    rubric: [
+      'Menggunakan rasio untuk menentukan basis',
+      'Menentukan nilai awal populasi',
+      'Menghitung populasi pada $t=5$',
+      'Menyelesaikan pertidaksamaan eksponen dengan uji tahun',
+    ],
   },
   {
     id: 'pmf-10',
@@ -171,6 +183,12 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Kunci menekankan penentuan puncak parabola dan penyelesaian pertidaksamaan kuadrat untuk rentang tidak rugi.',
     hints: ['Laba maksimum ada di sumbu simetri $x=-\\dfrac{b}{2a}$.', 'Perhatikan tanda saat membagi pertidaksamaan dengan bilangan negatif.'],
     competencies: ['optimasi kuadrat', 'pertidaksamaan kuadrat', 'interpretasi kontekstual'],
+    rubric: [
+      'Menentukan sumbu simetri dan laba maksimum',
+      'Menyusun pertidaksamaan tidak rugi',
+      'Menyelesaikan pertidaksamaan kuadrat',
+      'Menafsirkan rentang produksi',
+    ],
   },
   {
     id: 'pmf-11',
@@ -189,6 +207,12 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Untuk bagian (c), cari pangkat bulat terkecil dari $1{,}2$ yang melebihi $5$.',
     ],
     competencies: ['pemodelan eksponen', 'pertidaksamaan eksponen', 'asumsi model'],
+    rubric: [
+      'Menyusun model $M(t)=M_0(1+r)^t$',
+      'Menghitung nilai setelah 3 tahun',
+      'Menyelesaikan pertidaksamaan eksponen',
+      'Menyebut asumsi yang mendasari model',
+    ],
   },
   {
     id: 'pmf-12',
@@ -204,6 +228,12 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Kunci: mengenali pola eksponensial dari rasio tetap, menyusun model dan prediksi, serta menyadari batas keberlakuan model.',
     hints: ['Periksa rasio, bukan selisih, antar nilai berurutan.', 'Pertimbangkan batas populasi atau sumber daya.'],
     competencies: ['pemodelan eksponensial', 'evaluasi', 'interpretasi'],
+    rubric: [
+      'Mengenali pola eksponensial dari rasio',
+      'Menjelaskan alasan pemilihan model',
+      'Menuliskan model dan memprediksi minggu ke-4',
+      'Menyebut keterbatasan model',
+    ],
   },
   {
     id: 'pmf-13',
@@ -241,5 +271,59 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Nyatakan $\\dfrac{1}{4}$ sebagai pangkat dari $\\dfrac{1}{2}$.',
     ],
     competencies: ['pemodelan eksponensial', 'waktu paruh', 'persamaan eksponensial'],
+    rubric: [
+      'Menerjemahkan waktu paruh ke eksponen $t/5$',
+      'Menghitung massa setelah 15 tahun',
+      'Menyelesaikan persamaan eksponensial',
+      'Memeriksa jawaban dengan substitusi',
+    ],
+  },
+  {
+    id: 'pmf-15',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Sebuah populasi dimodelkan $N(t)=N_0\\cdot b^{t}$ dengan $b=0{,}8$. (a) Tentukan apakah populasi bertambah atau berkurang, dan jelaskan alasanmu. (b) Bandingkan dengan model linear $N(t)=N_0-ct$; mengapa model eksponensial lebih masuk akal untuk proses peluruhan, misalnya peluruhan zat?',
+    answer:
+      '(a) Karena $0<b=0{,}8<1$, setiap periode populasi dikalikan dengan faktor kurang dari satu, sehingga populasi menyusut. Misalnya dari $N_0=1000$ menjadi $800$ pada $t=1$ dan $640$ pada $t=2$. (b) Pada model eksponensial, banyak yang hilang sebanding dengan banyak yang tersisa saat itu, sehingga tiap periode berkurang dengan rasio tetap $80\\%$. Pada peluruhan zat, semakin sedikit zat tersisa, semakin lambat pula peluruhannya, sesuai sifat eksponensial; model linear akan mengurangi jumlah tetap tiap periode sehingga suatu saat nilainya bisa menjadi negatif, hal yang tidak mungkin.',
+    explanation:
+      'Kunci: membaca makna basis $0<b<1$, menunjukkan penyusutan berlapis, dan membandingkan pengurangan proporsional (eksponensial) dengan pengurangan tetap (linear).',
+    hints: [
+      'Faktor pengali kurang dari satu berarti nilai menurun.',
+      'Pada peluruhan, bagian yang hilang sebanding dengan sisa zat.',
+    ],
+    competencies: ['pemodelan eksponensial', 'peluruhan', 'penalaran'],
+    rubric: [
+      'Menyimpulkan populasi menyusut dari nilai basis',
+      'Menunjukkan contoh nilai menurun berlapis',
+      'Membandingkan pengurangan proporsional dan tetap',
+      'Mengaitkan pilihan model dengan konteks peluruhan',
+    ],
+  },
+  {
+    id: 'pmf-16',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'cakap',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Tagihan listrik rumah tangga terdiri atas biaya beban tetap Rp15.000 per bulan ditambah Rp1.500 per kWh. (a) Susun model biaya $B(x)$ (rupiah) untuk pemakaian $x$ kWh. (b) Hitung tagihan bila pemakaian $120$ kWh. (c) Tentukan pemakaian jika tagihan Rp105.000.',
+    answer:
+      '(a) Biaya tetap Rp15.000 menjadi konstanta dan tarif per kWh menjadi koefisien $x$, sehingga $B(x)=1500x+15000$. (b) $B(120)=1500\\cdot120+15000=180000+15000=\\text{Rp}195.000$. (c) Selesaikan $1500x+15000=105000$, sehingga $1500x=90000$ dan $x=60$ kWh.',
+    explanation:
+      'Kunci: menerjemahkan biaya tetap dan tarif variabel menjadi model linear, menghitung nilai model, lalu menyelesaikan persamaan linear untuk mencari pemakaian.',
+    hints: [
+      'Biaya beban tetap tidak dikalikan dengan $x$.',
+      'Untuk bagian (c), kurangi biaya tetap dari tagihan sebelum dibagi tarif per kWh.',
+    ],
+    competencies: ['pemodelan linear', 'kontekstual', 'penyelesaian persamaan'],
+    rubric: [
+      'Menyusun model linear dengan biaya tetap dan tarif',
+      'Menghitung tagihan pada pemakaian tertentu',
+      'Menyelesaikan persamaan untuk mencari pemakaian',
+      'Menuliskan satuan rupiah dan kWh dengan tepat',
+    ],
   },
 ];
