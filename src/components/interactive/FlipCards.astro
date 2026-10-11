@@ -1,6 +1,7 @@
 ---
 import { renderMarkdown } from '@/utils/markdown';
 import type { Block } from '@/types/content';
+import './interactive-frame.css';
 
 interface Props {
   block: Extract<Block, { kind: 'flip-cards' }>;
@@ -38,49 +39,6 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 </figure>
 
 <style>
-  .itx {
-    margin: 1.25rem 0;
-    padding: 1rem 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
-    border-left: 4px solid var(--accent, var(--color-primary));
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
-  }
-  .itx-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5rem 0.75rem;
-    margin-bottom: 0.6rem;
-  }
-  .itx-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
-  }
-  .itx-kicker::before {
-    content: '';
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
-    background: currentColor;
-    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
-  }
-  .itx-hint {
-    font-size: 0.8rem;
-    color: var(--color-text-soft);
-  }
-  .itx-prompt {
-    font-size: 0.98rem;
-  }
-  .itx-prompt :global(> *:last-child) {
-    margin-bottom: 0.75rem;
-  }
   .flip-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
@@ -128,11 +86,6 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
   .flip-btn[aria-pressed='true'] {
     border-color: var(--color-success);
     background: var(--color-success-soft);
-  }
-  .itx-bar {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
   }
   @media (prefers-reduced-motion: reduce) {
     .flip * {

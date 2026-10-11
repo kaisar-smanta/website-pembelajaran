@@ -1,0 +1,83 @@
+/**
+ * Bingkai bersama untuk blok interaktif berkelas `.itx`.
+ *
+ * Hanya memuat aturan yang identik (byte-for-byte) di beberapa komponen
+ * (PredictionBlock, ReflectionBlock, SpotMistake, MatchBlock, StepReveal,
+ * FlipCards, TabsBlock). Karena gaya berskop Astro memakai strategi atribut
+ * (spesifisitas lebih tinggi), penyesuaian lokal tiap komponen selalu menang
+ * atas berkas ini — jadi tampilan tetap sama.
+ */
+
+.itx {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
+  border-left: 4px solid var(--accent, var(--color-primary));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
+}
+
+.itx-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.itx-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
+}
+
+.itx-kicker::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
+}
+
+.itx-hint {
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
+}
+
+.itx-prompt {
+  font-size: 0.98rem;
+}
+
+.itx-prompt > *:last-child {
+  margin-bottom: 0.75rem;
+}
+
+.itx-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.itx-saved {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.itx-reveal {
+  margin-top: 0.9rem;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.itx-reveal > *:last-child {
+  margin-bottom: 0;
+}

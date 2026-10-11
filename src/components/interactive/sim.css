@@ -15,6 +15,12 @@
   border-radius: var(--radius-lg);
 }
 
+/* Judul di kepala simulasi; sebagian komponen menyesuaikan marginnya sendiri. */
+.sim-head h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
 .sim-caption {
   margin-top: 0.6rem;
   font-size: 0.86rem;

@@ -1,6 +1,7 @@
 ---
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import type { Block } from '@/types/content';
+import './interactive-frame.css';
 
 interface Props {
   block: Extract<Block, { kind: 'step-reveal' }>;
@@ -42,51 +43,14 @@ const stepCount = block.steps.length;
 </figure>
 
 <style>
-  .itx {
-    margin: 1.25rem 0;
-    padding: 1rem 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
-    border-left: 4px solid var(--accent, var(--color-primary));
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--accent, var(--color-primary)) 6%, var(--color-surface));
-  }
   .itx-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
     justify-content: space-between;
-    gap: 0.5rem 0.75rem;
-    margin-bottom: 0.6rem;
-  }
-  .itx-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--accent, var(--color-primary)) 76%, var(--color-text));
-  }
-  .itx-kicker::before {
-    content: '';
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
-    background: currentColor;
-    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent);
   }
   .itx-progress {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--color-text-soft);
     font-variant-numeric: tabular-nums;
-  }
-  .itx-prompt {
-    font-size: 0.98rem;
-  }
-  .itx-prompt :global(> *:last-child) {
-    margin-bottom: 0.75rem;
   }
   .steps-list {
     list-style: none;

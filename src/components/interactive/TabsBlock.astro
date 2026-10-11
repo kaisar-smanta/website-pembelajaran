@@ -1,6 +1,7 @@
 ---
 import { renderMarkdown } from '@/utils/markdown';
 import type { Block } from '@/types/content';
+import './interactive-frame.css';
 
 interface Props {
   block: Extract<Block, { kind: 'tabs' }>;
@@ -52,6 +53,7 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
 <style>
   .itx {
     margin: 1.25rem 0;
+    padding: 0;
     border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
     border-left: 4px solid var(--accent, var(--color-primary));
     border-radius: var(--radius-lg);
