@@ -9,9 +9,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
+// Berkas dengan awalan "_" adalah pembantu bersama (mis. `_util.mjs`), bukan uji.
 const files = fs
   .readdirSync(here)
-  .filter((name) => name.endsWith('.mjs') && name !== 'run-all.mjs')
+  .filter((name) => name.endsWith('.mjs') && name !== 'run-all.mjs' && !name.startsWith('_'))
   .sort();
 
 let failed = 0;

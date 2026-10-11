@@ -5,45 +5,18 @@
 //
 // Pemakaian: node tests/nav-tools-display.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
+import { root, load, ok, checks, collectTopics, collectTopicIds } from './_util.mjs';
 
 const { mainNav, footerNav } = await load('src/data/nav.ts');
 const { toolGroups, featuredTools } = await load('src/data/tools.ts');
 const { ELEMENTS } = await load('src/data/curriculum.ts');
-const { FEATURED_TOPIC_IDS, STATIC_PAGES } = await load('src/data/display.ts');
-
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
+const { STATIC_PAGES } = await load('src/data/display.ts');
 
 // ---- Id topik dari berkas data topik ----
-const topicIds = new Set();
-for (const file of fs.readdirSync(path.join(root, 'src/data/topics'))) {
-  if (!file.endsWith('.ts') || file === 'index.ts' || file === 'planned.ts') continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (
-      value &&
-      typeof value === 'object' &&
-      typeof value.id === 'string' &&
-      Array.isArray(value.sections)
-    ) {
-      topicIds.add(value.id);
-    }
-  }
-}
+const topics = await collectTopics();
+const topicIds = await collectTopicIds();
 
 // ---- Navigasi ----
 function walkNav(items, source) {
@@ -110,8 +83,11 @@ const headerSource = fs.readFileSync(path.join(root, 'src/components/layout/Head
 ok(headerSource.includes('aria-haspopup="true"'), 'Header: menu dropdown tanpa aria-haspopup');
 
 // ---- Topik unggulan ----
-for (const id of FEATURED_TOPIC_IDS) {
-  ok(topicIds.has(id), `FEATURED_TOPIC_IDS: topik tidak ditemukan -> ${id}`);
+const featuredTopics = topics.filter((topic) => topic.featured === true);
+ok(featuredTopics.length >= 1, 'featured: tidak ada topik unggulan');
+ok(featuredTopics.length <= 8, `featured: terlalu banyak topik unggulan (${featuredTopics.length})`);
+for (const topic of featuredTopics) {
+  ok(topicIds.has(topic.id), `featured: topik tidak ditemukan -> ${topic.id}`);
 }
 
 // ---- Halaman statis ----
@@ -155,6 +131,6 @@ for (const tool of featuredTools) {
 }
 
 console.log(`Navigasi: ${mainNav.length} item utama, ${footerNav.length} grup footer`);
-console.log(`Topik unggulan: ${FEATURED_TOPIC_IDS.length}, halaman statis: ${STATIC_PAGES.length}`);
+console.log(`Topik unggulan: ${featuredTopics.length}, halaman statis: ${STATIC_PAGES.length}`);
 console.log(`Alat: ${groupToolNames.size} di toolGroups, ${featuredTools.length} unggulan`);
-console.log(`Metadata tampilan diperiksa: ${checks} asersi`);
+console.log(`Metadata tampilan diperiksa: ${checks.count} asersi`);

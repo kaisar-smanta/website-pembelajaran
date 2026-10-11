@@ -7,48 +7,18 @@
 //
 // Pemakaian: node tests/subjects.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
+import { load, ok, checks, collectTopics } from './_util.mjs';
 
 const { SUBJECTS, GRADE_ORDER } = await load('src/data/curriculum.ts');
 
 // Node ESM tidak menyelesaikan impor tanpa ekstensi di `topics/index.ts`,
-// jadi baca metadata topik langsung dari berkasnya (seperti cp-coverage.mjs).
-const topics = [];
-for (const file of fs.readdirSync(path.join(root, 'src/data/topics'))) {
-  if (!file.endsWith('.ts') || file === 'index.ts' || file === 'planned.ts') continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (
-      value &&
-      typeof value === 'object' &&
-      typeof value.id === 'string' &&
-      Array.isArray(value.sections)
-    ) {
-      topics.push(value);
-    }
-  }
-}
+// jadi baca metadata topik langsung dari berkasnya (lihat `_util.mjs`).
+const topics = await collectTopics();
 const topicSubject = (topic) => topic.subject ?? 'matematika';
 
 const { explorations } = await load('src/data/explorations.ts');
 const { applications } = await load('src/data/applications/index.ts');
 const { learningPaths } = await load('src/data/learning-paths.ts');
-
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
 
 const subjectIds = new Set(Object.keys(SUBJECTS));
 const byId = new Map(topics.map((t) => [t.id, t]));
@@ -75,7 +45,7 @@ for (const topic of topics) {
   ok(meta.elements.includes(topic.element), `${label}: elemen ${topic.element} bukan milik ${subject}`);
   ok(meta.grades.includes(topic.grade), `${label}: kelas ${topic.grade} bukan milik ${subject}`);
   ok(meta.phases.includes(topic.phase), `${label}: fase ${topic.phase} bukan milik ${subject}`);
-  ok(topicSubject(topic) === subject, `${label}: subjectOf tidak konsisten`);
+  ok(topicSubject(topic) === subject, `${label}: topicSubject tidak konsisten`);
 
   // Kelas/fase harus sepadan dengan fase kurikulum.
   const expectedPhase = topic.grade === 'X' ? 'E' : 'F';
@@ -241,5 +211,5 @@ ok(cycleReports.length === 0, `graf prasyarat asiklik:\n  ${cycleReports.join('\
 const mtl = topics.filter((t) => topicSubject(t) === 'matematika-lanjut');
 console.log(`Mata pelajaran: ${[...subjectIds].join(', ')}`);
 console.log(`Topik: ${topics.length} (Matematika Lanjut: ${mtl.length})`);
-console.log(`Integritas mata pelajaran diperiksa: ${checks} asersi`);
+console.log(`Integritas mata pelajaran diperiksa: ${checks.count} asersi`);
 console.log(`Graf prasyarat: ${edges.length} sisi, ${learningPaths.length} jalur konsep`);

@@ -20,21 +20,7 @@ import {
   buildMasterySummary,
   buildConfidenceSummary,
 } from '../src/lib/progress-overview.ts';
-
-function mockStorage() {
-  const data = new Map();
-  return {
-    getItem: (key) => (data.has(key) ? data.get(key) : null),
-    setItem: (key, value) => data.set(key, String(value)),
-  };
-}
-
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks, mockStorage } from './_util.mjs';
 
 check('recordAttempt mencatat dan menimpa percobaan', () => {
   let map = {};
@@ -56,11 +42,25 @@ check('summarize menghitung terjawab, benar, dan akurasi', () => {
   map = recordAttempt(map, 'a', true, 1);
   map = recordAttempt(map, 'b', false, 2);
   const result = summarize(map, ['a', 'b', 'c']);
-  assert.deepEqual(result, { answered: 2, correct: 1, total: 3, accuracy: 0.5 });
+  assert.deepEqual(result, {
+    answered: 2,
+    correct: 1,
+    gradedAnswered: 2,
+    total: 3,
+    accuracy: 0.5,
+    lastAt: 2,
+  });
 });
 
 check('summarize tanpa jawaban menghasilkan akurasi 0', () => {
-  assert.deepEqual(summarize({}, ['a']), { answered: 0, correct: 0, total: 1, accuracy: 0 });
+  assert.deepEqual(summarize({}, ['a']), {
+    answered: 0,
+    correct: 0,
+    gradedAnswered: 0,
+    total: 1,
+    accuracy: 0,
+    lastAt: 0,
+  });
 });
 
 check('missed/unanswered memilih soal yang tepat', () => {
@@ -108,7 +108,14 @@ check('summarize mengabaikan soal tanpa penilaian pada ketepatan', () => {
   map = recordAttempt(map, 'a', true, 1);
   map = recordAttempt(map, 'b', false, 2, false);
   const result = summarize(map, ['a', 'b', 'c']);
-  assert.deepEqual(result, { answered: 2, correct: 1, total: 3, accuracy: 1 });
+  assert.deepEqual(result, {
+    answered: 2,
+    correct: 1,
+    gradedAnswered: 1,
+    total: 3,
+    accuracy: 1,
+    lastAt: 2,
+  });
 });
 
 check('missedQuestionIds tidak memasukkan soal tanpa penilaian', () => {
@@ -316,4 +323,4 @@ check('buildConfidenceSummary aman tanpa data', () => {
   assert.deepEqual(summary.low, []);
 });
 
-console.log(`PASS progress (${passed} pemeriksaan)`);
+console.log(`PASS progress (${checks.count} pemeriksaan)`);

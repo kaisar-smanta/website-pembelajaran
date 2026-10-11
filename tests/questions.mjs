@@ -13,17 +13,7 @@
 //
 // Pemakaian: node tests/questions.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
+import { load, ok, checks, collectTopicIds, collectQuestionFiles } from './_util.mjs';
 
 // ---- Kategori asesmen ----
 // index.ts memakai impor relatif tanpa ekstensi sehingga biasanya gagal dimuat
@@ -51,55 +41,14 @@ const DIFFICULTIES = new Set(['dasar', 'cakap', 'mahir']);
 const TYPES = new Set(['multiple-choice', 'short-answer', 'open-response']);
 
 // ---- Kumpulkan id topik dari berkas data topik ----
-const topicIds = new Set();
-const topicDir = path.join(root, 'src/data/topics');
-for (const file of fs.readdirSync(topicDir)) {
-  if (!file.endsWith('.ts') || file === 'index.ts' || file === 'planned.ts') continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (
-      value &&
-      typeof value === 'object' &&
-      typeof value.id === 'string' &&
-      Array.isArray(value.sections)
-    ) {
-      topicIds.add(value.id);
-    }
-  }
-}
-
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
+const topicIds = await collectTopicIds();
 
 // ---- Muat setiap berkas soal dan kumpulkan objek Question ----
-const questionDir = path.join(root, 'src/data/questions');
-const files = fs
-  .readdirSync(questionDir)
-  .filter((name) => name.endsWith('.ts') && name !== 'index.ts')
-  .sort();
-
+const questionFiles = await collectQuestionFiles();
 const all = [];
-for (const file of files) {
-  const mod = await load(path.join('src/data/questions', file));
-  const items = [];
-  for (const value of Object.values(mod)) {
-    if (!Array.isArray(value)) continue;
-    for (const item of value) {
-      if (
-        item &&
-        typeof item === 'object' &&
-        typeof item.id === 'string' &&
-        typeof item.topicId === 'string'
-      ) {
-        items.push(item);
-      }
-    }
-  }
-  console.log(`${file}: ${items.length} soal`);
-  for (const q of items) all.push({ q, file });
+for (const { file, questions } of questionFiles) {
+  console.log(`${file}: ${questions.length} soal`);
+  for (const q of questions) all.push({ q, file });
 }
 
 // ---- Validasi per soal ----
@@ -153,11 +102,11 @@ const collisions = [...byId.entries()]
   .filter(([, owners]) => owners.length > 1)
   .sort(([a], [b]) => a.localeCompare(b));
 
-console.log(`Total soal: ${all.length} dari ${files.length} berkas (${checks} asersi)`);
+console.log(`Total soal: ${all.length} dari ${questionFiles.length} berkas (${checks.count} asersi)`);
 ok(
   collisions.length === 0,
   `id soal duplikat (${collisions.length} id):\n` +
     collisions.map(([id, owners]) => `  ${id}: ${owners.join(', ')}`).join('\n'),
 );
 
-console.log(`Bank soal diperiksa: ${all.length} soal (${checks} asersi)`);
+console.log(`Bank soal diperiksa: ${all.length} soal (${checks.count} asersi)`);

@@ -3,55 +3,19 @@
 //
 // Pemakaian: node tests/content-integrity.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
-
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
+import { load, ok, checks, collectTopics, collectQuestions } from './_util.mjs';
 
 const PRACTICE_KINDS = new Set(['latihan-dasar', 'latihan-cakap', 'latihan-mahir']);
 
 // ---- Topik ----
-const topics = [];
-for (const file of fs.readdirSync(path.join(root, 'src/data/topics'))) {
-  if (!file.endsWith('.ts') || ['index.ts', 'planned.ts'].includes(file)) continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (value && typeof value === 'object' && typeof value.id === 'string' && Array.isArray(value.sections)) {
-      topics.push(value);
-    }
-  }
-}
+const topics = await collectTopics();
 
 // ---- Studi kasus ----
 const { applications } = await load('src/data/applications/index.ts');
 const applicationsById = new Map(applications.map((a) => [a.id, a]));
 
 // ---- Soal ----
-const questions = [];
-for (const file of fs.readdirSync(path.join(root, 'src/data/questions'))) {
-  if (!file.endsWith('.ts') || file === 'index.ts') continue;
-  const mod = await load(path.join('src/data/questions', file));
-  for (const value of Object.values(mod)) {
-    if (Array.isArray(value)) {
-      for (const q of value) {
-        if (q && typeof q === 'object' && typeof q.id === 'string') questions.push(q);
-      }
-    }
-  }
-}
+const questions = await collectQuestions();
 
 // ---- 1 & 2. Rujukan topik -> aplikasi/relatedTopics ----
 const topicIds = new Set(topics.map((t) => t.id));
@@ -106,6 +70,6 @@ for (const topic of topics) {
 }
 
 console.log(
-  `Integritas konten diperiksa: ${checks} asersi pada ${topics.length} topik, ` +
+  `Integritas konten diperiksa: ${checks.count} asersi pada ${topics.length} topik, ` +
     `${applications.length} studi kasus, ${questions.length} soal`,
 );

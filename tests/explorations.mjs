@@ -6,17 +6,7 @@
 //
 // Pemakaian: node tests/explorations.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
+import { load, ok, checks, collectTopics } from './_util.mjs';
 
 // Union tipe dari src/types/content.ts (ExplorationType).
 const EXPLORATION_TYPES = new Set([
@@ -45,28 +35,8 @@ const EXPLORATION_TYPES = new Set([
 
 const { explorations } = await load('src/data/explorations.ts');
 
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
-
 // ---- Metadata topik dari berkas data topik ----
-const topics = [];
-for (const file of fs.readdirSync(path.join(root, 'src/data/topics'))) {
-  if (!file.endsWith('.ts') || file === 'index.ts' || file === 'planned.ts') continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (
-      value &&
-      typeof value === 'object' &&
-      typeof value.id === 'string' &&
-      Array.isArray(value.sections)
-    ) {
-      topics.push(value);
-    }
-  }
-}
+const topics = await collectTopics();
 const topicIds = new Set(topics.map((t) => t.id));
 
 // ---- Validasi eksplorasi ----
@@ -175,5 +145,5 @@ for (const topic of topics) {
   }
 }
 
-console.log(`Eksplorasi diperiksa: ${explorations.length} (${checks} asersi)`);
+console.log(`Eksplorasi diperiksa: ${explorations.length} (${checks.count} asersi)`);
 console.log(`Topik: ${topics.length}, rujukan eksplorasi diperiksa`);

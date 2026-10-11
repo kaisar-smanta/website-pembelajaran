@@ -26,21 +26,7 @@ import {
   COMPLETION_KEY,
   DRAFT_KEY,
 } from '../src/lib/learner.ts';
-
-function mockStorage() {
-  const data = new Map();
-  return {
-    getItem: (key) => (data.has(key) ? data.get(key) : null),
-    setItem: (key, value) => data.set(key, String(value)),
-  };
-}
-
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks, mockStorage } from './_util.mjs';
 
 check('recordPrediction menyimpan dan menimpa tanpa memutasi peta asal', () => {
   const base = {};
@@ -199,4 +185,4 @@ check('loadDrafts menolak data rusak tanpa melempar', () => {
   saveDrafts(undefined, {});
 });
 
-console.log(`\nSeluruh ${passed} uji learner lulus.`);
+console.log(`\nSeluruh ${checks.count} uji learner lulus.`);

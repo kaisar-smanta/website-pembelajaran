@@ -9,17 +9,7 @@
 //
 // Pemakaian: node tests/cp-coverage.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
+import { load, ok, checks, collectTopics } from './_util.mjs';
 
 const { regulations, cpStatements, activeRegulation, cpCoveredTopicIds } = await load(
   'src/data/curriculum/cp.ts',
@@ -30,37 +20,21 @@ const GRADES = new Set(['X', 'XI', 'XII']);
 const PHASES = new Set(['E', 'F']);
 const SUBJECTS = new Set(['matematika', 'matematika-lanjut']);
 
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
-
 // ---- Metadata topik dari berkas data ----
-const topicDir = path.join(root, 'src/data/topics');
-const topicMeta = new Map();
-for (const file of fs.readdirSync(topicDir)) {
-  if (!file.endsWith('.ts') || file === 'index.ts' || file === 'planned.ts') continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (
-      value &&
-      typeof value === 'object' &&
-      typeof value.id === 'string' &&
-      Array.isArray(value.sections)
-    ) {
-      topicMeta.set(value.id, {
-        grade: value.grade,
-        element: value.element,
-        phase: value.phase,
-        subject: value.subject ?? 'matematika',
-        supplementary: value.supplementary === true,
-        cpNote: typeof value.cpNote === 'string' ? value.cpNote : '',
-        status: value.status ?? 'lengkap',
-      });
-    }
-  }
-}
+const topicMeta = new Map(
+  (await collectTopics()).map((value) => [
+    value.id,
+    {
+      grade: value.grade,
+      element: value.element,
+      phase: value.phase,
+      subject: value.subject ?? 'matematika',
+      supplementary: value.supplementary === true,
+      cpNote: typeof value.cpNote === 'string' ? value.cpNote : '',
+      status: value.status ?? 'lengkap',
+    },
+  ]),
+);
 
 // ---- Regulasi ----
 const regIds = new Set();
@@ -205,4 +179,4 @@ console.log(`Pernyataan CP: ${cpStatements.length} (Fase E: ${byPhase('E')}, Fas
 console.log(`  - Matematika: ${bySubject('matematika')}, Matematika Lanjut: ${bySubject('matematika-lanjut')}`);
 console.log(`Topik terpetakan: ${covered.size}/${topicMeta.size}`);
 console.log(`Topik pengayaan (supplementary): ${supplementary.length}${supplementary.length ? ` (${supplementary.join(', ')})` : ''}`);
-console.log(`CP diperiksa: ${checks} asersi`);
+console.log(`CP diperiksa: ${checks.count} asersi`);

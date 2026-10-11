@@ -6,17 +6,7 @@
 //
 // Pemakaian: node tests/applications.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
+import { load, ok, checks, collectTopics } from './_util.mjs';
 
 const { applications, relatedApplications } = await load(
   'src/data/applications/index.ts',
@@ -28,28 +18,13 @@ const GRADES = new Set(['X', 'XI', 'XII']);
 const LEVELS = new Set(['dasar', 'cakap', 'mahir']);
 const SUBJECTS = new Set(['matematika', 'matematika-lanjut']);
 
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
-
 // ---- Kumpulkan metadata topik dari berkas data topik ----
-const topicDir = path.join(root, 'src/data/topics');
-const topicMeta = new Map();
-for (const file of fs.readdirSync(topicDir)) {
-  if (!file.endsWith('.ts') || file === 'index.ts' || file === 'planned.ts') continue;
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (value && typeof value === 'object' && typeof value.id === 'string' && Array.isArray(value.sections)) {
-      topicMeta.set(value.id, {
-        grade: value.grade,
-        element: value.element,
-        subject: value.subject ?? 'matematika',
-      });
-    }
-  }
-}
+const topicMeta = new Map(
+  (await collectTopics()).map((t) => [
+    t.id,
+    { grade: t.grade, element: t.element, subject: t.subject ?? 'matematika' },
+  ]),
+);
 const topicIds = new Set(topicMeta.keys());
 
 // ---- Kumpulkan id eksplorasi ----
@@ -128,5 +103,5 @@ if (uncovered.length) {
   console.warn(`Peringatan: ${uncovered.length} topik belum punya studi kasus: ${uncovered.join(', ')}`);
 }
 
-console.log(`Aplikasi diperiksa: ${applications.length} (${checks} asersi)`);
+console.log(`Aplikasi diperiksa: ${applications.length} (${checks.count} asersi)`);
 console.log(`Topik tercakup: ${covered.size}/${topicIds.size}`);

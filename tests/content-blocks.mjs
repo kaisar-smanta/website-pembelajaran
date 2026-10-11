@@ -7,52 +7,15 @@
 //
 // Pemakaian: node tests/content-blocks.mjs (dipanggil oleh `npm test`).
 
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { ok, checks, collectTopics } from './_util.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-async function load(file) {
-  return import(pathToFileURL(path.join(root, file)).href);
-}
-
-const topics = [];
-for (const file of fs.readdirSync(path.join(root, 'src/data/topics'))) {
-  if (
-    !file.endsWith('.ts') ||
-    file.startsWith('.migrate-') ||
-    ['index.ts', 'enhance.ts', 'planned.ts'].includes(file)
-  ) {
-    continue;
-  }
-  const mod = await load(path.join('src/data/topics', file));
-  for (const value of Object.values(mod)) {
-    if (
-      value &&
-      typeof value === 'object' &&
-      typeof value.id === 'string' &&
-      Array.isArray(value.sections)
-    ) {
-      topics.push(value);
-    }
-  }
-}
-
-let checks = 0;
-function ok(condition, message) {
-  assert.ok(condition, message);
-  checks++;
-}
+const topics = await collectTopics();
 
 const blockKinds = new Set([
   'callout',
   'table',
   'figure',
   'exploration',
-  'geogebra',
   'details',
   'prediction',
   'reflection',
@@ -88,4 +51,4 @@ for (const topic of topics) {
   }
 }
 
-console.log(`Kontrak blok interaktif diperiksa: ${checks} asersi pada ${topics.length} topik`);
+console.log(`Kontrak blok interaktif diperiksa: ${checks.count} asersi pada ${topics.length} topik`);
