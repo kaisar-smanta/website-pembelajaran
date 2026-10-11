@@ -8,6 +8,8 @@
  * hanya ada di satu tempat.
  */
 
+import { SCHEMA_VERSION, STORAGE_KEYS } from './storage-keys.ts';
+
 /** Mengembalikan `localStorage` bila tersedia, selain itu `undefined`. */
 export function safeStorage(): Storage | undefined {
   try {
@@ -27,6 +29,42 @@ function readRaw(storage: Storage | undefined, key: string): string | null {
 }
 
 /**
+ * Migrasi bentuk data per versi asal. Kosong sampai ada perubahan tak-kompatibel;
+ * saat menambah migrasi `n + 1`, petakan `MIGRATIONS[n + 1]` dan naikkan
+ * `SCHEMA_VERSION`. Migrasi menerima `storage` untuk memperbaiki kunci terkait.
+ */
+const MIGRATIONS: Record<number, (storage: Storage) => void> = {};
+
+/** Versi skema data tersimpan (0 bila belum pernah ditulis). */
+export function readSchemaVersion(storage: Storage | undefined = safeStorage()): number {
+  const raw = readRaw(storage, STORAGE_KEYS.meta);
+  if (!raw) return 0;
+  try {
+    const parsed = JSON.parse(raw) as { version?: unknown };
+    return typeof parsed.version === 'number' ? parsed.version : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function writeVersion(storage: Storage | undefined, version: number): void {
+  if (!storage) return;
+  try {
+    storage.setItem(STORAGE_KEYS.meta, JSON.stringify({ version }));
+  } catch {
+    /* penyimpanan penuh atau diblokir: abaikan */
+  }
+}
+
+/** Menjalankan migrasi yang tertunda sampai versi skema saat ini tercapai. */
+function migrate(storage: Storage | undefined, from: number): void {
+  for (let version = from + 1; version <= SCHEMA_VERSION; version += 1) {
+    MIGRATIONS[version]?.(storage as Storage);
+  }
+  writeVersion(storage, SCHEMA_VERSION);
+}
+
+/**
  * Membaca peta objek dari `localStorage`, membuang entri yang tidak lolos
  * `validate`. Nilai yang rusak atau bukan objek diabaikan tanpa melempar.
  */
@@ -35,6 +73,11 @@ export function readMap<T>(
   validate: (value: Record<string, unknown>, id: string) => T | undefined,
   storage: Storage | undefined = safeStorage(),
 ): Record<string, T> {
+  const version = readSchemaVersion(storage);
+  // Data dari versi yang lebih baru tidak boleh dibaca dengan skema lama.
+  if (version > SCHEMA_VERSION) return {};
+  if (version >= 1 && version < SCHEMA_VERSION) migrate(storage, version);
+
   const raw = readRaw(storage, key);
   if (!raw) return {};
   let parsed: unknown;
@@ -64,5 +107,8 @@ export function writeMap(
     storage.setItem(key, JSON.stringify(map));
   } catch {
     /* penyimpanan penuh atau diblokir: abaikan */
+    return;
   }
+  // Menandai data yang tersimpan dengan versi skema saat ini.
+  if (readSchemaVersion(storage) !== SCHEMA_VERSION) writeVersion(storage, SCHEMA_VERSION);
 }

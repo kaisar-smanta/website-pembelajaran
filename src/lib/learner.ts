@@ -5,6 +5,9 @@
  */
 
 import { readMap, writeMap } from './storage.ts';
+import { STORAGE_KEYS } from './storage-keys.ts';
+
+export { seededShuffle } from './random.ts';
 
 export interface PredictionRecord {
   value: string;
@@ -41,11 +44,66 @@ export type ReflectionMap = Record<string, ReflectionRecord>;
 export type CompletionMap = Record<string, CompletionRecord>;
 export type DraftMap = Record<string, DraftRecord>;
 
-export const PREDICTION_KEY = 'mtk-predictions';
-export const REFLECTION_KEY = 'mtk-reflections';
-export const RUBRIC_KEY = 'mtk-rubric-checks';
-export const COMPLETION_KEY = 'mtk-completions';
-export const DRAFT_KEY = 'mtk-drafts';
+export const PREDICTION_KEY = STORAGE_KEYS.predictions;
+export const REFLECTION_KEY = STORAGE_KEYS.reflections;
+export const RUBRIC_KEY = STORAGE_KEYS.rubric;
+export const COMPLETION_KEY = STORAGE_KEYS.completions;
+export const DRAFT_KEY = STORAGE_KEYS.drafts;
+
+interface KeyedStore<T> {
+  load: (storage?: Storage) => Record<string, T>;
+  save: (storage: Storage | undefined, map: Record<string, T>) => void;
+}
+
+/**
+ * Menyatukan pola baca/tulis peta per entitas: satu validasi bentuk nilai,
+ * selebihnya dibungkus oleh `readMap`/`writeMap` dari `./storage.ts`.
+ */
+function makeKeyedStore<T>(
+  key: string,
+  validate: (value: Record<string, unknown>) => T | undefined,
+): KeyedStore<T> {
+  return {
+    load: (storage) => readMap(key, (value) => validate(value), storage),
+    save: (storage, map) => writeMap(key, map, storage),
+  };
+}
+
+const predictionStore = makeKeyedStore<PredictionRecord>(PREDICTION_KEY, (value) => {
+  if (typeof value.value !== 'string') return undefined;
+  return { value: value.value, at: typeof value.at === 'number' ? value.at : 0 };
+});
+
+const reflectionStore = makeKeyedStore<ReflectionRecord>(REFLECTION_KEY, (value) => {
+  if (typeof value.text !== 'string') return undefined;
+  const confidence = typeof value.confidence === 'number' ? value.confidence : 0;
+  const record: ReflectionRecord = {
+    text: value.text,
+    confidence,
+    at: typeof value.at === 'number' ? value.at : 0,
+  };
+  if (Array.isArray(value.parts)) {
+    const parts = value.parts.filter((p): p is string => typeof p === 'string');
+    if (parts.length) record.parts = parts;
+  }
+  return record;
+});
+
+const rubricStore = makeKeyedStore<number[]>(RUBRIC_KEY, (value) => {
+  if (!Array.isArray(value)) return undefined;
+  return value.filter((n): n is number => typeof n === 'number');
+});
+
+const completionStore = makeKeyedStore<CompletionRecord>(COMPLETION_KEY, (value) => {
+  const at = value.at;
+  if (typeof at !== 'number') return undefined;
+  return { at };
+});
+
+const draftStore = makeKeyedStore<DraftRecord>(DRAFT_KEY, (value) => {
+  if (typeof value.text !== 'string') return undefined;
+  return { text: value.text, at: typeof value.at === 'number' ? value.at : 0 };
+});
 
 export function toggleRubricCheck(
   map: RubricCheckMap,
@@ -71,18 +129,11 @@ export function clearRubricChecks(map: RubricCheckMap, questionId: string): Rubr
 }
 
 export function loadRubricChecks(storage: Storage | undefined): RubricCheckMap {
-  return readMap(
-    RUBRIC_KEY,
-    (value) => {
-      if (!Array.isArray(value)) return undefined;
-      return value.filter((n): n is number => typeof n === 'number');
-    },
-    storage,
-  );
+  return rubricStore.load(storage);
 }
 
 export function saveRubricChecks(storage: Storage | undefined, map: RubricCheckMap): void {
-  writeMap(RUBRIC_KEY, map, storage);
+  rubricStore.save(storage, map);
 }
 
 /** Menyimpan/menyegarkan satu dugaan tanpa memutasi peta masukan. */
@@ -110,43 +161,19 @@ export function recordReflection(
 }
 
 export function loadPredictions(storage: Storage | undefined): PredictionMap {
-  return readMap(
-    PREDICTION_KEY,
-    (value) => {
-      if (typeof value.value !== 'string') return undefined;
-      return { value: value.value, at: typeof value.at === 'number' ? value.at : 0 };
-    },
-    storage,
-  );
+  return predictionStore.load(storage);
 }
 
 export function savePredictions(storage: Storage | undefined, map: PredictionMap): void {
-  writeMap(PREDICTION_KEY, map, storage);
+  predictionStore.save(storage, map);
 }
 
 export function loadReflections(storage: Storage | undefined): ReflectionMap {
-  return readMap(
-    REFLECTION_KEY,
-    (value) => {
-      if (typeof value.text !== 'string') return undefined;
-      const confidence = typeof value.confidence === 'number' ? value.confidence : 0;
-      const record: ReflectionRecord = {
-        text: value.text,
-        confidence,
-        at: typeof value.at === 'number' ? value.at : 0,
-      };
-      if (Array.isArray(value.parts)) {
-        const parts = value.parts.filter((p): p is string => typeof p === 'string');
-        if (parts.length) record.parts = parts;
-      }
-      return record;
-    },
-    storage,
-  );
+  return reflectionStore.load(storage);
 }
 
 export function saveReflections(storage: Storage | undefined, map: ReflectionMap): void {
-  writeMap(REFLECTION_KEY, map, storage);
+  reflectionStore.save(storage, map);
 }
 
 /** Menandai satu aktivitas interaktif selesai tanpa memutasi peta masukan. */
@@ -167,19 +194,11 @@ export function clearCompletion(map: CompletionMap, id: string): CompletionMap {
 }
 
 export function loadCompletions(storage: Storage | undefined): CompletionMap {
-  return readMap(
-    COMPLETION_KEY,
-    (value) => {
-      const at = value.at;
-      if (typeof at !== 'number') return undefined;
-      return { at };
-    },
-    storage,
-  );
+  return completionStore.load(storage);
 }
 
 export function saveCompletions(storage: Storage | undefined, map: CompletionMap): void {
-  writeMap(COMPLETION_KEY, map, storage);
+  completionStore.save(storage, map);
 }
 
 /** Menyimpan draf jawaban uraian tanpa memutasi peta masukan. */
@@ -200,39 +219,9 @@ export function clearDraft(map: DraftMap, id: string): DraftMap {
 }
 
 export function loadDrafts(storage: Storage | undefined): DraftMap {
-  return readMap(
-    DRAFT_KEY,
-    (value) => {
-      if (typeof value.text !== 'string') return undefined;
-      return { text: value.text, at: typeof value.at === 'number' ? value.at : 0 };
-    },
-    storage,
-  );
+  return draftStore.load(storage);
 }
 
 export function saveDrafts(storage: Storage | undefined, map: DraftMap): void {
-  writeMap(DRAFT_KEY, map, storage);
-}
-
-/**
- * Mengacak daftar secara deterministik dari sebuah benih sehingga urutan hasil
- * build stabil untuk seluruh pengunjung, tetapi tidak mengungkap pasangan pada
- * aktivitas mencocokkan.
- */
-export function seededShuffle<T>(items: T[], seed: string): T[] {
-  let h = 2166136261;
-  for (let i = 0; i < seed.length; i += 1) {
-    h ^= seed.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  const out = items.slice();
-  for (let i = out.length - 1; i > 0; i -= 1) {
-    h = Math.imul(h ^ (h >>> 15), h | 1);
-    h ^= h + Math.imul(h ^ (h >>> 7), h | 61);
-    const j = Math.abs(h) % (i + 1);
-    const tmp = out[i];
-    out[i] = out[j];
-    out[j] = tmp;
-  }
-  return out;
+  draftStore.save(storage, map);
 }

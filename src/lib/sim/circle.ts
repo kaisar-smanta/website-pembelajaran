@@ -29,15 +29,3 @@ export function arcLength(r: number, deg: number): number {
 export function sectorArea(r: number, deg: number): number {
   return (deg / 360) * area(r);
 }
-
-/**
- * Pemformat angka ringkas dan deterministik untuk tampilan.
- *
- * Membuang nol di belakang koma lalu memakai koma sebagai pemisah desimal
- * agar sesuai kaidah penulisan bilangan Indonesia.
- */
-export function formatNumber(value: number, digits = 4): string {
-  if (!Number.isFinite(value)) return '0';
-  const rounded = Number(value.toFixed(digits));
-  return String(rounded).replace('.', ',');
-}

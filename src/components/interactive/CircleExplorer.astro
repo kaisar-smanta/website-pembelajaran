@@ -145,14 +145,8 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
 </style>
 
 <script>
-  import {
-    circumference,
-    area,
-    arcLength,
-    sectorArea,
-    degToRad,
-    formatNumber,
-  } from '../../lib/sim/circle';
+  import { circumference, area, arcLength, sectorArea, degToRad } from '../../lib/sim/circle';
+  import { formatRounded } from '../../lib/format';
   import { el, clear, clamp, polyline, initWhenVisible } from '../../lib/dom';
 
   function setupCircle(root: Element) {
@@ -244,19 +238,19 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
       const s = arcLength(r, deg);
       const J = sectorArea(r, deg);
 
-      outR.textContent = formatNumber(r, 2);
-      outSudut.textContent = formatNumber(deg, 1);
+      outR.textContent = formatRounded(r, 2);
+      outSudut.textContent = formatRounded(deg, 1);
 
       readout.innerHTML =
-        `<div class="stat"><span>Keliling K = 2πr</span><strong>${formatNumber(K)}</strong></div>` +
-        `<div class="stat"><span>Luas L = πr²</span><strong>${formatNumber(L)}</strong></div>` +
-        `<div class="stat"><span>Panjang busur s = (θ/360)·2πr</span><strong>${formatNumber(s)}</strong></div>` +
-        `<div class="stat"><span>Luas juring J = (θ/360)·πr²</span><strong>${formatNumber(J)}</strong></div>` +
-        `<div class="stat"><span>Sudut pusat θ (radian)</span><strong>${formatNumber(rad)}</strong></div>`;
+        `<div class="stat"><span>Keliling K = 2πr</span><strong>${formatRounded(K, 4)}</strong></div>` +
+        `<div class="stat"><span>Luas L = πr²</span><strong>${formatRounded(L, 4)}</strong></div>` +
+        `<div class="stat"><span>Panjang busur s = (θ/360)·2πr</span><strong>${formatRounded(s, 4)}</strong></div>` +
+        `<div class="stat"><span>Luas juring J = (θ/360)·πr²</span><strong>${formatRounded(J, 4)}</strong></div>` +
+        `<div class="stat"><span>Sudut pusat θ (radian)</span><strong>${formatRounded(rad, 4)}</strong></div>`;
 
       svg.setAttribute(
         'aria-label',
-        `Lingkaran berjari-jari ${formatNumber(r, 2)} dengan sudut pusat ${formatNumber(deg, 1)} derajat, panjang busur ${formatNumber(s)}, luas juring ${formatNumber(J)}`,
+        `Lingkaran berjari-jari ${formatRounded(r, 2)} dengan sudut pusat ${formatRounded(deg, 1)} derajat, panjang busur ${formatRounded(s, 4)}, luas juring ${formatRounded(J, 4)}`,
       );
 
       draw(r, deg);

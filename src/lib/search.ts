@@ -6,6 +6,8 @@
  * hasil, dan saringan) tetap berada di `src/pages/cari.astro`.
  */
 
+import { normalizeText } from './filter.ts';
+
 /** Satu entri pada indeks `search.json`. */
 export interface SearchItem {
   title: string;
@@ -24,7 +26,7 @@ export const HIGHLIGHT_STYLE =
 
 /** Menormalkan teks untuk pencarian: huruf kecil dan tanpa diakritik. */
 export function normalizeSearch(value: string): string {
-  return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return normalizeText(value, false);
 }
 
 function escapeHtml(text: string): string {

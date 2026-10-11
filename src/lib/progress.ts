@@ -5,6 +5,7 @@
  */
 
 import { readMap, writeMap } from './storage.ts';
+import { STORAGE_KEYS } from './storage-keys.ts';
 
 export interface Attempt {
   questionId: string;
@@ -37,9 +38,13 @@ export type ProgressMap = Record<string, Attempt>;
 export interface TopicProgress {
   answered: number;
   correct: number;
+  /** Jumlah soal yang dinilai otomatis (mis. tanpa uraian terbuka). */
+  gradedAnswered: number;
   total: number;
   /** 0..1 */
   accuracy: number;
+  /** Waktu percobaan terakhir (epoch ms); 0 bila belum ada. */
+  lastAt: number;
 }
 
 /** Jarak antar-percobaan yang dianggap sesi baru (30 menit). */
@@ -75,10 +80,12 @@ export function summarize(attempts: ProgressMap, questionIds: string[]): TopicPr
   let answered = 0;
   let correct = 0;
   let gradedAnswered = 0;
+  let lastAt = 0;
   for (const id of questionIds) {
     const attempt = attempts[id];
     if (!attempt) continue;
     answered += 1;
+    if (typeof attempt.at === 'number' && attempt.at > lastAt) lastAt = attempt.at;
     if (attempt.graded === false) continue;
     gradedAnswered += 1;
     if (attempt.correct) correct += 1;
@@ -87,8 +94,10 @@ export function summarize(attempts: ProgressMap, questionIds: string[]): TopicPr
   return {
     answered,
     correct,
+    gradedAnswered,
     total,
     accuracy: gradedAnswered ? correct / gradedAnswered : 0,
+    lastAt,
   };
 }
 
@@ -115,7 +124,7 @@ export function streakFrom(attempts: ProgressMap, questionIds: string[]): number
   return streak;
 }
 
-export const STORAGE_KEY = 'mtk-progress';
+export const STORAGE_KEY = STORAGE_KEYS.progress;
 
 /** Menyalin agar pemanggil tidak memutasi objek dari penyimpanan. */
 export function cloneProgress(map: ProgressMap): ProgressMap {

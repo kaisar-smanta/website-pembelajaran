@@ -1,8 +1,10 @@
 /**
  * Pemformatan angka bersama untuk komponen interaktif.
  *
- * Menjaga kaidah penulisan bilangan Indonesia (koma sebagai pemisah desimal)
- * di satu tempat agar tiap simulasi tidak menduplikasi pemformatnya sendiri.
+ * Konvensi: bilangan pada simulasi (sumbu, koordinat, bacaan) memakai **titik**
+ * desimal agar pasangan koordinat seperti `(1.5, 2.3)` tidak ambigu dengan koma
+ * pemisah. Teks prosa memakai `formatId`/`formatPercent` (koma, `id-ID`).
+ * Pemformat bersama ini mencegah tiap simulasi menduplikasi logika sendiri.
  */
 
 const idNumber = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 2 });
@@ -16,10 +18,18 @@ export function formatId(v: number): string {
   return idNumber.format(Number.isFinite(v) ? v : 0);
 }
 
-/** Bilangan bulat apa adanya, selain itu 2 desimal tanpa nol di belakang. */
+/**
+ * Membulatkan ke `digits` desimal lalu membuang nol di belakang; nilai tak
+ * hingga menjadi `'0'`. Dipakai simulasi yang butuh presisi berbeda.
+ */
+export function formatRounded(v: number, digits = 2): string {
+  if (!Number.isFinite(v)) return '0';
+  return String(Number(v.toFixed(digits)));
+}
+
+/** Bilangan ringkas (maksimal 2 desimal, tanpa nol di belakang). */
 export function formatPlain(v: number): string {
-  if (Number.isInteger(v)) return String(v);
-  return String(Number(v.toFixed(2)));
+  return formatRounded(v, 2);
 }
 
 /** Bilangan dengan jumlah desimal tetap (default 2). */

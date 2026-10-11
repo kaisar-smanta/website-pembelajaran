@@ -8,9 +8,11 @@
  */
 
 import type { Difficulty } from '@/types/content';
-import { DIFFICULTY_ORDER } from '../data/display.ts';
+import { DIFFICULTY_ORDER } from './difficulty.ts';
 import { missedQuestionIds, unansweredQuestionIds } from './progress.ts';
 import type { ProgressMap } from './progress.ts';
+
+export { combineSeed } from './random.ts';
 
 /** Jumlah soal per tingkat kesulitan. */
 export type DifficultyCounts = Record<Difficulty, number>;
@@ -20,16 +22,6 @@ export type DifficultyCounts = Record<Difficulty, number>;
  * `unanswered` = soal yang belum pernah dicoba, `both` = gabungan keduanya.
  */
 export type ReviewMode = 'missed' | 'unanswered' | 'both';
-
-/**
- * Menggabungkan benih sesi dengan id soal menjadi benih pengacakan urutan opsi.
- *
- * Benih sesi dibangkitkan sekali per sesi/percobaan sehingga urutan opsi dapat
- * berbeda antar-kunjungan, tetapi tetap sama selama satu percobaan berlangsung.
- */
-export function combineSeed(sessionSeed: string, questionId: string): string {
-  return `${sessionSeed}::${questionId}`;
-}
 
 /**
  * Memilih id soal untuk sesi tinjau berdasarkan kemajuan siswa, mempertahankan
@@ -45,6 +37,9 @@ export function reviewQuestionIds(
   const missed = new Set(missedQuestionIds(attempts, questionIds));
   return questionIds.filter((id) => missed.has(id) || !attempts[id]);
 }
+
+/* Entri daftar tinjauan (`buildReviewEntries`) tinggal di `review-entries.ts`
+ * agar modul ini tetap bebas dari `marked`/`katex` dan aman dipakai skrip klien. */
 
 /** Menghitung jumlah item untuk tiap tingkat kesulitan (selalu memuat ketiganya). */
 export function difficultyCounts<T extends { difficulty: Difficulty }>(

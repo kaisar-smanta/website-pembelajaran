@@ -1,5 +1,10 @@
 import type { Section, SectionKind } from '@/types/content';
 
+/** Penjaga kelengkapan: blok baru wajib ditangani di `sectionSearchText`. */
+function assertNever(value: never): never {
+  throw new Error(`Jenis blok belum ditangani pada indeks pencarian: ${JSON.stringify(value)}`);
+}
+
 /** Judul bawaan tiap jenis bagian, dipakai seragam oleh konten dan daftar isi. */
 export const sectionKindTitles: Record<SectionKind, string> = {
   tujuan: 'Tujuan Pembelajaran',
@@ -45,8 +50,14 @@ export function sectionSearchText(section: Section): string {
       case 'callout':
         parts.push(block.text);
         break;
+      case 'table':
+        parts.push(block.caption ?? '', ...block.headers, ...block.rows.flat());
+        break;
       case 'figure':
         parts.push(block.alt, block.caption ?? '');
+        break;
+      case 'exploration':
+        parts.push(block.explorationId);
         break;
       case 'details':
         parts.push(block.summary, block.text);
@@ -73,7 +84,7 @@ export function sectionSearchText(section: Section): string {
         parts.push(...block.items.map((i) => `${i.label} ${i.body}`));
         break;
       default:
-        break;
+        assertNever(block);
     }
   }
   return parts.filter(Boolean).join(' ');

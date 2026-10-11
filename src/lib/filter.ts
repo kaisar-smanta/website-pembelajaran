@@ -76,12 +76,14 @@ export function matchesAny(selected: Set<string>, values: string[]): boolean {
 /**
  * Menormalkan teks untuk pencarian: huruf kecil, tanpa diakritik, dan spasi
  * yang dirapikan. Dipakai pada kata kunci maupun teks yang dibandingkan.
+ *
+ * `collapseWhitespace` dimatikan oleh pencarian teks utuh yang memetakan tiap
+ * karakter ternormalisasi kembali ke teks asal, sehingga posisi sorotan tetap.
  */
-export function normalizeText(value: string): string {
-  return value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+export function normalizeText(value: string, collapseWhitespace = true): string {
+  const normalized = value
     .toLowerCase()
-    .replace(/\s+/g, ' ')
-    .trim();
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+  return collapseWhitespace ? normalized.replace(/\s+/g, ' ').trim() : normalized;
 }
