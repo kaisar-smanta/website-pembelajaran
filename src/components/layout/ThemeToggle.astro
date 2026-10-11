@@ -88,6 +88,8 @@ const label = 'Ganti tema terang/gelap';
 </style>
 
 <script>
+  import { STORAGE_KEYS } from '@/lib/storage-keys';
+
   const btn = document.querySelector('[data-theme-toggle]');
   const status = document.querySelector('[data-theme-status]');
   const root = document.documentElement;
@@ -107,7 +109,7 @@ const label = 'Ganti tema terang/gelap';
     const next = isDark() ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try {
-      localStorage.setItem('theme', next);
+      localStorage.setItem(STORAGE_KEYS.theme, next);
     } catch (e) {
       /* ignore */
     }

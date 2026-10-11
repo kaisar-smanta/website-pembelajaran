@@ -383,14 +383,7 @@ const competencies = question.competencies ?? [];
 </style>
 
 <script>
-  import {
-    loadProgress,
-    saveProgress,
-    recordAttempt,
-    clearAttempt,
-    type Attempt,
-    type AttemptState,
-  } from '@/lib/progress';
+  import { loadProgress, type Attempt, type AttemptState } from '@/lib/progress';
   import { isAcceptedAnswer, normalizeAnswer } from '@/lib/answer';
   import {
     seededShuffle,
@@ -405,23 +398,7 @@ const competencies = question.competencies ?? [];
     type RubricCheckMap,
   } from '@/lib/learner';
   import { combineSeed } from '@/lib/practice';
-
-  const SESSION_SEED_KEY = 'mtk-session-seed';
-
-  /** Benih sesi per tab; stabil selama satu percobaan sehingga urutan opsi tetap. */
-  function sessionSeed(): string {
-    try {
-      const storage = window.sessionStorage;
-      let seed = storage.getItem(SESSION_SEED_KEY);
-      if (!seed) {
-        seed = Math.random().toString(36).slice(2) + Date.now().toString(36);
-        storage.setItem(SESSION_SEED_KEY, seed);
-      }
-      return seed;
-    } catch {
-      return 'sesi-tetap';
-    }
-  }
+  import { recordProgress, clearProgress, sessionSeed } from '@/lib/quiz-client';
 
   function record(
     root: Element,
@@ -430,36 +407,13 @@ const competencies = question.competencies ?? [];
   ) {
     const questionId = root.getAttribute('data-question-id');
     if (!questionId) return;
-    try {
-      const storage = window.localStorage;
-      const map = loadProgress(storage);
-      saveProgress(
-        storage,
-        recordAttempt(map, questionId, isCorrect, Date.now(), state.graded ?? true, state),
-      );
-    } catch {
-      /* ignore */
-    }
-    window.dispatchEvent(
-      new CustomEvent('mtk:progress', {
-        detail: { questionId, correct: isCorrect, graded: state.graded ?? true },
-      }),
-    );
+    recordProgress(questionId, isCorrect, { graded: state.graded ?? true, state });
   }
 
   function clearQuestion(root: Element) {
     const questionId = root.getAttribute('data-question-id');
     if (!questionId) return;
-    try {
-      const storage = window.localStorage;
-      const map = loadProgress(storage);
-      saveProgress(storage, clearAttempt(map, questionId));
-    } catch {
-      /* ignore */
-    }
-    window.dispatchEvent(
-      new CustomEvent('mtk:progress', { detail: { questionId, cleared: true } }),
-    );
+    clearProgress(questionId);
   }
 
   function setupQuestion(root: Element) {

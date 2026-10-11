@@ -378,47 +378,17 @@ const first = quizData[0];
 </style>
 
 <script>
-  import { loadProgress, saveProgress, recordAttempt } from '@/lib/progress';
   import { seededShuffle } from '@/lib/learner';
   import { combineSeed } from '@/lib/practice';
-
-  const SESSION_SEED_KEY = 'mtk-session-seed';
-  const QUIZ_STREAK_KEY = 'mtk-quiz-streak';
+  import {
+    sessionSeed,
+    loadQuizStreak,
+    saveQuizStreak,
+    recordProgress,
+  } from '@/lib/quiz-client';
 
   (() => {
     try {
-      function sessionSeed(): string {
-        try {
-          const storage = window.sessionStorage;
-          let seed = storage.getItem(SESSION_SEED_KEY);
-          if (!seed) {
-            seed = Math.random().toString(36).slice(2) + Date.now().toString(36);
-            storage.setItem(SESSION_SEED_KEY, seed);
-          }
-          return seed;
-        } catch {
-          return 'sesi-tetap';
-        }
-      }
-
-      function loadStreak(): number {
-        try {
-          const raw = window.localStorage.getItem(QUIZ_STREAK_KEY);
-          const parsed = raw ? Number.parseInt(raw, 10) : 0;
-          return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
-        } catch {
-          return 0;
-        }
-      }
-
-      function saveStreak(value: number): void {
-        try {
-          window.localStorage.setItem(QUIZ_STREAK_KEY, String(value));
-        } catch {
-          /* abaikan */
-        }
-      }
-
       const boxes = document.querySelectorAll<HTMLElement>('[data-quiz]');
       boxes.forEach((box) => {
         type QuizOption = { key: string; textHtml?: string };
@@ -453,7 +423,7 @@ const first = quizData[0];
 
         let index = 0;
         let answered = false;
-        let streak = loadStreak();
+        let streak = loadQuizStreak();
         let correctCount = 0;
         let answeredCount = 0;
 
@@ -466,26 +436,6 @@ const first = quizData[0];
             window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         } catch (err) {
           reduceMotion = false;
-        }
-
-        function recordProgress(questionId: string, correct: boolean) {
-          if (!questionId) return;
-          try {
-            const storage = window.localStorage;
-            const map = loadProgress(storage);
-            saveProgress(storage, recordAttempt(map, questionId, Boolean(correct)));
-          } catch (err) {
-            /* ignore */
-          }
-          try {
-            window.dispatchEvent(
-              new CustomEvent('mtk:progress', {
-                detail: { questionId: questionId, correct: Boolean(correct) },
-              }),
-            );
-          } catch (err) {
-            /* ignore */
-          }
         }
 
         function rewardMessage(n: number) {
@@ -627,7 +577,7 @@ const first = quizData[0];
             streak = 0;
             softenReward();
           }
-          saveStreak(streak);
+          saveQuizStreak(streak);
           if (streakEl) {
             streakEl.textContent = String(streak);
             if (isCorrect && !reduceMotion) {
@@ -655,7 +605,7 @@ const first = quizData[0];
             correctCount = 0;
             answeredCount = 0;
             streak = 0;
-            saveStreak(0);
+            saveQuizStreak(0);
             if (streakEl) streakEl.textContent = '0';
             render();
           });

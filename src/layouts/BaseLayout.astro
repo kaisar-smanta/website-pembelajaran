@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer.astro';
 import BackToTop from '@/components/layout/BackToTop.astro';
 import BottomNav from '@/components/layout/BottomNav.astro';
 import { site as identity } from '@/data/site';
+import { STORAGE_KEYS } from '@/lib/storage-keys';
 import { BASE } from '@/utils/url';
 
 interface Props {
@@ -144,10 +145,10 @@ const jsonLd = {
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
 
-    <script is:inline>
+    <script define:vars={{ themeKey: STORAGE_KEYS.theme }}>
       (function () {
         try {
-          var stored = localStorage.getItem('theme');
+          var stored = localStorage.getItem(themeKey);
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           var theme = stored || (prefersDark ? 'dark' : 'light');
           document.documentElement.setAttribute('data-theme', theme);

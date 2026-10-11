@@ -63,47 +63,8 @@ const label = 'Kembali ke atas';
   }
 </style>
 
-<script is:inline>
-  (function () {
-    var button = document.querySelector('[data-back-to-top]');
-    if (!button) return;
+<script>
+  import { setupBackToTop } from '@/lib/back-to-top';
 
-    var threshold = 0;
-    function measure() {
-      threshold = window.innerHeight * 1.5;
-    }
-
-    function update() {
-      var y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-      button.classList.toggle('is-visible', y > threshold);
-    }
-
-    function scrollToTop() {
-      var reduce = false;
-      try {
-        reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      } catch (e) {
-        reduce = false;
-      }
-      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      var main = document.getElementById('konten');
-      if (main) {
-        main.setAttribute('tabindex', '-1');
-        main.focus({ preventScroll: true });
-      }
-    }
-
-    measure();
-    update();
-    button.addEventListener('click', scrollToTop);
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', function () {
-      measure();
-      update();
-    });
-    window.addEventListener('pageshow', function () {
-      measure();
-      update();
-    });
-  })();
+  setupBackToTop();
 </script>

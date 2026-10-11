@@ -17,7 +17,8 @@ interface GraphNode {
 
 const NODE_W = DEFAULT_NODE_WIDTH;
 const NODE_H = DEFAULT_NODE_HEIGHT;
-const ARROW_ID = 'prereq-arrow';
+/** Id marker unik per instans agar tidak bertabrakan bila graf dirender berkali-kali. */
+const ARROW_ID = `prereq-arrow-${crypto.randomUUID().slice(0, 8)}`;
 
 const idSet = new Set(topics.map((t) => t.id));
 
@@ -255,169 +256,10 @@ const listGroups = GRADE_ORDER.map((grade) => {
   </div>
 </div>
 
-<script is:inline>
-  (function () {
-    try {
-      var wraps = document.querySelectorAll('.prereq-wrap');
-      if (!wraps.length) return;
+<script>
+  import { setupPrerequisiteGraph } from '@/lib/prerequisite-graph';
 
-      function init(wrap) {
-        var nodeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-node'));
-        var edgeEls = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-edge'));
-        if (!nodeEls.length) return;
-        wrap.classList.add('is-ready');
-
-        var gradeChips = Array.prototype.slice.call(wrap.querySelectorAll('[data-grade-filter]'));
-        var gradeGroups = Array.prototype.slice.call(wrap.querySelectorAll('.prereq-group[data-grade]'));
-        var gradeMap = {};
-        nodeEls.forEach(function (el) {
-          gradeMap[el.getAttribute('data-id')] = el.getAttribute('data-grade');
-        });
-        var gradeFilter = 'all';
-
-        var incoming = {};
-        var outgoing = {};
-        edgeEls.forEach(function (edge) {
-          var from = edge.getAttribute('data-from');
-          var to = edge.getAttribute('data-to');
-          if (!from || !to) return;
-          (outgoing[from] || (outgoing[from] = [])).push(to);
-          (incoming[to] || (incoming[to] = [])).push(from);
-        });
-
-        function apply(active) {
-          nodeEls.forEach(function (el) {
-            var id = el.getAttribute('data-id');
-            var on = !!(id && active[id]);
-            el.classList.toggle('is-active', on);
-            el.classList.toggle('is-dim', !on);
-          });
-          edgeEls.forEach(function (edge) {
-            var from = edge.getAttribute('data-from');
-            var to = edge.getAttribute('data-to');
-            var on = !!(from && to && active[from] && active[to]);
-            edge.classList.toggle('is-active', on);
-            edge.classList.toggle('is-dim', !on);
-          });
-        }
-
-        function clear() {
-          nodeEls.forEach(function (el) {
-            el.classList.remove('is-active');
-            el.classList.remove('is-dim');
-          });
-          edgeEls.forEach(function (edge) {
-            edge.classList.remove('is-active');
-            edge.classList.remove('is-dim');
-          });
-        }
-
-        function applyGrade() {
-          nodeEls.forEach(function (el) {
-            var id = el.getAttribute('data-id');
-            var match = gradeFilter === 'all' || gradeMap[id] === gradeFilter;
-            el.classList.toggle('is-grade-dim', !match);
-          });
-          edgeEls.forEach(function (edge) {
-            var from = edge.getAttribute('data-from');
-            var to = edge.getAttribute('data-to');
-            var match =
-              gradeFilter === 'all' ||
-              gradeMap[from] === gradeFilter ||
-              gradeMap[to] === gradeFilter;
-            edge.classList.toggle('is-grade-dim', !match);
-          });
-          gradeGroups.forEach(function (group) {
-            var match = gradeFilter === 'all' || group.getAttribute('data-grade') === gradeFilter;
-            group.classList.toggle('is-grade-hidden', !match);
-          });
-          gradeChips.forEach(function (chip) {
-            var active = chip.getAttribute('data-grade-filter') === gradeFilter;
-            chip.classList.toggle('is-active', active);
-            chip.setAttribute('aria-pressed', active ? 'true' : 'false');
-          });
-        }
-
-        function highlight(id) {
-          var active = {};
-          active[id] = true;
-
-          var stack = [id];
-          var seenIn = {};
-          seenIn[id] = true;
-          while (stack.length) {
-            var cur = stack.pop();
-            var inc = incoming[cur];
-            if (inc) {
-              for (var i = 0; i < inc.length; i++) {
-                var a = inc[i];
-                if (!seenIn[a]) {
-                  seenIn[a] = true;
-                  active[a] = true;
-                  stack.push(a);
-                }
-              }
-            }
-          }
-
-          stack = [id];
-          var seenOut = {};
-          seenOut[id] = true;
-          while (stack.length) {
-            var cur2 = stack.pop();
-            var out = outgoing[cur2];
-            if (out) {
-              for (var j = 0; j < out.length; j++) {
-                var d = out[j];
-                if (!seenOut[d]) {
-                  seenOut[d] = true;
-                  active[d] = true;
-                  stack.push(d);
-                }
-              }
-            }
-          }
-
-          apply(active);
-        }
-
-        nodeEls.forEach(function (el) {
-          var id = el.getAttribute('data-id');
-          if (!id) return;
-          el.addEventListener('mouseenter', function () {
-            highlight(id);
-          });
-          el.addEventListener('focusin', function () {
-            highlight(id);
-          });
-          el.addEventListener('mouseleave', clear);
-          el.addEventListener('focusout', clear);
-          el.addEventListener('keydown', function (event) {
-            if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
-            var href =
-              el.getAttribute('href') ||
-              el.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
-            if (!href) return;
-            event.preventDefault();
-            window.location.href = href;
-          });
-        });
-
-        gradeChips.forEach(function (chip) {
-          chip.addEventListener('click', function () {
-            gradeFilter = chip.getAttribute('data-grade-filter') || 'all';
-            clear();
-            applyGrade();
-          });
-        });
-        applyGrade();
-      }
-
-      Array.prototype.forEach.call(wraps, init);
-    } catch (e) {
-      /* biarkan graf tetap tampil tanpa interaksi */
-    }
-  })();
+  setupPrerequisiteGraph();
 </script>
 
 <style>
