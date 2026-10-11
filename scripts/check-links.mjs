@@ -2,21 +2,12 @@
 // Pemakaian: node scripts/check-links.mjs
 import fs from 'node:fs';
 import path from 'node:path';
+import { byExtension, collectFiles } from './lib/files.mjs';
 
 const dist = 'dist';
 const base = process.env.BASE_PATH || '/website-pembelajaran';
 
-function walk(dir) {
-  const out = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const p = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...walk(p));
-    else if (entry.name.endsWith('.html')) out.push(p);
-  }
-  return out;
-}
-
-const files = walk(dist);
+const files = collectFiles(dist, byExtension('.html'));
 const broken = [];
 let checked = 0;
 

@@ -13,7 +13,7 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - Jalankan seluruh pemeriksaan **secara lokal**:
 
   ```bash
-  npm run verify   # astro check → lint:content → build → check:latex → test → test:links
+  npm run verify   # astro check → lint:content → build → check:bundle → check:latex → test → test:links
   ```
 
   Pemeriksaan tambahan (butuh peramban, lokal): `npm run audit`, `npm run screenshot`.
@@ -23,7 +23,14 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - **Node >= 22.18** — uji memakai fitur pemisahan TypeScript bawaan Node.
 - Materi adalah **data terstruktur TypeScript** di `src/data/` (topik, soal, eksplorasi,
   studi kasus). Jangan menduplikasi metadata di komponen; impor dari `src/data/`.
+- **Registrasi topik & soal otomatis.** `src/data/topics/index.ts` dan
+  `src/data/questions/index.ts` memuat berkas lewat `import.meta.glob` (dengan urutan
+  deterministik). Menambah topik/soal **cukup membuat berkasnya** — jangan menambah impor
+  manual. `planned.ts`, `index.ts`, dan berkas berawalan `.`/`enhance` dikecualikan.
 - Blok interaktif ditulis langsung di data topik (tidak ada konversi otomatis).
+- **Indeks pencarian wajib lengkap.** `sectionSearchText` (`src/lib/content-text.ts`)
+  menangani **seluruh** jenis blok; `default` memanggil `assertNever` sehingga blok baru
+  gagal keras bila belum ditangani. Tambahkan blok baru ke switch itu.
 - **Diagram `figure`**: blok `{ kind: 'figure', svg, alt, caption? }` menyisipkan SVG
   sebaris (wajib `alt`, SVG memakai `currentColor`, id marker unik per topik). `caption`
   dan `alt` ikut terindeks pencarian (`src/lib/content-text.ts`).
@@ -52,10 +59,19 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   bagian `sejarah` (latar historis) dan `tantangan` (soal nonrutin) memperkaya materi.
   `tests/pengayaan.mjs` juga menjaga ambang soal mahir per topik.
 - Uji di `tests/*.mjs`, dijalankan `npm test` (lewat `tests/run-all.mjs`, auto-discovery).
+  **Berkas berawalan `_` adalah pembantu bersama, bukan uji.** Utilitas bersama ada di
+  `tests/_util.mjs` (`load`, `ok`, `check`, `checks`, `collectTopics`, `collectQuestions`,
+  `mockStorage`) — pakai itu alih-alih menyalin loop pemuat topik/soal atau assertion.
   Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
   (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`),
   integritas konten (`tests/content-integrity.mjs`: rujukan topik↔studi kasus, id/slug unik,
-  bagian tak kosong, kunci pilihan ganda sehat), tata letak graf prasyarat, dan setiap
-  simulasi (`tests/sim-*.mjs`, termasuk limit & binomial).
+  bagian tak kosong, kunci pilihan ganda sehat), teks indeks pencarian
+  (`tests/content-text.mjs`), tata letak graf prasyarat, dan setiap simulasi
+  (`tests/sim-*.mjs`, termasuk limit & binomial).
 - Simulasi disiapkan lazy lewat `initWhenVisible` (`src/lib/dom.ts`).
+- **Pustaka bersama (jangan duplikasi):** kunci `localStorage` di `src/lib/storage-keys.ts`;
+  keacakan deterministik (`seededShuffle`, `combineSeed`) di `src/lib/random.ts`; pembantu
+  klien kuis (`sessionSeed`, `recordProgress`, `clearProgress`, `loadQuizStreak`) di
+  `src/lib/quiz-client.ts` (dipakai `QuestionCard.astro` & `QuizTeaser.astro`); ruang rute
+  (`subjectGradeElementCombos`, `legacyCombos`, dst.) di `src/lib/routes.ts`.
 - Bahasa konten: Indonesia, sapaan ramah tanpa emoji.

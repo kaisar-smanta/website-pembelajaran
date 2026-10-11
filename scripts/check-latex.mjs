@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { byExtension, collectFiles } from './lib/files.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const target = process.argv[2] ? path.resolve(process.argv[2]) : path.join(root, 'dist');
@@ -19,16 +20,6 @@ const target = process.argv[2] ? path.resolve(process.argv[2]) : path.join(root,
 if (!fs.existsSync(target)) {
   console.log('dist/ belum ada. Jalankan: npm run build');
   process.exit(0);
-}
-
-function walk(dir) {
-  const out = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const p = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...walk(p));
-    else if (entry.name.endsWith('.html')) out.push(p);
-  }
-  return out;
 }
 
 // Elemen yang isinya bukan teks terlihat (kode, skrip, gaya) atau bukan LaTeX
@@ -63,7 +54,7 @@ const CHECKS = [
   { name: 'perintah LaTeX', re: /\\[a-zA-Z]*(?:frac|sqrt|begin)\b/g },
 ];
 
-const files = walk(target);
+const files = collectFiles(target, byExtension('.html'));
 let leaks = 0;
 
 for (const full of files) {

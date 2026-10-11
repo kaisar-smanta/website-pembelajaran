@@ -2,6 +2,7 @@
 // atau tidak dapat dirender. Pemakaian: node scripts/lint-content.mjs
 import fs from 'node:fs';
 import path from 'node:path';
+import { byExtension, collectFiles } from './lib/files.mjs';
 
 // Daftar berkas materi yang dipindai: topik, aplikasi, bank soal, eksplorasi,
 // dan capaian pembelajaran. index.ts/planned.ts adalah agregator sehingga
@@ -263,18 +264,10 @@ for (const full of files) {
 // Pemindaian kedua: template .astro untuk pola "spasi hilang sebelum tag inline".
 // Bila sebuah baris berakhir pada kata/tanda baca tanpa spasi lalu baris berikutnya
 // dimulai tag inline (<strong>, <em>, ...), teks dapat menyatu saat dirender.
-function astroFilesUnder(dir) {
-  const out = [];
-  if (!fs.existsSync(dir)) return out;
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...astroFilesUnder(full));
-    else if (entry.name.endsWith('.astro')) out.push(full);
-  }
-  return out;
-}
-
-const astroFiles = [...astroFilesUnder('src/pages'), ...astroFilesUnder('src/components')];
+const astroFiles = [
+  ...collectFiles('src/pages', byExtension('.astro')),
+  ...collectFiles('src/components', byExtension('.astro')),
+];
 // Tag inline yang relevan. <span> ditangani terpisah agar label berjarak CSS
 // (mis. pasangan quick-text/quick-count) tidak dianggap masalah.
 const inlineTag = /^<(strong|em|a|code|b|i)\b/;

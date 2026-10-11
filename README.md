@@ -67,13 +67,19 @@ npm run preview    # pratinjau hasil build
 npm run check      # pemeriksaan tipe (astro check)
 npm run lint:content   # memindai materi dari pola LaTeX berisiko
 npm run check:latex    # memeriksa blok LaTeX/KaTeX pada materi (dijalankan setelah build)
+npm run check:bundle   # memastikan marked/KaTeX tidak bocor ke bundel klien (setelah build)
 npm run test       # memverifikasi nilai matematika & logika simulasi (tests/run-all.mjs)
 npm run test:links # memeriksa tautan & anchor internal pada dist/
-npm run verify     # jalankan seluruh pemeriksaan di atas (check, lint, build, check:latex, test, test:links)
+npm run verify     # jalankan seluruh pemeriksaan di atas (check, lint, build, check:bundle, check:latex, test, test:links)
 npm run audit      # audit tata letak & aksesibilitas hasil build (Chrome/Edge)
 npm run screenshot # tangkapan layar hasil build ke artifacts/ (Chrome/Edge)
 npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
 ```
+
+Uji di `tests/*.mjs` dijalankan otomatis oleh `tests/run-all.mjs`. **Berkas berawalan `_`
+adalah pembantu bersama, bukan uji** — utilitas umum (`load`, `ok`, `check`, `checks`,
+`collectTopics`, `collectQuestions`, `mockStorage`) ada di `tests/_util.mjs`; pakai itu
+alih-alih menyalin loop pemuat data atau assertion.
 
 ---
 
@@ -115,9 +121,11 @@ npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
    };
    ```
 
-2. **Daftarkan** di `src/data/topics/index.ts`: impor dan tambahkan ke array `topics`.
-3. **Tambahkan soal** (opsional) di `src/data/questions/<slug>.ts` lalu daftarkan di
-   `src/data/questions/index.ts`.
+2. **Terdaftar otomatis**: setiap berkas di `src/data/topics/` dikumpulkan lewat
+   `import.meta.glob` di `src/data/topics/index.ts` (`index.ts` dan `planned.ts` dikecualikan),
+   lalu diurutkan berdasarkan mata pelajaran, kelas, elemen, dan judul.
+3. **Tambahkan soal** (opsional) di `src/data/questions/<slug>.ts`; berkas soal juga dikumpulkan
+   otomatis lewat `import.meta.glob` di `src/data/questions/index.ts`.
 4. Halaman topik, peta kurikulum, pencarian, dan breadcrumb otomatis dibuat.
 
 Topik yang materinya belum ditulis cukup dicantumkan sebagai roadmap di
@@ -415,8 +423,8 @@ Metadata terpusat ada di `src/data/curriculum.ts`:
 - `SubjectId = 'matematika' | 'matematika-lanjut'`;
 - `SUBJECTS` menyimpan nama, deskripsi, `grades`, `phases`, `elements` (urutan elemen khas), `elective`,
   dan `hours`;
-- `elementOrderFor(subject)`, `gradesFor(subject)`, `phasesFor(subject)`, serta `subjectOf(entry)`
-  (entri lama tanpa `subject` dianggap Matematika);
+- `elementOrderFor(subject)`, `gradesFor(subject)`, `phasesFor(subject)`, serta `topicSubject(topic)`
+  dari `@/data/topics` (entri lama tanpa `subject` dianggap Matematika);
 - elemen `kalkulus` hanya dimiliki Matematika Tingkat Lanjut; `ALL_ELEMENT_ORDER` mencakup seluruh
   elemen lintas mata pelajaran untuk halaman global (mis. peta, pencarian, alat).
 
@@ -485,13 +493,18 @@ src/
 ├── layouts/            BaseLayout.astro
 ├── lib/                Pustaka murni & dapat diuji: sim/ (perhitungan),
 │                       graph/layout.ts (tata letak graf prasyarat), storage.ts,
+│                       storage-keys.ts (registri kunci localStorage),
 │                       learner.ts, progress.ts, progress-overview.ts (rekap
-│                       belajar), answer.ts (normalisasi & pencocokan jawaban),
-│                       reference.ts (agregasi glosarium & rumus), format.ts,
-│                       dom.ts (initWhenVisible untuk simulasi lazy),
-│                       interaction.ts, filter.ts, filter-dom.ts,
-│                       content-text.ts, search.ts (skor, fuzzy, sorot
-│                       pencarian), practice.ts (hitung & kelompokin soal),
+│                       belajar), quiz-client.ts (benih sesi, tulis progres,
+│                       rentetan kuis — dipakai QuestionCard & QuizTeaser),
+│                       random.ts (seededShuffle & combineSeed), routes.ts
+│                       (ruang rute turunan), answer.ts (normalisasi &
+│                       pencocokan jawaban), reference.ts (agregasi glosarium &
+│                       rumus), format.ts, dom.ts (initWhenVisible untuk
+│                       simulasi lazy), interaction.ts, filter.ts, filter-dom.ts,
+│                       content-text.ts (judul & indeks pencarian, lengkap via
+│                       assertNever), search.ts (skor, fuzzy, sorot pencarian),
+│                       practice.ts (hitung & kelompokin soal),
 │                       review.ts (antrean tinjauan berkala lintas topik)
 ├── pages/              Rute statis (lihat tabel di bawah), termasuk review.astro
 ├── styles/             global.css (perakit @import berurutan) +
