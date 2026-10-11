@@ -2,9 +2,14 @@ import type { APIRoute } from 'astro';
 import { topics, topicSubject } from '@/data/topics';
 import { applications } from '@/data/applications';
 import { orderedExplorations } from '@/data/explorations';
-import { SUBJECT_ORDER, elementOrderFor, gradesFor } from '@/data/curriculum';
 import { topicIdsWithQuestions } from '@/data/questions';
 import { STATIC_PAGES } from '@/data/display';
+import {
+  subjectElementsWithContent,
+  subjectGradeElementCombos,
+  subjectGradesWithContent,
+  subjectsWithContent,
+} from '@/lib/routes';
 import { absoluteUrl } from '@/utils/url';
 
 export const prerender = true;
@@ -14,25 +19,15 @@ export const GET: APIRoute = () => {
 
   for (const page of STATIC_PAGES) paths.add(page.path);
 
-  for (const subject of SUBJECT_ORDER) {
-    for (const g of gradesFor(subject)) {
+  for (const subject of subjectsWithContent()) {
+    for (const g of subjectGradesWithContent(subject)) {
       paths.add(`${subject}/kelas/${g}`);
-      for (const e of elementOrderFor(subject)) {
-        const hasTopic = topics.some(
-          (t) =>
-            t.status !== 'rencana' &&
-            topicSubject(t) === subject &&
-            t.grade === g &&
-            t.element === e,
-        );
-        if (hasTopic) paths.add(`${subject}/kelas/${g}/${e}`);
-      }
     }
-    for (const e of elementOrderFor(subject)) {
-      const hasTopic = topics.some(
-        (t) => t.status !== 'rencana' && topicSubject(t) === subject && t.element === e,
-      );
-      if (hasTopic) paths.add(`${subject}/elemen/${e}`);
+    for (const { grade, element } of subjectGradeElementCombos(subject)) {
+      paths.add(`${subject}/kelas/${grade}/${element}`);
+    }
+    for (const e of subjectElementsWithContent(subject)) {
+      paths.add(`${subject}/elemen/${e}`);
     }
   }
 

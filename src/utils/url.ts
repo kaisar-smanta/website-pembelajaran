@@ -31,7 +31,8 @@ export function absoluteUrl(pathname = ''): string {
 /**
  * Segmen URL mata pelajaran. Matematika memakai `/matematika`, Matematika
  * Tingkat Lanjut memakai `/matematika-lanjut`. Rute lama tanpa segmen ini
- * dipertahankan sebagai pengalih (lihat `src/pages/_redirects` stubs).
+ * dipertahankan sebagai pengalih statis (lihat berkas `src/pages/kelas/**` dan
+ * `src/pages/elemen/**`).
  */
 export function subjectUrl(subject: SubjectId, path = ''): string {
   const clean = String(path).replace(/^\/+/, '');

@@ -8,19 +8,19 @@ import {
   ELEMENTS,
   GRADES,
   SUBJECTS,
-  SUBJECT_ORDER,
   elementOrderFor,
   gradesFor,
 } from '@/data/curriculum';
 import { topicsBySubjectGradeElement, plannedTopics } from '@/data/topics';
 import { topicIdsWithQuestions } from '@/data/questions';
+import { subjectsWithContent } from '@/lib/routes';
 import { url, subjectUrl, gradeUrl } from '@/utils/url';
 import type { Grade, SubjectId } from '@/types/content';
 
 export function getStaticPaths() {
   const paths: { params: { subject: SubjectId; grade: Grade }; props: { subject: SubjectId; grade: Grade } }[] =
     [];
-  for (const subject of SUBJECT_ORDER) {
+  for (const subject of subjectsWithContent()) {
     for (const grade of gradesFor(subject)) {
       paths.push({ params: { subject, grade }, props: { subject, grade } });
     }

@@ -2,15 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
-import {
-  ELEMENTS,
-  GRADES,
-  SUBJECTS,
-  SUBJECT_ORDER,
-  elementOrderFor,
-  gradesFor,
-} from '@/data/curriculum';
+import { ELEMENTS, GRADES, SUBJECTS, gradesFor } from '@/data/curriculum';
 import { topicsBySubjectGradeElement } from '@/data/topics';
+import { STATIC_PAGES, type StaticListEntry, type StaticPage } from '@/data/display';
+import { subjectGradeElementCombos, subjectsWithContent } from '@/lib/routes';
 import { stripMarkdown } from '@/utils/markdown';
 import { topicUrl, url } from '@/utils/url';
 
@@ -19,40 +14,37 @@ const crumbs = [
   { label: 'Peta Situs' },
 ];
 
-const subjectGroups = SUBJECT_ORDER.map((subject) => {
-  const grades = gradesFor(subject)
-    .map((grade) => {
-      const elements = elementOrderFor(subject)
-        .map((element) => ({
-          element,
-          meta: ELEMENTS[element],
-          topics: topicsBySubjectGradeElement(subject, grade, element).filter(
-            (topic) => topic.status !== 'rencana',
-          ),
-        }))
-        .filter((group) => group.topics.length > 0);
-      return { grade, meta: GRADES[grade], elements };
-    })
-    .filter((group) => group.elements.length > 0);
-  return { subject, meta: SUBJECTS[subject], grades };
-}).filter((group) => group.grades.length > 0);
+const subjectGroups = subjectsWithContent()
+  .map((subject) => {
+    const combos = subjectGradeElementCombos(subject);
+    const grades = gradesFor(subject)
+      .map((grade) => {
+        const elements = combos
+          .filter((combo) => combo.grade === grade)
+          .map(({ element }) => ({
+            element,
+            meta: ELEMENTS[element],
+            topics: topicsBySubjectGradeElement(subject, grade, element).filter(
+              (topic) => topic.status !== 'rencana',
+            ),
+          }))
+          .filter((group) => group.topics.length > 0);
+        return { grade, meta: GRADES[grade], elements };
+      })
+      .filter((group) => group.elements.length > 0);
+    return { subject, meta: SUBJECTS[subject], grades };
+  })
+  .filter((group) => group.grades.length > 0);
 
-const staticLinks: { label: string; href: string; note: string }[] = [
-  { label: 'Latihan & Asesmen', href: url('/latihan'), note: 'Bank soal berjenjang' },
-  { label: 'Tantangan & Pengayaan', href: url('/tantangan'), note: 'Soal mahir & topik pengayaan' },
-  { label: 'Eksplorasi', href: url('/eksplorasi'), note: 'Simulasi interaktif' },
-  { label: 'Matematika dalam Kehidupan', href: url('/aplikasi'), note: 'Studi kasus penerapan' },
-  { label: 'Alat Matematika', href: url('/alat'), note: 'Perangkat bantu' },
-  { label: 'Glosarium', href: url('/glosarium'), note: 'Daftar istilah' },
-  { label: 'Kumpulan Rumus', href: url('/rumus'), note: 'Lembar rujukan rumus' },
-  { label: 'Kemajuan Saya', href: url('/kemajuan'), note: 'Rekap belajar tersimpan' },
-  { label: 'Tinjauan lintas topik', href: url('/review'), note: 'Ulangi soal yang belum tepat' },
-  { label: 'Referensi', href: url('/referensi'), note: 'Catatan kurikulum' },
-  { label: 'Kontak', href: url('/kontak'), note: 'Hubungi penyusun' },
-  { label: 'Aksesibilitas', href: url('/aksesibilitas'), note: 'Catatan aksesibilitas' },
-  { label: 'Tentang', href: url('/tentang'), note: 'Kredit dan lisensi' },
-  { label: 'Pencarian', href: url('/cari'), note: 'Cari di seluruh situs' },
-];
+const staticLinks = STATIC_PAGES.filter(
+  (page): page is StaticPage & { listed: StaticListEntry } => Boolean(page.listed),
+)
+  .sort((a, b) => a.listed.order - b.listed.order)
+  .map((page) => ({
+    label: page.listed.label ?? page.title,
+    href: page.path ? url(`/${page.path}`) : url('/'),
+    note: page.listed.note,
+  }));
 
 const topicCount = subjectGroups.reduce(
   (sum, group) =>

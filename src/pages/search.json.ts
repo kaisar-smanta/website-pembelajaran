@@ -3,8 +3,9 @@ import { topics, sectionSearchText, topicSubject } from '@/data/topics';
 import { applications, applicationCategories } from '@/data/applications';
 import { orderedExplorations } from '@/data/explorations';
 import { topicIdsWithQuestions, questionsByTopic, practiceCounts } from '@/data/questions';
-import { ELEMENTS, GRADES, SUBJECTS, SUBJECT_ORDER, elementOrderFor } from '@/data/curriculum';
+import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
 import { DIFFICULTY_ORDER, STATIC_PAGES } from '@/data/display';
+import { subjectsWithContent, subjectElementsWithContent } from '@/lib/routes';
 import { collectFormulaEntries, collectGlossaryEntries } from '@/lib/reference';
 import { stripMarkdown } from '@/utils/markdown';
 
@@ -187,35 +188,16 @@ export const GET: APIRoute = () => {
     });
   }
 
-  const pageSummaries: Record<string, string> = {
-    '': 'Beranda pusat belajar Matematika dan Matematika Tingkat Lanjut SMA.',
-    'peta-pembelajaran': 'Peta hubungan antar konsep dan kurikulum.',
-    latihan: 'Bank soal berjenjang dasar, cakap, mahir.',
-    tantangan: 'Soal tantangan dan materi pengayaan untuk siswa di atas capaian.',
-    eksplorasi: 'Simulasi dan eksplorasi interaktif.',
-    alat: 'Alat bantu matematika daring.',
-    aplikasi: 'Studi kasus penerapan matematika.',
-    referensi: 'Sumber dan catatan kurikulum.',
-    glosarium: 'Daftar istilah matematika dari seluruh topik, menurut abjad.',
-    rumus: 'Kumpulan rumus matematika dari seluruh topik per elemen.',
-    'peta-situs': 'Peta situs: seluruh topik dan halaman dalam satu halaman.',
-    kemajuan: 'Ringkasan kemajuan belajar tersimpan di peramban kamu.',
-    kontak: 'Cara menghubungi penyusun dan kanal resmi sekolah.',
-    aksesibilitas: 'Komitmen dan catatan aksesibilitas situs ini.',
-    tentang: 'Tentang situs dan cara belajar di sini.',
-    cari: 'Pencarian materi di seluruh situs.',
-  };
-
   const pages: { title: string; path: string; summary: string }[] = STATIC_PAGES.map((p) => ({
     title: p.title,
     path: p.path,
     summary:
       p.path in SUBJECTS
         ? SUBJECTS[p.path as keyof typeof SUBJECTS].description
-        : pageSummaries[p.path] ?? p.title,
+        : p.description ?? p.title,
   }));
-  for (const subject of SUBJECT_ORDER) {
-    for (const e of elementOrderFor(subject)) {
+  for (const subject of subjectsWithContent()) {
+    for (const e of subjectElementsWithContent(subject)) {
       pages.push({
         title: `Elemen ${ELEMENTS[e].name} — ${SUBJECTS[subject].short}`,
         path: `${subject}/elemen/${e}`,

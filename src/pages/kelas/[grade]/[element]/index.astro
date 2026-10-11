@@ -1,20 +1,14 @@
 ---
 import RedirectPage from '@/components/layout/RedirectPage.astro';
-import { ELEMENT_ORDER, GRADE_ORDER } from '@/data/curriculum';
-import { url } from '@/utils/url';
+import { legacyCombos } from '@/lib/routes';
+import { elementUrl } from '@/utils/url';
 
 export function getStaticPaths() {
-  const paths: { params: { grade: string; element: string } }[] = [];
-  for (const grade of GRADE_ORDER) {
-    for (const element of ELEMENT_ORDER) {
-      paths.push({ params: { grade, element } });
-    }
-  }
-  return paths;
+  return legacyCombos().map(({ grade, element }) => ({ params: { grade, element } }));
 }
 
-const { grade, element } = Astro.params;
-const to = url(`matematika/kelas/${grade}/${element}`);
+const { grade, element } = Astro.params as { grade: string; element: string };
+const to = elementUrl(grade, element);
 ---
 
 <RedirectPage to={to} title={`Pindah ke ${element} kelas ${grade}`} />

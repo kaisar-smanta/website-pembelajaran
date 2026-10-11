@@ -191,7 +191,7 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
 
 <script>
   import { normalizeText } from '@/lib/filter';
-  import { setupFilterPage } from '@/lib/filter-dom';
+  import { setupFilterPage, type FilterPageGroup } from '@/lib/filter-dom';
 
   const toolbar = document.querySelector<HTMLElement>('[data-glos-toolbar]');
 
@@ -202,14 +202,6 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
     const empty = document.querySelector<HTMLElement>('[data-glos-empty]');
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-glos-item]'));
     const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-glos-group]'));
-
-    // Pulihkan kueri pencarian dari URL sebelum saringan pertama dijalankan.
-    try {
-      const initial = new URLSearchParams(location.search).get('q');
-      if (initial && searchInput) searchInput.value = initial;
-    } catch {
-      /* abaikan URL yang tidak dapat dibaca */
-    }
 
     const apply = (values: Record<string, string>, query: string): void => {
       const element = values.element || 'all';
@@ -237,27 +229,8 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
       if (result) result.textContent = `Menampilkan ${visible} dari ${items.length} istilah`;
     };
 
-    // Selaraskan kata kunci pencarian ke URL (?q=) agar tautan dapat dibagikan.
-    const syncQuery = (): void => {
-      try {
-        const params = new URLSearchParams(location.search);
-        const value = searchInput?.value.trim() ?? '';
-        if (value) params.set('q', value);
-        else params.delete('q');
-        const search = params.toString();
-        history.replaceState(
-          null,
-          '',
-          `${location.pathname}${search ? `?${search}` : ''}${location.hash}`,
-        );
-      } catch {
-        /* abaikan bila riwayat/URL tidak dapat diubah */
-      }
-    };
-
-    if (chips) {
-      setupFilterPage({
-        groups: [
+    const filterGroups: FilterPageGroup[] = chips
+      ? [
           {
             key: 'element',
             group: chips,
@@ -266,15 +239,12 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
             activeClass: 'is-active',
             allValue: 'all',
           },
-        ],
-        searchInput,
-        apply,
-        syncUrl: true,
-      });
-      searchInput?.addEventListener('input', syncQuery);
-    } else {
-      apply({ element: 'all' }, searchInput?.value ?? '');
-    }
+        ]
+      : [];
+
+    // Kueri `?q=` diselaraskan otomatis lewat `queryKey` (baca saat mulai,
+    // tulis saat mengetik) sehingga tidak perlu penanganan URL terpisah.
+    setupFilterPage({ groups: filterGroups, searchInput, queryKey: 'q', apply, syncUrl: true });
   }
 </script>
 

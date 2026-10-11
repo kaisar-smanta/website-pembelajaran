@@ -15,7 +15,7 @@ import { elementColor } from '@/data/display';
 import { applicationsForTopic, getApplication } from '@/data/applications';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { sectionTitle } from '@/lib/content-text';
-import { url, subjectUrl, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
+import { url, absoluteUrl, subjectUrl, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
 
 export function getStaticPaths() {
   return topics
@@ -89,9 +89,36 @@ const sectionList = topic.sections;
 const description = stripMarkdown(topic.summary);
 
 const cpCodes = cpForTopic(topic.id).map((s) => s.id);
+
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'LearningResource',
+  name: topic.title,
+  description,
+  inLanguage: 'id',
+  isAccessibleForFree: true,
+  learningResourceType: 'Materi pembelajaran',
+  educationalLevel: `${gradeMeta.name} (${gradeMeta.label})`,
+  about: elementMeta.name,
+  url: absoluteUrl(`${subject}/kelas/${topic.grade}/${topic.element}/${topic.slug}`),
+  ...(cpCodes.length > 0
+    ? {
+        educationalAlignment: cpCodes.map((code) => ({
+          '@type': 'AlignmentObject',
+          alignmentType: 'educationalSubject',
+          targetName: code,
+        })),
+      }
+    : {}),
+};
 ---
 
-<BaseLayout title={`${topic.title} — ${gradeMeta.name}`} description={description} ogType="article">
+<BaseLayout
+  title={`${topic.title} — ${gradeMeta.name}`}
+  description={description}
+  ogType="article"
+  structuredData={jsonLd}
+>
   <ReadingProgress accent={accent} />
   <div class="topic-wrap container" style={`--accent: ${accent}`}>
     <Breadcrumbs items={crumbs} />

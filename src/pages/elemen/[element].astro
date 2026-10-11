@@ -1,14 +1,14 @@
 ---
 import RedirectPage from '@/components/layout/RedirectPage.astro';
-import { ELEMENT_ORDER } from '@/data/curriculum';
-import { url } from '@/utils/url';
+import { legacyElements } from '@/lib/routes';
+import { elementOverviewUrl } from '@/utils/url';
 
 export function getStaticPaths() {
-  return ELEMENT_ORDER.map((element) => ({ params: { element } }));
+  return legacyElements().map((element) => ({ params: { element } }));
 }
 
-const { element } = Astro.params;
-const to = url(`matematika/elemen/${element}`);
+const { element } = Astro.params as { element: string };
+const to = elementOverviewUrl(element);
 ---
 
 <RedirectPage to={to} title={`Pindah ke elemen ${element}`} />

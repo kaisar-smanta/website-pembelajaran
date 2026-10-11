@@ -105,6 +105,41 @@ export interface FilterPageOptions {
   searchInput?: HTMLInputElement | null;
   /** Menyelaraskan nilai kelompok ke kueri URL (baca saat mulai, tulis saat berubah). */
   syncUrl?: boolean;
+  /** Nama parameter URL untuk isi `searchInput` (mis. `'q'`); kosong = tidak disinkronkan. */
+  queryKey?: string;
+}
+
+/**
+ * Menulis pasangan kunci–nilai ke query string URL (via `replaceState`);
+ * nilai kosong menghapus parameternya. Dipakai bersama oleh halaman saring.
+ */
+export function writeQuery(values: Record<string, string | null | undefined>): void {
+  try {
+    const params = new URLSearchParams(location.search);
+    for (const [key, value] of Object.entries(values)) {
+      if (value) params.set(key, value);
+      else params.delete(key);
+    }
+    const search = params.toString();
+    history.replaceState(null, '', `${location.pathname}${search ? `?${search}` : ''}${location.hash}`);
+  } catch {
+    /* abaikan bila riwayat/URL tidak dapat diubah */
+  }
+}
+
+/** Membaca nilai seluruh `keys` dari query string URL (pasangan yang ada saja). */
+export function readQuery(keys: string[]): Record<string, string> {
+  const out: Record<string, string> = {};
+  try {
+    const params = new URLSearchParams(location.search);
+    for (const key of keys) {
+      const value = params.get(key);
+      if (value !== null) out[key] = value;
+    }
+  } catch {
+    /* abaikan URL yang tidak dapat dibaca */
+  }
+  return out;
 }
 
 /** Pegangan yang dikembalikan `setupFilterPage`. */
@@ -135,33 +170,25 @@ export function setupFilterPage(options: FilterPageOptions): FilterPageHandle {
 
   const writeUrl = (): void => {
     if (!options.syncUrl) return;
-    try {
-      const params = new URLSearchParams(location.search);
-      for (const [key, value] of Object.entries(state)) {
-        if (value) params.set(key, value);
-        else params.delete(key);
-      }
-      const search = params.toString();
-      const next = `${location.pathname}${search ? `?${search}` : ''}${location.hash}`;
-      history.replaceState(null, '', next);
-    } catch {
-      /* abaikan bila riwayat/URL tidak dapat diubah */
-    }
+    const values: Record<string, string> = { ...state };
+    if (options.queryKey) values[options.queryKey] = query().trim();
+    writeQuery(values);
   };
 
   const readUrl = (): void => {
     if (!options.syncUrl) return;
-    try {
-      const params = new URLSearchParams(location.search);
-      for (const [key, handle] of handles) {
-        const value = params.get(key);
-        if (value && handle.hasValue(value)) {
-          handle.setValue(value);
-          state[key] = value;
-        }
+    const keys = [...handles.keys()];
+    if (options.queryKey) keys.push(options.queryKey);
+    const read = readQuery(keys);
+    for (const [key, handle] of handles) {
+      const value = read[key];
+      if (value && handle.hasValue(value)) {
+        handle.setValue(value);
+        state[key] = value;
       }
-    } catch {
-      /* abaikan parameter yang tidak valid */
+    }
+    if (options.queryKey && options.searchInput && read[options.queryKey]) {
+      options.searchInput.value = read[options.queryKey];
     }
   };
 
@@ -185,8 +212,12 @@ export function setupFilterPage(options: FilterPageOptions): FilterPageHandle {
   readUrl();
 
   if (options.searchInput) {
-    options.searchInput.addEventListener('input', run);
-    options.searchInput.addEventListener('search', run);
+    const onSearch = (): void => {
+      run();
+      writeUrl();
+    };
+    options.searchInput.addEventListener('input', onSearch);
+    options.searchInput.addEventListener('search', onSearch);
   }
 
   // Tulis ulang URL setelah membaca agar parameter tak sah ikut dibersihkan,

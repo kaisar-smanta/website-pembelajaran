@@ -4,21 +4,15 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
-import {
-  ELEMENTS,
-  GRADES,
-  SUBJECTS,
-  SUBJECT_ORDER,
-  elementOrderFor,
-  gradesFor,
-} from '@/data/curriculum';
+import { ELEMENTS, GRADES, SUBJECTS, elementOrderFor, gradesFor } from '@/data/curriculum';
 import { topicsBySubject, topicSubject } from '@/data/topics';
 import { topicIdsWithQuestions } from '@/data/questions';
+import { subjectsWithContent } from '@/lib/routes';
 import { url, gradeUrl, elementOverviewUrl } from '@/utils/url';
 import type { SubjectId } from '@/types/content';
 
 export function getStaticPaths() {
-  return SUBJECT_ORDER.map((subject) => ({ params: { subject } }));
+  return subjectsWithContent().map((subject) => ({ params: { subject } }));
 }
 
 const subject = Astro.params.subject as SubjectId;
