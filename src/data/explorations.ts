@@ -1,4 +1,4 @@
-import type { ElementId, Exploration, Grade } from '@/types/content';
+import type { Exploration, Grade } from '@/types/content';
 
 /**
  * Registri eksplorasi interaktif.
@@ -1235,32 +1235,7 @@ export function explorationsByGrade(grade: Grade): Exploration[] {
   return orderedExplorations().filter((e) => e.grade === grade);
 }
 
-/** Eksplorasi per elemen kurikulum. */
-export function explorationsByElement(element: ElementId): Exploration[] {
-  return orderedExplorations().filter((e) => e.element === element);
-}
-
 /** Eksplorasi unggulan untuk beranda. */
 export function featuredExplorations(): Exploration[] {
   return explorations.filter((e) => e.featured);
-}
-
-/** Parameter default berdasarkan tipe eksplorasi. */
-export function defaultParams(type: Exploration['type']): { a: number; b: number; c: number } {
-  switch (type) {
-    case 'compound-interest':
-      return { a: 10000000, b: 6, c: 10 };
-    case 'probability':
-      return { a: 100, b: 0.5, c: 0 };
-    case 'linear-regression':
-      return { a: 0, b: 0, c: 0 };
-    case 'sequence':
-      return { a: 2, b: 2, c: 10 };
-    case 'distribution':
-      return { a: 0, b: 0, c: 0 };
-    case 'conditional-probability':
-      return { a: 0.5, b: 0.5, c: 0.5 };
-    default:
-      return { a: 1, b: 2, c: 0 };
-  }
 }

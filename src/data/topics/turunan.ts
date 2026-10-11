@@ -9,6 +9,7 @@ export const turunan: Topic = {
   phase: 'F',
   element: 'kalkulus',
   subject: 'matematika-lanjut',
+  featured: true,
   status: 'lengkap',
   estimatedMinutes: 100,
   summary:

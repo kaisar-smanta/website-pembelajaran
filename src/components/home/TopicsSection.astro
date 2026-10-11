@@ -2,11 +2,10 @@
 import type { SubjectId } from '@/types/content';
 import TopicCard from '@/components/content/TopicCard.astro';
 import { SUBJECTS } from '@/data/curriculum';
-import { FEATURED_TOPIC_IDS } from '@/data/display';
-import { resolveTopics, topicSubject } from '@/data/topics';
+import { topics, topicSubject } from '@/data/topics';
 import { url } from '@/utils/url';
 
-const featured = resolveTopics(FEATURED_TOPIC_IDS);
+const featured = topics.filter((topic) => topic.featured);
 const subjectOrder: SubjectId[] = ['matematika', 'matematika-lanjut'];
 const featuredGroups = subjectOrder
   .map((subjectId) => ({

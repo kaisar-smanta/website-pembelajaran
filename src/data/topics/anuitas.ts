@@ -8,7 +8,6 @@ export const anuitas: Topic = {
   grade: 'XI',
   phase: 'F',
   element: 'bilangan',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 90,
   summary:

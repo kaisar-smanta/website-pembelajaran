@@ -8,7 +8,6 @@ export const asosiasiKausalitas: Topic = {
   grade: 'XII',
   phase: 'F',
   element: 'data-peluang',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 70,
   summary:

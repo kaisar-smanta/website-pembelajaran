@@ -8,7 +8,6 @@ export const fungsiInvers: Topic = {
   grade: 'XI',
   phase: 'F',
   element: 'aljabar-fungsi',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 80,
   summary:

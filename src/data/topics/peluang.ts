@@ -8,7 +8,6 @@ export const peluang: Topic = {
   grade: 'XI',
   phase: 'F',
   element: 'data-peluang',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 90,
   summary:

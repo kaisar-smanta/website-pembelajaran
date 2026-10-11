@@ -1,4 +1,4 @@
-import type { Application, ApplicationCategory, ElementId, Grade } from '@/types/content';
+import type { Application, ApplicationCategory, ElementId } from '@/types/content';
 import { keuanganApplications } from './keuangan.ts';
 import { dataApplications } from './data.ts';
 import { pertumbuhanApplications } from './pertumbuhan.ts';
@@ -48,12 +48,9 @@ export const applicationCategories: Record<ApplicationCategory, ApplicationCateg
   },
 };
 
-export const applicationCategoryOrder: ApplicationCategory[] = [
-  'keuangan',
-  'data',
-  'pertumbuhan',
-  'pengukuran',
-];
+export const applicationCategoryOrder: ApplicationCategory[] = Object.keys(
+  applicationCategories,
+) as ApplicationCategory[];
 
 export const applications: Application[] = [
   ...keuanganApplications,
@@ -73,14 +70,6 @@ export function applicationsForTopic(topicId: string): Application[] {
 
 export function applicationsByCategory(category: ApplicationCategory): Application[] {
   return applications.filter((a) => a.category === category);
-}
-
-export function applicationsByGrade(grade: Grade): Application[] {
-  return applications.filter((a) => a.grade === grade);
-}
-
-export function applicationsByElement(element: ElementId): Application[] {
-  return applications.filter((a) => a.element === element);
 }
 
 /**

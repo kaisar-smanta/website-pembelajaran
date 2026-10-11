@@ -240,8 +240,7 @@ $$R_{\\theta} = \\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta 
 Sudut-sudut istimewa memberi bentuk sederhana:
 $$R_{90^\\circ} = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}, \\quad R_{180^\\circ} = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}, \\quad R_{270^\\circ} = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}.$$
 Sebagai contoh, $R_{90^\\circ}$ memetakan $(1,0)$ ke $(0,1)$ dan $(3,1)$ ke $(-1,3)$.
-
-        Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, sehingga rotasi tidak mengubah luas.`,
+Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, sehingga rotasi tidak mengubah luas.`,
       blocks: [
         {
           kind: "figure",

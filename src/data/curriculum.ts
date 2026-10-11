@@ -152,11 +152,6 @@ export function phasesFor(subject: SubjectId): Phase[] {
   return SUBJECTS[subject].phases;
 }
 
-/** Mata pelajaran sebuah entri; entri lama tanpa penanda dianggap Matematika. */
-export function subjectOf(entry: { subject?: SubjectId } | undefined): SubjectId {
-  return entry?.subject ?? 'matematika';
-}
-
 export interface GradeMeta {
   id: Grade;
   phase: Phase;
@@ -193,11 +188,3 @@ export const GRADES: Record<Grade, GradeMeta> = {
 };
 
 export const GRADE_ORDER: Grade[] = ['X', 'XI', 'XII'];
-
-export const ELEMENT_LABELS: Record<ElementId, string> = {
-  bilangan: 'Bilangan',
-  'aljabar-fungsi': 'Aljabar dan Fungsi',
-  geometri: 'Geometri',
-  kalkulus: 'Kalkulus',
-  'data-peluang': 'Analisis Data dan Peluang',
-};

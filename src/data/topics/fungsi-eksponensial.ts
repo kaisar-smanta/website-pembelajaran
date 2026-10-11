@@ -8,7 +8,6 @@ export const fungsiEksponensial: Topic = {
   grade: 'X',
   phase: 'E',
   element: 'aljabar-fungsi',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 90,
   summary:

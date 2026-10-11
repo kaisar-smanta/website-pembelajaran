@@ -8,7 +8,6 @@ export const bungaMajemuk: Topic = {
   grade: 'XI',
   phase: 'F',
   element: 'bilangan',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 80,
   summary:

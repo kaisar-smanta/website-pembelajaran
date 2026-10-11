@@ -8,7 +8,6 @@ export const peluangBersyarat: Topic = {
   grade: 'XII',
   phase: 'F',
   element: 'data-peluang',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 90,
   summary:

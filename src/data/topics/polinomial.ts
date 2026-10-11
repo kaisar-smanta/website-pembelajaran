@@ -9,6 +9,7 @@ export const polinomial: Topic = {
   phase: 'F',
   element: 'aljabar-fungsi',
   subject: 'matematika-lanjut',
+  featured: true,
   status: 'lengkap',
   estimatedMinutes: 100,
   summary:

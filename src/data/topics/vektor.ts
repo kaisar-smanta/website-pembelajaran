@@ -9,6 +9,7 @@ export const vektor: Topic = {
   phase: 'F',
   element: 'geometri',
   subject: 'matematika-lanjut',
+  featured: true,
   status: 'lengkap',
   estimatedMinutes: 120,
   summary:

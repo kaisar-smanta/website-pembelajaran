@@ -1,92 +1,29 @@
 import type { Difficulty, Question } from '@/types/content';
-import { eksponenQuestions } from './eksponen';
-import { barisanDeretQuestions } from './barisan-deret';
-import { spltvQuestions } from './spltv';
-import { fungsiKuadratQuestions } from './fungsi-kuadrat';
-import { fungsiEksponensialQuestions } from './fungsi-eksponensial';
-import { trigonometriQuestions } from './trigonometri';
-import { analisisDistribusiDataQuestions } from './analisis-distribusi-data';
-import { bungaMajemukQuestions } from './bunga-majemuk';
-import { anuitasQuestions } from './anuitas';
-import { matriksQuestions } from './matriks';
-import { fungsiInversQuestions } from './fungsi-invers';
-import { komposisiFungsiQuestions } from './komposisi-fungsi';
-import { transformasiFungsiQuestions } from './transformasi-fungsi';
-import { lingkaranQuestions } from './lingkaran';
-import { dataBivariatQuestions } from './data-bivariat';
-import { regresiQuestions } from './regresi';
-import { peluangQuestions } from './peluang';
-import { peluangBersyaratQuestions } from './peluang-bersyarat';
-import { asosiasiKausalitasQuestions } from './asosiasi-kausalitas';
-import { persamaanEksponenLogaritmaQuestions } from './persamaan-eksponen-logaritma';
-import { sistemPertidaksamaanQuestions } from './sistem-pertidaksamaan';
-import { statistikDalamKehidupanQuestions } from './statistik-dalam-kehidupan';
-import { pemodelanFungsiQuestions } from './pemodelan-fungsi';
-import { pinjamanInvestasiQuestions } from './pinjaman-investasi';
-import { permutasiKombinasiQuestions } from './permutasi-kombinasi';
-import { polinomialQuestions } from './polinomial';
-import { matriksTransformasiQuestions } from './matriks-transformasi';
-import { trigonometriLanjutQuestions } from './trigonometri-lanjut';
-import { vektorQuestions } from './vektor';
-import { irisanKerucutQuestions } from './irisan-kerucut';
-import { turunanQuestions } from './turunan';
-import { aplikasiTurunanQuestions } from './aplikasi-turunan';
-import { integralQuestions } from './integral';
-import { variabelAcakDiskretQuestions } from './variabel-acak-diskret';
-import { limitFungsiQuestions } from './limit-fungsi';
-import { distribusiBinomialQuestions } from './distribusi-binomial';
-import { transformasiGeometriQuestions } from './transformasi-geometri';
-import { induksiMatematikaQuestions } from './induksi-matematika';
-import { teoriBilanganQuestions } from './teori-bilangan';
-import { ketaksamaanQuestions } from './ketaksamaan';
-import { kombinatorikaLanjutQuestions } from './kombinatorika-lanjut';
 
-/** Seluruh bank soal. Tambahkan berkas per topik lalu impor di sini. */
-export const questions: Question[] = [
-  eksponenQuestions,
-  barisanDeretQuestions,
-  spltvQuestions,
-  sistemPertidaksamaanQuestions,
-  fungsiKuadratQuestions,
-  fungsiEksponensialQuestions,
-  persamaanEksponenLogaritmaQuestions,
-  trigonometriQuestions,
-  statistikDalamKehidupanQuestions,
-  analisisDistribusiDataQuestions,
-  bungaMajemukQuestions,
-  anuitasQuestions,
-  matriksQuestions,
-  fungsiInversQuestions,
-  komposisiFungsiQuestions,
-  pemodelanFungsiQuestions,
-  transformasiFungsiQuestions,
-  transformasiGeometriQuestions,
-  lingkaranQuestions,
-  dataBivariatQuestions,
-  regresiQuestions,
-  peluangQuestions,
-  peluangBersyaratQuestions,
-  asosiasiKausalitasQuestions,
-  permutasiKombinasiQuestions,
-  pinjamanInvestasiQuestions,
-  // Matematika Tingkat Lanjut (Fase F)
-  polinomialQuestions,
-  matriksTransformasiQuestions,
-  trigonometriLanjutQuestions,
-  vektorQuestions,
-  irisanKerucutQuestions,
-  turunanQuestions,
-  aplikasiTurunanQuestions,
-  integralQuestions,
-  variabelAcakDiskretQuestions,
-  // Pengayaan di luar CP resmi
-  limitFungsiQuestions,
-  distribusiBinomialQuestions,
-  induksiMatematikaQuestions,
-  teoriBilanganQuestions,
-  ketaksamaanQuestions,
-  kombinatorikaLanjutQuestions,
-].flat();
+/**
+ * Berkas soal didaftarkan otomatis lewat glob. Setiap berkas mengekspor satu
+ * atau lebih array soal; semua objek dengan `id` dan `topicId` dikumpulkan.
+ */
+const modules = import.meta.glob(['./*.ts', '!./index.ts'], { eager: true }) as Record<
+  string,
+  unknown
+>;
+
+function isQuestion(value: unknown): value is Question {
+  return (
+    Boolean(value) &&
+    typeof value === 'object' &&
+    typeof (value as { id?: unknown }).id === 'string' &&
+    typeof (value as { topicId?: unknown }).topicId === 'string'
+  );
+}
+
+/** Seluruh bank soal; tambahkan berkas per topik lalu terdaftar otomatis. */
+export const questions: Question[] = Object.values(modules).flatMap((module) =>
+  Object.values(module as Record<string, unknown>).flatMap((value) =>
+    Array.isArray(value) ? value.filter(isQuestion) : [],
+  ),
+);
 
 const byId = new Map<string, Question>(questions.map((q) => [q.id, q]));
 
@@ -96,10 +33,6 @@ export function getQuestion(id: string): Question | undefined {
 
 export function questionsByTopic(topicId: string): Question[] {
   return questions.filter((q) => q.topicId === topicId);
-}
-
-export function questionsByDifficulty(difficulty: Difficulty): Question[] {
-  return questions.filter((q) => q.difficulty === difficulty);
 }
 
 export function questionsByTopicAndDifficulty(topicId: string, difficulty: Difficulty): Question[] {
@@ -119,10 +52,6 @@ export function practiceCounts(topicId: string): { dasar: number; cakap: number;
     cakap: items.filter((q) => q.difficulty === 'cakap').length,
     mahir: items.filter((q) => q.difficulty === 'mahir').length,
   };
-}
-
-export function questionsByCategory(category: Question['category']): Question[] {
-  return questions.filter((q) => q.category === category);
 }
 
 export const assessmentCategories: { id: NonNullable<Question['category']>; name: string; description: string }[] = [

@@ -8,7 +8,6 @@ export const dataBivariat: Topic = {
   grade: 'XI',
   phase: 'F',
   element: 'data-peluang',
-  featured: true,
   status: 'lengkap',
   estimatedMinutes: 80,
   summary:
