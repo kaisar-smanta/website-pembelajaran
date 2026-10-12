@@ -12,11 +12,12 @@ const { path, delay = 0 } = Astro.props;
 const subject = path.subject ?? 'matematika';
 
 const steps = path.nodes.map((node, index) => {
+  const element = node.element;
   const href =
     node.id && node.grade && node.element
       ? topicUrl(node.grade, node.element, node.id, subject)
       : undefined;
-  return { node, index, href };
+  return { node, index, href, element };
 });
 ---
 
@@ -30,17 +31,20 @@ const steps = path.nodes.map((node, index) => {
   <p class="path-note text-muted">{path.note}</p>
   <ol class="path-steps">
     {
-      steps.map(({ node, index, href }) => (
+      steps.map(({ node, index, href, element }) => (
         <li class:list={['path-step', { 'is-planned': !href }]}>
           <span class="step-marker" aria-hidden="true">{index + 1}</span>
           {href ? (
-            <a class="step-body" href={href}>
-              <span
-                class:list={['step-icon', 'icon-tile', `accent-${node.element}`]}
-              >
-                <ElementIcon element={node.element!} size={16} />
+            <a class="step-body" href={href} data-topic-id={node.id}>
+              {element && (
+                <span class:list={['step-icon', 'icon-tile', `accent-${element}`]}>
+                  <ElementIcon element={element} size={16} />
+                </span>
+              )}
+              <span class="step-label">
+                {node.label}
+                <span class="step-progress" aria-hidden="true"></span>
               </span>
-              <span class="step-label">{node.label}</span>
               <span class="badge step-grade">Kelas {node.grade}</span>
             </a>
           ) : (
@@ -55,7 +59,10 @@ const steps = path.nodes.map((node, index) => {
   </ol>
   <p class="path-foot">
     <span class="path-count">{path.nodes.length} tahap</span>
-    <a href="#peta-lengkap">Lihat di peta lengkap →</a>
+    <span class="path-foot-links">
+      <a href="#prasyarat">Lihat prasyarat →</a>
+      <a href="#peta-lengkap">Lihat di peta lengkap →</a>
+    </span>
   </p>
 </article>
 
@@ -172,6 +179,40 @@ const steps = path.nodes.map((node, index) => {
     font-weight: 600;
     font-size: 0.95rem;
   }
+  /* Penanda kemajuan latihan pada tiap tahap: lambang kecil, bukan hanya warna. */
+  .step-progress {
+    display: none;
+  }
+  a.step-body.is-started .step-progress,
+  a.step-body.is-completed .step-progress {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.35rem;
+    min-width: 1rem;
+    height: 1rem;
+    padding-inline: 0.26rem;
+    border-radius: 999px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  a.step-body.is-started .step-progress::after {
+    content: '\2026';
+    color: var(--color-text-muted);
+  }
+  a.step-body.is-started .step-progress {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+  }
+  a.step-body.is-completed .step-progress::after {
+    content: '\2713';
+    color: var(--color-on-primary);
+  }
+  a.step-body.is-completed .step-progress {
+    background: var(--color-primary);
+  }
   .step-grade {
     display: inline-flex;
     align-items: center;
@@ -199,6 +240,11 @@ const steps = path.nodes.map((node, index) => {
     align-items: center;
     min-height: 24px;
     padding-block: 0.15rem;
+  }
+  .path-foot-links {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.85rem;
   }
   .path-count {
     display: inline-block;

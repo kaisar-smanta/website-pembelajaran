@@ -117,6 +117,11 @@ export const STATIC_PAGES: StaticPage[] = [
     listed: { label: 'Latihan & Asesmen', note: 'Bank soal berjenjang', order: 1 },
   },
   {
+    path: 'latihan/kilat',
+    title: 'Latihan Kilat',
+    description: 'Sesi latihan campuran sepuluh soal acak dari berbagai topik dan tingkat.',
+  },
+  {
     path: 'tantangan',
     title: 'Tantangan',
     description: 'Soal tantangan dan materi pengayaan untuk siswa di atas capaian.',

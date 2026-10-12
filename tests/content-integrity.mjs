@@ -66,6 +66,37 @@ for (const topic of topics) {
     const hasBody = typeof section.body === 'string' && section.body.trim().length > 0;
     const hasBlocks = Array.isArray(section.blocks) && section.blocks.length > 0;
     ok(hasBody || hasBlocks, `topik ${topic.id}: bagian ${section.id} kosong`);
+
+    // ---- 7. Integritas blok: alt gambar & indeks kesalahan ----
+    for (const block of section.blocks ?? []) {
+      if (block.kind === 'figure') {
+        ok(
+          typeof block.alt === 'string' && block.alt.trim().length > 0,
+          `topik ${topic.id}, bagian ${section.id}: figure tanpa alt`,
+        );
+        ok(
+          typeof block.svg === 'string' && block.svg.trim().length > 0,
+          `topik ${topic.id}, bagian ${section.id}: figure tanpa svg`,
+        );
+      }
+      if (block.kind === 'spot-mistake') {
+        ok(
+          Number.isInteger(block.wrongIndex) &&
+            block.wrongIndex >= 0 &&
+            block.wrongIndex < block.steps.length,
+          `topik ${topic.id}, bagian ${section.id}: wrongIndex di luar rentang (${block.wrongIndex} dari ${block.steps.length})`,
+        );
+      }
+      if (block.kind === 'flip-cards') {
+        ok(block.cards.length >= 1, `topik ${topic.id}, bagian ${section.id}: flip-cards kosong`);
+      }
+      if (block.kind === 'match') {
+        ok(block.pairs.length >= 1, `topik ${topic.id}, bagian ${section.id}: match kosong`);
+      }
+      if (block.kind === 'step-reveal') {
+        ok(block.steps.length >= 1, `topik ${topic.id}, bagian ${section.id}: step-reveal kosong`);
+      }
+    }
   }
 }
 

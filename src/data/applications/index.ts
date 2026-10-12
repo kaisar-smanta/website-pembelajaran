@@ -46,6 +46,12 @@ export const applicationCategories: Record<ApplicationCategory, ApplicationCateg
     element: 'geometri',
     accent: 'var(--color-geometry)',
   },
+  kalkulus: {
+    name: 'Perubahan & Akumulasi',
+    description: 'Laju perubahan, optimasi, dan akumulasi; inti Matematika Tingkat Lanjut.',
+    element: 'kalkulus',
+    accent: 'var(--color-calculus)',
+  },
 };
 
 export const applicationCategoryOrder: ApplicationCategory[] = Object.keys(

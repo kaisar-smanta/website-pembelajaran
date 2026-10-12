@@ -17,6 +17,8 @@ import {
   type FormulaEntry,
   type ReferenceTopic,
 } from '@/lib/reference';
+import { sectionKindTitles } from '@/lib/content-text';
+import type { SectionKind } from '@/types/content';
 import { normalizeText } from '@/lib/filter';
 import { renderMarkdown, stripMarkdown } from '@/utils/markdown';
 import { topicUrl, url } from '@/utils/url';
@@ -27,6 +29,11 @@ const crumbs = [
 ];
 
 const formulaEntries = collectFormulaEntries(topics);
+
+/** Label ringkas untuk lencana jenis bagian; judul lengkap terlalu panjang. */
+function formulaKindLabel(kind: SectionKind): string {
+  return kind === 'rumus' ? 'Rumus' : sectionKindTitles[kind];
+}
 
 interface TopicGroup {
   topic: ReferenceTopic;
@@ -195,7 +202,7 @@ const meta = [
                           <h5 class="rumus-block-title">
                             {section.title}
                             <span class={`rumus-kind rumus-kind-${section.kind}`}>
-                              {section.kind === 'rumus' ? 'Rumus' : 'Generalisasi'}
+                              {formulaKindLabel(section.kind)}
                             </span>
                           </h5>
                           <div class="prose rumus-block-body" set:html={renderMarkdown(section.body)} />
@@ -552,6 +559,16 @@ const meta = [
   }
   .rumus-kind-generalisasi {
     border-style: dashed;
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+  }
+  /* Rumus yang tersimpan di blok bagian lain (mis. tabel rangkuman, panel
+     representasi) diberi corak berbeda agar asalnya jelas. */
+  .rumus-kind-rangkuman,
+  .rumus-kind-representasi,
+  .rumus-kind-konsep,
+  .rumus-kind-contoh {
+    border-style: dotted;
     background: var(--color-surface-2);
     color: var(--color-text-muted);
   }

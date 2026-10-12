@@ -179,8 +179,30 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
             }
           </div>
         </div>
+        <div class="filter-group filter-search" role="search">
+          <label class="filter-label" for="latihan-search">Cari topik</label>
+          <input
+            id="latihan-search"
+            type="search"
+            class="filter-input"
+            data-latihan-search
+            placeholder="Mis. eksponen, peluang, matriks"
+            autocomplete="off"
+          />
+        </div>
       </div>
       <p class="filter-result" data-result-count aria-live="polite"></p>
+      <div class="quick-cross">
+        <button type="button" class="btn btn-primary btn-sm" data-quick-cross>
+          Topik acak · 5 soal kilat
+        </button>
+        <a class="btn btn-secondary btn-sm" href={url('/latihan/kilat')}>
+          Latihan campuran · 10 soal
+        </a>
+        <span class="text-soft quick-cross-note" data-quick-cross-status aria-live="polite">
+          "Topik acak" membuka satu topik yang lolos saringan, lalu memulai 5 soal acak di dalamnya.
+        </span>
+      </div>
     </section>
 
     <section aria-labelledby="topik" class="block">
@@ -233,6 +255,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
                           subject={topicSubject(topic)}
                           counts={practiceCounts(topic.id)}
                           questionIds={questionsByTopic(topic.id).map((q) => q.id)}
+                          keywords={topic.keywords}
                         />
                       ))}
                     </div>
@@ -365,11 +388,44 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     outline: 3px solid var(--color-primary);
     outline-offset: 2px;
   }
+  .filter-search {
+    max-width: 24rem;
+  }
+  .filter-input {
+    width: 100%;
+    appearance: none;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding: 0.45rem 1rem;
+    font: inherit;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .filter-input:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
   .filter-result {
     margin: 0.85rem 0 0;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-text-muted);
+  }
+  .quick-cross {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--color-border);
+  }
+  .quick-cross-note {
+    font-size: 0.88rem;
   }
   .subject-group + .subject-group {
     margin-top: 2.75rem;
@@ -427,7 +483,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
 
 <script>
   import { loadProgress, summarize, type ProgressMap } from '@/lib/progress';
-  import { matchesAny } from '@/lib/filter';
+  import { matchesAny, normalizeText } from '@/lib/filter';
   import { setupFilterPage } from '@/lib/filter-dom';
 
   const root = document.querySelector<HTMLElement>('[data-latihan-root]');
@@ -484,17 +540,20 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     const selected = (value: string | undefined): Set<string> =>
       value ? new Set([value]) : new Set();
 
-    function matches(card: HTMLElement, values: Record<string, string>): boolean {
+    function matches(card: HTMLElement, values: Record<string, string>, query: string): boolean {
       if (!matchesAny(selected(values.kelas), [card.getAttribute('data-kelas') ?? ''])) return false;
       if (!matchesAny(selected(values.elemen), [card.getAttribute('data-elemen') ?? ''])) return false;
       const levels = (card.getAttribute('data-levels') ?? '').split(/\s+/).filter(Boolean);
-      return matchesAny(selected(values.tingkat), levels);
+      if (!matchesAny(selected(values.tingkat), levels)) return false;
+      if (query && !(card.getAttribute('data-search') ?? '').includes(query)) return false;
+      return true;
     }
 
-    function apply(values: Record<string, string>): void {
+    function apply(values: Record<string, string>, rawQuery = ''): void {
+      const query = normalizeText(rawQuery);
       let visible = 0;
       for (const card of cards) {
-        const show = matches(card, values);
+        const show = matches(card, values, query);
         card.hidden = !show;
         if (show) visible += 1;
       }
@@ -511,10 +570,15 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
 
       if (emptyEl) emptyEl.hidden = visible !== 0;
       if (countEl) {
+        const q = rawQuery.trim();
         countEl.textContent =
           visible === 0
-            ? 'Tidak ada latihan yang cocok dengan filter ini.'
-            : `Menampilkan ${visible} dari ${cards.length} topik latihan.`;
+            ? q
+              ? `Tidak ada topik latihan yang cocok dengan "${q}".`
+              : 'Tidak ada latihan yang cocok dengan filter ini.'
+            : q
+              ? `Menampilkan ${visible} topik latihan untuk "${q}".`
+              : `Menampilkan ${visible} dari ${cards.length} topik latihan.`;
       }
     }
 
@@ -528,7 +592,27 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
       }))
       .filter((spec) => (KEYS as readonly string[]).includes(spec.key));
 
-    setupFilterPage({ groups, apply, syncUrl: true });
+    const searchInput = root.querySelector<HTMLInputElement>('[data-latihan-search]');
+
+    setupFilterPage({ groups, apply, searchInput, queryKey: 'q', syncUrl: true });
+
+    // Pintasan lintas topik: buka satu topik yang lolos saringan lalu minta
+    // halaman topik memulai sesi kilat 5 soal acak (`?kilat=1`).
+    const quickCross = root.querySelector<HTMLButtonElement>('[data-quick-cross]');
+    const quickCrossStatus = root.querySelector<HTMLElement>('[data-quick-cross-status]');
+    quickCross?.addEventListener('click', () => {
+      const pool = cards.filter((card) => !card.hidden && card.querySelector('a[href]'));
+      if (!pool.length) {
+        if (quickCrossStatus) quickCrossStatus.textContent = 'Tidak ada topik yang cocok untuk dipilih.';
+        return;
+      }
+      const chosen = pool[Math.floor(Math.random() * pool.length)];
+      const href = chosen.querySelector('a[href]')?.getAttribute('href');
+      if (!href) return;
+      if (quickCrossStatus) quickCrossStatus.textContent = 'Membuka topik acak…';
+      const joiner = href.includes('?') ? '&' : '?';
+      window.location.href = `${href}${joiner}kilat=1`;
+    });
 
     updateProgress();
 

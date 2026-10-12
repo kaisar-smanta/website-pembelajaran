@@ -9,7 +9,7 @@ export const lanjutApplications: Application[] = [
   {
     id: 'mtl-optimasi-produksi',
     title: 'Menekan Biaya Produksi dengan Turunan',
-    category: 'keuangan',
+    category: 'kalkulus',
     subject: 'matematika-lanjut',
     element: 'kalkulus',
     grade: 'XII',
@@ -49,7 +49,7 @@ Perilaku model menjelaskan mengapa nilai itu muncul. Untuk $x$ kecil, suku $\\df
   {
     id: 'mtl-gerak-kecepatan',
     title: 'Kecepatan Sesaat pada Gerak Peluru',
-    category: 'pertumbuhan',
+    category: 'kalkulus',
     subject: 'matematika-lanjut',
     element: 'kalkulus',
     grade: 'XII',
@@ -241,7 +241,7 @@ Perhatikan juga peluang merugi: hasil terendah adalah $X = 0$ dengan peluang $0{
   {
     id: 'mtl-limit-kadar-obat',
     title: 'Kadar Obat dalam Darah yang Menuju Stabil',
-    category: 'pertumbuhan',
+    category: 'kalkulus',
     subject: 'matematika-lanjut',
     element: 'kalkulus',
     grade: 'XII',

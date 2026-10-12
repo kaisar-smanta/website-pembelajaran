@@ -405,6 +405,36 @@ $$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x
             ],
           ],
         },
+        {
+          kind: "match",
+          intro: "Cocokkan setiap istilah dengan maknanya sebelum menutup topik ini.",
+          pairs: [
+            {
+              left: "Garis singgung",
+              right: "Garis bergradien $f'(a)$ yang menyinggung kurva di titik $(a, f(a))$.",
+            },
+            {
+              left: "Garis normal",
+              right: "Garis tegak lurus garis singgung, bergradien $-\\dfrac{1}{f'(a)}$.",
+            },
+            {
+              left: "Titik stasioner",
+              right: "Titik pada kurva dengan $f'(x) = 0$.",
+            },
+            {
+              left: "Titik belok",
+              right: "Titik tempat kecekungan kurva berubah tanda.",
+            },
+            {
+              left: "Uji turunan kedua",
+              right: "Menentukan jenis titik ekstrem dari tanda $f''(x)$.",
+            },
+            {
+              left: "Optimasi",
+              right: "Mencari nilai maksimum atau minimum pada situasi nyata.",
+            },
+          ],
+        },
       ],
     },
     {

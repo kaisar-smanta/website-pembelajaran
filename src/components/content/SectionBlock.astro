@@ -2,6 +2,7 @@
 import type { Block, Difficulty, Section, SectionKind } from '@/types/content';
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import { sectionTitle } from '@/lib/content-text';
+import { url } from '@/utils/url';
 import BlockRenderer from './BlockRenderer.astro';
 import PracticeSet from '@/components/exercises/PracticeSet.astro';
 
@@ -23,6 +24,7 @@ const practiceLevel: Difficulty | undefined =
 const showPractice = Boolean(section.questionIds?.length || (topicId && practiceLevel));
 
 const title = sectionTitle(section);
+const showFormulaLink = section.kind === 'rumus' || section.kind === 'generalisasi';
 const bodyHtml = section.body ? renderMarkdown(section.body) : '';
 const levelBadge: Record<string, string> = {
   dasar: 'Dasar',
@@ -42,13 +44,15 @@ function blockStorageId(blockIndex: number): string {
 
 <section
   id={section.id}
-  class:list={['content-section', `kind-${section.kind}`, section.collapsed && 'is-collapsible']}
+  class:list={['content-section', `kind-${section.kind}`]}
+  data-section-progress
   aria-labelledby={`heading-${section.id}`}
 >
   <div class="section-head">
     <h2 id={`heading-${section.id}`} class="section-title">
       <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-      {title}
+      <span class="section-title-text">{title}</span>
+      <span class="section-check" aria-hidden="true"></span>
       {section.level && <span class={`badge badge-${section.level}`}>{levelBadge[section.level]}</span>}
     </h2>
   </div>
@@ -73,6 +77,16 @@ function blockStorageId(blockIndex: number): string {
   )}
 
   {
+    showFormulaLink && (
+      <p class="section-ref no-print">
+        <a class="section-ref-link" href={url('/rumus')}>
+          Lihat di Kumpulan Rumus <span aria-hidden="true">→</span>
+        </a>
+      </p>
+    )
+  }
+
+  {
     next && (
       <a class="section-next" href={`#${next.id}`}>
         <span class="section-next-label">Lanjut</span>
@@ -82,6 +96,115 @@ function blockStorageId(blockIndex: number): string {
     )
   }
 </section>
+
+<script>
+  import { loadProgress } from '@/lib/progress';
+  import { loadCompletions, loadPredictions, loadReflections } from '@/lib/learner';
+  import { safeStorage } from '@/lib/storage';
+
+  /**
+   * Menandai tiap bagian pada halaman materi sebagai "dikunjungi" (saat masuk
+   * layar) dan "selesai" (saat seluruh soal/aktivitas di dalamnya rampung).
+   * Kelas `is-visited`/`is-done` dikenakan pada bagian, judul bagian, serta
+   * tautan daftar isi/bilah "Bagian" milik halaman. Tanpa JavaScript tidak ada
+   * kelas yang ditambahkan sehingga tata letak tetap utuh.
+   */
+  function setupSectionProgress() {
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-section-progress]'),
+    );
+    if (!sections.length) return;
+
+    const storage = safeStorage();
+
+    const linksById = new Map<string, HTMLAnchorElement[]>();
+    document
+      .querySelectorAll<HTMLAnchorElement>('[data-section-nav] a[href^="#"]')
+      .forEach((link) => {
+        const id = (link.getAttribute('href') ?? '').slice(1);
+        if (!id) return;
+        const list = linksById.get(id) ?? [];
+        list.push(link);
+        linksById.set(id, list);
+      });
+
+    const headings = new Map<HTMLElement, HTMLElement | null>();
+    for (const section of sections) {
+      headings.set(section, section.querySelector<HTMLElement>('.section-title'));
+    }
+
+    const markVisited = (section: HTMLElement) => {
+      section.classList.add('is-visited');
+      headings.get(section)?.classList.add('is-visited');
+      (linksById.get(section.id) ?? []).forEach((link) => link.classList.add('is-visited'));
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) markVisited(entry.target as HTMLElement);
+          }
+        },
+        { rootMargin: '-10% 0px -60% 0px', threshold: 0 },
+      );
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    const renderDone = () => {
+      const progress = loadProgress(storage);
+      const predictions = loadPredictions(storage);
+      const reflections = loadReflections(storage);
+      const completions = loadCompletions(storage);
+
+      for (const section of sections) {
+        const questions = Array.from(
+          section.querySelectorAll<HTMLElement>('[data-question-id]'),
+        );
+        const preds = Array.from(section.querySelectorAll<HTMLElement>('[data-prediction]'));
+        const refls = Array.from(section.querySelectorAll<HTMLElement>('[data-reflection]'));
+        const acts = Array.from(section.querySelectorAll<HTMLElement>('[data-activity]'));
+        const total = questions.length + preds.length + refls.length + acts.length;
+        if (!total) continue;
+
+        let done = 0;
+        for (const el of questions) {
+          const id = el.getAttribute('data-question-id');
+          if (id && progress[id]) done += 1;
+        }
+        for (const el of preds) {
+          const id = el.getAttribute('data-storage-id');
+          if (id && predictions[id]) done += 1;
+        }
+        for (const el of refls) {
+          const id = el.getAttribute('data-storage-id');
+          if (id && reflections[id]) done += 1;
+        }
+        for (const el of acts) {
+          const id = el.getAttribute('data-storage-id');
+          if (id && completions[id]) done += 1;
+        }
+
+        const isDone = done === total;
+        section.classList.toggle('is-done', isDone);
+        headings.get(section)?.classList.toggle('is-done', isDone);
+        (linksById.get(section.id) ?? []).forEach((link) =>
+          link.classList.toggle('is-done', isDone),
+        );
+      }
+    };
+
+    renderDone();
+    window.addEventListener('mtk:progress', renderDone);
+    window.addEventListener('mtk:interaction', renderDone);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSectionProgress);
+  } else {
+    setupSectionProgress();
+  }
+</script>
 
 <style>
   .content-section {
@@ -180,6 +303,64 @@ function blockStorageId(blockIndex: number): string {
   .section-title .badge {
     margin-left: auto;
   }
+  .section-title-text {
+    min-width: 0;
+  }
+
+  /* Penanda kemajuan bagian: bulat kosong saat dikunjungi, centang saat selesai. */
+  .section-check {
+    display: none;
+    flex: none;
+    align-self: center;
+    position: relative;
+    width: 1.05rem;
+    height: 1.05rem;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in srgb, var(--sec) 38%, var(--color-border));
+    background: color-mix(in srgb, var(--sec) 8%, var(--color-surface));
+  }
+  .content-section.is-visited .section-check,
+  .content-section.is-done .section-check {
+    display: inline-block;
+  }
+  .content-section.is-done .section-check {
+    border-color: color-mix(in srgb, var(--color-success) 55%, var(--color-border));
+    background: color-mix(in srgb, var(--color-success) 12%, var(--color-surface));
+  }
+  .section-check::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 0.3rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--color-success);
+    border-bottom: 2px solid var(--color-success);
+    transform: translate(-50%, -50%) rotate(45deg);
+    opacity: 0;
+  }
+  .content-section.is-done .section-check::after {
+    opacity: 1;
+  }
+
+  /* Tautan rujukan rumus pada bagian rumus/generalisasi. */
+  .section-ref {
+    margin: 0.9rem 0 0;
+  }
+  .section-ref-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--sec) 68%, var(--color-text));
+    text-underline-offset: 0.16em;
+  }
+  .section-ref-link:hover,
+  .section-ref-link:focus-visible {
+    color: var(--sec);
+  }
+
   .section-body {
     max-width: 70ch;
     min-width: 0;
@@ -308,6 +489,36 @@ function blockStorageId(blockIndex: number): string {
   .section-next:focus-visible .section-next-arrow {
     transform: translateX(2px);
   }
+  /* Penanda pada daftar isi / bilah "Bagian" (milik halaman, bukan komponen). */
+  :global([data-section-nav].outline a.is-visited) {
+    border-left-color: color-mix(in srgb, var(--color-success) 55%, transparent);
+  }
+  :global(.section-jump-list a.is-visited::before) {
+    content: '';
+    display: inline-block;
+    width: 0.34rem;
+    height: 0.34rem;
+    margin-right: 0.35rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-success) 62%, transparent);
+    vertical-align: middle;
+  }
+  :global([data-section-nav] a.is-done) {
+    color: color-mix(in srgb, var(--color-success) 68%, var(--color-text));
+    font-weight: 600;
+  }
+  :global([data-section-nav] a.is-done::after) {
+    content: '';
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.55rem;
+    margin-left: 0.4rem;
+    border-right: 1.5px solid var(--color-success);
+    border-bottom: 1.5px solid var(--color-success);
+    transform: rotate(45deg) translateY(-1px);
+    vertical-align: middle;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .section-next,
     .section-next-arrow {
@@ -316,6 +527,15 @@ function blockStorageId(blockIndex: number): string {
     .section-next:hover .section-next-arrow,
     .section-next:focus-visible .section-next-arrow {
       transform: none;
+    }
+    .section-check::after {
+      transition: none;
+    }
+  }
+  /* Penanda kemajuan bagian tidak perlu ikut tercetak (mis. lembar kerja). */
+  @media print {
+    .section-check {
+      display: none !important;
     }
   }
 </style>

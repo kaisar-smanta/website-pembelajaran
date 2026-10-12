@@ -52,8 +52,7 @@ export type SectionKind =
   | 'rangkuman'
   | 'evaluasi'
   | 'sejarah'
-  | 'tantangan'
-  | 'catatan';
+  | 'tantangan';
 
 /** Blok tambahan di luar markdown, untuk kasus yang butuh UI khusus. */
 export type Block =
@@ -71,7 +70,6 @@ export type Block =
       rows: string[][];
       /** Jika true, sel dirender sebagai matematika (tanpa tanda $) */
       math?: boolean;
-      scroll?: boolean;
     }
   | {
       kind: 'figure';
@@ -152,8 +150,6 @@ export interface Section {
   body?: string;
   blocks?: Block[];
   level?: Difficulty;
-  /** Bila true, bagian disembunyikan di balik tombol "lihat". */
-  collapsed?: boolean;
   /**
    * Id soal dari bank soal (`src/data/questions`) yang ditampilkan sebagai
    * latihan interaktif. Menjadikan bank soal sumber tunggal latihan.
@@ -247,7 +243,8 @@ export type ApplicationCategory =
   | 'keuangan'
   | 'data'
   | 'pertumbuhan'
-  | 'pengukuran';
+  | 'pengukuran'
+  | 'kalkulus';
 
 export interface Application {
   id: string;

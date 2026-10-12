@@ -5,6 +5,13 @@ function assertNever(value: never): never {
   throw new Error(`Jenis blok belum ditangani pada indeks pencarian: ${JSON.stringify(value)}`);
 }
 
+/**
+ * Pencari teks eksplorasi berdasarkan id. Disuntikkan oleh pemanggil (mis.
+ * `search.json.ts`) agar modul ini tidak bergantung pada data materi — data
+ * eksplorasi tetap ikut terindeks tanpa menyeretnya ke bundel mana pun.
+ */
+export type ExplorationTextLookup = (id: string) => string | undefined;
+
 /** Judul bawaan tiap jenis bagian, dipakai seragam oleh konten dan daftar isi. */
 export const sectionKindTitles: Record<SectionKind, string> = {
   tujuan: 'Tujuan Pembelajaran',
@@ -27,7 +34,6 @@ export const sectionKindTitles: Record<SectionKind, string> = {
   evaluasi: 'Evaluasi',
   sejarah: 'Jejak Sejarah',
   tantangan: 'Tantangan',
-  catatan: 'Catatan',
 };
 
 /**
@@ -43,12 +49,15 @@ export function sectionTitle(section: Section): string {
  * `src/pages/search.json.ts`; sebelumnya tinggal di `enhance.ts` yang kini
  * dihapus karena blok interaktif sudah ditulis langsung pada data topik.
  */
-export function sectionSearchText(section: Section): string {
+export function sectionSearchText(
+  section: Section,
+  explorationText?: ExplorationTextLookup,
+): string {
   const parts: string[] = [section.title ?? '', section.body ?? ''];
   for (const block of section.blocks ?? []) {
     switch (block.kind) {
       case 'callout':
-        parts.push(block.text);
+        parts.push(block.title ?? '', block.text);
         break;
       case 'table':
         parts.push(block.caption ?? '', ...block.headers, ...block.rows.flat());
@@ -57,7 +66,7 @@ export function sectionSearchText(section: Section): string {
         parts.push(block.alt, block.caption ?? '');
         break;
       case 'exploration':
-        parts.push(block.explorationId);
+        parts.push(block.explorationId, explorationText?.(block.explorationId) ?? '');
         break;
       case 'details':
         parts.push(block.summary, block.text);
@@ -66,7 +75,7 @@ export function sectionSearchText(section: Section): string {
         parts.push(block.prompt, ...(block.options ?? []), block.reveal);
         break;
       case 'reflection':
-        parts.push(...block.prompts);
+        parts.push(...block.prompts, block.confidenceLabel ?? '');
         break;
       case 'step-reveal':
         parts.push(block.intro ?? '', ...block.steps.map((s) => `${s.title ?? ''} ${s.text}`));

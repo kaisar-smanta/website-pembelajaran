@@ -62,9 +62,12 @@ const meta = [
 const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 
 // Faset kategori hanya menampilkan kategori yang benar-benar ada di topik ini.
-const presentCategories = assessmentCategories.filter((category) =>
-  all.some((q) => q.category === category.id),
-);
+const presentCategories = assessmentCategories
+  .filter((category) => all.some((q) => q.category === category.id))
+  .map((category) => ({
+    ...category,
+    count: all.filter((q) => q.category === category.id).length,
+  }));
 ---
 
 <BaseLayout title={`Latihan ${topic?.title ?? ''}`} description={`Latihan soal ${topic?.title} berjenjang.`}>
@@ -259,8 +262,10 @@ const presentCategories = assessmentCategories.filter((category) =>
                     data-filter="kategori"
                     data-value={category.id}
                     aria-pressed="false"
+                    title={category.description}
                   >
                     {category.name}
+                    <span class="filter-count">{category.count}</span>
                   </button>
                 ))}
               </div>
@@ -306,6 +311,12 @@ const presentCategories = assessmentCategories.filter((category) =>
         </div>
       </div>
       <p class="filter-result" data-filter-count aria-live="polite"></p>
+      <div class="quick-drill">
+        <button type="button" class="btn btn-primary btn-sm" data-quick-drill aria-pressed="false">
+          Latihan kilat · 5 soal acak
+        </button>
+        <p class="quick-status text-soft" data-quick-status aria-live="polite"></p>
+      </div>
     </section>
 
     {
@@ -677,11 +688,41 @@ const presentCategories = assessmentCategories.filter((category) =>
     outline: 3px solid var(--color-primary);
     outline-offset: 2px;
   }
+  .filter-btn .filter-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 0.3rem;
+    padding-inline: 0.3rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    background: color-mix(in srgb, var(--color-text) 10%, transparent);
+    vertical-align: middle;
+  }
+  .filter-btn[aria-pressed='true'] .filter-count {
+    background: color-mix(in srgb, var(--color-on-primary) 24%, transparent);
+  }
   .filter-result {
     margin: 0.85rem 0 0;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-text-muted);
+  }
+  .quick-drill {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--color-border);
+  }
+  .quick-status {
+    margin: 0;
+    font-size: 0.88rem;
   }
   .q-item[hidden],
   .level-section[hidden] {

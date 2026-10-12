@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { topics, sectionSearchText, topicSubject } from '@/data/topics';
 import { applications, applicationCategories } from '@/data/applications';
-import { orderedExplorations } from '@/data/explorations';
+import { explorations, orderedExplorations } from '@/data/explorations';
 import { topicIdsWithQuestions, questionsByTopic, practiceCounts } from '@/data/questions';
 import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
 import { DIFFICULTY_ORDER, STATIC_PAGES } from '@/data/display';
@@ -10,6 +10,12 @@ import { collectFormulaEntries, collectGlossaryEntries } from '@/lib/reference';
 import { stripMarkdown } from '@/utils/markdown';
 
 export const prerender = true;
+
+/** Teks eksplorasi per id, disuntikkan ke `sectionSearchText` agar judul/tujuan
+ *  eksplorasi ikut terindeks tanpa membuat `content-text.ts` bergantung pada data. */
+const explorationTextById = new Map(
+  explorations.map((e) => [e.id, [e.title, e.goal ?? '', e.description].join(' ')]),
+);
 
 interface SearchItem {
   title: string;
@@ -26,7 +32,9 @@ export const GET: APIRoute = () => {
   const items: SearchItem[] = [];
 
   for (const t of topics) {
-    const body = t.sections.map((s) => sectionSearchText(s)).join(' ');
+    const body = t.sections
+      .map((s) => sectionSearchText(s, (id) => explorationTextById.get(id)))
+      .join(' ');
     const subject = topicSubject(t);
     items.push({
       title: t.title,

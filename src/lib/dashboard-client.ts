@@ -9,10 +9,13 @@
 
 import { loadProgress, STORAGE_KEY, type ProgressMap } from '@/lib/progress';
 import {
+  loadCompletions,
   loadPredictions,
   loadReflections,
+  COMPLETION_KEY,
   PREDICTION_KEY,
   REFLECTION_KEY,
+  type CompletionMap,
   type PredictionMap,
   type ReflectionMap,
 } from '@/lib/learner';
@@ -78,11 +81,13 @@ export function bootDashboard(): void {
       progress: ProgressMap;
       predictions: PredictionMap;
       reflections: ReflectionMap;
+      completions: CompletionMap;
     } {
       return {
         progress: loadProgress(storage),
         predictions: loadPredictions(storage),
         reflections: loadReflections(storage),
+        completions: loadCompletions(storage),
       };
     }
 
@@ -258,7 +263,9 @@ export function bootDashboard(): void {
       if (accuracy) accuracy.textContent = percent(overview.accuracy);
       if (topicsEl) topicsEl.textContent = `${overview.topicsStarted}/${overview.topics.length}`;
       if (interactions) {
-        interactions.textContent = String(overview.predictions + overview.reflections);
+        interactions.textContent = String(
+          overview.predictions + overview.reflections + overview.activities,
+        );
       }
       const ratio = overview.totalQuestions ? overview.answered / overview.totalQuestions : 0;
       if (bar) bar.style.width = `${Math.round(ratio * 100)}%`;
@@ -462,8 +469,8 @@ export function bootDashboard(): void {
     }
 
     function render() {
-      const { progress, predictions, reflections } = readStores();
-      const overview = buildOverview(entries, progress, predictions, reflections);
+      const { progress, predictions, reflections, completions } = readStores();
+      const overview = buildOverview(entries, progress, predictions, reflections, completions);
 
       if (!overview.hasData) {
         if (emptyEl) emptyEl.hidden = false;
@@ -506,7 +513,7 @@ export function bootDashboard(): void {
       const status = root.querySelector<HTMLElement>('[data-export-status]');
 
       const collect = () => {
-        const { progress, predictions, reflections } = readStores();
+        const { progress, predictions, reflections, completions } = readStores();
         return JSON.stringify(
           {
             aplikasi: 'Matematika SMA',
@@ -515,6 +522,7 @@ export function bootDashboard(): void {
             progress,
             predictions,
             reflections,
+            completions,
           },
           null,
           2,
@@ -595,10 +603,11 @@ export function bootDashboard(): void {
         let ok = false;
         if (storage) {
           try {
-            storage.removeItem(STORAGE_KEY);
-            storage.removeItem(PREDICTION_KEY);
-            storage.removeItem(REFLECTION_KEY);
-            ok = true;
+          storage.removeItem(STORAGE_KEY);
+          storage.removeItem(PREDICTION_KEY);
+          storage.removeItem(REFLECTION_KEY);
+          storage.removeItem(COMPLETION_KEY);
+          ok = true;
           } catch {
             ok = false;
           }

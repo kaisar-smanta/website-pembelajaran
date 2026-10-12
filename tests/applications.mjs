@@ -12,7 +12,7 @@ const { applications, relatedApplications } = await load(
   'src/data/applications/index.ts',
 );
 
-const CATEGORIES = new Set(['keuangan', 'data', 'pertumbuhan', 'pengukuran']);
+const CATEGORIES = new Set(['keuangan', 'data', 'pertumbuhan', 'pengukuran', 'kalkulus']);
 const ELEMENTS = new Set(['bilangan', 'aljabar-fungsi', 'geometri', 'kalkulus', 'data-peluang']);
 const GRADES = new Set(['X', 'XI', 'XII']);
 const LEVELS = new Set(['dasar', 'cakap', 'mahir']);

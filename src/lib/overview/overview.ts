@@ -19,6 +19,7 @@ export function buildOverview(
   progress: ProgressMap,
   predictions: Record<string, StampedRecord>,
   reflections: Record<string, StampedRecord>,
+  completions: Record<string, StampedRecord> = {},
 ): SiteOverview {
   const predictionIndex = tally(predictions);
   const reflectionIndex = tally(reflections);
@@ -29,7 +30,21 @@ export function buildOverview(
     const reflection = reflectionIndex.get(entry.id);
     const predictionCount = prediction?.count ?? 0;
     const reflectionCount = reflection?.count ?? 0;
-    const activityCount = summary.answered + predictionCount + reflectionCount;
+
+    // Aktivitas interaktif (flip-cards, tabs, match, step-reveal, spot-mistake)
+    // disimpan per kunci; hitung yang tuntas agar kemajuan di halaman materi ikut
+    // tercermin di dasbor, bukan hanya soal dan refleksi.
+    const activityIds = entry.activityIds ?? [];
+    let activityDone = 0;
+    let activityLastAt = 0;
+    for (const id of activityIds) {
+      const record = completions[id];
+      if (!record) continue;
+      activityDone += 1;
+      if (typeof record.at === 'number' && record.at > activityLastAt) activityLastAt = record.at;
+    }
+
+    const activityCount = summary.answered + predictionCount + reflectionCount + activityDone;
     const completed = summary.total > 0 && summary.answered >= summary.total;
 
     return {
@@ -41,8 +56,10 @@ export function buildOverview(
       accuracy: summary.accuracy,
       predictionCount,
       reflectionCount,
+      activityDone,
+      activityTotal: activityIds.length,
       activityCount,
-      lastAt: maxStamp(summary.lastAt, prediction?.at, reflection?.at),
+      lastAt: maxStamp(summary.lastAt, prediction?.at, reflection?.at, activityLastAt),
       started: activityCount > 0,
       completed,
     };
@@ -56,6 +73,7 @@ export function buildOverview(
   let topicsCompleted = 0;
   let predictionsTotal = 0;
   let reflectionsTotal = 0;
+  let activitiesTotal = 0;
   let lastAt = 0;
 
   for (const topic of topics) {
@@ -67,6 +85,7 @@ export function buildOverview(
     if (topic.completed) topicsCompleted += 1;
     predictionsTotal += topic.predictionCount;
     reflectionsTotal += topic.reflectionCount;
+    activitiesTotal += topic.activityDone;
     if (topic.lastAt > lastAt) lastAt = topic.lastAt;
   }
 
@@ -81,8 +100,9 @@ export function buildOverview(
     topicsCompleted,
     predictions: predictionsTotal,
     reflections: reflectionsTotal,
+    activities: activitiesTotal,
     lastAt,
-    hasData: answered > 0 || predictionsTotal > 0 || reflectionsTotal > 0,
+    hasData: answered > 0 || predictionsTotal > 0 || reflectionsTotal > 0 || activitiesTotal > 0,
     mastery: buildMasterySummary(topics),
     confidence: buildConfidenceSummary(
       topics.map((topic) => ({

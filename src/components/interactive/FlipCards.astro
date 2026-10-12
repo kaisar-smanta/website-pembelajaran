@@ -1,5 +1,6 @@
 ---
 import { renderMarkdown } from '@/utils/markdown';
+import { url } from '@/utils/url';
 import type { Block } from '@/types/content';
 import './interactive-frame.css';
 
@@ -11,7 +12,7 @@ const { block, storageId } = Astro.props;
 const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 ---
 
-<figure class="itx flip" data-flip data-storage-id={storageId}>
+<figure class="itx flip" data-flip data-activity data-storage-id={storageId}>
   <div class="itx-head">
     <span class="itx-kicker">Kartu istilah</span>
     <span class="itx-hint">Klik kartu untuk membalik dan melihat maknanya.</span>
@@ -35,6 +36,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 
   <div class="itx-bar">
     <button type="button" class="btn btn-ghost btn-sm" data-flip-reset>Tutup semua</button>
+    <a class="itx-link no-print" href={url('/glosarium')}>Buka glosarium</a>
   </div>
 </figure>
 
@@ -96,25 +98,54 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 
 <script>
   import { emitInteraction } from '@/lib/interaction';
+  import {
+    clearCompletion,
+    loadCompletions,
+    recordCompletion,
+    saveCompletions,
+  } from '@/lib/learner';
+  import { safeStorage } from '@/lib/storage';
 
   function setupFlip(root: Element) {
     const id = root.getAttribute('data-storage-id') ?? '';
     const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-flip-btn]'));
     const reset = root.querySelector<HTMLButtonElement>('[data-flip-reset]');
+    const storage = safeStorage();
+    const revealed = new Set<number>();
 
-    buttons.forEach((btn) => {
+    function setPressed(index: number, pressed: boolean) {
+      const btn = buttons[index];
+      if (!btn) return;
+      btn.setAttribute('aria-pressed', String(pressed));
+      if (pressed) revealed.add(index);
+      else revealed.delete(index);
+    }
+
+    function complete() {
+      if (storage) saveCompletions(storage, recordCompletion(loadCompletions(storage), id));
+    }
+
+    buttons.forEach((btn, i) => {
       btn.addEventListener('click', () => {
         const open = btn.getAttribute('aria-pressed') === 'true';
-        btn.setAttribute('aria-pressed', String(!open));
+        setPressed(i, !open);
         if (!open) {
+          if (buttons.length > 0 && revealed.size === buttons.length) complete();
           emitInteraction(id, 'flip');
         }
       });
     });
 
     reset?.addEventListener('click', () => {
-      buttons.forEach((btn) => btn.setAttribute('aria-pressed', 'false'));
+      buttons.forEach((_, i) => setPressed(i, false));
+      if (storage) saveCompletions(storage, clearCompletion(loadCompletions(storage), id));
+      emitInteraction(id, 'flip-reset');
     });
+
+    // Pulihkan keadaan selesai agar bilah kemajuan konsisten setelah muat ulang.
+    if (storage && loadCompletions(storage)[id]) {
+      buttons.forEach((_, i) => setPressed(i, true));
+    }
   }
 
   document.querySelectorAll('[data-flip]').forEach(setupFlip);

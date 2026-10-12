@@ -74,4 +74,14 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   klien kuis (`sessionSeed`, `recordProgress`, `clearProgress`, `loadQuizStreak`) di
   `src/lib/quiz-client.ts` (dipakai `QuestionCard.astro` & `QuizTeaser.astro`); ruang rute
   (`subjectGradeElementCombos`, `legacyCombos`, dst.) di `src/lib/routes.ts`.
+- **Alur bagian materi** mengikuti fase tetap (pembuka → inti → latihan → penutup);
+  `tests/section-order.mjs` menegakkannya, dan setiap topik wajib punya blok
+  pengulangan `match`/`flip-cards` (`tests/content-blocks.mjs`).
+- Halaman `/latihan` dan `/peta-pembelajaran` mendukung saringan URL (`?q=`, dll.)
+  lewat `setupFilterPage` (`syncUrl`); sesi "latihan kilat" memakai `seededShuffle`
+  (per topik maupun campuran lintas topik di `/latihan/kilat`).
+- Kemajuan di `/kemajuan` (`src/lib/overview/*`) menghitung soal, dugaan, refleksi,
+  **dan** penyelesaian blok aktivitas interaktif (`activityIds` dari `buildDashboardEntries`).
+  `/peta-pembelajaran` memakai ulang `buildOverview`/`continueLearning`/`suggestedStart`
+  untuk saran lanjut yang sadar prasyarat.
 - Bahasa konten: Indonesia, sapaan ramah tanpa emoji.

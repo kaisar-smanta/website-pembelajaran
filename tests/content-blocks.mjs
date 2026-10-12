@@ -30,6 +30,13 @@ for (const topic of topics) {
   const label = `topik ${topic.id}`;
   const has = (section, kind) => (section.blocks ?? []).some((b) => b.kind === kind);
 
+  // Setiap topik menyediakan setidaknya satu blok pengulangan (match/flip-cards)
+  // agar istilah kunci dilatih, bukan sekadar dibaca.
+  ok(
+    topic.sections.some((s) => has(s, 'match') || has(s, 'flip-cards')),
+    `${label}: tidak ada blok pengulangan (match/flip-cards)`,
+  );
+
   for (const section of topic.sections) {
     for (const block of section.blocks ?? []) {
       ok(blockKinds.has(block.kind), `${label}, bagian ${section.id}: jenis blok tak dikenal (${block.kind})`);

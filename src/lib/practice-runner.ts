@@ -15,6 +15,7 @@ import {
 } from '@/lib/progress';
 import { matchesAny } from '@/lib/filter';
 import { setupFilterPage } from '@/lib/filter-dom';
+import { seededShuffle } from '@/lib/random';
 import { reviewQuestionIds, type ReviewMode } from '@/lib/practice';
 
 const PAGE_SIZE = 6;
@@ -136,6 +137,11 @@ function setupProgress() {
 
   let page = 0;
   let values: Record<string, string> = {};
+  // Sesi kilat: himpunan id soal acak yang ditampilkan tanpa paginasi.
+  let quickSet: Set<string> | null = null;
+  const quickBtn = document.querySelector<HTMLButtonElement>('[data-quick-drill]');
+  const quickStatus = document.querySelector<HTMLElement>('[data-quick-status]');
+  const QUICK_SIZE = 5;
 
   function readAttempts(): ProgressMap {
     try {
@@ -164,6 +170,7 @@ function setupProgress() {
       const difficulty = row.getAttribute('data-difficulty') ?? '';
       const category = row.getAttribute('data-category') ?? '';
       const id = row.getAttribute('data-question-row') ?? '';
+      if (quickSet && !quickSet.has(id)) continue;
       const show =
         matchesAny(tingkat, [difficulty]) &&
         matchesAny(kategori, [category]) &&
@@ -171,9 +178,10 @@ function setupProgress() {
       if (show) matched.push(row);
     }
 
-    // Sesi tinjau menampilkan seluruh soal yang cocok sekaligus agar tautan
-    // "belum tepat" dapat melompat ke soal mana pun tanpa terpotong halaman.
-    const pageSize = values.tinjau ? Math.max(1, matched.length) : PAGE_SIZE;
+    // Sesi tinjau dan sesi kilat menampilkan seluruh soal yang cocok sekaligus
+    // agar tidak terpotong halaman.
+    const pageSize =
+      values.tinjau || quickSet ? Math.max(1, matched.length) : PAGE_SIZE;
     const totalPages = Math.max(1, Math.ceil(matched.length / pageSize));
     if (page >= totalPages) page = totalPages - 1;
     if (page < 0) page = 0;
@@ -193,12 +201,51 @@ function setupProgress() {
     }
 
     if (pagination) {
-      pagination.hidden = Boolean(values.tinjau) || totalPages <= 1;
+      pagination.hidden = Boolean(values.tinjau) || Boolean(quickSet) || totalPages <= 1;
       if (pageStatus) pageStatus.textContent = `Halaman ${page + 1} dari ${totalPages}`;
       if (pagePrev) pagePrev.disabled = page <= 0;
       if (pageNext) pageNext.disabled = page >= totalPages - 1;
     }
   }
+
+  function exitQuick(): void {
+    quickSet = null;
+    if (quickBtn) {
+      quickBtn.textContent = `Latihan kilat · ${QUICK_SIZE} soal acak`;
+      quickBtn.setAttribute('aria-pressed', 'false');
+    }
+    if (quickStatus) quickStatus.textContent = '';
+  }
+
+  function startQuick(): void {
+    const pool = rows
+      .map((row) => row.getAttribute('data-question-row') ?? '')
+      .filter(Boolean);
+    if (pool.length === 0) return;
+    const seed = `kilat-${Date.now()}-${Math.random()}`;
+    const picked = seededShuffle(pool, seed).slice(0, Math.min(QUICK_SIZE, pool.length));
+    quickSet = new Set(picked);
+    if (quickBtn) {
+      quickBtn.textContent = 'Keluar dari sesi kilat';
+      quickBtn.setAttribute('aria-pressed', 'true');
+    }
+    if (quickStatus) {
+      quickStatus.textContent = `Sesi kilat: ${picked.length} soal acak dari topik ini. Jawab semuanya, lalu keluar untuk kembali ke daftar lengkap.`;
+    }
+    page = 0;
+    applyFilters();
+    document.getElementById('saring-soal')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  quickBtn?.addEventListener('click', () => {
+    if (quickSet) {
+      exitQuick();
+      page = 0;
+      applyFilters();
+    } else {
+      startQuick();
+    }
+  });
 
   const groups = Array.from(filterBar.querySelectorAll<HTMLElement>('.filter-group'))
     .map((group) => ({
@@ -215,6 +262,7 @@ function setupProgress() {
     apply: (next) => {
       values = next;
       page = 0;
+      if (quickSet) exitQuick();
       applyFilters();
     },
     syncUrl: true,
@@ -240,6 +288,15 @@ function setupProgress() {
   // dijawab beserta jawaban modelnya tidak langsung hilang dari layar;
   // saringan disegarkan saat halaman ditampilkan kembali.
   window.addEventListener('pageshow', applyFilters);
+
+  // Pintasan dari bank latihan (`?kilat=1`) langsung memulai sesi kilat.
+  try {
+    if (new URLSearchParams(window.location.search).get('kilat') === '1') {
+      startQuick();
+    }
+  } catch {
+    /* abaikan URL yang tidak dapat dibaca */
+  }
 }
 
 export function setupPracticePage(): void {

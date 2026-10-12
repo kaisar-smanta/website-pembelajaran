@@ -1,6 +1,7 @@
 ---
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import { seededShuffle } from '@/lib/learner';
+import { url } from '@/utils/url';
 import type { Block } from '@/types/content';
 import './interactive-frame.css';
 
@@ -58,6 +59,7 @@ const rightItems = seededShuffle(
 
   <div class="itx-bar">
     <button type="button" class="btn btn-ghost btn-sm" data-match-reset hidden>Ulangi</button>
+    <a class="itx-link no-print" href={url('/glosarium')}>Buka glosarium</a>
   </div>
 </figure>
 

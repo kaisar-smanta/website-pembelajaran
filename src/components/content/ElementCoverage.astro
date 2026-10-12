@@ -1,7 +1,9 @@
 ---
 import type { ElementId, Grade, SubjectId } from '@/types/content';
 import { ELEMENTS, SUBJECTS, elementOrderFor, GRADES } from '@/data/curriculum';
-import { topics, topicSubject, topicsBySubjectGradeElement, plannedTopics } from '@/data/topics';
+import { topicsBySubjectGradeElement, plannedTopics } from '@/data/topics';
+import { subjectGradeElementCombos } from '@/lib/routes';
+import { normalizeText } from '@/lib/filter';
 import { topicUrl } from '@/utils/url';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 
@@ -21,11 +23,10 @@ const subjectElements = elementOrderFor(subject);
 // Tingkat Lanjut Kelas XI — tidak tampil sebagai "segera disusun" di kelas
 // yang salah.
 const elementGradesForSubject = new Map<ElementId, Set<Grade>>();
-for (const t of topics) {
-  if (topicSubject(t) !== subject) continue;
-  const seen = elementGradesForSubject.get(t.element) ?? new Set<Grade>();
-  seen.add(t.grade);
-  elementGradesForSubject.set(t.element, seen);
+for (const { grade: comboGrade, element } of subjectGradeElementCombos(subject)) {
+  const seen = elementGradesForSubject.get(element) ?? new Set<Grade>();
+  seen.add(comboGrade);
+  elementGradesForSubject.set(element, seen);
 }
 
 // Elemen dianggap "milik kelas ini" bila dipakai di kelas ini, dipakai di lebih
@@ -57,6 +58,10 @@ const groups = elements.map((element) => {
 const totalCount = groups.reduce((sum, group) => sum + group.count, 0);
 const withTopics = groups.filter((group) => group.count > 0);
 const pending = groups.filter((group) => group.count === 0);
+
+// Teks yang dapat dicari untuk tiap topik: judul ditambah kata kuncinya.
+const topicSearch = (title: string, keywords?: string[]): string =>
+  normalizeText([title, ...(keywords ?? [])].join(' '));
 ---
 
 <div
@@ -64,6 +69,8 @@ const pending = groups.filter((group) => group.count === 0);
   id={`kelas-${subject}-${grade}`}
   style={`--reveal-delay:${delay}ms`}
   data-reveal
+  data-subject={subject}
+  data-grade={grade}
 >
   <div class="grade-head">
     <h3 class="grade-title">
@@ -102,13 +109,25 @@ const pending = groups.filter((group) => group.count === 0);
 
             <ul class="elem-list">
               {complete.map((t) => (
-                <li class="topic-item" data-status="lengkap" data-element={element}>
-                  <a href={topicUrl(grade, element, t.slug, subject)}>{t.title}</a>
+                <li
+                  class="topic-item"
+                  data-status="lengkap"
+                  data-element={element}
+                  data-search={topicSearch(t.title, t.keywords)}
+                >
+                  <a href={topicUrl(grade, element, t.slug, subject)} data-topic-id={t.id}>
+                    {t.title}
+                  </a>
                   {t.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
                 </li>
               ))}
               {planned.map((t) => (
-                <li class="topic-item planned-item" data-status="rencana" data-element={element}>
+                <li
+                  class="topic-item planned-item"
+                  data-status="rencana"
+                  data-element={element}
+                  data-search={topicSearch(t.title)}
+                >
                   <span class="planned-label">{t.title}</span>
                   <span class="badge badge-rencana">Segera hadir</span>
                 </li>
@@ -256,6 +275,34 @@ const pending = groups.filter((group) => group.count === 0);
   }
   .elem-col a:hover {
     text-decoration: underline;
+  }
+  /* Penanda kemajuan latihan: bukan sekadar warna, tetapi lambang kecil. */
+  .elem-col a[data-topic-id].is-started::after,
+  .elem-col a[data-topic-id].is-completed::after {
+    content: '';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.35rem;
+    min-width: 1rem;
+    height: 1rem;
+    padding-inline: 0.26rem;
+    border-radius: 999px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  .elem-col a[data-topic-id].is-started::after {
+    content: '\2026';
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+  }
+  .elem-col a[data-topic-id].is-completed::after {
+    content: '\2713';
+    color: var(--color-on-primary);
+    background: var(--color-primary);
   }
   .planned-item {
     display: flex;

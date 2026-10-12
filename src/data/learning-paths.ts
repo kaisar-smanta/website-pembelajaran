@@ -51,15 +51,9 @@ export const learningPaths: LearningPath[] = [
   {
     id: 'fungsi',
     accent: 'aljabar-fungsi',
-    title: 'Jalur Fungsi: dari hubungan ke pemodelan data',
-    note: 'Fungsi menghubungkan aljabar, data, dan pengambilan keputusan.',
+    title: 'Jalur Fungsi: dari kuadrat ke komposisi dan pemodelan',
+    note: 'Fungsi kuadrat menjadi dasar bagi transformasi, invers, komposisi, hingga pemodelan fungsi.',
     nodes: [
-      {
-        label: 'Sistem Pertidaksamaan',
-        id: 'sistem-pertidaksamaan',
-        grade: 'X',
-        element: 'aljabar-fungsi',
-      },
       {
         label: 'Fungsi Kuadrat',
         id: 'fungsi-kuadrat',
@@ -90,18 +84,23 @@ export const learningPaths: LearningPath[] = [
         grade: 'XI',
         element: 'aljabar-fungsi',
       },
-      { label: 'Data Bivariat', id: 'data-bivariat', grade: 'XI', element: 'data-peluang' },
-      { label: 'Regresi', id: 'regresi', grade: 'XI', element: 'data-peluang' },
     ],
   },
   {
     id: 'geometri',
     accent: 'geometri',
-    title: 'Jalur Geometri: dari sudut dan sisi ke busur dan juring',
-    note: 'Trigonometri menyiapkan perhitungan sudut dan panjang; lingkaran memperluasnya ke busur, juring, dan garis singgung.',
+    title: 'Jalur Geometri: dari sudut dan sisi ke transformasi bidang',
+    note: 'Fungsi kuadrat menyiapkan persamaan lingkaran; trigonometri menangani sudut dan panjang; lingkaran memperluasnya ke busur dan juring; transformasi fungsi menjadi jembatan menuju transformasi geometri.',
     nodes: [
+      { label: 'Fungsi Kuadrat', id: 'fungsi-kuadrat', grade: 'X', element: 'aljabar-fungsi' },
       { label: 'Trigonometri', id: 'trigonometri', grade: 'X', element: 'geometri' },
       { label: 'Lingkaran', id: 'lingkaran', grade: 'XI', element: 'geometri' },
+      {
+        label: 'Transformasi Fungsi',
+        id: 'transformasi-fungsi',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
       {
         label: 'Transformasi Geometri (pengayaan)',
         id: 'transformasi-geometri',
@@ -114,9 +113,15 @@ export const learningPaths: LearningPath[] = [
     id: 'aljabar-matriks',
     accent: 'aljabar-fungsi',
     title: 'Jalur Aljabar: dari sistem linear ke matriks',
-    note: 'Topik pengayaan: SPLTV menyiapkan cara menyelesaikan sistem, lalu matriks menawarkan notasi dan penyelesaian yang lebih ringkas.',
+    note: 'Topik pengayaan: SPLTV menyiapkan cara menyelesaikan sistem, sistem pertidaksamaan memperluasnya ke daerah penyelesaian, lalu matriks menawarkan notasi dan penyelesaian yang lebih ringkas.',
     nodes: [
       { label: 'SPLTV (pengayaan)', id: 'spltv', grade: 'X', element: 'aljabar-fungsi' },
+      {
+        label: 'Sistem Pertidaksamaan',
+        id: 'sistem-pertidaksamaan',
+        grade: 'X',
+        element: 'aljabar-fungsi',
+      },
       { label: 'Matriks (pengayaan)', id: 'matriks', grade: 'XI', element: 'aljabar-fungsi' },
     ],
   },

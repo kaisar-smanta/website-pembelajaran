@@ -11,7 +11,7 @@ const { block, storageId } = Astro.props;
 const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
 ---
 
-<figure class="itx tabs" data-tabs data-storage-id={storageId}>
+<figure class="itx tabs" data-tabs data-activity data-storage-id={storageId}>
   <div class="tablist" role="tablist" aria-label="Pilih representasi">
     {
       block.items.map((item, i) => (
@@ -111,13 +111,26 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
 
 <script>
   import { emitInteraction } from '@/lib/interaction';
+  import { loadCompletions, recordCompletion, saveCompletions } from '@/lib/learner';
+  import { safeStorage } from '@/lib/storage';
 
   function setupTabs(root: Element) {
     const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab-btn]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-tab-panel]'));
     if (!buttons.length || !panels.length) return;
 
-    function activate(index: number) {
+    const id = root.getAttribute('data-storage-id') ?? '';
+    const storage = safeStorage();
+    const viewed = new Set<number>();
+    let interacted = false;
+
+    function complete() {
+      if (!storage) return;
+      const map = loadCompletions(storage);
+      if (id && !map[id]) saveCompletions(storage, recordCompletion(map, id));
+    }
+
+    function activate(index: number, user: boolean) {
       buttons.forEach((btn, i) => {
         const selected = i === index;
         btn.setAttribute('aria-selected', String(selected));
@@ -126,12 +139,14 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
       panels.forEach((panel, i) => {
         panel.hidden = i !== index;
       });
-      const id = root.getAttribute('data-storage-id') ?? '';
+      viewed.add(index);
+      if (user) interacted = true;
+      if (interacted && viewed.size >= buttons.length) complete();
       emitInteraction(id, 'tabs');
     }
 
     buttons.forEach((btn, i) => {
-      btn.addEventListener('click', () => activate(i));
+      btn.addEventListener('click', () => activate(i, true));
       btn.addEventListener('keydown', (event) => {
         const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
         if (!keys.includes(event.key)) return;
@@ -142,11 +157,17 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
         else if (event.key === 'Home') next = 0;
         else next = buttons.length - 1;
         buttons[next].focus();
-        activate(next);
+        activate(next, true);
       });
     });
 
-    activate(0);
+    // Pulihkan tanda selesai agar bilah kemajuan konsisten setelah muat ulang.
+    if (storage && loadCompletions(storage)[id]) {
+      buttons.forEach((_, i) => viewed.add(i));
+      interacted = true;
+    }
+
+    activate(0, false);
   }
 
   document.querySelectorAll('[data-tabs]').forEach(setupTabs);

@@ -1,0 +1,199 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/content/PageHeader.astro';
+import QuestionCard from '@/components/exercises/QuestionCard.astro';
+import { questions } from '@/data/questions';
+import { groupByDifficulty } from '@/lib/practice';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
+import { url } from '@/utils/url';
+import type { Difficulty, Question } from '@/types/content';
+
+const crumbs = [
+  { label: 'Beranda', href: url('/') },
+  { label: 'Latihan & Asesmen', href: url('/latihan') },
+  { label: 'Latihan Kilat' },
+];
+
+/** Banyak soal yang disiapkan per tingkat, disebar antar topik. */
+const PER_LEVEL = 6;
+
+/**
+ * Mengambil `n` soal dengan menyebar merata antar topik (giliran per topik),
+ * supaya satu sesi kilat menyentuh banyak topik, bukan menumpuk di satu topik.
+ */
+function spread<T extends { topicId: string }>(list: T[], n: number): T[] {
+  const buckets = new Map<string, T[]>();
+  for (const item of list) {
+    const bucket = buckets.get(item.topicId) ?? [];
+    bucket.push(item);
+    buckets.set(item.topicId, bucket);
+  }
+  const queues = [...buckets.values()];
+  const out: T[] = [];
+  let i = 0;
+  while (out.length < n && queues.some((queue) => queue.length > 0)) {
+    const queue = queues[i % queues.length];
+    const next = queue.shift();
+    if (next) out.push(next);
+    i += 1;
+  }
+  return out;
+}
+
+const byLevel = groupByDifficulty(questions) as Record<Difficulty, Question[]>;
+const pool: Question[] = DIFFICULTY_ORDER.flatMap((level) => spread(byLevel[level], PER_LEVEL));
+
+const levelCounts = DIFFICULTY_ORDER.map((level) => ({
+  level,
+  label: DIFFICULTY_LABELS[level],
+  count: byLevel[level].filter((q) => pool.includes(q)).length,
+}));
+
+const meta = [
+  `${pool.length} soal pilihan`,
+  '10 soal tiap sesi',
+  `${new Set(pool.map((q) => q.topicId)).size} topik`,
+];
+---
+
+<BaseLayout
+  title="Latihan Kilat"
+  description="Sesi latihan campuran: sepuluh soal acak dari berbagai topik dan tingkat, diperiksa otomatis."
+>
+  <PageHeader
+    title="Latihan Kilat"
+    eyebrow="Latihan campuran"
+    lead="Satu sesi berisi sepuluh soal acak dari berbagai topik dan tingkat kesulitan. Cocok untuk mengulang cepat atau mengukur kesiapan sebelum ulangan."
+    crumbs={crumbs}
+    meta={meta}
+  />
+
+  <div class="container container-narrow kilat" data-kilat-root>
+    <div class="kilat-bar card" id="mulai">
+      <div class="kilat-copy">
+        <p class="eyebrow-badge">Sesi campuran</p>
+        <h2 class="kilat-title">Sepuluh soal acak untukmu</h2>
+        <p class="kilat-lead text-muted">
+          Soal diambil dari lintas topik dan lintas tingkat. Pilihan ganda dan isian singkat
+          diperiksa otomatis, sedangkan uraian dipandu rubrik penilaian mandiri. Kemajuannya ikut
+          tercatat di halaman topik masing-masing.
+        </p>
+        <ul class="kilat-levels" aria-label="Sebaran soal tersedia">
+          {
+            levelCounts.map((item) => (
+              <li>
+                <span class={`badge badge-${item.level}`}>{item.label}</span>
+                <span class="text-soft">{item.count} soal</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="kilat-actions">
+        <button type="button" class="btn btn-primary" data-kilat-new>
+          Sesi baru
+        </button>
+        <a class="btn btn-secondary" href={url('/latihan')}>Kembali ke bank latihan</a>
+      </div>
+      <p class="kilat-status text-soft" data-kilat-status aria-live="polite"></p>
+    </div>
+
+    <div class="kilat-list">
+      {
+        pool.map((question, index) => (
+          <div class="kilat-item" data-kilat-item={question.id}>
+            <QuestionCard question={question} index={index} showTopic />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .kilat {
+    padding-block: 1.5rem 2.5rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .kilat-bar {
+    display: grid;
+    gap: 1rem;
+  }
+  .kilat-title {
+    margin: 0.15rem 0 0.35rem;
+  }
+  .kilat-lead {
+    margin: 0;
+    max-width: 60ch;
+  }
+  .kilat-levels {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin: 0.85rem 0 0;
+    padding: 0;
+  }
+  .kilat-levels li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+  }
+  .kilat-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .kilat-status {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .kilat-list {
+    display: grid;
+    gap: 1rem;
+  }
+  .kilat-item[hidden] {
+    display: none;
+  }
+  .kilat-item :global(.question-card) {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  import { seededShuffle } from '@/lib/random';
+  import { sessionSeed } from '@/lib/quiz-client';
+
+  const root = document.querySelector<HTMLElement>('[data-kilat-root]');
+  if (root) {
+    const items = Array.from(root.querySelectorAll<HTMLElement>('[data-kilat-item]'));
+    const status = root.querySelector<HTMLElement>('[data-kilat-status]');
+    const newBtn = root.querySelector<HTMLButtonElement>('[data-kilat-new]');
+    const SIZE = 10;
+
+    let seed = `kilat-${sessionSeed()}`;
+
+    const apply = () => {
+      const chosen = new Set(seededShuffle(items, seed).slice(0, SIZE));
+      let shown = 0;
+      for (const item of items) {
+        const show = chosen.has(item);
+        item.hidden = !show;
+        if (show) shown += 1;
+      }
+      if (status) {
+        status.textContent = `Sesi ini menampilkan ${shown} soal acak dari ${items.length} soal pilihan. Tekan "Sesi baru" untuk mengganti soal.`;
+      }
+    };
+
+    newBtn?.addEventListener('click', () => {
+      seed = `kilat-${Date.now()}-${Math.random()}`;
+      apply();
+      document.getElementById('mulai')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    apply();
+  }
+</script>

@@ -64,6 +64,21 @@
   margin-top: 0.75rem;
 }
 
+/* Tautan silang antar blok (mis. ke glosarium), didorong ke kanan baris aksi. */
+.itx-link {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--accent, var(--color-primary)) 74%, var(--color-text));
+  text-underline-offset: 0.15em;
+}
+.itx-link:hover,
+.itx-link:focus-visible {
+  color: var(--accent, var(--color-primary));
+}
+
 .itx-saved {
   font-size: 0.86rem;
   font-weight: 600;

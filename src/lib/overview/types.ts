@@ -30,6 +30,11 @@ export interface TopicEntry {
   materialHref: string;
   /** Id topik prasyarat, dipakai untuk mengurutkan saran awal. */
   prerequisites?: string[];
+  /**
+   * Id penyimpanan blok aktivitas interaktif topik (`topik:bagian:indeks`),
+   * dipakai untuk menaksir kemajuan aktivitas (flip-cards, tabs, dsb.).
+   */
+  activityIds?: string[];
 }
 
 /** Rekaman berstempel waktu; `at` dipakai di sini dan `confidence` untuk refleksi. */
@@ -49,6 +54,10 @@ export interface TopicOverview extends TopicEntry {
   accuracy: number;
   predictionCount: number;
   reflectionCount: number;
+  /** Aktivitas interaktif yang sudah tuntas (match, step-reveal, flip-cards, tabs, ...). */
+  activityDone: number;
+  /** Seluruh aktivitas interaktif topik ini. */
+  activityTotal: number;
   activityCount: number;
   /** Waktu aktivitas terakhir (epoch ms); 0 bila belum ada. */
   lastAt: number;
@@ -139,6 +148,8 @@ export interface SiteOverview {
   topicsCompleted: number;
   predictions: number;
   reflections: number;
+  /** Jumlah aktivitas interaktif tuntas di seluruh topik. */
+  activities: number;
   lastAt: number;
   hasData: boolean;
   mastery: MasterySummary;

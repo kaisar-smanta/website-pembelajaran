@@ -85,7 +85,9 @@ const labels: Record<string, string> = {
     --callout-soft: var(--color-success-soft);
   }
   .callout-concept {
-    --callout-accent: var(--color-algebra);
+    /* Ikut aksen topik (elemen) sehingga selaras dengan halaman materi, dengan
+       aksen aljabar sebagai cadangan pada konteks tanpa `--accent`. */
+    --callout-accent: var(--accent, var(--color-algebra));
     --callout-soft: var(--color-concept-soft);
   }
   .callout-info .callout-head::before {

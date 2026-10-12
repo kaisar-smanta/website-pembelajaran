@@ -1,6 +1,15 @@
-import type { ElementId, Grade, SubjectId, Topic } from '@/types/content';
+import type {
+  Block,
+  ElementId,
+  Grade,
+  Section,
+  SectionKind,
+  SubjectId,
+  Topic,
+} from '@/types/content';
 import { normalizeText } from './filter';
 import { stripMarkdown } from '@/utils/markdown';
+import { sectionKindTitles } from '@/lib/content-text';
 
 /**
  * Pengumpul data halaman rujukan lintas topik: glosarium istilah dan kumpulan
@@ -120,33 +129,83 @@ export interface FormulaEntry {
   sectionId: string;
   title: string;
   body: string;
-  kind: 'rumus' | 'generalisasi';
+  /** Jenis bagian asal, agar label pada halaman rujukan tetap jujur. */
+  kind: SectionKind;
 }
 
-const DEFAULT_RUMUS_TITLE = 'Rumus dan Prosedur';
-const DEFAULT_GENERALISASI_TITLE = 'Generalisasi';
+/** Membungkus sel matematika tabel menjadi markdown inline yang dapat dirender. */
+function mathTableMarkdown(block: Extract<Block, { kind: 'table' }>): string {
+  const esc = (cell: string): string => cell.replace(/\|/g, '\\vert ').replace(/\s*\n\s*/g, ' ');
+  const header = `| ${block.headers.map(esc).join(' | ')} |`;
+  const separator = `| ${block.headers.map(() => '---').join(' | ')} |`;
+  const rows = block.rows.map((row) => {
+    const cells = row.map((cell) => (cell.trim() ? `$${esc(cell)}$` : ''));
+    return `| ${cells.join(' | ')} |`;
+  });
+  const table = [header, separator, ...rows].join('\n');
+  return block.caption ? `**${esc(block.caption)}**\n\n${table}` : table;
+}
 
 /**
- * Menghimpun bagian bertipe `rumus`, ditambah `generalisasi` yang benar-benar
- * memuat rumus tampil (`$$...$$`). Urutan mengikuti urutan topik dan bagian.
+ * Menghimpun rumus tampil yang tersembunyi di dalam blok: panel `tabs` yang
+ * memuat `$$`, sel tabel matematika (`math: true`), dan `callout` yang memuat
+ * `$$`. Matematika inline biasa sengaja dilewati agar halaman rujukan tidak
+ * dipenuhi derau. Urutan blok dipertahankan.
+ */
+function blockFormulaMarkdown(section: Section): string[] {
+  const out: string[] = [];
+  for (const block of section.blocks ?? []) {
+    if (block.kind === 'tabs') {
+      for (const item of block.items) {
+        if (item.body.includes('$$')) out.push(item.body);
+      }
+    } else if (block.kind === 'table') {
+      if (block.math) out.push(mathTableMarkdown(block));
+    } else if (block.kind === 'callout') {
+      if (block.text.includes('$$')) out.push(block.text);
+    }
+  }
+  return out;
+}
+
+/**
+ * Menghimpun bagian bertipe `rumus` (selalu), `generalisasi` yang benar-benar
+ * memuat rumus tampil (`$$...$$`), serta bagian jenis lain yang menyimpan rumus
+ * tampil di dalam blok (`tabs`, tabel matematika `math: true`, atau `callout`
+ * ber-`$$`). Rumus dari blok digabungkan setelah badan bagian. Urutan mengikuti
+ * urutan topik dan bagian, lalu urutan blok.
  */
 export function collectFormulaEntries(topics: Topic[]): FormulaEntry[] {
   const entries: FormulaEntry[] = [];
   for (const topic of topics) {
     for (const section of topic.sections) {
-      const body = section.body ?? '';
-      if (!body.trim()) continue;
-
       const isRumus = section.kind === 'rumus';
-      const isGeneralisasi = section.kind === 'generalisasi' && body.includes('$$');
-      if (!isRumus && !isGeneralisasi) continue;
+      const isGeneralisasi = section.kind === 'generalisasi';
+      const body = section.body ?? '';
+      const blockParts = blockFormulaMarkdown(section);
+      const hasBlockMath = blockParts.length > 0;
+      const hasDisplayMath = body.includes('$$') || hasBlockMath;
+
+      if (!isRumus && !isGeneralisasi && !hasBlockMath) continue;
+      if (isGeneralisasi && !hasDisplayMath) continue;
+
+      const pieces: string[] = [];
+      // Badan bagian penuh untuk bagian rumus/generalisasi; untuk jenis lain
+      // cukup sertakan badan yang memang memuat rumus tampil agar halaman
+      // rujukan tetap ringkas.
+      if (body.trim() && (isRumus || isGeneralisasi || body.includes('$$'))) {
+        pieces.push(body);
+      }
+      pieces.push(...blockParts);
+      const combined = pieces.join('\n\n').trim();
+      if (!combined) continue;
 
       entries.push({
         topic: referenceTopic(topic),
         sectionId: section.id,
-        title: section.title ?? (isRumus ? DEFAULT_RUMUS_TITLE : DEFAULT_GENERALISASI_TITLE),
-        body,
-        kind: isRumus ? 'rumus' : 'generalisasi',
+        title: section.title ?? sectionKindTitles[section.kind],
+        body: combined,
+        kind: section.kind,
       });
     }
   }

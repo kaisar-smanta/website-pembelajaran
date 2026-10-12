@@ -61,15 +61,25 @@ export function setupPrerequisiteGraph(): void {
       wrap.classList.add('is-ready');
 
       const gradeChips = Array.from(wrap.querySelectorAll<HTMLElement>('[data-grade-filter]'));
-      const gradeGroups = Array.from(wrap.querySelectorAll<Element>('.prereq-group[data-grade]'));
+      const subjectChips = Array.from(wrap.querySelectorAll<HTMLElement>('[data-subject-filter]'));
+      const groups = Array.from(wrap.querySelectorAll<Element>('.prereq-group[data-grade]'));
       const gradeMap: Record<string, string | null> = {};
+      const subjectMap: Record<string, string | null> = {};
       for (const el of nodeEls) {
-        gradeMap[el.getAttribute('data-id') ?? ''] = el.getAttribute('data-grade');
+        const id = el.getAttribute('data-id') ?? '';
+        gradeMap[id] = el.getAttribute('data-grade');
+        subjectMap[id] = el.getAttribute('data-subject');
       }
+
       let gradeFilter = 'all';
+      let subjectFilter = 'all';
 
       const incoming = buildGraph(edgeEls, 'from');
       const outgoing = buildGraph(edgeEls, 'to');
+
+      const matches = (id: string): boolean =>
+        (gradeFilter === 'all' || gradeMap[id] === gradeFilter) &&
+        (subjectFilter === 'all' || subjectMap[id] === subjectFilter);
 
       const apply = (active: Record<string, boolean>) => {
         for (const el of nodeEls) {
@@ -91,27 +101,31 @@ export function setupPrerequisiteGraph(): void {
         for (const edge of edgeEls) edge.classList.remove('is-active', 'is-dim');
       };
 
-      const applyGrade = () => {
+      const applyFilters = () => {
         for (const el of nodeEls) {
           const id = el.getAttribute('data-id') ?? '';
-          const match = gradeFilter === 'all' || gradeMap[id] === gradeFilter;
-          el.classList.toggle('is-grade-dim', !match);
+          el.classList.toggle('is-filter-dim', !matches(id));
         }
         for (const edge of edgeEls) {
           const from = edge.getAttribute('data-from') ?? '';
           const to = edge.getAttribute('data-to') ?? '';
-          const match =
-            gradeFilter === 'all' ||
-            gradeMap[from] === gradeFilter ||
-            gradeMap[to] === gradeFilter;
-          edge.classList.toggle('is-grade-dim', !match);
+          // Sisi tetap tampak bila salah satu ujungnya lolos saringan.
+          edge.classList.toggle('is-filter-dim', !(matches(from) || matches(to)));
         }
-        for (const group of gradeGroups) {
-          const match = gradeFilter === 'all' || group.getAttribute('data-grade') === gradeFilter;
-          group.classList.toggle('is-grade-hidden', !match);
+        for (const group of groups) {
+          const gradeMatch =
+            gradeFilter === 'all' || group.getAttribute('data-grade') === gradeFilter;
+          const subjectMatch =
+            subjectFilter === 'all' || group.getAttribute('data-subject') === subjectFilter;
+          group.classList.toggle('is-filter-hidden', !(gradeMatch && subjectMatch));
         }
-        for (const chip of gradeChips) {
-          const active = chip.getAttribute('data-grade-filter') === gradeFilter;
+        for (const chip of [...gradeChips, ...subjectChips]) {
+          const attr = chip.hasAttribute('data-grade-filter')
+            ? 'data-grade-filter'
+            : 'data-subject-filter';
+          const value = chip.getAttribute(attr);
+          const active =
+            attr === 'data-grade-filter' ? value === gradeFilter : value === subjectFilter;
           chip.classList.toggle('is-active', active);
           chip.setAttribute('aria-pressed', active ? 'true' : 'false');
         }
@@ -122,8 +136,6 @@ export function setupPrerequisiteGraph(): void {
         if (!id) continue;
         el.addEventListener('mouseenter', () => apply(prerequisiteClosure(id, incoming, outgoing)));
         el.addEventListener('focusin', () => apply(prerequisiteClosure(id, incoming, outgoing)));
-        el.addEventListener('mouseleave', clear);
-        el.addEventListener('focusout', clear);
         el.addEventListener('keydown', (event) => {
           if (event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
           const href =
@@ -135,14 +147,29 @@ export function setupPrerequisiteGraph(): void {
         });
       }
 
+      // Fokus/mouse hanya dibersihkan saat benar-benar meninggalkan seluruh graf,
+      // supaya berpindah antar-node tidak menimbulkan kedipan.
+      wrap.addEventListener('mouseleave', clear);
+      wrap.addEventListener('focusout', (event) => {
+        const next = event.relatedTarget as Node | null;
+        if (!next || !wrap.contains(next)) clear();
+      });
+
       for (const chip of gradeChips) {
         chip.addEventListener('click', () => {
           gradeFilter = chip.getAttribute('data-grade-filter') || 'all';
           clear();
-          applyGrade();
+          applyFilters();
         });
       }
-      applyGrade();
+      for (const chip of subjectChips) {
+        chip.addEventListener('click', () => {
+          subjectFilter = chip.getAttribute('data-subject-filter') || 'all';
+          clear();
+          applyFilters();
+        });
+      }
+      applyFilters();
     });
   } catch {
     /* biarkan graf tetap tampil tanpa interaksi */
