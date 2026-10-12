@@ -99,7 +99,7 @@ Sebagai contoh, untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Satu titik, dua nilai",
           text: "Pada data bivariat, satu titik merepresentasikan **satu objek** dengan dua nilai sekaligus. Menempatkan $x$ dan $y$ dengan benar penting untuk menafsirkan arah hubungan.",
         },
         {
@@ -174,6 +174,12 @@ Saat titik-titik di atas digambar pada bidang koordinat, tampak kecenderungan **
               "Tidak tampak mencolok",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Diagram pencar delapan titik data lama belajar dan nilai, dilengkapi garis tren menanjak dan keterangan koefisien korelasi r sekitar 0,97.",
+          caption: "Data lama belajar dan nilai dengan garis tren. Titik-titik rapat mengikuti garis menanjak, menandakan hubungan linear positif kuat dengan $r \\approx 0{,}97$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="50" y1="205" x2="305" y2="205" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="205" x2="50" y2="25" stroke="currentColor" stroke-width="1.5"/><line x1="80" y1="173.8" x2="290" y2="48.8" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><circle cx="80" cy="175" r="3" fill="currentColor"/><circle cx="110" cy="145" r="3" fill="currentColor"/><circle cx="140" cy="130" r="3" fill="currentColor"/><circle cx="170" cy="145" r="3" fill="currentColor"/><circle cx="200" cy="100" r="3" fill="currentColor"/><circle cx="230" cy="85" r="3" fill="currentColor"/><circle cx="260" cy="70" r="3" fill="currentColor"/><circle cx="290" cy="40" r="3" fill="currentColor"/><text x="298" y="220" font-size="12" fill="currentColor">x</text><text x="34" y="34" font-size="12" fill="currentColor">y</text><text x="150" y="58" font-size="11" fill="currentColor">garis tren</text><text x="188" y="152" font-size="11" fill="currentColor">r &asymp; 0,97</text></svg>',
         },
         {
           kind: "tabs",
@@ -288,45 +294,36 @@ Tanda $r$ menyatakan arah: $r>0$ berarti hubungan positif, sedangkan $r<0$ berar
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Sebuah toko mengamati harga sebuah produk $(x$, dalam ribuan rupiah$)$ dan banyak penjualan $(y$, dalam unit$)$. Setelah titik-titik digambar, terlihat pola menurun dari kiri atas ke kanan bawah. Tentukan jenis hubungannya.
-
-*Penyelesaian.* Karena $y$ cenderung berkurang saat $x$ bertambah, hubungannya **negatif**. Ini masuk akal: harga naik membuat penjualan menurun.
-
-**Contoh 2.** Dua pasang data menghasilkan diagram pencar berikut: himpunan A titiknya rapat membentuk garis menanjak, sedangkan himpunan B titiknya menyebar tanpa arah jelas. Bandingkan kekuatan hubungan keduanya.
-
-*Penyelesaian.* Himpunan A memiliki hubungan positif **kuat** karena titik-titik rapat; himpunan B tidak menunjukkan hubungan yang berarti.
-
-**Contoh 3.** Pada data lama belajar dan nilai, apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu?
-
-*Penyelesaian.* Tidak wajar. Data hanya mencakup $x$ dari $1$ hingga $8$ jam, sedangkan nilai maksimumnya $11$. Memperkirakan di luar rentang data disebut **ekstrapolasi** dan sangat berisiko: pola linear belum tentu berlaku pada jam belajar yang jauh lebih banyak.
-
-**Contoh 4 (menghitung korelasi).** Diberikan lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$. Hitung koefisien korelasinya.
-
-*Penyelesaian.* Dengan $n=5$ diperoleh $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, $\\sum x_i^2 = 55$, dan $\\sum y_i^2 = 135$. Substitusi ke rumus $r$:
-
-$$r = \\frac{5(84) - (15)(25)}{\\sqrt{\\left[5(55) - 15^2\\right]\\left[5(135) - 25^2\\right]}} = \\frac{420 - 375}{\\sqrt{(275-225)(675-625)}} = \\frac{45}{\\sqrt{50 \\cdot 50}} = \\frac{45}{50} = 0{,}9.$$
-
-Jadi $r = 0{,}9$, yaitu hubungan linear positif yang kuat. Karena $r^2 = 0{,}81$, sekitar $81\\%$ variasi nilai $y$ berkaitan dengan variabel $x$.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari menilai apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu.",
+          intro: "Empat contoh berikut bergerak dari menafsirkan arah dan kekuatan, menghitung korelasi, sampai menyadari batas ekstrapolasi.",
           steps: [
             {
-              title: "Periksa rentang data",
-              text: "Data lama belajar hanya mencakup $x$ dari $1$ sampai $8$ jam.",
+              title: "Contoh 1 (arah hubungan)",
+              text: `Sebuah toko mengamati harga produk ($x$, dalam ribuan rupiah) dan banyak penjualan ($y$, dalam unit). Setelah digambar, titik-titik menurun dari kiri atas ke kanan bawah. Tentukan jenis hubungannya.
+
+*Penyelesaian.* Karena $y$ cenderung berkurang saat $x$ bertambah, hubungannya **negatif**. Ini masuk akal: harga naik membuat penjualan menurun.`,
             },
             {
-              title: "Bandingkan dengan pertanyaan",
-              text: "$20$ jam berada jauh di luar rentang data, sehingga perkiraan itu termasuk ekstrapolasi.",
+              title: "Contoh 2 (kekuatan hubungan)",
+              text: `Himpunan A titiknya rapat membentuk garis menanjak, sedangkan himpunan B menyebar tanpa arah jelas. Bandingkan kekuatan hubungan keduanya.
+
+*Penyelesaian.* Himpunan A menunjukkan hubungan positif **kuat** karena titik-titik rapat mengikuti garis. Himpunan B tidak menunjukkan hubungan yang berarti karena sebarannya tidak berpola.`,
             },
             {
-              title: "Periksa kewajaran nilai",
-              text: "Nilai terbesar pada data hanya $11$, sedangkan prediksi untuk $20$ jam bisa melampaui skala nilai yang masuk akal.",
+              title: "Contoh 3 (batas ekstrapolasi)",
+              text: `Pada data lama belajar dan nilai, apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu?
+
+*Penyelesaian.* Tidak wajar. Data hanya mencakup $x$ dari $1$ sampai $8$ jam dengan nilai maksimum $11$. Perkiraan di luar rentang data disebut **ekstrapolasi** dan berisiko, karena pola linear belum tentu berlaku untuk jam belajar yang jauh lebih banyak.`,
             },
             {
-              title: "Simpulkan",
-              text: "Perkiraan itu tidak wajar; prediksi paling aman berada di dalam rentang data ($1$ sampai $8$ jam).",
+              title: "Contoh 4 (menghitung korelasi)",
+              text: `Diberikan lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$. Hitung koefisien korelasinya.
+
+*Penyelesaian.* Dengan $n=5$ diperoleh $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, $\\sum x_i^2 = 55$, dan $\\sum y_i^2 = 135$. Substitusi ke rumus $r$:
+$$r = \\frac{5(84) - (15)(25)}{\\sqrt{\\left[5(55) - 15^2\\right]\\left[5(135) - 25^2\\right]}} = \\frac{420 - 375}{\\sqrt{(275-225)(675-625)}} = \\frac{45}{\\sqrt{50 \\cdot 50}} = \\frac{45}{50} = 0{,}9.$$
+Jadi $r = 0{,}9$, yaitu hubungan linear positif yang kuat. Karena $r^2 = 0{,}81$, sekitar $81\\%$ variasi nilai $y$ berkaitan dengan variabel $x$.`,
             },
           ],
         },
@@ -354,9 +351,9 @@ Jadi $r = 0{,}9$, yaitu hubungan linear positif yang kuat. Karena $r^2 = 0{,}81$
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Diagram pencar dipakai di bidang kesehatan (dosis obat dan tekanan darah), ekonomi (pendapatan dan konsumsi), serta olahraga (jumlah latihan dan performa). Ia menjadi jembatan menuju **regresi**, yaitu membuat garis atau kurva terbaik yang merangkum tren data.
+      body: `Diagram pencar dipakai di bidang kesehatan (dosis obat dan tekanan darah), ekonomi (pendapatan dan konsumsi), serta olahraga (jumlah latihan dan performa). Sebagai gambaran angka, pada data delapan siswa di atas, koefisien korelasi $r \\approx 0{,}97$ menunjukkan pola menanjak yang sangat rapat; sebaliknya, data penjualan jaket dengan suhu harian memberi $r \\approx -0{,}8$ karena penjualan turun saat suhu menghangat.
 
-Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/regresi-nilai-ujian) dan [Membaca Hasil Survei dengan Kritis](/aplikasi/survei-statistik).`,
+Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kurva terbaik yang merangkum tren data. Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/regresi-nilai-ujian) dan [Membaca Hasil Survei dengan Kritis](/aplikasi/survei-statistik).`,
     },
     {
       id: "kesalahan-umum",
@@ -437,7 +434,7 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana hubungan dua variabel membantumu menafsirkan data berpasangan.",
+      body: "Periksa kebiasaanmu membaca data berpasangan: apakah kamu menebak arah hubungan sebelum melihat sebaran titiknya? Tinjau kembali dengan contoh baru.",
       blocks: [
         {
           kind: "reflection",
@@ -498,7 +495,7 @@ Untuk latihan, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/re
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Apa perbedaan antara arah dan kekuatan hubungan pada diagram pencar? (2) Mengapa nilai $r$ tidak cukup untuk menyimpulkan sebab-akibat? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Data Bivariat** untuk latihan tambahan.`,
+      body: `**Simpulkan sendiri.** (1) Terangkan bedanya arah dan kekuatan hubungan pada diagram pencar. (2) Berikan satu contoh korelasi kuat yang tidak layak disebut sebab-akibat, lalu sebutkan variabel perancunya. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Data Bivariat** untuk latihan tambahan.`,
     },
   ],
 };

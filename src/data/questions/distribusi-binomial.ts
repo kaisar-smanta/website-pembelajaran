@@ -63,8 +63,8 @@ export const distribusiBinomialQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Varians distribusi binomial adalah $\\operatorname{Var}(X)=np(1-p)$, sedangkan $np$ adalah nilai harapan dan $\\sqrt{np(1-p)}$ adalah simpangan baku.',
-    hints: ['Bedakan nilai harapan, varians, dan simpangan baku.'],
+      'Varians distribusi binomial adalah $\\operatorname{Var}(X)=np(1-p)$. Opsi A, $np$, adalah nilai harapan $E(X)$, bukan varians. Opsi C, $np^{2}$, muncul bila $p$ dikalikan dengan dirinya sendiri alih-alih dikalikan dengan $(1-p)$. Opsi D, $\\sqrt{np(1-p)}$, adalah simpangan baku, yaitu akar dari varians.',
+    hints: ['Bedakan nilai harapan, varians, dan simpangan baku.', 'Varians selalu memuat faktor $(1-p)$ dari peluang gagal.'],
     competencies: ['varians binomial', 'konsep'],
   },
   {
@@ -78,7 +78,7 @@ export const distribusiBinomialQuestions: Question[] = [
     acceptedAnswers: ['25/216', '0,116', '0.116', '0,1157', '0.1157', '0,11574', '0.11574'],
     explanation:
       'Dengan $n=4$, $p=\\tfrac16$, dan $k=2$: $P(X=2)=\\binom{4}{2}\\left(\\tfrac16\\right)^{2}\\left(\\tfrac56\\right)^{2}=6 \\cdot \\tfrac{1}{36} \\cdot \\tfrac{25}{36}=\\tfrac{150}{1296}=\\tfrac{25}{216} \\approx 0{,}1157$.',
-    hints: ['Gunakan $p=\\tfrac16$ untuk sukses (mata 6) dan $1-p=\\tfrac56$ untuk gagal.'],
+    hints: ['Gunakan $p=\\tfrac16$ untuk sukses (mata 6) dan $1-p=\\tfrac56$ untuk gagal.', 'Hitung $\\binom{4}{2}=6$ terlebih dahulu, lalu kalikan dengan $(\\tfrac16)^{2}(\\tfrac56)^{2}$.'],
     competencies: ['rumus distribusi binomial'],
   },
   {
@@ -132,7 +132,7 @@ export const distribusiBinomialQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Dari $E(X)=np=6$ dan $p=0{,}5$ diperoleh $n=\\dfrac{6}{0{,}5}=12$. Maka $P(X=0)=\\binom{12}{0}(0{,}5)^{0}(0{,}5)^{12}=(0{,}5)^{12}=\\dfrac{1}{4096}$.',
+      'Dari $E(X)=np=6$ dan $p=0{,}5$ diperoleh $n=\\dfrac{6}{0{,}5}=12$. Maka $P(X=0)=\\binom{12}{0}(0{,}5)^{0}(0{,}5)^{12}=(0{,}5)^{12}=\\dfrac{1}{4096}$. Opsi C, $\\dfrac{1}{64}$, muncul bila $n$ dianggap sama dengan $E(X)=6$ sehingga $(0{,}5)^{6}=\\dfrac{1}{64}$. Opsi B, $\\dfrac{1}{2048}$, muncul bila $n=11$ karena keliru mengurangkan satu. Opsi D, $\\dfrac{1}{12}$, muncul bila $P(X=0)$ dianggap $\\dfrac{1}{n}$ alih-alih $(0{,}5)^{n}$.',
     hints: ['Tentukan $n$ dari $E(X)=np$ lebih dahulu.', 'Untuk $k=0$, faktor peluang sukses menjadi $(0{,}5)^{0}=1$.'],
     competencies: ['nilai harapan binomial', 'penalaran'],
   },
@@ -243,7 +243,71 @@ export const distribusiBinomialQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Dengan $n=4$, $p=0{,}7$, dan $k=3$: $P(X=3)=\\binom{4}{3}(0{,}7)^3(0{,}3)=4\\cdot0{,}343\\cdot0{,}3=0{,}4116$. Opsi B adalah $P(X=4)=(0{,}7)^4$, opsi C adalah $P(X=2)$, dan opsi D lupa mengalikan koefisien $\\binom{4}{3}$.',
-    hints: ['Gunakan $P(X=k)=\\binom{n}{k}p^{k}(1-p)^{n-k}$ dengan $n=4$ dan $p=0{,}7$.'],
+    hints: ['Gunakan $P(X=k)=\\binom{n}{k}p^{k}(1-p)^{n-k}$ dengan $n=4$ dan $p=0{,}7$.', 'Karena tepat $3$ masuk, faktor gagal berpangkat $4-3=1$, yaitu $(0{,}3)^{1}$.'],
     competencies: ['rumus distribusi binomial', 'kontekstual'],
+  },
+  {
+    id: 'bin-15',
+    topicId: 'distribusi-binomial',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah pabrik mengemas $4$ komponen per kotak. Peluang sebuah komponen cacat adalah $0{,}25$, saling bebas antar komponen. Diagram batang berikut menunjukkan distribusi banyak komponen cacat per kotak. Tentukan rata-rata banyak komponen cacat per kotak.',
+    figure: {
+      alt: 'Diagram batang distribusi binomial dengan n empat dan p nol koma dua lima untuk banyak komponen cacat nol sampai empat.',
+      caption: 'Distribusi banyak komponen cacat $X \\sim B(4;\\,0{,}25)$.',
+      svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="45" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="45" y1="180" x2="45" y2="20" stroke="currentColor" stroke-width="1.5"/><rect x="55" y="60" width="38" height="110" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="103" y="24" width="38" height="146" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="151" y="97" width="38" height="73" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="199" y="154" width="38" height="16" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="247" y="169" width="38" height="1" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><text x="70" y="186" font-size="12" fill="currentColor">0</text><text x="118" y="186" font-size="12" fill="currentColor">1</text><text x="166" y="186" font-size="12" fill="currentColor">2</text><text x="214" y="186" font-size="12" fill="currentColor">3</text><text x="262" y="186" font-size="12" fill="currentColor">4</text><text x="12" y="24" font-size="11" fill="currentColor">P</text></svg>',
+    },
+    answer: '1',
+    acceptedAnswers: ['1', '1 komponen'],
+    explanation:
+      'Banyak komponen cacat $X$ berdistribusi binomial dengan $n=4$ dan $p=0{,}25$, sehingga rata-ratanya $E(X)=np=4(0{,}25)=1$ komponen cacat per kotak. Diagram batang memperlihatkan sebaran yang condong ke kanan dengan puncaknya di sekitar $k=0$ sampai $1$, konsisten dengan nilai harapan $1$.',
+    hints: [
+      'Rata-rata distribusi binomial adalah $E(X)=np$.',
+      'Tentukan $n$ (banyak komponen per kotak) dan $p$ (peluang cacat) dari cerita, lalu kalikan.',
+    ],
+    competencies: ['nilai harapan binomial', 'membaca diagram batang', 'kontekstual'],
+  },
+  {
+    id: 'bin-16',
+    topicId: 'distribusi-binomial',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Dalam percobaan genetika mengikuti pola Mendel, peluang seekor keturunan menunjukkan sifat resesif tertentu adalah $0{,}25$. Dari $6$ keturunan yang saling bebas, tentukan peluang **tepat $3$** keturunan menunjukkan sifat resesif tersebut.',
+    answer: '135/1024',
+    acceptedAnswers: ['135/1024', '0,1318359375', '0.1318359375'],
+    explanation:
+      'Banyak keturunan bersifat resesif $X$ berdistribusi $B(6;\\,0{,}25)$. Maka $P(X=3)=\\binom{6}{3}(0{,}25)^{3}(0{,}75)^{3}=20 \\cdot \\dfrac{1}{64} \\cdot \\dfrac{27}{64}=\\dfrac{540}{4096}=\\dfrac{135}{1024} \\approx 0{,}1318$.',
+    hints: [
+      'Tetapkan $n=6$ dan $p=0{,}25$; gagal berarti $1-p=0{,}75$.',
+      'Gunakan koefisien binomial $\\binom{6}{3}=20$ lalu kalikan $p^{3}(1-p)^{3}$.',
+    ],
+    competencies: ['rumus distribusi binomial', 'kontekstual', 'genetika'],
+  },
+  {
+    id: 'bin-17',
+    topicId: 'distribusi-binomial',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'evaluasi',
+    prompt:
+      'Seorang pemain basket memiliki peluang $0{,}7$ memasukkan setiap tembakan bebas, saling bebas. Ia melakukan $6$ tembakan dan pelatih menargetkan **paling sedikit $5$** masuk. Peluang pemain memenuhi target tersebut adalah …',
+    options: [
+      { key: 'A', text: '$0{,}420175$' },
+      { key: 'B', text: '$0{,}302526$' },
+      { key: 'C', text: '$0{,}117649$' },
+      { key: 'D', text: '$0{,}579825$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Target berarti $X \\geq 5$ dengan $X \\sim B(6;\\,0{,}7)$, sehingga $P(X \\geq 5)=P(X=5)+P(X=6)$. Diperoleh $P(X=5)=\\binom{6}{5}(0{,}7)^{5}(0{,}3)=6(0{,}16807)(0{,}3)=0{,}302526$ dan $P(X=6)=(0{,}7)^{6}=0{,}117649$. Jumlahnya $0{,}420175$. Opsi B hanya menghitung $P(X=5)$ dan lupa $X=6$. Opsi C hanya menghitung $P(X=6)$ dan lupa $X=5$. Opsi D, $0{,}579825$, adalah komplemennya, yaitu peluang justru **gagal** memenuhi target.',
+    hints: [
+      'Ubah frasa "paling sedikit $5$" menjadi $X=5$ atau $X=6$.',
+      'Jumlahkan $P(X=5)$ dan $P(X=6)$; jangan hanya mengambil satu suku.',
+    ],
+    competencies: ['peluang kumulatif binomial', 'evaluasi target', 'kontekstual'],
   },
 ];

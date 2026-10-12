@@ -113,7 +113,7 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
         {
           kind: 'callout',
           variant: 'concept',
-          title: 'Inti yang perlu diingat',
+          title: 'Tanda berbalik saat dikali negatif',
           text:
             'Mengalikan ketaksamaan dengan bilangan **negatif** membalik tanda. Karena itu, jangan pernah mengalikan dengan variabel yang tandanya belum diketahui tanpa memisahkan kasus.',
         },
@@ -125,6 +125,18 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
             { left: 'Kali $c > 0$', right: 'Tanda tetap: $ac < bc$' },
             { left: 'Kali $c < 0$', right: 'Tanda berbalik: $ac > bc$' },
             { left: 'Kuadratkan kedua ruas', right: 'Hanya aman bila kedua ruas tak negatif' },
+          ],
+        },
+        {
+          kind: 'flip-cards',
+          intro: 'Balik kartu untuk mengingat istilah kunci ketaksamaan.',
+          cards: [
+            { front: 'AM-GM', back: 'Rata-rata aritmetika tidak pernah lebih kecil daripada rata-rata geometri: $\\dfrac{a+b}{2}\\ge\\sqrt{ab}$ untuk $a,b\\ge 0$.' },
+            { front: 'Cauchy-Schwarz', back: '$(a^2+b^2)(c^2+d^2)\\ge(ac+bd)^2$; kesamaan saat kedua pasangan sebanding.' },
+            { front: 'Ketaksamaan segitiga', back: 'Panjang satu sisi tidak melebihi jumlah dua sisi lain: $|x+y|\\le|x|+|y|$.' },
+            { front: 'Kesamaan', back: 'Kondisi saat tanda $\\le$ atau $\\ge$ berubah menjadi $=$; wajib diperiksa sebelum menyimpulkan nilai optimum.' },
+            { front: 'Batas bawah', back: 'Nilai $m$ sehingga $f(x)\\ge m$ untuk semua $x$; menjadi nilai minimum hanya bila batas itu tercapai.' },
+            { front: 'Optimasi', back: 'Mencari nilai terbesar atau terkecil suatu besaran dengan menetapkan batas dan memastikan batas tercapai.' },
           ],
         },
       ],
@@ -172,6 +184,12 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
           caption: 'Penyelesaian $x^2 - x - 6 > 0$: daerah $x < -2$ dan $x > 3$. Bulatan **kosong** di $-2$ dan $3$ menandakan kedua titik itu tidak termasuk.',
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-ktk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="104" y1="130" x2="44" y2="130" stroke="currentColor" stroke-width="3" marker-end="url(#fig-ktk-arrow)"/><line x1="216" y1="130" x2="286" y2="130" stroke="currentColor" stroke-width="3" marker-end="url(#fig-ktk-arrow)"/><line x1="116" y1="130" x2="204" y2="130" stroke="currentColor" stroke-width="1.3"/><line x1="110" y1="126" x2="110" y2="134" stroke="currentColor" stroke-width="1.3"/><line x1="210" y1="126" x2="210" y2="134" stroke="currentColor" stroke-width="1.3"/><circle cx="110" cy="130" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="210" cy="130" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><text x="44" y="116" font-size="12" fill="currentColor">x &lt; -2</text><text x="222" y="116" font-size="12" fill="currentColor">x &gt; 3</text><text x="100" y="150" font-size="12" fill="currentColor">-2</text><text x="204" y="150" font-size="12" fill="currentColor">3</text><text x="144" y="150" font-size="12" fill="currentColor">0</text><text x="92" y="92" font-size="12" fill="currentColor">x^2 - x - 6 &gt; 0</text></svg>',
         },
+        {
+          kind: 'figure',
+          alt: 'Parabola y sama dengan x kuadrat dikurangi x dikurangi 6 memotong sumbu x di minus 2 dan 3. Kurva berada di atas sumbu x di kiri minus 2 dan di kanan 3, serta di bawah sumbu x di antara keduanya.',
+          caption: 'Grafik $y=x^2-x-6$ memotong sumbu-$x$ di $x=-2$ dan $x=3$. Kurva bertanda $+$ (di atas sumbu-$x$) pada $x<-2$ dan $x>3$, serta bertanda $-$ pada $-2<x<3$.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.4"/><line x1="150" y1="25" x2="150" y2="228" stroke="currentColor" stroke-width="1.4"/><polyline points="75,117 90,150 105,177 120,198 135,213 150,222 165,225 180,222 195,213 210,198 225,177 240,150 255,117" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="90" cy="150" r="3.2" fill="currentColor"/><circle cx="240" cy="150" r="3.2" fill="currentColor"/><text x="82" y="168" font-size="12" fill="currentColor">-2</text><text x="234" y="168" font-size="12" fill="currentColor">3</text><text x="172" y="40" font-size="11" fill="currentColor">y = x^2 - x - 6</text><text x="58" y="120" font-size="13" fill="currentColor">+</text><text x="160" y="208" font-size="13" fill="currentColor">-</text><text x="258" y="120" font-size="13" fill="currentColor">+</text><text x="296" y="162" font-size="11" fill="currentColor">x</text><text x="156" y="32" font-size="11" fill="currentColor">y</text></svg>',
+        },
       ],
     },
     {
@@ -184,6 +202,19 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
         {
           kind: 'exploration',
           explorationId: 'ketaksamaan-tanda-kuadrat',
+        },
+      ],
+    },
+    {
+      id: 'eksplorasi-peta-tanda',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Peta Tanda',
+      body:
+        'Gambar peta tanda pada garis bilangan untuk kuadrat maupun bentuk rasional terfaktor. Tentukan selang mana yang bertanda positif atau negatif, lalu bacakan daerah penyelesaian pertidaksamaannya. Perhatikan bahwa titik kutub tidak pernah termasuk penyelesaian.',
+      blocks: [
+        {
+          kind: 'exploration',
+          explorationId: 'ketaksamaan-daerah-tanda',
         },
       ],
     },
@@ -240,41 +271,40 @@ Untuk optimasi, pola yang paling sering dipakai adalah: jika hasil kali dua besa
       id: 'contoh',
       kind: 'contoh',
       title: 'Contoh Terbimbing',
-      body: `**Contoh 1 — Sifat ketaksamaan.** Selesaikan $3 - 2x \\ge 7$.
-
-*Penyelesaian.* Kurangi $3$: $-2x \\ge 4$. Bagi dengan $-2$ (negatif), sehingga tanda berbalik: $x \\le -2$.
-
-**Contoh 2 — AM-GM untuk minimum.** Untuk $x > 0$, tentukan nilai terkecil $x + \\dfrac{9}{x}$.
-
-*Penyelesaian.* $x + \\dfrac{9}{x} \\ge 2\\sqrt{x \\cdot \\dfrac{9}{x}} = 2\\sqrt{9} = 6$. Kesamaan saat $x = \\dfrac{9}{x}$, yaitu $x = 3$. Nilai terkecilnya $6$.
-
-**Contoh 3 — Cauchy-Schwarz.** Diketahui $x + y = 10$. Tentukan nilai minimum $x^2 + y^2$.
-
-*Penyelesaian.* Dengan $c = d = 1$: $(x^2 + y^2)(1 + 1) \\ge (x + y)^2 = 100$, sehingga $x^2 + y^2 \\ge 50$. Kesamaan saat $x = y = 5$.
-
-**Contoh 4 — Ketaksamaan segitiga.** Tentukan semua $x$ dengan $|2x - 1| \\le 5$.
-
-*Penyelesaian.* $|2x - 1| \\le 5$ setara dengan $-5 \\le 2x - 1 \\le 5$. Tambah $1$: $-4 \\le 2x \\le 6$, sehingga $-2 \\le x \\le 3$.`,
       blocks: [
         {
           kind: 'step-reveal',
-          intro: 'Mari cari nilai minimum $x + \\dfrac{9}{x}$ untuk $x > 0$, satu langkah sekaligus.',
+          intro: 'Kerjakan contoh-contoh berikut satu per satu: mulai dari manipulasi tanda, lalu AM-GM, Cauchy-Schwarz, dan ketaksamaan segitiga.',
           steps: [
             {
-              title: 'Kenali bentuk AM-GM',
-              text: 'Tulis suku pertama sebagai $a = x$ dan suku kedua sebagai $b = \\dfrac{9}{x}$.',
+              title: 'Contoh 1 — Sifat ketaksamaan',
+              text: `Selesaikan $3 - 2x \\ge 7$.
+
+Kurangi $3$ pada kedua ruas: $-2x \\ge 4$. Karena dibagi bilangan **negatif** $-2$, tanda berbalik menjadi $x \\le -2$.`,
             },
             {
-              title: 'Terapkan AM-GM',
-              text: '$x + \\dfrac{9}{x} \\ge 2\\sqrt{x \\cdot \\dfrac{9}{x}} = 2\\sqrt{9}$.',
+              title: 'Contoh 2 — Kenali bentuk AM-GM',
+              text: 'Untuk $x > 0$, tentukan nilai terkecil $x + \\dfrac{9}{x}$. Tulis suku pertama sebagai $a = x$ dan suku kedua sebagai $b = \\dfrac{9}{x}$.',
             },
             {
-              title: 'Hitung batas bawah',
-              text: '$2\\sqrt{9} = 2 \\cdot 3 = 6$, jadi $x + \\dfrac{9}{x} \\ge 6$.',
+              title: 'Contoh 2 — terapkan AM-GM',
+              text: '$x + \\dfrac{9}{x} \\ge 2\\sqrt{x \\cdot \\dfrac{9}{x}} = 2\\sqrt{9} = 6$, jadi $x + \\dfrac{9}{x} \\ge 6$.',
             },
             {
-              title: 'Periksa kesamaan',
-              text: 'Kesamaan saat $x = \\dfrac{9}{x}$, yaitu $x^2 = 9$ dan $x = 3$ (karena $x > 0$). Jadi nilai minimum $6$ benar-benar tercapai.',
+              title: 'Contoh 2 — periksa kesamaan',
+              text: 'Kesamaan AM-GM terjadi saat $x = \\dfrac{9}{x}$, yaitu $x^2 = 9$ dan $x = 3$ (karena $x > 0$). Batas $6$ benar-benar tercapai, sehingga nilai minimumnya $6$.',
+            },
+            {
+              title: 'Contoh 3 — Cauchy-Schwarz',
+              text: `Diketahui $x + y = 10$. Tentukan nilai minimum $x^2 + y^2$.
+
+Dengan $c = d = 1$: $(x^2 + y^2)(1 + 1) \\ge (x + y)^2 = 100$, sehingga $x^2 + y^2 \\ge 50$. Kesamaan saat $x = y = 5$, jadi minimumnya $50$.`,
+            },
+            {
+              title: 'Contoh 4 — Ketaksamaan segitiga',
+              text: `Tentukan semua $x$ dengan $|2x - 1| \\le 5$.
+
+Bentuk $|2x - 1| \\le 5$ setara dengan $-5 \\le 2x - 1 \\le 5$. Tambah $1$: $-4 \\le 2x \\le 6$, lalu bagi $2$: $-2 \\le x \\le 3$.`,
             },
           ],
         },
@@ -302,7 +332,7 @@ Untuk optimasi, pola yang paling sering dipakai adalah: jika hasil kali dua besa
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Ketaksamaan dipakai di mana-mana untuk menekan biaya dan memaksimalkan hasil. Seorang petani yang memiliki pagar sepanjang tertentu dapat menentukan ukuran kebun persegi agar luasnya maksimum. Sebuah perusahaan dapat menaksir batas bawah biaya produksi per unit.
+      body: `Ketaksamaan dipakai di mana-mana untuk menekan biaya dan memaksimalkan hasil. Seorang petani memiliki pagar $40$ m untuk memagari kebun berbentuk persegi panjang. Jika panjangnya $x$ dan lebarnya $y$, maka $2(x+y)=40$ sehingga $x+y=20$. Dengan AM-GM, $xy \\le \\left(\\dfrac{x+y}{2}\\right)^2 = 100$, sehingga luas maksimum $100$ m$^2$ tercapai saat $x=y=10$ m, yaitu saat kebun berbentuk persegi. Sebuah perusahaan juga dapat menaksir batas bawah biaya rata-rata per unit dan menentukan jumlah produksi yang paling murah.
 
 Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fungsi variabel, (2) terapkan ketaksamaan yang sesuai untuk memperoleh batas, (3) pastikan batas tercapai saat kedua besaran sama, lalu (4) tafsirkan hasilnya dalam konteks asal.`,
     },
@@ -346,7 +376,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
       id: 'refleksi',
       kind: 'refleksi',
       title: 'Refleksi',
-      body: 'Renungkan bagaimana ketaksamaan membantumu membuktikan batas nilai tanpa menggambar grafik.',
+      body: 'Ketaksamaan memungkinkan kita menetapkan batas nilai secara aljabar tanpa menggambar grafik berulang kali. Gunakan refleksi berikut untuk menilai kapan cara ini lebih cepat dan kapan bantuan grafik tetap diperlukan, lalu pikirkan satu masalah optimum di sekitarmu yang dapat dibatasi dengan AM-GM.',
       blocks: [
         {
           kind: 'reflection',
@@ -381,7 +411,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
-      body: `**Tiket keluar.** (1) Mengapa AM-GM tidak boleh dipakai pada bilangan negatif? (2) Bagaimana kamu memastikan suatu batas bawah benar-benar nilai minimum? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Ketaksamaan** untuk latihan tambahan.`,
+      body: `**Uji pemahaman.** Tuliskan dua syarat agar sebuah batas bawah $f(x) \\ge c$ dapat disebut nilai minimum, lalu berikan satu contoh saat batas itu tercapai dan satu contoh saat tidak. Jelaskan juga mengapa AM-GM berhenti berlaku ketika salah satu bilangan negatif. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Ketaksamaan** untuk latihan tambahan.`,
     },
     {
       id: 'tantangan',

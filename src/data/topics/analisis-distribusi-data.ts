@@ -104,7 +104,7 @@ $$\\bar{x}=\\frac{x_1+x_2+\\cdots+x_n}{n}.$$
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Mean peka, median tahan",
           text: "Mean memanfaatkan **semua** nilai sehingga sangat peka terhadap data ekstrem. Median hanya bergantung pada posisi tengah sehingga lebih **tahan** terhadap pencilan.",
         },
         {
@@ -206,6 +206,20 @@ $$\\text{IQR}=Q_3-Q_1.$$
 
 Pada data $2, 3, 4, 4, 6, 6, 6, 7, 9, 13$:
 $Q_1=4$ (median dari $2,3,4,4,6$) dan $Q_3=7$ (median dari $6,6,7,9,13$), sehingga $\\text{IQR}=7-4=3$, sedangkan jangkauannya $13-2=11$.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Box plot horizontal data 2 sampai 13. Kotak membentang dari kuartil bawah 4 sampai kuartil atas 7 dengan garis median di 6, garis bawah sampai 2, garis atas sampai 9, dan titik terpisah di 13 sebagai pencilan.",
+          caption: "Box plot data $2, 3, 4, 4, 6, 6, 6, 7, 9, 13$: kotak dari $Q_1=4$ sampai $Q_3=7$, garis median di $6$, dan $13$ tergambar terpisah karena melampaui batas atas $11{,}5$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="30" y1="170" x2="314" y2="170" stroke="currentColor" stroke-width="1.3"/><line x1="40" y1="170" x2="40" y2="174" stroke="currentColor" stroke-width="1"/><line x1="87.3" y1="170" x2="87.3" y2="174" stroke="currentColor" stroke-width="1"/><line x1="134.5" y1="170" x2="134.5" y2="174" stroke="currentColor" stroke-width="1"/><line x1="158.2" y1="170" x2="158.2" y2="174" stroke="currentColor" stroke-width="1"/><line x1="205.5" y1="170" x2="205.5" y2="174" stroke="currentColor" stroke-width="1"/><line x1="300" y1="170" x2="300" y2="174" stroke="currentColor" stroke-width="1"/><rect x="87.3" y="100" width="70.9" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.6"/><line x1="134.5" y1="100" x2="134.5" y2="140" stroke="currentColor" stroke-width="2"/><line x1="40" y1="120" x2="87.3" y2="120" stroke="currentColor" stroke-width="1.4"/><line x1="40" y1="110" x2="40" y2="130" stroke="currentColor" stroke-width="1.4"/><line x1="158.2" y1="120" x2="205.5" y2="120" stroke="currentColor" stroke-width="1.4"/><line x1="205.5" y1="110" x2="205.5" y2="130" stroke="currentColor" stroke-width="1.4"/><line x1="300" y1="120" x2="300" y2="170" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><circle cx="300" cy="120" r="3.4" fill="currentColor"/><text x="106" y="96" font-size="10" fill="currentColor">median</text><text x="74" y="156" font-size="10" fill="currentColor">Q1</text><text x="150" y="156" font-size="10" fill="currentColor">Q3</text><text x="268" y="110" font-size="10" fill="currentColor">pencilan</text><text x="37" y="186" font-size="10" fill="currentColor">2</text><text x="84" y="186" font-size="10" fill="currentColor">4</text><text x="131" y="186" font-size="10" fill="currentColor">6</text><text x="155" y="186" font-size="10" fill="currentColor">7</text><text x="202" y="186" font-size="10" fill="currentColor">9</text><text x="293" y="186" font-size="10" fill="currentColor">13</text></svg>',
+        },
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Membaca box plot",
+          text: "Lebar kotak sama dengan IQR. Makin lebar kotaknya, makin menyebar separuh data tengah. Titik di luar **ekor** (garis kumis) adalah kandidat pencilan yang perlu diperiksa.",
+        },
+      ],
     },
     {
       id: "pencilan",
@@ -428,7 +442,9 @@ Maka $\\text{IQR}=79{,}5-65{,}5=14$.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Box plot sering dipakai membandingkan sebaran gaji di dua kota, sedangkan histogram membantu melihat apakah berat badan bayi berada pada rentang normal. Pemerintah dan perusahaan memakai ukuran penyebaran untuk menilai pemerataan, bukan sekadar rata-rata.
+      body: `Box plot sering dipakai membandingkan sebaran gaji di dua kota, sedangkan histogram membantu melihat apakah berat badan bayi berada pada rentang normal. Misalnya, gaji bulanan karyawan di Kota A berkisar dari $Q_1=\\text{Rp}4{,}2$ juta sampai $Q_3=\\text{Rp}6{,}8$ juta dengan IQR $\\text{Rp}2{,}6$ juta, sedangkan di Kota B kotaknya membentang dari $\\text{Rp}3{,}1$ juta sampai $\\text{Rp}9{,}5$ juta dengan IQR $\\text{Rp}6{,}4$ juta. Rata-rata kedua kota bisa mirip, tetapi sebaran Kota B jauh lebih lebar sehingga pemerataannya lebih rendah.
+
+Pemerintah dan perusahaan memakai ukuran penyebaran untuk menilai pemerataan, bukan sekadar rata-rata. Sebuah sekolah dengan rata-rata nilai $78$ tetapi simpangan besar menandakan pemahaman siswa tidak merata dan perlu pendampingan bagi kelompok bawah.
 
 Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei dengan Kritis](/aplikasi/survei-statistik).`,
     },
@@ -488,7 +504,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana ukuran pemusatan dan penyebaran membantumu membaca data di sekitarmu.",
+      body: "Dua kumpulan data dengan rata-rata sama bisa bercerita sangat berbeda begitu sebarannya dilihat. Gunakan refleksi berikut untuk menghubungkan mean, median, kuartil, dan IQR dengan data nyata di sekitarmu, misalnya nilai ulangan kelas atau grafik penjualan di laporan.",
       blocks: [
         {
           kind: "reflection",
@@ -549,7 +565,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa menambahkan satu nilai ekstrem lebih mengubah mean daripada median? (2) Kapan sebuah nilai disebut pencilan, dan mengapa nilai itu tidak otomatis dibuang? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Analisis Distribusi Data** untuk latihan tambahan.`,
+      body: `**Uji diri.** Diberikan dua kelompok data dengan jangkauan berbeda, jelaskan ukuran mana yang paling tepat membandingkan keragaman keduanya dan alasannya. Lanjutkan dengan menuliskan satu contoh nilai yang layak dicurigai sebagai pencilan beserta batas yang kamu pakai. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Analisis Distribusi Data** untuk latihan tambahan.`,
     },
   ],
 };

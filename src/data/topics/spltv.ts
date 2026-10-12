@@ -159,7 +159,7 @@ Metode penyelesaian yang umum adalah **eliminasi** (mengurangkan atau menjumlahk
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Tiga variabel, dua langkah",
           text: "Tujuan eliminasi adalah mereduksi tiga variabel menjadi dua, lalu menjadi satu. Setiap langkah harus menghasilkan persamaan baru yang tetap benar untuk solusi yang sama.",
         },
         {
@@ -288,9 +288,9 @@ Masukkan $z=4-x$ ke $2x+z=7$: $2x+(4-x)=7 \\Rightarrow x=3$. Maka $y=4$ dan $z=1
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `SPLTV dipakai untuk menetapkan harga satuan dari beberapa paket belanja, menyusun campuran bahan dengan komposisi tertentu, dan menganalisis rangkaian listrik sederhana. Pola pikirnya sama: ubah situasi menjadi persamaan, selesaikan, lalu periksa apakah jawabnya masuk akal.
+      body: `SPLTV dipakai untuk menetapkan harga satuan dari beberapa paket belanja, menyusun campuran bahan dengan komposisi tertentu, dan menganalisis rangkaian listrik sederhana. Sebuah kios buah menjual tiga paket: paket A berisi $2$ mangga, $1$ jeruk, dan $1$ apel seharga Rp34.000; paket B berisi $1$ mangga, $3$ jeruk, dan $2$ apel seharga Rp47.000; paket C berisi $3$ mangga, $1$ jeruk, dan $2$ apel seharga Rp53.000. Dari tiga total itu, harga satuan mangga, jeruk, dan apel dapat ditemukan sekaligus, yaitu Rp9.000, Rp6.000, dan Rp10.000.
 
-Langkah pemodelan yang baik: (1) tentukan variabel dan artinya, (2) susun tiga persamaan dari informasi, (3) selesaikan, (4) periksa pada ketiga persamaan, dan (5) tafsirkan dalam konteks asal.`,
+Pola pikirnya selalu sama: ubah situasi menjadi persamaan, selesaikan, lalu periksa apakah jawabnya masuk akal. Langkah pemodelan yang baik: (1) tentukan variabel dan artinya, (2) susun tiga persamaan dari informasi, (3) selesaikan, (4) periksa pada ketiga persamaan, dan (5) tafsirkan dalam konteks asal.`,
     },
     {
       id: "kesalahan-umum",
@@ -357,6 +357,7 @@ Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
+      body: "Menyelesaikan SPLTV adalah pekerjaan mengurangi tiga hal yang belum diketahui menjadi satu per satu. Gunakan refleksi berikut untuk menilai pilihan strategimu, lalu pikirkan satu situasi di sekitarmu yang melibatkan tiga besaran saling terkait dan dapat dimodelkan sebagai SPLTV.",
       blocks: [
         {
           kind: "reflection",
@@ -413,7 +414,7 @@ Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa tujuan utama eliminasi adalah menurunkan banyak variabel satu per satu? (2) Apa perbedaan sistem dengan solusi tunggal, tak berhingga banyak solusi, dan tanpa solusi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Persamaan Linear Tiga Variabel** untuk latihan tambahan.`,
+      body: `**Rangkai langkah.** Tuliskan urutan langkah yang akan kamu pakai untuk menyelesaikan sebuah SPLTV, mulai dari menyusun persamaan hingga memeriksa solusi. Kemudian berikan satu contoh situasi yang menghasilkan sistem tanpa solusi dan jelaskan mengapa demikian. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Persamaan Linear Tiga Variabel** untuk latihan tambahan.`,
     },
   ],
 };

@@ -36,7 +36,7 @@ export const spltvQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Kurangkan persamaan kedua dengan pertama: $x=3$. Kurangkan persamaan ketiga dengan pertama: $z=2$. Maka $y=9-3-2=4$. Solusinya $(3,4,2)$ dan memenuhi ketiga persamaan.',
+      'Kurangkan persamaan kedua dengan pertama: $x=3$. Kurangkan persamaan ketiga dengan pertama: $z=2$. Maka $y=9-3-2=4$. Solusinya $(3,4,2)$ dan memenuhi ketiga persamaan. Opsi B $(4,3,2)$ menukar nilai $x$ dan $y$. Opsi C $(3,2,4)$ menukar nilai $y$ dan $z$. Opsi D $(2,4,3)$ menukar nilai $x$ dan $z$.',
     hints: ['Kurangkan pasangan persamaan untuk menghilangkan satu variabel.'],
     competencies: ['eliminasi SPLTV'],
   },
@@ -85,7 +85,10 @@ export const spltvQuestions: Question[] = [
     acceptedAnswers: ['6'],
     explanation:
       'Sistem ini memiliki solusi $(1,2,3)$. Periksa: $1+4+3=8$, $2+2-3=1$, dan $1-2+6=5$. Maka $x+y+z=1+2+3=6$.',
-    hints: ['Selesaikan sistem terlebih dahulu, lalu jumlahkan ketiga variabel.'],
+    hints: [
+      'Selesaikan sistem terlebih dahulu, lalu jumlahkan ketiga variabel.',
+      'Gunakan eliminasi untuk menemukan $(x,y,z)$, lalu hitung $x+y+z$.',
+    ],
     competencies: ['eliminasi SPLTV'],
   },
   {
@@ -100,7 +103,10 @@ export const spltvQuestions: Question[] = [
     acceptedAnswers: ['3'],
     explanation:
       'Kurangkan persamaan pertama dari kedua: $y+2z=8$. Kurangkan persamaan pertama dari ketiga: $3y+8z=30$. Substitusi $y=8-2z$: $3(8-2z)+8z=30 \\Rightarrow 24+2z=30 \\Rightarrow z=3$. Maka $y=2$ dan $x=1$.',
-    hints: ['Kurangi persamaan pertama dari dua persamaan lainnya.'],
+    hints: [
+      'Kurangi persamaan pertama dari dua persamaan lainnya.',
+      'Setelah memperoleh $y+2z=8$ dan $3y+8z=30$, eliminasi salah satu variabel.',
+    ],
     competencies: ['eliminasi SPLTV'],
   },
   {
@@ -115,7 +121,10 @@ export const spltvQuestions: Question[] = [
     acceptedAnswers: ['2500', '2.500', '2.500,00', '2500,00', 'Rp2.500', 'Rp2.500,00'],
     explanation:
       'Jumlahkan ketiga persamaan: $4x+4y+4z=42000$, sehingga $x+y+z=10500$. Dari persamaan pertama $2x+y+z=13000$, yaitu $x+(x+y+z)=13000$, maka $x=13000-10500=2500$. Jadi harga satu buku Rp2.500.',
-    hints: ['Jumlahkan ketiga persamaan untuk memperoleh $x+y+z$.'],
+    hints: [
+      'Jumlahkan ketiga persamaan untuk memperoleh $x+y+z$.',
+      'Setelah $x+y+z=10500$, bandingkan dengan persamaan pertama $2x+y+z=13000$.',
+    ],
     competencies: ['pemodelan SPLTV'],
   },
   {
@@ -149,7 +158,10 @@ export const spltvQuestions: Question[] = [
     answer:
       'Persamaan kedua sama dengan dua kali persamaan pertama, sehingga tidak memberi informasi baru (keduanya bergantung). Dari $x-y=0$ diperoleh $x=y$, lalu $2x+z=6$ atau $z=6-2x$. Jadi ada tak berhingga banyak solusi berbentuk $(x,x,6-2x)$. Secara geometris, ketiga bidang berpotongan pada satu garis, bukan di satu titik.',
     explanation: 'Kunci jawaban: mengenali persamaan yang bergantung dan menafsirkan solusi tak berhingga.',
-    hints: ['Perhatikan hubungan antara persamaan pertama dan kedua.'],
+    hints: [
+      'Perhatikan hubungan antara persamaan pertama dan kedua.',
+      'Setelah memperoleh $x=y$, nyatakan $z$ dalam $x$ dari $2x+z=6$.',
+    ],
     competencies: ['penalaran SPLTV', 'banyak solusi'],
     rubric: [
       'Mengenali persamaan yang bergantung',
@@ -169,7 +181,10 @@ export const spltvQuestions: Question[] = [
     answer:
       'Dua persamaan pertama memiliki ruas kiri yang sama, yaitu $x+y+z$, tetapi ruas kanannya berbeda $(1$ dan $2)$. Tidak mungkin nilai yang sama sekaligus bernilai $1$ dan $2$, sehingga sistem tidak konsisten dan tidak memiliki solusi. Secara geometris, dua bidang itu sejajar sehingga tidak pernah berpotongan, dan tidak ada titik yang memenuhi ketiga persamaan.',
     explanation: 'Kunci jawaban: mendeteksi inkonsistensi dari dua persamaan yang bertentangan.',
-    hints: ['Bandingkan ruas kiri dan ruas kanan dua persamaan pertama.'],
+    hints: [
+      'Bandingkan ruas kiri dan ruas kanan dua persamaan pertama.',
+      'Dua persamaan dengan ruas kiri sama tetapi ruas kanan berbeda tidak dapat dipenuhi serentak.',
+    ],
     competencies: ['penalaran SPLTV', 'sistem tak konsisten'],
     rubric: [
       'Membandingkan dua persamaan yang bertentangan',
@@ -209,18 +224,21 @@ export const spltvQuestions: Question[] = [
     type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Jumlah tiga bilangan adalah $36$. Bilangan kedua dua kali bilangan pertama, dan bilangan ketiga $6$ lebihnya dari bilangan kedua. (a) Susun SPLTV untuk situasi ini. (b) Tentukan ketiga bilangan tersebut. (c) Periksa bahwa solusinya memenuhi semua persamaan.',
+      'Seorang siswa menyelesaikan sistem $x+y+z=6$, $2x+y-z=1$, dan $x-2y+3z=6$ lalu menuliskan solusinya $(2,1,3)$. (a) Periksa solusi itu pada setiap persamaan. (b) Tentukan solusi yang benar beserta langkah singkatnya.',
     answer:
-      '(a) Misal bilangan pertama $x$, kedua $y$, ketiga $z$. Maka $x+y+z=36$, $y=2x$, dan $z=y+6$. (b) Substitusi $y=2x$ dan $z=2x+6$: $x+2x+(2x+6)=36 \\Rightarrow 5x+6=36 \\Rightarrow x=6$. Maka $y=12$ dan $z=18$. (c) Periksa: $6+12+18=36$, $12=2(6)$, dan $18=12+6$. Semua benar.',
+      '(a) Uji $(2,1,3)$: persamaan pertama $2+1+3=6$ benar; persamaan kedua $2(2)+1-3=2\\ne1$ salah; persamaan ketiga $2-2(1)+3(3)=9\\ne6$ salah. Jadi solusi siswa salah. (b) Kurangkan persamaan pertama dari kedua: $x-2z=-5$. Kurangkan persamaan pertama dari ketiga: $-3y+2z=0$, yaitu $2z=3y$. Dari $x=2z-5$ dan $z=\\dfrac{3}{2}y$ diperoleh $x=3y-5$. Substitusi ke persamaan pertama: $(3y-5)+y+\\dfrac{3}{2}y=6 \\Rightarrow \\dfrac{11}{2}y=11 \\Rightarrow y=2$. Maka $z=3$ dan $x=1$. Jadi solusinya $(1,2,3)$.',
     explanation:
-      'Kunci: menerjemahkan hubungan antarbilangan menjadi sistem, menyelesaikan dengan substitusi, dan memverifikasi solusi.',
-    hints: ['Nyatakan $y$ dan $z$ dalam $x$.', 'Substitusikan ke persamaan jumlah.'],
-    competencies: ['SPLTV', 'pemodelan', 'evaluasi'],
+      'Kunci: menguji calon solusi pada semua persamaan untuk menemukan yang dilanggar, lalu menyelesaikan ulang dengan eliminasi-substitusi.',
+    hints: [
+      'Substitusikan $(2,1,3)$ ke setiap persamaan untuk menguji kebenarannya.',
+      'Kurangkan persamaan pertama dari persamaan kedua dan ketiga untuk menghilangkan $x$.',
+    ],
+    competencies: ['SPLTV', 'evaluasi solusi', 'eliminasi'],
     rubric: [
-      'Menyusun SPLTV dari hubungan antarbilangan',
-      'Menyelesaikan dengan substitusi',
-      'Menentukan ketiga bilangan',
-      'Memeriksa solusi pada semua persamaan',
+      'Menguji solusi siswa pada ketiga persamaan',
+      'Menemukan persamaan yang dilanggar',
+      'Menyelesaikan ulang dengan eliminasi-substitusi',
+      'Memperoleh solusi benar $(1,2,3)$',
     ],
   },
   {
@@ -239,7 +257,7 @@ export const spltvQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Karena persamaan ketiga dapat diperoleh dari dua persamaan lain, ia tidak menambah informasi baru (bergantung) dan pasti terpenuhi. Sistem menjadi konsisten dengan satu syarat berlebih, sehingga selama dua persamaan pertama tidak sejajar solusinya tak berhingga banyak, yaitu titik-titik pada garis potong dua bidang.',
+      'Karena persamaan ketiga dapat diperoleh dari dua persamaan lain, ia tidak menambah informasi baru (bergantung) dan pasti terpenuhi. Sistem menjadi konsisten dengan satu syarat berlebih, sehingga selama dua persamaan pertama tidak sejajar solusinya tak berhingga banyak, yaitu titik-titik pada garis potong dua bidang. Opsi A salah karena sistem bergantung justru konsisten, bukan tak konsisten. Opsi B salah karena hilangnya satu syarat membuat solusinya tidak tunggal. Opsi D salah karena sistem linear tidak pernah memiliki tepat dua solusi.',
     hints: [
       'Periksa apakah persamaan ketiga memberi informasi baru.',
       'Persamaan yang bergantung membuat sistem kehilangan satu syarat.',
@@ -269,5 +287,23 @@ export const spltvQuestions: Question[] = [
       'Menyelesaikan dengan eliminasi-substitusi',
       'Memeriksa solusi dan menuliskan harga',
     ],
+  },
+  {
+    id: 'sp-15',
+    topicId: 'spltv',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah tim sepak bola memainkan $10$ pertandingan. Kemenangan bernilai $3$ poin, seri $1$ poin, dan kalah $0$ poin. Tim itu mengumpulkan $19$ poin, dan banyak kemenangannya dua kali banyak kekalahannya. Tentukan banyak pertandingan yang dimenangkan tim itu.',
+    answer: '6',
+    acceptedAnswers: ['6'],
+    explanation:
+      'Misal kemenangan $w$, seri $d$, dan kekalahan $l$. Maka $w+d+l=10$, $3w+d=19$, dan $w=2l$. Substitusi $w=2l$: $2l+d+l=10 \\Rightarrow 3l+d=10$ dan $6l+d=19$. Mengurangkan keduanya memberi $3l=9$, jadi $l=3$, $d=1$, dan $w=6$. Jadi tim memenangkan $6$ pertandingan.',
+    hints: [
+      'Susun tiga persamaan dari jumlah pertandingan, total poin, dan hubungan kemenangan-kekalahan.',
+      'Substitusi $w=2l$ lalu kurangkan $3l+d=10$ dari $6l+d=19$.',
+    ],
+    competencies: ['pemodelan SPLTV', 'kontekstual'],
   },
 ];

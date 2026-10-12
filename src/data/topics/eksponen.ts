@@ -108,8 +108,14 @@ Perhatikan bahwa eksponen berfungsi sebagai **penghitung banyaknya faktor**, buk
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Eksponen sebagai penghitung faktor",
           text: "Eksponen menyatakan berapa kali basis dijadikan faktor. Menambah eksponen berarti **mengalikan**, bukan menjumlahkan basis.",
+        },
+        {
+          kind: "figure",
+          alt: "Diagram notasi pangkat a pangkat n: huruf a besar sebagai basis dengan huruf n kecil di kanan atas sebagai eksponen.",
+          caption: "Pada $a^{n}$, $a$ adalah **basis** dan $n$ adalah **eksponen** yang menghitung banyaknya faktor $a$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><text x="118" y="132" font-size="66" fill="currentColor">a</text><text x="168" y="96" font-size="38" fill="currentColor">n</text><line x1="132" y1="142" x2="104" y2="182" stroke="currentColor" stroke-width="1.5"/><text x="50" y="200" font-size="14" fill="currentColor">basis</text><line x1="190" y1="84" x2="234" y2="62" stroke="currentColor" stroke-width="1.5"/><text x="232" y="54" font-size="14" fill="currentColor">eksponen</text></svg>',
         },
         {
           kind: "flip-cards",
@@ -315,49 +321,36 @@ $$\\frac{1}{\\sqrt{a}-\\sqrt{b}}=\\frac{\\sqrt{a}+\\sqrt{b}}{a-b}.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Sederhanakan $(2x^{3}y^{-2})^{2} \\cdot (x^{-2}y^{3})$.
-
-*Penyelesaian.* Gunakan $(ab)^n=a^n b^n$ pada faktor pertama:
-
-$$(2x^{3}y^{-2})^{2} = 2^{2} (x^{3})^{2} (y^{-2})^{2} = 4x^{6}y^{-4}.$$
-
-Kalikan dengan $x^{-2}y^{3}$:
-
-$$4x^{6}y^{-4} \\cdot x^{-2}y^{3} = 4x^{6+(-2)}y^{-4+3} = 4x^{4}y^{-1} = \\frac{4x^{4}}{y}.$$
-
-**Contoh 2.** Sederhanakan $\\sqrt{12}+\\sqrt{27}-\\sqrt{48}$.
-
-*Penyelesaian.* Faktorkan setiap akar:
-
-$$\\sqrt{12}=2\\sqrt{3}, \\quad \\sqrt{27}=3\\sqrt{3}, \\quad \\sqrt{48}=4\\sqrt{3}.$$
-
-Maka $2\\sqrt{3}+3\\sqrt{3}-4\\sqrt{3} = (2+3-4)\\sqrt{3} = \\sqrt{3}$.
-
-**Contoh 3.** Tentukan $x$ dari $2^{x+1} = 32$.
-
-*Penyelesaian.* Nyatakan kedua ruas dengan basis yang sama, yaitu 2:
-
-$$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$`,
+      body: `Tiga contoh berikut dibahas langkah demi langkah. Buka setiap langkah untuk mengikuti penyelesaiannya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Ikuti langkah menyederhanakan $(2x^{3}y^{-2})^{2} \\cdot (x^{-2}y^{3})$ satu per satu.",
+          intro: "Buka setiap contoh untuk melihat penyelesaian lengkapnya.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Pangkatkan setiap faktor: $(2x^{3}y^{-2})^{2} = 2^{2}(x^{3})^{2}(y^{-2})^{2} = 4x^{6}y^{-4}$.",
+              title: "Contoh 1: menyederhanakan bentuk pangkat",
+              text: `Sederhanakan $(2x^{3}y^{-2})^{2} \\cdot (x^{-2}y^{3})$.
+
+*Penyelesaian.* Gunakan $(ab)^n=a^n b^n$ pada faktor pertama:
+$$(2x^{3}y^{-2})^{2} = 2^{2}(x^{3})^{2}(y^{-2})^{2} = 4x^{6}y^{-4}.$$
+Kalikan dengan $x^{-2}y^{3}$ lalu jumlahkan eksponen basis yang sama:
+$$4x^{6}y^{-4} \\cdot x^{-2}y^{3} = 4x^{6+(-2)}y^{-4+3} = 4x^{4}y^{-1} = \\frac{4x^{4}}{y}.$$`,
             },
             {
-              title: "Langkah 2",
-              text: "Kalikan dengan $x^{-2}y^{3}$: $4x^{6}y^{-4} \\cdot x^{-2}y^{3}$.",
+              title: "Contoh 2: menyederhanakan bentuk akar",
+              text: `Sederhanakan $\\sqrt{12}+\\sqrt{27}-\\sqrt{48}$.
+
+*Penyelesaian.* Faktorkan setiap akar dengan mengeluarkan kuadrat sempurna:
+$$\\sqrt{12}=2\\sqrt{3}, \\quad \\sqrt{27}=3\\sqrt{3}, \\quad \\sqrt{48}=4\\sqrt{3}.$$
+Maka $2\\sqrt{3}+3\\sqrt{3}-4\\sqrt{3} = (2+3-4)\\sqrt{3} = \\sqrt{3}$.`,
             },
             {
-              title: "Langkah 3",
-              text: "Jumlahkan eksponen basis yang sama: $4x^{6+(-2)}y^{-4+3} = 4x^{4}y^{-1}$.",
-            },
-            {
-              title: "Langkah 4",
-              text: "Tulis pangkat negatif sebagai pecahan: $\\dfrac{4x^{4}}{y}$.",
+              title: "Contoh 3: menyelesaikan persamaan eksponen",
+              text: `Tentukan $x$ dari $2^{x+1} = 32$.
+
+*Penyelesaian.* Nyatakan kedua ruas dengan basis yang sama, yaitu $2$, sebab $32 = 2^{5}$:
+$$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$
+Periksa: $2^{4+1} = 2^{5} = 32$ benar.`,
             },
           ],
         },
@@ -385,7 +378,7 @@ $$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Eksponen dipakai untuk memodelkan pertumbuhan populasi, penyebaran informasi, peluruhan zat, dan bunga majemuk. Misalnya, jika tabungan awal $M_0$ tumbuh dengan faktor $(1+i)$ setiap tahun, maka saldo setelah $n$ tahun adalah $M_0(1+i)^n$ — sebuah bentuk eksponen.
+      body: `Eksponen muncul setiap kali suatu besaran berlipat dengan faktor tetap. Selembar kertas setebal $0{,}1$ mm yang dilipat $10$ kali menjadi $0{,}1 \\cdot 2^{10} = 102{,}4$ mm, dan satu sel bakteri yang membelah setiap $20$ menit menjadi $2^{6} = 64$ sel setelah $2$ jam. Di bidang keuangan, tabungan Rp1.000.000 dengan bunga majemuk $8\\%$ per tahun tumbuh menjadi $1.000.000(1{,}08)^{10} \\approx \\text{Rp}2.158.925$ setelah $10$ tahun.
 
 Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuhan-populasi) dan [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
     },
@@ -501,7 +494,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana pola perkalian berulang muncul dalam pertumbuhan dan peluruhan.",
+      body: "Eksponen adalah bahasa untuk perubahan yang berlipat: dari bunga tabungan, penyebaran informasi, sampai peluruhan zat. Coba temukan satu situasi di sekitarmu yang berubah dengan faktor tetap, lalu tuliskan modelnya sebagai $a \\cdot b^{n}$.",
       blocks: [
         {
           kind: "reflection",
@@ -564,7 +557,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa $a^{m}\\cdot a^{n}=a^{m+n}$ hanya berlaku bila basisnya sama? (2) Bagaimana kamu menjelaskan arti pangkat negatif dan pangkat nol? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Eksponen dan Bentuk Akar** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Hitung $2^{3} \\cdot 2^{5}$ dan $2^{3} + 2^{5}$, lalu jelaskan mengapa hasil keduanya berbeda. (2) Ubah $\\sqrt[3]{x^{2}}$ menjadi bentuk pangkat dan sebutkan nilai $x$ yang membuatnya terdefinisi. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Eksponen dan Bentuk Akar** untuk latihan tambahan.`,
     },
   ],
 };

@@ -262,6 +262,12 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
           caption: "Elips $\\dfrac{x^{2}}{25}+\\dfrac{y^{2}}{9}=1$ berpusat di titik asal, dengan fokus $F_{1}(-4,0)$ dan $F_{2}(4,0)$. Sumbu mayor sepanjang $2a=10$ dan sumbu minor sepanjang $2b=6$.",
           svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><ellipse cx="160" cy="110" rx="110" ry="66" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="50" y1="110" x2="270" y2="110" stroke="currentColor" stroke-width="1.5"/><line x1="160" y1="44" x2="160" y2="176" stroke="currentColor" stroke-width="1.5"/><circle cx="72" cy="110" r="3.5" fill="currentColor"/><circle cx="248" cy="110" r="3.5" fill="currentColor"/><circle cx="160" cy="110" r="3" fill="currentColor"/><text x="60" y="100" font-size="12" fill="currentColor">F&#8321;</text><text x="252" y="100" font-size="12" fill="currentColor">F&#8322;</text><text x="164" y="126" font-size="12" fill="currentColor">pusat</text><text x="66" y="130" font-size="11" fill="currentColor">sumbu mayor</text><text x="164" y="58" font-size="11" fill="currentColor">sumbu minor</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Tiga elips dengan panjang sumbu mayor sama tetapi kelonjongan berbeda: sebuah lingkaran, sebuah elips sedang, dan sebuah elips sangat lonjong yang kedua fokusnya makin jauh dari pusat.",
+          caption: "Dengan sumbu mayor tetap, makin besar eksentrisitas $e=\\dfrac{c}{a}$ makin lonjong elips dan makin jauh kedua fokus dari pusat; ketika $e=0$ elips menjadi lingkaran.",
+          svg: '<svg viewBox="0 0 380 200" aria-hidden="true" role="presentation"><line x1="15" y1="105" x2="365" y2="105" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><ellipse cx="70" cy="105" rx="46" ry="46" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="190" cy="105" rx="46" ry="30" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="310" cy="105" rx="46" ry="15" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="155" cy="105" r="3" fill="currentColor"/><circle cx="225" cy="105" r="3" fill="currentColor"/><circle cx="267" cy="105" r="3" fill="currentColor"/><circle cx="353" cy="105" r="3" fill="currentColor"/><text x="46" y="168" font-size="12" fill="currentColor">e = 0</text><text x="158" y="168" font-size="12" fill="currentColor">0 &lt; e &lt; 1</text><text x="256" y="168" font-size="12" fill="currentColor">e mendekati 1</text><text x="300" y="62" font-size="11" fill="currentColor">fokus</text><text x="252" y="87" font-size="11" fill="currentColor">F</text><text x="350" y="87" font-size="11" fill="currentColor">F</text></svg>',
+        },
       ],
     },
     {
@@ -335,6 +341,18 @@ Untuk elips yang lebih umum, aturan yang sama diterapkan setelah menggeser pusat
         {
           kind: "exploration",
           explorationId: "mtl-irisan-kerucut-sim",
+        },
+      ],
+    },
+    {
+      id: "eksplorasi-fokus",
+      kind: "eksplorasi",
+      title: "Eksplorasi Fokus dan Eksentrisitas",
+      body: "Selidiki bagaimana perubahan setengah sumbu $a$ dan $b$ menggeser kedua fokus dan mengubah eksentrisitas elips.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-konik-fokus",
         },
       ],
     },
@@ -494,7 +512,7 @@ $$PF_1+PF_2=2a.$$`,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana bentuk irisan kerucut tampil pada benda di sekitarmu.",
+      body: "Pikirkan bagaimana persamaan yang sederhana dapat mewakili bentuk kurva di sekitarmu.",
       blocks: [
         {
           kind: "reflection",
@@ -555,7 +573,7 @@ $$PF_1+PF_2=2a.$$`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa bentuk umum lingkaran perlu diubah ke bentuk baku, dan bagaimana caranya? (2) Pada elips $\\dfrac{x^{2}}{a^{2}}+\\dfrac{y^{2}}{b^{2}}=1$, bagaimana kamu menentukan letak kedua fokus? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Irisan Kerucut** untuk latihan tambahan.`,
+      body: `Tinjau ulang: apa yang membedakan persamaan lingkaran dari persamaan elips, dan bagaimana kamu menemukan letak fokus pada elips sebarang? Tuliskan jawabanmu, lalu lanjut ke [Latihan & Asesmen](/latihan) topik **Irisan Kerucut**.`,
     },
   ],
 };

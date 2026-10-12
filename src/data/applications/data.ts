@@ -36,7 +36,7 @@ Kedua kelas punya rata-rata sama, tetapi kondisinya sangat berbeda. Median kelas
       'Ukuran statistik mana yang paling jujur untuk data dengan nilai ekstrem?',
     ],
     source:
-      'Ilustrasi fiktif berdasarkan pelaporan hasil survei di media; angka dibuat untuk latihan membaca data.',
+      'Skenario pengajaran yang dikonstruksi mengikuti pola pelaporan survei di media; dua kumpulan nilai dirancang agar rata-ratanya sama tetapi mediannya berbeda.',
   },
   {
     id: 'regresi-nilai-ujian',
@@ -73,36 +73,49 @@ Untuk siswa yang belajar 10 jam, perkiraan nilainya $\\hat{y} = 1{,}19(10) + 0{,
       'Sejauh mana kamu boleh memakai garis regresi ini untuk membuat prediksi?',
     ],
     source:
-      'Data ilustratif hasil belajar siswa; angka dibuat untuk latihan analisis regresi.',
+      'Skenario pengajaran yang dikonstruksi: pasangan data jam belajar dan nilai dirancang agar garis regresi serta korelasinya mudah dihitung; arah hubungan yang positif konsisten dengan temuan umum tentang waktu belajar.',
   },
   {
     id: 'kata-sandi',
-    title: 'Menaksir Banyak Kata Sandi dengan Pencacahan',
+    title: 'Menyusun Tim Lomba: Permutasi atau Kombinasi?',
     category: 'data',
     element: 'data-peluang',
     grade: 'XII',
     level: 'dasar',
     estimatedMinutes: 8,
-    explorationId: 'peluang-sim',
-    tags: ['pencacahan', 'permutasi', 'kombinasi', 'kata sandi', 'keamanan'],
-    summary: 'Menggunakan aturan perkalian untuk menilai seberapa kuat sebuah kata sandi.',
+    explorationId: 'permutasi-kombinasi-hitung',
+    tags: ['pencacahan', 'permutasi', 'kombinasi', 'aturan perkalian', 'pemilihan tim'],
+    summary:
+      'Membedakan kapan urutan penting (permutasi) dan kapan tidak (kombinasi) dalam pemilihan pengurus dan tim.',
     topicIds: ['permutasi-kombinasi', 'peluang'],
-    body: `Aturan pencacahan membantu menilai keamanan kata sandi. Jika setiap posisi dipilih bebas dari sekumpulan karakter, banyak kemungkinan diperoleh dari **aturan perkalian**, bukan permutasi tanpa pengulangan. Mari bandingkan beberapa bentuk kata sandi yang umum dipakai.`,
-    analysis: `- **PIN 4 angka** ($10$ kemungkinan tiap posisi): $10^{4} = 10.000$ kemungkinan.
-- **Kata sandi 6 huruf kecil** ($26$ kemungkinan): $26^{6} = 308.915.776$ kemungkinan.
-- **8 karakter huruf kecil dan angka** ($36$ kemungkinan): $36^{8} \\approx 2{,}82 \\times 10^{12}$ kemungkinan.
+    body: `Seorang guru membentuk pengurus kelas dan tim lomba dari **8 siswa** yang tersedia. Ada dua hal yang harus dihitung:
 
-Setiap tambahan karakter memperbesar kemungkinan secara **perkalian**, bukan penjumlahan. Karena itu menambah panjang kata sandi jauh lebih efektif daripada hanya mengganti huruf dengan angka. Peluang menebaknya secara acak adalah $\\dfrac{1}{\\text{banyak kemungkinan}}$, yang menyusut sangat cepat seiring bertambahnya panjang.`,
+- Memilih **ketua dan wakil ketua**. Di sini urutan penting: susunan (Ani, Budi) berbeda dari (Budi, Ani).
+- Memilih **3 anggota tim** untuk mewakili kelas. Di sini urutan tidak penting: tim {Ani, Budi, Citra} sama saja dengan {Budi, Citra, Ani}.
+
+Pertanyaan pemicunya: mengapa jumlah cara memilih ketua–wakil lebih banyak daripada memilih 3 anggota, dan kapan kita memakai **permutasi** alih-alih **kombinasi**?`,
+    analysis: `**Ketua dan wakil (urutan penting).** Memilih 2 dari 8 dengan memperhatikan urutan adalah permutasi:
+$$P(8,2) = 8 \\times 7 = 56 \\text{ cara}.$$
+
+**Tiga anggota tim (urutan tidak penting).** Memilih 3 dari 8 tanpa memperhatikan urutan adalah kombinasi:
+$$C(8,3) = \\binom{8}{3} = \\frac{8 \\times 7 \\times 6}{3!} = 56 \\text{ cara}.$$
+Kedua jawaban kebetulan sama-sama 56, tetapi alasannya berbeda: $P(8,2)$ menghitung susunan dua orang, sedangkan $C(8,3)$ menghitung tiga orang tanpa urutan. Angka yang sama jangan sampai membuat kita salah memilih rumus.
+
+**Apa peran urutan.** Jika 3 anggota terpilih itu kemudian diberi tiga tugas berbeda (misalnya ketua tim, pencatat, dan pembicara), setiap tim dapat disusun dalam $3! = 6$ cara, sehingga totalnya
+$$C(8,3) \\times 3! = 56 \\times 6 = 336 = P(8,3).$$
+Jadi $P(8,3)$ dapat dipandang sebagai "pilih 3 orang lalu urutkan mereka". Kalimat kuncinya: pakai **kombinasi** bila urutan tidak dibedakan, dan **permutasi** bila urutan membedakan hasil.`,
     takeaways: [
-      'Aturan perkalian: panjang lebih menentukan kekuatan daripada variasi karakter.',
-      'Peluang menebak adalah kebalikan dari banyaknya kemungkinan.',
+      'Permutasi dipakai saat urutan penting, kombinasi saat urutan tidak penting.',
+      'Kombinasi dapat diubah menjadi permutasi dengan mengalikan faktorial banyak objek yang dipilih.',
+      'Hubungan keduanya: $P(n,k) = C(n,k) \\cdot k!$.',
     ],
     reflection: [
-      'Mengapa menambah satu karakter lebih ampuh daripada mengganti huruf dengan angka?',
-      'Bagaimana kamu memakai pencacahan untuk menilai kata sandi milikmu sendiri?',
+      'Bagaimana kamu memutuskan antara permutasi dan kombinasi pada soal pemilihan pengurus?',
+      'Mengapa $C(8,3) \\times 3! = P(8,3)$? Jelaskan makna tiap langkahnya.',
+      'Beri satu contoh dari kehidupanmu yang memakai kombinasi, bukan permutasi.',
     ],
     source:
-      'Ilustrasi fiktif berdasarkan praktik keamanan kata sandi; perhitungan dibuat untuk pembelajaran.',
+      'Skenario pengajaran yang dikonstruksi mengikuti praktik umum pemilihan pengurus kelas dan tim lomba; banyaknya siswa dibuat agar perhitungan pencacahan mudah diperiksa.',
   },
   {
     id: 'tes-kesehatan',
@@ -143,7 +156,7 @@ Meski tes "95% akurat", hanya sekitar $16{,}1\\%$ orang dengan hasil positif yan
       'Mengapa dokter tetap memesan tes lanjutan walau hasil pertama positif?',
     ],
     source:
-      'Data ilustratif berdasarkan konsep sensitivitas dan spesifisitas tes kesehatan; angka dibulatkan untuk pembelajaran, bukan rujukan medis.',
+      'Angka mengikuti konsep sensitivitas, spesifisitas, dan prevalensi pada uji saring penyakit; dibulatkan untuk pembelajaran dan bukan rujukan medis maupun data satu penyakit tertentu.',
   },
   {
     id: 'korelasi-sebab-akibat',
@@ -184,41 +197,45 @@ Menyimpulkan sebab-akibat menuntut bukti yang lebih kuat, misalnya eksperimen de
       'Carilah satu judul berita yang mengubah korelasi menjadi klaim sebab-akibat, lalu susun sanggahanmu.',
     ],
     source:
-      'Ilustrasi fiktif berdasarkan laporan survei gaya hidup remaja; angka dibuat untuk latihan penalaran kausal.',
+      'Skenario pengajaran yang dikonstruksi mengikuti pola laporan gaya hidup remaja; korelasi awal dan penyusutannya setelah mengontrol variabel dirancang untuk melatih penalaran kausal.',
   },
   {
     id: 'statistik-harian',
-    title: 'Statistik di Balik Angka Sehari-hari',
+    title: 'Rata-rata Berbobot: Menghitung Nilai Akhir Rapor',
     category: 'data',
     element: 'data-peluang',
     grade: 'X',
     level: 'dasar',
     estimatedMinutes: 8,
     explorationId: 'distribusi-sebaran',
-    tags: ['persentase', 'diskon', 'rata-rata', 'indeks', 'literasi angka'],
-    summary: 'Menafsirkan persentase, diskon bertingkat, dan klaim pertumbuhan yang muncul tiap hari.',
+    tags: ['rata-rata berbobot', 'mean', 'persentase', 'literasi angka', 'penilaian'],
+    summary:
+      'Menggunakan rata-rata berbobot untuk nilai akhir dan mengenali kapan rata-rata biasa menyesatkan.',
     topicIds: ['statistik-dalam-kehidupan', 'analisis-distribusi-data'],
-    body: `Angka statistik ada di mana-mana: label diskon, berita pertumbuhan ekonomi, hingga peringkat di media sosial. Banyak di antaranya sengaja dibaca sekilas sehingga terasa lebih mengesankan daripada kenyataan.
+    body: `Nilai akhir sebuah mata pelajaran tidak dihitung dengan rata-rata biasa, karena setiap komponen punya **bobot** berbeda. Misalkan komposisinya **tugas 20%**, **ulangan 30%**, dan **ujian akhir 50%**. Nilai seorang siswa adalah tugas $80$, ulangan $70$, dan ujian $60$.
 
-Contoh sehari-hari: sebuah toko memasang spanduk *"DISKON 50% + 20%"*. Banyak pembeli mengira total diskonnya $70\\%$. Ada juga klaim *"nilai rata-rata kelas naik 5 poin"* tanpa menyebut basisnya.
+Pertanyaan pemicunya: berapa nilai akhirnya, dan jika ia ingin menaikkannya, komponen mana yang paling menguntungkan diperbaiki lebih dahulu? Rata-rata biasa $\\frac{80+70+60}{3} = 70$ akan memberi jawaban yang **keliru** karena mengabaikan bobot.`,
+    analysis: `**Rata-rata berbobot.** Setiap nilai dikalikan bobotnya dalam bentuk desimal, lalu dijumlahkan:
+$$\\bar{x} = 0{,}20(80) + 0{,}30(70) + 0{,}50(60) = 16 + 21 + 30 = 67.$$
+Jadi nilai akhirnya **67**, bukan $70$. Rata-rata biasa hanya benar bila semua komponen berbobot sama.
 
-Pertanyaan pemicunya: berapa diskon sebenarnya pada spanduk itu, dan apa yang harus dicermati sebelum mempercayai klaim persentase?`,
-    analysis: `**Diskon bertingkat.** Misalkan harga awal Rp200.000. Diskon $50\\%$ menyisakan $200.000 \\times 0{,}5 = 100.000$. Diskon $20\\%$ berikutnya dihitung dari harga yang sudah disurutkan, bukan dari harga awal: $100.000 \\times 0{,}8 = 80.000$. Jadi pembeli membayar $80.000$, yaitu $40\\%$ dari harga awal, sehingga diskon totalnya $60\\%$, bukan $70\\%$. Secara umum dua diskon dikalikan: $1 - 0{,}5 \\times 0{,}8 = 0{,}6$.
+**Komponen mana yang paling berpengaruh?** Karena bobot ujian terbesar, kenaikan 10 poin pada ujian menambah $0{,}50 \\times 10 = 5$ poin, sedangkan kenaikan 10 poin pada tugas hanya menambah $0{,}20 \\times 10 = 2$ poin:
+- Ujian $60 \\to 70$: nilai akhir $16 + 21 + 35 = 72$.
+- Tugas $80 \\to 90$: nilai akhir $18 + 21 + 30 = 69$.
 
-**Persen naik dan turun tidak simetris.** Harga naik $20\\%$ lalu turun $20\\%$ tidak kembali ke semula: $100 \\times 1{,}2 \\times 0{,}8 = 96$, yaitu $4\\%$ lebih rendah dari awal.
-
-**Basis persen penting.** Naik dari $40$ ke $45$ adalah kenaikan $5$ poin, tetapi bila dinyatakan sebagai persen terhadap nilai awal sama dengan $\\frac{45-40}{40} = 0{,}125 = 12{,}5\\%$. Angka "naik 5" dan "naik $12{,}5\\%$" menggambarkan kejadian yang sama dengan kesan berbeda.`,
+**Pelajaran umum.** Bobot menentukan besarnya dampak tiap komponen, sehingga memperbaiki komponen dengan bobot terbesar paling efisien. Prinsip yang sama berlaku untuk rata-rata gabungan dua kelompok berbeda ukuran, yang harus dibobot banyak anggotanya, bukan dihitung sebagai rata-rata kedua rata-rata. Karena itu biasakan bertanya "**persen dari apa**" dan "**seberapa besar bobotnya**" sebelum menafsirkan sebuah angka.`,
     takeaways: [
-      'Persen bertingkat dikalikan, bukan dijumlahkan.',
-      'Kenaikan dan penurunan persen tidak saling meniadakan.',
-      'Selalu tanyakan "persen dari apa" sebelum menilai sebuah klaim.',
+      'Rata-rata berbobot mengalikan setiap nilai dengan bobotnya, lalu menjumlahkan hasilnya.',
+      'Komponen dengan bobot terbesar paling menentukan nilai akhir.',
+      'Rata-rata gabungan dua kelompok berbeda ukuran harus dibobot ukuran kelompoknya.',
     ],
     reflection: [
-      'Sebuah barang didiskon $30\\%$ lalu didiskon lagi $10\\%$. Berapa diskon totalnya?',
-      'Klaim "penjualan naik 5" bisa terdengar hebat atau biasa. Data tambahan apa yang kamu butuhkan?',
+      'Mengapa rata-rata biasa memberi hasil berbeda dari rata-rata berbobot pada contoh ini?',
+      'Jika seluruh bobot diubah menjadi sama, berapa nilai akhirnya? Jelaskan.',
+      'Di mana lagi kamu menemukan rata-rata berbobot dalam kehidupan sehari-hari?',
     ],
     source:
-      'Ilustrasi fiktif berdasarkan pola diskon dan klaim statistik sehari-hari; angka dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi berdasarkan praktik penilaian di sekolah (bobot tugas, ulangan, dan ujian); angka dibulatkan agar mudah dihitung.',
   },
   {
     id: 'komb-sandi-dan-pin',
@@ -258,6 +275,49 @@ Kedua teknik saling melengkapi: pencacahan menghitung **berapa banyak** kemungki
       'Jika syarat berubah menjadi "paling sedikit dua angka", bagaimana bentuk perhitungannya?',
     ],
     source:
-      'Ilustrasi fiktif kebijakan kata sandi portal sekolah; angka dibuat agar perhitungan mudah diperiksa.',
+      'Kebijakan kata sandi 6 karakter (huruf kecil dan angka) serta PIN 4 angka mengikuti praktik keamanan umum; angka dibulatkan agar perhitungan inklusi-eksklusi dan prinsip sarang merpati mudah diperiksa.',
+  },
+  {
+    id: 'cacat-dua-tahap',
+    title: 'Dua Tahap Pemeriksaan Produk Cacat',
+    category: 'data',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    explorationId: 'peluang-bersyarat-sim',
+    tags: ['peluang bersyarat', 'pemeriksaan bertahap', 'kendali mutu', 'pohon peluang'],
+    summary:
+      'Menghitung peluang produk cacat yang lolos dua tahap pemeriksaan dan menilai manfaat tahap kedua.',
+    topicIds: ['peluang-bersyarat', 'peluang'],
+    body: `Sebuah pabrik memperkirakan **4%** produknya cacat. Untuk menyaringnya dipakai dua tahap pemeriksaan:
+
+- **Tahap 1** mendeteksi 90% produk cacat dan meloloskan sisanya.
+- **Tahap 2** memeriksa ulang produk yang lolos tahap 1 dan mendeteksi 80% cacat yang masih tersisa.
+
+Anggap kedua tahap tidak pernah salah menandai produk yang baik (tidak ada positif palsu). Pertanyaan pemicunya: dari semua produk yang akhirnya dikirim, berapa peluangnya cacat, dan apakah menambah tahap kedua sepadan dengan biayanya?`,
+    analysis: `Bayangkan **10.000** produk. Sekitar $4\\%$ atau $400$ produk cacat, dan $9.600$ produk baik.
+
+**Tahap 1.** Dari $400$ produk cacat, $90\\%$ terdeteksi: $0{,}9 \\times 400 = 360$, sehingga $40$ cacat lolos. Seluruh $9.600$ produk baik lolos.
+
+**Tahap 2.** Dari $40$ cacat yang lolos, $80\\%$ terdeteksi: $0{,}8 \\times 40 = 32$, sehingga hanya $8$ cacat yang akhirnya dikirim bersama $9.600$ produk baik.
+
+Maka peluang produk yang dikirim benar-benar cacat adalah
+$$P(\\text{cacat} \\mid \\text{lolos}) = \\frac{8}{9.600 + 8} \\approx 0{,}083\\%.$$
+Tanpa tahap kedua, peluang cacat yang lolos adalah $\\frac{40}{10.000} = 0{,}4\\%$. Jadi tahap kedua menurunkan cacat terkirim dari $0{,}4\\%$ menjadi sekitar $0{,}083\\%$, yaitu **lima kali lebih kecil** karena menyaring 80% dari sisa.
+
+**Keputusan.** Manfaat tahap kedua dibandingkan dengan biayanya: tahap ini layak ditambahkan bila kerugian rata-rata akibat satu produk cacat yang sampai ke pelanggan lebih besar daripada $\\frac{\\text{biaya tahap 2}}{32\\ \\text{cacat yang tertangkap}}$. Perhatikan pula bahwa tahap kedua bekerja pada populasi kecil (hanya $40$ cacat yang lolos), sehingga jumlah yang diselamatkan tidak sebanding dengan memeriksa seluruh produksi — inilah sebabnya pemeriksaan bertahap disusun berlapis dan berfokus, bukan seragam.`,
+    takeaways: [
+      'Peluang bersyarat memakai informasi tahap sebelumnya, bukan lagi peluang awal.',
+      'Pemeriksaan bertahap menurunkan cacat terkirim secara berlipat, tetapi bekerja pada populasi yang makin kecil.',
+      'Keputusan menambah tahap pemeriksaan membandingkan manfaat (cacat yang tertangkap) dengan biayanya.',
+    ],
+    reflection: [
+      'Mengapa tahap kedua hanya perlu memeriksa produk yang lolos tahap pertama?',
+      'Jika tahap 2 hanya mendeteksi 50%, berapa peluang cacat yang akhirnya terkirim?',
+      'Mengapa memeriksa seluruh produk dua kali bisa lebih mahal tanpa menangkap banyak tambahan?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi mengikuti gagasan pemeriksaan bertahap (sequential screening) pada kendali mutu; angka dibulatkan agar peluang bersyaratnya mudah dihitung.',
   },
 ];

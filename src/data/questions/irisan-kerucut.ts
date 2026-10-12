@@ -16,7 +16,7 @@ export const irisanKerucutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Bentuk baku $(x-a)^{2} + (y-b)^{2} = r^{2}$ berpusat $(a,b)$. Di sini $a = 2$ dan $b = -3$, sehingga pusatnya $(2,-3)$.',
+      'Bentuk baku $(x-a)^{2} + (y-b)^{2} = r^{2}$ berpusat $(a,b)$. Di sini $a = 2$ dan $b = -3$, sehingga pusatnya $(2,-3)$ (A). Opsi B salah tanda pada koordinat $y$; opsi D salah tanda pada kedua koordinat; opsi C salah tanda pada koordinat $x$, karena mengira tanda di dalam kurung sama dengan tanda pusat.',
     hints: ['Tanda di dalam kurung berlawanan dengan tanda koordinat pusat.'],
     competencies: ['persamaan lingkaran bentuk baku'],
   },
@@ -49,7 +49,7 @@ export const irisanKerucutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Dengan $D = -6$, $E = 4$, $F = -12$: pusat $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right) = (3,-2)$ dan $r = \\sqrt{9 + 4 + 12} = \\sqrt{25} = 5$.',
+      'Dengan $D = -6$, $E = 4$, $F = -12$: pusat $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right) = (3,-2)$ dan $r = \\sqrt{9 + 4 + 12} = \\sqrt{25} = 5$ (A). Opsi B salah tanda pada kedua koordinat pusat; opsi C lupa mengakarkan sehingga memakai $r^{2}=25$; opsi D memakai $D$ dan $E$ mentah tanpa membagi dengan $2$.',
     hints: ['Pusat adalah $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right)$ dan $r = \\sqrt{\\left(\\dfrac{D}{2}\\right)^{2} + \\left(\\dfrac{E}{2}\\right)^{2} - F}$.'],
     competencies: ['persamaan lingkaran bentuk umum'],
   },
@@ -81,8 +81,11 @@ export const irisanKerucutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Garis singgung lingkaran $x^{2} + y^{2} = r^{2}$ di $(x_{1}, y_{1})$ adalah $x\\,x_{1} + y\\,y_{1} = r^{2}$. Maka $3x + 4y = 25$. Periksa: $3(3) + 4(4) = 25$.',
-    hints: ['Substitusikan koordinat titik singgung pada rumus garis singgung.'],
+      'Garis singgung lingkaran $x^{2} + y^{2} = r^{2}$ di $(x_{1}, y_{1})$ adalah $x\\,x_{1} + y\\,y_{1} = r^{2}$, sehingga $3x + 4y = 25$ (A). Opsi B menukar koefisien $3$ dan $4$; opsi C salah tanda pada suku $y$; opsi D memakai $r = 5$ di ruas kanan alih-alih $r^{2} = 25$.',
+    hints: [
+      'Substitusikan koordinat titik singgung pada rumus garis singgung.',
+      'Ingat rumus $x\\,x_{1}+y\\,y_{1}=r^{2}$ dengan $r^{2}=25$.',
+    ],
     competencies: ['garis singgung lingkaran'],
   },
   {
@@ -96,7 +99,10 @@ export const irisanKerucutQuestions: Question[] = [
     answer: '4',
     explanation:
       '$a^{2} = 25$ dan $b^{2} = 9$, sehingga $c = \\sqrt{a^{2} - b^{2}} = \\sqrt{25 - 9} = \\sqrt{16} = 4$. Jarak pusat ke fokus adalah $c = 4$.',
-    hints: ['Untuk elips berlaku $c^{2} = a^{2} - b^{2}$ dengan $a$ penyebut terbesar.'],
+    hints: [
+      'Untuk elips berlaku $c^{2} = a^{2} - b^{2}$ dengan $a$ penyebut terbesar.',
+      'Karena $a^{2}=25$ lebih besar dari $b^{2}=9$, sumbu mayor sejajar sumbu-$x$.',
+    ],
     competencies: ['fokus elips'],
   },
   {
@@ -114,8 +120,11 @@ export const irisanKerucutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$a = 5$, $b = 3$, sehingga $c = \\sqrt{25 - 9} = 4$ dan $e = \\dfrac{c}{a} = \\dfrac{4}{5} = 0{,}8$. Karena $0 < e < 1$, hasilnya masuk akal untuk elips.',
-    hints: ['Eksentrisitas $e = \\dfrac{c}{a}$ dan selalu bernilai kurang dari $1$.'],
+      '$a = 5$, $b = 3$, sehingga $c = \\sqrt{25 - 9} = 4$ dan $e = \\dfrac{c}{a} = \\dfrac{4}{5} = 0{,}8$ (A). Opsi B membalik menjadi $\\dfrac{a}{c}$ sehingga nilainya lebih dari $1$ (mustahil untuk elips); opsi C memakai $\\dfrac{b}{a}$; opsi D memakai $\\dfrac{a}{b}$ yang juga lebih dari $1$.',
+    hints: [
+      'Eksentrisitas $e = \\dfrac{c}{a}$ dan selalu bernilai kurang dari $1$.',
+      'Hitung $c=\\sqrt{a^{2}-b^{2}}$ lebih dahulu.',
+    ],
     competencies: ['eksentrisitas elips'],
   },
   {
@@ -130,7 +139,10 @@ export const irisanKerucutQuestions: Question[] = [
       'Pusatnya $(2,1)$. Karena penyebut $x$ lebih besar, sumbu mayor sejajar sumbu-$x$ dengan $a = 5$ dan $b = 4$. Maka $c = \\sqrt{a^{2} - b^{2}} = \\sqrt{25 - 16} = 3$. Fokusnya $(2 \\pm 3, 1)$, yaitu $(-1,1)$ dan $(5,1)$. Sumbu mayor $2a = 10$, sumbu minor $2b = 8$, dan eksentrisitas $e = \\dfrac{3}{5} = 0{,}6$.',
     explanation:
       'Kunci menekankan pembacaan pusat dari bentuk baku, penentuan $a$ dan $b$, perhitungan $c^{2} = a^{2} - b^{2}$, lalu penentuan fokus dan eksentrisitas.',
-    hints: ['Fokus berada pada sumbu mayor, yaitu sejajar sumbu-$x$ karena $a$ pada suku $x$.'],
+    hints: [
+      'Fokus berada pada sumbu mayor, yaitu sejajar sumbu-$x$ karena $a$ pada suku $x$.',
+      'Hitung $c=\\sqrt{25-16}=3$ sebelum menentukan koordinat fokus.',
+    ],
     competencies: ['unsur elips', 'fokus elips', 'eksentrisitas elips'],
     rubric: [
       'Membaca pusat $(2,1)$ dari bentuk baku',
@@ -151,7 +163,10 @@ export const irisanKerucutQuestions: Question[] = [
     answer: '25',
     explanation:
       'Garis singgung di $(x_{1}, y_{1})$ adalah $\\dfrac{x\\,x_{1}}{25} + \\dfrac{y\\,y_{1}}{9} = 1$. Substitusi $x_{1} = 4$ dan $y_{1} = \\tfrac{9}{5}$: $\\dfrac{4x}{25} + \\dfrac{y}{5} = 1$. Kalikan dengan $25$: $4x + 5y = 25$, sehingga $c = 25$. Periksa: $4(4) + 5\\left(\\tfrac{9}{5}\\right) = 25$.',
-    hints: ['Gunakan $\\dfrac{x\\,x_{1}}{a^{2}} + \\dfrac{y\\,y_{1}}{b^{2}} = 1$, lalu kalikan dengan penyebut bersama.'],
+    hints: [
+      'Gunakan $\\dfrac{x\\,x_{1}}{a^{2}} + \\dfrac{y\\,y_{1}}{b^{2}} = 1$, lalu kalikan dengan penyebut bersama.',
+      'Setelah memperoleh $4x+5y=25$, bandingkan dengan bentuk $4x+5y=c$.',
+    ],
     competencies: ['garis singgung elips'],
   },
   {
@@ -170,8 +185,11 @@ export const irisanKerucutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$a = 5$, $b = 4$, sehingga $c = \\sqrt{25 - 16} = 3$. Karena sumbu mayor sejajar sumbu-$x$, fokusnya $(2 \\pm 3, 1)$, yaitu $(-1,1)$ dan $(5,1)$.',
-    hints: ['Fokus bergeser dari pusat sejauh $c$ sepanjang sumbu mayor.'],
+      '$a = 5$, $b = 4$, sehingga $c = \\sqrt{25 - 16} = 3$. Karena sumbu mayor sejajar sumbu-$x$, fokusnya $(2 \\pm 3, 1)$, yaitu $(-1,1)$ dan $(5,1)$ (A). Opsi B bergeser pada arah $y$; opsi C memakai $c=1$; opsi D memakai $c=5$ (nilai $a$, bukan $c$).',
+    hints: [
+      'Fokus bergeser dari pusat sejauh $c$ sepanjang sumbu mayor.',
+      'Hitung $c=\\sqrt{a^{2}-b^{2}}=\\sqrt{25-16}=3$.',
+    ],
     competencies: ['fokus elips'],
   },
   {
@@ -186,7 +204,10 @@ export const irisanKerucutQuestions: Question[] = [
       'Bagi seluruh persamaan dengan $2$: $x^{2} + y^{2} - 4x + 6y - 3 = 0$, sehingga $D = -4$, $E = 6$, $F = -3$. Pusat $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right) = (2,-3)$ dan $r = \\sqrt{\\left(\\dfrac{-4}{2}\\right)^{2} + \\left(\\dfrac{6}{2}\\right)^{2} - (-3)} = \\sqrt{4 + 9 + 3} = \\sqrt{16} = 4$. Bentuk bakunya $(x-2)^{2} + (y+3)^{2} = 16$.',
     explanation:
       'Kunci menekankan langkah awal membagi dengan koefisien $x^{2}$ dan $y^{2}$ sebelum menerapkan rumus bentuk umum.',
-    hints: ['Koefisien $x^{2}$ dan $y^{2}$ harus $1$ sebelum memakai rumus pusat.'],
+    hints: [
+      'Koefisien $x^{2}$ dan $y^{2}$ harus $1$ sebelum memakai rumus pusat.',
+      'Setelah dibagi $2$ dan pusat diketahui, hitung $r=\\sqrt{\\left(\\dfrac{D}{2}\\right)^{2}+\\left(\\dfrac{E}{2}\\right)^{2}-F}$.',
+    ],
     competencies: ['persamaan lingkaran bentuk umum', 'melengkapkan kuadrat'],
     rubric: [
       'Membagi persamaan dengan $2$ terlebih dahulu',
@@ -207,7 +228,10 @@ export const irisanKerucutQuestions: Question[] = [
       'Sumbu mayor $2a = 10$ memberi $a = 5$; sumbu minor $2b = 6$ memberi $b = 3$. Karena sumbu mayor pada sumbu-$x$, persamaannya $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$. Selanjutnya $c = \\sqrt{a^{2} - b^{2}} = \\sqrt{25 - 9} = 4$, sehingga eksentrisitasnya $e = \\dfrac{c}{a} = \\dfrac{4}{5} = 0{,}8$.',
     explanation:
       'Kunci menekankan penafsiran panjang sumbu menjadi nilai $a$ dan $b$, penulisan persamaan baku, dan perhitungan eksentrisitas melalui $c$.',
-    hints: ['Panjang sumbu mayor adalah $2a$ dan sumbu minor $2b$.'],
+    hints: [
+      'Panjang sumbu mayor adalah $2a$ dan sumbu minor $2b$.',
+      'Hitung $c=\\sqrt{a^{2}-b^{2}}$ lalu $e=\\dfrac{c}{a}$.',
+    ],
     competencies: ['persamaan elips', 'eksentrisitas elips'],
     rubric: [
       'Mengubah sumbu mayor $10$ menjadi $a=5$ dan minor $6$ menjadi $b=3$',
@@ -258,5 +282,33 @@ export const irisanKerucutQuestions: Question[] = [
       'Menghitung $c=\\sqrt{100-64}=6$',
       'Menentukan jarak antarfokus $2c=12$ m',
     ],
+  },
+  {
+    id: 'ik-15',
+    topicId: 'irisan-kerucut',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'konsep',
+    prompt:
+      'Sketsa berikut menunjukkan sebuah elips berpusat di titik asal dengan titik puncak pada sumbu-$x$ di $(5,0)$ dan $(-5,0)$ serta titik puncak pada sumbu-$y$ di $(0,3)$ dan $(0,-3)$. Persamaan elips tersebut adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{x^{2}}{25}+\\dfrac{y^{2}}{9}=1$' },
+      { key: 'B', text: '$\\dfrac{x^{2}}{9}+\\dfrac{y^{2}}{25}=1$' },
+      { key: 'C', text: '$\\dfrac{x^{2}}{25}-\\dfrac{y^{2}}{9}=1$' },
+      { key: 'D', text: '$\\dfrac{x^{2}}{16}+\\dfrac{y^{2}}{9}=1$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Karena titik puncak terjauh berada pada sumbu-$x$ di $(\\pm5,0)$, maka $a=5$ pada suku $x$ dan $b=3$ pada suku $y$, sehingga persamaannya $\\dfrac{x^{2}}{25}+\\dfrac{y^{2}}{9}=1$ (A). Opsi B menukar $a$ dan $b$ sehingga sumbu mayornya menjadi vertikal; opsi C memakai tanda kurang sehingga menjadi hiperbola; opsi D memakai $a^{2}=16$ padahal titik puncaknya di $x=\\pm5$.',
+    figure: {
+      svg: '<svg viewBox="0 0 240 170" role="img" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="85" x2="230" y2="85" stroke="currentColor" stroke-width="1" opacity="0.35"/><line x1="120" y1="10" x2="120" y2="160" stroke="currentColor" stroke-width="1" opacity="0.35"/><ellipse cx="120" cy="85" rx="90" ry="54" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="48" cy="85" r="3" fill="currentColor"/><circle cx="192" cy="85" r="3" fill="currentColor"/><text x="203" y="102" fill="currentColor" font-size="12">5</text><text x="126" y="24" fill="currentColor" font-size="12">3</text><text x="28" y="102" fill="currentColor" font-size="12">-5</text></svg>',
+      alt: 'Sketsa elips berpusat di titik asal dengan titik puncak di (5,0), (-5,0), (0,3), dan (0,-3), serta dua titik fokus di sumbu-x.',
+      caption: 'Elips berpusat di titik asal dengan sumbu mayor horizontal.',
+    },
+    hints: [
+      'Titik puncak terjauh menentukan nilai $a$ dan arah sumbu mayor.',
+      'Penyebut suku $x$ adalah $a^{2}$ dan penyebut suku $y$ adalah $b^{2}$.',
+    ],
+    competencies: ['persamaan elips', 'representasi grafik'],
   },
 ];

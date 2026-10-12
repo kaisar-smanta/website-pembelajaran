@@ -114,7 +114,7 @@ Metode yang meminimumkan besaran ini disebut **metode kuadrat terkecil** (least 
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Garis rata-rata terbaik",
           text: "Garis regresi adalah **garis rata-rata terbaik**, bukan garis yang harus dilalui setiap titik. Kualitasnya dinilai dari seberapa kecil kuadrat residu totalnya.",
         },
         {
@@ -154,8 +154,8 @@ Metode yang meminimumkan besaran ini disebut **metode kuadrat terkecil** (least 
         {
           kind: "figure",
           alt: "Diagram pencar delapan titik data dengan garis regresi kuadrat terkecil menanjak, dan ruas garis putus-putus yang menunjukkan residu tiap titik terhadap garis.",
-          caption: "Titik data, garis regresi $\\hat{y} = 1{,}190x + 0{,}893$, dan residu sebagai ruas garis putus-putus dari setiap titik ke garis.",
-          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><text x="292" y="216" font-size="12" fill="currentColor">x</text><text x="24" y="34" font-size="12" fill="currentColor">y</text><line x1="73.3" y1="168.8" x2="271.7" y2="43.8" stroke="currentColor" stroke-width="2"/><line x1="101.7" y1="140" x2="101.7" y2="150.9" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="130" y1="125" x2="130" y2="133.1" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="158.3" y1="140" x2="158.3" y2="115.2" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="186.7" y1="95" x2="186.7" y2="97.4" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="243.3" y1="65" x2="243.3" y2="61.7" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="271.7" y1="35" x2="271.7" y2="43.8" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="73.3" cy="170" r="3" fill="currentColor"/><circle cx="101.7" cy="140" r="3" fill="currentColor"/><circle cx="130" cy="125" r="3" fill="currentColor"/><circle cx="158.3" cy="140" r="3" fill="currentColor"/><circle cx="186.7" cy="95" r="3" fill="currentColor"/><circle cx="215" cy="80" r="3" fill="currentColor"/><circle cx="243.3" cy="65" r="3" fill="currentColor"/><circle cx="271.7" cy="35" r="3" fill="currentColor"/><text x="162" y="52" font-size="11" fill="currentColor">garis regresi</text><text x="196" y="106" font-size="11" fill="currentColor">residu</text></svg>',
+          caption: "Titik data, garis regresi $\\hat{y} = 1{,}190x + 0{,}893$, dan residu sebagai ruas garis putus-putus dari setiap titik ke garis. Titik-titik rapat pada garis menandakan hubungan kuat dengan $r \\approx 0{,}97$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><text x="292" y="216" font-size="12" fill="currentColor">x</text><text x="24" y="34" font-size="12" fill="currentColor">y</text><line x1="73.3" y1="168.8" x2="271.7" y2="43.8" stroke="currentColor" stroke-width="2"/><line x1="101.7" y1="140" x2="101.7" y2="150.9" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="130" y1="125" x2="130" y2="133.1" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="158.3" y1="140" x2="158.3" y2="115.2" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="186.7" y1="95" x2="186.7" y2="97.4" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="243.3" y1="65" x2="243.3" y2="61.7" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="271.7" y1="35" x2="271.7" y2="43.8" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="73.3" cy="170" r="3" fill="currentColor"/><circle cx="101.7" cy="140" r="3" fill="currentColor"/><circle cx="130" cy="125" r="3" fill="currentColor"/><circle cx="158.3" cy="140" r="3" fill="currentColor"/><circle cx="186.7" cy="95" r="3" fill="currentColor"/><circle cx="215" cy="80" r="3" fill="currentColor"/><circle cx="243.3" cy="65" r="3" fill="currentColor"/><circle cx="271.7" cy="35" r="3" fill="currentColor"/><text x="162" y="52" font-size="11" fill="currentColor">garis regresi</text><text x="196" y="106" font-size="11" fill="currentColor">residu</text><text x="58" y="62" font-size="11" fill="currentColor">r &asymp; 0,97</text></svg>',
         },
         {
           kind: "table",
@@ -282,45 +282,39 @@ Jika $r = 0{,}9$, maka $r^2 = 0{,}81$, artinya sekitar **81%** variasi $y$ dijel
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `Kita gunakan data delapan siswa: $\\sum x_i = 36$, $\\sum y_i = 50$, $\\sum x_i y_i = 275$, $\\sum x_i^2 = 204$, $\\sum y_i^2 = 376$, dan $n = 8$.
-
-**Contoh 2 (data kecil).** Tentukan garis regresi untuk lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$, lalu taksir nilai $y$ saat $x = 6$.
-
-*Penyelesaian.* Dengan $n=5$: $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, dan $\\sum x_i^2 = 55$. Maka
-
-$$b = \\frac{5(84) - (15)(25)}{5(55) - 15^2} = \\frac{420 - 375}{275 - 225} = \\frac{45}{50} = 0{,}9.$$
-
-Karena $\\bar{x} = 3$ dan $\\bar{y} = 5$, diperoleh $a = 5 - 0{,}9(3) = 2{,}3$, sehingga $\\hat{y} = 0{,}9x + 2{,}3$. Untuk $x = 6$: $\\hat{y} = 0{,}9(6) + 2{,}3 = 7{,}7$. Karena $x=6$ sedikit di luar rentang $1$ sampai $5$, angka ini termasuk **ekstrapolasi** dan perlu ditafsirkan hati-hati.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kita gunakan data delapan siswa: $\\sum x_i = 36$, $\\sum y_i = 50$, $\\sum x_i y_i = 275$, $\\sum x_i^2 = 204$, $\\sum y_i^2 = 376$, dan $n = 8$.",
+          intro: "Contoh 1 memakai data delapan siswa, sedangkan Contoh 2 memakai lima pasangan data kecil. Kerjakan bertahap.",
           steps: [
             {
-              title: "Langkah 1",
+              title: "Contoh 1 (gradien)",
               text: "$$b = \\frac{8(275) - (36)(50)}{8(204) - (36)^2} = \\frac{2200 - 1800}{1632 - 1296} = \\frac{400}{336} = \\frac{25}{21} \\approx 1{,}190.$$",
             },
             {
-              title: "Langkah 2",
+              title: "Contoh 1 (intersep)",
               text: `Dengan $\\bar{x} = \\dfrac{36}{8} = 4{,}5$ dan $\\bar{y} = \\dfrac{50}{8} = 6{,}25$:
-
 $$a = 6{,}25 - 1{,}190(4{,}5) \\approx 6{,}25 - 5{,}357 = 0{,}893.$$
-
 Jadi $\\hat{y} = 1{,}190x + 0{,}893$. Artinya, **setiap tambahan 1 jam belajar dikaitkan dengan kenaikan nilai sekitar 1,19 poin**, dan siswa tanpa waktu belajar diprediksi bernilai sekitar 0,89.`,
             },
             {
-              title: "Langkah 3",
+              title: "Contoh 1 (korelasi dan determinasi)",
               text: `$$r = \\frac{400}{\\sqrt{(336)(8 \\cdot 376 - 50^2)}}.$$
-
 Karena $8 \\cdot 376 - 2500 = 3008 - 2500 = 508$, maka
-
 $$r = \\frac{400}{\\sqrt{336 \\cdot 508}} = \\frac{400}{\\sqrt{170\\,688}} \\approx \\frac{400}{413{,}14} \\approx 0{,}968.$$
-
-Karena $\\sqrt{336 \\cdot 508} \\approx 413{,}14$, diperoleh $r \\approx 0{,}968$, sehingga $r^2 \\approx 0{,}968^2 \\approx 0{,}937$. Sekitar **93,7%** variasi nilai dapat dijelaskan oleh waktu belajar — hubungan linear positif yang kuat.`,
+Jadi $r \\approx 0{,}968$ sehingga $r^2 \\approx 0{,}937$. Sekitar **93,7%** variasi nilai dapat dijelaskan oleh waktu belajar — hubungan linear positif yang kuat.`,
             },
             {
-              title: "Langkah 4",
+              title: "Contoh 1 (prediksi)",
               text: "Untuk $x = 10$ jam: $\\hat{y} = 1{,}190(10) + 0{,}893 = 12{,}79$. Karena data hanya mencakup $x = 1$ sampai $8$, nilai ini adalah **ekstrapolasi** yang harus ditafsirkan hati-hati; nilainya bahkan melewati skala maksimum 10.",
+            },
+            {
+              title: "Contoh 2 (data kecil)",
+              text: `Tentukan garis regresi untuk lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$, lalu taksir nilai $y$ saat $x = 6$.
+
+*Penyelesaian.* Dengan $n=5$: $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, dan $\\sum x_i^2 = 55$. Maka
+$$b = \\frac{5(84) - (15)(25)}{5(55) - 15^2} = \\frac{420 - 375}{275 - 225} = \\frac{45}{50} = 0{,}9.$$
+Karena $\\bar{x} = 3$ dan $\\bar{y} = 5$, diperoleh $a = 5 - 0{,}9(3) = 2{,}3$, sehingga $\\hat{y} = 0{,}9x + 2{,}3$. Untuk $x = 6$: $\\hat{y} = 0{,}9(6) + 2{,}3 = 7{,}7$. Karena $x=6$ sedikit di luar rentang $1$ sampai $5$, angka ini termasuk **ekstrapolasi** dan perlu ditafsirkan hati-hati.`,
             },
           ],
         },
@@ -354,7 +348,7 @@ Karena $\\sqrt{336 \\cdot 508} \\approx 413{,}14$, diperoleh $r \\approx 0{,}968
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Regresi linear dipakai untuk menaksir harga rumah dari luas bangunan, memprediksi penjualan dari anggaran iklan, dan memantau tren pertumbuhan. Namun sebuah garis yang cocok secara statistik **belum tentu** memberi penjelasan sebab-akibat.
+      body: `Regresi linear dipakai untuk menaksir harga rumah dari luas bangunan, memprediksi penjualan dari anggaran iklan, dan memantau tren pertumbuhan. Sebagai gambaran, jika hubungan luas rumah $x$ (m$^2$) dan harga $\\hat{y}$ (juta rupiah) mengikuti $\\hat{y} = 5x + 150$, rumah seluas $120$ m$^2$ ditaksir bernilai $5(120) + 150 = 750$ juta rupiah. Namun sebuah garis yang cocok secara statistik **belum tentu** memberi penjelasan sebab-akibat.
 
 Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/regresi-nilai-ujian). Di sana prediksi $x = 10$ menjadi $\\hat{y} \\approx 12{,}8$ dan dibahas mengapa angka itu melampaui skala nilai yang wajar.`,
     },
@@ -432,7 +426,7 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana garis tren membantumu melihat arah hubungan dalam data.",
+      body: "Timbang kapan sebuah garis tren layak dipercaya: pikirkan satu prediksi yang pernah kamu buat dari data, lalu periksa apakah rentang datanya cukup mendukung.",
       blocks: [
         {
           kind: "reflection",
@@ -493,7 +487,7 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Apa perbedaan peran $r$ dan $r^2$ dalam menilai sebuah model? (2) Mengapa prediksi jauh di luar rentang data berisiko? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Regresi Linear** untuk latihan tambahan.`,
+      body: `**Tutup pelajaran.** (1) Bedakan tugas $r$ dan $r^2$ saat menilai sebuah model linear. (2) Jelaskan mengapa prediksi jauh di luar rentang data tidak dapat dipercaya. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Regresi Linear** untuk latihan tambahan.`,
     },
   ],
 };

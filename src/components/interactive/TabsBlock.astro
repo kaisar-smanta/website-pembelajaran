@@ -1,5 +1,5 @@
 ---
-import { renderMarkdown } from '@/utils/markdown';
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import type { Block } from '@/types/content';
 import './interactive-frame.css';
 
@@ -25,9 +25,8 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
           class="tab-btn"
           data-tab-btn
           data-index={String(i)}
-        >
-          {item.label}
-        </button>
+          set:html={renderInlineMarkdown(item.label)}
+        />
       ))
     }
   </div>

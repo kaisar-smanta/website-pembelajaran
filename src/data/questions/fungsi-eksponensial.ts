@@ -16,7 +16,7 @@ export const fungsiEksponensialQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$f(3)=4^{3}=4\\cdot4\\cdot4=64$. Ini perkalian berulang, bukan $4\\cdot3=12$.',
+      '$f(3)=4^{3}=4\\cdot4\\cdot4=64$. Opsi A ($12$) mengalikan basis dengan eksponen ($4\\cdot3$). Opsi B ($256$) menghitung $4^{4}$. Opsi C ($81$) memakai basis $3$ (menghitung $3^{4}$), padahal basisnya $4$.',
     hints: ['$4^{3}$ berarti $4\\times4\\times4$.'],
     competencies: ['nilai fungsi eksponensial'],
   },
@@ -34,7 +34,8 @@ export const fungsiEksponensialQuestions: Question[] = [
       { key: 'D', text: '$3$' },
     ],
     answer: 'D',
-    explanation: 'Karena $125=5^{3}$, maka $5^{x}=5^{3}$ sehingga $x=3$.',
+    explanation:
+      'Karena $125=5^{3}$, maka $5^{x}=5^{3}$ sehingga $x=3$. Opsi A ($2$) memakai $5^{2}=25$. Opsi B ($25$) menjawab hasil $5^{2}$, bukan nilai $x$. Opsi C ($4$) memakai $5^{4}=625$.',
     hints: ['Nyatakan $125$ sebagai pangkat dari $5$.'],
     competencies: ['persamaan eksponen'],
   },
@@ -53,8 +54,11 @@ export const fungsiEksponensialQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Basis $0<b<1$ memberi peluruhan, sedangkan $b>1$ memberi pertumbuhan. Karena $0{,}6<1$, $f$ adalah peluruhan; karena $1{,}5>1$, $g$ adalah pertumbuhan.',
-    hints: ['Perhatikan apakah nilai basis kurang dari atau lebih dari $1$.'],
+      'Basis $0<b<1$ memberi peluruhan, sedangkan $b>1$ memberi pertumbuhan. Karena $0{,}6<1$, $f$ meluruh; karena $1{,}5>1$, $g$ tumbuh. Opsi A menukar keduanya, opsi B menganggap $1{,}5<1$ padahal tidak, dan opsi C menganggap $0{,}6>1$ padahal tidak.',
+    hints: [
+      'Perhatikan apakah nilai basis kurang dari atau lebih dari $1$.',
+      'Basis yang lebih kecil dari $1$ selalu menandakan peluruhan.',
+    ],
     competencies: ['pertumbuhan dan peluruhan'],
   },
   {
@@ -68,7 +72,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     acceptedAnswers: ['2'],
     explanation:
       'Ubah ke basis $3$: $9^{x+1}=(3^{2})^{x+1}=3^{2x+2}$ dan $27^{x}=(3^{3})^{x}=3^{3x}$. Maka $2x+2=3x$, sehingga $x=2$. Periksa: $9^{3}=729$ dan $27^{2}=729$.',
-    hints: ['Nyatakan $9$ dan $27$ sebagai pangkat dari $3$.'],
+    hints: [
+      'Nyatakan $9$ dan $27$ sebagai pangkat dari $3$.',
+      'Setelah basisnya sama, samakan pangkatnya lalu selesaikan persamaan linear yang muncul.',
+    ],
     competencies: ['persamaan eksponen'],
   },
   {
@@ -82,7 +89,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     acceptedAnswers: ['3'],
     explanation:
       'Karena $16=2^{4}$, maka $x^{2}-3x=4 \\Rightarrow x^{2}-3x-4=0 \\Rightarrow (x-4)(x+1)=0$, sehingga $x=4$ atau $x=-1$. Jumlahnya $4+(-1)=3$.',
-    hints: ['Samakan basisnya, lalu selesaikan persamaan kuadrat yang muncul.'],
+    hints: [
+      'Samakan basisnya, lalu selesaikan persamaan kuadrat yang muncul.',
+      'Gunakan $16=2^{4}$ sehingga berlaku $x^{2}-3x=4$.',
+    ],
     competencies: ['persamaan eksponen'],
   },
   {
@@ -97,7 +107,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     acceptedAnswers: ['1079', '1.079'],
     explanation:
       'Model pertumbuhan $N(t)=500(1{,}08)^{t}$. Untuk $t=10$: $N(10)=500\\cdot1{,}08^{10}\\approx500\\cdot2{,}1589=1079{,}45$, dibulatkan menjadi $1079$ jiwa.',
-    hints: ['Faktor pertumbuhan $b=1+r=1+0{,}08=1{,}08$.'],
+    hints: [
+      'Faktor pertumbuhan $b=1+r=1+0{,}08=1{,}08$.',
+      'Substitusikan $t=10$ ke model $N(t)=500(1{,}08)^{t}$.',
+    ],
     competencies: ['pemodelan pertumbuhan'],
   },
   {
@@ -112,7 +125,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     acceptedAnswers: ['15'],
     explanation:
       'Model peluruhan $C(t)=120\\left(\\tfrac12\\right)^{t/6}$. Untuk $t=18$: $120\\left(\\tfrac12\\right)^{3}=120\\cdot\\tfrac18=15$ mg/L.',
-    hints: ['$18$ jam sama dengan berapa selang paruh $6$ jam?'],
+    hints: [
+      '$18$ jam sama dengan berapa selang paruh $6$ jam?',
+      'Setiap selang paruh mengalikan konsentrasi dengan $\\tfrac12$.',
+    ],
     competencies: ['pemodelan peluruhan'],
   },
   {
@@ -126,7 +142,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     answer:
       'Model saldo $M(t)=5.000.000(1{,}06)^{t}$. Nilai dua kali lipat berarti $M(t)=10.000.000$, sehingga $(1{,}06)^{t}=2$. Karena $1{,}06^{11}\\approx1{,}90<2$ dan $1{,}06^{12}\\approx2{,}01>2$, nilai dua kali lipat tercapai pada tahun ke-$12$.',
     explanation: 'Kunci jawaban: menyusun model eksponensial lalu mencari periode saat faktor mencapai $2$.',
-    hints: ['Bagi kedua ruas dengan modal awal untuk memperoleh $(1{,}06)^{t}=2$.'],
+    hints: [
+      'Bagi kedua ruas dengan modal awal untuk memperoleh $(1{,}06)^{t}=2$.',
+      'Bandingkan nilai $(1{,}06)^{t}$ pada $t=11$ dan $t=12$ untuk menemukan tahun pertama yang melampaui $2$.',
+    ],
     competencies: ['pemodelan bunga majemuk'],
     rubric: [
       'Menyusun $M(t)=5.000.000(1{,}06)^{t}$ dan $(1{,}06)^{t}=2$',
@@ -145,7 +164,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     answer:
       'Untuk $x$ bilangan bulat, $b^{x}$ adalah hasil perkalian bilangan positif sehingga hasilnya positif. Untuk $x=\\dfrac{m}{n}$, berlaku $b^{m/n}=\\sqrt[n]{b^{m}}$; karena $b^{m}>0$, akarnya juga positif. Untuk $x$ real, $b^{x}$ didefinisikan sebagai limit nilai-nilai positif tersebut, sehingga tetap positif. Jadi $b^{x}>0$ untuk semua $x$.',
     explanation: 'Kunci jawaban: memperluas kesimpulan dari eksponen bulat ke rasional, lalu ke real.',
-    hints: ['Mulai dari kasus $x$ bilangan bulat, lalu perluas ke rasional.'],
+    hints: [
+      'Mulai dari kasus $x$ bilangan bulat, lalu perluas ke rasional.',
+      'Untuk eksponen rasional $b^{m/n}=\\sqrt[n]{b^{m}}$ dengan $b^{m}>0$, sehingga akarnya pun positif.',
+    ],
     competencies: ['pembuktian', 'sifat eksponen'],
     rubric: [
       'Menjelaskan kasus eksponen bulat sebagai perkalian bilangan positif',
@@ -164,7 +186,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     answer:
       'Dari $y=2^{x}$, grafik bergeser ke kiri $1$ satuan karena eksponen $x+1$, lalu turun $3$ satuan karena $-3$. Asimtot horizontalnya menjadi $y=-3$ (bergeser turun dari $y=0$). Titik potong sumbu-$y$: $f(0)=2^{1}-3=2-3=-1$, yaitu $(0,-1)$.',
     explanation: 'Kunci jawaban: membedakan pergeseran horizontal dan vertikal serta menyesuaikan asimtot.',
-    hints: ['$b^{x+1}$ menggeser grafik secara horizontal, sedangkan $-3$ menggesernya secara vertikal.'],
+    hints: [
+      '$b^{x+1}$ menggeser grafik secara horizontal, sedangkan $-3$ menggesernya secara vertikal.',
+      'Asimtot horizontal ikut bergeser bersama pergeseran vertikal.',
+    ],
     competencies: ['transformasi grafik eksponensial'],
     rubric: [
       'Menjelaskan pergeseran horizontal $1$ satuan ke kiri dari $x+1$',
@@ -198,17 +223,17 @@ export const fungsiEksponensialQuestions: Question[] = [
     difficulty: 'dasar',
     type: 'multiple-choice',
     category: 'konsep',
-    prompt: 'Diketahui $f(x)=3^{x}$. Nilai $f(2)$ adalah …',
+    prompt: 'Diketahui $f(x)=\\left(\\dfrac{1}{3}\\right)^{x}$. Nilai $f(2)$ adalah …',
     options: [
-      { key: 'A', text: '$6$' },
-      { key: 'B', text: '$8$' },
-      { key: 'C', text: '$12$' },
+      { key: 'A', text: '$\\dfrac{1}{6}$' },
+      { key: 'B', text: '$\\dfrac{1}{9}$' },
+      { key: 'C', text: '$-\\dfrac{1}{9}$' },
       { key: 'D', text: '$9$' },
     ],
-    answer: 'D',
+    answer: 'B',
     explanation:
-      '$f(2)=3^{2}=3\\cdot3=9$. Ini perkalian berulang, bukan $3\\cdot2=6$ atau penjumlahan $3+2$.',
-    hints: ['$3^{2}$ berarti $3\\times3$.'],
+      '$f(2)=\\left(\\dfrac{1}{3}\\right)^{2}=\\dfrac{1}{3}\\cdot\\dfrac{1}{3}=\\dfrac{1}{9}$. Opsi A ($\\dfrac{1}{6}$) mengalikan $3$ dengan $2$ alih-alih mengkuadratkan. Opsi C ($-\\dfrac{1}{9}$) menganggap pangkat genap menghasilkan bilangan negatif. Opsi D ($9$) membalik basis menjadi $3^{2}$ alih-alih memangkatkan nilai aslinya.',
+    hints: ['$\\left(\\dfrac{1}{3}\\right)^{2}$ berarti $\\dfrac{1}{3}\\times\\dfrac{1}{3}$.'],
     competencies: ['nilai fungsi eksponensial'],
   },
   {
@@ -271,7 +296,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     acceptedAnswers: ['1875', '1.875', '1875 jiwa'],
     explanation:
       'Model pertumbuhan $N(t)=1.200(1{,}25)^t$. Untuk $t=2$: $N(2)=1.200(1{,}25)^2=1.200(1{,}5625)=1.875$ jiwa.',
-    hints: ['Faktor pertumbuhan $b=1+0{,}25=1{,}25$.'],
+    hints: [
+      'Faktor pertumbuhan $b=1+0{,}25=1{,}25$.',
+      'Hitung $1.200(1{,}25)^{2}$ dengan mengkuadratkan $1{,}25$ lebih dahulu.',
+    ],
     competencies: ['pemodelan pertumbuhan'],
   },
 ];

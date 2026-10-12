@@ -16,8 +16,8 @@ export const integralQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Dengan aturan pangkat, $\\displaystyle\\int 6x\\,dx = 6 \\cdot \\dfrac{x^{2}}{2} + C = 3x^{2} + C$.',
-    hints: ['Gunakan $\\displaystyle\\int x^{n}\\,dx = \\dfrac{x^{n+1}}{n+1} + C$.'],
+      'Dengan aturan pangkat, $\\displaystyle\\int 6x\\,dx = 6 \\cdot \\dfrac{x^{2}}{2} + C = 3x^{2} + C$. Opsi B, $6x^{2} + C$, muncul bila hasilnya tidak dibagi dengan pangkat baru $2$. Opsi C, $3x + C$, muncul bila aturan turunan dipakai terbalik (pangkat diturunkan, bukan dinaikkan). Opsi D, $x^{2} + C$, muncul bila koefisien $6$ dibagi dengan $6$, bukan dengan $2$.',
+    hints: ['Gunakan $\\displaystyle\\int x^{n}\\,dx = \\dfrac{x^{n+1}}{n+1} + C$.', 'Setelah pangkat dinaikkan menjadi $x^{2}$, bagi koefisien dengan pangkat baru $2$.'],
     competencies: ['integral tak tentu polinomial'],
   },
   {
@@ -62,8 +62,8 @@ export const integralQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Antiturunan $2x + 1$ adalah $x^{2} + x$. Maka $\\Big[x^{2} + x\\Big]_{1}^{3} = (9 + 3) - (1 + 1) = 12 - 2 = 10$.',
-    hints: ['Gunakan teorema dasar kalkulus $F(b) - F(a)$.'],
+      'Antiturunan $2x + 1$ adalah $x^{2} + x$. Maka $\\Big[x^{2} + x\\Big]_{1}^{3} = (9 + 3) - (1 + 1) = 12 - 2 = 10$. Opsi B, $12$, muncul bila hanya menghitung nilai di batas atas $F(3)$ dan lupa mengurangi $F(1)$. Opsi C, $8$, muncul bila memakai antiturunan $x^{2}$ saja tanpa suku $+x$, sehingga $9 - 1 = 8$. Opsi D, $6$, muncul bila hanya menghitung $2(3)$ dengan mengabaikan konstanta dan batas bawah.',
+    hints: ['Gunakan teorema dasar kalkulus $F(b) - F(a)$.', 'Hitung $F(3)$ dan $F(1)$ masing-masing, lalu kurangkan.'],
     competencies: ['integral tentu', 'teorema dasar kalkulus'],
   },
   {
@@ -77,7 +77,7 @@ export const integralQuestions: Question[] = [
     acceptedAnswers: ['2,67', '2.67', '2,667', '2.667', '2,6667', '2.6667', '8/3', '8 per 3', '2 2/3'],
     explanation:
       '$\\displaystyle\\int_{0}^{2} x^{2}\\,dx = \\left[\\dfrac{x^{3}}{3}\\right]_{0}^{2} = \\dfrac{8}{3} - 0 = \\dfrac{8}{3}$.',
-    hints: ['Antiturunan $x^{2}$ adalah $\\dfrac{x^{3}}{3}$.'],
+    hints: ['Antiturunan $x^{2}$ adalah $\\dfrac{x^{3}}{3}$.', 'Substitusikan batas atas dan batas bawah, lalu kurangkan hasilnya.'],
     competencies: ['integral tentu'],
   },
   {
@@ -90,7 +90,7 @@ export const integralQuestions: Question[] = [
     answer: '2',
     explanation:
       'Antiturunan $\\sin x$ adalah $-\\cos x$, sehingga $\\Big[-\\cos x\\Big]_{0}^{\\pi} = -\\cos\\pi + \\cos 0 = -(-1) + 1 = 2$.',
-    hints: ['Ingat $\\displaystyle\\int \\sin x\\,dx = -\\cos x + C$.'],
+    hints: ['Ingat $\\displaystyle\\int \\sin x\\,dx = -\\cos x + C$.', 'Gunakan nilai $\\cos\\pi = -1$ dan $\\cos 0 = 1$ dengan hati-hati pada tandanya.'],
     competencies: ['integral tentu', 'integral trigonometri'],
   },
   {
@@ -104,7 +104,7 @@ export const integralQuestions: Question[] = [
     acceptedAnswers: ['e-1', '1,72', '1.72'],
     explanation:
       '$\\displaystyle\\int_{0}^{1} e^{x}\\,dx = \\Big[e^{x}\\Big]_{0}^{1} = e^{1} - e^{0} = e - 1 \\approx 1{,}72$.',
-    hints: ['Antiturunan $e^{x}$ adalah $e^{x}$.'],
+    hints: ['Antiturunan $e^{x}$ adalah $e^{x}$.', 'Ingat $e^{0} = 1$ pada batas bawah, sehingga muncul pengurangan dengan $1$.'],
     competencies: ['integral tentu', 'integral eksponensial'],
   },
   {
@@ -267,5 +267,54 @@ export const integralQuestions: Question[] = [
       'Menghitung total jarak dengan nilai mutlak',
       'Menjelaskan beda perpindahan dan jarak',
     ],
+  },
+  {
+    id: 'in-15',
+    topicId: 'integral',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Gambar berikut menunjukkan daerah di bawah kurva $y = x^{2}$ pada selang $[0, 3]$ yang didekati oleh beberapa persegi panjang. Tentukan luas daerah sebenarnya dengan integral tentu.',
+    figure: {
+      alt: 'Grafik kurva y sama dengan x kuadrat pada selang nol sampai tiga, dengan beberapa persegi panjang yang menghampiri daerah di bawah kurva.',
+      caption: 'Jumlah luas persegi panjang menghampiri luas daerah di bawah kurva $y=x^{2}$ pada $[0,3]$.',
+      svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="180" x2="40" y2="20" stroke="currentColor" stroke-width="1.5"/><rect x="40" y="152" width="40" height="18" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="0.8"/><rect x="80" y="126" width="40" height="44" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="0.8"/><rect x="120" y="88" width="40" height="82" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="0.8"/><rect x="160" y="38" width="40" height="132" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="0.8"/><polyline points="40,170 80,161 120,144 160,119 200,88 240,54 280,20" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="290" y="188" font-size="12" fill="currentColor">x</text><text x="20" y="26" font-size="12" fill="currentColor">y</text><text x="36" y="188" font-size="11" fill="currentColor">0</text><text x="196" y="188" font-size="11" fill="currentColor">3</text></svg>',
+    },
+    answer: '9',
+    explanation:
+      'Luas daerah di bawah kurva $y=x^{2}$ pada $[0,3]$ adalah $\\displaystyle\\int_{0}^{3} x^{2}\\,dx = \\left[\\dfrac{x^{3}}{3}\\right]_{0}^{3} = \\dfrac{27}{3} = 9$ satuan luas. Jumlah luas persegi panjang pada gambar hanya hampiran: makin banyak persegi panjang yang dipakai, makin dekat hasilnya ke $9$.',
+    hints: [
+      'Luas tepat diperoleh dari integral tentu $y = x^{2}$ dengan batas $0$ dan $3$.',
+      'Antiturunan $x^{2}$ adalah $\\dfrac{x^{3}}{3}$.',
+    ],
+    competencies: ['integral tentu', 'luas daerah', 'jumlah Riemann'],
+  },
+  {
+    id: 'in-16',
+    topicId: 'integral',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'evaluasi',
+    prompt:
+      'Seorang siswa menulis luas daerah yang dibatasi kurva $y = x^{2} - 1$ dan sumbu-$x$ pada selang $[-2, 2]$ sebagai $\\displaystyle\\int_{-2}^{2}(x^{2}-1)\\,dx = \\dfrac{4}{3}$. Pernyataan yang paling tepat adalah …',
+    options: [
+      { key: 'A', text: 'Benar, karena integral tentu selalu menghasilkan luas daerah' },
+      {
+        key: 'B',
+        text:
+          'Salah, karena pada $[-1,1]$ kurva berada di bawah sumbu-$x$ sehingga luas dihitung dengan nilai mutlak; luas yang benar $4$',
+      },
+      { key: 'C', text: 'Salah, karena antiturunannya keliru; seharusnya $\\dfrac{x^{3}}{3} + x$' },
+      { key: 'D', text: 'Salah, karena batas integral seharusnya $0$ sampai $2$ sehingga luasnya $\\dfrac{2}{3}$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Integral tentu menghitung luas bertanda, sehingga bagian yang berada di bawah sumbu-$x$ memberi tanda negatif. Pada $[-1,1]$ kurva $y=x^{2}-1$ bernilai negatif, sehingga luas bagian itu harus dihitung sebagai nilai mutlak. Dengan memecah selang pada $x=-1$ dan $x=1$, tiap bagian bernilai $\\dfrac{4}{3}$, sehingga luas total $= \\dfrac{4}{3}+\\dfrac{4}{3}+\\dfrac{4}{3} = 4$. Opsi A keliru karena integral tentu tidak selalu sama dengan luas; opsi C salah karena antiturunan yang benar justru $\\dfrac{x^{3}}{3}-x$; opsi D salah karena batas $[-2,2]$ sudah tepat dan nilainya bukan $\\dfrac{2}{3}$.',
+    hints: [
+      'Periksa di selang mana kurva berada di bawah sumbu-$x$.',
+      'Pecah integral pada titik potong dengan sumbu-$x$, lalu jumlahkan nilai mutlak tiap bagian.',
+    ],
+    competencies: ['luas daerah', 'integral tentu', 'evaluasi'],
   },
 ];

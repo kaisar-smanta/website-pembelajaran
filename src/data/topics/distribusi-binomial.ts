@@ -10,9 +10,6 @@ export const distribusiBinomial: Topic = {
   element: 'data-peluang',
   subject: 'matematika-lanjut',
   status: 'lengkap',
-  supplementary: true,
-  cpNote:
-    'Distribusi binomial memperluas CP FL-DAT-1 tentang variabel acak diskret dan fungsi peluang ke percobaan berulang dengan dua hasil yang saling bebas, sehingga peluang, nilai harapan, dan variansnya dapat dihitung langsung dari banyak percobaan $n$ dan peluang sukses $p$.',
   estimatedMinutes: 95,
   summary:
     'Memodelkan percobaan berulang dengan dua hasil memakai distribusi binomial, menghitung peluang tepat $k$ sukses, peluang kumulatif, serta nilai harapan dan simpangan bakunya.',
@@ -115,7 +112,7 @@ Variabel acak $X$ menyatakan **banyak sukses** dari $n$ ulangan, dan kita menuli
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Empat syarat yang wajib dipenuhi",
           text: "Binomial $=$ **$n$ tetap**, **dua hasil**, **peluang sukses tetap $p$**, dan **saling bebas**. Jika salah satu syarat tidak dipenuhi, distribusinya bukan binomial.",
         },
         {
@@ -432,7 +429,7 @@ Terbukti.`,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana peluang pada percobaan berulang membantumu memperkirakan hasil.",
+      body: "Percobaan berulang dengan dua hasil muncul di banyak tempat, dari kotak lampu sampai tendangan penalti. Pikirkan satu pengalaman yang mirip, lalu tuliskan mana yang berperan sebagai $n$, $p$, dan $k$ pada pengalaman itu.",
       blocks: [
         {
           kind: "reflection",
@@ -498,7 +495,7 @@ Terbukti.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Sebutkan empat syarat percobaan binomial dan jelaskan mengapa pengambilan tanpa pengembalian bukan percobaan binomial. (2) Tuliskan rumus $P(X=k)$ serta $E(X)$ dan variansnya, lalu jelaskan makna setiap lambang. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Distribusi Binomial** untuk latihan tambahan.`,
+      body: `**Tinjauan akhir.** Kerjakan dua tugas. (1) Ambil satu situasi nyata, tentukan apakah ia memenuhi keempat syarat binomial, dan jelaskan alasanmu. (2) Tanpa menghitung, perkirakan letak puncak distribusi bila $n=20$ dan $p=0{,}9$, lalu periksa dengan $E(X)=np$. Lanjutkan latihan di [Latihan & Asesmen](/latihan) topik **Distribusi Binomial**.`,
     },
   ],
 };

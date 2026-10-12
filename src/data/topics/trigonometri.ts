@@ -113,7 +113,7 @@ $$\\sin\\alpha=\\frac{3}{5},\\qquad \\cos\\alpha=\\frac{4}{5},\\qquad \\tan\\alp
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Nilai bergantung pada sudut, bukan ukuran",
           text: "Perbandingan trigonometri **hanya bergantung pada besar sudut**, bukan pada ukuran segitiga. Nilai perbandingan yang sama muncul pada semua segitiga yang sebangun.",
         },
         {
@@ -263,16 +263,27 @@ Hasil ini konsisten dengan segitiga $3$-$4$-$5$.`,
       id: "aturan",
       kind: "rumus",
       title: "Pengantar Aturan Sinus dan Kosinus",
-      body: `Perbandingan trigonometri di atas terbatas pada segitiga siku-siku. Untuk segitiga sebarang dengan sisi $a, b, c$ yang berhadapan dengan sudut $A, B, C$, berlaku:
-
-**Aturan sinus**
-$$\\frac{a}{\\sin A}=\\frac{b}{\\sin B}=\\frac{c}{\\sin C}.$$
-
-**Aturan kosinus**
-$$a^{2}=b^{2}+c^{2}-2bc\\cos A.$$
-
-Perhatikan bahwa bila $A=90^\\circ$, maka $\\cos 90^\\circ=0$ sehingga aturan kosinus kembali menjadi teorema Pythagoras $a^{2}=b^{2}+c^{2}$. Jadi teorema Pythagoras adalah kasus khusus dari aturan kosinus.`,
+      body: `Perbandingan trigonometri di atas terbatas pada segitiga siku-siku. Untuk **segitiga sebarang** (tidak harus siku-siku) dengan sisi $a, b, c$ yang masing-masing berhadapan dengan sudut $A, B, C$ seperti pada gambar, berlaku dua aturan umum berikut.`,
       blocks: [
+        {
+          kind: "figure",
+          alt: "Segitiga sebarang dengan titik sudut A, B, dan C. Sisi a berada di hadapan sudut A, sisi b di hadapan sudut B, dan sisi c di hadapan sudut C.",
+          caption: "Pada segitiga sebarang, setiap sisi berhadapan dengan satu sudut: $a$ di hadapan $A$, $b$ di hadapan $B$, dan $c$ di hadapan $C$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><polygon points="150,45 45,195 285,195" fill="none" stroke="currentColor" stroke-width="2"/><path d="M138.5,61.4 Q150.6,54.4 163.4,59.9" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M56.5,178.6 Q54.5,190.1 65,195" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M271.6,180.1 Q275,190.5 265,195" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="144" y="36" font-size="13" fill="currentColor">A</text><text x="30" y="212" font-size="13" fill="currentColor">B</text><text x="288" y="212" font-size="13" fill="currentColor">C</text><text x="160" y="220" font-size="13" fill="currentColor">a</text><text x="230" y="126" font-size="13" fill="currentColor">b</text><text x="76" y="126" font-size="13" fill="currentColor">c</text></svg>',
+        },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Aturan sinus",
+              body: "Untuk segitiga sebarang berlaku\n$$\\frac{a}{\\sin A}=\\frac{b}{\\sin B}=\\frac{c}{\\sin C}.$$\nAturan ini dipakai bila diketahui satu sisi dan dua sudut, atau dua sisi dan satu sudut di hadapan salah satunya.",
+            },
+            {
+              label: "Aturan kosinus",
+              body: "Untuk segitiga sebarang berlaku\n$$a^{2}=b^{2}+c^{2}-2bc\\cos A.$$\nBila $A=90^\\circ$, maka $\\cos 90^\\circ=0$ sehingga aturan kosinus kembali menjadi teorema Pythagoras $a^{2}=b^{2}+c^{2}$. Jadi teorema Pythagoras adalah kasus khusus dari aturan kosinus.",
+            },
+          ],
+        },
         {
           kind: "callout",
           variant: "warning",
@@ -303,37 +314,43 @@ Perhatikan bahwa bila $A=90^\\circ$, maka $\\cos 90^\\circ=0$ sehingga aturan ko
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Pada segitiga siku-siku, sudut $\\alpha=30^\\circ$ dan sisi miring $10$ cm. Tentukan panjang sisi depan dan sisi samping.
-
-*Penyelesaian.* Sisi depan $=10\\sin 30^\\circ=10\\cdot\\dfrac{1}{2}=5$ cm. Sisi samping $=10\\cos 30^\\circ=10\\cdot\\dfrac{\\sqrt{3}}{2}=5\\sqrt{3}\\approx 8{,}66$ cm. Periksa: $5^{2}+(5\\sqrt{3})^{2}=25+75=100=10^{2}$.
-
-**Contoh 2.** Pada jarak $40$ m dari kaki menara, sudut elevasi ke puncak adalah $30^\\circ$. Tentukan tinggi menara. Ikuti langkah pembahasannya pada panel di bawah.
-
-**Contoh 3.** Pada segitiga $ABC$ diketahui $b=5$, $c=8$, dan $A=60^\\circ$. Tentukan panjang sisi $a$.
-
-*Penyelesaian.* Gunakan aturan kosinus:
-
-$$a^{2}=b^{2}+c^{2}-2bc\\cos A=25+64-2\\cdot5\\cdot8\\cdot\\frac{1}{2}=89-40=49 \\Rightarrow a=7.$$`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari hitung tinggi menara dari sudut elevasi $30^\\circ$ pada jarak $40$ m, satu langkah sekaligus.",
+          intro: "Kerjakan contoh-contoh berikut langkah demi langkah, mulai dari perbandingan pada segitiga siku-siku sampai aturan sinus dan kosinus.",
           steps: [
             {
-              title: "Kenali sisi",
-              text: "Sudut elevasi $30^\\circ$ menghadap tinggi menara $h$ (sisi depan) dan berdekatan dengan jarak $40$ m (sisi samping).",
+              title: "Contoh 1: Sisi segitiga siku-siku",
+              text: `Pada segitiga siku-siku, sudut $\\alpha=30^\\circ$ dan sisi miring $10$ cm. Tentukan sisi depan dan sisi samping.
+
+Sisi depan $=10\\sin 30^\\circ=10\\cdot\\dfrac{1}{2}=5$ cm. Sisi samping $=10\\cos 30^\\circ=10\\cdot\\dfrac{\\sqrt{3}}{2}=5\\sqrt{3}\\approx 8{,}66$ cm. Periksa: $5^{2}+(5\\sqrt{3})^{2}=25+75=100=10^{2}$.`,
             },
             {
-              title: "Pilih perbandingan",
+              title: "Contoh 2: Sudut elevasi — kenali sisi",
+              text: "Pada jarak $40$ m dari kaki menara, sudut elevasi ke puncak adalah $30^\\circ$. Sudut itu menghadap tinggi menara $h$ (sisi depan) dan berdekatan dengan jarak $40$ m (sisi samping).",
+            },
+            {
+              title: "Contoh 2 — pilih perbandingan",
               text: "Karena memakai sisi depan dan sisi samping, gunakan tangen: $\\tan 30^\\circ=\\dfrac{h}{40}$.",
             },
             {
-              title: "Hitung",
-              text: "$h=40\\tan 30^\\circ=40\\cdot\\dfrac{\\sqrt{3}}{3}=\\dfrac{40\\sqrt{3}}{3}$.",
+              title: "Contoh 2 — hitung dan tafsirkan",
+              text: "$h=40\\tan 30^\\circ=40\\cdot\\dfrac{\\sqrt{3}}{3}=\\dfrac{40\\sqrt{3}}{3}\\approx 23{,}09$. Jadi tinggi menara sekitar $23{,}09$ m.",
             },
             {
-              title: "Tafsirkan",
-              text: "$\\dfrac{40\\sqrt{3}}{3}\\approx 23{,}09$ m, jadi tinggi menara sekitar $23{,}09$ m.",
+              title: "Contoh 3: Aturan kosinus",
+              text: `Pada segitiga $ABC$ diketahui $b=5$, $c=8$, dan $A=60^\\circ$. Tentukan panjang sisi $a$.
+
+Gunakan aturan kosinus:
+$$a^{2}=b^{2}+c^{2}-2bc\\cos A=25+64-2\\cdot5\\cdot8\\cdot\\frac{1}{2}=89-40=49,$$
+sehingga $a=\\sqrt{49}=7$.`,
+            },
+            {
+              title: "Contoh 4: Aturan sinus",
+              text: `Pada segitiga $ABC$ diketahui $A=45^\\circ$, $B=30^\\circ$, dan $a=10$. Tentukan panjang sisi $b$.
+
+Dengan aturan sinus, $\\dfrac{b}{\\sin B}=\\dfrac{a}{\\sin A}$, sehingga
+$$b=a\\cdot\\frac{\\sin B}{\\sin A}=10\\cdot\\frac{\\frac{1}{2}}{\\frac{\\sqrt{2}}{2}}=\\frac{10}{\\sqrt{2}}=5\\sqrt{2}\\approx 7{,}07.$$`,
             },
           ],
         },
@@ -362,6 +379,8 @@ $$a^{2}=b^{2}+c^{2}-2bc\\cos A=25+64-2\\cdot5\\cdot8\\cdot\\frac{1}{2}=89-40=49 
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
       body: `Trigonometri dipakai pada survei tanah (**triangulasi**), navigasi kapal dan pesawat, desain atap, serta grafik gelombang bunyi dan cahaya. Prinsipnya selalu sama: ukur sudut yang sulit dikira-kira, lalu hitung panjang yang sulit dijangkau.
+
+Sebagai gambaran, sebuah tiang bendera berjarak $18$ m dari pengamat dengan sudut elevasi $55^\\circ$ memiliki tinggi sekitar $18\\tan 55^\\circ \\approx 25{,}7$ m. Untuk menaksir lebar sungai, dua penanda dipasang $60$ m terpisah di satu tepi, lalu sudut ke sebuah pohon di tepi seberang diukur dari keduanya; aturan sinus mengubah dua sudut itu menjadi lebar sungai. Atap rumah umumnya memakai kemiringan $30^\\circ$ sampai $45^\\circ$ agar air hujan cepat mengalir sekaligus tetap kuat menahan beban.
 
 Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/pengukuran-tinggi-menara).`,
     },
@@ -470,7 +489,7 @@ Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana sudut dan perbandingan trigonometri membantumu mengukur yang tak terjangkau.",
+      body: "Perbandingan trigonometri mengubah satu sudut dan satu panjang menjadi seluruh ukuran segitiga. Gunakan refleksi berikut untuk menghubungkan rumus dengan pengukuran nyata, lalu pilih satu objek tinggi di sekitarmu dan rancang langkah pengukurannya dengan sudut yang tepat.",
       blocks: [
         {
           kind: "reflection",
@@ -527,7 +546,7 @@ Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa nilai perbandingan trigonometri tidak bergantung pada ukuran segitiga? (2) Kapan aturan kosinus dipakai alih-alih perbandingan pada segitiga siku-siku? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri** untuk latihan tambahan.`,
+      body: `**Cek pemahaman.** Tuliskan dengan kata-katamu sendiri mengapa $\\sin$, $\\cos$, dan $\\tan$ bernilai sama untuk semua segitiga yang sebangun. Kemudian jelaskan satu situasi ketika aturan kosinus lebih tepat dipakai daripada teorema Pythagoras. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri** untuk latihan tambahan.`,
     },
   ],
 };

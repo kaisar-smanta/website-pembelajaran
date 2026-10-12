@@ -1,5 +1,5 @@
 ---
-import { renderMarkdown } from '@/utils/markdown';
+import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 
 interface Props {
   variant: 'info' | 'warning' | 'tip' | 'concept';
@@ -14,11 +14,12 @@ const labels: Record<string, string> = {
   tip: 'Tips',
   concept: 'Konsep kunci',
 };
+const titleHtml = title ? renderInlineMarkdown(title) : labels[variant];
 ---
 
 <aside class={`callout callout-${variant}`} role="note">
   <div class="callout-head">
-    <span class="callout-badge">{title ?? labels[variant]}</span>
+    <span class="callout-badge" set:html={titleHtml} />
   </div>
   <div class="callout-body prose" set:html={html} />
 </aside>

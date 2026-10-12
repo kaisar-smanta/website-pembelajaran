@@ -275,71 +275,41 @@ $$i_{\\text{efektif}} = \\left(1+\\frac{j}{m}\\right)^{m}-1.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Ibu menabung Rp5.000.000 dengan bunga majemuk 8% per tahun. Berapa saldo setelah 5 tahun?
-
-*Penyelesaian.* Dengan $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$:
-
-$$M_5 = 5.000.000(1{,}08)^{5} = 5.000.000(1{,}469328) \\approx \\text{Rp}7.346.640.$$
-
-Sebagai perbandingan, dengan bunga tunggal saldonya hanya $5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000$. Selisihnya sekitar **Rp346.640** berasal dari bunga atas bunga.
-
-**Contoh 2.** Modal Rp2.000.000 dibungakan majemuk 6% per tahun selama 4 tahun. Tentukan saldo akhir.
-
-*Penyelesaian.* $M_4 = 2.000.000(1{,}06)^{4} = 2.000.000(1{,}262477) \\approx \\text{Rp}2.524.954$.
-
-**Contoh 3.** Suku bunga nominal 12% per tahun dihitung bulanan. Tentukan suku bunga efektif per tahun.
-
-*Penyelesaian.* $i = 0{,}01$ dan $m = 12$, sehingga $(1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu **12,68%** per tahun.
-
-**Contoh 4 (perhitungan kuartalan).** Suku bunga nominal $9\\%$ per tahun dihitung setiap kuartal. Tentukan saldo Rp4.000.000 setelah 2 tahun.
-
-*Penyelesaian.* Bunga per kuartal $i = \\dfrac{0{,}09}{4} = 0{,}0225$ dan banyak periode $n = 4 \\times 2 = 8$, sehingga
-
-$$M_8 = 4.000.000(1{,}0225)^{8} \\approx 4.000.000(1{,}194831) \\approx \\text{Rp}4.779.324.$$
-
-Jadi saldonya sekitar **Rp4.779.324**.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Ikuti langkah menghitung saldo Rp5.000.000 dengan bunga majemuk 8% per tahun selama 5 tahun.",
+          intro: "Empat contoh berikut melatih perhitungan saldo tahunan, suku bunga efektif, dan perhitungan beberapa kali setahun. Kerjakan bertahap.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Catat besaran yang diketahui: $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$.",
+              title: "Contoh 1 (saldo tahunan)",
+              text: `Ibu menabung Rp5.000.000 dengan bunga majemuk $8\\%$ per tahun. Berapa saldo setelah $5$ tahun?
+
+*Penyelesaian.* Catat $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$, lalu gunakan $M_n = M_0(1+i)^n$:
+$$M_5 = 5.000.000(1{,}08)^{5} = 5.000.000(1{,}469328) \\approx \\text{Rp}7.346.640.$$
+Sebagai pembanding, bunga tunggal hanya memberi $5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000$. Selisih sekitar **Rp346.640** berasal dari bunga atas bunga.`,
             },
             {
-              title: "Langkah 2",
-              text: "Gunakan rumus saldo: $M_5 = 5.000.000(1{,}08)^{5}$.",
+              title: "Contoh 2 (saldo empat tahun)",
+              text: `Modal Rp2.000.000 dibungakan majemuk $6\\%$ per tahun selama $4$ tahun. Tentukan saldo akhir.
+
+*Penyelesaian.* Nilai $M_0 = 2.000.000$, $i = 0{,}06$, dan $n = 4$:
+$$M_4 = 2.000.000(1{,}06)^{4} = 2.000.000(1{,}262477) \\approx \\text{Rp}2.524.954.$$`,
             },
             {
-              title: "Langkah 3",
-              text: "Hitung faktor pangkatnya: $(1{,}08)^{5} \\approx 1{,}469328$.",
+              title: "Contoh 3 (suku bunga efektif)",
+              text: `Suku bunga nominal $12\\%$ per tahun dihitung bulanan. Tentukan suku bunga efektif per tahun.
+
+*Penyelesaian.* Bunga per bulan $i = \\dfrac{0{,}12}{12} = 0{,}01$ dengan $m = 12$ periode per tahun. Maka
+$$i_{\\text{efektif}} = (1{,}01)^{12} - 1 \\approx 0{,}126825,$$
+yaitu sekitar **12,68%** per tahun, lebih tinggi daripada nominalnya.`,
             },
             {
-              title: "Langkah 4",
-              text: "Kalikan dengan modal: $M_5 \\approx 5.000.000 \\times 1{,}469328 \\approx \\text{Rp}7.346.640$.",
-            },
-          ],
-        },
-        {
-          kind: "step-reveal",
-          intro: "Hitung saldo Rp4.000.000 dengan nominal 9% per tahun yang dihitung tiap kuartal selama 2 tahun.",
-          steps: [
-            {
-              title: "Langkah 1",
-              text: "Ubah suku bunga ke per kuartal: $i = \\dfrac{0{,}09}{4} = 0{,}0225$.",
-            },
-            {
-              title: "Langkah 2",
-              text: "Ubah lama waktu ke banyak periode: $n = 4 \\times 2 = 8$ kuartal.",
-            },
-            {
-              title: "Langkah 3",
-              text: "Hitung faktor pangkat: $(1{,}0225)^{8} \\approx 1{,}194831$.",
-            },
-            {
-              title: "Langkah 4",
-              text: "Kalikan dengan modal: $M_8 \\approx 4.000.000 \\times 1{,}194831 \\approx \\text{Rp}4.779.324$.",
+              title: "Contoh 4 (perhitungan kuartalan)",
+              text: `Suku bunga nominal $9\\%$ per tahun dihitung setiap kuartal. Tentukan saldo Rp4.000.000 setelah $2$ tahun.
+
+*Penyelesaian.* Bunga per kuartal $i = \\dfrac{0{,}09}{4} = 0{,}0225$ dan banyak periode $n = 4 \\times 2 = 8$, sehingga
+$$M_8 = 4.000.000(1{,}0225)^{8} \\approx 4.000.000(1{,}194831) \\approx \\text{Rp}4.779.324.$$
+Jadi saldonya sekitar **Rp4.779.324**.`,
             },
           ],
         },
@@ -367,7 +337,7 @@ Jadi saldonya sekitar **Rp4.779.324**.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: "Bunga majemuk menjelaskan mengapa menabung lebih awal sangat menguntungkan, dan mengapa utang kartu kredit bisa cepat membengkak. Bandingkan dua studi kasus pada halaman [Memilih Tabungan](/aplikasi/bunga-investasi) dan [Kredit Motor](/aplikasi/anuitas-pinjaman).",
+      body: `Bunga majemuk menjelaskan mengapa menabung lebih awal sangat menguntungkan, dan mengapa utang kartu kredit bisa cepat membengkak. Bandingkan angkanya: uang Rp1.000.000 yang ditabung dengan bunga $8\\%$ per tahun menjadi $1.000.000(1{,}08)^{10} \\approx \\text{Rp}2.158.925$ setelah $10$ tahun, hampir dua kali lipat. Sebaliknya, sisa utang kartu Rp1.000.000 dengan bunga $2\\%$ per bulan membengkak menjadi $1.000.000(1{,}02)^{12} \\approx \\text{Rp}1.268.242$ hanya dalam satu tahun bila tidak dibayar. Bandingkan dua studi kasus pada halaman [Memilih Tabungan](/aplikasi/bunga-investasi) dan [Kredit Motor](/aplikasi/anuitas-pinjaman).`,
     },
     {
       id: "kesalahan-umum",
@@ -491,7 +461,7 @@ Jadi saldonya sekitar **Rp4.779.324**.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa saldo pada bunga majemuk membentuk barisan geometri? (2) Mengapa suku bunga efektif selalu lebih besar daripada suku bunga nominal? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Bunga Majemuk** untuk latihan tambahan.`,
+      body: `**Uji diri sebentar.** (1) Apa yang membuat saldo bunga majemuk tumbuh sebagai barisan geometri, bukan garis lurus? (2) Tunjukkan dengan contoh angka mengapa suku bunga efektif tidak pernah lebih kecil daripada nominal. Setelah itu, lanjut ke [Latihan & Asesmen](/latihan) topik **Bunga Majemuk** untuk latihan tambahan.`,
     },
   ],
 };

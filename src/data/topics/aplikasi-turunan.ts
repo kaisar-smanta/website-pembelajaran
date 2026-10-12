@@ -163,6 +163,32 @@ Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Latih istilah kunci aplikasi turunan.",
+          cards: [
+            {
+              front: "Garis singgung",
+              back: "Garis bergradien $f'(a)$ di titik $(a, f(a))$",
+            },
+            {
+              front: "Garis normal",
+              back: "Tegak lurus garis singgung, bergradien $-\\dfrac{1}{f'(a)}$",
+            },
+            {
+              front: "Titik stasioner",
+              back: "Titik pada kurva dengan $f'(x)=0$",
+            },
+            {
+              front: "Titik belok",
+              back: "Titik tempat kecekungan berubah tanda",
+            },
+            {
+              front: "Nilai ekstrem",
+              back: "Maksimum atau minimum, diuji lewat tanda $f''$ atau perubahan tanda $f'$",
+            },
+          ],
+        },
       ],
     },
     {
@@ -198,6 +224,18 @@ Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}
           alt: "Kurva kubik dengan sebuah titik maksimum dan titik minimum yang ditandai, serta sebuah garis singgung yang menyentuh kurva di satu titik.",
           caption: "Garis singgung menyentuh kurva di satu titik dengan gradien $f'(a)$, sedangkan titik stasioner $f'(x)=0$ menandai maksimum dan minimum lokal.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="115" x2="300" y2="115" stroke="currentColor" stroke-width="1.5"/><line x1="170" y1="210" x2="170" y2="25" stroke="currentColor" stroke-width="1.5"/><polyline points="56,183 85,77 113,47 142,68 170,115 199,162 227,183 256,153 284,47" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="164" y1="116" x2="233" y2="208" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/><circle cx="113" cy="47" r="3.4" fill="currentColor"/><circle cx="227" cy="183" r="3.4" fill="currentColor"/><circle cx="199" cy="162" r="3.4" fill="currentColor"/><text x="292" y="133" font-size="12" fill="currentColor">x</text><text x="174" y="34" font-size="12" fill="currentColor">y</text><text x="74" y="40" font-size="11" fill="currentColor">maksimum</text><text x="234" y="178" font-size="11" fill="currentColor">minimum</text><text x="146" y="204" font-size="11" fill="currentColor">garis singgung</text></svg>',
+        },
+      ],
+    },
+    {
+      id: "eksplorasi-optimasi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Optimasi dengan Turunan",
+      body: `Setelah melihat garis singgung, telusuri bagaimana tanda turunan menentukan puncak dan lembah kurva. Atur titik uji di sekitar titik stasioner kurva $f(x)=x^{3}-3x$, lalu amati kapan fungsi naik dan kapan turun.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-derivative-optimasi",
         },
       ],
     },
@@ -342,7 +380,7 @@ $$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana laju perubahan dan optimasi muncul dalam keputusan nyata.",
+      body: "Puncak, lembah, dan kemiringan kurva ternyata bisa dibaca dari tanda turunan. Pikirkan satu keputusan sehari-hari yang bisa dimodelkan sebagai pencarian nilai terbaik, lalu tuliskan besaran apa yang berperan sebagai fungsi tujuannya.",
       blocks: [
         {
           kind: "reflection",
@@ -441,7 +479,7 @@ $$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa $f'(x)=0$ saja belum cukup untuk memastikan sebuah nilai ekstrem? (2) Apa yang diberitahukan tanda $f''$ tentang bentuk kurva? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Aplikasi Turunan** untuk latihan tambahan.`,
+      body: `**Uji penguasaan.** Kerjakan dua tugas singkat. (1) Diberikan $f'(x)=0$ di sebuah titik; sebutkan dua cara berbeda untuk menentukan jenis titik itu. (2) Tuliskan urutan langkah menyelesaikan soal optimasi cerita, mulai dari memilih variabel sampai memeriksa batas domain. Setelah itu, lanjut berlatih di [Latihan & Asesmen](/latihan) topik **Aplikasi Turunan**.`,
     },
   ],
 };

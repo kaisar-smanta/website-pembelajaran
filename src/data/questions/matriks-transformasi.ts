@@ -17,8 +17,11 @@ export const matriksTransformasiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Refleksi terhadap sumbu $x$ mengubah tanda ordinat: $(x,y)\\rightarrow(x,-y)$. Maka $(3,-2)\\rightarrow(3,2)$.',
-    hints: ['Sumbu $x$ membuat nilai $y$ berubah tanda.'],
+      'Refleksi terhadap sumbu $x$ mengubah tanda ordinat: $(x,y)\\rightarrow(x,-y)$. Maka $(3,-2)\\rightarrow(3,2)$. Opsi A dan C keliru mengubah tanda absis sehingga menyerupai refleksi terhadap sumbu $y$ atau rotasi $180^\\circ$; opsi D menukar kedua koordinat, yang justru refleksi terhadap garis $y=x$.',
+    hints: [
+      'Sumbu $x$ membuat nilai $y$ berubah tanda.',
+      'Refleksi terhadap sumbu $x$: $(x,y)\\rightarrow(x,-y)$.',
+    ],
     competencies: ['refleksi terhadap sumbu $x$'],
   },
   {
@@ -37,8 +40,11 @@ export const matriksTransformasiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Translasi $\\binom{-2}{5}$ memetakan $(x,y)\\rightarrow(x-2, y+5)$. Maka $(1,3)\\rightarrow(-1,8)$.',
-    hints: ['Jumlahkan vektor translasi dengan koordinat titik.'],
+      'Translasi $\\binom{-2}{5}$ memetakan $(x,y)\\rightarrow(x-2, y+5)$. Maka $(1,3)\\rightarrow(-1,8)$. Opsi B dan D keliru menerapkan tanda pada komponen $x$; opsi C salah menerapkan tanda pada komponen $y$ dengan mengurangi $5$ alih-alih menambahkannya.',
+    hints: [
+      'Jumlahkan vektor translasi dengan koordinat titik.',
+      'Komponen pertama menggeser absis; komponen kedua menggeser ordinat.',
+    ],
     competencies: ['translasi'],
   },
   {
@@ -85,8 +91,11 @@ export const matriksTransformasiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Rotasi $180^\\circ$ memetakan $(x,y)\\rightarrow(-x,-y)$, sehingga $(-2,5)\\rightarrow(2,-5)$.',
-    hints: ['Rotasi $180^\\circ$ mengubah tanda kedua koordinat.'],
+      'Rotasi $180^\\circ$ memetakan $(x,y)\\rightarrow(-x,-y)$, sehingga $(-2,5)\\rightarrow(2,-5)$. Opsi A hanya mengubah tanda absis (refleksi terhadap sumbu $y$); opsi C hanya mengubah tanda ordinat (refleksi terhadap sumbu $x$); opsi D menukar koordinat seperti refleksi terhadap garis $y=x$.',
+    hints: [
+      'Rotasi $180^\\circ$ mengubah tanda kedua koordinat.',
+      'Gunakan $R_{180^\\circ}=\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$.',
+    ],
     competencies: ['rotasi'],
   },
   {
@@ -105,8 +114,11 @@ export const matriksTransformasiQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Refleksi terhadap garis $y=x$ menukar koordinat: $(x,y)\\rightarrow(y,x)$, diwakili $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$.',
-    hints: ['Pencerminan terhadap $y=x$ menukar absis dan ordinat.'],
+      'Refleksi terhadap garis $y=x$ menukar koordinat: $(x,y)\\rightarrow(y,x)$, diwakili $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$. Opsi A adalah refleksi terhadap sumbu $x$; opsi B adalah refleksi terhadap sumbu $y$; opsi D adalah refleksi terhadap garis $y=-x$.',
+    hints: [
+      'Pencerminan terhadap $y=x$ menukar absis dan ordinat.',
+      'Kolom matriks adalah bayangan vektor basis $(1,0)$ dan $(0,1)$.',
+    ],
     competencies: ['refleksi terhadap garis $y=x$'],
   },
   {
@@ -120,7 +132,10 @@ export const matriksTransformasiQuestions: Question[] = [
     answer: '1',
     explanation:
       '$\\det = \\cos\\theta\\cdot\\cos\\theta - (-\\sin\\theta)(\\sin\\theta) = \\cos^{2}\\theta+\\sin^{2}\\theta = 1$. Karena determinannya $1$, rotasi tidak mengubah luas bangun.',
-    hints: ['Gunakan identitas $\\sin^{2}\\theta+\\cos^{2}\\theta=1$.'],
+    hints: [
+      'Gunakan identitas $\\sin^{2}\\theta+\\cos^{2}\\theta=1$.',
+      'Hitung $\\cos\\theta\\cdot\\cos\\theta - (-\\sin\\theta)(\\sin\\theta)$.',
+    ],
     competencies: ['rotasi', 'determinan matriks'],
   },
   {
@@ -326,5 +341,33 @@ export const matriksTransformasiQuestions: Question[] = [
       'Menghitung $\\det(T)=5$',
       'Menjelaskan $|\\det(T)|=5$ membuat luas menjadi $5$ kali semula',
     ],
+  },
+  {
+    id: 'mtf-17',
+    topicId: 'matriks-transformasi',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Perhatikan gambar. Segitiga putus-putus adalah bangun awal dengan titik sudut $A(1,1)$, $B(3,1)$, dan $C(1,2)$, sedangkan segitiga penuh adalah bayangannya. Transformasi yang memetakan bangun awal ke bayangannya adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="180" x2="300" y2="180" stroke="currentColor" stroke-width="1.2"/><line x1="50" y1="15" x2="50" y2="185" stroke="currentColor" stroke-width="1.2"/><polygon points="110,142 230,142 110,104" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.65"/><polygon points="110,142 110,66 170,142" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="110" cy="142" r="2.5" fill="currentColor"/><circle cx="230" cy="142" r="2.5" fill="currentColor"/><circle cx="110" cy="104" r="2.5" fill="currentColor"/><circle cx="110" cy="66" r="2.5" fill="currentColor"/><circle cx="170" cy="142" r="2.5" fill="currentColor"/><text x="292" y="195" font-size="11" fill="currentColor">x</text><text x="30" y="22" font-size="11" fill="currentColor">y</text></svg>',
+      alt: 'Bidang koordinat dengan segitiga putus-putus bertitik sudut (1,1), (3,1), (1,2) dan segitiga penuh sebagai bayangannya bertitik sudut (1,1), (1,3), (2,1).',
+      caption: 'Bangun awal (putus-putus) dan bayangannya (penuh).',
+    },
+    options: [
+      { key: 'A', text: 'Refleksi terhadap sumbu $x$' },
+      { key: 'B', text: 'Refleksi terhadap garis $y=x$' },
+      { key: 'C', text: 'Rotasi $90^\\circ$ berlawanan arah jarum jam' },
+      { key: 'D', text: 'Translasi $\\begin{pmatrix} 0 \\\\ 2 \\end{pmatrix}$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Bayangan diperoleh dengan menukar koordinat setiap titik: $B(3,1)\\rightarrow(1,3)$ dan $C(1,2)\\rightarrow(2,1)$, sedangkan $A(1,1)$ tetap. Pertukaran $(x,y)\\rightarrow(y,x)$ adalah refleksi terhadap garis $y=x$. Opsi A akan memindahkan bangun ke bawah sumbu $x$; opsi C memetakan $B(3,1)\\rightarrow(-1,3)$ yang tidak sesuai gambar; opsi D hanya menggeser bangun ke atas sejauh $2$ satuan tanpa menukar koordinat.',
+    hints: [
+      'Bandingkan koordinat tiap titik awal dengan bayangannya.',
+      'Refleksi terhadap $y=x$ menukar absis dan ordinat titik.',
+    ],
+    competencies: ['refleksi terhadap garis $y=x$', 'membaca grafik'],
   },
 ];

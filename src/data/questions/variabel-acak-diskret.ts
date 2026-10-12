@@ -16,8 +16,8 @@ export const variabelAcakDiskretQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Variabel acak diskret memiliki nilai yang tercacah dan terpisah. Jumlah mata dua dadu hanya bernilai $2, 3, \\ldots, 12$, sehingga diskret. Tinggi, berat, dan waktu adalah besaran kontinu karena dapat bernilai sembarang dalam suatu selang.',
-    hints: ['Variabel diskret umumnya bernilai bilangan bulat yang tercacah.'],
+      'Variabel acak diskret memiliki nilai yang tercacah dan terpisah. Jumlah mata dua dadu hanya bernilai $2, 3, \\ldots, 12$, sehingga diskret. Opsi A, tinggi badan, adalah besaran kontinu karena dapat bernilai sembarang dalam suatu selang. Opsi B, berat badan, juga kontinu dengan nilai yang tidak tercacah. Opsi C, waktu tunggu, kontinu karena dapat diukur hingga ketelitian sembarang.',
+    hints: ['Variabel diskret umumnya bernilai bilangan bulat yang tercacah.', 'Besaran hasil pengukuran seperti panjang dan waktu umumnya kontinu.'],
     competencies: ['variabel acak diskret'],
   },
   {
@@ -81,7 +81,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
     acceptedAnswers: ['3,0', '3.0'],
     explanation:
       '$E(X) = 1(0{,}1) + 2(0{,}2) + 3(0{,}3) + 4(0{,}4) = 0{,}1 + 0{,}4 + 0{,}9 + 1{,}6 = 3$.',
-    hints: ['Periksa dahulu bahwa jumlah peluangnya $1$, lalu hitung nilai harapan.'],
+    hints: ['Periksa dahulu bahwa jumlah peluangnya $1$, lalu hitung nilai harapan.', 'Kalikan setiap nilai $x$ dengan peluangnya, lalu jumlahkan semua hasilnya.'],
     competencies: ['nilai harapan'],
   },
   {
@@ -93,15 +93,15 @@ export const variabelAcakDiskretQuestions: Question[] = [
     prompt:
       'Untuk distribusi $P(X=1) = 0{,}1$, $P(X=2) = 0{,}2$, $P(X=3) = 0{,}3$, dan $P(X=4) = 0{,}4$, varians $X$ adalah …',
     options: [
-      { key: 'A', text: '$0{,}5$' },
+      { key: 'A', text: '$10$' },
       { key: 'B', text: '$3$' },
-      { key: 'C', text: '$1{,}5$' },
+      { key: 'C', text: '$9$' },
       { key: 'D', text: '$1$' },
     ],
     answer: 'D',
     explanation:
-      '$E(X) = 3$ dan $E(X^{2}) = 1^{2}(0{,}1) + 2^{2}(0{,}2) + 3^{2}(0{,}3) + 4^{2}(0{,}4) = 0{,}1 + 0{,}8 + 2{,}7 + 6{,}4 = 10$. Maka $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 10 - 9 = 1$.',
-    hints: ['Hitung $E(X^{2})$ lebih dahulu, lalu kurangi kuadrat $E(X)$.'],
+      '$E(X) = 3$ dan $E(X^{2}) = 1^{2}(0{,}1) + 2^{2}(0{,}2) + 3^{2}(0{,}3) + 4^{2}(0{,}4) = 0{,}1 + 0{,}8 + 2{,}7 + 6{,}4 = 10$. Maka $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 10 - 9 = 1$. Opsi A, $10$, adalah nilai $E(X^{2})$ yang keliru dianggap varians. Opsi B, $3$, adalah nilai harapan $E(X)$, bukan varians. Opsi C, $9$, adalah $(E(X))^{2}$ sebelum dikurangkan dari $E(X^{2})$.',
+    hints: ['Hitung $E(X^{2})$ lebih dahulu, lalu kurangi kuadrat $E(X)$.', 'Varians dirumuskan $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2}$.'],
     competencies: ['varians variabel acak'],
   },
   {
@@ -116,7 +116,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
     acceptedAnswers: ['1.5', '3/2', '1,5', '1,50', '1.50', '1,500'],
     explanation:
       'Distribusinya $P(X=0) = \\frac{1}{8}$, $P(X=1) = \\frac{3}{8}$, $P(X=2) = \\frac{3}{8}$, $P(X=3) = \\frac{1}{8}$. Maka $E(X) = \\frac{0(1) + 1(3) + 2(3) + 3(1)}{8} = \\frac{12}{8} = 1{,}5$.',
-    hints: ['Susun dahulu distribusi banyak gambar dengan koefisien binomial.'],
+    hints: ['Susun dahulu distribusi banyak gambar dengan koefisien binomial.', 'Gunakan $P(X=x) = \\binom{3}{x}\\left(\\dfrac12\\right)^{3}$ untuk setiap nilai $x$.'],
     competencies: ['nilai harapan'],
   },
   {
@@ -131,7 +131,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Ruang sampelnya $36$ hasil sama mungkin. Jumlah $X$ bernilai $2$ sampai $12$ dengan peluang berturut-turut $\\frac{1}{36}, \\frac{2}{36}, \\frac{3}{36}, \\frac{4}{36}, \\frac{5}{36}, \\frac{6}{36}, \\frac{5}{36}, \\frac{4}{36}, \\frac{3}{36}, \\frac{2}{36}, \\frac{1}{36}$ (jumlah seluruhnya $1$). Maka $E(X) = \\frac{2(1) + 3(2) + \\cdots + 12(1)}{36} = \\frac{252}{36} = 7$. Artinya, bila dua dadu dilempar sangat banyak kali, rata-rata jumlah kedua mata dadu mendekati $7$.',
     explanation:
       'Kunci menekankan penurunan distribusi dari $36$ hasil sama mungkin, pemeriksaan jumlah peluang sama dengan $1$, dan penafsiran $E(X)$ sebagai rata-rata jangka panjang.',
-    hints: ['Cacah banyak cara tiap jumlah mata, misalnya jumlah $7$ ada $6$ cara.'],
+    hints: ['Cacah banyak cara tiap jumlah mata, misalnya jumlah $7$ ada $6$ cara.', 'Periksa bahwa jumlah seluruh peluang sama dengan $1$ sebagai validasi distribusi.'],
     competencies: ['distribusi peluang', 'nilai harapan', 'pemodelan'],
     rubric: [
       'Menuliskan peluang jumlah $2$ sampai $12$ dari $36$ hasil sama mungkin',
@@ -152,7 +152,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
     acceptedAnswers: ['5,83', '5.83', '5,833', '5.833', '5,8333', '5.8333', '35/6'],
     explanation:
       '$E(X^{2}) = \\frac{1974}{36}$. Maka $\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = \\frac{1974}{36} - 49 = \\frac{1974 - 1764}{36} = \\frac{210}{36} = \\frac{35}{6} \\approx 5{,}83$.',
-    hints: ['Hitung $E(X^{2}) = \\sum x^{2} f(x)$, lalu kurangi $7^{2}$.'],
+    hints: ['Hitung $E(X^{2}) = \\sum x^{2} f(x)$, lalu kurangi $7^{2}$.', 'Pakai distribusi jumlah dua dadu dari $36$ hasil sama mungkin sebagai bobot $f(x)$.'],
     competencies: ['varians variabel acak', 'penalaran'],
   },
   {
@@ -167,7 +167,7 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Periksa jumlah peluang: $0{,}4 + 0{,}3 + 0{,}2 + 0{,}1 = 1$ (sah). Nilai harapan $E(X) = 0(0{,}4) + 1(0{,}3) + 2(0{,}2) + 3(0{,}1) = 0 + 0{,}3 + 0{,}4 + 0{,}3 = 1$. Momen kedua $E(X^{2}) = 0(0{,}4) + 1(0{,}3) + 4(0{,}2) + 9(0{,}1) = 0{,}3 + 0{,}8 + 0{,}9 = 2$, sehingga $\\operatorname{Var}(X) = 2 - 1^{2} = 1$ dan $\\sigma = 1$. Artinya, rata-rata mobil yang datang per jam adalah $1$ mobil; pemilik dapat menyiapkan kapasitas sekitar satu mobil per jam, dengan fluktuasi tipikal sekitar $1$ mobil.',
     explanation:
       'Kunci mencakup pemeriksaan syarat distribusi, perhitungan $E(X)$, $E(X^{2})$, varians, dan penafsiran nilai harapan serta simpangan baku dalam konteks usaha.',
-    hints: ['Hitung $E(X^{2}) = \\sum x^{2} f(x)$ untuk memperoleh varians.'],
+    hints: ['Hitung $E(X^{2}) = \\sum x^{2} f(x)$ untuk memperoleh varians.', 'Periksa dahulu bahwa jumlah peluang sama dengan $1$ sebelum melanjutkan.'],
     competencies: ['nilai harapan', 'varians variabel acak', 'pemodelan'],
     rubric: [
       'Memeriksa syarat jumlah peluang sama dengan $1$',
@@ -188,12 +188,12 @@ export const variabelAcakDiskretQuestions: Question[] = [
       { key: 'A', text: '-Rp1.500' },
       { key: 'B', text: 'Rp0' },
       { key: 'C', text: 'Rp1.500' },
-      { key: 'D', text: 'Rp3.000' },
+      { key: 'D', text: 'Rp2.500' },
     ],
     answer: 'C',
     explanation:
-      '$E(X) = \\frac{1}{6}(24.000) + \\frac{5}{6}(-3.000) = 4.000 - 2.500 = 1.500$. Jadi rata-rata keuntungan per lemparan adalah Rp1.500.',
-    hints: ['Timbang setiap hasil dengan peluangnya, lalu jumlahkan.'],
+      '$E(X) = \\frac{1}{6}(24.000) + \\frac{5}{6}(-3.000) = 4.000 - 2.500 = 1.500$. Jadi rata-rata keuntungan per lemparan adalah Rp1.500. Opsi A, $-Rp1.500$, muncul bila peluang kalah dan menang tertukar sehingga $\\frac56(3.000) - \\frac16(24.000) = -1.500$. Opsi B, Rp0, muncul bila permainan dianggap adil hanya karena peluang menang kecil. Opsi D, Rp2.500, hanya menghitung besar kerugian $\\frac56(3.000) = 2.500$ lalu menganggapnya keuntungan.',
+    hints: ['Timbang setiap hasil dengan peluangnya, lalu jumlahkan.', 'Pisahkan hasil menang ($+24.000$) dan kalah ($-3.000$), lalu jumlahkan setelah ditimbang peluangnya.'],
     competencies: ['nilai harapan', 'penalaran'],
   },
   {
@@ -262,5 +262,45 @@ export const variabelAcakDiskretQuestions: Question[] = [
       'Menghitung $E(X)=-3.100$ rupiah',
       'Menyimpulkan undian tidak adil bagi pembeli',
     ],
+  },
+  {
+    id: 'vad-15',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Diagram batang berikut menunjukkan distribusi peluang variabel acak diskret $X$ yang bernilai $1$, $2$, dan $3$. Tentukan nilai harapan $E(X)$.',
+    figure: {
+      alt: 'Diagram batang distribusi peluang: nilai satu setinggi nol koma tiga, nilai dua setinggi nol koma empat, dan nilai tiga setinggi nol koma tiga.',
+      caption: 'Distribusi peluang $P(X=1)=0{,}3$, $P(X=2)=0{,}4$, dan $P(X=3)=0{,}3$.',
+      svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="50" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="180" x2="50" y2="20" stroke="currentColor" stroke-width="1.5"/><rect x="70" y="65" width="45" height="105" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="140" y="30" width="45" height="140" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="210" y="65" width="45" height="105" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1"/><text x="86" y="186" font-size="12" fill="currentColor">1</text><text x="156" y="186" font-size="12" fill="currentColor">2</text><text x="226" y="186" font-size="12" fill="currentColor">3</text><text x="16" y="24" font-size="11" fill="currentColor">P</text></svg>',
+    },
+    answer: '2',
+    explanation:
+      'Dari diagram batang, $P(X=1)=0{,}3$, $P(X=2)=0{,}4$, dan $P(X=3)=0{,}3$ (jumlahnya $1$, syarat distribusi terpenuhi). Maka $E(X)=1(0{,}3)+2(0{,}4)+3(0{,}3)=0{,}3+0{,}8+0{,}9=2$.',
+    hints: [
+      'Baca tinggi setiap batang sebagai peluang tiap nilai $X$.',
+      'Gunakan $E(X) = \\sum x \\cdot P(X=x)$ dan pastikan jumlah peluang sama dengan $1$.',
+    ],
+    competencies: ['nilai harapan', 'membaca diagram batang', 'penerapan'],
+  },
+  {
+    id: 'vad-16',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah layanan pengiriman menjual asuransi paket seharga Rp30.000. Jika paket hilang dalam pengiriman, perusahaan mengganti Rp500.000. Peluang sebuah paket hilang adalah $0{,}04$ dan dianggap bebas antar paket. Tentukan nilai harapan keuntungan perusahaan per paket.',
+    answer: '10000',
+    acceptedAnswers: ['10.000', 'Rp10.000', '10000 rupiah'],
+    explanation:
+      'Keuntungan bersih bernilai $30.000$ dengan peluang $0{,}96$ (paket tidak hilang) dan $30.000 - 500.000 = -470.000$ dengan peluang $0{,}04$ (paket hilang). Maka $E(X)=0{,}96(30.000)+0{,}04(-470.000)=28.800-18.800=10.000$. Jadi perusahaan untung sekitar Rp10.000 per paket secara rata-rata.',
+    hints: [
+      'Tulis dahulu keuntungan pada tiap hasil: paket aman dan paket hilang.',
+      'Nilai harapan $=$ jumlah hasil dikali peluangnya; jangan lupa mengurangi ganti rugi dari premi.',
+    ],
+    competencies: ['nilai harapan', 'kontekstual', 'interpretasi'],
   },
 ];

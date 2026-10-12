@@ -38,6 +38,7 @@ export const statistikDalamKehidupan: Topic = {
     { text: 'Memilih ukuran pemusatan (mean, median, modus) yang tepat sesuai bentuk data dan tujuan.' },
     { text: 'Menganalisis pengaruh pencilan terhadap mean dan median.' },
     { text: 'Mengenali penyajian grafik dan klaim statistik yang menyesatkan.' },
+    { text: 'Membandingkan dua kelompok melalui box plot dan jangkauan interkuartil untuk menilai klaim media secara adil.' },
     { text: 'Menafsirkan data yang disajikan dalam bentuk matriks (baris sebagai objek, kolom sebagai variabel) untuk menilai klaim media.' },
     { text: 'Menyusun kesimpulan yang sahih berdasarkan data dan sampel yang memadai.' },
   ],
@@ -101,8 +102,8 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
-          text: "Angka yang benar belum tentu jujur. Perhitungan dapat tepat, tetapi pemilihan ukuran atau penyajian grafik tetap bisa menyesatkan.",
+          title: "Angka benar belum tentu jujur",
+          text: "Perhitungan dapat tepat, tetapi pemilihan ukuran atau penyajian grafik tetap bisa menyesatkan. Karena itu, periksa ukuran, sebaran, dan sampel sebelum mempercayai sebuah klaim.",
         },
         {
           kind: "figure",
@@ -212,7 +213,29 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
       ],
     },
     {
-      id: "matriks",
+      id: "boxplot-iqr",
+      kind: "representasi",
+      title: "Representasi: Box Plot dan IQR",
+      body: `Ketika dua kelompok dibandingkan, **box plot** meringkas sekaligus pusat, sebaran, dan pencilan tiap kelompok sehingga klaim "kelompok A lebih baik" mudah diperiksa. Kotak membentang dari $Q_1$ sampai $Q_3$ dengan garis median di dalamnya, sedangkan garis kumis membentang sampai nilai terkecil dan terbesar yang bukan pencilan. Lebar kotak sama dengan **jangkauan interkuartil** $\\text{IQR}=Q_3-Q_1$, yaitu lebar separuh data yang paling rapat.
+
+Perhatikan box plot dua kelas berikut. Keduanya bisa saja punya median berdekatan, tetapi box yang jauh lebih lebar menandakan hasil yang tidak merata.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Dua box plot sejajar. Kelas A memiliki kotak sempit dengan median sekitar 74, sedangkan Kelas B memiliki kotak sangat lebar dengan median sekitar 60 dan sebaran jauh lebih besar.",
+          caption: "Box plot Kelas A dan Kelas B pada skala nilai yang sama: Kelas A rapat di sekitar median, Kelas B menyebar lebar sehingga IQR-nya jauh lebih besar.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="304" y2="200" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="200" x2="40" y2="204" stroke="currentColor" stroke-width="1"/><line x1="105" y1="200" x2="105" y2="204" stroke="currentColor" stroke-width="1"/><line x1="170" y1="200" x2="170" y2="204" stroke="currentColor" stroke-width="1"/><line x1="235" y1="200" x2="235" y2="204" stroke="currentColor" stroke-width="1"/><line x1="300" y1="200" x2="300" y2="204" stroke="currentColor" stroke-width="1"/><rect x="137.5" y="60" width="22.75" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.6"/><line x1="150.5" y1="60" x2="150.5" y2="100" stroke="currentColor" stroke-width="2"/><line x1="124.5" y1="80" x2="137.5" y2="80" stroke="currentColor" stroke-width="1.4"/><line x1="124.5" y1="71" x2="124.5" y2="89" stroke="currentColor" stroke-width="1.4"/><line x1="160.25" y1="80" x2="166.75" y2="80" stroke="currentColor" stroke-width="1.4"/><line x1="166.75" y1="71" x2="166.75" y2="89" stroke="currentColor" stroke-width="1.4"/><rect x="88.75" y="130" width="146.25" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.6"/><line x1="105" y1="130" x2="105" y2="170" stroke="currentColor" stroke-width="2"/><line x1="40" y1="150" x2="88.75" y2="150" stroke="currentColor" stroke-width="1.4"/><line x1="40" y1="141" x2="40" y2="159" stroke="currentColor" stroke-width="1.4"/><line x1="235" y1="150" x2="283.75" y2="150" stroke="currentColor" stroke-width="1.4"/><line x1="283.75" y1="141" x2="283.75" y2="159" stroke="currentColor" stroke-width="1.4"/><text x="12" y="84" font-size="11" fill="currentColor">A</text><text x="12" y="154" font-size="11" fill="currentColor">B</text><text x="34" y="214" font-size="10" fill="currentColor">40</text><text x="99" y="214" font-size="10" fill="currentColor">60</text><text x="164" y="214" font-size="10" fill="currentColor">80</text><text x="229" y="214" font-size="10" fill="currentColor">100</text><text x="294" y="214" font-size="10" fill="currentColor">120</text><text x="196" y="56" font-size="10" fill="currentColor">nilai</text></svg>',
+        },
+        {
+          kind: "callout",
+          variant: "tip",
+          title: "Yang terbaca dari box plot",
+          text: "Median menunjukkan pusat, lebar kotak menunjukkan keragaman separuh data tengah, dan titik di luar kumis menandakan pencilan. Bandingkan median **dan** lebar kotak sebelum menyimpulkan satu kelompok lebih baik.",
+        },
+      ],
+    },
+    {
+      id: "data-matriks",
       kind: "representasi",
       title: "Data dalam Bentuk Matriks",
       body: `Selain tabel dan diagram, data sering disusun sebagai **matriks**: susunan bilangan dalam baris dan kolom. Kesepakatan yang lazim adalah **baris menyatakan objek** (orang, sekolah, atau bulan) dan **kolom menyatakan variabel** (nilai, tinggi badan, atau penjualan). Dengan begitu, satu baris merangkum seluruh informasi tentang satu objek, sedangkan satu kolom merangkum satu variabel untuk semua objek.
@@ -224,27 +247,11 @@ Penyajian matriks ini dikembangkan lebih lanjut pada topik **Matriks** di kelas 
         {
           kind: "table",
           caption: "Nilai dua mata pelajaran tiga siswa sebagai matriks $3 \\times 2$",
-          headers: [
-            "Siswa",
-            "Matematika",
-            "Fisika",
-          ],
+          headers: ["Siswa", "Matematika", "Fisika"],
           rows: [
-            [
-              "Ayu",
-              "80",
-              "75",
-            ],
-            [
-              "Bima",
-              "70",
-              "85",
-            ],
-            [
-              "Citra",
-              "90",
-              "80",
-            ],
+            ["Ayu", "80", "75"],
+            ["Bima", "70", "85"],
+            ["Citra", "90", "80"],
           ],
         },
         {
@@ -359,7 +366,7 @@ Rata-rata gabungan bukan $(72+84)/2=78$, karena kedua kelas berukuran berbeda.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Statistik dipakai untuk mengambil keputusan publik: alokasi anggaran, kebijakan kesehatan, hingga penetapan harga. Di dunia kerja, laporan penjualan sering menyajikan rata-rata tanpa sebaran; di media sosial, grafik pertumbuhan kadang memotong sumbu agar terlihat dramatis.
+      body: `Statistik dipakai untuk mengambil keputusan publik: alokasi anggaran, kebijakan kesehatan, hingga penetapan harga. Sebuah laporan penjualan bisa menulis "rata-rata pesanan Rp43,5 ribu" padahal $9$ dari $10$ pembeli berbelanja Rp15 ribu dan satu pemborong berbelanja Rp300 ribu; totalnya $9\\cdot15+300=435$ ribu sehingga mean $43{,}5$ ribu, sedangkan mediannya hanya Rp15 ribu. Di media sosial, grafik pertumbuhan yang dimulai dari angka $1.000$ alih-alih nol membuat kenaikan $1.000$ menjadi $1.100$ tampak naik $10$ kali lipat padahal sesungguhnya hanya $10\\%$.
 
 Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebuah statistik: **siapa yang diukur**, **ukuran apa yang dipakai**, dan **apakah penyajiannya adil**. Statistik yang baik membantu kita memahami dunia, bukan sekadar meyakinkan kita.`,
     },
@@ -423,7 +430,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana angka statistik di sekitarmu bisa menyesatkan bila dibaca sekilas.",
+      body: "Satu ukuran pemusatan tidak pernah bercerita lengkap; mean, median, dan penyajian grafik dapat memberi kesan yang berbeda dari data yang sama. Gunakan refleksi berikut untuk melatih kebiasaan bertanya sebelum menerima klaim statistik, misalnya pada iklan, berita, atau laporan penjualan di sekitarmu.",
       blocks: [
         {
           kind: "reflection",
@@ -484,7 +491,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa mean lebih berubah daripada median ketika sebuah pencilan ditambahkan? (2) Mengapa mean gabungan dua kelompok harus dibobot ukurannya? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Statistik dalam Kehidupan** untuk latihan tambahan.`,
+      body: `**Tutup pelajaran.** Ambil satu klaim statistik dari iklan atau berita, lalu tuliskan tiga pertanyaan kritis yang perlu diajukan dan ukuran alternatif yang lebih jujur untuk klaim itu. Jelaskan pula mengapa mean gabungan dua kelompok berukuran berbeda tidak boleh dihitung sebagai rata-rata kedua mean. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Statistik dalam Kehidupan** untuk latihan tambahan.`,
     },
   ],
 };

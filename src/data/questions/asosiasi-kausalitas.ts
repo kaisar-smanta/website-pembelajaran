@@ -22,7 +22,7 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Bila $x$ menyebabkan $y$, biasanya ada asosiasi di antara keduanya, sehingga asosiasi adalah syarat perlu. Namun asosiasi saja tidak cukup untuk menyimpulkan sebab-akibat karena bisa muncul dari variabel perancu atau kebetulan. Karena itu korelasinya tidak menyiratkan kausalitas.',
+      'Bila $x$ menyebabkan $y$, biasanya muncul asosiasi di antara keduanya, sehingga asosiasi adalah syarat perlu. Namun asosiasi saja tidak cukup untuk menyimpulkan sebab-akibat karena bisa berasal dari variabel perancu atau kebetulan, jadi B benar. Opsi A menyamakan korelasi dengan kausalitas; opsi C salah karena dua variabel dapat berhubungan sebab-akibat tanpa asosiasi yang tampak secara linear; opsi D terlalu percaya bahwa satu diagram pencar sudah membuktikan sebab-akibat.',
     hints: ['Ingat semboyan "korelasi tidak menyiratkan kausalitas".'],
     competencies: ['asosiasi', 'kausalitas', 'berpikir kritis'],
   },
@@ -42,7 +42,7 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Saat cuaca panas, orang lebih banyak membeli es krim sekaligus lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik. Suhu udara memengaruhi keduanya, sehingga menjadi variabel perancu yang menciptakan korelasi semu.',
+      'Suhu udara memengaruhi keduanya: saat cuaca panas orang lebih banyak membeli es krim sekaligus lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik, sehingga suhu adalah variabel perancu (A). Opsi B (harga es krim) hanya berkaitan dengan penjualan es krim, bukan dengan kejahatan; opsi C (jumlah polisi) berkaitan dengan kejahatan tetapi tidak dengan penjualan es krim; opsi D (merek es krim) tidak menjelaskan pola kejahatan.',
     hints: ['Cari faktor ketiga yang membuat kedua hal berubah bersamaan.'],
     competencies: ['variabel perancu', 'korelasi semu'],
   },
@@ -50,21 +50,22 @@ export const asosiasiKausalitasQuestions: Question[] = [
     id: 'ak-03',
     topicId: 'asosiasi-kausalitas',
     difficulty: 'dasar',
-    type: 'open-response',
+    type: 'short-answer',
     category: 'konsep',
     prompt:
-      'Jelaskan secara singkat apa yang dimaksud dengan variabel perancu (confounding variable).',
-    answer:
-      'Variabel perancu adalah variabel ketiga yang berkaitan dengan variabel yang diduga sebagai penyebab sekaligus berkaitan dengan variabel akibat, sehingga dapat menciptakan asosiasi yang tidak mencerminkan hubungan sebab-akibat langsung.',
+      'Variabel ketiga yang berkaitan dengan variabel yang diduga sebagai penyebab sekaligus berkaitan dengan variabel akibat, sehingga dapat menciptakan asosiasi semu tanpa sebab-akibat langsung, disebut …',
+    answer: 'variabel perancu',
+    acceptedAnswers: [
+      'variabel perancu',
+      'confounding variable',
+      'perancu',
+      'variabel pengganggu',
+      'faktor perancu',
+    ],
     explanation:
-      'Penekanan jawaban ada pada dua syarat: berkaitan dengan variabel "penyebab" dan berkaitan dengan variabel "akibat", sehingga asosiasi bisa tampak tanpa sebab-akibat langsung.',
+      'Variabel seperti ini dinamakan variabel perancu (confounding variable). Ia berkaitan dengan variabel yang diduga sebagai penyebab sekaligus dengan variabel akibat, sehingga asosiasi bisa tampak meskipun tidak ada sebab-akibat langsung.',
     hints: ['Pikirkan variabel ketiga yang memengaruhi keduanya sekaligus.'],
     competencies: ['variabel perancu'],
-    rubric: [
-      'Menyebut variabel perancu sebagai variabel ketiga',
-      'Menjelaskan ia berkaitan dengan variabel yang diduga sebagai penyebab',
-      'Menjelaskan ia juga berkaitan dengan variabel akibat sehingga muncul asosiasi semu',
-    ],
   },
   {
     id: 'ak-04',
@@ -82,8 +83,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Karena peneliti hanya mengamati tanpa memberikan perlakuan atau pengacakan, studi ini bersifat observasional. Studi seperti ini dapat menunjukkan asosiasi, tetapi lebih lemah untuk menyimpulkan kausalitas dibandingkan eksperimen acak.',
-    hints: ['Apakah peneliti mengendalikan atau memberikan perlakuan kepada subjek?'],
+      'Karena peneliti hanya mengamati tanpa memberikan perlakuan atau pengacakan, studi ini bersifat observasional (A). Opsi B salah karena eksperimen acak mensyaratkan perlakuan sekaligus pengacakan; opsi C juga salah karena eksperimen terkontrol tetap memberikan perlakuan kepada subjek; opsi D (sensus) berarti mendata seluruh populasi, bukan mengamati sebagian siswa untuk meneliti hubungan dua variabel.',
+    hints: [
+      'Apakah peneliti mengendalikan atau memberikan perlakuan kepada subjek?',
+      'Ketiadaan perlakuan dan pengacakan menandakan studi observasional.',
+    ],
     competencies: ['studi observasional', 'desain penelitian'],
   },
   {
@@ -98,7 +102,10 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Kausalitas terbalik berarti arah sebab-akibat justru berlawanan dari dugaan. Mungkin penyakit jantung atau gejalanya (misalnya kelelahan atau gangguan tidur) yang membuat penderita lebih banyak minum kopi, bukan kopi yang menyebabkan penyakit jantung. Karena itu urutan waktunya harus diperiksa sebelum menyimpulkan arah sebab-akibat.',
     explanation:
       'Jawaban benar mengenali bahwa data korelasi tidak menentukan arah, sehingga penyebab bisa jadi justru akibat.',
-    hints: ['Pikirkan apakah penyakitnya yang menyebabkan kebiasaan minum kopi.'],
+    hints: [
+      'Pikirkan apakah penyakitnya yang menyebabkan kebiasaan minum kopi.',
+      'Periksa urutan waktu: mana yang terjadi lebih dahulu, kebiasaan minum kopi atau penyakitnya?',
+    ],
     competencies: ['kausalitas terbalik', 'berpikir kritis'],
     rubric: [
       'Menjelaskan kausalitas terbalik sebagai arah sebab-akibat yang berlawanan dari dugaan',
@@ -125,8 +132,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Korelasi saja tidak membuktikan kausalitas. Pada kasus ini dapat terjadi arah sebab-akibat terbalik (anak yang sulit tidur menonton televisi lebih lama) atau ada variabel perancu seperti kebiasaan keluarga. Kesimpulan harus dinyatakan lebih hati-hati.',
-    hints: ['Bukti apa yang masih diperlukan sebelum menyimpulkan sebab-akibat?'],
+      'Korelasi saja tidak membuktikan kausalitas, sehingga kesimpulan yang paling tepat adalah B. Opsi A menganggap korelasi positif sudah membuktikan sebab-akibat; opsi C menyangkal adanya hubungan padahal asosiasinya ada; opsi D menggeneralisasi "selalu" tanpa bukti. Arah sebab-akibat bisa terbalik (anak yang sulit tidur menonton televisi lebih lama) atau ada variabel perancu seperti kebiasaan keluarga, jadi simpulan harus dinyatakan lebih hati-hati.',
+    hints: [
+      'Bukti apa yang masih diperlukan sebelum menyimpulkan sebab-akibat?',
+      'Tanyakan apakah ada variabel ketiga yang memengaruhi menonton televisi sekaligus tidur.',
+    ],
     competencies: ['asosiasi', 'kausalitas', 'evaluasi klaim'],
   },
   {
@@ -141,7 +151,10 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Pembagian subjek secara acak membuat kelompok perlakuan dan kelompok kontrol cenderung sebanding pada semua karakteristik, baik yang diamati maupun yang tidak diamati (misalnya gaya hidup dan riwayat kesehatan). Dengan begitu pengaruh variabel perancu terbagi rata antar kelompok, sehingga perbedaan hasil lebih mungkin disebabkan oleh perlakuan.',
     explanation:
       'Inti jawaban: randomisasi menyeimbangkan variabel perancu yang mungkin tidak terukur, sehingga perbandingan kelompok menjadi lebih adil.',
-    hints: ['Pikirkan mengapa dua kelompok yang diacak cenderung mirip.'],
+    hints: [
+      'Pikirkan mengapa dua kelompok yang diacak cenderung mirip.',
+      'Pikirkan mengapa kelompok yang dibagi acak cenderung serupa pada faktor seperti kesehatan dan gaya hidup.',
+    ],
     competencies: ['eksperimen acak', 'variabel perancu'],
     rubric: [
       'Menjelaskan pengacakan membuat kelompok perlakuan dan kontrol sebanding',
@@ -207,7 +220,10 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Pada eksperimen acak, peneliti menentukan sendiri perlakuan dan membagi subjek secara acak ke kelompok perlakuan dan kontrol. Pengacakan membuat kedua kelompok cenderung sebanding pada semua variabel, termasuk variabel perancu yang tidak terukur, sehingga perbedaan hasil lebih mungkin benar-benar disebabkan oleh perlakuan. Pada studi observasional, peneliti tidak mengendalikan perlakuan maupun variabel perancu, sehingga asosiasi yang teramati bisa jadi semu atau arah sebab-akibatnya tidak jelas. Karena itu eksperimen acak lebih kuat untuk menetapkan sebab-akibat.',
     explanation:
       'Jawaban benar menekankan pengendalian perlakuan dan pengacakan yang menyeimbangkan variabel perancu, berbeda dengan studi observasional.',
-    hints: ['Bandingkan siapa yang menentukan perlakuan pada tiap jenis studi.'],
+    hints: [
+      'Bandingkan siapa yang menentukan perlakuan pada tiap jenis studi.',
+      'Bandingkan siapa yang menentukan perlakuan pada eksperimen acak dan pada studi observasional.',
+    ],
     competencies: ['eksperimen acak', 'kausalitas', 'penalaran'],
     rubric: [
       'Menjelaskan peneliti menentukan perlakuan dan membagi subjek secara acak',
@@ -234,7 +250,10 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     explanation:
       'Arah pengaruh yang sebenarnya berlawanan dari dugaan disebut kausalitas terbalik (reverse causation). Data korelasi tidak menentukan arah, sehingga urutan waktu perlu diperiksa.',
-    hints: ['Perhatikan siapa yang sebenarnya lebih dahulu terjadi.'],
+    hints: [
+      'Perhatikan siapa yang sebenarnya lebih dahulu terjadi.',
+      'Cari istilah yang menandakan arah pengaruh justru berlawanan dari dugaan.',
+    ],
     competencies: ['kausalitas terbalik'],
   },
   {
@@ -286,20 +305,23 @@ export const asosiasiKausalitasQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'kontekstual',
     prompt:
-      'Sebuah artikel menulis, "Siswa yang sering bermain gim sampai larut malam nilainya lebih rendah, jadi bermain gim sampai larut malam menurunkan nilai." Tanggapan yang paling tepat adalah …',
+      'Sebuah layanan pesan-antar menguji dua kelompok pengguna: kelompok A menerima notifikasi harian untuk memilih wadah guna ulang, sedangkan kelompok B tidak. Pemakaian wadah guna ulang kelompok A ternyata lebih tinggi daripada kelompok B, lalu tim menyimpulkan bahwa notifikasi itulah penyebabnya. Tanggapan yang paling tepat adalah …',
     options: [
-      { key: 'A', text: 'Klaim benar karena kedua hal berasosiasi kuat.' },
+      { key: 'A', text: 'Klaim sebab-akibat sudah terbukti karena kelompok A lebih tinggi.' },
       {
         key: 'B',
-        text: 'Hubungan itu mungkin hanya asosiasi; perlu diperiksa variabel perancu seperti kebiasaan tidur dan waktu belajar.',
+        text: 'Perbandingan dua kelompok lebih kuat daripada sebelum-sesudah, tetapi kelompok tetap perlu dibagi acak dan dipastikan tidak ada faktor lain yang berbeda sebelum menyimpulkan sebab-akibat.',
       },
-      { key: 'C', text: 'Tidak ada hubungan apa pun antara bermain gim dan nilai.' },
-      { key: 'D', text: 'Bermain gim pasti menurunkan nilai setiap siswa.' },
+      { key: 'C', text: 'Tidak ada hubungan apa pun antara notifikasi dan pemakaian wadah guna ulang.' },
+      { key: 'D', text: 'Notifikasi pasti menaikkan pemakaian wadah guna ulang di semua layanan.' },
     ],
     answer: 'B',
     explanation:
-      'Korelasi saja tidak membuktikan sebab-akibat. Kurang tidur atau berkurangnya waktu belajar merupakan variabel perancu yang dapat memengaruhi nilai, dan arah sebab-akibatnya pun mungkin terbalik. Simpulan sebaiknya dinyatakan lebih hati-hati setelah memeriksa urutan waktu dan mengendalikan variabel perancu.',
-    hints: ['Cari faktor ketiga yang dapat memengaruhi nilai sekaligus kebiasaan bermain gim.'],
+      'Perbandingan dua kelompok memang lebih kuat daripada sebelum-sesudah, tetapi sebab-akibat baru layak disimpulkan bila pembagiannya acak dan tidak ada faktor lain yang berbeda, sehingga B paling tepat. Opsi A keliru karena perbedaan hasil bisa berasal dari perbedaan karakteristik pengguna antar kelompok; opsi C menyangkal asosiasi yang nyata teramati; opsi D menggeneralisasi ke semua layanan tanpa bukti. Pengacakan dan pengendalian faktor lain akan membuat klaim sebab-akibat jauh lebih kuat.',
+    hints: [
+      'Cari faktor ketiga yang dapat menurunkan pemakaian plastik sekaligus berkaitan dengan program.',
+      'Pikirkan bagaimana kelompok pembanding (kontrol) membuat klaim sebab-akibat lebih kuat.',
+    ],
     competencies: ['asosiasi', 'kausalitas', 'evaluasi klaim'],
   },
 ];

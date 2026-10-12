@@ -246,6 +246,12 @@ Contoh: pada satu lemparan dadu, kejadian "muncul angka genap" dan "muncul angka
           title: "Hati-hati",
           text: "Aturan $P(A \\cup B) = P(A) + P(B)$ hanya boleh dipakai bila $A$ dan $B$ **saling lepas**. Jika beririsan, hasilnya akan melebihi nilai sebenarnya.",
         },
+        {
+          kind: "figure",
+          alt: "Diagram Venn dua lingkaran A dan B yang saling tumpang tindih di dalam ruang sampel S; daerah tumpang tindih menandai irisan, sedangkan daerah di dalam S di luar lingkaran A menandai komplemennya.",
+          caption: "Diagram Venn: $A \\cup B$ adalah seluruh daerah berwarna, $A \\cap B$ daerah tumpang tindih yang lebih gelap, dan $A^{c}$ daerah di dalam $S$ tetapi di luar lingkaran $A$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><rect x="20" y="20" width="280" height="190" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="125" cy="112" r="68" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.8"/><circle cx="195" cy="112" r="68" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.8"/><text x="30" y="40" font-size="12" fill="currentColor">S</text><text x="92" y="72" font-size="12" fill="currentColor">A</text><text x="222" y="72" font-size="12" fill="currentColor">B</text><text x="150" y="116" font-size="10" fill="currentColor">A &cap; B</text><text x="118" y="200" font-size="10" fill="currentColor">A &cup; B</text><text x="246" y="200" font-size="10" fill="currentColor">A&#7488;</text></svg>',
+        },
       ],
     },
     {
@@ -284,35 +290,35 @@ Contoh: dua dadu dilempar $180$ kali. Peluang jumlah mata $7$ adalah $P=\\tfrac{
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1 — Dadu.** Pada satu lemparan dadu, misalkan $A$ = "mata genap" $= \\{2,4,6\\}$ dan $B$ = "mata prima" $= \\{2,3,5\\}$. Maka $P(A) = \\tfrac{3}{6} = \\tfrac12$ dan $P(B) = \\tfrac{3}{6} = \\tfrac12$. Karena $A \\cap B = \\{2\\}$, maka $P(A \\cap B) = \\tfrac16$, sehingga
-
-$$P(A \\cup B) = \\tfrac12 + \\tfrac12 - \\tfrac16 = \\tfrac56.$$
-
-**Contoh 2 — Dua dadu.** Ruang sampelnya $36$ hasil. Jumlah $7$ dapat muncul dari $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, yaitu $6$ cara, sehingga $P(\\text{jumlah }7) = \\tfrac{6}{36} = \\tfrac16$. Adapun jumlah $\\geq 10$ muncul dari $3 + 2 + 1 = 6$ cara, sehingga peluangnya juga $\\tfrac{6}{36} = \\tfrac16$.
-
-**Contoh 3 — Tiga koin.** Ruang sampel berukuran $8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Kejadian "paling sedikit satu gambar" adalah komplemen dari "tidak ada gambar" (yaitu $AAA$ dengan peluang $\\tfrac18$), maka $P = 1 - \\tfrac18 = \\tfrac78$.
-
-**Contoh 4 — Frekuensi harapan.** Dua dadu dilempar $180$ kali. Karena $P(\\text{jumlah }7) = \\tfrac16$, frekuensi harapan muncul jumlah $7$ adalah $180 \\cdot \\tfrac16 = 30$ kali.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari hitung peluang jumlah dua dadu sama dengan $7$, satu langkah sekaligus.",
+          intro: "Empat contoh berikut melatih aturan penjumlahan, ruang sampel dua dadu, komplemen tiga koin, dan frekuensi harapan.",
           steps: [
             {
-              title: "Tentukan ruang sampel",
-              text: "Setiap dadu memiliki $6$ hasil, sehingga $n(S)=6\\times6=36$.",
+              title: "Contoh 1 (aturan penjumlahan)",
+              text: `Pada satu lemparan dadu, $A$ = "mata genap" $= \\{2,4,6\\}$ dan $B$ = "mata prima" $= \\{2,3,5\\}$. Tentukan $P(A\\cup B)$.
+
+*Penyelesaian.* Karena $n(S)=6$, maka $P(A) = \\tfrac{3}{6} = \\tfrac12$ dan $P(B) = \\tfrac{3}{6} = \\tfrac12$. Irisannya $A \\cap B = \\{2\\}$ sehingga $P(A \\cap B) = \\tfrac16$. Dengan aturan penjumlahan:
+$$P(A \\cup B) = P(A) + P(B) - P(A \\cap B) = \\tfrac12 + \\tfrac12 - \\tfrac16 = \\tfrac56.$$`,
             },
             {
-              title: "Daftar hasil yang menguntungkan",
-              text: "Jumlah $7$ muncul dari $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, yaitu $6$ cara.",
+              title: "Contoh 2 (dua dadu)",
+              text: `Dua dadu dilempar sekali. Tentukan peluang jumlah mata $7$ dan peluang jumlah mata $\\geq 10$.
+
+*Penyelesaian.* Ruang sampelnya $36$ hasil. Jumlah $7$ muncul dari $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, yaitu $6$ cara, sehingga $P(\\text{jumlah }7) = \\tfrac{6}{36} = \\tfrac16$. Adapun jumlah $\\geq 10$ muncul dari $3 + 2 + 1 = 6$ cara, sehingga peluangnya juga $\\tfrac{6}{36} = \\tfrac16$.`,
             },
             {
-              title: "Hitung peluang",
-              text: "$P(\\text{jumlah }7)=\\dfrac{n(A)}{n(S)}=\\dfrac{6}{36}=\\dfrac{1}{6}$.",
+              title: "Contoh 3 (tiga koin dan komplemen)",
+              text: `Tiga koin dilempar sekali. Tentukan peluang "tepat dua gambar" dan "paling sedikit satu gambar".
+
+*Penyelesaian.* Ruang sampel berukuran $2^{3} = 8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Kejadian "paling sedikit satu gambar" adalah komplemen dari "tidak ada gambar" (yaitu $AAA$ dengan peluang $\\tfrac18$), maka $P = 1 - \\tfrac18 = \\tfrac78$.`,
             },
             {
-              title: "Tafsirkan",
-              text: "Pada percobaan panjang, sekitar satu dari enam lemparan diperkirakan berjumlah $7$.",
+              title: "Contoh 4 (frekuensi harapan)",
+              text: `Dua dadu dilempar $180$ kali. Berapa frekuensi harapan muncul jumlah mata $7$?
+
+*Penyelesaian.* Dari Contoh 2, $P(\\text{jumlah }7) = \\tfrac16$. Maka $F_h = N \\cdot P = 180 \\cdot \\tfrac16 = 30$ kali. Angka ini perkiraan jangka panjang, bukan jaminan hasil nyata.`,
             },
           ],
         },
@@ -322,11 +328,22 @@ $$P(A \\cup B) = \\tfrac12 + \\tfrac12 - \\tfrac16 = \\tfrac56.$$
       id: "contoh-majemuk",
       kind: "contoh",
       title: "Contoh: Frekuensi Harapan Kejadian Majemuk",
-      body: `**Contoh (kejadian majemuk).** Tiga koin dilempar $240$ kali. Tentukan frekuensi harapan muncul tepat dua gambar.
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Hitung frekuensi harapan kejadian majemuk dengan menaksir peluangnya lebih dahulu.",
+          steps: [
+            {
+              title: "Contoh (kejadian majemuk)",
+              text: `Tiga koin dilempar $240$ kali. Tentukan frekuensi harapan muncul tepat dua gambar.
 
 *Penyelesaian.* Ruang sampelnya $n(S) = 2^{3} = 8$. Kejadian "tepat dua gambar" memiliki $\\binom{3}{2} = 3$ anggota, sehingga $P = \\tfrac38$. Maka
-$$F_h = N \\cdot P(\\text{kejadian majemuk}) = 240 \\cdot \\tfrac{3}{8} = 90.$$
+$$F_h = N \\cdot P(\\text{kejadian majemuk}) = 240 \\cdot \\tfrac38 = 90.$$
 Jadi kita mengharapkan sekitar $90$ dari $240$ pelemparan menghasilkan tepat dua gambar.`,
+            },
+          ],
+        },
+      ],
     },
     {
       id: "latihan-dasar",
@@ -350,9 +367,11 @@ Jadi kita mengharapkan sekitar $90$ dari $240$ pelemparan menghasilkan tepat dua
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Peluang dipakai untuk menaksir risiko, mengukur ketidakpastian dalam survei, dan menilai hasil tes kesehatan. Misalnya, dari survei dengan banyak responden, peluang empiris "responden setuju" dihitung sebagai proporsi jawaban setuju — sebuah peluang yang lahir dari data nyata.
+      body: `Peluang dipakai untuk menaksir risiko, mengukur ketidakpastian dalam survei, dan menilai hasil tes kesehatan. Dari survei $500$ responden, peluang empiris "responden setuju" hanyalah proporsi jawaban setuju, misalnya $320$ dari $500$ memberi nilai $0{,}64$.
 
-Untuk memahami bagaimana peluang dan statistik dipakai membaca laporan survei secara kritis, buka studi kasus [Membaca Hasil Survei dengan Kritis](/aplikasi/survei-statistik).
+Tes kesehatan memberi contoh yang lebih tajam. Bila suatu penyakit diderita $1\\%$ populasi, kepekaan tes $90\\%$, dan tingkat positif palsu $10\\%$, maka peluang seseorang benar-benar sakit setelah hasilnya positif hanyalah
+$$P = \\frac{0{,}009}{0{,}009 + 0{,}99 \\times 0{,}1} \\approx 8{,}3\\%,$$
+jauh lebih kecil daripada dugaan banyak orang. Untuk memahami bagaimana peluang dan statistik dipakai membaca laporan survei secara kritis, buka studi kasus [Membaca Hasil Survei dengan Kritis](/aplikasi/survei-statistik).
 
 Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah percobaan yang sedikit, hasil nyata bisa menyimpang jauh.`,
     },
@@ -469,7 +488,7 @@ Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang pe
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana peluang membantumu mengambil keputusan saat hasilnya belum pasti.",
+      body: "Latih kepekaan menimbang risiko: pikirkan satu keputusan nyata yang kamu ambil berdasar peluang, lalu nilai apakah taksiranmu masuk akal.",
       blocks: [
         {
           kind: "reflection",
@@ -530,7 +549,7 @@ Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang pe
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Kapan aturan $P(A\\cup B)=P(A)+P(B)$ boleh dipakai? (2) Apa perbedaan kejadian saling lepas dan kejadian saling bebas? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Peluang** untuk latihan tambahan.`,
+      body: `**Uji pemahaman.** (1) Tuliskan syarat agar $P(A\\cup B)$ cukup dihitung sebagai $P(A)+P(B)$. (2) Jelaskan dengan kata-katamu sendiri beda kejadian saling lepas dan saling bebas, lengkap dengan satu contoh masing-masing. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Peluang** untuk latihan tambahan.`,
     },
   ],
 };

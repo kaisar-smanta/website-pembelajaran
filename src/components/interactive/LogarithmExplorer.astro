@@ -1,0 +1,300 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim log-sim" data-logarithm data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Eksponen dan Logaritma sebagai Fungsi Invers</h3>
+  </div>
+
+  <p class="sim-hint">
+    Geser basis b, lalu amati grafik y = b^x dan y = log_b x yang saling mencerminkan
+    terhadap garis y = x.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Basis b <output data-log-value="base">2</output></span>
+      <input type="range" min="0.2" max="5" step="0.1" value="2" data-log-field="base" aria-label="Basis b" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <div class="sim-presets" role="group" aria-label="Preset basis">
+      <button type="button" class="btn btn-secondary btn-sm" data-log-preset="2">b = 2</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-log-preset="0.5">b = 0,5</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-log-preset="10">b = 10</button>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm" data-log-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 320"
+      role="img"
+      aria-label="Grafik y = b pangkat x dan y = log basis b dari x yang saling mencerminkan terhadap garis y = x"
+      data-log-plot></svg>
+    <div class="sim-legend" aria-hidden="true">
+      <span class="l1">y = bˣ</span>
+      <span class="l2">y = log_b x</span>
+      <span class="l3">y = x</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-log-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .sim-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .sim-chart {
+    max-width: 32rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .sim-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .sim-legend .l1 {
+    color: var(--color-primary);
+  }
+  .sim-legend .l2 {
+    color: var(--color-data);
+  }
+  .sim-legend .l3 {
+    color: var(--color-text-soft);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .log-sim *,
+    .log-sim *::before,
+    .log-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    exponentialValue,
+    logarithmValue,
+    keyPoints,
+    describeLogarithm,
+  } from '../../lib/sim/logarithm';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  function setupLogarithm(root: Element) {
+    const input = root.querySelector('[data-log-field="base"]') as HTMLInputElement;
+    const output = root.querySelector('[data-log-value="base"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-log-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-log-readout]') as HTMLElement;
+    const reset = root.querySelector('[data-log-reset]') as HTMLButtonElement;
+
+    const X_MIN = -4;
+    const X_MAX = 4;
+    const Y_MIN = -4;
+    const Y_MAX = 4;
+    const W = 480;
+    const H = 320;
+    const pad = 34;
+
+    const { sx, sy } = linearScale(
+      { xMin: X_MIN, xMax: X_MAX, yMin: Y_MIN, yMax: Y_MAX },
+      { width: W, height: H, pad },
+    );
+
+    function clippedPath(fn: (x: number) => number, from: number, to: number) {
+      const points: Array<[number, number] | null> = [];
+      const steps = 240;
+      for (let i = 0; i <= steps; i++) {
+        const x = from + (i / steps) * (to - from);
+        const y = fn(x);
+        if (!Number.isFinite(y) || y < Y_MIN - 6 || y > Y_MAX + 6) {
+          points.push(null);
+          continue;
+        }
+        points.push([sx(x), sy(y)]);
+      }
+      return polyline(points);
+    }
+
+    function drawGrid() {
+      for (let i = 0; i <= 8; i++) {
+        const x = pad + (i / 8) * (W - 2 * pad);
+        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      for (let i = 0; i <= 6; i++) {
+        const y = pad + (i / 6) * (H - 2 * pad);
+        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      // Garis y = x sebagai sumbu pencerminan.
+      svg.appendChild(el('line', { x1: sx(X_MIN), y1: sy(X_MIN), x2: sx(X_MAX), y2: sy(X_MAX), stroke: 'var(--color-text-soft)', 'stroke-width': 1.2, 'stroke-dasharray': '5 4' }));
+    }
+
+    function draw(base: number) {
+      clear(svg);
+      drawGrid();
+
+      svg.appendChild(
+        el('path', {
+          d: clippedPath((x) => exponentialValue(base, x), X_MIN, X_MAX),
+          fill: 'none',
+          stroke: 'var(--color-primary)',
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+      svg.appendChild(
+        el('path', {
+          d: clippedPath((x) => logarithmValue(base, x), 0.001, X_MAX),
+          fill: 'none',
+          stroke: 'var(--color-data)',
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+
+      if (base > 0 && base !== 1) {
+        const points = keyPoints(base);
+        points.exponential.forEach((p) => {
+          if (p.x < X_MIN || p.x > X_MAX || p.y < Y_MIN || p.y > Y_MAX) return;
+          svg.appendChild(el('circle', { cx: sx(p.x), cy: sy(p.y), r: 4.5, fill: 'var(--color-primary)', stroke: 'var(--color-surface)' }));
+        });
+        points.logarithm.forEach((p) => {
+          if (p.x < X_MIN || p.x > X_MAX || p.y < Y_MIN || p.y > Y_MAX) return;
+          svg.appendChild(el('circle', { cx: sx(p.x), cy: sy(p.y), r: 4.5, fill: 'var(--color-data)', stroke: 'var(--color-surface)' }));
+        });
+      }
+    }
+
+    function render() {
+      const base = Number(input.value);
+      output.textContent = formatPlain(base);
+      draw(base);
+
+      const log1 = logarithmValue(base, 1);
+      const logB = logarithmValue(base, base);
+      const b0 = exponentialValue(base, 0);
+      const b1 = exponentialValue(base, 1);
+      const safe = (v: number): string => (Number.isFinite(v) ? formatPlain(v) : 'tidak terdefinisi');
+
+      readout.innerHTML =
+        `<div class="stat"><span>Nilai b⁰ dan b¹</span><strong>${formatPlain(b0)} dan ${formatPlain(b1)}</strong></div>` +
+        `<div class="stat"><span>Nilai log_b 1 dan log_b b</span><strong>${safe(log1)} dan ${safe(logB)}</strong></div>` +
+        `<div class="stat"><span>Invers di x = 3</span><strong>${safe(logarithmValue(base, 3))} (karena b${formatPlain(logarithmValue(base, 3))} = 3)</strong></div>` +
+        `<div class="stat"><span>Sifat grafik</span><strong>${describeLogarithm(base)}</strong></div>`;
+
+      svg.setAttribute(
+        'aria-label',
+        `Grafik y = ${formatPlain(base)} pangkat x dan y = log basis ${formatPlain(base)} dari x, dengan garis y = x sebagai sumbu pencerminan`,
+      );
+    }
+
+    input.addEventListener('input', render);
+    root.querySelectorAll<HTMLButtonElement>('[data-log-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        input.value = button.getAttribute('data-log-preset') ?? '2';
+        render();
+      });
+    });
+    reset.addEventListener('click', () => {
+      input.value = '2';
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-logarithm]'), setupLogarithm);
+</script>

@@ -17,8 +17,11 @@ export const transformasiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Pergeseran vertikal ke atas sejauh $k$ satuan menambahkan $k$ pada nilai fungsi: $y = f(x) + k$. Karena $k = 4$, rumusnya $y = f(x) + 4$. Opsi C dan D adalah pergeseran horizontal.',
-    hints: ['Pergeseran vertikal mengubah nilai fungsi di luar, bukan argumen $x$.'],
+      'Pergeseran vertikal ke atas sejauh $k$ satuan menambahkan $k$ pada nilai fungsi: $y = f(x) + k$. Karena $k = 4$, rumusnya $y = f(x) + 4$. Opsi B menggeser ke bawah karena mengurangi $4$; opsi C dan D mengubah argumen $f$ sehingga justru pergeseran horizontal, bukan vertikal.',
+    hints: [
+      'Pergeseran vertikal mengubah nilai fungsi di luar, bukan argumen $x$.',
+      'Pergeseran ke atas menambah konstanta: $y = f(x) + 4$.',
+    ],
     competencies: ['translasi vertikal'],
   },
   {
@@ -79,8 +82,11 @@ export const transformasiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Bentuk $y = (x+1)^{2} - 4$ berasal dari $y = x^{2}$ yang digeser ke kiri $1$ satuan dan ke bawah $4$ satuan. Titik puncak $(0,0)$ berpindah menjadi $(-1, -4)$.',
-    hints: ['Tulis $x+1$ sebagai $x - (-1)$ untuk membaca pergeseran horizontal.'],
+      'Bentuk $y = (x+1)^{2} - 4$ berasal dari $y = x^{2}$ yang digeser ke kiri $1$ satuan dan ke bawah $4$ satuan. Titik puncak $(0,0)$ berpindah menjadi $(-1, -4)$. Opsi B salah tanda pergeseran horizontal; opsi C salah tanda pergeseran vertikal; opsi D salah tanda pada kedua arah pergeseran.',
+    hints: [
+      'Tulis $x+1$ sebagai $x - (-1)$ untuk membaca pergeseran horizontal.',
+      'Konstanta di luar kuadrat menentukan pergeseran vertikal.',
+    ],
     competencies: ['translasi grafik', 'titik puncak'],
   },
   {
@@ -99,8 +105,11 @@ export const transformasiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Refleksi terhadap sumbu-$y$: $y = 2(-x) + 1 = -2x + 1$. Lalu digeser ke atas $3$ satuan: $y = -2x + 1 + 3 = -2x + 4$.',
-    hints: ['Refleksi sumbu-$y$ mengganti $x$ menjadi $-x$; geser ke atas menambah $3$ pada nilai fungsi.'],
+      'Refleksi terhadap sumbu-$y$: $y = 2(-x) + 1 = -2x + 1$. Lalu digeser ke atas $3$ satuan: $y = -2x + 1 + 3 = -2x + 4$. Opsi B lupa mencerminkan sehingga tetap $2x$; opsi C salah menghitung $1+3$ menjadi $-2$; opsi D lupa melakukan pergeseran ke atas.',
+    hints: [
+      'Refleksi sumbu-$y$ mengganti $x$ menjadi $-x$; geser ke atas menambah $3$ pada nilai fungsi.',
+      'Kerjakan refleksi lebih dahulu, baru translasi vertikal.',
+    ],
     competencies: ['refleksi', 'translasi vertikal'],
   },
   {
@@ -115,7 +124,10 @@ export const transformasiFungsiQuestions: Question[] = [
       'Pada dilatasi horizontal $y = f(3x)$, absis titik dibagi dengan $3$ sedangkan ordinatnya tetap. Titik $(3, 9)$ berpindah menjadi $\\left(\\dfrac{3}{3}, 9\\right) = (1, 9)$. Periksa: $f(3 \\cdot 1) = f(3) = 9$, sesuai.',
     explanation:
       'Kunci menekankan aturan perubahan titik $(a, b) \\to \\left(\\tfrac{a}{k}, b\\right)$ untuk dilatasi horizontal $y = f(kx)$ dengan $k = 3$.',
-    hints: ['Dilatasi horizontal $f(kx)$ membagi absis dengan $k$, ordinat tetap.'],
+    hints: [
+      'Dilatasi horizontal $f(kx)$ membagi absis dengan $k$, ordinat tetap.',
+      'Gunakan aturan $(a, b) \\to \\left(\\dfrac{a}{k}, b\\right)$ dengan $k = 3$.',
+    ],
     competencies: ['dilatasi horizontal'],
     rubric: [
       'Menuliskan aturan $(a,b)\\to\\left(\\dfrac{a}{k},b\\right)$ untuk $y=f(kx)$',
@@ -136,7 +148,10 @@ export const transformasiFungsiQuestions: Question[] = [
       'Jika grafik meregang vertikal faktor $2$ lebih dahulu, diperoleh $y = 2x^{2}$, lalu digeser ke atas $3$ satuan menjadi $y = 2x^{2} + 3$. Jika urutannya dibalik, digeser ke atas $3$ satuan dahulu menjadi $y = x^{2} + 3$, lalu diregangkan vertikal faktor $2$ menghasilkan $y = 2(x^{2} + 3) = 2x^{2} + 6$. Hasil $2x^{2}+3$ dan $2x^{2}+6$ berbeda untuk setiap $x$, jadi urutan transformasi memengaruhi rumus akhir.',
     explanation:
       'Kunci menekankan bahwa peregangan vertikal mengalikan seluruh nilai fungsi, sehingga elemen yang sudah digeser ikut dikalikan bila urutannya berbeda.',
-    hints: ['Bandingkan $2x^{2}+3$ dengan $2(x^{2}+3)$ lalu jabarkan keduanya.'],
+    hints: [
+      'Bandingkan $2x^{2}+3$ dengan $2(x^{2}+3)$ lalu jabarkan keduanya.',
+      'Peregangan vertikal mengalikan seluruh nilai fungsi, termasuk bagian yang sudah bergeser.',
+    ],
     competencies: ['urutan transformasi', 'penalaran'],
     rubric: [
       'Menerapkan regang vertikal $2$ lalu geser $3$ menjadi $2x^{2}+3$',
@@ -161,8 +176,11 @@ export const transformasiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Setelah digeser ke kanan $3$ satuan diperoleh $y = (x-3)^{2}$. Mengganti $x$ dengan $\\dfrac{x}{2}$ memberi $g(x) = \\left(\\dfrac{x}{2} - 3\\right)^{2} = \\left(\\dfrac{x - 6}{2}\\right)^{2} = \\dfrac{(x-6)^{2}}{4}$.',
-    hints: ['Substitusikan $\\dfrac{x}{2}$ ke setiap kemunculan $x$ pada $(x-3)^{2}$.'],
+      'Setelah digeser ke kanan $3$ satuan diperoleh $y = (x-3)^{2}$. Mengganti $x$ dengan $\\dfrac{x}{2}$ memberi $g(x) = \\left(\\dfrac{x}{2} - 3\\right)^{2} = \\left(\\dfrac{x - 6}{2}\\right)^{2} = \\dfrac{(x-6)^{2}}{4}$. Opsi B salah menyederhanakan penyebut menjadi $2$; opsi C lupa menguadratkan faktor $\\dfrac{1}{2}$; opsi D salah arah pergeseran sehingga muncul $x+6$.',
+    hints: [
+      'Substitusikan $\\dfrac{x}{2}$ ke setiap kemunculan $x$ pada $(x-3)^{2}$.',
+      'Samakan penyebut $\\dfrac{x}{2} - 3 = \\dfrac{x-6}{2}$ sebelum menguadratkan.',
+    ],
     competencies: ['dilatasi horizontal', 'komposisi transformasi'],
   },
   {
@@ -177,7 +195,10 @@ export const transformasiFungsiQuestions: Question[] = [
       'Dari puncak $(p, q) = (2, 5)$ diperoleh $p = 2$ dan $q = 5$, sehingga $h(t) = a(t-2)^{2} + 5$. Substitusi titik $(0, 1)$: $a(0-2)^{2} + 5 = 1 \\Rightarrow 4a = -4 \\Rightarrow a = -1$. Jadi $h(t) = -(t-2)^{2} + 5$. Periksa: $h(2) = 5$ dan $h(0) = -(0-2)^{2} + 5 = -4 + 5 = 1$, benar.',
     explanation:
       'Kunci menekankan pembacaan parameter puncak dari bentuk $a(t-p)^{2}+q$ dan penentuan $a$ melalui substitusi satu titik yang dilalui.',
-    hints: ['Bentuk puncak $a(t-p)^{2}+q$ memiliki puncak $(p, q)$; gunakan titik lain untuk mencari $a$.'],
+    hints: [
+      'Bentuk puncak $a(t-p)^{2}+q$ memiliki puncak $(p, q)$; gunakan titik lain untuk mencari $a$.',
+      'Substitusikan $(0,1)$ ke $h(t)=a(t-2)^{2}+5$ untuk memperoleh $a$.',
+    ],
     competencies: ['pemodelan transformasi', 'bentuk puncak'],
     rubric: [
       'Membaca $p=2$ dan $q=5$ dari titik puncak',
@@ -219,7 +240,10 @@ export const transformasiFungsiQuestions: Question[] = [
       '(a) Geser ke kanan $2$ dan ke bawah $3$ memberi $y=f(x-2)-3$. (b) Titik $(4,5)$ berpindah menjadi $(4+2,\\,5-3)=(6,2)$. (c) Pergeseran ke kanan menunda terjadinya nilai biaya tertentu (muncul pada $x$ yang lebih besar), sedangkan pergeseran ke bawah menurunkan tingkat biaya marjinal secara keseluruhan — misalnya karena efisiensi atau perubahan struktur biaya.',
     explanation:
       'Kunci: menulis transformasi $f(x-h)+k$, memindahkan titik dengan aturan $(a,b)\\to(a+h,b+k)$, lalu menafsirkan pergeseran secara kontekstual.',
-    hints: ['Geser ke kanan berarti $x$ diganti $x-2$.', 'Geser ke bawah mengurangi nilai fungsi dengan $3$.'],
+    hints: [
+      'Geser ke kanan berarti $x$ diganti $x-2$.',
+      'Geser ke bawah mengurangi nilai fungsi dengan $3$.',
+    ],
     competencies: ['translasi grafik', 'kontekstual', 'interpretasi'],
     rubric: [
       'Menuliskan rumus transformasi $y=f(x-2)-3$',
@@ -292,8 +316,39 @@ export const transformasiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Geser ke kanan $1$ satuan menambah absis dan geser ke bawah $4$ satuan mengurangi ordinat, sehingga $(3,9)\\to(3+1,\\,9-4)=(4,5)$. Rumus barunya $y=(x-1)^{2}-4$; periksa $x=4$: $(4-1)^{2}-4=9-4=5$.',
-    hints: ['Geser ke kanan berarti $(a,b)\\to(a+1,b)$ dan geser ke bawah $(a,b)\\to(a,b-4)$.'],
+      'Geser ke kanan $1$ satuan menambah absis dan geser ke bawah $4$ satuan mengurangi ordinat, sehingga $(3,9)\\to(3+1,\\,9-4)=(4,5)$. Rumus barunya $y=(x-1)^{2}-4$; periksa $x=4$: $(4-1)^{2}-4=9-4=5$. Opsi B menggeser ke kiri; opsi C menggeser ke atas; opsi D salah arah pada kedua sumbu sekaligus.',
+    hints: [
+      'Geser ke kanan berarti $(a,b)\\to(a+1,b)$ dan geser ke bawah $(a,b)\\to(a,b-4)$.',
+      'Terapkan kedua pergeseran pada titik $(3,9)$ sekaligus.',
+    ],
     competencies: ['translasi grafik', 'kontekstual'],
+  },
+  {
+    id: 'tf-16',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Perhatikan gambar. Grafik putus-putus adalah $y=x^{2}$ dan grafik penuh adalah hasil pergeserannya. Rumus grafik penuh adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="55" y1="120" x2="300" y2="120" stroke="currentColor" stroke-width="1.2"/><line x1="175" y1="20" x2="175" y2="200" stroke="currentColor" stroke-width="1.2"/><polyline points="125,40 137,75 150,100 162,115 175,120 187,115 200,100 212,75 225,40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.6"/><polyline points="175,100 187,135 200,160 212,175 225,180 237,175 250,160 262,135 275,100 287,75 300,40" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="225" cy="180" r="3" fill="currentColor"/><text x="292" y="136" font-size="11" fill="currentColor">x</text><text x="179" y="28" font-size="11" fill="currentColor">y</text></svg>',
+      alt: 'Bidang koordinat dengan parabola putus-putus y sama dengan x kuadrat dan parabola penuh yang titik puncaknya berada di (2, -3).',
+      caption: 'Grafik putus-putus $y=x^{2}$; grafik penuh hasil pergeseran dengan puncak di $(2,-3)$.',
+    },
+    options: [
+      { key: 'A', text: '$y = (x-2)^{2} - 3$' },
+      { key: 'B', text: '$y = (x+2)^{2} - 3$' },
+      { key: 'C', text: '$y = (x-2)^{2} + 3$' },
+      { key: 'D', text: '$y = (x-3)^{2} - 2$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Puncak $y=x^{2}$ di $(0,0)$ berpindah ke $(2,-3)$, yaitu $2$ satuan ke kanan dan $3$ satuan ke bawah, sehingga rumusnya $y=(x-2)^{2}-3$. Opsi B salah arah horizontal karena memberi $x+2$; opsi C salah arah vertikal karena memberi $+3$; opsi D menukar peran kedua pergeseran sehingga memperoleh $(x-3)^{2}-2$.',
+    hints: [
+      'Baca koordinat titik puncak grafik penuh pada gambar.',
+      'Bentuk $y=(x-h)^{2}+k$ memiliki puncak $(h,k)$.',
+    ],
+    competencies: ['translasi grafik', 'membaca grafik'],
   },
 ];

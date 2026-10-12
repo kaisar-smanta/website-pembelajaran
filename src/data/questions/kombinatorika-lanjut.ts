@@ -16,8 +16,8 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Setiap kaus dapat dipasangkan dengan $4$ celana, sehingga banyak cara $3 \\cdot 4 = 12$ (aturan perkalian).',
-    hints: ['Tahap pertama memilih kaus, tahap kedua memilih celana.'],
+      'Setiap kaus dapat dipasangkan dengan $4$ celana, sehingga banyak cara $3 \\cdot 4 = 12$ (aturan perkalian). Opsi A, $7$, muncul bila $3$ dan $4$ dijumlahkan (aturan penjumlahan) alih-alih dikalikan. Opsi C, $24$, muncul bila memakai $3! \\cdot 4$, seakan urutan pemakaian kaus juga diperhitungkan. Opsi D, $81 = 3^{4}$, muncul bila menganggap setiap celana punya $3$ pilihan secara berpangkat.',
+    hints: ['Tahap pertama memilih kaus, tahap kedua memilih celana.', 'Kalikan banyak pilihan tiap tahap, bukan menjumlahkannya.'],
     competencies: ['aturan perkalian'],
   },
   {
@@ -49,8 +49,8 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Paling sedikit satu kotak memuat $\\left\\lceil \\dfrac{7}{3} \\right\\rceil = 3$ bola.',
-    hints: ['Bagi banyak objek dengan banyak kotak, lalu bulatkan ke atas.'],
+      'Paling sedikit satu kotak memuat $\\left\\lceil \\dfrac{7}{3} \\right\\rceil = 3$ bola. Opsi A, $2$, muncul bila hasil bagi dibulatkan ke bawah, $\\left\\lfloor \\dfrac{7}{3} \\right\\rfloor = 2$, padahal kita mencari jaminan terburuk sehingga harus dibulatkan ke atas. Opsi C, $4$, muncul bila setelah membulatkan ke atas masih ditambah $1$, $3+1$. Opsi D, $7$, muncul bila menganggap semua bola dapat menumpuk pada satu kotak sehingga tidak ada pembagian sama sekali.',
+    hints: ['Bagi banyak objek dengan banyak kotak, lalu bulatkan ke atas.', 'Pembulatan harus ke atas karena kita mencari jaminan minimum, bukan rata-rata.'],
     competencies: ['pigeonhole'],
   },
   {
@@ -68,8 +68,8 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Setiap anggota punya $2$ pilihan: dipilih atau tidak. Jadi banyak himpunan bagian $2^5 = 32$.',
-    hints: ['Gunakan aturan perkalian untuk $5$ keputusan bebas.'],
+      'Setiap anggota punya $2$ pilihan: dipilih atau tidak. Jadi banyak himpunan bagian $2^5 = 32$. Opsi A, $5$, muncul bila hanya menghitung himpunan bagian beranggota satu. Opsi B, $10$, muncul bila hanya menghitung pasangan, yaitu $\\binom{5}{2}$. Opsi C, $25 = 5^{2}$, muncul bila basis dan eksponen tertukar dari $2^{5}$.',
+    hints: ['Gunakan aturan perkalian untuk $5$ keputusan bebas.', 'Mulai dari himpunan kosong hingga himpunan penuh, semua ukuran dihitung.'],
     competencies: ['aturan perkalian', 'himpunan bagian'],
   },
   {
@@ -84,7 +84,7 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     acceptedAnswers: ['30'],
     explanation:
       'Kelipatan $2$ ada $25$, kelipatan $5$ ada $10$, dan kelipatan $10$ (irisan) ada $5$. Dengan inklusi-eksklusi: $25 + 10 - 5 = 30$.',
-    hints: ['Kurangi bilangan yang terhitung dua kali, yaitu kelipatan $10$.'],
+    hints: ['Kurangi bilangan yang terhitung dua kali, yaitu kelipatan $10$.', 'Hitung dahulu $|A|$, $|B|$, dan $|A \\cap B|$ sebelum memakai $|A \\cup B| = |A| + |B| - |A \\cap B|$.'],
     competencies: ['inklusi-eksklusi'],
   },
   {
@@ -102,8 +102,8 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Menurut teorema binomial, koefisien $x^4$ adalah $\\dbinom{7}{4} = 35$.',
-    hints: ['Koefisien $x^k$ pada $(1+x)^n$ adalah $\\dbinom{n}{k}$.'],
+      'Menurut teorema binomial, koefisien $x^4$ adalah $\\dbinom{7}{4} = 35$. Opsi B, $21 = \\dbinom{7}{2}$, muncul bila indeks $k$ tertukar dengan $n-k$ tanpa memperbaiki nilainya. Opsi A, $7$, muncul bila hanya membaca pangkat tertinggi atau memakai $\\dbinom{7}{1}$. Opsi D, $70 = \\dbinom{8}{4}$, muncul bila $n$ keliru dianggap $8$, misalnya menambah satu karena ada suku konstanta.',
+    hints: ['Koefisien $x^k$ pada $(1+x)^n$ adalah $\\dbinom{n}{k}$.', 'Substitusikan $n=7$ dan $k=4$ ke koefisien binomial.'],
     competencies: ['koefisien binomial'],
   },
   {
@@ -139,7 +139,7 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     acceptedAnswers: ['13', '13 siswa'],
     explanation:
       'Ada $12$ bulan sebagai "kotak". Dengan pigeonhole, dibutuhkan $12 + 1 = 13$ siswa agar pasti ada dua di bulan yang sama.',
-    hints: ['Ada $12$ bulan yang berperan sebagai kotak.'],
+    hints: ['Ada $12$ bulan yang berperan sebagai kotak.', 'Dengan $12$ siswa masih mungkin setiap bulan diisi tepat satu orang, sehingga jaminan baru muncul pada siswa ke-$13$.'],
     competencies: ['pigeonhole'],
   },
   {
@@ -158,8 +158,8 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Dengan inklusi-eksklusi: $|M \\cup F| = 25 + 20 - 10 = 35$ siswa.',
-    hints: ['Kurangi banyak siswa yang menyukai keduanya.'],
+      'Dengan inklusi-eksklusi: $|M \\cup F| = 25 + 20 - 10 = 35$ siswa. Opsi B, $45$, muncul bila $25$ dan $20$ langsung dijumlahkan tanpa mengurangi irisan. Opsi C, $55$, muncul bila irisan justru ditambahkan, $25 + 20 + 10$. Opsi D, $30$, muncul bila memakai $40 - 10$ (total siswa dikurangi irisan), bukan rumus gabungan dua himpunan.',
+    hints: ['Kurangi banyak siswa yang menyukai keduanya.', 'Gunakan $|M \\cup F| = |M| + |F| - |M \\cap F|$.'],
     competencies: ['inklusi-eksklusi', 'pemodelan'],
   },
   {
@@ -194,7 +194,7 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     acceptedAnswers: ['40'],
     explanation:
       'Suku dengan $x^3$ berbentuk $\\dbinom{5}{3} \\cdot 2^{2} \\cdot x^3 = 10 \\cdot 4 \\cdot x^3$, sehingga koefisiennya $40$.',
-    hints: ['Gunakan $\\dbinom{n}{k} a^{n-k} b^k$ dengan $a = 2$ dan $b = x$.'],
+    hints: ['Gunakan $\\dbinom{n}{k} a^{n-k} b^k$ dengan $a = 2$ dan $b = x$.', 'Karena $b=x$, pangkat $x^3$ berarti $k=3$ sehingga sisa pangkat pada $a$ adalah $n-k=2$.'],
     competencies: ['teorema binomial', 'koefisien binomial'],
   },
   {
@@ -255,8 +255,56 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Kelipatan $3$: $\\left\\lfloor \\dfrac{200}{3} \\right\\rfloor = 66$. Kelipatan $5$: $\\left\\lfloor \\dfrac{200}{5} \\right\\rfloor = 40$. Kelipatan $15$: $\\left\\lfloor \\dfrac{200}{15} \\right\\rfloor = 13$. Jadi $66 + 40 - 13 = 93$.',
-    hints: ['Hitung kelipatan $3$, kelipatan $5$, lalu kurangi kelipatan $15$.'],
+      'Kelipatan $3$: $\\left\\lfloor \\dfrac{200}{3} \\right\\rfloor = 66$. Kelipatan $5$: $\\left\\lfloor \\dfrac{200}{5} \\right\\rfloor = 40$. Kelipatan $15$: $\\left\\lfloor \\dfrac{200}{15} \\right\\rfloor = 13$. Jadi $66 + 40 - 13 = 93$. Opsi B, $106$, muncul bila irisan tidak dikurangkan, $66 + 40$. Opsi C, $119$, muncul bila irisan justru ditambahkan, $66 + 40 + 13$. Opsi D, $80$, muncul bila irisan dikurangi dua kali, $66 + 40 - 2(13)$.',
+    hints: ['Hitung kelipatan $3$, kelipatan $5$, lalu kurangi kelipatan $15$.', 'Irisan kedua himpunan adalah kelipatan KPK dari $3$ dan $5$, yaitu kelipatan $15$.'],
     competencies: ['inklusi-eksklusi', 'evaluasi'],
+  },
+  {
+    id: 'komb-15',
+    topicId: 'kombinatorika-lanjut',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah fungsi hash memetakan setiap kunci data ke salah satu dari $5$ slot penyimpanan. Berapa banyak kunci berbeda paling sedikit yang harus dimasukkan agar dapat **dijamin** ada dua kunci menempati slot yang sama?',
+    answer: '6',
+    acceptedAnswers: ['6', '6 kunci'],
+    explanation:
+      'Dengan $5$ slot sebagai "kotak", lima kunci masih dapat menempati slot yang semuanya berbeda, sehingga tabrakan belum pasti terjadi. Begitu kunci ke-$6$ masuk, prinsip sarang merpati menjamin paling sedikit dua kunci berbagi slot. Jadi dibutuhkan $5 + 1 = 6$ kunci.',
+    hints: [
+      'Pandang tiap slot sebagai satu "kotak" pada prinsip sarang merpati.',
+      'Cari banyak kunci yang lebih besar satu daripada banyak slot agar tabrakan pasti.',
+    ],
+    competencies: ['pigeonhole', 'pemodelan', 'kontekstual'],
+  },
+  {
+    id: 'komb-16',
+    topicId: 'kombinatorika-lanjut',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'evaluasi',
+    prompt:
+      'Sebuah layanan membangkitkan kode sesi berupa $4$ karakter, tiap karakter dipilih dari $10$ angka dan **boleh berulang**. Manajer menyatakan banyak kode sesi adalah $10^{4}$. Manakah pernyataan yang paling tepat?',
+    options: [
+      {
+        key: 'A',
+        text:
+          'Manajer benar; karena pengulangan diperbolehkan, tiap posisi mempunyai $10$ pilihan sehingga total $10^{4}$',
+      },
+      {
+        key: 'B',
+        text: 'Manajer salah; kode sesi harus unik sehingga seharusnya $P(10,4) = 5.040$',
+      },
+      { key: 'C', text: 'Manajer salah; seharusnya $4^{10}$ karena ada $4$ karakter dan $10$ angka' },
+      { key: 'D', text: 'Manajer benar, dan nilai $10^{4}$ kebetulan sama dengan $P(10,4)$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Karena setiap karakter boleh berulang dan dipilih bebas dari $10$ angka, tiap posisi punya $10$ pilihan, sehingga banyak kode $= 10 \\cdot 10 \\cdot 10 \\cdot 10 = 10^{4}$. Opsi B keliru karena keunikan kode di seluruh sistem tidak melarang pengulangan karakter di dalam satu kode. Opsi C menukar basis dan eksponen. Opsi D salah karena $10^{4} = 10.000$ sedangkan $P(10,4) = 5.040$, jadi keduanya tidak sama.',
+    hints: [
+      'Pengulangan diperbolehkan berarti tiap posisi dipilih dari seluruh himpunan yang sama.',
+      'Aturan perkalian: kalikan banyak pilihan setiap posisi tanpa mengurangi pilihan sebelumnya.',
+    ],
+    competencies: ['aturan perkalian', 'pemodelan', 'evaluasi'],
   },
 ];

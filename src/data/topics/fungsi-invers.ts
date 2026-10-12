@@ -103,7 +103,7 @@ Untuk fungsi pada bilangan real, himpunan nilai $x$ yang boleh dimasukkan disebu
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Poin pokok",
           text: "Domain adalah himpunan masukan, kodomain adalah himpunan tujuan, dan range adalah himpunan hasil yang benar-benar tercapai. Range selalu berada di dalam kodomain.",
         },
         {
@@ -432,7 +432,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana membalik suatu proses membantumu memahami hubungan fungsi.",
+      body: "Tinjau kembali bagaimana proses yang dapat dibalik mempertajam pemahamanmu tentang pemetaan.",
       blocks: [
         {
           kind: "reflection",
@@ -489,7 +489,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa hanya fungsi satu-satu yang memiliki invers? (2) Mengapa grafik $f$ dan $f^{-1}$ saling mencerminkan terhadap garis $y=x$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Invers** untuk latihan tambahan.`,
+      body: `**Uji diri.** (1) Mengapa hanya fungsi satu-satu yang memiliki invers? (2) Mengapa grafik $f$ dan $f^{-1}$ saling mencerminkan terhadap garis $y=x$? Setelah menjawab, kaitkan jawabanmu dengan soal pada [Latihan & Asesmen](/latihan) topik **Fungsi Invers**.`,
     },
   ],
 };

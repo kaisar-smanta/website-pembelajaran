@@ -16,8 +16,11 @@ export const fungsiInversQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Tulis $y = 2x + 3$, maka $2x = y - 3$ sehingga $x = \\dfrac{y-3}{2}$. Setelah menukar $x$ dan $y$, diperoleh $f^{-1}(x) = \\dfrac{x-3}{2}$. Periksa: $f(5)=13$ dan $f^{-1}(13)=\\dfrac{10}{2}=5$.',
-    hints: ['Jadikan $x$ sebagai subjek rumus, lalu tukar nama $x$ dan $y$.'],
+      'Tulis $y = 2x + 3$, maka $2x = y - 3$ sehingga $x = \\dfrac{y-3}{2}$. Setelah menukar $x$ dan $y$, diperoleh $f^{-1}(x) = \\dfrac{x-3}{2}$. Periksa: $f(5)=13$ dan $f^{-1}(13)=\\dfrac{10}{2}=5$. Opsi B salah tanda karena menambahkan $3$; opsi C hanya mengganti tanda konstanta tanpa membalik operasi; opsi D menganggap $f^{-1}$ sebagai kebalikan $\\dfrac{1}{f(x)}$, bukan fungsi invers.',
+    hints: [
+      'Jadikan $x$ sebagai subjek rumus, lalu tukar nama $x$ dan $y$.',
+      'Setelah $2x = y - 3$, bagi kedua ruas dengan $2$.',
+    ],
     competencies: ['invers fungsi linear'],
   },
   {
@@ -82,8 +85,11 @@ export const fungsiInversQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Tulis $y = \\dfrac{x+2}{x-1}$, maka $y(x-1) = x+2 \\Rightarrow xy - y = x + 2 \\Rightarrow x(y-1) = y + 2 \\Rightarrow x = \\dfrac{y+2}{y-1}$. Setelah menukar $x$ dan $y$, diperoleh $f^{-1}(x) = \\dfrac{x+2}{x-1}$. Fungsi ini invers terhadap dirinya sendiri.',
-    hints: ['Kalikan silang, lalu kumpulkan suku yang memuat $x$.'],
+      'Tulis $y = \\dfrac{x+2}{x-1}$, maka $y(x-1) = x+2 \\Rightarrow xy - y = x + 2 \\Rightarrow x(y-1) = y + 2 \\Rightarrow x = \\dfrac{y+2}{y-1}$. Setelah menukar $x$ dan $y$, diperoleh $f^{-1}(x) = \\dfrac{x+2}{x-1}$. Fungsi ini invers terhadap dirinya sendiri. Opsi B salah tanda pada pembilang; opsi C keliru menghitung penyebut sehingga menulis $x+1$; opsi D adalah bentuk $-\\dfrac{1}{f(x)}$, yaitu negatif kebalikan nilai fungsi, bukan fungsi invers.',
+    hints: [
+      'Kalikan silang, lalu kumpulkan suku yang memuat $x$.',
+      'Faktorkan $x$ pada ruas kiri menjadi $x(y-1)$ sebelum membagi.',
+    ],
     competencies: ['invers fungsi rasional'],
   },
   {
@@ -102,8 +108,11 @@ export const fungsiInversQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$y = x^{2} + 1 \\Rightarrow x^{2} = y - 1 \\Rightarrow x = \\sqrt{y-1}$ karena $x \\geq 0$ (ambil akar positif). Jadi $f^{-1}(x) = \\sqrt{x-1}$ dengan syarat $x \\geq 1$. Periksa: $f(2) = 5$ dan $f^{-1}(5) = \\sqrt{4} = 2$.',
-    hints: ['Karena domain $x \\geq 0$, gunakan akar positif saja.'],
+      '$y = x^{2} + 1 \\Rightarrow x^{2} = y - 1 \\Rightarrow x = \\sqrt{y-1}$ karena $x \\geq 0$ (ambil akar positif). Jadi $f^{-1}(x) = \\sqrt{x-1}$ dengan syarat $x \\geq 1$. Periksa: $f(2) = 5$ dan $f^{-1}(5) = \\sqrt{4} = 2$. Opsi B salah tanda karena menulis $x+1$; opsi C adalah $x^{2}-1$ yang bukan invers dari $f$; opsi D menganggap invers sebagai kebalikan nilai fungsi.',
+    hints: [
+      'Karena domain $x \\geq 0$, gunakan akar positif saja.',
+      'Tentukan dahulu syarat $x$ agar $x-1$ tidak negatif di dalam akar.',
+    ],
     competencies: ['invers fungsi kuadrat', 'pembatasan domain'],
   },
   {
@@ -117,7 +126,10 @@ export const fungsiInversQuestions: Question[] = [
     acceptedAnswers: ['\\frac{x-3}{2}', 'x/2-3/2', '\\frac{1}{2}x-\\frac{3}{2}'],
     explanation:
       'Misal $y = f^{-1}(x) = 2x + 3$. Karena $f$ adalah invers dari $f^{-1}$, tukar peran $x$ dan $y$: $x = 2y + 3 \\Rightarrow y = \\dfrac{x-3}{2}$. Jadi $f(x) = \\dfrac{x-3}{2}$.',
-    hints: ['Invers dari $f^{-1}$ adalah $f$ itu sendiri.'],
+    hints: [
+      'Invers dari $f^{-1}$ adalah $f$ itu sendiri.',
+      'Tukar peran $x$ dan $y$ pada $y = 2x + 3$, lalu jadikan $y$ subjek rumus.',
+    ],
     competencies: ['invers dari fungsi invers'],
   },
   {
@@ -132,7 +144,10 @@ export const fungsiInversQuestions: Question[] = [
       '$f^{-1}$ adalah fungsi yang membalik pemetaan, bukan hasil bagi $1$ dibagi $f(x)$. Untuk $f(x) = 2x + 3$, inversnya adalah $f^{-1}(x) = \\dfrac{x-3}{2}$, sedangkan $\\dfrac{1}{f(x)} = \\dfrac{1}{2x+3}$. Keduanya berbeda: misalnya $f^{-1}(3) = 0$, tetapi $\\dfrac{1}{f(3)} = \\dfrac{1}{9}$. Jadi $f^{-1}(x) \\neq \\dfrac{1}{f(x)}$.',
     explanation:
       'Kunci menekankan perbedaan makna notasi: $-1$ pada $f^{-1}$ menandakan fungsi invers, bukan pangkat $-1$ yang berarti kebalikan.',
-    hints: ['Hitung $f^{-1}(3)$ dan $\\dfrac{1}{f(3)}$ lalu bandingkan.'],
+    hints: [
+      'Hitung $f^{-1}(3)$ dan $\\dfrac{1}{f(3)}$ lalu bandingkan.',
+      'Ingat bahwa $f^{-1}$ membalik pemetaan, sedangkan $\\dfrac{1}{f(x)}$ adalah kebalikan nilai.',
+    ],
     competencies: ['pemahaman notasi invers'],
     rubric: [
       'Menjelaskan $f^{-1}$ membalik pemetaan, bukan kebalikan nilai $f$',
@@ -156,8 +171,11 @@ export const fungsiInversQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Karena $f(5) = 4$, maka $f^{-1}(4) = 5$, sehingga grafik $f^{-1}$ melalui $(4, 5)$. Titik ini adalah pencerminan $(5,4)$ terhadap garis $y = x$.',
-    hints: ['Jika $(a,b)$ pada grafik $f$, maka $(b,a)$ pada grafik $f^{-1}$.'],
+      'Karena $f(5) = 4$, maka $f^{-1}(4) = 5$, sehingga grafik $f^{-1}$ melalui $(4, 5)$. Titik ini adalah pencerminan $(5,4)$ terhadap garis $y = x$. Opsi B mengubah tanda absis tanpa alasan; opsi C mengubah tanda ordinat; opsi D menganggap invers sebagai kebalikan koordinat $\\left(\\tfrac{1}{5}, \\tfrac{1}{4}\\right)$.',
+    hints: [
+      'Jika $(a,b)$ pada grafik $f$, maka $(b,a)$ pada grafik $f^{-1}$.',
+      'Tukar absis dan ordinat titik $(5,4)$.',
+    ],
     competencies: ['grafik fungsi invers', 'pencerminan terhadap $y=x$'],
   },
   {
@@ -172,7 +190,10 @@ export const fungsiInversQuestions: Question[] = [
       'Selesaikan untuk $C$: $\\dfrac{9}{5}C = F - 32$, sehingga $C = \\dfrac{5}{9}(F - 32)$. Inilah fungsi invers dari hubungan tersebut. Untuk $F = 77$: $C = \\dfrac{5}{9}(77 - 32) = \\dfrac{5}{9}(45) = 25$. Jadi suhunya $25^{\\circ}$C.',
     explanation:
       'Kunci menekankan langkah menurunkan invers (menyatakan $C$ dalam $F$) dan penerapannya pada nilai $F = 77$ yang menghasilkan $C = 25$.',
-    hints: ['Kurangi $32$ terlebih dahulu, lalu kalikan dengan $\\dfrac{5}{9}$.'],
+    hints: [
+      'Kurangi $32$ terlebih dahulu, lalu kalikan dengan $\\dfrac{5}{9}$.',
+      'Nyatakan $C$ sebagai subjek rumus agar diperoleh fungsi invers dari $F$.',
+    ],
     competencies: ['fungsi invers', 'pemodelan kontekstual'],
     rubric: [
       'Menyelesaikan $F=\\dfrac{9}{5}C+32$ menjadi $C=\\dfrac{5}{9}(F-32)$',
@@ -232,7 +253,10 @@ export const fungsiInversQuestions: Question[] = [
       '(a) Dari $T=1{,}1x+20.000$ diperoleh $1{,}1x=T-20.000$, sehingga $T^{-1}(x)=\\dfrac{x-20.000}{1{,}1}$. (b) $T^{-1}(240.000)=\\dfrac{240.000-20.000}{1{,}1}=\\dfrac{220.000}{1{,}1}=200.000$, jadi harga menu Rp200.000. Periksa: $T(200.000)=1{,}1(200.000)+20.000=240.000$. (c) Invers membalik arah perhitungan: dari total yang dibayar kita dapat memastikan kembali harga dasar yang seharusnya, sehingga berguna untuk mendeteksi tagihan yang keliru.',
     explanation:
       'Kunci: menjadikan $x$ subjek rumus, menerapkan invers pada nilai total, dan menjelaskan manfaat praktisnya.',
-    hints: ['Kurangi biaya layanan terlebih dahulu, lalu bagi dengan $1{,}1$.'],
+    hints: [
+      'Kurangi biaya layanan terlebih dahulu, lalu bagi dengan $1{,}1$.',
+      'Periksa hasilnya dengan menghitung $T(200.000)$.',
+    ],
     competencies: ['invers fungsi linear', 'pemodelan'],
     rubric: [
       'Menyusun invers $T^{-1}(x)=\\dfrac{x-20.000}{1{,}1}$',
@@ -264,5 +288,28 @@ export const fungsiInversQuestions: Question[] = [
       'Menjelaskan pencerminan terhadap $y=x$ membuat asimtot bertukar peran',
       'Menyebut asimtot $f$: $x=3$ dan $y=2$; asimtot $f^{-1}$: $x=2$ dan $y=3$',
     ],
+  },
+  {
+    id: 'fi-15',
+    topicId: 'fungsi-invers',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'konsep',
+    prompt:
+      'Di antara fungsi berikut, fungsi yang memiliki invers pada seluruh domain bilangan real adalah …',
+    options: [
+      { key: 'A', text: '$f(x)=x^{2}$' },
+      { key: 'B', text: '$f(x)=|x|$' },
+      { key: 'C', text: '$f(x)=x^{3}$' },
+      { key: 'D', text: '$f(x)=x^{2}-4$' },
+    ],
+    answer: 'C',
+    explanation:
+      'Fungsi memiliki invers bila satu-satu (injektif). Fungsi $f(x)=x^{3}$ naik tegas sehingga setiap nilai hanya berasal dari satu masukan, maka inversnya $f^{-1}(x)=\\sqrt[3]{x}$. Opsi A tidak satu-satu karena $f(2)=f(-2)=4$; opsi B juga tidak satu-satu karena $|2|=|-2|=2$; opsi D tidak satu-satu karena $f(2)=f(-2)=0$.',
+    hints: [
+      'Uji apakah ada dua masukan berbeda yang memberi hasil sama.',
+      'Fungsi yang naik tegas atau turun tegas pada seluruh domain bersifat satu-satu.',
+    ],
+    competencies: ['fungsi bijektif', 'uji satu-satu'],
   },
 ];

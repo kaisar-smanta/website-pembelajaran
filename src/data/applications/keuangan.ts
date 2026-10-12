@@ -42,7 +42,7 @@ Selisihnya sekitar **Rp1.908.477** — cukup untuk membeli laptop atau menambah 
       'Kalau kamu hanya boleh menabung sekali dan tidak bisa menambah setoran, mengapa waktu menjadi sekutu terbaikmu?',
     ],
     source:
-      'Data ilustratif berdasarkan produk tabungan bank umum; suku bunga dan saldo dibulatkan untuk pembelajaran.',
+      'Mengacu pada kisaran suku bunga tabungan dan deposito Bank Indonesia pada 2024 (sekitar 3–6% per tahun, angka dibulatkan); saldo dihitung sebagai contoh pembelajaran, bukan penawaran bank tertentu.',
   },
   {
     id: 'anuitas-pinjaman',
@@ -82,7 +82,7 @@ Total pembayaran $= 60 \\times 1.112.222{,}4 \\approx \\text{Rp}66.733.342$, seh
       'Jika kamu punya dana lebih, kapan pelunasan lebih awal paling menghemat bunga?',
     ],
     source:
-      'Data ilustratif berdasarkan skema kredit kendaraan bermotor; pokok, bunga, dan tenor dibulatkan untuk pembelajaran.',
+      'Mengikuti skema anuitas pada kredit kendaraan bermotor di Indonesia; suku bunga 12% per tahun (1% per bulan) berada dalam kisaran umum kredit motor, sedangkan pokok dan tenor dibulatkan untuk pembelajaran.',
   },
   {
     id: 'optimasi-produksi-bengkel',
@@ -115,7 +115,7 @@ Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian di
       'Jika suatu hari jam pemotongan ditambah menjadi 9 jam, apakah laba pasti ikut naik? Jelaskan.',
     ],
     source:
-      'Ilustrasi fiktif persoalan program linear pada usaha kecil; angka dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi: bengkel kayu fiktif dengan angka yang dirancang agar titik sudut daerah layak mudah dihitung; bentuk persoalannya mengikuti program linear usaha kecil pada umumnya.',
   },
   {
     id: 'dana-pensiun',
@@ -153,7 +153,7 @@ Menunda 10 tahun membuat setoran bulanan naik dari sekitar Rp598.000 menjadi Rp1
       'Bagaimana hasilnya berubah jika suku bunga bulanan turun menjadi 0,4%? Mana yang lebih sensitif, waktu atau suku bunga?',
     ],
     source:
-      'Data ilustratif berdasarkan produk investasi berkala; imbal hasil dan target dana dibulatkan untuk pembelajaran.',
+      'Skenario pengajaran yang dikonstruksi dengan besaran realistis: imbal hasil 0,6% per bulan (setara sekitar 7,4% per tahun) dan target dana mengikuti produk investasi berkala pada umumnya; angka dibulatkan.',
   },
   {
     id: 'diskon-berlapis',
@@ -193,7 +193,7 @@ Sekarang urutannya penting: selisihnya **Rp10.000**. Kesimpulannya, selama semua
       'Bagaimana komposisi berubah jika setelah diskon masih dikenakan PPN 11%? Apakah urutan PPN memengaruhi harga akhir?',
     ],
     source:
-      'Ilustrasi fiktif pola promo diskon berlapis di ritel; harga dan voucher dibuat agar mudah dihitung.',
+      'Pola diskon berlapis dan voucher nominal mengikuti praktik promosi ritel di Indonesia; harga dan nilai voucher dibulatkan sebagai contoh, bukan penawaran toko tertentu.',
   },
   {
     id: 'konversi-mata-uang',
@@ -234,7 +234,7 @@ Namun di dunia nyata, money changer memakai dua kurs sekaligus: **kurs beli** Rp
       'Dalam situasi apa biaya selisih kurs ini masih sepadan dengan kebutuhanmu?',
     ],
     source:
-      'Data ilustratif berdasarkan kurs transaksi bank dan money changer; kurs dibulatkan dan dapat berubah dari waktu ke waktu.',
+      'Mengacu pada kisaran kurs USD/IDR sekitar Rp16.000 pada 2024 (kurs bergerak setiap saat); kurs beli dan kurs jual bank atau money changer disederhanakan serta dibulatkan untuk pembelajaran.',
   },
   {
     id: 'ind-validasi-angsuran',
@@ -282,6 +282,57 @@ Bandingkan dengan pengujian beberapa bulan: memeriksa $n = 1, 2, 3$ memang menco
       'Jika kenaikan bulanan berubah menjadi Rp50.000, apa yang berubah pada pembuktiannya?',
     ],
     source:
-      'Ilustrasi fiktif program simpanan bertahap koperasi; nominal dibuat agar mudah dibuktikan dengan induksi.',
+      'Skenario pengajaran yang dikonstruksi: program simpanan koperasi fiktif dengan nominal yang dirancang agar rumus jumlah deretnya dapat dibuktikan lewat induksi matematika.',
+  },
+  {
+    id: 'keputusan-pelunasan-utang',
+    title: 'Melunasi Utang atau Berinvestasi?',
+    category: 'keuangan',
+    element: 'bilangan',
+    grade: 'XII',
+    level: 'cakap',
+    estimatedMinutes: 12,
+    explorationId: 'anuitas-sim',
+    tags: ['nilai waktu uang', 'pelunasan utang', 'investasi', 'bunga', 'keputusan'],
+    summary:
+      'Membandingkan penghematan bunga dari melunasi utang lebih awal dengan imbal hasil berinvestasi.',
+    topicIds: ['pinjaman-investasi', 'anuitas', 'bunga-majemuk'],
+    body: `Pak Dedi memiliki sisa utang **Rp20.000.000** dengan bunga **1,5% per bulan** dan sisa tenor **12 bulan**. Ia kebetulan menerima uang Rp20.000.000 dan harus memutuskan satu dari dua pilihan:
+
+- **Pilihan A:** melunasi seluruh sisa utang sekarang, sehingga tidak ada lagi angsuran bulanan.
+- **Pilihan B:** menempatkan uang itu pada investasi berimbal hasil **1,2% per bulan** selama 12 bulan, sementara angsuran tetap dibayar dari penghasilan bulanan.
+
+Sepintas pilihan A tampak jelas lebih baik karena bunga utang (1,5%) lebih tinggi daripada imbal hasil investasi (1,2%). Tetapi apakah perbandingan langsung kedua angka itu memang cara yang tepat?
+
+Besaran angsuran anuitas sisa utang adalah
+
+$$A = \\frac{M \\cdot i}{1-(1+i)^{-n}}.$$
+
+Penghematan dari pelunasan pada pilihan A adalah seluruh sisa bunga, sedangkan keuntungan pada pilihan B adalah pertumbuhan uang selama satu tahun. Keduanya perlu dihitung dalam satuan yang sama agar bisa dibandingkan secara adil.`,
+    analysis: `**Angsuran dan sisa bunga (Pilihan A).** Dengan $M = 20.000.000$, $i = 0{,}015$, dan $n = 12$:
+$$A = \\frac{20.000.000 \\times 0{,}015}{1-(1{,}015)^{-12}} = \\frac{300.000}{1-0{,}836387} \\approx \\text{Rp}1.833.599{,}86.$$
+Total pembayaran $= 12 \\times 1.833.599{,}86 \\approx \\text{Rp}22.003.198$, sehingga **sisa bunga yang dihemat** $\\approx \\text{Rp}2.003.198$.
+
+**Keuntungan investasi (Pilihan B).** Uang tumbuh majemuk:
+$$20.000.000 \\times (1{,}012)^{12} = 20.000.000 \\times 1{,}153895 \\approx \\text{Rp}23.077.892.$$
+Keuntungannya $\\approx \\text{Rp}3.077.892$.
+
+**Membandingkan secara adil.** Pada pilihan A, angsuran yang tidak lagi dibayar ($\\text{Rp}22.003.198$) tetap tersimpan sebagai penghasilan. Pada pilihan B, angsuran itu dibayarkan, tetapi uang tumbuh menjadi $\\text{Rp}23.077.892$. Selisih bersihnya
+$$3.077.892 - 2.003.198 = \\text{Rp}1.074.694,$$
+jadi **pilihan B unggul sekitar Rp1,07 juta** meskipun suku bunga utang lebih tinggi.
+
+Mengapa demikian? Bunga utang hanya dikenakan pada **saldo yang terus menurun**, rata-rata sekitar setengah dari pokok, sedangkan seluruh Rp20.000.000 pada pilihan B ikut menghasilkan bunga. Karena itu, membandingkan $1{,}5\\%$ dengan $1{,}2\\%$ secara langsung menyesatkan: "imbal hasil efektif" dari pelunasan hanya sekitar $\\frac{2.003.198}{20.000.000} \\approx 10{,}0\\%$ setahun, lebih kecil daripada $1{,}012^{12}-1 \\approx 15{,}4\\%$ dari investasi. Kesimpulannya, angka-angka ini harus dibandingkan lewat total manfaat, bukan lewat perbandingan mentah suku bunga.`,
+    takeaways: [
+      'Pelunasan dipercepat menghemat seluruh sisa bunga, bukan bunga setahun penuh atas pokok.',
+      'Bunga pinjaman berlaku pada saldo yang menurun, sehingga perbandingan langsung suku bunga pinjaman dan imbal hasil investasi bisa menyesatkan.',
+      'Keputusan melunasi atau berinvestasi bergantung pada total manfaat, sisa tenor, biaya penalti pelunasan, dan kebutuhan likuiditas.',
+    ],
+    reflection: [
+      'Mengapa "return efektif" pelunasan utang hanya sekitar 10% setahun, padahal bunga pinjamannya 1,5% per bulan?',
+      'Jika investasi hanya memberi 0,6% per bulan, apakah pilihan B masih unggul? Hitung dahulu sebelum menyimpulkan.',
+      'Faktor nonmatematis apa yang bisa membalikkan keputusanmu, misalnya risiko investasi atau denda pelunasan dipercepat?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi dengan besaran realistis: suku bunga pinjaman 1,5% per bulan dan imbal hasil 1,2% per bulan berada dalam kisaran produk yang umum; keputusan banding ini menyederhanakan risiko dan biaya tambahan, dengan angka dibulatkan.',
   },
 ];

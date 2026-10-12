@@ -1,0 +1,411 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim cf-sim" data-confounding data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Perancu dan Paradoks Simpson</h3>
+  </div>
+
+  <p class="sim-hint">
+    Atur ukuran dan tingkat keberhasilan tiap strata. Perhatikan bagaimana kesimpulan
+    dapat <strong>berbalik</strong> ketika seluruh strata digabung — itulah jejak variabel perancu.
+  </p>
+
+  <div class="cf-strata">
+    <fieldset class="cf-stratum">
+      <legend>Strata 1: Ringan</legend>
+      <div class="sim-fields">
+        <label class="sim-field">
+          <span>Ukuran kontrol</span>
+          <input type="number" min="0" step="1" value="90" data-cf="c0-size" />
+        </label>
+        <label class="sim-field">
+          <span>Kontrol berhasil (%)</span>
+          <input type="number" min="0" max="100" step="1" value="90" data-cf="c0-rate" />
+        </label>
+        <label class="sim-field">
+          <span>Ukuran perlakuan</span>
+          <input type="number" min="0" step="1" value="10" data-cf="t0-size" />
+        </label>
+        <label class="sim-field">
+          <span>Perlakuan berhasil (%)</span>
+          <input type="number" min="0" max="100" step="1" value="100" data-cf="t0-rate" />
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="cf-stratum">
+      <legend>Strata 2: Berat</legend>
+      <div class="sim-fields">
+        <label class="sim-field">
+          <span>Ukuran kontrol</span>
+          <input type="number" min="0" step="1" value="10" data-cf="c1-size" />
+        </label>
+        <label class="sim-field">
+          <span>Kontrol berhasil (%)</span>
+          <input type="number" min="0" max="100" step="1" value="20" data-cf="c1-rate" />
+        </label>
+        <label class="sim-field">
+          <span>Ukuran perlakuan</span>
+          <input type="number" min="0" step="1" value="90" data-cf="t1-size" />
+        </label>
+        <label class="sim-field">
+          <span>Perlakuan berhasil (%)</span>
+          <input type="number" min="0" max="100" step="1" value="30" data-cf="t1-rate" />
+        </label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-cf-preset="paradox">Contoh paradoks</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-cf-preset="neutral">Tanpa perancu</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-cf-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 250"
+      role="img"
+      aria-label="Perbandingan tingkat keberhasilan kontrol dan perlakuan tiap strata serta gabungan"
+      data-cf-plot></svg>
+    <div class="sim-legend" aria-hidden="true">
+      <span class="l1">Kontrol</span>
+      <span class="l2">Perlakuan</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-cf-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .cf-strata {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.85rem;
+  }
+  .cf-stratum {
+    margin: 0;
+    padding: 0.6rem 0.75rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface-2);
+  }
+  .cf-stratum legend {
+    padding: 0 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field input {
+    padding: 0.35rem 0.45rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .sim-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .sim-legend .l1 {
+    color: var(--color-data);
+  }
+  .sim-legend .l2 {
+    color: var(--color-primary);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .sim-readout :global(.stat.warn) {
+    background: color-mix(in srgb, var(--color-warning) 18%, var(--color-surface-2));
+  }
+  .sim-readout :global(.stat.warn strong) {
+    color: var(--color-warning);
+  }
+  @media (max-width: 30rem) {
+    .sim-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cf-sim *,
+    .cf-sim *::before,
+    .cf-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    makeStratum,
+    groupFromRate,
+    analyze,
+  } from '../../lib/sim/confounding';
+  import type { Stratum, ConfoundingAnalysis } from '../../lib/sim/confounding';
+  import { el, clear, initWhenVisible } from '../../lib/dom';
+  import { formatPercent } from '../../lib/format';
+
+  function setupConfounding(root: Element) {
+    const svg = root.querySelector('[data-cf-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-cf-readout]') as HTMLElement;
+
+    const field = (name: string): HTMLInputElement =>
+      root.querySelector(`[data-cf="${name}"]`) as HTMLInputElement;
+    const value = (name: string): number => Number(field(name).value) || 0;
+
+    function currentStrata(): Stratum[] {
+      return [
+        makeStratum(
+          'Ringan',
+          groupFromRate(value('c0-size'), value('c0-rate') / 100),
+          groupFromRate(value('t0-size'), value('t0-rate') / 100),
+        ),
+        makeStratum(
+          'Berat',
+          groupFromRate(value('c1-size'), value('c1-rate') / 100),
+          groupFromRate(value('t1-size'), value('t1-rate') / 100),
+        ),
+      ];
+    }
+
+    function drawBars(analysis: ConfoundingAnalysis) {
+      const W = 480;
+      const H = 250;
+      const left = 44;
+      const right = W - 20;
+      const top = 20;
+      const bottom = H - 44;
+      const plotH = bottom - top;
+      clear(svg);
+
+      // Sumbu dan kisi.
+      for (let i = 0; i <= 4; i++) {
+        const y = bottom - (i / 4) * plotH;
+        svg.appendChild(
+          el('line', { x1: left, y1: y, x2: right, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }),
+        );
+        const tick = el('text', {
+          x: left - 8,
+          y: y + 3,
+          'text-anchor': 'end',
+          'font-size': 9,
+          fill: 'var(--color-text-muted)',
+        });
+        tick.textContent = `${i * 25}%`;
+        svg.appendChild(tick);
+      }
+      svg.appendChild(
+        el('line', { x1: left, y1: bottom, x2: right, y2: bottom, stroke: 'var(--color-text-soft)', 'stroke-width': 1.4 }),
+      );
+
+      const groups: Array<{ label: string; control: number; treatment: number; highlight: boolean }> = [
+        ...analysis.strata.map((row) => ({
+          label: row.name,
+          control: row.control.rate,
+          treatment: row.treatment.rate,
+          highlight: false,
+        })),
+        {
+          label: 'Gabungan',
+          control: analysis.overallControl.rate,
+          treatment: analysis.overallTreatment.rate,
+          highlight: analysis.reversed,
+        },
+      ];
+
+      const groupW = (right - left) / groups.length;
+      const barW = groupW * 0.26;
+
+      groups.forEach((group, index) => {
+        const baseX = left + index * groupW + groupW / 2;
+        if (group.highlight) {
+          svg.appendChild(
+            el('rect', {
+              x: left + index * groupW + 2,
+              y: top - 8,
+              width: groupW - 4,
+              height: plotH + 12,
+              rx: 6,
+              fill: 'color-mix(in srgb, var(--color-warning) 14%, transparent)',
+            }),
+          );
+        }
+        const bars: Array<[number, string]> = [
+          [group.control, 'var(--color-data)'],
+          [group.treatment, 'var(--color-primary)'],
+        ];
+        bars.forEach(([rate, color], barIndex) => {
+          const x = baseX + (barIndex === 0 ? -barW - 3 : 3);
+          const height = Math.max(0, rate) * plotH;
+          svg.appendChild(
+            el('rect', {
+              x,
+              y: bottom - height,
+              width: barW,
+              height,
+              rx: 3,
+              fill: color,
+            }),
+          );
+        });
+
+        const label = el('text', {
+          x: baseX,
+          y: bottom + 16,
+          'text-anchor': 'middle',
+          'font-size': 11,
+          'font-weight': group.highlight ? 700 : 600,
+          fill: group.highlight ? 'var(--color-warning)' : 'var(--color-text)',
+        });
+        label.textContent = group.label;
+        svg.appendChild(label);
+      });
+    }
+
+    function stat(label: string, text: string, warn = false): string {
+      return `<div class="stat${warn ? ' warn' : ''}"><span>${label}</span><strong>${text}</strong></div>`;
+    }
+
+    function render() {
+      const strata = currentStrata();
+      const analysis = analyze(strata);
+      drawBars(analysis);
+
+      const dir = (d: 'treatment' | 'control' | 'none'): string =>
+        d === 'treatment' ? 'perlakuan lebih baik' : d === 'control' ? 'kontrol lebih baik' : 'seimbang';
+
+      const perStratum = analysis.strata
+        .map((row) => `${row.name}: ${formatPercent(row.difference)}`)
+        .join(' · ');
+
+      readout.innerHTML =
+        stat('Selisih tiap strata (perlakuan − kontrol)', perStratum) +
+        stat('Kontrol keseluruhan', formatPercent(analysis.overallControl.rate)) +
+        stat('Perlakuan keseluruhan', formatPercent(analysis.overallTreatment.rate)) +
+        stat('Kesimpulan tiap strata', dir(analysis.stratumDirection)) +
+        stat('Kesimpulan gabungan', dir(analysis.overallDirection)) +
+        (analysis.reversed
+          ? stat('Peringatan', 'Arah berbalik saat digabung — ada variabel perancu (paradoks Simpson)!', true)
+          : stat('Peringatan', 'Arah tiap strata sejalan dengan keseluruhan', false));
+
+      svg.setAttribute(
+        'aria-label',
+        `Perbandingan tingkat keberhasilan: keseluruhan kontrol ${formatPercent(
+          analysis.overallControl.rate,
+        )}, perlakuan ${formatPercent(analysis.overallTreatment.rate)}${
+          analysis.reversed ? ', arah berbalik (paradoks Simpson)' : ''
+        }`,
+      );
+    }
+
+    function setValues(values: Record<string, string>) {
+      Object.entries(values).forEach(([name, text]) => {
+        field(name).value = text;
+      });
+      render();
+    }
+
+    root.querySelectorAll<HTMLInputElement>('[data-cf]').forEach((input) =>
+      input.addEventListener('input', render),
+    );
+    root.querySelectorAll<HTMLButtonElement>('[data-cf-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (button.getAttribute('data-cf-preset') === 'neutral') {
+          setValues({
+            'c0-size': '50', 'c0-rate': '80', 't0-size': '50', 't0-rate': '90',
+            'c1-size': '50', 'c1-rate': '20', 't1-size': '50', 't1-rate': '30',
+          });
+        } else {
+          setValues({
+            'c0-size': '90', 'c0-rate': '90', 't0-size': '10', 't0-rate': '100',
+            'c1-size': '10', 'c1-rate': '20', 't1-size': '90', 't1-rate': '30',
+          });
+        }
+      });
+    });
+    (root.querySelector('[data-cf-reset]') as HTMLButtonElement).addEventListener('click', () => {
+      setValues({
+        'c0-size': '90', 'c0-rate': '90', 't0-size': '10', 't0-rate': '100',
+        'c1-size': '10', 'c1-rate': '20', 't1-size': '90', 't1-rate': '30',
+      });
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-confounding]'), setupConfounding);
+</script>

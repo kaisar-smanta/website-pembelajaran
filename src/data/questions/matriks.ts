@@ -17,7 +17,7 @@ export const matriksQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ berlaku $\\det(A) = ad - bc$. Maka $\\det(A) = 4(3) - 2(1) = 12 - 2 = 10$.',
+      'Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ berlaku $\\det(A) = ad - bc$. Maka $\\det(A) = 4(3) - 2(1) = 12 - 2 = 10$. Opsi A ($2$) keliru karena mengurangkan entri baris pertama ($4-2$), bukan mengalikan diagonal; opsi B ($14$) menjumlahkan hasil kali diagonal dan bukan-diagonal ($12+2$); opsi C ($6$) mengalikan entri bukan-diagonal ($2\\times3$) atau menjumlahkan $a+b$ sehingga rumus $ad-bc$ tidak dipakai.',
     hints: ['Kalikan unsur diagonal utama lalu kurangi hasil kali diagonal lainnya.'],
     competencies: ['determinan matriks $2 \\times 2$'],
   },
@@ -37,8 +37,8 @@ export const matriksQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Ordo ditulis sebagai (banyak baris) $\\times$ (banyak kolom). Matriks itu memiliki $2$ baris dan $3$ kolom, sehingga ordonya $2 \\times 3$.',
-    hints: ['Hitung baris lebih dahulu, lalu kolom.'],
+      'Ordo ditulis sebagai (banyak baris) $\\times$ (banyak kolom). Matriks itu memiliki $2$ baris dan $3$ kolom, sehingga ordonya $2 \\times 3$. Opsi A ($3 \\times 2$) menukar urutan baris dan kolom; opsi B ($6 \\times 1$) mengalikan banyak baris dengan kolom menjadi satu kolom; opsi C ($2 \\times 2$) keliru menghitung banyak kolom karena mengira hanya ada $2$ kolom.',
+    hints: ['Hitung baris lebih dahulu, lalu kolom.', 'Baris adalah susunan mendatar; kolom adalah susunan tegak.'],
     competencies: ['ordo matriks'],
   },
   {
@@ -85,8 +85,11 @@ export const matriksQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Baris pertama: $1(2)+2(1)=4$ dan $1(0)+2(3)=6$. Baris kedua: $3(2)+4(1)=10$ dan $3(0)+4(3)=12$. Jadi $AB = \\begin{pmatrix} 4 & 6 \\\\ 10 & 12 \\end{pmatrix}$. Opsi B adalah $BA$, yang nilainya berbeda karena perkalian matriks tidak komutatif.',
-    hints: ['Kalikan baris $A$ dengan kolom $B$, lalu jumlahkan hasilnya.'],
+      'Baris pertama: $1(2)+2(1)=4$ dan $1(0)+2(3)=6$. Baris kedua: $3(2)+4(1)=10$ dan $3(0)+4(3)=12$. Jadi $AB = \\begin{pmatrix} 4 & 6 \\\\ 10 & 12 \\end{pmatrix}$. Opsi B adalah $BA$ (urutan faktor tertukar), yang nilainya berbeda karena perkalian matriks tidak komutatif; opsi C adalah transpose dari $AB$ karena baris dan kolom hasil tertukar; opsi A muncul dari memasangkan baris dan kolom yang tidak sepadan sehingga jumlahnya salah.',
+    hints: [
+      'Kalikan baris $A$ dengan kolom $B$, lalu jumlahkan hasilnya.',
+      'Hitung keempat entri satu per satu; jangan menukar peran baris dan kolom.',
+    ],
     competencies: ['perkalian matriks'],
   },
   {
@@ -105,8 +108,8 @@ export const matriksQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$\\det(A) = 3(4) - 1(2) = 10 \\neq 0$, maka $A$ memiliki invers. Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$, $A^{-1} = \\dfrac{1}{ad-bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix} = \\dfrac{1}{10}\\begin{pmatrix} 4 & -1 \\\\ -2 & 3 \\end{pmatrix}$.',
-    hints: ['Tukar posisi $a$ dan $d$, lalu ubah tanda $b$ dan $c$.'],
+      '$\\det(A) = 3(4) - 1(2) = 10 \\neq 0$, maka $A$ memiliki invers. Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$, $A^{-1} = \\dfrac{1}{ad-bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix} = \\dfrac{1}{10}\\begin{pmatrix} 4 & -1 \\\\ -2 & 3 \\end{pmatrix}$. Opsi A menukar posisi $b$ dan $c$ sehingga tanda kedua entri bukan-diagonal salah; opsi B tidak mengubah tanda entri bukan-diagonal; opsi C lupa menukar posisi $a$ dan $d$.',
+    hints: ['Tukar posisi $a$ dan $d$, lalu ubah tanda $b$ dan $c$.', 'Bagilah matriks adjoin dengan determinan $10$.'],
     competencies: ['invers matriks $2 \\times 2$'],
   },
   {
@@ -120,7 +123,7 @@ export const matriksQuestions: Question[] = [
     answer: '1',
     explanation:
       'Ekspansi baris pertama: $1(1 \\cdot 0 - 4 \\cdot 6) - 2(0 \\cdot 0 - 4 \\cdot 5) + 3(0 \\cdot 6 - 1 \\cdot 5) = 1(-24) - 2(-20) + 3(-5) = -24 + 40 - 15 = 1$.',
-    hints: ['Gunakan ekspansi baris pertama dengan tanda $+$, $-$, $+$.'],
+    hints: ['Gunakan ekspansi baris pertama dengan tanda $+$, $-$, $+$.', 'Hitung setiap minor $2 \\times 2$ sebelum mengalikannya dengan entri baris pertama.'],
     competencies: ['determinan matriks $3 \\times 3$'],
   },
   {
@@ -135,7 +138,10 @@ export const matriksQuestions: Question[] = [
       'Tulis sistem sebagai $A\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 5 \\end{pmatrix}$ dengan $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$. Determinan $\\det(A) = 2(2) - 3(1) = 1$, sehingga $A^{-1} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$. Maka $\\begin{pmatrix} x \\\\ y \\end{pmatrix} = A^{-1}\\begin{pmatrix} 8 \\\\ 5 \\end{pmatrix} = \\begin{pmatrix} 16 - 15 \\\\ -8 + 10 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$. Jadi $x = 1$ dan $y = 2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$, benar.',
     explanation:
       'Kunci menekankan penulisan sistem dalam bentuk matriks, pemeriksaan $\\det(A) \\neq 0$, penurunan invers, lalu perkalian $A^{-1}$ dengan vektor konstanta.',
-    hints: ['Nyatakan koefisien sebagai matriks $A$ dan konstanta sebagai vektor kolom.'],
+    hints: [
+      'Nyatakan koefisien sebagai matriks $A$ dan konstanta sebagai vektor kolom.',
+      'Pastikan $\\det(A) \\neq 0$, lalu hitung $\\begin{pmatrix} x \\\\ y \\end{pmatrix} = A^{-1}\\begin{pmatrix} 8 \\\\ 5 \\end{pmatrix}$.',
+    ],
     competencies: ['invers matriks', 'penyelesaian SPLDV'],
     rubric: [
       'Menulis sistem sebagai $A\\begin{pmatrix}x\\\\y\\end{pmatrix}=\\begin{pmatrix}8\\\\5\\end{pmatrix}$',
@@ -160,8 +166,8 @@ export const matriksQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Matriks singular jika determinannya nol: $x \\cdot x - 2 \\cdot 2 = x^{2} - 4 = 0$, sehingga $x^{2} = 4$ dan $x = 2$ atau $x = -2$. Kedua nilai harus disertakan.',
-    hints: ['Matriks singular berarti determinannya nol.'],
+      'Matriks singular jika determinannya nol: $x \\cdot x - 2 \\cdot 2 = x^{2} - 4 = 0$, sehingga $x^{2} = 4$ dan $x = 2$ atau $x = -2$. Kedua nilai harus disertakan. Opsi A dan B hanya mengambil satu akar sehingga mengabaikan akar negatifnya; opsi C keliru menganggap matriks hanya singular jika entri diagonalnya nol.',
+    hints: ['Matriks singular berarti determinannya nol.', 'Selesaikan $x^{2} = 4$; ingat ada dua nilai yang memenuhi.'],
     competencies: ['matriks singular', 'penalaran aljabar'],
   },
   {
@@ -176,7 +182,10 @@ export const matriksQuestions: Question[] = [
       'Harga ditulis sebagai $H = \\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix}$ (dalam ribuan rupiah). Maka $SH = \\begin{pmatrix} 3 & 4 \\\\ 5 & 2 \\end{pmatrix}\\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 3(5) + 4(4) \\\\ 5(5) + 2(4) \\end{pmatrix} = \\begin{pmatrix} 31 \\\\ 33 \\end{pmatrix}$. Hasil ini berarti pendapatan hari Senin $31$ ribu rupiah dan hari Selasa $33$ ribu rupiah.',
     explanation:
       'Perkalian matriks $2 \\times 2$ dengan matriks kolom $2 \\times 1$ menghasilkan matriks kolom $2 \\times 1$; setiap entrinya adalah total pendapatan pada hari yang bersangkutan.',
-    hints: ['Ukuran $S$ adalah $2 \\times 2$ dan $H$ adalah $2 \\times 1$, sehingga $SH$ berukuran $2 \\times 1$.'],
+    hints: [
+      'Ukuran $S$ adalah $2 \\times 2$ dan $H$ adalah $2 \\times 1$, sehingga $SH$ berukuran $2 \\times 1$.',
+      'Setiap entri $SH$ adalah jumlah hasil kali satu baris $S$ dengan kolom harga $H$.',
+    ],
     competencies: ['pemodelan matriks', 'perkalian matriks'],
     rubric: [
       'Menulis harga sebagai $H=\\begin{pmatrix}5\\\\4\\end{pmatrix}$',
@@ -289,11 +298,34 @@ export const matriksQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Gunakan sifat determinan: $\\det(2AB^{-1})=2^{2}\\det(A)\\det(B^{-1})=4\\cdot2\\cdot\\dfrac{1}{3}=\\dfrac{8}{3}$. Faktor $2^{2}$ muncul karena matriks berordo $2\\times2$.',
+      'Gunakan sifat determinan: $\\det(2AB^{-1})=2^{2}\\det(A)\\det(B^{-1})=4\\cdot2\\cdot\\dfrac{1}{3}=\\dfrac{8}{3}$. Faktor $2^{2}$ muncul karena matriks berordo $2\\times2$. Opsi B lupa faktor $k^{2}=4$ dan memakai $2$ saja; opsi C mengabaikan faktor skalar sekaligus sehingga hanya menghitung $\\det(A)\\det(B^{-1})=\\dfrac{2}{3}$; opsi D memakai $\\det(B)$ alih-alih $\\det(B^{-1})$ dan tanpa $k^{2}$, sehingga memperoleh $2\\cdot2\\cdot3=12$.',
     hints: [
       '$\\det(kA)=k^{n}\\det(A)$ dengan $n=2$.',
       '$\\det(B^{-1})=\\dfrac{1}{\\det(B)}$ dan $\\det(AB)=\\det(A)\\det(B)$.',
     ],
     competencies: ['sifat determinan', 'invers matriks', 'penalaran'],
+  },
+  {
+    id: 'mt-16',
+    topicId: 'matriks',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Dalam sebuah turnamen, dua tim mengikuti tiga babak. Poin tiap tim dicatat pada matriks $R = \\begin{pmatrix} 4 & 2 & 3 \\\\ 1 & 5 & 2 \\end{pmatrix}$ (baris menyatakan tim, kolom menyatakan babak). Bobot tiap babak dinyatakan vektor kolom $W = \\begin{pmatrix} 2 \\\\ 3 \\\\ 1 \\end{pmatrix}$. Total skor tiap tim adalah $RW$. Hasilnya adalah …',
+    options: [
+      { key: 'A', text: '$\\begin{pmatrix} 17 \\\\ 19 \\end{pmatrix}$' },
+      { key: 'B', text: '$\\begin{pmatrix} 19 \\\\ 17 \\end{pmatrix}$' },
+      { key: 'C', text: '$\\begin{pmatrix} 9 \\\\ 8 \\end{pmatrix}$' },
+      { key: 'D', text: '$\\begin{pmatrix} 14 \\\\ 17 \\end{pmatrix}$' },
+    ],
+    answer: 'A',
+    explanation:
+      '$RW = \\begin{pmatrix} 4(2)+2(3)+3(1) \\\\ 1(2)+5(3)+2(1) \\end{pmatrix} = \\begin{pmatrix} 8+6+3 \\\\ 2+15+2 \\end{pmatrix} = \\begin{pmatrix} 17 \\\\ 19 \\end{pmatrix}$. Opsi B menukar urutan tim; opsi C menjumlahkan poin tiap tim tanpa mengalikannya dengan bobot ($4+2+3=9$ dan $1+5+2=8$); opsi D lupa menambahkan suku ketiga sehingga hanya menjumlahkan dua babak pertama.',
+    hints: [
+      'Ukuran $R$ adalah $2 \\times 3$ dan $W$ adalah $3 \\times 1$, sehingga $RW$ berukuran $2 \\times 1$.',
+      'Setiap entri hasil adalah jumlah hasil kali satu baris $R$ dengan kolom bobot $W$.',
+    ],
+    competencies: ['perkalian matriks', 'pemodelan matriks', 'kontekstual'],
   },
 ];

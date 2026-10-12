@@ -16,7 +16,7 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Mata dadu prima adalah $\\{2, 3, 5\\}$, sehingga $n(A) = 3$ dari $n(S) = 6$. Jadi $P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$.',
+      'Mata dadu prima adalah $\\{2, 3, 5\\}$, sehingga $n(A) = 3$ dari $n(S) = 6$ dan $P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$ (opsi D). Opsi A ($\\tfrac{1}{6}$) hanya menghitung satu mata prima. Opsi B ($\\tfrac{1}{3}$) memakai hanya dua mata prima. Opsi C ($\\tfrac{2}{3}$) menghitung empat mata, mungkin karena keliru memasukkan $1$ sebagai prima.',
     hints: ['Bilangan prima terkecil adalah 2, jadi 1 bukan bilangan prima.'],
     competencies: ['peluang teoretis', 'ruang sampel'],
   },
@@ -50,8 +50,11 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Jumlah 7 muncul dari 6 cara, jumlah 11 dari 2 cara yaitu $(5,6)$ dan $(6,5)$. Kedua kejadian saling lepas, sehingga $P = \\dfrac{6 + 2}{36} = \\dfrac{8}{36} = \\dfrac{2}{9}$. Opsi $\\dfrac{1}{6}$ muncul bila hanya menghitung jumlah 7, opsi $\\dfrac{1}{18}$ bila hanya menghitung jumlah 11, dan opsi $\\dfrac{4}{9}$ bila salah mengambil ruang sampel 18.',
-    hints: ['Hitung banyak cara tiap jumlah dari 36 hasil yang sama mungkin.'],
+      'Jumlah 7 muncul dari 6 cara, jumlah 11 dari 2 cara yaitu $(5,6)$ dan $(6,5)$. Kedua kejadian saling lepas, sehingga $P = \\dfrac{6 + 2}{36} = \\dfrac{8}{36} = \\dfrac{2}{9}$ (opsi D). Opsi A ($\\tfrac{1}{6}$) hanya menghitung jumlah 7. Opsi B ($\\tfrac{1}{18}$) hanya menghitung jumlah 11. Opsi C ($\\tfrac{4}{9}$) keliru memakai ruang sampel 18, bukan 36.',
+    hints: [
+      'Hitung banyak cara tiap jumlah dari 36 hasil yang sama mungkin.',
+      'Jumlah 7 ada 6 cara dan jumlah 11 ada 2 cara; keduanya saling lepas sehingga peluangnya dijumlahkan.',
+    ],
     competencies: ['aturan penjumlahan', 'kejadian saling lepas'],
   },
   {
@@ -66,7 +69,10 @@ export const peluangQuestions: Question[] = [
     acceptedAnswers: ['24', '24 kali'],
     explanation:
       'Frekuensi harapan $= N \\cdot P(A) = 108 \\cdot \\dfrac{2}{9} = 24$ kali.',
-    hints: ['Gunakan $F_h = N \\cdot P(A)$.'],
+    hints: [
+      'Gunakan $F_h = N \\cdot P(A)$.',
+      'Substitusi $N = 108$ dan $P(A) = \\dfrac{2}{9}$.',
+    ],
     competencies: ['frekuensi harapan'],
   },
   {
@@ -85,8 +91,11 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Total bola $= 5 + 3 + 2 = 10$ dan bola hijau ada 2, sehingga bola bukan hijau ada 8. Jadi $P = \\dfrac{8}{10} = \\dfrac{4}{5}$. Bisa juga dengan komplemen: $1 - \\dfrac{2}{10} = \\dfrac{4}{5}$.',
-    hints: ['Gunakan aturan komplemen $P(A^c) = 1 - P(A)$.'],
+      'Total bola $= 5 + 3 + 2 = 10$ dan bola hijau ada 2, sehingga bola bukan hijau ada 8. Jadi $P = \\dfrac{8}{10} = \\dfrac{4}{5}$ (opsi D); bisa juga $1 - \\dfrac{2}{10} = \\dfrac{4}{5}$. Opsi A ($\\tfrac{1}{5}$) adalah peluang terambil bola hijau. Opsi B ($\\tfrac{3}{10}$) hanya menghitung bola biru dan mengabaikan bola merah. Opsi C ($\\tfrac{2}{5}$) keliru menghitung banyak bola bukan hijau menjadi $4$.',
+    hints: [
+      'Gunakan aturan komplemen $P(A^c) = 1 - P(A)$.',
+      'Peluang terambil hijau adalah $\\dfrac{2}{10}$, sehingga komplemennya $1-\\dfrac{2}{10}$.',
+    ],
     competencies: ['aturan komplemen', 'kontekstual'],
   },
   {
@@ -101,7 +110,10 @@ export const peluangQuestions: Question[] = [
     acceptedAnswers: ['11/36', '0,3056', '0.3056', '0,30556', '0.30556', '0,31', '0.31'],
     explanation:
       'Gunakan komplemen. Peluang tidak muncul mata 6 pada kedua lemparan adalah $\\dfrac{5}{6} \\cdot \\dfrac{5}{6} = \\dfrac{25}{36}$, sehingga $P(\\text{paling sedikit satu } 6) = 1 - \\dfrac{25}{36} = \\dfrac{11}{36}$.',
-    hints: ['Hitung peluang kejadian komplemennya lebih dahulu.'],
+    hints: [
+      'Hitung peluang kejadian komplemennya lebih dahulu.',
+      'Komplemennya adalah tidak muncul mata 6 pada kedua lemparan, yaitu $\\left(\\dfrac{5}{6}\\right)^2$.',
+    ],
     competencies: ['aturan komplemen', 'kejadian saling bebas'],
   },
   {
@@ -123,8 +135,11 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$, $P(B) = \\dfrac{3}{6} = \\dfrac{1}{2}$, dan $A \\cap B = \\{2\\}$ sehingga $P(A \\cap B) = \\dfrac{1}{6}$. Karena $P(A)P(B) = \\dfrac{1}{4} \\neq \\dfrac{1}{6}$, keduanya tidak saling bebas. $A \\cap B$ tidak kosong, jadi bukan saling lepas.',
-    hints: ['Periksa apakah berlaku $P(A \\cap B) = P(A) \\cdot P(B)$.'],
+      '$P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$, $P(B) = \\dfrac{3}{6} = \\dfrac{1}{2}$, dan $A \\cap B = \\{2\\}$ sehingga $P(A \\cap B) = \\dfrac{1}{6}$. Karena $P(A)P(B) = \\dfrac{1}{4} \\neq \\dfrac{1}{6}$, keduanya tidak saling bebas (opsi D). Opsi A salah karena $P(A)=P(B)$ tidak menjamin kebebasan. Opsi B salah karena $A \\cap B=\\{2\\}$ tidak kosong. Opsi C salah karena $P(A \\mid B)=\\dfrac{1/6}{1/2}=\\dfrac13 \\neq \\dfrac12 = P(A)$.',
+    hints: [
+      'Periksa apakah berlaku $P(A \\cap B) = P(A) \\cdot P(B)$.',
+      'Daftar $A=\\{2,4,6\\}$ dan $B=\\{2,3,5\\}$, lalu cari $A\\cap B$.',
+    ],
     competencies: ['kejadian saling bebas', 'penalaran'],
   },
   {
@@ -163,7 +178,10 @@ export const peluangQuestions: Question[] = [
       '(a) Peluang empiris $= \\dfrac{120}{200} = \\dfrac{3}{5} = 0{,}6$. (b) Peluang teoretis muncul gambar adalah $\\dfrac{1}{2} = 0{,}5$. Keduanya dapat berbeda karena pada percobaan dengan banyak lemparan yang terbatas, hasil nyata dipengaruhi variasi acak. Menurut hukum bilangan besar, peluang empiris akan makin mendekati peluang teoretis $\\dfrac{1}{2}$ jika jumlah lemparan diperbesar.',
     explanation:
       'Jawaban benar membedakan peluang empiris (berdasarkan hasil percobaan) dari peluang teoretis, serta mengaitkannya dengan hukum bilangan besar.',
-    hints: ['Bagi banyak munculnya gambar dengan banyak lemparan.'],
+    hints: [
+      'Bagi banyak munculnya gambar dengan banyak lemparan.',
+      'Bandingkan hasil itu dengan peluang teoretis koin seimbang, yaitu $\\dfrac{1}{2}$.',
+    ],
     competencies: ['peluang empiris', 'hukum bilangan besar'],
     rubric: [
       'Menghitung peluang empiris sebagai hasil bagi',
@@ -232,7 +250,7 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$ dengan dua hasil sama mungkin, sehingga $P(\\text{angka})=\\dfrac{1}{2}$. Opsi $\\dfrac{1}{4}$ keliru memakai ruang sampel empat hasil (seperti dua koin), $\\dfrac{1}{3}$ menganggap ada tiga hasil sama mungkin, dan $\\dfrac{2}{3}$ menganggap sisi angka lebih mungkin daripada gambar.',
+      'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$ dengan dua hasil sama mungkin, sehingga $P(\\text{angka})=\\dfrac{1}{2}$ (opsi D). Opsi A ($\\tfrac{1}{4}$) keliru memakai ruang sampel empat hasil seperti dua koin. Opsi B ($\\tfrac{1}{3}$) menganggap ada tiga hasil sama mungkin. Opsi C ($\\tfrac{2}{3}$) menganggap sisi angka lebih mungkin daripada gambar.',
     hints: ['Ada berapa hasil yang sama mungkin, dan berapa yang termasuk kejadian?'],
     competencies: ['peluang teoretis', 'ruang sampel'],
   },
@@ -276,7 +294,7 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Karena tanpa pengembalian, peluang berubah setelah pengambilan pertama. $P(M_{1})=\\dfrac{5}{8}$ dan setelah satu merah terambil tersisa $4$ merah dari $7$ bola sehingga $P(M_{2}\\mid M_{1})=\\dfrac{4}{7}$. Maka $P(M_{1}\\cap M_{2})=\\dfrac{5}{8}\\cdot\\dfrac{4}{7}=\\dfrac{20}{56}=\\dfrac{5}{14}$.',
+      'Karena tanpa pengembalian, peluang berubah setelah pengambilan pertama. $P(M_{1})=\\dfrac{5}{8}$ dan setelah satu merah terambil tersisa $4$ merah dari $7$ bola sehingga $P(M_{2}\\mid M_{1})=\\dfrac{4}{7}$. Maka $P(M_{1}\\cap M_{2})=\\dfrac{5}{8}\\cdot\\dfrac{4}{7}=\\dfrac{20}{56}=\\dfrac{5}{14}$ (opsi A). Opsi B ($\\tfrac{25}{64}$) menganggap pengambilan dengan pengembalian, memakai $\\tfrac58\\cdot\\tfrac58$. Opsi C ($\\tfrac{5}{8}$) hanya peluang bola merah pada pengambilan pertama. Opsi D ($\\tfrac12$) keliru menganggap peluang kedua tetap $\\tfrac12$ tanpa menyesuaikan sisa bola.',
     hints: [
       'Karena tanpa pengembalian, banyak bola dan banyak merah berkurang setelah pengambilan pertama.',
       'Kalikan peluang pengambilan pertama dengan peluang bersyarat pengambilan kedua.',
@@ -299,8 +317,39 @@ export const peluangQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Siswa yang tidak membawa payung ada $20-8=12$, sehingga $P=\\dfrac{12}{20}=\\dfrac{3}{5}$. Bisa juga dengan komplemen: $1-\\dfrac{8}{20}=\\dfrac{3}{5}$. Opsi A adalah peluang membawa payung.',
-    hints: ['Hitung banyak siswa yang tidak membawa payung, atau gunakan aturan komplemen.'],
+      'Siswa yang tidak membawa payung ada $20-8=12$, sehingga $P=\\dfrac{12}{20}=\\dfrac{3}{5}$ (opsi B). Opsi A ($\\tfrac{2}{5}$) adalah peluang membawa payung, $\\dfrac{8}{20}$. Opsi C ($\\tfrac12$) keliru menganggap setengah siswa. Opsi D ($\\tfrac34$) salah membagi $12$ dengan $16$, bukan dengan $20$.',
+    hints: [
+      'Hitung banyak siswa yang tidak membawa payung, atau gunakan aturan komplemen.',
+      'Komplemennya: $1-\\dfrac{8}{20}$ memberi hasil yang sama.',
+    ],
     competencies: ['aturan komplemen', 'kontekstual'],
+  },
+  {
+    id: 'pl-16',
+    topicId: 'peluang',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah survei terhadap $50$ siswa dirangkum pada diagram Venn berikut. Seorang siswa dipilih secara acak. Peluang siswa tersebut tidak menyukai kopi maupun teh adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 230" role="img" aria-hidden="true"><rect x="20" y="20" width="280" height="185" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="125" cy="105" r="72" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="195" cy="105" r="72" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="90" y="50" fill="currentColor" font-size="11" text-anchor="middle">Kopi</text><text x="212" y="50" fill="currentColor" font-size="11" text-anchor="middle">Teh</text><text x="86" y="120" fill="currentColor" font-size="11" text-anchor="middle">20</text><text x="160" y="120" fill="currentColor" font-size="11" text-anchor="middle">8</text><text x="234" y="120" fill="currentColor" font-size="11" text-anchor="middle">12</text><text x="278" y="45" fill="currentColor" font-size="11" text-anchor="middle">10</text></svg>',
+      alt: 'Diagram Venn dua lingkaran bertumpang tindih untuk peminat kopi dan teh: hanya kopi 20, keduanya 8, hanya teh 12, dan 10 siswa di luar keduanya.',
+      caption: 'Peminat kopi dan teh dari $50$ siswa.',
+    },
+    options: [
+      { key: 'A', text: '$\\dfrac{1}{5}$' },
+      { key: 'B', text: '$\\dfrac{1}{4}$' },
+      { key: 'C', text: '$\\dfrac{3}{10}$' },
+      { key: 'D', text: '$\\dfrac{4}{5}$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Dari diagram, siswa di luar kedua lingkaran ada $10$ dari total $50$, sehingga $P=\\dfrac{10}{50}=\\dfrac{1}{5}$ (opsi A). Opsi B ($\\tfrac14$) keliru membagi $10$ dengan $40$, jumlah siswa yang menyukai minimal salah satu. Opsi C ($\\tfrac{3}{10}$) keliru menghitung siswa di luar kedua himpunan menjadi $15$. Opsi D ($\\tfrac45$) justru peluang menyukai kopi atau teh, $\\dfrac{40}{50}$.',
+    hints: [
+      'Angka di luar kedua lingkaran (tetapi di dalam persegi) adalah yang tidak menyukai keduanya.',
+      'Bagi banyak siswa di luar kedua lingkaran dengan total siswa.',
+    ],
+    competencies: ['diagram Venn', 'peluang komplemen', 'kontekstual'],
   },
 ];

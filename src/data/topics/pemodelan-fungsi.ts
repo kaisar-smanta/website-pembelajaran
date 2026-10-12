@@ -135,7 +135,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Pegangan utama",
           text: "Jenis fungsi ditentukan oleh **pola perubahan**, bukan oleh banyaknya data. Linear berubah dengan beda tetap, kuadrat punya titik puncak dan simetri, sedangkan eksponensial berubah dengan rasio tetap.",
         },
         {
@@ -291,6 +291,18 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
       ],
     },
     {
+      id: "eksplorasi-keluarga-fungsi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Keluarga Fungsi Rasional",
+      body: "Selain model kuadrat, model rasional memperlihatkan perilaku khas: sebuah titik yang terhapus (lubang) dan sebuah asimtot tegak. Geser parameter $a$ dan $b$ untuk menyelidiki kapan lubang muncul dan di mana asimtot berdiri, lalu kaitkan dengan batasan domain model.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "pemodelan-keluarga-fungsi",
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Pola Umum Pemodelan",
@@ -367,7 +379,12 @@ Faktor $b=2$ berarti populasi berlipat dua setiap jam.`,
             },
             {
               title: "Contoh 5",
-              text: "Data suhu $y$ (°C) setiap jam $x$: $(0,20)$, $(1,24)$, $(2,28)$, $(3,32)$. Selisih $y$ selalu $4$, jadi polanya linear dengan $m=4$ dan $c=20$, sehingga $y=4x+20$. Bandingkan dengan data $(0,2)$, $(1,6)$, $(2,18)$, $(3,54)$ yang rasionya selalu $3$; model yang tepat adalah eksponensial $y=2\\cdot3^{x}$.",
+              text: `Sebuah eksperimen mencatat data $(0,5)$, $(1,8)$, $(2,17)$, $(3,32)$. Tentukan model yang paling sesuai dan ramalkan nilai pada $x=4$.
+
+*Penyelesaian.* Periksa beda antar nilai berurutan: $8-5=3$, $17-8=9$, dan $32-17=15$, tidak tetap. Beda kedua: $9-3=6$ dan $15-9=6$, tetap, sehingga polanya kuadrat $y=ax^2+bx+c$. Dari $x=0$ diperoleh $c=5$. Substitusi dua titik lain:
+$$x=1:\\ a+b+5=8 \\Rightarrow a+b=3,$$
+$$x=2:\\ 4a+2b+5=17 \\Rightarrow 2a+b=6.$$
+Mengurangkan kedua persamaan memberi $a=3$ dan $b=0$, sehingga $y=3x^2+5$. Periksa $x=3$: $3(9)+5=32$, cocok. Ramalan pada $x=4$ adalah $y=3(16)+5=53$.`,
             },
             {
               title: "Contoh 6",
@@ -405,7 +422,7 @@ Perkiraan populasinya sekitar $16.589$ jiwa.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Pemodelan fungsi muncul di banyak bidang. Ekonom memakai model kuadrat untuk mencari laba maksimum, epidemiolog memakai model eksponensial untuk memantau penyebaran penyakit, dan teknisi memakai model linear untuk memperkirakan biaya produksi.
+      body: `Pemodelan fungsi muncul di banyak bidang. Sebuah usaha jasa antar memakai model linear $C(s)=3000s+8000$ (rupiah) untuk biaya pengiriman jarak $s$ km, sehingga pengiriman $10$ km diperkirakan Rp38.000. Epidemiolog memakai model eksponensial $P(t)=8000(1{,}2)^{t}$ jiwa untuk populasi yang tumbuh $20\\%$ per tahun; pada $t=4$ diperkirakan sekitar $16.589$ jiwa. Teknisi memakai model kuadrat $h(x)=-(x-4)^2+16$ untuk lintasan air yang mencapai tinggi maksimum $16$ m pada jarak $4$ m.
 
 Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pilih jenis fungsi dari pola data, tentukan konstanta, periksa kecocokan dengan grafik, lalu tafsirkan parameter. Model hanyalah perkiraan, sehingga kesimpulannya berlaku selama asumsi dan domainnya masih masuk akal.`,
     },
@@ -467,7 +484,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana sebuah model menyederhanakan keadaan nyata dan di mana batasnya.",
+      body: "Tinjau kembali bagaimana sebuah model menyederhanakan keadaan nyata dan di mana batas keberlakuannya.",
       blocks: [
         {
           kind: "reflection",
@@ -528,7 +545,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana pola perubahan data menunjukkan jenis fungsi yang paling tepat? (2) Mengapa domain model perlu dibatasi meskipun rumusnya berlaku untuk semua bilangan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Pemodelan Fungsi** untuk latihan tambahan.`,
+      body: `**Kesimpulan singkat.** (1) Bagaimana pola perubahan data menunjukkan jenis fungsi yang paling tepat? (2) Mengapa domain model perlu dibatasi meskipun rumusnya berlaku untuk semua bilangan? Setelah menjawab, dalami lewat [Latihan & Asesmen](/latihan) topik **Pemodelan Fungsi**.`,
     },
   ],
 };

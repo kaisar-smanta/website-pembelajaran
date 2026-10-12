@@ -234,77 +234,32 @@ Rumus $PV$ menjawab "berapa pinjaman yang setara dengan angsuran ini", sedangkan
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Pinjaman Rp10.000.000 akan dilunasi dengan anuitas 24 bulan dan bunga 1,5% per bulan. Tentukan besar angsuran.
-
-*Penyelesaian.* Dengan $M = 10.000.000$, $i = 0{,}015$, dan $n = 24$:
-
-$$A = \\frac{10.000.000 \\times 0{,}015}{1-(1{,}015)^{-24}}.$$
-
-Karena $(1{,}015)^{24} \\approx 1{,}429503$, maka $(1{,}015)^{-24} \\approx 0{,}699544$, sehingga
-
-$$A = \\frac{150.000}{1-0{,}699544} = \\frac{150.000}{0{,}300456} \\approx \\text{Rp}499.241.$$
-
-Total pembayaran $= 24 \\times 499.241 = \\text{Rp}11.981.784$, dengan **total bunga sekitar Rp1.981.784**.
-
-**Contoh 2 (tabel amortisasi awal).** Berdasarkan Contoh 1, tentukan komposisi angsuran bulan pertama dan sisa utang setelahnya.
-
-*Penyelesaian.* Bunga bulan 1 $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Angsuran pokok $= 499.241 - 150.000 = \\text{Rp}349.241$. Sisa utang $= 10.000.000 - 349.241 = \\text{Rp}9.650.759$.
-
-Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; angsuran pokok $\\approx \\text{Rp}354.480$. Terlihat porsi pokok meningkat.
-
-**Contoh 3 (nilai masa depan).** Seseorang menabung Rp500.000 setiap bulan dengan bunga $0{,}8\\%$ per bulan selama 3 tahun. Berapa saldo yang terkumpul?
-
-*Penyelesaian.* Di sini kita tidak melunasi utang, melainkan mengumpulkan dana, sehingga dipakai rumus nilai masa depan dengan $A = 500.000$, $i = 0{,}008$, dan $n = 36$:
-
-$$FV = A \\cdot \\frac{(1+i)^{n}-1}{i} = 500.000 \\cdot \\frac{(1{,}008)^{36}-1}{0{,}008}.$$
-
-Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} \\approx 41{,}528$, sehingga
-
-$$FV \\approx 500.000 \\times 41{,}528 \\approx \\text{Rp}20.764.000.$$
-
-Total setoran $= 36 \\times 500.000 = \\text{Rp}18.000.000$, jadi bunga yang terkumpul sekitar **Rp2.764.000**.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Ikuti langkah menghitung besar angsuran pinjaman Rp10.000.000 dengan anuitas 24 bulan dan bunga 1,5% per bulan.",
+          intro: "Tiga contoh berikut menuntun dari menghitung angsuran, menyusun komposisi bunga dan pokok, sampai menilai dana masa depan.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Catat besaran yang diketahui: $M = 10.000.000$, $i = 0{,}015$, dan $n = 24$.",
+              title: "Contoh 1 (besar angsuran)",
+              text: `Pinjaman Rp10.000.000 dilunasi dengan anuitas $24$ bulan dan bunga $1{,}5\\%$ per bulan. Tentukan besar angsuran.
+
+*Penyelesaian.* Catat $M = 10.000.000$, $i = 0{,}015$, dan $n = 24$. Hitung dahulu faktornya: $(1{,}015)^{24} \\approx 1{,}429503$ sehingga $(1{,}015)^{-24} \\approx 0{,}699544$. Substitusi ke rumus:
+$$A = \\frac{10.000.000 \\times 0{,}015}{1-(1{,}015)^{-24}} = \\frac{150.000}{0{,}300456} \\approx \\text{Rp}499.241.$$
+Total pembayaran $= 24 \\times 499.241 = \\text{Rp}11.981.784$, dengan **total bunga sekitar Rp1.981.784**.`,
             },
             {
-              title: "Langkah 2",
-              text: "Hitung faktor diskon: $(1{,}015)^{24} \\approx 1{,}429503$, sehingga $(1{,}015)^{-24} \\approx 0{,}699544$.",
+              title: "Contoh 2 (komposisi angsuran awal)",
+              text: `Berdasarkan Contoh 1, tentukan komposisi angsuran bulan pertama dan sisa utang setelahnya.
+
+*Penyelesaian.* Bunga bulan $1 = 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Angsuran pokok $= 499.241 - 150.000 = \\text{Rp}349.241$, sehingga sisa utang $= 10.000.000 - 349.241 = \\text{Rp}9.650.759$. Bulan $2$: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$ dan angsuran pokok $\\approx \\text{Rp}354.480$. Terlihat porsi pokok makin besar setiap bulan.`,
             },
             {
-              title: "Langkah 3",
-              text: "Substitusi ke rumus: $A = \\frac{10.000.000 \\times 0{,}015}{1 - 0{,}699544} = \\frac{150.000}{0{,}300456}$.",
-            },
-            {
-              title: "Langkah 4",
-              text: "Bagi dan bulatkan: $A \\approx \\text{Rp}499.241$ per bulan.",
-            },
-          ],
-        },
-        {
-          kind: "step-reveal",
-          intro: "Hitung saldo tabungan dari setoran tetap Rp500.000 per bulan selama 36 bulan dengan bunga 0,8% per bulan (nilai masa depan anuitas).",
-          steps: [
-            {
-              title: "Langkah 1",
-              text: "Catat besaran yang diketahui: $A = 500.000$, $i = 0{,}008$, dan $n = 36$.",
-            },
-            {
-              title: "Langkah 2",
-              text: "Karena ini mengumpulkan dana, pakai rumus nilai masa depan: $FV = A \\cdot \\dfrac{(1+i)^{n}-1}{i}$.",
-            },
-            {
-              title: "Langkah 3",
-              text: "Hitung faktornya: $(1{,}008)^{36} \\approx 1{,}332225$, sehingga $\\dfrac{1{,}332225-1}{0{,}008} \\approx 41{,}528$.",
-            },
-            {
-              title: "Langkah 4",
-              text: "Kalikan: $FV \\approx 500.000 \\times 41{,}528 = \\text{Rp}20.764.000$. Total setoran Rp18.000.000, jadi bunganya sekitar Rp2.764.000.",
+              title: "Contoh 3 (nilai masa depan)",
+              text: `Seseorang menabung Rp500.000 setiap bulan dengan bunga $0{,}8\\%$ per bulan selama $3$ tahun. Berapa saldo yang terkumpul?
+
+*Penyelesaian.* Karena mengumpulkan dana, gunakan rumus nilai masa depan dengan $A = 500.000$, $i = 0{,}008$, dan $n = 36$:
+$$FV = 500.000 \\cdot \\frac{(1{,}008)^{36}-1}{0{,}008}.$$
+Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} \\approx 41{,}528$, sehingga $FV \\approx 500.000 \\times 41{,}528 \\approx \\text{Rp}20.764.000$. Total setoran $= \\text{Rp}18.000.000$, jadi bunga yang terkumpul sekitar **Rp2.764.000**.`,
             },
           ],
         },
@@ -332,7 +287,7 @@ Total setoran $= 36 \\times 500.000 = \\text{Rp}18.000.000$, jadi bunga yang ter
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: "Anuitas dipakai pada KPR, kredit kendaraan, dan dana pensiun. Lihat analisis lengkap pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk memahami mengapa saldo pokok turun perlahan di awal periode.",
+      body: `Anuitas adalah alat untuk menilai waktu uang: satu angsuran hari ini tidak setara dengan satu angsuran setahun lagi. Rumus nilai sekarang $PV = A\\cdot\\dfrac{1-(1+i)^{-n}}{i}$ mengubah rangkaian pembayaran menjadi satu angka hari ini. Misalnya, pembayaran Rp500.000 per bulan selama $24$ bulan pada bunga $1\\%$ per bulan setara dengan $500.000\\cdot\\dfrac{1-(1{,}01)^{-24}}{0{,}01} \\approx \\text{Rp}10.621.700$. Sebaliknya, rumus nilai masa depan $FV = A\\cdot\\dfrac{(1+i)^{n}-1}{i}$ menaksir dana terkumpul: setoran Rp1.000.000 per bulan berbunga $0{,}6\\%$ per bulan selama $5$ tahun menghasilkan sekitar $\\text{Rp}71.966.000$. Kedua rumus itu hanya berbeda sudut pandang waktu — satu mendiskontokan, yang lain memajemukkan. Perhitungan lengkap beserta tabel amortisasi dapat dilatih dengan simulasi dan soal berikutnya.`,
     },
     {
       id: "kesalahan-umum",
@@ -468,7 +423,7 @@ Gunakan hasil itu untuk menunjukkan bahwa setelah $n$ angsuran utangnya lunas.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa bunga tiap periode berbeda meskipun besar angsuran tetap? (2) Jika tenor diperpanjang, mengapa angsuran bulanan turun tetapi total bunga justru naik? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Anuitas** untuk latihan tambahan.`,
+      body: `**Renungan angka.** (1) Jelaskan mengapa porsi bunga menyusut sementara porsi pokok membesar walau angsuran tidak berubah. (2) Dengan rumus nilai sekarang, tunjukkan mengapa memperpanjang tenor menurunkan angsuran sekaligus menaikkan total bunga. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Anuitas** untuk latihan tambahan.`,
     },
   ],
 };

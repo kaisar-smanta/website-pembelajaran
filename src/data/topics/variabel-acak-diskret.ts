@@ -106,7 +106,7 @@ Contoh:
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Gagasan pokok: dari hasil ke bilangan",
           text: "Variabel acak diskret menghubungkan **hasil percobaan** dengan **bilangan**, sedangkan distribusi peluangnya memberi bobot peluang pada setiap bilangan itu.",
         },
         {
@@ -364,7 +364,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana nilai harapan dan sebaran membantumu menimbang risiko.",
+      body: "Nilai harapan dan simpangan baku adalah dua angka yang sering dipakai untuk menimbang pilihan. Ingat kembali permainan dadu pada awal topik, lalu tuliskan kapan sebuah keputusan lebih baik dinilai dari rata-ratanya dan kapan dari sebarannya.",
       blocks: [
         {
           kind: "reflection",
@@ -430,7 +430,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa jumlah seluruh peluang harus sama dengan $1$, dan bagaimana syarat itu dipakai mencari konstanta? (2) Mengapa nilai harapan tidak harus salah satu nilai $X$ yang mungkin? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Variabel Acak Diskret** untuk latihan tambahan.`,
+      body: `**Cek akhir.** Selesaikan dua hal berikut secara lisan atau tertulis. (1) Jelaskan dengan contoh mengapa sebuah tabel yang semua peluangnya antara $0$ dan $1$ belum tentu sah sebagai distribusi. (2) Untuk distribusi dengan $E(X)=2$ dan $\\operatorname{Var}(X)=9$, tafsirkan kedua angka itu dalam satu kalimat. Lanjutkan berlatih di [Latihan & Asesmen](/latihan) topik **Variabel Acak Diskret**.`,
     },
   ],
 };

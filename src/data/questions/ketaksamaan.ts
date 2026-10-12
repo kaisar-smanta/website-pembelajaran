@@ -15,7 +15,8 @@ export const ketaksamaanQuestions: Question[] = [
       { key: 'D', text: '$x > -4$' },
     ],
     answer: 'B',
-    explanation: '$2x - 3 > 5 \\Rightarrow 2x > 8 \\Rightarrow x > 4$.',
+    explanation:
+      '$2x - 3 > 5 \\Rightarrow 2x > 8 \\Rightarrow x > 4$. Opsi A ($x > 1$) muncul bila $3$ dikurangkan alih-alih ditambahkan sehingga diperoleh $2x > 2$. Opsi C ($x < 4$) membalik arah tanda tanpa alasan. Opsi D ($x > -4$) salah tanda karena tidak menambahkan $3$ lebih dahulu.',
     hints: ['Tambahkan $3$ pada kedua ruas lebih dahulu.'],
     competencies: ['sifat ketaksamaan'],
   },
@@ -34,7 +35,7 @@ export const ketaksamaanQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Mengalikan ketaksamaan dengan bilangan negatif membalik arah tanda, sehingga $ac > bc$.',
+      'Mengalikan kedua ruas ketaksamaan $a<b$ dengan bilangan negatif $c<0$ membalik arah tanda, sehingga $ac>bc$. Opsi A ($ac<bc$) mempertahankan arah seolah mengalikan dengan bilangan positif. Opsi C ($ac=bc$) menganggap arahnya berubah menjadi kesamaan. Opsi D ($a+c>b+c$) justru terbalik, seharusnya $a+c<b+c$ karena menambah bilangan yang sama tidak membalik tanda.',
     hints: ['Perhatikan tanda bilangan pengali.'],
     competencies: ['sifat ketaksamaan'],
   },
@@ -67,7 +68,7 @@ export const ketaksamaanQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Ketaksamaan segitiga menyatakan $|x + y| \\le |x| + |y|$ untuk semua bilangan real $x$ dan $y$.',
+      'Ketaksamaan segitiga menyatakan $|x + y| \\le |x| + |y|$ untuk semua bilangan real $x$ dan $y$. Opsi A ($\\ge$) membalik arah sehingga salah, misalnya $x=1$ dan $y=-1$. Opsi C (kesamaan) hanya berlaku pada kasus khusus tanda sama, bukan selalu. Opsi D menambahkan $1$ sehingga salah, misalnya $x=y=0$ memberi $0\\ge1$ yang keliru.',
     hints: ['Ingat bahwa nilai mutlak tidak pernah membuat hasil lebih besar dari jumlah nilai mutlaknya.'],
     competencies: ['ketaksamaan segitiga'],
   },
@@ -82,7 +83,10 @@ export const ketaksamaanQuestions: Question[] = [
     acceptedAnswers: ['x <= -2', 'x ≤ -2', 'x≤-2', '(-∞,-2]', '(-inf,-2]'],
     explanation:
       '$3 - 2x \\ge 7 \\Rightarrow -2x \\ge 4$. Membagi dengan $-2$ membalik tanda, sehingga $x \\le -2$.',
-    hints: ['Membagi dengan bilangan negatif membalik arah ketaksamaan.'],
+    hints: [
+      'Membagi dengan bilangan negatif membalik arah ketaksamaan.',
+      'Pindahkan dulu $3$ sehingga menjadi $-2x \\ge 4$, lalu bagi dengan $-2$.',
+    ],
     competencies: ['sifat ketaksamaan', 'penyelesaian pertidaksamaan'],
   },
   {
@@ -100,8 +104,11 @@ export const ketaksamaanQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      '$2x + \\dfrac{8}{x} \\ge 2\\sqrt{2x \\cdot \\dfrac{8}{x}} = 2\\sqrt{16} = 8$. Kesamaan saat $2x = \\dfrac{8}{x}$, yaitu $x = 2$.',
-    hints: ['Kalikan suku $2x$ dan $\\dfrac{8}{x}$ untuk melihat hasilnya konstan.'],
+      '$2x + \\dfrac{8}{x} \\ge 2\\sqrt{2x \\cdot \\dfrac{8}{x}} = 2\\sqrt{16} = 8$. Kesamaan saat $2x = \\dfrac{8}{x}$, yaitu $x = 2$. Opsi A ($4$) mengambil $\\sqrt{16}$ tanpa faktor $2$. Opsi B ($6$) memakai $2\\sqrt{9}$ karena menganggap hasil kalinya $9$. Opsi D ($16$) mengambil hasil kali $2x\\cdot\\dfrac{8}{x}=16$ sebagai minimum tanpa menarik akarnya.',
+    hints: [
+      'Kalikan suku $2x$ dan $\\dfrac{8}{x}$ untuk melihat hasilnya konstan.',
+      'Setelah hasil kalinya $16$, gunakan $a + b \\ge 2\\sqrt{ab}$.',
+    ],
     competencies: ['AM-GM', 'optimasi'],
   },
   {
@@ -115,7 +122,10 @@ export const ketaksamaanQuestions: Question[] = [
     acceptedAnswers: ['18'],
     explanation:
       'Dengan $c = d = 1$ pada Cauchy-Schwarz: $(x^2 + y^2)(1+1) \\ge (x+y)^2 = 36$, sehingga $x^2 + y^2 \\ge 18$. Kesamaan saat $x = y = 3$.',
-    hints: ['Gunakan $(x^2+y^2)(1^2+1^2) \\ge (x+y)^2$.'],
+    hints: [
+      'Gunakan $(x^2+y^2)(1^2+1^2) \\ge (x+y)^2$.',
+      'Dengan $x+y=6$, diperoleh $2(x^2+y^2) \\ge 36$.',
+    ],
     competencies: ['Cauchy-Schwarz', 'optimasi'],
   },
   {
@@ -146,18 +156,21 @@ export const ketaksamaanQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'kontekstual',
     prompt:
-      'Sebuah kebun berbentuk persegi panjang memiliki keliling $40$ m. Luas maksimum yang dapat dicapai adalah …',
+      'Waktu pemrosesan (dalam menit) sebuah algoritma untuk $x$ unit data dimodelkan $T(x)=x+\\dfrac{9}{x}$ dengan $x>0$. Waktu pemrosesan minimum adalah …',
     options: [
-      { key: 'A', text: '$80$ m$^2$' },
-      { key: 'B', text: '$100$ m$^2$' },
-      { key: 'C', text: '$160$ m$^2$' },
-      { key: 'D', text: '$200$ m$^2$' },
+      { key: 'A', text: '$3$ menit' },
+      { key: 'B', text: '$6$ menit' },
+      { key: 'C', text: '$9$ menit' },
+      { key: 'D', text: '$12$ menit' },
     ],
     answer: 'B',
     explanation:
-      'Dari keliling, $l + w = 20$. Dengan AM-GM, $lw \\le \\left(\\dfrac{l+w}{2}\\right)^2 = 10^2 = 100$. Luas maksimum $100$ m$^2$, tepat saat kebun berbentuk persegi dengan sisi $10$ m.',
-    hints: ['Ubah keliling menjadi $l + w$.', 'Gunakan hasil kali maksimum saat kedua sisi sama.'],
-    competencies: ['AM-GM', 'pemodelan'],
+      'Dengan AM-GM, $x+\\dfrac{9}{x}\\ge2\\sqrt{x\\cdot\\dfrac{9}{x}}=2\\sqrt{9}=6$, dengan kesamaan saat $x=3$. Opsi A ($3$) mengambil $\\sqrt{9}$ tanpa faktor $2$. Opsi C ($9$) mengambil hasil kali $x\\cdot\\dfrac{9}{x}=9$ sebagai nilai minimum tanpa menarik akar. Opsi D ($12$) menggandakan hasil $6$ secara berlebihan.',
+    hints: [
+      'Gunakan AM-GM $a+b\\ge2\\sqrt{ab}$ pada $x$ dan $\\dfrac{9}{x}$.',
+      'Hasil kali kedua sukunya konstan, yaitu $x\\cdot\\dfrac{9}{x}=9$.',
+    ],
+    competencies: ['AM-GM', 'optimasi', 'kontekstual'],
   },
   {
     id: 'ktk-10',
@@ -192,7 +205,10 @@ export const ketaksamaanQuestions: Question[] = [
     acceptedAnswers: ['12'],
     explanation:
       'Dengan AM-GM, $x + y \\ge 2\\sqrt{xy} = 2\\sqrt{36} = 12$. Kesamaan saat $x = y = 6$.',
-    hints: ['Karena hasil kalinya tetap, gunakan AM-GM untuk menjumlahkan.'],
+    hints: [
+      'Karena hasil kalinya tetap, gunakan AM-GM untuk menjumlahkan.',
+      'Kesamaan AM-GM saat $x=y$, dan dengan $xy=36$ diperoleh $x=y=6$.',
+    ],
     competencies: ['AM-GM', 'optimasi'],
   },
   {
@@ -256,8 +272,11 @@ export const ketaksamaanQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Pernyataan B salah. Untuk $x < 0$, misalnya $x = -1$, nilai $x + \\dfrac{1}{x} = -2 < 2$. AM-GM tidak berlaku karena salah satu bilangan negatif.',
-    hints: ['Uji pernyataan dengan bilangan negatif.'],
+      'Opsi A benar karena AM-GM pada $x > 0$ memberi $x + \\dfrac{1}{x} \\ge 2$. Opsi B salah: untuk $x < 0$, misalnya $x = -1$, nilai $x + \\dfrac{1}{x} = -2 < 2$, dan AM-GM tidak berlaku karena salah satu bilangan negatif. Opsi C benar karena AM-GM mensyaratkan kedua bilangan tak negatif. Opsi D benar karena $x + \\dfrac{1}{x} = 2$ hanya tercapai saat $x = 1$ untuk $x > 0$.',
+    hints: [
+      'Uji pernyataan dengan bilangan negatif.',
+      'Periksa juga apakah setiap pernyataan yang benar tetap berlaku untuk $x > 0$.',
+    ],
     competencies: ['AM-GM', 'evaluasi'],
   },
 ];

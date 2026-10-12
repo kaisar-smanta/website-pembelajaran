@@ -108,7 +108,7 @@ Bila kedua limit sepihak berbeda atau salah satunya tidak ada, maka limit di tit
         {
           kind: 'callout',
           variant: 'concept',
-          title: 'Inti yang perlu diingat',
+          title: 'Gagasan kunci: yang penting perilaku di sekitar titik',
           text: 'Limit berbicara tentang **perilaku di sekitar** $a$, bukan tentang nilai di $a$. Karena itu $\\lim_{x \\to a} f(x)$ dapat ada meski $f(a)$ tidak ada.',
         },
         {
@@ -325,8 +325,9 @@ $$\\lim_{x \\to \\infty} \\frac{3x+1}{x^{2}-4} = \\frac{0+0}{1-0} = 0.$$`,
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Limit dipakai setiap kali kita ingin tahu **kecenderungan jangka panjang** atau **perilaku di sekitar keadaan ekstrem**. Kecepatan sesaat pada spidometer adalah limit kecepatan rata-rata ketika selang waktunya mengecil menuju nol. Inilah benang merah antara limit dan turunan.
-Di bidang kesehatan, konsentrasi obat dalam darah setelah waktu yang sangat lama didekati dengan limit di tak hingga, sehingga dokter dapat memperkirakan kadar sisa. Di bidang ekonomi, biaya rata-rata per unit ketika produksi diperbesar tanpa batas menunjukkan biaya variabel per unit, yang juga dihitung sebagai limit. Ketika jumlah pelanggan membesar, waktu tunggu rata-rata dalam suatu antrean sering dimodelkan dan dianalisis menggunakan limit.
+      body: `Limit dipakai setiap kali kita ingin tahu **kecenderungan jangka panjang** atau **perilaku di sekitar keadaan ekstrem**. Kecepatan sesaat pada spidometer, misalnya $80$ km/jam, adalah limit kecepatan rata-rata ketika selang waktu diperkecil menuju nol: dari $10$ sekon, $1$ sekon, sampai $0{,}1$ sekon, hasil bagi $\\dfrac{\\Delta s}{\\Delta t}$ makin dekat ke $80$ km/jam. Inilah benang merah antara limit dan turunan.
+Di bidang kesehatan, konsentrasi obat dalam darah setelah waktu yang sangat lama didekati dengan limit di tak hingga. Jika kadar awal $200$ mg dan setiap jam tersisa $90\\%$, maka setelah $x$ jam kadarnya $200(0{,}9)^{x}$ mg. Karena $0{,}9^{x} \\to 0$ ketika $x \\to \\infty$, kadar sisa itu menuju $0$ mg, sehingga dokter dapat memperkirakan waktu obat habis bekerja.
+Di bidang ekonomi, biaya rata-rata per unit ketika produksi diperbesar tanpa batas menunjukkan biaya variabel per unit. Jika biaya total $C(x) = 5000 + 40x$ rupiah untuk $x$ unit, biaya rata-ratanya $\\dfrac{C(x)}{x} = 40 + \\dfrac{5000}{x}$ menuju $40$ rupiah per unit saat $x \\to \\infty$.
 Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang mustahil dicapai, melainkan nilai yang **didekati** ketika keadaan mendekati titik itu.`,
     },
     {
@@ -357,40 +358,45 @@ Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang
       id: 'tantangan',
       kind: 'tantangan',
       title: 'Tantangan',
-      body: `Limit di tak hingga sering menipu intuisi. Perhatikan
+      body: `Kadang limit tidak muncul sendirian, melainkan melalui sebuah **parameter** yang harus kita pilih agar limitnya ada.
 
-$$\\lim_{x\\to\\infty}\\left(\\sqrt{x^2+x}-x\\right).$$
+**Soal.** Tentukan nilai $a$ sehingga limit berikut ada, lalu hitung nilai limit itu:
+$$\\lim_{x\\to 2}\\frac{ax^{2}-8}{x-2}.$$
 
-Bentuk ini tidak dapat langsung disubstitusi. Tentukan nilai limitnya dengan cermat, dan jangan sampai terkecoh oleh hampiran yang terlalu kasar.`,
+Perhatikan bahwa di $x = 2$ penyebutnya nol. Limit hanya dapat bernilai berhingga bila pembilangnya **juga** menuju nol, sehingga nilai $a$ harus ditentukan lebih dahulu.`,
       blocks: [
         {
           kind: 'callout',
           variant: 'tip',
           title: 'Petunjuk',
-          text: `Kalikan dengan akar sekawan $\\sqrt{x^2+x}+x$, lalu bagi pembilang dan penyebut dengan pangkat tertinggi. Jangan menyimpulkan hasilnya hanya karena kedua suku sama besarnya.`,
+          text: `Substitusikan $x = 2$ pada pembilang. Agar penyebut dan pembilang sama-sama nol, pembilang harus ikut lenyap di $x = 2$, sehingga $a$ dapat dicari dari persamaan $a(2)^{2} - 8 = 0$.`,
         },
         {
-          kind: 'spot-mistake',
-          intro: 'Seorang siswa mengerjakan limit itu sebagai berikut. Klik langkah yang keliru.',
+          kind: 'step-reveal',
+          intro: 'Kerjakan berurutan: tentukan $a$, sederhanakan bentuknya, lalu hitung limitnya.',
           steps: [
-            'Untuk $x$ sangat besar, $x^2+x$ sangat dekat dengan $x^2$.',
-            'Maka $\\sqrt{x^2+x}$ sangat dekat dengan $x$.',
-            'Karena itu selisih $\\sqrt{x^2+x}-x$ menuju $0$.',
-            'Jadi $\\lim_{x\\to\\infty}\\left(\\sqrt{x^2+x}-x\\right)=0$.',
+            {
+              title: 'Langkah 1: Syarat limit berhingga',
+              text: `Substitusi langsung $x=2$ memberi pembilang $4a-8$ dan penyebut $0$. Agar limitnya berhingga, pembilang harus turut menjadi nol: $4a - 8 = 0$, sehingga $a = 2$.`,
+            },
+            {
+              title: 'Langkah 2: Substitusikan nilai $a$',
+              text: `Dengan $a = 2$, limitnya menjadi $\\lim_{x\\to 2}\\dfrac{2x^{2}-8}{x-2}$.`,
+            },
+            {
+              title: 'Langkah 3: Faktorkan pembilang',
+              text: `Keluarkan faktor $2$ lalu gunakan selisih kuadrat:
+$$\\frac{2x^{2}-8}{x-2}=\\frac{2(x^{2}-4)}{x-2}=\\frac{2(x-2)(x+2)}{x-2}.$$`,
+            },
+            {
+              title: 'Langkah 4: Coret faktor sekutu',
+              text: `Untuk $x \\neq 2$, bentuk itu sama dengan $2(x+2)$.`,
+            },
+            {
+              title: 'Langkah 5: Hitung limit',
+              text: `Karena substitusi langsung kembali dapat dilakukan, $\\lim_{x\\to 2}2(x+2)=2(4)=8$. Jadi $a=2$ dan nilai limitnya $8$.`,
+            },
           ],
-          wrongIndex: 2,
-          explanation: 'Langkah ketiga keliru. Karena kedua suku sama-sama sangat besar, selisihnya justru dapat menuju bilangan selain nol; menghampiri tiap suku secara terpisah sebelum mengurangkan membuang informasi penting. Nilai yang benar adalah $\\dfrac{1}{2}$.',
-        },
-        {
-          kind: 'details',
-          summary: 'Perhitungan yang benar',
-          text: `Kalikan dengan akar sekawan $\\sqrt{x^2+x}+x$:
-$$\\sqrt{x^2+x}-x=\\frac{\\left(\\sqrt{x^2+x}-x\\right)\\left(\\sqrt{x^2+x}+x\\right)}{\\sqrt{x^2+x}+x}=\\frac{(x^2+x)-x^2}{\\sqrt{x^2+x}+x}=\\frac{x}{\\sqrt{x^2+x}+x}.$$
-
-Untuk $x>0$, bagi pembilang dan penyebut dengan $x$:
-$$\\frac{1}{\\sqrt{1+\\frac{1}{x}}+1}.$$
-Karena $\\dfrac{1}{x}\\to 0$ ketika $x\\to\\infty$, hasilnya
-$$\\lim_{x\\to\\infty}\\left(\\sqrt{x^2+x}-x\\right)=\\frac{1}{1+1}=\\frac{1}{2}.$$`,
         },
       ],
     },
@@ -404,7 +410,7 @@ $$\\lim_{x\\to\\infty}\\left(\\sqrt{x^2+x}-x\\right)=\\frac{1}{1+1}=\\frac{1}{2}
       id: 'refleksi',
       kind: 'refleksi',
       title: 'Refleksi',
-      body: 'Renungkan bagaimana nilai yang didekati menjelaskan perilaku fungsi di sekitar suatu titik.',
+      body: 'Nilai yang didekati sering berbeda dari nilai yang benar-benar tercapai. Bandingkan pengalamanmu saat menghitung limit, lalu tarik satu pelajaran pribadi dari tiga teknik yang sudah dipelajari.',
       blocks: [
         {
           kind: 'reflection',
@@ -446,7 +452,7 @@ $$\\lim_{x\\to\\infty}\\left(\\sqrt{x^2+x}-x\\right)=\\frac{1}{1+1}=\\frac{1}{2}
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
-      body: `**Tiket keluar.** (1) Mengapa munculnya bentuk $\\dfrac{0}{0}$ tidak otomatis berarti limit tidak ada, dan bagaimana cara menanganinya? (2) Jelaskan mengapa limit kiri dan limit kanan harus sama agar limit di suatu titik ada. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Limit Fungsi** untuk latihan tambahan.`,
+      body: `**Cek pemahaman.** Tuliskan jawaban singkat untuk dua hal berikut. Pertama, jika substitusi memberi $\\dfrac{0}{0}$, langkah apa yang kamu pilih dahulu dan mengapa? Kedua, berikan satu contoh fungsi yang limitnya ada di suatu titik meski nilainya di titik itu tidak terdefinisi. Setelah itu, uji dirimu lewat [Latihan & Asesmen](/latihan) topik **Limit Fungsi**.`,
     },
   ],
 };

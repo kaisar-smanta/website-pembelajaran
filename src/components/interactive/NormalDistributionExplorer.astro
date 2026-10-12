@@ -1,0 +1,306 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialAria = 'Kurva distribusi normal dengan rata-rata 70 dan simpangan baku 10';
+---
+
+<figure class="sim normal-sim" data-normal data-exploration={exploration.id}>
+  <p
+    class="sim-hint"
+    set:html={renderMarkdown(
+      'Atur rata-rata $\\mu$, simpangan baku $\\sigma$, serta batas bawah dan batas atas selang. Amati luas daerah yang menyatakan peluang $P(a \\le X \\le b)$ dan skor bakunya.',
+    )}
+  />
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Rata-rata μ <output data-value="mean">70</output></span>
+      <input type="range" min="0" max="100" step="1" value="70" data-field="mean" aria-label="Rata-rata mu" />
+    </label>
+    <label class="sim-field">
+      <span>Simpangan baku σ <output data-value="sd">10</output></span>
+      <input type="range" min="1" max="20" step="0.5" value="10" data-field="sd" aria-label="Simpangan baku sigma" />
+    </label>
+    <label class="sim-field">
+      <span>Batas bawah a <output data-value="lower">60</output></span>
+      <input type="range" min="0" max="140" step="1" value="60" data-field="lower" aria-label="Batas bawah a" />
+    </label>
+    <label class="sim-field">
+      <span>Batas atas b <output data-value="upper">80</output></span>
+      <input type="range" min="0" max="140" step="1" value="80" data-field="upper" aria-label="Batas atas b" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-normal-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 260" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Kurva N(μ, σ²)</span>
+      <span class="l2">Luas peluang</span>
+      <span class="l3">Rata-rata μ</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 34rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-data);
+  }
+  .legend .l2 {
+    color: var(--color-warning);
+  }
+  .legend .l3 {
+    color: var(--color-primary);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+</style>
+
+<script>
+  import {
+    normalPdf,
+    normalCdf,
+    standardize,
+    intervalProbability,
+    normalStats,
+    sampleNormal,
+  } from '../../lib/sim/normal';
+  import { el, clear, clamp, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  function setupNormal(root: Element) {
+    const inMean = root.querySelector('[data-field="mean"]') as HTMLInputElement;
+    const inSd = root.querySelector('[data-field="sd"]') as HTMLInputElement;
+    const inLower = root.querySelector('[data-field="lower"]') as HTMLInputElement;
+    const inUpper = root.querySelector('[data-field="upper"]') as HTMLInputElement;
+    const outMean = root.querySelector('[data-value="mean"]') as HTMLOutputElement;
+    const outSd = root.querySelector('[data-value="sd"]') as HTMLOutputElement;
+    const outLower = root.querySelector('[data-value="lower"]') as HTMLOutputElement;
+    const outUpper = root.querySelector('[data-value="upper"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-normal-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 260;
+    const pad = 36;
+    const fmt = (v: number) => formatPlain(Number(v.toFixed(4)));
+
+    function draw(mean: number, sd: number, lower: number, upper: number) {
+      const xMin = mean - 4 * sd;
+      const xMax = mean + 4 * sd;
+      const yMax = normalPdf(mean, mean, sd) * 1.15;
+      const { sx, sy } = linearScale(
+        { xMin, xMax, yMin: 0, yMax },
+        { width: W, height: H, pad },
+      );
+      clear(svg);
+
+      // Sumbu mendatar.
+      svg.appendChild(
+        el('line', {
+          x1: pad,
+          y1: sy(0),
+          x2: W - pad,
+          y2: sy(0),
+          stroke: 'var(--color-text-soft)',
+          'stroke-width': 1.6,
+        }),
+      );
+
+      // Daerah terarsir antara batas bawah dan batas atas.
+      const lo = clamp(Math.min(lower, upper), xMin, xMax);
+      const hi = clamp(Math.max(lower, upper), xMin, xMax);
+      if (hi > lo) {
+        const region: Array<[number, number] | null> = [[sx(lo), sy(0)]];
+        const steps = 160;
+        for (let i = 0; i <= steps; i++) {
+          const x = lo + (i / steps) * (hi - lo);
+          region.push([sx(x), sy(normalPdf(x, mean, sd))]);
+        }
+        region.push([sx(hi), sy(0)]);
+        svg.appendChild(
+          el('path', {
+            d: `${polyline(region)} Z`,
+            fill: 'var(--color-warning)',
+            'fill-opacity': 0.24,
+            stroke: 'none',
+          }),
+        );
+      }
+
+      // Kurva.
+      const curve = sampleNormal(mean, sd, xMin, xMax, 260).map(
+        (p) => [sx(p.x), sy(p.y)] as [number, number],
+      );
+      svg.appendChild(
+        el('path', {
+          d: polyline(curve),
+          fill: 'none',
+          stroke: 'var(--color-data)',
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+
+      // Garis rata-rata.
+      svg.appendChild(
+        el('line', {
+          x1: sx(mean),
+          y1: sy(yMax),
+          x2: sx(mean),
+          y2: sy(0),
+          stroke: 'var(--color-primary)',
+          'stroke-width': 1.8,
+          'stroke-dasharray': '5 4',
+        }),
+      );
+
+      // Penanda batas bawah dan batas atas.
+      for (const bound of [lower, upper]) {
+        if (bound < xMin || bound > xMax) continue;
+        svg.appendChild(
+          el('line', {
+            x1: sx(bound),
+            y1: sy(normalPdf(bound, mean, sd)),
+            x2: sx(bound),
+            y2: sy(0),
+            stroke: 'var(--color-warning)',
+            'stroke-width': 1.6,
+          }),
+        );
+        const label = el('text', {
+          x: sx(bound),
+          y: sy(0) + 15,
+          'text-anchor': 'middle',
+          'font-size': 10,
+          fill: 'var(--color-text-muted)',
+        });
+        label.textContent = formatPlain(bound);
+        svg.appendChild(label);
+      }
+    }
+
+    function stat(label: string, text: string): string {
+      return `<div class="stat"><span>${label}</span><strong>${text}</strong></div>`;
+    }
+
+    function render() {
+      const mean = clamp(Number(inMean.value), 0, 100);
+      const sd = clamp(Number(inSd.value), 1, 20);
+      const lower = clamp(Number(inLower.value), 0, 140);
+      const upper = clamp(Number(inUpper.value), 0, 140);
+
+      outMean.textContent = formatPlain(mean);
+      outSd.textContent = formatPlain(sd);
+      outLower.textContent = formatPlain(lower);
+      outUpper.textContent = formatPlain(upper);
+
+      const st = normalStats(mean, sd);
+      const zLower = standardize(lower, mean, sd);
+      const zUpper = standardize(upper, mean, sd);
+      const pBelow = normalCdf(lower, mean, sd);
+      const pBetween = intervalProbability(lower, upper, mean, sd);
+      const pAbove = 1 - normalCdf(upper, mean, sd);
+
+      draw(mean, sd, lower, upper);
+      svg.setAttribute(
+        'aria-label',
+        `Kurva normal μ = ${mean}, σ = ${sd}; peluang P(${lower} ≤ X ≤ ${upper}) = ${fmt(pBetween)}`,
+      );
+
+      readout.innerHTML =
+        stat('Skor baku a', `z = ${fmt(zLower)}`) +
+        stat('Skor baku b', `z = ${fmt(zUpper)}`) +
+        stat(`P(X ≤ ${formatPlain(lower)})`, fmt(pBelow)) +
+        stat(`P(${formatPlain(lower)} ≤ X ≤ ${formatPlain(upper)})`, fmt(pBetween)) +
+        stat(`P(X ≥ ${formatPlain(upper)})`, fmt(pAbove)) +
+        stat('Rata-rata μ', formatPlain(st.mean)) +
+        stat('Varians σ²', formatPlain(st.variance)) +
+        stat('Simpangan baku σ', formatPlain(st.stdDev));
+    }
+
+    [inMean, inSd, inLower, inUpper].forEach((input) => input.addEventListener('input', render));
+
+    reset.addEventListener('click', () => {
+      [inMean, inSd, inLower, inUpper].forEach((input) => {
+        input.value = input.defaultValue;
+      });
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-normal]'), setupNormal);
+</script>

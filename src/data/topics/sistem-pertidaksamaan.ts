@@ -100,7 +100,7 @@ Daerah penyelesaian sistem adalah **irisan** semua setengah bidang, yaitu himpun
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Tiga langkah menentukan setengah bidang",
           text: "Menggambar garis, menguji satu titik, lalu mengarsir irisan. Garis penuh dipakai untuk tanda $\\le$ atau $\\ge$, sedangkan garis putus-putus dipakai untuk $<$ atau $>$ karena garisnya tidak termasuk.",
         },
         {
@@ -124,6 +124,12 @@ Daerah penyelesaian sistem adalah **irisan** semua setengah bidang, yaitu himpun
               back: "Mencari nilai maksimum atau minimum pada daerah layak",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Setengah bidang di bawah garis x tambah y sama dengan 4 yang diarsir, mencakup titik asal, dengan garis pembatas digambar penuh.",
+          caption: "Daerah penyelesaian $x+y\\le4$ di kuadran pertama, termasuk titik asal $(0,0)$ yang lolos uji; garis $x+y=4$ digambar penuh karena ketaksamaannya memuat tanda sama dengan.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="190" x2="305" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="45" y1="195" x2="45" y2="20" stroke="currentColor" stroke-width="1.5"/><polygon points="45,190 245,190 45,40" fill="currentColor" opacity="0.18"/><line x1="45" y1="40" x2="245" y2="190" stroke="currentColor" stroke-width="2"/><circle cx="45" cy="190" r="3" fill="currentColor"/><text x="250" y="188" font-size="12" fill="currentColor">x + y = 4</text><text x="68" y="168" font-size="11" fill="currentColor">daerah x + y ≤ 4</text><text x="298" y="205" font-size="12" fill="currentColor">x</text><text x="30" y="30" font-size="12" fill="currentColor">y</text><text x="30" y="205" font-size="11" fill="currentColor">O</text></svg>',
         },
       ],
     },
@@ -277,7 +283,7 @@ Titik sudutnya adalah $(0,0)$, $(5,0)$, $(0,4)$, dan titik potong kedua garis. D
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Program linear membantu mengambil keputusan saat sumber daya terbatas: menentukan komposisi produk yang memberi laba terbesar, menyusun menu dengan biaya minimum, atau mengatur jadwal pemakaian alat. Pola pikirnya selalu sama: tetapkan variabel, susun kendala, gambarkan daerah penyelesaian, lalu cari nilai optimum di titik sudut.
+      body: `Program linear membantu mengambil keputusan saat sumber daya terbatas. Usaha dengan $8$ unit bahan dan $10$ jam kerja yang membuat dua produk dengan keuntungan Rp2.000 dan Rp3.000 mencapai laba maksimum Rp14.000 pada kombinasi $4$ unit produk pertama dan $2$ unit produk kedua. Pola pikirnya selalu sama: tetapkan variabel, susun kendala, gambarkan daerah penyelesaian, lalu cari nilai optimum di titik sudut.
 
 Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setiap batasan menjadi pertidaksamaan, (3) tambahkan syarat tak negatif, (4) tulis fungsi objektif, (5) periksa nilai pada setiap titik sudut, dan (6) tafsirkan jawabannya dalam konteks.`,
     },
@@ -341,6 +347,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
+      body: "Daerah penyelesaian adalah cara memvisualkan batas-batas yang saling mengunci: setiap kendala baru hanya dapat mempersempit, bukan memperluas, pilihan yang layak. Temukan satu keputusan di sekitarmu yang dibatasi dua sumber daya sekaligus, lalu tuliskan dua pertidaksamaan kendalanya.",
       blocks: [
         {
           kind: "reflection",
@@ -397,7 +404,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana kamu menentukan setengah bidang yang benar untuk sebuah pertidaksamaan? (2) Mengapa nilai optimum program linear cukup dicari di titik sudut daerah layak? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Pertidaksamaan Linear** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Gambarkan daerah penyelesaian $x+2y\\le6$ di kuadran pertama, lalu sebutkan koordinat titik sudutnya. (2) Bila sistem ditambah kendala $x+y\\ge2$, jelaskan mengapa titik $(0,0)$ tidak lagi termasuk padahal sebelumnya termasuk. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Pertidaksamaan Linear** untuk latihan tambahan.`,
     },
   ],
 };

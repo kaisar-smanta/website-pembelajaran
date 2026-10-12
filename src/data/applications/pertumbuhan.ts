@@ -32,7 +32,7 @@ Jika pertambahannya linear (bertambah jumlah tetap), hasilnya akan jauh lebih ke
       'Kapan model ini berhenti berlaku, dan faktor apa yang membuatnya melambat?',
     ],
     source:
-      'Data ilustratif berdasarkan pengamatan pertumbuhan bakteri di laboratorium; angka dibulatkan untuk pembelajaran.',
+      'Model berlipat dua mengikuti pola pembelahan bakteri yang membelah tiap sekitar 20 menit (waktu generasi yang lazim di laboratorium); populasi awal dan waktu dibulatkan untuk pembelajaran.',
   },
   {
     id: 'peluruhan-zat',
@@ -65,7 +65,7 @@ Karena basis lebih kecil dari 1, tanda pertidaksamaan berbalik saat menyamakan e
       'Bagaimana kamu menentukan kapan obat perlu diminum lagi?',
     ],
     source:
-      'Data ilustratif berdasarkan konsep waktu paruh obat; angka dibulatkan untuk pembelajaran dan bukan rujukan medis.',
+      'Mengikuti konsep waktu paruh (half-life) pada farmakokinetik; nilai awal 80 mg/L dan waktu paruh 4 jam dipilih untuk ilustrasi dan dibulatkan, bukan rujukan medis.',
   },
   {
     id: 'pemodelan-penyebaran',
@@ -98,7 +98,7 @@ Jadi ambang itu dilewati sekitar **10 pekan** setelah pencatatan awal. **Asumsi 
       'Informasi tambahan apa yang kamu butuhkan agar model lebih realistis?',
     ],
     source:
-      'Data ilustratif berdasarkan pola awal penyebaran kasus yang dilaporkan lembaga kesehatan (mis. WHO); angka dibulatkan untuk latihan pemodelan, bukan angka resmi.',
+      'Skenario pengajaran yang dikonstruksi mengikuti pola awal pertumbuhan kasus yang lazim dilaporkan pada awal wabah; angka 20 kasus dan faktor 1,5 per pekan dibulatkan, bukan data wabah tertentu.',
   },
   {
     id: 'tabungan-vs-inflasi',
@@ -141,7 +141,7 @@ Dalam 10 tahun faktor pertumbuhan daya beli adalah $\\left(\\dfrac{1{,}04}{1{,}0
       'Data suku bunga dan inflasi apa yang perlu kamu cari sebelum memutuskan menyimpan uang?',
     ],
     source:
-      'Data ilustratif berdasarkan suku bunga tabungan dan laju inflasi; angka dibulatkan untuk pembelajaran.',
+      'Bunga tabungan 4% per tahun dan inflasi 3% per tahun mengacu pada kisaran umum di Indonesia dalam beberapa tahun terakhir; angka dibulatkan dan bukan data satu tahun tertentu.',
   },
   {
     id: 'pertumbuhan-batas-daya-dukung',
@@ -183,7 +183,7 @@ Pelajarannya bukan "eksponensial salah", melainkan **setiap model punya rentang 
       'Sebutkan satu contoh lain (selain populasi) yang tumbuh eksponensial pada awalnya tetapi kemudian melambat.',
     ],
     source:
-      'Data ilustratif berdasarkan pola pertumbuhan populasi dalam ruang terbatas; angka dan daya dukung dibulatkan untuk pembelajaran.',
+      'Skenario pengajaran yang dikonstruksi mengikuti pola pertumbuhan logistik pada ruang terbatas; populasi awal, laju tumbuh, dan daya dukung danau dirancang agar ambangnya mudah dihitung.',
   },
   {
     id: 'tbil-jadwal-ronda',
@@ -193,6 +193,7 @@ Pelajarannya bukan "eksponensial salah", melainkan **setiap model punya rentang 
     grade: 'X',
     level: 'cakap',
     estimatedMinutes: 11,
+    explorationId: 'teori-bilangan-pola',
     tags: ['KPK', 'modulo', 'keterbagian', 'penjadwalan', 'siklus'],
     summary:
       'Menggunakan KPK dan aritmetika modulo untuk menentukan kapan beberapa siklus kegiatan berulang bersamaan.',
@@ -223,6 +224,6 @@ Cara berpikir ini dipakai di dunia nyata untuk menyelaraskan jadwal piket, peraw
       'Kegiatan lain apa di sekitarmu yang jadwalnya bisa dianalisis dengan cara ini?',
     ],
     source:
-      'Ilustrasi fiktif penjadwalan ronda kampung; periode dibuat agar KPK-nya mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti pola penjadwalan berkala (piket, ronda, atau perawatan mesin); periode 4, 6, dan 9 malam dipilih agar KPK dan aritmetika modulonya mudah dihitung.',
   },
 ];

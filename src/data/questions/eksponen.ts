@@ -35,7 +35,7 @@ export const eksponenQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Pangkat negatif berarti kebalikan: $2^{-3} = \\dfrac{1}{2^{3}} = \\dfrac{1}{8}$. Tanda menjadi negatif hanya jika basisnya negatif dan eksponennya ganjil. Opsi B mengabaikan tanda negatif dan menghitung $2^{3}$; opsi A dan C menganggap pangkat negatif menghasilkan bilangan negatif.',
+      'Pangkat negatif berarti kebalikan: $2^{-3} = \\dfrac{1}{2^{3}} = \\dfrac{1}{8}$. Tanda menjadi negatif hanya jika basisnya negatif dan eksponennya ganjil. Opsi B mengabaikan tanda negatif dan menghitung $2^{3}$. Opsi A membawa tanda negatif pangkat ke hasil sehingga menulis $-0{,}125$. Opsi C selain memberi tanda negatif juga keliru menghitung kebalikannya menjadi $-0{,}25$.',
     hints: ['Pangkat negatif bukan berarti hasilnya bilangan negatif.'],
     competencies: ['pangkat negatif'],
   },
@@ -67,8 +67,11 @@ export const eksponenQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$\\sqrt{75} = \\sqrt{25 \\cdot 3} = \\sqrt{25}\\,\\sqrt{3} = 5\\sqrt{3}$.',
-    hints: ['Cari faktor kuadrat sempurna terbesar dari 75.'],
+      '$\\sqrt{75}=\\sqrt{25\\cdot3}=\\sqrt{25}\\,\\sqrt{3}=5\\sqrt{3}$. Opsi A ($3\\sqrt{5}$) menarik faktor $3$ alih-alih $25$, padahal $3\\sqrt{5}=\\sqrt{45}\\ne\\sqrt{75}$. Opsi B ($25\\sqrt{3}$) mengeluarkan faktor $25$ tanpa mengambil akarnya, seharusnya $\\sqrt{25}=5$. Opsi C ($15$) keliru menganggap $\\sqrt{75}=75/5$.',
+    hints: [
+      'Cari faktor kuadrat sempurna terbesar dari 75.',
+      'Ambil akar dari faktor kuadrat sempurna itu, jangan hanya menuliskannya.',
+    ],
     competencies: ['bentuk akar'],
   },
   {
@@ -86,8 +89,11 @@ export const eksponenQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Karena $81 = 3^{4}$, maka $x - 1 = 4$ sehingga $x = 5$.',
-    hints: ['Nyatakan 81 sebagai pangkat dari 3.'],
+      'Karena $81=3^{4}$, maka $x-1=4$ sehingga $x=5$. Opsi A ($3$) menjawab basisnya, bukan nilai $x$. Opsi B ($4$) berhenti pada $x-1=4$ dan lupa menambahkan $1$. Opsi C ($7$) menjumlahkan $3$ dan $4$ alih-alih menyelesaikan $x-1=4$.',
+    hints: [
+      'Nyatakan 81 sebagai pangkat dari 3.',
+      'Setelah pangkatnya sama, selesaikan $x-1=4$ sampai memperoleh $x$.',
+    ],
     competencies: ['persamaan eksponen'],
   },
   {
@@ -101,7 +107,10 @@ export const eksponenQuestions: Question[] = [
     acceptedAnswers: ['9b^{5}', '9 b^5', '9b5'],
     explanation:
       'Pembilang: $(3a^{2}b^{3})^{2} = 9a^{4}b^{6}$. Dibagi $a^{4}b$ menghasilkan $9a^{0}b^{5} = 9b^{5}$.',
-    hints: ['Kuadratkan setiap faktor di dalam kurung.'],
+    hints: [
+      'Kuadratkan setiap faktor di dalam kurung.',
+      'Setelah dikalikan, kurangkan eksponen basis yang sama antara pembilang dan penyebut.',
+    ],
     competencies: ['sifat eksponen'],
   },
   {
@@ -120,8 +129,11 @@ export const eksponenQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Dua jam sama dengan 4 selang 30 menit, sehingga $200 \\cdot 2^{4} = 200 \\cdot 16 = 3.200$ bakteri.',
-    hints: ['Berapa banyak selang 30 menit dalam 2 jam?'],
+      'Dua jam sama dengan 4 selang 30 menit, sehingga $200\\cdot2^{4}=200\\cdot16=3.200$ bakteri. Opsi A ($800$) memakai 2 selang ($2^{2}=4$). Opsi B ($1.600$) memakai 3 selang ($2^{3}=8$). Opsi D ($6.400$) memakai 5 selang ($2^{5}=32$).',
+    hints: [
+      'Berapa banyak selang 30 menit dalam 2 jam?',
+      'Karena populasi berlipat dua, banyak bakteri adalah $200\\times2^{(\\text{banyak selang})}$.',
+    ],
     competencies: ['pemodelan eksponen'],
   },
   {
@@ -140,7 +152,10 @@ export const eksponenQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Sifat $a^{m} \\cdot a^{n} = a^{m+n}$ benar untuk basis positif. Opsi A salah karena $(a+b)^2 = a^2+2ab+b^2$; opsi B hanya benar pada kasus khusus; opsi D salah karena $2^a \\cdot 2^b = 2^{a+b}$, bukan $4^{ab}$.',
-    hints: ['Uji setiap opsi dengan bilangan sederhana.'],
+    hints: [
+      'Uji setiap opsi dengan bilangan sederhana.',
+      'Pangkat dapat disebar pada perkalian, tetapi tidak pada penjumlahan atau pengurangan.',
+    ],
     competencies: ['penalaran sifat eksponen'],
   },
   {
@@ -155,7 +170,10 @@ export const eksponenQuestions: Question[] = [
       'Karena $a^{n}/a^{n}=1$ dan dengan sifat pengurangan eksponen $a^{n}/a^{n}=a^{n-n}=a^{0}$, maka $a^{0}=1$. Untuk $m<n$, pengurangan $m-n$ menghasilkan bilangan negatif, sehingga berlaku $a^{m-n}=a^{-(n-m)}=1/a^{n-m}$, yaitu kebalikan — konsisten dengan definisi pangkat negatif.',
     explanation:
       'Kunci jawaban menekankan pendekatan dari kesamaan dua cara menghitung hasil bagi yang sama, lalu perluasan definisi ke eksponen negatif.',
-    hints: ['Mulai dari $a^{n}/a^{n}=1$, lalu terapkan sifat pengurangan eksponen pada hasil bagi yang sama.'],
+    hints: [
+      'Mulai dari $a^{n}/a^{n}=1$, lalu terapkan sifat pengurangan eksponen pada hasil bagi yang sama.',
+      'Untuk $m<n$, tulis $m-n=-(n-m)$ dan gunakan definisi pangkat negatif sebagai kebalikan.',
+    ],
     competencies: ['pembuktian', 'pangkat nol dan negatif'],
     rubric: [
       'Memulai dari $a^{n}/a^{n}=1$',
@@ -174,7 +192,10 @@ export const eksponenQuestions: Question[] = [
     acceptedAnswers: ['2(\\sqrt{5}+\\sqrt{2})', '2√5+2√2', '2\\sqrt{5}+2\\sqrt{2}'],
     explanation:
       'Kalikan pembilang dan penyebut dengan bentuk sekawan $\\sqrt{5}+\\sqrt{2}$: $\\dfrac{6(\\sqrt{5}+\\sqrt{2})}{5-2} = 2(\\sqrt{5}+\\sqrt{2})$.',
-    hints: ['Bentuk sekawan dari $\\sqrt{5}-\\sqrt{2}$ adalah $\\sqrt{5}+\\sqrt{2}$.'],
+    hints: [
+      'Bentuk sekawan dari $\\sqrt{5}-\\sqrt{2}$ adalah $\\sqrt{5}+\\sqrt{2}$.',
+      'Gunakan $(\\sqrt{a}-\\sqrt{b})(\\sqrt{a}+\\sqrt{b})=a-b$ pada penyebut.',
+    ],
     competencies: ['merasionalkan penyebut'],
   },
   {
@@ -184,17 +205,22 @@ export const eksponenQuestions: Question[] = [
     type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Seorang siswa menulis $(a+b)^{2}=a^{2}+b^{2}$ dan menganggap $\\sqrt{a+b}=\\sqrt{a}+\\sqrt{b}$. (a) Tunjukkan dengan satu contoh bilangan bahwa kedua pernyataan itu salah. (b) Tuliskan sifat eksponen yang benar untuk $(ab)^{n}$ dan $\\left(\\dfrac{a}{b}\\right)^{n}$.',
+      'Seorang siswa menyederhanakan $\\left(2x^{3}\\right)^{2}\\cdot x^{-4}$ dan menulis hasilnya $2x^{2}$. (a) Tuliskan langkah yang benar untuk perkalian itu. (b) Jelaskan dengan tepat letak kesalahan siswa sehingga hasilnya kehilangan satu faktor.',
     answer:
-      '(a) Untuk $a=3$ dan $b=4$: $(3+4)^{2}=49$, sedangkan $3^{2}+4^{2}=25$, jadi pernyataan pertama salah. Untuk akar: $\\sqrt{9+16}=\\sqrt{25}=5$, sedangkan $\\sqrt{9}+\\sqrt{16}=3+4=7$, jadi pernyataan kedua juga salah. (b) Sifat yang benar adalah $(ab)^{n}=a^{n}b^{n}$ dan $\\left(\\dfrac{a}{b}\\right)^{n}=\\dfrac{a^{n}}{b^{n}}$ untuk $b\\neq0$.',
+      '(a) Kuadratkan setiap faktor: $\\left(2x^{3}\\right)^{2}=2^{2}\\left(x^{3}\\right)^{2}=4x^{6}$. Lalu kalikan dengan $x^{-4}$: $4x^{6}\\cdot x^{-4}=4x^{6+(-4)}=4x^{2}$, jadi hasil yang benar $4x^{2}$. (b) Siswa lupa mengkuadratkan koefisien $2$; ia menulis $2x^{6}$ alih-alih $4x^{6}$. Sifat $(ab)^{n}=a^{n}b^{n}$ menuntut koefisien ikut dipangkatkan, sehingga koefisien yang benar adalah $2^{2}=4$.',
     explanation:
-      'Kunci: menguji klaim dengan bilangan konkret, lalu menyatakan sifat distribusi pangkat atas perkalian dan pembagian.',
-    hints: ['Coba bilangan yang membentuk Pythagoras seperti $3$ dan $4$.', 'Pangkat dapat disebar pada perkalian, bukan pada penjumlahan.'],
-    competencies: ['sifat eksponen', 'penalaran', 'evaluasi'],
+      'Kunci: menerapkan $(ab)^{n}=a^{n}b^{n}$ pada koefisien sekaligus variabel, lalu menjumlahkan eksponen saat mengalikan basis yang sama.',
+    hints: [
+      'Ingat bahwa $(ab)^{n}=a^{n}b^{n}$, termasuk untuk koefisien angka.',
+      'Jumlahkan eksponen ketika mengalikan dua pangkat dengan basis sama.',
+      'Periksa seharusnya koefisien $2$ pada jawaban siswa menjadi berapa setelah dikuadratkan.',
+    ],
+    competencies: ['sifat eksponen', 'evaluasi kesalahan'],
     rubric: [
-      'Menguji $(a+b)^{2}\\ne a^{2}+b^{2}$ dengan contoh angka',
-      'Menguji $\\sqrt{a+b}\\ne\\sqrt{a}+\\sqrt{b}$ dengan contoh angka',
-      'Menuliskan $(ab)^{n}=a^{n}b^{n}$ dan $\\left(\\dfrac{a}{b}\\right)^{n}=\\dfrac{a^{n}}{b^{n}}$',
+      'Mengkuadratkan koefisien menjadi $2^{2}=4$',
+      'Menggunakan $\\left(x^{3}\\right)^{2}=x^{6}$',
+      'Menjumlahkan eksponen $x^{6}\\cdot x^{-4}=x^{2}$',
+      'Menjelaskan siswa lupa mengkuadratkan koefisien',
     ],
   },
   {
@@ -262,5 +288,28 @@ export const eksponenQuestions: Question[] = [
       'Memperoleh waktu paruh $T=5$ tahun dan menuliskan model lengkapnya',
       'Menghitung $M(25)=10$ gram',
     ],
+  },
+  {
+    id: 'eks-15',
+    topicId: 'eksponen',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah aplikasi memadatkan (mengompresi) berkas sehingga ukurannya menjadi $75\\%$ dari ukuran tahap sebelumnya setiap kali diproses. Jika ukuran awal berkas $64$ MB, ukurannya setelah $3$ tahap kompresi adalah …',
+    options: [
+      { key: 'A', text: '$48$ MB' },
+      { key: 'B', text: '$36$ MB' },
+      { key: 'C', text: '$27$ MB' },
+      { key: 'D', text: '$16$ MB' },
+    ],
+    answer: 'C',
+    explanation:
+      'Setiap tahap mengalikan ukuran dengan $0{,}75$, sehingga setelah 3 tahap $64\\cdot(0{,}75)^{3}=64\\cdot0{,}421875=27$ MB. Opsi A ($48$) baru menerapkan satu tahap. Opsi B ($36$) baru menerapkan dua tahap. Opsi D ($16$) mengurangkan $25\\%$ dari ukuran awal secara linear ($64-3\\cdot16$), padahal kompresi bekerja dari ukuran tahap sebelumnya.',
+    hints: [
+      'Faktor tiap tahap adalah $0{,}75$ karena berkas menyusut $25\\%$.',
+      'Setelah 3 tahap, hitung $64\\times(0{,}75)^{3}$.',
+    ],
+    competencies: ['pemodelan peluruhan', 'kontekstual'],
   },
 ];

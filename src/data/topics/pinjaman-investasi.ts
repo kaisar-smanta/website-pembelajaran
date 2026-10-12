@@ -108,7 +108,7 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Fokus: bandingkan total biaya",
           text: "Angsuran kecil sering berasal dari tenor panjang. Karena itu bandingkan **total bunga** atau **total biaya**, bukan hanya angka angsuran per bulan.",
         },
         {
@@ -130,6 +130,44 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
             {
               left: "Tenor",
               right: "Lama waktu pinjaman",
+            },
+          ],
+        },
+        {
+          kind: "flip-cards",
+          intro: "Ulangi istilah keuangan yang paling sering muncul.",
+          cards: [
+            {
+              front: "Anuitas",
+              back: "Pembayaran tetap yang dilakukan setiap periode",
+            },
+            {
+              front: "Pokok",
+              back: "Bagian angsuran yang mengurangi sisa utang",
+            },
+            {
+              front: "Bunga",
+              back: "Biaya atas sisa utang pada satu periode",
+            },
+            {
+              front: "Tenor",
+              back: "Lama waktu pinjaman, biasanya dalam bulan atau tahun",
+            },
+            {
+              front: "Total bunga",
+              back: "Seluruh bunga yang dibayar sepanjang tenor: $n\\,A - M$",
+            },
+            {
+              front: "Nilai masa depan ($FV$)",
+              back: "Saldo akhir dari rangkaian setoran rutin",
+            },
+            {
+              front: "Nilai sekarang ($PV$)",
+              back: "Nilai saat ini dari rangkaian pembayaran di masa depan",
+            },
+            {
+              front: "Suku bunga per periode",
+              back: "Bunga untuk satu periode; harus selaras dengan satuan tenor",
             },
           ],
         },
@@ -188,6 +226,10 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
         {
           kind: "exploration",
           explorationId: "pinjaman-angsuran-sim",
+        },
+        {
+          kind: "exploration",
+          explorationId: "pinjaman-jadwal-amortisasi",
         },
         {
           kind: "callout",
@@ -323,9 +365,14 @@ Saldo akhirnya sekitar Rp12.715.978, yaitu sekitar Rp715.978 lebih besar daripad
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Model pinjaman dan investasi dipakai pada KPR, kredit kendaraan, kartu kredit, dana pensiun, dan reksa dana. Pola pengambilan keputusan selalu sama: tentukan tujuan, susun model, hitung total biaya atau hasil, bandingkan alternatif, lalu putuskan.
+      body: `Model pinjaman dan investasi dipakai pada KPR, kredit kendaraan, kartu kredit, dana pensiun, dan reksa dana. Mari bandingkan angka nyata untuk pinjaman Rp10.000.000:
 
-Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk melihat bagaimana total bunga dihitung dari tabel amortisasi.`,
+- **Penawaran A:** bunga $1{,}25\\%$ per bulan, tenor 36 bulan → angsuran $\\approx$ Rp346.653, total bunga $\\approx$ Rp2.479.518.
+- **Penawaran B:** bunga $1{,}5\\%$ per bulan, tenor 24 bulan → angsuran $\\approx$ Rp499.241, total bunga $\\approx$ Rp1.981.784.
+
+Penawaran B memang berangsuran lebih besar, tetapi total bunganya hampir Rp500.000 lebih kecil karena tenornya lebih pendek. Sebaliknya, menabung Rp500.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan selama dua tahun menghasilkan saldo $\\approx$ Rp12.715.978 dari total setoran Rp12.000.000 — selisihnya adalah hasil bunga majemuk.
+
+Pola pengambilan keputusan selalu sama: tentukan tujuan, susun model, hitung total biaya atau hasil, bandingkan alternatif, lalu putuskan. Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk melihat bagaimana total bunga dihitung dari tabel amortisasi.`,
     },
     {
       id: "kesalahan-umum",
@@ -459,7 +506,7 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa total pembayaran pinjaman selalu lebih besar daripada pokoknya? (2) Ukuran apa yang paling jujur untuk membandingkan dua penawaran pinjaman? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Pinjaman dan Investasi** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Mengapa angsuran bulanan yang lebih kecil belum tentu berarti pinjaman yang lebih murah? (2) Jika dua penawaran berbeda tenor dan suku bunga, ukuran apa yang paling jujur untuk membandingkannya? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Pinjaman dan Investasi** untuk latihan tambahan.`,
     },
   ],
 };

@@ -109,7 +109,7 @@ sehingga komposisi **tidak komutatif**.`,
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Gagasan kunci",
           text: "Pada $(f \\circ g)(x)=f(g(x))$, fungsi yang ditulis lebih dekat ke $x$ (yaitu $g$) dikerjakan lebih dahulu. Urutan sangat menentukan hasil.",
         },
         {
@@ -294,47 +294,34 @@ $$D_{f \\circ g} = \\{\\, x \\in D_{g} : g(x) \\in D_{f} \\,\\}.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Diketahui $f(x)=x+3$ dan $g(x)=x^2-1$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$.
-
-*Penyelesaian.* Untuk $(f \\circ g)(x)=f(g(x))$, masukkan $g(x)$ ke $f$:
-
-$$(f \\circ g)(x) = (x^2-1)+3 = x^2+2.$$
-
-Untuk $(g \\circ f)(x)=g(f(x))$, masukkan $f(x)$ ke $g$:
-
-$$(g \\circ f)(x) = (x+3)^2-1 = x^2+6x+9-1 = x^2+6x+8.$$
-
-Kedua hasil berbeda, menegaskan komposisi tidak komutatif.
-
-**Contoh 2.** Diketahui $f(x)=2x+1$ dan $g(x)=x^2$. Tentukan nilai $(f \\circ g)(2)$ dan $(g \\circ f)(2)$.
-
-*Penyelesaian.* Langsung dari definisi:
-- $(f \\circ g)(2)=f(g(2))=f(4)=2(4)+1=9$;
-- $(g \\circ f)(2)=g(f(2))=g(5)=5^2=25$.
-
-**Contoh 3.** Diketahui $f(x)=\\sqrt{x}$ dan $g(x)=2x+4$. Tentukan $(f \\circ g)(x)$ beserta domainnya.
-
-*Penyelesaian.* $(f \\circ g)(x)=f(2x+4)=\\sqrt{2x+4}$. Syarat di bawah akar tidak boleh negatif: $2x+4 \\geq 0 \\Rightarrow x \\geq -2$. Jadi domainnya adalah $x \\geq -2$.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$ untuk $f(x)=x+3$ dan $g(x)=x^2-1$, satu langkah sekaligus.",
+          intro: "Kerjakan tiga contoh komposisi berikut satu langkah sekaligus.",
           steps: [
             {
-              title: "Pahami urutan",
-              text: "Pada $(f \\circ g)(x)=f(g(x))$, fungsi $g$ dikerjakan lebih dahulu, lalu hasilnya dimasukkan ke $f$.",
+              title: "Contoh 1: dua rumus komposisi",
+              text: `Diketahui $f(x)=x+3$ dan $g(x)=x^2-1$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$.
+
+*Penyelesaian.* Untuk $(f \\circ g)(x)=f(g(x))$, masukkan $g(x)$ ke $f$:
+$$(f \\circ g)(x) = (x^2-1)+3 = x^2+2.$$
+Untuk $(g \\circ f)(x)=g(f(x))$, masukkan $f(x)$ ke $g$:
+$$(g \\circ f)(x) = (x+3)^2-1 = x^2+6x+9-1 = x^2+6x+8.$$
+Kedua hasil berbeda, menegaskan komposisi tidak komutatif.`,
             },
             {
-              title: "Substitusi g ke f",
-              text: "$(f \\circ g)(x)=f(x^2-1)=(x^2-1)+3=x^2+2$.",
+              title: "Contoh 2: nilai di satu titik",
+              text: `Diketahui $f(x)=2x+1$ dan $g(x)=x^2$. Tentukan $(f \\circ g)(2)$ dan $(g \\circ f)(2)$.
+
+*Penyelesaian.* Langsung dari definisi:
+- $(f \\circ g)(2)=f(g(2))=f(4)=2(4)+1=9$;
+- $(g \\circ f)(2)=g(f(2))=g(5)=5^2=25$.`,
             },
             {
-              title: "Substitusi f ke g",
-              text: "$(g \\circ f)(x)=g(x+3)=(x+3)^2-1=x^2+6x+8$.",
-            },
-            {
-              title: "Bandingkan",
-              text: "$x^2+2$ dan $x^2+6x+8$ berbeda, menegaskan komposisi tidak komutatif.",
+              title: "Contoh 3: komposisi dengan domain",
+              text: `Diketahui $f(x)=\\sqrt{x}$ dan $g(x)=2x+4$. Tentukan $(f \\circ g)(x)$ beserta domainnya.
+
+*Penyelesaian.* $(f \\circ g)(x)=f(2x+4)=\\sqrt{2x+4}$. Syarat di bawah akar tidak boleh negatif: $2x+4 \\geq 0 \\Rightarrow x \\geq -2$. Jadi domainnya adalah $x \\geq -2$.`,
             },
           ],
         },
@@ -437,7 +424,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana dua proses yang digabung berubah ketika urutannya ditukar.",
+      body: "Telaah kembali bagaimana urutan dua proses menentukan hasil akhirnya.",
       blocks: [
         {
           kind: "reflection",
@@ -498,7 +485,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa $(f\\circ g)(x)$ umumnya berbeda dari $(g\\circ f)(x)$? (2) Syarat apa saja yang harus dipenuhi agar domain komposisi terdefinisi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Komposisi Fungsi** untuk latihan tambahan.`,
+      body: `**Penutup.** (1) Mengapa $(f\\circ g)(x)$ umumnya berbeda dari $(g\\circ f)(x)$? (2) Syarat apa saja yang harus dipenuhi agar domain komposisi terdefinisi? Setelah menjawab, uji pemahamanmu lewat [Latihan & Asesmen](/latihan) topik **Komposisi Fungsi**.`,
     },
   ],
 };

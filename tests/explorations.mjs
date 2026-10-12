@@ -30,6 +30,16 @@ const EXPLORATION_TYPES = new Set([
   'random-variable',
   'limit',
   'binomial-distribution',
+  'sign-chart',
+  'logarithm',
+  'counting-tree',
+  'amortization',
+  'number-theory',
+  'induction',
+  'confounding',
+  'function-family',
+  'normal-distribution',
+  'triangle',
   'geogebra',
 ]);
 

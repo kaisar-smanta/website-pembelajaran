@@ -7,9 +7,9 @@ import type {
   SubjectId,
   Topic,
 } from '@/types/content';
-import { normalizeText } from './filter';
-import { stripMarkdown } from '@/utils/markdown';
-import { sectionKindTitles } from '@/lib/content-text';
+import { normalizeText } from './filter.ts';
+import { stripMarkdown } from '../utils/markdown.ts';
+import { sectionKindTitles } from './content-text.ts';
 
 /**
  * Pengumpul data halaman rujukan lintas topik: glosarium istilah dan kumpulan
@@ -37,6 +37,21 @@ export function referenceTopic(topic: Topic): ReferenceTopic {
     element: topic.element,
     slug: topic.slug,
   };
+}
+
+/**
+ * Sisi istilah sebuah pasangan `match` masih bermakna sebagai istilah bila
+ * memuat kata (≥3 huruf) di luar bagian matematika. Pasangan yang seluruhnya
+ * berupa rumus (mis. `$AB$` atau `$\sin(A+B)$`) dilewati agar glosarium tetap
+ * berisi istilah, bukan kumpulan formula.
+ */
+function hasGlossaryTerm(term: string): boolean {
+  const outsideMath = term
+    .replace(/\$\$[\s\S]+?\$\$/g, ' ')
+    .replace(/\$[^\n$]+?\$/g, ' ')
+    .replace(/\\[a-zA-Z]+/g, ' ')
+    .replace(/[{}]/g, ' ');
+  return /[A-Za-z]{3,}/.test(outsideMath);
 }
 
 /** Satu istilah glosarium beserta makna dan topik asalnya. */
@@ -102,9 +117,9 @@ export function collectGlossaryEntries(
           for (const card of block.cards) add(card.front, card.back, topic);
         } else if (includeMatch && block.kind === 'match') {
           for (const pair of block.pairs) {
-            // Lewati sisi yang berupa rumus (memuat math) agar glosarium tetap
-            // berisi istilah, bukan kumpulan formula.
-            if (/\$|\\/.test(pair.left)) continue;
+            // Lewati hanya sisi yang seluruhnya berupa rumus; istilah yang
+            // memuat math di dalamnya (mis. "Gradien $b$") tetap dihimpun.
+            if (!hasGlossaryTerm(pair.left)) continue;
             add(pair.left, pair.right, topic);
           }
         }

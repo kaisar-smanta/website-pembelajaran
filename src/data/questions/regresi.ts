@@ -16,8 +16,11 @@ export const regresiQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Pada $\\hat{y}=bx+a$, $b$ adalah gradien, yaitu perubahan rata-rata $y$ untuk setiap kenaikan satu satuan $x$, sedangkan $a$ adalah intersep.',
-    hints: ['Gradien adalah koefisien yang menempel pada $x$.'],
+      'Pada $\\hat{y}=bx+a$, $b$ adalah gradien, yaitu perubahan rata-rata $y$ untuk setiap kenaikan satu satuan $x$, sedangkan $a$ adalah intersep. Opsi A tepat untuk $a$, bukan $b$; opsi B menyebut ukuran kecocokan model, bukan gradien; opsi C adalah selisih data terhadap garis, bukan koefisien garis.',
+    hints: [
+      'Gradien adalah koefisien yang menempel pada $x$.',
+      'Intersep adalah nilai $\\hat{y}$ ketika $x=0$.',
+    ],
     competencies: ['garis regresi'],
   },
   {
@@ -78,8 +81,11 @@ export const regresiQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$r^2=0{,}81=81\\%$ variasi $y$ dijelaskan model, sehingga sisanya $100\\%-81\\%=19\\%$ tidak dijelaskan.',
-    hints: ['$r^2$ menyatakan proporsi variasi yang dijelaskan.'],
+      '$r^2=0{,}81=81\\%$ variasi $y$ dijelaskan model, sehingga sisanya $100\\%-81\\%=19\\%$ tidak dijelaskan. Opsi A keliru menganggap akar dari $r^2$ sebagai sisa; opsi B salah hitung pengurangan; opsi C menyebut bagian yang justru dijelaskan, bukan yang tidak dijelaskan.',
+    hints: [
+      '$r^2$ menyatakan proporsi variasi yang dijelaskan.',
+      'Sisa variasi adalah $100\\%$ dikurangi persentase yang dijelaskan.',
+    ],
     competencies: ['koefisien determinasi'],
   },
   {
@@ -98,8 +104,11 @@ export const regresiQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Gradien menyatakan perubahan rata-rata $y$ per satuan $x$: setiap tambahan $1$ jam belajar, nilai ujian naik sekitar $1{,}19$ poin.',
-    hints: ['Satuan gradien adalah satuan $y$ per satuan $x$.'],
+      'Gradien menyatakan perubahan rata-rata $y$ per satuan $x$: setiap tambahan $1$ jam belajar, nilai ujian naik sekitar $1{,}19$ poin. Opsi A menyebut nilai maksimum, padahal itu bukan makna gradien; opsi B menukar peran $x$ dan $y$ sehingga satuannya terbalik; opsi C menafsirkan $1{,}19$ sebagai nilai saat $x=0$, padahal itu peran intersep $0{,}893$.',
+    hints: [
+      'Satuan gradien adalah satuan $y$ per satuan $x$.',
+      'Sebutkan arah perubahan: $x$ bertambah satu, $y$ berubah berapa.',
+    ],
     competencies: ['menafsirkan gradien'],
   },
   {
@@ -113,7 +122,7 @@ export const regresiQuestions: Question[] = [
     acceptedAnswers: ['6.85', '6,84', '6,843', '6,85', '6,850', '6.850'],
     explanation:
       '$\\hat{y}=1{,}190(5)+0{,}893=5{,}95+0{,}893=6{,}843\\approx6{,}85$.',
-    hints: ['Substitusikan $x=5$ ke persamaan garis regresi.'],
+    hints: ['Substitusikan $x=5$ ke persamaan garis regresi.', 'Kalikan $1{,}190\\times5$ lebih dahulu, lalu tambahkan $0{,}893$.'],
     competencies: ['prediksi regresi'],
   },
   {
@@ -263,11 +272,44 @@ export const regresiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Gradien regresi memenuhi $b=r\\dfrac{s_{y}}{s_{x}}=0{,}8\\cdot\\dfrac{5}{2}=2$, sehingga setiap kenaikan satu satuan $x$ berkaitan dengan kenaikan sekitar $2$ satuan $y$.',
+      'Gradien regresi memenuhi $b=r\\dfrac{s_{y}}{s_{x}}=0{,}8\\cdot\\dfrac{5}{2}=2$, sehingga setiap kenaikan satu satuan $x$ berkaitan dengan kenaikan sekitar $2$ satuan $y$. Opsi B membalik rasio menjadi $\\dfrac{s_x}{s_y}$; opsi C mengabaikan $s_x$ dan hanya memakai $s_y$; opsi D salah menempatkan $r$ sebagai pembagi.',
     hints: [
       'Hubungan gradien dan korelasi: $b=r\\dfrac{s_{y}}{s_{x}}$.',
       'Kalikan $r$ dengan rasio simpangan baku $y$ terhadap $x$.',
     ],
     competencies: ['gradien regresi', 'korelasi', 'penalaran'],
+  },
+  {
+    id: 'rg-15',
+    topicId: 'regresi',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Tabel dan diagram pencar berikut memuat data $x$ (banyak iklan) dan $y$ (penjualan dalam lusin). Pernyataan yang paling tepat mengenai hubungan $x$ dan $y$ adalah …',
+    table: {
+      caption: 'Data banyak iklan dan penjualan.',
+      headers: ['$x$', '$1$', '$2$', '$3$', '$4$', '$5$'],
+      rows: [['$y$', '$2$', '$3$', '$5$', '$4$', '$6$']],
+    },
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="180" x2="300" y2="180" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="10" x2="40" y2="185" stroke="currentColor" stroke-width="1.2"/><circle cx="60" cy="136" r="4" fill="currentColor"/><circle cx="115" cy="114" r="4" fill="currentColor"/><circle cx="170" cy="70" r="4" fill="currentColor"/><circle cx="225" cy="92" r="4" fill="currentColor"/><circle cx="280" cy="48" r="4" fill="currentColor"/><text x="292" y="195" font-size="11" fill="currentColor">x</text><text x="24" y="18" font-size="11" fill="currentColor">y</text></svg>',
+      alt: 'Diagram pencar lima titik yang cenderung naik dari kiri bawah ke kanan atas, menunjukkan hubungan positif.',
+      caption: 'Sebaran titik cenderung naik sehingga mengarah pada hubungan linear positif.',
+    },
+    options: [
+      { key: 'A', text: 'Terjadi hubungan linear positif dengan $r\\approx0{,}9$.' },
+      { key: 'B', text: 'Terjadi hubungan linear negatif dengan $r\\approx-0{,}9$.' },
+      { key: 'C', text: 'Tidak ada hubungan karena titik-titik tidak tepat segaris.' },
+      { key: 'D', text: 'Hubungannya kuadratik karena nilai $y$ naik.' },
+    ],
+    answer: 'A',
+    explanation:
+      'Titik-titik pada diagram pencar bergerak naik dari kiri bawah ke kanan atas, menandakan hubungan linear positif. Perhitungan memberi $b=0{,}9$ dan koefisien korelasi $r=0{,}9$, sehingga opsi A paling tepat. Opsi B salah arah karena kenaikan $x$ diikuti kenaikan $y$; opsi C keliru karena titik yang tidak tepat segaris tetap dapat menunjukkan hubungan linear yang kuat; opsi D keliru karena pola naik yang mendekati garis lurus bukan pola kuadratik.',
+    hints: [
+      'Amati arah sebaran titik: naik atau turun.',
+      'Kuat atau lemahnya hubungan dinilai dari kedekatan titik terhadap garis, bukan dari apakah semua titik tepat segaris.',
+    ],
+    competencies: ['diagram pencar', 'korelasi linear', 'interpretasi'],
   },
 ];

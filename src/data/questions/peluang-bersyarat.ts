@@ -17,7 +17,7 @@ export const peluangBersyaratQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Dengan rumus peluang bersyarat, $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}2}{0{,}4} = 0{,}5$.',
+      'Dengan rumus peluang bersyarat, $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}2}{0{,}4} = 0{,}5$ (C). Opsi A ($0{,}2$) menyalin $P(A\\cap B)$ tanpa membagi; opsi B ($0{,}4$) memakai $P(B)$ sebagai hasil akhir; opsi D ($0{,}8$) menghitung keliru dengan membagi $P(A)$ oleh sesuatu selain $P(B)$.',
     hints: ['Bagi peluang irisan dengan peluang kejadian syaratnya, bukan total keseluruhan.'],
     competencies: ['peluang bersyarat'],
   },
@@ -37,7 +37,7 @@ export const peluangBersyaratQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Ruang sampel $\\{LL, LP, PL, PP\\}$. Informasi "paling sedikit satu laki-laki" menyisakan $\\{LL, LP, PL\\}$ yang sama mungkin. Dari tiga hasil itu, hanya $LL$ yang memenuhi, sehingga $P = \\dfrac{1}{3}$.',
+      'Ruang sampel $\\{LL, LP, PL, PP\\}$. Informasi "paling sedikit satu laki-laki" menyisakan $\\{LL, LP, PL\\}$, sehingga $P = \\dfrac{1}{3}$ (B). Opsi A ($\\frac14$) mengabaikan informasi dan memakai seluruh ruang sampel; opsi C ($\\frac12$) menganggap jenis kelamin kedua anak tidak saling bergantung pada informasi itu; opsi D ($\\frac23$) keliru menempatkan $LL$ sebagai komplemen dari satu kejadian.',
     hints: ['Informasi baru mempersempit ruang sampel menjadi tiga hasil.'],
     competencies: ['peluang bersyarat', 'ruang sampel'],
   },
@@ -72,8 +72,11 @@ export const peluangBersyaratQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Setelah satu bola merah terambil, tersisa 4 merah dan 3 biru dari total 7 bola. Jadi $P(M_2 \\mid M_1) = \\dfrac{4}{7}$.',
-    hints: ['Kurangi satu bola merah dan satu bola dari total sebelum mengambil bola kedua.'],
+      'Setelah satu bola merah terambil, tersisa $4$ merah dan $3$ biru dari total $7$ bola, sehingga $P(M_2 \\mid M_1) = \\dfrac{4}{7}$ (B). Opsi A ($\\frac58$) tidak mengurangi jumlah bola; opsi C ($\\frac5{14}$) menghitung $P(M_1\\cap M_2)$ alih-alih peluang bersyarat; opsi D ($\\frac27$) memakai komponen bola biru secara keliru.',
+    hints: [
+      'Kurangi satu bola merah dan satu bola dari total sebelum mengambil bola kedua.',
+      'Setelah pengambilan pertama, jumlah bola merah dan total keduanya berkurang satu.',
+    ],
     competencies: ['aturan perkalian', 'peluang bersyarat'],
   },
   {
@@ -88,7 +91,10 @@ export const peluangBersyaratQuestions: Question[] = [
     acceptedAnswers: ['1/2', '60/120', '0,5', '0.5', '0,50', '0.50'],
     explanation:
       'Banyak cara memilih 3 dari 10 siswa adalah $\\binom{10}{3} = 120$. Cara memilih tepat 2 laki-laki dan 1 perempuan adalah $\\binom{6}{2}\\binom{4}{1} = 15 \\cdot 4 = 60$. Jadi $P = \\dfrac{60}{120} = \\dfrac{1}{2}$.',
-    hints: ['Gunakan kombinasi karena urutan pemilihan tidak diperhatikan.'],
+    hints: [
+      'Gunakan kombinasi karena urutan pemilihan tidak diperhatikan.',
+      'Hitung $\\binom{10}{3}$ sebagai penyebut dan $\\binom{6}{2}\\binom{4}{1}$ sebagai pembilang.',
+    ],
     competencies: ['kombinasi', 'peluang bersyarat'],
   },
   {
@@ -107,8 +113,11 @@ export const peluangBersyaratQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$P(+) = P(+ \\mid D)P(D) + P(+ \\mid D^c)P(D^c) = 0{,}9(0{,}01) + 0{,}1(0{,}99) = 0{,}009 + 0{,}099 = 0{,}108$. Maka $P(D \\mid +) = \\dfrac{0{,}009}{0{,}108} = \\dfrac{1}{12}$.',
-    hints: ['Hitung peluang total hasil positif terlebih dahulu.'],
+      '$P(+) = P(+ \\mid D)P(D) + P(+ \\mid D^c)P(D^c) = 0{,}9(0{,}01) + 0{,}1(0{,}99) = 0{,}009 + 0{,}099 = 0{,}108$. Maka $P(D \\mid +) = \\dfrac{0{,}009}{0{,}108} = \\dfrac{1}{12}$ (A). Opsi B ($\\frac1{10}$) memakai spesifisitas $0{,}9$ sebagai penyebut sederhana; opsi C ($\\frac9{10}$) menyalin sensitivitas $P(+\\mid D)$; opsi D ($\\frac1{100}$) menyalin prevalensi.',
+    hints: [
+      'Hitung peluang total hasil positif terlebih dahulu.',
+      'Setelah memperoleh $P(+)=0{,}108$, bagi jalur $D$ positif $0{,}009$ dengan $P(+)$.',
+    ],
     competencies: ['aturan Bayes', 'peluang total'],
   },
   {
@@ -123,7 +132,10 @@ export const peluangBersyaratQuestions: Question[] = [
     acceptedAnswers: ['1/221', '4/2652', '0,0045', '0.0045', '0,00452', '0.00452', '0,004525', '0.004525'],
     explanation:
       '$P(\\text{As}_1) = \\dfrac{4}{52} = \\dfrac{1}{13}$ dan $P(\\text{As}_2 \\mid \\text{As}_1) = \\dfrac{3}{51} = \\dfrac{1}{17}$, sehingga $P(\\text{As}_1 \\cap \\text{As}_2) = \\dfrac{1}{13} \\cdot \\dfrac{1}{17} = \\dfrac{1}{221}$.',
-    hints: ['Gunakan aturan perkalian $P(A \\cap B) = P(A \\mid B)P(B)$.'],
+    hints: [
+      'Gunakan aturan perkalian $P(A \\cap B) = P(A \\mid B)P(B)$.',
+      'Setelah As pertama terambil, tersisa $3$ As dari $51$ kartu.',
+    ],
     competencies: ['aturan perkalian', 'peluang bersyarat'],
   },
   {
@@ -138,7 +150,10 @@ export const peluangBersyaratQuestions: Question[] = [
       'Karena $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$ dan $P(B \\mid A) = \\dfrac{P(A \\cap B)}{P(A)}$, kedua peluang memiliki pembilang yang sama tetapi penyebut berbeda, sehingga nilainya umumnya berbeda. Contoh: misalkan $A$ = "muncul mata 6" $= \\{6\\}$ dan $B$ = "muncul mata genap" $= \\{2,4,6\\}$. Maka $P(A \\mid B) = \\dfrac{1/6}{1/2} = \\dfrac{1}{3}$, sedangkan $P(B \\mid A) = \\dfrac{1/6}{1/6} = 1$. Jika diketahui muncul mata 6, kejadian "genap" pasti terjadi; tetapi jika diketahui muncul mata genap, peluang muncul mata 6 hanya $\\dfrac{1}{3}$.',
     explanation:
       'Jawaban benar menekankan perbedaan penyebut ($P(B)$ versus $P(A)$) dan memberi contoh yang menunjukkan nilainya berbeda.',
-    hints: ['Tuliskan kedua rumusnya berdampingan dan bandingkan penyebutnya.'],
+    hints: [
+      'Tuliskan kedua rumusnya berdampingan dan bandingkan penyebutnya.',
+      'Bandingkan penyebut $P(B)$ pada $P(A\\mid B)$ dengan $P(A)$ pada $P(B\\mid A)$.',
+    ],
     competencies: ['peluang bersyarat', 'penalaran'],
     rubric: [
       'Menuliskan kedua rumus berdampingan',
@@ -183,7 +198,10 @@ export const peluangBersyaratQuestions: Question[] = [
       'Permutasi memperhatikan urutan, sedangkan kombinasi tidak memperhatikan urutan. Nilai $\\binom{6}{2} = \\dfrac{6!}{2!\\,4!} = 15$ dan $P(6,2) = \\dfrac{6!}{4!} = 6 \\cdot 5 = 30$. Keduanya berbeda karena untuk setiap pasangan 2 objek terdapat $2! = 2$ susunan berbeda, sehingga $P(6,2) = 2 \\cdot \\binom{6}{2} = 30$; permutasi menghitung setiap susunan sebagai hasil yang berbeda, sedangkan kombinasi tidak.',
     explanation:
       'Jawaban benar menekankan peran urutan dan menunjukkan hubungan $P(n,k) = k! \\, \\binom{n}{k}$.',
-    hints: ['Tanyakan apakah urutan pemilihan penting atau tidak.'],
+    hints: [
+      'Tanyakan apakah urutan pemilihan penting atau tidak.',
+      'Ingat hubungan $P(n,k)=k!\\,\\binom{n}{k}$ saat membandingkan kedua hasil.',
+    ],
     competencies: ['permutasi', 'kombinasi', 'penalaran'],
     rubric: [
       'Menjelaskan peran urutan',
@@ -208,7 +226,7 @@ export const peluangBersyaratQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Peluang total produk cacat $P(D) = 0{,}3(0{,}02) + 0{,}3(0{,}03) + 0{,}4(0{,}05) = 0{,}006 + 0{,}009 + 0{,}020 = 0{,}035$. Menurut aturan Bayes, $P(C \\mid D) = \\dfrac{P(D \\mid C)P(C)}{P(D)} = \\dfrac{0{,}05 \\cdot 0{,}4}{0{,}035} = \\dfrac{0{,}020}{0{,}035} = \\dfrac{4}{7}$. Opsi A dan B berturut-turut adalah peluang posterior untuk mesin A dan B, bukan mesin C.',
+      'Peluang total produk cacat $P(D) = 0{,}3(0{,}02) + 0{,}3(0{,}03) + 0{,}4(0{,}05) = 0{,}035$. Menurut aturan Bayes, $P(C \\mid D) = \\dfrac{0{,}05 \\cdot 0{,}4}{0{,}035} = \\dfrac{0{,}020}{0{,}035} = \\dfrac{4}{7}$ (C). Opsi A ($\\frac6{35}$) adalah peluang posterior mesin A, bukan mesin C; opsi B ($\\frac9{35}$) adalah peluang posterior mesin B; opsi D ($\\frac57$) memakai komplemen yang keliru.',
     hints: [
       'Hitung peluang total produk cacat dari ketiga mesin lebih dahulu.',
       'Bagi kontribusi mesin C terhadap total cacat dengan $P(D)$.',
@@ -222,18 +240,21 @@ export const peluangBersyaratQuestions: Question[] = [
     type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Sebuah tes cepat penyakit memiliki sensitivitas $P(+\\mid D)=0{,}95$ dan spesifisitas $P(-\\mid D^{c})=0{,}90$. Prevalensi penyakit $P(D)=0{,}02$. (a) Hitung $P(D\\mid+)$ menggunakan aturan Bayes. (b) Jelaskan mengapa hasil positif belum tentu berarti benar-benar sakit.',
+      'Sebuah tes antidoping pada sekelompok atlet memiliki sensitivitas $P(+\\mid D)=0{,}95$ dan spesifisitas $P(-\\mid D^{c})=0{,}90$, dengan prevalensi doping $P(D)=0{,}02$. (a) Hitung peluang seorang atlet yang dinyatakan **negatif** benar-benar bersih, yaitu $P(D^{c}\\mid-)$. (b) Jelaskan mengapa hasil negatif lebih dapat diandalkan pada prevalensi rendah.',
     answer:
-      '(a) $P(+)=P(+\\mid D)P(D)+P(+\\mid D^{c})P(D^{c})=0{,}95(0{,}02)+0{,}10(0{,}98)=0{,}019+0{,}098=0{,}117$. Maka $P(D\\mid+)=\\dfrac{0{,}019}{0{,}117}\\approx0{,}162$, yaitu sekitar $16\\%$. (b) Karena prevalensinya rendah, banyak orang sehat yang keliru dinyatakan positif (positif palsu) sehingga mendominasi seluruh hasil positif. Akibatnya, meskipun tesnya akurat, peluang seseorang benar-benar sakit setelah hasil positif tetap kecil.',
+      '(a) $P(-)=P(-\\mid D)P(D)+P(-\\mid D^{c})P(D^{c})=0{,}05(0{,}02)+0{,}90(0{,}98)=0{,}001+0{,}882=0{,}883$. Maka $P(D^{c}\\mid-)=\\dfrac{P(-\\mid D^{c})P(D^{c})}{P(-)}=\\dfrac{0{,}882}{0{,}883}\\approx0{,}9989$, yaitu sekitar $99{,}9\\%$. (b) Karena prevalensinya rendah, sebagian besar atlet memang bersih, sehingga kelompok besar yang bersih mendominasi hasil negatif. Akibatnya peluang hasil negatif benar-benar bersih menjadi sangat tinggi, jauh lebih besar daripada nilai prediktif positif pada data yang sama.',
     explanation:
-      'Kunci: menghitung peluang total hasil positif lalu menerapkan Bayes, serta menafsirkan pengaruh prevalensi rendah terhadap nilai prediktif positif.',
-    hints: ['Hitung $P(+)$ sebagai jumlah dua jalur.', 'Perhatikan peran besar kelompok sehat pada prevalensi rendah.'],
-    competencies: ['aturan Bayes', 'nilai prediktif', 'evaluasi'],
+      'Kunci: memusatkan perhatian pada hasil negatif, menghitung peluang total $P(-)$ dari dua jalur, menerapkan Bayes untuk $P(D^{c}\\mid-)$, lalu menafsirkan mengapa nilai prediktif negatif tinggi ketika prevalensi rendah.',
+    hints: [
+      'Hitung $P(-)$ sebagai jumlah jalur sakit dan jalur sehat.',
+      'Gunakan Bayes dengan fokus pada $D^{c}$: $P(D^{c}\\mid-)=\\dfrac{P(-\\mid D^{c})P(D^{c})}{P(-)}$.',
+    ],
+    competencies: ['aturan Bayes', 'nilai prediktif negatif', 'evaluasi'],
     rubric: [
-      'Menghitung peluang total hasil positif',
-      'Menerapkan aturan Bayes',
-      'Memperoleh nilai peluang',
-      'Menjelaskan pengaruh prevalensi rendah',
+      'Menghitung peluang total hasil negatif',
+      'Menerapkan aturan Bayes untuk $P(D^{c}\\mid-)$',
+      'Memperoleh nilai sekitar $0{,}999$',
+      'Menjelaskan pengaruh prevalensi rendah terhadap nilai prediktif negatif',
     ],
   },
   {
@@ -304,5 +325,33 @@ export const peluangBersyaratQuestions: Question[] = [
       'Menghitung peluang tiap kejadian',
       'Menyimpulkan kedua kejadian saling bebas',
     ],
+  },
+  {
+    id: 'pb-16',
+    topicId: 'peluang-bersyarat',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Diagram pohon berikut menunjukkan pengambilan dua bola satu per satu **tanpa pengembalian** dari kantong berisi $5$ bola merah dan $3$ bola biru. Berdasarkan diagram, peluang bola kedua merah (tanpa memperhatikan warna bola pertama) adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{5}{8}$' },
+      { key: 'B', text: '$\\dfrac{4}{7}$' },
+      { key: 'C', text: '$\\dfrac{5}{7}$' },
+      { key: 'D', text: '$\\dfrac{15}{56}$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Dengan aturan peluang total, $P(M_2)=P(M_1)P(M_2\\mid M_1)+P(B_1)P(M_2\\mid B_1)=\\dfrac58\\cdot\\dfrac47+\\dfrac38\\cdot\\dfrac57=\\dfrac{20}{56}+\\dfrac{15}{56}=\\dfrac{35}{56}=\\dfrac58$ (A). Opsi B ($\\frac47$) hanya peluang bersyarat setelah bola pertama merah; opsi C ($\\frac57$) hanya peluang bersyarat setelah bola pertama biru; opsi D ($\\frac{15}{56}$) hanya menghitung jalur biru lalu merah tanpa menjumlahkan jalur merah lalu merah.',
+    figure: {
+      svg: '<svg viewBox="0 0 300 180" role="img" xmlns="http://www.w3.org/2000/svg"><line x1="20" y1="90" x2="118" y2="40" stroke="currentColor" stroke-width="1.8"/><line x1="20" y1="90" x2="118" y2="140" stroke="currentColor" stroke-width="1.8"/><line x1="118" y1="40" x2="248" y2="18" stroke="currentColor" stroke-width="1.8"/><line x1="118" y1="40" x2="248" y2="58" stroke="currentColor" stroke-width="1.8"/><line x1="118" y1="140" x2="248" y2="122" stroke="currentColor" stroke-width="1.8"/><line x1="118" y1="140" x2="248" y2="162" stroke="currentColor" stroke-width="1.8"/><circle cx="20" cy="90" r="3" fill="currentColor"/><text x="42" y="58" fill="currentColor" font-size="12">M 5/8</text><text x="42" y="132" fill="currentColor" font-size="12">B 3/8</text><text x="150" y="20" fill="currentColor" font-size="12">M 4/7</text><text x="150" y="52" fill="currentColor" font-size="12">B 3/7</text><text x="150" y="122" fill="currentColor" font-size="12">M 5/7</text><text x="150" y="158" fill="currentColor" font-size="12">B 2/7</text></svg>',
+      alt: 'Diagram pohon dua tahap pengambilan bola tanpa pengembalian: tahap pertama merah 5 per 8 atau biru 3 per 8, lalu tahap kedua bergantung pada warna bola pertama yang terambil.',
+      caption: 'Diagram pohon pengambilan dua bola tanpa pengembalian.',
+    },
+    hints: [
+      'Jumlahkan peluang kedua jalur yang berakhir dengan bola kedua merah.',
+      'Gunakan peluang total: jalur merah lalu merah ditambah jalur biru lalu merah.',
+    ],
+    competencies: ['peluang total', 'peluang bersyarat', 'diagram pohon'],
   },
 ];

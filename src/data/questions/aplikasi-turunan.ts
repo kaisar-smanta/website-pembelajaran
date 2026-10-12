@@ -16,8 +16,8 @@ export const aplikasiTurunanQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Gradien garis singgung adalah turunan $y\' = 2x$. Di $x = 3$ gradiennya $2(3) = 6$.',
-    hints: ['Turunan di suatu titik adalah gradien garis singgung di titik itu.'],
+      'Gradien garis singgung adalah turunan $y\' = 2x$. Di $x = 3$ gradiennya $2(3) = 6$. Opsi B, $9$, adalah nilai fungsi $y(3)=3^{2}$, bukan gradien. Opsi C, $3$, muncul bila nilai $x$ langsung dipakai sebagai gradien tanpa mengalikan dengan $2$. Opsi D, $2$, muncul bila koefisien atau pangkat dianggap sebagai gradien. ',
+    hints: ['Turunan di suatu titik adalah gradien garis singgung di titik itu.', 'Hitung $y\'(x)$ lebih dahulu, baru substitusikan $x=3$.'],
     competencies: ['gradien garis singgung'],
   },
   {
@@ -64,8 +64,8 @@ export const aplikasiTurunanQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Titik singgung $(3, 9)$ dan gradien $6$, sehingga $y - 9 = 6(x - 3)$, yaitu $y = 6x - 9$.',
-    hints: ['Gunakan $y - f(a) = f\'(a)(x - a)$ dengan $a = 3$.'],
+      'Titik singgung $(3, 9)$ dan gradien $6$, sehingga $y - 9 = 6(x - 3)$, yaitu $y = 6x - 9$. Opsi B, $y = 6x + 9$, memakai gradien yang benar tetapi salah konstanta karena menambahkan $9$ alih-alih mengurangi. Opsi C, $y = 3x - 9$, memakai gradien $3$ (nilai $x$) bukan $2x = 6$. Opsi D, $y = 2x - 3$, memakai gradien $2$ (pangkat) bukan turunan $2x$.',
+    hints: ['Gunakan $y - f(a) = f\'(a)(x - a)$ dengan $a = 3$.', 'Hitung titik singgung $(3, f(3))$ dan gradien $f\'(3)$ secara terpisah.'],
     competencies: ['persamaan garis singgung'],
   },
   {
@@ -80,7 +80,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     acceptedAnswers: ['-3 m/s', '-3m/s', '-3,0', '-3.0'],
     explanation:
       '$v(t) = 3t^{2} - 12t + 9$, maka $v(2) = 3(4) - 12(2) + 9 = 12 - 24 + 9 = -3$ m/s. Tanda negatif berarti partikel bergerak ke arah berlawanan.',
-    hints: ['Substitusikan $t = 2$ ke $v(t) = 3t^{2} - 12t + 9$.'],
+    hints: ['Substitusikan $t = 2$ ke $v(t) = 3t^{2} - 12t + 9$.', 'Hitung tiap suku secara berurutan agar tidak keliru tanda.'],
     competencies: ['kecepatan sesaat'],
   },
   {
@@ -95,7 +95,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     acceptedAnswers: ['0 m/s^2', '0 m/s2', '0,0', '0.0'],
     explanation:
       'Percepatan adalah turunan kecepatan: $a(t) = v\'(t) = 6t - 12$. Maka $a(2) = 12 - 12 = 0$ m/s$^{2}$.',
-    hints: ['Turunkan $v(t) = 3t^{2} - 12t + 9$.'],
+    hints: ['Turunkan $v(t) = 3t^{2} - 12t + 9$.', 'Percepatan adalah turunan dari fungsi kecepatan, bukan turunan posisi.'],
     competencies: ['percepatan sesaat'],
   },
   {
@@ -114,8 +114,8 @@ export const aplikasiTurunanQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$f\'\'(x) = 6x - 6$, sehingga $f\'\'(0) = -6 < 0$. Turunan kedua negatif berarti grafik cekung ke bawah di sekitar titik itu, jadi $(0, 2)$ adalah maksimum lokal.',
-    hints: ['Ingat: $f\'\'(c) < 0$ menandakan maksimum lokal.'],
+      '$f\'\'(x) = 6x - 6$, sehingga $f\'\'(0) = -6 < 0$. Turunan kedua negatif berarti grafik cekung ke bawah di sekitar titik itu, jadi $(0, 2)$ adalah maksimum lokal. Opsi B membalik makna tanda: $f\'\'(0) < 0$ menandakan maksimum, bukan minimum. Opsi C salah karena $f\'\'(0) = -6 \\neq 0$, jadi bukan titik belok. Opsi D salah pada nilainya, karena $f\'\'(0) = -6$, bukan $6$, sehingga tidak bisa dipakai menyimpulkan minimum.',
+    hints: ['Ingat: $f\'\'(c) < 0$ menandakan maksimum lokal.', 'Hitung $f\'\'(0)$ secara langsung dari $f\'\'(x)=6x-6$ sebelum menyimpulkan jenis titiknya.'],
     competencies: ['uji turunan kedua', 'titik stasioner'],
   },
   {
@@ -153,7 +153,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     acceptedAnswers: ['200 m^2', '200 m2', '200 m²'],
     explanation:
       'Misalkan sisi tegak lurus sungai berukuran $x$, maka sisi sejajar sungai berukuran $40 - 2x$. Luas $L(x) = x(40 - 2x)$ dengan $L\'(x) = 40 - 4x = 0$, sehingga $x = 10$. Luas maksimum $L(10) = 10 \\cdot 20 = 200$ m$^{2}$.',
-    hints: ['Nyatakan luas sebagai fungsi satu variabel, lalu cari titik stasionernya.'],
+    hints: ['Nyatakan luas sebagai fungsi satu variabel, lalu cari titik stasionernya.', 'Karena satu sisi memanfaatkan tepi sungai, kawat hanya dipakai untuk tiga sisi.'],
     competencies: ['optimasi', 'pemodelan'],
   },
   {
@@ -168,7 +168,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     acceptedAnswers: ['3,33', '3.33', '3,333', '3.333', '10/3', '10 per 3', '3 1/3'],
     explanation:
       'Volume $V(x) = x(20 - 2x)^{2}$. Turunan $V\'(x) = (20 - 2x)(20 - 6x) = 0$ memberi $x = 10$ atau $x = \\dfrac{10}{3}$. Nilai $x = 10$ tidak sah karena membuat lebar nol, jadi $x = \\dfrac{10}{3} \\approx 3{,}33$ cm.',
-    hints: ['Faktorkan $V\'(x)$ dan buang akar yang membuat ukuran tidak positif.'],
+    hints: ['Faktorkan $V\'(x)$ dan buang akar yang membuat ukuran tidak positif.', 'Sisi alas menjadi $20 - 2x$, sehingga $x$ harus memenuhi $0 < x < 10$.'],
     competencies: ['optimasi', 'pemodelan'],
   },
   {
@@ -230,7 +230,7 @@ export const aplikasiTurunanQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Nilai $f\'\'(c)=0$ tidak cukup untuk memutuskan jenis titik. Bila $f\'\'$ berubah tanda di sekitar $x=c$, titik itu titik belok; bila tandanya tidak berubah (misalnya $f(x)=x^{4}$ di $x=0$), titik itu justru minimum lokal. Karena itu perlu uji perubahan tanda $f\'\'$.',
+      'Nilai $f\'\'(c)=0$ tidak cukup untuk memutuskan jenis titik. Bila $f\'\'$ berubah tanda di sekitar $x=c$, titik itu titik belok; bila tandanya tidak berubah (misalnya $f(x)=x^{4}$ di $x=0$), titik itu justru minimum lokal. Karena itu perlu uji perubahan tanda $f\'\'$. Opsi A salah karena $f\'\'(c)=0$ tidak otomatis berarti titik belok. Opsi B dan D sama-sama salah karena $f\'\'(c)=0$ tidak menentukan maksimum lokal maupun minimum lokal tanpa pemeriksaan tambahan.',
     hints: [
       'Uji turunan kedua tidak dapat disimpulkan ketika $f\'\'(c)=0$.',
       'Bandingkan perilaku $f(x)=x^{3}$ dan $f(x)=x^{4}$ di sekitar $x=0$.',
@@ -259,5 +259,46 @@ export const aplikasiTurunanQuestions: Question[] = [
       "Menyelesaikan $L'(r)=0$ menjadi $V=2\\pi r^{3}$",
       "Menunjukkan $h=2r$ (diameter) dan memverifikasi minimum dengan $L''(r)>0$",
     ],
+  },
+  {
+    id: 'ap-15',
+    topicId: 'aplikasi-turunan',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Ketinggian sebuah drone setelah $t$ detik (meter) dimodelkan $h(t) = -t^{3} + 6t^{2} + 15t$ untuk $t \\geq 0$. Tentukan ketinggian maksimum yang dicapai drone.',
+    answer: '100',
+    acceptedAnswers: ['100', '100 m'],
+    explanation:
+      'Kecepatan naik adalah $h\'(t) = -3t^{2} + 12t + 15 = -3(t-5)(t+1)$. Karena $t \\geq 0$, titik stasioner yang relevan adalah $t = 5$. Turunan kedua $h\'\'(t) = -6t + 12$ memberi $h\'\'(5) = -18 < 0$, sehingga $t = 5$ adalah maksimum. Ketinggian maksimum $h(5) = -125 + 150 + 75 = 100$ meter.',
+    hints: [
+      'Cari titik stasioner dari $h\'(t) = 0$ dan buang nilai $t$ yang negatif.',
+      'Gunakan $h\'\'(t)$ untuk memastikan titik itu maksimum, lalu substitusikan ke $h(t)$.',
+    ],
+    competencies: ['optimasi', 'uji turunan kedua', 'kontekstual'],
+  },
+  {
+    id: 'ap-16',
+    topicId: 'aplikasi-turunan',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'evaluasi',
+    prompt:
+      'Diketahui $f(x) = x^{3}$. Pernyataan yang paling tepat mengenai titik $x = 0$ adalah …',
+    options: [
+      { key: 'A', text: '$f\'(0) = 0$ dan titik $(0,0)$ merupakan titik belok' },
+      { key: 'B', text: '$f\'(0) = 0$ dan titik $(0,0)$ merupakan maksimum lokal' },
+      { key: 'C', text: '$f\'(0)$ tidak ada karena grafik berbelok tajam di titik asal' },
+      { key: 'D', text: '$f\'(0) = 0$ dan titik $(0,0)$ merupakan minimum lokal' },
+    ],
+    answer: 'A',
+    explanation:
+      'Turunan $f\'(x) = 3x^{2}$ sehingga $f\'(0) = 0$. Karena $f\'\'(x) = 6x$ berubah tanda di sekitar $x = 0$ dan nilai $f$ terus naik pada kedua sisinya, titik $(0,0)$ adalah titik belok, bukan ekstrem. Opsi B dan D salah karena $f(x)=x^{3}$ tidak memiliki maksimum maupun minimum lokal di titik asal. Opsi C salah karena $f\'(0) = 0$ ada dan terdefinisi; grafik memang mendatar di titik itu, tidak menimbulkan turunan tak ada.',
+    hints: [
+      'Hitung $f\'(0)$ dan $f\'\'(0)$ terlebih dahulu.',
+      'Periksa apakah nilai fungsi di kiri dan kanan $x=0$ lebih kecil atau lebih besar dari $f(0)$.',
+    ],
+    competencies: ['titik belok', 'evaluasi konsep turunan'],
   },
 ];

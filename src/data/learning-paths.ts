@@ -212,6 +212,13 @@ export const learningPaths: LearningPath[] = [
       },
       { label: 'Vektor', id: 'vektor', grade: 'XI', element: 'geometri' },
       { label: 'Irisan Kerucut', id: 'irisan-kerucut', grade: 'XI', element: 'geometri' },
+      { label: 'Fungsi Logaritma', id: 'fungsi-logaritma', grade: 'XI', element: 'aljabar-fungsi' },
+      {
+        label: 'Fungsi Rasional & Akar',
+        id: 'fungsi-rasional-akar',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
     ],
   },
   {
@@ -232,8 +239,14 @@ export const learningPaths: LearningPath[] = [
         element: 'data-peluang',
       },
       {
-        label: 'Distribusi Binomial (pengayaan)',
+        label: 'Distribusi Binomial',
         id: 'distribusi-binomial',
+        grade: 'XII',
+        element: 'data-peluang',
+      },
+      {
+        label: 'Distribusi Normal',
+        id: 'distribusi-normal',
         grade: 'XII',
         element: 'data-peluang',
       },

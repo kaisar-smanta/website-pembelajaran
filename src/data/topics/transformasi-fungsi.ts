@@ -247,6 +247,14 @@ Di sini $a$ mengatur peregangan vertikal dan refleksi terhadap sumbu-$x$, $k$ me
 - menggeser ke atas $3$ lalu meregangkan vertikal dengan faktor $2$ menghasilkan $2(x^2+3)=2x^2+6$.
 
 Kedua hasil berbeda. Karena itu, transformasi pada sumbu yang sama sebaiknya dikerjakan dengan urutan yang jelas.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Empat parabola pada satu bidang koordinat: parabola dasar f(x)=x kuadrat, parabola hasil pencerminan terhadap sumbu x, parabola hasil peregangan vertikal dua kali, dan parabola hasil pergeseran ke kanan dua satuan.",
+          caption: "Satu grafik dasar $f(x)=x^{2}$ dan tiga transformasinya: refleksi sumbu-$x$ memberi $y=-x^{2}$, dilatasi vertikal memberi $y=2x^{2}$, dan translasi horizontal memberi $y=(x-2)^{2}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-trf-parab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="20" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-trf-parab)"/><line x1="150" y1="205" x2="150" y2="25" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-trf-parab)"/><polyline points="72,35 98,110 111,136 124,155 137,166 150,170 163,166 176,155 189,136 202,110 228,35" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="98,230 124,185 150,170 176,185 202,230" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><polyline points="98,50 111,102 124,140 137,162 150,170 163,162 176,140 189,102 202,50" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="8 3 2 3"/><polyline points="124,35 150,110 176,155 202,170 228,155 254,110 280,35" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><line x1="20" y1="22" x2="44" y2="22" stroke="currentColor" stroke-width="2.2"/><text x="50" y="26" font-size="10" fill="currentColor">f(x) = x²</text><line x1="164" y1="22" x2="188" y2="22" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="194" y="26" font-size="10" fill="currentColor">y = (x−2)²</text><line x1="20" y1="40" x2="44" y2="40" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><text x="50" y="44" font-size="10" fill="currentColor">y = −x²</text><line x1="164" y1="40" x2="188" y2="40" stroke="currentColor" stroke-width="2" stroke-dasharray="8 3 2 3"/><text x="194" y="44" font-size="10" fill="currentColor">y = 2x²</text><text x="296" y="164" font-size="11" fill="currentColor">x</text><text x="156" y="32" font-size="11" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -264,6 +272,30 @@ Kedua hasil berbeda. Karena itu, transformasi pada sumbu yang sama sebaiknya dik
 $$y = a\\,f\\big(k(x-h)\\big)+c.$$
 
 **Prosedur.** (1) Kenali grafik dasarnya. (2) Kerjakan transformasi horizontal (di dalam fungsi) lebih dahulu, lalu vertikal (di luar fungsi). (3) Lacak perpindahan titik kunci seperti puncak. (4) Periksa hasilnya dengan mensubstitusi satu titik.`,
+      blocks: [
+        {
+          kind: "flip-cards",
+          intro: "Balik tiap kartu untuk menguji istilah transformasi.",
+          cards: [
+            {
+              front: "Translasi",
+              back: "Pergeseran grafik tanpa mengubah bentuknya.",
+            },
+            {
+              front: "Refleksi",
+              back: "Pencerminan grafik terhadap sebuah sumbu.",
+            },
+            {
+              front: "Dilatasi",
+              back: "Peregangan atau penyusutan grafik terhadap acuan.",
+            },
+            {
+              front: "Refleksi sumbu-$x$",
+              back: "Memakai $y=-f(x)$; tiap titik $(a,b)$ menjadi $(a,-b)$.",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "eksplorasi",
@@ -281,41 +313,32 @@ $$y = a\\,f\\big(k(x-h)\\big)+c.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1 (translasi).** Sketsakan grafik $y=(x-2)^2+3$ dari grafik dasar $y=x^2$, lalu tentukan titik puncaknya.
+      blocks: [
+        {
+          kind: "step-reveal",
+          intro: "Kerjakan tiga contoh transformasi berikut satu langkah sekaligus.",
+          steps: [
+            {
+              title: "Contoh 1: translasi",
+              text: `Sketsakan grafik $y=(x-2)^2+3$ dari grafik dasar $y=x^2$, lalu tentukan titik puncaknya.
 
 *Penyelesaian.* Grafik $y=x^2$ digeser ke kanan $2$ satuan karena bentuk $x-2$, kemudian ke atas $3$ satuan. Titik puncak $(0,0)$ berpindah menjadi $(2,3)$. Periksa dengan mengembangkan bentuknya:
 $$(x-2)^2+3 = x^2-4x+4+3 = x^2-4x+7.$$
-Sumbu simetrinya $x=\\dfrac{4}{2}=2$ dan nilai minimumnya $y=2^2-4(2)+7=3$. Benar.
+Sumbu simetrinya $x=\\dfrac{4}{2}=2$ dan nilai minimumnya $y=2^2-4(2)+7=3$. Benar.`,
+            },
+            {
+              title: "Contoh 2: refleksi",
+              text: `Tentukan hasil pencerminan $y=2x+1$ terhadap sumbu-$x$ dan terhadap sumbu-$y$.
 
-**Contoh 2 (refleksi).** Tentukan hasil pencerminan $y=2x+1$ terhadap sumbu-$x$ dan terhadap sumbu-$y$.
-
-*Penyelesaian.* Terhadap sumbu-$x$: $y=-(2x+1)=-2x-1$. Terhadap sumbu-$y$: $y=2(-x)+1=-2x+1$.
-
-**Contoh 3 (dilatasi).** Grafik $y=x^2$ melalui titik $(2,4)$. Tentukan titik padanannya pada grafik $y=2f(x)$ dan pada grafik $y=f(2x)$.
+*Penyelesaian.* Terhadap sumbu-$x$: $y=-(2x+1)=-2x-1$. Terhadap sumbu-$y$: $y=2(-x)+1=-2x+1$.`,
+            },
+            {
+              title: "Contoh 3: dilatasi",
+              text: `Grafik $y=x^2$ melalui titik $(2,4)$. Tentukan titik padanannya pada grafik $y=2f(x)$ dan pada grafik $y=f(2x)$.
 
 *Penyelesaian.*
 - $y=2f(x)=2x^2$: titik $(2,4)$ menjadi $(2,\\,2\\cdot4)=(2,8)$. Periksa: $2(2)^2=8$.
 - $y=f(2x)=4x^2$: titik $(2,4)$ menjadi $\\left(\\dfrac{2}{2},\\,4\\right)=(1,4)$. Periksa: $4(1)^2=4$.`,
-      blocks: [
-        {
-          kind: "step-reveal",
-          intro: "Mari sketsakan $y=(x-2)^2+3$ dari grafik dasar $y=x^2$, satu langkah sekaligus.",
-          steps: [
-            {
-              title: "Kenali bentuknya",
-              text: "Bentuk $y=(x-2)^2+3$ berasal dari $y=x^2$ dengan $h=2$ dan $k=3$.",
-            },
-            {
-              title: "Geser horizontal",
-              text: "Faktor $x-2$ berarti grafik digeser ke kanan $2$ satuan, sehingga puncak $(0,0)$ menjadi $(2,0)$.",
-            },
-            {
-              title: "Geser vertikal",
-              text: "Tambahan $+3$ menggeser grafik ke atas $3$ satuan, sehingga puncak menjadi $(2,3)$.",
-            },
-            {
-              title: "Periksa dengan bentuk umum",
-              text: "Dikembangkan: $(x-2)^2+3=x^2-4x+7$. Sumbu simetri $x=2$ dan nilai minimum $f(2)=3$, cocok dengan puncak $(2,3)$.",
             },
           ],
         },
@@ -412,7 +435,7 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana menggeser dan meregangkan grafik mengubah tampilan sebuah fungsi.",
+      body: "Telaah kembali bagaimana perubahan rumus mengubah tampilan grafik tanpa menghitung ulang tiap titik.",
       blocks: [
         {
           kind: "reflection",
@@ -476,7 +499,7 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana bentuk umum $y=a\\,f\\big(k(x-h)\\big)+c$ menunjukkan jenis transformasi yang terjadi? (2) Mengapa urutan langkah transformasi dapat mengubah hasil akhir? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Transformasi Fungsi** untuk latihan tambahan.`,
+      body: `**Refleksi akhir.** (1) Bagaimana bentuk umum $y=a\\,f\\big(k(x-h)\\big)+c$ menunjukkan jenis transformasi yang terjadi? (2) Mengapa urutan langkah transformasi dapat mengubah hasil akhir? Setelah menjawab, uji kemampuanmu pada [Latihan & Asesmen](/latihan) topik **Transformasi Fungsi**.`,
     },
   ],
 };

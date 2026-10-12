@@ -17,7 +17,7 @@ export const anuitasQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Bunga bulan pertama dihitung dari pokok pinjaman: $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Opsi B salah karena memakai $15\\%$, bukan $1{,}5\\%$.',
+      'Bunga bulan pertama dihitung dari pokok pinjaman: $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$ (opsi D). Opsi A ($100.000$) memakai $1\\%$, bukan $1{,}5\\%$. Opsi B ($1.500.000$) memakai $15\\%$ sehingga terlalu besar sepuluh kali. Opsi C ($15.000$) salah menempatkan satu angka nol pada desimal.',
     hints: ['Bunga periode ke-$k$ dihitung dari sisa utang sebelumnya.'],
     competencies: ['angsuran bunga'],
   },
@@ -37,7 +37,7 @@ export const anuitasQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Bunga dihitung dari sisa utang. Karena sisa utang terus berkurang, porsi bunga makin kecil dan porsi pokok makin besar, meskipun total angsuran tetap. Inilah yang membuat utang turun makin cepat di akhir periode.',
+      'Opsi C benar: karena sisa utang terus berkurang, porsi bunga makin kecil dan porsi pokok makin besar meskipun besar angsuran total tetap. Opsi A salah karena yang tetap adalah angsuran total, bukan porsi bunganya. Opsi B salah karena kebalikannya yang terjadi. Opsi D salah karena porsi pokok dan bunga tidak pernah sama besar tiap bulan.',
     hints: ['Apakah sisa utang dari bulan ke bulan makin besar atau makin kecil?'],
     competencies: ['konsep anuitas', 'komposisi angsuran'],
   },
@@ -80,8 +80,11 @@ export const anuitasQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Total pembayaran $= 24 \\times 499.241,02 = \\text{Rp}11.981.784,48$. Total bunga $= 11.981.784,48 - 10.000.000 = \\text{Rp}1.981.784,48 \\approx \\text{Rp}1.981.784$.',
-    hints: ['Total bunga = total pembayaran − pokok pinjaman.'],
+      'Total pembayaran $= 24 \\times 499.241,02 = \\text{Rp}11.981.784,48$ dan total bunga $= 11.981.784,48 - 10.000.000 = \\text{Rp}1.981.784,48 \\approx \\text{Rp}1.981.784$ (opsi D). Opsi A ($1.750.000$) keliru memakai bunga tunggal selama tenor sebagian. Opsi B ($2.000.000$) membulatkan total bunga ke atas secara berlebihan. Opsi C ($350.000$) hanya menghitung bunga beberapa bulan pertama, bukan seluruh $24$ bulan.',
+    hints: [
+      'Total bunga = total pembayaran − pokok pinjaman.',
+      'Total pembayaran $=24\\times$ angsuran bulanan.',
+    ],
     competencies: ['total bunga', 'literasi keuangan'],
   },
   {
@@ -111,7 +114,10 @@ export const anuitasQuestions: Question[] = [
     acceptedAnswers: ['Rp447.000,00', '447.000', '447000', 'Rp 447.000'],
     explanation:
       'Angsuran bunga bulan pertama $= 0{,}02 \\times 6.000.000 = \\text{Rp}120.000$. Angsuran pokok $= 567.000 - 120.000 = \\text{Rp}447.000$.',
-    hints: ['Angsuran pokok adalah angsuran total dikurangi angsuran bunga.'],
+    hints: [
+      'Angsuran pokok adalah angsuran total dikurangi angsuran bunga.',
+      'Hitung dulu angsuran bunga bulan pertama $=0{,}02\\times6.000.000$.',
+    ],
     competencies: ['komposisi angsuran', 'angsuran pokok'],
   },
   {
@@ -126,7 +132,10 @@ export const anuitasQuestions: Question[] = [
     acceptedAnswers: ['Rp5.637.092,96', 'Rp5.637.093,00', '5.637.093,00', '5637093,00', '5.637.093', '5637093', 'Rp 5.637.093'],
     explanation:
       '$FV = A \\cdot \\dfrac{(1+i)^n - 1}{i} = 1.000.000 \\cdot \\dfrac{(1{,}06)^5 - 1}{0{,}06} = 1.000.000 \\cdot \\dfrac{0{,}338226}{0{,}06} \\approx \\text{Rp}5.637.093$.',
-    hints: ['Gunakan rumus nilai masa depan anuitas, bukan bunga majemuk biasa.'],
+    hints: [
+      'Gunakan rumus nilai masa depan anuitas, bukan bunga majemuk biasa.',
+      'Substitusi $A=1.000.000$, $i=0{,}06$, dan $n=5$ ke $FV=A\\dfrac{(1+i)^n-1}{i}$.',
+    ],
     competencies: ['nilai masa depan', 'rumus anuitas'],
   },
   {
@@ -134,19 +143,22 @@ export const anuitasQuestions: Question[] = [
     topicId: 'anuitas',
     difficulty: 'cakap',
     type: 'open-response',
-    category: 'penalaran',
+    category: 'evaluasi',
     prompt:
-      'Jelaskan mengapa pada anuitas porsi bunga dalam angsuran makin kecil dari bulan ke bulan, meskipun besar angsurannya tetap.',
+      'Sebuah pinjaman menawarkan suku bunga **nominal** $12\\%$ per tahun yang dimajemukkan setiap bulan. (a) Tentukan suku bunga per bulan. (b) Hitung suku bunga efektif tahunan, lalu jelaskan mengapa nilainya lebih besar daripada suku bunga nominal.',
     answer:
-      'Bunga setiap periode dihitung dari sisa utang, yaitu $i \\times \\text{sisa utang}$. Karena setiap angsuran pokok mengurangi sisa utang, sisa utang dari bulan ke bulan makin kecil, sehingga bunga yang dihitung pun makin kecil. Karena angsuran total $A$ tetap, bagian yang tersisa untuk pokok ($A$ dikurangi bunga) justru makin besar. Jadi ada dua hal yang bergerak berlawanan: porsi bunga menurun dan porsi pokok meningkat, namun jumlahnya selalu $A$.',
+      '(a) Suku bunga per bulan $i=\\dfrac{0{,}12}{12}=0{,}01=1\\%$. (b) Suku bunga efektif $=\\left(1+\\dfrac{0{,}12}{12}\\right)^{12}-1=(1{,}01)^{12}-1\\approx0{,}126825=12{,}68\\%$. Nilainya lebih besar daripada nominal $12\\%$ karena bunga dimajemukkan $12$ kali setahun: bunga yang telah timbul ikut menghasilkan bunga pada bulan-bulan berikutnya. Makin sering pemajemukan, makin besar selisih suku bunga efektif dari nominal.',
     explanation:
-      'Penilaian menekankan pemahaman bahwa dasar perhitungan bunga adalah sisa utang yang terus menyusut, bukan pokok awal.',
-    hints: ['Ingat bahwa bunga dihitung dari sisa utang yang terus berkurang, bukan dari pokok awal.'],
-    competencies: ['konsep anuitas', 'penalaran'],
+      'Kunci: mengubah nominal menjadi suku bunga per bulan, menerapkan rumus suku bunga efektif $(1+i)^m-1$, lalu menjelaskan efek bunga-berbunga yang menaikkan biaya pinjaman sebenarnya.',
+    hints: [
+      'Suku bunga nominal dibagi banyaknya periode pemajemukan per tahun.',
+      'Gunakan $i_{\\text{efektif}}=\\left(1+\\dfrac{j}{m}\\right)^{m}-1$ dengan $j=0{,}12$ dan $m=12$.',
+    ],
+    competencies: ['suku bunga nominal dan efektif', 'evaluasi'],
     rubric: [
-      'Menjelaskan bunga dihitung dari sisa utang, bukan pokok awal',
-      'Menghubungkan penurunan sisa utang dengan penurunan porsi bunga',
-      'Menyimpulkan porsi pokok naik karena angsuran total tetap',
+      'Menghitung suku bunga per bulan $1\\%$',
+      'Menghitung suku bunga efektif $\\approx12{,}68\\%$',
+      'Menjelaskan suku bunga efektif lebih besar karena frekuensi pemajemukan',
     ],
   },
   {
@@ -161,7 +173,10 @@ export const anuitasQuestions: Question[] = [
       'Angsuran dihitung dengan $A = \\dfrac{M i}{1-(1+i)^{-n}}$. Memperpanjang tenor memperbesar $n$. Karena $(1+i)^{-n}$ makin kecil ketika $n$ bertambah, penyebut $1-(1+i)^{-n}$ makin besar, sehingga nilai $A$ menurun. Namun pembayaran dilakukan lebih banyak kali. Total pembayaran $= n \\times A$ justru bertambah karena bunga terus berjalan selama periode yang lebih lama, sehingga total bunga $nA - M$ naik. Dengan kata lain, angsuran bulanan lebih ringan, tetapi biaya pinjaman secara keseluruhan lebih besar.',
     explanation:
       'Kunci jawaban harus menghubungkan turunnya $A$ dengan naiknya $n$, lalu menjelaskan efek pada total $n \\times A$ dan total bunga.',
-    hints: ['Amati pengaruh memperbesar $n$ terhadap penyebut $1-(1+i)^{-n}$ dan terhadap banyaknya pembayaran $nA$.'],
+    hints: [
+      'Amati pengaruh memperbesar $n$ terhadap penyebut $1-(1+i)^{-n}$ dan terhadap banyaknya pembayaran $nA$.',
+      'Bandingkan total pembayaran $nA$ pada $n=24$ dengan $n=48$.',
+    ],
     competencies: ['rumus anuitas', 'pemodelan keuangan', 'analisis kritis'],
     rubric: [
       'Menunjukkan menambah $n$ memperbesar penyebut $1-(1+i)^{-n}$ sehingga $A$ menurun',
@@ -181,7 +196,10 @@ export const anuitasQuestions: Question[] = [
       'Total pembayaran $= 12 \\times 1.500.000 = \\text{Rp}18.000.000$, sehingga total bunga $= 18.000.000 - 16.000.000 = \\text{Rp}2.000.000$. Nilai wajar angsuran pada $i = 1{,}5\\%$ dan $n = 12$ adalah $A = \\dfrac{16.000.000(0{,}015)}{1-(1{,}015)^{-12}} \\approx \\text{Rp}1.466.880$ (dengan $(1{,}015)^{-12} \\approx 0{,}836387$). Karena penawaran Rp1.500.000 lebih tinggi daripada nilai wajar Rp1.466.880, suku bunga efektif yang dikenakan melebihi $1{,}5\\%$ per bulan. Penawaran ini relatif mahal; peminjam sebaiknya memeriksa biaya administrasi, denda, dan bunga efektif sebelum menyetujui.',
     explanation:
       'Penilaian mencakup tiga hal: total bunga yang benar, perhitungan nilai wajar anuitas, dan penafsiran kritis bahwa angsuran penawaran di atas nilai wajar.',
-    hints: ['Bandingkan angsuran penawaran dengan nilai wajar anuitas pada suku bunga wajar $1{,}5\\%$ per bulan.'],
+    hints: [
+      'Bandingkan angsuran penawaran dengan nilai wajar anuitas pada suku bunga wajar $1{,}5\\%$ per bulan.',
+      'Hitung nilai wajar dengan $A=\\dfrac{M i}{1-(1+i)^{-n}}$ pada $M=16.000.000$, $i=0{,}015$, dan $n=12$.',
+    ],
     competencies: ['rumus anuitas', 'evaluasi penawaran', 'literasi keuangan'],
     rubric: [
       'Menghitung total pembayaran Rp18.000.000 dan total bunga Rp2.000.000',
@@ -265,17 +283,20 @@ export const anuitasQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'kontekstual',
     prompt:
-      'Bu Ana membandingkan dua tawaran pinjaman dengan pokok dan suku bunga per bulan yang sama, tetapi tenor berbeda: $12$ bulan dan $24$ bulan. Pernyataan yang benar adalah …',
+      'Bu Ana membandingkan dua pinjaman dengan pokok dan tenor sama ($12$ bulan), tetapi suku bunga per bulan berbeda: $1\\%$ dan $1{,}5\\%$. Pernyataan yang benar adalah …',
     options: [
-      { key: 'A', text: 'Tenor $24$ bulan memberi angsuran bulanan lebih besar dan total bunga lebih besar.' },
-      { key: 'B', text: 'Tenor $24$ bulan memberi angsuran bulanan lebih kecil tetapi total bunga lebih besar.' },
-      { key: 'C', text: 'Tenor $24$ bulan memberi angsuran bulanan lebih kecil dan total bunga lebih kecil.' },
-      { key: 'D', text: 'Kedua tenor memberi total bunga yang sama.' },
+      { key: 'A', text: 'Suku bunga lebih tinggi memberi angsuran bulanan lebih besar, tetapi total bunga lebih kecil.' },
+      { key: 'B', text: 'Suku bunga lebih tinggi memberi angsuran bulanan lebih besar dan total bunga lebih besar.' },
+      { key: 'C', text: 'Suku bunga lebih tinggi memberi angsuran bulanan lebih kecil, tetapi total bunga lebih besar.' },
+      { key: 'D', text: 'Suku bunga hanya mengubah total bunga, tidak mengubah angsuran bulanan.' },
     ],
     answer: 'B',
     explanation:
-      'Pada rumus $A=\\dfrac{M i}{1-(1+i)^{-n}}$, memperbesar $n$ memperbesar penyebut sehingga angsuran bulanan $A$ menurun. Namun banyaknya angsuran bertambah, sehingga total pembayaran $nA$ dan total bunga $nA-M$ justru naik. Jadi tenor lebih panjang membuat cicilan lebih ringan tetapi biaya bunga keseluruhan lebih besar.',
-    hints: ['Amati pengaruh memperbesar $n$ pada $A$ dan pada $nA$.'],
+      'Pada $A=\\dfrac{M i}{1-(1+i)^{-n}}$, menaikkan $i$ memperbesar pembilang sekaligus ciri bunganya, sehingga angsuran bulanan $A$ naik; total bunga $nA-M$ juga naik (opsi B). Opsi A salah karena total bunga ikut naik, bukan turun. Opsi C salah karena angsuran bulanan justru naik, bukan turun. Opsi D salah karena $i$ muncul langsung pada rumus angsuran, sehingga mengubahnya.',
+    hints: [
+      'Amati posisi $i$ pada rumus $A=\\dfrac{M i}{1-(1+i)^{-n}}$.',
+      'Jika angsuran bulanan naik pada tenor yang sama, bagaimana total pembayarannya?',
+    ],
     competencies: ['rumus anuitas', 'literasi keuangan', 'kontekstual'],
   },
 ];

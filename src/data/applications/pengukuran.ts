@@ -13,18 +13,20 @@ export const pengukuranApplications: Application[] = [
     tags: ['trigonometri', 'sudut elevasi', 'triangulasi', 'pengukuran', 'tangen'],
     summary: 'Menggunakan perbandingan trigonometri untuk mengukur tinggi objek dari jarak tertentu.',
     topicIds: ['trigonometri'],
-    body: `Pada jarak **50 m** dari kaki sebuah menara, seorang pengamat mengukur sudut elevasi ke puncak menara sebesar **30°**. Tanah dianggap datar dan tinggi mata pengamat diabaikan.
-
-Bagaimana menaksir tinggi menara $h$ hanya dari satu sudut dan satu jarak? Perbandingan tangen menghubungkan sudut dengan sisi depan dan sisi samping segitiga siku-siku:
+    body: `Pada jarak **50 m** dari kaki sebuah menara, seorang pengamat mengukur sudut elevasi ke puncak menara sebesar **30°**. Tanah dianggap datar dan tinggi mata pengamat diabaikan. Menaksir tinggi menara $h$ memakai perbandingan tangen:
 
 $$\\tan 30^\\circ = \\frac{h}{50}.$$
 
-Dengan menyusun ulang persamaan ini, tinggi menara dapat dihitung tanpa pernah memanjatnya.`,
-    analysis: `Karena $\\tan 30^\\circ = \\dfrac{1}{\\sqrt{3}} \\approx 0{,}5774$, maka
-
+Namun muncul sebuah keputusan. Pengamat bisa berdiri **50 m** dari menara (sudut sekitar $30^\\circ$) atau menjauh ke **100 m** (sudut sekitar $16^\\circ$). Alat ukur sudutnya hanya teliti sampai **±1°**. Posisi mana yang sebaiknya dipilih agar taksiran tinggi menara lebih dapat dipercaya, dan mengapa jarak yang lebih jauh belum tentu memberi hasil lebih baik?`,
+    analysis: `Karena $\\tan 30^\\circ = \\dfrac{1}{\\sqrt{3}} \\approx 0{,}5774$, dari posisi 50 m:
 $$h = 50 \\times \\tan 30^\\circ = \\frac{50}{\\sqrt{3}} \\approx 28{,}87 \\text{ m}.$$
 
-Jadi tinggi menara sekitar **28,9 m**. Metode ini disebut **triangulasi** dan dipakai pada survei, navigasi, hingga pengukuran tinggi gunung. Hasilnya tetap bergantung pada asumsi: jika pengukuran dilakukan dari tempat yang lebih tinggi atau permukaan tanah tidak rata, diperlukan koreksi. Inilah sebabnya juru ukur mengukur beberapa sudut dari titik berbeda lalu membandingkan hasilnya.`,
+Untuk menilai keandalan tiap posisi, kita hitung seberapa besar taksiran $h$ bergeser ketika sudut meleset $1^\\circ$. Karena $h = d\\tan\\theta$, perubahan $h$ terhadap sudut adalah $\\dfrac{dh}{d\\theta} = d\\,\\sec^{2}\\theta$.
+
+- Dari 50 m ($\\theta = 30^\\circ$, $\\sec^{2}30^\\circ = \\tfrac{4}{3}$): $\\Delta h \\approx 50 \\times \\tfrac{4}{3} \\times 0{,}01745 \\approx 1{,}16$ m.
+- Dari 100 m (sudut terukur hanya $16{,}1^\\circ$, $\\sec^{2}16{,}1^\\circ \\approx 1{,}083$): $\\Delta h \\approx 100 \\times 1{,}083 \\times 0{,}01745 \\approx 1{,}89$ m.
+
+Jadi posisi 100 m memberi galat hampir **1,6 kali** lebih besar, dan jarak dasarnya sendiri lebih sulit diukur tepat. Kesimpulannya, berdiri lebih dekat sehingga sudut elevasi lebih besar memberi taksiran yang lebih andal — selama menara masih terlihat dan sudut tidak mendekati $90^\\circ$. Metode ini disebut **triangulasi** dan dipakai pada survei serta navigasi. Inilah alasan juru ukur mengukur dari beberapa titik berbeda lalu membandingkan hasilnya, bukan hanya dari satu posisi.`,
     takeaways: [
       'Satu sudut dan satu jarak cukup untuk menaksir tinggi lewat tangen.',
       'Hasil pengukuran bergantung pada asumsi yang dipakai.',
@@ -34,7 +36,7 @@ Jadi tinggi menara sekitar **28,9 m**. Metode ini disebut **triangulasi** dan di
       'Bagaimana koreksi dilakukan jika tinggi mata pengamat tidak diabaikan?',
     ],
     source:
-      'Ilustrasi fiktif berdasarkan metode triangulasi juru ukur; angka dibuat agar mudah dihitung.',
+      'Berdasarkan metode triangulasi yang dipakai juru ukur dan surveyor; jarak 50 m dan sudut 30° dipilih agar perhitungan tangen mudah, dengan angka dibulatkan.',
   },
   {
     id: 'luas-juring-taman',
@@ -48,20 +50,27 @@ Jadi tinggi menara sekitar **28,9 m**. Metode ini disebut **triangulasi** dan di
     tags: ['lingkaran', 'juring', 'busur', 'luas', 'desain taman'],
     summary: 'Menghitung luas juring dan panjang busur untuk kebutuhan material.',
     topicIds: ['lingkaran', 'trigonometri'],
-    body: `Sebuah taman berbentuk **juring lingkaran** dengan jari-jari 7 m dan sudut pusat 90°. Seluruh area juring akan ditanami rumput, sedangkan sisi lengkungnya akan dipagari. Berapa banyak rumput dan pagar yang harus disiapkan?
+    body: `Panitia lingkungan akan membuat taman berbentuk **juring lingkaran**. Anggarannya adalah **rumput maksimum 40 m²** dan **pagar lengkung maksimum 12 m**. Ada dua rancangan yang diusulkan:
 
-Bagian yang ditanami berbentuk juring, sedangkan pagar mengikuti busur. Keduanya sebanding dengan sudut pusat terhadap satu putaran penuh:
+- **Rancangan A:** sudut pusat $90^\\circ$ dengan jari-jari $7$ m.
+- **Rancangan B:** sudut pusat $120^\\circ$ dengan jari-jari $6$ m.
+
+Hanya sisi lengkung yang perlu dipagari (sisi lurus berbatasan dengan dinding). Pertanyaan pemicunya: rancangan mana yang masih memenuhi kedua anggaran? Luas juring dan panjang busur sebanding dengan sudut pusat terhadap satu putaran penuh:
 
 $$L = \\frac{\\theta}{360^\\circ} \\times \\pi r^{2}, \\qquad s = \\frac{\\theta}{360^\\circ} \\times 2\\pi r.$$`,
-    analysis: `Dengan $\\theta = 90^\\circ$ dan $r = 7$ m (memakai $\\pi \\approx \\tfrac{22}{7}$), luas juring:
+    analysis: `Pakai $\\pi \\approx \\tfrac{22}{7}$.
 
-$$L = \\frac{90}{360} \\times \\frac{22}{7} \\times 7^{2} = \\frac{1}{4} \\times 154 = 38{,}5 \\text{ m}^2.$$
+**Rancangan A ($\\theta = 90^\\circ$, $r = 7$ m).**
+$$L = \\frac{90}{360} \\times \\frac{22}{7} \\times 7^{2} = \\frac{1}{4} \\times 154 = 38{,}5\\ \\text{m}^2,$$
+$$s = \\frac{90}{360} \\times 2 \\times \\frac{22}{7} \\times 7 = \\frac{1}{4} \\times 44 = 11\\ \\text{m}.$$
+Luas $38{,}5 \\le 40$ dan busur $11 \\le 12$, jadi **Rancangan A memenuhi kedua anggaran**.
 
-Panjang busur untuk pagar:
+**Rancangan B ($\\theta = 120^\\circ$, $r = 6$ m).**
+$$L = \\frac{120}{360} \\times \\frac{22}{7} \\times 6^{2} = \\frac{1}{3} \\times 113{,}14 \\approx 37{,}71\\ \\text{m}^2,$$
+$$s = \\frac{120}{360} \\times 2 \\times \\frac{22}{7} \\times 6 = \\frac{1}{3} \\times 37{,}71 \\approx 12{,}57\\ \\text{m}.$$
+Luasnya memang masih di bawah 40 m², tetapi busurnya $12{,}57 > 12$ m sehingga **melebihi anggaran pagar**.
 
-$$s = \\frac{90}{360} \\times 2 \\times \\frac{22}{7} \\times 7 = \\frac{1}{4} \\times 44 = 11 \\text{ m}.$$
-
-Jadi dibutuhkan sekitar **38,5 m² rumput** dan **11 m pagar** untuk sisi lengkung. Perhatikan bahwa sisi lurus taman (dua jari-jari) tidak ikut dihitung sebagai busur, sehingga anggaran material memisahkan bagian lurus dan bagian lengkung.`,
+Pelajaran dari keputusan ini: mengubah sudut dan jari-jari tidak mengubah luas dan busur dengan laju yang sama, sehingga memenuhi satu kendala belum tentu memenuhi kendala lain. Rancangan A dipilih karena lolos kedua anggaran sekaligus. Perhatikan juga bahwa sisi lurus taman (dua jari-jari) tidak dihitung sebagai busur, sehingga anggaran material harus memisahkan bagian lurus dan bagian lengkung.`,
     takeaways: [
       'Luas juring dan panjang busur sebanding dengan besar sudut pusat.',
       'Menghitung material berarti memisahkan bagian lurus dan bagian lengkung.',
@@ -71,7 +80,7 @@ Jadi dibutuhkan sekitar **38,5 m² rumput** dan **11 m pagar** untuk sisi lengku
       'Bagian taman mana yang paling mahal, dan mengapa?',
     ],
     source:
-      'Ilustrasi fiktif perancangan taman berbentuk juring; ukuran dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti perancangan taman berbentuk juring pada praktik lansekap; ukuran dan anggaran dipilih agar luas, busur, dan biaya mudah dibandingkan.',
   },
   {
     id: 'skala-logaritma',
@@ -100,7 +109,7 @@ Mengapa gempa bermagnitudo $7$ jauh lebih dahsyat daripada magnitudo $5$, padaha
       'Sebutkan besaran lain yang cocok diukur dengan skala logaritma.',
     ],
     source:
-      'Data ilustratif berdasarkan skala Richter dan skala pH; angka dibulatkan untuk pembelajaran.',
+      'Berdasarkan rumus skala magnitudo gempa (Richter) dan definisi pH; angka dibulatkan untuk pembelajaran dan bukan data satu peristiwa gempa tertentu.',
   },
   {
     id: 'lintasan-bola',
@@ -118,16 +127,19 @@ Mengapa gempa bermagnitudo $7$ jauh lebih dahsyat daripada magnitudo $5$, padaha
 
 $$h(t) = -5t^{2} + 20t + 1.$$
 
-Kapan bola berada di titik tertinggi, dan berapa tinggi maksimumnya? Karena lintasannya berbentuk parabola yang membuka ke bawah, titik tertinggi tepat berada di **titik puncak**. Model ini mengabaikan hambatan udara, jadi hanya berlaku selama bola masih di udara.`,
+Anggap bola bergerak mendatar dengan laju tetap **10 m/s**, sehingga posisi mendatar bertambah 10 m setiap detik. Gawang berada **30 m** dari titik tendangan dengan tinggi mistar **2,44 m**. Pemain harus memutuskan: apakah tendangan ini akan masuk ke gawang, atau bola justru melambung terlalu tinggi?
+
+Karena lintasannya parabola yang membuka ke bawah, titik tertinggi tepat di **titik puncak**; apakah bola masuk ditentukan dengan menghitung tingginya saat mencapai gawang. Model ini mengabaikan hambatan udara dan efek putaran bola, jadi hanya berlaku sebagai perkiraan.`,
     analysis: `Koefisien $t^{2}$ bernilai negatif, sehingga grafik membuka ke bawah dan puncaknya adalah nilai maksimum. Waktu saat mencapai puncak:
+$$t = -\\frac{b}{2a} = -\\frac{20}{2 \\cdot (-5)} = 2 \\text{ detik},$$
+dengan tinggi puncak
+$$h(2) = -5(2)^{2} + 20(2) + 1 = 21 \\text{ m}.$$
 
-$$t = -\\frac{b}{2a} = -\\frac{20}{2 \\cdot (-5)} = 2 \\text{ detik}.$$
+Sekarang periksa apakah tendangan itu masuk. Bola menempuh 30 m dengan laju 10 m/s, sehingga tiba di gawang pada $t = 3$ detik. Tinggi bola saat itu:
+$$h(3) = -5(3)^{2} + 20(3) + 1 = -45 + 60 + 1 = 16 \\text{ m}.$$
+Karena $16 \\text{ m} \\gg 2{,}44 \\text{ m}$, bola **jauh melewati mistar gawang** — tendangan ini bukan tembakan yang tepat sasaran. Keputusan yang benar adalah memakai tendangan yang lebih datar (memperkecil koefisien linear) agar bola tiba di gawang di bawah mistar.
 
-Substitusi $t = 2$ ke model:
-
-$$h(2) = -5(2)^{2} + 20(2) + 1 = -20 + 40 + 1 = 21 \\text{ m}.$$
-
-Jadi bola mencapai tinggi maksimum **21 m** pada detik ke-**2**. Setelah itu bola mulai turun. Bola kembali menyentuh tanah ketika $h(t) = 0$, yaitu $t \\approx 4{,}05$ detik. Titik puncak memberi dua informasi sekaligus — kapan dan setinggi apa — sehingga jauh lebih cepat daripada menguji satu per satu nilai $t$.`,
+Model tetap memberi informasi lain yang berguna: bola kembali menyentuh tanah ketika $h(t) = 0$, yaitu pada $t \\approx 4{,}05$ detik. Menghitung tinggi pada satu waktu tertentu dan titik puncak sekaligus jauh lebih cepat daripada menguji nilai $t$ satu per satu.`,
     takeaways: [
       'Titik puncak parabola $y = ax^{2} + bx + c$ terjadi pada $x = -\\dfrac{b}{2a}$.',
       'Tanda koefisien $a$ menentukan arah bukaan lintasan.',
@@ -139,7 +151,7 @@ Jadi bola mencapai tinggi maksimum **21 m** pada detik ke-**2**. Setelah itu bol
       'Pada detik ke berapa bola menyentuh tanah, dan bagaimana kamu menghitungnya?',
     ],
     source:
-      'Ilustrasi fiktif lintasan gerak peluru; angka dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti model gerak parabola (peluru) dengan pengabaian hambatan udara; koefisien dipilih agar titik puncak mudah dihitung.',
   },
   {
     id: 'transformasi-matriks',
@@ -175,7 +187,7 @@ Determinan mengungkap sifat tiap transformasi. Untuk $R$, $\\det R = 1 \\cdot (-
       'Transformasi seperti apa yang akan mengubah luas bangun, dan bergantung pada besaran apa?',
     ],
     source:
-      'Ilustrasi fiktif berdasarkan transformasi pada grafika komputer; koordinat dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti transformasi pada grafika komputer; koordinat segitiga dipilih agar hasil pencerminan dan pemutaran mudah diperiksa.',
   },
   {
     id: 'peta-dan-skala',
@@ -217,7 +229,7 @@ Bentuk akhirnya adalah $Y = a\\,f(X-h)+k$ dengan $a = \\frac{1}{2}$, $h = 1$, da
       'Bagaimana menentukan persamaan jalan jika peta diputar, bukan hanya digeser?',
     ],
     source:
-      'Ilustrasi fiktif pengukuran peta berskala; jarak dan skala dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi berdasarkan peta berskala (misalnya peta desa berskala 1 : 20.000); jarak dan skala dipilih agar konversi mudah dihitung.',
   },
   {
     id: 'tgeo-motif-batik',
@@ -227,7 +239,7 @@ Bentuk akhirnya adalah $Y = a\\,f(X-h)+k$ dengan $a = \\frac{1}{2}$, $h = 1$, da
     grade: 'XII',
     level: 'cakap',
     estimatedMinutes: 11,
-    explorationId: 'matriks-transformasi',
+    explorationId: 'transformasi-geometri-matriks',
     tags: ['transformasi geometri', 'rotasi', 'dilatasi', 'komposisi', 'motif'],
     summary:
       'Menggabungkan rotasi dan dilatasi menjadi satu matriks untuk menata motif pada bidang koordinat.',
@@ -256,7 +268,7 @@ Karena $\\lvert\\det(SR)\\rvert = \\lvert 0 \\cdot 0 - (-2)(2)\\rvert = 4$, luas
       'Mengapa penggandaan motif lebih efisien memakai matriks gabungan?',
     ],
     source:
-      'Ilustrasi fiktif penataan motif pada bidang koordinat; koordinat dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti penataan motif batik dengan transformasi pada bidang koordinat; koordinat dipilih agar matriks gabungan dan luasnya mudah diperiksa.',
   },
   {
     id: 'ktk-optimasi-pagar-taman',
@@ -300,6 +312,6 @@ Cara ini menghemat langkah dibandingkan memeriksa satu per satu nilai $x$. Perha
       'Sebutkan satu situasi lain yang dapat dioptimalkan dengan pola yang sama.',
     ],
     source:
-      'Ilustrasi fiktif desain taman dengan pagar terbatas; ukuran dan harga dibuat agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti desain taman berpagar di lahan yang berbatas dinding; panjang pagar dan harga dipilih agar kesamaan AM-GM mudah diterapkan.',
   },
 ];

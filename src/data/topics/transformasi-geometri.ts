@@ -125,27 +125,27 @@ Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan r
       blocks: [
         {
           kind: "table",
-          caption: "Matriks refleksi terhadap sumbu dan garis",
+          caption: "Pemetaan refleksi pada bidang",
           headers: [
             "Sumbu / garis",
             "Pemetaan titik",
-            "Matriks",
+            "Contoh",
           ],
           rows: [
             [
               "Sumbu $x$",
               "$(x,y)\\rightarrow(x,-y)$",
-              "$\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
+              "$(3,2)\\rightarrow(3,-2)$",
             ],
             [
               "Sumbu $y$",
               "$(x,y)\\rightarrow(-x,y)$",
-              "$\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
+              "$(3,2)\\rightarrow(-3,2)$",
             ],
             [
               "Garis $y=x$",
               "$(x,y)\\rightarrow(y,x)$",
-              "$\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$",
+              "$(3,2)\\rightarrow(2,3)$",
             ],
           ],
         },
@@ -153,7 +153,7 @@ Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan r
           kind: "callout",
           variant: "tip",
           title: "Cek cepat",
-          text: "Setiap matriks refleksi memiliki determinan $-1$, sehingga luas bangun tetap tetapi orientasinya terbalik. Selalu pilih refleksi yang tepat sesuai garis yang diminta.",
+          text: "Refleksi menjaga bentuk dan luas, tetapi membalik orientasi bangun. Selalu pilih refleksi yang sesuai dengan garis yang diminta. Bentuk matriksnya dibahas pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).",
         },
         {
           kind: "figure",
@@ -167,30 +167,30 @@ Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan r
       id: "rotasi",
       kind: "rumus",
       title: "Rotasi terhadap Titik Asal",
-      body: `Rotasi sebesar $\\theta$ berlawanan arah jarum jam terhadap titik asal $O$ diwakili matriks
-$$R_{\\theta}=\\begin{pmatrix}\\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta\\end{pmatrix}.$$
-Sudut-sudut istimewa memberi bentuk sederhana:
-$$R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix},\\quad R_{180^\\circ}=\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix},\\quad R_{270^\\circ}=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}.$$
+      body: `Rotasi memutar sebuah titik terhadap pusat $O$ sebesar sudut tertentu. Untuk sudut istimewa, pemetaannya sederhana:
+$$(x,y)\\rightarrow(-y,x) \\quad (90^\\circ), \\qquad (x,y)\\rightarrow(-x,-y) \\quad (180^\\circ), \\qquad (x,y)\\rightarrow(y,-x) \\quad (270^\\circ),$$
+dihitung berlawanan arah jarum jam.
 
-Pemetaan praktisnya:
-- rotasi $90^\\circ$: $(x,y)\\rightarrow(-y,x)$;
-- rotasi $180^\\circ$: $(x,y)\\rightarrow(-x,-y)$;
-- rotasi $270^\\circ$: $(x,y)\\rightarrow(y,-x)$.
-
-Sebagai contoh, $R_{90^\\circ}$ memetakan $(3,1)$ ke $(-1,3)$, sedangkan $R_{180^\\circ}$ memetakan $(3,1)$ ke $(-3,-1)$. Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta+\\sin^{2}\\theta=1$, sehingga rotasi tidak mengubah luas.`,
+Sebagai contoh, rotasi $90^\\circ$ memetakan $(3,1)$ ke $(-1,3)$, sedangkan rotasi $180^\\circ$ memetakan $(3,1)$ ke $(-3,-1)$. Rotasi menjaga bentuk dan luas bangun; hanya arahnya yang berputar. Bentuk matriks rotasi, termasuk rumus umum untuk sudut $\\theta$ sembarang, dipelajari pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Titik A pada kuadran I diputar 90 derajat berlawanan arah jarum jam terhadap titik asal O menjadi titik A aksen di kuadran II, dengan busur panah sebagai arah putaran.",
+          caption: "Rotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal memetakan $A(3,1)$ ke $A^{\\prime}(-1,3)$. Jarak titik ke titik asal tetap, hanya arahnya yang berputar.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><defs><marker id="fig-tgeo-rot-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="30" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.2"/><line x1="160" y1="25" x2="160" y2="205" stroke="currentColor" stroke-width="1.2"/><line x1="160" y1="150" x2="250" y2="120" stroke="currentColor" stroke-width="1.6"/><line x1="160" y1="150" x2="130" y2="60" stroke="currentColor" stroke-width="1.6"/><path d="M250,120 Q215,55 130,60" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fig-tgeo-rot-arrow)"/><circle cx="160" cy="150" r="3" fill="currentColor"/><circle cx="250" cy="120" r="3.5" fill="currentColor"/><circle cx="130" cy="60" r="3.5" fill="currentColor"/><text x="150" y="168" font-size="12" fill="currentColor">O</text><text x="256" y="118" font-size="12" fill="currentColor">A</text><text x="112" y="55" font-size="12" fill="currentColor">A&#8242;</text><text x="292" y="166" font-size="12" fill="currentColor">x</text><text x="166" y="34" font-size="12" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "dilatasi",
       kind: "konsep",
       title: "Dilatasi: Mengubah Ukuran",
       body: `Dilatasi dengan pusat titik asal dan faktor skala $k$ memetakan titik sebagai
-$$(x,y)\\rightarrow(kx,\\,ky),$$
-dan diwakili matriks
-$$D_{k}=\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}.$$
+$$(x,y)\\rightarrow(kx,\\,ky).$$
 
-Jika $k>1$ bangun diperbesar; jika $0<k<1$ bangun diperkecil; dan jika $k<0$ ukurannya dikalikan $\\lvert k \\rvert$ sekaligus dicerminkan terhadap titik asal. Determinan matriksnya adalah $k^{2}$, sehingga luas bayangan menjadi $k^{2}$ kali luas semula.
+Jika $k>1$ bangun diperbesar; jika $0<k<1$ bangun diperkecil; dan jika $k<0$ ukurannya dikalikan $\\lvert k\\rvert$ sekaligus dicerminkan terhadap titik asal. Karena setiap panjang dikalikan $\\lvert k\\rvert$, luas bayangan menjadi $k^{2}$ kali luas semula.
 
-Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun menjadi $4$ kali semula.`,
+Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun menjadi $2^{2}=4$ kali semula.`,
       blocks: [
         {
           kind: "table",
@@ -234,42 +234,42 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
       blocks: [
         {
           kind: "table",
-          caption: "Ringkasan pemetaan titik dan matriksnya",
+          caption: "Ringkasan pemetaan titik pada bidang",
           headers: [
             "Transformasi",
             "Pemetaan titik",
-            "Matriks",
+            "Sifat",
           ],
           rows: [
             [
               "Translasi $\\binom{a}{b}$",
               "$(x+a,\\,y+b)$",
-              "penjumlahan vektor",
+              "bentuk dan orientasi tetap",
             ],
             [
               "Refleksi sumbu $x$",
               "$(x,-y)$",
-              "$\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
+              "orientasi terbalik, luas tetap",
             ],
             [
               "Refleksi sumbu $y$",
               "$(-x,y)$",
-              "$\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
+              "orientasi terbalik, luas tetap",
             ],
             [
               "Refleksi $y=x$",
               "$(y,x)$",
-              "$\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$",
+              "orientasi terbalik, luas tetap",
             ],
             [
               "Rotasi $90^\\circ$",
               "$(-y,x)$",
-              "$\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$",
+              "berputar, luas tetap",
             ],
             [
               "Dilatasi $k$",
               "$(kx,ky)$",
-              "$\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}$",
+              "ukuran berubah $\\lvert k\\rvert$ kali",
             ],
           ],
         },
@@ -300,7 +300,7 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
           items: [
             {
               label: "Simbolik",
-              body: "Rotasi $90^\\circ$ ditulis $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}\\begin{pmatrix} x \\\\ y \\end{pmatrix}=\\begin{pmatrix} -y \\\\ x \\end{pmatrix}$.",
+              body: "Secara aljabar, rotasi $90^\\circ$ mengubah $(x,y)$ menjadi $(-y,x)$; aturan ini berlaku untuk setiap titik pada bidang.",
             },
             {
               label: "Tabel",
@@ -309,6 +309,40 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
             {
               label: "Grafik",
               body: "Titik $(2,-3)$ di kuadran IV berpindah ke $(3,2)$ di kuadran I, berputar seperempat putaran terhadap titik asal.",
+            },
+          ],
+        },
+        {
+          kind: "flip-cards",
+          intro: "Latih istilah dasar transformasi bidang.",
+          cards: [
+            {
+              front: "Transformasi",
+              back: "Aturan yang memetakan setiap titik bidang ke titik lain",
+            },
+            {
+              front: "Translasi",
+              back: "Pergeseran sejauh vektor tertentu; bentuk dan orientasi tetap",
+            },
+            {
+              front: "Refleksi",
+              back: "Pencerminan terhadap garis; jarak ke garis tetap, orientasi terbalik",
+            },
+            {
+              front: "Rotasi",
+              back: "Pemutaran terhadap titik asal sebesar sudut tertentu",
+            },
+            {
+              front: "Dilatasi",
+              back: "Pembesaran atau pengecilan dengan faktor skala $k$",
+            },
+            {
+              front: "Komposisi",
+              back: "Menggabungkan beberapa transformasi menjadi satu",
+            },
+            {
+              front: "Faktor skala luas",
+              back: "Berapa kali luas bangun berubah setelah transformasi",
             },
           ],
         },
@@ -330,34 +364,32 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
       id: "generalisasi",
       kind: "generalisasi",
       title: "Komposisi dan Pola Umum",
-      body: `Jika suatu titik dikenai transformasi $T_{1}$ dengan matriks $M_{1}$, lalu dilanjutkan oleh $T_{2}$ dengan matriks $M_{2}$, matriks gabungannya adalah
-$$M=M_{2}M_{1}.$$
-Matriks $M_{1}$ berada di kanan karena dipakai lebih dahulu. Karena perkalian matriks tidak komutatif, **urutan langkah menentukan hasil**.
+      body: `Menggabungkan beberapa transformasi menghasilkan satu transformasi tunggal. Jika titik dikenai $T_{1}$ lebih dahulu, lalu $T_{2}$, hasil akhirnya sama dengan satu transformasi gabungan:
+$$T(x,y)=T_{2}\\bigl(T_{1}(x,y)\\bigr).$$
+Transformasi yang dikerjakan **lebih dahulu** diterapkan paling awal. Karena urutan langkah tidak dapat ditukar, **urutan transformasi menentukan hasil**.
 
-Sebagai contoh, rotasi $90^\\circ$ berlawanan arah jarum jam dilanjutkan refleksi terhadap sumbu-$x$ memberi
-$$M=\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}=\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix},$$
-yang tidak lain adalah refleksi terhadap garis $y=-x$.
+Sebagai contoh, refleksi terhadap sumbu-$x$ lalu rotasi $180^\\circ$ memindahkan $(2,1)$ ke $(-2,1)$ — sama dengan refleksi terhadap sumbu-$y$. Menukar urutan kedua langkah dapat memberi hasil yang berbeda.
 
-Satu bilangan merangkum pengaruh transformasi terhadap luas, yaitu determinan $\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}=ad-bc$. Nilai $\\lvert\\det(M)\\rvert$ menyatakan berapa kali luas bangun berubah, sedangkan tanda determinan menunjukkan apakah orientasi bangun terbalik.`,
+Satu bilangan merangkum pengaruh transformasi terhadap luas, yaitu faktor skala luas. Untuk dilatasi faktor $k$, luas berubah $k^{2}$ kali; rotasi dan refleksi tidak mengubah luas sama sekali. Cara menghitung faktor ini melalui determinan matriks dijelaskan pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
     },
     {
       id: "rumus",
       kind: "rumus",
       title: "Kumpulan Rumus Transformasi",
-      body: `Untuk titik $(x,y)$ pada bidang, berlaku ringkasan berikut.
+      body: `Untuk titik $(x,y)$ pada bidang, berlaku ringkasan pemetaan berikut.
 
-| Transformasi | Pemetaan | Matriks $2 \\times 2$ |
+| Transformasi | Pemetaan | Sifat |
 | :-- | :-- | :-- |
-| Translasi $\\binom{a}{b}$ | $(x+a,\\,y+b)$ | $\\begin{pmatrix} x' \\\\ y' \\end{pmatrix}=\\begin{pmatrix} x \\\\ y \\end{pmatrix}+\\begin{pmatrix} a \\\\ b \\end{pmatrix}$ |
-| Refleksi sumbu-$x$ | $(x,-y)$ | $\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$ |
-| Refleksi sumbu-$y$ | $(-x,y)$ | $\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ |
-| Refleksi garis $y=x$ | $(y,x)$ | $\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$ |
-| Rotasi $90^\\circ$ | $(-y,x)$ | $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ |
-| Rotasi $180^\\circ$ | $(-x,-y)$ | $\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$ |
-| Rotasi $270^\\circ$ | $(y,-x)$ | $\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}$ |
-| Dilatasi $k$ | $(kx,ky)$ | $\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}$ |
+| Translasi $\\binom{a}{b}$ | $(x+a,\\,y+b)$ | bentuk dan orientasi tetap |
+| Refleksi sumbu-$x$ | $(x,-y)$ | orientasi terbalik, luas tetap |
+| Refleksi sumbu-$y$ | $(-x,y)$ | orientasi terbalik, luas tetap |
+| Refleksi garis $y=x$ | $(y,x)$ | orientasi terbalik, luas tetap |
+| Rotasi $90^\\circ$ | $(-y,x)$ | berputar, luas tetap |
+| Rotasi $180^\\circ$ | $(-x,-y)$ | berputar, luas tetap |
+| Rotasi $270^\\circ$ | $(y,-x)$ | berputar, luas tetap |
+| Dilatasi $k$ | $(kx,ky)$ | ukuran berubah $\\lvert k\\rvert$ kali |
 
-Untuk komposisi $T_{1}$ lalu $T_{2}$, matriks gabungannya $M_{2}M_{1}$. Faktor skala luas sebuah transformasi linear adalah $\\lvert\\det(M)\\rvert$.`,
+Untuk komposisi, kerjakan $T_{1}$ lebih dahulu lalu $T_{2}$; urutan tidak boleh ditukar. Faktor skala luas diperoleh dari determinan matriks transformasi, yang dipelajari pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
     },
     {
       id: "contoh",
@@ -440,11 +472,11 @@ Dalam desain motif batik, pola dicerminkan dan digeser untuk membentuk ragam hia
 
 **2. Salah tanda pada rotasi.** Rotasi $90^\\circ$ berlawanan arah jarum jam memakai $(x,y)\\rightarrow(-y,x)$, bukan $(y,-x)$ yang justru rotasi $270^\\circ$.
 
-**3. Menukar urutan komposisi.** Untuk $T_{1}$ lalu $T_{2}$, matriksnya $M_{2}M_{1}$, bukan $M_{1}M_{2}$. Perkalian matriks tidak komutatif.
+**3. Menukar urutan komposisi.** Untuk $T_{1}$ lalu $T_{2}$, kerjakan $T_{1}$ lebih dahulu; menukar urutan umumnya mengubah hasil akhir.
 
-**4. Mencampur translasi dengan perkalian matriks.** Translasi adalah penjumlahan vektor, bukan perkalian matriks $2 \\times 2$ terhadap titik asal.
+**4. Mencampur translasi dengan pemutaran.** Translasi menggeser bangun tanpa mengubah orientasinya, sedangkan rotasi justru memutarnya terhadap sebuah titik.
 
-**5. Melupakan nilai mutlak determinan.** Faktor skala luas adalah $\\lvert\\det(M)\\rvert$; tanda determinan hanya menunjukkan orientasi.`,
+**5. Melupakan pengaruh dilatasi pada luas.** Setiap panjang dikalikan $\\lvert k\\rvert$, sehingga luas bangun menjadi $k^{2}$ kali semula.`,
       blocks: [
         {
           kind: "spot-mistake",
@@ -514,7 +546,7 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana pencerminan dan pemutaran menjaga atau mengubah bentuk bangun.",
+      body: "Pencerminan dan pemutaran memperlakukan sebuah bangun dengan cara berbeda. Renungan berikut mengajakmu memeriksa apa yang tetap dan apa yang berubah.",
       blocks: [
         {
           kind: "reflection",
@@ -538,48 +570,53 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
           headers: [
             "Transformasi",
             "Pemetaan titik",
-            "Matriks / bentuk",
+            "Sifat",
           ],
           rows: [
             [
               "Translasi $\\binom{a}{b}$",
               "$(x+a,\\,y+b)$",
-              "penjumlahan vektor",
+              "bentuk dan orientasi tetap",
             ],
             [
               "Refleksi sumbu-$x$",
               "$(x,-y)$",
-              "$\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
+              "orientasi terbalik",
             ],
             [
               "Refleksi sumbu-$y$",
               "$(-x,y)$",
-              "$\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}$",
+              "orientasi terbalik",
             ],
             [
               "Refleksi garis $y=x$",
               "$(y,x)$",
-              "$\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$",
+              "orientasi terbalik",
             ],
             [
               "Rotasi $90^\\circ$",
               "$(-y,x)$",
-              "$\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$",
+              "berputar, luas tetap",
             ],
             [
               "Rotasi $180^\\circ$",
               "$(-x,-y)$",
-              "$\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$",
+              "berputar, luas tetap",
+            ],
+            [
+              "Rotasi $270^\\circ$",
+              "$(y,-x)$",
+              "berputar, luas tetap",
             ],
             [
               "Dilatasi $k$",
               "$(kx,ky)$",
-              "$\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}$",
+              "ukuran berubah $\\lvert k\\rvert$ kali",
             ],
             [
               "Komposisi $T_{1}$ lalu $T_{2}$",
               "$T_{2}(T_{1}(x,y))$",
-              "$M_{2}M_{1}$",
+              "urutan tidak boleh ditukar",
             ],
           ],
         },
@@ -589,7 +626,7 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana satu matriks $2 \\times 2$ dapat mewakili refleksi, rotasi, dan dilatasi sekaligus? (2) Mengapa urutan dua transformasi memengaruhi hasil akhir? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Transformasi Geometri** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Bagaimana kamu membedakan bayangan yang dihasilkan rotasi $90^\\circ$ dan $270^\\circ$ hanya dari tanda koordinatnya? (2) Mengapa urutan dua transformasi memengaruhi hasil akhir? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Transformasi Geometri** untuk latihan tambahan.`,
     },
   ],
 };

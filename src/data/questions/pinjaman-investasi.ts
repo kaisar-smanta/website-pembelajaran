@@ -17,7 +17,7 @@ export const pinjamanInvestasiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Bunga bulan pertama dihitung dari pokok pinjaman awal, yaitu $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$.',
+      'Bunga bulan pertama dihitung dari pokok pinjaman awal: $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$ (A). Opsi B (Rp125.000) memakai suku bunga $1{,}25\\%$; opsi C (Rp175.000) memakai $1{,}75\\%$; opsi D (Rp200.000) memakai $2\\%$ per bulan.',
     hints: ['Bunga periode pertama dihitung dari pokok pinjaman, bukan dari angsuran.'],
     competencies: ['anuitas', 'bunga pinjaman'],
   },
@@ -37,7 +37,7 @@ export const pinjamanInvestasiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Total pembayaran $= n \\times A = 24 \\times 499.241{,}02 = 11.981.784{,}48 \\approx \\text{Rp}11.981.784$.',
+      'Total pembayaran $= n \\times A = 24 \\times 499.241{,}02 = 11.981.784{,}48 \\approx \\text{Rp}11.981.784$ (A). Opsi B (Rp11.500.000) mengabaikan sebagian bunga; opsi C (Rp12.000.000) hanya pembulatan kasar tanpa menghitung; opsi D (Rp12.481.000) memakai $25$ periode alih-alih $24$.',
     hints: ['Kalikan besar angsuran dengan banyak periode.'],
     competencies: ['total pembayaran anuitas'],
   },
@@ -96,8 +96,11 @@ export const pinjamanInvestasiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Penawaran A: $A = 346.653{,}29$, total $= 36 \\times 346.653{,}29 \\approx \\text{Rp}12.479.518{,}26$, bunga $\\approx \\text{Rp}2.479.518$. Penawaran B: $A = 499.241{,}02$, total $= \\text{Rp}11.981.784{,}48$, bunga $\\approx \\text{Rp}1.981.784$. Jadi total bunga B lebih kecil meskipun suku bunganya per bulan lebih besar, karena tenornya lebih pendek.',
-    hints: ['Hitung total pembayaran tiap penawaran, lalu kurangi pokoknya.'],
+      'Penawaran A: $A = 346.653{,}29$, total $= 36 \\times 346.653{,}29 \\approx \\text{Rp}12.479.518{,}26$, bunga $\\approx \\text{Rp}2.479.518$. Penawaran B: $A = 499.241{,}02$, total $= \\text{Rp}11.981.784{,}48$, bunga $\\approx \\text{Rp}1.981.784$. Jadi total bunga B lebih kecil meskipun suku bunganya per bulan lebih besar, karena tenornya lebih pendek (B). Opsi A salah karena total bunga A justru lebih besar; opsi C salah karena total bunga bergantung pada tenor, bukan hanya suku bunga; opsi D salah karena angsuran anuitas dapat dihitung dari pokok, suku bunga, dan tenor sehingga keduanya tetap dapat dibandingkan.',
+    hints: [
+      'Hitung total pembayaran tiap penawaran, lalu kurangi pokoknya.',
+      'Total pembayaran $= n\\times A$; bandingkan bunga kedua penawaran, bukan hanya suku bunganya.',
+    ],
     competencies: ['membandingkan pinjaman', 'total bunga'],
   },
   {
@@ -112,7 +115,10 @@ export const pinjamanInvestasiQuestions: Question[] = [
     acceptedAnswers: ['12716000', '12.716.000', '12.716.000,00', '12716000,00', 'Rp12.716.000', 'Rp12.716.000,00', '12715978'],
     explanation:
       '$FV = A \\cdot \\dfrac{(1+i)^{n}-1}{i} = 500.000 \\cdot \\dfrac{(1{,}005)^{24}-1}{0{,}005} \\approx 500.000 \\cdot 25{,}431955 \\approx \\text{Rp}12.715.978$, dibulatkan menjadi Rp12.716.000.',
-    hints: ['Gunakan rumus nilai masa depan anuitas, bukan bunga majemuk biasa.'],
+    hints: [
+      'Gunakan rumus nilai masa depan anuitas, bukan bunga majemuk biasa.',
+      'Substitusikan $A=500.000$, $i=0{,}005$, dan $n=24$ pada $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}$.',
+    ],
     competencies: ['nilai masa depan', 'investasi berkala'],
   },
   {
@@ -155,7 +161,7 @@ export const pinjamanInvestasiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Penawaran A: $A = 564.881{,}67$, total angsuran $= 24 \\times 564.881{,}67 \\approx \\text{Rp}13.557.160$, ditambah administrasi Rp300.000 menjadi Rp13.857.160. Penawaran B: $A = 765.669{,}38$, total $= 18 \\times 765.669{,}38 \\approx \\text{Rp}13.782.048{,}86$. Karena Rp13.782.049 lebih kecil, penawaran B lebih murah sekitar Rp75.111.',
+      'Penawaran A: $A = 564.881{,}67$, total angsuran $= 24 \\times 564.881{,}67 \\approx \\text{Rp}13.557.160$, ditambah administrasi Rp300.000 menjadi Rp13.857.160. Penawaran B: $A = 765.669{,}38$, total $= 18 \\times 765.669{,}38 \\approx \\text{Rp}13.782.048{,}86$. Karena Rp13.782.049 lebih kecil, penawaran B lebih murah (B). Opsi A salah karena melupakan biaya administrasi yang membuat total A lebih besar; opsi C salah karena biaya administrasi justru menambah total biaya; opsi D salah karena kedua total berbeda sekitar Rp75.111.',
     hints: [
       'Hitung total angsuran tiap penawaran, lalu tambahkan biaya administrasi pada penawaran A.',
       'Bandingkan total biaya, bukan hanya suku bunga atau angsuran.',

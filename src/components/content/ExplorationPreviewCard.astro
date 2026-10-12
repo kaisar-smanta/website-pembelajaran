@@ -47,6 +47,16 @@ const curves: Record<Exploration['type'], string> = {
   'random-variable': 'M10 58 H40 V34 H70 V20 H100 V44 H130 V30 H160 V58 H194',
   limit: 'M6 46 L86 22 M114 22 L194 8',
   'binomial-distribution': 'M10 58 H40 V32 H70 V18 H100 V26 H130 V18 H160 V32 H194',
+  'sign-chart': 'M6 40 L64 40 L64 24 L130 24 L130 40 L194 40',
+  logarithm: 'M6 46 C60 46 110 20 194 8 M6 58 C70 58 120 34 194 24',
+  'counting-tree': 'M14 40 L100 12 M14 40 L100 40 M100 12 L186 6 M100 12 L186 18 M100 40 L186 34 M100 40 L186 46',
+  amortization: 'M6 10 C80 12 130 40 194 58',
+  'number-theory': 'M6 58 H40 V40 H74 V22 H108 V40 H142 V22 H176 V58 H194',
+  induction: 'M6 56 L48 56 L48 42 L90 42 L90 28 L132 28 L132 14 L194 14',
+  confounding: 'M6 46 L70 22 L134 22 L194 50',
+  'function-family': 'M6 48 C52 48 82 30 92 14 M108 58 C126 46 158 42 194 38',
+  'normal-distribution': 'M6 58 C52 58 62 10 100 10 C138 10 148 58 194 58',
+  triangle: 'M16 56 L150 16 L196 56 Z',
   geogebra: 'M6 58 C45 58 60 14 100 14 C140 14 155 58 194 58',
 };
 
@@ -148,6 +158,53 @@ const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>
     [70, 18],
     [100, 26],
     [130, 18],
+  ],
+  'sign-chart': [
+    [64, 40],
+    [130, 24],
+    [100, 32],
+  ],
+  logarithm: [
+    [64, 26],
+    [134, 38],
+  ],
+  'counting-tree': [
+    [100, 12],
+    [100, 40],
+  ],
+  amortization: [
+    [60, 14],
+    [140, 44],
+  ],
+  'number-theory': [
+    [40, 40],
+    [74, 22],
+    [108, 40],
+    [142, 22],
+  ],
+  induction: [
+    [48, 42],
+    [90, 28],
+    [132, 14],
+  ],
+  confounding: [
+    [70, 22],
+    [134, 22],
+    [194, 50],
+  ],
+  'function-family': [
+    [30, 46],
+    [92, 14],
+  ],
+  'normal-distribution': [
+    [100, 10],
+    [70, 22],
+    [130, 22],
+  ],
+  triangle: [
+    [16, 56],
+    [150, 16],
+    [196, 56],
   ],
   geogebra: [
     [40, 40],

@@ -1,0 +1,368 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim amort-sim" data-amortization data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Jadwal Amortisasi dengan Angsuran Tambahan</h3>
+  </div>
+
+  <p class="sim-hint">
+    Atur pokok pinjaman, suku bunga, dan tenor. Tambahkan angsuran bulanan ekstra untuk
+    melihat bagaimana pokok cepat berkurang dan total bunga menyusut. Warna hijau menandai
+    angsuran tambahan.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Pokok pinjaman (Rp)</span>
+      <input type="number" min="0" step="1000000" value="120000000" data-amort-field="principal" />
+    </label>
+    <label class="sim-field">
+      <span>Suku bunga per tahun (%)</span>
+      <input type="number" min="0" max="40" step="0.5" value="9" data-amort-field="rate" />
+    </label>
+    <label class="sim-field">
+      <span>Tenor (bulan)</span>
+      <input type="number" min="1" max="360" step="1" value="60" data-amort-field="months" />
+    </label>
+    <label class="sim-field">
+      <span>Angsuran tambahan per bulan (Rp)</span>
+      <input type="number" min="0" step="100000" value="500000" data-amort-field="extra" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-amort-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-summary" data-amort-summary aria-live="polite" aria-atomic="true"></div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 260"
+      role="img"
+      aria-label="Grafik penurunan sisa pinjaman dengan dan tanpa angsuran tambahan"
+      data-amort-chart></svg>
+    <div class="sim-legend" data-amort-legend></div>
+  </div>
+
+  <div class="table-scroll">
+    <table class="amort">
+      <caption>Jadwal amortisasi (sisa ditampilkan ringkas)</caption>
+      <thead>
+        <tr>
+          <th scope="col">Periode</th>
+          <th scope="col">Angsuran</th>
+          <th scope="col">Bunga</th>
+          <th scope="col">Pokok</th>
+          <th scope="col">Sisa pinjaman</th>
+        </tr>
+      </thead>
+      <tbody data-amort-body></tbody>
+    </table>
+  </div>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field input {
+    padding: 0.45rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-summary {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0.85rem 0;
+  }
+  .sim-summary :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-summary :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-summary :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  .sim-summary :global(.stat.highlight strong) {
+    color: var(--color-success);
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .sim-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .sim-legend :global(.l1) {
+    color: var(--color-primary);
+  }
+  .sim-legend :global(.l2) {
+    color: var(--color-data);
+  }
+  .sim-legend :global(.l3) {
+    color: var(--color-success);
+  }
+  .table-scroll {
+    overflow-x: auto;
+    margin-top: 0.6rem;
+  }
+  table.amort {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  table.amort caption {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    padding-bottom: 0.35rem;
+  }
+  table.amort :global(th),
+  table.amort :global(td) {
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.6rem;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  table.amort :global(th:first-child),
+  table.amort :global(td:first-child) {
+    text-align: left;
+  }
+  table.amort :global(th) {
+    background: var(--color-surface-2);
+  }
+  table.amort :global(tbody tr:nth-child(even)) {
+    background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
+  }
+  table.amort :global(tr.ellipsis td) {
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+  @media (max-width: 30rem) {
+    .sim-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .amort-sim *,
+    .amort-sim *::before,
+    .amort-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    amortizationSchedule,
+    summarizeRows,
+  } from '../../lib/sim/amortization';
+  import type { AmortizationResult } from '../../lib/sim/amortization';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+
+  const rupiah = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0,
+  });
+
+  function setupAmortization(root: Element) {
+    const principalInput = root.querySelector('[data-amort-field="principal"]') as HTMLInputElement;
+    const rateInput = root.querySelector('[data-amort-field="rate"]') as HTMLInputElement;
+    const monthsInput = root.querySelector('[data-amort-field="months"]') as HTMLInputElement;
+    const extraInput = root.querySelector('[data-amort-field="extra"]') as HTMLInputElement;
+    const summary = root.querySelector('[data-amort-summary]') as HTMLElement;
+    const body = root.querySelector('[data-amort-body]') as HTMLElement;
+    const chart = root.querySelector('[data-amort-chart]') as SVGSVGElement;
+    const legend = root.querySelector('[data-amort-legend]') as HTMLElement;
+    const reset = root.querySelector('[data-amort-reset]') as HTMLButtonElement;
+
+    function readInputs() {
+      const principal = Math.max(0, Number(principalInput.value) || 0);
+      const annualRate = Math.max(0, Number(rateInput.value) || 0) / 100;
+      const months = Math.max(1, Math.min(360, Math.round(Number(monthsInput.value) || 1)));
+      const extra = Math.max(0, Number(extraInput.value) || 0);
+      return { principal, annualRate, months, extra };
+    }
+
+    function drawChart(base: AmortizationResult, withExtra: AmortizationResult, principal: number) {
+      const W = 480;
+      const H = 260;
+      const pad = 36;
+      clear(chart);
+
+      const maxLen = Math.max(base.rows.length, withExtra.rows.length, 1);
+      const { sx, sy } = linearScale(
+        { xMin: 0, xMax: maxLen, yMin: 0, yMax: Math.max(principal, 1) },
+        { width: W, height: H, pad },
+      );
+
+      for (let i = 0; i <= 5; i++) {
+        const y = pad + (i / 5) * (H - 2 * pad);
+        chart.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      chart.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.4 }));
+      chart.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.4 }));
+
+      const series = [
+        { values: [principal, ...base.rows.map((r) => r.balance)], color: 'var(--color-data)', dashed: '6 4' },
+        { values: [principal, ...withExtra.rows.map((r) => r.balance)], color: 'var(--color-success)', dashed: '' },
+      ];
+      for (const s of series) {
+        chart.appendChild(
+          el('path', {
+            d: polyline(s.values.map((v, i): [number, number] => [sx(i), sy(v)])),
+            fill: 'none',
+            stroke: s.color,
+            'stroke-width': 2.6,
+            'stroke-linejoin': 'round',
+            ...(s.dashed ? { 'stroke-dasharray': s.dashed } : {}),
+          }),
+        );
+      }
+    }
+
+    function addStat(label: string, value: string, highlight = false) {
+      const div = document.createElement('div');
+      div.className = highlight ? 'stat highlight' : 'stat';
+      const span = document.createElement('span');
+      span.textContent = label;
+      const strong = document.createElement('strong');
+      strong.textContent = value;
+      div.append(span, strong);
+      summary.appendChild(div);
+    }
+
+    function renderTable(result: AmortizationResult) {
+      body.innerHTML = '';
+      const rows = summarizeRows(result.rows, 12);
+      rows.forEach((row, index) => {
+        // Sisipkan penanda elipsis bila baris terpotong.
+        if (index > 0 && row.period - rows[index - 1].period > 1) {
+          const tr = document.createElement('tr');
+          tr.className = 'ellipsis';
+          const td = document.createElement('td');
+          td.colSpan = 5;
+          td.textContent = '…';
+          tr.appendChild(td);
+          body.appendChild(tr);
+        }
+        const tr = document.createElement('tr');
+        [
+          String(row.period),
+          rupiah.format(row.payment),
+          rupiah.format(row.interest),
+          rupiah.format(row.principal),
+          rupiah.format(row.balance),
+        ].forEach((cell) => {
+          const td = document.createElement('td');
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      });
+    }
+
+    function render() {
+      const { principal, annualRate, months, extra } = readInputs();
+      const base = amortizationSchedule(principal, annualRate, months, 0);
+      const withExtra = amortizationSchedule(principal, annualRate, months, extra);
+      const saved = base.totalInterest - withExtra.totalInterest;
+
+      summary.innerHTML = '';
+      addStat('Angsuran pokok per bulan', rupiah.format(withExtra.monthlyPayment));
+      addStat('Tambahan per bulan', rupiah.format(extra));
+      addStat('Total angsuran per bulan', rupiah.format(withExtra.monthlyPayment + extra));
+      addStat(
+        'Lunas dalam',
+        `${withExtra.months} bulan${withExtra.months < months ? ` (lebih cepat ${months - withExtra.months} bulan)` : ''}`,
+      );
+      addStat('Total bunga', rupiah.format(withExtra.totalInterest));
+      addStat('Hemat bunga karena tambahan', rupiah.format(Math.max(0, saved)), saved > 0.5);
+
+      drawChart(base, withExtra, principal);
+      renderTable(withExtra);
+
+      legend.innerHTML =
+        '<span class="l3">Sisa pinjaman dengan tambahan</span>' +
+        (extra > 0 ? '<span class="l2">Sisa pinjaman tanpa tambahan</span>' : '');
+
+      chart.setAttribute(
+        'aria-label',
+        `Grafik sisa pinjaman ${rupiah.format(principal)}; lunas dalam ${withExtra.months} bulan dengan total bunga ${rupiah.format(withExtra.totalInterest)}`,
+      );
+    }
+
+    [principalInput, rateInput, monthsInput, extraInput].forEach((input) =>
+      input.addEventListener('input', render),
+    );
+    reset.addEventListener('click', () => {
+      principalInput.value = '120000000';
+      rateInput.value = '9';
+      monthsInput.value = '60';
+      extraInput.value = '500000';
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-amortization]'), setupAmortization);
+</script>

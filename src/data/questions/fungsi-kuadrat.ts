@@ -15,7 +15,8 @@ export const fungsiKuadratQuestions: Question[] = [
       { key: 'D', text: '$x=-1$ dan $x=-6$' },
     ],
     answer: 'A',
-    explanation: '$x^{2}-5x+6=(x-2)(x-3)$, sehingga $f(x)=0$ ketika $x=2$ atau $x=3$.',
+    explanation:
+      '$x^{2}-5x+6=(x-2)(x-3)$, sehingga $f(x)=0$ ketika $x=2$ atau $x=3$. Opsi B ($x=-2$ dan $x=-3$) memfaktorkan menjadi $(x+2)(x+3)$ sehingga tanda akarnya terbalik. Opsi C ($x=1$ dan $x=6$) memakai dua bilangan yang hasil kalinya $6$ tetapi jumlahnya $7$, bukan $-5$. Opsi D ($x=-1$ dan $x=-6$) memakai hasil kali $6$ dengan jumlah $-7$, bukan $-5$.',
     hints: ['Cari dua bilangan yang jumlahnya $-5$ dan hasil kalinya $6$.'],
     competencies: ['akar fungsi kuadrat'],
   },
@@ -33,8 +34,12 @@ export const fungsiKuadratQuestions: Question[] = [
       { key: 'D', text: '$x=2$' },
     ],
     answer: 'A',
-    explanation: 'Sumbu simetri $x=-\\dfrac{b}{2a}=-\\dfrac{-8}{2\\cdot1}=4$. Perhatikan tanda negatif di depan $b$.',
-    hints: ['Gunakan $x=-\\dfrac{b}{2a}$ dan jangan lupa tanda negatifnya.'],
+    explanation:
+      'Sumbu simetri $x=-\\dfrac{b}{2a}=-\\dfrac{-8}{2\\cdot1}=4$. Opsi B ($-4$) lupa membalik tanda setelah menghitung $-\\dfrac{-8}{2}$. Opsi C ($8$) memakai $|b|$ tanpa membaginya dengan $2a$. Opsi D ($2$) membagi $8$ dengan $4$, padahal $2a=2$.',
+    hints: [
+      'Gunakan $x=-\\dfrac{b}{2a}$ dan jangan lupa tanda negatifnya.',
+      'Substitusikan $a=1$ dan $b=-8$ secara hati-hati ke dalam $-\\dfrac{b}{2a}$.',
+    ],
     competencies: ['sumbu simetri'],
   },
   {
@@ -51,8 +56,12 @@ export const fungsiKuadratQuestions: Question[] = [
       { key: 'D', text: '$D=49$ dan dua akar real berbeda' },
     ],
     answer: 'A',
-    explanation: '$D=b^{2}-4ac=(-3)^{2}-4\\cdot2\\cdot5=9-40=-31$. Karena $D<0$, tidak ada akar real.',
-    hints: ['Hitung $D=b^{2}-4ac$ dengan teliti, termasuk tanda pada $b$.'],
+    explanation:
+      '$D=b^{2}-4ac=(-3)^{2}-4\\cdot2\\cdot5=9-40=-31$. Karena $D<0$, tidak ada akar real. Opsi B ($D=31$) mengabaikan bahwa $9-40$ bernilai negatif. Opsi C benar nilai $D=-31$ tetapi keliru mengaitkan $D<0$ dengan dua akar real. Opsi D ($D=49$) menghitung $9+40$ karena salah tanda, seolah memakai $+4ac$.',
+    hints: [
+      'Hitung $D=b^{2}-4ac$ dengan teliti, termasuk tanda pada $b$.',
+      'Ingat bahwa suku $4ac$ dikurangkan sehingga $D$ dapat bernilai negatif.',
+    ],
     competencies: ['diskriminan'],
   },
   {
@@ -80,7 +89,10 @@ export const fungsiKuadratQuestions: Question[] = [
     acceptedAnswers: ['x^2-5x+6', 'x^{2}-5x+6'],
     explanation:
       'Bentuk faktornya $f(x)=a(x-2)(x-3)$. Substitusi $(0,6)$: $6=a(0-2)(0-3)=6a$, jadi $a=1$. Maka $f(x)=(x-2)(x-3)=x^{2}-5x+6$.',
-    hints: ['Gunakan bentuk $f(x)=a(x-x_1)(x-x_2)$ dengan akar yang diketahui.'],
+    hints: [
+      'Gunakan bentuk $f(x)=a(x-x_1)(x-x_2)$ dengan akar yang diketahui.',
+      'Substitusikan titik $(0,6)$ untuk menentukan nilai $a$.',
+    ],
     competencies: ['menyusun fungsi kuadrat'],
   },
   {
@@ -95,7 +107,10 @@ export const fungsiKuadratQuestions: Question[] = [
     acceptedAnswers: ['100000', '100.000', '100.000,00', '100000,00', 'Rp100.000', 'Rp100.000,00'],
     explanation:
       'Sumbu simetri $x=-\\dfrac{40}{2\\cdot(-1)}=20$. Laba maksimum $P(20)=-400+800-300=100$ (dalam ribu rupiah), yaitu Rp100.000.',
-    hints: ['Karena $a<0$, laba maksimum berada di titik puncak.'],
+    hints: [
+      'Karena $a<0$, laba maksimum berada di titik puncak.',
+      'Hitung absis puncak $x=-\\dfrac{b}{2a}$ terlebih dahulu.',
+    ],
     competencies: ['optimasi fungsi kuadrat'],
   },
   {
@@ -108,7 +123,10 @@ export const fungsiKuadratQuestions: Question[] = [
     answer: '1',
     acceptedAnswers: ['1'],
     explanation: 'Sumbu simetri $x=-\\dfrac{-6}{2}=3$. Nilai minimum $f(3)=9-18+10=1$.',
-    hints: ['Karena $a>0$, titik puncaknya memberi nilai minimum.'],
+    hints: [
+      'Karena $a>0$, titik puncaknya memberi nilai minimum.',
+      'Absis puncak $x=-\\dfrac{-6}{2}=3$; hitung nilai $f(3)$.',
+    ],
     competencies: ['nilai minimum fungsi kuadrat'],
   },
   {
@@ -162,7 +180,10 @@ export const fungsiKuadratQuestions: Question[] = [
     answer:
       'Dengan melengkapi kuadrat, $f(x)=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{D}{4a}$. Karena $a>0$, suku $a\\left(x+\\dfrac{b}{2a}\\right)^{2}\\geq0$. Karena $D<0$ dan $a>0$, maka $-\\dfrac{D}{4a}>0$. Jumlah suku tak negatif dan suku positif selalu positif, sehingga $f(x)>0$ untuk semua $x$.',
     explanation: 'Kunci jawaban menghubungkan bentuk puncak dengan tanda $a$ dan $D$.',
-    hints: ['Gunakan bentuk puncak $f(x)=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{D}{4a}$.'],
+    hints: [
+      'Gunakan bentuk puncak $f(x)=a\\left(x+\\dfrac{b}{2a}\\right)^{2}-\\dfrac{D}{4a}$.',
+      'Karena $D<0$, suku $-\\dfrac{D}{4a}$ bernilai positif.',
+    ],
     competencies: ['penalaran diskriminan'],
     rubric: [
       'Menggunakan bentuk puncak yang memuat $-\\dfrac{D}{4a}$',
@@ -208,7 +229,7 @@ export const fungsiKuadratQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$a>0$ membuat parabola terbuka ke atas. Diskriminan $D=0$ berarti $ax^{2}+bx+c=0$ memiliki satu akar kembar, sehingga grafik hanya menyinggung sumbu-$x$ di satu titik, yaitu titik puncaknya.',
+      '$a>0$ membuat parabola terbuka ke atas. Diskriminan $D=0$ berarti $ax^{2}+bx+c=0$ memiliki satu akar kembar, sehingga grafik hanya menyinggung sumbu-$x$ di satu titik, yaitu titik puncaknya. Opsi B salah karena $D=0$ tidak menghasilkan dua titik potong. Opsi C salah karena $a>0$ membuka ke atas, bukan ke bawah. Opsi D salah karena $D=0$ justru menyentuh sumbu-$x$.',
     hints: [
       'Tanda $a$ menentukan arah bukaan parabola.',
       '$D=0$ berarti akar kembar, yaitu grafik menyinggung sumbu-$x$.',
@@ -264,17 +285,48 @@ export const fungsiKuadratQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'kontekstual',
     prompt:
-      'Tinggi sebuah roket mainan (meter) setelah $t$ detik dimodelkan $h(t)=-t^{2}+8t$. Tinggi maksimum roket adalah …',
+      'Sebuah bola ditendang dari tanah sehingga tingginya (meter) setelah $t$ detik dimodelkan $h(t)=-t^{2}+6t$. Bola kembali menyentuh tanah setelah … detik.',
     options: [
-      { key: 'A', text: '$8$ m' },
-      { key: 'B', text: '$12$ m' },
-      { key: 'C', text: '$16$ m' },
-      { key: 'D', text: '$32$ m' },
+      { key: 'A', text: '$3$' },
+      { key: 'B', text: '$6$' },
+      { key: 'C', text: '$9$' },
+      { key: 'D', text: '$12$' },
     ],
-    answer: 'C',
+    answer: 'B',
     explanation:
-      'Karena $a=-1<0$, tinggi maksimum ada di titik puncak. Absis puncak $t=-\\dfrac{8}{2\\cdot(-1)}=4$, sehingga $h(4)=-16+32=16$ m. Opsi A hanya membaca koefisien $8$, sedangkan opsi D keliru menghitung $2\\times16$.',
-    hints: ['Tinggi maksimum ada di titik puncak karena koefisien $t^{2}$ negatif.'],
-    competencies: ['optimasi fungsi kuadrat', 'kontekstual'],
+      'Bola menyentuh tanah saat $h(t)=0$: $-t^{2}+6t=0 \\Rightarrow -t(t-6)=0$, sehingga $t=0$ (saat ditendang) atau $t=6$. Jadi bola menyentuh tanah lagi setelah $6$ detik. Opsi A ($3$) adalah waktu saat bola mencapai tinggi maksimum (sumbu simetri), bukan saat mendarat. Opsi C ($9$) dan D ($12$) berasal dari keliru menggandakan atau menjumlahkan waktu tempuh.',
+    hints: [
+      'Bola menyentuh tanah ketika $h(t)=0$.',
+      'Faktorkan $-t^{2}+6t=-t(t-6)$ untuk menemukan kedua waktunya.',
+    ],
+    competencies: ['akar fungsi kuadrat', 'kontekstual'],
+  },
+  {
+    id: 'fk-16',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Perhatikan grafik fungsi kuadrat berikut. Akar-akar dan titik puncak fungsi itu berturut-turut adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg"><line x1="20" y1="100" x2="245" y2="100" stroke="currentColor" stroke-width="1.5"/><line x1="105" y1="30" x2="105" y2="210" stroke="currentColor" stroke-width="1.5"/><path d="M52.5 46 Q140 346 227.5 46" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="70" cy="100" r="3.2" fill="currentColor"/><circle cx="210" cy="100" r="3.2" fill="currentColor"/><circle cx="140" cy="196" r="3.2" fill="currentColor"/><text x="58" y="118" font-size="11" fill="currentColor">-1</text><text x="203" y="118" font-size="11" fill="currentColor">3</text><text x="146" y="211" font-size="11" fill="currentColor">(1,-4)</text></svg>',
+      alt: 'Grafik parabola terbuka ke atas yang memotong sumbu-x di x = -1 dan x = 3 dengan titik puncak di (1, -4).',
+      caption: 'Grafik fungsi kuadrat dengan dua titik potong sumbu-$x$.',
+    },
+    options: [
+      { key: 'A', text: '$x=-1,\\ x=3$ dan $(1,-4)$' },
+      { key: 'B', text: '$x=1,\\ x=-3$ dan $(-1,4)$' },
+      { key: 'C', text: '$x=-1,\\ x=3$ dan $(-4,1)$' },
+      { key: 'D', text: '$x=1,\\ x=3$ dan $(1,-4)$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Grafik memotong sumbu-$x$ di $x=-1$ dan $x=3$, sehingga akar-akarnya $-1$ dan $3$. Titik terendah (puncak) berada di $(1,-4)$. Opsi B menukar tanda akar dan koordinat titik puncak. Opsi C benar akarnya tetapi menukar koordinat titik puncak menjadi $(-4,1)$. Opsi D salah menuliskan salah satu akar menjadi $x=1$.',
+    hints: [
+      'Baca titik potong grafik dengan sumbu-$x$.',
+      'Titik puncak adalah titik balik terendah pada grafik.',
+    ],
+    competencies: ['membaca grafik fungsi kuadrat', 'akar fungsi kuadrat'],
   },
 ];

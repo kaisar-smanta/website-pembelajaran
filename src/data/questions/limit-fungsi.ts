@@ -16,8 +16,8 @@ export const limitFungsiQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Karena $2x+1$ adalah fungsi polinomial, limitnya cukup dihitung dengan substitusi langsung: $\\lim_{x \\to 3}(2x+1) = 2(3)+1 = 7$.',
-    hints: ['Substitusikan $x = 3$ langsung ke fungsi.'],
+      'Karena $2x+1$ adalah fungsi polinomial, limitnya cukup dihitung dengan substitusi langsung: $\\lim_{x \\to 3}(2x+1) = 2(3)+1 = 7$. Opsi B, $6$, muncul bila suku $+1$ terabaikan sehingga hanya menghitung $2(3)$. Opsi A, $5$, muncul bila tanda operasi dibalik menjadi $2(3)-1$. Opsi D, $9$, muncul bila fungsinya keliru dibaca sebagai $3x$ sehingga $3(3)=9$.',
+    hints: ['Substitusikan $x = 3$ langsung ke fungsi.', 'Jangan lupa menambahkan konstanta $+1$ setelah mengalikan $2 \\cdot 3$.'],
     competencies: ['limit fungsi polinomial', 'substitusi langsung'],
   },
   {
@@ -49,8 +49,8 @@ export const limitFungsiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Untuk $x \\neq 0$, $\\dfrac{3x^{2}-2x}{x} = 3x - 2$. Ketika $x \\to 0$, nilainya menuju $0 - 2 = -2$.',
-    hints: ['Faktorkan $x$ pada pembilang lalu sederhanakan.'],
+      'Untuk $x \\neq 0$, $\\dfrac{3x^{2}-2x}{x} = 3x - 2$. Ketika $x \\to 0$, nilainya menuju $0 - 2 = -2$. Opsi A, $2$, muncul bila tanda negatif pada $-2$ hilang. Opsi C, $0$, muncul bila langsung mensubstitusikan $x=0$ sehingga muncul $\\dfrac{0}{0}$ dan keliru dianggap bernilai $0$. Opsi D, $-1$, muncul bila menyederhanakan keliru menjadi $3x-1$, misalnya menganggap $-2x/x = -1$.',
+    hints: ['Faktorkan $x$ pada pembilang lalu sederhanakan.', 'Setelah menyederhanakan, baru substitusikan $x = 0$.'],
     competencies: ['pemfaktoran', 'limit bentuk tak tentu'],
   },
   {
@@ -82,7 +82,7 @@ export const limitFungsiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Kalikan dengan akar sekawan $\\sqrt{x+9}+3$: $\\dfrac{(x+9)-9}{x(\\sqrt{x+9}+3)} = \\dfrac{1}{\\sqrt{x+9}+3}$. Saat $x \\to 0$, hasilnya $\\dfrac{1}{3+3} = \\dfrac{1}{6}$.',
+      'Kalikan dengan akar sekawan $\\sqrt{x+9}+3$: $\\dfrac{(x+9)-9}{x(\\sqrt{x+9}+3)} = \\dfrac{1}{\\sqrt{x+9}+3}$. Saat $x \\to 0$, hasilnya $\\dfrac{1}{3+3} = \\dfrac{1}{6}$. Opsi A, $\\dfrac{1}{3}$, muncul bila hanya memasukkan satu nilai $3$ pada penyebut, lupa bahwa $\\sqrt{x+9}+3$ menuju $3+3$. Opsi C, $\\dfrac{1}{9}$, muncul bila penyebut dianggap $3^{2}=9$. Opsi D, $3$, muncul bila hasil $\\sqrt{x+9}+3$ diambil menjadi nilainya tanpa dibalik, sehingga dianggap $3$.',
     hints: ['Kalikan pembilang dan penyebut dengan $\\sqrt{x+9}+3$.', 'Manfaatkan $(\\sqrt{u}-3)(\\sqrt{u}+3)=u-9$.'],
     competencies: ['perkalian akar sekawan', 'limit bentuk tak tentu'],
   },
@@ -153,7 +153,7 @@ export const limitFungsiQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Faktorkan: $\\dfrac{(x-3)(x+3)}{x(x-3)} = \\dfrac{x+3}{x}$ untuk $x \\neq 3$. Maka limitnya $\\dfrac{3+3}{3} = 2$.',
+      'Faktorkan: $\\dfrac{(x-3)(x+3)}{x(x-3)} = \\dfrac{x+3}{x}$ untuk $x \\neq 3$. Maka limitnya $\\dfrac{3+3}{3} = 2$. Opsi A, $0$, muncul bila bentuk $\\dfrac{0}{0}$ langsung dianggap $0$. Opsi B, $1$, muncul bila setelah mencoret, siswa mengira pembilang dan penyebut keduanya menjadi $x$ sehingga hasilnya $1$. Opsi D, $3$, muncul bila hanya mengevaluasi pembilang $x+3$ di $x=3$ dan melupakan pembagian oleh $x$.',
     hints: ['Faktorkan pembilang $x^{2}-9$ dan penyebut $x^{2}-3x$.', 'Coret faktor $(x-3)$ yang sama.'],
     competencies: ['pemfaktoran', 'limit bentuk tak tentu'],
   },
@@ -260,5 +260,55 @@ export const limitFungsiQuestions: Question[] = [
       'Bagi pembilang dan penyebut dengan $t$: $C(t) = \\dfrac{8}{1 + \\frac{2}{t}}$. Karena $\\dfrac{2}{t} \\to 0$ saat $t \\to \\infty$, konsentrasi jangka panjangnya $\\dfrac{8}{1} = 8$ mg/L.',
     hints: ['Bagi pembilang dan penyebut dengan $t$.', 'Gunakan $\\dfrac{1}{t} \\to 0$ ketika $t \\to \\infty$.'],
     competencies: ['limit di tak hingga', 'pemodelan kontekstual'],
+  },
+  {
+    id: 'lim-15',
+    topicId: 'limit-fungsi',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Tabel berikut memuat nilai $f(x) = \\dfrac{x^{3} - 8}{x - 2}$ untuk $x$ yang mendekati $2$. Berdasarkan tabel, tentukan nilai $\\lim_{x \\to 2} f(x)$.',
+    table: {
+      caption: 'Nilai $f(x)$ di sekitar $x = 2$',
+      headers: ['$x$', '$1{,}9$', '$1{,}99$', '$1{,}999$', '$2{,}001$', '$2{,}01$', '$2{,}1$'],
+      rows: [
+        [
+          '$f(x)$',
+          '$11{,}41$',
+          '$11{,}9401$',
+          '$11{,}994001$',
+          '$12{,}006001$',
+          '$12{,}0601$',
+          '$12{,}61$',
+        ],
+      ],
+    },
+    answer: '12',
+    explanation:
+      'Dari kedua arah, nilai $f(x)$ makin dekat ke $12$: kolom kiri naik menuju $11{,}994$ dan kolom kanan turun menuju $12{,}006$. Secara aljabar, $x^{3}-8=(x-2)(x^{2}+2x+4)$ sehingga untuk $x \\neq 2$ berlaku $f(x)=x^{2}+2x+4$, dan di $x=2$ nilainya $4+4+4=12$. Jadi $\\lim_{x \\to 2} f(x) = 12$.',
+    hints: [
+      'Amati ke arah bilangan mana nilai $f(x)$ dari kiri dan kanan sama-sama mendekat.',
+      'Faktorkan $x^{3}-8$ sebagai selisih kubus untuk memastikan nilainya.',
+    ],
+    competencies: ['membaca tabel', 'limit bentuk tak tentu', 'pemfaktoran'],
+  },
+  {
+    id: 'lim-16',
+    topicId: 'limit-fungsi',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Waktu proses sebuah algoritma (dalam milidetik) untuk $n$ data dimodelkan $T(n) = \\dfrac{3n^{2} + 2n}{n^{2} + 5}$. Tentukan waktu proses jangka panjang ketika banyak data $n \\to \\infty$.',
+    answer: '3',
+    acceptedAnswers: ['3', '3 ms'],
+    explanation:
+      'Bagi pembilang dan penyebut dengan $n^{2}$: $T(n) = \\dfrac{3 + \\frac{2}{n}}{1 + \\frac{5}{n^{2}}}$. Karena $\\dfrac{2}{n}$ dan $\\dfrac{5}{n^{2}}$ menuju $0$ saat $n \\to \\infty$, waktu proses jangka panjangnya $\\dfrac{3}{1} = 3$ ms. Nilai ini menunjukkan batas asimtotik algoritma, yaitu berbanding lurus dengan banyak data berorde $n$ yang sama pada pembilang dan penyebut.',
+    hints: [
+      'Bentuk ini $\\dfrac{\\infty}{\\infty}$; bagi pembilang dan penyebut dengan pangkat tertinggi $n^{2}$.',
+      'Suku-suku berbentuk $\\dfrac{k}{n}$ menuju $0$ ketika $n$ membesar tanpa batas.',
+    ],
+    competencies: ['limit di tak hingga', 'pemodelan kontekstual', 'interpretasi'],
   },
 ];

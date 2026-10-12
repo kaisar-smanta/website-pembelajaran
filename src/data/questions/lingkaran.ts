@@ -31,8 +31,11 @@ export const lingkaranQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Sudut pusat yang menghadap diameter adalah $180^\\circ$, dan sudut keliling setengah darinya, yaitu $\\dfrac{1}{2}\\times180^\\circ=90^\\circ$.',
-    hints: ['Diameter adalah busur dengan sudut pusat $180^\\circ$.'],
+      'Sudut pusat yang menghadap diameter adalah $180^\\circ$, dan sudut keliling setengah darinya, yaitu $\\dfrac{1}{2}\\times180^\\circ=90^\\circ$. Opsi A dan B keliru karena membagi sudut pusat dengan $4$ atau $3$; opsi D menyamakan sudut keliling dengan sudut pusat, padahal nilainya setengahnya.',
+    hints: [
+      'Diameter adalah busur dengan sudut pusat $180^\\circ$.',
+      'Sudut keliling selalu setengah sudut pusat yang menghadap busur sama.',
+    ],
     competencies: ['sudut keliling'],
   },
   {
@@ -66,8 +69,11 @@ export const lingkaranQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      '$s=\\dfrac{90}{360}\\times2\\times3{,}14\\times10=\\dfrac{1}{4}\\times62{,}8=15{,}7$ cm.',
-    hints: ['Sudut $90^\\circ$ berarti seperempat lingkaran.'],
+      '$s=\\dfrac{90}{360}\\times2\\times3{,}14\\times10=\\dfrac{1}{4}\\times62{,}8=15{,}7$ cm. Opsi A memakai diameter $2r=20$ sebagai jari-jari atau salah membagi; opsi C menghitung untuk sudut $180^\\circ$ (setengah lingkaran); opsi D menghitung keliling penuh $2\\pi r=62{,}8$ lalu menambah, bukan luas maupun busur yang diminta.',
+    hints: [
+      'Sudut $90^\\circ$ berarti seperempat lingkaran.',
+      'Gunakan $s=\\dfrac{\\theta}{360^\\circ}\\times2\\pi r$ dengan $r=10$.',
+    ],
     competencies: ['panjang busur'],
   },
   {
@@ -106,8 +112,11 @@ export const lingkaranQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      '$\\ell_{\\text{dalam}}=\\sqrt{d^{2}-(R+r)^{2}}=\\sqrt{10^{2}-(5+1)^{2}}=\\sqrt{100-36}=8$ cm.',
-    hints: ['Garis singgung persekutuan dalam memakai $(R+r)^{2}$.'],
+      '$\\ell_{\\text{dalam}}=\\sqrt{d^{2}-(R+r)^{2}}=\\sqrt{10^{2}-(5+1)^{2}}=\\sqrt{100-36}=8$ cm. Opsi A hanya menjumlahkan jari-jari $R+r=6$ tanpa teorema Pythagoras; opsi C menyamakannya dengan jarak pusat $d=10$; opsi D keliru memakai $2(R+r)=12$.',
+    hints: [
+      'Garis singgung persekutuan dalam memakai $(R+r)^{2}$.',
+      'Hitung $\\sqrt{d^{2}-(R+r)^{2}}$ dengan $d=10$.',
+    ],
     competencies: ['garis singgung persekutuan'],
   },
   {
@@ -122,7 +131,10 @@ export const lingkaranQuestions: Question[] = [
     acceptedAnswers: ['12 cm', '12\\text{ cm}'],
     explanation:
       '$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}=\\sqrt{13^{2}-(8-3)^{2}}=\\sqrt{169-25}=12$ cm.',
-    hints: ['Garis singgung persekutuan luar memakai $(R-r)^{2}$.'],
+    hints: [
+      'Garis singgung persekutuan luar memakai $(R-r)^{2}$.',
+      'Untuk luar, gunakan $(R-r)$; untuk dalam, gunakan $(R+r)$.',
+    ],
     competencies: ['garis singgung persekutuan'],
   },
   {
@@ -173,7 +185,10 @@ export const lingkaranQuestions: Question[] = [
       'Luas persegi $=14\\times14=196$ cm². Luas lingkaran $=\\dfrac{22}{7}\\times7^{2}=154$ cm². Luas daerah persegi di luar lingkaran $=196-154=42$ cm².',
     explanation:
       'Karena lingkaran menyinggung keempat sisi, diameternya sama dengan panjang sisi persegi ($14$ cm).',
-    hints: ['Hitung luas persegi dan luas lingkaran, lalu kurangkan.'],
+    hints: [
+      'Hitung luas persegi dan luas lingkaran, lalu kurangkan.',
+      'Karena lingkaran menyinggung keempat sisi, diameter lingkaran sama dengan sisi persegi.',
+    ],
     competencies: ['luas lingkaran', 'pemodelan'],
     rubric: [
       'Menyimpulkan diameter lingkaran $14$ cm sama dengan sisi persegi',
@@ -261,5 +276,33 @@ export const lingkaranQuestions: Question[] = [
       'Gunakan hubungan $\\ell_{\\text{luar}}^{2}=d^{2}-(R-r)^{2}$. Substitusi memberi $24^{2}=d^{2}-(15-8)^{2}$, yaitu $576=d^{2}-49$, sehingga $d^{2}=625$ dan $d=25$ cm.',
     hints: ['Gunakan $(R-r)$ untuk garis singgung persekutuan luar.', 'Selesaikan $24^{2}=d^{2}-7^{2}$.'],
     competencies: ['garis singgung persekutuan', 'teorema Pythagoras'],
+  },
+  {
+    id: 'lk-15',
+    topicId: 'lingkaran',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Pada gambar, $AB$ adalah diameter lingkaran berpusat $O$ dan besar $\\angle BAC = 30^\\circ$. Besar $\\angle ABC$ adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><circle cx="160" cy="110" r="70" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="90" y1="110" x2="230" y2="110" stroke="currentColor" stroke-width="1.6"/><line x1="90" y1="110" x2="195" y2="49" stroke="currentColor" stroke-width="1.6"/><line x1="230" y1="110" x2="195" y2="49" stroke="currentColor" stroke-width="1.6"/><circle cx="160" cy="110" r="2.5" fill="currentColor"/><circle cx="90" cy="110" r="2.5" fill="currentColor"/><circle cx="230" cy="110" r="2.5" fill="currentColor"/><circle cx="195" cy="49" r="2.5" fill="currentColor"/><text x="163" y="124" font-size="11" fill="currentColor">O</text><text x="78" y="124" font-size="11" fill="currentColor">A</text><text x="233" y="124" font-size="11" fill="currentColor">B</text><text x="198" y="43" font-size="11" fill="currentColor">C</text><text x="100" y="108" font-size="10" fill="currentColor">30°</text></svg>',
+      alt: 'Lingkaran berpusat O dengan diameter AB mendatar dan titik C pada lingkaran. Ruas AC dan BC membentuk segitiga siku-siku di C, dengan sudut BAC sebesar 30 derajat.',
+      caption: 'Segitiga $ABC$ dengan $AB$ sebagai diameter dan $\\angle BAC=30^\\circ$.',
+    },
+    options: [
+      { key: 'A', text: '$60^\\circ$' },
+      { key: 'B', text: '$30^\\circ$' },
+      { key: 'C', text: '$90^\\circ$' },
+      { key: 'D', text: '$120^\\circ$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Karena $AB$ adalah diameter, sudut keliling $\\angle ACB$ yang menghadapnya besarnya $90^\\circ$. Jumlah sudut segitiga $ABC$ adalah $180^\\circ$, sehingga $\\angle ABC = 180^\\circ - 90^\\circ - 30^\\circ = 60^\\circ$. Opsi B menyamakan $\\angle ABC$ dengan $\\angle BAC$; opsi C menempatkan sudut siku-siku di $B$, padahal siku-siku di $C$; opsi D menjumlahkan $90^\\circ + 30^\\circ$ alih-alih menguranginya dari $180^\\circ$.',
+    hints: [
+      'Sudut keliling yang menghadap diameter besarnya $90^\\circ$.',
+      'Gunakan jumlah sudut dalam segitiga sama dengan $180^\\circ$.',
+    ],
+    competencies: ['sudut keliling', 'jumlah sudut segitiga'],
   },
 ];

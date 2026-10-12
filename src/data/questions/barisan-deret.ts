@@ -56,7 +56,10 @@ export const barisanDeretQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Dari $U_3=a+2b=11$ dan $U_7=a+6b=27$. Kurangkan: $4b=16$ sehingga $b=4$, lalu $a=11-2\\cdot4=3$. Jadi $U_{20}=3+(20-1)\\cdot4=3+76=79$. Opsi A memakai $U_{19}$ (kurang satu suku); opsi C memakai $3+20\\cdot4$ karena lupa bentuk $(n-1)$; opsi D salah menghitung suku pertama menjadi $7$.',
-    hints: ['Susun dua persamaan dari $U_3$ dan $U_7$, lalu eliminasi.'],
+    hints: [
+      'Susun dua persamaan dari $U_3$ dan $U_7$, lalu eliminasi.',
+      'Kurangkan kedua persamaan untuk memperoleh $4b$, lalu hitung $a$ dari $a+2b=11$.',
+    ],
     competencies: ['barisan aritmetika'],
   },
   {
@@ -84,7 +87,10 @@ export const barisanDeretQuestions: Question[] = [
     acceptedAnswers: ['1536'],
     explanation:
       '$\\dfrac{U_5}{U_2}=r^{3}=\\dfrac{48}{6}=8$, sehingga $r=2$. Karena $U_2=ar=6$, maka $a=3$. Jadi $U_{10}=3\\cdot2^{9}=3\\cdot512=1536$.',
-    hints: ['Bandingkan $U_5$ dan $U_2$ untuk memperoleh $r^{3}$.'],
+    hints: [
+      'Bandingkan $U_5$ dan $U_2$ untuk memperoleh $r^{3}$.',
+      'Setelah $r=2$ diperoleh, gunakan $U_2=ar$ untuk mencari $a$, lalu hitung $U_{10}=ar^{9}$.',
+    ],
     competencies: ['barisan geometri'],
   },
   {
@@ -98,7 +104,10 @@ export const barisanDeretQuestions: Question[] = [
     acceptedAnswers: ['24'],
     explanation:
       'Di sini $a=12$ dan $r=\\tfrac12$ dengan $\\lvert r\\rvert<1$, maka $S_\\infty=\\dfrac{12}{1-\\tfrac12}=\\dfrac{12}{\\tfrac12}=24$.',
-    hints: ['Periksa dulu apakah $\\lvert r\\rvert<1$ sebelum memakai rumus $S_\\infty$.'],
+    hints: [
+      'Periksa dulu apakah $\\lvert r\\rvert<1$ sebelum memakai rumus $S_\\infty$.',
+      'Dengan $a=12$ dan $r=\\tfrac12$, gunakan $S_\\infty=\\dfrac{a}{1-r}$.',
+    ],
     competencies: ['deret geometri tak hingga'],
   },
   {
@@ -112,7 +121,10 @@ export const barisanDeretQuestions: Question[] = [
     acceptedAnswers: ['12'],
     explanation:
       'Misalkan $47=U_n$, maka $47=3+(n-1)\\cdot4$, sehingga $44=4(n-1)$ dan $n-1=11$. Jadi $n=12$.',
-    hints: ['Tulis $47$ sebagai $U_n=a+(n-1)b$, lalu selesaikan untuk $n$.'],
+    hints: [
+      'Tulis $47$ sebagai $U_n=a+(n-1)b$, lalu selesaikan untuk $n$.',
+      'Identifikasi $a=3$ dan $b=4$, lalu selesaikan $47=3+4(n-1)$.',
+    ],
     competencies: ['suku ke-n barisan aritmetika'],
   },
   {
@@ -267,5 +279,23 @@ export const barisanDeretQuestions: Question[] = [
       'Menyelesaikan $d=\\pm2$ dan memperoleh bilangan $6,8,10$',
       'Menjelaskan tanda $d$ hanya membedakan barisan naik atau turun',
     ],
+  },
+  {
+    id: 'bd-15',
+    topicId: 'barisan-deret',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Program latihan seorang pelari dimulai dengan $3$ km pada hari pertama, dan setiap hari berikutnya ia menambah $0{,}5$ km dari hari sebelumnya. Tentukan total jarak yang ditempuh selama $10$ hari pertama (dalam km).',
+    answer: '52,5',
+    acceptedAnswers: ['52,5', '52.5', '105/2'],
+    explanation:
+      'Jarak harian membentuk barisan aritmetika dengan $a=3$ dan $b=0{,}5$, sehingga $S_{10}=\\dfrac{10}{2}\\big(2\\cdot3+9\\cdot0{,}5\\big)=5(6+4{,}5)=52{,}5$ km.',
+    hints: [
+      'Model jarak harian sebagai barisan aritmetika dengan $a=3$ dan $b=0{,}5$.',
+      'Gunakan $S_n=\\dfrac{n}{2}\\big(2a+(n-1)b\\big)$ dengan $n=10$.',
+    ],
+    competencies: ['deret aritmetika', 'pemodelan', 'kontekstual'],
   },
 ];

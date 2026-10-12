@@ -117,6 +117,20 @@ Ingat bahwa perkalian matriks **tidak komutatif**, sehingga urutan transformasi 
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Ingat kembali istilah transformasi berikut.",
+          cards: [
+            { front: "Transformasi", back: "Aturan yang memetakan setiap titik bidang ke titik lain" },
+            { front: "Translasi", back: "Pergeseran oleh vektor $\\binom{a}{b}$ melalui penjumlahan, bukan perkalian matriks" },
+            { front: "Refleksi", back: "Pencerminan terhadap garis; determinannya $-1$" },
+            { front: "Rotasi", back: "Perputaran sebesar $\\theta$ mengelilingi titik asal; determinannya $1$" },
+            { front: "Dilatasi", back: "Perkalian jarak terhadap pusat dengan faktor skala $k$" },
+            { front: "Komposisi transformasi", back: "Merangkai dua transformasi dengan mengalikan matriksnya secara berurutan" },
+            { front: "Determinan", back: "$ad-bc$; nilai mutlaknya menjadi faktor skala luas" },
+            { front: "Matriks singular", back: "Matriks yang determinannya $0$ sehingga tidak memiliki invers" },
+          ],
+        },
       ],
     },
     {
@@ -431,7 +445,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana matriks memindahkan dan mengubah bangun pada bidang.",
+      body: "Tinjau kembali bagaimana satu matriks mewakili sebuah perubahan bentuk dan posisi.",
       blocks: [
         {
           kind: "reflection",
@@ -492,7 +506,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Apa arti geometris dari $\\lvert\\det(M)\\rvert$ pada sebuah transformasi? (2) Mengapa urutan dua transformasi tidak boleh ditukar? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Matriks Transformasi** untuk latihan tambahan.`,
+      body: `Kembali ke pertanyaan pemantik: mengapa urutan dua transformasi tidak boleh ditukar? Jelaskan pula bagaimana satu bilangan, yaitu determinan, merangkum pengaruh sebuah matriks terhadap luas. Tuliskan jawabanmu secara ringkas, lalu lanjut ke [Latihan & Asesmen](/latihan) topik **Matriks Transformasi** untuk memperdalam.`,
     },
   ],
 };

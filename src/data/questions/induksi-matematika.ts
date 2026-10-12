@@ -17,8 +17,8 @@ export const induksiMatematikaQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Basis induksi adalah pemeriksaan nilai awal, misalnya $P(1)$ benar. Langkah induksi adalah pembuktian $P(k) \\Rightarrow P(k+1)$, sedangkan hipotesis induksi adalah pengandaian $P(k)$ yang dipakai pada langkah tersebut.',
-    hints: ['Basis berarti "dasar", yaitu titik awal rantai induksi.'],
+      'Basis induksi adalah pemeriksaan nilai awal, misalnya $P(1)$ benar. Opsi A, langkah induksi, adalah pembuktian $P(k) \\Rightarrow P(k+1)$, bukan pemeriksaan nilai awal. Opsi C, hipotesis induksi, adalah pengandaian $P(k)$ yang dipakai pada langkah tersebut. Opsi D, kontraposisi, adalah bentuk pernyataan logika $\\neg Q \\Rightarrow \\neg P$ yang tidak berkaitan dengan langkah awal induksi.',
+    hints: ['Basis berarti "dasar", yaitu titik awal rantai induksi.', 'Bandingkan dengan langkah induksi yang menghubungkan dua nilai berurutan.'],
     competencies: ['prinsip induksi matematika'],
   },
   {
@@ -49,7 +49,7 @@ export const induksiMatematikaQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Langkah induksi mengandaikan $P(k)$ benar lalu membuktikan $P(k+1)$ benar. Suku ke-$(k+1)$ pada barisan ganjil adalah $2k+1$, sehingga targetnya $1+3+\\cdots+(2k+1)=(k+1)^2$.',
+      'Langkah induksi mengandaikan $P(k)$ benar lalu membuktikan $P(k+1)$ benar. Suku ke-$(k+1)$ pada barisan ganjil adalah $2k+1$, sehingga targetnya $1+3+\\cdots+(2k+1)=(k+1)^2$. Opsi B hanya mengulang pengandaian $P(k)$ tanpa membuktikan $P(k+1)$, sehingga tidak menambah apa pun. Opsi C salah karena memeriksa dua nilai awal saja tidak menggantikan langkah umum untuk semua $k$. Opsi D membalik arah induksi, dari $k+1$ ke $k$, padahal arah yang benar selalu dari $k$ ke $k+1$.',
     hints: ['Suku ganjil ke-$m$ adalah $2m-1$; untuk $m=k+1$ diperoleh $2k+1$.', 'Arah induksi selalu dari $k$ ke $k+1$, bukan sebaliknya.'],
     competencies: ['langkah induksi'],
   },
@@ -93,7 +93,7 @@ export const induksiMatematikaQuestions: Question[] = [
     acceptedAnswers: ['1275'],
     explanation:
       '$\\dfrac{50\\cdot 51}{2}=25\\cdot 51=1275$.',
-    hints: ['Substitusi $n=50$ ke $\\dfrac{n(n+1)}{2}$.'],
+    hints: ['Substitusi $n=50$ ke $\\dfrac{n(n+1)}{2}$.', 'Hitung $\\dfrac{50 \\cdot 51}{2}$ dengan menyederhanakan $50/2$ terlebih dahulu.'],
     competencies: ['rumus jumlah bilangan asli'],
   },
   {
@@ -131,7 +131,7 @@ export const induksiMatematikaQuestions: Question[] = [
     acceptedAnswers: ['5'],
     explanation:
       'Jabarkan: $6(6^k-1)+c=6\\cdot 6^k-6+c=6^{k+1}-1$ bila $-6+c=-1$, yaitu $c=5$. Dengan begitu $6^{k+1}-1=6(6^k-1)+5$, yang tetap habis dibagi $5$.',
-    hints: ['Samakan $6(6^k-1)+c$ dengan $6^{k+1}-1$, lalu bandingkan konstanta.'],
+    hints: ['Samakan $6(6^k-1)+c$ dengan $6^{k+1}-1$, lalu bandingkan konstanta.', 'Bandingkan koefisien konstanta: $-6+c=-1$.'],
     competencies: ['keterbagian', 'langkah induksi'],
   },
   {
@@ -167,7 +167,7 @@ export const induksiMatematikaQuestions: Question[] = [
     acceptedAnswers: ['385'],
     explanation:
       'Gunakan $1^2+2^2+\\cdots+n^2=\\dfrac{n(n+1)(2n+1)}{6}$: $\\dfrac{10\\cdot 11\\cdot 21}{6}=\\dfrac{2310}{6}=385$.',
-    hints: ['Gunakan rumus jumlah kuadrat $\\dfrac{n(n+1)(2n+1)}{6}$.'],
+    hints: ['Gunakan rumus jumlah kuadrat $\\dfrac{n(n+1)(2n+1)}{6}$.', 'Substitusikan $n=10$ lalu hitung $10 \\cdot 11 \\cdot 21$ sebelum dibagi $6$.'],
     competencies: ['rumus jumlah kuadrat'],
   },
   {
@@ -277,8 +277,8 @@ export const induksiMatematikaQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Langkah induksi mengandaikan dua himpunan berukuran $k$ saling beririsan sebagai jembatan menuju $k+1$. Jembatan itu baru terjamin bila $k \\ge 2$. Untuk $k=1$ menuju $k=2$, dua himpunan berukuran satu (dua kuda berbeda) tidak beririsan, sehingga sifat warna tidak dapat diwariskan. Basis benar, tetapi langkahnya gagal tepat pada transisi pertama.',
-    hints: ['Periksa apakah langkah induksi berlaku untuk semua $k$, khususnya dari $k=1$.'],
+      'Langkah induksi mengandaikan dua himpunan berukuran $k$ saling beririsan sebagai jembatan menuju $k+1$. Jembatan itu baru terjamin bila $k \\ge 2$. Untuk $k=1$ menuju $k=2$, dua himpunan berukuran satu (dua kuda berbeda) tidak beririsan, sehingga sifat warna tidak dapat diwariskan. Basis benar, tetapi langkahnya gagal tepat pada transisi pertama. Opsi A salah karena basis $n=1$ justru benar. Opsi C salah karena pembuktiannya memang cacat pada transisi $k=1$ ke $k=2$. Opsi D salah karena masalahnya bukan pada banyaknya basis, melainkan pada keabsahan langkah untuk $k=1$.',
+    hints: ['Periksa apakah langkah induksi berlaku untuk semua $k$, khususnya dari $k=1$.', 'Uji transisi terkecil: apakah dua himpunan berukuran $1$ pasti beririsan?'],
     competencies: ['evaluasi pembuktian', 'prinsip induksi matematika'],
   },
   {
@@ -302,5 +302,56 @@ export const induksiMatematikaQuestions: Question[] = [
       'Menyamakan penyebut $r-1$ lalu menyederhanakan',
       'Memperoleh $\\dfrac{r^{k+1}-1}{r-1}$ untuk $n=k+1$',
     ],
+  },
+  {
+    id: 'ind-16',
+    topicId: 'induksi-matematika',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Dalam ilmu komputer, sebuah pohon biner penuh dengan tinggi $n$ (tingkat $0$ sampai tingkat $n$) memiliki $N(n) = 2^{n+1} - 1$ simpul. Buktikan dengan induksi matematika bahwa rumus ini benar untuk setiap bilangan bulat $n \\ge 0$.',
+    answer:
+      'Basis $n=0$: rumus memberi $N(0)=2^{0+1}-1=2-1=1$ simpul, yaitu hanya simpul akar, benar. Hipotesis: andaikan $N(k)=2^{k+1}-1$ untuk suatu $k \\ge 0$. Menambah tingkat ke-$(k+1)$ menambah $2^{k+1}$ simpul baru (karena tiap simpul di tingkat ke-$k$ bercabang dua). Maka $N(k+1)=N(k)+2^{k+1}=(2^{k+1}-1)+2^{k+1}=2 \\cdot 2^{k+1}-1=2^{k+2}-1$, tepat bentuk rumus untuk $n=k+1$. Karena basis dan langkah induksi benar, rumus berlaku untuk semua $n \\ge 0$.',
+    explanation:
+      'Kunci: memeriksa basis $n=0$, mengasumsikan $N(k)$, menambahkan $2^{k+1}$ simpul pada tingkat baru, lalu menyederhanakan menjadi $2^{k+2}-1$.',
+    hints: [
+      'Mulai basis dari $n=0$, bukan $n=1$, karena tinggi pohon dimulai dari $0$.',
+      'Tingkat baru menambah $2^{k+1}$ simpul; gunakan $2^{k+1}+2^{k+1}=2^{k+2}$.',
+    ],
+    competencies: ['pembuktian induksi', 'pemodelan', 'kontekstual'],
+    rubric: [
+      'Memeriksa basis $n=0$: $N(0)=1$',
+      'Mengandaikan $N(k)=2^{k+1}-1$',
+      'Menambahkan $2^{k+1}$ simpul pada tingkat baru',
+      'Memperoleh $N(k+1)=2^{k+2}-1$ sebagai bentuk umum',
+      'Menyimpulkan rumus berlaku untuk semua $n\\ge0$',
+    ],
+  },
+  {
+    id: 'ind-17',
+    topicId: 'induksi-matematika',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'evaluasi',
+    prompt:
+      'Seorang siswa membuktikan $1+3+5+\\cdots+(2n-1)=n^{2}$ dan pada langkah induksi menulis $1+3+\\cdots+(2k-1)+(2k-1)=k^{2}+(2k-1)=(k+1)^{2}$. Pernyataan yang paling tepat mengenai langkah tersebut adalah …',
+    options: [
+      { key: 'A', text: 'Benar, karena $k^{2}+2k-1=(k+1)^{2}$' },
+      {
+        key: 'B',
+        text: 'Keliru pada suku yang ditambahkan; suku berikutnya harusnya $2k+1$ sehingga $k^{2}+2k+1=(k+1)^{2}$',
+      },
+      { key: 'C', text: 'Keliru karena pada langkah induksi tidak perlu menambahkan suku apa pun' },
+      { key: 'D', text: 'Benar, karena identitas $(k+1)^{2}=k^{2}+2k-1$ memang selalu berlaku' },
+    ],
+    answer: 'B',
+    explanation:
+      'Suku setelah $(2k-1)$ pada barisan bilangan ganjil adalah $2k+1$, bukan $2k-1$. Dengan suku yang benar, $k^{2}+(2k+1)=k^{2}+2k+1=(k+1)^{2}$, sehingga langkah induksi sah. Opsi A dan D salah karena mengklaim identitas keliru $k^{2}+2k-1=(k+1)^{2}$, padahal ruas kanan sebenarnya $k^{2}+2k+1$. Opsi C salah karena langkah induksi memang mengharuskan menambahkan suku berikutnya untuk memperoleh $P(k+1)$.',
+    hints: [
+      'Tuliskan suku ganjil ke-$(k+1)$ secara eksplisit dari pola $2m-1$.',
+      'Periksa kembali identitas kuadrat $(k+1)^{2}=k^{2}+2k+1$.',
+    ],
+    competencies: ['evaluasi pembuktian', 'langkah induksi'],
   },
 ];

@@ -16,7 +16,7 @@ export const vektorQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$\\lVert \\vec{a} \\rVert = \\sqrt{6^{2} + 8^{2}} = \\sqrt{36 + 64} = \\sqrt{100} = 10$.',
+      '$\\lVert \\vec{a} \\rVert = \\sqrt{6^{2} + 8^{2}} = \\sqrt{36 + 64} = \\sqrt{100} = 10$ (A). Opsi B ($14$) menjumlahkan komponen $6+8$; opsi C ($48$) mengalikan komponen $6\\cdot8$; opsi D ($\\sqrt{14}$) mengakarkan jumlah komponen alih-alih jumlah kuadrat.',
     hints: ['Gunakan teorema Pythagoras pada komponen-komponennya.'],
     competencies: ['panjang vektor'],
   },
@@ -49,7 +49,7 @@ export const vektorQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$\\vec{AB} = B - A = \\begin{pmatrix} 4 - 1 \\\\ 6 - 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$.',
+      '$\\vec{AB} = B - A = \\begin{pmatrix} 4 - 1 \\\\ 6 - 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ (A). Opsi B ($(5,8)$) menjumlahkan koordinat $A+B$; opsi C ($(-3,-4)$) memakai $A-B$ sehingga tandanya terbalik; opsi D ($(4,3)$) menukar urutan komponen.',
     hints: ['Komponen vektor $\\vec{AB}$ adalah koordinat ujung dikurangi koordinat pangkal.'],
     competencies: ['representasi vektor', 'vektor posisi'],
   },
@@ -84,8 +84,11 @@ export const vektorQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$, sehingga $2\\vec{a} - \\vec{b} = \\begin{pmatrix} 6 - 1 \\\\ 8 - 2 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 6 \\end{pmatrix}$.',
-    hints: ['Kalikan dulu dengan skalar, lalu kurangkan komponen yang seposisi.'],
+      '$2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$, sehingga $2\\vec{a} - \\vec{b} = \\begin{pmatrix} 6 - 1 \\\\ 8 - 2 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 6 \\end{pmatrix}$ (A). Opsi B ($(4,6)$) mengurangi komponen pertama dengan $2$; opsi C ($(7,8)$) menjumlahkan alih-alih mengurangkan; opsi D ($(6,8)$) lupa mengurangkan $\\vec{b}$.',
+    hints: [
+      'Kalikan dulu dengan skalar, lalu kurangkan komponen yang seposisi.',
+      'Hitung $2\\vec{a}$ komponen per komponen sebelum mengurangkan $\\vec{b}$.',
+    ],
     competencies: ['perkalian skalar', 'pengurangan vektor'],
   },
   {
@@ -99,7 +102,10 @@ export const vektorQuestions: Question[] = [
     answer: '11',
     explanation:
       '$\\vec{a} \\cdot \\vec{b} = 3(1) + 4(2) = 3 + 8 = 11$.',
-    hints: ['Jumlahkan hasil kali komponen yang bersesuaian.'],
+    hints: [
+      'Jumlahkan hasil kali komponen yang bersesuaian.',
+      'Kalikan komponen pertama dengan komponen pertama dan komponen kedua dengan komponen kedua, lalu jumlahkan.',
+    ],
     competencies: ['perkalian titik'],
   },
   {
@@ -118,8 +124,11 @@ export const vektorQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, sehingga kedua vektor tegak lurus. Opsi B dan D sejajar dengan $\\vec{a}$, sedangkan opsi C memberi $12 + 12 = 24 \\neq 0$.',
-    hints: ['Dua vektor tegak lurus bila perkalian titiknya nol.'],
+      '$\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, sehingga kedua vektor tegak lurus (A). Opsi B sejajar dengan $\\vec{a}$ karena merupakan kelipatannya; opsi D juga kelipatan $\\vec{a}$ sehingga sejajar; opsi C memberi $12 + 12 = 24 \\neq 0$, jadi tidak tegak lurus.',
+    hints: [
+      'Dua vektor tegak lurus bila perkalian titiknya nol.',
+      'Uji setiap opsi dengan perkalian titik terhadap $\\vec{a}$; hasil nol menandakan tegak lurus.',
+    ],
     competencies: ['ketegaklurusan', 'perkalian titik'],
   },
   {
@@ -134,7 +143,10 @@ export const vektorQuestions: Question[] = [
     acceptedAnswers: ['45°', '45 derajat', '45^\\circ'],
     explanation:
       '$\\vec{u} \\cdot \\vec{v} = 5$, $\\lVert \\vec{u} \\rVert = \\sqrt{5}$, $\\lVert \\vec{v} \\rVert = \\sqrt{10}$, sehingga $\\cos\\theta = \\dfrac{5}{\\sqrt{50}} = \\dfrac{1}{\\sqrt{2}}$. Jadi $\\theta = 45^\\circ$.',
-    hints: ['Gunakan $\\cos\\theta = \\dfrac{\\vec{u} \\cdot \\vec{v}}{\\lVert \\vec{u} \\rVert \\lVert \\vec{v} \\rVert}$.'],
+    hints: [
+      'Gunakan $\\cos\\theta = \\dfrac{\\vec{u} \\cdot \\vec{v}}{\\lVert \\vec{u} \\rVert \\lVert \\vec{v} \\rVert}$.',
+      'Setelah memperoleh $\\cos\\theta=\\dfrac{1}{\\sqrt{2}}$, tentukan sudut istimewa yang sesuai.',
+    ],
     competencies: ['sudut antar vektor', 'perkalian titik'],
   },
   {
@@ -149,7 +161,10 @@ export const vektorQuestions: Question[] = [
       '$\\vec{a} \\cdot \\vec{b} = 3(1) + 4(2) = 11$ dan $\\lVert \\vec{b} \\rVert^{2} = 1^{2} + 2^{2} = 5$. Proyeksi vektornya adalah $\\vec{p} = \\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\vec{b} = \\dfrac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 11/5 \\\\ 22/5 \\end{pmatrix}$. Panjangnya $\\lVert \\vec{p} \\rVert = \\dfrac{11}{5}\\sqrt{5} = \\dfrac{11\\sqrt{5}}{5} \\approx 4{,}92$.',
     explanation:
       'Kunci menekankan penggunaan rumus proyeksi vektor dan pemeriksaan bahwa panjang proyeksi sama dengan proyeksi skalar $\\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert}$.',
-    hints: ['Proyeksi vektor $\\vec{a}$ pada $\\vec{b}$ adalah $\\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\vec{b}$.'],
+    hints: [
+      'Proyeksi vektor $\\vec{a}$ pada $\\vec{b}$ adalah $\\dfrac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\vec{b}$.',
+      'Panjang proyeksi sama dengan $\\dfrac{|\\vec{a} \\cdot \\vec{b}|}{\\lVert \\vec{b} \\rVert}$; gunakan untuk memeriksa hasil.',
+    ],
     competencies: ['proyeksi vektor', 'perkalian titik'],
     rubric: [
       'Menghitung perkalian titik',
@@ -174,8 +189,11 @@ export const vektorQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$. Kolinear berarti $\\vec{AC} = t\\,\\vec{AB}$. Karena $\\vec{AC} = \\begin{pmatrix} 4 \\\\ k-1 \\end{pmatrix}$, dari komponen pertama $4 = 2t$ diperoleh $t = 2$, sehingga $k - 1 = 2(2) = 4$ dan $k = 5$.',
-    hints: ['Titik kolinear bila dua vektor arahnya sejajar (kelipatan).'],
+      '$\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$. Kolinear berarti $\\vec{AC} = t\\,\\vec{AB}$, yaitu $(4, k-1) = t(2,2)$. Dari komponen pertama $4 = 2t$ diperoleh $t = 2$, sehingga $k - 1 = 2(2) = 4$ dan $k = 5$ (A). Opsi B ($4$) berhenti pada nilai $k-1$ tanpa menambahkan $1$; opsi C ($6$) memakai $t=3$; opsi D ($3$) menyamakan $k$ langsung dengan kelipatan yang keliru.',
+    hints: [
+      'Titik kolinear bila dua vektor arahnya sejajar (kelipatan).',
+      'Setelah memperoleh $t=2$, samakan komponen kedua: $k-1=2t$.',
+    ],
     competencies: ['kolinearitas'],
   },
   {
@@ -211,7 +229,10 @@ export const vektorQuestions: Question[] = [
       'Dua vektor tegak lurus jika dan hanya jika perkalian titiknya nol. Maka $\\vec{u} \\cdot \\vec{v} = 2x + 3(-4) = 2x - 12 = 0$, sehingga $2x = 12$ dan $x = 6$. Periksa: $\\begin{pmatrix} 6 \\\\ 3 \\end{pmatrix} \\cdot \\begin{pmatrix} 2 \\\\ -4 \\end{pmatrix} = 12 - 12 = 0$. Benar.',
     explanation:
       'Kunci menekankan syarat ketegaklurusan $\\vec{u} \\cdot \\vec{v} = 0$ lalu penyelesaian persamaan linear yang dihasilkan.',
-    hints: ['Ketegaklurusan berarti perkalian titik kedua vektor sama dengan nol.'],
+    hints: [
+      'Ketegaklurusan berarti perkalian titik kedua vektor sama dengan nol.',
+      'Setelah $2x-12=0$, selesaikan persamaan linear lalu periksa dengan substitusi.',
+    ],
     competencies: ['ketegaklurusan', 'penalaran aljabar'],
     rubric: [
       'Memakai syarat tegak lurus perkalian titik nol',
@@ -248,18 +269,26 @@ export const vektorQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Sebuah pesawat bergerak dengan kecepatan $\\vec{v}=\\begin{pmatrix} 200 \\\\ 0 \\end{pmatrix}$ km/jam, tetapi bertemu angin $\\vec{u}=\\begin{pmatrix} 0 \\\\ 40 \\end{pmatrix}$ km/jam. (a) Tentukan vektor kecepatan resultan. (b) Hitung besar kecepatan resultan. (c) Tentukan arahnya terhadap arah timur.',
+      'Seorang surveyor mencatat dua perpindahan dari titik awal: $\\vec{d_1}$ sejauh $400$ m ke arah timur, lalu $\\vec{d_2}$ sejauh $300$ m pada arah $60^\\circ$ dari timur. (a) Tentukan vektor perpindahan total $\\vec{d}=\\vec{d_1}+\\vec{d_2}$ dalam bentuk komponen. (b) Hitung jarak titik akhir dari titik awal.',
     answer:
-      '(a) Kecepatan resultan $\\vec{r}=\\vec{v}+\\vec{u}=\\begin{pmatrix} 200 \\\\ 40 \\end{pmatrix}$ km/jam. (b) $\\lVert\\vec{r}\\rVert=\\sqrt{200^{2}+40^{2}}=\\sqrt{40000+1600}=\\sqrt{41600}\\approx203{,}96$ km/jam. (c) Arahnya $\\tan\\theta=\\dfrac{40}{200}=0{,}2$, sehingga $\\theta\\approx11{,}31^\\circ$ di atas arah timur.',
+      'Ambil sumbu-$x$ ke timur. Vektor $\\vec{d_1}=\\begin{pmatrix} 400 \\\\ 0 \\end{pmatrix}$ m dan $\\vec{d_2}=\\begin{pmatrix} 300\\cos60^\\circ \\\\ 300\\sin60^\\circ \\end{pmatrix}=\\begin{pmatrix} 150 \\\\ 150\\sqrt{3} \\end{pmatrix}$ m $\\approx\\begin{pmatrix} 150 \\\\ 259{,}81 \\end{pmatrix}$ m. (a) $\\vec{d}=\\begin{pmatrix} 550 \\\\ 150\\sqrt{3} \\end{pmatrix}$ m $\\approx\\begin{pmatrix} 550 \\\\ 259{,}81 \\end{pmatrix}$ m. (b) $\\lVert\\vec{d}\\rVert=\\sqrt{550^{2}+(150\\sqrt{3})^{2}}=\\sqrt{302.500+67.500}=\\sqrt{370.000}=100\\sqrt{37}\\approx608{,}28$ m. Jadi jarak titik akhir dari titik awal sekitar $608$ m.',
     explanation:
-      'Kunci: menjumlahkan vektor kecepatan dan angin, menghitung besar dengan Pythagoras, lalu menentukan arah lewat tangen.',
-    hints: ['Jumlahkan komponen yang bersesuaian.', 'Gunakan $\\tan\\theta=\\dfrac{\\text{komponen } y}{\\text{komponen } x}$.'],
-    competencies: ['penjumlahan vektor', 'pemodelan kecepatan'],
+      'Kunci: menguraikan perpindahan kedua menjadi komponen, menjumlahkan komponen yang bersesuaian, lalu menghitung besar perpindahan dengan Pythagoras.',
+    hints: [
+      'Uraikan $300$ m pada arah $60^\\circ$ menjadi $300\\cos60^\\circ$ (arah timur) dan $300\\sin60^\\circ$ (arah utara).',
+      'Setelah komponen dijumlahkan, gunakan $\\lVert\\vec{d}\\rVert=\\sqrt{d_x^{2}+d_y^{2}}$.',
+    ],
+    competencies: ['penjumlahan vektor', 'penguraian vektor', 'pemodelan'],
+    figure: {
+      svg: '<svg viewBox="0 0 280 170" role="img" xmlns="http://www.w3.org/2000/svg"><defs><marker id="vkArrow14" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="currentColor"/></marker></defs><line x1="30" y1="140" x2="265" y2="140" stroke="currentColor" stroke-width="1" opacity="0.35"/><line x1="30" y1="140" x2="30" y2="15" stroke="currentColor" stroke-width="1" opacity="0.35"/><line x1="30" y1="140" x2="190" y2="140" stroke="currentColor" stroke-width="2.2" marker-end="url(#vkArrow14)"/><line x1="190" y1="140" x2="250" y2="36" stroke="currentColor" stroke-width="2.2" marker-end="url(#vkArrow14)"/><line x1="30" y1="140" x2="250" y2="36" stroke="currentColor" stroke-width="2.2" stroke-dasharray="5 4" marker-end="url(#vkArrow14)"/><text x="88" y="158" fill="currentColor" font-size="12">d1 = 400 m</text><text x="198" y="112" fill="currentColor" font-size="12">d2 = 300 m</text><text x="128" y="78" fill="currentColor" font-size="12">d</text></svg>',
+      alt: 'Diagram vektor dua perpindahan surveyor: 400 meter ke timur, lalu 300 meter pada arah 60 derajat dari timur, dengan vektor perpindahan total dari titik awal.',
+      caption: 'Perpindahan total $\\vec{d}$ adalah jumlah vektor $\\vec{d_1}$ dan $\\vec{d_2}$.',
+    },
     rubric: [
-      'Menjumlahkan vektor kecepatan dan angin',
-      'Menghitung besar resultan',
-      'Menentukan arah dengan tangen',
-      'Menyajikan satuan yang tepat',
+      'Menguraikan $300$ m menjadi komponen $x$ dan $y$',
+      'Menjumlahkan komponen kedua perpindahan',
+      'Menghitung besar perpindahan total',
+      'Menyajikan hasil dengan satuan meter',
     ],
   },
   {
@@ -324,7 +353,7 @@ export const vektorQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$\\vec{c}=\\begin{pmatrix} 2+t \\\\ 1+3t \\end{pmatrix}$. Tegak lurus $\\vec{a}$ berarti $\\vec{c}\\cdot\\vec{a}=0$, yaitu $2(2+t)+1(1+3t)=5+5t=0$, sehingga $t=-1$. Periksa: $\\vec{c}=\\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix}$ dan $\\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix}\\cdot\\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}=2-2=0$. Benar.',
+      '$\\vec{c}=\\begin{pmatrix} 2+t \\\\ 1+3t \\end{pmatrix}$. Tegak lurus $\\vec{a}$ berarti $\\vec{c}\\cdot\\vec{a}=0$, yaitu $2(2+t)+1(1+3t)=5+5t=0$, sehingga $t=-1$ (A). Opsi B ($1$) salah tanda saat memindahkan $5t=-5$; opsi C ($-\\frac15$) hanya menyamakan satu komponen dengan nol; opsi D ($5$) membalik hasil alih-alih membagi $-5$ dengan $5$.',
     hints: [
       'Gunakan syarat tegak lurus $\\vec{c}\\cdot\\vec{a}=0$.',
       'Hitung dulu komponen $\\vec{c}$ dalam $t$.',

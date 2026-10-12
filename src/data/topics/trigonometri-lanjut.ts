@@ -40,7 +40,7 @@ export const trigonometriLanjut: Topic = {
     { text: 'Peserta didik dapat menerapkan aturan sinus dan aturan kosinus.' },
     { text: 'Peserta didik dapat menghitung luas segitiga sebarang.' },
   ],
-  applications: ['mtl-navigasi-vektor'],
+  applications: ['mtl-navigasi-vektor', 'mtl-triangulasi-jarak'],
   sections: [
     {
       id: "tujuan",
@@ -101,7 +101,7 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Tiga pengatur gelombang",
           text: "Amplitudo mengatur **tinggi** gelombang, periode mengatur **panjang** satu siklus, dan pergeseran fase mengatur **titik awal** gelombang.",
         },
         {
@@ -124,6 +124,18 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
               left: "Aturan kosinus",
               right: "$a^{2}=b^{2}+c^{2}-2bc\\cos A$",
             },
+          ],
+        },
+        {
+          kind: "flip-cards",
+          intro: "Latih istilah fungsi periodik dan identitas berikut.",
+          cards: [
+            { front: "Fungsi periodik", back: "Fungsi yang nilainya berulang pada selang tetap" },
+            { front: "Amplitudo", back: "Setengah selisih nilai maksimum dan minimum, yaitu $\\lvert A \\rvert$" },
+            { front: "Periode", back: "Panjang satu siklus penuh, $\\dfrac{360^\\circ}{\\lvert B \\rvert}$" },
+            { front: "Pergeseran fase", back: "Geser mendatar grafik sejauh $C$" },
+            { front: "Sudut rangkap", back: "$\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha$" },
+            { front: "Identitas dasar", back: "$\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$" },
           ],
         },
       ],
@@ -208,6 +220,14 @@ Karena $\\cos 2\\alpha$ memiliki beberapa bentuk, pilih bentuk yang paling sesua
 
 Sebagai contoh, jika $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip, maka $\\cos\\alpha=\\dfrac{4}{5}$ sehingga
 $$\\sin 2\\alpha = 2\\cdot\\frac{3}{5}\\cdot\\frac{4}{5} = \\frac{24}{25}, \\qquad \\cos 2\\alpha = 1 - 2\\left(\\frac{3}{5}\\right)^{2} = 1-\\frac{18}{25} = \\frac{7}{25}.$$`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Lingkaran satuan berpusat di titik asal dengan jari-jari satu; sebuah titik P pada lingkaran dihubungkan ke pusat dan ke sumbu x sehingga membentuk segitiga siku-siku, dengan koordinat P adalah kosinus dan sinus sudut.",
+          caption: "Lingkaran satuan: titik $P(\\cos\\alpha, \\sin\\alpha)$ memperlihatkan identitas $\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$ melalui segitiga siku-siku pada jari-jari.",
+          svg: '<svg viewBox="0 0 280 280" aria-hidden="true" role="presentation"><line x1="20" y1="150" x2="260" y2="150" stroke="currentColor" stroke-width="1.2"/><line x1="140" y1="272" x2="140" y2="28" stroke="currentColor" stroke-width="1.2"/><circle cx="140" cy="150" r="100" fill="none" stroke="currentColor" stroke-width="2"/><line x1="140" y1="150" x2="222" y2="93" stroke="currentColor" stroke-width="2"/><line x1="222" y1="93" x2="222" y2="150" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="140" y1="93" x2="222" y2="93" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><circle cx="222" cy="93" r="3.5" fill="currentColor"/><path d="M 212,150 L 212,140 L 222,140" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M 160,150 A 20,20 0 0 0 156.4,138.5" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="228" y="90" font-size="11" fill="currentColor">P(cos α, sin α)</text><text x="166" y="143" font-size="11" fill="currentColor">α</text><text x="224" y="166" font-size="11" fill="currentColor">cos α</text><text x="116" y="96" font-size="11" fill="currentColor">sin α</text><text x="252" y="148" font-size="11" fill="currentColor">x</text><text x="146" y="36" font-size="11" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "aturan",
@@ -249,6 +269,18 @@ $$L = \\frac{1}{2}\\cdot5\\cdot8\\cdot\\sin 60^\\circ = 20\\cdot\\frac{\\sqrt{3}
         {
           kind: "exploration",
           explorationId: "mtl-trigonometri-gelombang",
+        },
+      ],
+    },
+    {
+      id: "eksplorasi-segitiga",
+      kind: "eksplorasi",
+      title: "Eksplorasi Aturan Sinus pada Segitiga Sembarang",
+      body: "Atur dua sudut dan satu sisi, lalu periksa bagaimana aturan sinus menentukan sudut ketiga dan kedua sisi lainnya pada segitiga sembarang.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "trigonometri-segitiga",
         },
       ],
     },
@@ -408,7 +440,7 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana identitas dan gelombang trigonometri menjelaskan gejala berkala.",
+      body: "Pikirkan bagaimana identitas menyederhanakan perhitungan dan gelombang memodelkan gejala berulang.",
       blocks: [
         {
           kind: "reflection",
@@ -477,7 +509,7 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa identitas sudut rangkap cukup diturunkan dari identitas jumlah sudut? (2) Kapan aturan sinus lebih tepat dipakai, dan kapan aturan kosinus? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri Lanjut** untuk latihan tambahan.`,
+      body: `Simpulkan: identitas mana yang menjadi akar semua identitas lain pada topik ini, dan kapan kamu memilih aturan sinus dibanding aturan kosinus? Tuliskan ringkasannya, kemudian lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri Lanjut**.`,
     },
   ],
 };

@@ -124,6 +124,38 @@ Laju perubahan sesaatnya di $x = 2$ diperoleh dari $f'(x) = 2x$, sehingga $f'(2)
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Ingat kembali istilah dasar turunan.",
+          cards: [
+            {
+              front: "Turunan $f'(x)$",
+              back: "Laju perubahan sesaat, yaitu $\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$",
+            },
+            {
+              front: "Garis sekan",
+              back: "Garis melalui dua titik kurva; gradiennya laju perubahan rata-rata",
+            },
+            {
+              front: "Garis singgung",
+              back: "Garis bergradien $f'(a)$ di titik $(a, f(a))$",
+            },
+            {
+              front: "Aturan rantai",
+              back: "$\\dfrac{d}{dx}f(g(x)) = f'(g(x))\\,g'(x)$",
+            },
+            {
+              front: "Titik stasioner",
+              back: "Titik pada kurva dengan $f'(x) = 0$",
+            },
+          ],
+        },
+        {
+          kind: "figure",
+          alt: "Kurva dengan dua titik A dan B yang dihubungkan garis sekan, selisih mendatar kedua titik ditandai delta x; garis singgung di titik A tampak hampir berimpit dengan garis sekan ketika B digeser mendekati A.",
+          caption: "Gradien garis sekan $\\dfrac{f(a+h)-f(a)}{h}$ menuju gradien garis singgung ketika $h \\to 0$. Inilah makna geometris turunan.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><defs><marker id="fig-tur-sec-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="185" x2="300" y2="185" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="185" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><polyline points="64,182 88,172 112,157 120,150 144,126 168,95 192,59 200,45" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="72" y1="179" x2="200" y2="80" stroke="currentColor" stroke-width="1.4"/><line x1="120" y1="150" x2="200" y2="45" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4"/><line x1="120" y1="185" x2="200" y2="185" stroke="currentColor" stroke-width="1" marker-start="url(#fig-tur-sec-arrow)" marker-end="url(#fig-tur-sec-arrow)"/><circle cx="120" cy="150" r="3.6" fill="currentColor"/><circle cx="200" cy="45" r="3.6" fill="currentColor"/><text x="292" y="203" font-size="12" fill="currentColor">x</text><text x="24" y="32" font-size="12" fill="currentColor">y</text><text x="112" y="163" font-size="11" fill="currentColor">A</text><text x="205" y="42" font-size="11" fill="currentColor">B</text><text x="150" y="180" font-size="11" fill="currentColor" text-anchor="middle">h</text><text x="92" y="150" font-size="11" fill="currentColor">sekan</text><text x="150" y="108" font-size="11" fill="currentColor">singgung</text></svg>',
+        },
       ],
     },
     {
@@ -328,8 +360,9 @@ $$p'(x) = e^{2x} \\cdot 2 = 2e^{2x}.$$`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Turunan dipakai untuk mengukur laju dalam sains dan rekayasa. Dalam fisika, kecepatan adalah turunan posisi dan percepatan adalah turunan kecepatan. Dalam ekonomi, biaya marginal adalah turunan biaya total, yang memperkirakan tambahan biaya bila produksi ditambah satu unit.
-Pada bidang kesehatan, laju penyebaran penyakit dimodelkan melalui turunan. Dalam teknik, laju perubahan suhu, tekanan, atau tegangan semuanya dihitung dengan turunan. Bahkan spidometer pada kendaraan menunjukkan turunan jarak terhadap waktu.`,
+      body: `Turunan dipakai untuk mengukur laju dalam sains dan rekayasa. Jika posisi sebuah mobil dinyatakan $s(t) = 4t^{2} + 2t$ meter, maka kecepatannya $v(t) = s'(t) = 8t + 2$ m/s, sehingga pada $t = 3$ s kecepatannya $8(3) + 2 = 26$ m/s dan percepatannya $a(t) = s''(t) = 8$ m/s$^{2}$.
+Dalam ekonomi, biaya marginal adalah turunan biaya total. Jika biaya memproduksi $x$ unit adalah $C(x) = 0{,}02x^{2} + 30x + 5000$ rupiah, biaya marginal $C'(x) = 0{,}04x + 30$; pada $x = 100$ unit, tambahan biaya per unit kira-kira $C'(100) = 34$ rupiah.
+Dalam teknik, laju pendinginan sebuah benda mengikuti turunan suhunya: jika suhunya $T(t) = 90 - 3t + 0{,}05t^{2}$ derajat Celsius, maka pada $t = 10$ menit laju perubahannya $T'(t) = -3 + 0{,}1t = -2$ derajat Celsius per menit, artinya suhu sedang turun. Bahkan spidometer pada kendaraan menunjukkan turunan jarak terhadap waktu.`,
     },
     {
       id: "kesalahan-umum",
@@ -413,7 +446,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana kemiringan garis singgung menggambarkan laju perubahan.",
+      body: "Satu bilangan, yaitu gradien, ternyata dapat mewakili laju perubahan pada suatu saat. Renungkan kaitan antara garis sekan yang kamu gambar dan garis singgung yang menjadi tujuannya, lalu tuliskan satu kalimat yang menjelaskannya dengan bahasamu sendiri.",
       blocks: [
         {
           kind: "reflection",
@@ -482,7 +515,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana definisi limit melahirkan gagasan gradien garis singgung? (2) Aturan mana yang dipakai untuk menurunkan $(3x+1)^{4}$, dan mengapa faktornya tidak boleh dilupakan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Turunan** untuk latihan tambahan.`,
+      body: `**Sejenak meninjau ulang.** Jawab dua pertanyaan ini tanpa membuka catatan. (1) Dari dua grafik garis, mana yang gradiennya lebih besar, dan bagaimana turunan membantumu memastikannya? (2) Pilih satu aturan turunan yang paling sering kamu keliru, lalu tulis satu langkah pencegahannya. Uji hasil belajarmu di [Latihan & Asesmen](/latihan) topik **Turunan**.`,
     },
   ],
 };

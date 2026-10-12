@@ -45,13 +45,16 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     difficulty: 'dasar',
     type: 'short-answer',
     category: 'cepat',
-    prompt: 'Tentukan nilai $x$ dari $3^{x-1}=27$.',
+    prompt: 'Tentukan nilai $x$ dari $\\log_{2}(3x+4)=4$.',
     answer: '4',
     acceptedAnswers: ['4'],
     explanation:
-      '$27=3^{3}$, maka $3^{x-1}=3^{3} \\Rightarrow x-1=3 \\Rightarrow x=4$. Periksa: $3^{3}=27$.',
-    hints: ['Ubah $27$ menjadi pangkat basis $3$.'],
-    competencies: ['persamaan eksponen', 'menyamakan basis'],
+      'Ubah ke bentuk eksponen: $3x+4=2^{4}=16$, sehingga $3x=12$ dan $x=4$. Periksa numerus: $3(4)+4=16>0$ terpenuhi.',
+    hints: [
+      'Gunakan definisi $\\log_{a}b=c \\iff a^{c}=b$.',
+      'Setelah menjadi persamaan linear, selesaikan untuk $x$.',
+    ],
+    competencies: ['persamaan logaritma'],
   },
   {
     id: 'ekslog-04',
@@ -116,7 +119,7 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Gabungkan dengan sifat logaritma: $\\log_{2}12+\\log_{2}6-\\log_{2}9=\\log_{2}\\left(\\dfrac{12\\cdot6}{9}\\right)=\\log_{2}8=3$.',
+      'Gabungkan dengan sifat logaritma: $\\log_{2}12+\\log_{2}6-\\log_{2}9=\\log_{2}\\left(\\dfrac{12\\cdot6}{9}\\right)=\\log_{2}8=3$. Opsi A ($1$) menjumlahkan $12$ dan $6$ lalu membaginya dengan $9$ sehingga memperoleh $\\log_{2}2=1$. Opsi C ($2$) salah menyederhanakan $\\dfrac{12\\cdot6}{9}$ menjadi $4$ sehingga memperoleh $\\log_{2}4=2$. Opsi D ($4$) menganggap hasilnya $\\log_{2}16=4$ karena keliru menambah satu langkah perkalian.',
     hints: ['Penjumlahan menjadi perkalian, pengurangan menjadi pembagian.', 'Hitung $\\dfrac{12\\cdot6}{9}$ lebih dahulu.'],
     competencies: ['sifat logaritma'],
   },
@@ -131,7 +134,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     acceptedAnswers: ['7'],
     explanation:
       'Ubah ke bentuk eksponen: $x+2=3^{2}=9 \\Rightarrow x=7$. Periksa syarat numerus: $x+2=9>0$ terpenuhi.',
-    hints: ['Gunakan definisi $\\log_{a}b=c \\iff a^{c}=b$.'],
+    hints: [
+      'Gunakan definisi $\\log_{a}b=c \\iff a^{c}=b$.',
+      'Setelah memperoleh $x+2=9$, kurangkan $2$ dari kedua ruas.',
+    ],
     competencies: ['persamaan logaritma'],
   },
   {
@@ -150,7 +156,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Karena $27=3^{3}$, maka $27^{x-2}=3^{3(x-2)}=3^{3x-6}$. Samakan pangkat: $2x+1=3x-6 \\Rightarrow x=7$. Periksa: kedua ruas bernilai $3^{15}$. Opsi $3$ muncul bila $3$ tidak didistribusikan ke $-2$, opsi $6$ bila salah memindahkan suku, dan opsi $8$ bila menambah $1$, bukan mengurangi.',
-    hints: ['Ubahlah $27$ menjadi pangkat basis $3$.'],
+    hints: [
+      'Ubahlah $27$ menjadi pangkat basis $3$.',
+      'Distribusikan eksponen $3(x-2)$ dengan benar sebelum menyamakan pangkat.',
+    ],
     competencies: ['persamaan eksponen', 'menyamakan basis'],
   },
   {
@@ -258,5 +267,23 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
       'Menyatakan perbandingan sebagai pangkat 10',
       'Menjelaskan manfaat skala logaritma',
     ],
+  },
+  {
+    id: 'ekslog-15',
+    topicId: 'persamaan-eksponen-logaritma',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Tingkat keasaman larutan dinyatakan $pH=-\\log [H^{+}]$ dengan $[H^{+}]$ konsentrasi ion hidrogen dalam mol/L. Larutan A memiliki $pH=5$ dan larutan B memiliki $pH=3$. Berapa kali konsentrasi ion $H^{+}$ larutan B dibandingkan larutan A?',
+    answer: '100',
+    acceptedAnswers: ['100'],
+    explanation:
+      'Dari definisi diperoleh $[H^{+}]=10^{-pH}$. Maka $\\dfrac{[H^{+}]_B}{[H^{+}]_A}=\\dfrac{10^{-3}}{10^{-5}}=10^{2}=100$. Larutan B $100$ kali lebih asam daripada larutan A karena setiap penurunan satu satuan pH berarti konsentrasi ion $H^{+}$ sepuluh kali lebih besar.',
+    hints: [
+      'Ubah pH menjadi konsentrasi lewat $[H^{+}]=10^{-pH}$.',
+      'Bandingkan kedua konsentrasi sebagai hasil bagi pangkat $10$.',
+    ],
+    competencies: ['logaritma', 'skala logaritma', 'kontekstual'],
   },
 ];

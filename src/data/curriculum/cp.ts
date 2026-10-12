@@ -304,6 +304,16 @@ export const cpStatements: CpStatement[] = [
     topicIds: ['trigonometri-lanjut'],
   },
   {
+    id: 'FL-ALJ-4',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'aljabar-fungsi',
+    grades: ['XI', 'XII'],
+    text: 'Mengenal berbagai fungsi (termasuk fungsi rasional, fungsi akar, fungsi eksponensial, fungsi logaritma, fungsi nilai mutlak, fungsi tangga, dan fungsi piecewise) dan menggunakannya untuk memodelkan berbagai fenomena.',
+    topicIds: ['fungsi-rasional-akar', 'fungsi-logaritma'],
+  },
+  {
     id: 'FL-GEO-1',
     regulation: 'bskap-046-2025',
     subject: 'matematika-lanjut',
@@ -372,6 +382,16 @@ export const cpStatements: CpStatement[] = [
     grades: ['XII'],
     text: 'Memahami variabel acak diskret dan fungsi peluang, serta memakainya untuk memodelkan data.',
     topicIds: ['variabel-acak-diskret'],
+  },
+  {
+    id: 'FL-DAT-2',
+    regulation: 'bskap-046-2025',
+    subject: 'matematika-lanjut',
+    phase: 'F',
+    element: 'data-peluang',
+    grades: ['XII'],
+    text: 'Memahami variabel acak diskrit (distribusi binomial) dan fungsi peluang (distribusi normal), menginterpretasi parameter distribusi data, serta menghitung nilai harapan distribusi binomial dan normal dan menggunakannya dalam penyelesaian masalah.',
+    topicIds: ['distribusi-binomial', 'distribusi-normal'],
   },
 ];
 

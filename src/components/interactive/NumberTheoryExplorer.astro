@@ -1,0 +1,390 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim nt-sim" data-number-theory data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Alat Teori Bilangan: FPB, Prima, dan Jam Modulo</h3>
+  </div>
+
+  <p class="sim-hint">
+    Tiga alat kecil dalam satu tempat: telusuri langkah algoritma Euklides, tandai bilangan
+    prima pada saringan, lalu jalan-jalan pada jam aritmetika modulo.
+  </p>
+
+  <div class="nt-grid">
+    <section class="nt-panel">
+      <h4>FPB: Algoritma Euklides</h4>
+      <div class="sim-fields">
+        <label class="sim-field">
+          <span>Bilangan a</span>
+          <input type="number" min="1" step="1" value="1071" data-nt-euclid="a" />
+        </label>
+        <label class="sim-field">
+          <span>Bilangan b</span>
+          <input type="number" min="1" step="1" value="462" data-nt-euclid="b" />
+        </label>
+      </div>
+      <div class="nt-steps" data-nt-euclid-steps></div>
+      <output class="sim-readout" data-nt-euclid-out aria-live="polite" aria-atomic="true"></output>
+    </section>
+
+    <section class="nt-panel">
+      <h4>Saringan Eratosthenes</h4>
+      <label class="sim-field">
+        <span>Batas n</span>
+        <input type="number" min="2" max="120" step="1" value="60" data-nt-sieve />
+      </label>
+      <div class="sim-chart">
+        <svg
+          viewBox="0 0 480 210"
+          role="img"
+          aria-label="Saringan bilangan prima sampai batas yang dipilih"
+          data-nt-sieve-plot></svg>
+      </div>
+      <output class="sim-readout" data-nt-sieve-out aria-live="polite" aria-atomic="true"></output>
+    </section>
+
+    <section class="nt-panel">
+      <h4>Jam Aritmetika Modulo</h4>
+      <div class="sim-fields">
+        <label class="sim-field">
+          <span>Basis</span>
+          <input type="number" min="0" step="1" value="2" data-nt-mod="base" />
+        </label>
+        <label class="sim-field">
+          <span>Modulus m</span>
+          <input type="number" min="2" max="12" step="1" value="7" data-nt-mod="mod" />
+        </label>
+      </div>
+      <div class="sim-chart">
+        <svg
+          viewBox="0 0 260 220"
+          role="img"
+          aria-label="Jam modulo dengan siklus pangkat basis"
+          data-nt-clock></svg>
+      </div>
+      <output class="sim-readout" data-nt-mod-out aria-live="polite" aria-atomic="true"></output>
+    </section>
+  </div>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .nt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 1rem;
+  }
+  .nt-panel {
+    padding: 0.75rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .nt-panel h4 {
+    margin: 0 0 0.6rem;
+    font-size: 0.98rem;
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap: 0.6rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field input {
+    padding: 0.35rem 0.45rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 500;
+  }
+  .nt-steps {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 0.6rem;
+    min-height: 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+  .nt-steps :global(.step) {
+    padding: 0.3rem 0.5rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .sim-chart {
+    margin-top: 0.6rem;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.6rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 0.6rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nt-sim *,
+    .nt-sim *::before,
+    .nt-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    euclidSteps,
+    primeSieve,
+    isPrime,
+    modularPowers,
+    modularPowerCycle,
+  } from '../../lib/sim/number-theory';
+  import { el, clear, initWhenVisible } from '../../lib/dom';
+
+  function setupNumberTheory(root: Element) {
+    const aInput = root.querySelector('[data-nt-euclid="a"]') as HTMLInputElement;
+    const bInput = root.querySelector('[data-nt-euclid="b"]') as HTMLInputElement;
+    const stepsEl = root.querySelector('[data-nt-euclid-steps]') as HTMLElement;
+    const euclidOut = root.querySelector('[data-nt-euclid-out]') as HTMLElement;
+
+    const sieveInput = root.querySelector('[data-nt-sieve]') as HTMLInputElement;
+    const sieveSvg = root.querySelector('[data-nt-sieve-plot]') as SVGSVGElement;
+    const sieveOut = root.querySelector('[data-nt-sieve-out]') as HTMLElement;
+
+    const baseInput = root.querySelector('[data-nt-mod="base"]') as HTMLInputElement;
+    const modInput = root.querySelector('[data-nt-mod="mod"]') as HTMLInputElement;
+    const clockSvg = root.querySelector('[data-nt-clock]') as SVGSVGElement;
+    const modOut = root.querySelector('[data-nt-mod-out]') as HTMLElement;
+
+    function stat(label: string, value: string): string {
+      return `<div class="stat"><span>${label}</span><strong>${value}</strong></div>`;
+    }
+
+    function renderEuclid() {
+      const a = Math.abs(Math.trunc(Number(aInput.value) || 0));
+      const b = Math.abs(Math.trunc(Number(bInput.value) || 0));
+      const result = euclidSteps(a, b);
+
+      stepsEl.innerHTML = '';
+      if (result.steps.length === 0) {
+        stepsEl.innerHTML = '<div class="step">Salah satu bilangan nol; tidak ada langkah pembagian.</div>';
+      } else {
+        result.steps.forEach((step) => {
+          const div = document.createElement('div');
+          div.className = 'step';
+          div.textContent = `${step.a} = ${step.q} × ${step.b} + ${step.r}`;
+          stepsEl.appendChild(div);
+        });
+      }
+
+      const remainder = result.steps.length
+        ? `${result.steps[result.steps.length - 1].a} ÷ ${result.steps[result.steps.length - 1].b}`
+        : '—';
+      euclidOut.innerHTML =
+        stat('FPB', String(result.gcd)) +
+        stat('Banyak langkah', String(result.steps.length)) +
+        stat('Pembagian terakhir', remainder);
+    }
+
+    function renderSieve() {
+      const limit = Math.max(2, Math.min(120, Math.round(Number(sieveInput.value) || 2)));
+      const primes = primeSieve(limit);
+      const primeSet = new Set(primes);
+
+      const W = 480;
+      const cols = 10;
+      const cellW = W / cols;
+      const rows = Math.ceil(limit / cols);
+      const cellH = Math.min(24, 210 / Math.max(rows, 1));
+      clear(sieveSvg);
+
+      for (let value = 1; value <= limit; value++) {
+        const index = value - 1;
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        const x = col * cellW;
+        const y = row * cellH;
+        const prime = primeSet.has(value);
+        const rect = el('rect', {
+          x: x + 1,
+          y: y + 1,
+          width: cellW - 2,
+          height: cellH - 2,
+          rx: 3,
+          fill: prime ? 'var(--color-primary)' : 'var(--color-surface-2)',
+          stroke: 'var(--color-border)',
+          'stroke-width': 1,
+        });
+        sieveSvg.appendChild(rect);
+        const label = el('text', {
+          x: x + cellW / 2,
+          y: y + cellH / 2 + 3,
+          'text-anchor': 'middle',
+          'font-size': Math.min(11, cellH * 0.55),
+          'font-weight': prime ? 700 : 500,
+          fill: prime ? 'var(--color-surface)' : 'var(--color-text-muted)',
+        });
+        label.textContent = String(value);
+        sieveSvg.appendChild(label);
+      }
+
+      sieveOut.innerHTML =
+        stat('Banyak bilangan prima', String(primes.length)) +
+        stat('Daftar prima', primes.join(', ') || '—') +
+        stat('Uji akhir', `${limit} ${isPrime(limit) ? 'prima' : 'bukan prima'}`);
+
+      sieveSvg.setAttribute('aria-label', `Saringan prima sampai ${limit}: ${primes.length} prima`);
+    }
+
+    function renderClock() {
+      const base = Math.trunc(Number(baseInput.value) || 0);
+      const modulus = Math.max(2, Math.min(12, Math.round(Number(modInput.value) || 2)));
+      const cycle = modularPowerCycle(base, modulus);
+      const powers = modularPowers(base, modulus, 12);
+
+      const size = 260;
+      const cx = size / 2;
+      const cy = size / 2;
+      const radius = 84;
+      clear(clockSvg);
+
+      clockSvg.appendChild(
+        el('circle', {
+          cx,
+          cy,
+          r: radius,
+          fill: 'none',
+          stroke: 'var(--color-border-strong)',
+          'stroke-width': 1.6,
+        }),
+      );
+
+      const position = (residue: number): [number, number] => {
+        const angle = -Math.PI / 2 + (residue / modulus) * 2 * Math.PI;
+        return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
+      };
+
+      for (let r = 0; r < modulus; r++) {
+        const [px, py] = position(r);
+        clockSvg.appendChild(el('circle', { cx: px, cy: py, r: 3, fill: 'var(--color-text-soft)' }));
+        const label = el('text', {
+          x: cx + (radius + 16) * Math.cos(-Math.PI / 2 + (r / modulus) * 2 * Math.PI),
+          y: cy + (radius + 16) * Math.sin(-Math.PI / 2 + (r / modulus) * 2 * Math.PI) + 4,
+          'text-anchor': 'middle',
+          'font-size': 11,
+          fill: 'var(--color-text-muted)',
+        });
+        label.textContent = String(r);
+        clockSvg.appendChild(label);
+      }
+
+      // Jejak siklus pangkat pada jam.
+      for (let i = 0; i < cycle.length; i++) {
+        const from = position(cycle[i]);
+        const to = position(cycle[(i + 1) % cycle.length]);
+        clockSvg.appendChild(
+          el('line', {
+            x1: from[0],
+            y1: from[1],
+            x2: to[0],
+            y2: to[1],
+            stroke: 'var(--color-data)',
+            'stroke-width': 2,
+          }),
+        );
+      }
+      cycle.forEach((residue) => {
+        const [px, py] = position(residue);
+        clockSvg.appendChild(
+          el('circle', {
+            cx: px,
+            cy: py,
+            r: 5.5,
+            fill: 'var(--color-data)',
+            stroke: 'var(--color-surface)',
+            'stroke-width': 1.5,
+          }),
+        );
+      });
+      const [startX, startY] = position(cycle[0] ?? 0);
+      clockSvg.appendChild(
+        el('circle', { cx: startX, cy: startY, r: 8, fill: 'none', stroke: 'var(--color-success)', 'stroke-width': 2 }),
+      );
+
+      modOut.innerHTML =
+        stat('Deret pangkat', powers.join(' → ')) +
+        stat('Siklus sisa', cycle.join(' → ')) +
+        stat('Panjang siklus (periode)', String(cycle.length)) +
+        stat('Kesimpulan', `${base}^{${cycle.length + 1}} ≡ ${base} (mod ${modulus})`);
+
+      clockSvg.setAttribute(
+        'aria-label',
+        `Jam modulo ${modulus} dengan siklus pangkat basis ${base} sepanjang ${cycle.length}`,
+      );
+    }
+
+    [aInput, bInput].forEach((input) => input.addEventListener('input', renderEuclid));
+    sieveInput.addEventListener('input', renderSieve);
+    [baseInput, modInput].forEach((input) => input.addEventListener('input', renderClock));
+
+    renderEuclid();
+    renderSieve();
+    renderClock();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-number-theory]'), setupNumberTheory);
+</script>

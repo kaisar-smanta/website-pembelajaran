@@ -99,7 +99,7 @@ Karena $f(0)=a\\cdot b^{0}=a$, nilai $a$ adalah titik potong grafik dengan sumbu
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Variabel di eksponen, bukan di basis",
           text: "Pada fungsi eksponensial, **variabel berada di eksponen**, bukan di basis. Inilah pembeda utamanya dari fungsi kuadrat $ax^{2}$.",
         },
         {
@@ -257,50 +257,63 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
 - $y = -b^{x}$ dicerminkan terhadap sumbu-$x$ (nilainya menjadi negatif).
 
 **Persamaan eksponen.** Jika $b^{f(x)} = b^{g(x)}$ dengan $b>0$ dan $b\\neq1$, maka $f(x)=g(x)$. Menyamakan basis adalah kunci.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Dua kurva eksponensial: y sama dengan 2 pangkat x yang mendekati asimtot y sama dengan nol, dan y sama dengan 2 pangkat x ditambah 2 yang bergeser naik dengan asimtot y sama dengan dua.",
+          caption: "Menambahkan konstanta $c$ pada $y=2^{x}+c$ menggeser grafik naik dan memindahkan asimtot dari $y=0$ menjadi $y=c$; di sini $c=2$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="20" y1="210" x2="300" y2="210" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="222" x2="60" y2="20" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="158" x2="300" y2="158" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 4"/><polyline points="15,197 60,184 105,158 150,106 173,63" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="15,145 60,132 105,106 150,54" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="7 3"/><circle cx="60" cy="184" r="3" fill="currentColor"/><circle cx="60" cy="132" r="3" fill="currentColor"/><text x="176" y="70" font-size="11" fill="currentColor">y = 2^x</text><text x="150" y="46" font-size="11" fill="currentColor">y = 2^x + 2</text><text x="250" y="154" font-size="11" fill="currentColor">y = 2</text><text x="296" y="226" font-size="12" fill="currentColor">x</text><text x="44" y="30" font-size="12" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Diberikan $f(x)=3\\cdot2^{x}$. Hitung $f(0)$, $f(1)$, $f(3)$, dan $f(-1)$.
-
-*Penyelesaian.* $f(0)=3\\cdot1=3$; $f(1)=3\\cdot2=6$; $f(3)=3\\cdot8=24$; $f(-1)=3\\cdot\\tfrac12=\\tfrac32$.
-
-**Contoh 2.** Selesaikan $3^{2x-1}=27$.
-
-*Penyelesaian.* Nyatakan $27=3^{3}$, maka $3^{2x-1}=3^{3}$, sehingga $2x-1=3 \\Rightarrow x=2$.
-
-**Contoh 3.** Selesaikan $4^{x}=8^{x-1}$.
-
-*Penyelesaian.* Ubah ke basis $2$: $4^{x}=(2^{2})^{x}=2^{2x}$ dan $8^{x-1}=(2^{3})^{x-1}=2^{3x-3}$. Maka $2x=3x-3 \\Rightarrow x=3$. Periksa: $4^{3}=64$ dan $8^{2}=64$ ✓.
-
-**Contoh 4 (pemodelan).** Modal Rp5.000.000 ditabung dengan bunga majemuk $10\\%$ per tahun. Tentukan saldo setelah $3$ tahun.
-
-*Penyelesaian.* $M(t)=5.000.000(1{,}1)^{t}$, maka $M(3)=5.000.000\\cdot1{,}331=6.655.000$. Saldo menjadi **Rp6.655.000**.
-
-**Contoh 5.** Selesaikan $9^{x}=\\dfrac{1}{27}$.
-
-*Penyelesaian.* Ubah kedua ruas ke basis $3$: $9^{x}=(3^{2})^{x}=3^{2x}$ dan $\\dfrac{1}{27}=3^{-3}$. Maka $3^{2x}=3^{-3}$, sehingga $2x=-3 \\Rightarrow x=-\\dfrac{3}{2}$. Periksa: $9^{-3/2}=(3^{2})^{-3/2}=3^{-3}=\\dfrac{1}{27}$ ✓.`,
+      body: `Lima contoh berikut mencakup perhitungan nilai, penyelesaian persamaan eksponen, dan pemodelan. Buka setiap langkah untuk melihat penyelesaian lengkapnya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari selesaikan $4^{x}=8^{x-1}$ dengan menyamakan basis, satu langkah sekaligus.",
+          intro: "Buka setiap contoh untuk mengikuti penyelesaiannya satu per satu.",
           steps: [
             {
-              title: "Ubah ke basis 2",
-              text: "$4^{x}=(2^{2})^{x}=2^{2x}$ dan $8^{x-1}=(2^{3})^{x-1}=2^{3x-3}$.",
+              title: "Contoh 1: menghitung nilai fungsi",
+              text: `Diberikan $f(x)=3\\cdot2^{x}$. Hitung $f(0)$, $f(1)$, $f(3)$, dan $f(-1)$.
+
+*Penyelesaian.* Substitusikan setiap nilai $x$:
+$$f(0)=3\\cdot2^{0}=3\\cdot1=3, \\qquad f(1)=3\\cdot2=6,$$
+$$f(3)=3\\cdot2^{3}=3\\cdot8=24, \\qquad f(-1)=3\\cdot2^{-1}=3\\cdot\\tfrac12=\\tfrac32.$$`,
             },
             {
-              title: "Samakan eksponen",
-              text: "Karena basisnya sama, berlaku $2x=3x-3$.",
+              title: "Contoh 2: menyamakan basis",
+              text: `Selesaikan $3^{2x-1}=27$.
+
+*Penyelesaian.* Nyatakan $27=3^{3}$, maka $3^{2x-1}=3^{3}$. Karena basisnya sama, eksponennya dapat disamakan:
+$$2x-1=3 \\Rightarrow 2x=4 \\Rightarrow x=2.$$`,
             },
             {
-              title: "Selesaikan",
-              text: "$2x=3x-3 \\Rightarrow x=3$.",
+              title: "Contoh 3: mengubah basis",
+              text: `Selesaikan $4^{x}=8^{x-1}$.
+
+*Penyelesaian.* Ubah ke basis $2$: $4^{x}=(2^{2})^{x}=2^{2x}$ dan $8^{x-1}=(2^{3})^{x-1}=2^{3x-3}$. Maka
+$$2x=3x-3 \\Rightarrow x=3.$$
+Periksa: $4^{3}=64$ dan $8^{2}=64$, jadi $x=3$ memenuhi.`,
             },
             {
-              title: "Periksa",
-              text: "$4^{3}=64$ dan $8^{2}=64$, jadi $x=3$ memenuhi.",
+              title: "Contoh 4: pemodelan bunga majemuk",
+              text: `Modal Rp5.000.000 ditabung dengan bunga majemuk $10\\%$ per tahun. Tentukan saldo setelah $3$ tahun.
+
+*Penyelesaian.* Dengan faktor $b=1+0{,}1=1{,}1$, modelnya $M(t)=5.000.000(1{,}1)^{t}$. Maka
+$$M(3)=5.000.000\\cdot(1{,}1)^{3}=5.000.000\\cdot1{,}331=6.655.000.$$
+Saldo menjadi **Rp6.655.000**.`,
+            },
+            {
+              title: "Contoh 5: pangkat negatif",
+              text: `Selesaikan $9^{x}=\\dfrac{1}{27}$.
+
+*Penyelesaian.* Ubah kedua ruas ke basis $3$: $9^{x}=(3^{2})^{x}=3^{2x}$ dan $\\dfrac{1}{27}=3^{-3}$. Maka
+$$3^{2x}=3^{-3} \\Rightarrow 2x=-3 \\Rightarrow x=-\\dfrac{3}{2}.$$
+Periksa: $9^{-3/2}=(3^{2})^{-3/2}=3^{-3}=\\dfrac{1}{27}$.`,
             },
           ],
         },
@@ -328,7 +341,7 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Fungsi eksponensial dipakai untuk memodelkan pertumbuhan populasi, penyebaran penyakit, bunga majemuk, dan peluruhan zat radioaktif maupun obat dalam tubuh. Modelnya selalu berbentuk nilai awal dikali faktor tetap yang dipangkatkan banyak periode.
+      body: `Fungsi eksponensial memodelkan besaran yang berlipat atau menyusut dengan faktor tetap. Kultur bakteri $500$ sel yang berlipat dua setiap $20$ menit menjadi $500 \\cdot 2^{6} = 32.000$ sel setelah $2$ jam. Zat radioaktif $80$ gram dengan waktu paruh $5$ tahun hanya tersisa $80\\left(\\tfrac12\\right)^{3} = 10$ gram setelah $15$ tahun. Modal Rp5.000.000 berbunga $10\\%$ per tahun tumbuh menjadi $5.000.000(1{,}1)^{3} = \\text{Rp}6.655.000$ setelah $3$ tahun.
 
 Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan-populasi) dan [Peluruhan Zat dalam Darah](/aplikasi/peluruhan-zat).`,
     },
@@ -404,6 +417,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
+      body: "Pertumbuhan eksponensial menjelaskan mengapa perubahan kecil yang berulang dapat berujung besar: dari wabah penyakit, bunga yang berbunga, sampai penyebaran berita. Pilih satu hal di sekitarmu yang tumbuh atau menyusut dengan faktor tetap, lalu perkirakan nilainya dua periode berikutnya.",
       blocks: [
         {
           kind: "reflection",
@@ -465,7 +479,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana nilai basis $b$ membedakan pertumbuhan dari peluruhan? (2) Mengapa grafik $y=b^{x}$ memiliki asimtot mendatar dan tidak pernah memotong sumbu-$x$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Eksponensial** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Diberikan $f(x)=200\\cdot(0{,}8)^{x}$. Tentukan apakah $f$ menggambarkan pertumbuhan atau peluruhan, lalu hitung $f(2)$. (2) Grafik digeser menjadi $y=2^{x}-3$; tentukan persamaan asimtot mendatarnya. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Eksponensial** untuk latihan tambahan.`,
     },
   ],
 };

@@ -64,7 +64,7 @@ export const dataBivariatQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Pola yang tidak berbentuk garis lurus disebut nonlinear. Di sini $y$ naik lalu melandai mengikuti lengkung. Opsi A hanya melihat arah naik tanpa memperhatikan lengkungan; opsi D keliru menyamakan pola lengkung dengan ketiadaan hubungan.',
+      'Pola yang tidak berbentuk garis lurus disebut nonlinear (opsi C). Di sini $y$ naik lalu melandai mengikuti lengkung. Opsi A hanya melihat arah naik tanpa memperhatikan lengkungan. Opsi B keliru menafsirkan lengkungan sebagai hubungan negatif. Opsi D salah menyamakan pola lengkung dengan ketiadaan hubungan.',
     hints: ['Linear berarti titik-titik mengikuti garis lurus.'],
     competencies: ['pola hubungan'],
   },
@@ -80,7 +80,10 @@ export const dataBivariatQuestions: Question[] = [
     acceptedAnswers: ['cuaca panas', 'cuaca', 'suhu panas', 'musim panas', 'temperatur', 'suhu udara'],
     explanation:
       'Saat cuaca panas, orang lebih banyak menyalakan kembang api sekaligus membeli es krim. Jadi korelasi tersebut muncul karena faktor ketiga, bukan sebab-akibat langsung.',
-    hints: ['Pikirkan kondisi yang membuat keduanya sama-sama meningkat.'],
+    hints: [
+      'Pikirkan kondisi yang membuat keduanya sama-sama meningkat.',
+      'Cari faktor ketiga yang memengaruhi baik jumlah kembang api maupun penjualan es krim.',
+    ],
     competencies: ['korelasi vs sebab-akibat'],
   },
   {
@@ -99,7 +102,10 @@ export const dataBivariatQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Tanda negatif menunjukkan arah berlawanan, dan $|r|=0{,}85$ mendekati $1$ sehingga hubungan linearnya kuat. Opsi A menganggap kekuatan menuntut $|r|=1$; opsi C keliru menafsirkan tanda negatif sebagai tidak ada hubungan; opsi D salah menganggap $r$ mengukur pola nonlinear.',
-    hints: ['Tanda $r$ menunjukkan arah; besar $|r|$ menunjukkan kekuatan.'],
+    hints: [
+      'Tanda $r$ menunjukkan arah; besar $|r|$ menunjukkan kekuatan.',
+      'Nilai $|r|=0{,}85$ sangat dekat dengan $1$, sehingga hubungannya kuat.',
+    ],
     competencies: ['koefisien korelasi'],
   },
   {
@@ -114,7 +120,10 @@ export const dataBivariatQuestions: Question[] = [
     acceptedAnswers: ['0', 'nol', '0,0'],
     explanation:
       'Sebaran tanpa arah menunjukkan hubungan linear yang sangat lemah atau tidak ada, sehingga $r$ mendekati $0$.',
-    hints: ['Nilai $r$ berkisar dari $-1$ sampai $1$.'],
+    hints: [
+      'Nilai $r$ berkisar dari $-1$ sampai $1$.',
+      'Sebaran tanpa arah berarti $r$ mendekati nilai tengah rentangnya.',
+    ],
     competencies: ['koefisien korelasi'],
   },
   {
@@ -258,5 +267,33 @@ export const dataBivariatQuestions: Question[] = [
       'Nilai prediksi $\\hat{y}=6{,}2(6)+48{,}4=85{,}6$. Residual $=y-\\hat{y}=88-85{,}6=2{,}4$. Residual positif berarti nilai teramati berada di atas prediksi model.',
     hints: ['Hitung nilai prediksi lebih dahulu dengan $x=6$.', 'Residual $=y-\\hat{y}$.'],
     competencies: ['regresi linear', 'residual'],
+  },
+  {
+    id: 'db-15',
+    topicId: 'data-bivariat',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Diagram pencar berikut menunjukkan pasangan data $(x, y)$. Pernyataan yang paling tepat menggambarkan hubungan kedua variabel adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 220" role="img" aria-hidden="true"><line x1="40" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.4"/><line x1="40" y1="190" x2="40" y2="20" stroke="currentColor" stroke-width="1.4"/><text x="76" y="202" fill="currentColor" font-size="8" text-anchor="middle">1</text><text x="111" y="202" fill="currentColor" font-size="8" text-anchor="middle">2</text><text x="147" y="202" fill="currentColor" font-size="8" text-anchor="middle">3</text><text x="183" y="202" fill="currentColor" font-size="8" text-anchor="middle">4</text><text x="219" y="202" fill="currentColor" font-size="8" text-anchor="middle">5</text><text x="254" y="202" fill="currentColor" font-size="8" text-anchor="middle">6</text><text x="30" y="161" fill="currentColor" font-size="8" text-anchor="end">2</text><text x="30" y="129" fill="currentColor" font-size="8" text-anchor="end">4</text><text x="30" y="97" fill="currentColor" font-size="8" text-anchor="end">6</text><text x="30" y="65" fill="currentColor" font-size="8" text-anchor="end">8</text><text x="30" y="33" fill="currentColor" font-size="8" text-anchor="end">10</text><circle cx="76" cy="46" r="4" fill="currentColor"/><circle cx="111" cy="62" r="4" fill="currentColor"/><circle cx="147" cy="94" r="4" fill="currentColor"/><circle cx="183" cy="110" r="4" fill="currentColor"/><circle cx="219" cy="126" r="4" fill="currentColor"/><circle cx="254" cy="158" r="4" fill="currentColor"/></svg>',
+      alt: 'Diagram pencar dengan enam titik menurun dari kiri atas di sekitar (1, 9) hingga kanan bawah di sekitar (6, 2).',
+      caption: 'Diagram pencar pasangan data $(x, y)$.',
+    },
+    options: [
+      { key: 'A', text: 'Hubungan positif kuat.' },
+      { key: 'B', text: 'Hubungan negatif kuat.' },
+      { key: 'C', text: 'Tidak ada hubungan karena titik tidak tepat pada satu garis.' },
+      { key: 'D', text: 'Hubungan negatif lemah karena ada titik yang menyimpang.' },
+    ],
+    answer: 'B',
+    explanation:
+      'Titik-titik menurun teratur dari kiri atas ke kanan bawah dan rapat mendekati garis, dengan $r\\approx-0{,}99$, sehingga hubungannya negatif kuat (opsi B). Opsi A salah karena polanya menurun, bukan menanjak. Opsi C salah karena kedekatan titik pada pola menurun justru menunjukkan hubungan kuat. Opsi D salah karena tidak ada titik yang menyimpang jauh; seluruh titik konsisten mendekati garis.',
+    hints: [
+      'Perhatikan arah kecenderungan titik dari kiri ke kanan.',
+      'Makin rapat titik terhadap suatu garis, makin kuat hubungannya.',
+    ],
+    competencies: ['menafsirkan diagram pencar', 'koefisien korelasi'],
   },
 ];

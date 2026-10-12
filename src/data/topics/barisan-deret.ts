@@ -104,7 +104,7 @@ Jadi barisan mendaftar (dipisah koma), sedangkan deret menjumlahkan (dihubungkan
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Beda tetap, rasio berulang",
           text: "Aritmetika memakai **selisih tetap** ($U_{n}-U_{n-1}=b$), geometri memakai **rasio tetap** ($U_{n}/U_{n-1}=r$). Kedua rumus suku ke-$n$ berbeda dan tidak boleh tertukar.",
         },
         {
@@ -285,42 +285,35 @@ Jika $\\lvert r\\rvert \\geq 1$, suku-sukunya tidak menuju nol dan deret **diver
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1 (aritmetika).** Barisan $4, 9, 14, 19, \\dots$ memiliki $a=4$ dan $b=5$. Tentukan $U_{20}$ dan $S_{20}$.
-
-*Penyelesaian.*
-$$U_{20} = 4 + (20-1)\\cdot 5 = 4 + 95 = 99.$$
-$$S_{20} = \\frac{20}{2}(4+99) = 10 \\cdot 103 = 1030.$$
-
-**Contoh 2 (geometri).** Barisan $5, 15, 45, \\dots$ memiliki $a=5$ dan $r=3$. Tentukan $U_7$ dan $S_7$.
-
-*Penyelesaian.*
-$$U_7 = 5\\cdot 3^{6} = 5 \\cdot 729 = 3645.$$
-$$S_7 = \\frac{5(3^{7}-1)}{3-1} = \\frac{5(2187-1)}{2} = \\frac{5 \\cdot 2186}{2} = 5465.$$
-
-**Contoh 3 (tak hingga).** Hitung $18 + 6 + 2 + \\tfrac{2}{3} + \\cdots$.
-
-*Penyelesaian.* Di sini $a=18$ dan $r=\\tfrac13$ dengan $\\lvert r\\rvert<1$, maka
-$$S_\\infty = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Ikuti langkah menentukan $U_{20}$ dan $S_{20}$ dari barisan $4, 9, 14, 19, \\dots$.",
+          intro: "Kerjakan tiga contoh berikut satu per satu, lalu cocokkan hasilmu.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Tentukan suku pertama dan beda: $a = 4$ dan $b = 5$ karena selisihnya tetap $5$.",
+              title: "Contoh 1 (aritmetika)",
+              text: `Barisan $4, 9, 14, 19, \\dots$ memiliki $a=4$ dan $b=5$. Tentukan $U_{20}$ dan $S_{20}$.
+
+*Penyelesaian.* Mulai dari suku pertama dan beda. Selisih dua suku berurutan selalu $5$, sehingga $a=4$ dan $b=5$. Substitusi ke rumus suku ke-$n$:
+$$U_{20} = 4 + (20-1)\\cdot 5 = 4 + 95 = 99.$$
+Kemudian pakai $S_n = \\dfrac{n}{2}(a+U_n)$ dengan $U_{20}=99$:
+$$S_{20} = \\frac{20}{2}(4+99) = 10 \\cdot 103 = 1030.$$`,
             },
             {
-              title: "Langkah 2",
-              text: "Gunakan rumus suku ke-$n$: $U_{20} = 4 + (20-1) \\cdot 5 = 4 + 95 = 99$.",
+              title: "Contoh 2 (geometri)",
+              text: `Barisan $5, 15, 45, \\dots$ memiliki $a=5$ dan $r=3$. Tentukan $U_7$ dan $S_7$.
+
+*Penyelesaian.* Periksa rasionya: $\\dfrac{15}{5}=\\dfrac{45}{15}=3$, jadi $a=5$ dan $r=3$. Untuk suku ke-$7$, kalikan $a$ dengan $r^{6}$:
+$$U_7 = 5\\cdot 3^{6} = 5 \\cdot 729 = 3645.$$
+Untuk jumlahnya, gunakan $S_n = \\dfrac{a(r^{n}-1)}{r-1}$ dengan $r-1=2$:
+$$S_7 = \\frac{5(3^{7}-1)}{3-1} = \\frac{5(2187-1)}{2} = \\frac{5 \\cdot 2186}{2} = 5465.$$`,
             },
             {
-              title: "Langkah 3",
-              text: "Gunakan rumus jumlah: $S_{20} = \\dfrac{20}{2}(4 + 99) = 10 \\cdot 103$.",
-            },
-            {
-              title: "Langkah 4",
-              text: "Hitung hasilnya: $S_{20} = 1030$.",
+              title: "Contoh 3 (deret tak hingga)",
+              text: `Hitung $18 + 6 + 2 + \\tfrac{2}{3} + \\cdots$.
+
+*Penyelesaian.* Tentukan dulu suku pertama dan rasionya: $a=18$ dan $r=\\dfrac{6}{18}=\\dfrac13$. Karena $\\lvert r\\rvert=\\tfrac13<1$, deret konvergen sehingga rumus jumlah tak hingga berlaku:
+$$S_\\infty = \\frac{a}{1-r} = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$`,
             },
           ],
         },
@@ -350,7 +343,9 @@ $$S_\\infty = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$`,
       title: "Penerapan di Dunia Nyata",
       body: `Barisan aritmetika muncul pada pengaturan kursi, tumpukan barang, dan tangga dengan anak tangga seragam. Barisan geometri muncul pada tabungan berbunga majemuk, pertumbuhan populasi, dan peluruhan zat.
 
-Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun setelah $n$ tahun bernilai $M_0(1+i)^n$, yang merupakan suku ke-$(n+1)$ sebuah barisan geometri dengan rasio $r=1+i$. Untuk pembahasan lebih lanjut, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi) serta [Pertumbuhan Populasi](/aplikasi/pertumbuhan-populasi).`,
+Sebagai contoh konkret, sebuah gedung pertunjukan menyusun kursi dengan baris pertama memuat $20$ kursi dan setiap baris berikutnya bertambah $4$ kursi. Jika ada $25$ baris, kapasitas totalnya adalah
+$$S_{25} = \\frac{25}{2}\\big(2(20) + (25-1)(4)\\big) = \\frac{25}{2}(40+96) = 1700 \\text{ kursi}.$$
+Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam mengikuti pola geometri: setelah $10$ jam jumlahnya $500 \\cdot 2^{10} = 512.000$ sel. Tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun setelah $n$ tahun bernilai $M_0(1+i)^n$, yaitu suku ke-$(n+1)$ barisan geometri dengan rasio $r=1+i$. Untuk pembahasan lebih lanjut, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi) serta [Pertumbuhan Populasi](/aplikasi/pertumbuhan-populasi).`,
     },
     {
       id: "kesalahan-umum",
@@ -428,6 +423,7 @@ Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun 
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
+      body: "Nilai sejauh mana kamu dapat menebak pola berikutnya dari sekadar beberapa suku pertama, lalu periksa bagian yang masih terasa kabur.",
       blocks: [
         {
           kind: "reflection",
@@ -481,7 +477,7 @@ Sebagai gambaran, tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana pola beda tetap membedakan barisan aritmetika dari barisan geometri? (2) Kapan jumlah deret geometri tak hingga memiliki nilai berhingga? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Barisan dan Deret** untuk latihan tambahan.`,
+      body: `**Cek pemahaman.** Jawab singkat: (1) Jika selisih antarsuku berubah tetapi rasionya tetap, barisan jenis apa yang kamu hadapi? (2) Mengapa jumlah deret geometri tak hingga hanya berhingga ketika $\\lvert r\\rvert<1$? Bandingkan jawabanmu dengan teman, lalu lanjut ke [Latihan & Asesmen](/latihan) topik **Barisan dan Deret** untuk soal tambahan.`,
     },
   ],
 };

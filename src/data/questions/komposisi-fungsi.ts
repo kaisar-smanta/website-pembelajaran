@@ -17,8 +17,11 @@ export const komposisiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$(f \\circ g)(x) = f(g(x)) = f(3x) = 3x + 2$. Kerjakan $g$ terlebih dahulu, lalu masukkan hasilnya ke $f$. Opsi B adalah $(g \\circ f)(x)$.',
-    hints: ['Kerjakan fungsi yang paling dekat dengan $x$, yaitu $g$, lebih dahulu.'],
+      '$(f \\circ g)(x) = f(g(x)) = f(3x) = 3x + 2$. Kerjakan $g$ terlebih dahulu, lalu masukkan hasilnya ke $f$. Opsi B adalah $(g \\circ f)(x) = g(x+2) = 3(x+2) = 3x + 6$ (urutan dibalik); opsi C menjumlahkan koefisien kedua fungsi menjadi $4x$; opsi D mengalikan $x$ dengan $3x$ sehingga muncul suku $x^{2}$.',
+    hints: [
+      'Kerjakan fungsi yang paling dekat dengan $x$, yaitu $g$, lebih dahulu.',
+      'Setelah memperoleh $g(x) = 3x$, gantikan $x$ pada $f$ dengan seluruh $3x$.',
+    ],
     competencies: ['komposisi fungsi'],
   },
   {
@@ -85,8 +88,11 @@ export const komposisiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$(f \\circ g)(x) = f(x-3) = (x-3)^{2} + 1 = x^{2} - 6x + 9 + 1 = x^{2} - 6x + 10$. Opsi B adalah $(g \\circ f)(x) = (x^{2}+1) - 3 = x^{2} - 2$.',
-    hints: ['Substitusikan seluruh $g(x)$ ke dalam variabel $x$ pada $f$.'],
+      '$(f \\circ g)(x) = f(x-3) = (x-3)^{2} + 1 = x^{2} - 6x + 9 + 1 = x^{2} - 6x + 10$. Opsi B adalah $(g \\circ f)(x) = (x^{2}+1) - 3 = x^{2} - 2$ (urutan dibalik); opsi C salah karena melupakan suku tengah $-6x$; opsi D berhenti pada $(x-3)^{2}$ tanpa menambahkan $1$.',
+    hints: [
+      'Substitusikan seluruh $g(x)$ ke dalam variabel $x$ pada $f$.',
+      'Jabarkan $(x-3)^{2}$ sebagai $x^{2} - 6x + 9$ lebih dahulu.',
+    ],
     competencies: ['rumus komposisi fungsi'],
   },
   {
@@ -105,8 +111,11 @@ export const komposisiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$(f \\circ g)(x) = f(2x+4) = \\sqrt{2x+4}$. Agar terdefinisi, isi akar tidak boleh negatif: $2x + 4 \\geq 0 \\Rightarrow x \\geq -2$. Jadi domainnya $x \\geq -2$.',
-    hints: ['Syarat fungsi akar: bentuk di bawah tanda akar $\\geq 0$.'],
+      '$(f \\circ g)(x) = f(2x+4) = \\sqrt{2x+4}$. Agar terdefinisi, isi akar tidak boleh negatif: $2x + 4 \\geq 0 \\Rightarrow x \\geq -2$. Jadi domainnya $x \\geq -2$. Opsi B keliru memindahkan $4$ tanpa membalik tanda; opsi C lupa membagi dengan $2$ setelah memindahkan $4$; opsi D mengabaikan syarat bahwa bentuk di bawah akar harus tidak negatif.',
+    hints: [
+      'Syarat fungsi akar: bentuk di bawah tanda akar $\\geq 0$.',
+      'Selesaikan $2x + 4 \\geq 0$ dengan membagi kedua ruas oleh $2$.',
+    ],
     competencies: ['domain komposisi fungsi'],
   },
   {
@@ -121,7 +130,10 @@ export const komposisiFungsiQuestions: Question[] = [
     acceptedAnswers: ['2x + 3', '2 x + 3'],
     explanation:
       '$(f \\circ g)(x) = f(g(x)) = 2g(x) + 1$. Karena nilainya $4x + 7$, maka $2g(x) + 1 = 4x + 7 \\Rightarrow 2g(x) = 4x + 6 \\Rightarrow g(x) = 2x + 3$. Periksa: $f(2x+3) = 2(2x+3) + 1 = 4x + 7$, benar.',
-    hints: ['Tulis $2g(x) + 1$ sama dengan hasil yang diketahui, lalu selesaikan untuk $g(x)$.'],
+    hints: [
+      'Tulis $2g(x) + 1$ sama dengan hasil yang diketahui, lalu selesaikan untuk $g(x)$.',
+      'Kurangi $1$ pada kedua ruas lebih dahulu, baru bagi dengan $2$.',
+    ],
     competencies: ['menentukan fungsi dalam komposisi'],
   },
   {
@@ -136,7 +148,10 @@ export const komposisiFungsiQuestions: Question[] = [
       '$(f \\circ g)(x) = f(x^{2}-1) = (x^{2}-1) + 3 = x^{2} + 2$. Sedangkan $(g \\circ f)(x) = g(x+3) = (x+3)^{2} - 1 = x^{2} + 6x + 9 - 1 = x^{2} + 6x + 8$. Kedua hasil berbeda, sehingga $f \\circ g \\neq g \\circ f$. Komposisi tidak komutatif karena urutan pengerjaan memengaruhi hasil akhir.',
     explanation:
       'Kunci menekankan substitusi yang benar pada masing-masing urutan dan kesimpulan bahwa hasilnya tidak sama.',
-    hints: ['Untuk $(f \\circ g)$, kerjakan $g$ dahulu; untuk $(g \\circ f)$, kerjakan $f$ dahulu.'],
+    hints: [
+      'Untuk $(f \\circ g)$, kerjakan $g$ dahulu; untuk $(g \\circ f)$, kerjakan $f$ dahulu.',
+      'Jabarkan $(x+3)^{2}$ dengan teliti agar tidak kehilangan suku $6x$.',
+    ],
     competencies: ['sifat komposisi', 'penalaran aljabar'],
     rubric: [
       'Menghitung $(f\\circ g)(x)=x^{2}+2$ dengan benar',
@@ -160,8 +175,11 @@ export const komposisiFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$(f \\circ g)(x) = 3(x-2) + 1 = 3x - 5$. Inversnya: $y = 3x - 5 \\Rightarrow x = \\dfrac{y+5}{3}$, jadi $(f \\circ g)^{-1}(x) = \\dfrac{x+5}{3}$. Periksa dengan sifat $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$: $f^{-1}(x) = \\dfrac{x-1}{3}$ dan $g^{-1}(x) = x+2$, sehingga $g^{-1}\\!\\left(\\dfrac{x-1}{3}\\right) = \\dfrac{x-1}{3} + 2 = \\dfrac{x+5}{3}$, sama.',
-    hints: ['Cari dahulu $(f \\circ g)(x)$, lalu tentukan inversnya.'],
+      '$(f \\circ g)(x) = 3(x-2) + 1 = 3x - 5$. Inversnya: $y = 3x - 5 \\Rightarrow x = \\dfrac{y+5}{3}$, jadi $(f \\circ g)^{-1}(x) = \\dfrac{x+5}{3}$. Periksa dengan sifat $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$: $f^{-1}(x) = \\dfrac{x-1}{3}$ dan $g^{-1}(x) = x+2$, sehingga $g^{-1}\\!\\left(\\dfrac{x-1}{3}\\right) = \\dfrac{x-1}{3} + 2 = \\dfrac{x+5}{3}$, sama. Opsi B salah tanda karena menulis $x-5$; opsi C menganggap invers berarti mengubah $f$ saja tanpa membalik operasi; opsi D memakai $f^{-1}(x)$ tanpa mengompensasi pergeseran $g$.',
+    hints: [
+      'Cari dahulu $(f \\circ g)(x)$, lalu tentukan inversnya.',
+      'Untuk $y = 3x - 5$, jadikan $x$ subjek rumus sebelum menukar nama variabel.',
+    ],
     competencies: ['invers komposisi fungsi'],
   },
   {
@@ -176,7 +194,10 @@ export const komposisiFungsiQuestions: Question[] = [
       'Diskon memodelkan $f(x) = 0{,}75x$, dan biaya layanan $g(x) = x + 5$ (dalam ribuan rupiah). Total biaya adalah $(g \\circ f)(x) = g(0{,}75x) = 0{,}75x + 5$. Untuk $x = 40$: $0{,}75(40) + 5 = 30 + 5 = 35$. Jadi total biaya $35$ ribu rupiah.',
     explanation:
       'Kunci menekankan pemilihan urutan: diskon dikenakan lebih dahulu, baru biaya layanan ditambahkan, sehingga komposisinya $(g \\circ f)(x)$.',
-    hints: ['Diskon $25\\%$ berarti membayar $75\\%$ dari harga awal.'],
+    hints: [
+      'Diskon $25\\%$ berarti membayar $75\\%$ dari harga awal.',
+      'Diskon dikenakan lebih dahulu, baru biaya layanan ditambahkan sehingga komposisinya $(g \\circ f)(x)$.',
+    ],
     competencies: ['pemodelan komposisi fungsi', 'kontekstual'],
     rubric: [
       'Memodelkan diskon sebagai $f(x)=0{,}75x$',
@@ -274,5 +295,28 @@ export const komposisiFungsiQuestions: Question[] = [
       'Menghitung $(f\\circ f\\circ f)(x)=f(x)$',
       'Menyimpulkan $f$ adalah invers bagi dirinya sendiri',
     ],
+  },
+  {
+    id: 'kf-15',
+    topicId: 'komposisi-fungsi',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Diketahui $g(x) = x - 2$ dan $(f \\circ g)(x) = x^{2} - 4$. Rumus $f(x)$ adalah …',
+    options: [
+      { key: 'A', text: '$x^{2} + 4x$' },
+      { key: 'B', text: '$x^{2} - 4$' },
+      { key: 'C', text: '$x^{2} + 4$' },
+      { key: 'D', text: '$x^{2} - 4x$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Dari $(f \\circ g)(x) = f(x-2) = x^{2} - 4$. Misalkan $u = x - 2$, maka $x = u + 2$, sehingga $f(u) = (u+2)^{2} - 4 = u^{2} + 4u + 4 - 4 = u^{2} + 4u$. Jadi $f(x) = x^{2} + 4x$. Opsi B mengabaikan pengaruh $g$ dan mengambil $f(x) = (f \\circ g)(x)$; opsi C keliru menghitung $f(u)$ dengan membuang suku $4u$; opsi D salah tanda pada suku $4u$.',
+    hints: [
+      'Tulis $f(x-2) = x^{2} - 4$, lalu gantikan $x$ dengan $x+2$ agar argumennya menjadi $x$.',
+      'Uraikan $(x+2)^{2} - 4$ untuk memperoleh rumus $f(x)$.',
+    ],
+    competencies: ['menentukan fungsi dalam komposisi', 'penalaran aljabar'],
   },
 ];

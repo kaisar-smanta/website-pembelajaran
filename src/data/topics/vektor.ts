@@ -109,7 +109,7 @@ Sebagai contoh, dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Makna vektor",
           text: "Vektor ditentukan oleh **besar dan arah**, bukan oleh letak gambarannya. Dua vektor sama bila semua komponennya sama.",
         },
         {
@@ -311,6 +311,18 @@ Karena $\\vec{BC} = 2\\,\\vec{MN}$, kedua ruas garis **sejajar**, dan panjangnya
       ],
     },
     {
+      id: "eksplorasi-proyeksi",
+      kind: "eksplorasi",
+      title: "Eksplorasi Proyeksi dan Sudut Vektor",
+      body: "Lanjutkan dengan menyelidiki panjang proyeksi serta sudut antar vektor, lalu hubungkan keduanya dengan nilai perkalian titik.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-vektor-proyeksi",
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Perkalian Titik sebagai Alat Serbaguna",
@@ -336,11 +348,11 @@ Dengan menghubungkan titik-titik menjadi vektor, pertanyaan geometri berubah men
             },
             {
               title: "Contoh 2",
-              text: `Tentukan sudut antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.
+              text: `Tentukan sudut antara $\\vec{u} = \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$ dan $\\vec{v} = \\begin{pmatrix} 1 \\\\ \\sqrt{3} \\end{pmatrix}$.
 
-*Penyelesaian.* $\\vec{u} \\cdot \\vec{v} = 3 + 2 = 5$; $\\lVert \\vec{u} \\rVert = \\sqrt{5}$ dan $\\lVert \\vec{v} \\rVert = \\sqrt{10}$. Maka
+*Penyelesaian.* $\\vec{u} \\cdot \\vec{v} = 1(1) + 0(\\sqrt{3}) = 1$; $\\lVert \\vec{u} \\rVert = 1$ dan $\\lVert \\vec{v} \\rVert = \\sqrt{1 + 3} = 2$. Maka
 
-$$\\cos\\theta = \\frac{5}{\\sqrt{5}\\,\\sqrt{10}} = \\frac{1}{\\sqrt{2}}, \\qquad \\theta = 45^\\circ.$$`,
+$$\\cos\\theta = \\frac{1}{1 \\cdot 2} = \\frac{1}{2}, \\qquad \\theta = 60^\\circ.$$`,
             },
             {
               title: "Contoh 3",
@@ -451,7 +463,7 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana besar dan arah vektor muncul dalam perpindahan dan gaya.",
+      body: "Pikirkan bagaimana besar dan arah bekerja bersama saat dua vektor digabungkan.",
       blocks: [
         {
           kind: "reflection",
@@ -528,7 +540,7 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana satu operasi perkalian titik dapat menentukan panjang, sudut, dan ketegaklurusan sekaligus? (2) Bagaimana vektor dipakai untuk membuktikan sifat geometri seperti teorema titik tengah? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Vektor** untuk latihan tambahan.`,
+      body: `Tutup pelajaran dengan menjawab: bagaimana perkalian titik menghasilkan panjang, sudut, dan ketegaklurusan sekaligus, serta bagaimana vektor mempersingkat pembuktian geometri? Setelah itu, lanjut ke [Latihan & Asesmen](/latihan) topik **Vektor**.`,
     },
   ],
 };

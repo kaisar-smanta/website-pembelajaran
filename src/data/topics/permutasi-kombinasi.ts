@@ -118,7 +118,7 @@ Hubungan keduanya adalah $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$, karena setiap pi
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Kunci memilih permutasi atau kombinasi",
           text: "Aturan perkalian dan penjumlahan adalah pondasi. Sebelum memakai rumus, tentukan dahulu apakah urutan penting, apakah ada unsur yang sama, dan apakah objek boleh dipakai berulang.",
         },
         {
@@ -234,6 +234,18 @@ Jalankan simulasi berkali-kali. Apakah frekuensi relatif kejadian ini mendekati 
       ],
     },
     {
+      id: "eksplorasi-pohon-keputusan",
+      kind: "eksplorasi",
+      title: "Eksplorasi Pohon Keputusan",
+      body: `Gunakan pohon keputusan untuk mencacah secara visual. Nyalakan atau matikan sakelar **urutan diperhatikan** dan **boleh berulang**, lalu bandingkan banyaknya daun pohon dengan nilai rumus $P(n,k)$, $\\binom{n}{k}$, $n^{k}$, dan $\\binom{n+k-1}{k}$.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "pencacahan-pohon-keputusan",
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Aturan Umum Pencacahan",
@@ -275,72 +287,49 @@ $$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1 (aturan perkalian).** Sebuah kata sandi terdiri atas $4$ angka berbeda yang dipilih dari angka $0$ sampai $9$. Berapa banyak kata sandi yang mungkin?
-
-*Penyelesaian.* Isi empat kotak: $10$ pilihan untuk angka pertama, lalu $9$, $8$, dan $7$ karena angka tidak boleh berulang:
-$$10 \\cdot 9 \\cdot 8 \\cdot 7 = 5040.$$
-
-**Contoh 2 (faktorial dan unsur sama).** Berapa banyak susunan huruf dari kata "BUKU"?
-
-*Penyelesaian.* Kata "BUKU" tersusun dari $4$ huruf dengan huruf U muncul $2$ kali. Bila semua huruf berbeda akan ada $4! = 24$ susunan, tetapi menukar posisi kedua huruf U menghasilkan susunan yang sama. Jadi
-$$\\frac{4!}{2!} = \\frac{24}{2} = 12.$$
-
-**Contoh 3 (permutasi sebagian).** Dari $5$ siswa akan dipilih ketua, sekretaris, dan bendahara. Berapa banyak susunan yang mungkin?
-
-*Penyelesaian.* Urutan penting, sehingga
-$$P(5,3) = \\frac{5!}{(5-3)!} = \\frac{120}{2} = 60.$$
-
-**Contoh 4 (kombinasi).** Dari $10$ siswa akan dipilih $3$ orang untuk sebuah tim tanpa jabatan. Berapa banyak susunan tim?
-
-*Penyelesaian.* Urutan tidak penting, sehingga
-$$\\binom{10}{3} = \\frac{10!}{3!\\,7!} = \\frac{10 \\cdot 9 \\cdot 8}{3 \\cdot 2 \\cdot 1} = 120.$$
-
-**Contoh 5 (pencacahan untuk peluang).** Sebuah kotak berisi $5$ bola merah dan $3$ bola putih. Dua bola diambil sekaligus. Tentukan peluang keduanya merah.
-
-*Penyelesaian.* Banyak cara mengambil $2$ dari $8$ bola adalah $\\binom{8}{2} = 28$. Cara mendapat dua merah adalah $\\binom{5}{2} = 10$. Jadi
-$$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari hitung banyak susunan huruf kata \"BUKU\", satu langkah sekaligus.",
+          intro: "Lima contoh berikut dikerjakan langkah demi langkah, dari aturan perkalian sampai pencacahan untuk peluang.",
           steps: [
             {
-              title: "Hitung seolah berbeda",
-              text: "Kata \"BUKU\" memiliki $4$ huruf, sehingga jika semua berbeda ada $4!=24$ susunan.",
+              title: "Contoh 1: aturan perkalian",
+              text: `Sebuah kata sandi terdiri atas $4$ angka berbeda yang dipilih dari angka $0$ sampai $9$. Berapa banyak kata sandi yang mungkin?
+
+*Penyelesaian.* Isi empat kotak: $10$ pilihan untuk angka pertama, lalu $9$, $8$, dan $7$ karena angka tidak boleh berulang:
+$$10 \\cdot 9 \\cdot 8 \\cdot 7 = 5040.$$
+Jadi ada $5040$ kata sandi yang mungkin.`,
             },
             {
-              title: "Kenali unsur sama",
-              text: "Huruf U muncul $2$ kali, dan menukar posisi kedua huruf U menghasilkan susunan yang sama.",
+              title: "Contoh 2: faktorial dan unsur sama",
+              text: `Berapa banyak susunan huruf dari kata "BUKU"?
+
+*Penyelesaian.* Kata "BUKU" tersusun dari $4$ huruf dengan huruf U muncul $2$ kali. Bila semua huruf berbeda akan ada $4! = 24$ susunan, tetapi menukar posisi kedua huruf U menghasilkan susunan yang sama. Jadi
+$$\\frac{4!}{2!} = \\frac{24}{2} = 12.$$
+Jadi ada $12$ susunan huruf yang berbeda.`,
             },
             {
-              title: "Bagi dengan faktorial unsur sama",
-              text: "Banyak susunan $=\\dfrac{4!}{2!}=\\dfrac{24}{2}=12$.",
+              title: "Contoh 3: permutasi sebagian",
+              text: `Dari $5$ siswa akan dipilih ketua, sekretaris, dan bendahara. Berapa banyak susunan yang mungkin?
+
+*Penyelesaian.* Urutan penting, sehingga
+$$P(5,3) = \\frac{5!}{(5-3)!} = \\frac{120}{2} = 60.$$
+Jadi ada $60$ susunan pengurus.`,
             },
             {
-              title: "Tafsirkan",
-              text: "Jadi hanya ada $12$ susunan huruf yang berbeda.",
-            },
-          ],
-        },
-        {
-          kind: "step-reveal",
-          intro: "Contoh kombinasi $nCr$: dari $10$ siswa dipilih $3$ orang tanpa jabatan. Hitung $\\binom{10}{3}$ langkah demi langkah.",
-          steps: [
-            {
-              title: "Pilih rumus kombinasi",
-              text: "Urutan tidak penting, jadi pakai $\\binom{n}{k}=\\dfrac{n!}{k!\\,(n-k)!}$.",
+              title: "Contoh 4: kombinasi",
+              text: `Dari $10$ siswa akan dipilih $3$ orang untuk sebuah tim tanpa jabatan. Berapa banyak susunan tim?
+
+*Penyelesaian.* Urutan tidak penting, sehingga
+$$\\binom{10}{3} = \\frac{10!}{3!\\,7!} = \\frac{10 \\cdot 9 \\cdot 8}{3 \\cdot 2 \\cdot 1} = 120.$$
+Jadi ada $120$ susunan tim.`,
             },
             {
-              title: "Substitusi $n=10$, $k=3$",
-              text: "$\\binom{10}{3}=\\dfrac{10!}{3!\\,7!}$.",
-            },
-            {
-              title: "Sederhanakan faktorial",
-              text: "Faktorial $7!$ saling menghapus: $\\dfrac{10\\cdot 9\\cdot 8}{3\\cdot 2\\cdot 1}$.",
-            },
-            {
-              title: "Hitung hasilnya",
-              text: "$\\dfrac{720}{6}=120$ susunan tim. Bandingkan dengan $P(10,3)=720$ yang $3!=6$ kali lebih besar karena urutan diperhitungkan.",
+              title: "Contoh 5: pencacahan untuk peluang",
+              text: `Sebuah kotak berisi $5$ bola merah dan $3$ bola putih. Dua bola diambil sekaligus. Tentukan peluang keduanya merah.
+
+*Penyelesaian.* Banyak cara mengambil $2$ dari $8$ bola adalah $\\binom{8}{2} = 28$. Cara mendapat dua merah adalah $\\binom{5}{2} = 10$. Jadi
+$$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
             },
           ],
         },
@@ -368,9 +357,9 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Aturan pencacahan membantu kita memahami skala kemungkinan di sekitar kita. Banyaknya kata sandi yang mungkin menentukan seberapa kuat sebuah akun; banyaknya susunan kartu menentukan peluang kombinasi tertentu; banyaknya urutan penjadwalan menentukan seberapa besar ruang pencarian yang harus dijelajahi komputer.
+      body: `Aturan pencacahan membantu kita memahami skala kemungkinan di sekitar kita, dan angkanya sering mengejutkan. Sebuah PIN bank empat angka memiliki $10^{4} = 10.000$ kemungkinan, sedangkan kata sandi delapan karakter dari huruf besar, huruf kecil, dan angka (total $62$ karakter) memiliki $62^{8} \\approx 2{,}18 \\times 10^{14}$ kemungkinan — jauh lebih sulit ditebak. Pada undian "6 dari 49", banyak susunan angka yang mungkin adalah $\\binom{49}{6} = 13.983.816$.
 
-Pencacahan juga menjadi dasar banyak perhitungan peluang, mulai dari undian, lotere, hingga pengambilan sampel acak dalam penelitian. Prinsipnya sederhana: bila setiap hasil sama mungkin, peluang adalah **perbandingan banyak cara**.`,
+Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam penelitian juga dihitung dengan cara yang sama. Prinsipnya sederhana: bila setiap hasil sama mungkin, peluang adalah **perbandingan banyak cara**.`,
     },
     {
       id: "kesalahan-umum",

@@ -16,7 +16,7 @@ export const trigonometriQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Dari tabel sudut istimewa, $\\sin 30^\\circ=\\dfrac{1}{2}$ dan $\\cos 60^\\circ=\\dfrac{1}{2}$, sehingga jumlahnya $\\dfrac{1}{2}+\\dfrac{1}{2}=1$.',
+      'Dari tabel sudut istimewa, $\\sin 30^\\circ=\\dfrac{1}{2}$ dan $\\cos 60^\\circ=\\dfrac{1}{2}$, sehingga jumlahnya $\\dfrac{1}{2}+\\dfrac{1}{2}=1$. Opsi A ($\\dfrac{1}{2}$) hanya mengambil satu nilai dan mengabaikan suku lainnya. Opsi C ($\\dfrac{\\sqrt{3}}{2}$) memakai nilai sudut $60^\\circ$ untuk sinus sehingga tertukar. Opsi D ($2$) mengalikan kedua nilai, bukan menjumlahkannya.',
     hints: ['Gunakan tabel sudut istimewa untuk $30^\\circ$ dan $60^\\circ$.'],
     competencies: ['sudut istimewa'],
   },
@@ -35,7 +35,7 @@ export const trigonometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Dari identitas $\\sin^{2}\\alpha=1-\\cos^{2}\\alpha=1-\\dfrac{16}{25}=\\dfrac{9}{25}$. Karena $\\alpha$ lancip, $\\sin\\alpha>0$, jadi $\\sin\\alpha=\\dfrac{3}{5}$ (segitiga $3$-$4$-$5$).',
+      'Dari identitas $\\sin^{2}\\alpha=1-\\cos^{2}\\alpha=1-\\dfrac{16}{25}=\\dfrac{9}{25}$. Karena $\\alpha$ lancip, $\\sin\\alpha>0$, jadi $\\sin\\alpha=\\dfrac{3}{5}$ (segitiga $3$-$4$-$5$). Opsi B ($\\dfrac{4}{3}$) membalik perbandingan menjadi sisi samping per sisi depan. Opsi C ($-\\dfrac{3}{5}$) memberi tanda negatif padahal $\\alpha$ lancip sehingga sinus positif. Opsi D ($\\dfrac{5}{3}$) memakai sisi miring dibagi sisi depan, kebalikan dari sinus.',
     hints: ['Gunakan identitas $\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$.', 'Karena $\\alpha$ lancip, nilai sinus positif.'],
     competencies: ['identitas trigonometri'],
   },
@@ -64,7 +64,10 @@ export const trigonometriQuestions: Question[] = [
     acceptedAnswers: ['12\\sqrt{3}', '12√3', '12 akar 3'],
     explanation:
       'Aturan sinus: $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$, maka $\\dfrac{12}{1/2}=\\dfrac{b}{\\sqrt{3}/2}$. Diperoleh $24=\\dfrac{b}{\\sqrt{3}/2}$ sehingga $b=24\\cdot\\dfrac{\\sqrt{3}}{2}=12\\sqrt{3}$.',
-    hints: ['Gunakan $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$ dan pasangkan sisi dengan sudut di hadapannya.'],
+    hints: [
+      'Gunakan $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$ dan pasangkan sisi dengan sudut di hadapannya.',
+      'Substitusikan $a=12$, $\\sin30^\\circ=\\dfrac{1}{2}$, dan $\\sin60^\\circ=\\dfrac{\\sqrt{3}}{2}$.',
+    ],
     competencies: ['aturan sinus'],
   },
   {
@@ -87,17 +90,20 @@ export const trigonometriQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'kontekstual',
     prompt:
-      'Sebuah tangga bersandar pada dinding dan membentuk sudut $60^\\circ$ dengan tanah. Jika panjang tangga $6$ m, tinggi ujung tangga dari tanah adalah …',
+      'Sebuah rampa akses untuk kursi roda panjangnya $6$ m dan membentuk sudut $60^\\circ$ dengan tanah. Jarak horizontal yang ditempuh rampa itu adalah …',
     options: [
       { key: 'A', text: '$3$ m' },
       { key: 'B', text: '$3\\sqrt{3}$ m' },
       { key: 'C', text: '$3\\sqrt{2}$ m' },
       { key: 'D', text: '$6\\sqrt{3}$ m' },
     ],
-    answer: 'B',
+    answer: 'A',
     explanation:
-      'Tinggi adalah sisi depan sudut $60^\\circ$ terhadap sisi miring (tangga), sehingga $h=6\\sin 60^\\circ=6\\cdot\\dfrac{\\sqrt{3}}{2}=3\\sqrt{3}$ m.',
-    hints: ['Sisi miring adalah panjang tangga; tinggi adalah sisi depan sudut.'],
+      'Panjang rampa adalah sisi miring dan jarak horizontal adalah sisi samping sudut, sehingga $x=6\\cos60^\\circ=6\\cdot\\dfrac{1}{2}=3$ m. Opsi B ($3\\sqrt{3}$) memakai sinus sehingga menghasilkan ketinggian vertikal, bukan jarak horizontal. Opsi C ($3\\sqrt{2}$) memakai nilai $\\cos45^\\circ$, bukan $\\cos60^\\circ$. Opsi D ($6\\sqrt{3}$) memakai tangen $60^\\circ$ sehingga hasilnya terlalu besar.',
+    hints: [
+      'Jarak horizontal adalah sisi samping sudut, sedangkan panjang rampa adalah sisi miring.',
+      'Gunakan kosinus: $\\cos60^\\circ=\\dfrac{\\text{sisi samping}}{\\text{sisi miring}}$.',
+    ],
     competencies: ['penerapan trigonometri'],
   },
   {
@@ -111,7 +117,10 @@ export const trigonometriQuestions: Question[] = [
     acceptedAnswers: ['10\\sqrt{3}', '10√3', '17,32', '17.32'],
     explanation:
       '$\\tan 30^\\circ=\\dfrac{h}{30}$ sehingga $h=30\\tan 30^\\circ=30\\cdot\\dfrac{\\sqrt{3}}{3}=10\\sqrt{3}$ m $\\approx 17{,}32$ m.',
-    hints: ['Sisi depan adalah tinggi tiang, sisi samping adalah jarak $30$ m.'],
+    hints: [
+      'Sisi depan adalah tinggi tiang, sisi samping adalah jarak $30$ m.',
+      'Gunakan $\\tan30^\\circ=\\dfrac{\\sqrt{3}}{3}$ secara langsung.',
+    ],
     competencies: ['sudut elevasi'],
   },
   {
@@ -259,11 +268,34 @@ export const trigonometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Karena $\\tan\\alpha=\\dfrac{3}{4}$, sisi depan $3$, sisi samping $4$, dan sisi miring $\\sqrt{3^{2}+4^{2}}=5$. Maka $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\cos\\alpha=\\dfrac{4}{5}$, sehingga $\\sin\\alpha+\\cos\\alpha=\\dfrac{3}{5}+\\dfrac{4}{5}=\\dfrac{7}{5}$.',
+      'Karena $\\tan\\alpha=\\dfrac{3}{4}$, sisi depan $3$, sisi samping $4$, dan sisi miring $\\sqrt{3^{2}+4^{2}}=5$. Maka $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\cos\\alpha=\\dfrac{4}{5}$, sehingga $\\sin\\alpha+\\cos\\alpha=\\dfrac{3}{5}+\\dfrac{4}{5}=\\dfrac{7}{5}$. Opsi B ($\\dfrac{3}{5}$) hanya mengambil nilai $\\sin\\alpha$. Opsi C ($\\dfrac{12}{25}$) mengalikan sinus dengan kosinus. Opsi D ($1$) mengira jumlahnya sama dengan identitas Pythagoras.',
     hints: [
       'Gunakan segitiga siku-siku bantu bersisi $3$ dan $4$.',
       'Hitung sisi miring, lalu tentukan sinus dan kosinus.',
     ],
     competencies: ['perbandingan trigonometri', 'penalaran'],
+  },
+  {
+    id: 'tr-15',
+    topicId: 'trigonometri',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Dua pemain sepak bola berlari dari titik yang sama. Pemain pertama menempuh $8$ m dan pemain kedua $5$ m, dengan sudut antara arah lari keduanya $60^\\circ$. Jarak kedua pemain itu adalah …',
+    options: [
+      { key: 'A', text: '$7$ m' },
+      { key: 'B', text: '$\\sqrt{89}$ m' },
+      { key: 'C', text: '$3$ m' },
+      { key: 'D', text: '$\\sqrt{129}$ m' },
+    ],
+    answer: 'A',
+    explanation:
+      'Gunakan aturan kosinus: $d^{2}=8^{2}+5^{2}-2\\cdot8\\cdot5\\cos60^\\circ=64+25-80\\cdot\\dfrac{1}{2}=89-40=49$, sehingga $d=7$ m. Opsi B ($\\sqrt{89}$) lupa mengurangkan suku kosinus sehingga seperti memakai Pythagoras untuk sudut $90^\\circ$. Opsi C ($3$) mengurangkan kedua jarak karena menganggap arahnya berlawanan. Opsi D ($\\sqrt{129}$) menjumlahkan suku kosinus, seolah sudutnya $120^\\circ$.',
+    hints: [
+      'Diketahui dua sisi dan sudut apitnya, jadi gunakan aturan kosinus.',
+      'Ingat $\\cos60^\\circ=\\dfrac{1}{2}$ sehingga suku $-2bc\\cos A$ menjadi $-40$.',
+    ],
+    competencies: ['aturan kosinus', 'kontekstual'],
   },
 ];

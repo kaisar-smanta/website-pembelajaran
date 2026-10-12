@@ -112,7 +112,7 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
         {
           kind: 'callout',
           variant: 'concept',
-          title: 'Inti yang perlu diingat',
+          title: 'Kunci: jumlahkan, kalikan, koreksi irisan',
           text:
             'Kata "atau" menandakan penjumlahan, kata "dan" menandakan perkalian. Namun jika dua himpunan beririsan, penjumlahan langsung akan menghitung irisan dua kali — di sinilah inklusi-eksklusi berperan.',
         },
@@ -175,6 +175,13 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
             'Inklusi-eksklusi dua himpunan: $|A \\cup B| = |A| + |B| - |A \\cap B| = 10 + 8 - 3 = 15$. Anggota pada irisan $A \\cap B$ tidak boleh dihitung dua kali.',
           svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><rect x="15" y="20" width="290" height="170" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="125" cy="105" r="62" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="195" cy="105" r="62" fill="none" stroke="currentColor" stroke-width="2"/><text x="70" y="55" font-size="13" fill="currentColor">A</text><text x="240" y="55" font-size="13" fill="currentColor">B</text><text x="95" y="110" font-size="13" text-anchor="middle" fill="currentColor">7</text><text x="160" y="110" font-size="13" text-anchor="middle" fill="currentColor">3</text><text x="225" y="110" font-size="13" text-anchor="middle" fill="currentColor">5</text><text x="30" y="40" font-size="11" fill="currentColor">S</text></svg>',
         },
+        {
+          kind: 'figure',
+          alt: 'Diagram pohon keputusan: satu titik awal bercabang menjadi dua pilihan, lalu setiap pilihan bercabang lagi menjadi tiga, sehingga seluruhnya ada enam hasil.',
+          caption:
+            'Aturan perkalian lewat diagram pohon: $2$ pilihan pada tahap pertama dan $3$ pilihan pada tahap kedua memberi $2 \\times 3 = 6$ hasil. Banyaknya daun menyatakan banyak cara.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="30" y1="120" x2="118" y2="62" stroke="currentColor" stroke-width="1.5"/><line x1="30" y1="120" x2="118" y2="178" stroke="currentColor" stroke-width="1.5"/><line x1="126" y1="58" x2="238" y2="24" stroke="currentColor" stroke-width="1.5"/><line x1="126" y1="60" x2="238" y2="60" stroke="currentColor" stroke-width="1.5"/><line x1="126" y1="62" x2="238" y2="96" stroke="currentColor" stroke-width="1.5"/><line x1="126" y1="178" x2="238" y2="144" stroke="currentColor" stroke-width="1.5"/><line x1="126" y1="180" x2="238" y2="180" stroke="currentColor" stroke-width="1.5"/><line x1="126" y1="182" x2="238" y2="216" stroke="currentColor" stroke-width="1.5"/><circle cx="26" cy="120" r="3.5" fill="currentColor"/><circle cx="122" cy="60" r="3.5" fill="currentColor"/><circle cx="122" cy="180" r="3.5" fill="currentColor"/><circle cx="242" cy="24" r="3" fill="currentColor"/><circle cx="242" cy="60" r="3" fill="currentColor"/><circle cx="242" cy="96" r="3" fill="currentColor"/><circle cx="242" cy="144" r="3" fill="currentColor"/><circle cx="242" cy="180" r="3" fill="currentColor"/><circle cx="242" cy="216" r="3" fill="currentColor"/><text x="12" y="140" font-size="11" fill="currentColor">awal</text><text x="60" y="50" font-size="11" fill="currentColor">pilihan 1</text><text x="60" y="200" font-size="11" fill="currentColor">pilihan 2</text><text x="250" y="27" font-size="11" fill="currentColor">hasil</text><text x="250" y="63" font-size="11" fill="currentColor">hasil</text><text x="250" y="99" font-size="11" fill="currentColor">hasil</text><text x="250" y="147" font-size="11" fill="currentColor">hasil</text><text x="250" y="183" font-size="11" fill="currentColor">hasil</text><text x="250" y="219" font-size="11" fill="currentColor">hasil</text></svg>',
+        },
       ],
     },
     {
@@ -187,6 +194,19 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
         {
           kind: 'exploration',
           explorationId: 'kombinatorika-hitung',
+        },
+      ],
+    },
+    {
+      id: 'eksplorasi-pohon-aturan',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Pohon dan Aturan Perkalian',
+      body:
+        'Susun aturan perkalian dari sebuah pohon keputusan: banyak daun sama dengan hasil kali banyak pilihan tiap tahap. Ubah banyak tahap dan banyak pilihan, lalu bandingkan dengan rumus pencacahan yang sesuai, termasuk saat objek boleh berulang.',
+      blocks: [
+        {
+          kind: 'exploration',
+          explorationId: 'kombinatorika-pohon-aturan',
         },
       ],
     },
@@ -241,36 +261,40 @@ Untuk pigeonhole, jika $n$ objek diletakkan pada $k$ kotak, paling sedikit satu 
       id: 'contoh',
       kind: 'contoh',
       title: 'Contoh Terbimbing',
-      body: `**Contoh 1 — Aturan perkalian.** Sebuah kantin menawarkan $3$ jenis makanan dan $4$ jenis minuman. Banyak paket makan–minum adalah $3 \\cdot 4 = 12$.
-
-**Contoh 2 — Inklusi-eksklusi.** Berapa banyak bilangan bulat dari $1$ sampai $100$ yang habis dibagi $3$ atau $5$?
-
-*Penyelesaian.* Kelipatan $3$: $\\left\\lfloor \\dfrac{100}{3} \\right\\rfloor = 33$. Kelipatan $5$: $\\left\\lfloor \\dfrac{100}{5} \\right\\rfloor = 20$. Kelipatan $15$ (irisan): $\\left\\lfloor \\dfrac{100}{15} \\right\\rfloor = 6$. Maka jawabannya $33 + 20 - 6 = 47$.
-
-**Contoh 3 — Pigeonhole.** Jika $10$ merpati masuk ke $3$ sarang, satu sarang pasti memuat paling sedikit $\\left\\lceil \\dfrac{10}{3} \\right\\rceil = 4$ merpati.
-
-**Contoh 4 — Koefisien binomial.** Koefisien $x^3$ pada $(1+x)^6$ adalah $\\binom{6}{3} = 20$.`,
       blocks: [
         {
           kind: 'step-reveal',
-          intro: 'Mari hitung banyak bilangan $1$ sampai $100$ yang habis dibagi $3$ atau $5$.',
+          intro: 'Empat contoh berikut dikerjakan langkah demi langkah, dari aturan perkalian sampai koefisien binomial.',
           steps: [
             {
-              title: 'Cacah kelipatan 3',
-              text: '$\\left\\lfloor \\dfrac{100}{3} \\right\\rfloor = 33$ bilangan.',
+              title: 'Contoh 1: aturan perkalian',
+              text: `Sebuah kantin menawarkan $3$ jenis makanan dan $4$ jenis minuman. Berapa banyak paket makan–minum yang mungkin?
+
+*Penyelesaian.* Setiap pilihan makanan dapat dipasangkan dengan setiap pilihan minuman, sehingga
+$$3 \\cdot 4 = 12.$$
+Jadi ada $12$ paket.`,
             },
             {
-              title: 'Cacah kelipatan 5',
-              text: '$\\left\\lfloor \\dfrac{100}{5} \\right\\rfloor = 20$ bilangan.',
+              title: 'Contoh 2: inklusi-eksklusi',
+              text: `Berapa banyak bilangan bulat dari $1$ sampai $100$ yang habis dibagi $3$ atau $5$?
+
+*Penyelesaian.* Kelipatan $3$: $\\left\\lfloor \\dfrac{100}{3} \\right\\rfloor = 33$. Kelipatan $5$: $\\left\\lfloor \\dfrac{100}{5} \\right\\rfloor = 20$. Kelipatan $15$ (irisan): $\\left\\lfloor \\dfrac{100}{15} \\right\\rfloor = 6$. Maka jawabannya
+$$33 + 20 - 6 = 47.$$`,
             },
             {
-              title: 'Kurangi irisan',
-              text:
-                'Bilangan yang terhitung dua kali adalah kelipatan $15$: $\\left\\lfloor \\dfrac{100}{15} \\right\\rfloor = 6$.',
+              title: 'Contoh 3: prinsip sarang merpati',
+              text: `Jika $10$ merpati masuk ke $3$ sarang, berapa paling sedikit merpati pada sarang tersibuk?
+
+*Penyelesaian.* Menurut prinsip sarang merpati, satu sarang pasti memuat paling sedikit
+$$\\left\\lceil \\dfrac{10}{3} \\right\\rceil = 4$$
+merpati. Bila setiap sarang berisi paling banyak $3$, totalnya hanya $9 < 10$.`,
             },
             {
-              title: 'Gabungkan',
-              text: '$33 + 20 - 6 = 47$ bilangan.',
+              title: 'Contoh 4: koefisien binomial',
+              text: `Tentukan koefisien $x^3$ pada penjabaran $(1+x)^6$.
+
+*Penyelesaian.* Menurut teorema binomial, suku dengan $x^3$ adalah $\\binom{6}{3}x^{3}$, sehingga koefisiennya
+$$\\binom{6}{3} = 20.$$`,
             },
           ],
         },
@@ -298,9 +322,9 @@ Untuk pigeonhole, jika $n$ objek diletakkan pada $k$ kotak, paling sedikit satu 
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Inklusi-eksklusi dipakai untuk menghitung banyak pelanggan yang membeli paling sedikit satu dari beberapa produk, atau banyak siswa yang mengikuti paling sedikit satu kegiatan. Prinsip sarang merpati dipakai untuk menjamin duplikasi pada penomoran, sandi, dan tabrakan data (hash collision). Teorema binomial muncul saat menaksir peluang keberhasilan berulang dan menyusun distribusi binomial.
+      body: `Inklusi-eksklusi, prinsip sarang merpati, dan teorema binomial menolong saat angkanya sudah besar. Untuk memilih $3$ panitia dari $30$ siswa tanpa memperhatikan urutan tersedia $\\binom{30}{3} = 4060$ cara. Prinsip sarang merpati menjamin bahwa di antara $13$ orang pasti ada dua yang lahir pada bulan yang sama, sebab $\\left\\lceil \\dfrac{13}{12} \\right\\rceil = 2$. Inklusi-eksklusi menghitung banyak bilangan $1$ sampai $1000$ yang habis dibagi $3$ atau $5$: $333 + 200 - 66 = 467$ bilangan.
 
-Pola berpikirnya: (1) tentukan objek dan "kotak"-nya, (2) pilih antara mencacah langsung, mengoreksi dengan inklusi-eksklusi, atau cukup menjamin keberadaan dengan pigeonhole, lalu (3) tafsirkan hasilnya.`,
+Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara mencacah langsung, mengoreksi dengan inklusi-eksklusi, atau cukup menjamin keberadaan dengan pigeonhole, lalu (3) tafsirkan hasilnya. Teknik yang sama dipakai menghitung cakupan produk, penomoran yang bebas duplikat, dan peluang keberhasilan berulang.`,
     },
     {
       id: 'kesalahan-umum',
@@ -342,7 +366,7 @@ Pola berpikirnya: (1) tentukan objek dan "kotak"-nya, (2) pilih antara mencacah 
       id: 'refleksi',
       kind: 'refleksi',
       title: 'Refleksi',
-      body: 'Renungkan bagaimana teknik mencacah yang lebih halus menyederhanakan masalah penghitungan.',
+      body: 'Teknik mencacah yang lebih halus, seperti inklusi-eksklusi dan prinsip sarang merpati, mengubah soal yang tampak berat menjadi argumen singkat. Pikirkan bagaimana caramu memilih antara mencacah langsung, mengoreksi cacah ganda, atau cukup menjamin keberadaan suatu objek.',
       blocks: [
         {
           kind: 'reflection',

@@ -17,8 +17,11 @@ export const pemodelanFungsiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Biaya per km menjadi koefisien $x$, sedangkan biaya tetap menjadi konstanta. Jadi $B(x)=2000x+5000$.',
-    hints: ['Biaya tetap adalah nilai saat $x=0$, bukan pengali $x$.'],
+      'Biaya per km menjadi koefisien $x$, sedangkan biaya tetap menjadi konstanta. Jadi $B(x)=2000x+5000$. Opsi A menukar peran tarif dan biaya tetap; opsi C menjumlahkan keduanya menjadi tarif tunggal tanpa biaya tetap; opsi D memberi tanda negatif pada biaya tetap.',
+    hints: [
+      'Biaya tetap adalah nilai saat $x=0$, bukan pengali $x$.',
+      'Tarif per km menjadi koefisien $x$, biaya tetap menjadi konstanta.',
+    ],
     competencies: ['pemodelan linear', 'interpretasi parameter'],
   },
   {
@@ -37,8 +40,11 @@ export const pemodelanFungsiQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Selisih nilai $y$ selalu $3$, yaitu $7-4=10-7=13-10=3$. Beda tetap menandakan pola linear, dengan model $y=3x+4$.',
-    hints: ['Hitung selisih antar nilai $y$ yang berurutan.'],
+      'Selisih nilai $y$ selalu $3$, yaitu $7-4=10-7=13-10=3$. Beda tetap menandakan pola linear, dengan model $y=3x+4$. Opsi B dan C tidak cocok karena keduanya menghasilkan selisih $y$ yang berubah; opsi D salah karena nilai $y$ justru berubah sehingga tidak konstan.',
+    hints: [
+      'Hitung selisih antar nilai $y$ yang berurutan.',
+      'Beda tetap menandakan linear; rasio tetap menandakan eksponensial.',
+    ],
     competencies: ['memilih jenis fungsi', 'pola data'],
   },
   {
@@ -85,24 +91,12 @@ export const pemodelanFungsiQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Laju per km: $m=\\dfrac{28000-16000}{5-2}=\\dfrac{12000}{3}=4000$. Biaya tetap: $c=16000-4000\\cdot2=8000$. Model $C(s)=4000s+8000$. Untuk $s=9$: $C(9)=4000\\cdot9+8000=36000+8000=44000$, yaitu Rp44.000.',
-    hints: ['Tentukan laju per km dari dua titik, lalu biaya tetapnya.'],
+      'Laju per km: $m=\\dfrac{28000-16000}{5-2}=\\dfrac{12000}{3}=4000$. Biaya tetap: $c=16000-4000\\cdot2=8000$. Model $C(s)=4000s+8000$. Untuk $s=9$: $C(9)=4000\\cdot9+8000=36000+8000=44000$, yaitu Rp44.000. Opsi A hanya menghitung $4000\\times9$ tanpa biaya tetap; opsi B dan D memakai biaya tetap atau laju yang salah sehingga hasilnya menyimpang.',
+    hints: [
+      'Tentukan laju per km dari dua titik, lalu biaya tetapnya.',
+      'Hitung $m=\\dfrac{28000-16000}{5-2}$, lalu $c=C(2)-2m$.',
+    ],
     competencies: ['pemodelan linear dari dua titik'],
-  },
-  {
-    id: 'pmf-06',
-    topicId: 'pemodelan-fungsi',
-    difficulty: 'cakap',
-    type: 'short-answer',
-    category: 'pemodelan',
-    prompt:
-      'Populasi mengikuti model $N(t)=N_0\\cdot b^{t}$ dengan $N(0)=400$ dan $N(3)=3200$. Tentukan nilai $b$.',
-    answer: '2',
-    acceptedAnswers: ['2'],
-    explanation:
-      'Dari $N(0)=400$ diperoleh $N_0=400$. Maka $400\\,b^{3}=3200 \\Rightarrow b^{3}=8 \\Rightarrow b=2$.',
-    hints: ['Gunakan $N_0=N(0)$ terlebih dahulu, lalu selesaikan $b^{3}$.'],
-    competencies: ['pemodelan eksponensial', 'mencari basis'],
   },
   {
     id: 'pmf-07',
@@ -120,8 +114,11 @@ export const pemodelanFungsiQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Rasio antar nilai berurutan tetap: $\\dfrac{6}{3}=\\dfrac{12}{6}=\\dfrac{24}{12}=2$. Nilai awal $y=3$ saat $x=0$, sehingga modelnya $y=3\\cdot2^{x}$. Periksa: $x=3$ memberi $3\\cdot8=24$.',
-    hints: ['Periksa rasio, bukan selisih, untuk mengenali pola eksponensial.'],
+      'Rasio antar nilai berurutan tetap: $\\dfrac{6}{3}=\\dfrac{12}{6}=\\dfrac{24}{12}=2$. Nilai awal $y=3$ saat $x=0$, sehingga modelnya $y=3\\cdot2^{x}$. Periksa: $x=3$ memberi $3\\cdot8=24$. Opsi A dan B gagal karena pertambahan (selisih) berubah, bukan tetap; opsi D menukar peran basis dan koefisien sehingga rasio antar nilai tidak sesuai.',
+    hints: [
+      'Periksa rasio, bukan selisih, untuk mengenali pola eksponensial.',
+      'Nilai saat $x=0$ menjadi koefisien di depan bentuk eksponen.',
+    ],
     competencies: ['memilih jenis fungsi', 'pemodelan eksponensial'],
   },
   {
@@ -191,30 +188,6 @@ export const pemodelanFungsiQuestions: Question[] = [
     ],
   },
   {
-    id: 'pmf-11',
-    topicId: 'pemodelan-fungsi',
-    difficulty: 'mahir',
-    type: 'open-response',
-    category: 'pemodelan',
-    prompt:
-      'Sebuah modal investasi Rp10.000.000 tumbuh $20\\%$ setiap tahun. (a) Susun model nilai investasi $M(t)$ setelah $t$ tahun. (b) Tentukan nilainya setelah $3$ tahun. (c) Tentukan tahun pertama (bilangan bulat) ketika nilai investasi melebihi Rp50.000.000, dengan menghitung tiap tahun. (d) Sebutkan satu asumsi yang mendasari model ini.',
-    answer:
-      '(a) Faktor pertumbuhan $b=1+0{,}20=1{,}2$, sehingga $M(t)=10.000.000(1{,}2)^{t}$ rupiah. (b) $M(3)=10.000.000(1{,}2)^{3}=10.000.000(1{,}728)=\\text{Rp}17.280.000$. (c) Perlu $10.000.000(1{,}2)^{t}>50.000.000$, yaitu $(1{,}2)^{t}>5$. Uji: $(1{,}2)^{8}\\approx4{,}2998$ (masih di bawah $5$) dan $(1{,}2)^{9}\\approx5{,}1598$ (di atas $5$). Jadi nilai investasi pertama kali melebihi Rp50.000.000 pada tahun ke-$9$. (d) Model mengasumsikan pertumbuhan tetap $20\\%$ per tahun tanpa penyetoran atau penarikan tambahan serta tanpa perubahan kondisi pasar; dalam jangka panjang asumsi ini bisa tidak realistis.',
-    explanation:
-      'Kunci: menyusun model $M(t)=M_0(1+r)^t$, menghitung nilai pada waktu tertentu, menyelesaikan pertidaksamaan eksponen dengan uji nilai, dan menyadari keterbatasan asumsi.',
-    hints: [
-      'Faktor pertumbuhan adalah $1+r$ dengan $r=0{,}20$.',
-      'Untuk bagian (c), cari pangkat bulat terkecil dari $1{,}2$ yang melebihi $5$.',
-    ],
-    competencies: ['pemodelan eksponen', 'pertidaksamaan eksponen', 'asumsi model'],
-    rubric: [
-      'Menyusun model $M(t)=M_0(1+r)^t$',
-      'Menghitung nilai setelah 3 tahun',
-      'Menyelesaikan pertidaksamaan eksponen',
-      'Menyebut asumsi yang mendasari model',
-    ],
-  },
-  {
     id: 'pmf-12',
     topicId: 'pemodelan-fungsi',
     difficulty: 'mahir',
@@ -250,8 +223,11 @@ export const pemodelanFungsiQuestions: Question[] = [
       { key: 'D', text: '$1200$' },
     ],
     answer: 'C',
-    explanation: 'Substitusi $t=2$: $N(2)=100\\cdot 3^{2}=100\\cdot 9=900$.',
-    hints: ['Hitung $3^{2}$ lebih dahulu, lalu kalikan dengan $100$.'],
+    explanation:       'Substitusi $t=2$: $N(2)=100\\cdot 3^{2}=100\\cdot 9=900$. Opsi A mengalikan $100$ dengan $3$ saja (menganggap $3^{1}$); opsi B mengalikan $100$ dengan $6$ (menganggap $3\\times2$); opsi D menghitung $100\\cdot3^{2}+300$ atau keliru menjumlahkan pangkat.',
+    hints: [
+      'Hitung $3^{2}$ lebih dahulu, lalu kalikan dengan $100$.',
+      'Pangkat dua berarti mengalikan $3$ dengan dirinya sendiri, bukan dengan $2$.',
+    ],
     competencies: ['substitusi model eksponensial'],
   },
   {
@@ -324,6 +300,30 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Menghitung tagihan pada pemakaian tertentu',
       'Menyelesaikan persamaan untuk mencari pemakaian',
       'Menuliskan satuan rupiah dan kWh dengan tepat',
+    ],
+  },
+  {
+    id: 'pmf-17',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'evaluasi',
+    prompt:
+      'Jumlah peserta sebuah tantangan daring diasumsikan mengikuti model logistik $N(t)=\\dfrac{1000}{1+9\\cdot0{,}8^{t}}$, dengan $t$ dalam minggu. (a) Tentukan banyak peserta mula-mula pada $t=0$. (b) Tentukan batas maksimum banyak peserta ketika $t$ membesar. (c) Jelaskan mengapa model pertumbuhan eksponensial tidak tepat dipakai untuk jangka panjang pada kasus ini.',
+    answer:
+      '(a) $N(0)=\\dfrac{1000}{1+9\\cdot0{,}8^{0}}=\\dfrac{1000}{1+9}=100$, jadi mula-mula ada $100$ peserta. (b) Ketika $t$ membesar, $0{,}8^{t}\\to0$ sehingga $N(t)\\to\\dfrac{1000}{1}=1000$; batas maksimumnya sekitar $1000$ peserta. (c) Model eksponensial membesar tanpa batas sehingga dalam jangka panjang melampaui jumlah orang yang mungkin ikut, padahal peserta nyatanya dibatasi daya tampung dan minat. Model logistik memakai faktor pembatas pada penyebut sehingga pertumbuhannya melambat dan mendekati batas $1000$.',
+    explanation:
+      'Kunci: mengevaluasi model pada $t=0$, menganalisis perilaku saat $t$ membesar untuk menemukan batas, lalu membandingkan pertumbuhan tak terbatas (eksponensial) dengan pertumbuhan terbatas (logistik).',
+    hints: [
+      'Substitusikan $t=0$; ingat $0{,}8^{0}=1$.',
+      'Amati apa yang terjadi pada $0{,}8^{t}$ ketika $t$ sangat besar.',
+    ],
+    competencies: ['pemodelan logistik', 'batas pertumbuhan', 'evaluasi'],
+    rubric: [
+      'Menghitung $N(0)=100$ peserta',
+      'Menyimpulkan batas maksimum $1000$ dari $0{,}8^{t}\\to0$',
+      'Menjelaskan model eksponensial membesar tanpa batas',
+      'Mengaitkan faktor pembatas dengan pertumbuhan yang melambat',
     ],
   },
 ];

@@ -108,7 +108,7 @@ Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ me
         {
           kind: 'callout',
           variant: 'concept',
-          title: 'Inti yang perlu diingat',
+          title: 'Tiga wajah dari satu gagasan',
           text: 'Keterbagian, sisa pembagian, dan kongruensi adalah tiga cara memandang hal yang sama. Menulis $a \\equiv b \\pmod{m}$ sama artinya dengan "$a$ dan $b$ bersisa sama saat dibagi $m$".',
         },
         {
@@ -190,6 +190,18 @@ Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ me
       ],
     },
     {
+      id: 'eksplorasi-euklides-prima',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi FPB, Prima, dan Modulo',
+      body: 'Setelah melihat pola bilangan, gunakan alat teori bilangan secara langsung. Telusuri langkah algoritma Euklides untuk mencari FPB, tandai bilangan prima pada saringan, lalu amati siklus sisa pada jam aritmetika modulo.',
+      blocks: [
+        {
+          kind: 'exploration',
+          explorationId: 'teori-bilangan-euclid',
+        },
+      ],
+    },
+    {
       id: 'generalisasi',
       kind: 'generalisasi',
       title: 'Menurunkan Algoritma Euklides',
@@ -233,30 +245,6 @@ $$a \\equiv b \\pmod{m} \\implies a^{n} \\equiv b^{n} \\pmod{m}.$$`,
       id: 'contoh',
       kind: 'contoh',
       title: 'Contoh Terbimbing',
-      body: `**Contoh 1 (Euklides).** Tentukan $\\gcd(1071, 462)$.
-
-*Penyelesaian.*
-$$1071 = 2\\cdot 462 + 147$$
-$$462 = 3\\cdot 147 + 21$$
-$$147 = 7\\cdot 21 + 0.$$
-Sisa terakhir tak nol adalah $21$, jadi $\\gcd(1071,462)=21$.
-
-**Contoh 2 (KPK).** Karena $\\gcd(18,24)=6$, maka
-$$\\operatorname{lcm}(18,24)=\\frac{18\\cdot 24}{6}=72.$$
-
-**Contoh 3 (modulo).** Tentukan $2^{10} \\bmod 7$. Karena $2^3=8\\equiv 1 \\pmod 7$, maka
-$$2^{10}=2\\cdot(2^3)^3 \\equiv 2\\cdot 1^3 = 2 \\pmod 7.$$
-Jadi sisanya $2$.
-
-**Contoh 4 (FPB, KPK, dan pemeriksaan).** Tentukan $\\gcd(252,105)$ dan $\\operatorname{lcm}(252,105)$, lalu periksa hubungan $\\gcd(a,b)\\cdot\\operatorname{lcm}(a,b)=ab$.
-
-*Penyelesaian.*
-$$252 = 2\\cdot 105 + 42$$
-$$105 = 2\\cdot 42 + 21$$
-$$42 = 2\\cdot 21 + 0.$$
-Sisa terakhir tak nol adalah $21$, jadi $\\gcd(252,105)=21$. Selanjutnya
-$$\\operatorname{lcm}(252,105)=\\frac{252\\cdot 105}{21}=\\frac{26.460}{21}=1.260.$$
-Periksa: $21\\cdot 1.260=26.460$ dan $252\\cdot 105=26.460$, cocok.`,
       blocks: [
         {
           kind: 'step-reveal',
@@ -282,7 +270,43 @@ Periksa: $21\\cdot 1.260=26.460$ dan $252\\cdot 105=26.460$, cocok.`,
         },
         {
           kind: 'step-reveal',
-          intro: 'Contoh tambahan: tentukan $\\gcd(252,105)$ beserta KPK-nya, satu langkah sekaligus.',
+          intro: 'Contoh 2: tentukan $\\operatorname{lcm}(18,24)$ memakai hubungan FPB dan KPK.',
+          steps: [
+            {
+              title: 'Langkah 1',
+              text: 'Cari FPB lebih dahulu. Karena $18 = 2\\cdot 3^2$ dan $24 = 2^3\\cdot 3$, pangkat terkecil tiap prima memberi $\\gcd(18,24)=2\\cdot 3=6$.',
+            },
+            {
+              title: 'Langkah 2',
+              text: 'Gunakan hubungan $\\gcd(a,b)\\cdot\\operatorname{lcm}(a,b)=ab$, sehingga $\\operatorname{lcm}(18,24)=\\dfrac{18\\cdot 24}{\\gcd(18,24)}$.',
+            },
+            {
+              title: 'Langkah 3',
+              text: 'Hitung: $\\operatorname{lcm}(18,24)=\\dfrac{432}{6}=72$. Periksa bahwa $72$ habis dibagi $18$ dan $24$.',
+            },
+          ],
+        },
+        {
+          kind: 'step-reveal',
+          intro: 'Contoh 3: tentukan $2^{10} \\bmod 7$ dengan meringkas pangkat memakai kongruensi.',
+          steps: [
+            {
+              title: 'Langkah 1',
+              text: 'Cari pangkat kecil yang kongruen dengan $1$: $2^3 = 8 \\equiv 1 \\pmod 7$.',
+            },
+            {
+              title: 'Langkah 2',
+              text: 'Pecah pangkatnya: $2^{10} = 2 \\cdot (2^3)^3 \\equiv 2 \\cdot 1^3 = 2 \\pmod 7$.',
+            },
+            {
+              title: 'Langkah 3',
+              text: 'Jadi sisa pembagian $2^{10}$ oleh $7$ adalah $2$.',
+            },
+          ],
+        },
+        {
+          kind: 'step-reveal',
+          intro: 'Contoh 4: tentukan $\\gcd(252,105)$ beserta KPK-nya, satu langkah sekaligus.',
           steps: [
             {
               title: 'Langkah 1',
@@ -330,7 +354,7 @@ Periksa: $21\\cdot 1.260=26.460$ dan $252\\cdot 105=26.460$, cocok.`,
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Aritmetika modulo hadir di banyak tempat. Angka terakhir nomor identitas dipakai sebagai digit pemeriksa dengan aturan modulo. Jam digital bekerja modulo $12$ atau modulo $24$. Penjadwalan dua kegiatan yang berulang memakai KPK.
+      body: `Aritmetika modulo hadir di banyak tempat. Nomor induk kependudukan memuat digit pemeriksa yang dihitung dari sisa pembagian kombinasi angka sebelumnya. Jam dinding bekerja modulo $12$ atau modulo $24$: pukul $10$ ditambah $5$ jam menjadi pukul $3$, bukan $15$. Penjadwalan dua kegiatan berulang memakai KPK; dua ronda yang berulang setiap $4$ hari dan $6$ hari bertemu lagi setelah $\\operatorname{lcm}(4,6)=12$ hari.
 
 Sistem sandi kunci publik (seperti RSA) bertumpu pada bilangan prima besar dan operasi modulo: pesan dikodekan dengan perpangkatan modulo suatu bilangan yang sangat besar, dan keamanannya bersandar pada sulitnya memfaktorkan bilangan besar. Dari pembagian bersisa, lahirlah pengaman komunikasi digital.`,
     },
@@ -417,6 +441,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
       id: 'refleksi',
       kind: 'refleksi',
       title: 'Refleksi',
+      body: 'Keterbagian dan modulo mengubah bilangan besar menjadi sisa yang kecil namun tetap setia. Gunakan refleksi berikut untuk menilai kapan FPB, KPK, atau kongruensi paling tepat dipakai, lalu pikirkan satu situasi berulang di sekitarmu yang sebenarnya bekerja secara modular.',
       blocks: [
         {
           kind: 'reflection',
@@ -451,7 +476,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
-      body: '**Tiket keluar.** (1) Bagaimana algoritma Euklides menyederhanakan pencarian FPB? (2) Mengapa $a \\equiv b \\pmod m$ setara dengan "$a$ dan $b$ bersisa sama saat dibagi $m$"? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Teori Bilangan** untuk latihan tambahan.',
+      body: '**Latihan menutup.** Jelaskan dengan kata-katamu sendiri mengapa setiap langkah algoritma Euklides tidak mengubah FPB dua bilangan. Lalu tuliskan satu contoh bilangan besar dan tunjukkan cara menentukan sisanya modulo $9$ tanpa menghitung hasil bagi secara panjang. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Teori Bilangan** untuk latihan tambahan.',
     },
   ],
 };

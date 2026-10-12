@@ -16,7 +16,7 @@ export const transformasiGeometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Translasi $\\binom{4}{1}$ memetakan $(x,y)\\rightarrow(x+4,\\,y+1)$, sehingga $(2,-3)\\rightarrow(2+4,\\,-3+1)=(6,-2)$.',
+      'Translasi $\\binom{4}{1}$ memetakan $(x,y)\\rightarrow(x+4,\\,y+1)$, sehingga $(2,-3)\\rightarrow(2+4,\\,-3+1)=(6,-2)$ (A). Opsi B mengurangkan vektor translasi; opsi C menjumlahkan pada absis tetapi mengurangkan pada ordinat; opsi D hanya mengubah ordinat dan mengabaikan translasi absis.',
     hints: ['Jumlahkan vektor translasi dengan koordinat titik.'],
     competencies: ['translasi'],
   },
@@ -35,7 +35,7 @@ export const transformasiGeometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Refleksi terhadap sumbu-$y$ mengubah tanda absis: $(x,y)\\rightarrow(-x,y)$. Maka $(-5,2)\\rightarrow(5,2)$.',
+      'Refleksi terhadap sumbu-$y$ mengubah tanda absis: $(x,y)\\rightarrow(-x,y)$. Maka $(-5,2)\\rightarrow(5,2)$ (A). Opsi B membalik tanda kedua koordinat (refleksi terhadap titik asal); opsi C menukar koordinat saja; opsi D menukar koordinat sekaligus membalik tanda.',
     hints: ['Sumbu-$y$ membuat nilai $x$ berubah tanda, sedangkan $y$ tetap.'],
     competencies: ['refleksi terhadap sumbu $y$'],
   },
@@ -69,7 +69,7 @@ export const transformasiGeometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\rightarrow(-y,x)$, sehingga $(2,5)\\rightarrow(-5,2)$.',
+      'Rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\rightarrow(-y,x)$, sehingga $(2,5)\\rightarrow(-5,2)$ (A). Opsi B memakai rotasi $90^\\circ$ searah jarum jam; opsi C hanya membalik tanda absis; opsi D hanya membalik tanda ordinat.',
     hints: ['Gunakan $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.'],
     competencies: ['rotasi'],
   },
@@ -84,7 +84,10 @@ export const transformasiGeometriQuestions: Question[] = [
     acceptedAnswers: ['(-1, 3)', '(-1;3)', 'x=-1, y=3', 'x = -1, y = 3'],
     explanation:
       'Refleksi terhadap garis $y=x$ menukar absis dan ordinat: $(x,y)\\rightarrow(y,x)$. Maka $(3,-1)\\rightarrow(-1,3)$.',
-    hints: ['Pencerminan terhadap $y=x$ menukar nilai $x$ dan $y$.'],
+    hints: [
+      'Pencerminan terhadap $y=x$ menukar nilai $x$ dan $y$.',
+      'Setelah menukar, pastikan koordinat $(x,y)$ menjadi $(y,x)$ dengan urutan yang benar.',
+    ],
     competencies: ['refleksi terhadap garis $y=x$'],
   },
   {
@@ -127,8 +130,11 @@ export const transformasiGeometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Refleksi sumbu-$x$: $(2,3)\\rightarrow(2,-3)$. Refleksi sumbu-$y$: $(2,-3)\\rightarrow(-2,-3)$. Jadi bayangan akhirnya $(-2,-3)$.',
-    hints: ['Kerjakan berurutan sesuai urutan yang diberikan.'],
+      'Refleksi sumbu-$x$: $(2,3)\\rightarrow(2,-3)$. Refleksi sumbu-$y$: $(2,-3)\\rightarrow(-2,-3)$ (A). Opsi B berhenti setelah refleksi pertama; opsi C hanya menerapkan refleksi terhadap sumbu-$y$; opsi D menukar koordinat.',
+    hints: [
+      'Kerjakan berurutan sesuai urutan yang diberikan.',
+      'Terapkan refleksi sumbu-$x$ lebih dahulu, lalu sumbu-$y$ pada hasilnya.',
+    ],
     competencies: ['komposisi transformasi', 'refleksi'],
   },
   {
@@ -142,7 +148,10 @@ export const transformasiGeometriQuestions: Question[] = [
     answer: '108',
     explanation:
       'Determinan matriks $=\\det\\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}=3(3)-0(0)=9$, sehingga luas bayangan $=9\\times12=108$ satuan luas.',
-    hints: ['Determinan matriks memberi faktor skala luas.'],
+    hints: [
+      'Determinan matriks memberi faktor skala luas.',
+      'Luas bayangan $=|\\det M|\\times$ luas awal.',
+    ],
     competencies: ['determinan sebagai faktor skala luas', 'dilatasi'],
   },
   {
@@ -233,7 +242,7 @@ export const transformasiGeometriQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Refleksi sumbu-$y$: $(1,2)\\rightarrow(-1,2)$. Rotasi $90^\\circ$: $(-1,2)\\rightarrow(-2,-1)$. Jika urutan dibalik, hasilnya $(2,1)$, sehingga urutan transformasi memang memengaruhi hasil.',
+      'Refleksi sumbu-$y$: $(1,2)\\rightarrow(-1,2)$. Rotasi $90^\\circ$: $(-1,2)\\rightarrow(-2,-1)$ (A). Opsi B adalah hasil bila urutan dibalik; opsi C menerapkan pemetaan $(x,y)\\to(-y,-x)$; opsi D hanya membalik tanda ordinat setelah refleksi. Hal ini menunjukkan urutan transformasi memang memengaruhi hasil.',
     hints: [
       'Kerjakan refleksi lebih dahulu, baru rotasi.',
       'Bandingkan hasilmu dengan keadaan bila urutan dibalik.',
@@ -288,5 +297,23 @@ export const transformasiGeometriQuestions: Question[] = [
       'Menemukan koordinat awal $P(-4,3)$',
       'Mengenali matriks gabungan sebagai refleksi terhadap garis $y=-x$',
     ],
+  },
+  {
+    id: 'tgeo-15',
+    topicId: 'transformasi-geometri',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Pada sebuah animasi komputer, sebuah objek di titik $(2,1)$ diputar $90^\\circ$ berlawanan arah jarum jam terhadap titik asal, lalu digeser oleh translasi $\\binom{3}{-2}$. Tentukan koordinat akhir objek.',
+    answer: '(2,0)',
+    acceptedAnswers: ['(2,0)', '(2, 0)', '(2;0)', 'x=2, y=0', 'x = 2, y = 0'],
+    explanation:
+      'Rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\rightarrow(-y,x)$, sehingga $(2,1)\\rightarrow(-1,2)$. Translasi $\\binom{3}{-2}$ lalu memberi $(-1+3,\\,2-2)=(2,0)$. Jadi koordinat akhir objek adalah $(2,0)$.',
+    hints: [
+      'Terapkan rotasi $90^\\circ$ lebih dahulu: $(x,y)\\rightarrow(-y,x)$.',
+      'Setelah rotasi, jumlahkan vektor translasi $\\binom{3}{-2}$ pada hasilnya.',
+    ],
+    competencies: ['rotasi', 'translasi', 'kontekstual'],
   },
 ];

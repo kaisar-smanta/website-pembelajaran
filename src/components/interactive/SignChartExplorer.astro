@@ -1,0 +1,372 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim sign-sim" data-sign-chart data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Peta Tanda dan Daerah Penyelesaian</h3>
+  </div>
+
+  <p class="sim-hint">
+    Pilih bentuk fungsi, atur akar-akarnya, lalu amati tanda fungsi pada tiap selang garis
+    bilangan. Daerah yang memenuhi pertidaksamaan ditandai di bawah garis.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Bentuk fungsi</span>
+      <select data-sign-mode>
+        <option value="quadratic" selected>Kuadrat ax² + bx + c</option>
+        <option value="rational">Rasional (x−p)(x−q)/(x−r)</option>
+      </select>
+    </label>
+
+    <label class="sim-field" data-sign-group="quadratic">
+      <span>Koefisien a <output data-sign-value="a">1</output></span>
+      <input type="range" min="-3" max="3" step="0.5" value="1" data-sign-field="a" aria-label="Koefisien a" />
+    </label>
+    <label class="sim-field" data-sign-group="quadratic">
+      <span>Koefisien b <output data-sign-value="b">−1</output></span>
+      <input type="range" min="-6" max="6" step="0.5" value="-1" data-sign-field="b" aria-label="Koefisien b" />
+    </label>
+    <label class="sim-field" data-sign-group="quadratic">
+      <span>Konstanta c <output data-sign-value="c">−6</output></span>
+      <input type="range" min="-6" max="6" step="0.5" value="-6" data-sign-field="c" aria-label="Konstanta c" />
+    </label>
+
+    <label class="sim-field" data-sign-group="rational" hidden>
+      <span>Akar pembilang p <output data-sign-value="p">1</output></span>
+      <input type="range" min="-5" max="5" step="1" value="1" data-sign-field="p" aria-label="Akar pembilang p" />
+    </label>
+    <label class="sim-field" data-sign-group="rational" hidden>
+      <span>Akar pembilang q <output data-sign-value="q">−2</output></span>
+      <input type="range" min="-5" max="5" step="1" value="-2" data-sign-field="q" aria-label="Akar pembilang q" />
+    </label>
+    <label class="sim-field" data-sign-group="rational" hidden>
+      <span>Kutub penyebut r <output data-sign-value="r">3</output></span>
+      <input type="range" min="-5" max="5" step="1" value="3" data-sign-field="r" aria-label="Kutub penyebut r" />
+    </label>
+
+    <label class="sim-field">
+      <span>Pertidaksamaan</span>
+      <select data-sign-relation>
+        <option value="&gt;" selected>f(x) &gt; 0</option>
+        <option value="&lt;">f(x) &lt; 0</option>
+        <option value="&gt;=">f(x) ≥ 0</option>
+        <option value="&lt;=">f(x) ≤ 0</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-sign-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 170"
+      role="img"
+      aria-label="Peta tanda fungsi pada garis bilangan"
+      data-sign-plot></svg>
+  </div>
+
+  <output class="sim-readout" data-sign-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field select {
+    padding: 0.3rem 0.4rem;
+    font: inherit;
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sign-sim *,
+    .sign-sim *::before,
+    .sign-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    quadraticSignChart,
+    rationalSignChart,
+    solutionIntervals,
+    describeSolution,
+  } from '../../lib/sim/sign-chart';
+  import type { SignChart, Relation } from '../../lib/sim/sign-chart';
+  import { el, clear, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  const X_MIN = -8;
+  const X_MAX = 8;
+
+  function setupSignChart(root: Element) {
+    const modeInput = root.querySelector('[data-sign-mode]') as HTMLSelectElement;
+    const relationInput = root.querySelector('[data-sign-relation]') as HTMLSelectElement;
+    const groups = root.querySelectorAll<HTMLElement>('[data-sign-group]');
+    const fields = root.querySelectorAll<HTMLInputElement>('[data-sign-field]');
+    const outputs = root.querySelectorAll<HTMLOutputElement>('[data-sign-value]');
+    const svg = root.querySelector('[data-sign-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-sign-readout]') as HTMLElement;
+    const reset = root.querySelector('[data-sign-reset]') as HTMLButtonElement;
+
+    const value = (name: string): number =>
+      Number((root.querySelector(`[data-sign-field="${name}"]`) as HTMLInputElement).value);
+
+    function currentChart(): SignChart {
+      if (modeInput.value === 'rational') {
+        return rationalSignChart(1, [value('p'), value('q')], [value('r')], X_MIN, X_MAX);
+      }
+      return quadraticSignChart(value('a'), value('b'), value('c'), X_MIN, X_MAX);
+    }
+
+    function label(sign: -1 | 0 | 1): string {
+      return sign > 0 ? '+' : sign < 0 ? '−' : '0';
+    }
+
+    function draw(chart: SignChart, relation: Relation) {
+      const W = 480;
+      const pad = 34;
+      const axisY = 92;
+      const sx = (x: number): number => pad + ((x - X_MIN) / (X_MAX - X_MIN)) * (W - 2 * pad);
+      clear(svg);
+
+      svg.appendChild(
+        el('line', {
+          x1: pad,
+          y1: axisY,
+          x2: W - pad,
+          y2: axisY,
+          stroke: 'var(--color-text-soft)',
+          'stroke-width': 1.6,
+        }),
+      );
+      // Penanda nol jika masuk rentang.
+      if (X_MIN <= 0 && X_MAX >= 0) {
+        svg.appendChild(
+          el('line', {
+            x1: sx(0),
+            y1: axisY - 5,
+            x2: sx(0),
+            y2: axisY + 5,
+            stroke: 'var(--color-text-soft)',
+            'stroke-width': 1,
+          }),
+        );
+      }
+
+      for (const region of chart.regions) {
+        const mid = (region.from + region.to) / 2;
+        const text = el('text', {
+          x: sx(mid),
+          y: axisY - 22,
+          'text-anchor': 'middle',
+          'font-size': 20,
+          'font-weight': 700,
+          fill:
+            region.sign > 0
+              ? 'var(--color-primary)'
+              : region.sign < 0
+                ? 'var(--color-danger)'
+                : 'var(--color-text-muted)',
+        });
+        text.textContent = label(region.sign);
+        svg.appendChild(text);
+      }
+
+      // Sorot daerah penyelesaian di bawah garis.
+      for (const interval of solutionIntervals(chart, relation)) {
+        const x1 = sx(Math.max(X_MIN, interval.from));
+        const x2 = sx(Math.min(X_MAX, interval.to));
+        if (x2 - x1 < 0.5 && interval.from !== interval.to) continue;
+        svg.appendChild(
+          el('line', {
+            x1,
+            y1: axisY + 26,
+            x2: Math.max(x1 + 0.5, x2),
+            y2: axisY + 26,
+            stroke: 'var(--color-success)',
+            'stroke-width': 5,
+            'stroke-linecap': 'round',
+          }),
+        );
+      }
+
+      for (const point of chart.critical) {
+        const cx = sx(point.value);
+        if (point.kind === 'pole') {
+          svg.appendChild(
+            el('circle', {
+              cx,
+              cy: axisY,
+              r: 5,
+              fill: 'var(--color-surface)',
+              stroke: 'var(--color-warning)',
+              'stroke-width': 2,
+            }),
+          );
+        } else {
+          svg.appendChild(
+            el('circle', {
+              cx,
+              cy: axisY,
+              r: 5,
+              fill: 'var(--color-primary)',
+              stroke: 'var(--color-surface)',
+              'stroke-width': 1.5,
+            }),
+          );
+        }
+        const caption = el('text', {
+          x: cx,
+          y: axisY + 20,
+          'text-anchor': 'middle',
+          'font-size': 11,
+          fill: 'var(--color-text-muted)',
+        });
+        caption.textContent = formatPlain(point.value);
+        svg.appendChild(caption);
+      }
+    }
+
+    function render() {
+      const mode = modeInput.value;
+      groups.forEach((group) => {
+        group.hidden = group.getAttribute('data-sign-group') !== mode;
+      });
+      outputs.forEach((output) => {
+        const name = output.getAttribute('data-sign-value') as string;
+        output.textContent = formatPlain(value(name));
+      });
+
+      const chart = currentChart();
+      const relation = relationInput.value as Relation;
+      draw(chart, relation);
+
+      const expression =
+        mode === 'rational'
+          ? `f(x) = (x − ${formatPlain(value('p'))})(x − ${formatPlain(value('q'))}) / (x − ${formatPlain(value('r'))})`
+          : `f(x) = ${formatPlain(value('a'))}x² + ${formatPlain(value('b'))}x + ${formatPlain(value('c'))}`;
+      const signs = chart.regions.map((r) => label(r.sign)).join('  ');
+      const solution = describeSolution(chart, relation);
+
+      readout.innerHTML =
+        `<div class="stat"><span>Fungsi</span><strong>${expression}</strong></div>` +
+        `<div class="stat"><span>Urutan tanda tiap selang</span><strong>${signs || '—'}</strong></div>` +
+        `<div class="stat"><span>Daerah penyelesaian</span><strong>${solution}</strong></div>`;
+
+      svg.setAttribute(
+        'aria-label',
+        `Peta tanda ${expression}; daerah penyelesaian ${solution}`,
+      );
+    }
+
+    function resetAll() {
+      modeInput.value = 'quadratic';
+      relationInput.value = '>';
+      const defaults: Record<string, string> = { a: '1', b: '-1', c: '-6', p: '1', q: '-2', r: '3' };
+      fields.forEach((field) => {
+        const name = field.getAttribute('data-sign-field') as string;
+        if (defaults[name]) field.value = defaults[name];
+      });
+      render();
+    }
+
+    fields.forEach((field) => field.addEventListener('input', render));
+    modeInput.addEventListener('change', render);
+    relationInput.addEventListener('change', render);
+    reset.addEventListener('click', resetAll);
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-sign-chart]'), setupSignChart);
+</script>

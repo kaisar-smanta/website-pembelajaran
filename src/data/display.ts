@@ -69,6 +69,16 @@ export const EXPLORATION_TYPE_LABELS: Record<ExplorationType, string> = {
   'random-variable': 'Variabel acak',
   limit: 'Limit fungsi',
   'binomial-distribution': 'Distribusi binomial',
+  'normal-distribution': 'Distribusi normal',
+  triangle: 'Aturan sinus & kosinus',
+  'sign-chart': 'Peta tanda',
+  logarithm: 'Eksponen & logaritma',
+  'counting-tree': 'Pohon pencacahan',
+  amortization: 'Amortisasi pinjaman',
+  'number-theory': 'Alat teori bilangan',
+  induction: 'Domino induksi',
+  confounding: 'Perancu & paradoks',
+  'function-family': 'Keluarga fungsi',
   geogebra: 'GeoGebra',
 };
 

@@ -109,7 +109,7 @@ Memang, jika kita tahu muncul mata genap, peluang mata lebih dari 3 adalah $\\tf
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Kunci: ruang sampel menyempit",
           text: "Peluang bersyarat **mempersempit ruang sampel**. Penyebut $P(B)$ memastikan peluang dihitung ulang relatif terhadap informasi baru.",
         },
         {
@@ -135,6 +135,40 @@ Memang, jika kita tahu muncul mata genap, peluang mata lebih dari 3 adalah $\\tf
             {
               left: "Tabel kontingensi",
               right: "Tabel silang dua kategori untuk membaca peluang dari proporsi",
+            },
+          ],
+        },
+        {
+          kind: "flip-cards",
+          intro: "Latih istilah kunci peluang bersyarat dan pencacahan.",
+          cards: [
+            {
+              front: "Peluang bersyarat",
+              back: "Peluang $A$ dengan syarat $B$ sudah terjadi: $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$",
+            },
+            {
+              front: "Ruang sampel menyempit",
+              back: "Karena $B$ diketahui, peluang dihitung ulang relatif terhadap $B$",
+            },
+            {
+              front: "Aturan perkalian",
+              back: "Peluang dua kejadian berurutan: $P(A\\cap B)=P(A\\mid B)\\,P(B)$",
+            },
+            {
+              front: "Kejadian saling bebas",
+              back: "Terjadinya $B$ tidak mengubah peluang $A$: $P(A\\mid B)=P(A)$",
+            },
+            {
+              front: "Aturan Bayes",
+              back: "Memperbarui peluang awal $P(A)$ setelah melihat bukti $B$",
+            },
+            {
+              front: "Permutasi",
+              back: "Menyusun dengan urutan diperhatikan: $P(n,k)=\\dfrac{n!}{(n-k)!}$",
+            },
+            {
+              front: "Kombinasi",
+              back: "Memilih dengan urutan tidak diperhatikan: $\\binom{n}{k}=\\dfrac{n!}{k!\\,(n-k)!}$",
             },
           ],
         },
@@ -189,6 +223,12 @@ Perhatikan bahwa $P(M \\mid F) \\neq P(F \\mid M)$ — peluang bersyarat bergant
               body: "$P(F\\mid M)=\\dfrac{40}{60}=\\dfrac23\\approx 0{,}667$, berbeda dari $P(M\\mid F)$ karena kondisi yang diketahui berbeda.",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Diagram Venn kejadian M suka Matematika dan F suka Fisika; irisan M dan F berisi 40, M saja 20, F saja 30, dan 110 siswa di luar keduanya.",
+          caption: "Diagram Venn memperjelas peluang bersyarat: dari 70 siswa yang suka Fisika, 40 juga suka Matematika sehingga $P(M\\mid F)=\\tfrac{40}{70}$. Peluang dibaca dari total milik kejadian yang diketahui, bukan total seluruh sampel.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><rect x="20" y="20" width="280" height="180" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="130" cy="105" r="62" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="196" cy="105" r="62" fill="none" stroke="currentColor" stroke-width="2"/><text x="30" y="42" font-size="11" fill="currentColor">S</text><text x="52" y="52" font-size="13" fill="currentColor">M</text><text x="264" y="52" font-size="13" fill="currentColor">F</text><text x="96" y="110" font-size="13" text-anchor="middle" fill="currentColor">20</text><text x="163" y="110" font-size="13" text-anchor="middle" fill="currentColor">40</text><text x="230" y="110" font-size="13" text-anchor="middle" fill="currentColor">30</text><text x="160" y="190" font-size="12" text-anchor="middle" fill="currentColor">110</text></svg>',
         },
       ],
     },
@@ -270,48 +310,43 @@ Banyak konteks peluang bersyarat memerlukan pencacahan ini, misalnya menghitung 
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1 — Dari tabel kontingensi.** Dengan tabel pada bagian representasi dan $F \\cup M$:
-
-$$P(F \\cup M) = P(F) + P(M) - P(F \\cap M) = \\frac{70}{200} + \\frac{60}{200} - \\frac{40}{200} = \\frac{90}{200} = 0{,}45.$$
-
-**Contoh 2 — Aturan perkalian dan Bayes.** Dua kantong: Kantong A berisi 3 merah dan 2 putih; Kantong B berisi 1 merah dan 4 putih. Sebuah kantong dipilih secara acak, lalu satu bola diambil dan ternyata merah. Berapa peluang kantong yang terpilih adalah A?
-
-Karena kantong dipilih acak, $P(A) = P(B) = \\tfrac12$. Peluang mengambil merah:
-
-$$P(\\text{merah}) = \\tfrac12 \\cdot \\tfrac35 + \\tfrac12 \\cdot \\tfrac15 = \\tfrac{3}{10} + \\tfrac{1}{10} = \\tfrac{4}{10} = \\tfrac25.$$
-
-Dengan aturan Bayes:
-
-$$P(A \\mid \\text{merah}) = \\frac{\\tfrac12 \\cdot \\tfrac35}{\\tfrac25} = \\frac{3/10}{2/5} = \\frac34.$$
-
-Jadi setelah melihat bola merah, peluang memilih Kantong A naik menjadi $\\tfrac34$.
-
-**Contoh 3 — Kartu tanpa pengembalian.** Dua kartu diambil berturut-turut dari 52 kartu tanpa pengembalian.
-
-- Peluang keduanya As: $P(\\text{As}_1) = \\tfrac{4}{52} = \\tfrac{1}{13}$ dan $P(\\text{As}_2 \\mid \\text{As}_1) = \\tfrac{3}{51} = \\tfrac{1}{17}$, sehingga $P(\\text{As}_1 \\cap \\text{As}_2) = \\tfrac{1}{13} \\cdot \\tfrac{1}{17} = \\tfrac{1}{221}$.
-- Peluang kartu kedua As **jika** kartu pertama As adalah $\\tfrac{1}{17} \\approx 0{,}0588$.
-
-**Contoh 4 — Pencacahan.** Dari 8 siswa akan dipilih 3 untuk mewakili kelas. Banyak susunan tim (urutan tidak penting) adalah $\\binom{8}{3} = 56$.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari hitung peluang dua kartu As diambil berturut-turut tanpa pengembalian, satu langkah sekaligus.",
+          intro: "Empat contoh berikut dikerjakan langkah demi langkah, dari membaca tabel hingga mencacah.",
           steps: [
             {
-              title: "Kartu pertama",
-              text: "Ada $4$ As dari $52$ kartu, sehingga $P(\\text{As}_1)=\\dfrac{4}{52}=\\dfrac{1}{13}$.",
+              title: "Contoh 1: gabungan dua kejadian dari tabel",
+              text: `Dari tabel diketahui $n(F)=70$, $n(M)=60$, $n(F\\cap M)=40$, dan total $200$ siswa. Hitung $P(F\\cup M)$.
+
+*Penyelesaian.* Gunakan aturan penjumlahan:
+$$P(F\\cup M)=P(F)+P(M)-P(F\\cap M)=\\frac{70}{200}+\\frac{60}{200}-\\frac{40}{200}=\\frac{90}{200}=0{,}45=\\frac{9}{20}.$$
+Irisan $F\\cap M$ dikurangkan agar siswa yang menyukai keduanya tidak terhitung dua kali.`,
             },
             {
-              title: "Kondisi setelah pengambilan",
-              text: "Karena tanpa pengembalian, tersisa $51$ kartu dan $3$ As.",
+              title: "Contoh 2: aturan perkalian dan aturan Bayes",
+              text: `Kantong A berisi 3 merah dan 2 putih; Kantong B berisi 1 merah dan 4 putih. Sebuah kantong dipilih acak, lalu satu bola diambil dan ternyata merah. Berapa peluang kantong terpilih adalah A?
+
+*Penyelesaian.* Karena pemilihan acak, $P(A)=P(B)=\\tfrac12$. Peluang mengambil bola merah:
+$$P(\\text{merah})=P(\\text{merah}\\mid A)P(A)+P(\\text{merah}\\mid B)P(B)=\\tfrac35\\cdot\\tfrac12+\\tfrac15\\cdot\\tfrac12=\\tfrac{4}{10}=\\tfrac25.$$
+Dengan aturan Bayes:
+$$P(A\\mid\\text{merah})=\\frac{P(\\text{merah}\\mid A)P(A)}{P(\\text{merah})}=\\frac{\\tfrac35\\cdot\\tfrac12}{\\tfrac25}=\\frac{3}{4}.$$
+Jadi setelah melihat bola merah, peluang memilih Kantong A naik dari $\\tfrac12$ menjadi $\\tfrac34$.`,
             },
             {
-              title: "Peluang bersyarat",
-              text: "$P(\\text{As}_2\\mid\\text{As}_1)=\\dfrac{3}{51}=\\dfrac{1}{17}$.",
+              title: "Contoh 3: dua kartu As tanpa pengembalian",
+              text: `Dua kartu diambil berturut-turut dari 52 kartu tanpa pengembalian. Berapa peluang keduanya As, dan berapa peluang kartu kedua As jika kartu pertama As?
+
+*Penyelesaian.* Kartu pertama: $P(\\text{As}_1)=\\tfrac{4}{52}=\\tfrac{1}{13}$. Setelah satu As terambil, tersisa 51 kartu dengan 3 As, sehingga $P(\\text{As}_2\\mid\\text{As}_1)=\\tfrac{3}{51}=\\tfrac{1}{17}\\approx 0{,}0588$. Dengan aturan perkalian:
+$$P(\\text{As}_1\\cap\\text{As}_2)=P(\\text{As}_2\\mid\\text{As}_1)\\,P(\\text{As}_1)=\\tfrac{1}{17}\\cdot\\tfrac{1}{13}=\\tfrac{1}{221}.$$`,
             },
             {
-              title: "Aturan perkalian",
-              text: "$P(\\text{As}_1\\cap\\text{As}_2)=\\dfrac{1}{13}\\cdot\\dfrac{1}{17}=\\dfrac{1}{221}$.",
+              title: "Contoh 4: mencacah banyak tim",
+              text: `Dari 8 siswa akan dipilih 3 untuk mewakili kelas. Berapa banyak susunan tim bila urutan tidak penting?
+
+*Penyelesaian.* Karena urutan tidak diperhatikan, gunakan kombinasi:
+$$\\binom{8}{3}=\\frac{8!}{3!\\,5!}=\\frac{8\\cdot 7\\cdot 6}{3\\cdot 2\\cdot 1}=56.$$
+Jadi ada $56$ susunan tim yang mungkin.`,
             },
           ],
         },
@@ -339,9 +374,13 @@ Jadi setelah melihat bola merah, peluang memilih Kantong A naik menjadi $\\tfrac
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Peluang bersyarat dan aturan Bayes dipakai luas: menafsirkan hasil tes medis, memfilter email spam, memperbarui ramalan cuaca, dan memprediksi perilaku pelanggan. Pesan pentingnya adalah **bukti mengubah peluang, tetapi seberapa besar bergantung pada peluang awal**.
+      body: `Peluang bersyarat dan aturan Bayes dipakai luas, dan angkanya sering mengejutkan. Bayangkan sebuah penyakit yang menyerang 1 dari 1.000 orang. Sebuah tes benar mendeteksi $99\\%$ penderita, tetapi keliru menandai $5\\%$ orang sehat sebagai positif. Jika seseorang dinyatakan positif, berapa peluang ia benar-benar sakit?
 
-Contoh tes penyakit pada latihan menegaskan bahwa hasil positif belum tentu berarti besar kemungkinan sakit, terlebih jika penyakitnya langka. Penalaran seperti ini melindungi kita dari kesimpulan yang menakutkan atau menyesatkan.
+Misalkan $P(\\text{sakit})=0{,}001$, $P(\\text{positif}\\mid\\text{sakit})=0{,}99$, dan $P(\\text{positif}\\mid\\text{sehat})=0{,}05$. Maka
+$$P(\\text{positif})=0{,}99\\cdot 0{,}001+0{,}05\\cdot 0{,}999=0{,}05094,$$
+$$P(\\text{sakit}\\mid\\text{positif})=\\frac{0{,}00099}{0{,}05094}\\approx 0{,}0194\\approx 1{,}94\\%.$$
+
+Jadi meskipun hasil tesnya positif, peluang benar-benar sakit hanya sekitar $2\\%$ karena penyakitnya langka. Penalaran serupa dipakai untuk menyaring spam, memperbarui ramalan cuaca, dan memperkirakan perilaku pelanggan. Pesan pentingnya: bukti mengubah peluang, tetapi seberapa besar perubahan itu bergantung pada peluang awal.
 
 Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**: peluang bersyarat membantu mengukur seberapa besar informasi baru mengubah dugaan kita.`,
     },
@@ -427,7 +466,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana informasi tambahan mengubah cara kamu menilai peluang.",
+      body: "Satu petunjuk baru dapat mengubah penilaian kita secara drastis. Renungan berikut menuntunmu memeriksa kapan perubahan itu besar dan kapan hampir tak berarti.",
       blocks: [
         {
           kind: "reflection",
@@ -485,7 +524,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana aturan perkalian $P(A\\cap B)=P(A\\mid B)\\,P(B)$ membantu menghitung kejadian yang berurutan? (2) Kapan $P(A\\mid B)$ sama dengan $P(A)$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Peluang Bersyarat** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Ketika sebuah petunjuk baru tersedia, mengapa kita membagi dengan $P(B)$ alih-alih memakai total seluruh ruang sampel? (2) Berikan satu contoh ketika $P(A\\mid B)$ dan $P(B\\mid A)$ sangat berbeda, lalu jelaskan penyebabnya. Setelah menjawab, lanjutkan berlatih pada [Latihan & Asesmen](/latihan) topik **Peluang Bersyarat**.`,
     },
   ],
 };

@@ -237,6 +237,25 @@ export interface Question {
   hints?: string[];
   competencies?: string[];
   rubric?: string[];
+  /**
+   * Diagram pendukung soal (opsional). Sama seperti blok `figure` materi:
+   * `svg` sebaris tepercaya, `alt` wajib untuk pembaca layar.
+   */
+  figure?: {
+    svg: string;
+    alt: string;
+    caption?: string;
+  };
+  /**
+   * Tabel pendukung soal (opsional). Sel matematika dirender bila `math: true`,
+   * sama seperti blok `table` materi.
+   */
+  table?: {
+    caption?: string;
+    headers: string[];
+    rows: string[][];
+    math?: boolean;
+  };
 }
 
 export type ApplicationCategory =
@@ -309,6 +328,16 @@ export type ExplorationType =
   | 'random-variable'
   | 'limit'
   | 'binomial-distribution'
+  | 'sign-chart'
+  | 'logarithm'
+  | 'counting-tree'
+  | 'amortization'
+  | 'number-theory'
+  | 'induction'
+  | 'confounding'
+  | 'function-family'
+  | 'normal-distribution'
+  | 'triangle'
   | 'geogebra';
 
 /** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */

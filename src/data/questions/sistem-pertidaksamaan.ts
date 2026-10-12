@@ -16,7 +16,7 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Titik potong dengan sumbu-$y$ terjadi saat $x = 0$. Substitusi: $2(0) + 3y = 12 \\Rightarrow 3y = 12 \\Rightarrow y = 4$. Jadi titiknya $(0,4)$.',
+      'Titik potong dengan sumbu-$y$ terjadi saat $x=0$. Substitusi: $2(0)+3y=12 \\Rightarrow 3y=12 \\Rightarrow y=4$, jadi titiknya $(0,4)$. Opsi B $(4,0)$ dan opsi D $(6,0)$ justru titik potong dengan sumbu-$x$ (saat $y=0$). Opsi C $(0,6)$ muncul bila $12$ keliru dibagi koefisien $x$, yaitu $2$.',
     hints: ['Substitusikan $x = 0$ untuk mencari titik potong sumbu-$y$.'],
     competencies: ['titik potong garis', 'garis pembatas'],
   },
@@ -87,7 +87,7 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Titik sudut daerah penyelesaian: $(0,0)$, $(6,0)$, $(4,4)$, dan $(0,8)$. Nilai $f$: $(0,0)=0$, $(6,0)=18$, $(4,4)=20$, dan $(0,8)=16$. Nilai maksimum $20$ di titik $(4,4)$.',
+      'Titik sudut daerah penyelesaian: $(0,0)$, $(6,0)$, $(4,4)$, dan $(0,8)$. Nilai $f=3x+2y$: $(0,0)=0$, $(6,0)=18$, $(4,4)=20$, dan $(0,8)=16$. Nilai maksimum $20$ di titik $(4,4)$. Opsi A ($16$) berasal dari titik $(0,8)$, opsi B ($18$) dari titik $(6,0)$, dan opsi D ($24$) dari keliru menjumlahkan kedua nilai terbesar itu.',
     hints: ['Cari titik potong $x + y = 8$ dan $2x + y = 12$.', 'Uji fungsi objektif pada setiap titik sudut.'],
     competencies: ['program linear', 'nilai maksimum'],
   },
@@ -122,8 +122,11 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Garis $x + y = 4$ memotong sumbu di $(4,0)$ dan $(0,4)$, sedangkan $x + 2y = 6$ di $(6,0)$ dan $(0,3)$. Titik potong keduanya: $x + y = 4$ dan $x + 2y = 6$ memberi $y = 2$ dan $x = 2$, yaitu $(2,2)$. Titik $(0,4)$ dan $(6,0)$ tidak memenuhi pertidaksamaan yang lain, sehingga titik sudutnya $(0,0)$, $(4,0)$, $(2,2)$, dan $(0,3)$.',
-    hints: ['Periksa setiap titik potong pada kedua pertidaksamaan.'],
+      'Garis $x + y = 4$ memotong sumbu di $(4,0)$ dan $(0,4)$, sedangkan $x + 2y = 6$ di $(6,0)$ dan $(0,3)$. Titik potong keduanya: $x + y = 4$ dan $x + 2y = 6$ memberi $y = 2$ dan $x = 2$, yaitu $(2,2)$. Titik $(0,4)$ dan $(6,0)$ tidak memenuhi pertidaksamaan yang lain, sehingga titik sudutnya $(0,0)$, $(4,0)$, $(2,2)$, dan $(0,3)$. Opsi B memakai $(6,0)$ dan $(0,4)$ yang tidak layak. Opsi C menghilangkan titik $(2,2)$ sehingga hanya tiga titik. Opsi D memakai $(3,0)$ dan $(0,6)$ yang bukan titik sudut atau tidak layak.',
+    hints: [
+      'Periksa setiap titik potong pada kedua pertidaksamaan.',
+      'Titik yang tidak memenuhi salah satu pertidaksamaan bukan titik sudut daerah penyelesaian.',
+    ],
     competencies: ['titik sudut', 'daerah penyelesaian'],
   },
   {
@@ -191,7 +194,10 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Nilai $f$ di tiap titik sudut: $(0,0)=0$, $(4,0)=24$, $(2,3)=12+15=27$, dan $(0,2)=10$. Nilai terbesar adalah $27$ di titik $(2,3)$. Opsi $24$ dan $10$ berasal dari titik sudut lain, sedangkan $0$ berasal dari memakai titik asal yang bukan titik optimum.',
-    hints: ['Substitusikan setiap titik sudut ke fungsi objektif.'],
+    hints: [
+      'Substitusikan setiap titik sudut ke fungsi objektif.',
+      'Nilai terbesar muncul di titik sudut yang paling jauh searah fungsi objektif.',
+    ],
     competencies: ['nilai maksimum', 'titik sudut'],
   },
   {
@@ -206,7 +212,10 @@ export const sistemPertidaksamaanQuestions: Question[] = [
       'Fungsi objektif linear, misalnya $f = ax + by$, bernilai konstan pada setiap garis sejajar berbentuk $ax + by = k$. Ketika nilai $k$ diubah, garis tersebut bergeser; nilai optimum dicapai ketika garis sejajar itu menyentuh daerah penyelesaian paling jauh dari titik asal. Sentuhan terakhir selalu terjadi di ujung daerah, yaitu titik sudut. Di sepanjang satu sisi daerah, nilai fungsi berubah secara linear, sehingga nilai terbesar atau terkecil pasti muncul di salah satu ujung sisi. Karena itu memeriksa semua titik sudut sudah cukup untuk menemukan nilai optimum.',
     explanation:
       'Kunci jawaban: menghubungkan sifat linear fungsi objektif dengan posisi garis sejajar dan munculnya nilai ekstrem di titik sudut.',
-    hints: ['Bayangkan garis $f = k$ bergeser sejajar hingga menyentuh daerah penyelesaian.'],
+    hints: [
+      'Bayangkan garis $f = k$ bergeser sejajar hingga menyentuh daerah penyelesaian.',
+      'Pada setiap sisi daerah, nilai fungsi berubah linear sehingga ujung-ujung sisinya menentukan nilai ekstrem.',
+    ],
     competencies: ['penalaran', 'program linear', 'titik sudut'],
     rubric: [
       'Mengaitkan garis $f=k$ dengan nilai fungsi konstan',
@@ -222,18 +231,22 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Sebuah toko memproduksi dua jenis roti. Roti A memberi laba Rp4.000 per unit dan Roti B Rp5.000 per unit. Kendala bahan: $3x+2y\\leq120$ dan $2x+3y\\leq130$, dengan $x,y\\geq0$. (a) Tentukan titik-titik sudut daerah penyelesaian. (b) Tentukan kombinasi yang memberi laba maksimum beserta nilainya.',
+      'Sebuah penyedia layanan komputasi menyewa dua jenis server. Server A menyediakan $1$ inti CPU dan $2$ GB RAM dengan biaya Rp3 ribu per jam, sedangkan server B menyediakan $1$ inti CPU dan $1$ GB RAM dengan biaya Rp2 ribu per jam. Layanan harus memenuhi kebutuhan minimal $5$ inti CPU dan $8$ GB RAM. (a) Susun model kendala dengan $a$ server A dan $b$ server B. (b) Tentukan kombinasi server yang berbiaya minimum beserta biayanya.',
     answer:
-      '(a) Titik potong sumbu: $(40,0)$ dan $(0,60)$ dari garis pertama, serta $(65,0)$ dan $(0,\\tfrac{130}{3})$ dari garis kedua. Titik potong kedua garis: dari $3x+2y=120$ dan $2x+3y=130$ diperoleh $x=20$ dan $y=30$, yaitu $(20,30)$. Titik sudut yang layak: $(0,0)$, $(40,0)$, $(20,30)$, dan $(0,\\tfrac{130}{3}\\approx43{,}33)$. (b) Fungsi objektif $L=4000x+5000y$. Nilainya: $(0,0)=0$, $(40,0)=160.000$, $(20,30)=80.000+150.000=230.000$, dan $(0,43{,}33)\\approx216.667$. Laba maksimum Rp230.000 dicapai dengan membuat $20$ roti A dan $30$ roti B.',
+      '(a) Kendala: $a+b\\ge5$ (CPU), $2a+b\\ge8$ (RAM), serta $a\\ge0$ dan $b\\ge0$. (b) Titik sudut daerah penyelesaian: $(5,0)$ dari $a+b=5$ dengan $b=0$; $(3,2)$ dari titik potong $a+b=5$ dan $2a+b=8$; serta $(0,8)$ dari $2a+b=8$ dengan $a=0$. Fungsi biaya $B=3a+2b$ (dalam ribu rupiah). Nilainya: $(5,0)=15$, $(3,2)=9+4=13$, dan $(0,8)=16$. Jadi biaya minimum Rp13 ribu per jam dicapai dengan menyewa $3$ server A dan $2$ server B.',
     explanation:
-      'Kunci: mencari titik potong dan menyaring titik sudut yang layak, lalu menguji fungsi objektif pada tiap titik sudut.',
-    hints: ['Cari titik potong kedua garis dengan eliminasi.', 'Uji laba pada setiap titik sudut yang masuk daerah penyelesaian.'],
+      'Kunci: menerjemahkan dua kebutuhan minimum menjadi pertidaksamaan bertanda $\\ge$, menyaring titik sudut yang layak, lalu mencari nilai minimum fungsi biaya.',
+    hints: [
+      'Kebutuhan "minimal" menghasilkan pertidaksamaan bertanda $\\ge$.',
+      'Cari titik potong $a+b=5$ dan $2a+b=8$ dengan eliminasi.',
+      'Bandingkan nilai $B=3a+2b$ di setiap titik sudut untuk memilih yang terkecil.',
+    ],
     competencies: ['program linear', 'optimasi', 'evaluasi'],
     rubric: [
+      'Menyusun kendala kebutuhan minimum',
       'Menentukan titik potong antargaris',
-      'Menyaring titik sudut yang layak',
-      'Menguji fungsi objektif di tiap titik sudut',
-      'Memberikan kombinasi dan laba maksimum',
+      'Menguji fungsi biaya di tiap titik sudut',
+      'Memberikan kombinasi berbiaya minimum',
     ],
   },
   {
@@ -298,11 +311,39 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Titik sudut daerah penyelesaian: $(8,0)$ dari $x+2y=8$ dengan $y=0$; $(4,2)$ dari titik potong $x+y=6$ dan $x+2y=8$; serta $(0,6)$ dari $x+y=6$ dengan $x=0$. Nilai $f$: $(8,0)=24$, $(4,2)=16$, dan $(0,6)=12$. Karena $f$ makin kecil ke arah kiri atas dan tetap terbatas oleh titik $(0,6)$, nilai minimumnya $12$.',
+      'Titik sudut daerah penyelesaian: $(8,0)$ dari $x+2y=8$ dengan $y=0$; $(4,2)$ dari titik potong $x+y=6$ dan $x+2y=8$; serta $(0,6)$ dari $x+y=6$ dengan $x=0$. Nilai $f$: $(8,0)=24$, $(4,2)=16$, dan $(0,6)=12$. Karena $f$ makin kecil ke arah kiri atas dan tetap terbatas oleh titik $(0,6)$, nilai minimumnya $12$. Opsi B ($16$) berasal dari titik $(4,2)$ dan opsi C ($24$) dari titik $(8,0)$, keduanya lebih besar dari nilai minimum. Opsi D ($8$) berasal dari titik yang tidak layak, misalnya $(0,4)$ yang melanggar $x+y\\ge6$.',
     hints: [
       'Cari titik potong kedua garis dan titik potong dengan sumbu-sumbu.',
       'Meskipun daerah tak terbatas, nilai minimum masih dapat muncul di titik sudut.',
     ],
     competencies: ['program linear', 'nilai minimum', 'penalaran'],
+  },
+  {
+    id: 'spt-16',
+    topicId: 'sistem-pertidaksamaan',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Daerah yang diarsir pada gambar berikut adalah himpunan penyelesaian dari sistem …',
+    figure: {
+      svg: '<svg viewBox="0 0 240 210" xmlns="http://www.w3.org/2000/svg"><polygon points="60,180 200,180 60,40" fill="currentColor" opacity="0.18"/><line x1="30" y1="180" x2="230" y2="180" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="25" x2="60" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="40" x2="200" y2="180" stroke="currentColor" stroke-width="2"/><text x="205" y="196" font-size="11" fill="currentColor">x</text><text x="66" y="32" font-size="11" fill="currentColor">y</text><text x="80" y="66" font-size="11" fill="currentColor">daerah</text><text x="80" y="78" font-size="11" fill="currentColor">penyelesaian</text></svg>',
+      alt: 'Daerah penyelesaian berupa segitiga di kuadran pertama dengan titik sudut (0,0), (4,0), dan (0,4), dibatasi garis x + y = 4.',
+      caption: 'Daerah penyelesaian sistem pertidaksamaan linear.',
+    },
+    options: [
+      { key: 'A', text: '$x+y\\le4,\\ x\\ge0,\\ y\\ge0$' },
+      { key: 'B', text: '$x+y\\ge4,\\ x\\ge0,\\ y\\ge0$' },
+      { key: 'C', text: '$x+y\\le4,\\ x\\le0,\\ y\\le0$' },
+      { key: 'D', text: '$x+y\\ge4,\\ x\\le0,\\ y\\le0$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Daerah arsir berada di kuadran pertama ($x\\ge0$, $y\\ge0$) dan di bawah garis $x+y=4$, sehingga $x+y\\le4$. Jadi sistemnya $x+y\\le4,\\ x\\ge0,\\ y\\ge0$. Opsi B membalik tanda menjadi $\\ge$ sehingga mengarsir sisi yang berlawanan. Opsi C memakai $x\\le0$ dan $y\\le0$, padahal daerah arsir berada di kuadran pertama. Opsi D selain memakai $x\\le0$ dan $y\\le0$ juga membalik tanda menjadi $\\ge$, sehingga sama sekali tidak sesuai.',
+    hints: [
+      'Perhatikan kuadran tempat daerah arsir berada.',
+      'Tentukan apakah daerah arsir berada di bawah atau di atas garis $x+y=4$.',
+    ],
+    competencies: ['daerah penyelesaian', 'membaca grafik'],
   },
 ];

@@ -16,7 +16,7 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Jumlah data $=5+6+6+7+7+7+8+10=56$ dan banyak data $=8$, sehingga mean $=\\dfrac{56}{8}=7$.',
+      'Jumlah data $=5+6+6+7+7+7+8+10=56$ dan banyak data $=8$, sehingga mean $=\\dfrac{56}{8}=7$ (opsi D). Opsi A ($6$) sekadar menebak nilai yang sering muncul. Opsi B ($8$) memakai nilai ekstrem, bukan rata-rata. Opsi C ($7{,}5$) keliru mengambil rata-rata nilai terkecil $5$ dan terbesar $10$.',
     hints: ['Jumlahkan semua nilai terlebih dahulu, lalu bagi dengan banyak data.'],
     competencies: ['mean'],
   },
@@ -36,7 +36,7 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Mean menjumlahkan seluruh nilai sehingga satu nilai ekstrem langsung menariknya. Median hanya bergantung pada posisi tengah, dan modus pada frekuensi, sehingga keduanya jauh lebih tahan terhadap pencilan.',
+      'Opsi C benar: mean menjumlahkan seluruh nilai sehingga satu nilai ekstrem langsung menariknya. Opsi A salah karena median hanya bergantung pada posisi tengah data terurut. Opsi B salah karena modus hanya bergantung pada frekuensi, bukan besar nilainya. Opsi D salah karena kuartil juga ditentukan oleh posisi, sehingga lebih tahan terhadap pencilan.',
     hints: ['Ukuran mana yang menggunakan seluruh nilai dalam perhitungannya?'],
     competencies: ['mean', 'pencilan'],
   },
@@ -88,7 +88,7 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Jumlah data $=40$, mean $=\\dfrac{40}{8}=5$, sedangkan median $=\\dfrac{4+4}{2}=4$. Nilai $15$ adalah pencilan yang menarik mean ke atas, sehingga mean bukan gambaran tipikal. Median $4$ jam lebih mewakili kebiasaan siswa. Pencilan tetap bagian data dan tidak otomatis dibuang.',
+      'Jumlah data $=40$, mean $=\\dfrac{40}{8}=5$, sedangkan median $=\\dfrac{4+4}{2}=4$, sehingga opsi D benar. Opsi A salah karena mean memang sudah dibagi banyak data. Opsi B salah karena modus tidak selalu lebih penting daripada mean. Opsi C salah karena pencilan tetap bagian data dan tidak otomatis dibuang.',
     hints: ['Hitung median data terlebih dahulu.', 'Lihat pengaruh nilai $15$ terhadap mean.'],
     competencies: ['penalaran statistik', 'pencilan'],
   },
@@ -108,8 +108,8 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Rata-rata gabungan $=\\dfrac{30\\cdot 72+20\\cdot 84}{30+20}=\\dfrac{2160+1680}{50}=\\dfrac{3840}{50}=76{,}8$. Angka $78$ keliru karena mengabaikan bahwa kedua kelas berukuran berbeda.',
-    hints: ['Gunakan bobot ukuran kelompok, bukan rata-rata kedua mean.'],
+      'Rata-rata gabungan $=\\dfrac{30\\cdot 72+20\\cdot 84}{30+20}=\\dfrac{3840}{50}=76{,}8$ (opsi D). Opsi A ($80$) keliru menjumlahkan rata-rata tanpa memperhatikan bobot. Opsi B ($78$) adalah rata-rata sederhana $(72+84)/2$ yang mengabaikan ukuran kelas. Opsi C ($79{,}2$) muncul bila bobot tertukar, memakai $20$ untuk Kelas A dan $30$ untuk Kelas B.',
+    hints: ['Gunakan bobot ukuran kelompok, bukan rata-rata kedua mean.', 'Banyak siswa tiap kelas berperan sebagai bobot pada penjumlahan nilai.'],
     competencies: ['rata-rata gabungan'],
   },
   {
@@ -139,7 +139,7 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     acceptedAnswers: ['4000000', '4.000.000', '4.000.000,00', '4000000,00', 'Rp4.000.000', 'Rp4.000.000,00', '4 juta'],
     explanation:
       'Data terurut memuat sembilan nilai Rp4.000.000 dan satu nilai Rp40.000.000. Karena $n=10$, median adalah rata-rata data ke-5 dan ke-6, yaitu $\\dfrac{4.000.000+4.000.000}{2}=4.000.000$. Jadi median gajinya Rp4.000.000.',
-    hints: ['Urutkan data lalu cari dua nilai tengah.'],
+    hints: ['Urutkan data lalu cari dua nilai tengah.', 'Karena $n=10$ (genap), median adalah rata-rata data ke-$5$ dan ke-$6$.'],
     competencies: ['median', 'kontekstual'],
   },
   {
@@ -170,21 +170,20 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Sebuah perusahaan memiliki $9$ karyawan bergaji Rp4.000.000 dan $1$ direktur bergaji Rp40.000.000. Perusahaan itu mengiklankan, "gaji rata-rata karyawan Rp7.600.000." Jelaskan mengapa angka itu dapat menyesatkan dan tentukan ukuran yang lebih jujur beserta nilainya.',
+      'Rumah sakit A melaporkan tingkat kesembuhan $90\\%$ dari $20$ pasien, sedangkan rumah sakit B melaporkan $80\\%$ dari $200$ pasien. Sebuah artikel menyimpulkan "rumah sakit A lebih baik daripada rumah sakit B". (a) Mengapa perbandingan langsung kedua persentase itu kurang adil? (b) Ukuran tambahan apa yang perlu diperhatikan selain persentase?',
     answer:
-      'Mean $=\\dfrac{9\\times 4.000.000+1\\times 40.000.000}{10}=\\dfrac{76.000.000}{10}=7.600.000$ memang benar secara hitung, tetapi terangkat oleh satu gaji direktur yang sangat besar. Data terurut memuat sembilan nilai Rp4.000.000 dan satu nilai Rp40.000.000, sehingga median $=\\dfrac{4.000.000+4.000.000}{2}=4.000.000$. Median Rp4.000.000 lebih jujur menggambarkan gaji karyawan biasa; klaim rata-rata tanpa menyebut sebaran berpotensi menyesatkan.',
+      '(a) Persentase tanpa menyebut banyak pasien dapat menyesatkan. RS A hanya menangani $20$ pasien, sehingga $90\\%$ berasal dari $18$ pasien dan sangat sensitif terhadap satu-dua kasus, sedangkan RS B menangani $200$ pasien dengan $160$ pasien sembuh. Ukuran sampel yang kecil membuat persentase kurang stabil, sehingga membandingkan persentase saja tidak adil. (b) Perlu memperhatikan banyaknya pasien (ukuran sampel), tingkat keparahan kasus yang ditangani, dan ketidakpastian hasil; bila mungkin bandingkan kelompok pasien yang setara sebelum menyimpulkan mana yang lebih baik.',
     explanation:
-      'Kunci jawaban: membedakan mean yang terpengaruh pencilan dari median yang lebih representatif.',
+      'Kunci jawaban: menyadari bahwa persentase tanpa ukuran sampel menyesatkan, menekankan ketidakstabilan sampel kecil, dan menyebut ukuran tambahan seperti banyak pasien serta komposisi kasus.',
     hints: [
-      'Periksa apakah ada nilai yang jauh berbeda dari yang lain.',
-      'Hitung median setelah mengurutkan data.',
+      'Perhatikan banyak pasien di balik tiap persentase, bukan hanya angkanya.',
+      'Sampel kecil membuat persentase mudah berubah; sebutkan juga ukuran sampel dan tingkat keparahan kasus.',
     ],
-    competencies: ['mean vs median', 'evaluasi klaim'],
+    competencies: ['evaluasi klaim', 'ukuran sampel', 'penalaran statistik'],
     rubric: [
-      'Membenarkan mean $7.600.000$ secara perhitungan',
-      'Mengidentifikasi gaji direktur sebagai pencilan',
-      'Menghitung median $4.000.000$',
-      'Menyimpulkan median lebih jujur untuk gaji karyawan biasa',
+      'Menjelaskan persentase tanpa ukuran sampel dapat menyesatkan',
+      'Menyebut sampel kecil ($20$ pasien) membuat persentase kurang stabil',
+      'Menyebut ukuran tambahan seperti banyak pasien atau tingkat keparahan kasus',
     ],
   },
   {
@@ -285,5 +284,39 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Menyebut jangkauan, simpangan baku, atau IQR sebagai ukuran sebaran',
       'Menyimpulkan kelas Q lebih beragam daripada kelas P',
     ],
+  },
+  {
+    id: 'sdk-16',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah survei kesehatan mencatat durasi tidur harian $40$ siswa seperti pada tabel berikut. Rata-rata durasi tidur siswa tersebut adalah …',
+    table: {
+      caption: 'Durasi tidur harian 40 siswa.',
+      headers: ['Durasi tidur (jam)', 'Frekuensi'],
+      rows: [
+        ['kurang dari 6', '4'],
+        ['6–7', '10'],
+        ['7–8', '16'],
+        ['8–9', '8'],
+        ['lebih dari 9', '2'],
+      ],
+    },
+    options: [
+      { key: 'A', text: '$7{,}0$ jam' },
+      { key: 'B', text: '$7{,}35$ jam' },
+      { key: 'C', text: '$7{,}5$ jam' },
+      { key: 'D', text: '$8{,}0$ jam' },
+    ],
+    answer: 'B',
+    explanation:
+      'Dengan titik tengah $5{,}5;\\,6{,}5;\\,7{,}5;\\,8{,}5;\\,9{,}5$, diperoleh $\\sum f_ix_i=22+65+120+68+19=294$ dan $n=40$, sehingga mean $=\\dfrac{294}{40}=7{,}35$ jam (opsi B). Opsi A ($7{,}0$) keliru memakai tepi bawah kelas modus. Opsi C ($7{,}5$) hanya memakai titik tengah kelas modus dan mengabaikan kelas lain. Opsi D ($8{,}0$) membulatkan terlalu jauh dari nilai sebenarnya.',
+    hints: [
+      'Ganti tiap kelas dengan titik tengahnya, lalu kalikan dengan frekuensinya.',
+      'Mean data berkelompok $=\\dfrac{\\sum f_ix_i}{\\sum f_i}$.',
+    ],
+    competencies: ['mean data berkelompok', 'kontekstual'],
   },
 ];

@@ -17,7 +17,7 @@ export const polinomialQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Derajat adalah pangkat tertinggi variabel. Pangkat tertinggi pada $3x^{4}-2x^{3}+x-7$ adalah $4$, sehingga derajatnya $4$.',
+      'Derajat adalah pangkat tertinggi variabel. Pada $3x^{4}-2x^{3}+x-7$ pangkat tertinggi adalah $4$, sehingga B benar. Opsi A ($3$) mengambil pangkat suku kedua, $x^{3}$; opsi C ($6$) menjumlahkan koefisien suku-sukunya ($3+2+1$); opsi D ($7$) memakai konstanta sebagai derajat.',
     hints: ['Cari pangkat terbesar pada variabel $x$.'],
     competencies: ['derajat polinomial'],
   },
@@ -37,7 +37,7 @@ export const polinomialQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Jumlahkan suku sejenis: $P(x)+Q(x)=2x^{3}+(-3+1)x^{2}+(4+2)x+(-5+1)=2x^{3}-2x^{2}+6x-4$. Jadi koefisien $x^{2}$ adalah $-2$.',
+      'Jumlahkan suku sejenis: $P(x)+Q(x)=2x^{3}+(-3+1)x^{2}+(4+2)x+(-5+1)=2x^{3}-2x^{2}+6x-4$, sehingga koefisien $x^{2}$ adalah $-2$ (A). Opsi B ($-4$) mengurangkan koefisien ($-3-1$); opsi C ($2$) memakai koefisien $x^{3}$; opsi D ($6$) memakai koefisien $x$ hasil penjumlahan.',
     hints: ['Gabungkan hanya suku-suku dengan pangkat yang sama.'],
     competencies: ['penjumlahan polinomial'],
   },
@@ -85,8 +85,11 @@ export const polinomialQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Gunakan Horner dengan $x=1$ pada koefisien $1,-4,5,-2$: turunkan $1$, lalu $1\\cdot1=1$ ditambah $-4$ menjadi $-3$, $-3\\cdot1=-3$ ditambah $5$ menjadi $2$, dan $2\\cdot1=2$ ditambah $-2$ menjadi $0$. Hasil baginya $x^{2}-3x+2$ dengan sisa $0$.',
-    hints: ['Gunakan pembagian sintetik (Horner) dengan pembagi $(x-1)$.'],
+      'Pembagian sintetik (Horner) dengan $x=1$ pada koefisien $1,-4,5,-2$: turunkan $1$, lalu $1\\cdot1=1$ ditambah $-4$ menjadi $-3$, $-3\\cdot1=-3$ ditambah $5$ menjadi $2$, dan $2\\cdot1=2$ ditambah $-2$ menjadi $0$. Hasil baginya $x^{2}-3x+2$ dengan sisa $0$, jadi B benar. Opsi A salah tanda pada suku $x$; opsi C salah tanda pada konstanta; opsi D salah tanda pada suku $x$ sekaligus konstanta, akibat keliru menyalin tanda koefisien.',
+    hints: [
+      'Gunakan pembagian sintetik (Horner) dengan pembagi $(x-1)$.',
+      'Setelah menurunkan koefisien pertama, ulangi langkah kalikan dengan $1$ lalu jumlahkan ke koefisien berikutnya.',
+    ],
     competencies: ['pembagian polinomial', 'metode Horner'],
   },
   {
@@ -105,8 +108,11 @@ export const polinomialQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Uji dengan teorema faktor: $P(3)=27-36+3+6=0$, sehingga $(x-3)$ faktor. Opsi lain: $P(1)=4\\neq0$, $P(-2)=-20\\neq0$, dan $P(-4)=-102\\neq0$.',
-    hints: ['Faktor $(x-c)$ berlaku bila $P(c)=0$.'],
+      '$(x-3)$ faktor karena $P(3)=27-36+3+6=0$, jadi A benar. Opsi B: $P(1)=1-4+1+6=4\\neq0$; opsi C: $P(-2)=-8-16-2+6=-20\\neq0$; opsi D: $P(-4)=-64-64-4+6=-126\\neq0$. Kesalahan yang sering muncul adalah menguji $(x+c)$ dengan $x=c$ alih-alih $x=-c$.',
+    hints: [
+      'Faktor $(x-c)$ berlaku bila $P(c)=0$.',
+      'Untuk bentuk $(x+c)$, uji dengan $x=-c$.',
+    ],
     competencies: ['teorema faktor'],
   },
   {
@@ -120,7 +126,10 @@ export const polinomialQuestions: Question[] = [
     answer: '13',
     explanation:
       'Pembagi $(x+2)$ berarti $c=-2$, sehingga sisa $=P(-2)=(-2)^{3}+2(-2)^{2}-5(-2)+3=-8+8+10+3=13$.',
-    hints: ['Untuk $(x+2)$, substitusikan $x=-2$.'],
+    hints: [
+      'Untuk $(x+2)$, substitusikan $x=-2$.',
+      'Hitung setiap suku dengan hati-hati: pangkat ganjil tetap negatif, pangkat genap positif.',
+    ],
     competencies: ['teorema sisa'],
   },
   {
@@ -135,7 +144,10 @@ export const polinomialQuestions: Question[] = [
       'Koefisiennya $2,1,-3,4$ dan pembagi $x=2$. Turunkan $2$. Kalikan $2\\cdot2=4$ lalu tambahkan ke $1$ menjadi $5$. Kalikan $5\\cdot2=10$ lalu tambahkan ke $-3$ menjadi $7$. Kalikan $7\\cdot2=14$ lalu tambahkan ke $4$ menjadi $18$. Hasil baginya $2x^{2}+5x+7$ dan sisanya $18$, karena $2x^{3}+x^{2}-3x+4=(x-2)(2x^{2}+5x+7)+18$.',
     explanation:
       'Kunci menekankan urutan koefisien, langkah turunkan-kalikan-jumlahkan, serta penulisan bentuk $P(x)=(x-2)H(x)+S$ dengan $S=18$ dan pemeriksaan derajat sisa lebih kecil dari derajat pembagi.',
-    hints: ['Tulis semua koefisien, termasuk yang bernilai nol bila ada.'],
+    hints: [
+      'Tulis semua koefisien secara berurutan, termasuk yang bernilai nol bila ada.',
+      'Ulangi pola turunkan, kalikan dengan $2$, lalu jumlahkan hingga koefisien terakhir.',
+    ],
     competencies: ['pembagian polinomial', 'metode Horner'],
     rubric: [
       'Menuliskan semua koefisien secara berurutan',
@@ -160,8 +172,11 @@ export const polinomialQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$(x-2)$ faktor berarti $P(2)=0$: $8+4k-8+4=4+4k=0$, sehingga $k=-1$. Periksa: $P(x)=x^{3}-x^{2}-4x+4$ dan $P(2)=8-4-8+4=0$.',
-    hints: ['Gunakan teorema faktor: $(x-2)$ faktor bila $P(2)=0$.'],
+      '$(x-2)$ faktor berarti $P(2)=0$: $8+4k-8+4=4+4k=0$, sehingga $k=-1$ (A). Opsi B ($k=1$) salah tanda saat memindahkan $4k=-4$; opsi C ($k=-2$) membagi $-4$ dengan $2$ secara keliru; opsi D ($k=2$) menyimpulkan $k=2$ karena menjumlahkan alih-alih mengurangi saat menyelesaikan $4+4k=0$.',
+    hints: [
+      'Gunakan teorema faktor: $(x-2)$ faktor bila $P(2)=0$.',
+      'Setelah substitusi, susun persamaan linear $4+4k=0$ lalu selesaikan untuk $k$.',
+    ],
     competencies: ['teorema faktor', 'penalaran aljabar'],
   },
   {
@@ -200,7 +215,10 @@ export const polinomialQuestions: Question[] = [
       'Coba akar bilangan bulat: $P(3)=27-36+3+6=0$, jadi $(x-3)$ faktor. Membagi dengan Horner memberi hasil bagi $x^{2}-x-2=(x-2)(x+1)$. Maka $P(x)=(x-3)(x-2)(x+1)$, sehingga akar-akarnya $x=3$, $x=2$, dan $x=-1$.',
     explanation:
       'Kunci menekankan pencarian satu akar dengan teorema faktor, pembagian untuk menurunkan derajat, lalu pemfaktoran hasil bagi.',
-    hints: ['Uji pembagi dari konstanta $6$: $\\pm1, \\pm2, \\pm3, \\pm6$.'],
+    hints: [
+      'Uji pembagi dari konstanta $6$: $\\pm1, \\pm2, \\pm3, \\pm6$.',
+      'Setelah satu akar ditemukan, bagi dengan Horner dan faktorkan kuadrat yang tersisa.',
+    ],
     competencies: ['faktor polinomial', 'akar polinomial'],
     rubric: [
       'Menemukan satu akar dengan teorema faktor',
@@ -313,5 +331,23 @@ export const polinomialQuestions: Question[] = [
       'Menganalisis tanda pada tiap selang',
       'Menyimpulkan rentang tidak merugi',
     ],
+  },
+  {
+    id: 'pol-17',
+    topicId: 'polinomial',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah wadah tanpa tutup dibuat dari karton persegi berukuran $20$ cm dengan memotong persegi bersisi $x$ cm di setiap sudut lalu melipat sisinya. (a) Nyatakan volume wadah sebagai polinomial dalam $x$. (b) Hitung volume wadah ketika $x=3$ cm.',
+    answer: '588',
+    acceptedAnswers: ['588', '588 cm^3', '588 cm3'],
+    explanation:
+      'Setelah pemotongan, panjang dan lebar alas menjadi $(20-2x)$ cm dan tingginya $x$ cm, sehingga $V(x)=x(20-2x)^{2}=x(400-80x+4x^{2})=4x^{3}-80x^{2}+400x$ cm$^{3}$. Untuk $x=3$: $V(3)=4(27)-80(9)+400(3)=108-720+1200=588$ cm$^{3}$.',
+    hints: [
+      'Panjang dan lebar alas berkurang $x$ cm pada kedua ujung, menjadi $(20-2x)$ cm.',
+      'Hitung $(20-2x)^{2}$ lebih dahulu, lalu kalikan dengan tinggi $x$.',
+    ],
+    competencies: ['perkalian polinomial', 'pemodelan volume'],
   },
 ];

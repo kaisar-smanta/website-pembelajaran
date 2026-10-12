@@ -61,6 +61,28 @@ for (const { q, file } of all) {
   ok(TYPES.has(q.type), `${label}: type tidak dikenal (${q.type})`);
   ok(typeof q.prompt === 'string' && q.prompt.length > 0, `${label}: prompt kosong`);
 
+  if (q.figure !== undefined) {
+    ok(typeof q.figure.alt === 'string' && q.figure.alt.trim().length > 0, `${label}: figure tanpa alt`);
+    ok(
+      typeof q.figure.svg === 'string' && q.figure.svg.includes('<svg'),
+      `${label}: figure tanpa markup svg`,
+    );
+  }
+
+  if (q.table !== undefined) {
+    ok(
+      Array.isArray(q.table.headers) && q.table.headers.length > 0,
+      `${label}: tabel tanpa header`,
+    );
+    ok(Array.isArray(q.table.rows), `${label}: tabel tanpa baris`);
+    for (const [i, row] of (q.table.rows ?? []).entries()) {
+      ok(
+        Array.isArray(row) && row.length === q.table.headers.length,
+        `${label}: baris tabel ${i} tidak sepanjang header`,
+      );
+    }
+  }
+
   if (q.category !== undefined) {
     ok(
       assessmentCategoryIds.has(q.category),

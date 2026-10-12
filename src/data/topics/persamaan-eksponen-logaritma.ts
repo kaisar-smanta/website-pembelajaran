@@ -111,7 +111,7 @@ $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Eksponen dan logaritma saling membalik",
           text: "Eksponen dan logaritma saling membalik, seperti kuadrat dan akar. Persamaan eksponen diselesaikan dengan menyamakan basis atau menyubstitusi variabel, sedangkan persamaan logaritma diselesaikan dengan mengubahnya kembali ke bentuk eksponen.",
         },
         {
@@ -139,6 +139,32 @@ $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
             {
               left: "$a^{c} = b$",
               right: "$\\log_{a}b = c$",
+            },
+          ],
+        },
+        {
+          kind: "flip-cards",
+          intro: "Pelajari istilah dasar logaritma melalui kartu berikut.",
+          cards: [
+            {
+              front: "Bentuk eksponen",
+              back: "Penulisan $a^{c}=b$: basis $a$ dipangkatkan $c$ menghasilkan $b$.",
+            },
+            {
+              front: "Bentuk logaritma",
+              back: "Penulisan $\\log_{a}b=c$: pangkat yang diberikan pada basis $a$ agar menghasilkan $b$.",
+            },
+            {
+              front: "Basis",
+              back: "Bilangan pokok $a$ pada $a^{c}=b$ atau $\\log_{a}b$, dengan $a>0$ dan $a\\neq1$.",
+            },
+            {
+              front: "Numerus",
+              back: "Bilangan $b$ di dalam logaritma; harus positif agar $\\log_{a}b$ terdefinisi.",
+            },
+            {
+              front: "Menyamakan basis",
+              back: "Mengubah kedua ruas persamaan ke basis yang sama, lalu menyamakan eksponennya.",
             },
           ],
         },
@@ -204,6 +230,12 @@ $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Diagram bentuk logaritma log basis a dari b sama dengan c, dengan label basis pada a, numerus pada b, dan hasil pada c.",
+          caption: "Pada $\\log_{a}b=c$: $a$ adalah **basis**, $b$ adalah **numerus** (harus positif), dan $c$ adalah **hasil** logaritma.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><text x="58" y="132" font-size="34" fill="currentColor">log</text><text x="132" y="148" font-size="20" fill="currentColor">a</text><text x="156" y="132" font-size="34" fill="currentColor">b = c</text><line x1="138" y1="156" x2="118" y2="192" stroke="currentColor" stroke-width="1.5"/><text x="62" y="210" font-size="14" fill="currentColor">basis</text><line x1="166" y1="140" x2="180" y2="196" stroke="currentColor" stroke-width="1.5"/><text x="158" y="216" font-size="14" fill="currentColor">numerus</text><line x1="238" y1="122" x2="264" y2="80" stroke="currentColor" stroke-width="1.5"/><text x="240" y="72" font-size="14" fill="currentColor">hasil</text></svg>',
+        },
       ],
     },
     {
@@ -217,6 +249,10 @@ Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik
         {
           kind: "exploration",
           explorationId: "logaritma-invers-grafik",
+        },
+        {
+          kind: "exploration",
+          explorationId: "logaritma-pencerminan-grafik",
         },
         {
           kind: "callout",
@@ -266,53 +302,41 @@ $$\\log_{a}a=1, \\qquad \\log_{a}1=0.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1 (menyamakan basis).** Tentukan $x$ dari $2^{x+1}=32$.
-
-*Penyelesaian.* Nyatakan $32$ sebagai pangkat basis $2$: $32=2^{5}$. Maka
-
-$$2^{x+1}=2^{5} \\Rightarrow x+1=5 \\Rightarrow x=4.$$
-
-Periksa: $2^{4+1}=2^{5}=32$ ✓.
-
-**Contoh 2 (substitusi variabel).** Tentukan $x$ dari $2^{2x}-5\\cdot2^{x}+4=0$.
-
-*Penyelesaian.* Misalkan $t=2^{x}$ dengan $t>0$. Karena $2^{2x}=(2^{x})^{2}=t^{2}$, persamaan menjadi
-
-$$t^{2}-5t+4=0 \\Rightarrow (t-1)(t-4)=0 \\Rightarrow t=1 \\text{ atau } t=4.$$
-
-Kembalikan: $2^{x}=1 \\Rightarrow x=0$, dan $2^{x}=4=2^{2} \\Rightarrow x=2$. Solusinya $x=0$ atau $x=2$. Keduanya memenuhi $t>0$ ✓.
-
-**Contoh 3 (logaritma sebagai invers).** Tentukan $x$ dari $\\log_{3}(x+2)=2$.
-
-*Penyelesaian.* Ubah ke bentuk eksponen: $3^{2}=x+2$, sehingga $x+2=9$ dan $x=7$. Periksa syarat numerus: $x+2=9>0$ ✓. Jadi $x=7$.
-
-**Contoh 4 (sifat logaritma).** Hitung $\\log_{2}12+\\log_{2}6-\\log_{2}9$.
-
-*Penyelesaian.* Gabungkan dengan sifat penjumlahan dan pengurangan:
-
-$$\\log_{2}12+\\log_{2}6-\\log_{2}9=\\log_{2}\\!\\left(\\frac{12\\cdot6}{9}\\right)=\\log_{2}8=3.$$
-
-Periksa dengan $2^{3}=8$ ✓.`,
+      body: `Empat contoh berikut mencakup persamaan eksponen dengan basis sama, substitusi variabel, dan persamaan logaritma. Buka setiap langkah untuk mengikuti penyelesaian lengkapnya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Ikuti langkah menyelesaikan $2^{2x}-5\\cdot 2^{x}+4=0$ dengan substitusi variabel.",
+          intro: "Buka setiap contoh untuk mengikuti penyelesaiannya satu per satu.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Misalkan $t = 2^{x}$ dengan $t > 0$, sehingga $2^{2x} = (2^{x})^{2} = t^{2}$.",
+              title: "Contoh 1: menyamakan basis",
+              text: `Tentukan $x$ dari $2^{x+1}=32$.
+
+*Penyelesaian.* Nyatakan $32$ sebagai pangkat basis $2$: $32=2^{5}$. Maka
+$$2^{x+1}=2^{5} \\Rightarrow x+1=5 \\Rightarrow x=4.$$
+Periksa: $2^{4+1}=2^{5}=32$ benar.`,
             },
             {
-              title: "Langkah 2",
-              text: "Persamaan menjadi $t^{2} - 5t + 4 = 0$.",
+              title: "Contoh 2: substitusi variabel",
+              text: `Tentukan $x$ dari $2^{2x}-5\\cdot2^{x}+4=0$.
+
+*Penyelesaian.* Misalkan $t=2^{x}$ dengan $t>0$. Karena $2^{2x}=(2^{x})^{2}=t^{2}$, persamaan menjadi
+$$t^{2}-5t+4=0 \\Rightarrow (t-1)(t-4)=0 \\Rightarrow t=1 \\text{ atau } t=4.$$
+Kembalikan: $2^{x}=1 \\Rightarrow x=0$, dan $2^{x}=4=2^{2} \\Rightarrow x=2$. Solusinya $x=0$ atau $x=2$, keduanya memenuhi $t>0$.`,
             },
             {
-              title: "Langkah 3",
-              text: "Faktorkan: $(t-1)(t-4) = 0$, sehingga $t = 1$ atau $t = 4$.",
+              title: "Contoh 3: logaritma sebagai invers",
+              text: `Tentukan $x$ dari $\\log_{3}(x+2)=2$.
+
+*Penyelesaian.* Ubah ke bentuk eksponen: $3^{2}=x+2$, sehingga $x+2=9$ dan $x=7$. Periksa syarat numerus: $x+2=9>0$ benar. Jadi $x=7$.`,
             },
             {
-              title: "Langkah 4",
-              text: "Kembalikan: $2^{x} = 1 \\Rightarrow x = 0$ dan $2^{x} = 4 = 2^{2} \\Rightarrow x = 2$. Keduanya memenuhi $t>0$.",
+              title: "Contoh 4: sifat logaritma",
+              text: `Hitung $\\log_{2}12+\\log_{2}6-\\log_{2}9$.
+
+*Penyelesaian.* Gabungkan dengan sifat penjumlahan dan pengurangan:
+$$\\log_{2}12+\\log_{2}6-\\log_{2}9=\\log_{2}\\!\\left(\\frac{12\\cdot6}{9}\\right)=\\log_{2}8=3.$$
+Periksa dengan $2^{3}=8$ benar.`,
             },
           ],
         },
@@ -340,11 +364,11 @@ Periksa dengan $2^{3}=8$ ✓.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Logaritma dipakai untuk menyelesaikan "kapan" pada pertumbuhan dan peluruhan. Misalnya populasi $P_{0}$ yang berlipat dengan faktor tetap setiap periode dimodelkan $P(t)=P_{0}\\cdot b^{t}$. Untuk mencari waktu $t$ saat populasi mencapai target $P$, kita menyelesaikan $b^{t}=P/P_{0}$, sehingga
+      body: `Logaritma dipakai untuk menjawab "kapan" pada pertumbuhan dan peluruhan. Populasi $P_{0}$ yang berlipat dengan faktor tetap setiap periode dimodelkan $P(t)=P_{0}\\cdot b^{t}$. Untuk mencari waktu $t$ saat populasi mencapai target $P$, kita menyelesaikan $b^{t}=P/P_{0}$, sehingga
 
 $$t=\\log_{b}\\!\\left(\\frac{P}{P_{0}}\\right).$$
 
-Skala logaritma juga memampatkan rentang yang sangat lebar: skala pH, skala Richter, dan satuan desibel semuanya dibangun di atas logaritma. Untuk penerapan lanjutan, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
+Sebagai contoh, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\\log_{2}100 \\approx 6{,}64$ jam. Skala logaritma juga memampatkan rentang yang sangat lebar: larutan dengan $[H^{+}]=10^{-3}$ memiliki $\\text{pH}=3$, dan gempa bermagnitudo $6$ mengguncang $10^{2}=100$ kali lebih kuat daripada gempa bermagnitudo $4$. Untuk penerapan lanjutan, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
     },
     {
       id: "kesalahan-umum",
@@ -448,6 +472,7 @@ Untuk beberapa waktu logaritma dipandang semata sebagai alat hitung, bukan sebag
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
+      body: "Logaritma lahir untuk menjawab pertanyaan yang tidak dapat diselesaikan dengan menyamakan basis. Setiap kali kamu menjumpai pertumbuhan atau peluruhan dengan target yang bukan pangkat bulat, logaritma adalah jalan keluarnya. Jelaskan dengan kata-katamu sendiri mengapa logaritma disebut operasi invers dari eksponen.",
       blocks: [
         {
           kind: "reflection",
@@ -508,7 +533,7 @@ Untuk beberapa waktu logaritma dipandang semata sebagai alat hitung, bukan sebag
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana kesetaraan $a^{c}=b \\iff \\log_{a}b=c$ dipakai untuk menyelesaikan kedua jenis persamaan? (2) Mengapa setiap solusi persamaan logaritma wajib diperiksa terhadap syarat numerus? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Persamaan Eksponen dan Logaritma** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Selesaikan $5^{x}=125$ dan $5^{x}=100$, lalu jelaskan mengapa yang kedua memerlukan logaritma. (2) Tentukan $x$ dari $\\log_{2}(x-1)=3$ dan sebutkan syarat numerus yang harus dipenuhi. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Persamaan Eksponen dan Logaritma** untuk latihan tambahan.`,
     },
   ],
 };

@@ -176,6 +176,32 @@ diperoleh $x=1$ dan $y=5$.`,
             ],
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Balik tiap kartu untuk menguji jenis dan sifat matriks.",
+          cards: [
+            {
+              front: "Matriks persegi",
+              back: "Matriks yang banyak barisnya sama dengan banyak kolomnya.",
+            },
+            {
+              front: "Matriks diagonal",
+              back: "Matriks persegi dengan semua entri di luar diagonal utama bernilai nol.",
+            },
+            {
+              front: "Matriks identitas",
+              back: "Matriks diagonal yang entri diagonalnya satu; berlaku $AI = IA = A$.",
+            },
+            {
+              front: "Matriks segitiga atas",
+              back: "Matriks persegi dengan semua entri di bawah diagonal utama nol.",
+            },
+            {
+              front: "Matriks singular",
+              back: "Matriks persegi yang determinannya nol sehingga tidak memiliki invers.",
+            },
+          ],
+        },
       ],
     },
     {
@@ -356,8 +382,12 @@ Jadi $x=2$ dan $y=3$. Periksa: $2(2)+3=7$ dan $2+3(3)=11$. Benar.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Matriks dipakai untuk menyusun dan mengolah data berdimensi banyak, misalnya tabel penjualan beberapa toko atau nilai siswa pada beberapa mata pelajaran. Dengan operasi matriks, total dan rata-rata dapat dihitung serentak.
-Dalam grafika komputer, matriks mentransformasi posisi titik sehingga gambar dapat digeser, diputar, dan diperbesar. Dalam ekonomi, matriks digunakan untuk menganalisis keterkaitan antar sektor. Penyelesaian sistem persamaan besar pada rekayasa juga bertumpu pada invers dan eliminasi matriks.`,
+      body: `Matriks dipakai untuk menyusun dan mengolah data berdimensi banyak. Misalnya sebuah kios mencatat penjualan dua jenis kue selama Senin dan Selasa dalam matriks
+$$S = \\begin{pmatrix} 3 & 4 \\\\ 5 & 2 \\end{pmatrix},$$
+dengan baris menyatakan hari dan kolom menyatakan jenis kue. Total tiap jenis kue adalah jumlah kolom, yaitu kue A $3+5=8$ dan kue B $4+2=6$. Bila harga kue A Rp5.000 dan kue B Rp8.000, pendapatan tiap hari diperoleh dari
+$$S\\begin{pmatrix} 5000 \\\\ 8000 \\end{pmatrix} = \\begin{pmatrix} 3(5000)+4(8000) \\\\ 5(5000)+2(8000) \\end{pmatrix} = \\begin{pmatrix} 47000 \\\\ 41000 \\end{pmatrix},$$
+yaitu Rp47.000 pada Senin dan Rp41.000 pada Selasa, dengan total Rp88.000. Dalam ekonomi, matriks serupa dipakai untuk menganalisis keterkaitan antar sektor, dan penyelesaian sistem persamaan besar pada rekayasa bertumpu pada invers matriks.
+Untuk penggunaan matriks dalam transformasi geometri seperti rotasi, refleksi, dan dilatasi, lihat topik **Matriks Transformasi** dan **Transformasi Geometri**; topik ini fokus pada operasi dan determinan.`,
     },
     {
       id: "kesalahan-umum",
@@ -468,7 +498,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana susunan bilangan ini meringkas dan menyelesaikan banyak perhitungan.",
+      body: "Tinjau kembali bagaimana satu susunan bilangan dapat mewakili data sekaligus menyelesaikan sistem persamaan.",
       blocks: [
         {
           kind: "reflection",
@@ -533,7 +563,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa perkalian matriks tidak komutatif, dan apa akibatnya saat menyusun transformasi? (2) Mengapa determinan perlu diperiksa sebelum menghitung invers? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Matriks** untuk latihan tambahan.`,
+      body: `**Cek pemahaman.** (1) Mengapa ordo kedua matriks harus sama agar penjumlahannya terdefinisi? (2) Mengapa nilai determinan menentukan apakah sebuah matriks memiliki invers? Setelah menjawab, lanjutkan ke [Latihan & Asesmen](/latihan) topik **Matriks** untuk latihan tambahan.`,
     },
   ],
 };

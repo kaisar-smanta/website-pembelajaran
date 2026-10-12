@@ -19,7 +19,17 @@ import IntegralExplorer from './IntegralExplorer.astro';
 import RandomVariableExplorer from './RandomVariableExplorer.astro';
 import LimitExplorer from './LimitExplorer.astro';
 import BinomialExplorer from './BinomialExplorer.astro';
+import NormalDistributionExplorer from './NormalDistributionExplorer.astro';
+import TriangleExplorer from './TriangleExplorer.astro';
 import VectorExplorer from './VectorExplorer.astro';
+import SignChartExplorer from './SignChartExplorer.astro';
+import LogarithmExplorer from './LogarithmExplorer.astro';
+import CountingTreeExplorer from './CountingTreeExplorer.astro';
+import AmortizationExplorer from './AmortizationExplorer.astro';
+import NumberTheoryExplorer from './NumberTheoryExplorer.astro';
+import InductionExplorer from './InductionExplorer.astro';
+import ConfoundingExplorer from './ConfoundingExplorer.astro';
+import FunctionFamilyExplorer from './FunctionFamilyExplorer.astro';
 import GeogebraEmbed from './GeogebraEmbed.astro';
 import SimSkeleton from './SimSkeleton.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
@@ -56,6 +66,16 @@ const SIM_COMPONENTS = {
   'random-variable': RandomVariableExplorer,
   limit: LimitExplorer,
   'binomial-distribution': BinomialExplorer,
+  'normal-distribution': NormalDistributionExplorer,
+  triangle: TriangleExplorer,
+  'sign-chart': SignChartExplorer,
+  logarithm: LogarithmExplorer,
+  'counting-tree': CountingTreeExplorer,
+  amortization: AmortizationExplorer,
+  'number-theory': NumberTheoryExplorer,
+  induction: InductionExplorer,
+  confounding: ConfoundingExplorer,
+  'function-family': FunctionFamilyExplorer,
   geogebra: null,
 } satisfies Record<ExplorationType, unknown>;
 

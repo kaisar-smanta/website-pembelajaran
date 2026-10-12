@@ -1,0 +1,264 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+const initialAria =
+  'Segitiga sembarang dengan sudut A = 30 derajat, B = 60 derajat, dan sisi a = 5';
+---
+
+<figure class="sim triangle-sim" data-triangle data-exploration={exploration.id}>
+  <p
+    class="sim-hint"
+    set:html={renderMarkdown(
+      'Atur dua sudut $A$, $B$ dan sisi $a$ di hadapan $A$. Aturan sinus menentukan sudut ketiga $C$ serta sisi $b$ dan $c$. Perhatikan bahwa rasio $\\dfrac{a}{\\sin A}$ selalu sama untuk ketiga sisi.',
+    )}
+  />
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Sudut A (°) <output data-value="A">30</output></span>
+      <input type="range" min="10" max="160" step="1" value="30" data-field="A" aria-label="Sudut A" />
+    </label>
+    <label class="sim-field">
+      <span>Sudut B (°) <output data-value="B">60</output></span>
+      <input type="range" min="10" max="160" step="1" value="60" data-field="B" aria-label="Sudut B" />
+    </label>
+    <label class="sim-field">
+      <span>Sisi a <output data-value="a">5</output></span>
+      <input type="range" min="1" max="20" step="0.5" value="5" data-field="a" aria-label="Sisi a" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-triangle-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg viewBox="0 0 480 300" role="img" aria-label={initialAria} data-chart></svg>
+    <div class="legend sim-legend">
+      <span class="l1">Segitiga</span>
+      <span class="l2">Titik sudut</span>
+      <span class="l3">Besar sudut</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 34rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .legend .l1 {
+    color: var(--color-algebra);
+  }
+  .legend .l2 {
+    color: var(--color-primary);
+  }
+  .legend .l3 {
+    color: var(--color-warning);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+</style>
+
+<script>
+  import {
+    solveTriangleAAS,
+    triangleVertices,
+    sineRuleRatios,
+  } from '../../lib/sim/triangle';
+  import { el, clear, clamp, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  function setupTriangle(root: Element) {
+    const inA = root.querySelector('[data-field="A"]') as HTMLInputElement;
+    const inB = root.querySelector('[data-field="B"]') as HTMLInputElement;
+    const inSide = root.querySelector('[data-field="a"]') as HTMLInputElement;
+    const outA = root.querySelector('[data-value="A"]') as HTMLOutputElement;
+    const outB = root.querySelector('[data-value="B"]') as HTMLOutputElement;
+    const outSide = root.querySelector('[data-value="a"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-chart]') as SVGSVGElement;
+    const readout = root.querySelector('[data-readout]') as HTMLOutputElement;
+    const reset = root.querySelector('[data-triangle-reset]') as HTMLButtonElement;
+
+    const W = 480;
+    const H = 300;
+    const pad = 46;
+
+    function draw(sol: ReturnType<typeof solveTriangleAAS>) {
+      clear(svg);
+      if (!sol) return;
+      const verts = triangleVertices(sol);
+      const xs = verts.map((v) => v.x);
+      const ys = verts.map((v) => v.y);
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+      const minY = Math.min(...ys);
+      const maxY = Math.max(...ys);
+      const spanX = Math.max(1e-6, maxX - minX);
+      const spanY = Math.max(1e-6, maxY - minY);
+      const scale = Math.min((W - 2 * pad) / spanX, (H - 2 * pad) / spanY);
+      const toX = (x: number) => pad + (x - minX) * scale;
+      const toY = (y: number) => H - pad - (y - minY) * scale;
+
+      const mapped = verts.map((v) => [toX(v.x), toY(v.y)] as [number, number]);
+      const [pA, pB, pC] = mapped;
+
+      svg.appendChild(
+        el('path', {
+          d: `M${pA[0].toFixed(1)} ${pA[1].toFixed(1)} L${pB[0].toFixed(1)} ${pB[1].toFixed(1)} L${pC[0].toFixed(1)} ${pC[1].toFixed(1)} Z`,
+          fill: 'var(--color-algebra)',
+          'fill-opacity': 0.14,
+          stroke: 'var(--color-algebra)',
+          'stroke-width': 2.4,
+          'stroke-linejoin': 'round',
+        }),
+      );
+
+      const centroidX = (pA[0] + pB[0] + pC[0]) / 3;
+      const centroidY = (pA[1] + pB[1] + pC[1]) / 3;
+      const labels: Array<[string, [number, number]]> = [
+        ['A', pA],
+        ['B', pB],
+        ['C', pC],
+      ];
+      labels.forEach(([name, p]) => {
+        svg.appendChild(el('circle', { cx: p[0], cy: p[1], r: 4.4, fill: 'var(--color-primary)' }));
+        const dx = p[0] - centroidX;
+        const dy = p[1] - centroidY;
+        const len = Math.hypot(dx, dy) || 1;
+        const label = el('text', {
+          x: p[0] + (dx / len) * 16,
+          y: p[1] + (dy / len) * 16 + 4,
+          'text-anchor': 'middle',
+          'font-size': 13,
+          'font-weight': 700,
+          fill: 'var(--color-text)',
+        });
+        label.textContent = name;
+        svg.appendChild(label);
+      });
+
+      const angleLabel = el('text', {
+        x: W - pad,
+        y: 26,
+        'text-anchor': 'end',
+        'font-size': 11,
+        fill: 'var(--color-warning)',
+      });
+      angleLabel.textContent = `A = ${sol.A}°, B = ${sol.B}°, C = ${sol.C}°`;
+      svg.appendChild(angleLabel);
+    }
+
+    function stat(label: string, text: string): string {
+      return `<div class="stat"><span>${label}</span><strong>${text}</strong></div>`;
+    }
+
+    function render() {
+      const A = clamp(Number(inA.value), 10, 160);
+      const B = clamp(Number(inB.value), 10, 170 - A);
+      const a = clamp(Number(inSide.value), 1, 20);
+
+      inA.value = String(A);
+      inB.value = String(B);
+      inSide.value = String(a);
+      outA.textContent = formatPlain(A);
+      outB.textContent = formatPlain(B);
+      outSide.textContent = formatPlain(a);
+
+      const sol = solveTriangleAAS(A, B, a);
+      draw(sol);
+      if (!sol) {
+        readout.innerHTML = stat('Status', 'segitiga tidak sah');
+        return;
+      }
+      const ratio = sineRuleRatios(sol)[0];
+      svg.setAttribute(
+        'aria-label',
+        `Segitiga dengan A = ${sol.A}°, B = ${sol.B}°, C = ${sol.C}°; sisi a = ${formatPlain(sol.a)}, b = ${formatPlain(Number(sol.b.toFixed(3)))}, c = ${formatPlain(Number(sol.c.toFixed(3)))}`,
+      );
+      readout.innerHTML =
+        stat('Sudut ketiga C', `${formatPlain(sol.C)}°`) +
+        stat('Sisi b = a sin B / sin A', formatPlain(Number(sol.b.toFixed(3)))) +
+        stat('Sisi c = a sin C / sin A', formatPlain(Number(sol.c.toFixed(3)))) +
+        stat('Luas = ½·a·b·sin C', formatPlain(Number(sol.area.toFixed(3)))) +
+        stat('Jari-jari lingkaran luar R', formatPlain(Number(sol.circumradius.toFixed(3)))) +
+        stat('Rasio a/sin A', `${formatPlain(Number(ratio.toFixed(3)))} (sama untuk ketiga sisi)`);
+    }
+
+    [inA, inB, inSide].forEach((input) => input.addEventListener('input', render));
+
+    reset.addEventListener('click', () => {
+      [inA, inB, inSide].forEach((input) => {
+        input.value = input.defaultValue;
+      });
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-triangle]'), setupTriangle);
+</script>

@@ -4,6 +4,8 @@ import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
 import { seededShuffle } from '@/lib/learner';
+import Figure from '@/components/content/Figure.astro';
+import DataTable from '@/components/content/DataTable.astro';
 
 interface Props {
   question: Question;
@@ -58,6 +60,9 @@ const competencies = question.competencies ?? [];
   </header>
 
   <div class="q-prompt prose" set:html={promptHtml} />
+
+  {question.figure && <Figure block={{ kind: 'figure', ...question.figure }} />}
+  {question.table && <DataTable block={{ kind: 'table', ...question.table }} />}
 
   {
     question.type === 'multiple-choice' && question.options && (

@@ -210,6 +210,12 @@ Sebagai contoh, jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Lingkaran berpusat O dengan titik A dan B pada lingkaran serta titik C pada busur mayor. Sudut pusat AOB dan sudut keliling ACB sama-sama menghadap busur AB.",
+          caption: "Sudut pusat $\\angle AOB$ dan sudut keliling $\\angle ACB$ menghadap busur $AB$ yang sama, sehingga $\\angle AOB = 2\\,\\angle ACB$. Di sini $\\angle AOB=140^\\circ$ dan $\\angle ACB=70^\\circ$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><circle cx="150" cy="130" r="80" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="150" y1="130" x2="75" y2="157" stroke="currentColor" stroke-width="1.6"/><line x1="150" y1="130" x2="225" y2="157" stroke="currentColor" stroke-width="1.6"/><line x1="150" y1="50" x2="75" y2="157" stroke="currentColor" stroke-width="1.6"/><line x1="150" y1="50" x2="225" y2="157" stroke="currentColor" stroke-width="1.6"/><path d="M133.1,136.2 A18,18 0 0 0 166.9,136.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M140.8,63.1 A16,16 0 0 0 159.2,63.1" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="150" cy="130" r="3" fill="currentColor"/><circle cx="150" cy="50" r="3" fill="currentColor"/><circle cx="75" cy="157" r="3" fill="currentColor"/><circle cx="225" cy="157" r="3" fill="currentColor"/><text x="138" y="147" font-size="13" fill="currentColor">O</text><text x="60" y="170" font-size="13" fill="currentColor">A</text><text x="230" y="170" font-size="13" fill="currentColor">B</text><text x="144" y="42" font-size="13" fill="currentColor">C</text><text x="90" y="228" font-size="12" fill="currentColor">\u2220AOB = 2\u00b7\u2220ACB</text></svg>',
+        },
       ],
     },
     {
@@ -239,6 +245,14 @@ Contoh: untuk $r=14$, $\\theta=90^\\circ$, dan $\\pi=\\dfrac{22}{7}$. Luas jurin
 $$L_{\\text{segitiga}}=\\frac{1}{2}\\times14\\times14=98, \\qquad L_{\\text{tembereng}}=154-98=56.$$
 
 Perhatikan bahwa tembereng selalu lebih kecil daripada juring karena sebagian daerah telah ditempati segitiga.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Juring lingkaran OAB seperempat lingkaran dengan jari-jari OA dan OB serta tali busur AB. Daerah antara tali busur dan busur diarsir sebagai tembereng.",
+          caption: "Tembereng adalah daerah juring $OAB$ dikurangi segitiga $OAB$. Daerah yang diarsir di antara tali busur $AB$ dan busur $AB$ adalah tembereng; luasnya $L_{\\text{juring}}-L_{\\text{segitiga}}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><path d="M140,60 A80,80 0 0 1 220,140 L140,60 Z" fill="currentColor" fill-opacity="0.16" stroke="none"/><circle cx="140" cy="140" r="80" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="140" y1="140" x2="140" y2="60" stroke="currentColor" stroke-width="1.6"/><line x1="140" y1="140" x2="220" y2="140" stroke="currentColor" stroke-width="1.6"/><line x1="140" y1="60" x2="220" y2="140" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4"/><circle cx="140" cy="140" r="3" fill="currentColor"/><circle cx="140" cy="60" r="3" fill="currentColor"/><circle cx="220" cy="140" r="3" fill="currentColor"/><text x="126" y="156" font-size="13" fill="currentColor">O</text><text x="130" y="52" font-size="13" fill="currentColor">A</text><text x="226" y="146" font-size="13" fill="currentColor">B</text><text x="168" y="90" font-size="12" fill="currentColor">tembereng</text><text x="60" y="228" font-size="12" fill="currentColor">tembereng = juring OAB \u2212 segitiga OAB</text></svg>',
+        },
+      ],
     },
     {
       id: "garis-singgung",
@@ -294,40 +308,31 @@ $$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}, \\qquad \\ell_{\\text{dalam}}=\\
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Pada lingkaran berpusat $O$, $\\angle AOB=80^\\circ$ dan titik $C$ berada pada lingkaran sehingga $A,B,C$ pada busur yang sama. Tentukan $\\angle ACB$.
-
-*Penyelesaian.* Karena sudut keliling setengah sudut pusat yang menghadap busur sama,
-$$\\angle ACB=\\frac{1}{2}\\times80^\\circ=40^\\circ.$$
-
-**Contoh 2.** Tentukan panjang busur dan luas juring lingkaran berjari-jari $14$ cm dengan sudut pusat $90^\\circ$ dan $\\pi=\\dfrac{22}{7}$.
-
-*Penyelesaian.*
-$$s=\\frac{90}{360}\\times2\\times\\frac{22}{7}\\times14=22 \\text{ cm}, \\qquad L=\\frac{90}{360}\\times\\frac{22}{7}\\times14^{2}=154 \\text{ cm}^{2}.$$
-
-**Contoh 3.** Titik $P$ berada $13$ cm dari pusat lingkaran berjari-jari $5$ cm. Tentukan panjang garis singgung dari $P$.
-
-*Penyelesaian.*
-$$\\ell=\\sqrt{13^{2}-5^{2}}=\\sqrt{169-25}=\\sqrt{144}=12 \\text{ cm}.$$`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari hitung panjang busur dan luas juring untuk $r=14$ cm dan sudut pusat $90^\\circ$, satu langkah sekaligus.",
+          intro: "Kerjakan tiga contoh berikut satu langkah sekaligus.",
           steps: [
             {
-              title: "Tentukan pecahan sudut",
-              text: "Sudut $90^\\circ$ adalah $\\dfrac{90}{360}=\\dfrac{1}{4}$ dari satu putaran penuh.",
+              title: "Contoh 1: sudut pusat dan sudut keliling",
+              text: `Pada lingkaran berpusat $O$, $\\angle AOB=80^\\circ$ dan titik $C$ berada pada lingkaran sehingga $A,B,C$ pada busur yang sama. Tentukan $\\angle ACB$.
+
+*Penyelesaian.* Karena sudut keliling setengah sudut pusat yang menghadap busur sama,
+$$\\angle ACB=\\frac{1}{2}\\times80^\\circ=40^\\circ.$$`,
             },
             {
-              title: "Panjang busur",
-              text: "$s=\\dfrac{1}{4}\\times2\\pi r=\\dfrac{1}{4}\\times2\\times\\dfrac{22}{7}\\times14=22$ cm.",
+              title: "Contoh 2: panjang busur dan luas juring",
+              text: `Tentukan panjang busur dan luas juring lingkaran berjari-jari $14$ cm dengan sudut pusat $90^\\circ$ dan $\\pi=\\dfrac{22}{7}$.
+
+*Penyelesaian.* Sudut $90^\\circ$ adalah $\\dfrac{90}{360}=\\dfrac{1}{4}$ putaran penuh, sehingga
+$$s=\\frac{1}{4}\\times2\\pi r=\\frac{1}{4}\\times2\\times\\frac{22}{7}\\times14=22 \\text{ cm}, \\qquad L=\\frac{1}{4}\\times\\pi r^{2}=\\frac{1}{4}\\times\\frac{22}{7}\\times196=154 \\text{ cm}^{2}.$$`,
             },
             {
-              title: "Luas juring",
-              text: "$L=\\dfrac{1}{4}\\times\\pi r^{2}=\\dfrac{1}{4}\\times\\dfrac{22}{7}\\times196=154$ cm².",
-            },
-            {
-              title: "Tafsirkan",
-              text: "Juring $90^\\circ$ dari lingkaran berjari-jari $14$ cm memiliki busur $22$ cm dan luas $154$ cm².",
+              title: "Contoh 3: garis singgung dari titik luar",
+              text: `Titik $P$ berada $13$ cm dari pusat lingkaran berjari-jari $5$ cm. Tentukan panjang garis singgung dari $P$.
+
+*Penyelesaian.*
+$$\\ell=\\sqrt{13^{2}-5^{2}}=\\sqrt{169-25}=\\sqrt{144}=12 \\text{ cm}.$$`,
             },
           ],
         },
@@ -355,7 +360,9 @@ $$\\ell=\\sqrt{13^{2}-5^{2}}=\\sqrt{169-25}=\\sqrt{144}=12 \\text{ cm}.$$`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Busur dan juring dipakai merancang taman, kolam, dan arena; garis singgung persekutuan dipakai menghitung panjang **sabuk** atau rantai yang melilit dua roda mesin. Ketika dua roda berjari-jari berbeda dihubungkan sabuk, panjang sabuk merupakan gabungan dua garis singgung persekutuan luar dan dua busur.
+      body: `Busur dan juring dipakai merancang taman, kolam, dan arena. Sebuah taman berbentuk juring berjari-jari $7$ m dengan sudut pusat $90^\\circ$ memerlukan rumput seluas $\\dfrac{1}{4}\\pi(7)^2\\approx38{,}5$ m² dan pagar pada sisi lengkungnya sepanjang $\\dfrac{1}{4}\\cdot2\\pi(7)\\approx11$ m.
+
+Garis singgung persekutuan dipakai menghitung panjang **sabuk** atau rantai yang melilit dua roda mesin. Bila dua roda berjari-jari $R=8$ cm dan $r=3$ cm dengan jarak pusat $d=13$ cm, panjang sabuk lurus bagian luar pada tiap sisi adalah $\\sqrt{13^{2}-(8-3)^{2}}=\\sqrt{144}=12$ cm, ditambah dua busur pada roda.
 
 Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-taman).`,
     },
@@ -470,7 +477,7 @@ Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana sifat lingkaran dan sudutnya muncul dalam rancangan sehari-hari.",
+      body: "Tinjau kembali bagaimana sifat sudut dan jarak lingkaran muncul pada rancangan sehari-hari.",
       blocks: [
         {
           kind: "reflection",
@@ -532,7 +539,7 @@ Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Kapan sudut pusat sama dengan dua kali sudut keliling, dan mengapa syarat busur yang sama penting? (2) Dari mana asal rumus panjang garis singgung dari sebuah titik di luar lingkaran? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Lingkaran** untuk latihan tambahan.`,
+      body: `**Rangkuman akhir.** (1) Kapan sudut pusat sama dengan dua kali sudut keliling, dan mengapa syarat busur yang sama penting? (2) Dari mana asal rumus panjang garis singgung dari sebuah titik di luar lingkaran? Setelah menjawab, uji pemahamanmu pada [Latihan & Asesmen](/latihan) topik **Lingkaran**.`,
     },
   ],
 };

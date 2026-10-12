@@ -102,7 +102,7 @@ Jika keduanya berhasil, maka $P(n)$ benar untuk setiap $n \\ge n_0$.`,
         {
           kind: 'callout',
           variant: 'concept',
-          title: 'Inti yang perlu diingat',
+          title: 'Dua syarat, satu kesimpulan pasti',
           text: 'Basis membuktikan "domino pertama jatuh", sedangkan langkah induksi membuktikan "setiap domino menjatuhkan domino berikutnya". Keduanya wajib ada; bila salah satu hilang, kesimpulan tidak sah.',
         },
         {
@@ -126,6 +126,12 @@ Jika keduanya berhasil, maka $P(n)$ benar untuk setiap $n \\ge n_0$.`,
               back: 'Setelah basis dan langkah induksi benar, $P(n)$ benar untuk semua $n \\ge n_0$.',
             },
           ],
+        },
+        {
+          kind: 'figure',
+          alt: 'Rantai lingkaran berlabel P(1), P(2), P(3), lalu P(k) dan P(k+1), dengan tanda panah menegaskan langkah dari P(k) ke P(k+1) serta penanda basis pada P(1).',
+          caption: 'Langkah induksi menjembatani kebenaran $P(k)$ menuju $P(k+1)$; basis menyalakan rantai pada $P(1)$, sehingga seluruh rantai ikut jatuh.',
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><defs><marker id="fig-ind-step-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><circle cx="42" cy="110" r="15" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="92" cy="110" r="15" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="142" cy="110" r="15" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="225" cy="110" r="15" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="285" cy="110" r="15" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="57" y1="110" x2="75" y2="110" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-ind-step-arrow)"/><line x1="107" y1="110" x2="125" y2="110" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-ind-step-arrow)"/><line x1="157" y1="110" x2="208" y2="110" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="240" y1="110" x2="268" y2="110" stroke="currentColor" stroke-width="2" marker-end="url(#fig-ind-step-arrow)"/><text x="42" y="114" font-size="11" fill="currentColor" text-anchor="middle">P(1)</text><text x="92" y="114" font-size="11" fill="currentColor" text-anchor="middle">P(2)</text><text x="142" y="114" font-size="11" fill="currentColor" text-anchor="middle">P(3)</text><text x="182" y="116" font-size="14" fill="currentColor" text-anchor="middle">...</text><text x="225" y="114" font-size="10" fill="currentColor" text-anchor="middle">P(k)</text><text x="285" y="114" font-size="10" fill="currentColor" text-anchor="middle">P(k+1)</text><text x="254" y="88" font-size="11" fill="currentColor" text-anchor="middle">P(k) =&gt; P(k+1)</text><text x="42" y="150" font-size="11" fill="currentColor" text-anchor="middle">basis</text><text x="255" y="150" font-size="11" fill="currentColor" text-anchor="middle">langkah induksi</text></svg>',
         },
       ],
     },
@@ -183,6 +189,18 @@ Jika keduanya berhasil, maka $P(n)$ benar untuk setiap $n \\ge n_0$.`,
       ],
     },
     {
+      id: 'eksplorasi-domino',
+      kind: 'eksplorasi',
+      title: 'Eksplorasi Rantai Domino Induksi',
+      body: 'Setelah mengamati pola, telusuri kerangka pembuktian induksi langkah demi langkah. Pilih pernyataan $P(n)$, atur nilai $k$, lalu periksa bagaimana basis $P(1)$ dan langkah $P(k) \\Rightarrow P(k+1)$ menyalakan seluruh rantai domino.',
+      blocks: [
+        {
+          kind: 'exploration',
+          explorationId: 'induksi-domino',
+        },
+      ],
+    },
+    {
       id: 'generalisasi',
       kind: 'generalisasi',
       title: 'Menurunkan Rumus Jumlah dengan Induksi',
@@ -228,41 +246,11 @@ $$1+r+r^2+\\cdots+r^{n-1}=\\frac{r^{n}-1}{r-1}.$$`,
       id: 'contoh',
       kind: 'contoh',
       title: 'Contoh Terbimbing',
-      body: `**Contoh 1.** Buktikan dengan induksi bahwa $1+3+5+\\cdots+(2n-1)=n^2$ untuk setiap $n \\ge 1$.
-
-*Penyelesaian.* Basis $n=1$: ruas kiri $=1=1^2$, benar. Andaikan benar untuk $n=k$, yaitu $1+3+\\cdots+(2k-1)=k^2$. Maka
-
-$$1+3+\\cdots+(2k-1)+(2k+1)=k^2+(2k+1)=(k+1)^2.$$
-
-Jadi $P(k+1)$ benar dan rumus terbukti.
-
-**Contoh 2.** Buktikan bahwa $6^n-1$ habis dibagi $5$ untuk setiap $n \\ge 1$.
-
-*Penyelesaian.* Basis $n=1$: $6^1-1=5$ habis dibagi $5$. Andaikan $6^k-1$ habis dibagi $5$. Perhatikan
-
-$$6^{k+1}-1=6\\cdot 6^k-1=6(6^k-1)+5.$$
-
-Karena $6(6^k-1)$ habis dibagi $5$ (dari hipotesis) dan $5$ juga habis dibagi $5$, maka $6^{k+1}-1$ habis dibagi $5$. Terbukti.
-
-**Contoh 3.** Buktikan dengan induksi bahwa $1^2+2^2+\\cdots+n^2=\\dfrac{n(n+1)(2n+1)}{6}$ untuk setiap $n \\ge 1$.
-
-*Penyelesaian.* Basis $n=1$: ruas kiri $=1$, ruas kanan $=\\dfrac{1\\cdot2\\cdot3}{6}=1$, benar. Andaikan benar untuk $n=k$, yaitu $1^2+\\cdots+k^2=\\dfrac{k(k+1)(2k+1)}{6}$. Tambahkan suku ke-$(k+1)$, yaitu $(k+1)^2$:
-
-$$\\frac{k(k+1)(2k+1)}{6}+(k+1)^2=\\frac{k(k+1)(2k+1)+6(k+1)^2}{6}.$$
-
-Keluarkan faktor $(k+1)$ dan jabarkan:
-
-$$=\\frac{(k+1)\\big(k(2k+1)+6(k+1)\\big)}{6}=\\frac{(k+1)(2k^2+7k+6)}{6}.$$
-
-Karena $2k^2+7k+6=(k+2)(2k+3)$, diperoleh
-
-$$=\\frac{(k+1)(k+2)(2k+3)}{6}=\\frac{(k+1)\\big((k+1)+1\\big)\\big(2(k+1)+1\\big)}{6},$$
-
-tepat bentuk $P(k+1)$. Jadi $P(n)$ benar untuk semua $n \\ge 1$.`,
+      body: `Setiap pembuktian induksi mengikuti kerangka yang sama: tulis basis, nyatakan hipotesis, lalu ubah bentuk $P(k)$ menjadi $P(k+1)$. Ikuti ketiga contoh berikut langkah demi langkah, dan perhatikan di titik mana hipotesis induksi benar-benar dipakai.`,
       blocks: [
         {
           kind: 'step-reveal',
-          intro: 'Ikuti langkah pembuktian $P(n): 1+3+5+\\cdots+(2n-1)=n^2$ satu per satu.',
+          intro: 'Contoh 1: buktikan $P(n): 1+3+5+\\cdots+(2n-1)=n^2$ untuk setiap $n \\ge 1$.',
           steps: [
             {
               title: 'Langkah 1: Basis',
@@ -279,6 +267,70 @@ tepat bentuk $P(k+1)$. Jadi $P(n)$ benar untuk semua $n \\ge 1$.`,
             {
               title: 'Langkah 4: Sederhanakan',
               text: '$k^2+2k+1=(k+1)^2$, tepat bentuk $P(k+1)$. Dengan demikian $P(n)$ benar untuk semua $n \\ge 1$.',
+            },
+          ],
+        },
+        {
+          kind: 'step-reveal',
+          intro: 'Contoh 2: buktikan bahwa $6^n-1$ habis dibagi $5$ untuk setiap $n \\ge 1$.',
+          steps: [
+            {
+              title: 'Langkah 1: Tulis pernyataan',
+              text: 'Pernyataan $P(n)$: $6^n-1$ habis dibagi $5$, untuk setiap $n \\ge 1$.',
+            },
+            {
+              title: 'Langkah 2: Periksa basis',
+              text: 'Untuk $n=1$, $6^1-1=5$ habis dibagi $5$, jadi $P(1)$ benar.',
+            },
+            {
+              title: 'Langkah 3: Nyatakan hipotesis',
+              text: 'Andaikan $P(k)$ benar, yaitu $6^k-1$ habis dibagi $5$. Tuliskan $6^k-1=5m$ untuk suatu bilangan bulat $m$.',
+            },
+            {
+              title: 'Langkah 4: Bentuk $P(k+1)$',
+              text: 'Perhatikan $6^{k+1}-1=6\\cdot 6^k-1=6(6^k-1)+5$.',
+            },
+            {
+              title: 'Langkah 5: Pakai hipotesis',
+              text: 'Substitusikan $6^k-1=5m$: $6^{k+1}-1=6(5m)+5=5(6m+1)$, yang habis dibagi $5$. Jadi $P(k+1)$ benar.',
+            },
+            {
+              title: 'Langkah 6: Kesimpulan',
+              text: 'Basis dan langkah induksi benar, sehingga $6^n-1$ habis dibagi $5$ untuk semua $n \\ge 1$.',
+            },
+          ],
+        },
+        {
+          kind: 'step-reveal',
+          intro: 'Contoh 3: buktikan $1^2+2^2+\\cdots+n^2=\\dfrac{n(n+1)(2n+1)}{6}$ untuk setiap $n \\ge 1$.',
+          steps: [
+            {
+              title: 'Langkah 1: Tulis target',
+              text: 'Pernyataan $P(n)$: $1^2+2^2+\\cdots+n^2=\\dfrac{n(n+1)(2n+1)}{6}$.',
+            },
+            {
+              title: 'Langkah 2: Periksa basis',
+              text: 'Untuk $n=1$: ruas kiri $=1$, ruas kanan $=\\dfrac{1\\cdot2\\cdot3}{6}=1$. Basis benar.',
+            },
+            {
+              title: 'Langkah 3: Nyatakan hipotesis',
+              text: 'Andaikan $P(k)$ benar, yaitu $1^2+2^2+\\cdots+k^2=\\dfrac{k(k+1)(2k+1)}{6}$.',
+            },
+            {
+              title: 'Langkah 4: Tambahkan suku berikutnya',
+              text: 'Tambahkan $(k+1)^2$: $1^2+\\cdots+k^2+(k+1)^2=\\dfrac{k(k+1)(2k+1)}{6}+(k+1)^2$.',
+            },
+            {
+              title: 'Langkah 5: Samakan penyebut',
+              text: '$=\\dfrac{k(k+1)(2k+1)+6(k+1)^2}{6}=\\dfrac{(k+1)\\big(k(2k+1)+6(k+1)\\big)}{6}$.',
+            },
+            {
+              title: 'Langkah 6: Faktorkan',
+              text: 'Karena $k(2k+1)+6(k+1)=2k^2+7k+6=(k+2)(2k+3)$, hasilnya $\\dfrac{(k+1)(k+2)(2k+3)}{6}=\\dfrac{(k+1)\\big((k+1)+1\\big)\\big(2(k+1)+1\\big)}{6}$.',
+            },
+            {
+              title: 'Langkah 7: Kesimpulan',
+              text: 'Bentuk terakhir adalah $P(k+1)$, jadi rumus terbukti untuk semua $n \\ge 1$.',
             },
           ],
         },
@@ -440,7 +492,7 @@ Buktikan ketaksamaan ini dengan induksi matematika.`,
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
-      body: '**Tiket keluar.** (1) Tuliskan dua syarat yang harus dipenuhi agar induksi matematika sah. (2) Jelaskan peran hipotesis induksi pada langkah $k \\to k+1$. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Induksi Matematika** untuk latihan tambahan.',
+      body: '**Tugas akhir.** Kerjakan dua hal. (1) Tuliskan satu klaim yang benar untuk beberapa nilai awal tetapi sebenarnya salah untuk semua $n$, lalu jelaskan mengapa induksi akan gagal membuktikannya. (2) Susun kerangka tiga baris: basis, hipotesis, dan langkah induksi. Lanjutkan berlatih di [Latihan & Asesmen](/latihan) topik **Induksi Matematika**.',
     },
   ],
 };

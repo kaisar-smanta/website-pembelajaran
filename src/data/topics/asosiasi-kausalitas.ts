@@ -100,7 +100,7 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Ingat: pola belum tentu sebab",
           text: "Data hanya dapat menunjukkan **bahwa** dua hal bergerak bersama. Menjawab **mengapa** memerlukan penalaran tambahan: variabel perancu, urutan waktu, dan eksperimen.",
         },
         {
@@ -255,28 +255,57 @@ Hati-hati: rumus-rumus ini hanya mengukur **kekuatan asosiasi**. Rumus itu tidak
       ],
     },
     {
+      id: "eksplorasi-paradoks-simpson",
+      kind: "eksplorasi",
+      title: "Eksplorasi Paradoks Simpson",
+      body: "Setelah memeriksa tabel dua arah, susunlah data menjadi dua strata. Ubah ukuran dan tingkat keberhasilan tiap kelompok sampai arah kesimpulan gabungan berbalik terhadap tiap strata, lalu jelaskan mengapa variabel perancu harus dikendalikan.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "asosiasi-simpson",
+        },
+      ],
+    },
+    {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
       blocks: [
         {
           kind: "step-reveal",
+          intro: "Tiap contoh dipreteli langkah demi langkah: kenali klaimnya, cari penjelasan alternatif, lalu simpulkan.",
           steps: [
             {
-              title: "Contoh 1",
-              text: "Korelasi positif kuat antara penjualan es krim dan angka kejahatan. **Analisis:** keduanya meningkat pada musim panas. Variabel perancu = suhu/iklim. **Kesimpulan:** asosiasi saja, bukan kausalitas.",
+              title: "Contoh 1: es krim dan angka kejahatan",
+              text: `Dua data bergerak bersama: saat penjualan es krim naik, angka kejahatan juga naik.
+
+*Analisis.* Keduanya memuncak pada musim panas. **Variabel perancu**-nya adalah suhu udara: cuaca panas mendorong orang membeli es krim sekaligus lebih banyak beraktivitas di luar, sehingga peluang kejahatan ikut naik.
+
+*Kesimpulan.* Yang ada hanya **asosiasi**, bukan kausalitas. Tidak ada alasan es krim menyebabkan kejahatan.`,
             },
             {
-              title: "Contoh 2",
-              text: "Anak berkaki besar lebih mahir membaca. **Analisis:** usia memengaruhi ukuran kaki dan kemampuan membaca. **Kesimpulan:** korelasi semu; variabel perancu = usia.",
+              title: "Contoh 2: ukuran sepatu dan kemampuan membaca",
+              text: `Anak berkaki lebih besar rata-rata lebih mahir membaca.
+
+*Analisis.* **Usia** memengaruhi keduanya: anak yang lebih tua berkaki lebih besar sekaligus lebih mahir membaca. Bila dibandingkan pada usia yang sama, hubungan itu menghilang.
+
+*Kesimpulan.* Ini **korelasi semu** dengan variabel perancu usia, bukan sebab-akibat langsung.`,
             },
             {
-              title: "Contoh 3",
-              text: "Studi observasional menemukan siswa yang sarapan berprestasi lebih baik. Namun siswa yang sarapan mungkin juga berasal dari keluarga dengan dukungan belajar lebih besar (perancu). Untuk menguji kausalitas, peneliti dapat melakukan **eksperimen acak**: sebagian siswa diberi sarapan, sebagian tidak, dengan pembagian acak. Bila kelompok yang diberi sarapan meningkat secara signifikan, bukti kausalnya jauh lebih kuat.",
+              title: "Contoh 3: sarapan dan prestasi belajar",
+              text: `Studi observasional menemukan siswa yang sarapan berprestasi lebih baik.
+
+*Analisis.* Siswa yang sarapan mungkin berasal dari keluarga dengan dukungan belajar lebih besar — sebuah **variabel perancu**. Untuk menguji kausalitas, peneliti dapat melakukan **eksperimen acak**: sebagian siswa diberi sarapan, sebagian tidak, dengan pembagian yang ditentukan acak.
+
+*Kesimpulan.* Bukti observasional saja lemah; bila kelompok yang diberi sarapan meningkat secara signifikan dalam eksperimen, klaim kausal menjadi jauh lebih kuat.`,
             },
             {
-              title: "Contoh 4",
-              text: "Data: \"pegawai yang lebih sering lembur melaporkan produktivitas lebih rendah.\" Bisa jadi lembur menurunkan produktivitas, atau **beban kerja yang tinggi** menyebabkan keduanya — atau pegawai kurang produktif justru harus lembur. Arah penyebabnya tidak jelas dari korelasi.",
+              title: "Contoh 4: lembur dan produktivitas",
+              text: `Data menunjukkan pegawai yang lebih sering lembur melaporkan produktivitas lebih rendah. Ada tiga penjelasan yang mungkin.
+
+*Analisis.* Pertama, lembur menurunkan produktivitas. Kedua, **beban kerja tinggi** menyebabkan keduanya sekaligus. Ketiga, pegawai yang kurang produktif justru harus lembur — inilah **kausalitas terbalik**.
+
+*Kesimpulan.* Arah sebab-akibatnya tidak dapat ditentukan dari korelasi saja; diperlukan data urutan waktu dan pengendalian variabel.`,
             },
           ],
         },
@@ -366,7 +395,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana kamu membedakan asosiasi dari sebab-akibat saat membaca klaim.",
+      body: "Setiap klaim berbasis data menyimpan satu pertanyaan besar: benarkah ini sebab-akibat? Renungan berikut melatihmu memeriksanya sebelum percaya.",
       blocks: [
         {
           kind: "reflection",
@@ -423,7 +452,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bukti apa yang perlu dikumpulkan sebelum mengubah asosiasi menjadi klaim sebab-akibat? (2) Bagaimana sebuah variabel perancu dapat menciptakan korelasi semu? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Asosiasi dan Kausalitas** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Sebuah berita menulis "pengguna media sosial lebih mudah cemas"; langkah apa yang kamu ambil sebelum mempercayai klaim itu sebagai sebab-akibat? (2) Jelaskan bagaimana satu variabel perancu dapat membuat dua hal tampak berkaitan padahal tidak. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Asosiasi dan Kausalitas** untuk latihan tambahan.`,
     },
   ],
 };

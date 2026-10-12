@@ -17,7 +17,7 @@ export const bungaMajemukQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Gunakan $M_n = M_0(1+i)^n$ dengan $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$: $M_5 = 5.000.000(1{,}08)^5 = 5.000.000(1{,}469328) \\approx \\text{Rp}7.346.640,38$. Opsi A memakai penalaran bunga tunggal, opsi B keliru memakai $n = 4$.',
+      'Gunakan $M_n = M_0(1+i)^n$ dengan $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$: $M_5 = 5.000.000(1{,}08)^5 = 5.000.000(1{,}469328) \\approx \\text{Rp}7.346.640,38$ (opsi C). Opsi A memakai bunga tunggal $5.000.000(1+0{,}08\\cdot5)$. Opsi B keliru memakai $n = 4$. Opsi D membulatkan saldo $7{,}35$ juta menjadi $8$ juta secara berlebihan.',
     hints: [
       'Substitusi ke $M_n = M_0(1+i)^n$ dengan $n=5$.',
       'Jangan menambahkan bunga lurus $8\\% \\times 5$; itu bunga tunggal.',
@@ -40,7 +40,7 @@ export const bungaMajemukQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Suku bunga per periode $i = \\dfrac{j}{m} = \\dfrac{0{,}12}{12} = 0{,}01$, yaitu $1\\%$ per bulan. Memakai langsung $12\\%$ untuk perhitungan bulanan adalah kesalahan mencampur nominal dan suku bunga per periode.',
+      'Suku bunga per periode $i = \\dfrac{j}{m} = \\dfrac{0{,}12}{12} = 0{,}01$, yaitu $1\\%$ per bulan (opsi D). Opsi A ($12\\%$) mencampur suku bunga nominal tahunan dengan suku bunga bulanan. Opsi B ($6\\%$) keliru membagi dengan $2$, seolah periode semesteran. Opsi C ($0{,}12\\%$) salah menempatkan koma desimal.',
     hints: ['Bagi suku bunga nominal dengan banyaknya periode per tahun.'],
     competencies: ['suku bunga per periode'],
   },
@@ -60,8 +60,11 @@ export const bungaMajemukQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$i_{\\text{efektif}} = \\left(1+\\dfrac{j}{m}\\right)^{m}-1 = (1{,}01)^{12}-1 \\approx 0{,}126825 = 12{,}68\\%$. Opsi A adalah nominal, opsi B muncul bila dihitung per semester, bukan bulanan.',
-    hints: ['Gunakan $m = 12$ karena bunga dihitung tiap bulan.'],
+      '$i_{\\text{efektif}} = \\left(1+\\dfrac{j}{m}\\right)^{m}-1 = (1{,}01)^{12}-1 \\approx 0{,}126825 = 12{,}68\\%$ (opsi D). Opsi A ($12{,}00\\%$) adalah suku bunga nominal, bukan efektif. Opsi B ($12{,}36\\%$) muncul bila pemajemukan semesteran ($m=2$). Opsi C ($13{,}00\\%$) sekadar membulatkan ke atas tanpa menghitung.',
+    hints: [
+      'Gunakan $m = 12$ karena bunga dihitung tiap bulan.',
+      'Rumus suku bunga efektif: $\\left(1+\\dfrac{j}{m}\\right)^{m}-1$ dengan $j=0{,}12$ dan $m=12$.',
+    ],
     competencies: ['suku bunga efektif'],
   },
   {
@@ -80,8 +83,11 @@ export const bungaMajemukQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      'Bunga majemuk: $5.000.000(1{,}08)^5 \\approx \\text{Rp}7.346.640,38$. Bunga tunggal: $5.000.000(1+0{,}08\\cdot5) = \\text{Rp}7.000.000$. Selisihnya Rp346.640,38, yaitu bunga atas bunga. Opsi A keliru menganggap keduanya sama.',
-    hints: ['Hitung kedua saldo lalu kurangkan.'],
+      'Bunga majemuk: $5.000.000(1{,}08)^5 \\approx \\text{Rp}7.346.640,38$. Bunga tunggal: $5.000.000(1+0{,}08\\cdot5) = \\text{Rp}7.000.000$. Selisihnya Rp346.640,38 (opsi D), yaitu bunga atas bunga. Opsi A ($2.000.000$) keliru memakai suku bunga nol. Opsi B ($400.000$) adalah total bunga tunggal, bukan selisihnya. Opsi C ($0$) keliru menganggap kedua jenis bunga selalu sama.',
+    hints: [
+      'Hitung kedua saldo lalu kurangkan.',
+      'Bunga tunggal memakai $M_0(1+i\\,n)$, sedangkan bunga majemuk memakai $M_0(1+i)^n$.',
+    ],
     competencies: ['membandingkan bunga tunggal dan majemuk'],
   },
   {
@@ -111,7 +117,10 @@ export const bungaMajemukQuestions: Question[] = [
     acceptedAnswers: ['Rp3.379.477,76', 'Rp3.379.478,00', '3.379.478,00', '3379478,00', '3.379.478', '3379478', 'Rp 3.379.478'],
     explanation:
       '$M_8 = 3.000.000(1{,}015)^8 = 3.000.000(1{,}126493) \\approx \\text{Rp}3.379.478$.',
-    hints: ['Karena dihitung per bulan, gunakan $i = 0{,}015$ dan $n = 8$.'],
+    hints: [
+      'Karena dihitung per bulan, gunakan $i = 0{,}015$ dan $n = 8$.',
+      'Hitung $(1{,}015)^8$ dengan teliti sebelum dikalikan $3.000.000$.',
+    ],
     competencies: ['rumus bunga majemuk', 'suku bunga per periode'],
   },
   {
@@ -126,7 +135,10 @@ export const bungaMajemukQuestions: Question[] = [
     acceptedAnswers: ['Rp2.524.953,92', 'Rp2.524.954,00', '2.524.954,00', '2524954,00', '2.524.954', '2524954', 'Rp 2.524.954'],
     explanation:
       '$M_4 = 2.000.000(1{,}06)^4 = 2.000.000(1{,}262477) \\approx \\text{Rp}2.524.954$.',
-    hints: ['Hitung $(1{,}06)^4$ dengan teliti sebelum dikalikan.'],
+    hints: [
+      'Hitung $(1{,}06)^4$ dengan teliti sebelum dikalikan.',
+      'Substitusi $M_0=2.000.000$, $i=0{,}06$, dan $n=4$ ke $M_n=M_0(1+i)^n$.',
+    ],
     competencies: ['rumus bunga majemuk', 'pemodelan keuangan'],
   },
   {
@@ -141,7 +153,10 @@ export const bungaMajemukQuestions: Question[] = [
       'Bunga majemuk dihitung dari saldo terbaru yang sudah memuat bunga sebelumnya, sedangkan bunga tunggal selalu dihitung dari modal awal. Contoh: modal Rp5.000.000 pada 8% per tahun selama 5 tahun. Bunga tunggal menghasilkan $5.000.000(1+0{,}08\\cdot5) = \\text{Rp}7.000.000$, sedangkan bunga majemuk menghasilkan $5.000.000(1{,}08)^5 \\approx \\text{Rp}7.346.640$. Selisih Rp346.640 berasal dari bunga atas bunga. Keduanya sama hanya jika $n = 1$ (atau suku bunganya nol), sebab saat itu belum ada bunga yang dimajemukkan.',
     explanation:
       'Penilaian menekankan penjelasan mekanisme bunga atas bunga dan syarat kesamaan ($n=1$ atau $i=0$), didukung contoh perhitungan yang benar.',
-    hints: ['Bandingkan dasar perhitungan bunga majemuk (saldo terbaru) dengan bunga tunggal (modal awal).'],
+    hints: [
+      'Bandingkan dasar perhitungan bunga majemuk (saldo terbaru) dengan bunga tunggal (modal awal).',
+      'Tunjukkan dengan contoh $n=1$ bahwa keduanya sama, lalu untuk $n>1$ bahwa majemuk lebih besar.',
+    ],
     competencies: ['membandingkan model', 'penalaran keuangan'],
     rubric: [
       'Menjelaskan majemuk dihitung dari saldo terbaru, tunggal dari modal awal',
@@ -161,7 +176,10 @@ export const bungaMajemukQuestions: Question[] = [
       'Perlu mencari $n$ terkecil dengan $1{,}08^n \\ge 2$. Menghitung bertahap: $1{,}08^9 \\approx 1{,}999 < 2$ dan $1{,}08^{10} \\approx 2{,}159 > 2$. Jadi saldo baru menjadi dua kali lipat setelah **10 tahun**; pada akhir tahun ke-9 nilainya masih sedikit di bawah dua kali. Pemeriksaan dilakukan dengan perkalian berulang atau tabel nilai $(1{,}08)^n$ tanpa perlu logaritma.',
     explanation:
       'Kunci jawaban menuntut pemodelan pertidaksamaan $(1{,}08)^n \\ge 2$ dan pemeriksaan numerik bertahap, bukan sekadar menebak.',
-    hints: ['Cari $n$ terkecil yang memenuhi $(1{,}08)^{n} \\ge 2$ dengan mencoba nilai $n$ secara berurutan.'],
+    hints: [
+      'Cari $n$ terkecil yang memenuhi $(1{,}08)^{n} \\ge 2$ dengan mencoba nilai $n$ secara berurutan.',
+      'Uji $(1{,}08)^9$ dan $(1{,}08)^{10}$, lalu bandingkan dengan $2$.',
+    ],
     competencies: ['pemodelan eksponen', 'penyelesaian numerik'],
     rubric: [
       'Memodelkan pertidaksamaan $(1{,}08)^{n}\\ge2$',
@@ -181,7 +199,10 @@ export const bungaMajemukQuestions: Question[] = [
       'Bank A: $i = 6\\%$ dengan $m = 2$, sehingga $i_{\\text{efektif}} = (1{,}06)^2 - 1 = 0{,}1236 = 12{,}36\\%$. Bank B: $i = 1\\%$ dengan $m = 12$, sehingga $i_{\\text{efektif}} = (1{,}01)^{12} - 1 \\approx 0{,}126825 = 12{,}68\\%$. Bank B memiliki suku bunga efektif lebih besar karena bunga dimajemukkan lebih sering (12 kali per tahun), sehingga efek bunga atas bunga lebih kuat; makin sering pemajemukan, makin besar suku bunga efektif.',
     explanation:
       'Penilaian mencakup perhitungan kedua suku bunga efektif dan alasan konseptual mengapa frekuensi pemajemukan menaikkan suku bunga efektif.',
-    hints: ['Hitung suku bunga efektif tiap bank dengan rumus $(1+i)^{m}-1$ sesuai frekuensi pemajemukannya.'],
+    hints: [
+      'Hitung suku bunga efektif tiap bank dengan rumus $(1+i)^{m}-1$ sesuai frekuensi pemajemukannya.',
+      'Bank A memakai $i=6\\%$ dan $m=2$; Bank B memakai $i=1\\%$ dan $m=12$.',
+    ],
     competencies: ['suku bunga efektif', 'analisis kritis'],
     rubric: [
       'Menghitung $i_{\\text{efektif}}$ Bank A $=12{,}36\\%$',
@@ -275,8 +296,29 @@ export const bungaMajemukQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Gunakan $M_n=M_0(1+i)^n$: $M_3=2.000.000(1{,}05)^3=2.000.000(1{,}157625)=\\text{Rp}2.315.250$. Opsi A memakai bunga tunggal $2.000.000(1+0{,}05\\cdot3)=\\text{Rp}2.300.000$.',
-    hints: ['Substitusikan $i=0{,}05$ dan $n=3$ ke $M_n=M_0(1+i)^n$.'],
+      'Gunakan $M_n=M_0(1+i)^n$: $M_3=2.000.000(1{,}05)^3=2.000.000(1{,}157625)=\\text{Rp}2.315.250$ (opsi B). Opsi A memakai bunga tunggal $2.000.000(1+0{,}05\\cdot3)=\\text{Rp}2.300.000$. Opsi C ($2.310.000$) menambahkan bunga hanya dua periode. Opsi D ($2.250.000$) memakai lima kali bunga sederhana $50.000$, mengabaikan bunga atas bunga.',
+    hints: [
+      'Substitusikan $i=0{,}05$ dan $n=3$ ke $M_n=M_0(1+i)^n$.',
+      'Hitung $(1{,}05)^3=1{,}157625$ terlebih dahulu.',
+    ],
     competencies: ['rumus bunga majemuk', 'kontekstual'],
+  },
+  {
+    id: 'bm-15',
+    topicId: 'bunga-majemuk',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Populasi harimau di sebuah kawasan konservasi diperkirakan $1.000$ ekor dan menyusut $20\\%$ setiap tahun. Dengan model peluruhan majemuk, tentukan perkiraan populasi setelah $3$ tahun.',
+    answer: '512',
+    acceptedAnswers: ['512', '512 ekor'],
+    explanation:
+      'Setiap tahun populasi menjadi $80\\%$ dari tahun sebelumnya, sehingga $P_3=1.000(1-0{,}20)^3=1.000(0{,}8)^3=1.000(0{,}512)=512$ ekor.',
+    hints: [
+      'Menyusut $20\\%$ berarti tiap tahun tersisa $80\\%$, jadi faktornya $0{,}8$.',
+      'Gunakan $P_n=P_0(1-r)^n$ dengan $P_0=1.000$, $r=0{,}2$, dan $n=3$.',
+    ],
+    competencies: ['pemodelan peluruhan', 'kontekstual'],
   },
 ];

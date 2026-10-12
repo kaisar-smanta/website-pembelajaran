@@ -16,8 +16,11 @@ export const teoriBilanganQuestions: Question[] = [
     ],
     answer: 'D',
     explanation:
-      '$84 = 12 \\cdot 7$, sehingga $12 \\mid 84$. Adapun $84$ tidak habis dibagi $5$, $8$, maupun $9$.',
-    hints: ['Coba bagi $84$ oleh setiap pilihan; habis berarti sisanya nol.'],
+      '$84 = 12 \\cdot 7$, sehingga $12 \\mid 84$ (opsi D). Opsi A ($5$) salah karena $84$ tidak berakhiran $0$ atau $5$. Opsi B ($8$) salah karena $84 = 8\\cdot10+4$ bersisa $4$. Opsi C ($9$) salah karena jumlah angkanya $8+4=12$ tidak habis dibagi $9$.',
+    hints: [
+      'Coba bagi $84$ oleh setiap pilihan; habis berarti sisanya nol.',
+      'Gunakan aturan cepat: habis dibagi $5$ bila berakhiran $0/5$, habis dibagi $9$ bila jumlah angkanya kelipatan $9$.',
+    ],
     competencies: ['keterbagian'],
   },
   {
@@ -49,7 +52,7 @@ export const teoriBilanganQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      '$1$ bukan prima karena hanya punya satu faktor positif. Bilangan prima terkecil adalah $2$, yang juga satu-satunya prima genap, sehingga pernyataan "semua prima ganjil" salah. Tidak semua bilangan ganjil prima, misalnya $9$ dan $15$.',
+      'Opsi A salah karena $1$ hanya punya satu faktor positif, sehingga bukan prima. Opsi B benar: bilangan prima terkecil adalah $2$, yang juga satu-satunya prima genap. Opsi C salah karena $2$ adalah prima genap. Opsi D salah karena tidak semua bilangan ganjil prima, misalnya $9=3\\times3$ dan $15=3\\times5$.',
     hints: ['Ingat syarat prima: lebih besar dari $1$ dan hanya punya dua faktor positif.'],
     competencies: ['bilangan prima'],
   },
@@ -64,7 +67,10 @@ export const teoriBilanganQuestions: Question[] = [
     acceptedAnswers: ['2'],
     explanation:
       '$100 = 14\\cdot 7 + 2$, sehingga sisanya $2$. Dengan kata lain $100 \\equiv 2 \\pmod 7$.',
-    hints: ['Cari kelipatan $7$ terbesar yang tidak melebihi $100$.'],
+    hints: [
+      'Cari kelipatan $7$ terbesar yang tidak melebihi $100$.',
+      'Tulis $100$ sebagai $7k+r$ dengan $0\\le r<7$; sisa itulah $r$.',
+    ],
     competencies: ['sisa pembagian', 'modulo'],
   },
   {
@@ -92,7 +98,10 @@ export const teoriBilanganQuestions: Question[] = [
     acceptedAnswers: ['72'],
     explanation:
       '$\\gcd(18,24)=6$, sehingga $\\operatorname{lcm}(18,24)=\\dfrac{18\\cdot 24}{6}=\\dfrac{432}{6}=72$.',
-    hints: ['Gunakan $\\gcd(a,b)\\cdot\\operatorname{lcm}(a,b)=ab$.'],
+    hints: [
+      'Gunakan $\\gcd(a,b)\\cdot\\operatorname{lcm}(a,b)=ab$.',
+      'Hitung $\\gcd(18,24)$ terlebih dahulu, lalu bagi hasil kali kedua bilangan dengan FPB itu.',
+    ],
     competencies: ['KPK'],
   },
   {
@@ -106,7 +115,10 @@ export const teoriBilanganQuestions: Question[] = [
     acceptedAnswers: ['2'],
     explanation:
       '$2^3=8\\equiv 1 \\pmod 7$, sehingga $2^{10}=2\\cdot(2^3)^3\\equiv 2\\cdot 1^3=2 \\pmod 7$. Sisanya $2$.',
-    hints: ['Cari pangkat kecil yang kongruen dengan $1$ modulo $7$.'],
+    hints: [
+      'Cari pangkat kecil yang kongruen dengan $1$ modulo $7$.',
+      'Amati $2^3=8\\equiv1\\pmod7$, lalu tulis $2^{10}=2\\cdot(2^3)^3$ dan ganti $2^3$ dengan $1$.',
+    ],
     competencies: ['aritmetika modular', 'eksponen'],
   },
   {
@@ -142,7 +154,10 @@ export const teoriBilanganQuestions: Question[] = [
     acceptedAnswers: ['36'],
     explanation:
       'Keduanya berkedip bersamaan pada kelipatan persekutuan waktu. $\\operatorname{lcm}(12,18)=36$, jadi mereka berkedip bersamaan lagi setelah $36$ detik.',
-    hints: ['Gunakan KPK dari kedua selang waktu.'],
+    hints: [
+      'Gunakan KPK dari kedua selang waktu.',
+      'Faktorkan $12=2^2\\cdot3$ dan $18=2\\cdot3^2$, lalu ambil pangkat terbesar tiap prima.',
+    ],
     competencies: ['KPK', 'kontekstual'],
   },
   {
@@ -245,8 +260,11 @@ export const teoriBilanganQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Untuk menguji keprimaan $n$, cukup memeriksa pembagi prima sampai $\\sqrt{n}$. Di sini $\\sqrt{121}=11$, dan $11 \\mid 121$ karena $121=11\\times 11$. Jadi $121$ bukan bilangan prima dan pengujian siswa belum lengkap.',
-    hints: ['Aturan: uji pembagi prima sampai akar kuadrat bilangan itu.'],
+      'Untuk menguji keprimaan $n$, cukup memeriksa pembagi prima sampai $\\sqrt{n}$. Di sini $\\sqrt{121}=11$, dan $11 \\mid 121$ karena $121=11\\times 11$, jadi $121$ bukan prima. Opsi A salah karena pengujian siswa belum lengkap. Opsi C salah karena memeriksa pembagi $2$ saja jauh dari cukup (misalnya $9$ ganjil tetapi bukan prima). Opsi D salah karena jumlah angka tidak menentukan keprimaan.',
+    hints: [
+      'Aturan: uji pembagi prima sampai akar kuadrat bilangan itu.',
+      'Karena $\\sqrt{121}=11$, periksa apakah $11$ membagi $121$.',
+    ],
     competencies: ['bilangan prima', 'evaluasi'],
   },
   {
@@ -269,5 +287,23 @@ export const teoriBilanganQuestions: Question[] = [
       'Menuliskan $7^{100}=(7^{4})^{25}$',
       'Menyimpulkan dua angka terakhir adalah $01$',
     ],
+  },
+  {
+    id: 'tbil-16',
+    topicId: 'teori-bilangan',
+    difficulty: 'cakap',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sistem penomoran buku ISBN-10 memuat $9$ digit data dan $1$ digit cek $c$ (bisa $0$ sampai $10$, dan $10$ ditulis X). Digit cek dipilih agar $\\sum_{k=1}^{10}(11-k)\\,d_k \\equiv 0 \\pmod{11}$, dengan $d_k$ digit ke-$k$ dan $d_{10}=c$. Tentukan digit cek $c$ untuk $9$ digit pertama $030640615$.',
+    answer: '2',
+    acceptedAnswers: ['2'],
+    explanation:
+      'Hitung jumlah berbobot sembilan digit pertama: $10(0)+9(3)+8(0)+7(6)+6(4)+5(0)+4(6)+3(1)+2(5)=130$. Karena digit cek berbobot $1$, syaratnya $130+c\\equiv0\\pmod{11}$. Karena $130\\equiv9\\pmod{11}$, maka $c\\equiv-9\\equiv2\\pmod{11}$, sehingga $c=2$.',
+    hints: [
+      'Jumlahkan perkalian setiap digit dengan bobotnya, mulai bobot $10$ menurun sampai $2$.',
+      'Setelah diperoleh $130$, selesaikan $130+c\\equiv0\\pmod{11}$ dengan mencari sisa $130$ modulo $11$.',
+    ],
+    competencies: ['aritmetika modular', 'kode cek', 'kontekstual'],
   },
 ];

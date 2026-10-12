@@ -1,0 +1,350 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim ind-sim" data-induction data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Domino Induksi: dari P(1) ke P(k+1)</h3>
+  </div>
+
+  <p class="sim-hint">
+    Pilih pernyataan, atur nilai k, lalu telusuri langkahnya. Basis menyalakan domino
+    pertama, sedangkan langkah induksi menumbangkan domino berikutnya.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Pernyataan P(n)</span>
+      <select data-ind-kind></select>
+    </label>
+    <label class="sim-field">
+      <span>Langkah k <output data-ind-value="k">3</output></span>
+      <input type="range" min="1" max="6" step="1" value="3" data-ind-k aria-label="Nilai k" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-ind-prev>← Sebelumnya</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-ind-next>Berikutnya →</button>
+    <button type="button" class="btn btn-secondary btn-sm" data-ind-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 190"
+      role="img"
+      aria-label="Rantai domino pernyataan P dari 1 sampai 6"
+      data-ind-plot></svg>
+  </div>
+
+  <output class="sim-readout" data-ind-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field select {
+    padding: 0.35rem 0.45rem;
+    font: inherit;
+    font-weight: 500;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .sim-readout :global(.stat.ok strong) {
+    color: var(--color-success);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ind-sim *,
+    .ind-sim *::before,
+    .ind-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    INDUCTION_KINDS,
+    inductionMeta,
+    inductionStep,
+    baseCase,
+    partialSum,
+  } from '../../lib/sim/induction';
+  import type { InductionKind } from '../../lib/sim/induction';
+  import { el, clear, initWhenVisible } from '../../lib/dom';
+  import { formatId } from '../../lib/format';
+
+  const CHAIN_LENGTH = 6;
+
+  function setupInduction(root: Element) {
+    const kindSelect = root.querySelector('[data-ind-kind]') as HTMLSelectElement;
+    const kInput = root.querySelector('[data-ind-k]') as HTMLInputElement;
+    const kOutput = root.querySelector('[data-ind-value="k"]') as HTMLOutputElement;
+    const svg = root.querySelector('[data-ind-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-ind-readout]') as HTMLElement;
+    const prev = root.querySelector('[data-ind-prev]') as HTMLButtonElement;
+    const next = root.querySelector('[data-ind-next]') as HTMLButtonElement;
+    const reset = root.querySelector('[data-ind-reset]') as HTMLButtonElement;
+
+    const meta = (kind: InductionKind) => inductionMeta(kind);
+
+    function fillOptions() {
+      kindSelect.innerHTML = '';
+      INDUCTION_KINDS.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.kind;
+        option.textContent = `${item.label}: ${item.statement} = ${item.closedForm}`;
+        kindSelect.appendChild(option);
+      });
+    }
+
+    function stat(label: string, value: string, ok = false): string {
+      return `<div class="stat${ok ? ' ok' : ''}"><span>${label}</span><strong>${value}</strong></div>`;
+    }
+
+    function drawChain(kind: InductionKind, k: number) {
+      const W = 480;
+      const left = 46;
+      const right = W - 46;
+      const nodeY = 78;
+      clear(svg);
+
+      const defs = el('defs');
+      const marker = el('marker', {
+        id: 'induction-sim-arrow',
+        viewBox: '0 0 10 10',
+        refX: 9,
+        refY: 5,
+        markerWidth: 6,
+        markerHeight: 6,
+        orient: 'auto',
+      });
+      marker.appendChild(el('path', { d: 'M 0,0 L 10,5 L 0,10 z', fill: 'currentColor' }));
+      defs.appendChild(marker);
+      svg.appendChild(defs);
+
+      const xs: number[] = [];
+      for (let i = 0; i < CHAIN_LENGTH; i++) {
+        xs.push(left + (i / (CHAIN_LENGTH - 1)) * (right - left));
+      }
+
+      for (let i = 0; i < CHAIN_LENGTH - 1; i++) {
+        const isTransition = i + 1 === k;
+        svg.appendChild(
+          el('line', {
+            x1: xs[i] + 15,
+            y1: nodeY,
+            x2: xs[i + 1] - 15,
+            y2: nodeY,
+            stroke: isTransition ? 'var(--color-primary)' : 'var(--color-border-strong)',
+            'stroke-width': isTransition ? 2.6 : 1.4,
+            'marker-end': 'url(#induction-sim-arrow)',
+            color: isTransition ? 'var(--color-primary)' : 'var(--color-border-strong)',
+          }),
+        );
+      }
+
+      for (let i = 0; i < CHAIN_LENGTH; i++) {
+        const n = i + 1;
+        const isBase = n === 1;
+        const inTransition = n === k || n === k + 1;
+        svg.appendChild(
+          el('circle', {
+            cx: xs[i],
+            cy: nodeY,
+            r: 15,
+            fill: isBase
+              ? 'var(--color-success)'
+              : inTransition
+                ? 'var(--color-primary)'
+                : 'var(--color-surface)',
+            stroke: 'var(--color-border-strong)',
+            'stroke-width': 1.4,
+          }),
+        );
+        const label = el('text', {
+          x: xs[i],
+          y: nodeY + 4,
+          'text-anchor': 'middle',
+          'font-size': 10,
+          'font-weight': 700,
+          fill: isBase || inTransition ? 'var(--color-surface)' : 'var(--color-text)',
+        });
+        label.textContent = `P${n}`;
+        svg.appendChild(label);
+
+        const value = el('text', {
+          x: xs[i],
+          y: nodeY + 30,
+          'text-anchor': 'middle',
+          'font-size': 9,
+          fill: 'var(--color-text-muted)',
+        });
+        value.textContent = formatId(partialSum(kind, n));
+        svg.appendChild(value);
+      }
+
+      const baseLabel = el('text', {
+        x: xs[0],
+        y: nodeY - 26,
+        'text-anchor': 'middle',
+        'font-size': 10,
+        'font-weight': 600,
+        fill: 'var(--color-success)',
+      });
+      baseLabel.textContent = 'basis';
+      svg.appendChild(baseLabel);
+
+      const stepLabel = el('text', {
+        x: (xs[k - 1] + xs[Math.min(k, CHAIN_LENGTH - 1)]) / 2,
+        y: nodeY - 30,
+        'text-anchor': 'middle',
+        'font-size': 10,
+        'font-weight': 600,
+        fill: 'var(--color-primary)',
+      });
+      stepLabel.textContent = 'langkah induksi';
+      svg.appendChild(stepLabel);
+    }
+
+    function render() {
+      const kind = kindSelect.value as InductionKind;
+      let k = Math.max(1, Math.min(CHAIN_LENGTH - 1, Math.round(Number(kInput.value) || 1)));
+      kInput.value = String(k);
+      kOutput.textContent = String(k);
+
+      const detail = inductionStep(kind, k);
+      const metaInfo = meta(kind);
+      drawChain(kind, k);
+
+      const basis = baseCase(kind);
+      readout.innerHTML =
+        stat('Pernyataan', `${metaInfo.statement} = ${metaInfo.closedForm}`) +
+        stat('Basis P(1)', basis ? 'benar' : 'gagal', basis) +
+        stat(`Hipotesis P(${k})`, `${formatId(detail.partialK)} = ${formatId(detail.closedK)}`, detail.hypothesis) +
+        stat(`Suku ke-${k + 1}`, formatId(detail.nextTerm)) +
+        stat(
+          `P(${k + 1})`,
+          `${formatId(detail.partialK1)} = ${formatId(detail.closedK1)}`,
+          detail.step,
+        ) +
+        stat(
+          'Kesimpulan langkah',
+          detail.hypothesis && detail.step
+            ? `P(${k}) benar ⇒ P(${k + 1}) benar`
+            : 'langkah belum terbukti',
+          detail.hypothesis && detail.step,
+        );
+
+      svg.setAttribute(
+        'aria-label',
+        `Rantai P(1) sampai P(6) untuk ${metaInfo.label}, menyoroti langkah P(${k}) menuju P(${k + 1})`,
+      );
+
+      prev.disabled = k <= 1;
+      next.disabled = k >= CHAIN_LENGTH - 1;
+    }
+
+    fillOptions();
+    kindSelect.addEventListener('change', render);
+    kInput.addEventListener('input', render);
+    prev.addEventListener('click', () => {
+      kInput.value = String(Math.max(1, Number(kInput.value) - 1));
+      render();
+    });
+    next.addEventListener('click', () => {
+      kInput.value = String(Math.min(CHAIN_LENGTH - 1, Number(kInput.value) + 1));
+      render();
+    });
+    reset.addEventListener('click', () => {
+      kindSelect.value = 'sum-naturals';
+      kInput.value = '3';
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-induction]'), setupInduction);
+</script>

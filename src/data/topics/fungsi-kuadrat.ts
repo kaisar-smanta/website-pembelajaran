@@ -106,7 +106,7 @@ Nilai $c = f(0)$ adalah titik potong grafik dengan sumbu-$y$. Semakin besar $\\l
         {
           kind: "callout",
           variant: "concept",
-          title: "Inti yang perlu diingat",
+          title: "Peran setiap koefisien",
           text: "$a$ mengatur arah dan lebar parabola, sedangkan $b$ dan $c$ menggeser posisinya. Parabola selalu simetris terhadap garis vertikal yang melalui titik puncaknya.",
         },
         {
@@ -275,29 +275,23 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
             ],
           ],
         },
+        {
+          kind: "figure",
+          alt: "Tiga sketsa parabola terhadap sumbu x: D lebih besar dari nol memotong sumbu x di dua titik, D sama dengan nol menyinggung sumbu x di satu titik, dan D kurang dari nol tidak menyentuh sumbu x.",
+          caption: "Tanda diskriminan $D$ menentukan posisi parabola terhadap sumbu-$x$: dua titik potong ($D>0$), satu titik singgung ($D=0$), atau tidak berpotongan ($D<0$).",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="8" y1="150" x2="102" y2="150" stroke="currentColor" stroke-width="1"/><polyline points="15,80 28,140 40,165 55,175 70,165 82,140 95,80" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="32" cy="150" r="2.8" fill="currentColor"/><circle cx="79" cy="150" r="2.8" fill="currentColor"/><text x="34" y="182" font-size="12" fill="currentColor">D &gt; 0</text><line x1="112" y1="150" x2="218" y2="150" stroke="currentColor" stroke-width="1"/><polyline points="125,60 140,110 152,140 165,150 178,140 190,110 205,60" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="165" cy="150" r="2.8" fill="currentColor"/><text x="140" y="182" font-size="12" fill="currentColor">D = 0</text><line x1="228" y1="150" x2="315" y2="150" stroke="currentColor" stroke-width="1"/><polyline points="235,40 250,65 262,82 275,90 288,82 300,65 315,40" fill="none" stroke="currentColor" stroke-width="2.2"/><text x="256" y="182" font-size="12" fill="currentColor">D &lt; 0</text></svg>',
+        },
       ],
     },
     {
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `**Contoh 1.** Gambarkan ciri-ciri grafik $f(x)=x^{2}-6x+8$. Ikuti langkah pembahasannya pada panel di bawah.
-
-**Contoh 2.** Tentukan titik puncak $f(x)=-2x^{2}+4x+6$.
-
-*Penyelesaian.* Sumbu simetri $x=-\\dfrac{4}{2\\cdot(-2)}=1$. Nilai puncak $f(1)=-2+4+6=8$. Jadi titik puncak $(1,8)$, parabola terbuka ke bawah. Akarnya: $-2(x^{2}-2x-3)=-2(x-3)(x+1)=0$, yaitu $x=3$ dan $x=-1$.
-
-**Contoh 3 (optimasi).** Seutas kawat panjang $40$ m akan dibuat pagar persegi panjang. Tentukan ukuran agar luasnya maksimum.
-
-*Penyelesaian.* Misal panjang $x$, maka lebarnya $20-x$ (karena keliling $2(x+\\text{lebar})=40$). Luas $L(x)=x(20-x)=20x-x^{2}$, yaitu fungsi kuadrat dengan $a=-1<0$. Puncaknya di $x=-\\dfrac{20}{2\\cdot(-1)}=10$, sehingga $L(10)=10\\cdot10=100$. Luas maksimum $100$ m² dicapai saat persegi berukuran $10 \\times 10$ m.
-
-**Contoh 4 (kasus $D=0$).** Tentukan akar dan titik puncak $f(x)=x^{2}-4x+4$, lalu jelaskan mengapa parabolanya menyinggung sumbu-$x$.
-
-*Penyelesaian.* Di sini $a=1$, $b=-4$, dan $c=4$, sehingga $D=(-4)^{2}-4\\cdot1\\cdot4=16-16=0$. Karena $D=0$, hanya ada satu akar real kembar, yaitu $x=-\\dfrac{b}{2a}=\\dfrac{4}{2}=2$. Bentuk kuadrat sempurnanya $f(x)=(x-2)^{2}\\ge0$, sehingga grafik menyentuh sumbu-$x$ tepat di titik $(2,0)$ tanpa memotongnya. Titik puncaknya pun $(2,0)$, tepat pada sumbu-$x$: di sinilah parabola menyinggung sumbu-$x$ di satu titik.`,
+      body: `Empat contoh berikut mencakup pembacaan ciri grafik, penentuan titik puncak, optimasi luas, dan kasus diskriminan nol. Buka setiap panel untuk mengikuti langkahnya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Mari telusuri ciri grafik $f(x)=x^{2}-6x+8$ satu langkah sekaligus.",
+          intro: "Contoh 1: telusuri ciri grafik $f(x)=x^{2}-6x+8$ satu langkah sekaligus.",
           steps: [
             {
               title: "Faktorkan",
@@ -318,6 +312,72 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
             {
               title: "Arah dan potongan sumbu-y",
               text: "Karena $a=1>0$ parabola terbuka ke atas, dan $c=8$ memberi titik potong $(0,8)$.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Contoh 2: tentukan titik puncak $f(x)=-2x^{2}+4x+6$.",
+          steps: [
+            {
+              title: "Baca koefisiennya",
+              text: "Di sini $a=-2$, $b=4$, dan $c=6$.",
+            },
+            {
+              title: "Sumbu simetri",
+              text: "$x=-\\dfrac{b}{2a}=-\\dfrac{4}{2\\cdot(-2)}=1$.",
+            },
+            {
+              title: "Nilai puncak",
+              text: "$f(1)=-2(1)^{2}+4(1)+6=-2+4+6=8$, jadi titik puncaknya $(1,8)$.",
+            },
+            {
+              title: "Arah dan akar",
+              text: "Karena $a<0$ parabola terbuka ke bawah. Akarnya dari $-2(x^{2}-2x-3)=-2(x-3)(x+1)=0$, yaitu $x=3$ dan $x=-1$.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Contoh 3 (optimasi): seutas kawat $40$ m dibuat pagar persegi panjang agar luasnya maksimum.",
+          steps: [
+            {
+              title: "Pilih variabel",
+              text: "Misalkan panjang $x$ meter. Karena keliling $2(x+\\text{lebar})=40$, lebarnya $20-x$ meter.",
+            },
+            {
+              title: "Susun fungsi luas",
+              text: "Luas $L(x)=x(20-x)=20x-x^{2}$, yaitu fungsi kuadrat dengan $a=-1<0$ sehingga puncaknya maksimum.",
+            },
+            {
+              title: "Cari titik puncak",
+              text: "$x=-\\dfrac{b}{2a}=-\\dfrac{20}{2\\cdot(-1)}=10$, maka lebarnya $20-10=10$.",
+            },
+            {
+              title: "Hitung luas maksimum",
+              text: "$L(10)=10\\cdot10=100$. Jadi ukuran terbaik adalah $10 \\times 10$ m dengan luas maksimum $100\\ \\text{m}^{2}$.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Contoh 4 (kasus $D=0$): tentukan akar dan titik puncak $f(x)=x^{2}-4x+4$.",
+          steps: [
+            {
+              title: "Baca koefisien dan diskriminan",
+              text: "$a=1$, $b=-4$, $c=4$, sehingga $D=(-4)^{2}-4\\cdot1\\cdot4=16-16=0$.",
+            },
+            {
+              title: "Tentukan akar kembar",
+              text: "Karena $D=0$, hanya ada satu akar real kembar: $x=-\\dfrac{b}{2a}=\\dfrac{4}{2}=2$.",
+            },
+            {
+              title: "Tulis bentuk kuadrat sempurna",
+              text: "$f(x)=(x-2)^{2}\\ge0$, sehingga grafik tidak pernah bernilai negatif.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Grafik menyentuh sumbu-$x$ tepat di titik $(2,0)$ tanpa memotongnya. Titik puncaknya pun $(2,0)$, tepat pada sumbu-$x$; inilah arti parabola menyinggung sumbu-$x$.",
             },
           ],
         },
@@ -365,7 +425,7 @@ Periksa $x=-1+2i$: $(-1+2i)^{2}+2(-1+2i)+5 = (-3-4i)+(-2+4i)+5 = 0$, sehingga be
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Fungsi kuadrat dipakai untuk menentukan tinggi maksimum proyektil, jari-jari kolam, luas lahan maksimum dengan keliling tetap, serta harga jual yang memberi laba terbesar. Prinsipnya sama: susun model kuadrat, temukan titik puncaknya, lalu periksa apakah jawabnya masuk akal dalam konteks.
+      body: `Fungsi kuadrat dipakai untuk menentukan tinggi maksimum proyektil, luas lahan maksimum dengan keliling tetap, serta harga jual yang memberi laba terbesar. Bola dengan ketinggian $h(t)=-5t^{2}+20t$ mencapai tinggi maksimum $20$ m pada $t=2$ detik; kawat $40$ m menghasilkan luas pagar maksimum $100\\ \\text{m}^{2}$ pada ukuran $10\\times10$ m; dan laba $P(x)=-3x^{2}+36x-60$ mencapai puncak $48$ pada $x=6$ unit. Prinsipnya sama: susun model kuadrat, temukan titik puncaknya, lalu periksa apakah jawabnya masuk akal dalam konteks.
 
 Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Nilai?](/aplikasi/regresi-nilai-ujian).`,
     },
@@ -478,6 +538,7 @@ Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
+      body: "Titik puncak sering menjadi tempat \"terbaik\" dalam persoalan nyata: tinggi maksimum, luas terbesar, atau biaya terkecil. Pikirkan satu persoalan optimasi di sekitarmu, lalu terangkan mengapa jawabannya berada di titik puncak dan bukan di ujung-ujung selang.",
       blocks: [
         {
           kind: "reflection",
@@ -538,7 +599,7 @@ Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Bagaimana diskriminan menunjukkan banyak akar real dan posisi grafik? (2) Mengapa titik puncak selalu berada di $x=-\\dfrac{b}{2a}$? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Kuadrat** untuk latihan tambahan.`,
+      body: `**Tiket keluar.** (1) Tanpa menggambar, tentukan banyak akar real dari $f(x)=2x^{2}-4x+5$ dengan menghitung $D$. (2) Tentukan titik puncak $f(x)=x^{2}+6x+5$, lalu jelaskan apakah puncaknya maksimum atau minimum. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Kuadrat** untuk latihan tambahan.`,
     },
   ],
 };

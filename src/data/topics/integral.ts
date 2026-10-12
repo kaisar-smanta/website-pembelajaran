@@ -125,6 +125,32 @@ Teorema ini menghubungkan dua gagasan integral, yaitu limit jumlah dan antiturun
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Ingat kembali istilah kunci integral.",
+          cards: [
+            {
+              front: "Antiturunan",
+              back: "Fungsi $F$ dengan $F'(x) = f(x)$",
+            },
+            {
+              front: "Integral tak tentu",
+              back: "$\\int f(x)\\,dx = F(x) + C$",
+            },
+            {
+              front: "Integral tentu",
+              back: "Suatu bilangan hasil limit jumlah, $\\int_{a}^{b} f(x)\\,dx$",
+            },
+            {
+              front: "Teorema dasar kalkulus",
+              back: "$\\int_{a}^{b} f(x)\\,dx = F(b) - F(a)$",
+            },
+            {
+              front: "Konstanta integrasi $C$",
+              back: "Penanda keluarga antiturunan; wajib ditulis pada integral tak tentu",
+            },
+          ],
+        },
       ],
     },
     {
@@ -194,6 +220,12 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
           caption: "Daerah di bawah sumbu-$x$ dihitung negatif pada integral tentu, sehingga $\\int_{0}^{2}(x^{2}-2x)\\,dx=-\\dfrac{4}{3}$, sedangkan luas sebenarnya $\\dfrac{4}{3}$.",
           svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="110" x2="300" y2="110" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="175" x2="40" y2="22" stroke="currentColor" stroke-width="1.5"/><polygon points="95,110 110,122 140,134 170,138 200,132 230,118 245,110" fill="currentColor" fill-opacity="0.18" stroke="none"/><polyline points="50,80 80,100 110,122 140,134 170,138 200,132 230,118 260,100 290,80" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="118" y="162" font-size="11" fill="currentColor">luas negatif</text><text x="292" y="128" font-size="12" fill="currentColor">x</text><text x="20" y="28" font-size="12" fill="currentColor">y</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Kurva y sama dengan x kuadrat pada selang nol sampai satu, dengan empat persegi panjang tipis di bawahnya yang tingginya mengikuti titik kiri tiap bagian, mendekati luas daerah di bawah kurva.",
+          caption: "Jumlah Riemann dengan persegi panjang tipis menghampiri luas di bawah kurva. Ketika banyak persegi panjang diperbesar, jumlah luasnya menuju $\\int_{0}^{1} x^{2}\\,dx = \\dfrac{1}{3}$.",
+          svg: '<svg viewBox="0 0 320 210" aria-hidden="true" role="presentation"><line x1="50" y1="175" x2="300" y2="175" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="188" x2="60" y2="35" stroke="currentColor" stroke-width="1.5"/><rect x="104" y="170" width="44" height="5" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><rect x="148" y="156" width="44" height="19" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><rect x="192" y="132" width="44" height="43" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><rect x="236" y="98" width="44" height="77" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><polyline points="60,175 104,170 148,156 192,132 236,98 280,55" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="292" y="193" font-size="12" fill="currentColor">x</text><text x="44" y="42" font-size="12" fill="currentColor">y</text><text x="60" y="190" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="280" y="190" font-size="11" fill="currentColor" text-anchor="middle">1</text></svg>',
+        },
       ],
     },
     {
@@ -205,6 +237,18 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
         {
           kind: "exploration",
           explorationId: "mtl-integral-riemann",
+        },
+      ],
+    },
+    {
+      id: "eksplorasi-volume",
+      kind: "eksplorasi",
+      title: "Eksplorasi Volume Benda Putar",
+      body: `Setelah luas, integral juga dipakai menghitung volume benda putar. Putar daerah di bawah $f(x)=\\sqrt{x}$ mengelilingi sumbu-$x$, lalu perbanyak cakram tipisnya dan amati jumlah volumenya makin dekat ke volume eksak.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "mtl-integral-volume",
         },
       ],
     },
@@ -375,7 +419,7 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Renungkan bagaimana penjumlahan bagian kecil menyusun luas dan akumulasi.",
+      body: "Dari potongan-potongan kecil lahir sebuah luas yang utuh. Renungkan saat kamu merasa paling mudah beralih antara gagasan luas dan gagasan antiturunan, lalu catat langkah mana yang paling sering membuatmu ragu.",
       blocks: [
         {
           kind: "reflection",
@@ -440,7 +484,7 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
-      body: `**Tiket keluar.** (1) Mengapa integral tak tentu selalu memuat konstanta $C$? (2) Bagaimana teorema dasar kalkulus menghubungkan limit jumlah dengan antiturunan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Integral** untuk latihan tambahan.`,
+      body: `**Penutup singkat.** Bandingkan hasil dua pekerjaan ini: (1) menghitung $\\int_{0}^{1} x^{2}\\,dx$ dengan antiturunan, dan (2) menjelaskan dengan kata-katamu mengapa limit jumlah persegi panjang menghasilkan bilangan yang sama. Setelah keduanya selesai, asah kemampuanmu di [Latihan & Asesmen](/latihan) topik **Integral**.`,
     },
   ],
 };

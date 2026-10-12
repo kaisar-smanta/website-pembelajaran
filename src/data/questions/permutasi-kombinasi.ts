@@ -67,8 +67,8 @@ export const permutasiKombinasiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Ada $4$ huruf, tetapi huruf U muncul $2$ kali, sehingga $\\dfrac{4!}{2!} = \\dfrac{24}{2} = 12$.',
-    hints: ['Perhatikan huruf yang muncul lebih dari sekali.'],
+      'Ada $4$ huruf, tetapi huruf U muncul $2$ kali, sehingga $\\dfrac{4!}{2!} = \\dfrac{24}{2} = 12$. Opsi C, $24 = 4!$, muncul bila pengulangan huruf U diabaikan. Opsi A, $6 = 3!$, muncul bila hanya mencacah $3$ huruf yang dianggap berbeda dan membuang huruf U kedua. Opsi D, $120 = 5!$, muncul bila banyak huruf salah dihitung atau semua objek dianggap berbeda.',
+    hints: ['Perhatikan huruf yang muncul lebih dari sekali.', 'Bagi $4!$ dengan faktorial banyak huruf yang berulang.'],
     competencies: ['permutasi unsur sama'],
   },
   {
@@ -87,7 +87,7 @@ export const permutasiKombinasiQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Karena tidak ada jabatan, urutan tidak penting sehingga memakai kombinasi: $\\binom{8}{3} = \\dfrac{8!}{3!\\,5!} = \\dfrac{8 \\cdot 7 \\cdot 6}{6} = 56$.',
+      'Karena tidak ada jabatan, urutan tidak penting sehingga memakai kombinasi: $\\binom{8}{3} = \\dfrac{8!}{3!\\,5!} = \\dfrac{8 \\cdot 7 \\cdot 6}{6} = 56$. Opsi C, $336$, muncul bila memakai permutasi $P(8,3)=8\\cdot7\\cdot6$ seakan urutan jabatan penting. Opsi D, $512 = 8^{3}$, muncul bila memakai aturan perkalian dengan pengulangan karena menganggap setiap posisi punya $8$ pilihan. Opsi A, $24$, muncul bila kombinasi dihitung keliru, misalnya memakai hasil antara $\\dfrac{8\\cdot6}{2}$ atau menganggap jawabannya $4!$.',
     hints: ['Karena tidak ada jabatan, urutan tidak penting.', 'Gunakan kombinasi $\\binom{n}{k}$.'],
     competencies: ['kombinasi'],
   },
@@ -257,5 +257,49 @@ export const permutasiKombinasiQuestions: Question[] = [
       'Menggunakan komplemen untuk paling sedikit 1 wanita',
       'Menafsirkan hasil sesuai konteks',
     ],
+  },
+  {
+    id: 'perkom-15',
+    topicId: 'permutasi-kombinasi',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah sistem membuat kode undian tiga digit dari angka $0$ sampai $9$ **tanpa pengulangan**, dengan syarat digit pertama tidak boleh $0$. Berapa banyak kode undian yang mungkin?',
+    answer: '648',
+    acceptedAnswers: ['648', '648 kode'],
+    explanation:
+      'Ada $9$ pilihan untuk digit pertama (angka $1$–$9$), lalu $9$ pilihan untuk digit kedua (angka $0$ ditambah delapan angka yang tersisa), dan $8$ pilihan untuk digit ketiga. Jadi banyak kode $= 9 \\cdot 9 \\cdot 8 = 648$. Cara lain: dari seluruh $P(10,3) = 720$ kode tanpa pengulangan, kurangi yang diawali $0$ sebanyak $P(9,2) = 72$, sehingga $720 - 72 = 648$.',
+    hints: [
+      'Batasi digit pertama lebih dahulu karena ada larangan angka $0$.',
+      'Setelah digit pertama dipilih, hitung ulang sisa pilihan tiap posisi, lalu kalikan.',
+    ],
+    competencies: ['permutasi', 'aturan perkalian', 'pemodelan'],
+  },
+  {
+    id: 'perkom-16',
+    topicId: 'permutasi-kombinasi',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'evaluasi',
+    prompt:
+      'Seorang siswa menghitung banyak susunan huruf berbeda dari kata "LEVEL" sebagai $5! = 120$. Pernyataan yang paling tepat mengenai perhitungan yang benar adalah …',
+    options: [
+      { key: 'A', text: 'Cara siswa benar karena kata "LEVEL" memiliki $5$ huruf' },
+      { key: 'B', text: 'Cukup membagi dengan $2!$ sekali sehingga hasilnya $60$' },
+      {
+        key: 'C',
+        text: 'Harus membagi dengan $2!\\cdot 2!$ karena L dan E masing-masing muncul dua kali, sehingga hasilnya $30$',
+      },
+      { key: 'D', text: 'Harus memakai kombinasi $\\binom{5}{2} = 10$ karena hanya urutan dua huruf yang berbeda' },
+    ],
+    answer: 'C',
+    explanation:
+      'Kata "LEVEL" memuat L dua kali dan E dua kali, sehingga setiap susunan terhitung $2!\\cdot 2! = 4$ kali. Banyak susunan berbeda $= \\dfrac{5!}{2!\\cdot 2!} = \\dfrac{120}{4} = 30$. Opsi A salah karena mengabaikan pengulangan L dan E. Opsi B hanya mengoreksi satu pasang huruf kembar, padahal ada dua. Opsi D keliru karena susunan tetap memperhatikan urutan sehingga memakai permutasi dengan unsur sama, bukan kombinasi.',
+    hints: [
+      'Daftar dahulu huruf yang muncul lebih dari sekali beserta frekuensinya.',
+      'Bagi $5!$ dengan faktorial tiap frekuensi, bukan hanya satu frekuensi.',
+    ],
+    competencies: ['permutasi unsur sama', 'evaluasi penalaran'],
   },
 ];

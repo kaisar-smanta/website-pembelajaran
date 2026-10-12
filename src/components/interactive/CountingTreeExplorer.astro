@@ -1,0 +1,365 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim count-sim" data-counting-tree data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Pohon Keputusan Pencacahan</h3>
+  </div>
+
+  <p class="sim-hint">
+    Atur banyak objek dan banyak yang dipilih, lalu nyalakan sakelar untuk melihat kapan
+    urutan penting dan kapan objek boleh berulang. Perhatikan bagaimana banyaknya daun
+    pohon berubah.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Banyak objek n <output data-count-value="n">4</output></span>
+      <input type="range" min="2" max="8" step="1" value="4" data-count-field="n" aria-label="Banyak objek n" />
+    </label>
+    <label class="sim-field">
+      <span>Banyak dipilih k <output data-count-value="k">2</output></span>
+      <input type="range" min="0" max="6" step="1" value="2" data-count-field="k" aria-label="Banyak dipilih k" />
+    </label>
+  </div>
+
+  <div class="sim-toggles">
+    <label class="sim-toggle">
+      <input type="checkbox" data-count-order checked />
+      <span>Urutan diperhatikan (permutasi)</span>
+    </label>
+    <label class="sim-toggle">
+      <input type="checkbox" data-count-repetition />
+      <span>Objek boleh berulang</span>
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-count-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 260"
+      role="img"
+      aria-label="Pohon keputusan percabangan pencacahan"
+      data-count-plot></svg>
+    <p class="count-paths" data-count-paths></p>
+  </div>
+
+  <output class="sim-readout" data-count-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    margin-top: 0.85rem;
+  }
+  .sim-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+  .sim-toggle input {
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 36rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-2);
+    border-radius: var(--radius);
+  }
+  .count-paths {
+    margin: 0.5rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    overflow-wrap: anywhere;
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .count-sim *,
+    .count-sim *::before,
+    .count-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    countArrangements,
+    branchingFactors,
+    formulaLabel,
+    describeCount,
+    samplePaths,
+  } from '../../lib/sim/counting-tree';
+  import type { CountingChoice } from '../../lib/sim/counting-tree';
+  import { el, clear, initWhenVisible } from '../../lib/dom';
+  import { formatId as fmtInt } from '../../lib/format';
+
+  function setupCountingTree(root: Element) {
+    const nInput = root.querySelector('[data-count-field="n"]') as HTMLInputElement;
+    const kInput = root.querySelector('[data-count-field="k"]') as HTMLInputElement;
+    const orderInput = root.querySelector('[data-count-order]') as HTMLInputElement;
+    const repetitionInput = root.querySelector('[data-count-repetition]') as HTMLInputElement;
+    const outputs = root.querySelectorAll<HTMLOutputElement>('[data-count-value]');
+    const svg = root.querySelector('[data-count-plot]') as SVGSVGElement;
+    const pathsEl = root.querySelector('[data-count-paths]') as HTMLElement;
+    const readout = root.querySelector('[data-count-readout]') as HTMLElement;
+    const reset = root.querySelector('[data-count-reset]') as HTMLButtonElement;
+
+    function current(): CountingChoice {
+      return {
+        n: Number(nInput.value),
+        k: Number(kInput.value),
+        order: orderInput.checked,
+        repetition: repetitionInput.checked,
+      };
+    }
+
+    function drawTree(choice: CountingChoice) {
+      const W = 480;
+      const H = 260;
+      const left = 54;
+      const right = W - 54;
+      const top = 44;
+      const bottom = H - 44;
+      clear(svg);
+
+      const factors = branchingFactors(choice);
+      const stages = choice.order ? Math.min(factors.length, 4) : 1;
+
+      if (stages === 0) {
+        const node = el('circle', { cx: left, cy: (top + bottom) / 2, r: 7, fill: 'var(--color-primary)' });
+        svg.appendChild(node);
+        const text = el('text', {
+          x: left + 16,
+          y: (top + bottom) / 2 + 4,
+          'font-size': 13,
+          fill: 'var(--color-text-muted)',
+        });
+        text.textContent = 'Tidak ada tahap: hanya 1 cara (susunan kosong).';
+        svg.appendChild(text);
+        return;
+      }
+
+      const xs: number[] = [];
+      for (let i = 0; i <= stages; i++) {
+        xs.push(left + (i / stages) * (right - left));
+      }
+
+      const columnNodes = (factor: number): number[] => {
+        const shown = Math.max(1, Math.min(factor, 5));
+        const ys: number[] = [];
+        for (let j = 0; j < shown; j++) {
+          ys.push(shown === 1 ? (top + bottom) / 2 : top + (j / (shown - 1)) * (bottom - top));
+        }
+        return ys;
+      };
+
+      // Akar.
+      const rootY = (top + bottom) / 2;
+      svg.appendChild(el('circle', { cx: xs[0], cy: rootY, r: 7, fill: 'var(--color-primary)' }));
+
+      let prevYs = [rootY];
+      for (let stage = 0; stage < stages; stage++) {
+        const factor = choice.order ? factors[stage] : choice.n;
+        const ys = columnNodes(factor);
+        for (const py of prevYs) {
+          for (const cy of ys) {
+            svg.appendChild(
+              el('line', {
+                x1: xs[stage],
+                y1: py,
+                x2: xs[stage + 1],
+                y2: cy,
+                stroke: 'var(--color-border-strong)',
+                'stroke-width': 1.2,
+              }),
+            );
+          }
+        }
+        for (const cy of ys) {
+          svg.appendChild(
+            el('circle', {
+              cx: xs[stage + 1],
+              cy,
+              r: 6,
+              fill: stage === stages - 1 ? 'var(--color-data)' : 'var(--color-surface)',
+              stroke: 'var(--color-primary)',
+              'stroke-width': 1.6,
+            }),
+          );
+        }
+        if (factor > 5) {
+          const dots = el('text', {
+            x: xs[stage + 1],
+            y: bottom + 22,
+            'text-anchor': 'middle',
+            'font-size': 12,
+            fill: 'var(--color-text-muted)',
+          });
+          dots.textContent = `⋮ (${factor} pilihan)`;
+          svg.appendChild(dots);
+        } else {
+          const label = el('text', {
+            x: xs[stage + 1],
+            y: top - 12,
+            'text-anchor': 'middle',
+            'font-size': 12,
+            fill: 'var(--color-text-muted)',
+          });
+          label.textContent = `${factor} pilihan`;
+          svg.appendChild(label);
+        }
+        prevYs = ys;
+      }
+
+      if (!choice.order) {
+        const note = el('text', {
+          x: (left + right) / 2,
+          y: bottom + 22,
+          'text-anchor': 'middle',
+          'font-size': 12,
+          fill: 'var(--color-text-muted)',
+        });
+        note.textContent = 'Urutan tidak diperhatikan: pilihan cukup diambil sekaligus.';
+        svg.appendChild(note);
+      }
+    }
+
+    function render() {
+      const choice = current();
+      outputs.forEach((output) => {
+        const name = output.getAttribute('data-count-value');
+        output.textContent = name === 'n' ? nInput.value : kInput.value;
+      });
+
+      const count = countArrangements(choice);
+      drawTree(choice);
+
+      const paths = samplePaths(choice, 8);
+      const shown = paths.map((p) => `(${p.join(', ')})`).join('  ');
+      pathsEl.textContent = paths.length
+        ? `Contoh susunan: ${shown}${count > paths.length ? '  …' : ''}`
+        : 'Tidak ada susunan yang mungkin untuk pilihan ini.';
+
+      const modeOrder = choice.order ? 'urutan diperhatikan' : 'urutan tidak diperhatikan';
+      const modeRep = choice.repetition ? 'boleh berulang' : 'tanpa pengulangan';
+
+      readout.innerHTML =
+        `<div class="stat"><span>Pilihan</span><strong>k = ${choice.k} dari n = ${choice.n}, ${modeOrder}, ${modeRep}</strong></div>` +
+        `<div class="stat"><span>Rumus</span><strong>${formulaLabel(choice)}</strong></div>` +
+        `<div class="stat"><span>Banyak cara</span><strong>${fmtInt(count)}</strong></div>` +
+        `<div class="stat"><span>Kesimpulan</span><strong>${describeCount(choice)}</strong></div>`;
+
+      svg.setAttribute(
+        'aria-label',
+        `Pohon keputusan ${stagesCount(choice)} tahap dengan ${fmtInt(count)} hasil; ${modeOrder}, ${modeRep}`,
+      );
+    }
+
+    function stagesCount(choice: CountingChoice): number {
+      return choice.order ? choice.k : 1;
+    }
+
+    [nInput, kInput].forEach((input) => input.addEventListener('input', render));
+    [orderInput, repetitionInput].forEach((input) => input.addEventListener('change', render));
+    reset.addEventListener('click', () => {
+      nInput.value = '4';
+      kInput.value = '2';
+      orderInput.checked = true;
+      repetitionInput.checked = false;
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-counting-tree]'), setupCountingTree);
+</script>

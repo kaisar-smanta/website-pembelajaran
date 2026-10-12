@@ -17,7 +17,7 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     answer: 'C',
     explanation:
-      'Pada $y=A\\sin(Bx)$, amplitudo adalah $|A|$. Karena $A=4$, amplitudonya $4$.',
+      'Pada $y=A\\sin(Bx)$, amplitudo adalah $|A|$. Karena $A=4$, amplitudonya $4$ (C). Opsi A ($2$) membagi $4$ dengan $2$; opsi B ($3$) membaca koefisien $x$ di dalam sinus; opsi D ($6$) mencampur amplitudo dengan koefisien sehingga keliru mengalikannya.',
     hints: ['Amplitudo adalah koefisien di depan fungsi sinus.'],
     competencies: ['amplitudo fungsi trigonometri'],
   },
@@ -37,7 +37,7 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Periode fungsi $y=\\sin(Bx)$ adalah $\\dfrac{360^\\circ}{|B|}$. Untuk $B=2$ diperoleh $\\dfrac{360^\\circ}{2}=180^\\circ$.',
+      'Periode fungsi $y=\\sin(Bx)$ adalah $\\dfrac{360^\\circ}{|B|}$. Untuk $B=2$ diperoleh $\\dfrac{360^\\circ}{2}=180^\\circ$ (B). Opsi A ($90^\\circ$) memakai $B=4$; opsi C ($360^\\circ$) mengabaikan koefisien $B$; opsi D ($720^\\circ$) justru mengalikan $360^\\circ$ dengan $B$.',
     hints: ['Bagi $360^\\circ$ dengan koefisien $x$ di dalam sinus.'],
     competencies: ['periode fungsi trigonometri'],
   },
@@ -63,12 +63,15 @@ export const trigonometriLanjutQuestions: Question[] = [
     type: 'short-answer',
     category: 'cepat',
     prompt:
-      'Diketahui $\\cos\\alpha=\\dfrac{4}{5}$ dan $\\alpha$ lancip. Tentukan $\\cos 2\\alpha$.',
+      'Diketahui $\\tan\\alpha=\\dfrac{3}{4}$ dan $\\alpha$ lancip. Tentukan $\\cos 2\\alpha$.',
     answer: '7/25',
     acceptedAnswers: ['7/25', '0,28', '0.28', '0,280', '0.280'],
     explanation:
-      'Gunakan $\\cos 2\\alpha=2\\cos^{2}\\alpha-1 = 2\\left(\\dfrac{4}{5}\\right)^{2}-1 = 2\\cdot\\dfrac{16}{25}-1=\\dfrac{32}{25}-1=\\dfrac{7}{25}$.',
-    hints: ['Pilih bentuk $\\cos 2\\alpha=2\\cos^{2}\\alpha-1$ karena $\\cos\\alpha$ diketahui.'],
+      'Gunakan identitas sudut rangkap dalam bentuk tangen: $\\cos 2\\alpha=\\dfrac{1-\\tan^{2}\\alpha}{1+\\tan^{2}\\alpha}=\\dfrac{1-\\frac{9}{16}}{1+\\frac{9}{16}}=\\dfrac{7/16}{25/16}=\\dfrac{7}{25}$.',
+    hints: [
+      'Pilih bentuk $\\cos 2\\alpha=\\dfrac{1-\\tan^{2}\\alpha}{1+\\tan^{2}\\alpha}$ karena $\\tan\\alpha$ diketahui.',
+      'Hitung $\\tan^{2}\\alpha=\\dfrac{9}{16}$ lebih dahulu sebelum menyederhanakan.',
+    ],
     competencies: ['identitas sudut rangkap'],
   },
   {
@@ -87,8 +90,11 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      '$\\cos 75^\\circ=\\cos(45^\\circ+30^\\circ)=\\cos 45^\\circ\\cos 30^\\circ-\\sin 45^\\circ\\sin 30^\\circ=\\dfrac{\\sqrt{2}}{2}\\cdot\\dfrac{\\sqrt{3}}{2}-\\dfrac{\\sqrt{2}}{2}\\cdot\\dfrac{1}{2}=\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}$.',
-    hints: ['Tulis $75^\\circ=45^\\circ+30^\\circ$ dan perhatikan tanda kurang pada kosinus.'],
+      '$\\cos 75^\\circ=\\cos(45^\\circ+30^\\circ)=\\cos 45^\\circ\\cos 30^\\circ-\\sin 45^\\circ\\sin 30^\\circ=\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}$ (B). Opsi A memakai tanda tambah sehingga menghasilkan $\\cos 15^\\circ$; opsi C memakai $\\cos 45^\\circ$ dan mengabaikan suku kedua; opsi D memakai $\\cos 30^\\circ$ saja.',
+    hints: [
+      'Tulis $75^\\circ=45^\\circ+30^\\circ$ dan perhatikan tanda kurang pada kosinus.',
+      'Gunakan $\\cos(A+B)=\\cos A\\cos B-\\sin A\\sin B$.',
+    ],
     competencies: ['identitas jumlah sudut'],
   },
   {
@@ -107,8 +113,11 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Aturan sinus: $\\dfrac{a}{\\sin A}=\\dfrac{8}{1/2}=16$, sehingga $b=16\\sin 45^\\circ=16\\cdot\\dfrac{\\sqrt{2}}{2}=8\\sqrt{2}$.',
-    hints: ['Gunakan $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$.'],
+      'Aturan sinus: $\\dfrac{a}{\\sin A}=\\dfrac{8}{1/2}=16$, sehingga $b=16\\sin 45^\\circ=16\\cdot\\dfrac{\\sqrt{2}}{2}=8\\sqrt{2}$ (B). Opsi A membagi dua kali lagi; opsi C memakai $\\sin 60^\\circ$; opsi D berhenti pada nilai $16$ tanpa mengalikan dengan $\\sin 45^\\circ$.',
+    hints: [
+      'Gunakan $\\dfrac{a}{\\sin A}=\\dfrac{b}{\\sin B}$.',
+      'Setelah memperoleh $\\dfrac{a}{\\sin A}=16$, kalikan dengan $\\sin 45^\\circ$.',
+    ],
     competencies: ['aturan sinus'],
   },
   {
@@ -122,7 +131,10 @@ export const trigonometriLanjutQuestions: Question[] = [
     answer: '7',
     explanation:
       '$a^{2}=b^{2}+c^{2}-2bc\\cos A=9+25-2\\cdot3\\cdot5\\cdot\\left(-\\dfrac{1}{2}\\right)=34+15=49$, sehingga $a=7$.',
-    hints: ['Gunakan aturan kosinus dan ingat $\\cos 120^\\circ=-\\dfrac{1}{2}$.'],
+    hints: [
+      'Gunakan aturan kosinus dan ingat $\\cos 120^\\circ=-\\dfrac{1}{2}$.',
+      'Hitung $b^{2}+c^{2}$ lebih dahulu, lalu tambahkan suku $-2bc\\cos A$ yang bernilai positif.',
+    ],
     competencies: ['aturan kosinus'],
   },
   {
@@ -137,7 +149,10 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Luas $=\\dfrac{1}{2}bc\\sin A=\\dfrac{1}{2}\\cdot5\\cdot8\\cdot\\sin 60^\\circ=20\\cdot\\dfrac{\\sqrt{3}}{2}=10\\sqrt{3}\\approx 17{,}32$ satuan luas.',
     explanation:
       'Kunci menekankan pemilihan rumus luas dengan dua sisi dan sudut apit, serta substitusi nilai $\\sin 60^\\circ$.',
-    hints: ['Gunakan $L=\\dfrac{1}{2}bc\\sin A$.'],
+    hints: [
+      'Gunakan $L=\\dfrac{1}{2}bc\\sin A$.',
+      'Nilai $\\sin 60^\\circ=\\dfrac{\\sqrt{3}}{2}$.',
+    ],
     competencies: ['luas segitiga'],
     rubric: [
       'Memilih rumus luas $L=\\dfrac{1}{2}bc\\sin A$',
@@ -149,7 +164,7 @@ export const trigonometriLanjutQuestions: Question[] = [
   {
     id: 'tl-09',
     topicId: 'trigonometri-lanjut',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -162,8 +177,11 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      '$\\tan 2\\alpha=\\dfrac{2\\tan\\alpha}{1-\\tan^{2}\\alpha}=\\dfrac{2\\cdot\\frac{1}{2}}{1-\\frac{1}{4}}=\\dfrac{1}{\\frac{3}{4}}=\\dfrac{4}{3}$.',
-    hints: ['Substitusikan $\\tan\\alpha=\\dfrac{1}{2}$ ke identitas sudut rangkap tangen.'],
+      '$\\tan 2\\alpha=\\dfrac{2\\tan\\alpha}{1-\\tan^{2}\\alpha}=\\dfrac{2\\cdot\\frac{1}{2}}{1-\\frac{1}{4}}=\\dfrac{1}{\\frac{3}{4}}=\\dfrac{4}{3}$ (A). Opsi B ($\\frac{3}{4}$) membalik hasil akhir; opsi C ($\\frac12$) menyalin nilai $\\tan\\alpha$ tanpa memakai sudut rangkap; opsi D ($-\\frac43$) salah tanda pada penyebut $1-\\tan^{2}\\alpha$.',
+    hints: [
+      'Substitusikan $\\tan\\alpha=\\dfrac{1}{2}$ ke identitas sudut rangkap tangen.',
+      'Hitung $\\tan^{2}\\alpha=\\dfrac{1}{4}$ lebih dahulu, lalu sederhanakan $\\dfrac{1}{3/4}$.',
+    ],
     competencies: ['identitas sudut rangkap'],
   },
   {
@@ -202,7 +220,10 @@ export const trigonometriLanjutQuestions: Question[] = [
       'Sudut $B$ menghadap sisi $b=7$, sehingga $\\cos B=\\dfrac{a^{2}+c^{2}-b^{2}}{2ac}=\\dfrac{25+64-49}{2\\cdot5\\cdot8}=\\dfrac{40}{80}=\\dfrac{1}{2}$. Maka $B=60^\\circ$.',
     explanation:
       'Kunci menekankan penulisan aturan kosinus untuk sudut yang dicari, identifikasi sisi yang benar, lalu penentuan sudut dari nilai kosinus.',
-    hints: ['Gunakan $b^{2}=a^{2}+c^{2}-2ac\\cos B$ lalu selesaikan untuk $\\cos B$.'],
+    hints: [
+      'Gunakan $b^{2}=a^{2}+c^{2}-2ac\\cos B$ lalu selesaikan untuk $\\cos B$.',
+      'Setelah $\\cos B=\\dfrac{1}{2}$, tentukan besar sudut pada kuadran pertama.',
+    ],
     competencies: ['aturan kosinus', 'penalaran'],
     rubric: [
       'Menuliskan aturan kosinus untuk sudut $B$ yang menghadap $b=7$',
@@ -315,7 +336,7 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     answer: 'A',
     explanation:
-      'Kuadratkan kedua ruas: $(\\sin\\theta+\\cos\\theta)^{2}=\\sin^{2}\\theta+2\\sin\\theta\\cos\\theta+\\cos^{2}\\theta=1+2\\sin\\theta\\cos\\theta=\\dfrac{1}{4}$. Maka $2\\sin\\theta\\cos\\theta=-\\dfrac{3}{4}$, sehingga $\\sin\\theta\\cos\\theta=-\\dfrac{3}{8}$.',
+      'Kuadratkan kedua ruas: $(\\sin\\theta+\\cos\\theta)^{2}=\\sin^{2}\\theta+2\\sin\\theta\\cos\\theta+\\cos^{2}\\theta=1+2\\sin\\theta\\cos\\theta=\\dfrac{1}{4}$. Maka $2\\sin\\theta\\cos\\theta=-\\dfrac{3}{4}$ dan $\\sin\\theta\\cos\\theta=-\\dfrac{3}{8}$ (A). Opsi B ($\\frac38$) menghilangkan tanda negatif; opsi C ($-\\frac34$) lupa membagi dengan $2$; opsi D ($\\frac58$) memakai $1-\\frac38$ alih-alih menghitung $\\frac14-1$.',
     hints: [
       'Kuadratkan kedua ruas persamaan.',
       'Gunakan identitas $\\sin^{2}\\theta+\\cos^{2}\\theta=1$.',
