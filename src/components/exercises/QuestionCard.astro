@@ -6,6 +6,7 @@ import { topicUrl } from '@/utils/url';
 import { seededShuffle } from '@/lib/learner';
 import Figure from '@/components/content/Figure.astro';
 import DataTable from '@/components/content/DataTable.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
 
 interface Props {
   question: Question;
@@ -152,7 +153,15 @@ const competencies = question.competencies ?? [];
     )
   }
 
-  <p class="q-feedback" data-feedback role="status" aria-live="polite" hidden></p>
+  <div class="q-feedback-row" data-feedback-row hidden>
+    <span class="q-feedback-mascot" data-mascot-ok aria-hidden="true" hidden>
+      <MathMascot size={3.5} state="celebrate" />
+    </span>
+    <span class="q-feedback-mascot" data-mascot-no aria-hidden="true" hidden>
+      <MathMascot size={3.5} state="oops" />
+    </span>
+    <p class="q-feedback" data-feedback role="status" aria-live="polite"></p>
+  </div>
 
   <button type="button" class="btn btn-ghost btn-sm q-reset" data-reset hidden>Coba lagi</button>
 
@@ -176,6 +185,7 @@ const competencies = question.competencies ?? [];
 
 <style>
   .question-card {
+    min-width: 0;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -184,6 +194,7 @@ const competencies = question.competencies ?? [];
   }
   .q-head {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
@@ -205,6 +216,9 @@ const competencies = question.competencies ?? [];
     color: var(--color-text-soft);
   }
   .q-prompt {
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
     font-size: 1.02rem;
   }
   .q-prompt :global(> *:last-child) {
@@ -340,8 +354,29 @@ const competencies = question.competencies ?? [];
       margin-top: 0;
     }
   }
-  .q-feedback {
+  .q-feedback-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
     margin: 0.5rem 0;
+  }
+  .q-feedback-row[hidden],
+  .q-feedback-mascot[hidden] {
+    display: none;
+  }
+  .q-feedback-mascot {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 3.5rem;
+  }
+  .q-feedback-mascot :global(.mascot) {
+    max-width: 100%;
+    filter: none;
+  }
+  .q-feedback {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
     padding: 0.5rem 0.75rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -426,6 +461,9 @@ const competencies = question.competencies ?? [];
     const answer = (root.getAttribute('data-answer') ?? '').trim();
     const accepted: string[] = JSON.parse(root.getAttribute('data-accepted') ?? '[]');
     const feedback = root.querySelector('[data-feedback]') as HTMLElement;
+    const feedbackRow = root.querySelector('[data-feedback-row]') as HTMLElement | null;
+    const mascotOk = root.querySelector('[data-mascot-ok]') as HTMLElement | null;
+    const mascotNo = root.querySelector('[data-mascot-no]') as HTMLElement | null;
     const explanation = root.querySelector('[data-explanation]') as HTMLElement;
     const model = root.querySelector('[data-model]') as HTMLElement | null;
     const reset = root.querySelector('[data-reset]') as HTMLButtonElement | null;
@@ -462,7 +500,12 @@ const competencies = question.competencies ?? [];
     function showFeedback(kind: 'ok' | 'no' | 'info', text: string) {
       feedback.hidden = false;
       feedback.className = `q-feedback ${kind}`;
+      if (kind === 'ok') feedback.classList.add('settle-pop');
+      else if (kind === 'no') feedback.classList.add('nudge');
       feedback.textContent = text;
+      if (feedbackRow) feedbackRow.hidden = false;
+      if (mascotOk) mascotOk.hidden = kind !== 'ok';
+      if (mascotNo) mascotNo.hidden = kind !== 'no';
     }
 
     function showReset() {
@@ -519,6 +562,9 @@ const competencies = question.competencies ?? [];
       feedback.hidden = true;
       feedback.className = 'q-feedback';
       feedback.textContent = '';
+      if (feedbackRow) feedbackRow.hidden = true;
+      if (mascotOk) mascotOk.hidden = true;
+      if (mascotNo) mascotNo.hidden = true;
       hideExplanation();
       if (reset) reset.hidden = true;
       unlock?.();

@@ -100,6 +100,14 @@
   .katex-display > .katex {
     font-size: 1em;
   }
+  /* Wadah yang di layar memakai penggeser mendatar harus mengalir apa adanya
+     saat dicetak, agar rumus panjang tidak terpotong di tepi kertas. */
+  .q-prompt,
+  .rumus-block-body,
+  .glos-term,
+  .glos-meaning {
+    overflow: visible !important;
+  }
   /* Tabel tetap utuh (aturan .prose table ada di prose.css; ini pelengkap). */
   table,
   .prose table {

@@ -139,4 +139,16 @@ const trustPoints: Array<{ title: string; text: string; href?: string; link?: st
   .trust-more {
     margin: 1.5rem 0 0;
   }
+  @media (max-width: 40rem) {
+    /* Dipangkas visual (bukan display:none) agar tetap ada untuk pembaca layar. */
+    .trust-item > p:not(.trust-link) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+    .trust-grid {
+      gap: 0.9rem 1.25rem;
+    }
+  }
 </style>

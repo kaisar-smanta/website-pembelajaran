@@ -733,6 +733,22 @@ function alignClass(index: number): string {
     .mobile-nav-toggle {
       padding-inline: 0.6rem;
     }
+    /* Layar sangat sempit (<=416px): biarkan merek menyusut dan memangkas
+       judulnya agar baris header tidak meluap mendatar. */
+    .brand {
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+    .brand-logo {
+      flex: 0 0 auto;
+    }
+    .brand-text {
+      overflow: hidden;
+    }
+    .brand-text strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

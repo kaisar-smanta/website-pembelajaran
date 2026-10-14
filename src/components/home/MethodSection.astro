@@ -439,4 +439,30 @@ const habits: Habit[] = [
     }
   }
 
+  @media (max-width: 40rem) {
+    /* Dipangkas secara visual, bukan dihapus, supaya tetap terbaca pembaca
+       layar (paritas konten) sekaligus menjaga halaman tetap ringkas. */
+    .method-lead,
+    .group-lead,
+    .role-card p,
+    .habit-body p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+    .method-head {
+      margin-bottom: 1rem;
+    }
+    .method-grid {
+      gap: 1.35rem;
+    }
+    .habit-path {
+      gap: 0.85rem;
+    }
+    .habit-step {
+      padding: 0.8rem;
+    }
+  }
+
 </style>

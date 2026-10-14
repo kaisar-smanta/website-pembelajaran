@@ -6,7 +6,7 @@ import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
 import { topics, topicSubject } from '@/data/topics';
-import { questionsByTopic } from '@/data/questions';
+import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
 import { url, topicUrl } from '@/utils/url';
 
@@ -15,6 +15,37 @@ const crumbs = [
   { label: 'Latihan & Asesmen', href: url('/latihan') },
   { label: 'Tinjauan lintas topik' },
 ];
+
+/**
+ * Ukuran sesi tinjauan. Menyematkan seluruh bank soal (ratusan kartu beserta
+ * kunci jawaban dan pembahasan) membuat halaman tumbuh belasan megabita dan
+ * berat di ponsel, padahal halaman ini adalah *satu sesi*. Seperti
+ * `latihan/kilat`, kandidat dibatasi: satu soal per topik (disaring lebih
+ * lanjut oleh antrean berbasis kemajuan di peramban), sehingga tetap mewakili
+ * seluruh topik tanpa membengkakkan muatan.
+ */
+const SESSION_SIZE = 44;
+
+/** Menyebar `n` soal secara bergilir antar topik agar tiap topik terwakili. */
+function spreadByTopic<T extends { topicId: string }>(list: T[], n: number): T[] {
+  const buckets = new Map<string, T[]>();
+  for (const item of list) {
+    const bucket = buckets.get(item.topicId) ?? [];
+    bucket.push(item);
+    buckets.set(item.topicId, bucket);
+  }
+  const queues = [...buckets.values()];
+  const out: T[] = [];
+  let i = 0;
+  while (out.length < n && queues.some((queue) => queue.length > 0)) {
+    const next = queues[i % queues.length].shift();
+    if (next) out.push(next);
+    i += 1;
+  }
+  return out;
+}
+
+const sessionIds = new Set(spreadByTopic(questions, SESSION_SIZE).map((q) => q.id));
 
 const topicEntries = topics
   .map((topic) => {
@@ -27,7 +58,7 @@ const topicEntries = topics
       element: topic.element,
       practiceHref: url(`/latihan/${topic.slug}`),
       materialHref: topicUrl(topic.grade, topic.element, topic.slug, subject),
-      questions: questionsByTopic(topic.id),
+      questions: questionsByTopic(topic.id).filter((q) => sessionIds.has(q.id)),
     };
   })
   .filter((entry) => entry.questions.length > 0);
@@ -47,12 +78,12 @@ const meta = [
 
 <BaseLayout
   title="Tinjauan lintas topik"
-  description="Sesi tinjauan yang menghimpun seluruh soal yang belum tepat atau belum dicoba dari semua topik, diurutkan menurut jadwal pengulangan. Tersimpan lokal di peramban, tanpa akun."
+  description="Sesi tinjauan yang menghimpun soal yang belum tepat atau belum dicoba dari lintas topik, diurutkan menurut jadwal pengulangan. Tersimpan lokal di peramban, tanpa akun."
 >
   <PageHeader
     title="Tinjauan lintas topik"
     eyebrow="Tinjau"
-    lead="Himpunan soal yang pernah kamu jawab belum tepat atau belum sempat dicoba dari seluruh topik, disusun sebagai satu sesi. Urutannya mengikuti jadwal pengulangan sederhana agar yang paling mendesak muncul lebih dulu."
+    lead="Satu sesi berisi soal dari berbagai topik yang pernah kamu jawab belum tepat atau belum sempat dicoba. Antreannya mengikuti jadwal pengulangan sederhana agar yang paling mendesak muncul lebih dulu; sesi dibatasi jumlahnya dan menyebar antar topik. Untuk menjelajah seluruh bank soal, buka Latihan."
     crumbs={crumbs}
     meta={meta}
   />
@@ -189,10 +220,15 @@ const meta = [
   .review {
     padding-block: 1rem 2.5rem;
     display: grid;
+    /* Kolom tunggal yang boleh menyusut: tanpa ini trek `auto` mengikuti lebar
+       max-content anak (mis. dl.stats) sehingga halaman meluap di ponsel. */
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.75rem;
   }
   .notice {
     margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
     padding: 0.9rem 1.1rem;
     border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
     border-left: 4px solid var(--color-primary);
@@ -215,6 +251,7 @@ const meta = [
   }
   .review-summary {
     display: grid;
+    min-width: 0;
     gap: 1rem;
   }
   .review-summary :global(.section-heading) {
@@ -222,11 +259,15 @@ const meta = [
   }
   .stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    /* `min()` menjaga trek tetap muat di layar sempit; sebelumnya `8.5rem`
+       memaksa lebar max-content dan meluap pada viewport ponsel. */
+    grid-template-columns: repeat(auto-fit, minmax(min(8.5rem, 100%), 1fr));
+    min-width: 0;
     gap: 0.85rem;
     margin: 0;
   }
   .stat {
+    min-width: 0;
     padding: 0.75rem 0.9rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
@@ -269,13 +310,24 @@ const meta = [
   }
   .review-groups {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.75rem;
   }
   .review-topic {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
     gap: 1rem;
     padding-top: 1.25rem;
     border-top: 3px solid var(--accent, var(--color-primary));
+  }
+  /* Seluruh rantai grid harus boleh menyusut agar kartu soal yang memuat
+     rumus lebar tidak memperluas trek dan membuat halaman meluap. */
+  .review-topic-head,
+  .review-topic-copy,
+  .review-list,
+  .review-q {
+    min-width: 0;
   }
   .review-topic-head {
     display: flex;

@@ -13,7 +13,10 @@ const minHeight = typeof height === 'number' ? `${height}px` : height;
   aria-hidden="true"
   style={`--sim-skeleton-h:${minHeight}`}
 >
-  <span class="sim-skeleton-shimmer" aria-hidden="true"></span>
+  <span class="sim-skeleton-shimmer shimmer" aria-hidden="true"></span>
+  <span class="sim-skeleton-bar shimmer" aria-hidden="true"></span>
+  <span class="sim-skeleton-bar sim-skeleton-bar--wide shimmer" aria-hidden="true"></span>
+  <span class="sim-skeleton-bar sim-skeleton-bar--short shimmer" aria-hidden="true"></span>
   <span class="sim-skeleton-label">{label}</span>
 </div>
 
@@ -24,8 +27,10 @@ const minHeight = typeof height === 'number' ? `${height}px` : height;
     z-index: 5;
     display: grid;
     place-items: center;
+    align-content: center;
+    gap: 0.75rem;
     min-height: var(--sim-skeleton-h, 15rem);
-    padding: 1rem;
+    padding: 1.5rem 1.25rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -34,11 +39,28 @@ const minHeight = typeof height === 'number' ? `${height}px` : height;
   .sim-skeleton-shimmer {
     position: absolute;
     inset: 0;
-    background: var(--color-surface-2);
+  }
+  .sim-skeleton-bar {
+    position: relative;
+    z-index: 1;
+    width: min(70%, 22rem);
+    max-width: 100%;
+    height: 0.9rem;
+    border-radius: var(--radius-pill);
+    opacity: 0.85;
+  }
+  .sim-skeleton-bar--wide {
+    width: min(90%, 30rem);
+    height: 6.5rem;
+    border-radius: var(--radius-lg);
+  }
+  .sim-skeleton-bar--short {
+    width: min(45%, 14rem);
   }
   .sim-skeleton-label {
     position: relative;
     z-index: 1;
+    margin-top: 0.35rem;
     padding: 0.4rem 0.9rem;
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--color-surface) 84%, transparent);
@@ -47,26 +69,7 @@ const minHeight = typeof height === 'number' ? `${height}px` : height;
     color: var(--color-text-muted);
     font-size: 0.9rem;
     font-weight: 600;
-  }
-  @keyframes sim-skeleton-shimmer {
-    from {
-      background-position: 200% 0;
-    }
-    to {
-      background-position: -200% 0;
-    }
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .sim-skeleton-shimmer {
-      background: linear-gradient(
-        100deg,
-        var(--color-surface-2) 30%,
-        color-mix(in srgb, var(--color-primary) 16%, var(--color-surface-2)) 50%,
-        var(--color-surface-2) 70%
-      );
-      background-size: 200% 100%;
-      animation: sim-skeleton-shimmer 2.4s linear infinite;
-    }
+    text-align: center;
   }
   @media (scripting: none) {
     .sim-skeleton {

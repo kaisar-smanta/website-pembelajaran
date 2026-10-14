@@ -71,14 +71,30 @@
 .katex {
   font-size: 1.05em;
 }
+/* Batasi lebar KaTeX agar tidak pernah lebih lebar dari induknya. */
+.prose :is(.katex, .katex-display) {
+  max-width: 100%;
+}
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
+  /* Jangan meneruskan geser mendatar ke halaman saat rumus digulir. */
+  overscroll-behavior-x: contain;
   padding: 0.35rem 0.1rem;
   margin: 0.75rem 0;
 }
 .katex-display > .katex {
   font-size: 1.12em;
+}
+/* Di layar ponsel, rumus inline panjang dapat digulir mendatar daripada terpotong
+   oleh leluhur yang memakai overflow hidden/clip. Sengaja `screen and` agar tidak
+   bocor ke cetak (lebar kertas sering < 48rem sehingga rumus tercetak terpotong). */
+@media screen and (max-width: 48rem) {
+  .prose .katex {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+  }
 }
 .math-cell {
   white-space: nowrap;
