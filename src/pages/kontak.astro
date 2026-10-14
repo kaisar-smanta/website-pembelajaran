@@ -1,7 +1,4 @@
 ---
-// TODO(kontak): Kanal khusus (email/formulir) belum tersedia di src/data/site.ts.
-// Bila penyusun menetapkan alamat surel resmi atau formulir, tambahkan di sana
-// lalu tampilkan tautannya di halaman ini (mis. di bawah daftar tautan sekolah).
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
@@ -16,12 +13,12 @@ const crumbs = [
 
 <BaseLayout
   title="Kontak & Masukan"
-  description="Cara menyampaikan koreksi materi, pertanyaan, dan masukan untuk situs Matematika SMA, serta kanal resmi sekolah."
+  description="Jalur yang tersedia untuk menyampaikan koreksi materi, pertanyaan, dan masukan, serta kanal resmi sekolah."
 >
   <PageHeader
     title="Kontak & Masukan"
     eyebrow="Bantuan"
-    lead="Situs ini tumbuh dari koreksi dan masukan. Jika menemukan kekeliruan materi, tautan yang rusak, atau punya usulan perbaikan, kami senang mendengarnya."
+    lead="Situs ini tumbuh dari koreksi dan masukan. Jika menemukan kekeliruan materi, tautan yang rusak, atau punya usulan perbaikan, berikut jalur yang benar-benar tersedia."
     crumbs={crumbs}
   />
 
@@ -36,7 +33,7 @@ const crumbs = [
         <p class="text-muted">{site.author.role} · {site.school.name}</p>
         <p class="text-soft id-note">
           Materi disusun untuk mendampingi pembelajaran matematika SMA, bukan sebagai dokumen
-          resmi. Untuk hal administratif, silakan menghubungi sekolah melalui kanal resmi.
+          resmi. Untuk hal administratif, silakan menghubungi sekolah melalui kanal resminya.
         </p>
       </div>
     </section>
@@ -44,12 +41,11 @@ const crumbs = [
     <div class="prose reveal">
       <h2>Kanal Resmi</h2>
       <p>
-        Situs ini tidak mengumpulkan data pribadi dan tidak memiliki akun pengguna. Karena itu,
-        tidak ada kotak masuk khusus pada situs. Jalur resmi yang tersedia adalah kanal{' '}
-        {site.school.name} berikut.
+        Situs ini tidak mengumpulkan data pribadi dan tidak memiliki akun pengguna, sehingga
+        tidak ada kotak masuk khusus pada situs. Satu-satunya kanal resmi yang tersedia adalah
+        kanal {site.school.name} berikut.
       </p>
 
-      <!-- TODO(kontak): tambahkan tautan surel/kontak resmi bila sudah ditetapkan. -->
       <ul class="link-list">
         {
           site.links.map((link) => (
@@ -62,15 +58,29 @@ const crumbs = [
         }
       </ul>
 
-      <aside class="callout" aria-labelledby="kanal-belum">
-        <p class="callout-title" id="kanal-belum">Catatan tentang kanal khusus</p>
-        <p>
-          Kanal surel atau formulir khusus untuk situs ini belum ditetapkan. Sementara itu,
-          masukan dapat disampaikan melalui kanal resmi sekolah di atas
-          (<a href={site.school.url} target="_blank" rel="noopener noreferrer">website sekolah</a>).
-          Halaman ini akan diperbarui begitu kanal langsung tersedia.
-        </p>
-      </aside>
+      <p class="text-muted">
+        Surel, telepon, dan media sosial khusus untuk situs ini belum ditetapkan. Bila penyusun
+        menetapkannya, tautannya akan ditambahkan pada halaman ini.
+      </p>
+
+      <h2>Jalur Lain di Situs Ini</h2>
+      <p>
+        Sebagian pertanyaan dan masukan justru lebih cepat terjawab lewat halaman berikut.
+      </p>
+      <ul class="avenue-list" role="list">
+        <li>
+          <a href={url('/tentang')}>Tentang &amp; Kredit</a>
+          <span>Latar penyusunan, kredit, dan lisensi materi.</span>
+        </li>
+        <li>
+          <a href={url('/referensi')}>Referensi</a>
+          <span>Sumber, standar, dan catatan kurikulum yang dipakai.</span>
+        </li>
+        <li>
+          <a href={url('/aksesibilitas')}>Pernyataan Aksesibilitas</a>
+          <span>Komitmen akses dan cara melaporkan hambatan.</span>
+        </li>
+      </ul>
 
       <h2>Menyampaikan Koreksi Materi</h2>
       <p>
@@ -100,14 +110,6 @@ const crumbs = [
       <p>
         Pertanyaan tentang cara memakai materi, usulan topik baru, atau ide kegiatan kelas juga
         diterima. Sampaikan dengan bahasa yang ringkas dan jelas agar mudah dipahami.
-      </p>
-
-      <h2>Masalah Aksesibilitas</h2>
-      <p>
-        Jika menemukan hambatan akses, misalnya kontras warna yang kurang, kontrol yang sulit
-        dijangkau papan tik, atau teks yang tidak terbaca pembaca layar, sampaikan melalui jalur
-        yang sama. Rincian komitmen kami ada di halaman{' '}
-        <a href={url('/aksesibilitas')}>Pernyataan Aksesibilitas</a>.
       </p>
 
       <h2>Waktu Tanggapan</h2>
@@ -204,22 +206,31 @@ const crumbs = [
   .link-list a:hover {
     text-decoration: underline;
   }
-  .callout {
-    margin: 1.25rem 0;
-    padding: 1rem 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
-    border-left: 4px solid var(--color-primary);
+  .avenue-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .avenue-list li {
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+    background: var(--color-surface-2);
   }
-  .callout-title {
-    margin: 0 0 0.35rem;
-    font-weight: 700;
-    color: var(--color-primary);
+  .avenue-list a {
+    font-weight: 600;
+    text-decoration: none;
   }
-  .callout p {
-    margin: 0;
-    font-size: 0.94rem;
+  .avenue-list a:hover,
+  .avenue-list a:focus-visible {
+    text-decoration: underline;
+  }
+  .avenue-list span {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
   }
   .cta-section {
     padding-block: 2.5rem;

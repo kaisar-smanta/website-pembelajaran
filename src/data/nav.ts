@@ -1,3 +1,5 @@
+import { staticFooterGroups } from './display.ts';
+
 export interface NavItem {
   label: string;
   /** Tautan halaman. Kosong untuk grup dropdown tanpa halaman sendiri. */
@@ -110,41 +112,21 @@ export const mainNav: NavItem[] = [
   { label: 'Tentang', href: '/tentang', icon: 'info' },
 ];
 
-export const footerNav: { heading: string; items: NavItem[] }[] = [
-  {
-    heading: 'Kurikulum',
-    items: [
-      { label: 'Peta Pembelajaran', href: '/peta-pembelajaran' },
-      { label: 'Matematika', href: '/matematika' },
-      { label: 'Matematika Tingkat Lanjut', href: '/matematika-lanjut' },
-      { label: 'Kelas X', href: '/matematika/kelas/X' },
-      { label: 'Kelas XI', href: '/matematika/kelas/XI' },
-      { label: 'Kelas XII', href: '/matematika/kelas/XII' },
-    ],
-  },
-  {
-    heading: 'Belajar',
-    items: [
-      { label: 'Latihan & Asesmen', href: '/latihan' },
-      { label: 'Tantangan & Pengayaan', href: '/tantangan' },
-      { label: 'Eksplorasi', href: '/eksplorasi' },
-      { label: 'Alat Matematika', href: '/alat' },
-      { label: 'Matematika dalam Kehidupan', href: '/aplikasi' },
-      { label: 'Glosarium', href: '/glosarium' },
-      { label: 'Kumpulan Rumus', href: '/rumus' },
-      { label: 'Kemajuan Saya', href: '/kemajuan' },
-      { label: 'Tinjauan lintas topik', href: '/review' },
-    ],
-  },
-  {
-    heading: 'Tentang',
-    items: [
-      { label: 'Tentang & Kredit', href: '/tentang' },
-      { label: 'Referensi', href: '/referensi' },
-      { label: 'Peta Situs', href: '/peta-situs' },
-      { label: 'Kontak', href: '/kontak' },
-      { label: 'Aksesibilitas', href: '/aksesibilitas' },
-      { label: 'Cari materi', href: '/cari' },
-    ],
-  },
+/** Tautan footer tambahan yang bukan halaman statis (rute dinamis per kelas). */
+const footerExtraItems: NavItem[] = [
+  { label: 'Kelas X', href: '/matematika/kelas/X' },
+  { label: 'Kelas XI', href: '/matematika/kelas/XI' },
+  { label: 'Kelas XII', href: '/matematika/kelas/XII' },
 ];
+
+/**
+ * Grup footer diturunkan dari `STATIC_PAGES` (`src/data/display.ts`) agar tidak
+ * ada daftar halaman yang disalin ganda; hanya tautan dinamis per kelas yang
+ * ditambahkan di sini.
+ */
+export const footerNav: { heading: string; items: NavItem[] }[] = staticFooterGroups().map(
+  (group) => ({
+    heading: group.heading,
+    items: group.heading === 'Kurikulum' ? [...group.items, ...footerExtraItems] : group.items,
+  }),
+);

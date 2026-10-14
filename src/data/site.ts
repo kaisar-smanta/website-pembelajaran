@@ -52,9 +52,5 @@ export const site: SiteIdentity = {
   },
   links: [
     { label: 'Website sekolah', href: 'https://sman1tanjungkalsel.sch.id/', kind: 'website' },
-    // TODO: tambahkan tautan resmi bila sudah tersedia, contoh:
-    // { label: 'Instagram sekolah', href: '<url-instagram>', kind: 'instagram' },
-    // { label: 'YouTube sekolah', href: '<url-youtube>', kind: 'youtube' },
-    // { label: 'Facebook sekolah', href: '<url-facebook>', kind: 'facebook' },
   ],
 };

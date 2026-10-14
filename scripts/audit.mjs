@@ -351,7 +351,12 @@ const BASE_JOBS = [
   { name: 'kemajuan', path: '/kemajuan', width: 1440, height: 900 },
   { name: 'kemajuan-mobile', path: '/kemajuan', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'kontak', path: '/kontak', width: 1440, height: 900 },
+  { name: 'kontak-mobile', path: '/kontak', width: 390, height: 844, dsf: 2, mobile: true },
   { name: 'aksesibilitas', path: '/aksesibilitas', width: 1440, height: 900 },
+  { name: 'aksesibilitas-mobile', path: '/aksesibilitas', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'review', path: '/review', width: 1440, height: 900 },
+  { name: 'review-mobile', path: '/review', width: 390, height: 844, dsf: 2, mobile: true },
+  { name: 'latihan-kilat', path: '/latihan/kilat', width: 390, height: 844, dsf: 2, mobile: true },
   // Halaman dengan saringan/dashboard dijalankan interaktif agar chip, select,
   // dan kolom cari benar-benar dieksekusi.
   { name: 'latihan-interaktif', path: '/latihan', width: 1440, height: 900, interact: true },
