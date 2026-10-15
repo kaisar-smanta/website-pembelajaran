@@ -17,7 +17,11 @@ export const fungsiRasionalAkarQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Penyebut bernilai nol saat $x-1=0$, yaitu $x=1$, sehingga domainnya semua bilangan real kecuali $x=1$ (B). Opsi A mengabaikan syarat penyebut tidak nol; opsi C salah mengira pembilang nol sebagai larangan, padahal $x=-2$ justru titik potong sumbu-$x$; opsi D membatasi domain secara berlebihan sebab fungsi juga terdefinisi untuk $x<1$.',
-    hints: ['Cari nilai $x$ yang membuat penyebut bernilai nol.'],
+    hints: [
+      'Cari nilai $x$ yang membuat penyebut bernilai nol.',
+      'Nilai itu dikeluarkan dari domain; domainnya semua bilangan real kecuali nilai tersebut.',
+      'Fokus pada penyebut $x-1$, bukan pada pembilang $x+2$.',
+    ],
     competencies: ['domain fungsi rasional'],
   },
   {
@@ -36,7 +40,11 @@ export const fungsiRasionalAkarQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Substitusi $x=0$ memberi $f(0)=\\dfrac{0+2}{0-1}=\\dfrac{2}{-1}=-2$ (B). Opsi A lupa tanda negatif dari penyebut; opsi C memakai nilai asimtot datar $y=1$ yang tidak berkaitan dengan $f(0)$; opsi D keliru karena pembilang bernilai $2$, bukan nol.',
-    hints: ['Substitusikan $x=0$ ke pembilang dan penyebut.'],
+    hints: [
+      'Substitusikan $x=0$ ke pembilang dan penyebut.',
+      'Perhatikan tanda hasil pembagian $2$ dengan $-1$.',
+      'Penyebut yang negatif membuat nilai fungsi bertanda negatif.',
+    ],
     competencies: ['nilai fungsi rasional'],
   },
   {
@@ -48,7 +56,10 @@ export const fungsiRasionalAkarQuestions: Question[] = [
     prompt: 'Diketahui $g(x)=\\sqrt{x-3}$. Tentukan nilai $g(7)$.',
     answer: '2',
     explanation: 'Substitusi $x=7$: $g(7)=\\sqrt{7-3}=\\sqrt{4}=2$.',
-    hints: ['Hitung $7-3$ terlebih dahulu, lalu ambil akar kuadratnya.'],
+    hints: [
+      'Hitung $7-3$ terlebih dahulu, lalu ambil akar kuadratnya.',
+      'Karena $7-3=4$, cari akar dari $4$.',
+    ],
     competencies: ['evaluasi fungsi akar'],
   },
   {
@@ -61,7 +72,11 @@ export const fungsiRasionalAkarQuestions: Question[] = [
     answer: '0',
     explanation:
       'Derajat pembilang adalah $1$ dan derajat penyebut adalah $2$. Karena derajat pembilang lebih kecil, asimtot datarnya $y=0$.',
-    hints: ['Bandingkan derajat pembilang dan penyebut terlebih dahulu.'],
+    hints: [
+      'Bandingkan derajat pembilang dan penyebut terlebih dahulu.',
+      'Derajat pembilang ($1$) lebih kecil daripada derajat penyebut ($2$).',
+      'Jika derajat pembilang lebih kecil, asimtot datarnya $y=0$.',
+    ],
     competencies: ['asimtot datar', 'perbandingan derajat'],
   },
   {

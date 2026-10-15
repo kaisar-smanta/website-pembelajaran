@@ -26,17 +26,18 @@ Rata-rata mudah dipengaruhi nilai ekstrem. Median dan jangkauan interkuartil (IQ
 - Kelas A: $70, 72, 75, 76, 77$ → rata-rata $74$, median $75$.
 - Kelas B: $40, 55, 60, 100, 115$ → rata-rata $74$, median $60$.
 
-Kedua kelas punya rata-rata sama, tetapi kondisinya sangat berbeda. Median kelas B ($60$) jauh di bawah rata-ratanya karena dua nilai ekstrem $100$ dan $115$ menarik rata-rata ke atas. **Membaca informasi statistik berarti memeriksa lebih dari sekadar satu angka.**`,
+Kedua kelas punya rata-rata sama, tetapi kondisinya sangat berbeda. Median kelas B ($60$) jauh di bawah rata-ratanya karena dua nilai ekstrem $100$ dan $115$ menarik rata-rata ke atas. Ukuran sampel juga menentukan: rata-rata dari lima nilai jauh lebih mudah tergeser daripada rata-rata dari ribuan nilai. **Membaca informasi statistik berarti memeriksa lebih dari sekadar satu angka.**`,
     takeaways: [
       'Rata-rata mudah ditarik oleh nilai ekstrem; median lebih tahan.',
       'Sebaran dan ukuran sampel sama pentingnya dengan nilai pusat.',
+      'Median dan jangkauan interkuartil (IQR) memberi gambaran yang lebih jujur pada data yang memuat nilai ekstrem.',
     ],
     reflection: [
       'Bagaimana kamu akan memeriksa klaim "rata-rata naik" sebelum mempercayainya?',
       'Ukuran statistik mana yang paling jujur untuk data dengan nilai ekstrem?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti pola pelaporan survei di media; dua kumpulan nilai dirancang agar rata-ratanya sama tetapi mediannya berbeda.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis mengikuti pola pelaporan survei di media; dua kumpulan nilai dirancang agar rata-ratanya sama tetapi mediannya berbeda, bukan data survei tertentu.',
   },
   {
     id: 'regresi-nilai-ujian',
@@ -73,10 +74,10 @@ Untuk siswa yang belajar 10 jam, perkiraan nilainya $\\hat{y} = 1{,}19(10) + 0{,
       'Sejauh mana kamu boleh memakai garis regresi ini untuk membuat prediksi?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi: pasangan data jam belajar dan nilai dirancang agar garis regresi serta korelasinya mudah dihitung; arah hubungan yang positif konsisten dengan temuan umum tentang waktu belajar.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: pasangan data jam belajar dan nilai dirancang agar garis regresi serta korelasinya mudah dihitung; arah hubungan positif konsisten dengan temuan umum, bukan data siswa tertentu.',
   },
   {
-    id: 'kata-sandi',
+    id: 'pemilihan-tim-lomba',
     title: 'Menyusun Tim Lomba: Permutasi atau Kombinasi?',
     category: 'data',
     element: 'data-peluang',
@@ -115,7 +116,7 @@ Jadi $P(8,3)$ dapat dipandang sebagai "pilih 3 orang lalu urutkan mereka". Kalim
       'Beri satu contoh dari kehidupanmu yang memakai kombinasi, bukan permutasi.',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti praktik umum pemilihan pengurus kelas dan tim lomba; banyaknya siswa dibuat agar perhitungan pencacahan mudah diperiksa.',
+      'Skenario pengajaran yang dikonstruksi mengikuti praktik umum pemilihan pengurus kelas dan tim lomba; banyaknya siswa dipilih agar perhitungan pencacahan mudah diperiksa, bukan data satu kelas tertentu.',
   },
   {
     id: 'tes-kesehatan',
@@ -156,7 +157,7 @@ Meski tes "95% akurat", hanya sekitar $16{,}1\\%$ orang dengan hasil positif yan
       'Mengapa dokter tetap memesan tes lanjutan walau hasil pertama positif?',
     ],
     source:
-      'Angka mengikuti konsep sensitivitas, spesifisitas, dan prevalensi pada uji saring penyakit; dibulatkan untuk pembelajaran dan bukan rujukan medis maupun data satu penyakit tertentu.',
+      'Mengacu pada konsep sensitivitas, spesifisitas, dan prevalensi pada uji saring penyakit (prinsip yang lazim dirujuk WHO); dibulatkan untuk pembelajaran dan bukan rujukan medis maupun data satu penyakit tertentu.',
   },
   {
     id: 'korelasi-sebab-akibat',
@@ -197,7 +198,7 @@ Menyimpulkan sebab-akibat menuntut bukti yang lebih kuat, misalnya eksperimen de
       'Carilah satu judul berita yang mengubah korelasi menjadi klaim sebab-akibat, lalu susun sanggahanmu.',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti pola laporan gaya hidup remaja; korelasi awal dan penyusutannya setelah mengontrol variabel dirancang untuk melatih penalaran kausal.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis mengikuti pola laporan gaya hidup remaja; korelasi awal dan penyusutannya setelah mengontrol variabel dirancang untuk melatih penalaran kausal, bukan data studi tertentu.',
   },
   {
     id: 'statistik-harian',
@@ -235,7 +236,7 @@ Jadi nilai akhirnya **67**, bukan $70$. Rata-rata biasa hanya benar bila semua k
       'Di mana lagi kamu menemukan rata-rata berbobot dalam kehidupan sehari-hari?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi berdasarkan praktik penilaian di sekolah (bobot tugas, ulangan, dan ujian); angka dibulatkan agar mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi berdasarkan praktik penilaian di sekolah (bobot tugas, ulangan, dan ujian); angka dibulatkan agar mudah dihitung, bukan kebijakan sekolah tertentu.',
   },
   {
     id: 'komb-sandi-dan-pin',
@@ -275,49 +276,49 @@ Kedua teknik saling melengkapi: pencacahan menghitung **berapa banyak** kemungki
       'Jika syarat berubah menjadi "paling sedikit dua angka", bagaimana bentuk perhitungannya?',
     ],
     source:
-      'Kebijakan kata sandi 6 karakter (huruf kecil dan angka) serta PIN 4 angka mengikuti praktik keamanan umum; angka dibulatkan agar perhitungan inklusi-eksklusi dan prinsip sarang merpati mudah diperiksa.',
+      'Skenario pengajaran yang dikonstruksi mengikuti praktik keamanan informasi pada umumnya (kata sandi enam karakter dari huruf kecil dan angka, serta PIN empat angka); angka dibulatkan agar perhitungan inklusi-eksklusi dan prinsip sarang merpati mudah diperiksa, bukan kebijakan satu layanan tertentu.',
   },
   {
     id: 'cacat-dua-tahap',
-    title: 'Dua Tahap Pemeriksaan Produk Cacat',
+    title: 'Menyaring Pesan Phishing Dua Tahap',
     category: 'data',
     element: 'data-peluang',
     grade: 'XII',
     level: 'cakap',
     estimatedMinutes: 11,
     explorationId: 'peluang-bersyarat-sim',
-    tags: ['peluang bersyarat', 'pemeriksaan bertahap', 'kendali mutu', 'pohon peluang'],
+    tags: ['peluang bersyarat', 'penyaringan bertahap', 'keamanan surel', 'pohon peluang'],
     summary:
-      'Menghitung peluang produk cacat yang lolos dua tahap pemeriksaan dan menilai manfaat tahap kedua.',
+      'Menghitung peluang surel phishing yang lolos dua lapis filter dan menilai manfaat lapis kedua.',
     topicIds: ['peluang-bersyarat', 'peluang'],
-    body: `Sebuah pabrik memperkirakan **4%** produknya cacat. Untuk menyaringnya dipakai dua tahap pemeriksaan:
+    body: `Sebuah sekolah menerima banyak surel setiap hari dan memperkirakan **4%** di antaranya adalah phishing (penipuan). Untuk menyaringnya dipakai dua lapis filter:
 
-- **Tahap 1** mendeteksi 90% produk cacat dan meloloskan sisanya.
-- **Tahap 2** memeriksa ulang produk yang lolos tahap 1 dan mendeteksi 80% cacat yang masih tersisa.
+- **Filter 1** menangkap 90% surel phishing dan meloloskan sisanya.
+- **Filter 2** memeriksa ulang surel yang lolos filter 1 dan menangkap 80% phishing yang masih tersisa.
 
-Anggap kedua tahap tidak pernah salah menandai produk yang baik (tidak ada positif palsu). Pertanyaan pemicunya: dari semua produk yang akhirnya dikirim, berapa peluangnya cacat, dan apakah menambah tahap kedua sepadan dengan biayanya?`,
-    analysis: `Bayangkan **10.000** produk. Sekitar $4\\%$ atau $400$ produk cacat, dan $9.600$ produk baik.
+Anggap kedua filter tidak pernah salah menandai surel yang aman. Pertanyaan pemicunya: dari semua surel yang akhirnya sampai ke kotak masuk, berapa peluangnya phishing, dan apakah menambah lapis kedua sepadan dengan biayanya?`,
+    analysis: `Bayangkan **10.000** surel. Sekitar $4\\%$ atau $400$ surel phishing, dan $9.600$ surel aman.
 
-**Tahap 1.** Dari $400$ produk cacat, $90\\%$ terdeteksi: $0{,}9 \\times 400 = 360$, sehingga $40$ cacat lolos. Seluruh $9.600$ produk baik lolos.
+**Filter 1.** Dari $400$ surel phishing, $90\\%$ tertangkap: $0{,}9 \\times 400 = 360$, sehingga $40$ phishing lolos. Seluruh $9.600$ surel aman lolos.
 
-**Tahap 2.** Dari $40$ cacat yang lolos, $80\\%$ terdeteksi: $0{,}8 \\times 40 = 32$, sehingga hanya $8$ cacat yang akhirnya dikirim bersama $9.600$ produk baik.
+**Filter 2.** Dari $40$ phishing yang lolos, $80\\%$ tertangkap: $0{,}8 \\times 40 = 32$, sehingga hanya $8$ phishing yang akhirnya sampai ke kotak masuk bersama $9.600$ surel aman.
 
-Maka peluang produk yang dikirim benar-benar cacat adalah
-$$P(\\text{cacat} \\mid \\text{lolos}) = \\frac{8}{9.600 + 8} \\approx 0{,}083\\%.$$
-Tanpa tahap kedua, peluang cacat yang lolos adalah $\\frac{40}{10.000} = 0{,}4\\%$. Jadi tahap kedua menurunkan cacat terkirim dari $0{,}4\\%$ menjadi sekitar $0{,}083\\%$, yaitu **lima kali lebih kecil** karena menyaring 80% dari sisa.
+Maka peluang surel yang sampai benar-benar phishing adalah
+$$P(\\text{phishing} \\mid \\text{lolos}) = \\frac{8}{9.600 + 8} \\approx 0{,}083\\%.$$
+Tanpa filter kedua, peluang phishing yang lolos adalah $\\frac{40}{10.000} = 0{,}4\\%$. Jadi filter kedua menurunkan phishing yang sampai dari $0{,}4\\%$ menjadi sekitar $0{,}083\\%$, yaitu **lima kali lebih kecil** karena menyaring 80% dari sisa.
 
-**Keputusan.** Manfaat tahap kedua dibandingkan dengan biayanya: tahap ini layak ditambahkan bila kerugian rata-rata akibat satu produk cacat yang sampai ke pelanggan lebih besar daripada $\\frac{\\text{biaya tahap 2}}{32\\ \\text{cacat yang tertangkap}}$. Tahap kedua bekerja pada populasi kecil (hanya $40$ cacat yang lolos), sehingga jumlah yang diselamatkan tidak sebanding dengan memeriksa seluruh produksi. Inilah sebabnya pemeriksaan bertahap disusun berlapis dan berfokus, bukan seragam.`,
+**Keputusan.** Manfaat filter kedua dibandingkan dengan biayanya: filter ini layak ditambahkan bila kerugian rata-rata akibat satu surel phishing yang sampai lebih besar daripada $\\frac{\\text{biaya filter 2}}{32\\ \\text{phishing yang tertangkap}}$. Filter kedua bekerja pada populasi kecil (hanya $40$ phishing yang lolos), sehingga jumlah yang diselamatkan tidak sebanding dengan memeriksa seluruh surel. Inilah sebabnya penyaringan disusun berlapis dan berfokus, bukan seragam.`,
     takeaways: [
       'Peluang bersyarat memakai informasi tahap sebelumnya, bukan lagi peluang awal.',
-      'Pemeriksaan bertahap menurunkan cacat terkirim secara berlipat, tetapi bekerja pada populasi yang makin kecil.',
-      'Keputusan menambah tahap pemeriksaan membandingkan manfaat (cacat yang tertangkap) dengan biayanya.',
+      'Penyaringan bertahap menurunkan phishing yang lolos secara berlipat, tetapi bekerja pada populasi yang makin kecil.',
+      'Keputusan menambah lapis filter membandingkan manfaat (phishing yang tertangkap) dengan biayanya.',
     ],
     reflection: [
-      'Mengapa tahap kedua hanya perlu memeriksa produk yang lolos tahap pertama?',
-      'Jika tahap 2 hanya mendeteksi 50%, berapa peluang cacat yang akhirnya terkirim?',
-      'Mengapa memeriksa seluruh produk dua kali bisa lebih mahal tanpa menangkap banyak tambahan?',
+      'Mengapa filter kedua hanya perlu memeriksa surel yang lolos filter pertama?',
+      'Jika filter 2 hanya mendeteksi 50%, berapa peluang phishing yang akhirnya sampai?',
+      'Mengapa memeriksa seluruh surel dua kali bisa lebih mahal tanpa menangkap banyak tambahan?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti gagasan pemeriksaan bertahap (sequential screening) pada kendali mutu; angka dibulatkan agar peluang bersyaratnya mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti gagasan penyaringan dua tahap (dua lapis filter) yang lazim dipakai pada penyaring surel; angka 4%, 90%, dan 80% dibulatkan agar peluang bersyaratnya mudah dihitung, bukan data sistem tertentu.',
   },
 ];

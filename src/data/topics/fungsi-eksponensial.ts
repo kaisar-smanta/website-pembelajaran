@@ -11,15 +11,15 @@ export const fungsiEksponensial: Topic = {
   status: 'lengkap',
   estimatedMinutes: 90,
   summary:
-    'Memahami bentuk dan grafik fungsi eksponensial, pertumbuhan dan peluruhan, persamaan eksponen, serta penerapannya dalam pemodelan.',
+    'Memahami bentuk dan grafik fungsi eksponensial, perilaku pertumbuhan dan peluruhan, serta penerapannya dalam pemodelan.',
   description:
-    'Fungsi eksponensial menggambarkan perubahan yang berlipat dengan faktor tetap: pertumbuhan populasi, bunga majemuk, dan peluruhan zat. Pada topik ini kita mempelajari bentuk $f(x)=a\\cdot b^{x}$, menggambar grafik dan asimtotnya, membedakan pertumbuhan dan peluruhan, menyelesaikan persamaan eksponen, serta memodelkan situasi nyata dan menafsirkan hasilnya.',
+    'Fungsi eksponensial menggambarkan perubahan yang berlipat dengan faktor tetap: pertumbuhan populasi, bunga majemuk, dan peluruhan zat. Pada topik ini kita mempelajari bentuk $f(x)=a\\cdot b^{x}$, menggambar grafik dan asimtotnya, menelaah perilaku grafik pada tiap nilai basis, membedakan pertumbuhan dan peluruhan, serta memodelkan dan menafsirkan situasi nyata. Penyelesaian persamaan eksponen dibahas terpisah pada topik Persamaan Eksponen dan Logaritma.',
   keywords: [
     'fungsi eksponensial',
     'pertumbuhan',
     'peluruhan',
     'asimtot',
-    'persamaan eksponen',
+    'faktor pertumbuhan',
     'grafik',
   ],
   prerequisites: ['eksponen'],
@@ -33,7 +33,7 @@ export const fungsiEksponensial: Topic = {
     { text: 'Menjelaskan bentuk fungsi eksponensial dan peran basisnya.' },
     { text: 'Menggambar grafik fungsi eksponensial beserta asimtotnya.' },
     { text: 'Membedakan pertumbuhan dan peluruhan eksponensial.' },
-    { text: 'Menyelesaikan persamaan eksponen dengan menyamakan basis.' },
+    { text: 'Menganalisis pengaruh parameter $a$ dan $b$ terhadap grafik serta perilaku $f(x)=a\\cdot b^{x}$.' },
     { text: 'Memodelkan dan menafsirkan masalah pertumbuhan serta peluruhan.' },
   ],
   applications: ['pertumbuhan-populasi', 'peluruhan-zat'],
@@ -42,7 +42,7 @@ export const fungsiEksponensial: Topic = {
       id: "tujuan",
       kind: "tujuan",
       title: "Tujuan Pembelajaran",
-      body: "Setelah mempelajari topik ini, peserta didik dapat menjelaskan bentuk fungsi eksponensial, menggambar grafik disertai asimtot dan pergeserannya, membedakan pertumbuhan dan peluruhan, menyelesaikan persamaan eksponen dengan menyamakan basis, serta memodelkan masalah pertumbuhan dan peluruhan.",
+      body: "Setelah mempelajari topik ini, peserta didik dapat menjelaskan bentuk fungsi eksponensial, menggambar grafik disertai asimtot dan pergeserannya, membedakan pertumbuhan dan peluruhan, menganalisis pengaruh parameter $a$ dan $b$, serta memodelkan masalah pertumbuhan dan peluruhan.",
     },
     {
       id: "pemantik",
@@ -71,10 +71,10 @@ Dua jam kemudian, berapa banyak bakteri? Sebelum menghitung, kira-kira apakah ja
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- sifat eksponen, khususnya $a^{m}\\cdot a^{n}=a^{m+n}$ dan $a^{-n}=\\dfrac{1}{a^{n}}$;
-- menyatakan bilangan sebagai pangkat dari basis tertentu, misalnya $32=2^{5}$ dan $27=3^{3}$;
-- menyelesaikan persamaan linear satu variabel.`,
+      body: `Topik ini melanjutkan [Eksponen dan Bentuk Akar](/matematika/kelas/X/bilangan/eksponen) ke wilayah fungsi. Pastikan kamu sudah bisa:
+- memakai sifat-sifat eksponen (ringkasannya ada pada topik Eksponen) secara luwes;
+- menyatakan bilangan sebagai pangkat dari basis tertentu, seperti $32=2^{5}$ dan $27=3^{3}$;
+- membaca koordinat titik pada bidang kartesius.`,
     },
     {
       id: "konteks",
@@ -246,8 +246,8 @@ Untuk $a>0$, domain fungsi adalah seluruh bilangan real dan daerah hasilnya $y>0
       kind: "rumus",
       title: "Pertumbuhan, Peluruhan, dan Pergeseran",
       body: `**Faktor pertumbuhan dan peluruhan.** Jika suatu besaran berubah sebesar $r$ per periode, faktor pengalinya adalah
-- pertumbuhan: $b = 1 + r$, misalnya naik $8\\%$ memberi $b=1{,}08$;
-- peluruhan: $b = 1 - r$, misalnya turun $10\\%$ memberi $b=0{,}9$.
+- pertumbuhan: $b = 1 + r$; kenaikan $8\\%$ memberi $b=1{,}08$;
+- peluruhan: $b = 1 - r$; penurunan $10\\%$ memberi $b=0{,}9$.
 
 Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
 
@@ -256,7 +256,7 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
 - $y = b^{x-h}$ bergeser ke kanan sebanyak $h$;
 - $y = -b^{x}$ dicerminkan terhadap sumbu-$x$ (nilainya menjadi negatif).
 
-**Persamaan eksponen.** Jika $b^{f(x)} = b^{g(x)}$ dengan $b>0$ dan $b\\neq1$, maka $f(x)=g(x)$. Menyamakan basis adalah kunci.`,
+Bila perlu menyelesaikan persamaan seperti $b^{f(x)}=b^{g(x)}$, prosedur lengkapnya dibahas pada topik [Persamaan Eksponen dan Logaritma](/matematika/kelas/X/aljabar-fungsi/persamaan-eksponen-logaritma).`,
       blocks: [
         {
           kind: "figure",
@@ -270,7 +270,7 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `Lima contoh berikut mencakup perhitungan nilai, penyelesaian persamaan eksponen, dan pemodelan. Buka setiap langkah untuk melihat penyelesaian lengkapnya.`,
+      body: `Lima contoh berikut menekankan perhitungan nilai, pembacaan arah grafik, penafsiran parameter model, dan pergeseran asimtot. Buka setiap langkah untuk melihat penalaran beserta pemeriksaannya.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -281,39 +281,47 @@ Modelnya $f(t)=a\\cdot b^{t}$ dengan $a$ nilai awal dan $t$ banyak periode.
               text: `Diberikan $f(x)=3\\cdot2^{x}$. Hitung $f(0)$, $f(1)$, $f(3)$, dan $f(-1)$.
 
 *Penyelesaian.* Substitusikan setiap nilai $x$:
-$$f(0)=3\\cdot2^{0}=3\\cdot1=3, \\qquad f(1)=3\\cdot2=6,$$
-$$f(3)=3\\cdot2^{3}=3\\cdot8=24, \\qquad f(-1)=3\\cdot2^{-1}=3\\cdot\\tfrac12=\\tfrac32.$$`,
+$$f(0)=3\\cdot2^{0}=3, \\qquad f(1)=3\\cdot2^{1}=6,$$
+$$f(3)=3\\cdot2^{3}=24, \\qquad f(-1)=3\\cdot2^{-1}=\\tfrac32.$$
+
+*Verifikasi.* Nilai $f(0)=3$ sama dengan koefisien $a$, dan tiap langkah naik satu mengalikan hasil dengan $2$: $3 \\to 6 \\to 12 \\to 24$. Cocok.`,
             },
             {
-              title: "Contoh 2: menyamakan basis",
-              text: `Selesaikan $3^{2x-1}=27$.
+              title: "Contoh 2: mengenali pertumbuhan atau peluruhan",
+              text: `Tentukan jenis perubahan dan asimtot dari $f(x)=200\\cdot(0{,}8)^{x}$, lalu hitung $f(2)$.
 
-*Penyelesaian.* Nyatakan $27=3^{3}$, maka $3^{2x-1}=3^{3}$. Karena basisnya sama, eksponennya dapat disamakan:
-$$2x-1=3 \\Rightarrow 2x=4 \\Rightarrow x=2.$$`,
+*Penyelesaian.* Basis $b=0{,}8$ memenuhi $0<b<1$, sehingga $f$ **meluruh** dan grafiknya monoton turun. Karena tidak ada konstanta yang ditambahkan di luar pangkat, asimtotnya tetap $y=0$.
+$$f(2)=200\\cdot(0{,}8)^{2}=200\\cdot0{,}64=128.$$
+
+*Verifikasi.* Faktor $0{,}8$ berarti berkurang $20\\%$ tiap langkah: $200 \\to 160 \\to 128$. Cocok dengan hasil hitung.`,
             },
             {
-              title: "Contoh 3: mengubah basis",
-              text: `Selesaikan $4^{x}=8^{x-1}$.
+              title: "Contoh 3: menafsirkan parameter model",
+              text: `Sebuah kultur bakteri dimodelkan $N(t)=500\\cdot2^{\\,t/20}$, dengan $t$ dalam menit. Tafsirkan parameternya dan hitung $N(40)$.
 
-*Penyelesaian.* Ubah ke basis $2$: $4^{x}=(2^{2})^{x}=2^{2x}$ dan $8^{x-1}=(2^{3})^{x-1}=2^{3x-3}$. Maka
-$$2x=3x-3 \\Rightarrow x=3.$$
-Periksa: $4^{3}=64$ dan $8^{2}=64$, jadi $x=3$ memenuhi.`,
+*Penyelesaian.* Nilai awal $N(0)=500$ sel, dan basis $2$ menunjukkan populasi berlipat dua setiap $20$ menit. Untuk $t=40$, eksponennya $\\frac{40}{20}=2$:
+$$N(40)=500\\cdot2^{2}=500\\cdot4=2.000.$$
+
+*Verifikasi.* Empat puluh menit adalah dua selang lipat ganda: $500 \\to 1.000 \\to 2.000$. Cocok.`,
             },
             {
               title: "Contoh 4: pemodelan bunga majemuk",
               text: `Modal Rp5.000.000 ditabung dengan bunga majemuk $10\\%$ per tahun. Tentukan saldo setelah $3$ tahun.
 
-*Penyelesaian.* Dengan faktor $b=1+0{,}1=1{,}1$, modelnya $M(t)=5.000.000(1{,}1)^{t}$. Maka
+*Penyelesaian.* Faktor pengalinya $b=1+0{,}1=1{,}1$, sehingga modelnya $M(t)=5.000.000(1{,}1)^{t}$:
 $$M(3)=5.000.000\\cdot(1{,}1)^{3}=5.000.000\\cdot1{,}331=6.655.000.$$
-Saldo menjadi **Rp6.655.000**.`,
+Saldo menjadi **Rp6.655.000**.
+
+*Verifikasi.* Telusuri baris per tahun: $5.000.000 \\to 5.500.000 \\to 6.050.000 \\to 6.655.000$, selaras dengan hasil pangkat.`,
             },
             {
-              title: "Contoh 5: pangkat negatif",
-              text: `Selesaikan $9^{x}=\\dfrac{1}{27}$.
+              title: "Contoh 5: pergeseran grafik dan asimtot",
+              text: `Grafik $y=2^{x}$ digeser menjadi $y=2^{x}-3$. Tentukan asimtot mendatarnya dan nilai $y$ saat $x=2$.
 
-*Penyelesaian.* Ubah kedua ruas ke basis $3$: $9^{x}=(3^{2})^{x}=3^{2x}$ dan $\\dfrac{1}{27}=3^{-3}$. Maka
-$$3^{2x}=3^{-3} \\Rightarrow 2x=-3 \\Rightarrow x=-\\dfrac{3}{2}.$$
-Periksa: $9^{-3/2}=(3^{2})^{-3/2}=3^{-3}=\\dfrac{1}{27}$.`,
+*Penyelesaian.* Konstanta $-3$ menurunkan seluruh grafik $3$ satuan, sehingga asimtot yang semula $y=0$ berpindah menjadi $y=-3$. Nilai fungsinya:
+$$y=2^{2}-3=4-3=1.$$
+
+*Verifikasi.* Tanpa pergeseran $2^{2}=4$; setelah diturunkan $3$ satuan menjadi $1$. Asimtot pun turun $3$ satuan dari $0$ ke $-3$. Cocok.`,
             },
           ],
         },
@@ -357,7 +365,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
 
 **4. Mengganggap grafik memotong sumbu-$x$.** Untuk $a>0$, $b^{x}$ tidak pernah nol; sumbu-$x$ hanyalah asimtot.
 
-**5. Mengubah basis hanya pada satu ruas.** Saat menyelesaikan persamaan eksponen, **kedua** ruas harus dinyatakan dalam basis yang sama. Mengubah $9^{x}$ menjadi $3^{2x}$ tetapi membiarkan $\\dfrac{1}{27}$ tanpa diubah membuat eksponen tidak dapat disamakan.`,
+**5. Menukar peran $a$ dan $b$.** Pada $f(x)=a\\cdot b^{x}$, nilai $a$ adalah nilai awal $f(0)$, sedangkan $b$ adalah faktor pengali tiap periode. Menukar keduanya menggeser seluruh model: pertumbuhan $500$ sel bukan $500^{x}$.`,
       blocks: [
         {
           kind: "spot-mistake",
@@ -468,8 +476,8 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
               "$(0,a)$",
             ],
             [
-              "Persamaan eksponen",
-              "$b^{f(x)}=b^{g(x)} \\Rightarrow f(x)=g(x)$",
+              "Model perubahan",
+              "$f(t)=a\\cdot b^{t}$: $a$ nilai awal, $b$ faktor tiap periode",
             ],
           ],
         },

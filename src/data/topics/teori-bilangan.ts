@@ -78,9 +78,9 @@ Karena $45$ habis dibagi $9$, bilangan asalnya juga habis dibagi $9$. Mengapa tr
       id: 'prasyarat',
       kind: 'prasyarat',
       title: 'Prasyarat',
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Teori bilangan berangkat dari pembagian bersisa dan faktorisasi prima. Bekal dasar yang dipakai:
 - pembagian bersisa, yaitu menulis $a=qb+r$ dengan $b>0$ dan $0 \\le r < b$;
-- faktorisasi prima, misalnya $60=2^2\\cdot 3\\cdot 5$;
+- faktorisasi prima, seperti $60=2^2\\cdot 3\\cdot 5$;
 - bentuk pangkat dan operasi bilangan bulat.`,
     },
     {
@@ -216,6 +216,14 @@ Karena sisanya makin mengecil, proses berhenti saat sisanya $0$. Sisa terakhir y
 Dari hubungan ini juga diperoleh, untuk bilangan positif $a$ dan $b$,
 
 $$\\gcd(a,b)\\cdot \\operatorname{lcm}(a,b) = a\\cdot b.$$`,
+      blocks: [
+        {
+          kind: 'figure',
+          alt: 'Tiga kotak berurutan berisi langkah pembagian bersisa untuk mencari faktor persekutuan terbesar, berakhir pada hasil dua puluh satu.',
+          caption: 'Alur algoritma Euklides untuk $\\gcd(1071,462)$: setiap langkah mengganti pasangan $(a,b)$ dengan $(b, a \\bmod b)$ sampai sisanya nol. Sisa terakhir yang tak nol, yaitu $21$, adalah FPB-nya.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-tbil-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><rect x="40" y="20" width="240" height="36" rx="6" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="40" y="76" width="240" height="36" rx="6" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="40" y="132" width="240" height="36" rx="6" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="160" y="43" font-size="13" fill="currentColor" text-anchor="middle">1071 = 2 &times; 462 + 147</text><text x="160" y="99" font-size="13" fill="currentColor" text-anchor="middle">462 = 3 &times; 147 + 21</text><text x="160" y="155" font-size="13" fill="currentColor" text-anchor="middle">147 = 7 &times; 21 + 0</text><line x1="160" y1="56" x2="160" y2="72" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-tbil-arrow)"/><line x1="160" y1="112" x2="160" y2="128" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-tbil-arrow)"/><line x1="160" y1="168" x2="160" y2="188" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-tbil-arrow)"/><text x="160" y="208" font-size="13" fill="currentColor" text-anchor="middle">FPB = 21</text></svg>',
+        },
+      ],
     },
     {
       id: 'rumus',
@@ -450,7 +458,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
             'Dalam situasi apa KPK lebih tepat dipakai daripada FPB, dan sebaliknya?',
             'Bagaimana kamu memeriksa kebenaran hasil FPB yang kamu hitung?',
           ],
-          confidenceLabel: 'Seberapa yakin kamu dengan keterbagian dan modulo?',
+          confidenceLabel: 'Seberapa yakin kamu memakai FPB, KPK, dan kongruensi modulo?',
         },
       ],
     },

@@ -17,7 +17,7 @@ export const ketaksamaan: Topic = {
   summary:
     'Menguasai sifat ketaksamaan, AM-GM, Cauchy-Schwarz sederhana, dan ketaksamaan segitiga untuk membandingkan besaran serta menentukan nilai optimum.',
   description:
-    'Ketaksamaan mempelajari hubungan "lebih besar", "lebih kecil", dan "paling besar/paling kecil" secara sistematis. Topik ini dimulai dari sifat-sifat dasar ketaksamaan, lalu membangun ketaksamaan AM-GM, Cauchy-Schwarz sederhana, dan ketaksamaan segitiga. Ketiga senjata ini dipakai untuk membuktikan pernyataan dan menyelesaikan masalah optimasi tanpa harus menggambar grafik, misalnya menentukan luas maksimum atau biaya minimum.',
+    'Ketaksamaan mempelajari hubungan "lebih besar", "lebih kecil", dan "paling besar/paling kecil" secara sistematis. Topik ini dimulai dari sifat-sifat dasar ketaksamaan, lalu membangun ketaksamaan AM-GM, Cauchy-Schwarz sederhana, dan ketaksamaan segitiga. Ketiga senjata ini dipakai untuk membuktikan pernyataan dan menyelesaikan masalah optimasi tanpa harus menggambar grafik, seperti menentukan luas maksimum atau biaya minimum.',
   keywords: [
     'ketaksamaan',
     'pertidaksamaan',
@@ -82,10 +82,10 @@ Jumlah dua bilangan positif yang saling berkebalikan ternyata tidak pernah kuran
       id: 'prasyarat',
       kind: 'prasyarat',
       title: 'Prasyarat',
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- menyelesaikan pertidaksamaan linear dan kuadrat;
-- menentukan titik puncak parabola $f(x) = ax^2 + bx + c$;
-- pemfaktoran dan identitas aljabar seperti $(a-b)^2 = a^2 - 2ab + b^2$.`,
+      body: `Ketaksamaan bertumpu pada ketelitian membaca tanda. Pastikan kamu sudah lancar:
+- menyelesaikan pertidaksamaan linear satu variabel;
+- memfaktorkan bentuk kuadrat dan menentukan tanda tiap faktor;
+- identitas aljabar seperti $(a-b)^2 = a^2 - 2ab + b^2$.`,
     },
     {
       id: 'konteks',
@@ -99,7 +99,7 @@ Dengan bantuan ketaksamaan, pertanyaan semacam itu dapat dijawab tanpa menggamba
       id: 'konsep',
       kind: 'konsep',
       title: 'Konsep Inti: Sifat-Sifat Ketaksamaan',
-      body: `Ketaksamaan adalah pernyataan perbandingan, misalnya $a < b$ atau $a \\ge b$. Agar manipulasi tetap benar, ingat sifat-sifat berikut.
+      body: `Ketaksamaan adalah pernyataan perbandingan, seperti $a < b$ atau $a \\ge b$. Agar manipulasi tetap benar, ingat sifat-sifat berikut.
 
 1. **Menambah/mengurangi.** Jika $a < b$, maka $a + c < b + c$ untuk setiap bilangan real $c$.
 2. **Mengalikan bilangan positif.** Jika $a < b$ dan $c > 0$, maka $ac < bc$.
@@ -146,7 +146,7 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
       kind: 'representasi',
       title: 'Representasi: Grafik dan Aljabar',
       body:
-        'Satu ketaksamaan dapat dibaca melalui grafik maupun aljabar. Bandingkan keduanya pada pernyataan $x + \\dfrac{1}{x} \\ge 2$ untuk $x > 0$.',
+        'Keterampilan inti ketaksamaan satu variabel adalah **analisis tanda**: menentukan pada selang mana suatu bentuk bertanda positif atau negatif. Caranya, tentukan titik nol (pembuat nol) dan titik kutub (penyebut nol), susun semuanya pada garis bilangan, uji satu nilai pada setiap selang, lalu baca selang yang memenuhi. Aljabar, grafik, dan tabel saling memastikan. Pembandingnya adalah $x + \\dfrac{1}{x} \\ge 2$ untuk $x > 0$.',
       blocks: [
         {
           kind: 'table',
@@ -306,6 +306,17 @@ Dengan $c = d = 1$: $(x^2 + y^2)(1 + 1) \\ge (x + y)^2 = 100$, sehingga $x^2 + y
 
 Bentuk $|2x - 1| \\le 5$ setara dengan $-5 \\le 2x - 1 \\le 5$. Tambah $1$: $-4 \\le 2x \\le 6$, lalu bagi $2$: $-2 \\le x \\le 3$.`,
             },
+            {
+              title: 'Contoh 5: Pertidaksamaan rasional dengan peta tanda',
+              text: `Tentukan semua $x$ yang memenuhi $\\dfrac{x-1}{x+2} \\ge 0$.
+
+*Penyelesaian.* Bentuk ini adalah hasil bagi dua faktor linear. Titik nolnya $x=1$ dari pembilang, dan titik kutubnya $x=-2$ dari penyebut (tidak boleh disubstitusi). Kedua titik membagi garis bilangan menjadi tiga selang. Uji satu nilai di tiap selang:
+- $x=-3$: $\\dfrac{-3-1}{-3+2} = \\dfrac{-4}{-1} = 4 \\ge 0$ benar;
+- $x=0$: $\\dfrac{0-1}{0+2} = -\\dfrac{1}{2} < 0$ salah;
+- $x=2$: $\\dfrac{2-1}{2+2} = \\dfrac{1}{4} \\ge 0$ benar.
+
+Jadi penyelesaiannya $x < -2$ atau $x \\ge 1$. Titik $x=1$ ikut karena membuat hasil bagi $0$ yang memenuhi tanda $\\ge$, sedangkan $x=-2$ selalu dikecualikan karena penyebut tidak boleh nol.`,
+            },
           ],
         },
       ],
@@ -332,7 +343,7 @@ Bentuk $|2x - 1| \\le 5$ setara dengan $-5 \\le 2x - 1 \\le 5$. Tambah $1$: $-4 
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Ketaksamaan dipakai di mana-mana untuk menekan biaya dan memaksimalkan hasil. Seorang petani memiliki pagar $40$ m untuk memagari kebun berbentuk persegi panjang. Jika panjangnya $x$ dan lebarnya $y$, maka $2(x+y)=40$ sehingga $x+y=20$. Dengan AM-GM, $xy \\le \\left(\\dfrac{x+y}{2}\\right)^2 = 100$, sehingga luas maksimum $100$ m$^2$ tercapai saat $x=y=10$ m, yaitu saat kebun berbentuk persegi. Sebuah perusahaan juga dapat menaksir batas bawah biaya rata-rata per unit dan menentukan jumlah produksi yang paling murah.
+      body: `Ketaksamaan dipakai di mana-mana untuk menekan biaya dan memaksimalkan hasil. Seorang petani memiliki pagar $60$ m untuk memagari kebun berbentuk persegi panjang. Jika panjangnya $x$ dan lebarnya $y$, maka $2(x+y)=60$ sehingga $x+y=30$. Dengan AM-GM, $xy \\le \\left(\\dfrac{x+y}{2}\\right)^2 = 225$, sehingga luas maksimum $225$ m$^2$ tercapai saat $x=y=15$ m, yaitu saat kebun berbentuk persegi. Sebuah perusahaan juga dapat menaksir batas bawah biaya rata-rata per unit dan menentukan jumlah produksi yang paling murah.
 
 Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fungsi variabel, (2) terapkan ketaksamaan yang sesuai untuk memperoleh batas, (3) pastikan batas tercapai saat kedua besaran sama, lalu (4) tafsirkan hasilnya dalam konteks asal.`,
     },
@@ -344,7 +355,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
 
 **2. Menerapkan AM-GM pada bilangan negatif.** AM-GM mensyaratkan bilangan tak negatif. Untuk $a = b = -1$, nilai $-2$ jelas tidak $\\ge 2$. Bila variabel boleh negatif, pisahkan kasusnya.
 
-**3. Menguadratkan kedua ruas tanpa memeriksa tanda.** Dari $a < b$ belum tentu $a^2 < b^2$; misalnya $-3 < 2$ tetapi $9 > 4$.
+**3. Menguadratkan kedua ruas tanpa memeriksa tanda.** Dari $a < b$ belum tentu $a^2 < b^2$; contohnya $-3 < 2$ tetapi $9 > 4$.
 
 **4. Menyimpulkan minimum tanpa memeriksa kesamaan.** Batas bawah $f(x) \\ge c$ baru bermakna jika ada $x$ yang membuat $f(x) = c$. Periksa syarat kesamaan.
 

@@ -69,17 +69,17 @@ export const aplikasiTurunan: Topic = {
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Topik ini memakai turunan sebagai alat membaca bentuk kurva. Pastikan kamu sudah lancar:
 - aturan turunan konstanta, pangkat, jumlah, hasil kali, hasil bagi, dan rantai;
 - turunan fungsi eksponensial dan trigonometri dasar;
 - menyelesaikan persamaan linear dan kuadrat;
-- menentukan nilai maksimum atau minimum fungsi kuadrat melalui titik puncak.`,
+- menafsirkan titik puncak fungsi kuadrat sebagai nilai ekstrem.`,
     },
     {
       id: "konteks",
       kind: "konteks",
       title: "Situasi dan Konteks",
-      body: `Turunan bukan sekadar alat menghitung, melainkan cara membaca perubahan bentuk dan mencari keadaan terbaik. Insinyur memakainya untuk merancang kaleng dengan bahan minimum, ekonom mencari tingkat produksi dengan laba maksimum, dan fisika menghitung kecepatan serta percepatan dari fungsi posisi.
+      body: `Turunan bukan hanya alat menghitung. Ia juga cara membaca bentuk perubahan dan mencari keadaan terbaik. Insinyur memakainya untuk merancang kaleng dengan bahan minimum, ekonom mencari tingkat produksi dengan laba maksimum, dan fisika menghitung kecepatan serta percepatan dari fungsi posisi.
 Dalam topik ini kita belajar menerjemahkan pertanyaan "kapan fungsi naik?", "di mana puncaknya?", dan "berapa kecepatan saat ini?" menjadi perhitungan turunan.`,
     },
     {
@@ -281,7 +281,23 @@ Garis normal bergradien $\\dfrac{-1}{6}$, sehingga $y - 9 = \\dfrac{-1}{6}(x - 3
 $$3t^{2} - 18t + 24 = 3(t-2)(t-4) = 0,$$
 yaitu pada $t = 2$ s dan $t = 4$ s.`,
             },
+            {
+              title: "Contoh 4",
+              text: `Biaya total memproduksi $x$ unit suatu barang adalah $C(x) = 0{,}01x^{2} + 40x + 10000$ rupiah. Tentukan banyak unit yang membuat **biaya rata-rata per unit minimum**, lalu hitung biaya rata-rata minimum itu.
+
+*Penyelesaian.* Biaya rata-rata per unit adalah $A(x) = \\dfrac{C(x)}{x} = 0{,}01x + 40 + \\dfrac{10000}{x}$, dengan $x > 0$. Selesaikan $A'(x) = 0$:
+$$A'(x) = 0{,}01 - \\frac{10000}{x^{2}} = 0 \\quad \\Rightarrow \\quad x^{2} = \\frac{10000}{0{,}01} = 1000000,$$
+sehingga $x = 1000$ (karena $x > 0$). Untuk memastikan ini minimum, periksa turunan kedua:
+$$A''(x) = \\frac{20000}{x^{3}} > 0 \\quad \\text{untuk } x > 0,$$
+jadi $x = 1000$ memberi minimum. Nilai $A(1000) = 0{,}01(1000) + 40 + \\dfrac{10000}{1000} = 10 + 40 + 10 = 60$. Jadi biaya rata-rata terkecil adalah Rp60 per unit, terjadi pada produksi $1000$ unit.`,
+            },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Kurva biaya rata-rata yang menurun lalu menanjak, dengan titik minimum ditandai pada x sama dengan 1000 dan biaya 60.",
+          caption: "Grafik biaya rata-rata $A(x) = 0{,}01x + 40 + \\dfrac{10000}{x}$ dari Contoh 4. Kurva menurun lalu menanjak, dan titik optimumnya berada di $x = 1000$ dengan biaya rata-rata Rp60 per unit.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="55" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.4"/><line x1="55" y1="200" x2="55" y2="30" stroke="currentColor" stroke-width="1.4"/><polyline points="78.5,121.8 102,141.4 125.5,146.7 149,148.6 172.5,149 196,148.7 231.3,147.6 290,144.8" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="172.5" y1="200" x2="172.5" y2="149" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="55" y1="149" x2="172.5" y2="149" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><circle cx="172.5" cy="149" r="3.4" fill="currentColor"/><text x="292" y="216" font-size="12" fill="currentColor">x</text><text x="34" y="40" font-size="12" fill="currentColor">A(x)</text><text x="176" y="162" font-size="11" fill="currentColor">minimum (1000, 60)</text><text x="120" y="216" font-size="11" fill="currentColor">x = 1000</text><text x="16" y="153" font-size="11" fill="currentColor">60</text></svg>',
         },
       ],
     },
@@ -308,7 +324,7 @@ yaitu pada $t = 2$ s dan $t = 4$ s.`,
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
       body: `Aplikasi turunan muncul pada perancangan produk dan pengambilan keputusan. Perusahaan mencari jumlah produksi dengan laba maksimum dan biaya rata-rata minimum. Insinyur merancang kemasan dengan bahan sesedikit mungkin namun volume tetap.
-Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posisi. Dalam biologi, laju pertumbuhan populasi mencapai puncak pada titik stasioner. Memahami turunan berarti mampu menemukan keadaan terbaik, bukan sekadar menghitung satu nilai.`,
+Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posisi. Dalam biologi, laju pertumbuhan populasi mencapai puncak pada titik stasioner, sehingga waktu panen terbaik dapat diperkirakan.`,
     },
     {
       id: "kesalahan-umum",
@@ -389,7 +405,7 @@ $$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x
             "Apa informasi yang diberikan turunan kedua tentang bentuk kurva?",
             "Bagaimana kamu memilih variabel saat menyusun model optimasi pada masalah nyata?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu memilih uji untuk menentukan jenis titik stasioner?",
         },
       ],
     },

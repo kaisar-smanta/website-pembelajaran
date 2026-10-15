@@ -77,7 +77,7 @@ yang tidak lain adalah jumlah dua vektor kolom dari tiap hari. Gagasan menjumlah
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Sebelum masuk ke operasi matriks, pastikan dahulu kamu menguasai:
 - menyelesaikan sistem persamaan linear dua variabel (SPLDV);
 - operasi bilangan bulat dan pecahan;
 - operasi bentuk aljabar dasar, termasuk mengalikan dua binomial.`,
@@ -218,7 +218,7 @@ $$A+B = \\begin{pmatrix} 3 & 2 \\\\ 4 & 7 \\end{pmatrix}, \\qquad A-B = \\begin{
 
 $$kA = \\begin{pmatrix} k a_{11} & k a_{12} \\\\ k a_{21} & k a_{22} \\end{pmatrix}.$$
 
-Misalnya, $2A = \\begin{pmatrix} 2 & 4 \\\\ 6 & 8 \\end{pmatrix}$.
+$2A = \\begin{pmatrix} 2 & 4 \\\\ 6 & 8 \\end{pmatrix}$.
 
 **Perkalian matriks.** Hasil kali $AB$ terdefinisi jika banyak kolom $A$ sama dengan banyak baris $B$. Jika $A$ berordo $m \\times n$ dan $B$ berordo $n \\times p$, maka $AB$ berordo $m \\times p$. Entri hasil kali pada baris ke-$i$ dan kolom ke-$j$ diperoleh dengan mengalikan entri baris ke-$i$ dari $A$ dengan entri kolom ke-$j$ dari $B$, lalu menjumlahkannya.
 
@@ -247,7 +247,7 @@ Karena $AB \\neq BA$, perkalian matriks **tidak komutatif**. Perhatikan juga bah
       id: "determinan",
       kind: "rumus",
       title: "Determinan Matriks",
-      body: `Determinan adalah sebuah bilangan yang dihitung dari suatu matriks persegi dan memberi informasi penting, misalnya apakah matriks itu dapat dibalik.
+      body: `Determinan adalah sebuah bilangan yang dihitung dari suatu matriks persegi dan memberi informasi penting, seperti apakah matriks itu dapat dibalik.
 
 **Determinan $2 \\times 2$.** Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$:
 
@@ -288,7 +288,7 @@ setara dengan
 $$\\begin{pmatrix} a & b \\\\ d & e \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} c \\\\ f \\end{pmatrix}.$$
 Jika $A = \\begin{pmatrix} a & b \\\\ d & e \\end{pmatrix}$ dan $\\det(A) \\neq 0$, penyelesaiannya adalah
 $$\\begin{pmatrix} x \\\\ y \\end{pmatrix} = A^{-1} \\begin{pmatrix} c \\\\ f \\end{pmatrix}.$$
-Misalnya, selesaikan $2x + 3y = 8$ dan $x + 2y = 5$. Di sini $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$ dengan $\\det(A) = 2(2) - 3(1) = 1$, sehingga $A^{-1} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$, dan
+Mari selesaikan $2x + 3y = 8$ dan $x + 2y = 5$. Di sini $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$ dengan $\\det(A) = 2(2) - 3(1) = 1$, sehingga $A^{-1} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$, dan
 $$\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix} \\begin{pmatrix} 8 \\\\ 5 \\end{pmatrix} = \\begin{pmatrix} 16 - 15 \\\\ -8 + 10 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}.$$
 Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
       blocks: [
@@ -297,6 +297,12 @@ Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
           variant: "warning",
           title: "Hati-hati",
           text: "Matriks singular (determinan nol) tidak punya invers. Selalu periksa $\\det(A) \\neq 0$ sebelum menghitung $A^{-1}$.",
+        },
+        {
+          kind: "figure",
+          alt: "Bentuk matriks sistem persamaan linear dua variabel: matriks koefisien A berukuran 2 kali 2 dikalikan vektor variabel x menghasilkan vektor konstanta b.",
+          caption: "Sistem $Ax = b$: matriks koefisien $A$ dikalikan vektor variabel $x$ menghasilkan vektor konstanta $b$. Jika $\\det(A) \\neq 0$, penyelesaiannya $x = A^{-1}b$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><g fill="none" stroke="currentColor"><rect x="30" y="70" width="70" height="60" stroke-width="2"/><line x1="65" y1="70" x2="65" y2="130"/><line x1="30" y1="100" x2="100" y2="100"/><rect x="130" y="80" width="40" height="40" stroke-width="2"/><line x1="130" y1="100" x2="170" y2="100"/><rect x="210" y="80" width="40" height="40" stroke-width="2"/><line x1="210" y1="100" x2="250" y2="100"/></g><text x="65" y="64" font-size="13" fill="currentColor" text-anchor="middle">A</text><text x="150" y="74" font-size="13" fill="currentColor" text-anchor="middle">x</text><text x="230" y="74" font-size="13" fill="currentColor" text-anchor="middle">b</text><text x="115" y="105" font-size="13" fill="currentColor" text-anchor="middle">\u00d7</text><text x="190" y="105" font-size="13" fill="currentColor" text-anchor="middle">=</text><text x="65" y="158" font-size="11" fill="currentColor" text-anchor="middle">2 \u00d7 2 koefisien</text><text x="150" y="150" font-size="11" fill="currentColor" text-anchor="middle">2 \u00d7 1 variabel</text><text x="230" y="150" font-size="11" fill="currentColor" text-anchor="middle">2 \u00d7 1 konstanta</text></svg>',
         },
       ],
     },
@@ -382,7 +388,7 @@ Jadi $x=2$ dan $y=3$. Periksa: $2(2)+3=7$ dan $2+3(3)=11$. Benar.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Matriks dipakai untuk menyusun dan mengolah data berdimensi banyak. Misalnya sebuah kios mencatat penjualan dua jenis kue selama Senin dan Selasa dalam matriks
+      body: `Matriks dipakai untuk menyusun dan mengolah data berdimensi banyak. Sebuah kios mencatat penjualan dua jenis kue selama Senin dan Selasa dalam matriks
 $$S = \\begin{pmatrix} 3 & 4 \\\\ 5 & 2 \\end{pmatrix},$$
 dengan baris menyatakan hari dan kolom menyatakan jenis kue. Total tiap jenis kue adalah jumlah kolom, yaitu kue A $3+5=8$ dan kue B $4+2=6$. Bila harga kue A Rp5.000 dan kue B Rp8.000, pendapatan tiap hari diperoleh dari
 $$S\\begin{pmatrix} 5000 \\\\ 8000 \\end{pmatrix} = \\begin{pmatrix} 3(5000)+4(8000) \\\\ 5(5000)+2(8000) \\end{pmatrix} = \\begin{pmatrix} 47000 \\\\ 41000 \\end{pmatrix},$$
@@ -490,7 +496,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
           kind: "callout",
           variant: "concept",
           title: "Mengapa perkalian tidak komutatif",
-          text: "Cayley menyadari bahwa $AB$ dan $BA$ umumnya berbeda. Sifat yang tampak \"aneh\" ini justru penting, sebab selain menyimpan data, matriks juga mewakili transformasi yang urutannya menentukan hasil.",
+          text: "Cayley menyadari bahwa $AB$ dan $BA$ umumnya berbeda. Sifat yang tampak \"aneh\" ini penting, sebab selain menyimpan data, matriks juga mewakili transformasi yang urutannya menentukan hasil.",
         },
       ],
     },
@@ -507,7 +513,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
             "Mengapa determinan penting sebelum menghitung invers?",
             "Bagaimana matriks membantumu menyelesaikan SPLDV dibandingkan cara substitusi atau eliminasi?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu pada operasi, determinan, dan invers matriks?",
         },
       ],
     },

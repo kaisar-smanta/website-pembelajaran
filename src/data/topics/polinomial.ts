@@ -67,7 +67,7 @@ Pertanyaannya: apa hubungan antara nilai $P(c)$ dan sisa pembagian $P(x)$ oleh $
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Polinomial memerlukan ketelitian berhitung dengan pangkat. Pastikan kamu sudah lancar:
 - operasi bentuk aljabar, termasuk mengalikan dua binomial;
 - fungsi kuadrat beserta akar-akarnya;
 - aturan tanda pada penjumlahan dan perkalian bilangan.`,
@@ -181,6 +181,14 @@ $$2x^{3}+x^{2}-3x+4 = (x-2)(2x^{2}+5x+7) + 18,$$
 sehingga hasil baginya $2x^{2}+5x+7$ dan sisanya $18$.
 
 Operasi yang sama dapat diverifikasi dengan teorema sisa: nilai $P(2)$ memang $18$.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Skema Horner ringkas dengan baris koefisien dua satu min tiga empat, baris hasil kali, dan baris hasil bagi dua lima tujuh serta sisa delapan belas.",
+          caption: "Skema Horner untuk membagi $2x^{3}+x^{2}-3x+4$ oleh $(x-2)$. Koefisien $2,1,-3,4$ diturunkan, dikalikan $2$, lalu dijumlahkan, sehingga hasil baginya $2x^{2}+5x+7$ dan sisanya $18$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><text x="18" y="45" font-size="11" fill="currentColor">pembagi (x - 2)</text><text x="30" y="66" font-size="13" fill="currentColor">2</text><text x="110" y="66" font-size="13" fill="currentColor" text-anchor="middle">2</text><text x="160" y="66" font-size="13" fill="currentColor" text-anchor="middle">1</text><text x="210" y="66" font-size="13" fill="currentColor" text-anchor="middle">-3</text><text x="260" y="66" font-size="13" fill="currentColor" text-anchor="middle">4</text><text x="160" y="94" font-size="13" fill="currentColor" text-anchor="middle">4</text><text x="210" y="94" font-size="13" fill="currentColor" text-anchor="middle">10</text><text x="260" y="94" font-size="13" fill="currentColor" text-anchor="middle">14</text><line x1="90" y1="106" x2="285" y2="106" stroke="currentColor" stroke-width="1.4"/><text x="110" y="132" font-size="13" fill="currentColor" text-anchor="middle">2</text><text x="160" y="132" font-size="13" fill="currentColor" text-anchor="middle">5</text><text x="210" y="132" font-size="13" fill="currentColor" text-anchor="middle">7</text><text x="260" y="132" font-size="13" fill="currentColor" text-anchor="middle">18</text><text x="72" y="160" font-size="11" fill="currentColor">hasil bagi</text><text x="236" y="160" font-size="11" fill="currentColor">sisa</text><text x="18" y="92" font-size="11" fill="currentColor">kalikan 2</text></svg>',
+        },
+      ],
     },
     {
       id: "teorema",
@@ -188,7 +196,7 @@ Operasi yang sama dapat diverifikasi dengan teorema sisa: nilai $P(2)$ memang $1
       title: "Teorema Sisa dan Teorema Faktor",
       body: `**Teorema sisa.** Sisa pembagian $P(x)$ oleh $(x-c)$ adalah $P(c)$. Secara umum, sisa pembagian $P(x)$ oleh $(ax+b)$ adalah $P\\left(-\\dfrac{b}{a}\\right)$.
 
-Misalnya, untuk $P(x)=2x^{3}-5x^{2}+4x-7$:
+Contohnya, untuk $P(x)=2x^{3}-5x^{2}+4x-7$:
 $$P(2) = 16 - 20 + 8 - 7 = -3, \\qquad P(-1) = -2 - 5 - 4 - 7 = -18.$$
 Jadi sisa pembagian oleh $(x-2)$ adalah $-3$ dan oleh $(x+1)$ adalah $-18$.
 
@@ -266,12 +274,11 @@ Ketika pembaginya linear, $Q(x)=x-c$, sisanya berderajat nol, yaitu sebuah konst
           steps: [
             {
               title: "Contoh 1",
-              text: `Diketahui $P(x)=2x^{3}-3x^{2}+4x-5$ dan $Q(x)=x^{2}+2x+1$. Hitunglah $P(x)+Q(x)$ dan $P(x)Q(x)$.
+              text: `Diketahui $P(x)=x^{4}-3x^{2}+2$ dan $Q(x)=x^{2}+1$. Tentukan $P(x)-Q(x)$, lalu tentukan derajat $P(x)Q(x)$ tanpa menjabarkan seluruh perkaliannya.
 
 *Penyelesaian.* Gabungkan suku sejenis:
-$$P(x)+Q(x) = 2x^{3} - 2x^{2} + 6x - 4.$$
-Untuk perkalian, kalikan setiap suku lalu gabungkan:
-$$P(x)Q(x) = 2x^{5} + x^{4} - 6x - 5.$$`,
+$$P(x)-Q(x) = x^{4} - 3x^{2} + 2 - x^{2} - 1 = x^{4} - 4x^{2} + 1.$$
+Untuk derajat hasil kali, gunakan aturan derajat $\\deg(PQ) = \\deg P + \\deg Q = 4 + 2 = 6$. Pemeriksaannya, suku berderajat tertinggi hanya dapat muncul dari $x^{4} \\cdot x^{2} = x^{6}$, sehingga hasil kali memang berderajat $6$.`,
             },
             {
               title: "Contoh 2",
@@ -323,7 +330,7 @@ Menyamakan koefisien suku sejenis memberi $a=3$, $b=-1$, dan $c=-3$.`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Polinomial dipakai untuk memodelkan volume, lintasan, dan biaya. Menentukan akar polinomial membantu mencari titik saat suatu besaran bernilai nol, misalnya waktu sebuah proyektil menyentuh tanah atau ukuran kemasan dengan volume tertentu.
+      body: `Polinomial dipakai untuk memodelkan volume, lintasan, dan biaya. Menentukan akar polinomial membantu mencari titik saat suatu besaran bernilai nol, seperti waktu sebuah proyektil menyentuh tanah atau ukuran kemasan dengan volume tertentu.
 
 Dalam teknologi, kurva Bézier pada desain grafis dan animasi dibangun dari polinomial. Kode pemeriksa galat pada transmisi data juga menggunakan aritmetika polinomial di atas bilangan biner.`,
     },
@@ -413,7 +420,7 @@ Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
             "Bagaimana kamu memeriksa kebenaran hasil pembagian polinomial?",
             "Kapan penyamaan koefisien lebih mudah daripada menyubstitusi nilai $x$ tertentu?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu menghubungkan akar, faktor, dan sisa pembagian?",
         },
       ],
     },

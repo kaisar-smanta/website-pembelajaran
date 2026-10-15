@@ -17,7 +17,10 @@ export const trigonometriQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Dari tabel sudut istimewa, $\\sin 30^\\circ=\\dfrac{1}{2}$ dan $\\cos 60^\\circ=\\dfrac{1}{2}$, sehingga jumlahnya $\\dfrac{1}{2}+\\dfrac{1}{2}=1$. Opsi A ($\\dfrac{1}{2}$) hanya mengambil satu nilai dan mengabaikan suku lainnya. Opsi C ($\\dfrac{\\sqrt{3}}{2}$) memakai nilai sudut $60^\\circ$ untuk sinus sehingga tertukar. Opsi D ($2$) mengalikan kedua nilai, bukan menjumlahkannya.',
-    hints: ['Gunakan tabel sudut istimewa untuk $30^\\circ$ dan $60^\\circ$.'],
+    hints: [
+      'Gunakan tabel sudut istimewa untuk $30^\\circ$ dan $60^\\circ$.',
+      '$\\sin 30^\\circ=\\dfrac{1}{2}$ dan $\\cos 60^\\circ=\\dfrac{1}{2}$; jumlahkan keduanya.',
+    ],
     competencies: ['sudut istimewa'],
   },
   {
@@ -50,7 +53,10 @@ export const trigonometriQuestions: Question[] = [
     acceptedAnswers: ['0,75', '0.75', '0,750', '0.750', '\\dfrac{3}{4}'],
     explanation:
       '$\\sin 60^\\circ=\\dfrac{\\sqrt{3}}{2}$ dan $\\cos 30^\\circ=\\dfrac{\\sqrt{3}}{2}$, sehingga hasilnya $\\dfrac{\\sqrt{3}}{2}\\cdot\\dfrac{\\sqrt{3}}{2}=\\dfrac{3}{4}$.',
-    hints: ['Perhatikan bahwa nilai $\\sin 60^\\circ$ dan $\\cos 30^\\circ$ sama.'],
+    hints: [
+      'Perhatikan bahwa nilai $\\sin 60^\\circ$ dan $\\cos 30^\\circ$ sama.',
+      'Keduanya $\\dfrac{\\sqrt{3}}{2}$, sehingga hasilnya $\\dfrac{\\sqrt{3}}{2}\\cdot\\dfrac{\\sqrt{3}}{2}$.',
+    ],
     competencies: ['sudut istimewa'],
   },
   {

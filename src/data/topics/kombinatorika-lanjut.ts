@@ -82,7 +82,7 @@ Tanpa mencacah satu per satu, kita dapat menjamin adanya dua objek yang "bertabr
       id: 'prasyarat',
       kind: 'prasyarat',
       title: 'Prasyarat',
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Teknik pada topik ini memperluas pencacahan dasar, jadi pastikan dahulu bekal berikut sudah kuat:
 - aturan perkalian dan penjumlahan dalam mencacah;
 - kombinasi $\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$ dan faktorial;
 - operasi gabungan dan irisan himpunan, termasuk $|A|$ dan $|A \\cap B|$.`,
@@ -239,6 +239,12 @@ Koefisien $x^{n-k}y^k$ adalah $\\binom{n}{k}$. Dengan penggantian variabel, kita
           text:
             'Inklusi-eksklusi menuntut tanda yang bergantian: tambah, kurang, tambah. Lupa mengurangkan irisan adalah kesalahan yang paling sering terjadi.',
         },
+        {
+          kind: 'figure',
+          alt: 'Diagram Venn tiga himpunan A, B, dan C yang saling berpotongan, menandai irisan berpasangan dan irisan ketiganya.',
+          caption: 'Inklusi-eksklusi tiga himpunan: tambahkan himpunan tunggal, kurangi irisan berpasangan, lalu tambahkan kembali irisan ketiganya.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><circle cx="120" cy="92" r="62" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="200" cy="92" r="62" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="160" cy="150" r="62" fill="none" stroke="currentColor" stroke-width="2"/><text x="62" y="62" font-size="13" fill="currentColor">A</text><text x="252" y="62" font-size="13" fill="currentColor">B</text><text x="152" y="226" font-size="13" fill="currentColor">C</text><text x="160" y="62" font-size="9" text-anchor="middle" fill="currentColor">A∩B</text><text x="160" y="124" font-size="9" text-anchor="middle" fill="currentColor">A∩B∩C</text><text x="108" y="156" font-size="9" text-anchor="middle" fill="currentColor">A∩C</text><text x="212" y="156" font-size="9" text-anchor="middle" fill="currentColor">B∩C</text></svg>',
+        },
       ],
     },
     {
@@ -267,12 +273,14 @@ Untuk pigeonhole, jika $n$ objek diletakkan pada $k$ kotak, paling sedikit satu 
           intro: 'Empat contoh berikut dikerjakan langkah demi langkah, dari aturan perkalian sampai koefisien binomial.',
           steps: [
             {
-              title: 'Contoh 1: aturan perkalian',
-              text: `Sebuah kantin menawarkan $3$ jenis makanan dan $4$ jenis minuman. Berapa banyak paket makan–minum yang mungkin?
+              title: 'Contoh 1: inklusi-eksklusi tiga himpunan',
+              text: `Dari $100$ siswa, $60$ menyukai matematika, $50$ fisika, dan $40$ kimia. Diketahui $30$ menyukai matematika dan fisika, $20$ matematika dan kimia, $15$ fisika dan kimia, serta $10$ menyukai ketiganya. Berapa siswa yang menyukai paling sedikit satu pelajaran?
 
-*Penyelesaian.* Setiap pilihan makanan dapat dipasangkan dengan setiap pilihan minuman, sehingga
-$$3 \\cdot 4 = 12.$$
-Jadi ada $12$ paket.`,
+*Penyelesaian.* Tulis $M$, $F$, dan $K$ untuk ketiga himpunan itu. Karena irisan berpasangan dan irisan bertiga diketahui, pakai inklusi-eksklusi tiga himpunan:
+$$|M \\cup F \\cup K| = |M| + |F| + |K| - |M \\cap F| - |M \\cap K| - |F \\cap K| + |M \\cap F \\cap K|.$$
+Substitusi angkanya:
+$$|M \\cup F \\cup K| = 60 + 50 + 40 - 30 - 20 - 15 + 10 = 150 - 65 + 10 = 95.$$
+*Verifikasi.* Hasil $95$ tidak melebihi $100$ siswa, dan sisanya $100 - 95 = 5$ siswa tidak menyukai satu pun, jadi jawabannya wajar.`,
             },
             {
               title: 'Contoh 2: inklusi-eksklusi',
@@ -293,8 +301,9 @@ merpati. Bila setiap sarang berisi paling banyak $3$, totalnya hanya $9 < 10$.`,
               title: 'Contoh 4: koefisien binomial',
               text: `Tentukan koefisien $x^3$ pada penjabaran $(1+x)^6$.
 
-*Penyelesaian.* Menurut teorema binomial, suku dengan $x^3$ adalah $\\binom{6}{3}x^{3}$, sehingga koefisiennya
-$$\\binom{6}{3} = 20.$$`,
+*Penyelesaian.* Menurut teorema binomial, suku umum penjabaran $(1+x)^6$ adalah $\\binom{6}{k}x^{k}$. Agar pangkatnya $x^3$, pilih $k = 3$, sehingga koefisiennya
+$$\\binom{6}{3} = \\frac{6!}{3!\\,3!} = 20.$$
+*Verifikasi.* Baris ke-$6$ segitiga Pascal adalah $1, 6, 15, 20, 15, 6, 1$; suku keempat bernilai $20$, cocok dengan hasil di atas.`,
             },
           ],
         },
@@ -322,7 +331,7 @@ $$\\binom{6}{3} = 20.$$`,
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Inklusi-eksklusi, prinsip sarang merpati, dan teorema binomial menolong saat angkanya sudah besar. Untuk memilih $3$ panitia dari $30$ siswa tanpa memperhatikan urutan tersedia $\\binom{30}{3} = 4060$ cara. Prinsip sarang merpati menjamin bahwa di antara $13$ orang pasti ada dua yang lahir pada bulan yang sama, sebab $\\left\\lceil \\dfrac{13}{12} \\right\\rceil = 2$. Inklusi-eksklusi menghitung banyak bilangan $1$ sampai $1000$ yang habis dibagi $3$ atau $5$: $333 + 200 - 66 = 467$ bilangan.
+      body: `Inklusi-eksklusi, prinsip sarang merpati, dan teorema binomial menolong saat angkanya sudah besar. Koefisien $x^5$ pada penjabaran $(1+x)^{10}$ langsung dibaca dari teorema binomial sebagai $\\binom{10}{5} = 252$ tanpa perlu menjabarkan seluruh suku. Prinsip sarang merpati menjamin bahwa di antara $13$ orang pasti ada dua yang lahir pada bulan yang sama, sebab $\\left\\lceil \\dfrac{13}{12} \\right\\rceil = 2$. Inklusi-eksklusi menghitung banyak bilangan $1$ sampai $1000$ yang habis dibagi $3$ atau $5$: $333 + 200 - 66 = 467$ bilangan.
 
 Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara mencacah langsung, mengoreksi dengan inklusi-eksklusi, atau cukup menjamin keberadaan dengan pigeonhole, lalu (3) tafsirkan hasilnya. Teknik yang sama dipakai menghitung cakupan produk, penomoran yang bebas duplikat, dan peluang keberhasilan berulang.`,
     },

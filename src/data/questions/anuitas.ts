@@ -18,7 +18,11 @@ export const anuitasQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Bunga bulan pertama dihitung dari pokok pinjaman: $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$ (opsi D). Opsi A ($100.000$) memakai $1\\%$, bukan $1{,}5\\%$. Opsi B ($1.500.000$) memakai $15\\%$ sehingga terlalu besar sepuluh kali. Opsi C ($15.000$) salah menempatkan satu angka nol pada desimal.',
-    hints: ['Bunga periode ke-$k$ dihitung dari sisa utang sebelumnya.'],
+    hints: [
+      'Bunga periode ke-$k$ dihitung dari sisa utang sebelumnya.',
+      'Pada bulan pertama, sisa utang sama dengan pokok, sehingga bunga $=1{,}5\\%\\times$ pokok.',
+      'Ubah $1{,}5\\%$ menjadi $0{,}015$ sebelum mengalikan.',
+    ],
     competencies: ['angsuran bunga'],
   },
   {
@@ -38,7 +42,11 @@ export const anuitasQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Opsi C benar: karena sisa utang terus berkurang, porsi bunga makin kecil dan porsi pokok makin besar meskipun besar angsuran total tetap. Opsi A salah karena yang tetap adalah angsuran total, bukan porsi bunganya. Opsi B salah karena kebalikannya yang terjadi. Opsi D salah karena porsi pokok dan bunga tidak pernah sama besar tiap bulan.',
-    hints: ['Apakah sisa utang dari bulan ke bulan makin besar atau makin kecil?'],
+    hints: [
+      'Apakah sisa utang dari bulan ke bulan makin besar atau makin kecil?',
+      'Jika sisa utang mengecil, bagian bunga untuk periode berikutnya ikut mengecil.',
+      'Karena angsuran total tetap, porsi yang tidak lagi dipakai untuk bunga berpindah ke pokok.',
+    ],
     competencies: ['konsep anuitas', 'komposisi angsuran'],
   },
   {
@@ -99,7 +107,10 @@ export const anuitasQuestions: Question[] = [
     acceptedAnswers: ['Rp120.000,00', '120.000', '120000', 'Rp 120.000'],
     explanation:
       'Bunga bulan pertama $= 0{,}02 \\times 6.000.000 = \\text{Rp}120.000$.',
-    hints: ['Kalikan pokok pinjaman dengan suku bunga per bulan.'],
+    hints: [
+      'Kalikan pokok pinjaman dengan suku bunga per bulan.',
+      'Substitusikan $2\\%=0{,}02$ dan pokok Rp6.000.000 ke perhitungan bunga.',
+    ],
     competencies: ['angsuran bunga'],
   },
   {

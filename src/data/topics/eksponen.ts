@@ -77,7 +77,7 @@ Setelah 10 lipatan tebalnya adalah $0{,}1 \\times 2^{10}$ mm. Berapa hasilnya? B
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Eksponen banyak bertumpu pada kelincahan berhitung, jadi pastikan tiga hal berikut sudah kamu kuasai:
 
 - operasi perkalian dan pembagian bilangan;
 - faktorisasi prima, misalnya $36 = 2^{2} \\cdot 3^{2}$;
@@ -224,11 +224,11 @@ Eksponen di sini berfungsi sebagai **penghitung banyaknya faktor**, bukan sebaga
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan penggeser berikut untuk mengamati bagaimana nilai $a^{n}$ berubah ketika basis dan eksponen diubah.",
+      body: "Gunakan penggeser berikut untuk menyelidiki bagaimana nilai $a^{m}$ dan $a^{n}$ berubah ketika basis dan eksponen diubah, lalu periksa aturan hasil kali, hasil bagi, dan pangkat dari pangkatnya pada tabel.",
       blocks: [
         {
           kind: "exploration",
-          explorationId: "eksponen-pertumbuhan",
+          explorationId: "eksponen-aturan",
         },
       ],
     },
@@ -286,6 +286,12 @@ Merasionalkan penyebut dilakukan dengan mengalikan bentuk sekawan. Contoh:
 $$\\frac{6}{\\sqrt{5}-\\sqrt{2}} = \\frac{6(\\sqrt{5}+\\sqrt{2})}{(\\sqrt{5}-\\sqrt{2})(\\sqrt{5}+\\sqrt{2})} = \\frac{6(\\sqrt{5}+\\sqrt{2})}{5-2} = 2(\\sqrt{5}+\\sqrt{2}).$$`,
       blocks: [
         {
+          kind: "figure",
+          alt: "Pohon faktorisasi bilangan 72 bercabang menjadi 2 dan 36, lalu 36 menjadi 2 dan 18, 18 menjadi 2 dan 9, dan 9 menjadi 3 dan 3, sehingga 72 sama dengan 2 pangkat 3 dikali 3 pangkat 2.",
+          caption: "Pohon faktorisasi $72 = 2^{3} \\cdot 3^{2}$. Faktor kuadrat sempurna $2^{2} \\cdot 3^{2} = 36$ dapat dikeluarkan dari akar, sehingga $\\sqrt{72} = 6\\sqrt{2}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="75" y1="30" x2="35" y2="80" stroke="currentColor" stroke-width="1.5"/><line x1="75" y1="30" x2="115" y2="80" stroke="currentColor" stroke-width="1.5"/><line x1="115" y1="80" x2="75" y2="125" stroke="currentColor" stroke-width="1.5"/><line x1="115" y1="80" x2="155" y2="125" stroke="currentColor" stroke-width="1.5"/><line x1="155" y1="125" x2="115" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="155" y1="125" x2="195" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="195" y1="170" x2="165" y2="215" stroke="currentColor" stroke-width="1.5"/><line x1="195" y1="170" x2="225" y2="215" stroke="currentColor" stroke-width="1.5"/><text x="75" y="35" font-size="15" text-anchor="middle" fill="currentColor">72</text><text x="35" y="85" font-size="15" text-anchor="middle" fill="currentColor">2</text><text x="115" y="85" font-size="15" text-anchor="middle" fill="currentColor">36</text><text x="75" y="130" font-size="15" text-anchor="middle" fill="currentColor">2</text><text x="155" y="130" font-size="15" text-anchor="middle" fill="currentColor">18</text><text x="115" y="175" font-size="15" text-anchor="middle" fill="currentColor">2</text><text x="195" y="175" font-size="15" text-anchor="middle" fill="currentColor">9</text><text x="165" y="220" font-size="15" text-anchor="middle" fill="currentColor">3</text><text x="225" y="220" font-size="15" text-anchor="middle" fill="currentColor">3</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "warning",
           title: "Kesalahan yang sering terjadi",
@@ -321,36 +327,72 @@ $$\\frac{1}{\\sqrt{a}-\\sqrt{b}}=\\frac{\\sqrt{a}+\\sqrt{b}}{a-b}.$$
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
-      body: `Tiga contoh berikut dibahas langkah demi langkah. Buka setiap langkah untuk mengikuti penyelesaiannya.`,
+      body: `Enam contoh berikut mencakup penyederhanaan pangkat, pangkat khusus, pangkat pecahan, bentuk akar, merasionalkan penyebut, dan persamaan eksponen. Buka setiap langkah untuk mengikuti penalaran dan pemeriksaannya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Buka setiap contoh untuk melihat penyelesaian lengkapnya.",
+          intro: "Buka setiap contoh untuk melihat penyelesaian lengkap beserta cara memeriksanya.",
           steps: [
             {
               title: "Contoh 1: menyederhanakan bentuk pangkat",
               text: `Sederhanakan $(2x^{3}y^{-2})^{2} \\cdot (x^{-2}y^{3})$.
 
-*Penyelesaian.* Gunakan $(ab)^n=a^n b^n$ pada faktor pertama:
+*Penyelesaian.* Terapkan $(ab)^n = a^n b^n$ pada faktor pertama:
 $$(2x^{3}y^{-2})^{2} = 2^{2}(x^{3})^{2}(y^{-2})^{2} = 4x^{6}y^{-4}.$$
-Kalikan dengan $x^{-2}y^{3}$ lalu jumlahkan eksponen basis yang sama:
-$$4x^{6}y^{-4} \\cdot x^{-2}y^{3} = 4x^{6+(-2)}y^{-4+3} = 4x^{4}y^{-1} = \\frac{4x^{4}}{y}.$$`,
+Kalikan dengan $x^{-2}y^{3}$, lalu jumlahkan eksponen basis yang sama (basisnya tidak ikut berubah):
+$$4x^{6}y^{-4} \\cdot x^{-2}y^{3} = 4x^{6+(-2)}y^{-4+3} = 4x^{4}y^{-1} = \\frac{4x^{4}}{y}.$$
+
+*Verifikasi.* Uji dengan $x=2$ dan $y=1$. Ruas asal: $(2 \\cdot 8 \\cdot 1)^{2} \\cdot (2^{-2} \\cdot 1) = 16^{2} \\cdot \\tfrac14 = 64$. Hasil akhir: $\\dfrac{4 \\cdot 16}{1} = 64$. Cocok.`,
             },
             {
-              title: "Contoh 2: menyederhanakan bentuk akar",
-              text: `Sederhanakan $\\sqrt{12}+\\sqrt{27}-\\sqrt{48}$.
+              title: "Contoh 2: pangkat nol dan pangkat negatif",
+              text: `Hitung nilai dari $\\left(\\dfrac{2}{3}\\right)^{-2} + 5^{0}$.
+
+*Penyelesaian.* Pangkat negatif membalik pecahan, sedangkan pangkat nol bernilai $1$ selama basisnya tidak nol:
+$$\\left(\\frac{2}{3}\\right)^{-2} = \\left(\\frac{3}{2}\\right)^{2} = \\frac{9}{4}, \\qquad 5^{0} = 1.$$
+Jumlahnya $\\dfrac94 + 1 = \\dfrac{13}{4} = 3{,}25$.
+
+*Verifikasi.* Membalik pecahan dua kali mengembalikan bentuk semula, sehingga $\\left(\\frac23\\right)^{-2} \\cdot \\left(\\frac23\\right)^{2} = 1$: $\\dfrac94 \\cdot \\dfrac49 = 1$. Cocok.`,
+            },
+            {
+              title: "Contoh 3: pangkat pecahan",
+              text: `Hitung $81^{3/4}$ dan $(-8)^{1/3}$.
+
+*Penyelesaian.* Gunakan $a^{m/n} = \\sqrt[n]{a^{m}}$. Untuk yang pertama, kerjakan akarnya lebih dulu agar angkanya kecil:
+$$81^{3/4} = \\left(\\sqrt[4]{81}\\right)^{3} = 3^{3} = 27.$$
+Untuk yang kedua, indeks $3$ ganjil sehingga basis negatif dibolehkan:
+$$(-8)^{1/3} = \\sqrt[3]{-8} = -2.$$
+
+*Verifikasi.* $27^{4/3} = \\left(\\sqrt[3]{27}\\right)^{4} = 3^{4} = 81$ benar, dan $(-2)^{3} = -8$ benar.`,
+            },
+            {
+              title: "Contoh 4: menyederhanakan bentuk akar",
+              text: `Sederhanakan $\\sqrt{12} + \\sqrt{27} - \\sqrt{48}$.
 
 *Penyelesaian.* Faktorkan setiap akar dengan mengeluarkan kuadrat sempurna:
-$$\\sqrt{12}=2\\sqrt{3}, \\quad \\sqrt{27}=3\\sqrt{3}, \\quad \\sqrt{48}=4\\sqrt{3}.$$
-Maka $2\\sqrt{3}+3\\sqrt{3}-4\\sqrt{3} = (2+3-4)\\sqrt{3} = \\sqrt{3}$.`,
+$$\\sqrt{12} = 2\\sqrt{3}, \\qquad \\sqrt{27} = 3\\sqrt{3}, \\qquad \\sqrt{48} = 4\\sqrt{3}.$$
+Karena ketiganya sejenis, jumlahkan koefisiennya saja:
+$$2\\sqrt{3} + 3\\sqrt{3} - 4\\sqrt{3} = (2 + 3 - 4)\\sqrt{3} = \\sqrt{3}.$$
+
+*Verifikasi.* Secara numerik $\\sqrt{3} \\approx 1{,}732$, sedangkan $3{,}464 + 5{,}196 - 6{,}928 = 1{,}732$. Cocok.`,
             },
             {
-              title: "Contoh 3: menyelesaikan persamaan eksponen",
+              title: "Contoh 5: merasionalkan penyebut",
+              text: `Rasionalkan penyebut $\\dfrac{6}{\\sqrt{5} - \\sqrt{2}}$.
+
+*Penyelesaian.* Kalikan pembilang dan penyebut dengan sekawan $\\sqrt{5} + \\sqrt{2}$ agar penyebut memuat selisih kuadrat:
+$$\\frac{6}{\\sqrt{5} - \\sqrt{2}} = \\frac{6(\\sqrt{5} + \\sqrt{2})}{(\\sqrt{5} - \\sqrt{2})(\\sqrt{5} + \\sqrt{2})} = \\frac{6(\\sqrt{5} + \\sqrt{2})}{5 - 2} = 2(\\sqrt{5} + \\sqrt{2}).$$
+
+*Verifikasi.* Nilai asal $\\dfrac{6}{2{,}236 - 1{,}414} = \\dfrac{6}{0{,}822} \\approx 7{,}30$, dan hasil $2(2{,}236 + 1{,}414) = 7{,}30$. Cocok.`,
+            },
+            {
+              title: "Contoh 6: menyelesaikan persamaan eksponen",
               text: `Tentukan $x$ dari $2^{x+1} = 32$.
 
 *Penyelesaian.* Nyatakan kedua ruas dengan basis yang sama, yaitu $2$, sebab $32 = 2^{5}$:
 $$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$
-Periksa: $2^{4+1} = 2^{5} = 32$ benar.`,
+
+*Verifikasi.* $2^{4+1} = 2^{5} = 32$ benar. Penyetaraan eksponen sah karena fungsi $2^{x}$ selalu naik, jadi setiap nilai hanya dicapai sekali.`,
             },
           ],
         },
@@ -505,7 +547,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
             "Mengapa $(ab)^{n}=a^{n}b^{n}$, tetapi $(a+b)^{n}\\neq a^{n}+b^{n}$? Berikan contoh untuk menjelaskannya.",
             "Sifat mana yang kamu pakai pada $\\dfrac{2^{7}}{2^{3}}$, dan bagaimana kamu memeriksa bahwa hasilnya benar?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan materi eksponen ini?",
+          confidenceLabel: "Seberapa yakin kamu memakai sifat eksponen dan menyederhanakan bentuk akar?",
         },
       ],
     },

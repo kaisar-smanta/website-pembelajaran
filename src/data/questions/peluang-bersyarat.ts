@@ -18,7 +18,11 @@ export const peluangBersyaratQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Dengan rumus peluang bersyarat, $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0{,}2}{0{,}4} = 0{,}5$ (C). Opsi A ($0{,}2$) menyalin $P(A\\cap B)$ tanpa membagi; opsi B ($0{,}4$) memakai $P(B)$ sebagai hasil akhir; opsi D ($0{,}8$) menghitung keliru dengan membagi $P(A)$ oleh sesuatu selain $P(B)$.',
-    hints: ['Bagi peluang irisan dengan peluang kejadian syaratnya, bukan total keseluruhan.'],
+    hints: [
+      'Bagi peluang irisan dengan peluang kejadian syaratnya, bukan total keseluruhan.',
+      'Rumusnya $P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)}$.',
+      'Substitusikan $0{,}2$ dibagi $0{,}4$.',
+    ],
     competencies: ['peluang bersyarat'],
   },
   {
@@ -38,7 +42,11 @@ export const peluangBersyaratQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Ruang sampel $\\{LL, LP, PL, PP\\}$. Informasi "paling sedikit satu laki-laki" menyisakan $\\{LL, LP, PL\\}$, sehingga $P = \\dfrac{1}{3}$ (B). Opsi A ($\\frac14$) mengabaikan informasi dan memakai seluruh ruang sampel; opsi C ($\\frac12$) menganggap jenis kelamin kedua anak tidak saling bergantung pada informasi itu; opsi D ($\\frac23$) keliru menempatkan $LL$ sebagai komplemen dari satu kejadian.',
-    hints: ['Informasi baru mempersempit ruang sampel menjadi tiga hasil.'],
+    hints: [
+      'Informasi baru mempersempit ruang sampel menjadi tiga hasil.',
+      'Hasil yang tersisa adalah $\\{LL, LP, PL\\}$ dari semula $\\{LL, LP, PL, PP\\}$.',
+      'Bagi banyak hasil "keduanya laki-laki" dengan $3$.',
+    ],
     competencies: ['peluang bersyarat', 'ruang sampel'],
   },
   {
@@ -53,7 +61,11 @@ export const peluangBersyaratQuestions: Question[] = [
     acceptedAnswers: ['4/7', '40/70', '0,57', '0.57', '0,571', '0.571', '0,5714', '0.5714'],
     explanation:
       'Karena yang diketahui adalah suka Fisika, gunakan total milik $F$: $P(M \\mid F) = \\dfrac{n(M \\cap F)}{n(F)} = \\dfrac{40}{70} = \\dfrac{4}{7}$.',
-    hints: ['Untuk $P(M \\mid F)$, bagi irisan dengan total siswa yang suka Fisika.'],
+    hints: [
+      'Untuk $P(M \\mid F)$, bagi irisan dengan total siswa yang suka Fisika.',
+      'Irisan $M \\cap F$ ada $40$ siswa, sedangkan $n(F) = 70$.',
+      'Hitung $\\dfrac{40}{70}$ lalu sederhanakan.',
+    ],
     competencies: ['peluang bersyarat', 'tabel kontingensi'],
   },
   {

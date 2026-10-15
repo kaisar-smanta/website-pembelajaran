@@ -70,7 +70,7 @@ Jika dua transformasi dikerjakan berurutan, matriks gabungannya diperoleh dengan
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Topik ini melanjutkan aljabar matriks, jadi pastikan dahulu kamu menguasai:
 - operasi penjumlahan dan perkalian matriks;
 - determinan dan invers matriks $2 \\times 2$;
 - penulisan titik sebagai vektor kolom pada bidang Cartesius.`,
@@ -93,7 +93,7 @@ $$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} e & f \\\\ g 
 Perkalian dengan vektor kolom mengubah satu titik:
 $$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} ax+by \\\\ cx+dy \\end{pmatrix}.$$
 
-Ingat bahwa perkalian matriks **tidak komutatif**, sehingga urutan transformasi penting.`,
+Operasi penjumlahan dan perkalian matriks beserta sifat-sifatnya sudah dibahas pada topik **Matriks**. Di sini kita fokus pada bentuk yang paling sering muncul, yaitu perkalian matriks dengan vektor kolom untuk memindahkan satu titik.`,
       blocks: [
         {
           kind: "match",
@@ -171,6 +171,12 @@ Jika suatu bangun seluas $L$ ditransformasi oleh matriks $M$, luas bayangannya a
               "luas terjaga atau berubah, orientasi terbalik",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Persegi satuan dan bayangannya berupa persegi panjang dua kali tiga oleh matriks diagonal dua dan tiga, menunjukkan determinan enam sebagai faktor skala luas.",
+          caption: "Persegi satuan $A$ (garis penuh, luas $1$) dan bayangannya $B$ (garis putus-putus) oleh matriks $M=\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$. Bayangan berupa persegi panjang $2 \\times 3$ dengan luas $6$, sebab $\\lvert \\det M \\rvert = 6$ menjadi faktor skala luas.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.3"/><line x1="100" y1="185" x2="100" y2="25" stroke="currentColor" stroke-width="1.3"/><polygon points="100,150 140,150 140,110 100,110" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="100,150 180,150 180,30 100,30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><text x="292" y="166" font-size="12" fill="currentColor">x</text><text x="106" y="36" font-size="12" fill="currentColor">y</text><text x="106" y="130" font-size="11" fill="currentColor">A</text><text x="150" y="48" font-size="11" fill="currentColor">B (luas 6)</text><text x="100" y="146" font-size="11" fill="currentColor">O</text></svg>',
         },
       ],
     },
@@ -253,7 +259,7 @@ Contohnya, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$.`,
 $$R_{\\theta} = \\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}.$$
 Sudut-sudut istimewa memberi bentuk sederhana:
 $$R_{90^\\circ} = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}, \\quad R_{180^\\circ} = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}, \\quad R_{270^\\circ} = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}.$$
-Misalnya, $R_{90^\\circ}$ memetakan $(1,0)$ ke $(0,1)$ dan $(3,1)$ ke $(-1,3)$.
+$R_{90^\\circ}$ memetakan $(1,0)$ ke $(0,1)$ dan $(3,1)$ ke $(-1,3)$.
 Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, sehingga rotasi tidak mengubah luas.`,
       blocks: [
         {
@@ -308,7 +314,7 @@ $$\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc.$$
 
 Nilai $\\lvert\\det(M)\\rvert$ menyatakan berapa kali luas sebuah bangun berubah setelah ditransformasi; khususnya $\\det(M)=1$ untuk rotasi dan refleksi, serta $\\det(M)=0$ membuat bangun menyusut menjadi garis.
 
-Pola kedua muncul saat beberapa transformasi dirangkai. Bila $T_1$ dengan matriks $M_1$ dikerjakan lebih dahulu lalu $T_2$ dengan matriks $M_2$, matriks gabungannya adalah $M_2M_1$. Karena perkalian matriks tidak komutatif, **urutan langkah menentukan hasil**, seperti yang tampak ketika rotasi dan refleksi ditukar.`,
+Pola kedua muncul saat beberapa transformasi dirangkai. Bila $T_1$ dengan matriks $M_1$ dikerjakan lebih dahulu lalu $T_2$ dengan matriks $M_2$, matriks gabungannya adalah $M_2M_1$. Akibatnya **urutan langkah menentukan hasil**, seperti yang tampak ketika rotasi dan refleksi ditukar.`,
     },
     {
       id: "contoh",
@@ -388,7 +394,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       id: "kesalahan-umum",
       kind: "kesalahan-umum",
       title: "Kesalahan Umum",
-      body: `**1. Menukar urutan pada komposisi.** Untuk $T_{1}$ lalu $T_{2}$, matriksnya $M_{2}M_{1}$, bukan $M_{1}M_{2}$, karena perkalian matriks tidak komutatif.
+      body: `**1. Menukar urutan pada komposisi.** Untuk $T_{1}$ lalu $T_{2}$, matriksnya $M_{2}M_{1}$, bukan $M_{1}M_{2}$.
 **2. Salah menggunakan matriks rotasi.** Rotasi berlawanan arah jarum jam memakai $\\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}$; tanda pada $\\sin\\theta$ mudah tertukar.
 **3. Mencampur translasi dengan perkalian matriks.** Translasi adalah penjumlahan vektor, bukan perkalian matriks $2 \\times 2$ terhadap titik asal.
 **4. Melupakan nilai mutlak determinan.** Luas memakai $\\lvert \\det(M) \\rvert$, sedangkan tanda determinan hanya menunjukkan orientasi.`,
@@ -454,7 +460,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
             "Bagaimana urutan transformasi memengaruhi hasil akhir pada komposisi?",
             "Apa arti geometris dari determinan sebuah matriks transformasi?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu menyusun dan merangkai matriks transformasi?",
         },
       ],
     },

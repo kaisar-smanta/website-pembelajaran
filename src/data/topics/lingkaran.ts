@@ -24,7 +24,7 @@ export const lingkaran: Topic = {
     'garis singgung',
     'tali busur',
   ],
-  prerequisites: [],
+  prerequisites: ['fungsi-kuadrat'],
   relatedTopics: ['trigonometri'],
   prerequisiteKnowledge: [
     'Teorema Pythagoras',
@@ -72,7 +72,7 @@ Berapa luas rumput dan berapa panjang pagar yang dibutuhkan? Bisakah kamu menghi
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Lingkaran menggabungkan sudut, segitiga, dan pengukuran busur, sehingga menggambar sketsa yang rapi sangat menolong. Bekal yang sebaiknya sudah kamu kuasai:
 
 - teorema Pythagoras, misalnya $5^{2}+12^{2}=13^{2}$;
 - luas segitiga $=\\dfrac{1}{2}\\times\\text{alas}\\times\\text{tinggi}$;
@@ -185,7 +185,7 @@ Dua akibat penting:
 1. Sudut keliling yang menghadap **diameter** selalu $90^\\circ$ (karena sudut pusatnya $180^\\circ$).
 2. Sudut-sudut keliling yang menghadap **busur yang sama** besarnya sama.
 
-Misalnya, jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika $\\angle AOB=120^\\circ$, maka $\\angle ACB=60^\\circ$.`,
+Jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika $\\angle AOB=120^\\circ$, maka $\\angle ACB=60^\\circ$.`,
       blocks: [
         {
           kind: "callout",
@@ -334,6 +334,19 @@ $$s=\\frac{1}{4}\\times2\\pi r=\\frac{1}{4}\\times2\\times\\frac{22}{7}\\times14
 *Penyelesaian.*
 $$\\ell=\\sqrt{13^{2}-5^{2}}=\\sqrt{169-25}=\\sqrt{144}=12 \\text{ cm}.$$`,
             },
+            {
+              title: "Contoh 4: luas tembereng",
+              text: `Tentukan luas tembereng lingkaran berjari-jari $7$ cm dengan sudut pusat $90^\\circ$ dan $\\pi=\\dfrac{22}{7}$.
+
+*Penyelesaian.* Luas juring $=\\dfrac{90}{360}\\cdot\\dfrac{22}{7}\\cdot7^{2}=\\dfrac{1}{4}\\cdot\\dfrac{22}{7}\\cdot49=38{,}5$ cm². Segitiga yang dibentuk dua jari-jari dan tali busurnya siku-siku dengan kedua kaki $7$ cm, sehingga $L_{\\text{segitiga}}=\\dfrac{1}{2}\\cdot7\\cdot7=24{,}5$ cm². Jadi $L_{\\text{tembereng}}=38{,}5-24{,}5=14$ cm².`,
+            },
+            {
+              title: "Contoh 5: garis singgung persekutuan luar",
+              text: `Tentukan panjang garis singgung persekutuan luar dua lingkaran berjari-jari $R=8$ cm dan $r=2$ cm dengan jarak pusat $d=10$ cm.
+
+*Penyelesaian.*
+$$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}=\\sqrt{10^{2}-(8-2)^{2}}=\\sqrt{100-36}=\\sqrt{64}=8 \\text{ cm}.$$`,
+            },
           ],
         },
       ],
@@ -397,7 +410,7 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
       id: "tantangan",
       kind: "tantangan",
       title: "Tantangan",
-      body: `**Soal.** Lingkaran berpusat $O$ berjari-jari $6$ cm. Sebuah titik $P$ berada $10$ cm dari $O$. Dari $P$ ditarik satu **garis singgung** yang menyentuh lingkaran di $A$, dan satu **garis potong** melalui $P$ yang memotong lingkaran berturut-turut di $C$ (dekat $P$) lalu $D$. Diketahui $PC = 4$ cm. Dengan teorema garis singgung–garis potong berlaku $PA^{2} = PC \\cdot PD$. Hitunglah $PA$, $PD$, dan panjang tali busur $CD$.`,
+      body: `**Soal.** Lingkaran berpusat $O$ berjari-jari $6$ cm. Sebuah titik $P$ berada $10$ cm dari $O$. Dari $P$ ditarik satu **garis singgung** yang menyentuh lingkaran di $A$, dan satu **garis potong** melalui $P$ yang memotong lingkaran berturut-turut di $C$ (dekat $P$) lalu $D$. Diketahui $PC = 4$ cm. Dengan teorema garis singgung dan garis potong berlaku $PA^{2} = PC \\cdot PD$. Hitunglah $PA$, $PD$, dan panjang tali busur $CD$.`,
       blocks: [
         {
           kind: "step-reveal",
@@ -413,7 +426,7 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
             },
             {
               title: "Mengapa $PA^{2} = PC \\cdot PD$",
-              text: "Sudut antara garis singgung $PA$ dan tali busur $AC$ besarnya sama dengan sudut keliling $\\angle ADC$ (teorema sudut garis singgung–tali busur). Karena $\\angle APC = \\angle APD$ dan $P, C, D$ segaris, segitiga $PAC$ sebangun dengan segitiga $PDA$.",
+              text: "Sudut antara garis singgung $PA$ dan tali busur $AC$ besarnya sama dengan sudut keliling $\\angle ADC$ (teorema sudut garis singgung dan tali busur). Karena $\\angle APC = \\angle APD$ dan $P, C, D$ segaris, segitiga $PAC$ sebangun dengan segitiga $PDA$.",
             },
             {
               title: "Gunakan kesebangunan",

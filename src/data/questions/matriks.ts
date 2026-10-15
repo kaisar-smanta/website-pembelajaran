@@ -18,7 +18,11 @@ export const matriksQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Untuk $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ berlaku $\\det(A) = ad - bc$. Maka $\\det(A) = 4(3) - 2(1) = 12 - 2 = 10$. Opsi A ($2$) keliru karena mengurangkan entri baris pertama ($4-2$), bukan mengalikan diagonal; opsi B ($14$) menjumlahkan hasil kali diagonal dan bukan-diagonal ($12+2$); opsi C ($6$) mengalikan entri bukan-diagonal ($2\\times3$) atau menjumlahkan $a+b$ sehingga rumus $ad-bc$ tidak dipakai.',
-    hints: ['Kalikan unsur diagonal utama lalu kurangi hasil kali diagonal lainnya.'],
+    hints: [
+      'Kalikan unsur diagonal utama lalu kurangi hasil kali diagonal lainnya.',
+      'Untuk $\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$ berlaku $\\det = ad - bc$.',
+      'Hitung $4 \\cdot 3 - 2 \\cdot 1$.',
+    ],
     competencies: ['determinan matriks $2 \\times 2$'],
   },
   {
@@ -52,7 +56,11 @@ export const matriksQuestions: Question[] = [
     answer: '5',
     explanation:
       '$A + B = \\begin{pmatrix} 1+0 & 2+1 \\\\ 3+2 & 4+1 \\end{pmatrix} = \\begin{pmatrix} 1 & 3 \\\\ 5 & 5 \\end{pmatrix}$. Entri baris kedua kolom pertama adalah $5$.',
-    hints: ['Jumlahkan entri yang seposisi, lalu baca posisi yang diminta.'],
+    hints: [
+      'Jumlahkan entri yang seposisi, lalu baca posisi yang diminta.',
+      'Entri baris kedua kolom pertama berasal dari $3 + 2$.',
+      'Hasilnya $5$.',
+    ],
     competencies: ['penjumlahan matriks'],
   },
   {
@@ -66,7 +74,11 @@ export const matriksQuestions: Question[] = [
     answer: '6',
     explanation:
       'Kesamaan matriks memberi $x = 1$ dan $y = 5$, sehingga $x + y = 1 + 5 = 6$.',
-    hints: ['Bandingkan entri yang bersesuaian posisinya.'],
+    hints: [
+      'Bandingkan entri yang bersesuaian posisinya.',
+      'Dari kesamaan matriks diperoleh $x = 1$ dan $y = 5$.',
+      'Jumlahkan kedua nilai itu.',
+    ],
     competencies: ['kesamaan matriks'],
   },
   {

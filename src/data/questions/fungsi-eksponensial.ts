@@ -17,7 +17,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     answer: 'D',
     explanation:
       '$f(3)=4^{3}=4\\cdot4\\cdot4=64$. Opsi A ($12$) mengalikan basis dengan eksponen ($4\\cdot3$). Opsi B ($256$) menghitung $4^{4}$. Opsi C ($81$) memakai basis $3$ (menghitung $3^{4}$), padahal basisnya $4$.',
-    hints: ['$4^{3}$ berarti $4\\times4\\times4$.'],
+    hints: [
+      '$4^{3}$ berarti $4\\times4\\times4$.',
+      'Hitung hasil perkalian tiga faktor $4$.',
+    ],
     competencies: ['nilai fungsi eksponensial'],
   },
   {
@@ -36,7 +39,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Karena $125=5^{3}$, maka $5^{x}=5^{3}$ sehingga $x=3$. Opsi A ($2$) memakai $5^{2}=25$. Opsi B ($25$) menjawab hasil $5^{2}$, bukan nilai $x$. Opsi C ($4$) memakai $5^{4}=625$.',
-    hints: ['Nyatakan $125$ sebagai pangkat dari $5$.'],
+    hints: [
+      'Nyatakan $125$ sebagai pangkat dari $5$.',
+      'Karena $5^{3}=125$, samakan pangkat pada kedua ruas.',
+    ],
     competencies: ['persamaan eksponen'],
   },
   {
@@ -233,7 +239,10 @@ export const fungsiEksponensialQuestions: Question[] = [
     answer: 'B',
     explanation:
       '$f(2)=\\left(\\dfrac{1}{3}\\right)^{2}=\\dfrac{1}{3}\\cdot\\dfrac{1}{3}=\\dfrac{1}{9}$. Opsi A ($\\dfrac{1}{6}$) mengalikan $3$ dengan $2$ alih-alih mengkuadratkan. Opsi C ($-\\dfrac{1}{9}$) menganggap pangkat genap menghasilkan bilangan negatif. Opsi D ($9$) membalik basis menjadi $3^{2}$ alih-alih memangkatkan nilai aslinya.',
-    hints: ['$\\left(\\dfrac{1}{3}\\right)^{2}$ berarti $\\dfrac{1}{3}\\times\\dfrac{1}{3}$.'],
+    hints: [
+      '$\\left(\\dfrac{1}{3}\\right)^{2}$ berarti $\\dfrac{1}{3}\\times\\dfrac{1}{3}$.',
+      'Kalikan pembilang dengan pembilang dan penyebut dengan penyebut.',
+    ],
     competencies: ['nilai fungsi eksponensial'],
   },
   {

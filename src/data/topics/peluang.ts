@@ -39,7 +39,7 @@ export const peluang: Topic = {
     { text: 'Menghitung frekuensi harapan dan menafsirkannya dalam konteks.' },
     { text: 'Menghitung frekuensi harapan kejadian majemuk, seperti jumlah tertentu pada dua dadu atau hasil pada dua koin.' },
   ],
-  applications: ['kata-sandi'],
+  applications: ['pemilihan-tim-lomba'],
   sections: [
     {
       id: "tujuan",
@@ -77,10 +77,10 @@ Peluang teoretis $\\tfrac12$ tidak menjanjikan hasil seimbang pada percobaan sin
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Peluang memakai bahasa himpunan, jadi pastikan dahulu kamu dapat:
 
-- notasi himpunan, misalnya $A = \\{2, 4, 6\\}$;
-- gabungan $A \\cup B$ dan irisan $A \\cap B$;
+- menulis himpunan hasil dengan notasi seperti $A = \\{2, 4, 6\\}$;
+- menggunakan gabungan $A \\cup B$ dan irisan $A \\cap B$;
 - mengubah pecahan menjadi desimal dan persen, misalnya $\\tfrac{1}{6} \\approx 0{,}167 \\approx 16{,}7\\%$.`,
     },
     {
@@ -272,17 +272,23 @@ $$F_h = N \\cdot P(A).$$
 
 Jika dadu dilempar $90$ kali, frekuensi harapan muncul mata 6 adalah $90 \\cdot \\tfrac16 = 15$ kali. Ini adalah **nilai harapan**, bukan jaminan; hasil nyata dapat berbeda.
 
-**Frekuensi harapan kejadian majemuk.** Percobaan sering melibatkan lebih dari satu benda, misalnya dua dadu atau dua koin sekaligus. Langkahnya sama: hitung dahulu peluang kejadian majemuk dari ruang sampel gabungan, baru kalikan dengan banyak percobaan.
+**Frekuensi harapan kejadian majemuk.** Percobaan sering melibatkan lebih dari satu benda, seperti dua dadu atau dua koin sekaligus. Langkahnya sama: hitung dahulu peluang kejadian majemuk dari ruang sampel gabungan, baru kalikan dengan banyak percobaan.
 
 $$F_h = N \\cdot P(\\text{kejadian majemuk}).$$
 
 Contoh: dua dadu dilempar $180$ kali. Peluang jumlah mata $7$ adalah $P=\\tfrac{6}{36}=\\tfrac16$ dan peluang jumlah mata minimal $10$ juga $\\tfrac{6}{36}=\\tfrac16$, sehingga frekuensi harapan masing-masing adalah $180 \\cdot \\tfrac16 = 30$ kali. Untuk dua koin, peluang muncul dua gambar adalah $\\tfrac14$, jadi dari $200$ lemparan diharapkan $200 \\cdot \\tfrac14 = 50$ kali muncul dua gambar.`,
       blocks: [
         {
+          kind: "figure",
+          alt: "Diagram pohon dua kali pelemparan koin: dari titik awal bercabang angka atau gambar dengan peluang 1/2, lalu tiap cabang bercabang lagi menjadi angka atau gambar dengan peluang 1/2, menghasilkan empat hasil AA, AG, GA, dan GG.",
+          caption: "Diagram pohon dua lemparan koin. Setiap cabang berpeluang $\\tfrac12$; dengan aturan perkalian, peluang tiap hasil adalah $\\tfrac12 \\cdot \\tfrac12 = \\tfrac14$, misalnya $P(GG)=\\tfrac14$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><g fill="none" stroke="currentColor" stroke-width="1.5"><line x1="30" y1="100" x2="110" y2="55"/><line x1="30" y1="100" x2="110" y2="145"/><line x1="110" y1="55" x2="210" y2="25"/><line x1="110" y1="55" x2="210" y2="85"/><line x1="110" y1="145" x2="210" y2="115"/><line x1="110" y1="145" x2="210" y2="175"/></g><circle cx="30" cy="100" r="3" fill="currentColor"/><circle cx="110" cy="55" r="3" fill="currentColor"/><circle cx="110" cy="145" r="3" fill="currentColor"/><circle cx="210" cy="25" r="3" fill="currentColor"/><circle cx="210" cy="85" r="3" fill="currentColor"/><circle cx="210" cy="115" r="3" fill="currentColor"/><circle cx="210" cy="175" r="3" fill="currentColor"/><text x="30" y="120" font-size="11" text-anchor="middle" fill="currentColor">Awal</text><text x="110" y="46" font-size="12" text-anchor="middle" fill="currentColor">A</text><text x="110" y="164" font-size="12" text-anchor="middle" fill="currentColor">G</text><text x="64" y="74" font-size="11" text-anchor="middle" fill="currentColor">1/2</text><text x="64" y="130" font-size="11" text-anchor="middle" fill="currentColor">1/2</text><text x="158" y="32" font-size="11" text-anchor="middle" fill="currentColor">1/2</text><text x="158" y="66" font-size="11" text-anchor="middle" fill="currentColor">1/2</text><text x="158" y="124" font-size="11" text-anchor="middle" fill="currentColor">1/2</text><text x="158" y="158" font-size="11" text-anchor="middle" fill="currentColor">1/2</text><text x="220" y="29" font-size="12" fill="currentColor">AA</text><text x="220" y="89" font-size="12" fill="currentColor">AG</text><text x="220" y="119" font-size="12" fill="currentColor">GA</text><text x="220" y="179" font-size="12" fill="currentColor">GG</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "warning",
           title: "Hati-hati",
-          text: "\"Saling bebas\" berbeda dari \"saling lepas\". Kejadian saling lepas tidak dapat terjadi bersamaan ($P(A\\cap B)=0$), sedangkan kejadian saling bebas justru mengalikan peluang ($P(A\\cap B)=P(A)P(B)$).",
+          text: "\"Saling bebas\" berbeda dari \"saling lepas\". Kejadian saling lepas tidak dapat terjadi bersamaan ($P(A\\cap B)=0$), sedangkan kejadian saling bebas mengalikan peluang ($P(A\\cap B)=P(A)P(B)$).",
         },
       ],
     },
@@ -293,7 +299,7 @@ Contoh: dua dadu dilempar $180$ kali. Peluang jumlah mata $7$ adalah $P=\\tfrac{
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Empat contoh berikut melatih aturan penjumlahan, ruang sampel dua dadu, komplemen tiga koin, dan frekuensi harapan.",
+          intro: "Lima contoh berikut melatih aturan penjumlahan, ruang sampel dua dadu, komplemen tiga koin, frekuensi harapan, dan aturan perkalian untuk kejadian saling bebas.",
           steps: [
             {
               title: "Contoh 1 (aturan penjumlahan)",
@@ -319,6 +325,13 @@ $$P(A \\cup B) = P(A) + P(B) - P(A \\cap B) = \\tfrac12 + \\tfrac12 - \\tfrac16 
               text: `Dua dadu dilempar $180$ kali. Berapa frekuensi harapan muncul jumlah mata $7$?
 
 *Penyelesaian.* Dari Contoh 2, $P(\\text{jumlah }7) = \\tfrac16$. Maka $F_h = N \\cdot P = 180 \\cdot \\tfrac16 = 30$ kali. Angka ini perkiraan jangka panjang, bukan jaminan hasil nyata.`,
+            },
+            {
+              title: "Contoh 5 (kejadian saling bebas)",
+              text: `Sebuah dadu dan sebuah koin dilempar bersama. Tentukan peluang muncul mata dadu $6$ sekaligus gambar pada koin.
+
+*Penyelesaian.* Hasil dadu tidak memengaruhi hasil koin, jadi kedua kejadian **saling bebas**. Dengan $P(\\text{dadu }6)=\\tfrac16$ dan $P(\\text{gambar})=\\tfrac12$:
+$$P(\\text{dadu }6 \\cap \\text{gambar}) = \\tfrac16 \\cdot \\tfrac12 = \\tfrac{1}{12}.$$`,
             },
           ],
         },
@@ -452,7 +465,7 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Teori peluang tidak dimulai dari rumus, melainkan dari sebuah pertanyaan tentang permainan. Sekitar 1654, Antoine Gombaud (Chevalier de Méré) menanyakan kepada Blaise Pascal bagaimana membagi taruhan secara adil ketika sebuah permainan harus dihentikan sebelum selesai. Pascal lalu berkorespondensi dengan Pierre de Fermat; keduanya menyelesaikan *masalah pembagian taruhan* dengan dua pendekatan berbeda dan memperoleh jawaban yang sama. Korespondensi inilah yang biasanya dianggap sebagai titik tolak teori peluang.
+      body: `Teori peluang tidak dimulai dari rumus, tetapi dari sebuah pertanyaan tentang permainan. Sekitar 1654, Antoine Gombaud (Chevalier de Méré) menanyakan kepada Blaise Pascal bagaimana membagi taruhan secara adil ketika sebuah permainan harus dihentikan sebelum selesai. Pascal lalu berkorespondensi dengan Pierre de Fermat; keduanya menyelesaikan *masalah pembagian taruhan* dengan dua pendekatan berbeda dan memperoleh jawaban yang sama. Korespondensi inilah yang biasanya dianggap sebagai titik tolak teori peluang.
 
 Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang peluang, *De ratiociniis in ludo aleae* (1657). Jacob Bernoulli dalam *Ars Conjectandi* (1713) merumuskan apa yang kemudian dikenal sebagai **hukum bilangan besar**, yaitu penjelasan mengapa peluang empiris merapat ke peluang teoretis pada percobaan yang panjang. Pierre-Simon Laplace dalam *Théorie analytique des probabilités* (1812) merapikan definisi klasiknya sebagai perbandingan kasus yang menguntungkan terhadap seluruh kasus yang sama mungkin. Definisi itulah yang kita pakai sebagai $P(A) = \\dfrac{n(A)}{n(S)}$, sehingga mendata ruang sampel dengan benar menjadi langkah pertama setiap perhitungan.`,
       blocks: [

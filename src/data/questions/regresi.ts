@@ -34,7 +34,10 @@ export const regresiQuestions: Question[] = [
     acceptedAnswers: ['3 dan 4', 'x̄=3, ȳ=4', '3,4', 'x=3 y=4'],
     explanation:
       'Jumlah $x$ adalah $15$ dan jumlah $y$ adalah $20$ dengan $n=5$, sehingga $\\bar{x}=\\dfrac{15}{5}=3$ dan $\\bar{y}=\\dfrac{20}{5}=4$.',
-    hints: ['Mean $=\\dfrac{\\text{jumlah data}}{\\text{banyak data}}$.'],
+    hints: [
+      'Mean $=\\dfrac{\\text{jumlah data}}{\\text{banyak data}}$.',
+      'Jumlah $x$ adalah $15$ dan jumlah $y$ adalah $20$ dengan $n=5$.',
+    ],
     competencies: ['mean'],
   },
   {
@@ -49,7 +52,10 @@ export const regresiQuestions: Question[] = [
     acceptedAnswers: ['0.9', '9/10', '0,9', '0,90', '0.90'],
     explanation:
       '$b=\\dfrac{n\\sum x_iy_i-\\left(\\sum x_i\\right)\\left(\\sum y_i\\right)}{n\\sum x_i^2-\\left(\\sum x_i\\right)^2}=\\dfrac{5(69)-(15)(20)}{5(55)-15^{2}}=\\dfrac{345-300}{275-225}=\\dfrac{45}{50}=0{,}9$.',
-    hints: ['Substitusikan nilai sigma ke rumus gradien kuadrat terkecil.'],
+    hints: [
+      'Substitusikan nilai sigma ke rumus gradien kuadrat terkecil.',
+      'Hitung pembilang $n\\sum x_iy_i-(\\sum x_i)(\\sum y_i)$ dan penyebut $n\\sum x_i^2-(\\sum x_i)^2$.',
+    ],
     competencies: ['gradien regresi'],
   },
   {
@@ -62,7 +68,10 @@ export const regresiQuestions: Question[] = [
     answer: '1,3',
     acceptedAnswers: ['1.3', '13/10', '1,3', '1,30', '1.30'],
     explanation: '$a=\\bar{y}-b\\bar{x}=4-0{,}9(3)=4-2{,}7=1{,}3$.',
-    hints: ['Gunakan $a=\\bar{y}-b\\bar{x}$.'],
+    hints: [
+      'Gunakan $a=\\bar{y}-b\\bar{x}$.',
+      'Substitusikan $\\bar{y}=4$, $b=0{,}9$, dan $\\bar{x}=3$.',
+    ],
     competencies: ['intersep regresi'],
   },
   {

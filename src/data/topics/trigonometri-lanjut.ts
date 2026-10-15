@@ -71,7 +71,7 @@ Jadi identitas trigonometri memungkinkan kita menghitung nilai sudut tidak istim
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Trigonometri lanjut melanjutkan perbandingan trigonometri ke sudut sebarang dan segitiga sembarang. Bekal dari trigonometri dasar:
 - perbandingan sinus, kosinus, dan tangen pada segitiga siku-siku;
 - nilai trigonometri sudut istimewa $0^\\circ$ sampai $90^\\circ$;
 - identitas dasar $\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$ dan $\\tan\\alpha=\\dfrac{\\sin\\alpha}{\\cos\\alpha}$.`,
@@ -96,7 +96,7 @@ Setiap parameter memiliki makna:
 - $C$ adalah **pergeseran fase** (geser mendatar);
 - $D$ adalah **pergeseran tegak** yang menggeser garis tengah grafik.
 
-Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rvert$. Misalnya, $f(x)=3\\sin\\big(2(x-45^\\circ)\\big)-1$ memiliki amplitudo $3$, periode $\\dfrac{360^\\circ}{2}=180^\\circ$, pergeseran fase $45^\\circ$, nilai maksimum $2$, dan nilai minimum $-4$.`,
+Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rvert$. Contohnya, $f(x)=3\\sin\\big(2(x-45^\\circ)\\big)-1$ memiliki amplitudo $3$, periode $\\dfrac{360^\\circ}{2}=180^\\circ$, pergeseran fase $45^\\circ$, nilai maksimum $2$, dan nilai minimum $-4$.`,
       blocks: [
         {
           kind: "callout",
@@ -218,7 +218,7 @@ $$\\cos 2\\alpha = \\cos^{2}\\alpha - \\sin^{2}\\alpha = 2\\cos^{2}\\alpha - 1 =
 $$\\tan 2\\alpha = \\frac{2\\tan\\alpha}{1-\\tan^{2}\\alpha}.$$
 Karena $\\cos 2\\alpha$ memiliki beberapa bentuk, pilih bentuk yang paling sesuai dengan data yang diketahui.
 
-Misalnya, jika $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip, maka $\\cos\\alpha=\\dfrac{4}{5}$ sehingga
+Jika $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip, maka $\\cos\\alpha=\\dfrac{4}{5}$ sehingga
 $$\\sin 2\\alpha = 2\\cdot\\frac{3}{5}\\cdot\\frac{4}{5} = \\frac{24}{25}, \\qquad \\cos 2\\alpha = 1 - 2\\left(\\frac{3}{5}\\right)^{2} = 1-\\frac{18}{25} = \\frac{7}{25}.$$`,
       blocks: [
         {
@@ -233,15 +233,9 @@ $$\\sin 2\\alpha = 2\\cdot\\frac{3}{5}\\cdot\\frac{4}{5} = \\frac{24}{25}, \\qqu
       id: "aturan",
       kind: "rumus",
       title: "Aturan Sinus dan Aturan Kosinus",
-      body: `Pada segitiga sebarang $ABC$ dengan sisi $a, b, c$ yang berhadapan dengan sudut $A, B, C$:
+      body: `Aturan sinus dan aturan kosinus sudah kamu kenal dari topik **Trigonometri**. Di topik lanjut ini keduanya tidak diturunkan ulang, tetapi dipakai bersama identitas jumlah-sudut dan sudut rangkap untuk menangani segitiga sebarang, bukan hanya segitiga siku-siku.
 
-**Aturan sinus**
-$$\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}.$$
-
-**Aturan kosinus**
-$$a^{2} = b^{2} + c^{2} - 2bc\\cos A.$$
-
-Aturan sinus dipakai bila diketahui dua sudut dan satu sisi, atau dua sisi dan satu sudut di hadapannya. Aturan kosinus dipakai bila diketahui dua sisi dan sudut apitnya, atau ketiga sisinya. Bila $A=90^\\circ$, maka $\\cos A=0$ sehingga aturan kosinus kembali menjadi teorema Pythagoras.`,
+Ingat kembali pasangan yang benar: sisi $a$ berhadapan dengan sudut $A$, sisi $b$ dengan $B$, dan sisi $c$ dengan $C$. **Aturan sinus** dipakai bila diketahui dua sudut dan satu sisi, atau dua sisi dan satu sudut di hadapan salah satunya. **Aturan kosinus** dipakai bila diketahui dua sisi dan sudut apitnya, atau ketiga sisinya. Ketika salah satu sudut $90^\\circ$, aturan kosinus menyusut menjadi teorema Pythagoras.`,
       blocks: [
         {
           kind: "callout",
@@ -359,7 +353,7 @@ $$L = \\frac{1}{2}bc\\sin A = 20\\cdot\\frac{\\sqrt{3}}{2} = 10\\sqrt{3} \\appro
       title: "Penerapan di Dunia Nyata",
       body: `Fungsi trigonometri memodelkan pasang surut air laut, suhu musiman, gelombang bunyi, dan arus listrik bolak-balik. Amplitudo menentukan besar simpangan, sedangkan periode menentukan seberapa cepat gejala berulang.
 
-Aturan sinus dan kosinus dipakai dalam **triangulasi** untuk mengukur jarak antartitik yang sulit dijangkau, misalnya lebar danau atau tinggi puncak. Teknik yang sama digunakan pada navigasi, survei tanah, dan penentuan posisi satelit.`,
+Aturan sinus dan kosinus dipakai dalam **triangulasi** untuk mengukur jarak antartitik yang sulit dijangkau, seperti lebar danau atau tinggi puncak. Teknik yang sama digunakan pada navigasi, survei tanah, dan penentuan posisi satelit.`,
     },
     {
       id: "kesalahan-umum",
@@ -449,7 +443,7 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
             "Kapan aturan sinus lebih tepat dipakai, dan kapan aturan kosinus?",
             "Mengapa identitas sudut memudahkan menghitung nilai sudut yang bukan sudut istimewa?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu memakai identitas sudut dan aturan pada segitiga sebarang?",
         },
       ],
     },

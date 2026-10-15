@@ -73,7 +73,7 @@ Karena nilai harapannya nol, permainan ini **adil**: dalam jangka panjang, keunt
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Konsep nilai harapan bertumpu pada peluang dan penjumlahan berbobot, jadi pastikan dahulu bekal berikut sudah siap:
 
 - menyusun ruang sampel dan menghitung peluang teoretis;
 - aturan komplemen $P(A^c) = 1 - P(A)$ dan aturan perkalian untuk kejadian saling bebas;
@@ -86,7 +86,7 @@ Karena nilai harapannya nol, permainan ini **adil**: dalam jangka panjang, keunt
       title: "Situasi dan Konteks",
       body: `Banyak situasi nyata menuntut kita memberi **angka** pada hasil yang belum pasti. Banyaknya mobil yang datang ke tempat cuci mobil per jam, banyaknya produk cacat dalam satu kotak, atau keuntungan penjual per hari semuanya berupa bilangan yang nilainya bergantung pada kebetulan.
 
-Bilangan semacam itu disebut **variabel acak**. Jika nilainya tercacah dan terpisah (misalnya $0, 1, 2, 3$ mobil), variabelnya **diskret**. Sebaliknya, tinggi badan, berat badan, dan waktu tunggu dapat bernilai sembarang dalam suatu selang, sehingga termasuk variabel acak kontinu.
+Bilangan semacam itu disebut **variabel acak**. Jika nilainya tercacah dan terpisah (seperti $0, 1, 2, 3$ mobil), variabelnya **diskret**. Sebaliknya, tinggi badan, berat badan, dan waktu tunggu dapat bernilai sembarang dalam suatu selang, sehingga termasuk variabel acak kontinu.
 
 Dengan mengetahui distribusi peluangnya, kita dapat memprediksi rata-rata jangka panjang (nilai harapan) dan seberapa besar hasil nyata biasanya menyimpang dari rata-rata itu (varians dan simpangan baku).`,
     },
@@ -152,7 +152,7 @@ $$\\sum_{x} f(x) = 1.$$
 
 Nilai $f(x) = 0$ berarti $x$ mustahil muncul. Sebaliknya, peluang negatif atau lebih besar dari $1$ tidak sah. Bila jumlah peluang tidak tepat $1$, tabel itu belum dapat disebut distribusi peluang.
 
-Syarat kedua sering dipakai untuk mencari konstanta yang belum diketahui. Misalnya, jika $f(x) = kx$ untuk $x = 1, 2, 3, 4$, maka $\\sum kx = k(1+2+3+4) = 10k = 1$, sehingga $k = 0{,}1$.`,
+Syarat kedua sering dipakai untuk mencari konstanta yang belum diketahui. Contohnya, jika $f(x) = kx$ untuk $x = 1, 2, 3, 4$, maka $\\sum kx = k(1+2+3+4) = 10k = 1$, sehingga $k = 0{,}1$.`,
       blocks: [
         {
           kind: "callout",
@@ -183,6 +183,14 @@ Jumlah seluruh peluangnya $\\frac{1+2+3+4+5+6+5+4+3+2+1}{36} = \\frac{36}{36} = 
 | $P(Y=y)$ | $\\frac{1}{8}$ | $\\frac{3}{8}$ | $\\frac{3}{8}$ | $\\frac{1}{8}$ |
 
 Sekali lagi, jumlah peluangnya $\\frac{1+3+3+1}{8} = \\frac{8}{8} = 1$.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Diagram batang distribusi peluang jumlah mata dua dadu untuk nilai 2 sampai 12; batang tertinggi di 7 dan sebarannya simetris.",
+          caption: "Fungsi peluang jumlah dua dadu: $P(X=k)$ bernilai $\\frac{1}{36}, \\frac{2}{36}, \\ldots, \\frac{6}{36}$ lalu turun kembali, dengan puncak di $k=7$ dan total luas $1$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="45" stroke="currentColor" stroke-width="1.5"/><rect x="44" y="180" width="16" height="20" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="66" y="160" width="16" height="40" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="88" y="140" width="16" height="60" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="110" y="120" width="16" height="80" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="132" y="100" width="16" height="100" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="154" y="80" width="16" height="120" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="176" y="100" width="16" height="100" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="198" y="120" width="16" height="80" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="220" y="140" width="16" height="60" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="242" y="160" width="16" height="40" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><rect x="264" y="180" width="16" height="20" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/><line x1="162" y1="200" x2="162" y2="76" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3"/><text x="162" y="70" font-size="11" text-anchor="middle" fill="currentColor">E(X) = 7</text><text x="52" y="215" font-size="9" text-anchor="middle" fill="currentColor">2</text><text x="74" y="215" font-size="9" text-anchor="middle" fill="currentColor">3</text><text x="96" y="215" font-size="9" text-anchor="middle" fill="currentColor">4</text><text x="118" y="215" font-size="9" text-anchor="middle" fill="currentColor">5</text><text x="140" y="215" font-size="9" text-anchor="middle" fill="currentColor">6</text><text x="162" y="215" font-size="9" text-anchor="middle" fill="currentColor">7</text><text x="184" y="215" font-size="9" text-anchor="middle" fill="currentColor">8</text><text x="206" y="215" font-size="9" text-anchor="middle" fill="currentColor">9</text><text x="228" y="215" font-size="9" text-anchor="middle" fill="currentColor">10</text><text x="250" y="215" font-size="9" text-anchor="middle" fill="currentColor">11</text><text x="272" y="215" font-size="9" text-anchor="middle" fill="currentColor">12</text><text x="16" y="120" font-size="11" text-anchor="middle" fill="currentColor" transform="rotate(-90 16 120)">P(X = x)</text><text x="170" y="232" font-size="10" text-anchor="middle" fill="currentColor">jumlah mata dua dadu</text></svg>',
+        },
+      ],
     },
     {
       id: "nilai-harapan",
@@ -194,7 +202,7 @@ $$E(X) = \\sum_{x} x \\cdot f(x) = x_1 f(x_1) + x_2 f(x_2) + \\cdots + x_n f(x_n
 
 Nilai harapan menggambarkan **rata-rata hasil jangka panjang** jika percobaan diulang sangat banyak kali. Karena itu $E(X)$ tidak harus sama dengan salah satu nilai $X$ yang mungkin. Pada pelemparan tiga koin dengan $X$ = banyak gambar, $E(X) = 1{,}5$ meskipun $X$ selalu bilangan bulat.
 
-Sebagai contoh, untuk distribusi $f(x) = 0{,}1x$ dengan $x = 1, 2, 3, 4$:
+Untuk distribusi $f(x) = 0{,}1x$ dengan $x = 1, 2, 3, 4$:
 $$E(X) = 1(0{,}1) + 2(0{,}2) + 3(0{,}3) + 4(0{,}4) = 0{,}1 + 0{,}4 + 0{,}9 + 1{,}6 = 3.$$`,
     },
     {
@@ -244,19 +252,32 @@ Pola berbobot ini menjelaskan mengapa $E(X)$ tidak harus sama dengan salah satu 
           kind: "step-reveal",
           steps: [
             {
-              title: "Contoh 1",
-              text: `Fungsi peluang variabel acak diskret $X$ berbentuk $f(x) = kx$ untuk $x = 1, 2, 3, 4$. Tentukan $k$, lalu hitung $E(X)$.
+              title: "Contoh 1: menentukan konstanta, nilai harapan, dan varians",
+              text: `Fungsi peluang $X$ berbentuk $f(x) = kx$ untuk $x = 1, 2, 3, 4$. Tentukan $k$, lalu hitung $E(X)$ dan $\\operatorname{Var}(X)$.
 
-*Penyelesaian.* Karena jumlah seluruh peluang harus $1$:
-$$\\sum_{x=1}^{4} kx = k(1 + 2 + 3 + 4) = 10k = 1, \\quad \\text{sehingga } k = 0{,}1.$$
-Distribusinya menjadi $f(1) = 0{,}1$, $f(2) = 0{,}2$, $f(3) = 0{,}3$, $f(4) = 0{,}4$. Maka
-$$E(X) = 1(0{,}1) + 2(0{,}2) + 3(0{,}3) + 4(0{,}4) = 0{,}1 + 0{,}4 + 0{,}9 + 1{,}6 = 3.$$`,
+*Langkah 1: cari $k$ dari syarat jumlah peluang.* Jumlah seluruh peluang harus $1$, sehingga
+$$\\sum_{x=1}^{4} kx = k(1 + 2 + 3 + 4) = 10k = 1, \\quad \\text{maka } k = 0{,}1.$$
+Distribusinya menjadi $f(1) = 0{,}1$, $f(2) = 0{,}2$, $f(3) = 0{,}3$, $f(4) = 0{,}4$.
+
+*Langkah 2: nilai harapan.*
+$$E(X) = 1(0{,}1) + 2(0{,}2) + 3(0{,}3) + 4(0{,}4) = 0{,}1 + 0{,}4 + 0{,}9 + 1{,}6 = 3.$$
+
+*Langkah 3: varians.* Hitung dahulu momen kedua $E(X^{2}) = 1^{2}(0{,}1) + 2^{2}(0{,}2) + 3^{2}(0{,}3) + 4^{2}(0{,}4) = 0{,}1 + 0{,}8 + 2{,}7 + 6{,}4 = 10$. Maka
+$$\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 10 - 3^{2} = 1, \\quad \\sigma = \\sqrt{1} = 1.$$
+
+*Verifikasi.* Semua peluang berada antara $0$ dan $1$ dan jumlahnya $1$, jadi distribusinya sah. Rata-rata $3$ dengan simpangan baku $1$ menunjukkan nilai tipikal menyebar sekitar satu satuan dari pusat.`,
             },
             {
-              title: "Contoh 2",
-              text: `Misalkan $X$ menyatakan jumlah kedua mata dadu. Ruang sampelnya $36$ hasil sama mungkin, dan nilai $X$ dari $2$ sampai $12$ dengan peluang $\\frac{1}{36}, \\frac{2}{36}, \\ldots, \\frac{6}{36}, \\ldots, \\frac{1}{36}$. Maka
+              title: "Contoh 2: nilai harapan dan varians jumlah dua dadu",
+              text: `Misalkan $X$ menyatakan jumlah kedua mata dadu. Ruang sampelnya $36$ hasil sama mungkin, dan nilai $X$ dari $2$ sampai $12$ dengan peluang $\\frac{1}{36}, \\frac{2}{36}, \\ldots, \\frac{6}{36}, \\ldots, \\frac{1}{36}$.
+
+*Langkah 1: nilai harapan.* Sebarannya simetris terhadap $7$ karena peluang $X=k$ sama dengan peluang $X=14-k$, sehingga pusatnya tepat di tengah:
 $$E(X) = \\frac{2(1) + 3(2) + 4(3) + 5(4) + 6(5) + 7(6) + 8(5) + 9(4) + 10(3) + 11(2) + 12(1)}{36} = \\frac{252}{36} = 7.$$
-Jadi rata-rata jumlah mata dua dadu adalah $7$.`,
+
+*Langkah 2: varians.* Momen kedua $E(X^{2}) = \\frac{1974}{36} \\approx 54{,}83$, sehingga
+$$\\operatorname{Var}(X) = 54{,}83 - 7^{2} = 54{,}83 - 49 = 5{,}83, \\quad \\sigma = \\sqrt{5{,}83} \\approx 2{,}42.$$
+
+*Verifikasi.* Jumlah peluangnya $\\frac{36}{36} = 1$, dan simpangan baku $2{,}42$ menunjukkan jumlah mata biasanya berada sekitar dua angka dari $7$, sesuai sebaran yang melebar di kedua sisi.`,
             },
             {
               title: "Contoh 3",
@@ -374,7 +395,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
             "Apa makna nilai harapan, dan mengapa $E(X)$ boleh bukan salah satu nilai $X$ yang mungkin?",
             "Kapan simpangan baku lebih mudah ditafsirkan daripada varians?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu menghitung nilai harapan dan varians suatu distribusi?",
         },
       ],
     },

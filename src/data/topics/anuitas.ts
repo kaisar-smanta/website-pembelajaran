@@ -63,7 +63,7 @@ Pertanyaan: apakah setiap bulan ia membayar bunga yang sama? Jika bunga per bula
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Sebelum menghitung anuitas, mantapkan dahulu dasar-dasar berikut:
 
 - rumus bunga majemuk dan cara menyesuaikan suku bunga per periode;
 - jumlah $n$ suku pertama deret geometri;
@@ -81,7 +81,7 @@ Memahami anuitas membantu kita menghitung kemampuan membayar, membandingkan pena
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti",
-      body: `**Anuitas** adalah rangkaian pembayaran sebesar $A$ yang dilakukan secara berkala (misalnya tiap bulan) untuk melunasi pinjaman atau mengumpulkan dana. Ciri utamanya: **besar setoran tetap**, tetapi **komposisinya berubah** dari periode ke periode: porsi bunga menyusut dan porsi pokok membesar.
+      body: `**Anuitas** adalah rangkaian pembayaran sebesar $A$ yang dilakukan secara berkala (contohnya tiap bulan) untuk melunasi pinjaman atau mengumpulkan dana. Ciri utamanya: **besar setoran tetap**, tetapi **komposisinya berubah** dari periode ke periode: porsi bunga menyusut dan porsi pokok membesar.
 
 Ide kuncinya adalah **menyetarakan nilai waktu uang**. Pokok pinjaman $M$ diterima hari ini, sedangkan seluruh angsuran dibayar pada masa mendatang. Agar adil, nilai sekarang seluruh angsuran harus sama dengan $M$. Karena angsuran ke-$k$ baru dibayar setelah $k$ periode, nilainya didiskontokan dengan faktor $\\dfrac{1}{(1+i)^k}$.
 
@@ -209,6 +209,12 @@ Rumus $PV$ menjawab "berapa pinjaman yang setara dengan angsuran ini", sedangkan
               body: "Dari periode ke periode, porsi bunga menurun dan porsi pokok meningkat meskipun besar angsuran tetap.",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Diagram batang bertumpuk yang menunjukkan komposisi angsuran tetap tiap periode: porsi bunga yang menyusut berada di bawah dan porsi pokok yang membesar berada di atas.",
+          caption: "Karena angsuran $A$ tetap, tinggi total batang tetap. Namun porsi bunga (bawah) menyusut dari periode ke periode, sedangkan porsi pokok (atas) makin besar, sejalan dengan hubungan $A = \\text{bunga} + \\text{pokok}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><rect x="46" y="28" width="16" height="11" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><text x="68" y="38" font-size="11" fill="currentColor">bunga</text><rect x="146" y="28" width="16" height="11" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><text x="168" y="38" font-size="11" fill="currentColor">pokok</text><rect x="50" y="140" width="26" height="60" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><rect x="50" y="100" width="26" height="40" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="90" y="150" width="26" height="50" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><rect x="90" y="100" width="26" height="50" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="130" y="158" width="26" height="42" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><rect x="130" y="100" width="26" height="58" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="170" y="165" width="26" height="35" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><rect x="170" y="100" width="26" height="65" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="210" y="172" width="26" height="28" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><rect x="210" y="100" width="26" height="72" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="250" y="178" width="26" height="22" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="0.8"/><rect x="250" y="100" width="26" height="78" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><line x1="35" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.4"/><text x="60" y="216" font-size="11" fill="currentColor">1</text><text x="100" y="216" font-size="11" fill="currentColor">2</text><text x="140" y="216" font-size="11" fill="currentColor">3</text><text x="180" y="216" font-size="11" fill="currentColor">4</text><text x="220" y="216" font-size="11" fill="currentColor">5</text><text x="260" y="216" font-size="11" fill="currentColor">6</text><text x="150" y="234" font-size="11" fill="currentColor">periode pembayaran</text></svg>',
         },
         {
           kind: "figure",
@@ -379,7 +385,7 @@ Gunakan hasil itu untuk menunjukkan bahwa setelah $n$ angsuran utangnya lunas.`,
             "Informasi apa yang paling penting diminta sebelum menyetujui pinjaman?",
             "Bagaimana kamu menjelaskan arti \"total bunga\" kepada orang yang hanya melihat besar angsuran?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu membaca komposisi bunga dan pokok pada anuitas?",
         },
       ],
     },

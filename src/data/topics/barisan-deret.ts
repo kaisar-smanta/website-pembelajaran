@@ -76,9 +76,9 @@ Ada berapa pasangan yang masing-masing berjumlah $101$? Berapa jumlah seluruhnya
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- operasi penjumlahan, pengurangan, perkalian, dan pembagian bilangan;
-- sifat eksponen, khususnya $r^{n}$ untuk menghitung perkalian berulang;
+      body: `Barisan dan deret menuntut ketelitian berhitung dan kepekaan membaca pola. Pastikan kamu sudah bisa:
+- melakukan operasi penjumlahan, pengurangan, perkalian, dan pembagian bilangan;
+- menghitung perkalian berulang lewat pangkat, seperti $r^{n}$;
 - menyelesaikan persamaan linear satu variabel, misalnya $3+(n-1)4=63$.`,
     },
     {
@@ -106,6 +106,12 @@ Jadi barisan mendaftar (dipisah koma), sedangkan deret menjumlahkan (dihubungkan
           variant: "concept",
           title: "Beda tetap, rasio berulang",
           text: "Aritmetika memakai **selisih tetap** ($U_{n}-U_{n-1}=b$), geometri memakai **rasio tetap** ($U_{n}/U_{n-1}=r$). Kedua rumus suku ke-$n$ berbeda dan tidak boleh tertukar.",
+        },
+        {
+          kind: "figure",
+          alt: "Diagram membandingkan barisan sebagai empat batang terpisah yang tingginya 2, 4, 6, dan 8 dengan deret sebagai satu batang bertingkat yang menumpuk keempat bagian tersebut.",
+          caption: "Barisan mendaftar suku demi suku ($U_1, \\dots, U_4$) sebagai batang terpisah, sedangkan deret menumpuknya menjadi satu jumlah $S_4 = U_1 + U_2 + U_3 + U_4$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="10" y1="175" x2="310" y2="175" stroke="currentColor" stroke-width="1.5"/><rect x="15" y="159" width="30" height="16" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="55" y="143" width="30" height="32" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="95" y="127" width="30" height="48" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="135" y="111" width="30" height="64" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="30" y="190" font-size="11" text-anchor="middle" fill="currentColor">U₁</text><text x="70" y="190" font-size="11" text-anchor="middle" fill="currentColor">U₂</text><text x="110" y="190" font-size="11" text-anchor="middle" fill="currentColor">U₃</text><text x="150" y="190" font-size="11" text-anchor="middle" fill="currentColor">U₄</text><rect x="235" y="159" width="45" height="16" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="235" y="127" width="45" height="32" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="235" y="79" width="45" height="48" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="235" y="15" width="45" height="64" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="257" y="190" font-size="11" text-anchor="middle" fill="currentColor">S₄</text><text x="90" y="14" font-size="12" text-anchor="middle" fill="currentColor">barisan</text><text x="257" y="8" font-size="12" text-anchor="middle" fill="currentColor">deret</text></svg>',
         },
         {
           kind: "flip-cards",
@@ -288,16 +294,18 @@ Jika $\\lvert r\\rvert \\geq 1$, suku-sukunya tidak menuju nol dan deret **diver
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kerjakan tiga contoh berikut satu per satu, lalu cocokkan hasilmu.",
+          intro: "Kerjakan empat contoh berikut satu per satu, lalu cocokkan hasilmu.",
           steps: [
             {
               title: "Contoh 1 (aritmetika)",
               text: `Barisan $4, 9, 14, 19, \\dots$ memiliki $a=4$ dan $b=5$. Tentukan $U_{20}$ dan $S_{20}$.
 
-*Penyelesaian.* Mulai dari suku pertama dan beda. Selisih dua suku berurutan selalu $5$, sehingga $a=4$ dan $b=5$. Substitusi ke rumus suku ke-$n$:
+*Penyelesaian.* Selisih dua suku berurutan selalu $5$, sehingga $a=4$ dan $b=5$. Substitusi ke rumus suku ke-$n$:
 $$U_{20} = 4 + (20-1)\\cdot 5 = 4 + 95 = 99.$$
 Kemudian pakai $S_n = \\dfrac{n}{2}(a+U_n)$ dengan $U_{20}=99$:
-$$S_{20} = \\frac{20}{2}(4+99) = 10 \\cdot 103 = 1030.$$`,
+$$S_{20} = \\frac{20}{2}(4+99) = 10 \\cdot 103 = 1030.$$
+
+*Verifikasi.* Secara rekursif $U_{20}=U_{19}+5=94+5=99$. Karena rata-rata suku pertama dan suku ke-20 adalah $\\frac{4+99}{2}=51{,}5$, maka $S_{20}=20\\cdot51{,}5=1030$. Cocok.`,
             },
             {
               title: "Contoh 2 (geometri)",
@@ -306,14 +314,27 @@ $$S_{20} = \\frac{20}{2}(4+99) = 10 \\cdot 103 = 1030.$$`,
 *Penyelesaian.* Periksa rasionya: $\\dfrac{15}{5}=\\dfrac{45}{15}=3$, jadi $a=5$ dan $r=3$. Untuk suku ke-$7$, kalikan $a$ dengan $r^{6}$:
 $$U_7 = 5\\cdot 3^{6} = 5 \\cdot 729 = 3645.$$
 Untuk jumlahnya, gunakan $S_n = \\dfrac{a(r^{n}-1)}{r-1}$ dengan $r-1=2$:
-$$S_7 = \\frac{5(3^{7}-1)}{3-1} = \\frac{5(2187-1)}{2} = \\frac{5 \\cdot 2186}{2} = 5465.$$`,
+$$S_7 = \\frac{5(3^{7}-1)}{3-1} = \\frac{5(2187-1)}{2} = \\frac{5 \\cdot 2186}{2} = 5465.$$
+
+*Verifikasi.* Ketujuh sukunya $5, 15, 45, 135, 405, 1215, 3645$, dan jumlahnya $5465$. Cocok dengan rumus.`,
             },
             {
               title: "Contoh 3 (deret tak hingga)",
               text: `Hitung $18 + 6 + 2 + \\tfrac{2}{3} + \\cdots$.
 
-*Penyelesaian.* Tentukan dulu suku pertama dan rasionya: $a=18$ dan $r=\\dfrac{6}{18}=\\dfrac13$. Karena $\\lvert r\\rvert=\\tfrac13<1$, deret konvergen sehingga rumus jumlah tak hingga berlaku:
-$$S_\\infty = \\frac{a}{1-r} = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$`,
+*Penyelesaian.* Tentukan suku pertama dan rasionya: $a=18$ dan $r=\\dfrac{6}{18}=\\dfrac13$. Karena $\\lvert r\\rvert=\\tfrac13<1$, deret konvergen sehingga rumus jumlah tak hingga berlaku:
+$$S_\\infty = \\frac{a}{1-r} = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} = 27.$$
+
+*Verifikasi.* Jumlah empat suku pertama $18+6+2+\\tfrac23=26\\tfrac23$, makin mendekati $27$ setiap kali suku baru ditambahkan. Cocok dengan batasnya.`,
+            },
+            {
+              title: "Contoh 4 (menentukan banyak suku)",
+              text: `Barisan aritmetika $7, 11, 15, \\dots$ memiliki $a=7$ dan $b=4$. Suku ke berapa yang bernilai $87$?
+
+*Penyelesaian.* Susun persamaan $U_n = a+(n-1)b = 87$:
+$$7 + (n-1)\\cdot 4 = 87 \\Rightarrow (n-1)\\cdot 4 = 80 \\Rightarrow n-1 = 20 \\Rightarrow n = 21.$$
+
+*Verifikasi.* $U_{21} = 7 + 20\\cdot4 = 87$ benar, dan barisan ini naik sehingga nilai $87$ hanya muncul sekali. Jadi $87$ adalah suku ke-$21$.`,
             },
           ],
         },
@@ -343,9 +364,9 @@ $$S_\\infty = \\frac{a}{1-r} = \\frac{18}{1-\\tfrac13} = \\frac{18}{\\tfrac23} =
       title: "Penerapan di Dunia Nyata",
       body: `Barisan aritmetika muncul pada pengaturan kursi, tumpukan barang, dan tangga dengan anak tangga seragam. Barisan geometri muncul pada tabungan berbunga majemuk, pertumbuhan populasi, dan peluruhan zat.
 
-Sebagai contoh konkret, sebuah gedung pertunjukan menyusun kursi dengan baris pertama memuat $20$ kursi dan setiap baris berikutnya bertambah $4$ kursi. Jika ada $25$ baris, kapasitas totalnya adalah
+Sebuah gedung pertunjukan menyusun kursi dengan baris pertama memuat $20$ kursi dan setiap baris berikutnya bertambah $4$ kursi. Jika ada $25$ baris, kapasitas totalnya adalah
 $$S_{25} = \\frac{25}{2}\\big(2(20) + (25-1)(4)\\big) = \\frac{25}{2}(40+96) = 1700 \\text{ kursi}.$$
-Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam mengikuti pola geometri: setelah $10$ jam jumlahnya $500 \\cdot 2^{10} = 512.000$ sel. Tabungan awal $M_0$ yang berbunga majemuk tetap $i$ per tahun setelah $n$ tahun bernilai $M_0(1+i)^n$, yaitu suku ke-$(n+1)$ barisan geometri dengan rasio $r=1+i$. Untuk pembahasan lebih lanjut, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi) serta [Pertumbuhan Populasi](/aplikasi/pertumbuhan-populasi).`,
+Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam mengikuti pola geometri: setelah $10$ jam jumlahnya $500 \\cdot 2^{10} = 512.000$ sel. Saldo tabungan berbunga juga mengikuti barisan geometri dengan rasio $r=1+i$; model lengkapnya, termasuk suku bunga efektif, dibahas pada topik [Bunga Majemuk](/matematika/kelas/XI/bilangan/bunga-majemuk). Untuk penerapan lain, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi) serta [Pertumbuhan Populasi](/aplikasi/pertumbuhan-populasi).`,
     },
     {
       id: "kesalahan-umum",
@@ -432,7 +453,7 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
             "Kapan deret geometri tak hingga punya jumlah berhingga, dan kapan tidak?",
             "Berikan satu contoh pola di sekitarmu yang bersifat aritmetika dan satu yang bersifat geometri.",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan barisan dan deret ini?",
+          confidenceLabel: "Seberapa yakin kamu membedakan pola aritmetika dan geometri serta memilih rumus yang tepat?",
         },
       ],
     },

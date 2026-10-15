@@ -29,7 +29,7 @@ export const fungsiLogaritma: Topic = {
   relatedTopics: ['persamaan-eksponen-logaritma', 'fungsi-rasional-akar', 'pemodelan-fungsi'],
   applications: ['mtl-skala-logaritma'],
   prerequisiteKnowledge: [
-    'Sifat-sifat eksponen seperti $b^{m}\\cdot b^{n}=b^{m+n}$ dan $(b^{m})^{n}=b^{mn}$',
+    'Sifat-sifat eksponen (ringkasannya ada pada topik Eksponen dan Bentuk Akar)',
     'Fungsi eksponensial $g(x)=b^{x}$ beserta grafik dan asimtot datarnya',
     'Pertidaksamaan linear sederhana dan penulisan himpunan penyelesaian',
   ],
@@ -74,10 +74,10 @@ Perhatikan titik-titik pada $g(x)=2^{x}$, yaitu $(0,1)$, $(1,2)$, $(2,4)$, dan $
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- sifat-sifat eksponen, misalnya $b^{m}\\cdot b^{n}=b^{m+n}$ dan $(b^{m})^{n}=b^{mn}$;
-- menuliskan bilangan sebagai pangkat dengan basis tertentu, misalnya $32=2^{5}$ dan $81=3^{4}$;
-- membaca grafik fungsi eksponensial $g(x)=b^{x}$ serta asimtot datarnya;
+      body: `Fungsi logaritma adalah cerminan fungsi eksponensial, jadi pastikan kamu sudah bisa:
+- menggunakan sifat-sifat eksponen (ringkasannya ada pada topik [Eksponen dan Bentuk Akar](/matematika/kelas/X/bilangan/eksponen));
+- membaca grafik fungsi eksponensial $g(x)=b^{x}$ beserta asimtot datarnya;
+- menuliskan bilangan sebagai pangkat dengan basis tertentu, seperti $32=2^{5}$ dan $81=3^{4}$;
 - menyelesaikan pertidaksamaan linear sederhana seperti $x-3>0$.`,
     },
     {
@@ -220,6 +220,12 @@ Fungsi logaritma $f(x)=\\log_{b}x$ adalah **invers** dari fungsi eksponen $g(x)=
           caption: "Grafik $f(x)=\\log_{2}x$ terdefinisi untuk $x>0$, memotong sumbu-$x$ di $(1,0)$, dan mendekati asimtot tegak $x=0$.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="flg-log-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.2" marker-end="url(#flg-log-axis)"/><line x1="110" y1="215" x2="110" y2="30" stroke="currentColor" stroke-width="1.2" marker-end="url(#flg-log-axis)"/><polyline points="118,210 125,180 140,150 155,133 170,120 200,103 230,90 290,73" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="140" cy="150" r="3" fill="currentColor"/><circle cx="170" cy="120" r="3" fill="currentColor"/><circle cx="230" cy="90" r="3" fill="currentColor"/><text x="292" y="166" font-size="12" fill="currentColor">x</text><text x="116" y="40" font-size="12" fill="currentColor">y</text><text x="98" y="164" font-size="11" fill="currentColor">O</text><text x="130" y="166" font-size="11" fill="currentColor">1</text><text x="164" y="114" font-size="11" fill="currentColor">2</text><text x="224" y="84" font-size="11" fill="currentColor">4</text><text x="42" y="45" font-size="12" fill="currentColor">y = log₂ x</text><text x="56" y="205" font-size="11" fill="currentColor">asimtot x = 0</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Grafik y sama dengan 2 pangkat x yang naik tajam dan grafik logaritma basis dua sebagai pencerminannya terhadap garis y sama dengan x, dengan titik satu koma nol dan nol koma satu yang bertukar peran.",
+          caption: "Grafik $y=2^{x}$ dan inversnya $y=\\log_{2}x$ saling mencerminkan terhadap garis $y=x$: titik $(0,1)$ pada eksponen bertukar menjadi $(1,0)$ pada logaritma.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="80" y1="175" x2="305" y2="175" stroke="currentColor" stroke-width="1.2"/><line x1="80" y1="175" x2="80" y2="15" stroke="currentColor" stroke-width="1.2"/><line x1="80" y1="175" x2="196" y2="59" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><line x1="80" y1="151" x2="104" y2="175" stroke="currentColor" stroke-width="0.9" stroke-dasharray="3 3"/><line x1="104" y1="127" x2="128" y2="151" stroke="currentColor" stroke-width="0.9" stroke-dasharray="3 3"/><polyline points="8,172 32,169 56,163 80,151 104,127 128,79 140,39" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="86,223 92,199 104,175 128,151 176,127 216,115 272,103 316,96" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="7 3"/><circle cx="80" cy="151" r="2.6" fill="currentColor"/><circle cx="104" cy="127" r="2.6" fill="currentColor"/><circle cx="104" cy="175" r="2.6" fill="currentColor"/><circle cx="128" cy="151" r="2.6" fill="currentColor"/><text x="96" y="44" font-size="12" fill="currentColor">y = 2^x</text><text x="196" y="120" font-size="12" fill="currentColor">y = log₂ x</text><text x="150" y="92" font-size="12" fill="currentColor">y = x</text><text x="298" y="168" font-size="11" fill="currentColor">x</text><text x="86" y="24" font-size="11" fill="currentColor">y</text><text x="58" y="188" font-size="11" fill="currentColor">O</text></svg>',
+        },
       ],
     },
     {
@@ -236,7 +242,7 @@ Fungsi logaritma $f(x)=\\log_{b}x$ adalah **invers** dari fungsi eksponen $g(x)=
           kind: "callout",
           variant: "info",
           title: "Yang perlu diperhatikan",
-          text: "Saat basis $b>1$ diperbesar, kurva tumbuh makin lambat. Saat $0<b<1$, kurva justru turun. Pada semua kasus, grafik tetap melalui titik $(1,0)$ dan sumbu-$y$ tetap menjadi asimtot tegak.",
+          text: "Saat basis $b>1$ diperbesar, kurva tumbuh makin lambat. Saat $0<b<1$, kurva turun. Pada semua kasus, grafik tetap melalui titik $(1,0)$ dan sumbu-$y$ tetap menjadi asimtot tegak.",
         },
       ],
     },
@@ -315,10 +321,14 @@ karena $2^{5}=32$ dan $2^{3}=8$. Periksa: $8^{5/3}=(2^{3})^{5/3}=2^{5}=32$ benar
 *Penyelesaian.* Numerus harus positif: $x-2>0$, sehingga $x>2$. Jadi domainnya $\\{x \\mid x>2\\}$ dan asimtot tegaknya adalah garis $x=2$.`,
             },
             {
-              title: "Contoh 5: persamaan logaritma sederhana",
-              text: `Tentukan $x$ dari $\\log_{2}(x-1)=3$.
+              title: "Contoh 5: menafsirkan skala logaritmik",
+              text: `Konsentrasi ion hidrogen sebuah larutan adalah $[\\text{H}^{+}]=10^{-4}$ mol/L. Tentukan pH-nya, lalu jelaskan arti penurunan pH sebesar satu satuan.
 
-*Penyelesaian.* Ubah ke bentuk eksponen: $x-1=2^{3}=8$, sehingga $x=9$. Periksa syarat numerus: $x-1=8>0$ benar. Jadi $x=9$.`,
+*Penyelesaian.* Gunakan definisi $\\text{pH}=-\\log_{10}[\\text{H}^{+}]$:
+$$\\text{pH} = -\\log_{10}10^{-4} = -(-4) = 4.$$
+Karena skala pH logaritmik, turun satu satuan berarti $[\\text{H}^{+}]$ naik sepuluh kali. Larutan ber-pH $3$ sepuluh kali lebih asam daripada larutan ber-pH $4$.
+
+*Verifikasi.* Substitusikan balik: $[\\text{H}^{+}]=10^{-\\text{pH}}=10^{-4}$, sesuai data awal. Cocok.`,
             },
           ],
         },
@@ -469,7 +479,7 @@ Pada mulanya logaritma dipandang sebagai alat hitung, bukan sebagai fungsi. Leon
             "Bagaimana kamu menjelaskan kepada teman bahwa menambah satu satuan pada skala logaritma berarti mengalikan besaran aslinya dengan sepuluh?",
             "Kapan kamu memerlukan perubahan basis, dan mengapa sifat itu berguna saat memakai kalkulator?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan fungsi logaritma ini?",
+          confidenceLabel: "Seberapa yakin kamu membaca grafik dan menerapkan sifat fungsi logaritma?",
         },
       ],
     },

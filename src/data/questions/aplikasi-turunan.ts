@@ -31,7 +31,11 @@ export const aplikasiTurunanQuestions: Question[] = [
     acceptedAnswers: ['0, 2', 'x=0 dan x=2', '0,2'],
     explanation:
       'Titik stasioner dicari dari $f\'(x) = 0$. Karena $f\'(x) = 3x^{2} - 6x = 3x(x - 2)$, diperoleh $x = 0$ atau $x = 2$.',
-    hints: ['Faktorkan $3x^{2} - 6x$.'],
+    hints: [
+      'Faktorkan $3x^{2} - 6x$.',
+      'Setelah difaktorkan menjadi $3x(x-2)$, gunakan sifat hasil kali nol.',
+      'Titik stasioner diperoleh ketika $f\'(x)=0$, bukan ketika $f(x)=0$.',
+    ],
     competencies: ['titik stasioner'],
   },
   {
@@ -46,7 +50,10 @@ export const aplikasiTurunanQuestions: Question[] = [
     acceptedAnswers: ['3t^{2}-12t+9', '3t^2-12t+9', 'v(t)=3t^2-12t+9'],
     explanation:
       'Kecepatan adalah turunan posisi: $v(t) = s\'(t) = 3t^{2} - 12t + 9$.',
-    hints: ['Turunkan posisi terhadap waktu.'],
+    hints: [
+      'Turunkan posisi terhadap waktu.',
+      'Gunakan aturan pangkat pada setiap suku $s(t)$.',
+    ],
     competencies: ['kecepatan sesaat'],
   },
   {
@@ -263,7 +270,7 @@ export const aplikasiTurunanQuestions: Question[] = [
   {
     id: 'ap-15',
     topicId: 'aplikasi-turunan',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'kontekstual',
     prompt:

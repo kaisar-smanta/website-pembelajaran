@@ -17,7 +17,11 @@ export const irisanKerucutQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Bentuk baku $(x-a)^{2} + (y-b)^{2} = r^{2}$ berpusat $(a,b)$. Di sini $a = 2$ dan $b = -3$, sehingga pusatnya $(2,-3)$ (A). Opsi B salah tanda pada koordinat $y$; opsi D salah tanda pada kedua koordinat; opsi C salah tanda pada koordinat $x$, karena mengira tanda di dalam kurung sama dengan tanda pusat.',
-    hints: ['Tanda di dalam kurung berlawanan dengan tanda koordinat pusat.'],
+    hints: [
+      'Tanda di dalam kurung berlawanan dengan tanda koordinat pusat.',
+      'Bandingkan dengan bentuk baku $(x-a)^{2} + (y-b)^{2} = r^{2}$.',
+      'Di sini $a = 2$ dan $b = -3$, sehingga pusatnya $(2,-3)$.',
+    ],
     competencies: ['persamaan lingkaran bentuk baku'],
   },
   {
@@ -30,7 +34,11 @@ export const irisanKerucutQuestions: Question[] = [
     answer: '7',
     explanation:
       'Bentuk $x^{2} + y^{2} = r^{2}$ berjari-jari $r = \\sqrt{49} = 7$.',
-    hints: ['Jari-jari adalah akar dari bilangan di ruas kanan.'],
+    hints: [
+      'Jari-jari adalah akar dari bilangan di ruas kanan.',
+      'Bentuk $x^{2} + y^{2} = r^{2}$ berjari-jari $r$.',
+      'Hitung $\\sqrt{49}$.',
+    ],
     competencies: ['jari-jari lingkaran'],
   },
   {
@@ -50,7 +58,11 @@ export const irisanKerucutQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Dengan $D = -6$, $E = 4$, $F = -12$: pusat $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right) = (3,-2)$ dan $r = \\sqrt{9 + 4 + 12} = \\sqrt{25} = 5$ (A). Opsi B salah tanda pada kedua koordinat pusat; opsi C lupa mengakarkan sehingga memakai $r^{2}=25$; opsi D memakai $D$ dan $E$ mentah tanpa membagi dengan $2$.',
-    hints: ['Pusat adalah $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right)$ dan $r = \\sqrt{\\left(\\dfrac{D}{2}\\right)^{2} + \\left(\\dfrac{E}{2}\\right)^{2} - F}$.'],
+    hints: [
+      'Pusat adalah $\\left(-\\dfrac{D}{2}, -\\dfrac{E}{2}\\right)$ dan $r = \\sqrt{\\left(\\dfrac{D}{2}\\right)^{2} + \\left(\\dfrac{E}{2}\\right)^{2} - F}$.',
+      'Dari persamaan diperoleh $D = -6$, $E = 4$, dan $F = -12$.',
+      'Pusatnya $(3,-2)$; hitung $r = \\sqrt{9 + 4 + 12} = \\sqrt{25}$.',
+    ],
     competencies: ['persamaan lingkaran bentuk umum'],
   },
   {
@@ -63,7 +75,11 @@ export const irisanKerucutQuestions: Question[] = [
     answer: '4',
     explanation:
       'Dengan $D = -4$, $E = 6$, $F = -3$: $r = \\sqrt{\\left(\\dfrac{-4}{2}\\right)^{2} + \\left(\\dfrac{6}{2}\\right)^{2} - (-3)} = \\sqrt{4 + 9 + 3} = \\sqrt{16} = 4$.',
-    hints: ['Gunakan rumus jari-jari bentuk umum, perhatikan tanda $F$ yang negatif.'],
+    hints: [
+      'Gunakan rumus jari-jari bentuk umum, perhatikan tanda $F$ yang negatif.',
+      'Dari persamaan diperoleh $D = -4$, $E = 6$, dan $F = -3$.',
+      'Hitung $\\sqrt{\\left(\\dfrac{-4}{2}\\right)^{2} + \\left(\\dfrac{6}{2}\\right)^{2} - (-3)} = \\sqrt{4 + 9 + 3}$.',
+    ],
     competencies: ['persamaan lingkaran bentuk umum'],
   },
   {

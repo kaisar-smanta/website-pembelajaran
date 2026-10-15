@@ -79,6 +79,7 @@ export const EXPLORATION_TYPE_LABELS: Record<ExplorationType, string> = {
   induction: 'Domino induksi',
   confounding: 'Perancu & paradoks',
   'function-family': 'Keluarga fungsi',
+  'exponent-laws': 'Sifat eksponen',
   geogebra: 'GeoGebra',
 };
 

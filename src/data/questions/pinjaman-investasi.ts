@@ -18,7 +18,10 @@ export const pinjamanInvestasiQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Bunga bulan pertama dihitung dari pokok pinjaman awal: $0{,}015 \\times 10.000.000 = \\text{Rp}150.000$ (A). Opsi B (Rp125.000) memakai suku bunga $1{,}25\\%$; opsi C (Rp175.000) memakai $1{,}75\\%$; opsi D (Rp200.000) memakai $2\\%$ per bulan.',
-    hints: ['Bunga periode pertama dihitung dari pokok pinjaman, bukan dari angsuran.'],
+    hints: [
+      'Bunga periode pertama dihitung dari pokok pinjaman, bukan dari angsuran.',
+      'Hitung $0{,}015\\times10.000.000$.',
+    ],
     competencies: ['anuitas', 'bunga pinjaman'],
   },
   {
@@ -38,7 +41,10 @@ export const pinjamanInvestasiQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Total pembayaran $= n \\times A = 24 \\times 499.241{,}02 = 11.981.784{,}48 \\approx \\text{Rp}11.981.784$ (A). Opsi B (Rp11.500.000) mengabaikan sebagian bunga; opsi C (Rp12.000.000) hanya pembulatan kasar tanpa menghitung; opsi D (Rp12.481.000) memakai $25$ periode alih-alih $24$.',
-    hints: ['Kalikan besar angsuran dengan banyak periode.'],
+    hints: [
+      'Kalikan besar angsuran dengan banyak periode.',
+      'Total $=24\\times499.241{,}02$.',
+    ],
     competencies: ['total pembayaran anuitas'],
   },
   {
@@ -53,7 +59,10 @@ export const pinjamanInvestasiQuestions: Question[] = [
     acceptedAnswers: ['9650759', '9.650.759', '9.650.759,00', '9650759,00', 'Rp9.650.759', 'Rp9.650.759,00'],
     explanation:
       'Bunga bulan pertama $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Angsuran pokok $= 499.241{,}02 - 150.000 = \\text{Rp}349.241{,}02$. Sisa utang $= 10.000.000 - 349.241{,}02 = 9.650.758{,}98 \\approx \\text{Rp}9.650.759$.',
-    hints: ['Hitung bunga bulan pertama, lalu kurangkan dari angsuran untuk memperoleh angsuran pokok.'],
+    hints: [
+      'Hitung bunga bulan pertama, lalu kurangkan dari angsuran untuk memperoleh angsuran pokok.',
+      'Angsuran pokok $=499.241{,}02-150.000$; kurangkan hasilnya dari pokok pinjaman.',
+    ],
     competencies: ['amortisasi', 'angsuran pokok'],
   },
   {
@@ -217,19 +226,19 @@ export const pinjamanInvestasiQuestions: Question[] = [
     type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Sebuah aplikasi menawarkan pinjaman Rp16.000.000 dengan angsuran tetap Rp1.500.000 per bulan selama $12$ bulan. Hitung total pembayaran dan total bunganya, lalu bandingkan dengan angsuran wajar pada bunga $1{,}5\\%$ per bulan. Berikan penilaianmu.',
+      'Sebuah aplikasi menawarkan pinjaman Rp18.000.000 dengan angsuran tetap Rp1.750.000 per bulan selama $12$ bulan. Hitung total pembayaran dan total bunganya, lalu bandingkan dengan angsuran wajar pada bunga $1{,}2\\%$ per bulan. Berikan penilaianmu.',
     answer:
-      'Total pembayaran $= 12 \\times 1.500.000 = \\text{Rp}18.000.000$, sehingga total bunga $= 18.000.000 - 16.000.000 = \\text{Rp}2.000.000$. Angsuran wajar pada $i = 0{,}015$ dan $n = 12$ adalah $A = \\dfrac{16.000.000 \\times 0{,}015}{1-(1{,}015)^{-12}} = \\dfrac{240.000}{0{,}163613} \\approx \\text{Rp}1.466.880$. Karena penawaran Rp1.500.000 lebih besar daripada Rp1.466.880, suku bunga efektif penawaran ini lebih tinggi daripada $1{,}5\\%$ per bulan. Penawaran ini lebih mahal daripada yang wajar, sehingga sebaiknya dicari pembanding lain atau dinegosiasikan.',
+      'Total pembayaran $= 12 \\times 1.750.000 = \\text{Rp}21.000.000$, sehingga total bunga $= 21.000.000 - 18.000.000 = \\text{Rp}3.000.000$. Angsuran wajar pada $i = 0{,}012$ dan $n = 12$ adalah $A = \\dfrac{18.000.000 \\times 0{,}012}{1-(1{,}012)^{-12}} = \\dfrac{216.000}{0{,}133370} \\approx \\text{Rp}1.619.558$. Karena penawaran Rp1.750.000 lebih besar daripada Rp1.619.558, suku bunga efektif penawaran ini lebih tinggi daripada $1{,}2\\%$ per bulan. Penawaran ini lebih mahal daripada yang wajar, sehingga sebaiknya dicari pembanding lain atau dinegosiasikan.',
     explanation:
       'Kunci jawaban: menghitung total biaya dan membandingkan angsuran penawaran dengan angsuran wajar.',
     hints: [
       'Total pembayaran $= n \\times A$.',
-      'Bandingkan angsuran penawaran dengan angsuran anuitas pada $1{,}5\\%$ per bulan.',
+      'Bandingkan angsuran penawaran dengan angsuran anuitas pada $1{,}2\\%$ per bulan.',
     ],
     competencies: ['evaluasi pinjaman', 'pengambilan keputusan'],
     rubric: [
       'Menghitung total pembayaran dan total bunga',
-      'Menghitung angsuran wajar pada bunga $1{,}5\\%$',
+      'Menghitung angsuran wajar pada bunga $1{,}2\\%$',
       'Membandingkan angsuran penawaran dengan angsuran wajar',
       'Memberi penilaian disertai alasan',
     ],

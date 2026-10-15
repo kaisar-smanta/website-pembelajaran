@@ -17,7 +17,10 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Titik potong dengan sumbu-$y$ terjadi saat $x=0$. Substitusi: $2(0)+3y=12 \\Rightarrow 3y=12 \\Rightarrow y=4$, jadi titiknya $(0,4)$. Opsi B $(4,0)$ dan opsi D $(6,0)$ justru titik potong dengan sumbu-$x$ (saat $y=0$). Opsi C $(0,6)$ muncul bila $12$ keliru dibagi koefisien $x$, yaitu $2$.',
-    hints: ['Substitusikan $x = 0$ untuk mencari titik potong sumbu-$y$.'],
+    hints: [
+      'Substitusikan $x = 0$ untuk mencari titik potong sumbu-$y$.',
+      'Setelah $x=0$, selesaikan $3y=12$.',
+    ],
     competencies: ['titik potong garis', 'garis pembatas'],
   },
   {
@@ -36,7 +39,10 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Uji tiap titik. $(0,0)$: $0 - 0 = 0 \\le 2$ benar. $(3,0)$: $3 \\le 2$ salah. $(0,-3)$: $0 - (-3) = 3 \\le 2$ salah. $(4,1)$: $3 \\le 2$ salah. Hanya $(0,0)$ yang memenuhi.',
-    hints: ['Substitusikan setiap pasangan $(x,y)$ ke pertidaksamaan.'],
+    hints: [
+      'Substitusikan setiap pasangan $(x,y)$ ke pertidaksamaan.',
+      'Titik memenuhi bila hasil $x-y$ tidak melebihi $2$.',
+    ],
     competencies: ['titik uji', 'pertidaksamaan linear'],
   },
   {
@@ -49,7 +55,10 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     answer: '4',
     acceptedAnswers: ['4'],
     explanation: 'Substitusi $x = 0$: $0 + 2y = 8 \\Rightarrow y = 4$.',
-    hints: ['Masukkan $x = 0$ lalu selesaikan untuk $y$.'],
+    hints: [
+      'Masukkan $x = 0$ lalu selesaikan untuk $y$.',
+      'Persamaan menjadi $2y=8$; bagi kedua ruas dengan $2$.',
+    ],
     competencies: ['titik potong garis'],
   },
   {
@@ -68,7 +77,10 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Uji tiap titik. $(0,0)$: $0 \\ge 4$ salah. $(1,1)$: $2 \\ge 4$ salah. $(3,2)$: $5 \\ge 4$ benar. $(2,1)$: $3 \\ge 4$ salah. Jadi titik $(3,2)$ berada di daerah penyelesaian.',
-    hints: ['Tanda $\\ge$ berarti jumlah $x + y$ harus minimal sama dengan $4$.'],
+    hints: [
+      'Tanda $\\ge$ berarti jumlah $x + y$ harus minimal sama dengan $4$.',
+      'Hitung $x+y$ tiap opsi, lalu pilih yang nilainya paling sedikit $4$.',
+    ],
     competencies: ['daerah penyelesaian', 'titik uji'],
   },
   {

@@ -1,0 +1,286 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+---
+
+<figure class="sim exp-sim" data-exponent-laws data-exploration={exploration.id}>
+  <div class="sim-head">
+    <h3>Sifat-Sifat Eksponen</h3>
+  </div>
+
+  <p class="sim-hint">
+    Geser basis a serta eksponen m dan n, lalu periksa pada tabel bahwa kedua ruas tiap
+    aturan selalu bernilai sama.
+  </p>
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Basis a <output data-exp-value="a">2</output></span>
+      <input type="range" min="2" max="5" step="1" value="2" data-exp-field="a" aria-label="Basis a" />
+    </label>
+    <label class="sim-field">
+      <span>Eksponen m <output data-exp-value="m">3</output></span>
+      <input type="range" min="-4" max="4" step="1" value="3" data-exp-field="m" aria-label="Eksponen m" />
+    </label>
+    <label class="sim-field">
+      <span>Eksponen n <output data-exp-value="n">4</output></span>
+      <input type="range" min="-4" max="4" step="1" value="4" data-exp-field="n" aria-label="Eksponen n" />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <div class="sim-presets" role="group" aria-label="Preset basis dan eksponen">
+      <button type="button" class="btn btn-secondary btn-sm" data-exp-preset="2,3,4">a = 2, m = 3, n = 4</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-exp-preset="3,2,-3">a = 3, m = 2, n = -3</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-exp-preset="5,-2,3">a = 5, m = -2, n = 3</button>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm" data-exp-reset>Atur ulang</button>
+  </div>
+
+  <output class="sim-readout" data-exp-readout aria-live="polite" aria-atomic="true"></output>
+
+  <div class="table-scroll">
+    <table class="exp-table">
+      <caption>Pemeriksaan aturan eksponen untuk basis dan eksponen yang dipilih</caption>
+      <thead>
+        <tr>
+          <th scope="col">Aturan</th>
+          <th scope="col">Ruas kiri</th>
+          <th scope="col">Ruas kanan</th>
+          <th scope="col">Sama?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">a^m &middot; a^n = a^(m+n)</th>
+          <td data-exp-cell="productLeft"></td>
+          <td data-exp-cell="productRight"></td>
+          <td data-exp-status="product"></td>
+        </tr>
+        <tr>
+          <th scope="row">a^m / a^n = a^(m-n)</th>
+          <td data-exp-cell="quotientLeft"></td>
+          <td data-exp-cell="quotientRight"></td>
+          <td data-exp-status="quotient"></td>
+        </tr>
+        <tr>
+          <th scope="row">(a^m)^n = a^(mn)</th>
+          <td data-exp-cell="powerLeft"></td>
+          <td data-exp-cell="powerRight"></td>
+          <td data-exp-status="power"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-hint {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+  .sim-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.75rem;
+  }
+  .sim-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .sim-field span {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .sim-field output {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  .sim-field input[type='range'] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+  .sim-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .sim-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .sim-readout {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .sim-readout :global(.stat span) {
+    color: var(--color-text-muted);
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+  }
+  .table-scroll {
+    overflow-x: auto;
+    margin-top: 0.85rem;
+  }
+  table.exp-table {
+    width: 100%;
+    min-width: 20rem;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  table.exp-table caption {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    padding-bottom: 0.35rem;
+  }
+  table.exp-table th,
+  table.exp-table td {
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.6rem;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  table.exp-table thead th,
+  table.exp-table tbody th {
+    background: var(--color-surface-2);
+    font-weight: 700;
+  }
+  table.exp-table th:first-child,
+  table.exp-table td:first-child {
+    text-align: left;
+  }
+  table.exp-table td[data-exp-status] {
+    font-weight: 700;
+    color: var(--color-success);
+  }
+  table.exp-table td[data-exp-status].is-no {
+    color: var(--color-warning);
+  }
+  @media (max-width: 430px) {
+    .sim {
+      padding: 0.85rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .exp-sim *,
+    .exp-sim *::before,
+    .exp-sim *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  import { exponentLaws, powerValue, describeExponentLaws } from '../../lib/sim/exponent-laws';
+  import { initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  const DEFAULTS = { a: '2', m: '3', n: '4' };
+
+  function setupExponentLaws(root: Element) {
+    const fieldA = root.querySelector('[data-exp-field="a"]') as HTMLInputElement;
+    const fieldM = root.querySelector('[data-exp-field="m"]') as HTMLInputElement;
+    const fieldN = root.querySelector('[data-exp-field="n"]') as HTMLInputElement;
+    const outA = root.querySelector('[data-exp-value="a"]') as HTMLOutputElement;
+    const outM = root.querySelector('[data-exp-value="m"]') as HTMLOutputElement;
+    const outN = root.querySelector('[data-exp-value="n"]') as HTMLOutputElement;
+    const readout = root.querySelector('[data-exp-readout]') as HTMLElement;
+    const reset = root.querySelector('[data-exp-reset]') as HTMLButtonElement;
+
+    const cell = (name: string): HTMLElement =>
+      root.querySelector(`[data-exp-cell="${name}"]`) as HTMLElement;
+    const status = (name: string): HTMLElement =>
+      root.querySelector(`[data-exp-status="${name}"]`) as HTMLElement;
+
+    const safe = (v: number): string => (Number.isFinite(v) ? formatPlain(v) : 'tidak terdefinisi');
+
+    function render() {
+      const a = Number(fieldA.value);
+      const m = Number(fieldM.value);
+      const n = Number(fieldN.value);
+      outA.textContent = formatPlain(a);
+      outM.textContent = formatPlain(m);
+      outN.textContent = formatPlain(n);
+
+      const r = exponentLaws(a, m, n);
+
+      cell('productLeft').textContent = safe(r.productLeft);
+      cell('productRight').textContent = safe(r.productRight);
+      cell('quotientLeft').textContent = safe(r.quotientLeft);
+      cell('quotientRight').textContent = safe(r.quotientRight);
+      cell('powerLeft').textContent = safe(r.powerLeft);
+      cell('powerRight').textContent = safe(r.powerRight);
+
+      const mark = (element: HTMLElement, holds: boolean): void => {
+        element.textContent = holds ? 'Ya' : 'Tidak';
+        element.classList.toggle('is-no', !holds);
+      };
+      mark(status('product'), r.productHolds);
+      mark(status('quotient'), r.quotientHolds);
+      mark(status('power'), r.powerHolds);
+
+      readout.innerHTML =
+        `<div class="stat"><span>Nilai a^m dan a^n</span><strong>${safe(r.aPowM)} dan ${safe(r.aPowN)}</strong></div>` +
+        `<div class="stat"><span>Eksponen dijumlah, dikurang, dan dikali</span><strong>m + n = ${m + n}, m - n = ${m - n}, m &middot; n = ${m * n}</strong></div>` +
+        `<div class="stat"><span>Pangkat nol dan pangkat negatif</span><strong>a^0 = ${safe(powerValue(a, 0))}, a^-1 = ${safe(powerValue(a, -1))}</strong></div>` +
+        `<div class="stat"><span>Sifat</span><strong>${describeExponentLaws(a)}</strong></div>`;
+    }
+
+    [fieldA, fieldM, fieldN].forEach((input) => input.addEventListener('input', render));
+
+    root.querySelectorAll<HTMLButtonElement>('[data-exp-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const raw = button.getAttribute('data-exp-preset') ?? '';
+        const [a, m, n] = raw.split(',');
+        if (a !== undefined) fieldA.value = a;
+        if (m !== undefined) fieldM.value = m;
+        if (n !== undefined) fieldN.value = n;
+        render();
+      });
+    });
+
+    reset.addEventListener('click', () => {
+      fieldA.value = DEFAULTS.a;
+      fieldM.value = DEFAULTS.m;
+      fieldN.value = DEFAULTS.n;
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-exponent-laws]'), setupExponentLaws);
+</script>

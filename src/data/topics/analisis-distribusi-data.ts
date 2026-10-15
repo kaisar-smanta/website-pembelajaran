@@ -75,7 +75,7 @@ Apakah kedua kelas benar-benar "sama baik"? Angka apa yang dapat membedakan kedu
       body: `Sebelum melanjutkan, pastikan kamu dapat:
 
 - mengurutkan data dari kecil ke besar;
-- menghitung rata-rata sederhana, misalnya rata-rata $2, 4, 6$ adalah $\\dfrac{2+4+6}{3}=4$;
+- menghitung rata-rata sederhana, seperti rata-rata $2, 4, 6$ adalah $\\dfrac{2+4+6}{3}=4$;
 - membaca tabel frekuensi.`,
     },
     {
@@ -142,6 +142,12 @@ $$\\bar{x}=\\frac{x_1+x_2+\\cdots+x_n}{n}.$$
           alt: "Histogram empat kelas dari data 2, 3, 4, 4, 6, 6, 6, 7, 9, 13, dengan dua kelas tertinggi pada rentang 2 sampai 8 dan satu garis putus-putus di posisi median.",
           caption: "Histogram data $2, 3, 4, 4, 6, 6, 6, 7, 9, 13$; garis putus-putus menandai median $6$.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="25" stroke="currentColor" stroke-width="1.5"/><rect x="40" y="50" width="65" height="150" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><rect x="105" y="50" width="65" height="150" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><rect x="170" y="162.5" width="65" height="37.5" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><rect x="235" y="162.5" width="65" height="37.5" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/><line x1="126.7" y1="45" x2="126.7" y2="200" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/><text x="112" y="40" font-size="11" fill="currentColor">median</text><text x="46" y="18" font-size="11" fill="currentColor">frekuensi</text><text x="26" y="54" font-size="10" fill="currentColor">4</text><text x="27" y="203" font-size="10" fill="currentColor">0</text><text x="56" y="216" font-size="10" fill="currentColor">2–5</text><text x="121" y="216" font-size="10" fill="currentColor">5–8</text><text x="185" y="216" font-size="10" fill="currentColor">8–11</text><text x="247" y="216" font-size="10" fill="currentColor">11–14</text></svg>',
+        },
+        {
+          kind: "figure",
+          alt: "Tiga histogram kecil: sebaran simetris dengan puncak di tengah, sebaran condong ke kanan dengan ekor panjang di kanan, dan sebaran condong ke kiri dengan ekor panjang di kiri.",
+          caption: "Bentuk sebaran: **simetris** (mean, median, dan modus berdekatan), **condong kanan** (ekor memanjang ke kanan sehingga mean bergeser ke kanan median), dan **condong kiri** (ekor memanjang ke kiri sehingga mean bergeser ke kiri median).",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="18" y1="150" x2="310" y2="150" stroke="currentColor" stroke-width="1.4"/><g fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1"><rect x="18" y="130" width="12" height="20"/><rect x="32" y="100" width="12" height="50"/><rect x="46" y="70" width="12" height="80"/><rect x="60" y="70" width="12" height="80"/><rect x="74" y="100" width="12" height="50"/><rect x="88" y="130" width="12" height="20"/><rect x="118" y="80" width="12" height="70"/><rect x="132" y="70" width="12" height="80"/><rect x="146" y="90" width="12" height="60"/><rect x="160" y="110" width="12" height="40"/><rect x="174" y="128" width="12" height="22"/><rect x="188" y="140" width="12" height="10"/><rect x="218" y="140" width="12" height="10"/><rect x="232" y="128" width="12" height="22"/><rect x="246" y="110" width="12" height="40"/><rect x="260" y="90" width="12" height="60"/><rect x="274" y="70" width="12" height="80"/><rect x="288" y="80" width="12" height="70"/></g><text x="55" y="170" font-size="11" text-anchor="middle" fill="currentColor">simetris</text><text x="155" y="170" font-size="11" text-anchor="middle" fill="currentColor">condong kanan</text><text x="255" y="170" font-size="11" text-anchor="middle" fill="currentColor">condong kiri</text></svg>',
         },
         {
           kind: "table",
@@ -306,7 +312,7 @@ dengan $L$ tepi bawah kelas median, $F$ frekuensi kumulatif sebelum kelas median
       id: "diagram-pencar",
       kind: "representasi",
       title: "Mengenal Diagram Pencar",
-      body: `Sejauh ini setiap diagram menampilkan **satu** variabel. Kadang kita ingin melihat apakah **dua** variabel numerik saling berkaitan, misalnya lama belajar dan nilai ujian. Untuk itu dipakai **diagram pencar** (*scatter plot*): setiap objek digambar sebagai satu titik $(x, y)$ pada bidang koordinat, dengan $x$ nilai variabel pertama dan $y$ nilai variabel kedua.
+      body: `Sejauh ini setiap diagram menampilkan **satu** variabel. Kadang kita ingin melihat apakah **dua** variabel numerik saling berkaitan, contohnya lama belajar dan nilai ujian. Untuk itu dipakai **diagram pencar** (*scatter plot*): setiap objek digambar sebagai satu titik $(x, y)$ pada bidang koordinat, dengan $x$ nilai variabel pertama dan $y$ nilai variabel kedua.
 
 Dari arah sebaran titik kita membaca kecenderungan hubungan:
 - titik cenderung menanjak dari kiri bawah ke kanan atas → **hubungan positif**;
@@ -330,8 +336,8 @@ Jika pasangan itu diplot, titik-titiknya menanjak sehingga hubungannya **positif
     {
       id: "eksplorasi",
       kind: "eksplorasi",
-      title: "Eksplorasi Sebaran dan Pencilan",
-      body: "Dua kumpulan data dengan mean sama bisa sangat berbeda sebarannya. Tambahkan atau geser nilai ekstrem untuk melihat ukuran mana yang paling terpengaruh.",
+      title: "Eksplorasi Bentuk Sebaran dan Pencilan",
+      body: "Fokus eksplorasi ini adalah **bentuk** sebaran, bukan hanya besar ukurannya. Tambahkan satu nilai yang jauh dari kelompok utama, lalu amati bagaimana kotak box plot melebar, bagaimana median bergeser, dan kapan sebuah titik ditandai sebagai pencilan oleh aturan $1{,}5\\times\\text{IQR}$.",
       blocks: [
         {
           kind: "exploration",
@@ -386,35 +392,67 @@ Semakin besar simpangan baku, semakin lebar sebaran data di sekitar mean.`,
       blocks: [
         {
           kind: "step-reveal",
+          intro: "Contoh 1 dan 2 memakai data tunggal, Contoh 3 dan 4 data berkelompok, sedangkan Contoh 5 membaca diagram pencar. Setiap langkah memuat yang diketahui, ide, langkah, verifikasi, dan kesimpulan.",
           steps: [
             {
-              title: "Contoh 1",
-              text: `Tentukan mean data berkelompok pada tabel di atas.
+              title: "Contoh 1: mean, median, dan modus data tunggal",
+              text: `**Diketahui.** Banyak buku yang dibaca sepuluh siswa: $4, 5, 5, 6, 6, 6, 7, 7, 9, 10$ dengan $n=10$.
 
-*Penyelesaian.*
-$$\\bar{x}=\\frac{1460}{20}=73.$$`,
+**Ide.** Mean dari jumlah seluruh data, median dari rata-rata dua data tengah, modus dari nilai yang paling sering.
+
+**Langkah.** Jumlah data $=4+5+5+6+6+6+7+7+9+10=65$, sehingga $\\bar{x}=\\dfrac{65}{10}=6{,}5$. Data sudah terurut; data ke-5 dan ke-6 keduanya $6$, sehingga median $=\\dfrac{6+6}{2}=6$. Nilai $6$ muncul paling sering (tiga kali), jadi modus $=6$.
+
+**Verifikasi.** Untuk $n=10$ genap, median memang rata-rata dua data tengah, dan hasil $6$ konsisten. Jumlah ulang seluruh data tetap $65$.
+
+**Kesimpulan.** Mean $6{,}5$, median $6$, dan modus $6$. Ketiganya berdekatan karena sebarannya hampir simetris.`,
             },
             {
-              title: "Contoh 2",
-              text: `Tentukan median data berkelompok yang sama.
+              title: "Contoh 2: kuartil, IQR, dan pencilan data tunggal",
+              text: `**Diketahui.** Lama waktu (menit) delapan siswa mengerjakan tugas: $12, 14, 15, 18, 19, 20, 22, 45$ (sudah terurut, $n=8$).
 
-*Penyelesaian.* Karena $\\dfrac{n}{2}=10$, kelas median adalah $70$–$79$ (kumulatifnya mencapai $15$). Dengan $L=69{,}5$, $F=2+5=7$, $f=8$, dan $c=10$:
+**Ide.** Bagi data menjadi separuh bawah dan separuh atas, tentukan $Q_1$ dan $Q_3$, lalu pakai aturan $1{,}5\\times\\text{IQR}$ untuk mengenali pencilan.
 
-$$\\text{Median}=69{,}5+\\left(\\frac{10-7}{8}\\right)(10)=69{,}5+3{,}75=73{,}25.$$`,
+**Langkah.** Karena $n$ genap, median $=\\dfrac{18+19}{2}=18{,}5$. Separuh bawah $12,14,15,18$ memberi $Q_1=\\dfrac{14+15}{2}=14{,}5$; separuh atas $19,20,22,45$ memberi $Q_3=\\dfrac{20+22}{2}=21$. Maka $\\text{IQR}=21-14{,}5=6{,}5$. Batas bawah $=14{,}5-1{,}5(6{,}5)=4{,}75$ dan batas atas $=21+1{,}5(6{,}5)=30{,}75$.
+
+**Verifikasi.** Karena $45>30{,}75$, nilai $45$ memang di luar batas atas; tidak ada data di bawah $4{,}75$. Jadi hanya $45$ yang dicurigai sebagai pencilan.
+
+**Kesimpulan.** $Q_1=14{,}5$, $Q_3=21$, $\\text{IQR}=6{,}5$, dan $45$ adalah pencilan yang layak diperiksa asalnya.`,
             },
             {
-              title: "Contoh 3",
-              text: `Tentukan $Q_1$ dan $Q_3$ data di atas.
+              title: "Contoh 3: mean data berkelompok",
+              text: `**Diketahui.** Tabel frekuensi nilai ujian ($n=20$): kelas $50$–$59$ ($f=2$), $60$–$69$ ($5$), $70$–$79$ ($8$), $80$–$89$ ($4$), $90$–$99$ ($1$).
 
-*Penyelesaian.* Posisi $Q_1$ adalah $\\dfrac{n}{4}=5$, berada di kelas $60$–$69$ ($L=59{,}5$, $F=2$, $f=5$):
+**Ide.** Nilai asli tidak diketahui, jadi setiap kelas diwakili titik tengahnya dan dipakai $\\bar{x}=\\dfrac{\\sum f_i x_i}{\\sum f_i}$.
 
-$$Q_1=59{,}5+\\left(\\frac{5-2}{5}\\right)(10)=65{,}5.$$
+**Langkah.** Titik tengah: $54{,}5; 64{,}5; 74{,}5; 84{,}5; 94{,}5$. Hasil $\\sum f_i x_i=109+322{,}5+596+338+94{,}5=1460$ dan $\\sum f_i=20$, sehingga $\\bar{x}=\\dfrac{1460}{20}=73$.
 
-Posisi $Q_3$ adalah $\\dfrac{3n}{4}=15$, berada di kelas $70$–$79$ ($L=69{,}5$, $F=7$, $f=8$):
+**Verifikasi.** Jumlah frekuensi $2+5+8+4+1=20$ sama dengan $n$, dan mean $73$ berada di kelas terpadat $70$–$79$.
 
-$$Q_3=69{,}5+\\left(\\frac{15-7}{8}\\right)(10)=79{,}5.$$
+**Kesimpulan.** Rata-rata nilai ujian sekitar $73$.`,
+            },
+            {
+              title: "Contoh 4: median dan kuartil data berkelompok",
+              text: `**Diketahui.** Data berkelompok yang sama ($n=20$) dengan frekuensi kumulatif: $50$–$59$ ($2$), $60$–$69$ ($7$), $70$–$79$ ($15$), $80$–$89$ ($19$), $90$–$99$ ($20$).
 
-Maka $\\text{IQR}=79{,}5-65{,}5=14$.`,
+**Ide.** Cari kelas yang memuat posisi $\\dfrac{n}{2}$, $\\dfrac{n}{4}$, dan $\\dfrac{3n}{4}$, lalu interpolasi dengan $L+\\left(\\dfrac{\\text{posisi}-F}{f}\\right)c$.
+
+**Langkah.** Posisi median $=\\dfrac{20}{2}=10$ di kelas $70$–$79$ ($L=69{,}5$, $F=7$, $f=8$, $c=10$): median $=69{,}5+\\left(\\dfrac{10-7}{8}\\right)10=73{,}25$. Posisi $Q_1=\\dfrac{20}{4}=5$ di kelas $60$–$69$: $Q_1=59{,}5+\\left(\\dfrac{5-2}{5}\\right)10=65{,}5$. Posisi $Q_3=\\dfrac{3\\cdot 20}{4}=15$ di kelas $70$–$79$: $Q_3=69{,}5+\\left(\\dfrac{15-7}{8}\\right)10=79{,}5$.
+
+**Verifikasi.** $\\text{IQR}=79{,}5-65{,}5=14$, dan median $73{,}25$ dekat dengan mean $73$ sehingga hasilnya masuk akal.
+
+**Kesimpulan.** Median $73{,}25$, $Q_1=65{,}5$, $Q_3=79{,}5$, dan $\\text{IQR}=14$.`,
+            },
+            {
+              title: "Contoh 5: membaca diagram pencar",
+              text: `**Diketahui.** Pasangan lama belajar (jam, $x$) dan nilai (y) dari lima siswa: $(2,60)$, $(4,68)$, $(6,75)$, $(8,82)$, $(10,88)$.
+
+**Ide.** Gambar setiap pasangan sebagai satu titik pada bidang koordinat, lalu periksa arah sebarannya.
+
+**Langkah.** Titik-titik menanjak dari kiri bawah ke kanan atas: ketika $x$ bertambah, $y$ cenderung bertambah.
+
+**Verifikasi.** Selisih nilai berturut-turut $+8, +7, +7, +6$ tetap positif, sehingga arah menaik tetap terjaga meski pertambahannya melandai.
+
+**Kesimpulan.** Hubungannya **positif**. Diagram pencar menunjukkan keterkaitan, tetapi belum membuktikan sebab-akibat.`,
             },
           ],
         },
@@ -444,7 +482,7 @@ Maka $\\text{IQR}=79{,}5-65{,}5=14$.`,
       title: "Penerapan di Dunia Nyata",
       body: `Box plot sering dipakai membandingkan sebaran gaji di dua kota, sedangkan histogram membantu melihat apakah berat badan bayi berada pada rentang normal. Misalnya, gaji bulanan karyawan di Kota A berkisar dari $Q_1=\\text{Rp}4{,}2$ juta sampai $Q_3=\\text{Rp}6{,}8$ juta dengan IQR $\\text{Rp}2{,}6$ juta, sedangkan di Kota B kotaknya membentang dari $\\text{Rp}3{,}1$ juta sampai $\\text{Rp}9{,}5$ juta dengan IQR $\\text{Rp}6{,}4$ juta. Rata-rata kedua kota bisa mirip, tetapi sebaran Kota B jauh lebih lebar sehingga pemerataannya lebih rendah.
 
-Pemerintah dan perusahaan memakai ukuran penyebaran untuk menilai pemerataan, bukan sekadar rata-rata. Sebuah sekolah dengan rata-rata nilai $78$ tetapi simpangan besar menandakan pemahaman siswa tidak merata dan perlu pendampingan bagi kelompok bawah.
+Pemerintah dan perusahaan memakai ukuran penyebaran untuk menilai pemerataan, bukan hanya rata-rata. Sebuah sekolah dengan rata-rata nilai $78$ tetapi simpangan besar menandakan pemahaman siswa tidak merata dan perlu pendampingan bagi kelompok bawah.
 
 Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei dengan Kritis](/aplikasi/survei-statistik).`,
     },
@@ -504,7 +542,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Dua kumpulan data dengan rata-rata sama bisa bercerita sangat berbeda begitu sebarannya dilihat. Gunakan refleksi berikut untuk menghubungkan mean, median, kuartil, dan IQR dengan data nyata di sekitarmu, misalnya nilai ulangan kelas atau grafik penjualan di laporan.",
+      body: "Dua kumpulan data dengan rata-rata sama bisa bercerita sangat berbeda begitu sebarannya dilihat. Gunakan refleksi berikut untuk menghubungkan mean, median, kuartil, dan IQR dengan data nyata di sekitarmu, seperti nilai ulangan kelas atau grafik penjualan di laporan.",
       blocks: [
         {
           kind: "reflection",
@@ -513,7 +551,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
             "Apa yang dapat kamu simpulkan dari sebuah box plot yang lebar bagian tengahnya?",
             "Menurutmu, mengapa berita sering hanya menyebut rata-rata tanpa menyebut sebaran?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu membaca sebaran dan pencilan dari sebuah data?",
         },
       ],
     },

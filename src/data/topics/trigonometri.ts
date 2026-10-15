@@ -74,10 +74,10 @@ Kunci jawabannya terletak pada perbandingan sisi segitiga siku-siku. Jika sudut 
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Perbandingan trigonometri berdiri di atas kesebangunan segitiga siku-siku. Bekal yang perlu kamu siapkan:
 
 - teorema Pythagoras, misalnya $3^{2}+4^{2}=5^{2}$;
-- penyederhanaan bentuk akar, misalnya $\\dfrac{1}{\\sqrt{3}}=\\dfrac{\\sqrt{3}}{3}$;
+- penyederhanaan bentuk akar, seperti $\\dfrac{1}{\\sqrt{3}}=\\dfrac{\\sqrt{3}}{3}$;
 - kesebangunan segitiga: dua segitiga dengan sudut-sudut sama memiliki perbandingan sisi yang sama.`,
     },
     {
@@ -100,7 +100,7 @@ Berdasarkan definisi di atas:
 
 $$\\sin\\alpha=\\frac{\\text{depan}}{\\text{miring}},\\qquad \\cos\\alpha=\\frac{\\text{samping}}{\\text{miring}},\\qquad \\tan\\alpha=\\frac{\\text{depan}}{\\text{samping}}.$$
 
-Sebagai contoh, pada segitiga siku-siku dengan panjang sisi $3$, $4$, dan $5$, untuk sudut $\\alpha$ yang menghadap sisi $3$:
+Pada segitiga siku-siku dengan panjang sisi $3$, $4$, dan $5$, untuk sudut $\\alpha$ yang menghadap sisi $3$:
 
 $$\\sin\\alpha=\\frac{3}{5},\\qquad \\cos\\alpha=\\frac{4}{5},\\qquad \\tan\\alpha=\\frac{3}{4}.$$`,
       blocks: [
@@ -481,7 +481,7 @@ Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*
           kind: "callout",
           variant: "info",
           title: "Dari mana kata sinus",
-          text: "Kata *sinus* bukan istilah asli Latin, melainkan hasil rantai terjemahan: *jya* (Sanskerta) menjadi *jayb* dan *jaib* (Arab), lalu dibaca *sinus* oleh para penerjemah Latin. Bahkan namanya menempuh perjalanan lebih panjang daripada rumusnya.",
+          text: "Kata *sinus* bukan istilah asli Latin, tetapi hasil rantai terjemahan: *jya* (Sanskerta) menjadi *jayb* dan *jaib* (Arab), lalu dibaca *sinus* oleh para penerjemah Latin. Bahkan namanya menempuh perjalanan lebih panjang daripada rumusnya.",
         },
       ],
     },

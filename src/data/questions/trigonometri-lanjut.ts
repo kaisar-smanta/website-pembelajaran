@@ -18,7 +18,10 @@ export const trigonometriLanjutQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Pada $y=A\\sin(Bx)$, amplitudo adalah $|A|$. Karena $A=4$, amplitudonya $4$ (C). Opsi A ($2$) membagi $4$ dengan $2$; opsi B ($3$) membaca koefisien $x$ di dalam sinus; opsi D ($6$) mencampur amplitudo dengan koefisien sehingga keliru mengalikannya.',
-    hints: ['Amplitudo adalah koefisien di depan fungsi sinus.'],
+    hints: [
+      'Amplitudo adalah koefisien di depan fungsi sinus.',
+      'Pada $y=A\\sin(Bx)$, amplitudo $=|A|$; koefisien $3$ di dalam sinus bukan amplitudo.',
+    ],
     competencies: ['amplitudo fungsi trigonometri'],
   },
   {
@@ -38,7 +41,10 @@ export const trigonometriLanjutQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Periode fungsi $y=\\sin(Bx)$ adalah $\\dfrac{360^\\circ}{|B|}$. Untuk $B=2$ diperoleh $\\dfrac{360^\\circ}{2}=180^\\circ$ (B). Opsi A ($90^\\circ$) memakai $B=4$; opsi C ($360^\\circ$) mengabaikan koefisien $B$; opsi D ($720^\\circ$) justru mengalikan $360^\\circ$ dengan $B$.',
-    hints: ['Bagi $360^\\circ$ dengan koefisien $x$ di dalam sinus.'],
+    hints: [
+      'Bagi $360^\\circ$ dengan koefisien $x$ di dalam sinus.',
+      'Periode $=\\dfrac{360^\\circ}{|B|}$ dengan $B=2$.',
+    ],
     competencies: ['periode fungsi trigonometri'],
   },
   {
@@ -53,7 +59,10 @@ export const trigonometriLanjutQuestions: Question[] = [
     acceptedAnswers: ['24/25', '0,96', '0.96', '0,960', '0.960'],
     explanation:
       'Karena $\\alpha$ lancip, $\\cos\\alpha=\\dfrac{4}{5}$. Maka $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha=2\\cdot\\dfrac{3}{5}\\cdot\\dfrac{4}{5}=\\dfrac{24}{25}$.',
-    hints: ['Cari $\\cos\\alpha$ dengan identitas Pythagoras, lalu pakai $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha$.'],
+    hints: [
+      'Cari $\\cos\\alpha$ dengan identitas Pythagoras, lalu pakai $\\sin 2\\alpha=2\\sin\\alpha\\cos\\alpha$.',
+      'Karena $\\alpha$ lancip, segitiga $3$-$4$-$5$ memberi $\\cos\\alpha=\\dfrac{4}{5}$.',
+    ],
     competencies: ['identitas sudut rangkap'],
   },
   {

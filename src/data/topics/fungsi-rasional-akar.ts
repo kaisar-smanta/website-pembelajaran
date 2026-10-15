@@ -58,7 +58,7 @@ export const fungsiRasionalAkar: Topic = {
           kind: 'prediction',
           prompt: `Perhatikan fungsi $f(x)=\\dfrac{x^{2}-4}{(x-2)(x-1)}$. Jika kita substitusikan $x=2$, baik pembilang maupun penyebut bernilai nol sehingga bentuknya menjadi $\\dfrac{0}{0}$.
 
-Apakah grafik fungsi ini memiliki asimtot tegak di $x=2$, atau justru ada kemungkinan lain? Apa yang terjadi pada grafik tepat di titik itu?`,
+Apakah grafik fungsi ini memiliki asimtot tegak di $x=2$, atau ada kemungkinan lain? Apa yang terjadi pada grafik tepat di titik itu?`,
           reveal: `Pembilang dapat difaktorkan: $x^{2}-4=(x-2)(x+2)$. Faktor $(x-2)$ muncul di pembilang dan penyebut lalu saling meniadakan, sehingga untuk $x\\neq2$
 $$f(x)=\\dfrac{x+2}{x-1}.$$
 Di $x=2$ fungsi tetap tidak terdefinisi, tetapi nilai di sekitarnya mendekati $\\dfrac{2+2}{2-1}=4$. Karena nilainya mendekati bilangan berhingga, titik itu merupakan **lubang** (diskontinuitas terhapus), bukan asimtot tegak. Asimtot tegak justru berada di $x=1$, tempat penyebut yang tersisa bernilai nol.`,
@@ -70,7 +70,7 @@ Di $x=2$ fungsi tetap tidak terdefinisi, tetapi nilai di sekitarnya mendekati $\
       id: 'prasyarat',
       kind: 'prasyarat',
       title: 'Prasyarat',
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Fungsi rasional dan fungsi akar menuntut ketelitian pada domain dan pemfaktoran. Pastikan kamu sudah menguasai:
 - pemfaktoran bentuk aljabar, terutama selisih kuadrat $a^{2}-b^{2}=(a-b)(a+b)$;
 - fungsi kuadrat beserta akar-akarnya;
 - gagasan domain fungsi sebagai himpunan nilai $x$ yang boleh dimasukkan;
@@ -82,7 +82,7 @@ Di $x=2$ fungsi tetap tidak terdefinisi, tetapi nilai di sekitarnya mendekati $\
       title: 'Situasi dan Konteks',
       body: `Banyak besaran nyata merupakan hasil bagi dua besaran lain: kecepatan rata-rata adalah jarak dibagi waktu, kepadatan penduduk adalah jumlah penduduk dibagi luas wilayah, dan biaya rata-rata per unit adalah biaya total dibagi banyak unit. Semuanya berbentuk fungsi rasional $\\dfrac{p(x)}{q(x)}$.
 
-Fungsi akar muncul ketika suatu besaran tumbuh makin lambat, misalnya jarak jatuh bebas terhadap waktu atau hubungan antara luas dan sisi. Kedua jenis fungsi ini menuntut kehati-hatian pada domain, karena pembagian dengan nol dan akar bilangan negatif tidak diperbolehkan.`,
+Fungsi akar muncul ketika suatu besaran tumbuh makin lambat, seperti jarak jatuh bebas terhadap waktu atau hubungan antara luas dan sisi. Kedua jenis fungsi ini menuntut kehati-hatian pada domain, karena pembagian dengan nol dan akar bilangan negatif tidak diperbolehkan.`,
       blocks: [
         {
           kind: 'callout',
@@ -216,6 +216,14 @@ Contohnya, $g(x)=\\sqrt{x-1}+1$ memiliki domain $x\\geq1$ dan range $y\\geq1$, s
 Gagasannya berlaku umum. Untuk setiap fungsi rasional, derajat pembilang dan penyebut menentukan perilaku ujung, sedangkan akar penyebut menentukan posisi titik-titik istimewa setelah faktor bersama dicoret. Menyederhanakan pecahan **tanpa** melupakan syarat $q(x)\\neq0$ adalah kunci agar tidak salah menyimpulkan.
 
 Fungsi rasional dan fungsi akar hanyalah dua anggota keluarga fungsi yang lebih luas. Dalam capaian pembelajaran Matematika Tingkat Lanjut, kita juga mengenal **fungsi nilai mutlak** seperti $|x|$, **fungsi tangga** yang nilainya melompat pada setiap selang, dan **fungsi piecewise** yang rumusnya berbeda pada tiap bagian domainnya. Setiap anggota keluarga ini dipilih sesuai pola fenomena yang dimodelkan: rasional untuk besaran per satuan, akar untuk pertumbuhan yang melandai, tangga untuk tarif bertingkat, dan nilai mutlak untuk besaran tanpa tanda.`,
+      blocks: [
+        {
+          kind: 'figure',
+          alt: 'Tiga sketsa berdampingan: grafik nilai mutlak berbentuk V, grafik fungsi tangga yang melompat pada tiap selang, dan grafik fungsi piecewise yang berganti rumus pada bagian domainnya.',
+          caption: 'Tiga anggota keluarga fungsi yang lebih luas: nilai mutlak $|x|$ berbentuk V, fungsi tangga yang melompat, dan fungsi piecewise yang berganti rumus.',
+          svg: '<svg viewBox="0 0 330 140" aria-hidden="true" role="presentation"><line x1="14" y1="100" x2="96" y2="100" stroke="currentColor" stroke-width="1.2"/><line x1="55" y1="120" x2="55" y2="20" stroke="currentColor" stroke-width="1.2"/><polyline points="25,60 55,100 85,60" fill="none" stroke="currentColor" stroke-width="2.2"/><text x="24" y="132" font-size="11" fill="currentColor">|x|</text><line x1="118" y1="100" x2="204" y2="100" stroke="currentColor" stroke-width="1.2"/><line x1="160" y1="120" x2="160" y2="20" stroke="currentColor" stroke-width="1.2"/><polyline points="122,90 142,90 142,74 162,74 162,58 182,58 182,42 200,42" fill="none" stroke="currentColor" stroke-width="2.2"/><text x="116" y="132" font-size="11" fill="currentColor">tangga</text><line x1="222" y1="100" x2="318" y2="100" stroke="currentColor" stroke-width="1.2"/><line x1="266" y1="120" x2="266" y2="20" stroke="currentColor" stroke-width="1.2"/><polyline points="228,92 250,60 266,60" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="266,70 280,58 296,54 312,50" fill="none" stroke="currentColor" stroke-width="2.2"/><text x="226" y="132" font-size="11" fill="currentColor">piecewise</text></svg>',
+        },
+      ],
     },
     {
       id: 'rumus',
@@ -323,7 +331,7 @@ Perhatikan penentuan asimtot berikut. Ada satu langkah yang keliru. Klik langkah
             'Karena pembilang bentuk sederhana bernilai nol di $x=-2$, grafik memiliki asimtot tegak $x=-2$.',
           ],
           wrongIndex: 3,
-          explanation: 'Pembilang bernilai nol justru memberi titik potong sumbu-$x$ di $(-2,0)$, bukan asimtot tegak. Asimtot tegak hanya berasal dari penyebut yang tidak meniadakan, yaitu $x=1$.',
+          explanation: 'Pembilang bernilai nol memberi titik potong sumbu-$x$ di $(-2,0)$, bukan asimtot tegak. Asimtot tegak hanya berasal dari penyebut yang tidak meniadakan, yaitu $x=1$.',
         },
       ],
     },
@@ -392,7 +400,7 @@ Fungsi rasional dan fungsi akar menjadi alat penting dalam pemodelan besaran per
             'Mengapa derajat pembilang dan penyebut cukup untuk menentukan asimtot datar?',
             'Pada pemodelan biaya rata-rata, apa makna asimtot datar dalam bahasa sehari-hari?',
           ],
-          confidenceLabel: 'Seberapa yakin kamu dengan jawaban refleksimu?',
+          confidenceLabel: 'Seberapa yakin kamu membedakan lubang dari asimtot tegak?',
         },
       ],
     },

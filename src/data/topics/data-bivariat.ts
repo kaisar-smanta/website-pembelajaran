@@ -13,7 +13,7 @@ export const dataBivariat: Topic = {
   summary:
     'Menyajikan dua variabel kuantitatif pada diagram pencar dan menafsirkan pola, tren, serta kekuatan hubungannya secara kritis.',
   description:
-    'Ketika kita mengamati dua hal sekaligus (misalnya lama belajar dan nilai ujian), muncul pertanyaan apakah keduanya berkaitan. Diagram pencar (scatter plot) menampilkan setiap pasangan data sebagai satu titik, sehingga pola hubungan terlihat secara visual: naik, turun, melengkung, atau tidak berpola. Topik ini melatih membaca arah dan kekuatan hubungan serta menyadari keterbatasan diagram pencar, termasuk bahaya menyimpulkan sebab-akibat dari korelasi semata.',
+    'Ketika kita mengamati dua hal sekaligus (contohnya lama belajar dan nilai ujian), muncul pertanyaan apakah keduanya berkaitan. Diagram pencar (scatter plot) menampilkan setiap pasangan data sebagai satu titik, sehingga pola hubungan terlihat secara visual: naik, turun, melengkung, atau tidak berpola. Topik ini melatih membaca arah dan kekuatan hubungan serta menyadari keterbatasan diagram pencar, termasuk bahaya menyimpulkan sebab-akibat dari korelasi semata.',
   keywords: [
     'data bivariat',
     'diagram pencar',
@@ -73,7 +73,7 @@ Data apa yang sebaiknya ia kumpulkan, dan bagaimana cara menampilkannya agar pol
       title: "Prasyarat",
       body: `Sebelum melanjutkan, pastikan kamu dapat:
 
-- membaca titik pada bidang koordinat, misalnya $(3,5)$;
+- membaca titik pada bidang koordinat, seperti $(3,5)$;
 - membedakan **variabel bebas** (yang diatur atau dianggap penyebab) dan **variabel terikat** (yang diukur sebagai akibat);
 - mengenali pola naik dan turun pada grafik.`,
     },
@@ -94,7 +94,7 @@ Kita biasanya menyebut:
 - $x$ sebagai **variabel bebas** (variabel penjelas), dan
 - $y$ sebagai **variabel terikat** (variabel respons).
 
-Misalnya, untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar (jam) dan $y$ adalah nilai. Setiap orang menyumbang **satu titik**, bukan dua grafik terpisah.`,
+Untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar (jam) dan $y$ adalah nilai. Setiap orang menyumbang **satu titik**, bukan dua grafik terpisah.`,
       blocks: [
         {
           kind: "callout",
@@ -208,7 +208,7 @@ Saat titik-titik di atas digambar pada bidang koordinat, tampak kecenderungan **
 
 - **Positif (searah).** Ketika $x$ bertambah, $y$ cenderung bertambah. Titik-titik menanjak ke kanan.
 - **Negatif (berlawanan arah).** Ketika $x$ bertambah, $y$ cenderung berkurang. Titik-titik menurun ke kanan.
-- **Nonlinear.** Pola mengikuti lengkung, misalnya menaik lalu mendatar, atau membentuk parabola.
+- **Nonlinear.** Pola mengikuti lengkung, seperti menaik lalu mendatar, atau membentuk parabola.
 - **Tidak ada hubungan.** Titik-titik menyebar tanpa arah yang jelas.
 
 Menentukan jenis pola adalah langkah pertama sebelum menghitung ukuran hubungan secara numerik.`,
@@ -297,28 +297,34 @@ Tanda $r$ menyatakan arah: $r>0$ berarti hubungan positif, sedangkan $r<0$ berar
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Empat contoh berikut bergerak dari menafsirkan arah dan kekuatan, menghitung korelasi, sampai menyadari batas ekstrapolasi.",
+          intro: "Lima contoh berikut bergerak dari mengenali peran variabel, menafsirkan arah dan kekuatan, menghitung korelasi, sampai menyadari batas ekstrapolasi.",
           steps: [
             {
-              title: "Contoh 1 (arah hubungan)",
+              title: "Contoh 1 (peran variabel)",
+              text: `Sebuah penelitian mencatat jumlah pupuk (kg) dan hasil panen (kg) pada beberapa petak. Tentukan variabel bebas dan variabel terikatnya.
+
+*Penyelesaian.* Jumlah pupuk adalah hal yang diatur peneliti, sehingga menjadi **variabel bebas** $x$. Hasil panen adalah besaran yang diukur sebagai akibat, sehingga menjadi **variabel terikat** $y$. Setiap petak menyumbang satu titik $(x,y)$.`,
+            },
+            {
+              title: "Contoh 2 (arah hubungan)",
               text: `Sebuah toko mengamati harga produk ($x$, dalam ribuan rupiah) dan banyak penjualan ($y$, dalam unit). Setelah digambar, titik-titik menurun dari kiri atas ke kanan bawah. Tentukan jenis hubungannya.
 
 *Penyelesaian.* Karena $y$ cenderung berkurang saat $x$ bertambah, hubungannya **negatif**. Ini masuk akal: harga naik membuat penjualan menurun.`,
             },
             {
-              title: "Contoh 2 (kekuatan hubungan)",
+              title: "Contoh 3 (kekuatan hubungan)",
               text: `Himpunan A titiknya rapat membentuk garis menanjak, sedangkan himpunan B menyebar tanpa arah jelas. Bandingkan kekuatan hubungan keduanya.
 
 *Penyelesaian.* Himpunan A menunjukkan hubungan positif **kuat** karena titik-titik rapat mengikuti garis. Himpunan B tidak menunjukkan hubungan yang berarti karena sebarannya tidak berpola.`,
             },
             {
-              title: "Contoh 3 (batas ekstrapolasi)",
+              title: "Contoh 4 (batas ekstrapolasi)",
               text: `Pada data lama belajar dan nilai, apakah wajar memperkirakan nilai siswa yang belajar $20$ jam per minggu?
 
 *Penyelesaian.* Tidak wajar. Data hanya mencakup $x$ dari $1$ sampai $8$ jam dengan nilai maksimum $11$. Perkiraan di luar rentang data disebut **ekstrapolasi** dan berisiko, karena pola linear belum tentu berlaku untuk jam belajar yang jauh lebih banyak.`,
             },
             {
-              title: "Contoh 4 (menghitung korelasi)",
+              title: "Contoh 5 (menghitung korelasi)",
               text: `Diberikan lima pasangan data $(1,3)$, $(2,5)$, $(3,4)$, $(4,6)$, $(5,7)$. Hitung koefisien korelasinya.
 
 *Penyelesaian.* Dengan $n=5$ diperoleh $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, $\\sum x_i^2 = 55$, dan $\\sum y_i^2 = 135$. Substitusi ke rumus $r$:
@@ -369,7 +375,7 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
 
 **5. Menganggap satu pencilan sebagai pola.** Satu titik menyimpang dapat menarik garis tren. Periksa apakah titik itu sah atau kesalahan pencatatan.
 
-**6. Menyamakan arah korelasi dengan urutan sebab-akibat.** Tanda $r$ hanya menyatakan kedua variabel bergerak searah atau berlawanan, bukan mana yang berubah lebih dahulu. Urutan waktu harus diperiksa terpisah, sebab bisa jadi justru terjadi **kausalitas terbalik**, yaitu akibat yang muncul mendahului dugaan penyebab.`,
+**6. Menyamakan arah korelasi dengan urutan sebab-akibat.** Tanda $r$ hanya menyatakan kedua variabel bergerak searah atau berlawanan, bukan mana yang berubah lebih dahulu. Urutan waktu harus diperiksa terpisah, sebab bisa jadi terjadi **kausalitas terbalik**, yaitu akibat yang muncul mendahului dugaan penyebab.`,
       blocks: [
         {
           kind: "figure",
@@ -418,7 +424,7 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
             },
             {
               title: "Rancang pengujian yang lebih kuat",
-              text: "Untuk menaksir hubungan sebab-akibat, peneliti perlu **eksperimen acak** (misalnya promosi acak pada sebagian toko) atau membandingkan bulan-bulan dengan cuaca yang setara sambil mengontrol musim. Tanpa pengendalian variabel perancu, kesimpulan kausal tetap lemah.",
+              text: "Untuk menaksir hubungan sebab-akibat, peneliti perlu **eksperimen acak** (contohnya promosi acak pada sebagian toko) atau membandingkan bulan-bulan dengan cuaca yang setara sambil mengontrol musim. Tanpa pengendalian variabel perancu, kesimpulan kausal tetap lemah.",
             },
           ],
         },
@@ -428,7 +434,7 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
       id: "data-bivariat-sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Diagram pencar dan koefisien korelasi tumbuh dari penyelidikan Francis Galton pada akhir abad ke-19 tentang pewarisan sifat, misalnya kaitan tinggi badan orang tua dan anak. Dari pengamatan itu Galton memakai istilah "regresi", sebab tinggi anak cenderung kembali (regress) ke arah rata-rata populasi. Karl Pearson kemudian mengembangkan gagasan tersebut menjadi **koefisien korelasi** $r$ yang kita pakai sekarang, sehingga ukuran ini juga dikenal sebagai korelasi Pearson. Sejak itu diagram pencar menjadi langkah baku untuk memeriksa hubungan dua variabel sebelum regresi dihitung. Kehati-hatian terhadap korelasi semu pun tumbuh pada masa yang sama, sebab Pearson sendiri mengingatkan bahwa dua hal dapat berkorelasi tanpa saling menyebabkan.`,
+      body: `Diagram pencar dan koefisien korelasi tumbuh dari penyelidikan Francis Galton pada akhir abad ke-19 tentang pewarisan sifat, seperti kaitan tinggi badan orang tua dan anak. Dari pengamatan itu Galton memakai istilah "regresi", sebab tinggi anak cenderung kembali (regress) ke arah rata-rata populasi. Karl Pearson kemudian mengembangkan gagasan tersebut menjadi **koefisien korelasi** $r$ yang kita pakai sekarang, sehingga ukuran ini juga dikenal sebagai korelasi Pearson. Sejak itu diagram pencar menjadi langkah baku untuk memeriksa hubungan dua variabel sebelum regresi dihitung. Kehati-hatian terhadap korelasi semu pun tumbuh pada masa yang sama, sebab Pearson sendiri mengingatkan bahwa dua hal dapat berkorelasi tanpa saling menyebabkan.`,
     },
     {
       id: "refleksi",

@@ -44,6 +44,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   `src/data/questions/index.ts` memuat berkas lewat `import.meta.glob` (dengan urutan
   deterministik). Menambah topik/soal **cukup membuat berkasnya**: jangan menambah impor
   manual. `planned.ts`, `index.ts`, dan berkas berawalan `.`/`enhance` dikecualikan.
+- **`relatedTopics` bersifat terarah, tidak wajib simetris.** A boleh menyebut B tanpa B
+  menyebut A. Uji hanya menegakkan id yang ada (`tests/content-integrity.mjs`); jangan
+  memaksa simetri saat menyunting materi.
 - Blok interaktif ditulis langsung di data topik (tidak ada konversi otomatis).
 - **Indeks pencarian wajib lengkap.** `sectionSearchText` (`src/lib/content-text.ts`)
   menangani **seluruh** jenis blok; `default` memanggil `assertNever` sehingga blok baru
@@ -94,6 +97,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - **Alur bagian materi** mengikuti fase tetap (pembuka → inti → latihan → penutup);
   `tests/section-order.mjs` menegakkannya, dan setiap topik wajib punya blok
   pengulangan `match`/`flip-cards` (`tests/content-blocks.mjs`).
+- **Keragaman konten**: `tests/content-variety.mjs` menolak judul eksplorasi/studi kasus
+  ganda, prompt soal duplikat lintas berkas, topik tanpa `figure`, serta pembuka
+  `prasyarat`/label keyakinan refleksi yang generik dan berulang.
 - Halaman `/latihan` dan `/peta-pembelajaran` mendukung saringan URL (`?q=`, dll.)
   lewat `setupFilterPage` (`syncUrl`); sesi "latihan kilat" memakai `seededShuffle`
   (per topik maupun campuran lintas topik di `/latihan/kilat`).

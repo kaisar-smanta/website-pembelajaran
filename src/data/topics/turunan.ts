@@ -71,7 +71,7 @@ Namun pada suatu saat tertentu, jarum spidometer menunjukkan $80$ km/jam. Bagaim
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Turunan menyatukan tiga bekal: kemiringan garis, perilaku fungsi, dan gagasan limit. Pastikan kamu sudah lancar:
 - menentukan gradien garis melalui dua titik dan menyusun persamaan garis;
 - menghitung nilai fungsi kuadrat, eksponensial, dan trigonometri;
 - sifat-sifat bilangan berpangkat, termasuk pangkat negatif dan pecahan;
@@ -98,7 +98,7 @@ Inilah **definisi turunan** di titik $a$. Untuk setiap $x$ dalam domain, turunan
 $$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h},$$
 asalkan limit ini ada. Notasi lain yang sering dipakai adalah $\\dfrac{dy}{dx}$ atau $D f(x)$.
 
-Sebagai contoh, untuk $f(x) = x^{2}$ pada selang $[1, 3]$:
+Untuk $f(x) = x^{2}$ pada selang $[1, 3]$:
 $$\\frac{f(3) - f(1)}{3 - 1} = \\frac{9 - 1}{2} = 4.$$
 Laju perubahan sesaatnya di $x = 2$ diperoleh dari $f'(x) = 2x$, sehingga $f'(2) = 4$.`,
       blocks: [
@@ -222,7 +222,7 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
 
 **Aturan konstanta.** $\\dfrac{d}{dx}(c) = 0$ untuk konstanta $c$.
 
-**Aturan pangkat.** $\\dfrac{d}{dx}\\left(x^{n}\\right) = n x^{n-1}$ untuk setiap bilangan real $n$. Untuk $n$ negatif atau pecahan, domain $x$ perlu dibatasi agar $x^{n}$ terdefinisi, misalnya $x > 0$ untuk pangkat pecahan.
+**Aturan pangkat.** $\\dfrac{d}{dx}\\left(x^{n}\\right) = n x^{n-1}$ untuk setiap bilangan real $n$. Untuk $n$ negatif atau pecahan, domain $x$ perlu dibatasi agar $x^{n}$ terdefinisi, seperti $x > 0$ untuk pangkat pecahan.
 
 **Konstanta kali fungsi.** $\\dfrac{d}{dx}\\left(c\\,f(x)\\right) = c\\,f'(x)$.
 
@@ -262,7 +262,7 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
       id: "generalisasi",
       kind: "generalisasi",
       title: "Pola Umum: Aturan Turunan sebagai Pola Pangkat",
-      body: `Aturan-aturan turunan bukan kumpulan hafalan yang terpisah, melainkan pola yang berulang. Aturan pangkat $\\dfrac{d}{dx}x^{n} = n x^{n-1}$ menyatakan bahwa turunan selalu **menurunkan pangkat satu** dan memindahkan pangkat lama menjadi koefisien. Aturan konstanta dan kelipatan hanyalah kejadian khususnya, sedangkan aturan jumlah memungkinkan kita menurunkan suku demi suku.
+      body: `Aturan-aturan turunan bukan kumpulan hafalan yang terpisah, tetapi pola yang berulang. Aturan pangkat $\\dfrac{d}{dx}x^{n} = n x^{n-1}$ menyatakan bahwa turunan selalu **menurunkan pangkat satu** dan memindahkan pangkat lama menjadi koefisien. Aturan konstanta dan kelipatan hanyalah kejadian khususnya, sedangkan aturan jumlah memungkinkan kita menurunkan suku demi suku.
 
 Untuk bentuk yang lebih rumit, peraturannya juga mengikuti pola komposisi. Aturan hasil kali $(uv)' = u'v + uv'$ memastikan setiap komponen "berkesempatan" diturunkan sekali, sedangkan aturan rantai menangani fungsi bersarang dengan mengalikan turunan lapisan luar dan dalam:
 
@@ -292,7 +292,7 @@ Maka $f'(1) = 6 - 10 + 3 = -1$.`,
 
 *Penyelesaian.* Untuk $f$ gunakan aturan hasil kali:
 $$f'(x) = 2x(2x - 3) + (x^{2} + 1)(2) = 4x^{2} - 6x + 2x^{2} + 2 = 6x^{2} - 6x + 2.$$
-Jadi $f'(1) = 6 - 6 + 2 = 2$. Untuk $g$ gunakan aturan rantai dengan $u = 3x + 1$:
+Jadi $f'(1) = 6 - 6 + 2 = 2$. Sebagai pemeriksaan, jabarkan dahulu $f(x) = 2x^{3} - 3x^{2} + 2x - 3$; menurunkan suku demi suku memberi $6x^{2} - 6x + 2$, sama dengan hasil aturan hasil kali di atas. Untuk $g$ gunakan aturan rantai dengan $u = 3x + 1$:
 $$g'(x) = 4(3x + 1)^{3} \\cdot 3 = 12(3x + 1)^{3}, \\quad g'(0) = 12.$$`,
             },
             {
@@ -362,14 +362,14 @@ $$p'(x) = e^{2x} \\cdot 2 = 2e^{2x}.$$`,
       title: "Penerapan di Dunia Nyata",
       body: `Turunan dipakai untuk mengukur laju dalam sains dan rekayasa. Jika posisi sebuah mobil dinyatakan $s(t) = 4t^{2} + 2t$ meter, maka kecepatannya $v(t) = s'(t) = 8t + 2$ m/s, sehingga pada $t = 3$ s kecepatannya $8(3) + 2 = 26$ m/s dan percepatannya $a(t) = s''(t) = 8$ m/s$^{2}$.
 Dalam ekonomi, biaya marginal adalah turunan biaya total. Jika biaya memproduksi $x$ unit adalah $C(x) = 0{,}02x^{2} + 30x + 5000$ rupiah, biaya marginal $C'(x) = 0{,}04x + 30$; pada $x = 100$ unit, tambahan biaya per unit kira-kira $C'(100) = 34$ rupiah.
-Dalam teknik, laju pendinginan sebuah benda mengikuti turunan suhunya: jika suhunya $T(t) = 90 - 3t + 0{,}05t^{2}$ derajat Celsius, maka pada $t = 10$ menit laju perubahannya $T'(t) = -3 + 0{,}1t = -2$ derajat Celsius per menit, artinya suhu sedang turun. Bahkan spidometer pada kendaraan menunjukkan turunan jarak terhadap waktu.`,
+Dalam teknik, laju pendinginan sebuah benda mengikuti turunan suhunya: jika suhunya $T(t) = 90 - 3t + 0{,}05t^{2}$ derajat Celsius, maka pada $t = 10$ menit laju perubahannya $T'(t) = -3 + 0{,}1t = -2$ derajat Celsius per menit, artinya suhu sedang turun.`,
     },
     {
       id: "kesalahan-umum",
       kind: "kesalahan-umum",
       title: "Kesalahan Umum",
       body: `**1. Menerapkan aturan pangkat pada konstanta kali variabel.** $\\dfrac{d}{dx}(3x) = 3\\cdot x^{0} = 3$, bukan $1$. Banyak siswa lupa bahwa turunan $3x$ adalah $3$.
-**2. Lupa aturan rantai.** Turunan $(3x+1)^{4}$ bukan $4(3x+1)^{3}$, melainkan $4(3x+1)^{3} \\cdot 3 = 12(3x+1)^{3}$.
+**2. Lupa aturan rantai.** Turunan $(3x+1)^{4}$ bukan $4(3x+1)^{3}$. Yang benar adalah $4(3x+1)^{3} \\cdot 3 = 12(3x+1)^{3}$.
 **3. Salah tanda pada turunan kosinus.** $\\dfrac{d}{dx}(\\cos x) = -\\sin x$, bukan $\\sin x$.
 **4. Menganggap turunan hasil kali sama dengan hasil kali turunan.** $(fg)' \\neq f'g'$; gunakan $f'g + fg'$.
 **5. Menukar urutan pada aturan hasil bagi.** Pembilangnya $f'g - fg'$, dengan tanda minus di suku kedua.`,
@@ -455,7 +455,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
             "Mengapa turunan dapat ditafsirkan sebagai gradien garis singgung?",
             "Dalam aturan rantai, mengapa faktor turunan fungsi dalam perlu disertakan?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu membaca laju perubahan dari nilai turunan?",
         },
       ],
     },

@@ -64,7 +64,7 @@ Bertambahkah pengguna dengan pola tetap (selisih sama) atau berlipat (rasio sama
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Pemodelan menuntut kepekaan terhadap pola dan ketelitian satuan. Pastikan kamu sudah menguasai:
 - fungsi kuadrat dan fungsi eksponensial beserta bentuk grafiknya;
 - membaca titik dan kecenderungan grafik pada bidang koordinat;
 - menyusun persamaan dari data yang diketahui;
@@ -76,13 +76,13 @@ Bertambahkah pengguna dengan pola tetap (selisih sama) atau berlipat (rasio sama
       title: "Situasi dan Konteks",
       body: `Banyak keputusan sehari-hari berdasar pada perkiraan: ongkos perjalanan, pertumbuhan pengguna aplikasi, penyusutan nilai mesin, atau laba sebuah usaha. Semua itu dapat didekati dengan fungsi.
 
-Pemodelan membuat perkiraan menjadi terukur. Alih-alih menebak, kita menyusun fungsi yang mewakili pola data, lalu memakainya untuk memprediksi atau memilih keputusan terbaik. Tantangannya bukan sekadar menghitung, melainkan memilih model yang tepat dan menyadari batas keberlakuannya.`,
+Pemodelan membuat perkiraan menjadi terukur. Alih-alih menebak, kita menyusun fungsi yang mewakili pola data, lalu memakainya untuk memprediksi atau memilih keputusan terbaik. Tantangan sebenarnya adalah memilih model yang tepat dan menyadari batas keberlakuannya, bukan sekadar menghitung.`,
       blocks: [
         {
           kind: "callout",
           variant: "info",
           title: "Kunci pemodelan",
-          text: "Model yang baik bukan yang paling rumit, melainkan yang paling sederhana namun cukup mewakili data dan tetap masuk akal dalam konteksnya.",
+          text: "Model yang baik bukan yang paling rumit, tetapi yang paling sederhana namun cukup mewakili data dan tetap masuk akal dalam konteksnya.",
         },
       ],
     },
@@ -92,7 +92,7 @@ Pemodelan membuat perkiraan menjadi terukur. Alih-alih menebak, kita menyusun fu
       title: "Konsep Inti: Langkah Pemodelan",
       body: `Pemodelan fungsi mengikuti alur yang dapat diulang:
 
-1. **Pahami situasi dan tentukan variabel.** Beri nama tiap besaran beserta satuannya, misalnya $t$ waktu (jam) dan $N$ populasi (ekor).
+1. **Pahami situasi dan tentukan variabel.** Beri nama tiap besaran beserta satuannya, seperti $t$ waktu (jam) dan $N$ populasi (ekor).
 2. **Rumuskan asumsi.** Nyatakan penyederhanaan yang dipakai, misalnya "laju pertumbuhan tetap" atau "tidak ada biaya lain".
 3. **Pilih jenis fungsi.** Periksa pola data: beda tetap, beda kedua tetap, atau rasio tetap.
 4. **Tentukan konstanta.** Gunakan titik puncak, dua titik, atau rasio yang diketahui.
@@ -133,6 +133,12 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
           ],
         },
         {
+          kind: "figure",
+          alt: "Satu bidang koordinat dengan tiga kurva: garis lurus linear yang naik tetap, kurva kuadrat yang melengkung, dan kurva eksponensial yang naik makin cepat. Gaya garis dan keterangan membedakan ketiganya.",
+          caption: "Tiga keluarga fungsi yang sering dipakai memodelkan data: linear (beda tetap), kuadrat (berpuncak dan simetris), serta eksponensial (rasio tetap).",
+          svg: '<svg viewBox="0 0 340 220" aria-hidden="true" role="presentation"><defs><marker id="fig-model-family" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="190" x2="320" y2="190" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-model-family)"/><line x1="40" y1="205" x2="40" y2="45" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-model-family)"/><line x1="52" y1="30" x2="76" y2="30" stroke="currentColor" stroke-width="2.2"/><text x="82" y="34" font-size="11" fill="currentColor">linear</text><line x1="140" y1="30" x2="164" y2="30" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><text x="170" y="34" font-size="11" fill="currentColor">kuadrat</text><line x1="228" y1="30" x2="252" y2="30" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="258" y="34" font-size="11" fill="currentColor">eksponensial</text><polyline points="40,180 130,150 220,110 300,55" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="40,188 90,182 130,168 170,140 205,95 230,55" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><polyline points="40,192 95,186 140,170 180,140 210,90 230,35" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="316" y="206" font-size="11" fill="currentColor">x</text><text x="46" y="52" font-size="11" fill="currentColor">y</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "concept",
           title: "Pegangan utama",
@@ -148,7 +154,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
           kind: "callout",
           variant: "concept",
           title: "Model periodik",
-          text: "Pola yang berulang pada selang tetap dimodelkan fungsi periodik, misalnya $y=A\\sin(Bx)+C$. Amplitudo $\\lvert A\\rvert$ menentukan besar simpangan, $C$ menggeser grafik ke atas atau ke bawah, dan $B$ menentukan periode $\\dfrac{360^\\circ}{B}$ (atau $\\dfrac{2\\pi}{B}$). Contohnya pasang surut, suhu harian, dan arus listrik bolak-balik.",
+          text: "Pola yang berulang pada selang tetap dimodelkan fungsi periodik berbentuk $y=A\\sin(Bx)+C$. Amplitudo $\\lvert A\\rvert$ menentukan besar simpangan, $C$ menggeser grafik ke atas atau ke bawah, dan $B$ menentukan periode $\\dfrac{360^\\circ}{B}$ (atau $\\dfrac{2\\pi}{B}$). Contohnya pasang surut, suhu harian, dan arus listrik bolak-balik.",
         },
         {
           kind: "match",
@@ -282,7 +288,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi: Menyetel Koefisien agar Cocok",
-      body: "Dalam pemodelan, koefisien tidak muncul begitu saja: kita menyetelnya hingga grafik melewati titik-titik data. Gunakan penggeser $a$, $b$, dan $c$ pada $f(x)=ax^2+bx+c$ untuk mencocokkan parabola dengan lengkung nyata, misalnya lintasan air mancur atau lengkung jembatan. Ubah satu koefisien sekaligus, amati bagaimana titik puncak dan lebar kurva berubah, lalu cari setelan yang paling dekat dengan data.",
+      body: "Dalam pemodelan, koefisien tidak muncul begitu saja: kita menyetelnya hingga grafik melewati titik-titik data. Gunakan penggeser $a$, $b$, dan $c$ pada $f(x)=ax^2+bx+c$ untuk mencocokkan parabola dengan lengkung nyata, seperti lintasan air mancur atau lengkung jembatan. Ubah satu koefisien sekaligus, amati bagaimana titik puncak dan lebar kurva berubah, lalu cari setelan yang paling dekat dengan data.",
       blocks: [
         {
           kind: "exploration",
@@ -293,7 +299,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
     {
       id: "eksplorasi-keluarga-fungsi",
       kind: "eksplorasi",
-      title: "Eksplorasi Keluarga Fungsi Rasional",
+      title: "Eksplorasi Batas Domain Model Rasional",
       body: "Selain model kuadrat, model rasional memperlihatkan perilaku khas: sebuah titik yang terhapus (lubang) dan sebuah asimtot tegak. Geser parameter $a$ dan $b$ untuk menyelidiki kapan lubang muncul dan di mana asimtot berdiri, lalu kaitkan dengan batasan domain model.",
       blocks: [
         {
@@ -438,7 +444,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
 
 **4. Menganggap laju eksponensial sama dengan $b$.** Faktor $b=1{,}1$ berarti tumbuh $10\\%$ per selang, bukan $1{,}1\\%$. Laju persentasenya adalah $b-1$.
 
-**5. Lupa menuliskan asumsi.** Setiap model dibangun di atas penyederhanaan, misalnya "tidak ada biaya lain" atau "laju pertumbuhan tetap". Asumsi ini perlu disadari agar kesimpulan tidak berlebihan.`,
+**5. Lupa menuliskan asumsi.** Setiap model dibangun di atas penyederhanaan, seperti "tidak ada biaya lain" atau "laju pertumbuhan tetap". Asumsi ini perlu disadari agar kesimpulan tidak berlebihan.`,
     },
     {
       id: "tantangan",
@@ -493,7 +499,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
             "Mengapa memeriksa satuan membantumu memastikan interpretasi parameter sudah benar?",
             "Ceritakan satu situasi di sekitarmu yang menurutmu paling baik dimodelkan dengan fungsi eksponensial, dan jelaskan alasannya.",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu memilih jenis fungsi yang cocok untuk suatu data?",
         },
       ],
     },

@@ -18,7 +18,10 @@ export const polinomialQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Derajat adalah pangkat tertinggi variabel. Pada $3x^{4}-2x^{3}+x-7$ pangkat tertinggi adalah $4$, sehingga B benar. Opsi A ($3$) mengambil pangkat suku kedua, $x^{3}$; opsi C ($6$) menjumlahkan koefisien suku-sukunya ($3+2+1$); opsi D ($7$) memakai konstanta sebagai derajat.',
-    hints: ['Cari pangkat terbesar pada variabel $x$.'],
+    hints: [
+      'Cari pangkat terbesar pada variabel $x$.',
+      'Perhatikan suku $3x^{4}$; pangkatnya menentukan derajat polinomial.',
+    ],
     competencies: ['derajat polinomial'],
   },
   {
@@ -38,7 +41,10 @@ export const polinomialQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Jumlahkan suku sejenis: $P(x)+Q(x)=2x^{3}+(-3+1)x^{2}+(4+2)x+(-5+1)=2x^{3}-2x^{2}+6x-4$, sehingga koefisien $x^{2}$ adalah $-2$ (A). Opsi B ($-4$) mengurangkan koefisien ($-3-1$); opsi C ($2$) memakai koefisien $x^{3}$; opsi D ($6$) memakai koefisien $x$ hasil penjumlahan.',
-    hints: ['Gabungkan hanya suku-suku dengan pangkat yang sama.'],
+    hints: [
+      'Gabungkan hanya suku-suku dengan pangkat yang sama.',
+      'Koefisien $x^{2}$ pada $P$ adalah $-3$ dan pada $Q$ adalah $1$; jumlahkan keduanya.',
+    ],
     competencies: ['penjumlahan polinomial'],
   },
   {
@@ -52,7 +58,10 @@ export const polinomialQuestions: Question[] = [
     answer: '5',
     explanation:
       'Derajat hasil kali adalah jumlah derajat kedua polinomial: $\\deg(PQ)=\\deg P+\\deg Q=3+2=5$.',
-    hints: ['Saat mengalikan, pangkat suku-suku bertambah.'],
+    hints: [
+      'Saat mengalikan, pangkat suku-suku bertambah.',
+      'Derajat hasil kali $=\\deg P+\\deg Q=3+2$.',
+    ],
     competencies: ['derajat hasil kali polinomial'],
   },
   {
@@ -66,7 +75,10 @@ export const polinomialQuestions: Question[] = [
     answer: '-3',
     explanation:
       'Menurut teorema sisa, sisa pembagian oleh $(x-2)$ adalah $P(2)=2(8)-5(4)+4(2)-7=16-20+8-7=-3$.',
-    hints: ['Substitusikan $x=2$ ke polinomial.'],
+    hints: [
+      'Substitusikan $x=2$ ke polinomial.',
+      'Menurut teorema sisa, sisa pembagian oleh $(x-2)$ sama dengan $P(2)$.',
+    ],
     competencies: ['teorema sisa'],
   },
   {

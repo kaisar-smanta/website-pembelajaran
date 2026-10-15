@@ -52,17 +52,17 @@ export const pinjamanInvestasi: Topic = {
       blocks: [
         {
           kind: "prediction",
-          prompt: `Pak Rudi dan Pak Soni sama-sama meminjam Rp10.000.000 untuk membeli motor.
+          prompt: `Bu Sari membutuhkan pinjaman Rp25.000.000 untuk merenovasi rumah. Ia menerima dua penawaran.
 
-- **Penawaran A**: bunga $1{,}25\\%$ per bulan, tenor $36$ bulan.
-- **Penawaran B**: bunga $1{,}5\\%$ per bulan, tenor $24$ bulan.
+- **Penawaran A**: bunga $1{,}1\\%$ per bulan, tenor $18$ bulan, tanpa biaya tambahan.
+- **Penawaran B**: bunga $0{,}9\\%$ per bulan, tenor $24$ bulan, dikenakan biaya administrasi Rp400.000 dibayar di muka.
 
-Pak Rudi memilih B agar cepat selesai. Pak Soni memilih A karena angsuran bulanannya lebih kecil. Menurutmu, penawaran mana yang **total bunganya** lebih kecil? Coba duga dahulu, baru hitung.`,
-          reveal: `Penawaran A: $A = \\dfrac{10.000.000 \\times 0{,}0125}{1-(1{,}0125)^{-36}} \\approx \\text{Rp}346.653{,}29$, total $36 \\times 346.653{,}29 \\approx \\text{Rp}12.479.518$, sehingga total bunga $\\approx \\text{Rp}2.479.518$.
+Penawaran B berbunga lebih rendah, tetapi tenornya lebih panjang. Menurutmu, penawaran mana yang **total biayanya** lebih kecil? Duga dahulu, lalu hitung.`,
+          reveal: `Penawaran A: $A = \\dfrac{25.000.000 \\times 0{,}011}{1-(1{,}011)^{-18}} \\approx \\text{Rp}1.538.524$, total $18 \\times 1.538.524 \\approx \\text{Rp}27.693.426$, sehingga total bunga $\\approx \\text{Rp}2.693.426$.
 
-Penawaran B: $A = \\dfrac{10.000.000 \\times 0{,}015}{1-(1{,}015)^{-24}} \\approx \\text{Rp}499.241$, total $\\approx \\text{Rp}11.981.784$, sehingga total bunga $\\approx \\text{Rp}1.981.784$.
+Penawaran B: $A = \\dfrac{25.000.000 \\times 0{,}009}{1-(1{,}009)^{-24}} \\approx \\text{Rp}1.162.876$, total $24 \\times 1.162.876 \\approx \\text{Rp}27.909.023$, sehingga total bunga $\\approx \\text{Rp}2.909.023$. Dengan biaya administrasi Rp400.000, total biaya B $\\approx \\text{Rp}3.309.023$.
 
-Ternyata **B** total bunganya lebih kecil meskipun suku bunga per bulannya lebih tinggi, karena tenornya lebih pendek. Angsuran bulanan yang lebih kecil tidak otomatis berarti lebih murah.`,
+Ternyata **A** lebih murah, meskipun suku bunganya lebih tinggi. Tenor B yang lebih panjang menambah banyak periode bunga, dan biaya administrasi memperlebar selisihnya.`,
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
@@ -71,7 +71,7 @@ Ternyata **B** total bunganya lebih kecil meskipun suku bunga per bulannya lebih
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Topik ini berangkat dari anuitas, jadi pastikan dahulu kamu menguasai:
 - rumus bunga majemuk dan penyesuaian suku bunga per periode;
 - rumus angsuran anuitas $A = \\dfrac{M \\cdot i}{1-(1+i)^{-n}}$;
 - pembacaan tabel amortisasi (komposisi pokok dan bunga);
@@ -88,22 +88,18 @@ Pinjaman anuitas memberi kita sejumlah uang sekarang dan meminta pembayaran teta
     {
       id: "konsep",
       kind: "konsep",
-      title: "Konsep Inti: Model Pinjaman dan Investasi",
-      body: `Misalkan pokok pinjaman $M$, suku bunga per periode $i$, dan banyak periode $n$.
+      title: "Konsep Inti: Membandingkan Penawaran dan Hasil",
+      body: `Dua penawaran pinjaman hampir tidak pernah bisa dibandingkan hanya dari besar angsuran bulanan. Ketika tenornya berbeda, angsuran yang lebih kecil justru sering berasal dari tenor panjang yang menambah banyak periode bunga. Ukuran yang jujur adalah **total biaya**, bukan angka angsuran.
 
-**Pinjaman.** Besar angsuran tetap (anuitas) dihitung dengan
-$$A = \\frac{M \\cdot i}{1-(1+i)^{-n}}.$$
-Dari sini kita memperoleh
-$$\\text{total pembayaran} = n \\cdot A, \\qquad \\text{total bunga} = n \\cdot A - M.$$
-Total bunga adalah **biaya meminjam**. Semakin panjang tenor, semakin kecil $A$ tetapi semakin besar total bunga.
+Besar angsuran tetap pada tiap penawaran dihitung dengan rumus anuitas yang sudah kamu pelajari di topik **Anuitas**. Dari sana kita menyusun dua besaran pembanding:
 
-**Investasi.** Jika kita menyetor sebesar $A$ setiap periode, saldo akhir (nilai masa depan) adalah
-$$FV = A \\cdot \\frac{(1+i)^{n}-1}{i},$$
-sedangkan nilai sekarang dari rangkaian pembayaran itu adalah
-$$PV = A \\cdot \\frac{1-(1+i)^{-n}}{i}.$$
-Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk mencapai target tabungan.
+$$\\text{total pembayaran} = n \\cdot A, \\qquad \\text{total bunga} = n \\cdot A - M,$$
 
-**Membandingkan penawaran.** Dua penawaran tidak dibandingkan dari besar angsuran saja, melainkan dari **total pembayaran** dan **biaya tambahan** seperti biaya administrasi.`,
+dengan $M$ pokok pinjaman, $A$ angsuran tetap, dan $n$ banyak periode. **Total biaya** adalah total bunga ditambah biaya tambahan seperti administrasi, asuransi, atau provisi.
+
+Untuk investasi, arahnya berlawanan: menyetor sebesar $A$ tiap periode menumbuhkan saldo akhir. Membandingkan uang pada waktu berbeda memakai konsep nilai sekarang dan nilai masa depan yang diturunkan di topik **Anuitas**.
+
+Keputusan yang baik dibuat dengan urutan sederhana: tetapkan tujuan, susun model, ubah setiap alternatif menjadi ukuran yang sebanding, lalu pilih yang paling masuk akal.`,
       blocks: [
         {
           kind: "callout",
@@ -113,61 +109,61 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
         },
         {
           kind: "match",
-          intro: "Cocokkan istilah pinjaman dengan maknanya.",
+          intro: "Cocokkan istilah pembanding penawaran dengan maknanya.",
           pairs: [
             {
-              left: "Anuitas",
-              right: "Pembayaran tetap yang dilakukan berkala",
-            },
-            {
-              left: "Pokok",
-              right: "Bagian angsuran yang mengurangi utang",
-            },
-            {
-              left: "Bunga",
-              right: "Biaya atas sisa utang",
+              left: "Total biaya",
+              right: "Total bunga ditambah biaya administrasi dan biaya lain",
             },
             {
               left: "Tenor",
-              right: "Lama waktu pinjaman",
+              right: "Lama waktu pinjaman dalam bulan atau tahun",
+            },
+            {
+              left: "Angsuran tetap",
+              right: "Pembayaran sama besar setiap periode",
+            },
+            {
+              left: "Suku bunga efektif",
+              right: "Bunga setahun setelah memperhitungkan frekuensi pemajemukan",
             },
           ],
         },
         {
           kind: "flip-cards",
-          intro: "Ulangi istilah keuangan yang paling sering muncul.",
+          intro: "Ulangi istilah yang dipakai saat mengambil keputusan.",
           cards: [
             {
-              front: "Anuitas",
-              back: "Pembayaran tetap yang dilakukan setiap periode",
+              front: "Total biaya",
+              back: "Seluruh biaya di luar pokok: total bunga ditambah biaya tambahan",
             },
             {
-              front: "Pokok",
-              back: "Bagian angsuran yang mengurangi sisa utang",
-            },
-            {
-              front: "Bunga",
-              back: "Biaya atas sisa utang pada satu periode",
+              front: "Biaya administrasi",
+              back: "Biaya di muka yang tidak masuk angsuran, tetapi menambah total biaya",
             },
             {
               front: "Tenor",
-              back: "Lama waktu pinjaman, biasanya dalam bulan atau tahun",
+              back: "Lama waktu pinjaman, biasanya dihitung dalam bulan",
             },
             {
-              front: "Total bunga",
-              back: "Seluruh bunga yang dibayar sepanjang tenor: $n\\,A - M$",
+              front: "Angsuran tetap",
+              back: "Pembayaran sama besar tiap periode pada skema anuitas",
             },
             {
-              front: "Nilai masa depan ($FV$)",
-              back: "Saldo akhir dari rangkaian setoran rutin",
+              front: "Suku bunga efektif",
+              back: "Bunga setahun setelah memperhitungkan frekuensi pemajemukan",
             },
             {
-              front: "Nilai sekarang ($PV$)",
-              back: "Nilai saat ini dari rangkaian pembayaran di masa depan",
+              front: "Nilai waktu uang",
+              back: "Uang pada waktu berbeda tidak dapat dibandingkan langsung",
             },
             {
-              front: "Suku bunga per periode",
-              back: "Bunga untuk satu periode; harus selaras dengan satuan tenor",
+              front: "Pembayaran di muka",
+              back: "Uang yang dibayar di awal, misalnya biaya administrasi, ikut menambah total biaya",
+            },
+            {
+              front: "Denda",
+              back: "Biaya tambahan bila pembayaran terlambat, ikut menambah total biaya",
             },
           ],
         },
@@ -176,42 +172,42 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
     {
       id: "representasi",
       kind: "representasi",
-      title: "Representasi Rumus",
-      body: "Setiap besaran finansial dapat diringkas sebagai satu rumus. Tabel berikut merangkum hubungannya.",
+      title: "Representasi: Ukuran Pembanding",
+      body: "Beberapa ukuran finansial berperan sebagai alat pembanding. Tabel berikut merangkum cara memperoleh dan pemakaiannya.",
       blocks: [
         {
           kind: "table",
-          caption: "Rumus pokok pinjaman dan investasi",
+          caption: "Ukuran pembanding penawaran dan investasi",
           headers: [
-            "Besaran",
-            "Rumus",
-            "Makna",
+            "Ukuran",
+            "Cara memperoleh",
+            "Dipakai untuk",
           ],
           rows: [
             [
-              "Angsuran anuitas",
-              "$A = \\dfrac{M \\cdot i}{1-(1+i)^{-n}}$",
-              "pembayaran tetap tiap periode",
-            ],
-            [
               "Total pembayaran",
               "$n \\cdot A$",
-              "seluruh uang yang dikeluarkan",
+              "melihat seluruh uang yang keluar",
             ],
             [
               "Total bunga",
               "$n \\cdot A - M$",
-              "biaya meminjam",
+              "menilai biaya meminjam",
             ],
             [
-              "Nilai masa depan",
-              "$FV = A \\cdot \\dfrac{(1+i)^{n}-1}{i}$",
-              "saldo akhir dari setoran rutin",
+              "Total biaya",
+              "total bunga $+$ biaya tambahan",
+              "membandingkan penawaran secara adil",
             ],
             [
-              "Nilai sekarang",
-              "$PV = A \\cdot \\dfrac{1-(1+i)^{-n}}{i}$",
+              "Nilai masa depan ($FV$)",
+              "saldo dari setoran rutin",
+              "merencanakan target investasi",
+            ],
+            [
+              "Nilai sekarang ($PV$)",
               "nilai rangkaian pembayaran saat ini",
+              "menyetarakan uang pada waktu berbeda",
             ],
           ],
         },
@@ -221,7 +217,7 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi",
-      body: "Gunakan simulasi berikut untuk mengubah besar pinjaman, suku bunga, dan tenor. Amati bagaimana angsuran, total bunga, serta komposisi pokok dan bunga berubah.",
+      body: "Gunakan dua simulasi berikut. Yang pertama memperlihatkan bagaimana total kewajiban bertumbuh bila bunga berbunga dibandingkan bunga tunggal. Yang kedua menyusun jadwal amortisasi sehingga kamu dapat mengamati pemisahan pokok dan bunga tiap periode serta pengaruh angsuran tambahan.",
       blocks: [
         {
           kind: "exploration",
@@ -248,39 +244,28 @@ Dengan membalik rumus $FV$, kita dapat menentukan setoran yang diperlukan untuk 
     {
       id: "generalisasi",
       kind: "generalisasi",
-      title: "Hubungan Umum Pinjaman dan Investasi",
-      body: `Pinjaman dan investasi ternyata dua sisi dari hubungan yang sama. Pada pinjaman, nilai sekarang seluruh angsuran harus sama dengan pokok yang diterima:
+      title: "Pola Umum: Keputusan Berbasis Total Biaya",
+      body: `Membandingkan penawaran bukan pekerjaan menghafal rumus, tetapi menyetarakan besaran yang sebanding. Besar angsuran dari dua tenor yang berbeda tidak sebanding; yang sebanding adalah **total biaya** sepanjang pinjaman.
 
-$$M = A \\cdot \\frac{1-(1+i)^{-n}}{i}.$$
-
-Pada investasi, nilai masa depan dari setoran rutin adalah $FV = A \\cdot \\frac{(1+i)^{n}-1}{i}$. Keduanya berasal dari jumlah deret geometri berasio $(1+i)$; yang berbeda hanya arah waktunya.
-
-Dari sana muncul ukuran pembanding yang jujur: **total pembayaran** $nA$ dan **total bunga** $nA-M$. Karena memperpanjang tenor memperkecil $A$ tetapi menambah banyak periode, total bunga bisa justru bertambah. Sebab itu penawaran dibandingkan dari total biaya, bukan besar angsuran bulanan.`,
+Pola ini muncul berulang. Karena memperpanjang tenor memperkecil angsuran tetapi menambah banyak periode bunga, total bunga dapat bertambah. Biaya administrasi, asuransi, dan denda ikut menambah total biaya meskipun tidak tampak pada angka angsuran. Sebab itu, ketika dua penawaran punya tenor dan biaya berbeda, ubah keduanya menjadi satu ukuran yang sama: total biaya untuk pinjaman, atau saldo akhir untuk investasi. Bila waktu pembayarannya berbeda, setarakan dengan nilai sekarang. Prinsip yang sama berlaku untuk memilih pinjaman maupun menilai hasil investasi.`,
     },
     {
       id: "rumus",
       kind: "rumus",
       title: "Rumus dan Prosedur",
-      body: `**Angsuran anuitas.** Untuk pokok $M$, suku bunga per periode $i$, dan $n$ periode:
-$$A = \\frac{M \\cdot i}{1-(1+i)^{-n}}.$$
+      body: `Angsuran tetap pada tiap penawaran memakai rumus anuitas dari topik **Anuitas**. Di sini kita menekankan ukuran pembanding dan langkah keputusan.
 
-**Total pembayaran dan total bunga.**
-$$\\text{total pembayaran} = n \\cdot A, \\qquad \\text{total bunga} = n \\cdot A - M.$$
+**Ukuran pembanding.**
+$$\\text{total pembayaran} = n \\cdot A, \\qquad \\text{total bunga} = n \\cdot A - M, \\qquad \\text{total biaya} = \\text{total bunga} + \\text{biaya tambahan}.$$
 
-**Nilai masa depan setoran rutin.**
-$$FV = A \\cdot \\frac{(1+i)^{n}-1}{i}.$$
-
-**Nilai sekarang rangkaian pembayaran.**
-$$PV = A \\cdot \\frac{1-(1+i)^{-n}}{i}.$$
-
-**Setoran untuk mencapai target.** Membalik rumus $FV$:
+**Setoran untuk mencapai target investasi.** Membalik rumus nilai masa depan dari topik **Anuitas**:
 $$A = \\frac{FV \\cdot i}{(1+i)^{n}-1}.$$
 
-**Prosedur menyelesaikan masalah.**
+**Prosedur mengambil keputusan.**
 1. Samakan satuan periode suku bunga dan tenor (misalnya keduanya bulanan).
-2. Tentukan besaran yang dicari: angsuran, total pembayaran, nilai masa depan, atau nilai sekarang.
-3. Substitusikan ke rumus yang sesuai, lalu hitung dengan teliti.
-4. Bandingkan penawaran lewat **total biaya** (total bunga ditambah biaya administrasi), bukan hanya angsuran bulanan.`,
+2. Ubah setiap penawaran menjadi **total biaya** untuk pinjaman, atau **saldo akhir** untuk investasi.
+3. Bila waktu pembayarannya berbeda, setarakan dengan nilai sekarang.
+4. Pilih alternatif dengan total biaya terkecil atau hasil terbesar, sekaligus perhatikan risikonya.`,
     },
     {
       id: "contoh",
@@ -291,55 +276,72 @@ $$A = \\frac{FV \\cdot i}{(1+i)^{n}-1}.$$
           kind: "step-reveal",
           steps: [
             {
-              title: "Contoh 1",
-              text: `Pinjaman Rp10.000.000 akan dilunasi dengan anuitas $24$ bulan dan bunga $1{,}5\\%$ per bulan. Tentukan besar angsuran, total pembayaran, dan total bunga.
+              title: "Contoh 1 (membandingkan dua penawaran)",
+              text: `Kembali ke penawaran Bu Sari: pinjaman Rp25.000.000. Penawaran A bunga $1{,}1\\%$ per bulan, tenor $18$ bulan; Penawaran B bunga $0{,}9\\%$ per bulan, tenor $24$ bulan, biaya administrasi Rp400.000. Tentukan penawaran dengan total biaya terkecil.
 
-*Penyelesaian.* Dengan $M = 10.000.000$, $i = 0{,}015$, dan $n = 24$:
-$$A = \\frac{10.000.000 \\times 0{,}015}{1-(1{,}015)^{-24}} = \\frac{150.000}{1-0{,}699544} = \\frac{150.000}{0{,}300456} \\approx \\text{Rp}499.241.$$
-Total pembayaran $= 24 \\times 499.241 \\approx \\text{Rp}11.981.784$, sehingga total bunga $\\approx \\text{Rp}1.981.784$.`,
+*Penyelesaian.* Penawaran A:
+$$A_A = \\frac{25.000.000 \\times 0{,}011}{1-(1{,}011)^{-18}} \\approx \\text{Rp}1.538.524,$$
+total $= 18 \\times 1.538.524 \\approx \\text{Rp}27.693.426$, sehingga total biaya A $\\approx \\text{Rp}2.693.426$ (tanpa biaya tambahan).
+
+Penawaran B:
+$$A_B = \\frac{25.000.000 \\times 0{,}009}{1-(1{,}009)^{-24}} \\approx \\text{Rp}1.162.876,$$
+total $= 24 \\times 1.162.876 \\approx \\text{Rp}27.909.023$, sehingga total bunga $\\approx \\text{Rp}2.909.023$. Total biaya B $= 2.909.023 + 400.000 = \\text{Rp}3.309.023$.
+
+Karena Rp2.693.426 < Rp3.309.023, penawaran **A** lebih murah. Suku bunga A memang lebih tinggi, tetapi tenor B yang lebih panjang dan biaya administrasinya membuat total biaya B lebih besar.`,
             },
             {
-              title: "Contoh 2",
-              text: `Tentukan komposisi angsuran bulan pertama dan kedua pada Contoh 1.
+              title: "Contoh 2 (setoran untuk mencapai target)",
+              text: `Bu Sari ingin mengumpulkan Rp20.000.000 dalam $30$ bulan melalui tabungan rutin berbunga $0{,}6\\%$ per bulan. Berapa setoran bulanan yang diperlukan?
 
-*Penyelesaian.* Bulan 1: bunga $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$; pokok $= 499.241 - 150.000 = \\text{Rp}349.241$; sisa utang $= \\text{Rp}9.650.759$. Bulan 2: bunga $= 0{,}015 \\times 9.650.759 \\approx \\text{Rp}144.761$; pokok $\\approx \\text{Rp}354.480$. Porsi pokok makin besar dari bulan ke bulan.`,
+*Penyelesaian.* Membalik rumus nilai masa depan:
+$$A = \\frac{20.000.000 \\times 0{,}006}{(1{,}006)^{30}-1} \\approx \\text{Rp}610.458.$$
+Dengan menyetor sekitar Rp610.458 setiap bulan, saldo akan mencapai sekitar Rp20.000.000 pada bulan ke-$30$.`,
             },
             {
-              title: "Contoh 3",
-              text: `Seseorang menabung Rp500.000 tiap bulan dengan bunga $0{,}5\\%$ per bulan. Berapa saldo akhir setelah $24$ bulan?
+              title: "Contoh 3 (hasil investasi berkala)",
+              text: `Seseorang menyetor Rp300.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan selama $30$ bulan. Berapa saldo akhirnya?
 
 *Penyelesaian.*
-$$FV = 500.000 \\cdot \\frac{(1{,}005)^{24}-1}{0{,}005} \\approx 500.000 \\cdot \\frac{0{,}127160}{0{,}005} \\approx \\text{Rp}12.715.978.$$
-Saldo akhirnya sekitar Rp12.715.978, yaitu sekitar Rp715.978 lebih besar daripada total setoran Rp12.000.000.`,
+$$FV = 300.000 \\cdot \\frac{(1{,}005)^{30}-1}{0{,}005} \\approx \\text{Rp}9.684.005.$$
+Total setoran $= 30 \\times 300.000 = \\text{Rp}9.000.000$, sehingga bunga yang terkumpul sekitar Rp684.005. Menyetor rutin menumbuhkan saldo, bukan hanya menjumlahkan setoran.`,
             },
           ],
         },
         {
           kind: "table",
-          caption: "Amortisasi dua bulan pertama (Contoh 1)",
+          caption: "Perbandingan dua penawaran pinjaman Rp25.000.000",
           headers: [
-            "Bulan",
-            "Angsuran",
-            "Bunga",
-            "Pokok",
-            "Sisa utang",
+            "Penawaran",
+            "Angsuran per bulan",
+            "Total pembayaran",
+            "Total bunga",
+            "Biaya tambahan",
+            "Total biaya",
           ],
           rows: [
             [
-              "1",
-              "499.241,02",
-              "150.000,00",
-              "349.241,02",
-              "9.650.758,98",
+              "A (1,1%, 18 bulan)",
+              "Rp1.538.524",
+              "Rp27.693.426",
+              "Rp2.693.426",
+              "Rp0",
+              "Rp2.693.426",
             ],
             [
-              "2",
-              "499.241,02",
-              "144.761,38",
-              "354.479,64",
-              "9.296.279,34",
+              "B (0,9%, 24 bulan)",
+              "Rp1.162.876",
+              "Rp27.909.023",
+              "Rp2.909.023",
+              "Rp400.000",
+              "Rp3.309.023",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Diagram batang bertumpuk membandingkan total biaya dua penawaran; penawaran B memiliki total lebih tinggi karena bunganya ditambah biaya administrasi.",
+          caption: "Total biaya dua penawaran. Penawaran $A$ (bunga $1{,}1\\%$, tenor $18$ bulan) seluruhnya bunga sebesar Rp2.693.426, sedangkan penawaran $B$ (bunga $0{,}9\\%$, tenor $24$ bulan) terdiri atas bunga Rp2.909.023 ditambah administrasi Rp400.000, sehingga totalnya Rp3.309.023. Meskipun angsuran $B$ lebih kecil, total biaya $A$ lebih murah.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><rect x="55" y="25" width="16" height="11" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><text x="77" y="35" font-size="11" fill="currentColor">bunga</text><rect x="150" y="25" width="16" height="11" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="0.8"/><text x="172" y="35" font-size="11" fill="currentColor">administrasi</text><line x1="50" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.4"/><rect x="80" y="78" width="60" height="122" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="180" y="68" width="60" height="132" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="180" y="50" width="60" height="18" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="0.8"/><text x="76" y="72" font-size="10" fill="currentColor">Rp2.693.426</text><text x="176" y="44" font-size="10" fill="currentColor">Rp3.309.023</text><text x="98" y="216" font-size="12" fill="currentColor">A</text><text x="198" y="216" font-size="12" fill="currentColor">B</text><text x="76" y="232" font-size="10" fill="currentColor">1,1% / 18 bln</text><text x="176" y="232" font-size="10" fill="currentColor">0,9% / 24 bln</text></svg>',
         },
       ],
     },
@@ -365,14 +367,14 @@ Saldo akhirnya sekitar Rp12.715.978, yaitu sekitar Rp715.978 lebih besar daripad
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Model pinjaman dan investasi dipakai pada KPR, kredit kendaraan, kartu kredit, dana pensiun, dan reksa dana. Mari bandingkan angka nyata untuk pinjaman Rp10.000.000:
+      body: `Model ini dipakai setiap kali kita menimbang kredit kendaraan, KPR, atau menabung untuk dana pendidikan. Perhatikan pinjaman Rp25.000.000 dengan dua penawaran:
 
-- **Penawaran A:** bunga $1{,}25\\%$ per bulan, tenor 36 bulan → angsuran $\\approx$ Rp346.653, total bunga $\\approx$ Rp2.479.518.
-- **Penawaran B:** bunga $1{,}5\\%$ per bulan, tenor 24 bulan → angsuran $\\approx$ Rp499.241, total bunga $\\approx$ Rp1.981.784.
+- **Penawaran A:** bunga $1{,}1\\%$ per bulan, tenor $18$ bulan, angsuran $\\approx$ Rp1.538.524, total bunga $\\approx$ Rp2.693.426.
+- **Penawaran B:** bunga $0{,}9\\%$ per bulan, tenor $24$ bulan, biaya administrasi Rp400.000, angsuran $\\approx$ Rp1.162.876, total bunga $\\approx$ Rp2.909.023.
 
-Penawaran B memang berangsuran lebih besar, tetapi total bunganya hampir Rp500.000 lebih kecil karena tenornya lebih pendek. Sebaliknya, menabung Rp500.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan selama dua tahun menghasilkan saldo $\\approx$ Rp12.715.978 dari total setoran Rp12.000.000. Selisihnya adalah hasil bunga majemuk.
+Meskipun angsuran A lebih besar, total biaya A $=$ Rp2.693.426 lebih kecil daripada total biaya B $=$ Rp2.909.023 $+$ Rp400.000 $=$ Rp3.309.023. Sebaliknya, dalam berinvestasi arahnya berlawanan: menyetor Rp300.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan selama $30$ bulan menghasilkan saldo $\\approx$ Rp9.684.005 dari total setoran Rp9.000.000, selisih $\\approx$ Rp684.005 sebagai hasil bunga majemuk.
 
-Pola pengambilan keputusan selalu sama: tentukan tujuan, susun model, hitung total biaya atau hasil, bandingkan alternatif, lalu putuskan. Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk melihat bagaimana total bunga dihitung dari tabel amortisasi.`,
+Pola keputusannya tetap: tetapkan tujuan, susun model, ubah setiap alternatif menjadi ukuran yang sebanding, lalu putuskan berdasarkan total biaya atau hasil akhir. Lihat juga analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman).`,
     },
     {
       id: "kesalahan-umum",
@@ -451,10 +453,10 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
           kind: "reflection",
           prompts: [
             "Informasi apa yang paling menentukan ketika kamu membandingkan dua penawaran pinjaman?",
-            "Kapan memperpanjang tenor masuk akal, dan kapan justru merugikan?",
+            "Kapan memperpanjang tenor masuk akal, dan kapan merugikan?",
             "Bagaimana kamu menjelaskan arti \"total bunga\" kepada orang yang hanya melihat besar angsuran?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu membandingkan dua penawaran berdasarkan total biaya?",
         },
       ],
     },
@@ -471,32 +473,32 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
           ],
           rows: [
             [
-              "Angsuran anuitas",
-              "$A = \\dfrac{M \\cdot i}{1-(1+i)^{-n}}$",
-            ],
-            [
-              "Total pembayaran",
-              "$n \\cdot A$",
-            ],
-            [
-              "Total bunga",
-              "$n \\cdot A - M$",
-            ],
-            [
-              "Nilai masa depan",
-              "$FV = A \\cdot \\dfrac{(1+i)^{n}-1}{i}$",
-            ],
-            [
-              "Nilai sekarang",
-              "$PV = A \\cdot \\dfrac{1-(1+i)^{-n}}{i}$",
-            ],
-            [
               "Membandingkan penawaran",
-              "hitung total pembayaran dan total bunga, bukan hanya angsuran",
+              "bandingkan total biaya, bukan angsuran bulanan",
+            ],
+            [
+              "Total biaya",
+              "total bunga ditambah biaya administrasi dan biaya lain",
+            ],
+            [
+              "Tenor",
+              "semakin panjang, angsuran mengecil tetapi total bunga bisa membesar",
+            ],
+            [
+              "Biaya tambahan",
+              "administrasi, asuransi, dan denda ikut menambah total biaya",
+            ],
+            [
+              "Investasi berkala",
+              "setoran tetap menumbuhkan saldo akhir; gunakan nilai masa depan",
+            ],
+            [
+              "Nilai waktu uang",
+              "uang pada waktu berbeda disetarakan lewat nilai sekarang",
             ],
             [
               "Keputusan",
-              "pertimbangkan total bunga, tenor, biaya administrasi, dan risiko suku bunga",
+              "tetapkan tujuan, hitung tiap alternatif, pilih berdasarkan total biaya atau hasil",
             ],
           ],
         },

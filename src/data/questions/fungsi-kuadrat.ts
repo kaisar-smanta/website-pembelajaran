@@ -17,7 +17,10 @@ export const fungsiKuadratQuestions: Question[] = [
     answer: 'A',
     explanation:
       '$x^{2}-5x+6=(x-2)(x-3)$, sehingga $f(x)=0$ ketika $x=2$ atau $x=3$. Opsi B ($x=-2$ dan $x=-3$) memfaktorkan menjadi $(x+2)(x+3)$ sehingga tanda akarnya terbalik. Opsi C ($x=1$ dan $x=6$) memakai dua bilangan yang hasil kalinya $6$ tetapi jumlahnya $7$, bukan $-5$. Opsi D ($x=-1$ dan $x=-6$) memakai hasil kali $6$ dengan jumlah $-7$, bukan $-5$.',
-    hints: ['Cari dua bilangan yang jumlahnya $-5$ dan hasil kalinya $6$.'],
+    hints: [
+      'Cari dua bilangan yang jumlahnya $-5$ dan hasil kalinya $6$.',
+      'Kedua bilangan itu adalah akar, sehingga bentuk faktornya $(x-2)(x-3)$.',
+    ],
     competencies: ['akar fungsi kuadrat'],
   },
   {
@@ -74,7 +77,10 @@ export const fungsiKuadratQuestions: Question[] = [
     answer: '(-1,-4)',
     acceptedAnswers: ['(-1,-4)', '-1,-4'],
     explanation: 'Sumbu simetri $x=-\\dfrac{2}{2\\cdot1}=-1$. Nilai puncak $f(-1)=1-2-3=-4$. Jadi titik puncaknya $(-1,-4)$.',
-    hints: ['Hitung absis puncak $x=-\\dfrac{b}{2a}$ lebih dahulu.'],
+    hints: [
+      'Hitung absis puncak $x=-\\dfrac{b}{2a}$ lebih dahulu.',
+      'Setelah absis diperoleh, substitusikan ke $f(x)$ untuk mendapatkan ordinatnya.',
+    ],
     competencies: ['titik puncak'],
   },
   {

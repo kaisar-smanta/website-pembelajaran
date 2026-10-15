@@ -37,7 +37,7 @@ export const fungsiInvers: Topic = {
     { text: 'Peserta didik dapat menggambarkan grafik fungsi dan inversnya serta menjelaskan pencerminannya terhadap garis $y=x$.' },
     { text: 'Peserta didik dapat menggunakan fungsi invers untuk menyelesaikan masalah kontekstual sederhana.' },
   ],
-  applications: ['diskon-berlapis', 'konversi-mata-uang'],
+  applications: ['konversi-mata-uang'],
   sections: [
     {
       id: "tujuan",
@@ -75,11 +75,11 @@ Untuk $F = 77$ diperoleh $C = \\dfrac{5}{9}(77 - 32) = \\dfrac{5}{9}(45) = 25$. 
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Menentukan fungsi invers menuntut keluwesan memanipulasi persamaan agar satu variabel menjadi subjek. Pastikan kamu sudah menguasai:
 - pengertian relasi dan fungsi;
-- cara mensubstitusi nilai ke dalam rumus fungsi, misalnya $f(2)$ untuk $f(x)=3x-6$;
-- menyelesaikan persamaan linear, misalnya $2x+1=7$;
-- menyelesaikan persamaan berbentuk pecahan, misalnya $y=\\dfrac{2x+1}{x-3}$.`,
+- cara mensubstitusi nilai ke dalam rumus fungsi, seperti $f(2)$ untuk $f(x)=3x-6$;
+- menyelesaikan persamaan linear seperti $2x+1=7$;
+- menyelesaikan persamaan berbentuk pecahan seperti $y=\\dfrac{2x+1}{x-3}$.`,
     },
     {
       id: "konteks",
@@ -93,7 +93,7 @@ Ketika setiap keluaran hanya berasal dari satu masukan, arah pemetaan dapat diba
       kind: "konsep",
       title: "Konsep Inti: Domain, Kodomain, dan Range",
       body: `Suatu fungsi $f: A \\to B$ memetakan setiap anggota **domain** $A$ ke tepat satu anggota **kodomain** $B$. Himpunan semua hasil pemetaan yang benar-benar muncul disebut **range** (daerah hasil), dan range selalu merupakan bagian dari kodomain.
-Sebagai contoh, perhatikan $f(x) = 2x + 1$ untuk $x \\in \\{1,2,3\\}$:
+Ambil contoh $f(x) = 2x + 1$ untuk $x \\in \\{1,2,3\\}$:
 - domain: $\\{1,2,3\\}$;
 - kodomain: himpunan bilangan real $\\mathbb{R}$;
 - range: $\\{3,5,7\\}$ karena $f(1)=3$, $f(2)=5$, dan $f(3)=7$.
@@ -193,13 +193,19 @@ Untuk fungsi pada bilangan real, himpunan nilai $x$ yang boleh dimasukkan disebu
 
 Fungsi yang memenuhi keduanya disebut **bijektif**. Hanya fungsi bijektif yang memiliki fungsi invers.
 
-Sebagai contoh, $f(x)=x^2$ pada domain $\\mathbb{R}$ **bukan** injektif karena $f(2)=f(-2)=4$; satu hasil berasal dari dua masukan berbeda. Namun jika domainnya dibatasi menjadi $x \\geq 0$, fungsinya menjadi satu-satu dan memiliki invers.`,
+Contohnya, $f(x)=x^2$ pada domain $\\mathbb{R}$ **bukan** injektif karena $f(2)=f(-2)=4$; satu hasil berasal dari dua masukan berbeda. Namun jika domainnya dibatasi menjadi $x \\geq 0$, fungsinya menjadi satu-satu dan memiliki invers.`,
       blocks: [
         {
           kind: "callout",
           variant: "warning",
           title: "Hati-hati",
           text: "Menguji grafik: fungsi satu-satu bila setiap garis horizontal memotong grafik paling banyak satu kali. Grafik parabola $y=x^2$ dipotong dua kali oleh garis horizontal $y=4$.",
+        },
+        {
+          kind: "figure",
+          alt: "Parabola y sama dengan x kuadrat dipotong garis putus-putus horizontal y sama dengan 4 di dua titik, yaitu negatif 2 koma 4 dan 2 koma 4, sehingga tidak satu-satu. Cabang kanan x lebih besar atau sama dengan nol digambar lebih tebal dan bersifat satu-satu.",
+          caption: "Garis horizontal $y=4$ memotong parabola $y=x^{2}$ di dua titik, $(2,4)$ dan $(-2,4)$, sehingga $x^{2}$ pada seluruh $\\mathbb{R}$ bukan fungsi satu-satu. Dengan membatasi domain pada $x \\geq 0$ (kurva tebal), grafiknya satu-satu dan memiliki invers.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><defs><marker id="fig-inv-hline" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="34" y1="170" x2="290" y2="170" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-inv-hline)"/><line x1="100" y1="205" x2="100" y2="25" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-inv-hline)"/><line x1="36" y1="66" x2="200" y2="66" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5 4"/><polyline points="48,66 61,111.5 74,144 87,163.5 100,170 113,163.5 126,144 139,111.5 152,66" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"/><polyline points="100,170 113,163.5 126,144 139,111.5 152,66" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="48" cy="66" r="3" fill="currentColor"/><circle cx="152" cy="66" r="3" fill="currentColor"/><text x="196" y="62" font-size="11" fill="currentColor">y = 4</text><text x="286" y="188" font-size="11" fill="currentColor">x</text><text x="106" y="34" font-size="11" fill="currentColor">y</text><text x="150" y="82" font-size="11" fill="currentColor">(2,4)</text><text x="36" y="82" font-size="11" fill="currentColor">(-2,4)</text><text x="116" y="122" font-size="10" fill="currentColor">x ≥ 0</text></svg>',
         },
       ],
     },
@@ -426,7 +432,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Gagasan fungsi baru matang pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* pada akhir abad ke-17 untuk menyatakan besaran yang bergantung pada variabel, dan Leonhard Euler pada abad ke-18 memberi notasi $f(x)$ yang kita pakai sekarang. Gagasan membalik pemetaan juga tumbuh dari kebutuhan operasi kebalikan, misalnya dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers dibakukan seiring berkembangnya notasi himpunan dan pemetaan pada abad ke-19 dan ke-20. Sejak itu fungsi invers menjadi alat baku untuk "membaca kembali" nilai semula dari suatu hasil.`,
+      body: `Gagasan fungsi baru matang pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* pada akhir abad ke-17 untuk menyatakan besaran yang bergantung pada variabel, dan Leonhard Euler pada abad ke-18 memberi notasi $f(x)$ yang kita pakai sekarang. Gagasan membalik pemetaan juga tumbuh dari kebutuhan operasi kebalikan, seperti dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers dibakukan seiring berkembangnya notasi himpunan dan pemetaan pada abad ke-19 dan ke-20. Sejak itu fungsi invers menjadi alat baku untuk "membaca kembali" nilai semula dari suatu hasil.`,
     },
     {
       id: "refleksi",
@@ -441,7 +447,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
             "Kapan sebuah fungsi **tidak** memiliki invers, dan bagaimana cara memperbaikinya?",
             "Langkah mana yang paling sering membuatmu keliru ketika menurunkan rumus invers, dan bagaimana kamu akan menghindarinya?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu membedakan fungsi yang punya invers dari yang tidak?",
         },
       ],
     },

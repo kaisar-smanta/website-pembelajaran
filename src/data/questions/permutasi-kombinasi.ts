@@ -17,7 +17,11 @@ export const permutasiKombinasiQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Ketiga orang berbeda, sehingga banyak susunannya $3! = 3 \\cdot 2 \\cdot 1 = 6$. Opsi $1$ muncul bila urutan diabaikan, sedangkan $9$ dan $27$ muncul bila keliru memakai pangkat alih-alih faktorial.',
-    hints: ['Gunakan faktorial karena semua orang berbeda dan urutan penting.'],
+    hints: [
+      'Gunakan faktorial karena semua orang berbeda dan urutan penting.',
+      'Banyak susunan $3$ orang berbeda adalah $3!$.',
+      'Hitung $3 \\cdot 2 \\cdot 1$.',
+    ],
     competencies: ['permutasi'],
   },
   {
@@ -36,7 +40,11 @@ export const permutasiKombinasiQuestions: Question[] = [
     answer: 'C',
     explanation:
       '$5! = 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1 = 120$. Opsi $20 = 5 \\cdot 4$ dan $60 = 5 \\cdot 4 \\cdot 3$ muncul bila berhenti mengalikan terlalu awal, sedangkan $720 = 6!$ muncul bila salah menghitung banyak faktornya.',
-    hints: ['Kalikan bilangan dari $5$ turun sampai $1$.'],
+    hints: [
+      'Kalikan bilangan dari $5$ turun sampai $1$.',
+      'Tuliskan $5! = 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1$.',
+      'Hitung bertahap: $5 \\cdot 4 = 20$, lalu $20 \\cdot 3 = 60$, dan seterusnya.',
+    ],
     competencies: ['faktorial'],
   },
   {
@@ -49,7 +57,11 @@ export const permutasiKombinasiQuestions: Question[] = [
     answer: '60',
     acceptedAnswers: ['60'],
     explanation: '$P(5,3) = \\dfrac{5!}{(5-3)!} = \\dfrac{120}{2} = 60$.',
-    hints: ['Gunakan rumus permutasi sebagian $P(n,k) = \\dfrac{n!}{(n-k)!}$.'],
+    hints: [
+      'Gunakan rumus permutasi sebagian $P(n,k) = \\dfrac{n!}{(n-k)!}$.',
+      'Substitusikan $n = 5$ dan $k = 3$ sehingga menjadi $\\dfrac{5!}{2!}$.',
+      'Sederhanakan menjadi $5 \\cdot 4 \\cdot 3$.',
+    ],
     competencies: ['permutasi'],
   },
   {

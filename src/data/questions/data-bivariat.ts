@@ -17,7 +17,11 @@ export const dataBivariatQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Variabel bebas adalah variabel yang diatur atau diduga memengaruhi, yaitu jumlah pupuk. Hasil panen merupakan variabel terikat (respons). Opsi A menukar peran bebas dan terikat; opsi C salah menganggap keduanya bebas karena berubah bersama; opsi D menyamakan korelasi dengan ketiadaan variabel yang dapat diatur.',
-    hints: ['Variabel bebas biasanya yang diatur peneliti.'],
+    hints: [
+      'Variabel bebas biasanya yang diatur peneliti.',
+      'Tanyakan variabel mana yang diduga memengaruhi variabel lainnya.',
+      'Tentukan mana yang dipilih/diatur dan mana yang mengikuti perubahan itu.',
+    ],
     competencies: ['variabel bebas dan terikat'],
   },
   {
@@ -31,7 +35,11 @@ export const dataBivariatQuestions: Question[] = [
     acceptedAnswers: ['negatif', 'negative', 'berlawanan arah', 'berbanding terbalik'],
     explanation:
       'Makin tinggi suhu udara, makin sedikit jaket tebal yang terjual, sehingga hubungannya negatif (berlawanan arah).',
-    hints: ['Apakah penjualan naik atau turun saat suhu naik?'],
+    hints: [
+      'Apakah penjualan naik atau turun saat suhu naik?',
+      'Jika satu variabel naik sementara yang lain turun, arahnya berlawanan.',
+      'Turunnya penjualan saat suhu naik menandakan arah negatif.',
+    ],
     competencies: ['arah hubungan'],
   },
   {
@@ -46,7 +54,11 @@ export const dataBivariatQuestions: Question[] = [
     acceptedAnswers: ['positif', 'positive', 'searah', 'berbanding lurus'],
     explanation:
       'Pola menanjak menandakan ketika $x$ bertambah, $y$ cenderung bertambah, yaitu hubungan positif (searah).',
-    hints: ['Bayangkan berjalan dari kiri ke kanan pada diagram.'],
+    hints: [
+      'Bayangkan berjalan dari kiri ke kanan pada diagram.',
+      'Jika titik naik dari kiri ke kanan, kedua variabel bertambah bersama.',
+      'Pola menanjak berarti kedua variabel bergerak ke arah yang sama.',
+    ],
     competencies: ['arah hubungan'],
   },
   {
@@ -65,7 +77,11 @@ export const dataBivariatQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Pola yang tidak berbentuk garis lurus disebut nonlinear (opsi C). Di sini $y$ naik lalu melandai mengikuti lengkung. Opsi A hanya melihat arah naik tanpa memperhatikan lengkungan. Opsi B keliru menafsirkan lengkungan sebagai hubungan negatif. Opsi D salah menyamakan pola lengkung dengan ketiadaan hubungan.',
-    hints: ['Linear berarti titik-titik mengikuti garis lurus.'],
+    hints: [
+      'Linear berarti titik-titik mengikuti garis lurus.',
+      'Perhatikan apakah pola terus menanjak atau melengkung lalu mendatar.',
+      'Pola yang bukan garis lurus disebut nonlinear, apa pun arahnya.',
+    ],
     competencies: ['pola hubungan'],
   },
   {
@@ -295,5 +311,41 @@ export const dataBivariatQuestions: Question[] = [
       'Makin rapat titik terhadap suatu garis, makin kuat hubungannya.',
     ],
     competencies: ['menafsirkan diagram pencar', 'koefisien korelasi'],
+  },
+  {
+    id: 'db-16',
+    topicId: 'data-bivariat',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Tabel berikut menyajikan pasangan data $(x, y)$. Sebagian besar titik mengikuti satu pola, tetapi ada satu titik yang menyimpang jauh. Titik yang paling layak dicurigai sebagai pencilan adalah …',
+    table: {
+      caption: 'Pasangan data x dan y.',
+      headers: ['x', 'y'],
+      math: true,
+      rows: [
+        ['1', '5'],
+        ['2', '7'],
+        ['3', '6'],
+        ['4', '8'],
+        ['5', '7'],
+        ['6', '20'],
+      ],
+    },
+    options: [
+      { key: 'A', text: '$(6, 20)$' },
+      { key: 'B', text: '$(1, 5)$' },
+      { key: 'C', text: '$(3, 6)$' },
+      { key: 'D', text: '$(4, 8)$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Lima titik pertama berkumpul di sekitar $y=5$ sampai $8$ tanpa menyimpang jauh, sedangkan titik $(6, 20)$ jauh di atas pola itu sehingga paling layak dicurigai sebagai pencilan (opsi A). Opsi B, C, dan D semuanya masih konsisten dengan kumpulan titik lainnya, jadi bukan pencilan.',
+    hints: [
+      'Bandingkan nilai $y$ setiap titik dengan nilai $y$ titik lain pada tabel.',
+      'Pencilan bivariat adalah titik yang jauh dari pola titik lainnya, bukan sekadar nilai terbesar.',
+    ],
+    competencies: ['pencilan bivariat', 'membaca tabel data'],
   },
 ];

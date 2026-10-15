@@ -56,7 +56,7 @@ export const integral: Topic = {
         {
           kind: "prediction",
           prompt: `Jika kecepatan sebuah kendaraan diketahui pada setiap saat, bagaimana kita menentukan **jarak total** yang ditempuh? Turunan mengubah posisi menjadi kecepatan, jadi proses kebalikannya seharusnya mengubah kecepatan kembali menjadi posisi. Proses kebalikan itu dinamakan **integral**.
-Pertanyaan lainnya: bagaimana menghitung luas daerah yang dibatasi kurva melengkung, misalnya $y = x^{2}$ di antara $x = 0$ dan $x = 1$?`,
+Pertanyaan lainnya: bagaimana menghitung luas daerah yang dibatasi kurva melengkung, seperti $y = x^{2}$ di antara $x = 0$ dan $x = 1$?`,
           reveal: "Daerah melengkung dapat didekati oleh banyak persegi panjang tipis. Ketika lebar persegi panjang dibuat makin kecil, jumlah luasnya mendekati luas sebenarnya. Limit jumlah inilah yang disebut **integral tentu**. Untuk $y = x^{2}$ pada $[0, 1]$ diperoleh $\\displaystyle\\int_{0}^{1} x^{2}\\,dx = \\dfrac{1}{3}$.",
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
@@ -66,7 +66,7 @@ Pertanyaan lainnya: bagaimana menghitung luas daerah yang dibatasi kurva melengk
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Integral melanjutkan gagasan turunan dalam arah sebaliknya. Pastikan kamu sudah lancar:
 - aturan turunan konstanta, pangkat, jumlah, dan rantai;
 - turunan fungsi eksponensial dan trigonometri;
 - menentukan titik potong dua kurva;
@@ -87,7 +87,7 @@ Dalam geometri, integral menghitung luas daerah yang batasnya berupa kurva. Dala
 $$\\int f(x)\\,dx = F(x) + C,$$
 dengan $C$ adalah konstanta integrasi. Karena turunan konstanta nol, setiap antiturunan berbeda hanya oleh konstanta.
 
-Sebagai contoh, karena $\\dfrac{d}{dx}\\left(x^{3}\\right) = 3x^{2}$, maka $\\displaystyle\\int 3x^{2}\\,dx = x^{3} + C$.
+Karena $\\dfrac{d}{dx}\\left(x^{3}\\right) = 3x^{2}$, maka $\\displaystyle\\int 3x^{2}\\,dx = x^{3} + C$.
 
 **Integral tentu dan limit jumlah.** Integral tentu fungsi $f$ pada selang $[a, b]$ didefinisikan sebagai limit jumlah luas persegi panjang:
 $$\\int_{a}^{b} f(x)\\,dx = \\lim_{n \\to \\infty} \\sum_{i=1}^{n} f(x_i)\\,\\Delta x,$$
@@ -216,6 +216,12 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
         },
         {
           kind: "figure",
+          alt: "Kurva garis y sama dengan x dan kurva y sama dengan x kuadrat berpotongan di titik nol dan satu. Daerah berbentuk lensa di antara kedua kurva pada selang nol sampai satu diberi bayangan.",
+          caption: "Luas daerah antara $y=x$ dan $y=x^{2}$ pada $[0,1]$. Karena $x \\ge x^{2}$ di selang ini, luasnya $L = \\int_{0}^{1}\\left(x-x^{2}\\right)dx = \\dfrac{1}{2} - \\dfrac{1}{3} = \\dfrac{1}{6}$.",
+          svg: '<svg viewBox="0 0 320 210" aria-hidden="true" role="presentation"><line x1="50" y1="175" x2="300" y2="175" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="185" x2="60" y2="30" stroke="currentColor" stroke-width="1.5"/><polygon points="60,175 110,167 160,142 210,102 260,45 210,77 160,110 110,142" fill="currentColor" fill-opacity="0.18" stroke="none"/><line x1="60" y1="175" x2="260" y2="45" stroke="currentColor" stroke-width="2"/><polyline points="60,175 110,167 160,142 210,102 260,45" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="60" cy="175" r="3" fill="currentColor"/><circle cx="260" cy="45" r="3" fill="currentColor"/><text x="216" y="60" font-size="11" fill="currentColor">y = x</text><text x="150" y="158" font-size="11" fill="currentColor">y = x^2</text><text x="292" y="193" font-size="12" fill="currentColor">x</text><text x="44" y="36" font-size="12" fill="currentColor">y</text><text x="54" y="190" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="260" y="190" font-size="11" fill="currentColor" text-anchor="middle">1</text></svg>',
+        },
+        {
+          kind: "figure",
           alt: "Kurva yang memotong sumbu x dengan daerah di bawah sumbu diberi bayangan dan diberi label luas negatif.",
           caption: "Daerah di bawah sumbu-$x$ dihitung negatif pada integral tentu, sehingga $\\int_{0}^{2}(x^{2}-2x)\\,dx=-\\dfrac{4}{3}$, sedangkan luas sebenarnya $\\dfrac{4}{3}$.",
           svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="110" x2="300" y2="110" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="175" x2="40" y2="22" stroke="currentColor" stroke-width="1.5"/><polygon points="95,110 110,122 140,134 170,138 200,132 230,118 245,110" fill="currentColor" fill-opacity="0.18" stroke="none"/><polyline points="50,80 80,100 110,122 140,134 170,138 200,132 230,118 260,100 290,80" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="118" y="162" font-size="11" fill="currentColor">luas negatif</text><text x="292" y="128" font-size="12" fill="currentColor">x</text><text x="20" y="28" font-size="12" fill="currentColor">y</text></svg>',
@@ -341,7 +347,7 @@ $$L = \\left| -\\frac{4}{3} \\right| = \\frac{4}{3}.$$`,
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
       body: `Integral dipakai untuk menghitung akumulasi. Dari grafik kecepatan terhadap waktu, luas di bawah kurva adalah jarak tempuh. Dari laju aliran air, integral memberi volume total. Dalam ekonomi, integral biaya marginal memberi biaya total.
-Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listrik adalah integral arus terhadap waktu. Dalam statistika, luas di bawah kurva peluang menunjukkan besarnya peluang suatu kejadian. Kemampuan menghitung integral membuka jalan memahami perubahan yang menumpuk.`,
+Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listrik adalah integral arus terhadap waktu. Dalam statistika, luas di bawah kurva peluang menunjukkan besarnya peluang suatu kejadian, sehingga integral menjadi alat untuk menakar kejadian pada sebaran kontinu.`,
     },
     {
       id: "kesalahan-umum",
@@ -428,7 +434,7 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
             "Apa perbedaan integral tak tentu dan integral tentu dari segi hasilnya?",
             "Bagaimana teorema dasar kalkulus menghubungkan limit jumlah dengan antiturunan?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu memilih antara antiturunan dan luas saat menghitung integral?",
         },
       ],
     },

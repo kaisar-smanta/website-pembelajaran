@@ -74,9 +74,9 @@ Jika kita mendorong **domino pertama**, apa yang terjadi pada seluruh barisan?`,
       id: 'prasyarat',
       kind: 'prasyarat',
       title: 'Prasyarat',
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Induksi matematika menuntut keluwesan manipulasi aljabar dan pemahaman notasi jumlah. Bekal aljabar yang perlu kamu siapkan:
 - operasi bilangan bulat, pecahan, dan manipulasi aljabar;
-- notasi jumlah, misalnya $1+2+\\cdots+n$;
+- notasi jumlah, seperti $1+2+\\cdots+n$;
 - sifat bentuk pangkat, seperti $a^{m+n}=a^m a^n$.`,
     },
     {
@@ -85,7 +85,7 @@ Jika kita mendorong **domino pertama**, apa yang terjadi pada seluruh barisan?`,
       title: 'Situasi dan Konteks',
       body: `Pola muncul terus-menerus dalam matematika: rumus jumlah, rumus suku barisan, dan aturan keterbagian. Memeriksa satu contoh memang mudah, tetapi matematika menuntut kepastian bahwa pola itu berlaku untuk **semua** bilangan asli.
 
-Induksi matematika memberi cara membuktikan klaim "berlaku untuk setiap $n$" dengan dua langkah saja. Cara ini juga menopang penalaran algoritmik, misalnya ketika program komputer mengulang tindakan yang sama untuk semua data.`,
+Induksi matematika memberi cara membuktikan klaim "berlaku untuk setiap $n$" dengan dua langkah saja. Cara ini juga menopang penalaran algoritmik, contohnya ketika program komputer mengulang tindakan yang sama untuk semua data.`,
     },
     {
       id: 'konsep',

@@ -17,7 +17,11 @@ export const distribusiBinomialQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Percobaan binomial memenuhi empat syarat: $n$ ulangan tetap, dua hasil (sukses/gagal), peluang sukses $p$ tetap, dan ulangan saling bebas. Melempar koin 8 kali lalu menghitung gambar memenuhinya. Opsi A hanya sekali ulangan, opsi C mengubah peluang tiap pengambilan karena tanpa pengembalian, dan opsi D mengukur besaran kontinu, bukan dua hasil.',
-    hints: ['Periksa empat syarat: $n$ tetap, dua hasil, $p$ tetap, dan saling bebas.'],
+    hints: [
+      'Periksa empat syarat: $n$ tetap, dua hasil, $p$ tetap, dan saling bebas.',
+      'Cari pilihan dengan banyak ulangan tetap dan peluang sukses yang tidak berubah.',
+      'Pengambilan tanpa pengembalian mengubah peluang, sehingga bukan percobaan binomial.',
+    ],
     competencies: ['percobaan binomial', 'konsep'],
   },
   {
@@ -31,7 +35,10 @@ export const distribusiBinomialQuestions: Question[] = [
     acceptedAnswers: ['3/8', '0,375', '0.375', '0,3750', '0.3750'],
     explanation:
       'Dengan $n=3$, $p=\\tfrac12$, dan $k=2$: $P(X=2)=\\binom{3}{2}\\left(\\tfrac12\\right)^{2}\\left(\\tfrac12\\right)^{1}=3 \\cdot \\tfrac12 \\cdot \\tfrac14=\\tfrac38=0{,}375$.',
-    hints: ['Gunakan $P(X=k)=\\binom{n}{k}p^{k}(1-p)^{n-k}$ dengan $n=3$ dan $p=\\tfrac12$.'],
+    hints: [
+      'Gunakan $P(X=k)=\\binom{n}{k}p^{k}(1-p)^{n-k}$ dengan $n=3$ dan $p=\\tfrac12$.',
+      'Substitusikan $k=2$ dan hitung $\\binom{3}{2}=3$.',
+    ],
     competencies: ['rumus distribusi binomial'],
   },
   {
@@ -45,7 +52,10 @@ export const distribusiBinomialQuestions: Question[] = [
     acceptedAnswers: ['4,0', '4.0'],
     explanation:
       'Untuk distribusi binomial berlaku $E(X)=np=10(0{,}4)=4$.',
-    hints: ['Gunakan $E(X)=np$ dengan $n=10$ dan $p=0{,}4$.'],
+    hints: [
+      'Gunakan $E(X)=np$ dengan $n=10$ dan $p=0{,}4$.',
+      'Kalikan $10$ dengan $0{,}4$ untuk memperoleh nilai harapannya.',
+    ],
     competencies: ['nilai harapan binomial'],
   },
   {
@@ -194,7 +204,7 @@ export const distribusiBinomialQuestions: Question[] = [
   {
     id: 'bin-12',
     topicId: 'distribusi-binomial',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penalaran',
     prompt:
@@ -272,7 +282,7 @@ export const distribusiBinomialQuestions: Question[] = [
   {
     id: 'bin-16',
     topicId: 'distribusi-binomial',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'kontekstual',
     prompt:

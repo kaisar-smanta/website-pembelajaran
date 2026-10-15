@@ -17,7 +17,11 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Nyatakan $32=2^{5}$, sehingga $2^{x+1}=2^{5}$. Karena basisnya sama, pangkatnya sama: $x+1=5 \\Rightarrow x=4$. Periksa: $2^{5}=32$. Opsi $3$ muncul bila $32$ keliru ditulis $2^{4}$, opsi $5$ bila lupa mengurangi $1$, dan opsi $6$ bila menambah $1$, bukan mengurangi.',
-    hints: ['Tulis $32$ sebagai pangkat dari $2$.'],
+    hints: [
+      'Tulis $32$ sebagai pangkat dari $2$.',
+      '$32 = 2^{5}$, sehingga $2^{x+1} = 2^{5}$.',
+      'Samakan pangkatnya: $x + 1 = 5$, lalu kurangkan $1$.',
+    ],
     competencies: ['persamaan eksponen', 'menyamakan basis'],
   },
   {

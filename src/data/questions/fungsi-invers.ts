@@ -35,7 +35,10 @@ export const fungsiInversQuestions: Question[] = [
       '$f(x) = x^{2}$ bukan fungsi satu-satu karena dua masukan berbeda dapat memberi hasil sama, misalnya $f(2) = f(-2) = 4$. Padahal fungsi hanya memiliki invers bila bijektif (khususnya injektif). Agar menjadi satu-satu, domainnya dibatasi, misalnya $x \\geq 0$. Dengan pembatasan itu, $f^{-1}(x) = \\sqrt{x}$ untuk $x \\geq 0$.',
     explanation:
       'Kunci menekankan gagasan injektif: satu hasil tidak boleh berasal dari lebih dari satu masukan, dan pembatasan domain adalah cara memperbaikinya.',
-    hints: ['Cari dua nilai $x$ berbeda yang menghasilkan $f(x)$ sama.'],
+    hints: [
+      'Cari dua nilai $x$ berbeda yang menghasilkan $f(x)$ sama.',
+      'Fungsi memiliki invers bila satu-satu; batasi domain pada satu sisi saja.',
+    ],
     competencies: ['fungsi bijektif', 'domain fungsi'],
     rubric: [
       'Menunjukkan $f(2)=f(-2)=4$ sehingga $f$ tidak satu-satu',
@@ -54,7 +57,10 @@ export const fungsiInversQuestions: Question[] = [
     acceptedAnswers: ['\\frac{x+10}{5}', 'x/5+2', '\\frac{1}{5}x+2', '1/5 x + 2'],
     explanation:
       '$y = 5x - 10 \\Rightarrow 5x = y + 10 \\Rightarrow x = \\dfrac{y+10}{5}$. Jadi $f^{-1}(x) = \\dfrac{x+10}{5}$.',
-    hints: ['Pindahkan $-10$ ke ruas kiri, lalu bagi dengan $5$.'],
+    hints: [
+      'Pindahkan $-10$ ke ruas kiri, lalu bagi dengan $5$.',
+      'Jadikan $x$ subjek: tambahkan $10$ ke kedua ruas, lalu bagi dengan $5$.',
+    ],
     competencies: ['invers fungsi linear'],
   },
   {
@@ -67,7 +73,10 @@ export const fungsiInversQuestions: Question[] = [
     answer: '2',
     explanation:
       'Karena $f(2) = 2(2) + 3 = 7$, maka $f^{-1}(7) = 2$. Cara lain: $f^{-1}(x) = \\dfrac{x-3}{2}$, sehingga $f^{-1}(7) = \\dfrac{7-3}{2} = 2$.',
-    hints: ['Cari nilai $x$ yang membuat $f(x) = 7$.'],
+    hints: [
+      'Cari nilai $x$ yang membuat $f(x) = 7$.',
+      'Selesaikan $2x+3=7$ untuk memperoleh $x$.',
+    ],
     competencies: ['nilai fungsi invers'],
   },
   {

@@ -36,7 +36,10 @@ export const transformasiFungsiQuestions: Question[] = [
     acceptedAnswers: ['(x+5)^{2}', 'y=(x+5)^2', 'y=(x+5)^{2}', 'x^2+10x+25'],
     explanation:
       'Geser ke kiri $5$ satuan berarti $h = -5$, sehingga $y = (x - (-5))^{2} = (x+5)^{2}$. Perhatikan tandanya berlawanan dengan arah geser.',
-    hints: ['Geser ke kiri berarti menambahkan $5$ di dalam tanda kurung.'],
+    hints: [
+      'Geser ke kiri berarti menambahkan $5$ di dalam tanda kurung.',
+      'Rumusnya $y=(x-(-5))^{2}=(x+5)^{2}$.',
+    ],
     competencies: ['translasi horizontal'],
   },
   {
@@ -50,7 +53,10 @@ export const transformasiFungsiQuestions: Question[] = [
     acceptedAnswers: ['y=-x^2', '-x^{2}', 'y=-x^{2}'],
     explanation:
       'Refleksi terhadap sumbu-$x$ mengubah tanda nilai fungsi: $y = -f(x) = -x^{2}$.',
-    hints: ['Pencerminan terhadap sumbu-$x$ memberi tanda negatif di depan fungsi.'],
+    hints: [
+      'Pencerminan terhadap sumbu-$x$ memberi tanda negatif di depan fungsi.',
+      'Nilai fungsi tiap $x$ berubah tanda, sehingga $y=-x^{2}$.',
+    ],
     competencies: ['refleksi terhadap sumbu-$x$'],
   },
   {
@@ -64,7 +70,10 @@ export const transformasiFungsiQuestions: Question[] = [
     answer: '-7',
     explanation:
       'Karena $y = -f(x)$, maka pada $x = 3$ nilainya $-f(3) = -7$. Refleksi terhadap sumbu-$x$ membalik tanda nilai fungsi.',
-    hints: ['Substitusikan $f(3) = 7$ ke dalam $-f(3)$.'],
+    hints: [
+      'Substitusikan $f(3) = 7$ ke dalam $-f(3)$.',
+      'Refleksi terhadap sumbu-$x$ hanya membalik tanda nilai fungsi.',
+    ],
     competencies: ['refleksi terhadap sumbu-$x$'],
   },
   {
@@ -235,9 +244,9 @@ export const transformasiFungsiQuestions: Question[] = [
     type: 'open-response',
     category: 'kontekstual',
     prompt:
-      'Grafik biaya marjinal sebuah usaha dimodelkan $y=f(x)$. Grafik itu digeser $2$ satuan ke kanan dan $3$ satuan ke bawah. (a) Tuliskan rumus transformasinya. (b) Jika titik $(4,5)$ terletak pada grafik awal, tentukan titik padanannya pada grafik baru. (c) Jelaskan arti pergeseran itu dalam konteks biaya.',
+      'Grafik emisi harian sebuah pabrik (dalam ton) terhadap tingkat produksi dimodelkan $y=f(x)$. Grafik itu digeser $2$ satuan ke kanan dan $3$ satuan ke bawah. (a) Tuliskan rumus transformasinya. (b) Jika titik $(4,5)$ terletak pada grafik awal, tentukan titik padanannya pada grafik baru. (c) Jelaskan arti pergeseran itu dalam konteks emisi.',
     answer:
-      '(a) Geser ke kanan $2$ dan ke bawah $3$ memberi $y=f(x-2)-3$. (b) Titik $(4,5)$ berpindah menjadi $(4+2,\\,5-3)=(6,2)$. (c) Pergeseran ke kanan menunda terjadinya nilai biaya tertentu (muncul pada $x$ yang lebih besar), sedangkan pergeseran ke bawah menurunkan tingkat biaya marjinal secara keseluruhan, misalnya karena efisiensi atau perubahan struktur biaya.',
+      '(a) Geser ke kanan $2$ dan ke bawah $3$ memberi $y=f(x-2)-3$. (b) Titik $(4,5)$ berpindah menjadi $(4+2,\\,5-3)=(6,2)$. (c) Pergeseran ke kanan menunda tercapainya tingkat emisi tertentu (baru terjadi pada tingkat produksi yang lebih besar), sedangkan pergeseran ke bawah menurunkan tingkat emisi secara keseluruhan, misalnya karena teknologi yang lebih bersih atau penggunaan bahan bakar yang lebih efisien.',
     explanation:
       'Kunci: menulis transformasi $f(x-h)+k$, memindahkan titik dengan aturan $(a,b)\\to(a+h,b+k)$, lalu menafsirkan pergeseran secara kontekstual.',
     hints: [
@@ -248,8 +257,8 @@ export const transformasiFungsiQuestions: Question[] = [
     rubric: [
       'Menuliskan rumus transformasi $y=f(x-2)-3$',
       'Memetakan titik $(4,5)$ menjadi $(6,2)$',
-      'Menafsirkan geser kanan sebagai penundaan nilai biaya',
-      'Menafsirkan geser bawah sebagai penurunan biaya marjinal',
+      'Menafsirkan geser kanan sebagai penundaan tingkat emisi',
+      'Menafsirkan geser bawah sebagai penurunan tingkat emisi',
     ],
   },
   {

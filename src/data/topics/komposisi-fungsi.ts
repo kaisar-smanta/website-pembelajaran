@@ -13,7 +13,7 @@ export const komposisiFungsi: Topic = {
   summary:
     'Memahami komposisi dua fungsi, notasi $(f \\circ g)(x)$, syarat terdefinisi, operasi aljabar fungsi, dan kaitannya dengan invers.',
   description:
-    'Komposisi fungsi adalah proses merangkai dua fungsi: hasil fungsi pertama langsung menjadi masukan fungsi kedua. Topik ini membangun gagasan komposisi melalui model mesin dan diagram, menurunkan aturan $(f \\circ g)(x) = f(g(x))$, menelusuri syarat terdefinisi dan domain komposisi, memeriksa bahwa komposisi tidak komutatif tetapi asosiatif, serta menghubungkannya dengan fungsi invers melalui identitas $(f^{-1} \\circ f)(x)=x$.',
+    'Komposisi fungsi adalah proses merangkai dua fungsi: hasil fungsi pertama langsung menjadi masukan fungsi kedua. Topik ini membangun gagasan komposisi melalui model mesin dan diagram, menurunkan aturan $(f \\circ g)(x) = f(g(x))$, menelusuri syarat terdefinisi dan domain komposisi, memeriksa bahwa komposisi tidak komutatif tetapi asosiatif, serta menentukan invers dari suatu komposisi melalui sifat $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$.',
   keywords: [
     'komposisi fungsi',
     'f bundaran g',
@@ -36,7 +36,7 @@ export const komposisiFungsi: Topic = {
     { text: 'Peserta didik dapat melakukan operasi penjumlahan, pengurangan, perkalian, dan pembagian dua fungsi.' },
     { text: 'Peserta didik dapat menggunakan sifat $(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$ pada masalah sederhana.' },
   ],
-  applications: ['diskon-berlapis', 'konversi-mata-uang'],
+  applications: ['diskon-berlapis'],
   sections: [
     {
       id: "tujuan",
@@ -77,11 +77,11 @@ Jadi pembeli membayar $88\\%$ dari harga awal, yaitu setara diskon total $12\\%$
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Komposisi fungsi bertumpu pada keterampilan menyubstitusi dan menyederhanakan bentuk aljabar. Pastikan kamu sudah menguasai:
 - pengertian fungsi beserta domain dan range;
-- mensubstitusi bentuk aljabar, misalnya $f(x+1)$ untuk $f(x)=x^2$ menghasilkan $(x+1)^2$;
+- mensubstitusi bentuk aljabar, seperti $f(x+1)$ untuk $f(x)=x^2$ menghasilkan $(x+1)^2$;
 - menyederhanakan bentuk aljabar seperti $(x+3)^2-1$;
-- menyelesaikan pertidaksamaan linear sederhana, misalnya $2x+4 \\geq 0$.`,
+- menyelesaikan pertidaksamaan linear sederhana seperti $2x+4 \\geq 0$.`,
     },
     {
       id: "konteks",
@@ -111,6 +111,12 @@ sehingga komposisi **tidak komutatif**.`,
           variant: "concept",
           title: "Gagasan kunci",
           text: "Pada $(f \\circ g)(x)=f(g(x))$, fungsi yang ditulis lebih dekat ke $x$ (yaitu $g$) dikerjakan lebih dahulu. Urutan sangat menentukan hasil.",
+        },
+        {
+          kind: "figure",
+          alt: "Diagram panah tiga himpunan A, B, dan C. Fungsi f memetakan anggota A ke B, fungsi g memetakan anggota B ke C, dan komposisi g bundaran f memetakan A langsung ke C.",
+          caption: "Diagram panah: $f$ memetakan himpunan $A$ ke $B$, lalu $g$ memetakan $B$ ke $C$. Rangkaian keduanya, $g \\circ f$, memetakan $A$ langsung ke $C$.",
+          svg: '<svg viewBox="0 0 340 200" aria-hidden="true" role="presentation"><defs><marker id="fig-komp-map" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><ellipse cx="60" cy="95" rx="34" ry="58" fill="none" stroke="currentColor" stroke-width="1.4"/><ellipse cx="172" cy="95" rx="34" ry="58" fill="none" stroke="currentColor" stroke-width="1.4"/><ellipse cx="284" cy="95" rx="34" ry="58" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="56" y="22" font-size="13" fill="currentColor">A</text><text x="168" y="22" font-size="13" fill="currentColor">B</text><text x="280" y="22" font-size="13" fill="currentColor">C</text><circle cx="48" cy="62" r="2.8" fill="currentColor"/><circle cx="48" cy="128" r="2.8" fill="currentColor"/><text x="28" y="60" font-size="11" fill="currentColor">a1</text><text x="30" y="138" font-size="11" fill="currentColor">a2</text><circle cx="160" cy="52" r="2.8" fill="currentColor"/><circle cx="160" cy="95" r="2.8" fill="currentColor"/><circle cx="160" cy="138" r="2.8" fill="currentColor"/><text x="166" y="48" font-size="11" fill="currentColor">b1</text><text x="166" y="91" font-size="11" fill="currentColor">b2</text><text x="166" y="142" font-size="11" fill="currentColor">b3</text><circle cx="272" cy="62" r="2.8" fill="currentColor"/><circle cx="272" cy="128" r="2.8" fill="currentColor"/><text x="256" y="58" font-size="11" fill="currentColor">c1</text><text x="256" y="138" font-size="11" fill="currentColor">c2</text><line x1="57" y1="66" x2="150" y2="93" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-komp-map)"/><line x1="57" y1="124" x2="150" y2="55" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-komp-map)"/><line x1="169" y1="92" x2="262" y2="65" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-komp-map)"/><line x1="169" y1="49" x2="262" y2="124" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-komp-map)"/><text x="94" y="68" font-size="12" fill="currentColor">f</text><text x="208" y="56" font-size="12" fill="currentColor">g</text><path d="M 62,158 Q 172,208 282,158" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#fig-komp-map)"/><text x="150" y="199" font-size="12" fill="currentColor">g bundaran f</text></svg>',
         },
         {
           kind: "match",
@@ -248,19 +254,14 @@ Sebaliknya, $(g \\circ f)(x)=2\\sqrt{x}+4$ terdefinisi untuk $x \\geq 0$. Domain
     {
       id: "komposisi-invers",
       kind: "konsep",
-      title: "Komposisi dengan Fungsi Invers",
-      body: `Komposisi fungsi dengan inversnya menghasilkan fungsi identitas:
-
-$$(f \\circ f^{-1})(x) = x \\qquad \\text{dan} \\qquad (f^{-1} \\circ f)(x) = x.$$
-
-Untuk komposisi dua fungsi berlaku sifat penting berikut:
+      title: "Invers dari Komposisi",
+      body: `Saat dua fungsi dirangkai, kita dapat membalik seluruh rangkaian sekaligus. Untuk fungsi yang dapat dibalik berlaku
 
 $$(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}.$$
 
-Urutannya **berbalik**: invers dari $g$ dikerjakan lebih dahulu. Misalnya, jika $f(x)=3x+1$ dan $g(x)=x-2$, maka $(f \\circ g)(x)=3(x-2)+1=3x-5$ sehingga $(f \\circ g)^{-1}(x)=\\dfrac{x+5}{3}$.
-Dengan cara lain, $f^{-1}(x)=\\dfrac{x-1}{3}$ dan $g^{-1}(x)=x+2$, sehingga
-$$(g^{-1} \\circ f^{-1})(x) = g^{-1}\\!\\left(\\frac{x-1}{3}\\right) = \\frac{x-1}{3}+2 = \\frac{x+5}{3}.$$
-Hasilnya sama, membenarkan sifat tersebut.`,
+Urutannya **berbalik**: pada $f \\circ g$ fungsi $g$ dikerjakan lebih dahulu, sehingga pada inversnya $g^{-1}$ dikerjakan paling akhir. Identitas komposisi sebuah fungsi dengan inversnya, yaitu $(f^{-1} \\circ f)(x)=x$, dibahas tuntas pada topik **Fungsi Invers**; di sini kita fokus pada pembalikan suatu komposisi.
+
+Ambil $f(x)=x+1$ dan $g(x)=2x$. Maka $(f \\circ g)(x)=2x+1$ dengan invers $\\dfrac{x-1}{2}$, sedangkan $g^{-1}(x)=\\dfrac{x}{2}$ dan $f^{-1}(x)=x-1$ memberi $(g^{-1} \\circ f^{-1})(x)=\\dfrac{x-1}{2}$. Kedua hasil sama, seperti diharapkan. Contoh lengkapnya ada di bagian Contoh Terbimbing.`,
     },
     {
       id: "komposisi-fungsi-rumus",
@@ -297,31 +298,42 @@ $$D_{f \\circ g} = \\{\\, x \\in D_{g} : g(x) \\in D_{f} \\,\\}.$$
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kerjakan tiga contoh komposisi berikut satu langkah sekaligus.",
+          intro: "Kerjakan empat contoh komposisi berikut satu langkah sekaligus.",
           steps: [
             {
               title: "Contoh 1: dua rumus komposisi",
-              text: `Diketahui $f(x)=x+3$ dan $g(x)=x^2-1$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$.
+              text: `Diketahui $f(x)=x+3$ dan $g(x)=x^2-1$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$, lalu periksa salah satunya di $x=2$.
 
-*Penyelesaian.* Untuk $(f \\circ g)(x)=f(g(x))$, masukkan $g(x)$ ke $f$:
+*Penyelesaian.* Untuk $(f \\circ g)(x)=f(g(x))$, masukkan seluruh $g(x)$ ke dalam $f$:
 $$(f \\circ g)(x) = (x^2-1)+3 = x^2+2.$$
-Untuk $(g \\circ f)(x)=g(f(x))$, masukkan $f(x)$ ke $g$:
+Untuk $(g \\circ f)(x)=g(f(x))$, masukkan seluruh $f(x)$ ke dalam $g$:
 $$(g \\circ f)(x) = (x+3)^2-1 = x^2+6x+9-1 = x^2+6x+8.$$
-Kedua hasil berbeda, menegaskan komposisi tidak komutatif.`,
+Kedua hasil berbeda, menegaskan komposisi tidak komutatif. *Periksa* di $x=2$: $g(2)=3$ sehingga $f(3)=6$, dan $f(2)=5$ sehingga $g(5)=24$. Rumus memberi $(f \\circ g)(2)=4+2=6$ dan $(g \\circ f)(2)=4+12+8=24$. Cocok.`,
             },
             {
               title: "Contoh 2: nilai di satu titik",
-              text: `Diketahui $f(x)=2x+1$ dan $g(x)=x^2$. Tentukan $(f \\circ g)(2)$ dan $(g \\circ f)(2)$.
+              text: `Diketahui $f(x)=2x+1$ dan $g(x)=x^2$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$, lalu hitung nilainya di $x=-3$.
 
-*Penyelesaian.* Langsung dari definisi:
-- $(f \\circ g)(2)=f(g(2))=f(4)=2(4)+1=9$;
-- $(g \\circ f)(2)=g(f(2))=g(5)=5^2=25$.`,
+*Penyelesaian.* Susun dahulu rumusnya: $(f \\circ g)(x)=f(x^2)=2x^2+1$ dan $(g \\circ f)(x)=(2x+1)^2=4x^2+4x+1$.
+Di $x=-3$: $(f \\circ g)(-3)=2(9)+1=19$ dan $(g \\circ f)(-3)=4(9)+4(-3)+1=36-12+1=25$.
+*Periksa* dengan urutan langsung: $g(-3)=9$ lalu $f(9)=19$, sedangkan $f(-3)=-5$ lalu $g(-5)=25$. Nilai berbeda karena urutannya berbeda.`,
             },
             {
               title: "Contoh 3: komposisi dengan domain",
-              text: `Diketahui $f(x)=\\sqrt{x}$ dan $g(x)=2x+4$. Tentukan $(f \\circ g)(x)$ beserta domainnya.
+              text: `Diketahui $f(x)=\\sqrt{x}$ dan $g(x)=2x+4$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$ beserta domainnya.
 
-*Penyelesaian.* $(f \\circ g)(x)=f(2x+4)=\\sqrt{2x+4}$. Syarat di bawah akar tidak boleh negatif: $2x+4 \\geq 0 \\Rightarrow x \\geq -2$. Jadi domainnya adalah $x \\geq -2$.`,
+*Penyelesaian.* $(f \\circ g)(x)=f(2x+4)=\\sqrt{2x+4}$. Isi akar harus tidak negatif: $2x+4 \\geq 0 \\Rightarrow x \\geq -2$, jadi domain $(f \\circ g)$ adalah $x \\geq -2$.
+Sebaliknya $(g \\circ f)(x)=2\\sqrt{x}+4$ hanya terdefinisi ketika $x \\geq 0$, jadi domain $(g \\circ f)$ adalah $x \\geq 0$.
+*Periksa* di $x=-1$: bentuk $\\sqrt{2x+4}=\\sqrt{2}$ sah, sedangkan $2\\sqrt{x}+4$ tidak terdefinisi. Kedua domain memang berbeda.`,
+            },
+            {
+              title: "Contoh 4: membalik suatu komposisi",
+              text: `Diketahui $f(x)=x+3$ dan $g(x)=2x$. Tentukan $(f \\circ g)^{-1}(x)$ dengan dua cara, lalu periksa nilainya di $x=5$.
+
+*Penyelesaian.* Cara pertama, susun komposisinya: $(f \\circ g)(x)=f(2x)=2x+3$. Balik langsung: dari $y=2x+3$ diperoleh $x=\\dfrac{y-3}{2}$, sehingga $(f \\circ g)^{-1}(x)=\\dfrac{x-3}{2}$.
+Cara kedua, gunakan $(f \\circ g)^{-1}=g^{-1} \\circ f^{-1}$. Karena $f^{-1}(x)=x-3$ dan $g^{-1}(x)=\\dfrac{x}{2}$, maka
+$$(g^{-1} \\circ f^{-1})(x)=g^{-1}(x-3)=\\frac{x-3}{2}.$$
+Kedua cara memberi hasil sama. *Periksa* di $x=5$: $(f \\circ g)(5)=13$ dan $(f \\circ g)^{-1}(13)=\\dfrac{13-3}{2}=5$, kembali ke nilai semula.`,
             },
           ],
         },

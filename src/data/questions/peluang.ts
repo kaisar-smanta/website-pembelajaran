@@ -17,7 +17,11 @@ export const peluangQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Mata dadu prima adalah $\\{2, 3, 5\\}$, sehingga $n(A) = 3$ dari $n(S) = 6$ dan $P(A) = \\dfrac{3}{6} = \\dfrac{1}{2}$ (opsi D). Opsi A ($\\tfrac{1}{6}$) hanya menghitung satu mata prima. Opsi B ($\\tfrac{1}{3}$) memakai hanya dua mata prima. Opsi C ($\\tfrac{2}{3}$) menghitung empat mata, mungkin karena keliru memasukkan $1$ sebagai prima.',
-    hints: ['Bilangan prima terkecil adalah 2, jadi 1 bukan bilangan prima.'],
+    hints: [
+      'Bilangan prima terkecil adalah 2, jadi 1 bukan bilangan prima.',
+      'Mata prima pada dadu adalah $\\{2, 3, 5\\}$, ada $3$ dari $6$ hasil.',
+      'Hitung $\\dfrac{3}{6}$ lalu sederhanakan.',
+    ],
     competencies: ['peluang teoretis', 'ruang sampel'],
   },
   {
@@ -31,7 +35,11 @@ export const peluangQuestions: Question[] = [
     acceptedAnswers: ['1/3', '2/6', '0,33', '0.33', '0,333', '0.333', '0,3333', '0.3333'],
     explanation:
       'Mata dadu lebih dari 4 adalah $\\{5, 6\\}$ sehingga $n(A) = 2$. Jadi $P(A) = \\dfrac{2}{6} = \\dfrac{1}{3}$.',
-    hints: ['Tuliskan anggota kejadian, lalu bandingkan dengan $n(S) = 6$.'],
+    hints: [
+      'Tuliskan anggota kejadian, lalu bandingkan dengan $n(S) = 6$.',
+      'Mata dadu lebih dari $4$ adalah $\\{5, 6\\}$.',
+      'Hitung $\\dfrac{2}{6}$ lalu sederhanakan.',
+    ],
     competencies: ['peluang teoretis'],
   },
   {
@@ -251,7 +259,11 @@ export const peluangQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$ dengan dua hasil sama mungkin, sehingga $P(\\text{angka})=\\dfrac{1}{2}$ (opsi D). Opsi A ($\\tfrac{1}{4}$) keliru memakai ruang sampel empat hasil seperti dua koin. Opsi B ($\\tfrac{1}{3}$) menganggap ada tiga hasil sama mungkin. Opsi C ($\\tfrac{2}{3}$) menganggap sisi angka lebih mungkin daripada gambar.',
-    hints: ['Ada berapa hasil yang sama mungkin, dan berapa yang termasuk kejadian?'],
+    hints: [
+      'Ada berapa hasil yang sama mungkin, dan berapa yang termasuk kejadian?',
+      'Ruang sampelnya $\\{\\text{angka}, \\text{gambar}\\}$, yaitu dua hasil.',
+      'Kejadian angka adalah satu dari dua hasil, sehingga $P(\\text{angka}) = \\dfrac{1}{2}$.',
+    ],
     competencies: ['peluang teoretis', 'ruang sampel'],
   },
   {

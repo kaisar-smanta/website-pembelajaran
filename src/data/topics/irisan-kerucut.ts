@@ -73,8 +73,8 @@ Garis singgung adalah garis yang menyentuh kurva di tepat satu titik. Pada lingk
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- persamaan garis lurus dan gradien, misalnya $y = mx + c$;
+      body: `Topik ini menggabungkan koordinat, bentuk kuadrat, dan jarak, sehingga ketelitian aljabar sangat membantu. Bekal yang membantu di sini:
+- persamaan garis lurus dan gradien, seperti $y = mx + c$;
 - melengkapkan kuadrat sempurna, misalnya $x^{2} - 6x = (x-3)^{2} - 9$;
 - jarak dua titik dan teorema Pythagoras;
 - operasi bentuk akar dan pecahan.`,
@@ -97,7 +97,7 @@ $$(x-a)^{2} + (y-b)^{2} = r^{2}.$$
 
 Ini **bentuk baku**. Dari bentuk ini pusat dan jari-jari langsung terbaca.
 
-Misalnya:
+Contohnya:
 - $(x-2)^{2} + (y+3)^{2} = 16$ berpusat $(2,-3)$ dan berjari-jari $r = \\sqrt{16} = 4$;
 - $x^{2} + y^{2} = 49$ berpusat $(0,0)$ dan berjari-jari $r = 7$.
 
@@ -159,29 +159,11 @@ Persamaan lingkaran itu dapat ditulis kembali sebagai $(x-3)^{2} + (y+2)^{2} = 2
       id: "garis-singgung-lingkaran",
       kind: "rumus",
       title: "Garis Singgung Lingkaran",
-      body: `Garis singgung menyentuh lingkaran di **tepat satu titik** dan tegak lurus jari-jari di titik singgung itu.
-
-**Di titik pada lingkaran.** Untuk lingkaran $x^{2} + y^{2} = r^{2}$ yang berpusat di $(0,0)$, garis singgung di titik $(x_{1}, y_{1})$ pada lingkaran adalah
+      body: `Garis singgung lingkaran sudah dibahas tuntas pada topik **Lingkaran**, termasuk alasan garis singgung selalu tegak lurus jari-jari di titik singgungnya. Di sini kita cukup mengingat bentuk dasarnya: untuk lingkaran $x^{2} + y^{2} = r^{2}$ berpusat di titik asal, garis singgung di titik $(x_{1}, y_{1})$ pada lingkaran adalah
 
 $$x\\,x_{1} + y\\,y_{1} = r^{2}.$$
 
-Untuk lingkaran berpusat $(a,b)$, aturannya serupa:
-
-$$(x_{1}-a)(x-a) + (y_{1}-b)(y-b) = r^{2}.$$
-
-Sebagai ilustrasi, pada lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$:
-
-$$3x + 4y = 25.$$
-
-Periksa bahwa titik $(3,4)$ memenuhi: $3(3) + 4(4) = 9 + 16 = 25$. Benar.
-
-Contoh lain, pada lingkaran $(x-2)^{2} + (y-1)^{2} = 25$ di titik $(5,5)$ (yang memenuhi $(5-2)^{2} + (5-1)^{2} = 9 + 16 = 25$):
-
-$$3(x-2) + 4(y-1) = 25 \\quad\\Longrightarrow\\quad 3x + 4y = 35.$$
-
-**Bentuk umum.** Untuk $x^{2} + y^{2} + Dx + Ey + F = 0$, garis singgung di $(x_{1}, y_{1})$ pada lingkaran adalah
-
-$$x\\,x_{1} + y\\,y_{1} + \\frac{D(x + x_{1})}{2} + \\frac{E(y + y_{1})}{2} + F = 0.$$`,
+Pola inilah yang kita pakai ulang untuk elips: setiap suku pangkat dua diganti bentuk rata-rata di titik singgung, $x^{2} \\to x\\,x_{1}$ dan $y^{2} \\to y\\,y_{1}$. Jadi garis singgung elips mengikuti gagasan yang sama seperti garis singgung lingkaran.`,
     },
     {
       id: "elips",
@@ -310,6 +292,12 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
           caption: "Parabola $x^{2}=4py$: puncak di titik asal, fokus terletak pada sumbu simetri, dan direktriks berupa garis mendatar. Setiap titik pada parabola berjarak sama ke fokus dan ke direktriks.",
           svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="40" y1="130" x2="295" y2="130" stroke="currentColor" stroke-width="1"/><line x1="160" y1="15" x2="160" y2="205" stroke="currentColor" stroke-width="1"/><polyline points="70,62.5 100,100 130,122.5 160,130 190,122.5 220,100 250,62.5" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="85" y1="160" x2="235" y2="160" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="160" cy="130" r="3.5" fill="currentColor"/><circle cx="160" cy="100" r="3.5" fill="currentColor"/><text x="290" y="145" font-size="12" fill="currentColor">x</text><text x="166" y="20" font-size="12" fill="currentColor">y</text><text x="166" y="148" font-size="12" fill="currentColor">puncak</text><text x="166" y="96" font-size="12" fill="currentColor">fokus</text><text x="112" y="176" font-size="12" fill="currentColor">direktriks</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Hiperbola mendatar dua cabang terpisah, berpusat di tengah, dengan dua titik fokus pada sumbu mendatar dan dua garis asimtot putus-putus yang bersilangan di pusat.",
+          caption: "Hiperbola $\\dfrac{x^{2}}{9}-\\dfrac{y^{2}}{16}=1$: dua cabang terpisah, puncak $(\\pm 3,0)$, fokus $F_{1}(-5,0)$ dan $F_{2}(5,0)$, serta dua asimtot $y=\\pm\\dfrac{4}{3}x$ yang makin didekati cabang pada jarak jauh.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="64" y1="56" x2="256" y2="184" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><line x1="64" y1="184" x2="256" y2="56" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><polyline points="268.6,180.4 246,161.1 231.1,145.5 222.7,132.2 220,120 222.7,107.8 231.1,94.5 246,78.9 268.6,59.6" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="51.4,180.4 74,161.1 88.9,145.5 97.3,132.2 100,120 97.3,107.8 88.9,94.5 74,78.9 51.4,59.6" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="160" cy="120" r="3" fill="currentColor"/><circle cx="88" cy="120" r="3.5" fill="currentColor"/><circle cx="232" cy="120" r="3.5" fill="currentColor"/><text x="80" y="112" font-size="11" fill="currentColor">F&#8321;</text><text x="236" y="112" font-size="11" fill="currentColor">F&#8322;</text><text x="164" y="136" font-size="11" fill="currentColor">pusat</text><text x="198" y="86" font-size="11" fill="currentColor">asimtot</text></svg>',
+        },
       ],
     },
     {
@@ -320,7 +308,7 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
 
 $$\\frac{x\\,x_{1}}{a^{2}} + \\frac{y\\,y_{1}}{b^{2}} = 1.$$
 
-Misalnya, pada elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$. Periksa dahulu titik itu pada elips:
+Contohnya, pada elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$. Periksa dahulu titik itu pada elips:
 
 $$\\frac{16}{25} + \\frac{(9/5)^{2}}{9} = \\frac{16}{25} + \\frac{9}{25} = 1.$$
 
@@ -366,7 +354,7 @@ Pola ini meluas ke seluruh keluarga irisan kerucut. Setiap irisan kerucut dapat 
 
 $$c^{2}=a^{2}-b^{2}, \\qquad e=\\frac{c}{a}.$$
 
-Dari bentuk baku pula rumus garis singgung dibentuk: setiap suku pangkat dua diganti dengan bentuk rata-rata di titik singgung, misalnya $x^{2} \\to x\\,x_{1}$, sehingga menghasilkan rumus $x\\,x_{1}+y\\,y_{1}=r^{2}$ pada lingkaran.`,
+Dari bentuk baku pula rumus garis singgung dibentuk: setiap suku pangkat dua diganti dengan bentuk rata-rata di titik singgung, seperti $x^{2} \\to x\\,x_{1}$, sehingga menghasilkan rumus $x\\,x_{1}+y\\,y_{1}=r^{2}$ pada lingkaran.`,
     },
     {
       id: "contoh",
@@ -378,21 +366,37 @@ Dari bentuk baku pula rumus garis singgung dibentuk: setiap suku pangkat dua dig
           steps: [
             {
               title: "Contoh 1",
-              text: `Tentukan pusat dan jari-jari lingkaran $x^{2} + y^{2} - 6x + 4y - 12 = 0$.
+              text: `Tentukan pusat dan jari-jari lingkaran $x^{2} + y^{2} - 4x + 6y - 3 = 0$.
 
-*Penyelesaian.* Lengkapi kuadrat: $(x-3)^{2} - 9 + (y+2)^{2} - 4 - 12 = 0$, sehingga $(x-3)^{2} + (y+2)^{2} = 25$. Jadi pusatnya $(3,-2)$ dan $r = 5$.`,
+*Penyelesaian.* Lengkapi kuadrat: $(x-2)^{2} - 4 + (y+3)^{2} - 9 - 3 = 0$, sehingga $(x-2)^{2} + (y+3)^{2} = 16$. Jadi pusatnya $(2,-3)$ dan $r = \\sqrt{16} = 4$.`,
             },
             {
               title: "Contoh 2",
               text: `Tentukan garis singgung lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$.
 
-*Penyelesaian.* Dengan rumus $x\\,x_{1} + y\\,y_{1} = r^{2}$: $3x + 4y = 25$.`,
+*Penyelesaian.* Titik $(3,4)$ memenuhi $3^{2}+4^{2}=25$, jadi ia berada pada lingkaran. Dengan rumus $x\\,x_{1} + y\\,y_{1} = r^{2}$: $3x + 4y = 25$. Periksa: $3(3)+4(4)=9+16=25$. Benar.`,
             },
             {
               title: "Contoh 3",
-              text: `Tentukan pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas elips $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$.
+              text: `Tentukan pusat, fokus, sumbu mayor, sumbu minor, dan eksentrisitas elips $\\dfrac{(x-1)^{2}}{169} + \\dfrac{(y+2)^{2}}{25} = 1$.
 
-*Penyelesaian.* Pusat $(2,1)$, $a = 5$, $b = 4$, sehingga $c = \\sqrt{25-16} = 3$. Fokus $(-1,1)$ dan $(5,1)$; sumbu mayor $2a = 10$; sumbu minor $2b = 8$; eksentrisitas $e = \\dfrac{3}{5} = 0{,}6$.`,
+*Penyelesaian.* Pusat $(1,-2)$. Penyebut terbesar ada pada suku-$x$, jadi $a = 13$ dan $b = 5$, sehingga $c = \\sqrt{169-25} = 12$. Fokus $(1-12,-2)=(-11,-2)$ dan $(1+12,-2)=(13,-2)$; sumbu mayor $2a = 26$; sumbu minor $2b = 10$; eksentrisitas $e = \\dfrac{12}{13} \\approx 0{,}92$.`,
+            },
+            {
+              title: "Contoh 4: parabola",
+              text: `Tentukan puncak, fokus, dan direktriks parabola $x^{2} = 8(y-1)$, lalu periksa sifat fokus dan direktriks pada satu titik.
+
+*Penyelesaian.* Bandingkan dengan bentuk baku $x^{2} = 4p\\,(y-k)$, sehingga puncaknya $(h,k) = (0,1)$ dan $4p = 8$, yaitu $p = 2$. Parabola terbuka ke atas, jadi fokusnya $(0,\\,k+p) = (0,3)$ dan direktriksnya $y = k-p = -1$.
+
+Periksa titik $(4,3)$: ruas kiri $4^{2} = 16$ dan ruas kanan $8(3-1) = 16$, jadi titik itu berada pada parabola. Jaraknya ke fokus $(0,3)$ adalah $4$, dan jarak tegaknya ke direktriks $y = -1$ juga $4$. Sifat "jarak ke fokus sama dengan jarak ke direktriks" terpenuhi.`,
+            },
+            {
+              title: "Contoh 5: hiperbola",
+              text: `Tentukan puncak, fokus, dan asimtot hiperbola $\\dfrac{x^{2}}{9} - \\dfrac{y^{2}}{16} = 1$, lalu verifikasi definisinya.
+
+*Penyelesaian.* Bentuk bakunya $\\dfrac{x^{2}}{a^{2}} - \\dfrac{y^{2}}{b^{2}} = 1$ dengan $a = 3$ dan $b = 4$, sehingga kurva terbuka ke kiri dan ke kanan. Puncaknya $(\\pm 3, 0)$, sedangkan fokusnya $(\\pm c, 0)$ dengan $c^{2} = a^{2} + b^{2} = 9 + 16 = 25$, jadi $c = 5$ dan fokusnya $(-5,0)$ serta $(5,0)$. Asimtotnya $y = \\pm \\dfrac{b}{a}x = \\pm \\dfrac{4}{3}x$.
+
+Periksa definisi dengan titik $P\\left(5, \\tfrac{16}{3}\\right)$: substitusi memberi $\\dfrac{25}{9} - \\dfrac{(16/3)^{2}}{16} = \\dfrac{25}{9} - \\dfrac{16}{9} = 1$, jadi $P$ berada pada hiperbola. Jarak ke fokus dekat $F_{2}(5,0)$ adalah $PF_{2} = \\dfrac{16}{3}$, sedangkan jarak ke fokus jauh $F_{1}(-5,0)$ adalah $PF_{1} = \\sqrt{10^{2} + (16/3)^{2}} = \\dfrac{34}{3}$. Selisihnya $PF_{1} - PF_{2} = \\dfrac{34}{3} - \\dfrac{16}{3} = 6 = 2a$, sesuai definisi hiperbola.`,
             },
           ],
         },
@@ -521,7 +525,7 @@ $$PF_1+PF_2=2a.$$`,
             "Mengapa fokus elips selalu terletak pada sumbu mayor?",
             "Bagaimana kamu memeriksa bahwa sebuah titik benar-benar berada pada lingkaran atau elips sebelum menulis garis singgungnya?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu menentukan pusat, fokus, dan eksentrisitas irisan kerucut?",
         },
       ],
     },

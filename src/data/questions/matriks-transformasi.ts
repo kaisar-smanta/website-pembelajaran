@@ -58,7 +58,11 @@ export const matriksTransformasiQuestions: Question[] = [
     answer: '6',
     explanation:
       '$\\det = 2(3) - 0(0) = 6$. Determinan ini juga berarti luas bangun menjadi $6$ kali semula.',
-    hints: ['Untuk matriks diagonal, determinan adalah hasil kali entri diagonalnya.'],
+    hints: [
+      'Untuk matriks diagonal, determinan adalah hasil kali entri diagonalnya.',
+      'Kalikan $2$ dengan $3$.',
+      'Determinan ini juga berarti luas bangun menjadi $6$ kali semula.',
+    ],
     competencies: ['determinan matriks $2 \\times 2$'],
   },
   {
@@ -72,7 +76,11 @@ export const matriksTransformasiQuestions: Question[] = [
     answer: '-1',
     explanation:
       'Rotasi $90^\\circ$ memakai $(x,y)\\rightarrow(-y,x)$, sehingga $(3,1)\\rightarrow(-1,3)$. Jadi $a=-1$.',
-    hints: ['Gunakan matriks $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.'],
+    hints: [
+      'Gunakan matriks $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.',
+      'Kalikan matriks itu dengan vektor kolom $\\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$.',
+      'Rotasi memberi $(-y, x) = (-1, 3)$, sehingga $a = -1$.',
+    ],
     competencies: ['rotasi'],
   },
   {

@@ -42,7 +42,7 @@ Selisihnya sekitar **Rp1.908.477**, cukup untuk membeli laptop atau menambah dan
       'Kalau kamu hanya boleh menabung sekali dan tidak bisa menambah setoran, mengapa waktu menjadi sekutu terbaikmu?',
     ],
     source:
-      'Mengacu pada kisaran suku bunga tabungan dan deposito Bank Indonesia pada 2024 (sekitar 3–6% per tahun, angka dibulatkan); saldo dihitung sebagai contoh pembelajaran, bukan penawaran bank tertentu.',
+      'Mengacu pada kisaran suku bunga simpanan yang dipublikasikan Bank Indonesia (sekitar 3–6% per tahun pada 2024, dibulatkan); angka saldo murni contoh perhitungan untuk pembelajaran, bukan penawaran bank tertentu.',
   },
   {
     id: 'anuitas-pinjaman',
@@ -82,7 +82,7 @@ Total pembayaran $= 60 \\times 1.112.222{,}4 \\approx \\text{Rp}66.733.342$, seh
       'Jika kamu punya dana lebih, kapan pelunasan lebih awal paling menghemat bunga?',
     ],
     source:
-      'Mengikuti skema anuitas pada kredit kendaraan bermotor di Indonesia; suku bunga 12% per tahun (1% per bulan) berada dalam kisaran umum kredit motor, sedangkan pokok dan tenor dibulatkan untuk pembelajaran.',
+      'Mengacu pada praktik kredit kendaraan bermotor di Indonesia dengan skema anuitas; suku bunga 12% per tahun (1% per bulan) berada dalam kisaran umum, sedangkan pokok dan tenor dibulatkan untuk pembelajaran, bukan penawaran lembaga tertentu.',
   },
   {
     id: 'optimasi-produksi-bengkel',
@@ -115,45 +115,53 @@ Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian di
       'Jika suatu hari jam pemotongan ditambah menjadi 9 jam, apakah laba pasti ikut naik? Jelaskan.',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi: bengkel kayu fiktif dengan angka yang dirancang agar titik sudut daerah layak mudah dihitung; bentuk persoalannya mengikuti program linear usaha kecil pada umumnya.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: bengkel kayu fiktif yang dirancang agar titik sudut daerah layak mudah dihitung; bentuk persoalannya mengikuti program linear usaha kecil pada umumnya, bukan data usaha tertentu.',
   },
   {
     id: 'dana-pensiun',
-    title: 'Dana Pensiun: Kekuatan Menabung Lebih Awal',
+    title: 'Dana Pensiun: Setoran Awal Sekaligus atau Menabung Bulanan?',
     category: 'keuangan',
     element: 'bilangan',
     grade: 'XII',
     level: 'mahir',
     estimatedMinutes: 14,
     explorationId: 'anuitas-sim',
-    tags: ['nilai masa depan', 'anuitas', 'pensiun', 'investasi berkala', 'bunga majemuk'],
-    summary: 'Membandingkan setoran bulanan untuk target dana yang sama bila mulai lebih lambat.',
+    tags: ['nilai masa depan', 'nilai sekarang', 'anuitas', 'pensiun', 'bunga majemuk'],
+    summary:
+      'Membandingkan setoran tunggal di awal dengan setoran bulanan untuk target dana pensiun yang sama.',
     topicIds: ['pinjaman-investasi', 'anuitas', 'bunga-majemuk'],
-    body: `Seseorang ingin mengumpulkan **Rp500.000.000** saat pensiun dengan menabung jumlah tetap setiap bulan ke produk investasi yang memberi bunga **0,6% per bulan**. Ia punya dua skenario: mulai sekarang sehingga tersedia **25 tahun** (300 bulan), atau menunda sehingga hanya tersisa **15 tahun** (180 bulan).
+    body: `Seseorang ingin mengumpulkan **Rp500.000.000** untuk masa pensiun dari produk investasi yang memberi bunga **0,6% per bulan**. Ia mempertimbangkan dua cara:
 
-Target dananya sama, bunganya sama, yang berbeda hanya waktu. Menurutmu, seberapa besar perbedaan setoran bulanan antara kedua skenario, apakah dua kali atau lebih?
+- **Cara A:** menyetor jumlah tetap **setiap bulan** selama **25 tahun** (300 bulan).
+- **Cara B:** menyetor **sekaligus di awal** lalu membiarkannya berbunga selama 25 tahun.
 
-Karena setoran dilakukan berkala, nilai masa depannya mengikuti rumus nilai masa depan anuitas:
+Menurutmu, berapa setoran awal yang setara dengan menabung bulanan selama 25 tahun? Apakah dibutuhkan uang yang jauh lebih kecil, atau justru hampir sama?
 
-$$A = \\dfrac{FV \\cdot i}{(1+i)^{n}-1}.$$`,
-    analysis: `Gunakan rumus di atas dengan $FV = 500.000.000$ dan $i = 0{,}006$.
+Kedua cara memakai rumus yang berbeda. Untuk setoran bulanan dipakai nilai masa depan anuitas, sedangkan untuk setoran tunggal dipakai nilai sekarang dari target:
 
-- Mulai sekarang, $n = 300$: $(1{,}006)^{300} \\approx 6{,}017$, sehingga $A = \\dfrac{500.000.000 \\times 0{,}006}{6{,}017-1} = \\dfrac{3.000.000}{5{,}017} \\approx \\text{Rp}598.000$ per bulan.
-- Menunda menjadi $n = 180$: $(1{,}006)^{180} \\approx 2{,}935$, sehingga $A = \\dfrac{3.000.000}{1{,}935} \\approx \\text{Rp}1.550.000$ per bulan.
+$$A = \\dfrac{FV \\cdot i}{(1+i)^{n}-1}, \\qquad L = \\dfrac{FV}{(1+i)^{n}}.$$`,
+    analysis: `Gunakan $FV = 500.000.000$ dan $i = 0{,}006$, dengan $(1{,}006)^{300} \\approx 6{,}017$.
 
-Menunda 10 tahun membuat setoran bulanan naik dari sekitar Rp598.000 menjadi Rp1.550.000, yaitu **sekitar 2,6 kali lipat**. Artinya, selisih waktu jauh lebih menentukan daripada besarnya setoran: uang yang disetor lebih awal punya lebih banyak waktu untuk berbunga, sehingga setiap rupiah bekerja lebih keras. Bagi pelajar, kesimpulan praktisnya sederhana: mulai menabung sedini mungkin, sekalipun jumlahnya kecil.`,
+**Cara A (setoran bulanan).**
+$$A = \\dfrac{500.000.000 \\times 0{,}006}{6{,}017-1} = \\dfrac{3.000.000}{5{,}017} \\approx \\text{Rp}598.000 \\text{ per bulan}.$$
+Total setoran selama 300 bulan sekitar $300 \\times 598.000 = \\text{Rp}179.400.000$.
+
+**Cara B (setoran tunggal di awal).**
+$$L = \\dfrac{500.000.000}{6{,}017} \\approx \\text{Rp}83.100.000.$$
+
+Jadi setoran tunggal sekitar Rp83,1 juta setara dengan menabung Rp598 ribu setiap bulan selama 25 tahun, meskipun total setoran bulanan sampai Rp179,4 juta. Selisih lebih dari dua kali itu berasal dari waktu: uang yang ditanam sejak awal punya lebih banyak kesempatan berbunga, sehingga porsi hasil dari pertumbuhan membesar dibanding porsi dari setoran. Bagi pelajar, kesimpulan praktisnya sederhana: mulai menabung sedini mungkin, sekalipun jumlahnya kecil.`,
     takeaways: [
-      'Waktu menabung berpengaruh lebih besar daripada besarnya setoran.',
-      'Menunda 10 tahun bisa melipatgandakan setoran bulanan yang diperlukan untuk target yang sama.',
+      'Setoran tunggal di awal dan setoran bulanan yang konsisten dapat mencapai target yang sama, tetapi total nominalnya jauh berbeda.',
+      'Semakin lama uang ditanamkan, semakin besar porsi hasil yang berasal dari bunga, bukan dari setoran.',
       'Bunga majemuk memberi hasil terbesar pada dana yang ditanam paling lama.',
     ],
     reflection: [
-      'Mengapa menambah 10 tahun waktu menabung berdampak lebih besar daripada menambah nominal setoran bulanan?',
+      'Mengapa setoran tunggal sekitar Rp83 juta bisa setara dengan total setoran sekitar Rp179 juta yang dicicil selama 25 tahun?',
       'Jika setoran bulananmu sekarang kecil, apa cara paling masuk akal untuk mengimbanginya?',
-      'Bagaimana hasilnya berubah jika suku bunga bulanan turun menjadi 0,4%? Mana yang lebih sensitif, waktu atau suku bunga?',
+      'Jika suku bunga bulanan turun menjadi 0,4%, apakah setoran tunggal yang dibutuhkan menjadi lebih besar atau lebih kecil?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi dengan besaran realistis: imbal hasil 0,6% per bulan (setara sekitar 7,4% per tahun) dan target dana mengikuti produk investasi berkala pada umumnya; angka dibulatkan.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: imbal hasil 0,6% per bulan (setara sekitar 7,4% per tahun) mengikuti produk investasi berkala pada umumnya; target dana dan seluruh angka dibulatkan untuk pembelajaran, bukan janji hasil tertentu.',
   },
   {
     id: 'diskon-berlapis',
@@ -193,7 +201,7 @@ Sekarang urutannya penting: selisihnya **Rp10.000**. Kesimpulannya, selama semua
       'Bagaimana komposisi berubah jika setelah diskon masih dikenakan PPN 11%? Apakah urutan PPN memengaruhi harga akhir?',
     ],
     source:
-      'Pola diskon berlapis dan voucher nominal mengikuti praktik promosi ritel di Indonesia; harga dan nilai voucher dibulatkan sebagai contoh, bukan penawaran toko tertentu.',
+      'Skenario pengajaran yang dikonstruksi mengikuti praktik promosi ritel di Indonesia (diskon berlapis dan voucher nominal); harga serta nilai voucher dibulatkan sebagai contoh, bukan penawaran toko tertentu.',
   },
   {
     id: 'konversi-mata-uang',
@@ -234,7 +242,7 @@ Namun di dunia nyata, money changer memakai dua kurs sekaligus: **kurs beli** Rp
       'Dalam situasi apa biaya selisih kurs ini masih sepadan dengan kebutuhanmu?',
     ],
     source:
-      'Mengacu pada kisaran kurs USD/IDR sekitar Rp16.000 pada 2024 (kurs bergerak setiap saat); kurs beli dan kurs jual bank atau money changer disederhanakan serta dibulatkan untuk pembelajaran.',
+      'Mengacu pada kisaran kurs USD/IDR sekitar Rp16.000 pada 2024 (kurs bergerak setiap saat); kurs beli dan kurs jual bank atau money changer disederhanakan dan dibulatkan untuk pembelajaran.',
   },
   {
     id: 'ind-validasi-angsuran',
@@ -282,7 +290,7 @@ Bandingkan dengan pengujian beberapa bulan: memeriksa $n = 1, 2, 3$ memang menco
       'Jika kenaikan bulanan berubah menjadi Rp50.000, apa yang berubah pada pembuktiannya?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi: program simpanan koperasi fiktif dengan nominal yang dirancang agar rumus jumlah deretnya dapat dibuktikan lewat induksi matematika.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: program simpanan koperasi fiktif yang nominalnya dirancang agar rumus jumlah deret dapat dibuktikan lewat induksi matematika, bukan produk koperasi tertentu.',
   },
   {
     id: 'keputusan-pelunasan-utang',
@@ -333,6 +341,6 @@ Mengapa demikian? Bunga utang hanya dikenakan pada **saldo yang terus menurun**,
       'Faktor nonmatematis apa yang bisa membalikkan keputusanmu, misalnya risiko investasi atau denda pelunasan dipercepat?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi dengan besaran realistis: suku bunga pinjaman 1,5% per bulan dan imbal hasil 1,2% per bulan berada dalam kisaran produk yang umum; keputusan banding ini menyederhanakan risiko dan biaya tambahan, dengan angka dibulatkan.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: suku bunga pinjaman 1,5% per bulan dan imbal hasil 1,2% per bulan berada dalam kisaran produk yang umum; keputusan banding ini menyederhanakan risiko dan biaya tambahan, serta membulatkan angka.',
   },
 ];

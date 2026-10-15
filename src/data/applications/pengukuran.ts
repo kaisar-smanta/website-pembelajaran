@@ -9,7 +9,7 @@ export const pengukuranApplications: Application[] = [
     grade: 'X',
     level: 'dasar',
     estimatedMinutes: 8,
-    explorationId: 'trigonometri-gelombang',
+    explorationId: 'trigonometri-segitiga',
     tags: ['trigonometri', 'sudut elevasi', 'triangulasi', 'pengukuran', 'tangen'],
     summary: 'Menggunakan perbandingan trigonometri untuk mengukur tinggi objek dari jarak tertentu.',
     topicIds: ['trigonometri'],
@@ -26,17 +26,18 @@ Untuk menilai keandalan tiap posisi, kita hitung seberapa besar taksiran $h$ ber
 - Dari 50 m ($\\theta = 30^\\circ$, $\\sec^{2}30^\\circ = \\tfrac{4}{3}$): $\\Delta h \\approx 50 \\times \\tfrac{4}{3} \\times 0{,}01745 \\approx 1{,}16$ m.
 - Dari 100 m (sudut terukur hanya $16{,}1^\\circ$, $\\sec^{2}16{,}1^\\circ \\approx 1{,}083$): $\\Delta h \\approx 100 \\times 1{,}083 \\times 0{,}01745 \\approx 1{,}89$ m.
 
-Jadi posisi 100 m memberi galat hampir **1,6 kali** lebih besar, dan jarak dasarnya sendiri lebih sulit diukur tepat. Kesimpulannya, berdiri lebih dekat sehingga sudut elevasi lebih besar memberi taksiran yang lebih andal, selama menara masih terlihat dan sudut tidak mendekati $90^\\circ$. Metode ini disebut **triangulasi** dan dipakai pada survei serta navigasi. Inilah alasan juru ukur mengukur dari beberapa titik berbeda lalu membandingkan hasilnya, bukan hanya dari satu posisi.`,
+Jadi posisi 100 m memberi galat hampir **1,6 kali** lebih besar, dan jarak dasarnya sendiri lebih sulit diukur tepat. Kesimpulannya, berdiri lebih dekat sehingga sudut elevasi lebih besar memberi taksiran yang lebih andal, selama menara masih terlihat dan sudut tidak mendekati $90^\\circ$. Dengan kata lain, semakin besar sudut elevasi (selama masih terukur andal), semakin kecil pergeseran taksiran akibat galat sudut. Metode ini disebut **triangulasi** dan dipakai pada survei serta navigasi. Inilah alasan juru ukur mengukur dari beberapa titik berbeda lalu membandingkan hasilnya, bukan hanya dari satu posisi.`,
     takeaways: [
       'Satu sudut dan satu jarak cukup untuk menaksir tinggi lewat tangen.',
       'Hasil pengukuran bergantung pada asumsi yang dipakai.',
+      'Galat taksiran membesar ketika sudut elevasi makin kecil, sehingga pemilihan posisi ukur memengaruhi ketelitian.',
     ],
     reflection: [
       'Asumsi apa yang paling mudah dilanggar saat mengukur di lapangan?',
       'Bagaimana koreksi dilakukan jika tinggi mata pengamat tidak diabaikan?',
     ],
     source:
-      'Berdasarkan metode triangulasi yang dipakai juru ukur dan surveyor; jarak 50 m dan sudut 30° dipilih agar perhitungan tangen mudah, dengan angka dibulatkan.',
+      'Mengacu pada metode triangulasi yang dipakai juru ukur dan surveyor; jarak 50 m dan sudut 30° dipilih agar perhitungan tangen mudah, dengan angka dibulatkan dan bukan hasil pengukuran lapangan tertentu.',
   },
   {
     id: 'luas-juring-taman',
@@ -70,17 +71,18 @@ $$L = \\frac{120}{360} \\times \\frac{22}{7} \\times 6^{2} = \\frac{1}{3} \\time
 $$s = \\frac{120}{360} \\times 2 \\times \\frac{22}{7} \\times 6 = \\frac{1}{3} \\times 37{,}71 \\approx 12{,}57\\ \\text{m}.$$
 Luasnya memang masih di bawah 40 m², tetapi busurnya $12{,}57 > 12$ m sehingga **melebihi anggaran pagar**.
 
-Pelajaran dari keputusan ini: mengubah sudut dan jari-jari tidak mengubah luas dan busur dengan laju yang sama, sehingga memenuhi satu kendala belum tentu memenuhi kendala lain. Rancangan A dipilih karena lolos kedua anggaran sekaligus. Selain itu, sisi lurus taman (dua jari-jari) tidak dihitung sebagai busur, sehingga anggaran material harus memisahkan bagian lurus dan bagian lengkung.`,
+Pelajaran dari keputusan ini: mengubah sudut dan jari-jari tidak mengubah luas dan busur dengan laju yang sama, sehingga memenuhi satu kendala belum tentu memenuhi kendala lain. Rancangan A dipilih karena lolos kedua anggaran sekaligus. Mengubah jari-jari juga lebih berpengaruh daripada mengubah sudut, karena luas bergantung pada $r^{2}$ sedangkan panjang busur hanya pada $r$. Selain itu, sisi lurus taman (dua jari-jari) tidak dihitung sebagai busur, sehingga anggaran material harus memisahkan bagian lurus dan bagian lengkung.`,
     takeaways: [
       'Luas juring dan panjang busur sebanding dengan besar sudut pusat.',
       'Menghitung material berarti memisahkan bagian lurus dan bagian lengkung.',
+      'Luas bergantung pada kuadrat jari-jari sedangkan panjang busur hanya pada jari-jari, sehingga keduanya tidak berubah sebanding.',
     ],
     reflection: [
       'Bagaimana hasil berubah jika sudut juring diperbesar dua kali?',
       'Bagian taman mana yang paling mahal, dan mengapa?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti perancangan taman berbentuk juring pada praktik lansekap; ukuran dan anggaran dipilih agar luas, busur, dan biaya mudah dibandingkan.',
+      'Skenario pengajaran yang dikonstruksi mengikuti perancangan taman berbentuk juring pada praktik lansekap; ukuran dan anggaran dipilih agar luas, busur, dan biaya mudah dibandingkan, bukan proyek taman tertentu.',
   },
   {
     id: 'skala-logaritma',
@@ -109,7 +111,7 @@ Mengapa gempa bermagnitudo $7$ jauh lebih dahsyat daripada magnitudo $5$, padaha
       'Sebutkan besaran lain yang cocok diukur dengan skala logaritma.',
     ],
     source:
-      'Berdasarkan rumus skala magnitudo gempa (Richter) dan definisi pH; angka dibulatkan untuk pembelajaran dan bukan data satu peristiwa gempa tertentu.',
+      'Mengacu pada rumus skala magnitudo gempa (Richter) dan definisi pH; angka dibulatkan untuk pembelajaran dan bukan data satu peristiwa gempa tertentu.',
   },
   {
     id: 'lintasan-bola',
@@ -151,43 +153,53 @@ Model tetap memberi informasi lain yang berguna: bola kembali menyentuh tanah ke
       'Pada detik ke berapa bola menyentuh tanah, dan bagaimana kamu menghitungnya?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti model gerak parabola (peluru) dengan pengabaian hambatan udara; koefisien dipilih agar titik puncak mudah dihitung.',
+      'Mengacu pada model gerak parabola (peluru) dengan pengabaian hambatan udara; koefisien dipilih agar titik puncak mudah dihitung, bukan data tendangan nyata.',
   },
   {
     id: 'transformasi-matriks',
-    title: 'Menggeser dan Memutar Bentuk dengan Matriks',
+    title: 'Menaksir Perubahan Luas Lahan dengan Determinan Matriks',
     category: 'pengukuran',
     element: 'aljabar-fungsi',
     grade: 'XI',
     level: 'mahir',
     estimatedMinutes: 12,
     explorationId: 'matriks-transformasi',
-    tags: ['matriks', 'transformasi geometri', 'pencerminan', 'rotasi', 'determinan'],
-    summary: 'Menerapkan matriks transformasi pada koordinat bangun dan menaksir perubahan luasnya.',
+    tags: ['matriks', 'transformasi', 'determinan', 'luas', 'shear'],
+    summary: 'Menghubungkan determinan matriks dengan perubahan luas dan orientasi sebuah bangun.',
     topicIds: ['matriks'],
-    body: `Sebuah motif berbentuk segitiga memiliki titik sudut $A(1,1)$, $B(3,1)$, dan $C(1,2)$ pada bidang koordinat. Motif itu akan dicerminkan terhadap sumbu-$x$ dan juga diputar $90^\\circ$ berlawanan arah jarum jam. Kedua operasi ini dapat ditulis sebagai matriks:
+    body: `Sebuah petak lahan pada denah berbentuk persegi panjang dengan titik sudut $O(0,0)$, $P(4,0)$, $R(4,2)$, dan $S(0,2)$ (satuan meter), sehingga luasnya $8\\ \\text{m}^2$. Perencana ingin menguji tiga matriks transformasi pada denah itu:
 
-$$R = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}, \\qquad P = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}.$$
+$$T_1 = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}, \\quad T_2 = \\begin{pmatrix} 2 & 0 \\\\ 0 & 1 \\end{pmatrix}, \\quad T_3 = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}.$$
 
-Bagaimana menentukan koordinat bayangan setiap titik, dan apakah luas segitiga berubah setelah ditransformasi?`,
-    analysis: `Bayangan sebuah titik diperoleh dengan mengalikan matriks ke vektor kolom koordinatnya. Untuk titik $A(1,1)$:
+Pertanyaan pemicunya: matriks mana yang mengubah luas lahan, dan matriks mana yang hanya mengubah bentuk atau posisinya? Menebak dari "bentuk yang tampak berubah" saja tidak cukup; **determinan** memberi jawabannya, karena luas bangun berubah dengan faktor $|\\det T|$.`,
+    analysis: `Bayangan sebuah titik diperoleh dengan mengalikan matriks ke vektor kolom koordinatnya, misalnya untuk $P(4,0)$:
 
-$$R \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}, \\qquad P \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix}.$$
+$$T_1 \\begin{pmatrix} 4 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 0 \\end{pmatrix}, \\quad T_2 \\begin{pmatrix} 4 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 0 \\end{pmatrix}, \\quad T_3 \\begin{pmatrix} 4 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 0 \\\\ 4 \\end{pmatrix}.$$
 
-Melanjutkan cara yang sama, pencerminan memberi $A'(1,-1)$, $B'(3,-1)$, $C'(1,-2)$, sedangkan pemutaran memberi $A''(-1,1)$, $B''(-1,3)$, $C''(-2,1)$.
+Melanjutkan cara yang sama, seluruh titik sudut menjadi:
+- $T_1$: $O(0,0)$, $P(4,0)$, $R(6,2)$, $S(2,2)$.
+- $T_2$: $O(0,0)$, $P(8,0)$, $R(8,2)$, $S(0,2)$.
+- $T_3$: $O(0,0)$, $P(0,4)$, $R(2,4)$, $S(2,0)$.
 
-Determinan mengungkap sifat tiap transformasi. Untuk $R$, $\\det R = 1 \\cdot (-1) - 0 \\cdot 0 = -1$; untuk $P$, $\\det P = 0 \\cdot 0 - (-1)(1) = 1$. Nilai mutlak determinan yang sama dengan $1$ berarti **luas segitiga tidak berubah** pada kedua transformasi. Namun $\\det R$ bertanda negatif, menandakan orientasi bangun terbalik karena pencerminan, sedangkan $\\det P$ positif sehingga pemutaran mempertahankan orientasi.`,
+Determinannya:
+$$\\det T_1 = 1, \\qquad \\det T_2 = 2, \\qquad \\det T_3 = -1.$$
+
+Karena faktor pengali luas adalah $|\\det T|$:
+- $|\\det T_1| = 1$, sehingga $T_1$ (shear, transformasi gunting) **mempertahankan luas $8\\ \\text{m}^2$** meski bentuknya menjadi miring. Periksa dengan alas $4$ dan tinggi $2$: $4 \\times 2 = 8$.
+- $|\\det T_2| = 2$, sehingga luas menjadi $2 \\times 8 = 16\\ \\text{m}^2$ (persegi panjang $8 \\times 2$).
+- $|\\det T_3| = 1$, sehingga luas tetap $8\\ \\text{m}^2$ (persegi panjang $2 \\times 4$). Determinan negatif menandakan orientasi terbalik karena $T_3$ adalah pencerminan terhadap garis $y = x$.`,
     takeaways: [
-      'Pencerminan dan pemutaran pada bidang dapat dinyatakan sebagai perkalian matriks.',
-      'Nilai mutlak determinan adalah faktor pengali luas bangun.',
-      'Determinan negatif menandakan orientasi bangun terbalik.',
+      'Nilai mutlak determinan matriks $2 \\times 2$ adalah faktor pengali luas bangun.',
+      'Transformasi dengan $|\\det| = 1$, seperti rotasi, pencerminan, dan shear, tidak mengubah luas.',
+      'Tanda determinan menunjukkan apakah orientasi bangun terbalik.',
     ],
     reflection: [
-      'Mengapa pemutaran lalu pencerminan dapat memberi hasil berbeda dari urutan sebaliknya?',
-      'Transformasi seperti apa yang akan mengubah luas bangun, dan bergantung pada besaran apa?',
+      'Mengapa shear mengubah bentuk lahan tetapi tidak mengubah luasnya?',
+      'Transformasi dengan determinan berapa yang memperbesar luas, dan berapa yang mengecilkannya?',
+      'Apa arti tanda negatif pada determinan $T_3$ bagi arah denah?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti transformasi pada grafika komputer; koordinat segitiga dipilih agar hasil pencerminan dan pemutaran mudah diperiksa.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: petak lahan pada denah dipilih agar determinan matriks dan perubahan luasnya mudah diperiksa, bukan data pertanahan tertentu.',
   },
   {
     id: 'peta-dan-skala',
@@ -229,7 +241,7 @@ Bentuk akhirnya adalah $Y = a\\,f(X-h)+k$ dengan $a = \\frac{1}{2}$, $h = 1$, da
       'Bagaimana menentukan persamaan jalan jika peta diputar, bukan hanya digeser?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi berdasarkan peta berskala (misalnya peta desa berskala 1 : 20.000); jarak dan skala dipilih agar konversi mudah dihitung.',
+      'Mengacu pada peta berskala (misalnya peta desa berskala 1 : 20.000); jarak dan skala dipilih agar konversi mudah dihitung, bukan peta wilayah tertentu.',
   },
   {
     id: 'tgeo-motif-batik',
@@ -268,7 +280,7 @@ Karena $\\lvert\\det(SR)\\rvert = \\lvert 0 \\cdot 0 - (-2)(2)\\rvert = 4$, luas
       'Mengapa penggandaan motif lebih efisien memakai matriks gabungan?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti penataan motif batik dengan transformasi pada bidang koordinat; koordinat dipilih agar matriks gabungan dan luasnya mudah diperiksa.',
+      'Skenario pengajaran yang dikonstruksi mengikuti penataan motif batik dengan transformasi pada bidang koordinat; koordinat dipilih agar matriks gabungan dan luasnya mudah diperiksa, bukan motif atau pengrajin tertentu.',
   },
   {
     id: 'ktk-optimasi-pagar-taman',
@@ -312,6 +324,6 @@ Cara ini menghemat langkah dibandingkan memeriksa satu per satu nilai $x$. Nilai
       'Sebutkan satu situasi lain yang dapat dioptimalkan dengan pola yang sama.',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti desain taman berpagar di lahan yang berbatas dinding; panjang pagar dan harga dipilih agar kesamaan AM-GM mudah diterapkan.',
+      'Skenario pengajaran yang dikonstruksi mengikuti desain taman berpagar di lahan yang berbatas dinding; panjang pagar dan harga dipilih agar kesamaan AM-GM mudah diterapkan, bukan proyek tertentu.',
   },
 ];

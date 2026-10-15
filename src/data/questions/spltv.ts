@@ -17,7 +17,10 @@ export const spltvQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Jumlahkan ketiga persamaan: $2(x+y+z)=10+12+8=30$, sehingga $x+y+z=15$. Karena $y+z=12$, maka $x=15-12=3$. Opsi $5$ berasal dari $15/3$ (menganggap semua variabel sama), opsi $6$ dari menghitung $2x$ tanpa membagi $2$, dan opsi $7$ sebenarnya nilai $y$.',
-    hints: ['Jumlahkan ketiga persamaan untuk memperoleh $x+y+z$.'],
+    hints: [
+      'Jumlahkan ketiga persamaan untuk memperoleh $x+y+z$.',
+      'Jika $x+y+z=15$ dan $y+z=12$, kurangkan keduanya untuk mendapat $x$.',
+    ],
     competencies: ['SPLTV', 'eliminasi'],
   },
   {
@@ -37,7 +40,10 @@ export const spltvQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Kurangkan persamaan kedua dengan pertama: $x=3$. Kurangkan persamaan ketiga dengan pertama: $z=2$. Maka $y=9-3-2=4$. Solusinya $(3,4,2)$ dan memenuhi ketiga persamaan. Opsi B $(4,3,2)$ menukar nilai $x$ dan $y$. Opsi C $(3,2,4)$ menukar nilai $y$ dan $z$. Opsi D $(2,4,3)$ menukar nilai $x$ dan $z$.',
-    hints: ['Kurangkan pasangan persamaan untuk menghilangkan satu variabel.'],
+    hints: [
+      'Kurangkan pasangan persamaan untuk menghilangkan satu variabel.',
+      'Kurangkan persamaan pertama dari kedua dan ketiga untuk memperoleh $x$ dan $z$.',
+    ],
     competencies: ['eliminasi SPLTV'],
   },
   {
@@ -70,7 +76,10 @@ export const spltvQuestions: Question[] = [
     answer: '2',
     acceptedAnswers: ['2'],
     explanation: '$x+(x+1)+2x=9 \\Rightarrow 4x+1=9 \\Rightarrow 4x=8 \\Rightarrow x=2$.',
-    hints: ['Substitusikan $y$ dan $z$ dalam bentuk $x$.'],
+    hints: [
+      'Substitusikan $y$ dan $z$ dalam bentuk $x$.',
+      'Persamaan menjadi $x+(x+1)+2x=9$; kumpulkan suku-suku $x$.',
+    ],
     competencies: ['substitusi SPLTV'],
   },
   {

@@ -50,7 +50,7 @@ Teorema sisa memberi nilai laba tanpa pembagian penuh: $P(6) = 6$, yaitu sekitar
       'Apakah "memproduksi sebanyak mungkin" selalu memaksimumkan laba pada model ini?',
     ],
     source:
-      'Contoh pengajaran pemodelan laba polinomial; struktur biaya tetap dan variabel mengikuti pola usaha kecil, dengan angka dipilih agar akarnya bulat. Bukan data perusahaan tertentu.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: model laba polinomial usaha kecil dengan struktur biaya tetap dan variabel, angka dipilih agar akarnya bulat; bukan data perusahaan tertentu.',
   },
   {
     id: 'mtl-gerak-kecepatan',
@@ -89,7 +89,7 @@ Bagian kedua bernilai negatif karena bola sudah bergerak turun. Maka jarak tempu
       'Bagaimana caramu menentukan batas pemisah sebelum menghitung jarak total?',
     ],
     source:
-      'Contoh pengajaran gerak vertikal tanpa hambatan udara dengan percepatan gravitasi dibulatkan 10 m/detik²; angka dipilih agar integralnya bulat.',
+      'Mengacu pada model gerak vertikal tanpa hambatan udara dengan percepatan gravitasi dibulatkan 10 m/s²; angka dipilih agar integralnya bulat, bukan data percobaan tertentu.',
   },
   {
     id: 'mtl-transformasi-citra',
@@ -129,7 +129,7 @@ Matriks hasil $\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$ mewakili penc
       'Mengapa prosesor grafika lebih memilih perkalian matriks daripada hitungan manual?',
     ],
     source:
-      'Contoh pengajaran operasi baku grafika komputer; matriks rotasi 90 derajat dan matriks refleksi adalah rumus standar, bukan data dari perangkat lunak tertentu.',
+      'Mengacu pada matriks rotasi dan refleksi baku yang dipakai dalam grafika komputer; angka dipilih agar hasil komposisinya mudah diperiksa, bukan data perangkat lunak tertentu.',
   },
   {
     id: 'mtl-navigasi-vektor',
@@ -172,7 +172,7 @@ Perhitungan ini memanfaatkan identitas sudut berpelurus dan nilai sudut istimewa
       'Bagaimana arah resultan berubah bila haluan kedua diperbesar?',
     ],
     source:
-      'Contoh pengajaran navigasi dengan aturan sinus dan kosinus; pola haluan dan jarak mengikuti latihan navigasi umum, bukan log pelayaran tertentu.',
+      'Mengacu pada penggunaan aturan sinus dan kosinus dalam navigasi; pola haluan dan jarak mengikuti latihan navigasi umum, bukan log pelayaran tertentu.',
   },
   {
     id: 'mtl-antena-elips',
@@ -210,7 +210,7 @@ Karena penyebut $169$ menempel pada suku $x$, sumbu mayor elips ini sejajar sumb
       'Bagaimana posisi fokus berubah jika sumbu mayor dan minor ditukar?',
     ],
     source:
-      'Contoh pengajaran berbasis bentuk baku elips pada rancangan reflektor; angka dipilih agar fokus bernilai bulat, bukan spesifikasi produk tertentu.',
+      'Mengacu pada bentuk baku persamaan elips pada rancangan reflektor; angka dipilih agar fokus bernilai bulat, bukan spesifikasi produk tertentu.',
   },
   {
     id: 'mtl-ekspektasi-risiko',
@@ -251,7 +251,7 @@ Perhatikan juga peluang merugi: hasil terendah adalah $X = 0$ dengan peluang $0{
       'Ukuran tambahan apa yang membantu memahami risiko di luar simpangan baku?',
     ],
     source:
-      'Contoh pengajaran distribusi laba harian; rentang nilai dan peluangnya menggambarkan usaha mikro secara ilustratif, bukan hasil survei tertentu.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: distribusi laba harian usaha mikro; rentang nilai dan peluang bersifat ilustratif, bukan hasil survei tertentu.',
   },
   {
     id: 'mtl-limit-kadar-obat',
@@ -297,7 +297,7 @@ Jadi pada jam ke-$2$ kadar bertambah sekitar $1$ mg/L per jam. Bentuk tak tentu 
       'Bagaimana grafik $C(t)$ menjelaskan bahwa kadar tidak pernah melampaui $8$ mg/L?',
     ],
     source:
-      'Contoh pengajaran model farmakokinetik satu kompartemen yang disederhanakan; nilai kadar dan waktu dipilih agar limitnya mudah dihitung, bukan data uji klinis.',
+      'Mengacu pada model farmakokinetik satu kompartemen yang disederhanakan (kadar menuju keadaan tunak); nilai kadar dan waktu dipilih agar limitnya mudah dihitung, bukan data uji klinis.',
   },
   {
     id: 'mtl-binomial-kendali-mutu',
@@ -343,7 +343,7 @@ Karena menyebar normal secara kasar, menemukan $4$ cacat (jauh di atas rata-rata
       'Ukuran apa yang lebih meyakinkan untuk menilai klaim, rata-rata atau peluang kejadian ekstrem?',
     ],
     source:
-      'Contoh pengajaran kendali mutu statistik; tingkat cacat 5% dan ukuran sampel 20 adalah besaran latihan yang wajar, bukan hasil audit nyata.',
+      'Skenario pengajaran yang dikonstruksi mengikuti gagasan pengambilan sampel pada kendali mutu (misalnya standar penerimaan ISO/SNI); tingkat cacat 5% dan ukuran sampel 20 adalah besaran latihan yang wajar, bukan hasil audit nyata.',
   },
   {
     id: 'mtl-radar-lingkaran',
@@ -358,7 +358,7 @@ Karena menyebar normal secara kasar, menemukan $4$ cacat (jauh di atas rata-rata
     tags: ['lingkaran', 'persamaan lingkaran', 'garis singgung', 'jangkauan', 'radar'],
     summary:
       'Menentukan pusat, jari-jari, dan garis singgung lingkaran jangkauan dari tiga titik yang dilalui batasnya.',
-    topicIds: ['irisan-kerucut'],
+    topicIds: ['lingkaran', 'irisan-kerucut'],
     body: `Batas jangkauan sebuah pemancar berbentuk lingkaran dan melewati tiga titik pengukur: $A(0,0)$, $B(8,0)$, dan $C(0,6)$ (satuan kilometer pada denah). Tentukan persamaan lingkaran jangkauan, lalu tentukan persamaan jalan lurus yang menyinggung batas itu di titik $B$.
 
 Tiga titik yang tidak segaris menentukan satu lingkaran. Karena $A$, $B$, dan $C$ membentuk sudut siku-siku di $A$, lingkaran itu berpusat di titik tengah sisi miring $BC$, petunjuk yang mempercepat penentuan pusat dan jari-jari sebelum menulis persamaannya.`,
@@ -384,7 +384,7 @@ Sebagai pemeriksaan, $B$ memenuhi $4(8) - 3(0) = 32$. Sebuah titik $(x,y)$ berad
       'Apa arti pertidaksamaan $(x-4)^{2}+(y-3)^{2} \\le 25$ bagi keputusan pemasangan alat?',
     ],
     source:
-      'Contoh pengajaran persamaan lingkaran melalui tiga titik; tata letak sensor adalah skenario rancangan dengan angka pilihan, bukan denah proyek nyata.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: persamaan lingkaran melalui tiga titik untuk tata letak sensor; koordinat dipilih agar pusat, jari-jari, dan garis singgungnya mudah dihitung, bukan denah proyek nyata.',
   },
   {
     id: 'mtl-integral-luas-daerah',
@@ -422,11 +422,11 @@ Jadi kain yang diperlukan sekitar $6{,}93\\ \\text{m}^{2}$; dalam praktik ditamb
       'Kapan simetri daerah boleh dipakai untuk menyederhanakan integral?',
     ],
     source:
-      'Contoh pengajaran luas daerah antara dua kurva; profil kanopi dimodelkan sebagai parabola sederhana dengan angka pilihan, bukan hasil pengukuran lapangan.',
+      'Mengacu pada konsep luas daerah antara dua kurva pada buku kalkulus tingkat SMA; profil kanopi dimodelkan sebagai parabola sederhana dengan angka pilihan, bukan hasil pengukuran lapangan.',
   },
   {
     id: 'mtl-skala-logaritma',
-    title: 'Skala Desibel dan pH: Mengukur dengan Logaritma',
+    title: 'Skala Desibel: Mengukur Kebisingan dengan Logaritma',
     category: 'pengukuran',
     subject: 'matematika-lanjut',
     element: 'aljabar-fungsi',
@@ -434,31 +434,32 @@ Jadi kain yang diperlukan sekitar $6{,}93\\ \\text{m}^{2}$; dalam praktik ditamb
     level: 'cakap',
     estimatedMinutes: 11,
     explorationId: 'logaritma-fungsi',
-    tags: ['fungsi logaritma', 'desibel', 'pH', 'skala logaritmik', 'pemodelan'],
+    tags: ['fungsi logaritma', 'desibel', 'intensitas bunyi', 'skala logaritmik', 'pemodelan'],
     summary:
-      'Membaca taraf intensitas bunyi dan keasaman larutan melalui fungsi logaritma, termasuk menafsirkan arti penambahan sedikit pada nilai logaritma.',
+      'Membaca taraf intensitas bunyi pada skala desibel dan menghitung pengaruh penggandaan sumber bunyi.',
     topicIds: ['fungsi-logaritma'],
-    body: `Taraf intensitas bunyi (desibel) dan tingkat keasaman (pH) adalah besaran yang diukur pada **skala logaritmik**, bukan linear. Taraf intensitas bunyi didefinisikan
+    body: `Taraf intensitas bunyi (desibel) diukur pada **skala logaritmik**, bukan linear. Tarafnya didefinisikan
 $$L = 10\\log_{10}\\!\\left(\\frac{I}{I_0}\\right)\\ \\text{dB},$$
-dengan $I_0 = 10^{-12}\\ \\text{W/m}^2$. Sebuah mesin menghasilkan intensitas $I = 10^{-5}\\ \\text{W/m}^2$. Berapa taraf intensitasnya, dan berapa kenaikan taraf bila intensitas bunyi menjadi dua kali lipat?
+dengan $I_0 = 10^{-12}\\ \\text{W/m}^2$ sebagai ambang pendengaran. Sebuah mesin menghasilkan intensitas $I = 10^{-5}\\ \\text{W/m}^2$.
 
-Keasaman diukur dengan $\\text{pH} = -\\log_{10}[\\text{H}^{+}]$. Nilai $\\text{H}^{+}$ yang berubah sepuluh kali lipat hanya mengubah pH sebesar satu satuan. Inilah sebabnya skala logaritma dipakai: rentangnya sangat lebar sehingga lebih ringkas dinyatakan dalam pangkat.`,
-    analysis: `**Taraf intensitas mesin.** Rasio intensitasnya
+Pertanyaan pemicunya: berapa taraf intensitas mesin itu, mengapa menambah satu mesin identik tidak menggandakan nilainya dalam desibel, dan berapa mesin yang dibutuhkan agar tarafnya menembus $80$ dB?`,
+    analysis: `**Taraf satu mesin.** Rasio intensitasnya
 $$\\frac{I}{I_0} = \\frac{10^{-5}}{10^{-12}} = 10^{7}.$$
 Maka
 $$L = 10\\log_{10}(10^{7}) = 10 \\cdot 7 = 70\\ \\text{dB},$$
 yakni setara percakapan ramai.
 
-**Ketika intensitas dua kali lipat.** Karena $\\log_{10}2 \\approx 0{,}30$,
+**Dua mesin identik.** Intensitas total menjadi $2I$, sehingga
 $$\\Delta L = 10\\log_{10}\\!\\left(\\frac{2I}{I}\\right) = 10\\log_{10}2 \\approx 3{,}0\\ \\text{dB}.$$
-Jadi menggandakan intensitas fisik hanya menambah sekitar $3$ dB, bukan dua kali nilai desibelnya. Sifat ini muncul karena logaritma mengubah perkalian menjadi penjumlahan: kelipatan besar pada intensitas menjadi tambahan kecil pada skala desibel.
+Taraf totalnya hanya $70 + 3 = 73\\ \\text{dB}$, bukan $140$ dB. Logaritma mengubah **perkalian** intensitas menjadi **penjumlahan** taraf.
 
-**Keasaman.** Larutan dengan $[\\text{H}^{+}] = 10^{-3}\\ \\text{M}$ memiliki $\\text{pH} = -\\log_{10}(10^{-3}) = 3$, sedangkan larutan yang keasamannya sepuluh kali lebih lemah, $[\\text{H}^{+}] = 10^{-4}$, memiliki $\\text{pH} = 4$.`,
+**Menembus 80 dB.** Misalkan $n$ mesin identik dipakai, maka intensitas total $nI$ dan
+$$L_n = 70 + 10\\log_{10} n.$$
+Agar $L_n \\ge 80$, perlu $10\\log_{10} n \\ge 10$, yaitu $\\log_{10} n \\ge 1$ atau $n \\ge 10$. Jadi dibutuhkan **10 mesin identik** untuk menembus $80$ dB. Menambah sumber bunyi secara berlipat hanya menaikkan taraf sedikit; inilah alasan kebisingan diukur dengan skala logaritma.`,
     takeaways: [
-      'Skala logaritma memampatkan rentang nilai yang sangat lebar menjadi bilangan yang mudah dibaca.',
+      'Skala logaritma memampatkan rentang intensitas yang sangat lebar menjadi bilangan yang mudah dibaca.',
       'Logaritma mengubah perkalian intensitas menjadi penjumlahan taraf.',
-      'Menggandakan intensitas menambah sekitar 3 dB, bukan melipatgandakan nilainya.',
-      'pH turun satu satuan setiap kenaikan sepuluh kali konsentrasi ion hidrogen.',
+      'Menggandakan intensitas menambah sekitar 3 dB, sedangkan menaikkan 10 dB berarti intensitas sepuluh kali lipat.',
     ],
     reflection: [
       'Mengapa menambah 10 dB berarti intensitas naik sepuluh kali, bukan bertambah sedikit?',
@@ -466,7 +467,7 @@ Jadi menggandakan intensitas fisik hanya menambah sekitar $3$ dB, bukan dua kali
       'Mengapa skala logaritmik cocok untuk besaran dengan rentang sangat lebar?',
     ],
     source:
-      'Contoh pengajaran skala logaritmik; rumus desibel dan pH adalah baku. Nilai intensitas dan konsentrasi dipilih bulat agar logaritmanya mudah, bukan hasil pengukuran laboratorium tertentu.',
+      'Mengacu pada definisi baku taraf intensitas bunyi (desibel) dan ambang pendengaran 10^-12 W/m^2; nilai intensitas dipilih bulat agar logaritmanya mudah dihitung, bukan hasil pengukuran laboratorium tertentu.',
   },
   {
     id: 'mtl-biaya-rata-rasional',
@@ -511,7 +512,7 @@ Jadi grafik $\\bar{C}$ memiliki asimtot datar $y = 40.000$, yaitu biaya variabel
       'Pada tingkat produksi berapa biaya rata-rata sudah cukup dekat dengan Rp40.000?',
     ],
     source:
-      'Skenario pengajaran biaya usaha dengan angka bulat; struktur biaya tetap dan variabel realistis, tetapi bukan laporan keuangan usaha tertentu.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis: biaya usaha dengan struktur biaya tetap dan variabel; angka bulat dipilih agar perilaku asimtot mudah dibaca, bukan laporan keuangan usaha tertentu.',
   },
   {
     id: 'mtl-kendali-mutu-normal',
@@ -555,7 +556,7 @@ Jadi sekitar $2{,}3\\%$ botol terlalu sedikit terisi dan perlu ditolak.
       'Mengapa model normal masuk akal untuk volume isi yang berasal dari banyak faktor kecil?',
     ],
     source:
-      'Skenario pengajaran kendali mutu; volume isi dan simpangan baku dipilih bulat agar skor bakunya mudah. Nilai peluang memakai kaidah empiris distribusi normal baku.',
+      'Skenario pengajaran yang dikonstruksi mengikuti kendali mutu statistik (model normal dan kaidah empiris); volume isi dan simpangan baku dipilih bulat agar skor bakunya mudah, bukan hasil pengukuran satu mesin tertentu.',
   },
   {
     id: 'mtl-triangulasi-jarak',
@@ -603,6 +604,6 @@ Sebagai pemeriksaan, aturan kosinus pada segitiga yang sama, $AC^2 = 120^2 + 153
       'Praktik pengukuran mana yang paling menentukan ketelitian hasil: panjang garis dasar atau ketelitian sudut?',
     ],
     source:
-      'Skenario pengajaran triangulasi dengan angka bulat; garis dasar dan sudut ukur realistis, tetapi bukan data survei lapangan tertentu.',
+      'Mengacu pada metode triangulasi dengan garis dasar dan dua sudut ukur; garis dasar dan sudut realistis, tetapi bukan data survei lapangan tertentu.',
   },
 ];

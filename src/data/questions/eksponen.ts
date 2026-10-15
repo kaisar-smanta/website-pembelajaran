@@ -17,7 +17,10 @@ export const eksponenQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Karena basisnya sama, eksponen dijumlahkan: $2^{3} \\cdot 2^{5} = 2^{3+5} = 2^{8}$. Basis tidak berubah. Opsi A mengalikan eksponen ($3\\times5$); opsi B mengurangi eksponen ($5-3$); opsi C mengalikan basis menjadi $4$ sambil menjumlahkan eksponen.',
-    hints: ['Jika basis sama dan dikalikan, apa yang terjadi pada eksponennya?'],
+    hints: [
+      'Jika basis sama dan dikalikan, apa yang terjadi pada eksponennya?',
+      'Eksponen dijumlahkan, sedangkan basisnya tetap $2$.',
+    ],
     competencies: ['sifat eksponen'],
   },
   {
@@ -36,7 +39,11 @@ export const eksponenQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Pangkat negatif berarti kebalikan: $2^{-3} = \\dfrac{1}{2^{3}} = \\dfrac{1}{8}$. Tanda menjadi negatif hanya jika basisnya negatif dan eksponennya ganjil. Opsi B mengabaikan tanda negatif dan menghitung $2^{3}$. Opsi A membawa tanda negatif pangkat ke hasil sehingga menulis $-0{,}125$. Opsi C selain memberi tanda negatif juga keliru menghitung kebalikannya menjadi $-0{,}25$.',
-    hints: ['Pangkat negatif bukan berarti hasilnya bilangan negatif.'],
+    hints: [
+      'Pangkat negatif bukan berarti hasilnya bilangan negatif.',
+      'Ubah $2^{-3}$ menjadi $\\dfrac{1}{2^{3}}$ terlebih dahulu.',
+      'Hitung nilai $2^{3}$, lalu balik menjadi pecahan.',
+    ],
     competencies: ['pangkat negatif'],
   },
   {
@@ -49,7 +56,11 @@ export const eksponenQuestions: Question[] = [
     answer: '8',
     explanation:
       '$16^{3/4} = (2^{4})^{3/4} = 2^{4 \\cdot 3/4} = 2^{3} = 8$.',
-    hints: ['Tulis 16 sebagai $2^{4}$ terlebih dahulu.'],
+    hints: [
+      'Tulis 16 sebagai $2^{4}$ terlebih dahulu.',
+      'Gunakan sifat $(a^{m})^{n}=a^{m\\cdot n}$ pada $2^{4}$.',
+      'Kalikan pangkat $4$ dengan pecahan $\\dfrac{3}{4}$.',
+    ],
     competencies: ['pangkat pecahan'],
   },
   {

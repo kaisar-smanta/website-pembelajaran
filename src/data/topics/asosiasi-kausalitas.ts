@@ -68,7 +68,7 @@ Sebelum menuduh es krim sebagai penyebab, pikirkan apa yang sama-sama berubah pa
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Topik ini menuntut kejelian membaca data, jadi segarkan dahulu bekal berikut:
 
 - membaca arah dan kekuatan hubungan dari diagram pencar;
 - menafsirkan koefisien korelasi $r$: positif, negatif, kuat, lemah;
@@ -212,6 +212,12 @@ Jadi ukuran sepatu tidak menyebabkan kemampuan membaca; usia adalah variabel per
           title: "Hati-hati",
           text: "Variabel perancu tidak selalu terlihat di data. Ia bisa tersembunyi, sehingga asosiasi kuat sekalipun belum cukup untuk menyimpulkan kausalitas.",
         },
+        {
+          kind: "figure",
+          alt: "Dua gugus titik pada diagram pencar; secara gabungan titik cenderung naik ke kanan, tetapi di dalam setiap kelompok tidak ada kecenderungan, menggambarkan asosiasi semu akibat variabel perancu.",
+          caption: "Variabel perancu: garis putus-putus menggambarkan asosiasi gabungan yang tampak positif, padahal di dalam kelompok A (titik penuh) maupun B (titik kosong) tidak ada kecenderungan.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="40" stroke="currentColor" stroke-width="1.5"/><line x1="58" y1="186" x2="292" y2="54" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="70" cy="168" r="4" fill="currentColor"/><circle cx="88" cy="178" r="4" fill="currentColor"/><circle cx="104" cy="160" r="4" fill="currentColor"/><circle cx="120" cy="172" r="4" fill="currentColor"/><circle cx="136" cy="158" r="4" fill="currentColor"/><circle cx="150" cy="176" r="4" fill="currentColor"/><circle cx="190" cy="96" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="210" cy="84" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="228" cy="100" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="244" cy="72" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="262" cy="88" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="278" cy="76" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><text x="52" y="150" font-size="12" fill="currentColor">A</text><text x="184" y="66" font-size="12" fill="currentColor">B</text></svg>',
+        },
       ],
     },
     {
@@ -276,12 +282,12 @@ Hati-hati: rumus-rumus ini hanya mengukur **kekuatan asosiasi**. Rumus itu tidak
           intro: "Tiap contoh dipreteli langkah demi langkah: kenali klaimnya, cari penjelasan alternatif, lalu simpulkan.",
           steps: [
             {
-              title: "Contoh 1: es krim dan angka kejahatan",
-              text: `Dua data bergerak bersama: saat penjualan es krim naik, angka kejahatan juga naik.
+              title: "Contoh 1: banyak petugas pemadam dan besar kerusakan",
+              text: `Data kota menunjukkan: makin banyak petugas yang dikerahkan, makin besar kerusakan akibat kebakaran.
 
-*Analisis.* Keduanya memuncak pada musim panas. **Variabel perancu**-nya adalah suhu udara: cuaca panas mendorong orang membeli es krim sekaligus lebih banyak beraktivitas di luar, sehingga peluang kejahatan ikut naik.
+*Analisis.* Ini korelasi positif yang menyesatkan bila dibaca sebagai sebab-akibat. **Variabel perancu**-nya adalah **besar kebakaran**: kebakaran besar memanggil lebih banyak petugas sekaligus menimbulkan kerusakan lebih besar. Jadi bukan petugas yang memperparah kerusakan.
 
-*Kesimpulan.* Yang ada hanya **asosiasi**, bukan kausalitas. Tidak ada alasan es krim menyebabkan kejahatan.`,
+*Kesimpulan.* Yang ada hanya **asosiasi** yang dijelaskan faktor ketiga, bukan kausalitas langsung. Bila dibandingkan pada ukuran kebakaran yang setara, hubungan itu melemah.`,
             },
             {
               title: "Contoh 2: ukuran sepatu dan kemampuan membaca",
@@ -404,7 +410,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
             "Ketika membaca klaim berbasis data di media, tiga pertanyaan kritis apa yang akan kamu ajukan?",
             "Sebutkan satu keyakinanmu sendiri yang mungkin dibentuk oleh asosiasi, bukan bukti kausal.",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu membedakan asosiasi dari kausalitas dan mengenali variabel perancu?",
         },
       ],
     },

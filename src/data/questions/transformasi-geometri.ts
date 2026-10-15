@@ -17,7 +17,10 @@ export const transformasiGeometriQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Translasi $\\binom{4}{1}$ memetakan $(x,y)\\rightarrow(x+4,\\,y+1)$, sehingga $(2,-3)\\rightarrow(2+4,\\,-3+1)=(6,-2)$ (A). Opsi B mengurangkan vektor translasi; opsi C menjumlahkan pada absis tetapi mengurangkan pada ordinat; opsi D hanya mengubah ordinat dan mengabaikan translasi absis.',
-    hints: ['Jumlahkan vektor translasi dengan koordinat titik.'],
+    hints: [
+      'Jumlahkan vektor translasi dengan koordinat titik.',
+      'Hitung $(2+4,\\,-3+1)$ komponen per komponen.',
+    ],
     competencies: ['translasi'],
   },
   {
@@ -36,7 +39,10 @@ export const transformasiGeometriQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Refleksi terhadap sumbu-$y$ mengubah tanda absis: $(x,y)\\rightarrow(-x,y)$. Maka $(-5,2)\\rightarrow(5,2)$ (A). Opsi B membalik tanda kedua koordinat (refleksi terhadap titik asal); opsi C menukar koordinat saja; opsi D menukar koordinat sekaligus membalik tanda.',
-    hints: ['Sumbu-$y$ membuat nilai $x$ berubah tanda, sedangkan $y$ tetap.'],
+    hints: [
+      'Sumbu-$y$ membuat nilai $x$ berubah tanda, sedangkan $y$ tetap.',
+      'Ubah $x=-5$ menjadi $x=5$ dan biarkan $y=2$.',
+    ],
     competencies: ['refleksi terhadap sumbu $y$'],
   },
   {
@@ -50,7 +56,10 @@ export const transformasiGeometriQuestions: Question[] = [
     answer: '-8',
     explanation:
       'Dilatasi $k=2$ memetakan $(x,y)\\rightarrow(2x,2y)$, sehingga $(3,-4)\\rightarrow(6,-8)$. Ordinat bayangannya adalah $-8$.',
-    hints: ['Kalikan setiap koordinat dengan faktor skala $2$.'],
+    hints: [
+      'Kalikan setiap koordinat dengan faktor skala $2$.',
+      'Bayangan $(3,-4)$ adalah $(6,-8)$; ambil ordinatnya.',
+    ],
     competencies: ['dilatasi'],
   },
   {
@@ -70,7 +79,10 @@ export const transformasiGeometriQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\rightarrow(-y,x)$, sehingga $(2,5)\\rightarrow(-5,2)$ (A). Opsi B memakai rotasi $90^\\circ$ searah jarum jam; opsi C hanya membalik tanda absis; opsi D hanya membalik tanda ordinat.',
-    hints: ['Gunakan $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.'],
+    hints: [
+      'Gunakan $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.',
+      'Rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\to(-y,x)$.',
+    ],
     competencies: ['rotasi'],
   },
   {

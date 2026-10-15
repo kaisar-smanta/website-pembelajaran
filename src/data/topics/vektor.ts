@@ -76,7 +76,7 @@ Panjangnya $\\lVert \\vec{r} \\rVert = \\sqrt{300^{2} + 80^{2}} = \\sqrt{90000 +
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Vektor menggabungkan koordinat, teorema Pythagoras, dan trigonometri. Bekal yang perlu kamu kuasai:
 - koordinat Kartesius dan cara menghitung jarak dua titik;
 - teorema Pythagoras, misalnya $3^{2}+4^{2}=5^{2}$;
 - perbandingan trigonometri sinus dan kosinus;
@@ -104,7 +104,7 @@ Sebuah vektor juga dapat digambarkan sebagai **ruas garis berarah** dari titik p
 
 $$\\vec{AB} = B - A = \\begin{pmatrix} x_{2} - x_{1} \\\\ y_{2} - y_{1} \\end{pmatrix}.$$
 
-Misalnya, dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. Vektor ini sama dengan vektor apa pun yang komponennya $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$; letaknya di bidang tidak mengubah nilainya.`,
+Dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. Vektor ini sama dengan vektor apa pun yang komponennya $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$; letaknya di bidang tidak mengubah nilainya.`,
       blocks: [
         {
           kind: "callout",
@@ -172,7 +172,7 @@ $$\\vec{a} + \\vec{b} = \\begin{pmatrix} 4 \\\\ 6 \\end{pmatrix}, \\qquad \\vec{
 
 $$k\\vec{a} = \\begin{pmatrix} k a_{1} \\\\ k a_{2} \\end{pmatrix}.$$
 
-Misalnya, $2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$ dan $3\\vec{a} - 2\\vec{b} = \\begin{pmatrix} 9 \\\\ 12 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 8 \\end{pmatrix}$.
+Contohnya, $2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$ dan $3\\vec{a} - 2\\vec{b} = \\begin{pmatrix} 9 \\\\ 12 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 8 \\end{pmatrix}$.
 
 Secara geometris, penjumlahan vektor mengikuti **aturan segitiga** atau **aturan jajargenjang**: tempatkan pangkal $\\vec{b}$ di ujung $\\vec{a}$, maka $\\vec{a} + \\vec{b}$ menghubungkan pangkal $\\vec{a}$ ke ujung $\\vec{b}$.`,
       blocks: [
@@ -232,6 +232,12 @@ $$\\cos\\theta = \\frac{5}{\\sqrt{5}\\,\\sqrt{10}} = \\frac{5}{\\sqrt{50}} = \\f
               "sudut atau panjang diketahui",
             ],
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Dua vektor a dan b berpangkal pada satu titik dengan sudut theta di antara keduanya, menjadi dasar rumus kosinus sudut antar vektor.",
+          caption: "Sudut $\\theta$ antara $\\vec{a}$ dan $\\vec{b}$ dihitung dari perkalian titik: $\\cos\\theta=\\dfrac{\\vec{a}\\cdot\\vec{b}}{\\lVert\\vec{a}\\rVert\\,\\lVert\\vec{b}\\rVert}$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-vang-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="195" x2="195" y2="125" stroke="currentColor" stroke-width="2" marker-end="url(#fig-vang-arrow)"/><line x1="45" y1="195" x2="265" y2="195" stroke="currentColor" stroke-width="2" marker-end="url(#fig-vang-arrow)"/><path d="M 105,195 A 60,60 0 0 0 99.4,169.6" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="110" y="146" font-size="13" fill="currentColor">a</text><text x="240" y="186" font-size="13" fill="currentColor">b</text><text x="74" y="184" font-size="12" fill="currentColor">&#952;</text><text x="52" y="226" font-size="12" fill="currentColor">cos &#952; = (a &#183; b) / (|a| |b|)</text></svg>',
         },
       ],
     },
@@ -396,7 +402,7 @@ Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor;
       id: "kesalahan-umum",
       kind: "kesalahan-umum",
       title: "Kesalahan Umum",
-      body: `**1. Menganggap panjang vektor selalu bilangan bulat.** Panjang adalah akar kuadrat; misalnya $\\lVert \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} \\rVert = \\sqrt{5}$, bukan $3$.
+      body: `**1. Menganggap panjang vektor selalu bilangan bulat.** Panjang adalah akar kuadrat; seperti $\\lVert \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} \\rVert = \\sqrt{5}$, bukan $3$.
 
 **2. Menjumlahkan komponen yang tidak seposisi.** Komponen-$x$ hanya dijumlahkan dengan komponen-$x$. Menukar posisi menghasilkan vektor yang salah arah.
 
@@ -437,7 +443,7 @@ Buktikan bahwa $PQRS$ selalu berupa **jajargenjang** (hasil ini dikenal sebagai 
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: `Nyatakan setiap titik tengah sebagai vektor posisi, misalnya $\\vec{p}=\\tfrac{1}{2}(\\vec{a}+\\vec{b})$. Kemudian bandingkan $\\vec{PQ}$ dengan $\\vec{SR}$.`,
+          text: `Nyatakan setiap titik tengah sebagai vektor posisi, yaitu $\\vec{p}=\\tfrac{1}{2}(\\vec{a}+\\vec{b})$. Kemudian bandingkan $\\vec{PQ}$ dengan $\\vec{SR}$.`,
         },
         {
           kind: "details",
@@ -472,7 +478,7 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
             "Kapan kamu memakai perkalian titik, dan informasi apa yang diberikannya?",
             "Bagaimana vektor menyederhanakan pembuktian sifat geometri dibandingkan cara koordinat atau gambar manual?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu memakai perkalian titik untuk sudut dan proyeksi?",
         },
       ],
     },

@@ -64,7 +64,11 @@ export const induksiMatematikaQuestions: Question[] = [
     acceptedAnswers: ['55'],
     explanation:
       'Gunakan $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$ dengan $n=10$: $\\dfrac{10\\cdot 11}{2}=55$.',
-    hints: ['Gunakan rumus jumlah $n$ bilangan asli pertama.'],
+    hints: [
+      'Gunakan rumus jumlah $n$ bilangan asli pertama.',
+      'Rumusnya $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$.',
+      'Substitusikan $n=10$ lalu hitung $\\dfrac{10\\cdot 11}{2}$.',
+    ],
     competencies: ['rumus jumlah bilangan asli'],
   },
   {
@@ -79,7 +83,11 @@ export const induksiMatematikaQuestions: Question[] = [
     acceptedAnswers: ['5'],
     explanation:
       'Nilai $n=1$ memenuhi, tetapi $n=2$ memberi $4=4$, $n=3$ memberi $8<9$, dan $n=4$ memberi $16=16$. Baru mulai $n=5$ ketaksamaan bertahan, yaitu $32>25$, dan langkah induksi menjaganya untuk semua $n \\ge 5$. Jadi $n_0=5$.',
-    hints: ['Periksa nilai $n$ satu per satu sampai ketaksamaan mulai bertahan terus.'],
+    hints: [
+      'Periksa nilai $n$ satu per satu sampai ketaksamaan mulai bertahan terus.',
+      'Bandingkan $2^{n}$ dengan $n^{2}$ mulai dari $n=2$.',
+      'Cari titik awal ketika ketaksamaan bertahan untuk semua nilai berikutnya.',
+    ],
     competencies: ['basis induksi', 'ketaksamaan'],
   },
   {

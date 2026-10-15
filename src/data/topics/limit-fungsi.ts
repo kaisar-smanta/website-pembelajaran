@@ -76,17 +76,17 @@ walaupun $f(1)$ sendiri tidak ada.`,
       id: 'prasyarat',
       kind: 'prasyarat',
       title: 'Prasyarat',
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Limit menuntut keluwesan menyederhanakan bentuk aljabar. Pastikan kamu sudah lancar:
 - memfaktorkan bentuk aljabar, terutama selisih kuadrat $a^{2}-b^{2}=(a-b)(a+b)$;
 - menyederhanakan pecahan aljabar dan merasionalkan bentuk akar;
 - menghitung nilai fungsi polinomial dan fungsi rasional;
-- memahami konsep nilai yang makin besar tanpa batas, misalnya $\\dfrac{1}{x}$ ketika $x$ membesar.`,
+- memahami konsep nilai yang makin besar tanpa batas, seperti $\\dfrac{1}{x}$ ketika $x$ membesar.`,
     },
     {
       id: 'konteks',
       kind: 'konteks',
       title: 'Situasi dan Konteks',
-      body: `Banyak besaran penting justru muncul saat kita mendekati keadaan ekstrem: berapa kecepatan sesaat pada suatu detik, berapa biaya rata-rata per unit bila produksi terus ditambah, atau berapa konsentrasi obat setelah waktu yang sangat lama. Pertanyaan-pertanyaan itu menuntut kita menghitung **nilai yang didekati**, bukan nilai yang benar-benar tercapai.
+      body: `Banyak besaran penting muncul saat kita mendekati keadaan ekstrem: berapa kecepatan sesaat pada suatu detik, berapa biaya rata-rata per unit bila produksi terus ditambah, atau berapa konsentrasi obat setelah waktu yang sangat lama. Pertanyaan-pertanyaan itu menuntut kita menghitung **nilai yang didekati**, bukan nilai yang benar-benar tercapai.
 Gagasan "nilai yang didekati" inilah yang disebut **limit**. Limit menjadi fondasi untuk membangun turunan dan integral, sekaligus alat untuk menangani bentuk yang tampak mustahil seperti $\\dfrac{0}{0}$ atau $\\dfrac{\\infty}{\\infty}$.`,
     },
     {
@@ -134,7 +134,13 @@ Bila kedua limit sepihak berbeda atau salah satunya tidak ada, maka limit di tit
         {
           kind: 'details',
           summary: 'Mengapa nilai $f(a)$ tidak harus sama dengan limitnya?',
-          text: 'Limit hanya memeriksa nilai fungsi **di sekitar** $a$, bukan di $a$. Fungsi boleh tidak terdefinisi di $x=a$ (misalnya karena pembagian dengan nol) atau bernilai berbeda di sana, asalkan nilai di sekitar $a$ menuju satu bilangan yang sama. Karena itu $\\lim_{x \\to a} f(x)$ bisa ada meski $f(a)$ tidak ada.',
+          text: 'Limit hanya memeriksa nilai fungsi **di sekitar** $a$, bukan di $a$. Fungsi boleh tidak terdefinisi di $x=a$ (contohnya karena pembagian dengan nol) atau bernilai berbeda di sana, asalkan nilai di sekitar $a$ menuju satu bilangan yang sama. Karena itu $\\lim_{x \\to a} f(x)$ bisa ada meski $f(a)$ tidak ada.',
+        },
+        {
+          kind: 'figure',
+          alt: 'Grafik fungsi yang dari kiri menuju nilai negatif satu dan dari kanan menuju positif satu, dengan titik kosong di kedua sisi, menunjukkan limit dua arah yang berbeda.',
+          caption: 'Grafik $f(x)=\\dfrac{|x|}{x}$ untuk $x \\neq 0$. Dari kiri nilainya menuju $-1$ dan dari kanan menuju $1$. Karena limit kiri dan limit kanan berbeda, $\\lim_{x \\to 0} f(x)$ tidak ada.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="130" x2="300" y2="130" stroke="currentColor" stroke-width="1.3"/><line x1="170" y1="25" x2="170" y2="210" stroke="currentColor" stroke-width="1.3"/><line x1="70" y1="160" x2="164" y2="160" stroke="currentColor" stroke-width="2.4"/><line x1="176" y1="100" x2="280" y2="100" stroke="currentColor" stroke-width="2.4"/><circle cx="164" cy="160" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="176" cy="100" r="4" fill="none" stroke="currentColor" stroke-width="2"/><text x="292" y="146" font-size="12" fill="currentColor">x</text><text x="176" y="36" font-size="12" fill="currentColor">y</text><text x="158" y="146" font-size="11" fill="currentColor">0</text><text x="58" y="176" font-size="11" fill="currentColor">limit kiri = -1</text><text x="196" y="92" font-size="11" fill="currentColor">limit kanan = 1</text></svg>',
         },
       ],
     },
@@ -202,7 +208,7 @@ Bentuk sederhana $x+1$ berlaku selama $x \\neq 1$, dan ketika $x \\to 1$ nilainy
       body: `Untuk banyak fungsi, limit cukup dihitung dengan **substitusi langsung**, yaitu mengganti $x$ dengan $a$. Sifat-sifat limit menjamin hal ini untuk fungsi polinomial dan fungsi rasional yang penyebutnya tidak nol di $a$:
 $$\\lim_{x \\to a} f(x) = f(a) \\quad \\text{bila } f \\text{ kontinu di } a.$$
 
-Masalah muncul ketika substitusi menghasilkan bentuk **tak tentu**, terutama $\\dfrac{0}{0}$. Bentuk ini tidak lantas berarti limit tidak ada. Yang dituntut justru fungsi perlu **disederhanakan** lebih dahulu. Pola penanganannya bergantung pada bentuk fungsinya:
+Masalah muncul ketika substitusi menghasilkan bentuk **tak tentu**, terutama $\\dfrac{0}{0}$. Bentuk ini tidak lantas berarti limit tidak ada. Yang dituntut adalah fungsi perlu **disederhanakan** lebih dahulu. Pola penanganannya bergantung pada bentuk fungsinya:
 - jika berbentuk pecahan polinomial, **faktorkan** lalu coret faktor yang sama;
 - jika memuat bentuk akar, kalikan dengan **akar sekawan** untuk menghilangkan akar pada selisih;
 - jika $x \\to \\infty$ dan berbentuk $\\dfrac{\\infty}{\\infty}$, **bagi pembilang dan penyebut** dengan pangkat tertinggi.
@@ -325,7 +331,7 @@ $$\\lim_{x \\to \\infty} \\frac{3x+1}{x^{2}-4} = \\frac{0+0}{1-0} = 0.$$`,
       id: 'dunia-nyata',
       kind: 'dunia-nyata',
       title: 'Penerapan di Dunia Nyata',
-      body: `Limit dipakai setiap kali kita ingin tahu **kecenderungan jangka panjang** atau **perilaku di sekitar keadaan ekstrem**. Kecepatan sesaat pada spidometer, misalnya $80$ km/jam, adalah limit kecepatan rata-rata ketika selang waktu diperkecil menuju nol: dari $10$ sekon, $1$ sekon, sampai $0{,}1$ sekon, hasil bagi $\\dfrac{\\Delta s}{\\Delta t}$ makin dekat ke $80$ km/jam. Inilah benang merah antara limit dan turunan.
+      body: `Limit dipakai setiap kali kita ingin tahu **kecenderungan jangka panjang** atau **perilaku di sekitar keadaan ekstrem**. Kecepatan sesaat pada spidometer, contohnya $80$ km/jam, adalah limit kecepatan rata-rata ketika selang waktu diperkecil menuju nol: dari $10$ sekon, $1$ sekon, sampai $0{,}1$ sekon, hasil bagi $\\dfrac{\\Delta s}{\\Delta t}$ makin dekat ke $80$ km/jam. Inilah benang merah antara limit dan turunan.
 Di bidang kesehatan, konsentrasi obat dalam darah setelah waktu yang sangat lama didekati dengan limit di tak hingga. Jika kadar awal $200$ mg dan setiap jam tersisa $90\\%$, maka setelah $x$ jam kadarnya $200(0{,}9)^{x}$ mg. Karena $0{,}9^{x} \\to 0$ ketika $x \\to \\infty$, kadar sisa itu menuju $0$ mg, sehingga dokter dapat memperkirakan waktu obat habis bekerja.
 Di bidang ekonomi, biaya rata-rata per unit ketika produksi diperbesar tanpa batas menunjukkan biaya variabel per unit. Jika biaya total $C(x) = 5000 + 40x$ rupiah untuk $x$ unit, biaya rata-ratanya $\\dfrac{C(x)}{x} = 40 + \\dfrac{5000}{x}$ menuju $40$ rupiah per unit saat $x \\to \\infty$.
 Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang mustahil dicapai; yang kita cari nilai yang **didekati** ketika keadaan mendekati titik itu.`,
@@ -420,7 +426,7 @@ $$\\frac{2x^{2}-8}{x-2}=\\frac{2(x^{2}-4)}{x-2}=\\frac{2(x-2)(x+2)}{x-2}.$$`,
             'Kapan substitusi langsung cukup, dan kapan kita perlu memfaktorkan atau mengalikan akar sekawan?',
             'Bagaimana gagasan limit muncul dalam definisi turunan?',
           ],
-          confidenceLabel: 'Seberapa yakin kamu dengan jawaban refleksimu?',
+          confidenceLabel: 'Seberapa yakin kamu memilih teknik penyederhanaan untuk bentuk tak tentu?',
         },
       ],
     },

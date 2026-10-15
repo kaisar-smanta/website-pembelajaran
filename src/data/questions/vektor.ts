@@ -17,7 +17,10 @@ export const vektorQuestions: Question[] = [
     answer: 'A',
     explanation:
       '$\\lVert \\vec{a} \\rVert = \\sqrt{6^{2} + 8^{2}} = \\sqrt{36 + 64} = \\sqrt{100} = 10$ (A). Opsi B ($14$) menjumlahkan komponen $6+8$; opsi C ($48$) mengalikan komponen $6\\cdot8$; opsi D ($\\sqrt{14}$) mengakarkan jumlah komponen alih-alih jumlah kuadrat.',
-    hints: ['Gunakan teorema Pythagoras pada komponen-komponennya.'],
+    hints: [
+      'Gunakan teorema Pythagoras pada komponen-komponennya.',
+      'Hitung $\\sqrt{6^{2}+8^{2}}=\\sqrt{36+64}$.',
+    ],
     competencies: ['panjang vektor'],
   },
   {
@@ -30,7 +33,10 @@ export const vektorQuestions: Question[] = [
     answer: '13',
     explanation:
       '$\\lVert \\vec{b} \\rVert = \\sqrt{5^{2} + 12^{2}} = \\sqrt{25 + 144} = \\sqrt{169} = 13$.',
-    hints: ['Kuadratkan tiap komponen, jumlahkan, lalu ambil akarnya.'],
+    hints: [
+      'Kuadratkan tiap komponen, jumlahkan, lalu ambil akarnya.',
+      'Jumlah kuadratnya $25+144=169$; akar dari $169$ adalah jawabannya.',
+    ],
     competencies: ['panjang vektor'],
   },
   {
@@ -50,7 +56,10 @@ export const vektorQuestions: Question[] = [
     answer: 'A',
     explanation:
       '$\\vec{AB} = B - A = \\begin{pmatrix} 4 - 1 \\\\ 6 - 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ (A). Opsi B ($(5,8)$) menjumlahkan koordinat $A+B$; opsi C ($(-3,-4)$) memakai $A-B$ sehingga tandanya terbalik; opsi D ($(4,3)$) menukar urutan komponen.',
-    hints: ['Komponen vektor $\\vec{AB}$ adalah koordinat ujung dikurangi koordinat pangkal.'],
+    hints: [
+      'Komponen vektor $\\vec{AB}$ adalah koordinat ujung dikurangi koordinat pangkal.',
+      'Hitung $B-A=(4-1,\\,6-2)$ komponen per komponen.',
+    ],
     competencies: ['representasi vektor', 'vektor posisi'],
   },
   {
@@ -65,7 +74,10 @@ export const vektorQuestions: Question[] = [
     acceptedAnswers: ['0.6', '3/5', '0,6', '0,60', '0.60'],
     explanation:
       '$\\lVert \\vec{a} \\rVert = 5$, sehingga $\\hat{a} = \\dfrac{1}{5}\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 3/5 \\\\ 4/5 \\end{pmatrix}$. Komponen pertamanya $\\dfrac{3}{5}$.',
-    hints: ['Bagi setiap komponen dengan panjang vektor.'],
+    hints: [
+      'Bagi setiap komponen dengan panjang vektor.',
+      'Panjang $\\vec{a}$ adalah $5$, sehingga komponen pertamanya $\\dfrac{3}{5}$.',
+    ],
     competencies: ['vektor satuan'],
   },
   {

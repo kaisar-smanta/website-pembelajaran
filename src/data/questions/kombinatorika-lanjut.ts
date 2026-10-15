@@ -30,7 +30,11 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     answer: '15',
     acceptedAnswers: ['15'],
     explanation: '$\\dbinom{6}{2} = \\dfrac{6!}{2!\\,4!} = \\dfrac{6 \\cdot 5}{2} = 15$.',
-    hints: ['Gunakan $\\dbinom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$.'],
+    hints: [
+      'Gunakan $\\dbinom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$.',
+      'Substitusikan $n = 6$ dan $k = 2$ sehingga menjadi $\\dfrac{6!}{2!\\,4!}$.',
+      'Sederhanakan menjadi $\\dfrac{6 \\cdot 5}{2}$, karena faktor $4!$ saling menghapus.',
+    ],
     competencies: ['kombinasi'],
   },
   {
@@ -186,7 +190,7 @@ export const kombinatorikaLanjutQuestions: Question[] = [
   {
     id: 'komb-11',
     topicId: 'kombinatorika-lanjut',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penalaran',
     prompt: 'Tentukan koefisien suku $x^3$ pada penjabaran $(2+x)^5$.',

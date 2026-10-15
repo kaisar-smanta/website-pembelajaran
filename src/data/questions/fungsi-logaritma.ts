@@ -18,7 +18,11 @@ export const fungsiLogaritmaQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Dari $b^{y}=x$ diperoleh $\\log_{b}x=y$, sehingga $2^{5}=32$ menjadi $\\log_{2}32=5$ (A). Opsi B menukar posisi basis dan hasil sehingga keliru menaruh $5$ sebagai basis; opsi C menganggap pangkat sebagai numerus; opsi D menempatkan hasil $32$ sebagai basis, padahal basis tetap $2$.',
-    hints: ['Basis tetap di bawah, hasil masuk ke numerus, dan pangkat menjadi nilai logaritma.'],
+    hints: [
+      'Basis tetap di bawah, hasil masuk ke numerus, dan pangkat menjadi nilai logaritma.',
+      'Uji dengan definisi: $\\log_{b}x=y$ berarti $b^{y}=x$.',
+      'Contoh kecil: $3^{2}=9$ setara dengan $\\log_{3}9=2$, jadi posisi basis dan hasil seperti itu.',
+    ],
     competencies: ['konversi bentuk eksponen ke logaritma'],
   },
   {
@@ -27,18 +31,21 @@ export const fungsiLogaritmaQuestions: Question[] = [
     difficulty: 'dasar',
     type: 'multiple-choice',
     category: 'cepat',
-    prompt: 'Nilai dari $\\log_{3}81$ adalah …',
+    prompt: 'Nilai dari $\\log_{2}\\dfrac{1}{8}$ adalah …',
     options: [
-      { key: 'A', text: '$3$' },
-      { key: 'B', text: '$4$' },
-      { key: 'C', text: '$5$' },
-      { key: 'D', text: '$9$' },
+      { key: 'A', text: '$-3$' },
+      { key: 'B', text: '$3$' },
+      { key: 'C', text: '$-\\dfrac{1}{3}$' },
+      { key: 'D', text: '$\\dfrac{1}{8}$' },
     ],
-    answer: 'B',
+    answer: 'A',
     explanation:
-      'Karena $3^{4}=81$, maka $\\log_{3}81=4$ (B). Opsi A memakai $3^{3}=27$, bukan $81$; opsi C memakai $3^{5}=243$; opsi D membagi $81$ dengan $9$ alih-alih mencari pangkatnya.',
-    hints: ['Tanyakan: $3$ dipangkatkan berapa agar hasilnya $81$?'],
-    competencies: ['nilai logaritma'],
+      'Tulis $\\dfrac{1}{8}=2^{-3}$, sehingga $\\log_{2}\\dfrac{1}{8}=-3$ (A). Opsi B salah tanda karena menganggap pangkatnya positif; opsi C membalik nilai menjadi $-\\dfrac{1}{3}$; opsi D keliru menyamakan nilai logaritma dengan numerusnya.',
+    hints: [
+      'Tanyakan: $2$ dipangkatkan berapa agar hasilnya $\\dfrac{1}{8}$?',
+      'Ingat bahwa $\\dfrac{1}{8}=2^{-3}$, sehingga pangkatnya bernilai negatif.',
+    ],
+    competencies: ['nilai logaritma', 'pangkat negatif'],
   },
   {
     id: 'flg-03',
@@ -49,7 +56,11 @@ export const fungsiLogaritmaQuestions: Question[] = [
     prompt: 'Tentukan nilai $\\log_{10}1000$.',
     answer: '3',
     explanation: 'Karena $10^{3}=1000$, maka $\\log_{10}1000=3$.',
-    hints: ['Tulis $1000$ sebagai pangkat basis $10$.'],
+    hints: [
+      'Tulis $1000$ sebagai pangkat basis $10$.',
+      'Karena $10^{3}=1000$, pangkat itu jugalah nilai logaritmanya.',
+      'Nilai logaritma sama dengan banyak angka nol yang mengikuti $1$ pada $1000$.',
+    ],
     competencies: ['nilai logaritma basis 10'],
   },
   {
@@ -61,7 +72,10 @@ export const fungsiLogaritmaQuestions: Question[] = [
     prompt: 'Hitunglah $\\log_{2}64$.',
     answer: '6',
     explanation: 'Karena $2^{6}=64$, maka $\\log_{2}64=6$.',
-    hints: ['Hitung $2^{1},2^{2},2^{3},\\dots$ sampai mencapai $64$.'],
+    hints: [
+      'Hitung $2^{1},2^{2},2^{3},\\dots$ sampai mencapai $64$.',
+      'Hitung berapa kali faktor $2$ harus dikalikan agar hasilnya $64$.',
+    ],
     competencies: ['nilai logaritma'],
   },
   {
@@ -80,7 +94,11 @@ export const fungsiLogaritmaQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Numerus harus positif: $x-2>0$, sehingga $x>2$ (A). Opsi B keliru memasukkan $x=2$ karena nilai $0$ tidak terdefinisi dalam logaritma; opsi C justru mengambil daerah numerus negatif; opsi D hanya mengecualikan $x=2$ tetapi tetap mengizinkan $x<2$ yang membuat numerus negatif.',
-    hints: ['Syarat numerus adalah lebih besar dari nol, bukan sekadar tidak sama dengan nol.'],
+    hints: [
+      'Syarat numerus adalah lebih besar dari nol, bukan sekadar tidak sama dengan nol.',
+      'Susun pertidaksamaan $x-2>0$ untuk memperoleh batas domainnya.',
+      'Karena $x-2$ harus positif, batasnya bukan $x=2$, melainkan nilai yang lebih besar darinya.',
+    ],
     competencies: ['domain fungsi logaritma'],
   },
   {

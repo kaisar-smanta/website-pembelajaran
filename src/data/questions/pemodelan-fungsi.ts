@@ -57,7 +57,11 @@ export const pemodelanFungsiQuestions: Question[] = [
     answer: '14',
     acceptedAnswers: ['14'],
     explanation: 'Substitusi $x=4$: $y=3\\cdot4+2=12+2=14$.',
-    hints: ['Ganti setiap $x$ pada rumus dengan bilangan $4$.'],
+    hints: [
+      'Ganti setiap $x$ pada rumus dengan bilangan $4$.',
+      'Hitung $3 \\cdot 4$ lebih dahulu.',
+      'Hasilnya $12 + 2 = 14$.',
+    ],
     competencies: ['substitusi model linear'],
   },
   {
@@ -72,7 +76,11 @@ export const pemodelanFungsiQuestions: Question[] = [
     acceptedAnswers: ['4'],
     explanation:
       'Karena $(x-3)^2\\geq0$, nilai terkecil $f(x)$ tercapai saat $x=3$, yaitu $f(3)=0+4=4$. Nilai minimumnya $4$.',
-    hints: ['Suku $(x-3)^2$ selalu tidak negatif.'],
+    hints: [
+      'Suku $(x-3)^2$ selalu tidak negatif.',
+      'Nilai terkecil terjadi saat $(x-3)^2 = 0$, yaitu $x = 3$.',
+      'Substitusikan $x = 3$ ke $f(x)$ sehingga $f(3) = 0 + 4$.',
+    ],
     competencies: ['bentuk puncak', 'nilai minimum'],
   },
   {

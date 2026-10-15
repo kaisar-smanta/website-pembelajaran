@@ -78,7 +78,7 @@ Jadi bayangan akhirnya $(2,6)$. Ternyata urutan langkah menentukan hasil, karena
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Sebelum memindahkan bangun di bidang, segarkan dahulu kemampuan berikut:
 - membaca dan menuliskan koordinat titik pada bidang Cartesius;
 - menjumlahkan vektor kolom, misalnya $\\begin{pmatrix} 2 \\\\ -3 \\end{pmatrix}+\\begin{pmatrix} 4 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} 6 \\\\ -2 \\end{pmatrix}$;
 - mengalikan matriks $2 \\times 2$ dengan vektor kolom;
@@ -101,7 +101,7 @@ $$(x,y)\\rightarrow(x+a,\\;y+b).$$
 Dalam bentuk vektor kolom:
 $$\\begin{pmatrix} x' \\\\ y' \\end{pmatrix}=\\begin{pmatrix} x \\\\ y \\end{pmatrix}+\\begin{pmatrix} a \\\\ b \\end{pmatrix}.$$
 
-Misalnya, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$. Semua titik bergeser dengan panjang dan arah yang sama, sehingga luas dan orientasi bangun tetap.`,
+Translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$. Semua titik bergeser dengan panjang dan arah yang sama, sehingga luas dan orientasi bangun tetap.`,
       blocks: [
         {
           kind: "callout",
@@ -229,8 +229,8 @@ Dengan faktor skala $2$, titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun me
     {
       id: "representasi",
       kind: "representasi",
-      title: "Menyajikan Transformasi: Koordinat dan Matriks",
-      body: "Setiap transformasi linear terhadap titik asal dapat dibaca dari perubahan koordinat sekaligus dari matriksnya.",
+      title: "Menyajikan Transformasi: Koordinat",
+      body: "Setiap transformasi linear terhadap titik asal dapat dibaca dari perubahan koordinat titiknya. Bentuk matriks refleksi, rotasi, dan dilatasi, serta cara mengalikannya, dipelajari pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).",
       blocks: [
         {
           kind: "table",
@@ -368,9 +368,9 @@ Dengan faktor skala $2$, titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun me
 $$T(x,y)=T_{2}\\bigl(T_{1}(x,y)\\bigr).$$
 Transformasi yang dikerjakan **lebih dahulu** diterapkan paling awal. Karena urutan langkah tidak dapat ditukar, **urutan transformasi menentukan hasil**.
 
-Misalnya, refleksi terhadap sumbu-$x$ lalu rotasi $180^\\circ$ memindahkan $(2,1)$ ke $(-2,1)$: sama dengan refleksi terhadap sumbu-$y$. Menukar urutan kedua langkah dapat memberi hasil yang berbeda.
+Refleksi terhadap sumbu-$x$ lalu rotasi $180^\\circ$ memindahkan $(2,1)$ ke $(-2,1)$: sama dengan refleksi terhadap sumbu-$y$. Menukar urutan kedua langkah dapat memberi hasil yang berbeda.
 
-Satu bilangan merangkum pengaruh transformasi terhadap luas, yaitu faktor skala luas. Untuk dilatasi faktor $k$, luas berubah $k^{2}$ kali; rotasi dan refleksi tidak mengubah luas sama sekali. Cara menghitung faktor ini melalui determinan matriks dijelaskan pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
+Satu bilangan merangkum pengaruh transformasi terhadap luas, yaitu faktor skala luas. Untuk dilatasi faktor $k$, luas berubah $k^{2}$ kali; rotasi dan refleksi tidak mengubah luas sama sekali. Cara menghitung faktor ini melalui determinan matriks dijelaskan pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi), sedangkan operasi, determinan, dan invers matriksnya sendiri dibahas pada topik [Matriks](/matematika/kelas/XI/aljabar-fungsi/matriks).`,
     },
     {
       id: "rumus",
@@ -416,23 +416,19 @@ Untuk komposisi, kerjakan $T_{1}$ lebih dahulu lalu $T_{2}$; urutan tidak boleh 
               title: "Contoh 3: rotasi",
               text: `Tentukan bayangan titik $C(3,-1)$ oleh rotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal.
 
-*Penyelesaian.* $R_{90^\\circ}$ memetakan $(x,y)\\rightarrow(-y,x)$, sehingga $(3,-1)\\rightarrow(1,3)$. Dengan matriks:
-$$\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}\\begin{pmatrix} 3 \\\\ -1 \\end{pmatrix}=\\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}.$$
-Jadi bayangannya $C'(1,3)$.`,
+*Penyelesaian.* Rotasi $90^\\circ$ memetakan $(x,y)\\rightarrow(-y,x)$, sehingga $(3,-1)\\rightarrow(1,3)$. Jadi bayangannya $C'(1,3)$. Bentuk matriks dan cara mengalikannya dibahas pada topik **Matriks Transformasi**.`,
             },
             {
               title: "Contoh 4: dilatasi",
               text: `Tentukan bayangan titik $D(-1,3)$ oleh dilatasi berpusat $O$ dengan faktor skala $2$, lalu tentukan faktor skala luasnya.
 
-*Penyelesaian.* $(x,y)\\rightarrow(2x,2y)$, sehingga $(-1,3)\\rightarrow(-2,6)$. Determinan matriksnya $\\det\\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}=4$, jadi luas bangun menjadi $4$ kali semula.`,
+*Penyelesaian.* $(x,y)\\rightarrow(2x,2y)$, sehingga $(-1,3)\\rightarrow(-2,6)$. Setiap panjang dikalikan $2$, jadi luas bangun menjadi $2^{2}=4$ kali semula.`,
             },
             {
               title: "Contoh 5: komposisi",
-              text: `Titik $E(2,1)$ direfleksikan terhadap sumbu-$x$, lalu dirotasi $180^\\circ$ terhadap titik asal. Tentukan bayangan akhirnya dan matriks gabungannya.
+              text: `Titik $E(2,1)$ direfleksikan terhadap sumbu-$x$, lalu dirotasi $180^\\circ$ terhadap titik asal. Tentukan bayangan akhirnya dan transformasi tunggal yang setara.
 
-*Penyelesaian.* Refleksi sumbu-$x$: $(2,1)\\rightarrow(2,-1)$. Rotasi $180^\\circ$: $(2,-1)\\rightarrow(-2,1)$. Matriks gabungan
-$$M=\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}=\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix},$$
-yang setara dengan refleksi terhadap sumbu-$y$; memang $(2,1)\\rightarrow(-2,1)$.`,
+*Penyelesaian.* Refleksi sumbu-$x$: $(2,1)\\rightarrow(2,-1)$. Rotasi $180^\\circ$: $(2,-1)\\rightarrow(-2,1)$. Hasil $(2,1)\\rightarrow(-2,1)$ sama dengan refleksi terhadap sumbu-$y$. Jadi komposisinya setara dengan refleksi terhadap sumbu-$y$.`,
             },
           ],
         },
@@ -474,7 +470,7 @@ Dalam desain motif batik, pola dicerminkan dan digeser untuk membentuk ragam hia
 
 **3. Menukar urutan komposisi.** Untuk $T_{1}$ lalu $T_{2}$, kerjakan $T_{1}$ lebih dahulu; menukar urutan umumnya mengubah hasil akhir.
 
-**4. Mencampur translasi dengan pemutaran.** Translasi menggeser bangun tanpa mengubah orientasinya, sedangkan rotasi justru memutarnya terhadap sebuah titik.
+**4. Mencampur translasi dengan pemutaran.** Translasi menggeser bangun tanpa mengubah orientasinya, sedangkan rotasi memutarnya terhadap sebuah titik.
 
 **5. Melupakan pengaruh dilatasi pada luas.** Setiap panjang dikalikan $\\lvert k\\rvert$, sehingga luas bangun menjadi $k^{2}$ kali semula.`,
       blocks: [
@@ -482,13 +478,13 @@ Dalam desain motif batik, pola dicerminkan dan digeser untuk membentuk ragam hia
           kind: "spot-mistake",
           intro: "Seorang siswa menentukan bayangan titik $(3,2)$ oleh rotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal. Klik langkah yang keliru.",
           steps: [
-            "Gunakan $R_{90^\\circ}=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$.",
-            "Kalikan dengan vektor kolom: $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}\\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}$.",
-            "Hitung hasilnya menjadi $\\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix}$.",
-            "Simpulkan bayangannya $(2,3)$.",
+            "Gunakan aturan rotasi $90^\\circ$ berlawanan arah jarum jam: $(x,y)\\rightarrow(-y,x)$.",
+            "Substitusikan titik $(3,2)$: $(-x,y)=(-3,2)$.",
+            "Hitung hasilnya menjadi $(-3,2)$.",
+            "Simpulkan bayangannya $(-3,2)$.",
           ],
-          wrongIndex: 2,
-          explanation: "Perhitungan yang benar adalah $\\begin{pmatrix} 0 \\cdot 3 + (-1)\\cdot 2 \\\\ 1 \\cdot 3 + 0 \\cdot 2 \\end{pmatrix}=\\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}$, sehingga bayangannya $(-2,3)$, bukan $(2,3)$.",
+          wrongIndex: 1,
+          explanation: "Aturannya $(x,y)\\rightarrow(-y,x)$, sehingga $(3,2)\\rightarrow(-2,3)$. Siswa menukar peran absis dan ordinat, jadi hasil yang benar adalah $(-2,3)$, bukan $(-3,2)$.",
         },
       ],
     },
@@ -506,31 +502,31 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: `Susun matriks komposisinya, yaitu $M=R_{y=x}\\,R_x$ (yang dikerjakan lebih dahulu berada di kanan). Bandingkan hasilnya dengan matriks rotasi $90^\\circ$.`,
+          text: `Kerjakan dua aturan refleksi pada titik umum $(x,y)$ satu per satu, lalu bandingkan hasilnya dengan aturan rotasi $90^\\circ$.`,
         },
         {
           kind: "step-reveal",
-          intro: "Bandingkan hasil komposisi dengan matriks rotasi yang sudah dikenal.",
+          intro: "Terapkan aturan refleksi secara berurutan, lalu cocokkan dengan aturan rotasi.",
           steps: [
             {
-              title: "Matriks refleksi sumbu-$x$",
-              text: `$R_x=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$.`,
+              title: "Aturan refleksi sumbu-$x$",
+              text: `Refleksi terhadap sumbu-$x$ memetakan $(x,y)\\rightarrow(x,-y)$.`,
             },
             {
-              title: "Matriks refleksi garis $y=x$",
-              text: `$R_{y=x}=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$.`,
+              title: "Aturan refleksi garis $y=x$",
+              text: `Refleksi terhadap garis $y=x$ memetakan $(u,v)\\rightarrow(v,u)$.`,
             },
             {
-              title: "Susun komposisi",
-              text: `Karena $R_x$ dikerjakan lebih dahulu, $M=R_{y=x}R_x=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$.`,
-            },
-            {
-              title: "Hitung hasil kali",
-              text: `$M=\\begin{pmatrix}0\\cdot1+1\\cdot0 & 0\\cdot0+1\\cdot(-1)\\\\ 1\\cdot1+0\\cdot0 & 1\\cdot0+0\\cdot(-1)\\end{pmatrix}=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$.`,
+              title: "Terapkan berturut-turut",
+              text: `Mula-mula $(x,y)\\rightarrow(x,-y)$. Titik $(x,-y)$ lalu dikenai refleksi garis $y=x$ dan menjadi $(-y,x)$.`,
             },
             {
               title: "Bandingkan dengan rotasi",
-              text: `Matriks $\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$ tepat sama dengan matriks rotasi $90^\\circ$ berlawanan arah jarum jam. Jadi komposisi itu setara dengan rotasi $90^\\circ$. Terbukti.`,
+              text: `Aturan rotasi $90^\\circ$ berlawanan arah jarum jam adalah $(x,y)\\rightarrow(-y,x)$.`,
+            },
+            {
+              title: "Kesimpulan",
+              text: `Kedua pemetaan memberi hasil yang sama untuk setiap $(x,y)$. Jadi komposisi refleksi sumbu-$x$ lalu refleksi garis $y=x$ setara dengan rotasi $90^\\circ$ berlawanan arah jarum jam. Terbukti.`,
             },
           ],
         },

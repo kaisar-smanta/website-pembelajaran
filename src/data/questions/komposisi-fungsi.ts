@@ -36,7 +36,11 @@ export const komposisiFungsiQuestions: Question[] = [
       '$(f \\circ g)(x)$ berarti $f(g(x))$: fungsi $g$ dikerjakan lebih dahulu terhadap $x$, lalu hasilnya menjadi masukan bagi $f$. Sebaliknya, $(g \\circ f)(x) = g(f(x))$ berarti $f$ dikerjakan lebih dahulu. Secara umum urutannya tidak boleh ditukar karena $f \\circ g \\neq g \\circ f$, kecuali pada kasus khusus.',
     explanation:
       'Kunci menekankan makna "bundaran" serta urutan pengerjaan dari fungsi yang paling dekat dengan $x$.',
-    hints: ['Fungsi yang ditulis lebih dekat ke $x$ dikerjakan lebih dahulu.'],
+    hints: [
+      'Fungsi yang ditulis lebih dekat ke $x$ dikerjakan lebih dahulu.',
+      'Tuliskan arti $(f \\circ g)(x) = f(g(x))$ dan $(g \\circ f)(x) = g(f(x))$.',
+      'Bandingkan kedua urutan itu, lalu simpulkan apakah keduanya selalu memberi hasil sama.',
+    ],
     competencies: ['konsep komposisi fungsi'],
     rubric: [
       'Menjelaskan $(f\\circ g)(x)=f(g(x))$ sebagai $g$ dikerjakan lebih dahulu',
@@ -55,7 +59,11 @@ export const komposisiFungsiQuestions: Question[] = [
     answer: '16',
     explanation:
       '$(f \\circ g)(3) = f(g(3))$. Karena $g(3) = 3 + 1 = 4$, maka $f(4) = 4^{2} = 16$.',
-    hints: ['Hitung $g(3)$ lebih dahulu, lalu masukkan hasilnya ke $f$.'],
+    hints: [
+      'Hitung $g(3)$ lebih dahulu, lalu masukkan hasilnya ke $f$.',
+      'Karena $g(3) = 3 + 1 = 4$.',
+      'Substitusikan $4$ ke $f(x) = x^{2}$.',
+    ],
     competencies: ['nilai komposisi fungsi'],
   },
   {
@@ -69,7 +77,11 @@ export const komposisiFungsiQuestions: Question[] = [
     answer: '6',
     explanation:
       '$(g \\circ f)(5) = g(f(5))$. Karena $f(5) = 2(5) = 10$, maka $g(10) = 10 - 4 = 6$.',
-    hints: ['Pada $(g \\circ f)$, kerjakan $f$ lebih dahulu.'],
+    hints: [
+      'Pada $(g \\circ f)$, kerjakan $f$ lebih dahulu.',
+      'Hitung $f(5) = 2 \\cdot 5 = 10$.',
+      'Lalu hitung $g(10) = 10 - 4$.',
+    ],
     competencies: ['nilai komposisi fungsi'],
   },
   {

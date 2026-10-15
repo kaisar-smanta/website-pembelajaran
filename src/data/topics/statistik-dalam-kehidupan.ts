@@ -216,9 +216,9 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
       id: "boxplot-iqr",
       kind: "representasi",
       title: "Representasi: Box Plot dan IQR",
-      body: `Ketika dua kelompok dibandingkan, **box plot** meringkas sekaligus pusat, sebaran, dan pencilan tiap kelompok sehingga klaim "kelompok A lebih baik" mudah diperiksa. Kotak membentang dari $Q_1$ sampai $Q_3$ dengan garis median di dalamnya, sedangkan garis kumis membentang sampai nilai terkecil dan terbesar yang bukan pencilan. Lebar kotak sama dengan **jangkauan interkuartil** $\\text{IQR}=Q_3-Q_1$, yaitu lebar separuh data yang paling rapat.
+      body: `Ketika dua kelompok dibandingkan, **box plot** meringkas sekaligus pusat, sebaran, dan pencilan tiap kelompok, sehingga klaim "kelompok A lebih baik" mudah diperiksa. Di sini penekanannya bukan lagi menghitung kuartil (itu dibahas pada topik Analisis Distribusi Data), tetapi **memakai** lebar kotak untuk menilai penyajian data secara adil. Kotak membentang dari $Q_1$ sampai $Q_3$ dengan garis median di dalamnya, sedangkan garis kumis membentang sampai nilai terkecil dan terbesar yang bukan pencilan. Lebar kotak sama dengan **jangkauan interkuartil** $\\text{IQR}=Q_3-Q_1$, yaitu lebar separuh data yang paling rapat.
 
-Perhatikan box plot dua kelas berikut. Keduanya bisa saja punya median berdekatan, tetapi box yang jauh lebih lebar menandakan hasil yang tidak merata.`,
+Amati box plot dua kelas berikut. Keduanya bisa saja punya median berdekatan, tetapi box yang jauh lebih lebar menandakan hasil yang tidak merata.`,
       blocks: [
         {
           kind: "figure",
@@ -270,10 +270,10 @@ Baris dan kolom tidak boleh tertukar: menjumlahkan sepanjang baris memberi total
     {
       id: "eksplorasi",
       kind: "eksplorasi",
-      title: "Eksplorasi Sebaran dan Pencilan",
-      body: `Ukuran statistik berubah secara berbeda ketika data ekstrem masuk. Gunakan eksplorasi berikut untuk mengamati perilaku mean dan median.
+      title: "Eksplorasi Ketahanan Mean dan Median",
+      body: `Eksplorasi ini memusatkan perhatian pada **ukuran pemusatan**: kapan mean dan median sepakat, dan kapan keduanya berpisah. Mulailah dari data yang menyebar wajar, catat mean dan median, lalu tambahkan satu nilai yang sangat besar.
 
-Pada eksplorasi **Eksplorasi Sebaran dan Pencilan**, mulailah dengan data yang menyebar wajar, kemudian tambahkan satu nilai yang sangat besar. Amati bahwa **mean bergerak mengikuti pencilan**, sedangkan **median berpindah hanya satu posisi**. Geser nilai ekstrem tersebut dan bandingkan keduanya lagi. Kesimpulannya: untuk data yang memuat pencilan, median biasanya lebih mewakili nilai tipikal, sedangkan mean lebih cocok bila data relatif simetris tanpa nilai ekstrem.`,
+Amati bahwa **mean bergerak mengikuti nilai ekstrem**, sedangkan **median berpindah hanya satu posisi** karena hanya bergantung pada urutan. Geser nilai ekstrem itu dan bandingkan lagi. Kesimpulannya: untuk data yang memuat pencilan, median lebih mewakili nilai tipikal, sedangkan mean lebih cocok ketika data relatif simetris tanpa nilai ekstrem.`,
       blocks: [
         {
           kind: "exploration",
@@ -317,28 +317,55 @@ $$Q_1-1{,}5\\,\\text{IQR} \\qquad \\text{dan} \\qquad Q_3+1{,}5\\,\\text{IQR}, \
       blocks: [
         {
           kind: "step-reveal",
+          intro: "Contoh 1 sampai 3 berlatih memilih ukuran, menghitung rata-rata gabungan, dan menandai pencilan. Contoh 4 menyoroti grafik yang menyesatkan.",
           steps: [
             {
-              title: "Contoh 1",
-              text: `Tim survei mencatat lama menunggu (menit) di sebuah klinik: $15, 18, 20, 21, 22, 95$. Tentukan mean dan median, lalu tentukan ukuran yang lebih mewakili.
+              title: "Contoh 1: memilih ukuran yang mewakili",
+              text: `**Diketahui.** Lama menunggu (menit) enam pasien di klinik: $15, 18, 20, 21, 22, 95$.
 
-*Penyelesaian.* Jumlah data $=15+18+20+21+22+95=191$, sehingga
-$$\\bar{x}=\\frac{191}{6}\\approx 31{,}83.$$
-Karena $n=6$ genap, median adalah rata-rata data ke-3 dan ke-4:
-$$\\text{Median}=\\frac{20+21}{2}=20{,}5.$$
-Nilai $95$ adalah pencilan yang menarik mean jauh ke atas. Median $20{,}5$ menit lebih menggambarkan pengalaman pasien yang tipikal.`,
+**Ide.** Hitung mean dari seluruh data dan median dari rata-rata dua data tengah, lalu bandingkan keduanya untuk menilai kehadiran nilai ekstrem.
+
+**Langkah.** Jumlah data $=15+18+20+21+22+95=191$, sehingga $\\bar{x}=\\dfrac{191}{6}\\approx 31{,}83$. Karena $n=6$ genap, median $=\\dfrac{20+21}{2}=20{,}5$.
+
+**Verifikasi.** Median $20{,}5$ terletak di antara data ke-3 dan ke-4, sedangkan mean lebih besar lebih dari $11$ menit. Jarak sebesar itu menandakan nilai ekstrem $95$.
+
+**Kesimpulan.** Median $20{,}5$ menit lebih mewakili pengalaman pasien tipikal; mean $31{,}83$ tertarik ke atas oleh pencilan.`,
             },
             {
-              title: "Contoh 2",
-              text: `Kelas A berisi $30$ siswa dengan rata-rata nilai $72$, sedangkan Kelas B berisi $20$ siswa dengan rata-rata $84$. Tentukan rata-rata nilai gabungan.
+              title: "Contoh 2: rata-rata gabungan berbobot",
+              text: `**Diketahui.** Kelas A berisi $30$ siswa dengan rata-rata $72$; Kelas B berisi $20$ siswa dengan rata-rata $84$.
 
-*Penyelesaian.*
-$$\\bar{x}_{gab}=\\frac{30\\cdot 72+20\\cdot 84}{30+20}=\\frac{2160+1680}{50}=\\frac{3840}{50}=76{,}8.$$
-Rata-rata gabungan bukan $(72+84)/2=78$, karena kedua kelas berukuran berbeda.`,
+**Ide.** Gabungkan kedua kelompok dengan bobot ukuran kelompok, bukan merata-ratakan kedua mean.
+
+**Langkah.** $\\bar{x}_{gab}=\\dfrac{30\\cdot 72+20\\cdot 84}{30+20}=\\dfrac{2160+1680}{50}=76{,}8$.
+
+**Verifikasi.** Kelas A lebih banyak anggotanya, jadi rata-rata gabungan harus lebih dekat ke $72$ daripada ke $84$. Memang $76{,}8$ lebih dekat ke $72$, sedangkan $(72+84)/2=78$ tidak memenuhi syarat itu.
+
+**Kesimpulan.** Rata-rata gabungannya $76{,}8$, bukan $78$.`,
             },
             {
-              title: "Contoh 3",
-              text: "Sebuah iklan menampilkan batang penjualan $100$ unit dan $105$ unit, tetapi sumbu vertikalnya dimulai dari $95$. Akibatnya batang kedua tampak dua kali lebih tinggi. Grafik itu menyesatkan karena memotong skala, bukan karena angkanya salah. Penyajian yang jujur memulai sumbu dari $0$ atau mencantumkan angka dengan jelas.",
+              title: "Contoh 3: IQR dan pencilan pada klaim",
+              text: `**Diketahui.** Pengeluaran harian (ribu rupiah) delapan siswa: $15, 18, 18, 20, 22, 24, 25, 90$ (sudah terurut).
+
+**Ide.** Tentukan $Q_1$, $Q_3$, dan IQR, lalu bandingkan data terbesar dengan batas atas $Q_3+1{,}5\\times\\text{IQR}$.
+
+**Langkah.** Separuh bawah $15,18,18,20$ memberi $Q_1=\\dfrac{18+18}{2}=18$; separuh atas $22,24,25,90$ memberi $Q_3=\\dfrac{24+25}{2}=24{,}5$. Maka $\\text{IQR}=24{,}5-18=6{,}5$ dan batas atas $=24{,}5+1{,}5(6{,}5)=34{,}25$.
+
+**Verifikasi.** Karena $90>34{,}25$, nilai $90$ adalah pencilan. Perhatikan IQR $6{,}5$ jauh lebih kecil daripada jangkauan $90-15=75$, tanda sebarannya sangat miring.
+
+**Kesimpulan.** Sebagian besar siswa berbelanja dekat nilai tengah, sementara $90$ adalah pencilan yang perlu diperiksa sebelum dipakai untuk klaim "rata-rata pengeluaran".`,
+            },
+            {
+              title: "Contoh 4: grafik yang menyesatkan",
+              text: `**Diketahui.** Penjualan dua bulan berturut-turut $100$ unit dan $105$ unit, tetapi diagram batangnya memulai sumbu vertikal dari $95$.
+
+**Ide.** Bandingkan selisih nyata dengan kesan visual yang ditimbulkan skala yang dipotong.
+
+**Langkah.** Selisih nyata $105-100=5$ unit, yaitu kenaikan $\\dfrac{5}{100}=5\\%$. Dengan sumbu mulai dari $95$, tinggi batang hanya berselisih $105-95=10$ pada rentang $100-95=5$, sehingga batang kedua tampak dua kali lebih tinggi.
+
+**Verifikasi.** Jika sumbu dimulai dari $0$, perbandingan tinggi $100:105$ hampir sama, bukan dua kali.
+
+**Kesimpulan.** Grafik itu menyesatkan karena memotong sumbu, bukan karena angkanya salah. Penyajian yang jujur memulai sumbu dari $0$ atau menuliskan angkanya secara jelas.`,
             },
           ],
         },
@@ -430,7 +457,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       id: "refleksi",
       kind: "refleksi",
       title: "Refleksi",
-      body: "Satu ukuran pemusatan tidak pernah bercerita lengkap; mean, median, dan penyajian grafik dapat memberi kesan yang berbeda dari data yang sama. Gunakan refleksi berikut untuk melatih kebiasaan bertanya sebelum menerima klaim statistik, misalnya pada iklan, berita, atau laporan penjualan di sekitarmu.",
+      body: "Satu ukuran pemusatan tidak pernah bercerita lengkap; mean, median, dan penyajian grafik dapat memberi kesan yang berbeda dari data yang sama. Gunakan refleksi berikut untuk melatih kebiasaan bertanya sebelum menerima klaim statistik, seperti pada iklan, berita, atau laporan penjualan di sekitarmu.",
       blocks: [
         {
           kind: "reflection",
@@ -439,7 +466,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
             "Sebutkan dua cara grafik dapat menyesatkan meskipun angkanya benar.",
             "Mengapa ukuran sampel penting sebelum menyimpulkan sesuatu tentang populasi besar?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu menilai sebuah klaim statistik secara kritis?",
         },
       ],
     },

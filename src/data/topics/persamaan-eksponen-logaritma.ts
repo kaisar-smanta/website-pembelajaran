@@ -21,9 +21,9 @@ export const persamaanEksponenLogaritma: Topic = {
   prerequisites: ['eksponen', 'fungsi-eksponensial'],
   relatedTopics: ['barisan-deret', 'bunga-majemuk'],
   prerequisiteKnowledge: [
-    'Sifat-sifat eksponen seperti $a^{m}\\cdot a^{n}=a^{m+n}$ dan $(a^{m})^{n}=a^{mn}$',
+    'Sifat-sifat eksponen (ringkasannya ada pada topik Eksponen dan Bentuk Akar)',
     'Menyelesaikan persamaan linear satu variabel',
-    'Membaca grafik fungsi eksponensial $f(x)=a\\cdot b^{x}$',
+    'Menyatakan bilangan sebagai pangkat dengan basis tertentu',
   ],
   objectives: [
     { text: 'Menyelesaikan persamaan eksponen dengan menyamakan basis.' },
@@ -68,11 +68,10 @@ Sekarang, berapa $t$ jika jumlahnya menjadi $100$ sel? Angka $100$ bukan pangkat
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- sifat-sifat eksponen, misalnya $a^{m}\\cdot a^{n}=a^{m+n}$ dan $(a^{m})^{n}=a^{mn}$;
+      body: `Topik ini memadukan penyederhanaan bentuk eksponen dengan penyelesaian persamaan. Pastikan kamu sudah bisa:
+- menerapkan sifat-sifat eksponen (ringkasannya ada pada topik [Eksponen dan Bentuk Akar](/matematika/kelas/X/bilangan/eksponen));
 - menyatakan bilangan sebagai pangkat dengan basis tertentu, misalnya $32=2^{5}$ dan $81=3^{4}$;
-- menyelesaikan persamaan linear satu variabel, misalnya $2x+2=3x-3$;
-- membaca grafik fungsi eksponensial dan memahami bahwa grafiknya selalu berada di atas sumbu-$x$.`,
+- menyelesaikan persamaan linear satu variabel, seperti $2x+2=3x-3$.`,
     },
     {
       id: "konteks",
@@ -98,7 +97,7 @@ Karena fungsi eksponen bersifat satu-satu (monoton), kesamaan nilai hanya mungki
 
 $$a^{c}=b \\iff \\log_{a}b=c.$$
 
-Dengan kata lain, $\\log_{a}b$ menjawab pertanyaan "basis $a$ harus dipangkatkan berapa agar menghasilkan $b$". Misalnya, $2^{3}=8 \\iff \\log_{2}8=3$.
+Dengan kata lain, $\\log_{a}b$ menjawab pertanyaan "basis $a$ harus dipangkatkan berapa agar menghasilkan $b$". Contoh: $2^{3}=8 \\iff \\log_{2}8=3$.
 
 **Sifat-sifat logaritma.** Untuk $a>0$, $a\\neq1$, dan numerus positif:
 
@@ -258,13 +257,13 @@ Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik
           kind: "callout",
           variant: "info",
           title: "Menghubungkan dengan logaritma",
-          text: "Grafik $y=b^{x}$ tidak pernah menyentuh sumbu-$x$. Akibatnya $b^{x}$ selalu positif, sehingga logaritma hanya terdefinisi untuk bilangan positif. Cerminan grafik juga menunjukkan bahwa sumbu-$y$ menjadi asimtot bagi grafik logaritma.",
+          text: "Grafik $y=b^{x}$ tidak pernah menyentuh sumbu-$x$. Akibatnya $b^{x}$ selalu positif, sehingga logaritma hanya terdefinisi untuk bilangan positif. Cerminan grafik juga menunjukkan bahwa sumbu-$y$ menjadi asimtot bagi grafik logaritma. Bentuk lengkap grafik fungsi logaritma dibahas pada topik [Fungsi Logaritma](/matematika-lanjut/kelas/XI/aljabar-fungsi/fungsi-logaritma).",
         },
         {
           kind: "figure",
-          alt: "Grafik fungsi eksponen yang naik tajam dan grafik logaritma yang merupakan pencerminannya terhadap garis y sama dengan x, dengan titik-titik pasangan koordinat yang saling bertukar.",
-          caption: "Grafik $y=2^{x}$ dan inversnya $y=\\log_{2}x$ saling mencerminkan terhadap garis $y=x$.",
-          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-eel-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="80" y1="175" x2="305" y2="175" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-eel-axis)"/><line x1="80" y1="175" x2="80" y2="15" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-eel-axis)"/><line x1="80" y1="175" x2="196" y2="59" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="80" y1="151" x2="104" y2="175" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="104" y1="127" x2="128" y2="151" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="56" y1="163" x2="92" y2="199" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><polyline points="8,172 32,169 56,163 80,151 104,127 128,79 140,39" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="86,223 92,199 104,175 128,151 176,127 216,115 272,103 316,96" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="7 3"/><circle cx="80" cy="151" r="2.6" fill="currentColor"/><circle cx="104" cy="127" r="2.6" fill="currentColor"/><circle cx="56" cy="163" r="2.6" fill="currentColor"/><circle cx="104" cy="175" r="2.6" fill="currentColor"/><circle cx="128" cy="151" r="2.6" fill="currentColor"/><circle cx="92" cy="199" r="2.6" fill="currentColor"/><text x="96" y="46" font-size="12" fill="currentColor">y = 2^x</text><text x="196" y="120" font-size="12" fill="currentColor">y = log₂ x</text><text x="150" y="90" font-size="12" fill="currentColor">y = x</text><text x="300" y="168" font-size="11" fill="currentColor">x</text><text x="86" y="24" font-size="11" fill="currentColor">y</text><text x="30" y="185" font-size="11" fill="currentColor">O</text></svg>',
+          alt: "Dua kurva yang saling mencerminkan terhadap garis y sama dengan x, yaitu kurva eksponen dan kurva logaritma, dengan titik nol satu dan satu nol ditandai.",
+          caption: "Grafik $y = 2^{x}$ dan $y = \\log_{2} x$ saling mencerminkan terhadap garis $y = x$. Titik $(0,1)$ pada kurva eksponen bertukar menjadi $(1,0)$ pada kurva logaritma.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.2"/><line x1="90" y1="210" x2="90" y2="25" stroke="currentColor" stroke-width="1.2"/><line x1="50" y1="210" x2="215" y2="45" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 4"/><polyline points="50,150 90,130 130,90 154,49" fill="none" stroke="currentColor" stroke-width="2.4"/><polyline points="110,210 130,170 150,147 170,130 210,107 250,90 290,77" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="90" cy="130" r="3.2" fill="currentColor"/><circle cx="130" cy="170" r="3.2" fill="currentColor"/><text x="292" y="186" font-size="12" fill="currentColor">x</text><text x="72" y="38" font-size="12" fill="currentColor">y</text><text x="138" y="80" font-size="11" fill="currentColor">y = 2^x</text><text x="236" y="108" font-size="11" fill="currentColor">y = log_2 x</text><text x="178" y="60" font-size="11" fill="currentColor">y = x</text><text x="94" y="126" font-size="11" fill="currentColor">(0, 1)</text><text x="134" y="166" font-size="11" fill="currentColor">(1, 0)</text></svg>',
         },
       ],
     },
@@ -310,11 +309,12 @@ $$\\log_{a}a=1, \\qquad \\log_{a}1=0.$$
           steps: [
             {
               title: "Contoh 1: menyamakan basis",
-              text: `Tentukan $x$ dari $2^{x+1}=32$.
+              text: `Tentukan $x$ dari $5^{2x-1}=125$.
 
-*Penyelesaian.* Nyatakan $32$ sebagai pangkat basis $2$: $32=2^{5}$. Maka
-$$2^{x+1}=2^{5} \\Rightarrow x+1=5 \\Rightarrow x=4.$$
-Periksa: $2^{4+1}=2^{5}=32$ benar.`,
+*Penyelesaian.* Nyatakan $125$ sebagai pangkat basis $5$: $125=5^{3}$. Maka
+$$5^{2x-1}=5^{3} \\Rightarrow 2x-1=3 \\Rightarrow 2x=4 \\Rightarrow x=2.$$
+
+*Verifikasi.* $5^{2(2)-1}=5^{3}=125$ benar. Penyetaraan eksponen sah karena basisnya sama dan $5 \\neq 1$.`,
             },
             {
               title: "Contoh 2: substitusi variabel",
@@ -368,7 +368,7 @@ Periksa dengan $2^{3}=8$ benar.`,
 
 $$t=\\log_{b}\\!\\left(\\frac{P}{P_{0}}\\right).$$
 
-Misalnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\\log_{2}100 \\approx 6{,}64$ jam. Skala logaritma juga memampatkan rentang yang sangat lebar: larutan dengan $[H^{+}]=10^{-3}$ memiliki $\\text{pH}=3$, dan gempa bermagnitudo $6$ mengguncang $10^{2}=100$ kali lebih kuat daripada gempa bermagnitudo $4$. Untuk penerapan lanjutan, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
+Contohnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\\log_{2}100 \\approx 6{,}64$ jam. Skala logaritma juga memampatkan rentang yang sangat lebar: larutan dengan $[H^{+}]=10^{-3}$ memiliki $\\text{pH}=3$, dan gempa bermagnitudo $6$ mengguncang $10^{2}=100$ kali lebih kuat daripada gempa bermagnitudo $4$. Untuk penerapan lanjutan, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
     },
     {
       id: "kesalahan-umum",
@@ -434,39 +434,9 @@ Misalnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\\
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Logaritma lahir dari kebutuhan berhitung yang sangat praktis. Pada awal abad ke-17, para astronom harus mengalikan bilangan-bilangan besar dan panjang. John Napier, dalam *Mirifici Logarithmorum Canonis Descriptio* (1614), memperkenalkan gagasan "bilangan perbandingan" yang mengubah perkalian menjadi penjumlahan. Henry Briggs kemudian menyusun tabel logaritma basis 10 pada 1617 sehingga metode ini cepat menyebar. Kata *logarithm* berasal dari bahasa Yunani *logos* (perbandingan) dan *arithmos* (bilangan).
+      body: `Persamaan yang tidak dapat diselesaikan dengan menyamakan basislah yang mendorong logaritma dipakai sebagai alat. Sebelum ada logaritma, para astronom dan pedagang mengalikan bilangan besar lewat tabel panjang yang rawan salah. John Napier (1614) dan Henry Briggs (1617) menyusun tabel logaritma untuk mempersingkat perhitungan semacam itu: perkalian berat berubah menjadi penjumlahan ringan, dan pencarian pangkat yang tersembunyi menjadi mungkin.
 
-Untuk beberapa waktu logaritma dipandang semata sebagai alat hitung, bukan sebagai fungsi. Leonhard Euler dalam *Introductio in analysin infinitorum* (1748) menempatkannya pada dasar yang modern: ia memperkenalkan bilangan $e \\approx 2{,}71828$, menuliskan fungsi eksponen $e^{x}$, dan menegaskan bahwa logaritma adalah **operasi invers** dari eksponen. Dari sanalah hubungan $a^{c} = b \\iff \\log_{a}b = c$ menjadi definisi yang kita pakai sekarang. Justru karena sifat balik inilah persamaan eksponen dan persamaan logaritma dapat saling diterjemahkan, dan pemeriksaan syarat numerus positif menjadi bagian yang tak terpisahkan.`,
-      blocks: [
-        {
-          kind: "table",
-          caption: "Tokoh kunci dalam perkembangan logaritma",
-          headers: [
-            "Tokoh",
-            "Sumbangan",
-          ],
-          rows: [
-            [
-              "John Napier (1614)",
-              "Memperkenalkan logaritma sebagai alat hitung.",
-            ],
-            [
-              "Henry Briggs (1617)",
-              "Menyusun tabel logaritma basis 10.",
-            ],
-            [
-              "Leonhard Euler (1748)",
-              "Menegaskan logaritma sebagai invers eksponen dan memperkenalkan bilangan $e$.",
-            ],
-          ],
-        },
-        {
-          kind: "callout",
-          variant: "concept",
-          title: "Inti pandangan Euler",
-          text: "Bagi Euler, $e^{x}$ dan $\\ln x$ adalah dua fungsi yang saling membalik. Cara pandang inilah yang mengubah logaritma dari sekadar trik perkalian menjadi konsep pusat dalam kalkulus dan penyelesaian persamaan.",
-        },
-      ],
+Yang menjadikan logaritma penuntas persamaan adalah sifat baliknya terhadap eksponen. Leonhard Euler (1748) menegaskan hubungan $a^{c}=b \\iff \\log_{a}b=c$ sebagai definisi, bukan hanya trik hitung. Sejak itu setiap persamaan $b^{t}=N$ dapat diselesaikan dengan menuliskan $t=\\log_{b}N$, dan setiap persamaan logaritma dapat dikembalikan ke bentuk eksponen. Di sinilah syarat numerus positif mulai berperan: hanya nilai yang membuat logaritma terdefinisi yang sah sebagai jawaban.`,
     },
     {
       id: "refleksi",
@@ -481,7 +451,7 @@ Untuk beberapa waktu logaritma dipandang semata sebagai alat hitung, bukan sebag
             "Bagaimana kamu menjelaskan kepada teman bahwa logaritma adalah invers dari eksponen?",
             "Mengapa memeriksa syarat numerus positif wajib dilakukan di akhir setiap penyelesaian persamaan logaritma?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan persamaan eksponen dan logaritma ini?",
+          confidenceLabel: "Seberapa yakin kamu menyelesaikan persamaan eksponen dan memeriksa syarat numerus logaritma?",
         },
       ],
     },

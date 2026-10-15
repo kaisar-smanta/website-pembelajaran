@@ -338,6 +338,7 @@ export type ExplorationType =
   | 'function-family'
   | 'normal-distribution'
   | 'triangle'
+  | 'exponent-laws'
   | 'geogebra';
 
 /** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */

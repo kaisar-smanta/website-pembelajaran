@@ -34,7 +34,10 @@ export const teoriBilanganQuestions: Question[] = [
     acceptedAnswers: ['12'],
     explanation:
       '$24=2^3\\cdot 3$ dan $36=2^2\\cdot 3^2$. FPB mengambil pangkat terkecil tiap prima: $2^2\\cdot 3=12$.',
-    hints: ['Faktorkan kedua bilangan, lalu ambil pangkat terkecil setiap prima yang sama.'],
+    hints: [
+      'Faktorkan kedua bilangan, lalu ambil pangkat terkecil setiap prima yang sama.',
+      'FPB $=2^{2}\\cdot3$ setelah membandingkan $24=2^{3}\\cdot3$ dan $36=2^{2}\\cdot3^{2}$.',
+    ],
     competencies: ['FPB'],
   },
   {
@@ -53,7 +56,10 @@ export const teoriBilanganQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Opsi A salah karena $1$ hanya punya satu faktor positif, sehingga bukan prima. Opsi B benar: bilangan prima terkecil adalah $2$, yang juga satu-satunya prima genap. Opsi C salah karena $2$ adalah prima genap. Opsi D salah karena tidak semua bilangan ganjil prima, misalnya $9=3\\times3$ dan $15=3\\times5$.',
-    hints: ['Ingat syarat prima: lebih besar dari $1$ dan hanya punya dua faktor positif.'],
+    hints: [
+      'Ingat syarat prima: lebih besar dari $1$ dan hanya punya dua faktor positif.',
+      'Pertimbangkan bilangan $2$ dan bilangan ganjil seperti $9$ untuk menguji tiap opsi.',
+    ],
     competencies: ['bilangan prima'],
   },
   {

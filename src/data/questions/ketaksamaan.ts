@@ -17,7 +17,11 @@ export const ketaksamaanQuestions: Question[] = [
     answer: 'B',
     explanation:
       '$2x - 3 > 5 \\Rightarrow 2x > 8 \\Rightarrow x > 4$. Opsi A ($x > 1$) muncul bila $3$ dikurangkan alih-alih ditambahkan sehingga diperoleh $2x > 2$. Opsi C ($x < 4$) membalik arah tanda tanpa alasan. Opsi D ($x > -4$) salah tanda karena tidak menambahkan $3$ lebih dahulu.',
-    hints: ['Tambahkan $3$ pada kedua ruas lebih dahulu.'],
+    hints: [
+      'Tambahkan $3$ pada kedua ruas lebih dahulu.',
+      'Setelah itu bagi kedua ruas dengan $2$.',
+      'Periksa hasilnya dengan mencoba $x = 5$ pada $2x - 3 > 5$.',
+    ],
     competencies: ['sifat ketaksamaan'],
   },
   {
@@ -36,7 +40,11 @@ export const ketaksamaanQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Mengalikan kedua ruas ketaksamaan $a<b$ dengan bilangan negatif $c<0$ membalik arah tanda, sehingga $ac>bc$. Opsi A ($ac<bc$) mempertahankan arah seolah mengalikan dengan bilangan positif. Opsi C ($ac=bc$) menganggap arahnya berubah menjadi kesamaan. Opsi D ($a+c>b+c$) justru terbalik, seharusnya $a+c<b+c$ karena menambah bilangan yang sama tidak membalik tanda.',
-    hints: ['Perhatikan tanda bilangan pengali.'],
+    hints: [
+      'Perhatikan tanda bilangan pengali.',
+      'Mengalikan ketaksamaan dengan bilangan negatif membalik arah tanda.',
+      'Karena $c < 0$, dari $a < b$ diperoleh $ac > bc$.',
+    ],
     competencies: ['sifat ketaksamaan'],
   },
   {
@@ -50,7 +58,11 @@ export const ketaksamaanQuestions: Question[] = [
     acceptedAnswers: ['4'],
     explanation:
       'Dengan AM-GM, $x + \\dfrac{4}{x} \\ge 2\\sqrt{x \\cdot \\dfrac{4}{x}} = 2\\sqrt{4} = 4$. Kesamaan saat $x = 2$.',
-    hints: ['Gunakan $a + b \\ge 2\\sqrt{ab}$ dengan $a = x$ dan $b = \\dfrac{4}{x}$.'],
+    hints: [
+      'Gunakan $a + b \\ge 2\\sqrt{ab}$ dengan $a = x$ dan $b = \\dfrac{4}{x}$.',
+      'Hasil kali $x \\cdot \\dfrac{4}{x} = 4$ konstan, sehingga batas bawahnya $2\\sqrt{4}$.',
+      'Kesamaan tercapai saat $x = \\dfrac{4}{x}$, yaitu $x = 2$.',
+    ],
     competencies: ['AM-GM'],
   },
   {
@@ -69,7 +81,11 @@ export const ketaksamaanQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Ketaksamaan segitiga menyatakan $|x + y| \\le |x| + |y|$ untuk semua bilangan real $x$ dan $y$. Opsi A ($\\ge$) membalik arah sehingga salah, misalnya $x=1$ dan $y=-1$. Opsi C (kesamaan) hanya berlaku pada kasus khusus tanda sama, bukan selalu. Opsi D menambahkan $1$ sehingga salah, misalnya $x=y=0$ memberi $0\\ge1$ yang keliru.',
-    hints: ['Ingat bahwa nilai mutlak tidak pernah membuat hasil lebih besar dari jumlah nilai mutlaknya.'],
+    hints: [
+      'Ingat bahwa nilai mutlak tidak pernah membuat hasil lebih besar dari jumlah nilai mutlaknya.',
+      'Nama sifat ini adalah ketaksamaan segitiga.',
+      'Uji dengan $x = 1$ dan $y = -1$ untuk menyingkirkan opsi yang salah.',
+    ],
     competencies: ['ketaksamaan segitiga'],
   },
   {

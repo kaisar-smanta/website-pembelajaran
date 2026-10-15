@@ -76,9 +76,9 @@ Pada awalnya bola naik, lalu mencapai titik tertinggi, kemudian turun. Pada deti
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
-- pemfaktoran, misalnya $x^{2}-5x+6=(x-2)(x-3)$;
-- melengkapi kuadrat sempurna, misalnya $x^{2}+4x+1=(x+2)^{2}-3$;
+      body: `Fungsi kuadrat bertumpu pada aljabar dasar: pemfaktoran dan melengkapi kuadrat. Pastikan kamu sudah menguasai:
+- pemfaktoran, seperti $x^{2}-5x+6=(x-2)(x-3)$;
+- melengkapi kuadrat sempurna seperti $x^{2}+4x+1=(x+2)^{2}-3$;
 - menggambar titik $(x,y)$ pada bidang koordinat.`,
     },
     {
@@ -108,6 +108,12 @@ Nilai $c = f(0)$ adalah titik potong grafik dengan sumbu-$y$. Semakin besar $\\l
           variant: "concept",
           title: "Peran setiap koefisien",
           text: "$a$ mengatur arah dan lebar parabola, sedangkan $b$ dan $c$ menggeser posisinya. Parabola selalu simetris terhadap garis vertikal yang melalui titik puncaknya.",
+        },
+        {
+          kind: "figure",
+          alt: "Dua parabola berdampingan: parabola terbuka ke atas dengan titik puncak terendah ketika a positif, dan parabola terbuka ke bawah dengan titik puncak tertinggi ketika a negatif.",
+          caption: "Tanda $a$ menentukan arah bukaan: $a>0$ membuka ke atas dengan titik puncak minimum, sedangkan $a<0$ membuka ke bawah dengan titik puncak maksimum.",
+          svg: '<svg viewBox="0 0 330 150" aria-hidden="true" role="presentation"><line x1="18" y1="88" x2="150" y2="88" stroke="currentColor" stroke-width="1.1"/><line x1="80" y1="128" x2="80" y2="24" stroke="currentColor" stroke-width="1.1"/><polyline points="34,28 52,58 66,80 80,100 94,80 108,58 126,28" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="80" cy="100" r="3" fill="currentColor"/><text x="32" y="144" font-size="11" fill="currentColor">a &gt; 0: minimum</text><line x1="188" y1="88" x2="320" y2="88" stroke="currentColor" stroke-width="1.1"/><line x1="250" y1="128" x2="250" y2="24" stroke="currentColor" stroke-width="1.1"/><polyline points="204,124 222,94 236,72 250,52 264,72 278,94 296,124" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="250" cy="52" r="3" fill="currentColor"/><text x="198" y="144" font-size="11" fill="currentColor">a &lt; 0: maksimum</text></svg>',
         },
         {
           kind: "flip-cards",

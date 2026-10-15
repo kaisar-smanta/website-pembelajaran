@@ -32,7 +32,10 @@ export const variabelAcakDiskretQuestions: Question[] = [
     acceptedAnswers: ['0.2', '0,20', '0.20', '1/5'],
     explanation:
       'Karena jumlah seluruh peluang harus $1$, maka $p = 1 - (0{,}2 + 0{,}3 + 0{,}3) = 1 - 0{,}8 = 0{,}2$.',
-    hints: ['Gunakan syarat $\\sum P(X=x) = 1$.'],
+    hints: [
+      'Gunakan syarat $\\sum P(X=x) = 1$.',
+      'Kurangkan jumlah tiga peluang yang diketahui dari $1$.',
+    ],
     competencies: ['syarat fungsi peluang'],
   },
   {
@@ -51,7 +54,10 @@ export const variabelAcakDiskretQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Distribusi sah harus berjumlah $1$. Opsi C berjumlah $0{,}5 + 0{,}3 + 0{,}3 = 1{,}1 \\neq 1$, sehingga tidak sah. Opsi A berjumlah $1$, opsi B berjumlah $1$, dan opsi D berjumlah $1$.',
-    hints: ['Jumlahkan seluruh peluang; peluang sah harus berjumlah tepat $1$.'],
+    hints: [
+      'Jumlahkan seluruh peluang; peluang sah harus berjumlah tepat $1$.',
+      'Opsi dengan jumlah peluang tidak sama dengan $1$ adalah yang tidak sah.',
+    ],
     competencies: ['syarat fungsi peluang'],
   },
   {
@@ -66,7 +72,10 @@ export const variabelAcakDiskretQuestions: Question[] = [
     acceptedAnswers: ['1,0', '1.0'],
     explanation:
       '$E(X) = 0(0{,}4) + 1(0{,}3) + 2(0{,}2) + 3(0{,}1) = 0 + 0{,}3 + 0{,}4 + 0{,}3 = 1$.',
-    hints: ['Kalikan tiap nilai $x$ dengan peluangnya, lalu jumlahkan.'],
+    hints: [
+      'Kalikan tiap nilai $x$ dengan peluangnya, lalu jumlahkan.',
+      'Nilai $0$ tidak menambah apa pun, jadi cukup hitung $1(0{,}3)+2(0{,}2)+3(0{,}1)$.',
+    ],
     competencies: ['nilai harapan'],
   },
   {

@@ -205,14 +205,18 @@ export const turunanQuestions: Question[] = [
   {
     id: 'tur-12',
     topicId: 'turunan',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penalaran',
     prompt: 'Tentukan turunan $q(x) = x\\cos x$, lalu hitung $q\'(0)$.',
     answer: '1',
     explanation:
-      'Aturan hasil kali: $q\'(x) = 1 \\cdot \\cos x + x \\cdot (-\\sin x) = \\cos x - x\\sin x$. Maka $q\'(0) = \\cos 0 - 0 = 1$.',
-    hints: ['Gunakan $\\dfrac{d}{dx}(x\\cos x) = \\cos x - x\\sin x$.', 'Untuk $x = 0$, suku $x\\sin x$ lenyap sehingga hanya $\\cos 0$ yang tersisa.'],
+      'Aturan hasil kali: $q\'(x) = 1 \\cdot \\cos x + x \\cdot (-\\sin x) = \\cos x - x\\sin x$. Maka $q\'(0) = \\cos 0 - 0 = 1$. Selain itu, $q\'(0)=1$ menafsirkan kemiringan grafik $q$ di $x=0$ sebesar $1$, sehingga grafik naik dengan laju itu di titik tersebut.',
+    hints: [
+      'Gunakan $\\dfrac{d}{dx}(x\\cos x) = \\cos x - x\\sin x$.',
+      'Untuk $x = 0$, suku $x\\sin x$ lenyap sehingga hanya $\\cos 0$ yang tersisa.',
+      'Nilai $q\'(0)=1$ juga berarti kemiringan grafik $q$ di $x=0$ adalah $1$.',
+    ],
     competencies: ['aturan hasil kali', 'turunan trigonometri'],
   },
   {

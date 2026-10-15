@@ -16,7 +16,7 @@ export const spltv: Topic = {
   summary:
     'Menyusun dan menyelesaikan sistem persamaan linear tiga variabel dengan eliminasi dan substitusi, serta menafsirkan solusinya.',
   description:
-    'Banyak situasi nyata menuntut penentuan tiga besaran sekaligus, misalnya harga tiga jenis barang atau komposisi tiga bahan. Sistem persamaan linear tiga variabel (SPLTV) menyediakan cara sistematis untuk menemukannya. Pada topik ini kita belajar merepresentasikan SPLTV, menyelesaikannya dengan eliminasi dan substitusi, memodelkan masalah nyata, serta menafsirkan solusinya, termasuk kemungkinan tidak ada solusi atau tak berhingga banyak solusi.',
+    'Banyak situasi nyata menuntut penentuan tiga besaran sekaligus, seperti harga tiga jenis barang atau komposisi tiga bahan. Sistem persamaan linear tiga variabel (SPLTV) menyediakan cara sistematis untuk menemukannya. Pada topik ini kita belajar merepresentasikan SPLTV, menyelesaikannya dengan eliminasi dan substitusi, memodelkan masalah nyata, serta menafsirkan solusinya, termasuk kemungkinan tidak ada solusi atau tak berhingga banyak solusi.',
   keywords: [
     'SPLTV',
     'tiga variabel',
@@ -69,7 +69,7 @@ Dapatkah kamu menentukan berat masing-masing anak? Jumlahkan ketiga informasi it
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Untuk menyusun dan menyelesaikan SPLTV dengan lancar, segarkan dahulu kemampuan berikut:
 - menyelesaikan sistem persamaan linear dua variabel dengan eliminasi atau substitusi;
 - menyederhanakan bentuk aljabar dengan suku sejenis;
 - operasi bilangan bulat dan pecahan.`,
@@ -86,7 +86,7 @@ Ketika banyak besaran yang dicari bertambah menjadi tiga, menyelesaikan secara c
       id: "representasi",
       kind: "representasi",
       title: "Representasi",
-      body: `Satu SPLTV dapat disajikan dalam beberapa bentuk. Misalnya untuk sistem
+      body: `Satu SPLTV dapat disajikan dalam beberapa bentuk. Contohnya untuk sistem
 
 $$\\begin{cases} 2x + y - z = 3 \\\\ x - y + 2z = 4 \\\\ x + 2y + z = 7 \\end{cases}$$
 
@@ -143,7 +143,7 @@ bentuk aljabarnya adalah himpunan tiga persamaan di atas, sedangkan tiap persama
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: SPLTV dan Jenis Solusinya",
-      body: `SPLTV adalah himpunan tiga persamaan linear yang memuat tiga variabel, misalnya
+      body: `SPLTV adalah himpunan tiga persamaan linear yang memuat tiga variabel, yaitu
 
 $$\\begin{cases} a_1x + b_1y + c_1z = d_1 \\\\ a_2x + b_2y + c_2z = d_2 \\\\ a_3x + b_3y + c_3z = d_3 \\end{cases}$$
 
@@ -183,6 +183,12 @@ Metode penyelesaian yang umum adalah **eliminasi** (mengurangkan atau menjumlahk
               right: "Garis sejajar atau berimpit",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Tiga bidang berpotongan dan bertemu pada satu titik, ditandai sebagai solusi sistem.",
+          caption: "Secara geometris, solusi SPLTV adalah titik potong tiga bidang. Bila bidang-bidang bertemu sepanjang sebuah garis atau tidak bertemu sama sekali, sistemnya bergantung atau tidak konsisten.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><polygon points="40,150 150,110 280,150 170,190" fill="none" stroke="currentColor" stroke-width="1.6"/><polygon points="90,70 210,50 250,140 130,160" fill="none" stroke="currentColor" stroke-width="1.6"/><polygon points="110,90 230,120 200,200 80,170" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="160" cy="128" r="4" fill="currentColor"/><text x="170" y="124" font-size="12" fill="currentColor">titik potong</text><text x="238" y="205" font-size="11" fill="currentColor">tiga bidang</text></svg>',
         },
       ],
     },
@@ -260,7 +266,34 @@ $$\\begin{cases} y = x + 1 \\\\ x + y + z = 8 \\\\ 2x - y + z = 3 \\end{cases}$$
 $$x+(x+1)+z=8 \\Rightarrow 2x+z=7.$$
 Substitusikan juga ke persamaan ketiga:
 $$2x-(x+1)+z=3 \\Rightarrow x+z=4 \\Rightarrow z=4-x.$$
-Masukkan $z=4-x$ ke $2x+z=7$: $2x+(4-x)=7 \\Rightarrow x=3$. Maka $y=4$ dan $z=1$. Solusinya $(3,4,1)$.`,
+Masukkan $z=4-x$ ke $2x+z=7$: $2x+(4-x)=7 \\Rightarrow x=3$. Maka $y=4$ dan $z=1$. Periksa: $3+4+1=8$ ✓ dan $2(3)-4+1=3$ ✓. Solusinya $(3,4,1)$.`,
+            },
+            {
+              title: "Contoh 3 (pemodelan): menetapkan variabel",
+              text: `Sebuah kedai menyiapkan campuran kopi dari tiga jenis biji. Satu bungkus berisi $60$ gram dengan harga Rp12.500. Harga per gram: arabika Rp300, robusta Rp150, dan liberika Rp200; banyak arabika dua kali banyak liberika. Tentukan komposisi tiap jenis.
+
+Misalkan $a$, $r$, dan $l$ berturut-turut berat arabika, robusta, dan liberika (gram). Kita mencari pasangan $(a, r, l)$.`,
+            },
+            {
+              title: "Contoh 3 (pemodelan): menyusun persamaan",
+              text: `Ubah tiap informasi menjadi persamaan.
+- Total berat: $a + r + l = 60$.
+- Total harga: $300a + 150r + 200l = 12.500$.
+- Hubungan banyak arabika dan liberika: $a = 2l$.
+
+Ketiga persamaan itu membentuk sebuah SPLTV.`,
+            },
+            {
+              title: "Contoh 3 (pemodelan): menyelesaikan sistem",
+              text: `Substitusikan $a = 2l$ ke persamaan berat: $2l + r + l = 60 \\Rightarrow r = 60 - 3l$. Substitusikan $a=2l$ dan $r=60-3l$ ke persamaan harga:
+$$300(2l) + 150(60 - 3l) + 200l = 12.500.$$
+Sederhanakan: $600l + 9.000 - 450l + 200l = 12.500$, sehingga $350l = 3.500$ dan $l = 10$. Lalu $a = 20$ dan $r = 30$.`,
+            },
+            {
+              title: "Contoh 3 (pemodelan): memeriksa dan menafsirkan",
+              text: `Periksa ketiga persamaan: $20 + 30 + 10 = 60$ ✓, $300(20) + 150(30) + 200(10) = 6.000 + 4.500 + 2.000 = 12.500$ ✓, dan $20 = 2(10)$ ✓.
+
+Jadi tiap bungkus berisi $20$ gram arabika, $30$ gram robusta, dan $10$ gram liberika. Menafsirkan hasil dalam konteks berarti menyatakan jawaban sebagai komposisi nyata, bukan hanya pasangan bilangan.`,
             },
           ],
         },
@@ -366,7 +399,7 @@ Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
             "Kesalahan tanda paling sering muncul di langkah mana, dan bagaimana kamu menghindarinya?",
             "Mengapa menafsirkan solusi dalam konteks soal sama pentingnya dengan menghitungnya?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu memilih strategi penyelesaian SPLTV?",
         },
       ],
     },

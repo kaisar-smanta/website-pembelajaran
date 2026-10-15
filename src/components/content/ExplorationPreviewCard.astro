@@ -57,6 +57,7 @@ const curves: Record<Exploration['type'], string> = {
   'function-family': 'M6 48 C52 48 82 30 92 14 M108 58 C126 46 158 42 194 38',
   'normal-distribution': 'M6 58 C52 58 62 10 100 10 C138 10 148 58 194 58',
   triangle: 'M16 56 L150 16 L196 56 Z',
+  'exponent-laws': 'M6 58 C60 56 120 40 194 8',
   geogebra: 'M6 58 C45 58 60 14 100 14 C140 14 155 58 194 58',
 };
 
@@ -205,6 +206,11 @@ const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>
     [16, 56],
     [150, 16],
     [196, 56],
+  ],
+  'exponent-laws': [
+    [6, 58],
+    [100, 32],
+    [194, 8],
   ],
   geogebra: [
     [40, 40],

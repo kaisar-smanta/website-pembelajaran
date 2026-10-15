@@ -22,17 +22,18 @@ Pertanyaan pemicunya: setelah 3 jam, berapa banyak sel yang ada, dan mengapa has
     analysis: `Setelah 3 jam ($t = 180$ menit) terdapat $180/20 = 9$ selang waktu, sehingga
 $$N(180) = 500 \\cdot 2^{9} = 500 \\cdot 512 = 256.000 \\text{ sel}.$$
 
-Jika pertambahannya linear (bertambah jumlah tetap), hasilnya akan jauh lebih kecil. Model eksponensial menjelaskan mengapa pengendalian populasi mikroba harus dilakukan cepat. **Asumsi penting:** model ini mengandaikan ruang dan nutrisi tak terbatas; pada kenyataannya pertumbuhan melambat ketika sumber daya menipis, sehingga model eksponensial hanya akurat pada fase awal.`,
+Jika pertambahannya linear (bertambah jumlah tetap), hasilnya akan jauh lebih kecil. Model eksponensial menjelaskan mengapa pengendalian populasi mikroba harus dilakukan cepat. Pertanyaan "kapan populasi menembus ambang tertentu" pun diselesaikan dengan persamaan eksponen, bukan dengan menebak satu per satu. **Asumsi penting:** model ini mengandaikan ruang dan nutrisi tak terbatas; pada kenyataannya pertumbuhan melambat ketika sumber daya menipis, sehingga model eksponensial hanya akurat pada fase awal.`,
     takeaways: [
       'Populasi berlipat mengikuti rumus eksponensial, bukan pertambahan tetap.',
       'Model eksponensial hanya berlaku selama sumber daya masih berlimpah.',
+      'Waktu menuju ambang tertentu dicari dengan menyelesaikan persamaan eksponen, bukan dengan menghitung satu per satu.',
     ],
     reflection: [
       'Mengapa hasil pertumbuhan eksponensial jauh melampaui pertumbuhan linear?',
       'Kapan model ini berhenti berlaku, dan faktor apa yang membuatnya melambat?',
     ],
     source:
-      'Model berlipat dua mengikuti pola pembelahan bakteri yang membelah tiap sekitar 20 menit (waktu generasi yang lazim di laboratorium); populasi awal dan waktu dibulatkan untuk pembelajaran.',
+      'Mengacu pada pola pembelahan bakteri yang berlipat dua setiap sekitar 20 menit (waktu generasi yang lazim di laboratorium); populasi awal dan waktu dibulatkan untuk pembelajaran, bukan data satu kultur tertentu.',
   },
   {
     id: 'peluruhan-zat',
@@ -55,40 +56,41 @@ Pertanyaan pemicunya: pada jam ke berapa konsentrasi obat pertama kali turun di 
     analysis: `Konsentrasi akan berada di bawah 5 mg/L ketika
 $$80\\left(\\tfrac12\\right)^{t/4} < 5 \\iff \\left(\\tfrac12\\right)^{t/4} < \\tfrac{1}{16} = \\left(\\tfrac12\\right)^{4}.$$
 
-Karena basis lebih kecil dari 1, tanda pertidaksamaan berbalik saat menyamakan eksponen, sehingga $t/4 > 4$ atau $t > 16$ jam. Pada $t = 16$ jam konsentrasinya tepat 5 mg/L. Ini contoh penting bahwa pada **peluruhan**, grafik menurun dan hubungan "lebih kecil dari" perlu kehati-hatian saat basisnya kurang dari satu.`,
+Karena basis lebih kecil dari 1, tanda pertidaksamaan berbalik saat menyamakan eksponen, sehingga $t/4 > 4$ atau $t > 16$ jam. Pada $t = 16$ jam konsentrasinya tepat 5 mg/L. Karena itu, pertanyaan "kapan kadar aman" harus diterjemahkan menjadi pertidaksamaan, bukan persamaan. Ini contoh penting bahwa pada **peluruhan**, grafik menurun dan hubungan "lebih kecil dari" perlu kehati-hatian saat basisnya kurang dari satu.`,
     takeaways: [
       'Pada peluruhan, tanda pertidaksamaan berbalik saat basis kurang dari 1 disamakan.',
       'Waktu paruh menentukan seberapa cepat konsentrasi turun.',
+      'Ambang kadar ("di bawah 5 mg/L") diselesaikan dengan pertidaksamaan eksponen, bukan persamaan.',
     ],
     reflection: [
       'Mengapa tanda pertidaksamaan berbalik pada peluruhan dengan basis kurang dari 1?',
       'Bagaimana kamu menentukan kapan obat perlu diminum lagi?',
     ],
     source:
-      'Mengikuti konsep waktu paruh (half-life) pada farmakokinetik; nilai awal 80 mg/L dan waktu paruh 4 jam dipilih untuk ilustrasi dan dibulatkan, bukan rujukan medis.',
+      'Mengacu pada konsep waktu paruh (half-life) yang lazim dipakai dalam farmakokinetik; nilai awal 80 mg/L dan waktu paruh 4 jam dipilih untuk ilustrasi dan dibulatkan, bukan rujukan medis.',
   },
   {
     id: 'pemodelan-penyebaran',
-    title: 'Memodelkan Penyebaran Kasus di Awal Wabah',
+    title: 'Memodelkan Pertumbuhan Pengguna Aplikasi',
     category: 'pertumbuhan',
     element: 'aljabar-fungsi',
     grade: 'XI',
     level: 'cakap',
     estimatedMinutes: 12,
     explorationId: 'eksponen-pertumbuhan',
-    tags: ['pemodelan', 'eksponen', 'logaritma', 'wabah', 'pertumbuhan'],
+    tags: ['pemodelan', 'eksponen', 'logaritma', 'pertumbuhan pengguna', 'adopsi teknologi'],
     summary: 'Menyusun model eksponensial dari data awal lalu memperkirakan kapan ambang terlampaui.',
     topicIds: ['pemodelan-fungsi', 'fungsi-eksponensial', 'eksponen'],
-    body: `Pada awal sebuah wabah tercatat **20 kasus**, dan jumlahnya berlipat sekitar **1,5 kali** setiap pekan. Bila pola ini berlanjut, banyak kasus setelah $t$ pekan dimodelkan
-$$K(t) = 20 \\cdot (1{,}5)^{t}.$$
+    body: `Sebuah aplikasi baru memiliki **200 pengguna** pada minggu pertama peluncuran, dan jumlahnya berlipat sekitar **1,5 kali** setiap pekan. Bila pola ini berlanjut, banyak pengguna setelah $t$ pekan dimodelkan
+$$K(t) = 200 \\cdot (1{,}5)^{t}.$$
 
-Model ini dibangun dari dua informasi: nilai awal (20) sebagai titik tolak, dan faktor pengali (1,5) sebagai laju pertumbuhan.
+Model ini dibangun dari dua informasi: nilai awal (200) sebagai titik tolak, dan faktor pengali (1,5) sebagai laju pertumbuhan.
 
-Pertanyaan pemicunya: pada pekan ke berapa jumlah kasus menembus **1.000**, dan seberapa jauh kita boleh mempercayai angka itu?`,
-    analysis: `Selesaikan $20 \\cdot (1{,}5)^{t} = 1000$, yaitu $(1{,}5)^{t} = 50$. Dengan logaritma,
+Pertanyaan pemicunya: pada pekan ke berapa jumlah pengguna menembus **10.000**, dan seberapa jauh kita boleh mempercayai angka itu?`,
+    analysis: `Selesaikan $200 \\cdot (1{,}5)^{t} = 10.000$, yaitu $(1{,}5)^{t} = 50$. Dengan logaritma,
 $$t = \\frac{\\log 50}{\\log 1{,}5} \\approx \\frac{3{,}912}{0{,}405} \\approx 9{,}7 \\text{ pekan}.$$
 
-Jadi ambang itu dilewati sekitar **10 pekan** setelah pencatatan awal. **Asumsi penting:** model menganggap laju berlipat tetap. Pada kenyataannya jumlah penduduk yang belum terpapar berkurang sehingga pertumbuhan melambat. Model eksponensial hanya akurat pada fase awal. Menyadari batas model ini adalah bagian inti dari pemodelan.`,
+Jadi ambang itu dilewati sekitar **10 pekan** setelah peluncuran. **Asumsi penting:** model menganggap laju berlipat tetap. Pada kenyataannya calon pengguna yang belum terjangkau makin sedikit dan persaingan menekan pertumbuhan, sehingga laju melambat. Model eksponensial hanya akurat pada fase awal. Menyadari batas model ini adalah bagian inti dari pemodelan.`,
     takeaways: [
       'Logaritma dipakai untuk menyelesaikan persamaan eksponensial.',
       'Setiap model punya asumsi; mengenali batasnya sama penting dengan menghitung.',
@@ -98,7 +100,7 @@ Jadi ambang itu dilewati sekitar **10 pekan** setelah pencatatan awal. **Asumsi 
       'Informasi tambahan apa yang kamu butuhkan agar model lebih realistis?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti pola awal pertumbuhan kasus yang lazim dilaporkan pada awal wabah; angka 20 kasus dan faktor 1,5 per pekan dibulatkan, bukan data wabah tertentu.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis mengikuti pola pertumbuhan pengguna aplikasi pada fase awal (adopsi cepat lalu melambat); angka 200 pengguna dan faktor 1,5 per pekan dibulatkan, bukan data produk tertentu.',
   },
   {
     id: 'tabungan-vs-inflasi',
@@ -141,7 +143,7 @@ Dalam 10 tahun faktor pertumbuhan daya beli adalah $\\left(\\dfrac{1{,}04}{1{,}0
       'Data suku bunga dan inflasi apa yang perlu kamu cari sebelum memutuskan menyimpan uang?',
     ],
     source:
-      'Bunga tabungan 4% per tahun dan inflasi 3% per tahun mengacu pada kisaran umum di Indonesia dalam beberapa tahun terakhir; angka dibulatkan dan bukan data satu tahun tertentu.',
+      'Mengacu pada kisaran umum suku bunga simpanan dan inflasi di Indonesia dalam beberapa tahun terakhir (bunga 4% dan inflasi 3% per tahun, dibulatkan); bukan data satu tahun tertentu.',
   },
   {
     id: 'pertumbuhan-batas-daya-dukung',
@@ -183,7 +185,7 @@ Pelajarannya: **setiap model punya rentang keberlakuan**, bukan berarti "ekspone
       'Sebutkan satu contoh lain (selain populasi) yang tumbuh eksponensial pada awalnya tetapi kemudian melambat.',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti pola pertumbuhan logistik pada ruang terbatas; populasi awal, laju tumbuh, dan daya dukung danau dirancang agar ambangnya mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis mengikuti pola pertumbuhan logistik pada ruang terbatas (misalnya populasi ikan di danau); populasi awal, laju tumbuh, dan daya dukung dirancang agar ambangnya mudah dihitung, bukan data lapangan tertentu.',
   },
   {
     id: 'tbil-jadwal-ronda',
@@ -224,6 +226,6 @@ Cara berpikir ini dipakai di dunia nyata untuk menyelaraskan jadwal piket, peraw
       'Kegiatan lain apa di sekitarmu yang jadwalnya bisa dianalisis dengan cara ini?',
     ],
     source:
-      'Skenario pengajaran yang dikonstruksi mengikuti pola penjadwalan berkala (piket, ronda, atau perawatan mesin); periode 4, 6, dan 9 malam dipilih agar KPK dan aritmetika modulonya mudah dihitung.',
+      'Skenario pengajaran yang dikonstruksi mengikuti pola penjadwalan berkala (piket, ronda, atau perawatan mesin); periode 4, 6, dan 9 malam dipilih agar KPK dan aritmetika modulonya mudah dihitung, bukan jadwal satu kampung tertentu.',
   },
 ];

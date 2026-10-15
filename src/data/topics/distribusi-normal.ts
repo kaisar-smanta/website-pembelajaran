@@ -77,7 +77,7 @@ Hasilnya tidak bergantung pada nilai $\\mu$ dan $\\sigma$ selama selangnya sama-
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Distribusi normal menyambung topik variabel acak dan statistik, jadi pastikan dahulu bekal berikut sudah siap:
 
 - membedakan variabel acak diskret dan kontinu;
 - menghitung rata-rata $\\mu$ dan simpangan baku $\\sigma$ dari suatu data;
@@ -161,7 +161,7 @@ $$z = \\frac{x - \\mu}{\\sigma}.$$
 
 Skor baku $z$ menyatakan **berapa simpangan baku** suatu nilai $x$ berada dari rata-rata. Nilai $z$ positif berarti $x$ di atas $\\mu$, dan $z$ negatif berarti di bawah $\\mu$. Berkat transformasi ini, setiap peluang dapat dihitung sekali saja pada tabel normal baku, lalu dipakai untuk semua distribusi normal.
 
-Misalnya, jika $X \\sim N(500, 4^{2})$ menyatakan volume isi botol, maka volume $492$ mL berskor baku
+Contohnya, jika $X \\sim N(500, 4^{2})$ menyatakan volume isi botol, maka volume $492$ mL berskor baku
 $$z = \\frac{492 - 500}{4} = -2,$$
 artinya botol itu terisi dua simpangan baku di bawah rata-rata.`,
       blocks: [
@@ -178,14 +178,14 @@ artinya botol itu terisi dua simpangan baku di bawah rata-rata.`,
             },
             {
               label: "Tabel",
-              body: "Nilai peluang dibaca dari tabel normal baku pada selang $z$ yang diinginkan, misalnya $P(z \\leq 1{,}5) \\approx 0{,}9332$.",
+              body: "Nilai peluang dibaca dari tabel normal baku pada selang $z$ yang diinginkan, contohnya $P(z \\leq 1{,}5) \\approx 0{,}9332$.",
             },
           ],
         },
         {
           kind: "callout",
           variant: "tip",
-          text: "Skor baku tidak memakai satuan. Dua nilai dari pengukuran berbeda (misalnya mL dan cm) dapat dibandingkan langsung setelah diubah menjadi $z$.",
+          text: "Skor baku tidak memakai satuan. Dua nilai dari pengukuran berbeda, seperti volume dalam mL dan tinggi dalam cm, dapat dibandingkan langsung setelah diubah menjadi $z$.",
         },
         {
           kind: "match",
@@ -242,6 +242,14 @@ Dari kaidah ini pula bisa dibaca peluang ekor. Karena kurva simetris dan luas to
 $$P(z < -2) = P(z > 2) \\approx 0{,}0228.$$
 
 Menarik: luas itu **tidak bergantung** pada $\\mu$ dan $\\sigma$. Berapa pun rata-rata dan simpangan bakunya, selama selangnya diukur dalam $k$ simpangan baku, peluangnya tetap. Inilah alasan mengapa distribusi normal menjadi model serba guna.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Kurva normal baku dengan dua daerah ekor di kiri z sama dengan -2 dan kanan z sama dengan 2 diarsir; daerah tengah sekitar 95,45 persen dan tiap ekor sekitar 2,28 persen.",
+          caption: "Kaidah empiris dan ekor: $P(-2 \\leq z \\leq 2) \\approx 0{,}9545$, sehingga sisa $4{,}55\\%$ terbagi dua ekor, $P(z < -2) = P(z > 2) \\approx 0{,}0228$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="dn2-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="190" x2="308" y2="190" stroke="currentColor" stroke-width="1.2" marker-end="url(#dn2-axis)"/><line x1="40" y1="190" x2="40" y2="42" stroke="currentColor" stroke-width="1.2" marker-end="url(#dn2-axis)"/><path d="M91.7,166.5 L110,144.2 L130,111.2 L150,78.6 L175,60 L200,78.6 L220,111.2 L240,144.2 L258.3,166.5 L258.3,190 L91.7,190 Z" fill="currentColor" fill-opacity="0.12" stroke="none"/><path d="M50,187.3 L70,181.5 L90,168.2 L91.7,166.5 L91.7,190 L50,190 Z" fill="currentColor" fill-opacity="0.4" stroke="none"/><path d="M258.3,166.5 L260,168.2 L280,181.5 L300,187.3 L300,190 L258.3,190 Z" fill="currentColor" fill-opacity="0.4" stroke="none"/><path d="M50,187.3 L70,181.5 L90,168.2 L110,144.2 L130,111.2 L150,78.6 L175,60 L200,78.6 L220,111.2 L240,144.2 L260,168.2 L280,181.5 L300,187.3" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="91.7" y1="190" x2="91.7" y2="166.5" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="258.3" y1="190" x2="258.3" y2="166.5" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><text x="92" y="207" font-size="11" text-anchor="middle" fill="currentColor">-2</text><text x="175" y="207" font-size="12" text-anchor="middle" fill="currentColor">0</text><text x="258" y="207" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="64" y="150" font-size="10" fill="currentColor">2,28%</text><text x="272" y="150" font-size="10" text-anchor="middle" fill="currentColor">2,28%</text><text x="175" y="140" font-size="11" text-anchor="middle" fill="currentColor">95,45%</text><text x="300" y="183" font-size="12" fill="currentColor">z</text><text x="18" y="50" font-size="12" fill="currentColor">f(z)</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -281,26 +289,31 @@ $$P(z < -2) = P(z > 2) \\approx 0{,}0228, \\qquad P(z < -1) = P(z > 1) \\approx 
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
+      body: "Tiga contoh berikut menelusuri peluang selang, peluang ekor, dan pencarian nilai dari peluang, masing-masing dengan alasan di balik tiap langkah.",
       blocks: [
         {
           kind: "step-reveal",
           intro: "Tinggi badan siswa berdistribusi $X \\sim N(165, 6^{2})$ cm. Hitung peluang seorang siswa bertinggi antara 159 cm dan 171 cm.",
           steps: [
             {
-              title: "Ubah batas menjadi skor baku",
-              text: "Untuk $x = 159$: $z = \\dfrac{159-165}{6} = -1$; untuk $x = 171$: $z = \\dfrac{171-165}{6} = 1$.",
+              title: "Catat yang diketahui",
+              text: "Tinggi $X$ berdistribusi normal dengan rata-rata $\\mu=165$ cm dan simpangan baku $\\sigma=6$ cm. Kita mencari peluang pada selang $159 \\leq X \\leq 171$.",
             },
             {
-              title: "Tulis peluang dalam $z$",
-              text: "$P(159 \\leq X \\leq 171) = P(-1 \\leq z \\leq 1)$.",
+              title: "Ide: standardisasi batas",
+              text: "Peluang dihitung dari luas daerah di bawah kurva normal baku, jadi kedua batas diubah dahulu ke skor baku $z=\\dfrac{x-\\mu}{\\sigma}$.",
             },
             {
-              title: "Gunakan kaidah empiris",
-              text: "Selang $\\mu \\pm \\sigma$ memuat sekitar $68{,}27\\%$ data, sehingga $P(-1 \\leq z \\leq 1) \\approx 0{,}6827$.",
+              title: "Substitusi batas",
+              text: "Batas bawah: $z=\\dfrac{159-165}{6}=\\dfrac{-6}{6}=-1$. Batas atas: $z=\\dfrac{171-165}{6}=1$. Jadi $P(159 \\leq X \\leq 171)=P(-1 \\leq z \\leq 1)$.",
             },
             {
-              title: "Tafsirkan",
-              text: "Sekitar $68\\%$ siswa bertinggi antara $159$ cm dan $171$ cm; sekitar $32\\%$ berada di luar selang itu.",
+              title: "Pakai kaidah empiris",
+              text: "Selang $-1 \\leq z \\leq 1$ tepat $\\mu \\pm \\sigma$, yang memuat sekitar $68{,}27\\%$ data: $P(-1 \\leq z \\leq 1) \\approx 0{,}6827$.",
+            },
+            {
+              title: "Verifikasi dan simpulkan",
+              text: "Cek kewajaran: nilai $68\\%$ berarti hampir dua per tiga siswa, sesuai bentuk kurva yang menumpuk dekat rata-rata. Sekitar $68\\%$ siswa bertinggi $159$ sampai $171$ cm, sedangkan sekitar $32\\%$ di luar selang itu.",
             },
           ],
         },
@@ -309,25 +322,54 @@ $$P(z < -2) = P(z > 2) \\approx 0{,}0228, \\qquad P(z < -1) = P(z > 1) \\approx 
           intro: "Volume isi botol berdistribusi $X \\sim N(500, 4^{2})$ mL. Hitung peluang sebuah botol berisi **kurang dari** 492 mL.",
           steps: [
             {
+              title: "Catat yang diketahui",
+              text: "Volume $X \\sim N(500, 4^{2})$ mL, jadi $\\mu=500$ dan $\\sigma=4$. Yang dicari adalah ekor kiri, yaitu peluang isi kurang dari $492$ mL.",
+            },
+            {
               title: "Standardisasi batas",
-              text: "$z = \\dfrac{492-500}{4} = -2$, sehingga $P(X < 492) = P(z < -2)$.",
+              text: "$z=\\dfrac{492-500}{4}=\\dfrac{-8}{4}=-2$, sehingga $P(X<492)=P(z<-2)$.",
             },
             {
-              title: "Baca peluang ekor dari kaidah empiris",
-              text: "Karena $P(-2 \\leq z \\leq 2) \\approx 0{,}9545$, sisanya $0{,}0455$ terbagi dua ekor. Jadi tiap ekor sekitar $0{,}0228$.",
+              title: "Ide: manfaatkan simetri dan luas total",
+              text: "Kaidah empiris memberi $P(-2 \\leq z \\leq 2) \\approx 0{,}9545$. Sisa di luar selang itu $1-0{,}9545=0{,}0455$, dan karena kurva simetris sisa terbagi rata menjadi dua ekor.",
             },
             {
-              title: "Simpulkan",
-              text: "$P(X < 492) \\approx 0{,}0228$, artinya sekitar $2{,}3\\%$ botol terisi terlalu sedikit dan perlu ditolak.",
+              title: "Hitung peluang ekor",
+              text: "Tiap ekor bernilai $\\dfrac{0{,}0455}{2}\\approx 0{,}0228$, jadi $P(z<-2)\\approx 0{,}0228$.",
+            },
+            {
+              title: "Verifikasi dan simpulkan",
+              text: "Cek: $0{,}0228$ jauh di bawah $0{,}5$, sesuai harapan karena $492$ mL terletak dua simpangan baku di bawah rata-rata. Jadi sekitar $2{,}3\\%$ botol terisi terlalu sedikit.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Nilai ujian berdistribusi $X \\sim N(72, 9^{2})$. Tentukan nilai $x$ yang melampaui $97{,}72\\%$ peserta, yaitu $P(X \\leq x) = 0{,}9772$.",
+          steps: [
+            {
+              title: "Catat yang diketahui",
+              text: "Nilai ujian $X \\sim N(72, 9^{2})$, jadi $\\mu=72$ dan $\\sigma=9$. Kali ini peluangnya diketahui dan kita mencari nilai $x$.",
+            },
+            {
+              title: "Ide: bekerja mundur dari peluang ke skor baku",
+              text: "Dari tabel normal baku, luas $0{,}9772$ di sebelah kiri bersesuaian dengan $z=2$, sebab $P(z \\leq 2) \\approx 0{,}9772$.",
+            },
+            {
+              title: "Pakai rumus invers",
+              text: "Skor baku dibalik dengan $x=\\mu+z\\sigma$.",
+            },
+            {
+              title: "Substitusi",
+              text: "$x=72+2(9)=72+18=90$.",
+            },
+            {
+              title: "Verifikasi dan simpulkan",
+              text: "Cek: skor baku dari $x=90$ memang $\\dfrac{90-72}{9}=2$, cocok dengan peluang yang diminta. Jadi ambang $x=90$ melampaui sekitar $97{,}72\\%$ peserta.",
             },
           ],
         },
       ],
-      body: `**Contoh menentukan nilai dari peluang.** Misalkan nilai ujian berdistribusi $X \\sim N(72, 9^{2})$ dan kita ingin nilai $x$ yang melampaui $97{,}72\\%$ peserta lain, yaitu $P(X \\leq x) = 0{,}9772$. Skor baku yang bersesuaian adalah $z = 2$. Maka
-
-$$x = \\mu + z\\sigma = 72 + 2(9) = 90.$$
-
-Jadi ambang $x = 90$ melampaui sekitar $97{,}72\\%$ peserta.`,
     },
     {
       id: "latihan-dasar",
@@ -366,11 +408,11 @@ Ingat, model ini tetap **perkiraan**. Sebelum memakainya, periksa apakah datanya
       title: "Kesalahan Umum",
       body: `**1. Menghitung peluang tanpa menstandardisasi.** Peluang tidak dapat dibaca langsung dari nilai $x$; ubah dahulu menjadi skor baku $z = \\dfrac{x-\\mu}{\\sigma}$.
 
-**2. Menganggap tinggi kurva adalah peluang.** Peluang adalah **luas** daerah di bawah kurva, bukan tinggi titik pada kurva. Kurva yang lebih tinggi justru karena sempit, bukan karena peluangnya lebih besar.
+**2. Menganggap tinggi kurva adalah peluang.** Peluang adalah **luas** daerah di bawah kurva, bukan tinggi titik pada kurva. Kurva yang tampak lebih rendah sekaligus lebih lebar, sehingga luas totalnya tetap $1$.
 
 **3. Menukar peran $\\mu$ dan $\\sigma$.** $\\mu$ menggeser kurva, sedangkan $\\sigma$ melebarkan atau menyempitkannya. Tertukar keduanya membuat hasil jauh dari benar.
 
-**4. Lupa luas total $1$.** Peluang ekor dihitung dari sisa, misalnya $P(z > 2) = 0{,}5 - P(0 \\leq z \\leq 2) \\approx 0{,}0228$, bukan dari tinggi kurva.
+**4. Lupa luas total $1$.** Peluang ekor dihitung dari sisa, seperti $P(z > 2) = 0{,}5 - P(0 \\leq z \\leq 2) \\approx 0{,}0228$, bukan dari tinggi kurva.
 
 **5. Mengira peluang satu titik pada variabel kontinu positif.** Karena satu titik tidak punya lebar, $P(X = a) = 0$ untuk variabel kontinu.`,
       blocks: [

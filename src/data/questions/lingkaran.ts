@@ -13,7 +13,11 @@ export const lingkaranQuestions: Question[] = [
     acceptedAnswers: ['35°', '35^\\circ', '35 derajat'],
     explanation:
       'Sudut keliling $=\\dfrac{1}{2}\\times$ sudut pusat $=\\dfrac{1}{2}\\times70^\\circ=35^\\circ$.',
-    hints: ['Sudut keliling adalah setengah sudut pusat yang menghadap busur sama.'],
+    hints: [
+      'Sudut keliling adalah setengah sudut pusat yang menghadap busur sama.',
+      'Sudut pusatnya $70^\\circ$.',
+      'Hitung $\\dfrac{1}{2} \\times 70^\\circ$.',
+    ],
     competencies: ['sudut pusat dan sudut keliling'],
   },
   {
@@ -50,7 +54,11 @@ export const lingkaranQuestions: Question[] = [
     acceptedAnswers: ['22 cm', '22\\text{ cm}'],
     explanation:
       '$s=\\dfrac{\\theta}{360^\\circ}\\times2\\pi r=\\dfrac{90}{360}\\times2\\times\\dfrac{22}{7}\\times14=22$ cm.',
-    hints: ['Gunakan rumus panjang busur $s=\\dfrac{\\theta}{360^\\circ}\\cdot2\\pi r$.'],
+    hints: [
+      'Gunakan rumus panjang busur $s=\\dfrac{\\theta}{360^\\circ}\\cdot2\\pi r$.',
+      'Substitusikan $\\theta = 90^\\circ$, $r = 14$, dan $\\pi = \\dfrac{22}{7}$.',
+      'Karena $\\dfrac{90}{360} = \\dfrac{1}{4}$, hitung $\\dfrac{1}{4} \\times 2 \\times \\dfrac{22}{7} \\times 14$.',
+    ],
     competencies: ['panjang busur'],
   },
   {

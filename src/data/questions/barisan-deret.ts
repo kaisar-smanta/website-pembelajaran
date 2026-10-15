@@ -36,7 +36,10 @@ export const barisanDeretQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Suku pertama $a=5$ dan rasio $r=\\dfrac{10}{5}=2$. Maka $U_8=5\\cdot2^{7}=5\\cdot128=640$. Opsi A memakai pangkat $6$ (kurang satu langkah); opsi C memakai pangkat $8$ (memakai $r^{n}$, bukan $r^{n-1}$); opsi D keliru memperlakukan barisan geometri sebagai perkalian biasa $5\\times8$.',
-    hints: ['Rasio $r$ diperoleh dari pembagian dua suku berdekatan.'],
+    hints: [
+      'Rasio $r$ diperoleh dari pembagian dua suku berdekatan.',
+      'Gunakan $U_n=ar^{n-1}$ dengan $n=8$.',
+    ],
     competencies: ['suku ke-n barisan geometri'],
   },
   {
@@ -73,7 +76,10 @@ export const barisanDeretQuestions: Question[] = [
     acceptedAnswers: ['610'],
     explanation:
       '$a=2$, $b=3$, sehingga $U_{20}=2+19\\cdot3=59$. Maka $S_{20}=\\dfrac{20}{2}(2+59)=10\\cdot61=610$.',
-    hints: ['Tentukan $U_{20}$ lebih dahulu, lalu pakai $S_n=\\dfrac{n}{2}(a+U_n)$.'],
+    hints: [
+      'Tentukan $U_{20}$ lebih dahulu, lalu pakai $S_n=\\dfrac{n}{2}(a+U_n)$.',
+      'Di sini $a=2$ dan beda $b=3$, sehingga $U_{20}=a+19b$.',
+    ],
     competencies: ['jumlah n suku deret aritmetika'],
   },
   {

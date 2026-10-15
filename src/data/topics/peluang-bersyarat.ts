@@ -76,11 +76,11 @@ Hitung dulu dengan menuliskan seluruh kemungkinan jenis kelamin dua anak secara 
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Topik ini memperdalam Peluang, jadi pastikan dahulu kamu dapat:
 
-- rumus peluang teoretis $P(A) = \\dfrac{n(A)}{n(S)}$;
-- irisan dan komplemen kejadian: $A \\cap B$ dan $A^c$;
-- aturan komplemen $P(A^c) = 1 - P(A)$.`,
+- memakai rumus peluang teoretis $P(A) = \\dfrac{n(A)}{n(S)}$;
+- menuliskan irisan dan komplemen kejadian: $A \\cap B$ dan $A^c$;
+- menerapkan aturan komplemen $P(A^c) = 1 - P(A)$.`,
     },
     {
       id: "konteks",
@@ -88,7 +88,7 @@ Hitung dulu dengan menuliskan seluruh kemungkinan jenis kelamin dua anak secara 
       title: "Situasi dan Konteks",
       body: `Sering kali kita memiliki informasi tambahan sebelum menghitung peluang. Seorang dokter mengetahui hasil tes sebelum menaksir peluang penyakit. Sebuah tim pemasaran mengetahui bahwa pelanggan pernah membeli produk A sebelum memprediksi pembelian produk B. Sebuah algoritma mengetahui bahwa pengguna mengklik iklan sebelum memperkirakan pembelian.
 
-Pertanyaan seperti "berapa peluang hujan **jika** pagi berawan?" atau "berapa peluang lulus **jika** sudah mengikuti bimbingan?" menuntut **peluang bersyarat**. Kita juga akan belajar mencacah dengan **permutasi** dan **kombinasi** ketika ruang sampelnya besar, misalnya banyaknya cara memilih kartu dari satu set.`,
+Pertanyaan seperti "berapa peluang hujan **jika** pagi berawan?" atau "berapa peluang lulus **jika** sudah mengikuti bimbingan?" menuntut **peluang bersyarat**. Kita juga akan belajar mencacah dengan **permutasi** dan **kombinasi** ketika ruang sampelnya besar, seperti banyaknya cara memilih kartu dari satu set.`,
     },
     {
       id: "konsep",
@@ -272,7 +272,7 @@ Aturan Bayes dipakai untuk **memperbarui** dugaan awal $P(A)$ setelah melihat bu
           kind: "callout",
           variant: "warning",
           title: "Hati-hati",
-          text: "Jangan menyamakan \"bebas\" dengan \"lepas\". Bila $A$ dan $B$ saling **lepas** dan keduanya berpeluang positif, maka $P(A \\cap B) = 0 \\neq P(A)P(B)$, sehingga justru **tidak bebas**.",
+          text: "Jangan menyamakan \"bebas\" dengan \"lepas\". Bila $A$ dan $B$ saling **lepas** dan keduanya berpeluang positif, maka $P(A \\cap B) = 0 \\neq P(A)P(B)$, sehingga **tidak bebas**.",
         },
       ],
     },
@@ -292,7 +292,7 @@ $$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
 
 Contoh: banyak cara memilih **3 dari 10** siswa untuk sebuah tim (tanpa jabatan) adalah $\\binom{10}{3} = 120$. Bila ketiganya diberi jabatan berbeda (ketua, sekretaris, bendahara), maka urutan penting dan hasilnya $P(10,3) = 10 \\cdot 9 \\cdot 8 = 720$.
 
-Banyak konteks peluang bersyarat memerlukan pencacahan ini, misalnya menghitung peluang mengambil kartu tertentu dari satu set.`,
+Banyak konteks peluang bersyarat memerlukan pencacahan ini, contohnya menghitung peluang mengambil kartu tertentu dari satu set.`,
     },
     {
       id: "eksplorasi",
@@ -313,7 +313,7 @@ Banyak konteks peluang bersyarat memerlukan pencacahan ini, misalnya menghitung 
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Empat contoh berikut dikerjakan langkah demi langkah, dari membaca tabel hingga mencacah.",
+          intro: "Enam contoh berikut dikerjakan langkah demi langkah, dari membaca tabel hingga memeriksa kebebasan dan mencacah.",
           steps: [
             {
               title: "Contoh 1: gabungan dua kejadian dari tabel",
@@ -341,12 +341,26 @@ Jadi setelah melihat bola merah, peluang memilih Kantong A naik dari $\\tfrac12$
 $$P(\\text{As}_1\\cap\\text{As}_2)=P(\\text{As}_2\\mid\\text{As}_1)\\,P(\\text{As}_1)=\\tfrac{1}{17}\\cdot\\tfrac{1}{13}=\\tfrac{1}{221}.$$`,
             },
             {
-              title: "Contoh 4: mencacah banyak tim",
+              title: "Contoh 4: mencacah banyak tim (kombinasi)",
               text: `Dari 8 siswa akan dipilih 3 untuk mewakili kelas. Berapa banyak susunan tim bila urutan tidak penting?
 
 *Penyelesaian.* Karena urutan tidak diperhatikan, gunakan kombinasi:
 $$\\binom{8}{3}=\\frac{8!}{3!\\,5!}=\\frac{8\\cdot 7\\cdot 6}{3\\cdot 2\\cdot 1}=56.$$
 Jadi ada $56$ susunan tim yang mungkin.`,
+            },
+            {
+              title: "Contoh 5: memeriksa kebebasan dua kejadian",
+              text: `Pada tabel kontingensi di atas, $P(F)=\\dfrac{70}{200}=0{,}35$ dan $P(F\\mid M)=\\dfrac{40}{60}=\\dfrac23\\approx 0{,}667$. Apakah "suka Fisika" dan "suka Matematika" saling bebas?
+
+*Penyelesaian.* Dua kejadian saling bebas hanya jika $P(F\\mid M)=P(F)$. Di sini $0{,}667 \\neq 0{,}35$, sehingga keduanya **tidak saling bebas**: mengetahui seseorang suka Matematika mengubah peluang ia suka Fisika.`,
+            },
+            {
+              title: "Contoh 6: susunan berjabatan (permutasi)",
+              text: `Dari 8 siswa akan dipilih 3 orang untuk jabatan ketua, sekretaris, dan bendahara. Berapa banyak susunan yang mungkin?
+
+*Penyelesaian.* Kali ini urutan penting karena tiap jabatan berbeda, jadi gunakan permutasi:
+$$P(8,3)=\\frac{8!}{(8-3)!}=8\\cdot 7\\cdot 6=336.$$
+Bandingkan dengan Contoh 4: memilih 3 orang tanpa jabatan hanya $56$ cara, sedangkan memberi jabatan berbeda menambah urutan menjadi $336$ cara.`,
             },
           ],
         },

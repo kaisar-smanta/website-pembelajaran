@@ -17,7 +17,11 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Jumlah data $=5+6+6+7+7+7+8+10=56$ dan banyak data $=8$, sehingga mean $=\\dfrac{56}{8}=7$ (opsi D). Opsi A ($6$) sekadar menebak nilai yang sering muncul. Opsi B ($8$) memakai nilai ekstrem, bukan rata-rata. Opsi C ($7{,}5$) keliru mengambil rata-rata nilai terkecil $5$ dan terbesar $10$.',
-    hints: ['Jumlahkan semua nilai terlebih dahulu, lalu bagi dengan banyak data.'],
+    hints: [
+      'Jumlahkan semua nilai terlebih dahulu, lalu bagi dengan banyak data.',
+      'Banyak data adalah $8$; nilai $7$ yang muncul tiga kali tetap dihitung tiga kali.',
+      'Mean $=\\dfrac{\\text{jumlah semua nilai}}{\\text{banyak data}}$.',
+    ],
     competencies: ['mean'],
   },
   {
@@ -37,7 +41,10 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     answer: 'C',
     explanation:
       'Opsi C benar: mean menjumlahkan seluruh nilai sehingga satu nilai ekstrem langsung menariknya. Opsi A salah karena median hanya bergantung pada posisi tengah data terurut. Opsi B salah karena modus hanya bergantung pada frekuensi, bukan besar nilainya. Opsi D salah karena kuartil juga ditentukan oleh posisi, sehingga lebih tahan terhadap pencilan.',
-    hints: ['Ukuran mana yang menggunakan seluruh nilai dalam perhitungannya?'],
+    hints: [
+      'Ukuran mana yang menggunakan seluruh nilai dalam perhitungannya?',
+      'Median dan modus hanya bergantung pada posisi atau frekuensi, sedangkan mean memakai besar setiap nilai.',
+    ],
     competencies: ['mean', 'pencilan'],
   },
   {
@@ -51,7 +58,10 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     acceptedAnswers: ['6'],
     explanation:
       'Nilai $6$ muncul tiga kali, lebih sering daripada nilai lain, sehingga modusnya adalah $6$.',
-    hints: ['Cari nilai yang paling sering muncul.'],
+    hints: [
+      'Cari nilai yang paling sering muncul.',
+      'Hitung berapa kali setiap nilai muncul, lalu bandingkan frekuensinya.',
+    ],
     competencies: ['modus'],
   },
   {
@@ -66,7 +76,10 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     acceptedAnswers: ['median', 'Median', 'nilai tengah'],
     explanation:
       'Ada satu gaji yang sangat besar (Rp25.000.000) sebagai pencilan. Median, yaitu nilai tengah Rp3.200.000, lebih mewakili karyawan biasa daripada mean yang terangkat menjadi Rp7.540.000.',
-    hints: ['Perhatikan adanya satu nilai yang jauh lebih besar daripada yang lain.'],
+    hints: [
+      'Perhatikan adanya satu nilai yang jauh lebih besar daripada yang lain.',
+      'Mean terangkat oleh nilai ekstrem, sedangkan median tetap di posisi tengah.',
+    ],
     competencies: ['pemilihan ukuran', 'median'],
   },
   {
@@ -234,7 +247,10 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     acceptedAnswers: ['11'],
     explanation:
       'Model rata-rata: $\\bar{x}=\\dfrac{8+11+x}{3}=10$. Maka $19+x=30$, sehingga $x=11$. Jadi skor babak ketiga adalah $11$.',
-    hints: ['Jumlah tiga skor $=$ rata-rata $\\times$ banyak babak.'],
+    hints: [
+      'Jumlah tiga skor $=$ rata-rata $\\times$ banyak babak.',
+      'Jumlah skor yang dibutuhkan adalah $3\\times10=30$; kurangi dua skor yang sudah diketahui.',
+    ],
     competencies: ['mean', 'pemodelan'],
   },
   {
@@ -318,5 +334,33 @@ export const statistikDalamKehidupanQuestions: Question[] = [
       'Mean data berkelompok $=\\dfrac{\\sum f_ix_i}{\\sum f_i}$.',
     ],
     competencies: ['mean data berkelompok', 'kontekstual'],
+  },
+  {
+    id: 'sdk-17',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Diagram kotak-garis berikut merangkum indeks kualitas udara (AQI) harian sebuah kota selama $30$ hari. Pernyataan yang benar berdasarkan diagram tersebut adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg"><line x1="30" y1="100" x2="300" y2="100" stroke="currentColor" stroke-width="1.2"/><rect x="97.5" y="35" width="135" height="35" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.6"/><line x1="165" y1="28" x2="165" y2="77" stroke="currentColor" stroke-width="2"/><line x1="30" y1="52.5" x2="97.5" y2="52.5" stroke="currentColor" stroke-width="1.4"/><line x1="232.5" y1="52.5" x2="300" y2="52.5" stroke="currentColor" stroke-width="1.4"/><line x1="30" y1="40" x2="30" y2="65" stroke="currentColor" stroke-width="1.4"/><line x1="300" y1="40" x2="300" y2="65" stroke="currentColor" stroke-width="1.4"/><text x="24" y="116" font-size="10" fill="currentColor">50</text><text x="91" y="116" font-size="10" fill="currentColor">60</text><text x="158" y="116" font-size="10" fill="currentColor">70</text><text x="226" y="116" font-size="10" fill="currentColor">80</text><text x="294" y="116" font-size="10" fill="currentColor">90</text></svg>',
+      alt: 'Diagram kotak-garis indeks kualitas udara harian dengan nilai minimum 50, kuartil pertama 60, median 70, kuartil ketiga 80, dan nilai maksimum 90.',
+      caption: 'Diagram kotak-garis indeks kualitas udara harian selama 30 hari.',
+    },
+    options: [
+      { key: 'A', text: 'Median indeks kualitas udara adalah $60$.' },
+      { key: 'B', text: 'Jangkauan interkuartil (IQR) data adalah $20$.' },
+      { key: 'C', text: 'Jangkauan data adalah $30$.' },
+      { key: 'D', text: 'Sebagian hari memiliki indeks di atas $90$.' },
+    ],
+    answer: 'B',
+    explanation:
+      'Dari diagram kotak-garis terbaca minimum $50$, $Q_1=60$, median $70$, $Q_3=80$, dan maksimum $90$. Maka IQR $=Q_3-Q_1=80-60=20$, sehingga opsi B benar. Opsi A salah karena median ada di $70$, bukan $60$. Opsi C salah karena jangkauan $=90-50=40$, bukan $30$. Opsi D salah karena titik terbesar data tepat $90$, sehingga tidak ada nilai di atasnya.',
+    hints: [
+      'Baca lima nilai ringkasan dari diagram: minimum, $Q_1$, median, $Q_3$, dan maksimum.',
+      'IQR $=Q_3-Q_1$, sedangkan jangkauan $=$ nilai maksimum $-$ nilai minimum.',
+    ],
+    competencies: ['membaca diagram kotak-garis', 'IQR', 'kontekstual'],
   },
 ];

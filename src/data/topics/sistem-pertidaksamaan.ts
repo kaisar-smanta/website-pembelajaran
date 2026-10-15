@@ -68,7 +68,7 @@ Daerah yang memenuhi adalah segitiga dengan titik sudut $(0,0)$, $(4,0)$, dan $(
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Untuk membaca dan memodelkan kendala, kuasai dahulu dasar berikut:
 - menggambar garis lurus dengan menentukan titik potong dengan sumbu;
 - menyelesaikan pertidaksamaan linear satu variabel;
 - membaca posisi titik pada bidang koordinat.`,
@@ -137,7 +137,7 @@ Daerah penyelesaian sistem adalah **irisan** semua setengah bidang, yaitu himpun
       id: "representasi",
       kind: "representasi",
       title: "Representasi",
-      body: `Setiap pertidaksamaan dapat disajikan melalui pasangan titik potong, garis pada bidang, dan pernyataan verbal. Misalnya $2x + 3y \\le 12$.
+      body: `Setiap pertidaksamaan dapat disajikan melalui pasangan titik potong, garis pada bidang, dan pernyataan verbal. Ambil $2x + 3y \\le 12$.
 
 Titik potong dengan sumbu: saat $x = 0$, $y = 4$; saat $y = 0$, $x = 6$. Selanjutnya uji titik $(0,0)$: $0 \\le 12$ benar, sehingga daerah penyelesaian memuat titik asal dan merupakan segitiga di kuadran pertama.`,
       blocks: [
@@ -341,7 +341,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Program linear sebagai bidang tersendiri lahir dari kebutuhan mengatur sumber daya yang terbatas. Pada 1939 Leonid Kantorovich merumuskan masalah alokasi produksi sebagai optimasi fungsi linear di bawah kendala pertidaksamaan, dan karyanya kemudian diakui dengan Nobel Ekonomi. Pada 1947 George Dantzig mengembangkan metode simpleks, prosedur sistematis untuk menyelesaikan program linear berukuran besar, sehingga bidang ini cepat menyebar ke industri. Gagasan sistem pertidaksamaan linear sendiri sudah muncul lebih awal, misalnya pada karya Joseph Fourier pada 1820-an, tetapi baru pada abad ke-20 alat hitungnya cukup kuat. Kini program linear dipakai di bidang transportasi, penjadwalan, dan analisis ekonomi.`,
+      body: `Program linear sebagai bidang tersendiri lahir dari kebutuhan mengatur sumber daya yang terbatas. Pada 1939 Leonid Kantorovich merumuskan masalah alokasi produksi sebagai optimasi fungsi linear di bawah kendala pertidaksamaan, dan karyanya kemudian diakui dengan Nobel Ekonomi. Pada 1947 George Dantzig mengembangkan metode simpleks, prosedur sistematis untuk menyelesaikan program linear berukuran besar, sehingga bidang ini cepat menyebar ke industri. Gagasan sistem pertidaksamaan linear sendiri sudah muncul lebih awal, seperti pada karya Joseph Fourier pada 1820-an, tetapi baru pada abad ke-20 alat hitungnya cukup kuat. Kini program linear dipakai di bidang transportasi, penjadwalan, dan analisis ekonomi.`,
     },
     {
       id: "refleksi",
@@ -356,7 +356,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
             "Mengapa syarat $x \\ge 0$ dan $y \\ge 0$ penting dalam pemodelan?",
             "Pada masalah nyata, apa arti fungsi objektif dan titik sudut yang memberi nilai optimum?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan jawaban refleksimu?",
+          confidenceLabel: "Seberapa yakin kamu menentukan daerah penyelesaian dan titik sudutnya?",
         },
       ],
     },

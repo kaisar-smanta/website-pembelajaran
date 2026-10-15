@@ -73,7 +73,7 @@ Titik puncaknya berada di $(2,3)$. Periksa: untuk $x=2$ diperoleh $y=0+3=3$. Ini
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Transformasi fungsi menuntut kenyamanan membaca grafik dasar dan mengganti variabel di dalam rumus. Pastikan kamu sudah menguasai:
 - menggambar grafik fungsi dasar seperti $y=x^2$ dan $y=x^3$;
 - membaca koordinat titik pada bidang Cartesius;
 - mensubstitusi bentuk aljabar, misalnya menghitung $f(x-2)$ untuk $f(x)=x^2$;
@@ -121,6 +121,14 @@ Contoh dengan $f(x)=2x+1$:
 - $y=f(-x)=-2x+1$ (dicerminkan terhadap sumbu-$y$).
 
 Kedua hasil tersebut berbeda, sehingga kedua jenis refleksi tidak boleh dipertukarkan.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Grafik garis f(x) sama dengan 2x ditambah 1, hasil pencerminannya terhadap sumbu-x berupa garis putus-putus menurun, dan hasil pencerminannya terhadap sumbu-y berupa garis titik-titik yang berbeda, semuanya pada satu bidang koordinat.",
+          caption: "Pencerminan $f(x)=2x+1$ terhadap sumbu-$x$ memberi $-f(x)=-2x-1$ (putus-putus), sedangkan terhadap sumbu-$y$ memberi $f(-x)=-2x+1$ (titik-titik). Keduanya garis yang berbeda.",
+          svg: '<svg viewBox="0 0 320 230" aria-hidden="true" role="presentation"><defs><marker id="fig-trf-reflect" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="30" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-trf-reflect)"/><line x1="160" y1="225" x2="160" y2="20" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-trf-reflect)"/><polyline points="130,190 180,90" fill="none" stroke="currentColor" stroke-width="2.4"/><polyline points="130,110 180,210" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><polyline points="140,90 190,190" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="184" y="86" font-size="12" fill="currentColor">f(x)</text><text x="110" y="118" font-size="12" fill="currentColor">−f(x)</text><text x="192" y="206" font-size="12" fill="currentColor">f(−x)</text><text x="296" y="168" font-size="11" fill="currentColor">x</text><text x="166" y="30" font-size="11" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "dilatasi",
@@ -132,7 +140,7 @@ Kedua hasil tersebut berbeda, sehingga kedua jenis refleksi tidak boleh dipertuk
 
 **Dilatasi horizontal.** Grafik $y=f(kx)$ diperoleh dengan mengganti $x$ menjadi $kx$. Jika $k>1$ grafik menyusut horizontal (memampat); jika $0<k<1$ grafik meregang horizontal. Setiap titik $(p,q)$ menjadi $\\left(\\dfrac{p}{k}, q\\right)$.
 
-Misalnya, dengan $f(x)=x^2$:
+Contohnya, dengan $f(x)=x^2$:
 - $y=2f(x)=2x^2$ meregang vertikal dengan faktor $2$;
 - $y=f(2x)=(2x)^2=4x^2$ menyusut horizontal dengan faktor $\\dfrac{1}{2}$.
 
@@ -242,7 +250,7 @@ $$y = a\\,f\\big(k(x-h)\\big) + c.$$
 
 Di sini $a$ mengatur peregangan vertikal dan refleksi terhadap sumbu-$x$, $k$ mengatur peregangan horizontal, $h$ menggeser horizontal, dan $c$ menggeser vertikal.
 
-**Urutan transformasi penting diperhatikan.** Menggeser lalu meregangkan tidak sama dengan meregangkan lalu menggeser. Misalnya, mulai dari $f(x)=x^2$:
+**Urutan transformasi penting diperhatikan.** Menggeser lalu meregangkan tidak sama dengan meregangkan lalu menggeser. Mulai dari $f(x)=x^2$:
 - meregangkan vertikal dengan faktor $2$ lalu menggeser ke atas $3$ menghasilkan $2x^2+3$;
 - menggeser ke atas $3$ lalu meregangkan vertikal dengan faktor $2$ menghasilkan $2(x^2+3)=2x^2+6$.
 
@@ -316,7 +324,7 @@ $$y = a\\,f\\big(k(x-h)\\big)+c.$$
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kerjakan tiga contoh transformasi berikut satu langkah sekaligus.",
+          intro: "Kerjakan empat contoh transformasi berikut satu langkah sekaligus.",
           steps: [
             {
               title: "Contoh 1: translasi",
@@ -328,17 +336,25 @@ Sumbu simetrinya $x=\\dfrac{4}{2}=2$ dan nilai minimumnya $y=2^2-4(2)+7=3$. Bena
             },
             {
               title: "Contoh 2: refleksi",
-              text: `Tentukan hasil pencerminan $y=2x+1$ terhadap sumbu-$x$ dan terhadap sumbu-$y$.
+              text: `Diketahui $f(x)=2x+1$. Tentukan hasil pencerminan grafiknya terhadap sumbu-$x$ dan terhadap sumbu-$y$, lalu lacak titik $(1,3)$.
 
-*Penyelesaian.* Terhadap sumbu-$x$: $y=-(2x+1)=-2x-1$. Terhadap sumbu-$y$: $y=2(-x)+1=-2x+1$.`,
+*Penyelesaian.* Terhadap sumbu-$x$, nilai fungsi berganti tanda: $y=-f(x)=-(2x+1)=-2x-1$. Terhadap sumbu-$y$, variabel $x$ berganti tanda: $y=f(-x)=2(-x)+1=-2x+1$.
+Titik $(1,3)$ terletak pada grafik $f$ karena $f(1)=3$. Cerminannya terhadap sumbu-$x$ adalah $(1,-3)$; periksa: $-2(1)-1=-3$. Cerminannya terhadap sumbu-$y$ adalah $(-1,3)$; periksa: $-2(-1)+1=3$. Kedua hasil berbeda, jadi kedua refleksi tidak boleh dipertukarkan.`,
             },
             {
-              title: "Contoh 3: dilatasi",
-              text: `Grafik $y=x^2$ melalui titik $(2,4)$. Tentukan titik padanannya pada grafik $y=2f(x)$ dan pada grafik $y=f(2x)$.
+              title: "Contoh 3: dilatasi vertikal dan horizontal",
+              text: `Grafik $y=x^2$ melalui titik $(2,4)$. Tentukan titik padanannya pada grafik $y=2f(x)$ dan pada grafik $y=f(2x)$, lalu jelaskan arah regangannya.
 
 *Penyelesaian.*
-- $y=2f(x)=2x^2$: titik $(2,4)$ menjadi $(2,\\,2\\cdot4)=(2,8)$. Periksa: $2(2)^2=8$.
-- $y=f(2x)=4x^2$: titik $(2,4)$ menjadi $\\left(\\dfrac{2}{2},\\,4\\right)=(1,4)$. Periksa: $4(1)^2=4$.`,
+- $y=2f(x)=2x^2$: seluruh nilai fungsi dikalikan $2$. Titik $(2,4)$ menjadi $(2,\\,2\\cdot4)=(2,8)$. Periksa: $2(2)^2=8$. Faktor $2$ di luar fungsi meregang **vertikal**.
+- $y=f(2x)=(2x)^2=4x^2$: variabel $x$ diganti $2x$, sehingga absis terbagi dua. Titik $(2,4)$ menjadi $\\left(\\dfrac{2}{2},\\,4\\right)=(1,4)$. Periksa: $4(1)^2=4$. Faktor $2$ di dalam fungsi memampat **horizontal** dengan faktor $\\dfrac{1}{2}$.`,
+            },
+            {
+              title: "Contoh 4: urutan transformasi",
+              text: `Mulai dari $f(x)=x^2$, bandingkan "meregang vertikal dengan faktor $2$ lalu menggeser ke atas $3$" dengan "menggeser ke atas $3$ lalu meregang vertikal dengan faktor $2$". Periksa keduanya di $x=1$.
+
+*Penyelesaian.* Urutan pertama: meregang dulu memberi $2x^2$, lalu digeser ke atas $3$ menjadi $2x^2+3$. Urutan kedua: menggeser dulu memberi $x^2+3$, lalu diregang menjadi $2(x^2+3)=2x^2+6$.
+Kedua hasil berbeda. *Periksa* di $x=1$: urutan pertama $2(1)+3=5$, sedangkan urutan kedua $2(1)+6=8$. Jadi urutan transformasi pada arah yang sama perlu diperhatikan.`,
             },
           ],
         },

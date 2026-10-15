@@ -17,7 +17,11 @@ export const distribusiNormalQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Kurva normal simetris terhadap garis rata-rata $x = \\mu$. Opsi B salah karena puncak tertinggi justru di $x = \\mu$, bukan di $\\mu + \\sigma$. Opsi C salah karena $\\sigma$ besar membuat kurva lebih rendah dan lebar, bukan tinggi dan sempit. Opsi D salah karena luas total di bawah kurva selalu $1$ untuk semua $\\mu$, sehingga tidak bergantung pada nilai rata-rata.',
-    hints: ['Ingat sifat simetri dan letak puncak kurva lonceng.'],
+    hints: [
+      'Ingat sifat simetri dan letak puncak kurva lonceng.',
+      'Puncak kurva normal berada tepat di rata-rata $x=\\mu$, bukan bergeser satu simpangan baku.',
+      'Simetri berarti sisi kiri dan kanan puncak saling mencerminkan terhadap garis $x=\\mu$.',
+    ],
     competencies: ['sifat kurva normal', 'konsep'],
   },
   {
@@ -32,7 +36,11 @@ export const distribusiNormalQuestions: Question[] = [
     acceptedAnswers: ['2', '2,0', '2.0'],
     explanation:
       'Skor baku dihitung dengan $z = \\dfrac{x-\\mu}{\\sigma} = \\dfrac{86-70}{8} = \\dfrac{16}{8} = 2$. Nilai $86$ berada dua simpangan baku di atas rata-rata.',
-    hints: ['Gunakan $z = \\dfrac{x-\\mu}{\\sigma}$ dengan $x = 86$.'],
+    hints: [
+      'Gunakan $z = \\dfrac{x-\\mu}{\\sigma}$ dengan $x = 86$.',
+      'Kurangkan rata-rata terlebih dahulu, baru bagi dengan simpangan baku.',
+      'Hasil $z$ positif menandakan nilai itu berada di atas rata-rata.',
+    ],
     competencies: ['skor baku'],
   },
   {
@@ -67,7 +75,11 @@ export const distribusiNormalQuestions: Question[] = [
     acceptedAnswers: ['0,6827', '0.6827', '0,683', '0.683', '68%', '68,27%', '68.27%'],
     explanation:
       'Menurut kaidah empiris, sekitar $68{,}27\\%$ data distribusi normal berada dalam $\\mu \\pm \\sigma$; pada normal baku ini berarti $P(-1 \\leq z \\leq 1) \\approx 0{,}6827$.',
-    hints: ['Selang $\\pm 1$ simpangan baku memuat sekitar $68\\%$ data.'],
+    hints: [
+      'Selang $\\pm 1$ simpangan baku memuat sekitar $68\\%$ data.',
+      'Kaidah empiris menyebut sekitar $68{,}27\\%$ data berada dalam $\\mu \\pm \\sigma$.',
+      'Kaidah ini membagi data menjadi selang $\\pm 1$, $\\pm 2$, dan $\\pm 3$ simpangan baku.',
+    ],
     competencies: ['kaidah empiris'],
   },
   {
@@ -287,7 +299,39 @@ export const distribusiNormalQuestions: Question[] = [
     acceptedAnswers: ['35', '35,0', '35.0'],
     explanation:
       'Dari $z = \\dfrac{x-\\mu}{\\sigma}$ diperoleh $x = \\mu + z\\sigma = 20 + 3(5) = 35$.',
-    hints: ['Gunakan $x = \\mu + z\\sigma$.'],
+    hints: [
+      'Gunakan $x = \\mu + z\\sigma$.',
+      'Substitusikan $\\mu=20$, $\\sigma=5$, dan $z=3$.',
+      'Nilai $x$ berada tiga simpangan baku di atas rata-rata.',
+    ],
     competencies: ['skor baku'],
+  },
+  {
+    id: 'dn-16',
+    topicId: 'distribusi-normal',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Perhatikan kurva distribusi normal baku berikut. Daerah di bawah kurva yang diarsir menyatakan peluang …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" role="img" aria-hidden="true"><line x1="24" y1="160" x2="300" y2="160" stroke="currentColor" stroke-width="1.4"/><line x1="160" y1="160" x2="160" y2="28" stroke="currentColor" stroke-width="1.4"/><path d="M160.0 45.0 L164.0 45.6 L168.0 47.3 L172.0 50.1 L176.0 53.8 L180.0 58.5 L184.0 63.9 L188.0 70.0 L192.0 76.5 L196.0 83.3 L200.0 90.2 L200.0 160 L160.0 160 Z" fill="currentColor" opacity="0.22"/><path d="M32.0 159.3 L36.0 159.1 L40.0 158.7 L44.0 158.3 L48.0 157.7 L52.0 157.0 L56.0 156.1 L60.0 154.9 L64.0 153.5 L68.0 151.8 L72.0 149.8 L76.0 147.3 L80.0 144.4 L84.0 141.1 L88.0 137.2 L92.0 132.9 L96.0 128.0 L100.0 122.7 L104.0 116.8 L108.0 110.6 L112.0 104.0 L116.0 97.2 L120.0 90.2 L124.0 83.3 L128.0 76.5 L132.0 70.0 L136.0 63.9 L140.0 58.5 L144.0 53.8 L148.0 50.1 L152.0 47.3 L156.0 45.6 L160.0 45.0 L164.0 45.6 L168.0 47.3 L172.0 50.1 L176.0 53.8 L180.0 58.5 L184.0 63.9 L188.0 70.0 L192.0 76.5 L196.0 83.3 L200.0 90.2 L204.0 97.2 L208.0 104.0 L212.0 110.6 L216.0 116.8 L220.0 122.7 L224.0 128.0 L228.0 132.9 L232.0 137.2 L236.0 141.1 L240.0 144.4 L244.0 147.3 L248.0 149.8 L252.0 151.8 L256.0 153.5 L260.0 154.9 L264.0 156.1 L268.0 157.0 L272.0 157.7 L276.0 158.3 L280.0 158.7 L284.0 159.1 L288.0 159.3" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="160" y1="45" x2="160" y2="160" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><line x1="200" y1="90.2" x2="200" y2="160" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><text x="160" y="176" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="200" y="176" font-size="11" fill="currentColor" text-anchor="middle">1</text><text x="160" y="24" font-size="11" fill="currentColor" text-anchor="middle">z</text></svg>',
+      alt: 'Kurva distribusi normal baku dengan daerah di bawah kurva dari titik tengah (z = 0) sampai satu simpangan baku di kanan (z = 1) diarsir.',
+      caption: 'Daerah di bawah kurva normal baku.',
+    },
+    options: [
+      { key: 'A', text: '$P(0 \\leq z \\leq 1)$' },
+      { key: 'B', text: '$P(-1 \\leq z \\leq 1)$' },
+      { key: 'C', text: '$P(z > 1)$' },
+      { key: 'D', text: '$P(z < -1)$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Daerah yang diarsir membentang dari sumbu simetri $z=0$ (tepat di bawah puncak) sampai satu simpangan baku di kanan, yaitu $z=1$, sehingga menyatakan $P(0 \\leq z \\leq 1)$ (opsi A). Opsi B mencakup kedua sisi simetris yang tidak seluruhnya diarsir; opsi C hanya ekor kanan di luar $z=1$; opsi D adalah ekor kiri yang juga tidak diarsir.',
+    hints: [
+      'Perhatikan batas kiri dan batas kanan daerah yang diarsir pada sumbu datar.',
+      'Batas kirinya tepat di bawah puncak kurva, yaitu rata-rata $z=0$.',
+    ],
+    competencies: ['membaca kurva normal', 'peluang selang'],
   },
 ];

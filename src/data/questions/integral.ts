@@ -30,7 +30,11 @@ export const integralQuestions: Question[] = [
     answer: '1',
     explanation:
       '$\\displaystyle\\int_{0}^{1} 3x^{2}\\,dx = \\Big[x^{3}\\Big]_{0}^{1} = 1 - 0 = 1$.',
-    hints: ['Antiturunan $3x^{2}$ adalah $x^{3}$.'],
+    hints: [
+      'Antiturunan $3x^{2}$ adalah $x^{3}$.',
+      'Gunakan teorema dasar kalkulus $F(b)-F(a)$ dengan $F(x)=x^{3}$.',
+      'Hitung $1^{3}-0^{3}$.',
+    ],
     competencies: ['integral tentu'],
   },
   {
@@ -44,7 +48,11 @@ export const integralQuestions: Question[] = [
     acceptedAnswers: ['x^{3}-2x^{2}+5x+C', 'x^3-2x^2+5x+C', 'x3 - 2x2 + 5x + C'],
     explanation:
       'Integrasikan suku demi suku: $\\displaystyle\\int 3x^{2}\\,dx = x^{3}$, $\\displaystyle\\int -4x\\,dx = -2x^{2}$, dan $\\displaystyle\\int 5\\,dx = 5x$. Hasilnya $x^{3} - 2x^{2} + 5x + C$.',
-    hints: ['Jangan lupa konstanta integrasi $C$.'],
+    hints: [
+      'Integrasikan suku demi suku.',
+      'Gunakan $\\displaystyle\\int 3x^{2}\\,dx=x^{3}$, $\\displaystyle\\int -4x\\,dx=-2x^{2}$, dan $\\displaystyle\\int 5\\,dx=5x$.',
+      'Gabungkan ketiga hasil lalu tambahkan konstanta integrasi $C$.',
+    ],
     competencies: ['integral tak tentu polinomial'],
   },
   {

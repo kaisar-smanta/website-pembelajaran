@@ -11,7 +11,10 @@ export const analisisDistribusiDataQuestions: Question[] = [
     answer: '6',
     explanation:
       'Jumlah data $=4+5+5+6+6+6+7+9=48$ dan banyak data $n=8$, sehingga mean $=\\dfrac{48}{8}=6$.',
-    hints: ['Jumlahkan semua nilai lalu bagi dengan banyak data.'],
+    hints: [
+      'Jumlahkan semua nilai lalu bagi dengan banyak data.',
+      'Ada $8$ data, jadi bagilah jumlah total dengan $8$.',
+    ],
     competencies: ['mean data tunggal'],
   },
   {
@@ -30,7 +33,11 @@ export const analisisDistribusiDataQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Nilai $6$ muncul tiga kali, lebih sering daripada nilai lain, sehingga modusnya $6$ (opsi D). Opsi A ($5$) hanya muncul dua kali. Opsi B ($7$) muncul sekali. Opsi C ($6{,}5$) adalah rata-rata dua nilai tengah, yaitu median, bukan modus.',
-    hints: ['Modus adalah nilai yang paling sering muncul.'],
+    hints: [
+      'Modus adalah nilai yang paling sering muncul.',
+      'Hitung berapa kali setiap nilai muncul, lalu pilih yang paling banyak.',
+      'Hati-hati membedakan modus dari median, yaitu nilai tengah data.',
+    ],
     competencies: ['modus'],
   },
   {
@@ -42,7 +49,10 @@ export const analisisDistribusiDataQuestions: Question[] = [
     prompt: 'Tentukan jangkauan dari data $4, 5, 5, 6, 6, 6, 7, 9$.',
     answer: '5',
     explanation: 'Jangkauan $=x_{\\max}-x_{\\min}=9-4=5$.',
-    hints: ['Kurangi nilai terbesar dengan nilai terkecil.'],
+    hints: [
+      'Kurangi nilai terbesar dengan nilai terkecil.',
+      'Di sini nilai terbesar $9$ dan terkecil $4$.',
+    ],
     competencies: ['jangkauan'],
   },
   {
@@ -242,7 +252,7 @@ export const analisisDistribusiDataQuestions: Question[] = [
   {
     id: 'ad-14',
     topicId: 'analisis-distribusi-data',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penerapan',
     prompt: 'Tentukan simpangan baku dari data $2, 4, 6, 8, 10$.',

@@ -77,11 +77,11 @@ Ternyata **tepat 3 kali** lebih besar peluangnya daripada kelima-limanya. Alasan
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Distribusi binomial bertumpu pada peluang bersyarat dan cara mencacah, jadi siapkan dahulu bekal berikut:
 
 - menyusun distribusi peluang variabel acak diskret dan memeriksa jumlah peluangnya $1$;
 - aturan perkalian untuk kejadian saling bebas $P(A \\cap B) = P(A)\\,P(B)$;
-- kombinasi $\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$, misalnya $\\binom{5}{2} = 10$;
+- kombinasi $\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$, seperti $\\binom{5}{2} = 10$;
 - peluang komplemen $P(A^c) = 1 - P(A)$ dan notasi penjumlahan.`,
     },
     {
@@ -180,7 +180,7 @@ Variabel acak $X$ menyatakan **banyak sukses** dari $n$ ulangan, dan kita menuli
 | $\\binom{4}{k}$ | 1 | 4 | 6 | 4 | 1 |
 | $P(X=k)$ | $\\frac{1}{16}$ | $\\frac{4}{16}$ | $\\frac{6}{16}$ | $\\frac{4}{16}$ | $\\frac{1}{16}$ |
 
-Jumlah seluruh peluang $\\frac{1+4+6+4+1}{16} = 1$, jadi tabel ini sah. Perhatikan bahwa koefisien $1, 4, 6, 4, 1$ adalah baris keempat **segitiga Pascal**, yang sama dengan $\\binom{4}{k}$.
+Jumlah seluruh peluang $\\frac{1+4+6+4+1}{16} = 1$, jadi tabel ini sah. Koefisien $1, 4, 6, 4, 1$ adalah baris keempat **segitiga Pascal**, yang sama dengan $\\binom{4}{k}$.
 
 Bentuk distribusi bergantung pada $p$. Bila $p = 0{,}5$ distribusinya **simetris**; bila $p > 0{,}5$ puncaknya bergeser ke kanan; bila $p < 0{,}5$ puncaknya bergeser ke kiri.`,
       blocks: [
@@ -204,7 +204,7 @@ Bentuk distribusi bergantung pada $p$. Bila $p = 0{,}5$ distribusinya **simetris
         {
           kind: "callout",
           variant: "tip",
-          text: "Baris ke-$n$ **segitiga Pascal** memberi koefisien binomial $\\binom{n}{0}, \\binom{n}{1}, \\ldots, \\binom{n}{n}$ secara cepat, misalnya baris $n=5$ adalah $1, 5, 10, 10, 5, 1$.",
+          text: "Baris ke-$n$ **segitiga Pascal** memberi koefisien binomial $\\binom{n}{0}, \\binom{n}{1}, \\ldots, \\binom{n}{n}$ secara cepat, contohnya baris $n=5$ adalah $1, 5, 10, 10, 5, 1$.",
         },
         {
           kind: "figure",
@@ -212,13 +212,19 @@ Bentuk distribusi bergantung pada $p$. Bila $p = 0{,}5$ distribusinya **simetris
           caption: "Fungsi peluang $X \\sim B(5;\\,0{,}5)$: $P(X=k)=\\binom{5}{k}(0{,}5)^{5}$. Sebarannya simetris, tertinggi di $k=2$ dan $k=3$ dengan $P=\\tfrac{10}{32}$.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="295" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="190" x2="40" y2="45" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="86" x2="290" y2="86" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3"/><rect x="46" y="177" width="28" height="13" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="86" y="125" width="28" height="65" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="126" y="60" width="28" height="130" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="166" y="60" width="28" height="130" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="206" y="125" width="28" height="65" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="246" y="177" width="28" height="13" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><text x="2" y="90" font-size="11" fill="currentColor">0,25</text><text x="16" y="194" font-size="11" fill="currentColor">0</text><text x="60" y="205" font-size="11" text-anchor="middle" fill="currentColor">0</text><text x="100" y="205" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="140" y="205" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="180" y="205" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="220" y="205" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="260" y="205" font-size="11" text-anchor="middle" fill="currentColor">5</text><text x="285" y="186" font-size="11" fill="currentColor">k</text><text x="46" y="40" font-size="11" fill="currentColor">P(X=k)</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Diagram batang peluang binom untuk n sama dengan 6 dan p sama dengan 0,7; batang tertinggi di k sama dengan 4 dan garis putus-putus menandai nilai harapan 4,2.",
+          caption: "Fungsi peluang $X \\sim B(6;\\,0{,}7)$: karena $p>0{,}5$, puncaknya bergeser ke kanan, tepatnya di $k=4$, dan nilai harapannya $E(X)=np=4{,}2$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="200" x2="40" y2="45" stroke="currentColor" stroke-width="1.5"/><rect x="48" y="199" width="26" height="1" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="84" y="196" width="26" height="4" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="120" y="175" width="26" height="25" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="156" y="122" width="26" height="78" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="192" y="64" width="26" height="136" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="228" y="73" width="26" height="127" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><rect x="264" y="151" width="26" height="49" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/><line x1="212" y1="200" x2="212" y2="55" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 3"/><text x="212" y="49" font-size="11" text-anchor="middle" fill="currentColor">E(X) = 4,2</text><text x="61" y="214" font-size="11" text-anchor="middle" fill="currentColor">0</text><text x="97" y="214" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="133" y="214" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="169" y="214" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="205" y="214" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="241" y="214" font-size="11" text-anchor="middle" fill="currentColor">5</text><text x="277" y="214" font-size="11" text-anchor="middle" fill="currentColor">6</text><text x="292" y="196" font-size="11" fill="currentColor">k</text><text x="42" y="42" font-size="11" fill="currentColor">P(X=k)</text></svg>',
+        },
       ],
     },
     {
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi Distribusi Peluang",
-      body: `Sebelum berlatih menghitung, amati bagaimana bentuk sebaran berubah ketika peluang tiap hasil diubah. Pada simulasi berikut, atur nilai $x$ dan peluang $P(X=x)$ tiap hasil, lalu perhatikan tinggi batang dan letak garis nilai harapan. Bandingkan pula bentuk sebaran yang simetris (misalnya peluang sama besar) dengan yang miring, sebagai gambaran mengapa parameter $p$ menentukan bentuk distribusi binomial.`,
+      body: `Sebelum berlatih menghitung, amati bagaimana bentuk sebaran berubah ketika peluang tiap hasil diubah. Pada simulasi berikut, atur nilai $x$ dan peluang $P(X=x)$ tiap hasil, lalu perhatikan tinggi batang dan letak garis nilai harapan. Bandingkan pula bentuk sebaran yang simetris (contohnya peluang sama besar) dengan yang miring, sebagai gambaran mengapa parameter $p$ menentukan bentuk distribusi binomial.`,
       blocks: [
         {
           kind: "exploration",
@@ -272,30 +278,35 @@ $$E(X) = np, \\qquad \\operatorname{Var}(X) = np(1-p), \\qquad \\sigma = \\sqrt{
       id: "contoh",
       kind: "contoh",
       title: "Contoh Terbimbing",
+      body: "Tiga contoh berikut menelusuri peluang tepat $k$ sukses, peluang kumulatif lewat komplemen, serta nilai harapan dan simpangan baku, masing-masing dengan alasan di balik tiap langkah.",
       blocks: [
         {
           kind: "step-reveal",
           intro: "Hitung peluang tepat 2 gambar dari 5 lemparan koin seimbang, satu langkah sekaligus.",
           steps: [
             {
-              title: "Tentukan parameter",
-              text: "Banyak ulangan $n = 5$, peluang sukses (gambar) $p = \\tfrac12$, sehingga $1-p=\\tfrac12$.",
+              title: "Kenali percobaan dan catat yang diketahui",
+              text: "Koin dilempar $5$ kali, tiap lemparan hanya memberi dua hasil dan saling bebas, sehingga ini percobaan binomial. Sukses adalah muncul gambar dengan $p=\\tfrac12$, $1-p=\\tfrac12$, $n=5$, dan kita menginginkan $k=2$.",
             },
             {
-              title: "Tulis rumus binomial",
-              text: "$P(X=2)=\\binom{5}{2}\\left(\\tfrac12\\right)^{2}\\left(\\tfrac12\\right)^{3}$.",
+              title: "Pahami mengapa muncul koefisien",
+              text: "Tepat 2 gambar berarti 2 lemparan sukses dan 3 lemparan gagal. Posisi kedua gambar dapat dipilih dari 5 tempat, jadi ada $\\binom{5}{2}$ susunan yang berbeda.",
             },
             {
-              title: "Hitung koefisien",
-              text: "$\\binom{5}{2}=\\dfrac{5!}{2!\\,3!}=10$.",
+              title: "Hitung koefisien binomial",
+              text: "$\\binom{5}{2}=\\dfrac{5!}{2!\\,3!}=\\dfrac{120}{2 \\cdot 6}=10$.",
             },
             {
-              title: "Hitung peluang",
-              text: "$P(X=2)=10 \\cdot \\dfrac{1}{4} \\cdot \\dfrac{1}{8} = \\dfrac{10}{32} = \\dfrac{5}{16} = 0{,}3125$.",
+              title: "Hitung peluang satu susunan",
+              text: "Karena $p=1-p=\\tfrac12$, tiap susunan berpeluang $p^{2}(1-p)^{3}=\\left(\\tfrac12\\right)^{2}\\left(\\tfrac12\\right)^{3}=\\left(\\tfrac12\\right)^{5}=\\tfrac{1}{32}$.",
             },
             {
-              title: "Tafsirkan",
-              text: "Pada percobaan panjang, sekitar $31{,}25\\%$ dari tiap 5 lemparan menghasilkan tepat 2 gambar.",
+              title: "Jumlahkan dan verifikasi",
+              text: "Sepuluh susunan saling lepas, jadi $P(X=2)=10 \\cdot \\tfrac{1}{32}=\\dfrac{10}{32}=\\dfrac{5}{16}=0{,}3125$. Verifikasi: nilainya antara $0$ dan $1$, dan lebih kecil dari peluang gabungan seluruh hasil, jadi masuk akal.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Peluang tepat 2 gambar adalah $\\dfrac{5}{16}\\approx 31{,}25\\%$.",
             },
           ],
         },
@@ -304,25 +315,54 @@ $$E(X) = np, \\qquad \\operatorname{Var}(X) = np(1-p), \\qquad \\sigma = \\sqrt{
           intro: "Sebuah dadu dilempar 4 kali. Hitung peluang muncul mata 6 paling sedikit sekali.",
           steps: [
             {
-              title: "Kenali kejadian komplemen",
-              text: "\"Paling sedikit sekali muncul 6\" adalah komplemen dari \"tidak muncul 6 sama sekali\", yaitu $X = 0$.",
+              title: "Kenali percobaan dan catat yang diketahui",
+              text: "Tiap lemparan saling bebas dengan dua hasil: muncul 6 (sukses) berpeluang $p=\\tfrac16$ atau bukan 6 berpeluang $1-p=\\tfrac56$. Diulang $n=4$ kali, jadi $X \\sim B\\!\\left(4, \\tfrac16\\right)$.",
+            },
+            {
+              title: "Pilih strategi lewat komplemen",
+              text: "\"Paling sedikit sekali\" berarti $X \\geq 1$, yaitu $X=1,2,3,4$. Menjumlahkan empat suku lebih repot daripada menghitung satu suku komplemen, yaitu $X=0$ (tidak muncul 6 sama sekali).",
             },
             {
               title: "Hitung peluang komplemen",
-              text: "$P(X=0)=\\binom{4}{0}\\left(\\dfrac16\\right)^{0}\\left(\\dfrac56\\right)^{4}=\\left(\\dfrac56\\right)^{4}=\\dfrac{625}{1296}$.",
+              text: "$P(X=0)=\\binom{4}{0}\\left(\\tfrac16\\right)^{0}\\left(\\tfrac56\\right)^{4}=1 \\cdot 1 \\cdot \\dfrac{625}{1296}=\\dfrac{625}{1296}$.",
             },
             {
-              title: "Pakai komplemen",
-              text: "$P(X \\geq 1) = 1 - \\dfrac{625}{1296} = \\dfrac{671}{1296} \\approx 0{,}518$.",
+              title: "Pakai komplemen dan verifikasi",
+              text: "$P(X \\geq 1)=1-\\dfrac{625}{1296}=\\dfrac{671}{1296}\\approx 0{,}518$. Verifikasi: nilainya di atas $0{,}5$, wajar karena peluang gagal tiap lemparan hanya $\\tfrac56$.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Peluang muncul mata 6 paling sedikit sekali sekitar $51{,}8\\%$.",
+            },
+          ],
+        },
+        {
+          kind: "step-reveal",
+          intro: "Sebuah mesin membuat produk dengan peluang cacat 0,05. Jika diperiksa 20 produk, hitung nilai harapan dan simpangan baku banyak produk cacat.",
+          steps: [
+            {
+              title: "Kenali percobaan dan catat yang diketahui",
+              text: "Tiap produk diperiksa saling bebas dengan dua hasil: cacat (sukses) berpeluang $p=0{,}05$ atau baik berpeluang $1-p=0{,}95$. Diperiksa $n=20$ produk, jadi $X \\sim B(20;\\,0{,}05)$.",
+            },
+            {
+              title: "Hitung nilai harapan",
+              text: "$E(X)=np=20(0{,}05)=1$.",
+            },
+            {
+              title: "Hitung varians",
+              text: "$\\operatorname{Var}(X)=np(1-p)=20(0{,}05)(0{,}95)=0{,}95$.",
+            },
+            {
+              title: "Hitung simpangan baku dan verifikasi",
+              text: "$\\sigma=\\sqrt{0{,}95}\\approx 0{,}97$. Verifikasi dengan tafsir: karena $p$ kecil, hampir semua produk baik, sehingga ragam sekitar 1 produk cacat per batch masuk akal.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Rata-rata ada sekitar $1$ produk cacat per $20$ produk, dengan fluktuasi tipikal sekitar $1$ produk.",
             },
           ],
         },
       ],
-      body: `**Contoh nilai harapan.** Sebuah mesin membuat produk dengan peluang cacat $0{,}05$. Jika diperiksa $20$ produk, maka $X \\sim B(20; 0{,}05)$ dan
-
-$$E(X) = np = 20(0{,}05) = 1, \\qquad \\sigma = \\sqrt{np(1-p)} = \\sqrt{20(0{,}05)(0{,}95)} = \\sqrt{0{,}95} \\approx 0{,}97.$$
-
-Jadi rata-rata ada sekitar $1$ produk cacat per $20$ produk, dengan fluktuasi tipikal sekitar $1$ produk.`,
     },
     {
       id: "latihan-dasar",

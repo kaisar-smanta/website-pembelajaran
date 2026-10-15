@@ -64,11 +64,11 @@ Diskusikan: jika bunga tahun pertama ditambahkan ke saldo, apakah bunga tahun ke
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Pastikan kamu sudah memahami:
+      body: `Bunga majemuk berdiri di atas eksponen dan barisan geometri. Sebelum mulai, pastikan kamu sudah bisa:
 
-- sifat eksponen, terutama $(1+i)^n$ dan pangkat bilangan rasional;
-- barisan geometri dengan rasio tetap $(1+i)$;
-- mengubah persen menjadi desimal, misalnya $8\\% = 0{,}08$.`,
+- memakai sifat eksponen, terutama $(1+i)^n$ dan pangkat bilangan rasional;
+- menuliskan barisan geometri dengan rasio tetap $(1+i)$;
+- mengubah persen menjadi desimal, seperti $8\\% = 0{,}08$.`,
     },
     {
       id: "konteks",
@@ -134,7 +134,7 @@ dengan $M_n$ saldo setelah $n$ periode. Barisan saldo $M_0, M_1, M_2, \\dots$ ad
             },
             {
               front: "Suku bunga per periode ($i$)",
-              back: "Bunga untuk satu periode, misalnya $8\\%$ per tahun atau $1\\%$ per bulan.",
+              back: "Bunga untuk satu periode, seperti $8\\%$ per tahun atau $1\\%$ per bulan.",
             },
             {
               front: "Banyak periode ($n$)",
@@ -160,7 +160,7 @@ dengan $M_n$ saldo setelah $n$ periode. Barisan saldo $M_0, M_1, M_2, \\dots$ ad
 
 $$i = \\frac{j}{m}.$$
 
-Karena $n$ menyatakan banyak periode, lamanya $t$ tahun setara dengan $n = m \\cdot t$ periode. Sebagai contoh, nominal $12\\%$ dengan perhitungan bulanan berarti $i = \\dfrac{0{,}12}{12} = 0{,}01$ per bulan.`,
+Karena $n$ menyatakan banyak periode, lamanya $t$ tahun setara dengan $n = m \\cdot t$ periode. Ambil nominal $12\\%$ dengan perhitungan bulanan, yang berarti $i = \\dfrac{0{,}12}{12} = 0{,}01$ per bulan.`,
       blocks: [
         {
           kind: "table",
@@ -203,11 +203,11 @@ Karena $n$ menyatakan banyak periode, lamanya $t$ tahun setara dengan $n = m \\c
           items: [
             {
               label: "Nominal tahunan",
-              body: "Bunga dinyatakan untuk satu tahun penuh, misalnya $j = 12\\%$ per tahun.",
+              body: "Bunga dinyatakan untuk satu tahun penuh, contohnya $j = 12\\%$ per tahun.",
             },
             {
               label: "Per periode",
-              body: "Bagi nominal dengan frekuensi: $i = j/m$, misalnya $12\\% / 12 = 1\\%$ per bulan.",
+              body: "Bagi nominal dengan frekuensi: $i = j/m$, seperti $12\\% / 12 = 1\\%$ per bulan.",
             },
             {
               label: "Efektif",
@@ -226,6 +226,14 @@ Karena $n$ menyatakan banyak periode, lamanya $t$ tahun setara dengan $n = m \\c
 $$i_{\\text{efektif}} = \\left(1 + \\frac{j}{m}\\right)^{m} - 1.$$
 
 Contoh: nominal $12\\%$ dihitung bulanan memberi $i_{\\text{efektif}} = (1{,}01)^{12} - 1 \\approx 0{,}126825$, yaitu sekitar **12,68%** per tahun, lebih tinggi daripada nominalnya.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Kurva suku bunga efektif yang menanjak lalu mendatar menuju batas 12,75 persen seiring bertambahnya frekuensi pemajemukan.",
+          caption: "Kurva suku bunga efektif untuk nominal $12\\%$ per tahun: $i_{\\text{efektif}} = \\left(1+\\dfrac{0{,}12}{m}\\right)^{m}-1$. Nilai menanjak seiring frekuensi $m$, tetapi tambahannya makin kecil dan mendekati $12{,}75\\%$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="50" y1="210" x2="300" y2="210" stroke="currentColor" stroke-width="1.2"/><line x1="50" y1="210" x2="50" y2="45" stroke="currentColor" stroke-width="1.2"/><line x1="55" y1="60" x2="300" y2="60" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 4"/><polyline points="74,190 93,128 113,106 132,95 170,83 285,72" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="74" cy="190" r="2.8" fill="currentColor"/><circle cx="93" cy="128" r="2.8" fill="currentColor"/><circle cx="113" cy="106" r="2.8" fill="currentColor"/><circle cx="132" cy="95" r="2.8" fill="currentColor"/><circle cx="170" cy="83" r="2.8" fill="currentColor"/><circle cx="285" cy="72" r="2.8" fill="currentColor"/><text x="292" y="226" font-size="12" fill="currentColor">m</text><text x="30" y="52" font-size="12" fill="currentColor">i</text><text x="198" y="53" font-size="11" fill="currentColor">batas 12,75%</text><text x="62" y="206" font-size="10" fill="currentColor">1</text><text x="270" y="206" font-size="10" fill="currentColor">12</text></svg>',
+        },
+      ],
     },
     {
       id: "eksplorasi",
@@ -286,14 +294,19 @@ $$i_{\\text{efektif}} = \\left(1+\\frac{j}{m}\\right)^{m}-1.$$
 
 *Penyelesaian.* Catat $M_0 = 5.000.000$, $i = 0{,}08$, dan $n = 5$, lalu gunakan $M_n = M_0(1+i)^n$:
 $$M_5 = 5.000.000(1{,}08)^{5} = 5.000.000(1{,}469328) \\approx \\text{Rp}7.346.640.$$
-Sebagai pembanding, bunga tunggal hanya memberi $5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000$. Selisih sekitar **Rp346.640** berasal dari bunga atas bunga.`,
+Sebagai pembanding, bunga tunggal hanya memberi $5.000.000(1 + 0{,}08 \\cdot 5) = \\text{Rp}7.000.000$. Selisih sekitar **Rp346.640** berasal dari bunga atas bunga.
+
+*Verifikasi.* Telusuri baris per tahun: $5.000.000 \\to 5.400.000 \\to 5.832.000 \\to 6.298.560 \\to 6.802.445 \\to 7.346.640$. Cocok dengan hasil pangkat.`,
             },
             {
-              title: "Contoh 2 (saldo empat tahun)",
-              text: `Modal Rp2.000.000 dibungakan majemuk $6\\%$ per tahun selama $4$ tahun. Tentukan saldo akhir.
+              title: "Contoh 2 (bunga tunggal sebagai pembanding)",
+              text: `Modal Rp2.000.000 dibungakan **tunggal** $6\\%$ per tahun selama $4$ tahun. Tentukan saldo akhirnya, lalu bandingkan dengan bunga majemuk berperiode sama.
 
-*Penyelesaian.* Nilai $M_0 = 2.000.000$, $i = 0{,}06$, dan $n = 4$:
-$$M_4 = 2.000.000(1{,}06)^{4} = 2.000.000(1{,}262477) \\approx \\text{Rp}2.524.954.$$`,
+*Penyelesaian.* Pada bunga tunggal, bunga selalu dihitung dari modal awal:
+$$M_4 = 2.000.000(1 + 0{,}06 \\cdot 4) = 2.000.000(1{,}24) = \\text{Rp}2.480.000.$$
+Sebagai pembanding, bunga majemuk memberi $2.000.000(1{,}06)^{4} \\approx \\text{Rp}2.524.954$. Selisih Rp44.954 itulah bunga atas bunga.
+
+*Verifikasi.* Bunga tunggal bertambah tetap $2.000.000 \\times 6\\% = \\text{Rp}120.000$ setiap tahun; setelah $4$ tahun totalnya Rp480.000, sehingga saldo Rp2.480.000. Cocok.`,
             },
             {
               title: "Contoh 3 (suku bunga efektif)",
@@ -301,7 +314,9 @@ $$M_4 = 2.000.000(1{,}06)^{4} = 2.000.000(1{,}262477) \\approx \\text{Rp}2.524.9
 
 *Penyelesaian.* Bunga per bulan $i = \\dfrac{0{,}12}{12} = 0{,}01$ dengan $m = 12$ periode per tahun. Maka
 $$i_{\\text{efektif}} = (1{,}01)^{12} - 1 \\approx 0{,}126825,$$
-yaitu sekitar **12,68%** per tahun, lebih tinggi daripada nominalnya.`,
+yaitu sekitar **12,68%** per tahun, lebih tinggi daripada nominalnya.
+
+*Verifikasi.* Faktor tahunan $(1{,}01)^{12} \\approx 1{,}126825$ berarti pertumbuhan nyata $12{,}68\\%$, memang melebihi nominal $12\\%$. Cocok.`,
             },
             {
               title: "Contoh 4 (perhitungan kuartalan)",
@@ -309,7 +324,9 @@ yaitu sekitar **12,68%** per tahun, lebih tinggi daripada nominalnya.`,
 
 *Penyelesaian.* Bunga per kuartal $i = \\dfrac{0{,}09}{4} = 0{,}0225$ dan banyak periode $n = 4 \\times 2 = 8$, sehingga
 $$M_8 = 4.000.000(1{,}0225)^{8} \\approx 4.000.000(1{,}194831) \\approx \\text{Rp}4.779.324.$$
-Jadi saldonya sekitar **Rp4.779.324**.`,
+Jadi saldonya sekitar **Rp4.779.324**.
+
+*Verifikasi.* Setiap kuartal saldo dikali $1{,}0225$; delapan kali pengalian setara dengan $(1{,}0225)^{8} \\approx 1{,}194831$. Cocok.`,
             },
           ],
         },
@@ -417,7 +434,7 @@ Jadi saldonya sekitar **Rp4.779.324**.`,
             "Dalam situasi apa bunga tunggal lebih tepat dipakai daripada bunga majemuk?",
             "Kesalahan mana yang paling mungkin kamu lakukan, dan bagaimana cara memeriksanya?",
           ],
-          confidenceLabel: "Seberapa yakin kamu dengan materi bunga majemuk ini?",
+          confidenceLabel: "Seberapa yakin kamu membedakan bunga tunggal dan majemuk serta menghitung saldo akhir?",
         },
       ],
     },

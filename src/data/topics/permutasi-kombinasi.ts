@@ -36,7 +36,7 @@ export const permutasiKombinasi: Topic = {
     { text: 'Menentukan banyak kombinasi dan membedakan kapan memakai permutasi atau kombinasi.' },
     { text: 'Menggunakan pencacahan untuk menghitung peluang suatu kejadian.' },
   ],
-  applications: ['kata-sandi'],
+  applications: ['pemilihan-tim-lomba'],
   sections: [
     {
       id: "tujuan",
@@ -75,7 +75,7 @@ Coba daftarkan beberapa kemungkinan terlebih dahulu sebelum memakai rumus.`,
       id: "prasyarat",
       kind: "prasyarat",
       title: "Prasyarat",
-      body: `Sebelum melanjutkan, pastikan kamu menguasai:
+      body: `Pencacahan bertumpu pada aturan dasar dan faktorial, jadi pastikan dahulu bekal berikut sudah siap:
 - aturan perkalian dan aturan penjumlahan pada proses bertahap;
 - operasi bilangan bulat dan pecahan;
 - konsep peluang teoretis $P(A) = \\dfrac{n(A)}{n(S)}$;
@@ -146,6 +146,12 @@ Hubungan keduanya adalah $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$, karena setiap pi
               right: "Pemilihan dengan urutan tidak diperhatikan",
             },
           ],
+        },
+        {
+          kind: "figure",
+          alt: "Diagram yang mengelompokkan enam permutasi dua huruf menjadi tiga kombinasi; setiap kombinasi berasal dari dua permutasi.",
+          caption: "Setiap kombinasi bersesuaian dengan $2!$ permutasi. Contohnya, $\\{A,B\\}$ berasal dari $AB$ dan $BA$. Karena itu $\\binom{3}{2} = \\dfrac{P(3,2)}{2!} = \\dfrac{6}{2} = 3$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-pk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><text x="20" y="26" font-size="12" fill="currentColor">P(3,2) = 6</text><text x="216" y="26" font-size="12" fill="currentColor">C(3,2) = 3</text><rect x="20" y="40" width="54" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="20" y="72" width="54" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="20" y="104" width="54" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="20" y="136" width="54" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="20" y="168" width="54" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="20" y="200" width="54" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="34" y="57" font-size="13" fill="currentColor">AB</text><text x="34" y="89" font-size="13" fill="currentColor">BA</text><text x="34" y="121" font-size="13" fill="currentColor">AC</text><text x="34" y="153" font-size="13" fill="currentColor">CA</text><text x="34" y="185" font-size="13" fill="currentColor">BC</text><text x="34" y="217" font-size="13" fill="currentColor">CB</text><rect x="216" y="39" width="86" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="216" y="103" width="86" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="216" y="167" width="86" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="224" y="57" font-size="12" fill="currentColor">{A, B}</text><text x="224" y="121" font-size="12" fill="currentColor">{A, C}</text><text x="224" y="185" font-size="12" fill="currentColor">{B, C}</text><line x1="76" y1="52" x2="212" y2="52" stroke="currentColor" stroke-width="1" marker-end="url(#fig-pk-arrow)"/><line x1="76" y1="84" x2="212" y2="52" stroke="currentColor" stroke-width="1" marker-end="url(#fig-pk-arrow)"/><line x1="76" y1="116" x2="212" y2="116" stroke="currentColor" stroke-width="1" marker-end="url(#fig-pk-arrow)"/><line x1="76" y1="148" x2="212" y2="116" stroke="currentColor" stroke-width="1" marker-end="url(#fig-pk-arrow)"/><line x1="76" y1="180" x2="212" y2="180" stroke="currentColor" stroke-width="1" marker-end="url(#fig-pk-arrow)"/><line x1="76" y1="212" x2="212" y2="180" stroke="currentColor" stroke-width="1" marker-end="url(#fig-pk-arrow)"/></svg>',
         },
       ],
     },
@@ -251,7 +257,7 @@ Jalankan simulasi berkali-kali. Apakah frekuensi relatif kejadian ini mendekati 
       title: "Aturan Umum Pencacahan",
       body: `Semua rumus di atas tumbuh dari satu prinsip: **aturan perkalian**. Bila suatu proses berlangsung dalam tahap-tahap berurutan, banyak cara total adalah hasil kali banyak cara tiap tahap. Rumus permutasi dan kombinasi hanyalah bentuk ringkas dari aturan itu ketika beberapa tahap memiliki pola yang sama.
 
-Yang menentukan pilihan rumus bukan panjangnya rumus, melainkan pertanyaan: **apakah urutan penting?**
+Yang menentukan pilihan rumus bukan panjangnya rumus, tetapi pertanyaannya: **apakah urutan penting?**
 
 $$\\text{urutan penting} \\Rightarrow P(n,k) = \\frac{n!}{(n-k)!}, \\qquad \\text{urutan tidak penting} \\Rightarrow \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
 
@@ -290,46 +296,69 @@ $$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Lima contoh berikut dikerjakan langkah demi langkah, dari aturan perkalian sampai pencacahan untuk peluang.",
+          intro: "Enam contoh berikut dikerjakan langkah demi langkah, dari aturan perkalian sampai pencacahan untuk peluang.",
           steps: [
             {
-              title: "Contoh 1: aturan perkalian",
+              title: "Contoh 1: aturan perkalian pada kata sandi",
               text: `Sebuah kata sandi terdiri atas $4$ angka berbeda yang dipilih dari angka $0$ sampai $9$. Berapa banyak kata sandi yang mungkin?
 
-*Penyelesaian.* Isi empat kotak: $10$ pilihan untuk angka pertama, lalu $9$, $8$, dan $7$ karena angka tidak boleh berulang:
+*Langkah 1: kenali tahapannya.* Ada $4$ kotak berurutan yang harus diisi, jadi kita memakai aturan perkalian.
+
+*Langkah 2: isi tiap kotak.* Kotak pertama punya $10$ pilihan. Karena angka tidak boleh berulang, kotak kedua $9$, ketiga $8$, dan keempat $7$.
+
+*Langkah 3: kalikan dan verifikasi.*
 $$10 \\cdot 9 \\cdot 8 \\cdot 7 = 5040.$$
-Jadi ada $5040$ kata sandi yang mungkin.`,
+Hasil ini sama dengan permutasi sebagian $P(10,4) = \\dfrac{10!}{6!} = 5040$, karena urutan angka memang penting. Jadi ada $5040$ kata sandi.`,
             },
             {
-              title: "Contoh 2: faktorial dan unsur sama",
+              title: "Contoh 2: permutasi dengan unsur sama",
               text: `Berapa banyak susunan huruf dari kata "BUKU"?
 
-*Penyelesaian.* Kata "BUKU" tersusun dari $4$ huruf dengan huruf U muncul $2$ kali. Bila semua huruf berbeda akan ada $4! = 24$ susunan, tetapi menukar posisi kedua huruf U menghasilkan susunan yang sama. Jadi
-$$\\frac{4!}{2!} = \\frac{24}{2} = 12.$$
-Jadi ada $12$ susunan huruf yang berbeda.`,
-            },
-            {
-              title: "Contoh 3: permutasi sebagian",
-              text: `Dari $5$ siswa akan dipilih ketua, sekretaris, dan bendahara. Berapa banyak susunan yang mungkin?
+*Langkah 1: anggap dahulu semua huruf berbeda.* Ada $4$ huruf, sehingga sementara $4! = 24$ susunan.
 
-*Penyelesaian.* Urutan penting, sehingga
-$$P(5,3) = \\frac{5!}{(5-3)!} = \\frac{120}{2} = 60.$$
-Jadi ada $60$ susunan pengurus.`,
+*Langkah 2: koreksi unsur yang sama.* Huruf U muncul $2$ kali. Menukar posisi kedua huruf U tidak menghasilkan susunan baru, dan setiap susunan terhitung $2!$ kali. Jadi bagi dengan $2!$:
+$$\\frac{4!}{2!} = \\frac{24}{2} = 12.$$
+*Verifikasi.* Hasil $12$ tepat setengah dari $24$, sesuai pengulangan dua huruf U yang sama. Jadi ada $12$ susunan berbeda.`,
             },
             {
-              title: "Contoh 4: kombinasi",
+              title: "Contoh 3: permutasi semua unsur",
+              text: `Empat buku berbeda akan disusun berjajar di rak. Berapa banyak susunan yang mungkin?
+
+*Penyelesaian.* Keempat buku berbeda dan urutannya diperhatikan, sehingga banyak susunannya adalah $4! = 4 \\cdot 3 \\cdot 2 \\cdot 1 = 24$.
+
+*Verifikasi.* Lewat kotak pengisian: $4$ pilihan untuk posisi pertama, lalu $3$, $2$, dan $1$; hasil kalinya $24$, sama dengan $4!$.`,
+            },
+            {
+              title: "Contoh 4: permutasi sebagian",
+              text: `Dari $5$ siswa akan dipilih ketua, sekretaris, dan bendahara. Berapa banyak susunan pengurus yang mungkin?
+
+*Langkah 1: tentukan apakah urutan penting.* Ketua dan sekretaris jabatannya berbeda, jadi urutan penting dan kita memakai permutasi.
+
+*Langkah 2: pakai rumus permutasi sebagian.*
+$$P(5,3) = \\frac{5!}{(5-3)!} = \\frac{120}{2} = 60.$$
+*Verifikasi.* Lewat kotak pengisian: $5 \\cdot 4 \\cdot 3 = 60$, cocok. Jadi ada $60$ susunan pengurus.`,
+            },
+            {
+              title: "Contoh 5: kombinasi",
               text: `Dari $10$ siswa akan dipilih $3$ orang untuk sebuah tim tanpa jabatan. Berapa banyak susunan tim?
 
-*Penyelesaian.* Urutan tidak penting, sehingga
+*Langkah 1: tentukan apakah urutan penting.* Tim tidak punya jabatan, jadi urutan tidak penting dan kita memakai kombinasi.
+
+*Langkah 2: pakai rumus kombinasi.*
 $$\\binom{10}{3} = \\frac{10!}{3!\\,7!} = \\frac{10 \\cdot 9 \\cdot 8}{3 \\cdot 2 \\cdot 1} = 120.$$
-Jadi ada $120$ susunan tim.`,
+*Verifikasi.* Bandingkan dengan permutasi: $P(10,3) = 10 \\cdot 9 \\cdot 8 = 720$, lalu $720 : 3! = 720 : 6 = 120$, cocok. Jadi ada $120$ susunan tim.`,
             },
             {
-              title: "Contoh 5: pencacahan untuk peluang",
+              title: "Contoh 6: pencacahan untuk peluang",
               text: `Sebuah kotak berisi $5$ bola merah dan $3$ bola putih. Dua bola diambil sekaligus. Tentukan peluang keduanya merah.
 
-*Penyelesaian.* Banyak cara mengambil $2$ dari $8$ bola adalah $\\binom{8}{2} = 28$. Cara mendapat dua merah adalah $\\binom{5}{2} = 10$. Jadi
-$$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
+*Langkah 1: hitung ruang sampel.* Banyak cara mengambil $2$ dari $8$ bola tanpa memperhatikan urutan adalah $\\binom{8}{2} = 28$.
+
+*Langkah 2: hitung cara yang menguntungkan.* Cara mendapat dua merah dari $5$ merah adalah $\\binom{5}{2} = 10$.
+
+*Langkah 3: bagi dan verifikasi.*
+$$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14} \\approx 0{,}357.$$
+Hasilnya antara $0$ dan $1$, dan lebih kecil dari $0{,}5$ karena bola putih masih cukup banyak.`,
             },
           ],
         },

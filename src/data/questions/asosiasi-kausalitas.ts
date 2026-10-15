@@ -23,7 +23,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
     answer: 'B',
     explanation:
       'Bila $x$ menyebabkan $y$, biasanya muncul asosiasi di antara keduanya, sehingga asosiasi adalah syarat perlu. Namun asosiasi saja tidak cukup untuk menyimpulkan sebab-akibat karena bisa berasal dari variabel perancu atau kebetulan, jadi B benar. Opsi A menyamakan korelasi dengan kausalitas; opsi C salah karena dua variabel dapat berhubungan sebab-akibat tanpa asosiasi yang tampak secara linear; opsi D terlalu percaya bahwa satu diagram pencar sudah membuktikan sebab-akibat.',
-    hints: ['Ingat semboyan "korelasi tidak menyiratkan kausalitas".'],
+    hints: [
+      'Ingat semboyan "korelasi tidak menyiratkan kausalitas".',
+      'Asosiasi hanya syarat perlu; belum cukup karena bisa muncul dari variabel perancu atau kebetulan.',
+      'Cari opsi yang membedakan "perlu" dari "cukup" secara tepat.',
+    ],
     competencies: ['asosiasi', 'kausalitas', 'berpikir kritis'],
   },
   {
@@ -43,7 +47,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
     answer: 'A',
     explanation:
       'Suhu udara memengaruhi keduanya: saat cuaca panas orang lebih banyak membeli es krim sekaligus lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik, sehingga suhu adalah variabel perancu (A). Opsi B (harga es krim) hanya berkaitan dengan penjualan es krim, bukan dengan kejahatan; opsi C (jumlah polisi) berkaitan dengan kejahatan tetapi tidak dengan penjualan es krim; opsi D (merek es krim) tidak menjelaskan pola kejahatan.',
-    hints: ['Cari faktor ketiga yang membuat kedua hal berubah bersamaan.'],
+    hints: [
+      'Cari faktor ketiga yang membuat kedua hal berubah bersamaan.',
+      'Faktor itu harus menjelaskan naiknya penjualan es krim sekaligus naiknya angka kejahatan.',
+      'Pikirkan kondisi musiman yang mendorong keduanya pada waktu yang sama.',
+    ],
     competencies: ['variabel perancu', 'korelasi semu'],
   },
   {
@@ -64,7 +72,11 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     explanation:
       'Variabel seperti ini dinamakan variabel perancu (confounding variable). Ia berkaitan dengan variabel yang diduga sebagai penyebab sekaligus dengan variabel akibat, sehingga asosiasi bisa tampak meskipun tidak ada sebab-akibat langsung.',
-    hints: ['Pikirkan variabel ketiga yang memengaruhi keduanya sekaligus.'],
+    hints: [
+      'Pikirkan variabel ketiga yang memengaruhi keduanya sekaligus.',
+      'Istilahnya memuat kata "perancu" karena mengacaukan pembacaan sebab-akibat.',
+      'Variabel ini berkaitan dengan yang diduga penyebab sekaligus dengan akibatnya.',
+    ],
     competencies: ['variabel perancu'],
   },
   {
@@ -323,5 +335,39 @@ export const asosiasiKausalitasQuestions: Question[] = [
       'Pikirkan bagaimana kelompok pembanding (kontrol) membuat klaim sebab-akibat lebih kuat.',
     ],
     competencies: ['asosiasi', 'kausalitas', 'evaluasi klaim'],
+  },
+  {
+    id: 'ak-15',
+    topicId: 'asosiasi-kausalitas',
+    difficulty: 'cakap',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah survei observasional mendata kebiasaan olahraga dan tekanan darah 240 responden seperti pada tabel berikut. Pernyataan yang paling tepat berdasarkan tabel tersebut adalah …',
+    table: {
+      caption: 'Kebiasaan olahraga dan tekanan darah 240 responden.',
+      headers: ['Kebiasaan', 'Tekanan darah normal', 'Tekanan darah tinggi'],
+      rows: [
+        ['Rajin berolahraga', '90', '30'],
+        ['Jarang berolahraga', '60', '60'],
+      ],
+    },
+    options: [
+      {
+        key: 'A',
+        text: 'Ada asosiasi karena kelompok rajin berolahraga punya persentase tekanan darah normal lebih tinggi ($75\\%$ berbanding $50\\%$), tetapi survei belum membuktikan sebab-akibat.',
+      },
+      { key: 'B', text: 'Olahraga pasti menurunkan tekanan darah setiap orang karena asosiasinya jelas.' },
+      { key: 'C', text: 'Tidak ada hubungan sama sekali antara olahraga dan tekanan darah.' },
+      { key: 'D', text: 'Karena kedua kelompok berjumlah sama, persentase tidak perlu dihitung.' },
+    ],
+    answer: 'A',
+    explanation:
+      'Dari tabel, kelompok rajin berolahraga memiliki $\\dfrac{90}{120}=75\\%$ tekanan darah normal, sedangkan kelompok jarang berolahraga $\\dfrac{60}{120}=50\\%$. Selisih $25$ poin persen menunjukkan ada asosiasi, tetapi karena ini hanya survei observasional, variabel perancu seperti pola makan atau usia masih mungkin berperan sehingga sebab-akibat belum dapat disimpulkan (opsi A). Opsi B menggeneralisasi tanpa bukti percobaan; opsi C menyangkal asosiasi yang tampak pada tabel; opsi D salah karena persentase justru diperlukan untuk membandingkan kelompok.',
+    hints: [
+      'Hitung persentase tekanan darah normal pada tiap kelompok lebih dahulu.',
+      'Asosiasi yang tampak belum otomatis berarti sebab-akibat pada studi observasional.',
+    ],
+    competencies: ['membaca tabel kontingensi', 'asosiasi vs kausalitas', 'evaluasi klaim'],
   },
 ];

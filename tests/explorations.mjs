@@ -40,6 +40,7 @@ const EXPLORATION_TYPES = new Set([
   'function-family',
   'normal-distribution',
   'triangle',
+  'exponent-laws',
   'geogebra',
 ]);
 

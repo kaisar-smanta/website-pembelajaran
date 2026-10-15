@@ -41,7 +41,11 @@ export const bungaMajemukQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Suku bunga per periode $i = \\dfrac{j}{m} = \\dfrac{0{,}12}{12} = 0{,}01$, yaitu $1\\%$ per bulan (opsi D). Opsi A ($12\\%$) mencampur suku bunga nominal tahunan dengan suku bunga bulanan. Opsi B ($6\\%$) keliru membagi dengan $2$, seolah periode semesteran. Opsi C ($0{,}12\\%$) salah menempatkan koma desimal.',
-    hints: ['Bagi suku bunga nominal dengan banyaknya periode per tahun.'],
+    hints: [
+      'Bagi suku bunga nominal dengan banyaknya periode per tahun.',
+      'Karena dihitung bulanan, bagi $12\\%$ dengan $12$.',
+      'Hasilnya adalah suku bunga untuk satu bulan, bukan satu tahun.',
+    ],
     competencies: ['suku bunga per periode'],
   },
   {
@@ -102,7 +106,10 @@ export const bungaMajemukQuestions: Question[] = [
     acceptedAnswers: ['Rp1.210.000,00', 'Rp1.210.000', '1.210.000,00', '1210000,00', '1.210.000', '1210000', 'Rp 1.210.000'],
     explanation:
       '$M_2 = 1.000.000(1{,}1)^2 = 1.000.000(1{,}21) = \\text{Rp}1.210.000$.',
-    hints: ['Hitung dulu $(1{,}1)^2 = 1{,}21$.'],
+    hints: [
+      'Hitung dulu $(1{,}1)^2 = 1{,}21$.',
+      'Kalikan hasil faktor itu dengan modal awal Rp1.000.000.',
+    ],
     competencies: ['rumus bunga majemuk'],
   },
   {
