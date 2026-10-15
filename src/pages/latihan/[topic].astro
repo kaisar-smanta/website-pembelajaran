@@ -510,7 +510,7 @@ const presentCategories = assessmentCategories
   }
   .progress-track {
     height: 0.6rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid var(--color-border);
     background: var(--color-surface-2);
     overflow: hidden;
@@ -667,7 +667,7 @@ const presentCategories = assessmentCategories
     color: var(--color-text);
     padding: 0.35rem 0.8rem;
     border: 1px solid var(--color-border-strong);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-surface);
     cursor: pointer;
     transition:
@@ -688,6 +688,13 @@ const presentCategories = assessmentCategories
     outline: 3px solid var(--color-primary);
     outline-offset: 2px;
   }
+  /* Sasaran sentuh chip filter pada perangkat penunjuk kasar. */
+  @media (pointer: coarse) {
+    .filter-btn {
+      min-height: 2.75rem;
+      padding-block: 0.5rem;
+    }
+  }
   .filter-btn .filter-count {
     display: inline-grid;
     place-items: center;
@@ -695,7 +702,7 @@ const presentCategories = assessmentCategories
     height: 1.2rem;
     margin-left: 0.3rem;
     padding-inline: 0.3rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;

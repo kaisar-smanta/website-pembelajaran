@@ -185,7 +185,7 @@ Dua akibat penting:
 1. Sudut keliling yang menghadap **diameter** selalu $90^\\circ$ (karena sudut pusatnya $180^\\circ$).
 2. Sudut-sudut keliling yang menghadap **busur yang sama** besarnya sama.
 
-Sebagai contoh, jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika $\\angle AOB=120^\\circ$, maka $\\angle ACB=60^\\circ$.`,
+Misalnya, jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika $\\angle AOB=120^\\circ$, maka $\\angle ACB=60^\\circ$.`,
       blocks: [
         {
           kind: "callout",
@@ -226,11 +226,11 @@ Sebagai contoh, jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika
 
 $$s=\\frac{\\theta}{360^\\circ}\\times 2\\pi r, \\qquad L_{\\text{juring}}=\\frac{\\theta}{360^\\circ}\\times \\pi r^{2}.$$
 
-Sebagai contoh, untuk $r=14$ dan $\\theta=90^\\circ$ dengan $\\pi=\\dfrac{22}{7}$:
+Contohnya, untuk $r=14$ dan $\\theta=90^\\circ$ dengan $\\pi=\\dfrac{22}{7}$:
 
 $$s=\\frac{1}{4}\\times 2\\times\\frac{22}{7}\\times14=22, \\qquad L=\\frac{1}{4}\\times\\frac{22}{7}\\times14^{2}=154.$$
 
-Perhatikan bahwa keduanya diperoleh dari perbandingan $\\dfrac{\\theta}{360^\\circ}$.`,
+Keduanya diperoleh dari perbandingan $\\dfrac{\\theta}{360^\\circ}$.`,
     },
     {
       id: "tembereng",
@@ -244,7 +244,7 @@ Contoh: untuk $r=14$, $\\theta=90^\\circ$, dan $\\pi=\\dfrac{22}{7}$. Luas jurin
 
 $$L_{\\text{segitiga}}=\\frac{1}{2}\\times14\\times14=98, \\qquad L_{\\text{tembereng}}=154-98=56.$$
 
-Perhatikan bahwa tembereng selalu lebih kecil daripada juring karena sebagian daerah telah ditempati segitiga.`,
+Tampak bahwa tembereng selalu lebih kecil daripada juring karena sebagian daerah telah ditempati segitiga.`,
       blocks: [
         {
           kind: "figure",

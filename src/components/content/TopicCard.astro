@@ -159,7 +159,7 @@ const summaryHtml = renderInlineMarkdown(summary);
     place-items: center;
     width: 2.4rem;
     height: 2.4rem;
-    border-radius: 10px;
+    border-radius: var(--radius);
     background: var(--color-surface-2);
     color: var(--color-primary);
   }
@@ -208,8 +208,8 @@ const summaryHtml = renderInlineMarkdown(summary);
     font-weight: 600;
   }
   .badge-grade {
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
+    background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+    color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
     border-color: transparent;
   }
 </style>

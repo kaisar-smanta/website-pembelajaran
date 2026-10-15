@@ -180,7 +180,7 @@ Jika suatu bangun seluas $L$ ditransformasi oleh matriks $M$, luas bayangannya a
       title: "Invers Matriks 2×2",
       body: `Jika $\\det(M) \\neq 0$, matriks $M$ memiliki invers
 $$M^{-1} = \\frac{1}{\\det(M)}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}, \\qquad M = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}.$$
-Invers memetakan bayangan kembali ke titik asalnya. Sebagai contoh, matriks dilatasi
+Invers memetakan bayangan kembali ke titik asalnya. Misalnya, matriks dilatasi
 $$D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$$
 memetakan $(x,y)$ ke $(2x,3y)$. Titik $(8,18)$ akan kembali ke $(4,6)$ melalui
 $$D^{-1} = \\frac{1}{6}\\begin{pmatrix} 3 & 0 \\\\ 0 & 2 \\end{pmatrix}\\begin{pmatrix} 8 \\\\ 18 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 6 \\end{pmatrix}.$$`,
@@ -193,7 +193,7 @@ $$D^{-1} = \\frac{1}{6}\\begin{pmatrix} 3 & 0 \\\\ 0 & 2 \\end{pmatrix}\\begin{p
 $$(x', y') = (x+a, \\; y+b).$$
 Translasi tidak mengubah bentuk maupun luas, dan dapat ditulis sebagai penjumlahan vektor
 $$\\begin{pmatrix} x' \\\\ y' \\end{pmatrix} = \\begin{pmatrix} x \\\\ y \\end{pmatrix} + \\begin{pmatrix} a \\\\ b \\end{pmatrix}.$$
-Sebagai contoh, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$.`,
+Contohnya, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$.`,
     },
     {
       id: "pencerminan",
@@ -253,7 +253,7 @@ Sebagai contoh, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$.`,
 $$R_{\\theta} = \\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}.$$
 Sudut-sudut istimewa memberi bentuk sederhana:
 $$R_{90^\\circ} = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}, \\quad R_{180^\\circ} = \\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}, \\quad R_{270^\\circ} = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}.$$
-Sebagai contoh, $R_{90^\\circ}$ memetakan $(1,0)$ ke $(0,1)$ dan $(3,1)$ ke $(-1,3)$.
+Misalnya, $R_{90^\\circ}$ memetakan $(1,0)$ ke $(0,1)$ dan $(3,1)$ ke $(-1,3)$.
 Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, sehingga rotasi tidak mengubah luas.`,
       blocks: [
         {
@@ -272,7 +272,7 @@ Determinan setiap matriks rotasi adalah $\\cos^{2}\\theta + \\sin^{2}\\theta = 1
 $$D_{k} = \\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}.$$
 Jika hanya salah satu arah yang diregangkan, dipakai matriks
 $$\\begin{pmatrix} k & 0 \\\\ 0 & m \\end{pmatrix},$$
-yang memetakan $(x,y)$ ke $(kx,my)$. Determinan matriks ini tetap memberi faktor skala luas. Sebagai contoh, matriks $\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$ memetakan $(1,-2)$ ke $(2,-6)$ dan mengubah luas menjadi $6$ kali semula.`,
+yang memetakan $(x,y)$ ke $(kx,my)$. Determinan matriks ini tetap memberi faktor skala luas. Contohnya, matriks $\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$ memetakan $(1,-2)$ ke $(2,-6)$ dan mengubah luas menjadi $6$ kali semula.`,
     },
     {
       id: "komposisi",

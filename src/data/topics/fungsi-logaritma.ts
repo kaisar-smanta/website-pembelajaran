@@ -84,9 +84,9 @@ Perhatikan titik-titik pada $g(x)=2^{x}$, yaitu $(0,1)$, $(1,2)$, $(2,4)$, dan $
       id: "konteks",
       kind: "konteks",
       title: "Situasi dan Konteks",
-      body: `Logaritma muncul setiap kali kita menanyakan "pangkat berapa" pada pertumbuhan atau peluruhan. Berapa lama populasi berlipat dua, kapan konsentrasi obat turun di bawah ambang, atau berapa pangkat yang dibutuhkan agar $2^{t}$ mencapai $100$ — semuanya dijawab fungsi logaritma.
+      body: `Logaritma muncul setiap kali kita menanyakan "pangkat berapa" pada pertumbuhan atau peluruhan. Berapa lama populasi berlipat dua, kapan konsentrasi obat turun di bawah ambang, atau berapa pangkat yang dibutuhkan agar $2^{t}$ mencapai $100$. Semuanya dijawab fungsi logaritma.
 
-Fungsi logaritma juga menjadi bahasa alami bagi besaran yang rentangnya sangat lebar. Tingkat keasaman larutan (pH), taraf intensitas bunyi (desibel), dan kekuatan gempa (skala Richter) semuanya diukur pada skala logaritmik. Menambahkan satu satuan pada skala itu berarti mengalikan besaran fisiknya dengan sepuluh, seratus, atau seribu kali — sesuatu yang jauh lebih mudah dibaca daripada deretan angka nol.`,
+Fungsi logaritma juga menjadi bahasa alami bagi besaran yang rentangnya sangat lebar. Tingkat keasaman larutan (pH), taraf intensitas bunyi (desibel), dan kekuatan gempa (skala Richter) semuanya diukur pada skala logaritmik. Menambahkan satu satuan pada skala itu berarti mengalikan besaran fisiknya dengan sepuluh, seratus, atau seribu kali, yaitu sesuatu yang jauh lebih mudah dibaca daripada deretan angka nol.`,
     },
     {
       id: "konsep",
@@ -96,7 +96,7 @@ Fungsi logaritma juga menjadi bahasa alami bagi besaran yang rentangnya sangat l
 
 $$b^{y}=x \\iff \\log_{b}x=y.$$
 
-Bentuk $\\log_{b}x$ menjawab pertanyaan "basis $b$ harus dipangkatkan berapa agar menghasilkan $x$". Sebagai contoh, $2^{5}=32$ sehingga $\\log_{2}32=5$, dan $10^{-2}=0{,}01$ sehingga $\\log_{10}0{,}01=-2$.
+Bentuk $\\log_{b}x$ menjawab pertanyaan "basis $b$ harus dipangkatkan berapa agar menghasilkan $x$". Misalnya, $2^{5}=32$ sehingga $\\log_{2}32=5$, dan $10^{-2}=0{,}01$ sehingga $\\log_{10}0{,}01=-2$.
 
 Fungsi logaritma $f(x)=\\log_{b}x$ adalah **invers** dari fungsi eksponen $g(x)=b^{x}$. Karena $g$ selalu bernilai positif, maka $f$ hanya terdefinisi untuk $x>0$; himpunan hasilnya mencakup seluruh bilangan real. Grafiknya melalui $(1,0)$ karena $b^{0}=1$, dan melalui $(b,1)$ karena $b^{1}=b$. Sumbu-$y$, yaitu garis $x=0$, menjadi **asimtot tegak**: kurva mendekatinya namun tidak pernah menyentuhnya. Bila $b>1$ fungsi naik, sedangkan bila $0<b<1$ fungsi turun.`,
       blocks: [

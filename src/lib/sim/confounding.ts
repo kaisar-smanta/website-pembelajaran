@@ -4,7 +4,7 @@
  * Data dibagi menjadi beberapa **strata** (subkelompok). Pada tiap strata kita
  * punya kelompok kontrol dan perlakuan beserta banyak keberhasilannya. Dengan
  * menggeser ukuran dan tingkat keberhasilan tiap strata, siswa dapat membuat
- * arah perbandingan **berbalik** ketika seluruh strata digabung — inti
+ * arah perbandingan **berbalik** ketika seluruh strata digabung: inti
  * paradoks Simpson dan bukti bahwa variabel perancu harus dikendalikan.
  * Tanpa DOM sehingga dapat diuji dengan Node.
  */

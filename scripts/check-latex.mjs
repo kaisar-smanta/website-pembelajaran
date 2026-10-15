@@ -76,7 +76,7 @@ for (const full of files) {
   if (found.length) {
     leaks += found.length;
     const rel = path.relative(root, full).split(path.sep).join('/');
-    console.log(`\n${rel} — ${found.length} kebocoran`);
+    console.log(`\n${rel}: ${found.length} kebocoran`);
     for (const it of found) console.log(`  [${it.check}] ${it.match}`);
   }
 }

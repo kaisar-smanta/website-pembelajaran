@@ -13,7 +13,7 @@ export const pemodelanFungsi: Topic = {
   summary:
     'Mengubah situasi nyata menjadi model fungsi, menentukan konstanta dari data, dan menafsirkan hasilnya.',
   description:
-    'Pemodelan fungsi adalah proses menerjemahkan situasi nyata menjadi hubungan matematis. Kita mulai dari mengenali besaran dan asumsi, memilih jenis fungsi yang sesuai — linear, kuadrat, atau eksponensial —, menentukan konstanta dari data, lalu memeriksa grafik dan menafsirkan hasil beserta satuannya. Topik ini melatih seluruh alur tersebut, dari soal cerita hingga prediksi yang tetap masuk akal.',
+    'Pemodelan fungsi adalah proses menerjemahkan situasi nyata menjadi hubungan matematis. Kita mulai dari mengenali besaran dan asumsi, memilih jenis fungsi yang sesuai (linear, kuadrat, atau eksponensial), menentukan konstanta dari data, lalu memeriksa grafik dan menafsirkan hasil beserta satuannya. Topik ini melatih seluruh alur tersebut, dari soal cerita hingga prediksi yang tetap masuk akal.',
   keywords: [
     'pemodelan',
     'fungsi',
@@ -142,7 +142,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
           kind: "callout",
           variant: "warning",
           title: "Hati-hati",
-          text: "Model hanya berlaku pada domain yang wajar. Memakai model di luar rentang data — ekstrapolasi jauh — dapat memberi nilai yang tidak masuk akal secara fisik.",
+          text: "Model hanya berlaku pada domain yang wajar. Memakai model di luar rentang data (ekstrapolasi jauh) dapat memberi nilai yang tidak masuk akal secara fisik.",
         },
         {
           kind: "callout",
@@ -282,7 +282,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi: Menyetel Koefisien agar Cocok",
-      body: "Dalam pemodelan, koefisien tidak muncul begitu saja — kita menyetelnya hingga grafik melewati titik-titik data. Gunakan penggeser $a$, $b$, dan $c$ pada $f(x)=ax^2+bx+c$ untuk mencocokkan parabola dengan lengkung nyata, misalnya lintasan air mancur atau lengkung jembatan. Ubah satu koefisien sekaligus, amati bagaimana titik puncak dan lebar kurva berubah, lalu cari setelan yang paling dekat dengan data.",
+      body: "Dalam pemodelan, koefisien tidak muncul begitu saja: kita menyetelnya hingga grafik melewati titik-titik data. Gunakan penggeser $a$, $b$, dan $c$ pada $f(x)=ax^2+bx+c$ untuk mencocokkan parabola dengan lengkung nyata, misalnya lintasan air mancur atau lengkung jembatan. Ubah satu koefisien sekaligus, amati bagaimana titik puncak dan lebar kurva berubah, lalu cari setelan yang paling dekat dengan data.",
       blocks: [
         {
           kind: "exploration",

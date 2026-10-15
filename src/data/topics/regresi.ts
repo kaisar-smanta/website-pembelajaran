@@ -302,7 +302,7 @@ Jadi $\\hat{y} = 1{,}190x + 0{,}893$. Artinya, **setiap tambahan 1 jam belajar d
               text: `$$r = \\frac{400}{\\sqrt{(336)(8 \\cdot 376 - 50^2)}}.$$
 Karena $8 \\cdot 376 - 2500 = 3008 - 2500 = 508$, maka
 $$r = \\frac{400}{\\sqrt{336 \\cdot 508}} = \\frac{400}{\\sqrt{170\\,688}} \\approx \\frac{400}{413{,}14} \\approx 0{,}968.$$
-Jadi $r \\approx 0{,}968$ sehingga $r^2 \\approx 0{,}937$. Sekitar **93,7%** variasi nilai dapat dijelaskan oleh waktu belajar — hubungan linear positif yang kuat.`,
+Jadi $r \\approx 0{,}968$ sehingga $r^2 \\approx 0{,}937$. Sekitar **93,7%** variasi nilai dapat dijelaskan oleh waktu belajar: hubungan linear positif yang kuat.`,
             },
             {
               title: "Contoh 1 (prediksi)",

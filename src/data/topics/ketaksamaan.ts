@@ -210,7 +210,7 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
       kind: 'eksplorasi',
       title: 'Eksplorasi Peta Tanda',
       body:
-        'Gambar peta tanda pada garis bilangan untuk kuadrat maupun bentuk rasional terfaktor. Tentukan selang mana yang bertanda positif atau negatif, lalu bacakan daerah penyelesaian pertidaksamaannya. Perhatikan bahwa titik kutub tidak pernah termasuk penyelesaian.',
+        'Gambar peta tanda pada garis bilangan untuk kuadrat maupun bentuk rasional terfaktor. Tentukan selang mana yang bertanda positif atau negatif, lalu bacakan daerah penyelesaian pertidaksamaannya. Titik kutub tidak pernah termasuk penyelesaian.',
       blocks: [
         {
           kind: 'exploration',
@@ -240,7 +240,7 @@ Kesamaan terjadi ketika $(a,b)$ sebanding dengan $(c,d)$. Jika $c = d = 1$, rumu
 
 $$|x + y| \\le |x| + |y|.$$
 
-Ini adalah kasus khusus Cauchy-Schwarz dan menyatakan bahwa panjang sisi ketiga segitiga tidak pernah melebihi jumlah dua sisi lainnya.`,
+Ini kasus khusus Cauchy-Schwarz dan menyatakan bahwa panjang sisi ketiga segitiga tidak pernah melebihi jumlah dua sisi lainnya.`,
       blocks: [
         {
           kind: 'callout',
@@ -277,31 +277,31 @@ Untuk optimasi, pola yang paling sering dipakai adalah: jika hasil kali dua besa
           intro: 'Kerjakan contoh-contoh berikut satu per satu: mulai dari manipulasi tanda, lalu AM-GM, Cauchy-Schwarz, dan ketaksamaan segitiga.',
           steps: [
             {
-              title: 'Contoh 1 — Sifat ketaksamaan',
+              title: 'Contoh 1: Sifat ketaksamaan',
               text: `Selesaikan $3 - 2x \\ge 7$.
 
 Kurangi $3$ pada kedua ruas: $-2x \\ge 4$. Karena dibagi bilangan **negatif** $-2$, tanda berbalik menjadi $x \\le -2$.`,
             },
             {
-              title: 'Contoh 2 — Kenali bentuk AM-GM',
+              title: 'Contoh 2: Kenali bentuk AM-GM',
               text: 'Untuk $x > 0$, tentukan nilai terkecil $x + \\dfrac{9}{x}$. Tulis suku pertama sebagai $a = x$ dan suku kedua sebagai $b = \\dfrac{9}{x}$.',
             },
             {
-              title: 'Contoh 2 — terapkan AM-GM',
+              title: 'Contoh 2: terapkan AM-GM',
               text: '$x + \\dfrac{9}{x} \\ge 2\\sqrt{x \\cdot \\dfrac{9}{x}} = 2\\sqrt{9} = 6$, jadi $x + \\dfrac{9}{x} \\ge 6$.',
             },
             {
-              title: 'Contoh 2 — periksa kesamaan',
+              title: 'Contoh 2: periksa kesamaan',
               text: 'Kesamaan AM-GM terjadi saat $x = \\dfrac{9}{x}$, yaitu $x^2 = 9$ dan $x = 3$ (karena $x > 0$). Batas $6$ benar-benar tercapai, sehingga nilai minimumnya $6$.',
             },
             {
-              title: 'Contoh 3 — Cauchy-Schwarz',
+              title: 'Contoh 3: Cauchy-Schwarz',
               text: `Diketahui $x + y = 10$. Tentukan nilai minimum $x^2 + y^2$.
 
 Dengan $c = d = 1$: $(x^2 + y^2)(1 + 1) \\ge (x + y)^2 = 100$, sehingga $x^2 + y^2 \\ge 50$. Kesamaan saat $x = y = 5$, jadi minimumnya $50$.`,
             },
             {
-              title: 'Contoh 4 — Ketaksamaan segitiga',
+              title: 'Contoh 4: Ketaksamaan segitiga',
               text: `Tentukan semua $x$ dengan $|2x - 1| \\le 5$.
 
 Bentuk $|2x - 1| \\le 5$ setara dengan $-5 \\le 2x - 1 \\le 5$. Tambah $1$: $-4 \\le 2x \\le 6$, lalu bagi $2$: $-2 \\le x \\le 3$.`,
@@ -458,7 +458,7 @@ dan tentukan kapan kesamaan tercapai.`,
           kind: 'details',
           summary: 'Bukti alternatif dengan kuadrat sempurna',
           text:
-            'Perhatikan bahwa $(a-1)^2 + (b-1)^2 + (c-1)^2 \\ge 0$. Jabarkan: $a^2 + b^2 + c^2 - 2(a+b+c) + 3 \\ge 0$. Karena $a+b+c=3$, diperoleh $a^2 + b^2 + c^2 - 6 + 3 \\ge 0$, yaitu $a^2 + b^2 + c^2 \\ge 3$. Kesamaan saat $a = b = c = 1$, sama seperti cara sebelumnya.',
+            'Mula-mula, $(a-1)^2 + (b-1)^2 + (c-1)^2 \\ge 0$. Jabarkan: $a^2 + b^2 + c^2 - 2(a+b+c) + 3 \\ge 0$. Karena $a+b+c=3$, diperoleh $a^2 + b^2 + c^2 - 6 + 3 \\ge 0$, yaitu $a^2 + b^2 + c^2 \\ge 3$. Kesamaan saat $a = b = c = 1$, sama seperti cara sebelumnya.',
         },
         {
           kind: 'spot-mistake',

@@ -266,7 +266,7 @@ function alignClass(index: number): string {
     width: 2.4rem;
     height: 2.4rem;
     padding: 0.2rem;
-    border-radius: 11px;
+    border-radius: var(--radius);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
@@ -277,7 +277,7 @@ function alignClass(index: number): string {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 7px;
+    border-radius: var(--radius-sm);
   }
   .brand:hover .brand-logo,
   .brand:focus-visible .brand-logo {
@@ -454,7 +454,7 @@ function alignClass(index: number): string {
     place-items: center;
     width: 2.1rem;
     height: 2.1rem;
-    border-radius: 10px;
+    border-radius: var(--radius);
     color: var(--accent, var(--color-primary));
     background: color-mix(in srgb, var(--accent, var(--color-primary)) 14%, var(--color-surface-2));
     border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 26%, var(--color-border));
@@ -890,4 +890,28 @@ function alignClass(index: number): string {
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+<script>
+  import { url } from '@/utils/url';
+
+  /* Pintasan papan ketik: `/` (saat tidak mengetik) atau Ctrl/Cmd+K menuju
+     halaman pencarian. Pembantu `url()` menjaga base path tetap benar. */
+  function isTyping(target: EventTarget | null): boolean {
+    if (!(target instanceof HTMLElement)) return false;
+    const tag = target.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      window.location.href = url('/cari');
+      return;
+    }
+    if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (isTyping(event.target)) return;
+    event.preventDefault();
+    window.location.href = url('/cari');
+  });
 </script>

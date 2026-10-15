@@ -1,4 +1,4 @@
-# Matematika SMA — Pusat Pembelajaran Matematika
+# Matematika SMA · Pusat Pembelajaran Matematika
 
 Situs statis berbahasa Indonesia untuk pembelajaran matematika SMA yang memuat **dua mata
 pelajaran**:
@@ -77,7 +77,7 @@ npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
 ```
 
 Uji di `tests/*.mjs` dijalankan otomatis oleh `tests/run-all.mjs`. **Berkas berawalan `_`
-adalah pembantu bersama, bukan uji** — utilitas umum (`load`, `ok`, `check`, `checks`,
+adalah pembantu bersama, bukan uji**, utilitas umum (`load`, `ok`, `check`, `checks`,
 `collectTopics`, `collectQuestions`, `mockStorage`) ada di `tests/_util.mjs`; pakai itu
 alih-alih menyalin loop pemuat data atau assertion.
 
@@ -198,7 +198,7 @@ peningkatan otomatis (`src/data/topics/enhance.ts`) yang mengubah `body` markdow
 menjadi blok saat data dimuat. Lapisan itu kini dihapus: seluruh topik pada
 `src/data/topics/*.ts` sudah memuat bloknya sendiri, sehingga satu sumber
 kebenaran dan tidak ada lagi pola rapuh berbasis regex. `tests/content-blocks.mjs`
-menegakkan kontraknya — setiap bagian `pemantik` wajib punya `prediction`,
+menegakkan kontraknya: setiap bagian `pemantik` wajib punya `prediction`,
 `refleksi` wajib punya `reflection`, dan `eksplorasi` wajib punya `exploration`.
 `sectionSearchText` (di `src/lib/content-text.ts`) mengindeks isi blok (termasuk
 `alt` dan keterangan diagram `figure`) untuk pencarian. `tests/content-integrity.mjs`
@@ -347,8 +347,8 @@ geometri).
 Studi kasus disimpan per kategori di `src/data/applications/`
 (`keuangan.ts`, `data.ts`, `pertumbuhan.ts`, `pengukuran.ts`, plus `lanjut.ts`
 untuk Matematika Tingkat Lanjut) dan digabung oleh `src/data/applications/index.ts`.
-Berkas `index.ts` juga menyimpan metadata kategori terpusat (`applicationCategories`) —
-nama, deskripsi, elemen, dan aksen — sehingga halaman `/aplikasi`, beranda, dan peta
+Berkas `index.ts` juga menyimpan metadata kategori terpusat (`applicationCategories`) yang memuat
+nama, deskripsi, elemen, dan aksen, sehingga halaman `/aplikasi`, beranda, dan peta
 kurikulum tidak lagi menduplikasi pemetaan.
 
 ```ts
@@ -434,11 +434,11 @@ Rute lama tanpa segmen mata pelajaran dipertahankan sebagai pengalih ke `/matema
 
 ## Capaian Pembelajaran & Regulasi
 
-Pemetaan CP disimpan di `src/data/curriculum/cp.ts` — satu-satunya tempat CP "dikodekan". Berkas
+Pemetaan CP disimpan di `src/data/curriculum/cp.ts`, satu-satunya tempat CP "dikodekan". Berkas
 ini memuat:
 
-- `regulations` — riwayat regulasi (nomor, penerbit, tanggal berlaku, `supersedes`, `status`);
-- `cpStatements` — pernyataan CP berkode (mis. `E-BIL-1`, `F-ALJ-3`) beserta `phase`, `element`,
+- `regulations`: riwayat regulasi (nomor, penerbit, tanggal berlaku, `supersedes`, `status`);
+- `cpStatements`: pernyataan CP berkode (mis. `E-BIL-1`, `F-ALJ-3`) beserta `phase`, `element`,
   `grades`, teks parafrasa, dan `topicIds` yang memenuhinya.
 
 Halaman `/referensi` dan peta pembelajaran membangkitkan tampilan langsung dari registri ini,
@@ -496,7 +496,7 @@ src/
 │                       storage-keys.ts (registri kunci localStorage),
 │                       learner.ts, progress.ts, progress-overview.ts (rekap
 │                       belajar), quiz-client.ts (benih sesi, tulis progres,
-│                       rentetan kuis — dipakai QuestionCard & QuizTeaser),
+│                       rentetan kuis: dipakai QuestionCard & QuizTeaser),
 │                       random.ts (seededShuffle & combineSeed), routes.ts
 │                       (ruang rute turunan), answer.ts (normalisasi &
 │                       pencocokan jawaban), reference.ts (agregasi glosarium &
@@ -601,9 +601,9 @@ Aktifkan **Settings → Pages → Build and deployment → Source: GitHub Action
 
 `astro.config.mjs` membaca variabel lingkungan:
 
-- `BASE_PATH` — default `/website-pembelajaran` (project page). Gunakan `/` untuk
+- `BASE_PATH`: default `/website-pembelajaran` (project page). Gunakan `/` untuk
   user/organization page.
-- `SITE_URL` — domain situs, mis. `https://<user>.github.io`. Saat `CI` diset (atau
+- `SITE_URL`: domain situs, mis. `https://<user>.github.io`. Saat `CI` diset (atau
   `REQUIRE_SITE_URL=1`), build akan **gagal** bila `SITE_URL` kosong agar canonical tidak
   pernah diam-diam memakai default `https://example.github.io`. Build lokal tanpa keduanya
   tetap memakai default.

@@ -55,6 +55,14 @@
   padding: 0.4rem 0.75rem;
   font-size: 0.9rem;
 }
+/* Sasaran sentuh: pada perangkat penunjuk kasar, tombol kecil dinaikkan ke
+   ~2.75rem (44px) agar nyaman disentuh. Tampilan desktop tidak berubah. */
+@media (pointer: coarse) {
+  .btn-sm {
+    min-height: 2.75rem;
+    padding: 0.6rem 0.9rem;
+  }
+}
 
 /* Penjaga luapan horizontal. Tabel dan KaTeX sudah punya penggeser internal
    sendiri, sehingga `clip` pada body aman dari pemotongan konten yang memang

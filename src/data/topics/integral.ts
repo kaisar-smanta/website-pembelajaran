@@ -260,7 +260,7 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
 
 $$\\int_{a}^{b} f(x)\\,dx = F(b) - F(a), \\qquad F'(x) = f(x).$$
 
-Teorema dasar kalkulus inilah yang menyatukan dua wajah integral — limit jumlah dan antiturunan. Dari sini semua luas, termasuk luas antara dua kurva, menjadi selisih nilai antiturunan:
+Teorema dasar kalkulus inilah yang menyatukan dua wajah integral: limit jumlah dan antiturunan. Dari sini semua luas, termasuk luas antara dua kurva, menjadi selisih nilai antiturunan:
 
 $$L = \\int_{a}^{b} \\left[f(x) - g(x)\\right] dx.$$`,
     },

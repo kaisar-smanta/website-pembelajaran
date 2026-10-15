@@ -1,5 +1,5 @@
 /**
- * Identitas situs, penyusun, dan sekolah — satu sumber terpusat.
+ * Identitas situs, penyusun, dan sekolah: satu sumber terpusat.
  *
  * Ubah nilai di berkas ini untuk memperbarui kredit di header, footer,
  * beranda, dan halaman /tentang tanpa menyentuh komponen.

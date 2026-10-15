@@ -620,7 +620,7 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
     border: 1px solid var(--color-border);
     background: var(--color-bg);
     color: var(--color-text);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.5rem 1rem;
     font: inherit;
     font-size: 0.9rem;
@@ -675,7 +675,7 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.4rem 0.9rem;
     font: inherit;
     font-size: 0.9rem;
@@ -725,7 +725,7 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
     align-items: center;
     gap: 0.4rem;
     padding: 0.28rem 0.7rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 28%, var(--color-border));
     background: color-mix(in srgb, var(--accent, var(--color-primary)) 9%, var(--color-surface));
     color: var(--color-text);
@@ -747,7 +747,7 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
     min-width: 1.3rem;
     height: 1.3rem;
     padding-inline: 0.35rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -771,7 +771,7 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
   .block,
   :global(.grade-block),
   :global(.learning-path) {
-    scroll-margin-top: 5.25rem;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
   }
 
   :global(.elem-col.is-hidden),

@@ -14,7 +14,7 @@ export const distribusiNormal: Topic = {
   summary:
     'Memodelkan variabel acak kontinu dengan distribusi normal $N(\\mu, \\sigma^{2})$, menghitung peluang lewat skor baku $z$ dan kaidah empiris, serta menerapkannya pada pengendalian mutu.',
   description:
-    'Banyak data nyata — tinggi badan, hasil pengukuran mesin, nilai ujian — dapat bernilai sembarang dalam suatu selang sehingga disebut variabel acak kontinu. Sebarannya sering mengikuti **distribusi normal**, yang digambarkan oleh kurva lonceng simetris terhadap rata-rata $\\mu$. Topik ini membangun fungsi kepadatan $f(x)=\\dfrac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x-\\mu)^{2}}{2\\sigma^{2}}}$, menafsirkan peran $\\mu$ sebagai pusat dan $\\sigma$ sebagai lebar sebaran, lalu memperkenalkan **distribusi normal baku** melalui skor baku $z=\\dfrac{x-\\mu}{\\sigma}$. Peluang dihitung sebagai luas daerah di bawah kurva, dan **kaidah empiris** $68\\%$–$95\\%$–$99{,}7\\%$ memberi perkiraan cepat. Materi ditutup dengan penerapan pada pengendalian mutu, ketika peluang produk keluar dari batas toleransi ditaksir dari ekor kurva normal.',
+    'Banyak data nyata (tinggi badan, hasil pengukuran mesin, nilai ujian) dapat bernilai sembarang dalam suatu selang sehingga disebut variabel acak kontinu. Sebarannya sering mengikuti **distribusi normal**, yang digambarkan oleh kurva lonceng simetris terhadap rata-rata $\\mu$. Topik ini membangun fungsi kepadatan $f(x)=\\dfrac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x-\\mu)^{2}}{2\\sigma^{2}}}$, menafsirkan peran $\\mu$ sebagai pusat dan $\\sigma$ sebagai lebar sebaran, lalu memperkenalkan **distribusi normal baku** melalui skor baku $z=\\dfrac{x-\\mu}{\\sigma}$. Peluang dihitung sebagai luas daerah di bawah kurva, dan **kaidah empiris** $68\\%$–$95\\%$–$99{,}7\\%$ memberi perkiraan cepat. Materi ditutup dengan penerapan pada pengendalian mutu, ketika peluang produk keluar dari batas toleransi ditaksir dari ekor kurva normal.',
   keywords: [
     'distribusi normal',
     'kurva normal',
@@ -68,7 +68,7 @@ Manakah perkiraan yang paling masuk akal: sekitar berapa persen siswa bertinggi 
 
 $$P(159 \\leq X \\leq 171) = P(-1 \\leq z \\leq 1) \\approx 0{,}6827.$$
 
-Perhatikan bahwa hasilnya tidak bergantung pada nilai $\\mu$ dan $\\sigma$ selama selangnya sama-sama $\\mu \\pm \\sigma$. Inilah kekuatan **skor baku** dan **distribusi normal baku** yang akan kita pelajari.`,
+Hasilnya tidak bergantung pada nilai $\\mu$ dan $\\sigma$ selama selangnya sama-sama $\\mu \\pm \\sigma$. Inilah kekuatan **skor baku** dan **distribusi normal baku** yang akan kita pelajari.`,
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
@@ -161,7 +161,7 @@ $$z = \\frac{x - \\mu}{\\sigma}.$$
 
 Skor baku $z$ menyatakan **berapa simpangan baku** suatu nilai $x$ berada dari rata-rata. Nilai $z$ positif berarti $x$ di atas $\\mu$, dan $z$ negatif berarti di bawah $\\mu$. Berkat transformasi ini, setiap peluang dapat dihitung sekali saja pada tabel normal baku, lalu dipakai untuk semua distribusi normal.
 
-Sebagai contoh, jika $X \\sim N(500, 4^{2})$ menyatakan volume isi botol, maka volume $492$ mL berskor baku
+Misalnya, jika $X \\sim N(500, 4^{2})$ menyatakan volume isi botol, maka volume $492$ mL berskor baku
 $$z = \\frac{492 - 500}{4} = -2,$$
 artinya botol itu terisi dua simpangan baku di bawah rata-rata.`,
       blocks: [
@@ -215,7 +215,7 @@ artinya botol itu terisi dua simpangan baku di bawah rata-rata.`,
       id: "eksplorasi",
       kind: "eksplorasi",
       title: "Eksplorasi Kurva Distribusi Normal",
-      body: `Sebelum berlatih berhitung, amati bagaimana bentuk kurva berubah ketika $\\mu$ dan $\\sigma$ diubah. Pada simulasi berikut, atur rata-rata $\\mu$ dan simpangan baku $\\sigma$, lalu geser batas selang untuk membaca peluang $P(a \\leq X \\leq b)$ beserta skor bakunya. Bandingkan selang $\\mu \\pm \\sigma$, $\\mu \\pm 2\\sigma$, dan $\\mu \\pm 3\\sigma$; perhatikan bahwa luasnya selalu sama meskipun $\\mu$ dan $\\sigma$ berubah.`,
+      body: `Sebelum berlatih berhitung, amati bagaimana bentuk kurva berubah ketika $\\mu$ dan $\\sigma$ diubah. Pada simulasi berikut, atur rata-rata $\\mu$ dan simpangan baku $\\sigma$, lalu geser batas selang untuk membaca peluang $P(a \\leq X \\leq b)$ beserta skor bakunya. Bandingkan selang $\\mu \\pm \\sigma$, $\\mu \\pm 2\\sigma$, dan $\\mu \\pm 3\\sigma$; luasnya selalu sama meskipun $\\mu$ dan $\\sigma$ berubah.`,
       blocks: [
         {
           kind: "exploration",
@@ -418,7 +418,7 @@ Simetri kurva terhadap $0$ membuat luas ekor kiri sama dengan ekor kanannya, seh
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Kurva lonceng muncul lebih dahulu daripada namanya. Abraham de Moivre pada 1733 menurunkannya sebagai hampiran bagi distribusi binomial ketika $n$ membesar, dan Pierre-Simon Laplace mengembangkan alat ini pada awal 1800-an. Carl Friedrich Gauss memakainya untuk memodelkan galat pengukuran sehingga kurva ini sering disebut **kurva Gaussian**; nama "distribusi normal" dibakukan kemudian oleh Karl Pearson pada akhir abad ke-19. Pada 1812 Laplace menyumbangkan **teorema limit pusat**, yang menjelaskan mengapa jumlah banyak pengaruh kecil yang saling bebas cenderung menyebar normal — alasan mendalam mengapa kurva ini begitu sering muncul di alam dan dalam pengukuran.`,
+      body: `Kurva lonceng muncul lebih dahulu daripada namanya. Abraham de Moivre pada 1733 menurunkannya sebagai hampiran bagi distribusi binomial ketika $n$ membesar, dan Pierre-Simon Laplace mengembangkan alat ini pada awal 1800-an. Carl Friedrich Gauss memakainya untuk memodelkan galat pengukuran sehingga kurva ini sering disebut **kurva Gaussian**; nama "distribusi normal" dibakukan kemudian oleh Karl Pearson pada akhir abad ke-19. Pada 1812 Laplace menyumbangkan **teorema limit pusat**, yang menjelaskan mengapa jumlah banyak pengaruh kecil yang saling bebas cenderung menyebar normal, yaitu alasan mendalam mengapa kurva ini begitu sering muncul di alam dan dalam pengukuran.`,
     },
     {
       id: "refleksi",

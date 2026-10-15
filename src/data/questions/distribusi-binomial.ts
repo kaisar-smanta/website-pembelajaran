@@ -16,7 +16,7 @@ export const distribusiBinomialQuestions: Question[] = [
     ],
     answer: 'B',
     explanation:
-      'Percobaan binomial memenuhi empat syarat: $n$ ulangan tetap, dua hasil (sukses/gagal), peluang sukses $p$ tetap, dan ulangan saling bebas. Melempar koin 8 kali lalu menghitung gambar memenuhinya. Opsi A hanya sekali ulangan, opsi C mengubah peluang tiap pengambilan karena tanpa pengembalian, dan opsi D bukan dua hasil melainkan pengukuran kontinu.',
+      'Percobaan binomial memenuhi empat syarat: $n$ ulangan tetap, dua hasil (sukses/gagal), peluang sukses $p$ tetap, dan ulangan saling bebas. Melempar koin 8 kali lalu menghitung gambar memenuhinya. Opsi A hanya sekali ulangan, opsi C mengubah peluang tiap pengambilan karena tanpa pengembalian, dan opsi D mengukur besaran kontinu, bukan dua hasil.',
     hints: ['Periksa empat syarat: $n$ tetap, dua hasil, $p$ tetap, dan saling bebas.'],
     competencies: ['percobaan binomial', 'konsep'],
   },
@@ -93,7 +93,7 @@ export const distribusiBinomialQuestions: Question[] = [
     acceptedAnswers: ['0,4096', '0.4096', '256/625'],
     explanation:
       'Dengan $n=5$, $p=0{,}8$, dan $k=4$: $P(X=4)=\\binom{5}{4}(0{,}8)^{4}(0{,}2)^{1}=5 \\cdot 0{,}4096 \\cdot 0{,}2=0{,}4096$.',
-    hints: ['Hitung $(0{,}8)^{4}$ lebih dahulu, lalu kalikan $\\binom{5}{4}$ dan $(0{,}2)$.', 'Perhatikan bahwa gagal tepat satu kali, sehingga faktornya $(1-p)^{1}$.'],
+    hints: ['Hitung $(0{,}8)^{4}$ lebih dahulu, lalu kalikan $\\binom{5}{4}$ dan $(0{,}2)$.', 'Gagal tepat satu kali, sehingga faktornya $(1-p)^{1}$.'],
     competencies: ['rumus distribusi binomial', 'penerapan'],
   },
   {

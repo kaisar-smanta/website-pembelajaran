@@ -62,7 +62,7 @@ Dua jam kemudian, berapa banyak bakteri? Sebelum menghitung, kira-kira apakah ja
             "Ribuan",
             "Puluhan ribu",
           ],
-          reveal: "Dua jam sama dengan $120$ menit, yaitu $120/20=6$ selang waktu. Maka $N(120)=500\\cdot2^{6}=500\\cdot64=32.000$ sel. Jauh lebih besar dari dugaan \"hanya beberapa ribu\" — inilah ciri pertumbuhan berlipat yang cepat.",
+          reveal: "Dua jam sama dengan $120$ menit, yaitu $120/20=6$ selang waktu. Maka $N(120)=500\\cdot2^{6}=500\\cdot64=32.000$ sel. Jauh lebih besar dari dugaan \"hanya beberapa ribu\". Inilah ciri pertumbuhan berlipat yang cepat.",
           saveLabel: "Simpan dugaan",
         },
       ],
@@ -182,7 +182,7 @@ Karena $f(0)=a\\cdot b^{0}=a$, nilai $a$ adalah titik potong grafik dengan sumbu
           kind: "callout",
           variant: "info",
           title: "Yang terlihat dari tabel",
-          text: "Setiap kenaikan $x$ sebesar $1$ mengalikan nilai dengan $2$. Untuk $x$ negatif, nilainya mengecil mendekati nol tetapi tidak pernah negatif — inilah asimtot.",
+          text: "Setiap kenaikan $x$ sebesar $1$ mengalikan nilai dengan $2$. Untuk $x$ negatif, nilainya mengecil mendekati nol tetapi tidak pernah negatif. Inilah asimtot.",
         },
         {
           kind: "tabs",
@@ -208,7 +208,7 @@ Karena $f(0)=a\\cdot b^{0}=a$, nilai $a$ adalah titik potong grafik dengan sumbu
       kind: "generalisasi",
       title: "Grafik, Monotonisitas, dan Asimtot",
       body: `Bentuk grafik ditentukan oleh basis $b$:
-- jika $b>1$, fungsi **naik** (monoton naik) dan disebut **pertumbuhan** — makin ke kanan nilainya makin besar;
+- jika $b>1$, fungsi **naik** (monoton naik) dan disebut **pertumbuhan**: makin ke kanan nilainya makin besar;
 - jika $0<b<1$, fungsi **turun** (monoton turun) dan disebut **peluruhan**.
 
 Pada kedua kasus, grafik mendekati sumbu-$x$ tetapi tidak pernah menyentuhnya. Garis $y=0$ adalah **asimtot horizontal**.

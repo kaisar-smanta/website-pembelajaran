@@ -208,6 +208,12 @@ const searchText = (application: (typeof applications)[number]) =>
             autocomplete="off"
           />
         </div>
+
+        <div class="app-filter-reset">
+          <button type="button" class="btn btn-secondary btn-sm" data-app-reset>
+            Atur ulang
+          </button>
+        </div>
       </div>
 
       <p class="app-result" data-app-result aria-live="polite">Menampilkan {total} studi kasus</p>
@@ -302,7 +308,7 @@ const searchText = (application: (typeof applications)[number]) =>
       (query === '' || normalizeText(el.getAttribute('data-app-search') ?? '').includes(query));
 
     try {
-      setupFilterPage({
+      const page = setupFilterPage({
         groups: chipGroups.map((group) => ({
           key: group.getAttribute('data-app-chips') ?? '',
           group,
@@ -312,6 +318,8 @@ const searchText = (application: (typeof applications)[number]) =>
           allValue: 'all',
         })),
         searchInput,
+        queryKey: 'q',
+        syncUrl: true,
         apply: (values, query) => {
           const q = normalizeText(query);
           let count = 0;
@@ -342,6 +350,10 @@ const searchText = (application: (typeof applications)[number]) =>
           if (result) result.textContent = `Menampilkan ${count} studi kasus`;
         },
       });
+
+      document
+        .querySelector<HTMLButtonElement>('[data-app-reset]')
+        ?.addEventListener('click', () => page.reset());
     } catch {
       /* Biarkan semua kartu tetap tampil bila skrip gagal. */
     }
@@ -384,7 +396,7 @@ const searchText = (application: (typeof applications)[number]) =>
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.45rem 0.95rem;
     font: inherit;
     font-size: 0.9rem;
@@ -420,7 +432,7 @@ const searchText = (application: (typeof applications)[number]) =>
     min-width: 1.4rem;
     height: 1.4rem;
     padding-inline: 0.35rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 700;
     background: var(--color-surface-2);
@@ -436,13 +448,17 @@ const searchText = (application: (typeof applications)[number]) =>
     min-width: 0;
     max-width: 22rem;
   }
+  .app-filter-reset {
+    display: flex;
+    justify-content: flex-start;
+  }
   .app-search-input {
     width: 100%;
     appearance: none;
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.5rem 1rem;
     font: inherit;
     font-size: 0.92rem;

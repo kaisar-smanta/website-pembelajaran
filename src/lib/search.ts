@@ -267,17 +267,45 @@ export interface SearchResult extends SearchItem {
   score: number;
 }
 
-/** Hasil pencarian: daftar terurut, saran koreksi, dan penanda lintasan fuzzy. */
+/**
+ * Hasil pencarian: daftar terurut, saran koreksi, penanda lintasan fuzzy, dan
+ * jumlah total kecocokan sebelum dipotong `limit`.
+ */
 export interface SearchOutcome {
   results: SearchResult[];
   suggestion: string | null;
   fuzzy: boolean;
+  total: number;
+}
+
+/** Jumlah hasil ketat maksimum yang masih layak menampilkan saran koreksi. */
+const FEW_RESULTS = 2;
+
+/** Menghitung entri yang cocok ketat; dipakai membandingkan kueri koreksi. */
+function countStrictMatches(items: SearchItem[], query: string): number {
+  let count = 0;
+  for (const item of items) if (scoreItem(item, query) > 0) count++;
+  return count;
+}
+
+/**
+ * Saran koreksi untuk lintasan ketat. Biasanya `null`; muncul hanya saat hasil
+ * ketat sangat sedikit (<= `FEW_RESULTS`) dan kueri koreksi menghasilkan lebih
+ * banyak kecocokan, sehingga sarannya terasa jelas lebih baik.
+ */
+function strictSuggestion(items: SearchItem[], count: number, query: string): string | null {
+  if (count > FEW_RESULTS) return null;
+  const suggestion = suggestQuery(items, query);
+  if (!suggestion) return null;
+  return countStrictMatches(items, suggestion) > count ? suggestion : null;
 }
 
 /**
  * Menjalankan pencarian dua lintasan: ketat lebih dulu, lalu toleran salah
- * ketik bila lintasan ketat kosong. Saran "mungkin maksud" hanya dibangun dari
- * kosakata indeks pada lintasan fuzzy.
+ * ketik bila lintasan ketat kosong. Saran "mungkin maksud" dibangun dari
+ * kosakata indeks pada lintasan fuzzy, atau pada lintasan ketat bila hasilnya
+ * sangat sedikit dan koreksinya lebih banyak cocok. `total` melaporkan seluruh
+ * kecocokan sebelum dipotong `limit`.
  */
 export function searchItems(items: SearchItem[], query: string, limit = 40): SearchOutcome {
   const strict: SearchResult[] = [];
@@ -288,7 +316,12 @@ export function searchItems(items: SearchItem[], query: string, limit = 40): Sea
   const rank = (a: SearchResult, b: SearchResult): number => b.score - a.score;
   if (strict.length > 0) {
     strict.sort(rank);
-    return { results: strict.slice(0, limit), suggestion: null, fuzzy: false };
+    return {
+      results: strict.slice(0, limit),
+      suggestion: strictSuggestion(items, strict.length, query),
+      fuzzy: false,
+      total: strict.length,
+    };
   }
 
   const fuzzy: SearchResult[] = [];
@@ -296,12 +329,13 @@ export function searchItems(items: SearchItem[], query: string, limit = 40): Sea
     const score = scoreItemFuzzy(item, query);
     if (score > 0) fuzzy.push({ ...item, score });
   }
-  if (fuzzy.length === 0) return { results: [], suggestion: null, fuzzy: true };
+  if (fuzzy.length === 0) return { results: [], suggestion: null, fuzzy: true, total: 0 };
   fuzzy.sort(rank);
   return {
     results: fuzzy.slice(0, limit),
     suggestion: suggestQuery(items, query),
     fuzzy: true,
+    total: fuzzy.length,
   };
 }
 

@@ -65,7 +65,7 @@ export const limitFungsi: Topic = {
 - Apakah nilainya menuju suatu bilangan tertentu, dan berapa bilangan itu?`,
           reveal: `Untuk $x \\neq 1$, pecahan dapat disederhanakan:
 $$f(x) = \\frac{(x-1)(x+1)}{x-1} = x + 1.$$
-Jadi ketika $x$ makin dekat ke $1$ — baik dari kiri ($0{,}9;\\ 0{,}99;\\ 0{,}999$) maupun dari kanan ($1{,}1;\\ 1{,}01;\\ 1{,}001$) — nilai $f(x)$ makin dekat ke $2$. Nilai yang didekati inilah yang disebut **limit**:
+Jadi ketika $x$ makin dekat ke $1$, baik dari kiri ($0{,}9;\\ 0{,}99;\\ 0{,}999$) maupun dari kanan ($1{,}1;\\ 1{,}01;\\ 1{,}001$), nilai $f(x)$ makin dekat ke $2$. Nilai yang didekati inilah yang disebut **limit**:
 $$\\lim_{x \\to 1} f(x) = 2,$$
 walaupun $f(1)$ sendiri tidak ada.`,
           saveLabel: 'Simpan dugaan & lihat jawabannya',
@@ -202,7 +202,7 @@ Bentuk sederhana $x+1$ berlaku selama $x \\neq 1$, dan ketika $x \\to 1$ nilainy
       body: `Untuk banyak fungsi, limit cukup dihitung dengan **substitusi langsung**, yaitu mengganti $x$ dengan $a$. Sifat-sifat limit menjamin hal ini untuk fungsi polinomial dan fungsi rasional yang penyebutnya tidak nol di $a$:
 $$\\lim_{x \\to a} f(x) = f(a) \\quad \\text{bila } f \\text{ kontinu di } a.$$
 
-Masalah muncul ketika substitusi menghasilkan bentuk **tak tentu**, terutama $\\dfrac{0}{0}$. Bentuk ini bukan berarti limit tidak ada, melainkan tanda bahwa fungsi perlu **disederhanakan** lebih dahulu. Pola penanganannya bergantung pada bentuk fungsinya:
+Masalah muncul ketika substitusi menghasilkan bentuk **tak tentu**, terutama $\\dfrac{0}{0}$. Bentuk ini tidak lantas berarti limit tidak ada. Yang dituntut justru fungsi perlu **disederhanakan** lebih dahulu. Pola penanganannya bergantung pada bentuk fungsinya:
 - jika berbentuk pecahan polinomial, **faktorkan** lalu coret faktor yang sama;
 - jika memuat bentuk akar, kalikan dengan **akar sekawan** untuk menghilangkan akar pada selisih;
 - jika $x \\to \\infty$ dan berbentuk $\\dfrac{\\infty}{\\infty}$, **bagi pembilang dan penyebut** dengan pangkat tertinggi.
@@ -328,7 +328,7 @@ $$\\lim_{x \\to \\infty} \\frac{3x+1}{x^{2}-4} = \\frac{0+0}{1-0} = 0.$$`,
       body: `Limit dipakai setiap kali kita ingin tahu **kecenderungan jangka panjang** atau **perilaku di sekitar keadaan ekstrem**. Kecepatan sesaat pada spidometer, misalnya $80$ km/jam, adalah limit kecepatan rata-rata ketika selang waktu diperkecil menuju nol: dari $10$ sekon, $1$ sekon, sampai $0{,}1$ sekon, hasil bagi $\\dfrac{\\Delta s}{\\Delta t}$ makin dekat ke $80$ km/jam. Inilah benang merah antara limit dan turunan.
 Di bidang kesehatan, konsentrasi obat dalam darah setelah waktu yang sangat lama didekati dengan limit di tak hingga. Jika kadar awal $200$ mg dan setiap jam tersisa $90\\%$, maka setelah $x$ jam kadarnya $200(0{,}9)^{x}$ mg. Karena $0{,}9^{x} \\to 0$ ketika $x \\to \\infty$, kadar sisa itu menuju $0$ mg, sehingga dokter dapat memperkirakan waktu obat habis bekerja.
 Di bidang ekonomi, biaya rata-rata per unit ketika produksi diperbesar tanpa batas menunjukkan biaya variabel per unit. Jika biaya total $C(x) = 5000 + 40x$ rupiah untuk $x$ unit, biaya rata-ratanya $\\dfrac{C(x)}{x} = 40 + \\dfrac{5000}{x}$ menuju $40$ rupiah per unit saat $x \\to \\infty$.
-Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang mustahil dicapai, melainkan nilai yang **didekati** ketika keadaan mendekati titik itu.`,
+Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang mustahil dicapai; yang kita cari nilai yang **didekati** ketika keadaan mendekati titik itu.`,
     },
     {
       id: 'kesalahan-umum',
@@ -350,7 +350,7 @@ Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang
             'Ambil $x \\to 2$: nilai $x+2$ menuju $4$.',
           ],
           wrongIndex: 0,
-          explanation: 'Langkah pertama keliru. Bentuk $\\dfrac{0}{0}$ bukan berarti limit tidak ada, melainkan **tak tentu** sehingga perlu disederhanakan. Setelah difaktorkan dan dicoret, limitnya ada dan bernilai $4$.',
+          explanation: 'Langkah pertama keliru. Bentuk $\\dfrac{0}{0}$ tidak lantas berarti limit tidak ada; bentuk itu **tak tentu** sehingga perlu disederhanakan. Setelah difaktorkan dan dicoret, limitnya ada dan bernilai $4$.',
         },
       ],
     },
@@ -358,12 +358,12 @@ Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang
       id: 'tantangan',
       kind: 'tantangan',
       title: 'Tantangan',
-      body: `Kadang limit tidak muncul sendirian, melainkan melalui sebuah **parameter** yang harus kita pilih agar limitnya ada.
+      body: `Kadang limit tidak muncul sendirian; ia hadir melalui sebuah **parameter** yang harus kita pilih agar limitnya ada.
 
 **Soal.** Tentukan nilai $a$ sehingga limit berikut ada, lalu hitung nilai limit itu:
 $$\\lim_{x\\to 2}\\frac{ax^{2}-8}{x-2}.$$
 
-Perhatikan bahwa di $x = 2$ penyebutnya nol. Limit hanya dapat bernilai berhingga bila pembilangnya **juga** menuju nol, sehingga nilai $a$ harus ditentukan lebih dahulu.`,
+Di $x = 2$ penyebutnya nol. Limit hanya dapat bernilai berhingga bila pembilangnya **juga** menuju nol, sehingga nilai $a$ harus ditentukan lebih dahulu.`,
       blocks: [
         {
           kind: 'callout',

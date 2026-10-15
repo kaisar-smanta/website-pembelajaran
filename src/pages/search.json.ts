@@ -172,7 +172,7 @@ export const GET: APIRoute = () => {
     const topic = formula.topic;
     const body = stripMarkdown(formula.body);
     items.push({
-      title: `${formula.title} — ${topic.title}`,
+      title: `${formula.title} · ${topic.title}`,
       summary: body.slice(0, 200),
       url: `/${topic.subject}/kelas/${topic.grade}/${topic.element}/${topic.slug}/#${formula.sectionId}`,
       type: 'rumus',
@@ -207,7 +207,7 @@ export const GET: APIRoute = () => {
   for (const subject of subjectsWithContent()) {
     for (const e of subjectElementsWithContent(subject)) {
       pages.push({
-        title: `Elemen ${ELEMENTS[e].name} — ${SUBJECTS[subject].short}`,
+        title: `Elemen ${ELEMENTS[e].name} · ${SUBJECTS[subject].short}`,
         path: `${subject}/elemen/${e}`,
         summary: ELEMENTS[e].description,
       });

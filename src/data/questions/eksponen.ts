@@ -167,7 +167,7 @@ export const eksponenQuestions: Question[] = [
     prompt:
       'Jelaskan mengapa $a^{0} = 1$ untuk $a \\neq 0$, lalu jelaskan mengapa $\\dfrac{a^{m}}{a^{n}} = a^{m-n}$ juga berlaku ketika $m < n$.',
     answer:
-      'Karena $a^{n}/a^{n}=1$ dan dengan sifat pengurangan eksponen $a^{n}/a^{n}=a^{n-n}=a^{0}$, maka $a^{0}=1$. Untuk $m<n$, pengurangan $m-n$ menghasilkan bilangan negatif, sehingga berlaku $a^{m-n}=a^{-(n-m)}=1/a^{n-m}$, yaitu kebalikan — konsisten dengan definisi pangkat negatif.',
+      'Karena $a^{n}/a^{n}=1$ dan dengan sifat pengurangan eksponen $a^{n}/a^{n}=a^{n-n}=a^{0}$, maka $a^{0}=1$. Untuk $m<n$, pengurangan $m-n$ menghasilkan bilangan negatif, sehingga berlaku $a^{m-n}=a^{-(n-m)}=1/a^{n-m}$, yaitu kebalikan, konsisten dengan definisi pangkat negatif.',
     explanation:
       'Kunci jawaban menekankan pendekatan dari kesamaan dua cara menghitung hasil bagi yang sama, lalu perluasan definisi ke eksponen negatif.',
     hints: [

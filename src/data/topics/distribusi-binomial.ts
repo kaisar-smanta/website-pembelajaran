@@ -90,7 +90,7 @@ Ternyata **tepat 3 kali** lebih besar peluangnya daripada kelima-limanya. Alasan
       title: "Situasi dan Konteks",
       body: `Banyak keputusan diambil dari percobaan yang **diulang berkali-kali dengan dua kemungkinan hasil**. Sebuah pabrik memeriksa $20$ komponen dan ingin tahu peluang menemukan sejumlah komponen cacat. Sebuah survei mewawancarai $10$ orang dan menghitung banyak yang mendukung kebijakan tertentu. Pelatih sepak bola menghitung peluang memenangkan $4$ dari $6$ tendangan penalti.
 
-Pada semua contoh itu, tiap percobaan hanya memberi dua hasil — biasanya disebut **sukses** dan **gagal** — dilakukan $n$ kali secara terpisah, dan peluang suksesnya tetap sama. Pola seperti ini dimodelkan oleh **distribusi binomial**, yang memungkinkan kita menghitung peluang tiap banyaknya kesuksesan tanpa harus mendaftar seluruh ruang sampel satu per satu.`,
+Pada semua contoh itu, tiap percobaan hanya memberi dua hasil (biasanya disebut **sukses** dan **gagal**) yang dilakukan $n$ kali secara terpisah, dan peluang suksesnya tetap sama. Pola seperti ini dimodelkan oleh **distribusi binomial**, yang memungkinkan kita menghitung peluang tiap banyaknya kesuksesan tanpa harus mendaftar seluruh ruang sampel satu per satu.`,
     },
     {
       id: "konsep",

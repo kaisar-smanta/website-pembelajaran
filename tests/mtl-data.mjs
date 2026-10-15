@@ -18,7 +18,7 @@ function check(label, actual, expected, tolerance = 0) {
     passed++;
   } catch (error) {
     failed++;
-    console.error(`GAGAL — ${error.message}`);
+    console.error(`GAGAL: ${error.message}`);
   }
 }
 

@@ -10,8 +10,9 @@ import TopicsSection from '@/components/home/TopicsSection.astro';
 import RealWorldSection from '@/components/home/RealWorldSection.astro';
 import TrustSection from '@/components/home/TrustSection.astro';
 import FinalCta from '@/components/home/FinalCta.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { topics, topicSubject } from '@/data/topics';
-import { absoluteUrl } from '@/utils/url';
+import { absoluteUrl, url } from '@/utils/url';
 
 const featured = topics.filter((topic) => topic.featured);
 const featuredList = {
@@ -33,6 +34,21 @@ const featuredList = {
 >
   <Hero />
   <ContinueLearning />
+  <section class="home-insights no-print">
+    <div class="container">
+      <CtaCard
+        eyebrow="Kemajuan & tinjauan"
+        title="Pantau kemajuanmu dan ulangi tepat waktu"
+        text="Lihat ringkasan belajar dan jadwalkan tinjauan berkala agar materi tetap melekat."
+        reveal
+        dataReveal
+        actions={[
+          { label: 'Lihat kemajuan', href: url('/kemajuan'), variant: 'primary' },
+          { label: 'Mulai tinjauan', href: url('/review'), variant: 'secondary' },
+        ]}
+      />
+    </div>
+  </section>
   <div class="home-topics-mobile-hide"><TopicsSection /></div>
   <SubjectDoors />
   <BrowseSection />
@@ -44,6 +60,9 @@ const featuredList = {
 </BaseLayout>
 
 <style>
+  .home-insights {
+    padding-block: 0.5rem 1rem;
+  }
   @media (max-width: 40rem) {
     .home-topics-mobile-hide {
       display: none;

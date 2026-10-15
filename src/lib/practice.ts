@@ -4,15 +4,13 @@
  * mengelompokkan soal menurut tingkat kesulitan.
  *
  * Fungsi di sini dapat diuji lewat `tests/practice.mjs`. Perhitungan kemajuan
- * siswa tidak diduplikasi di sini — halaman memakai `src/lib/progress.ts`.
+ * siswa tidak diduplikasi di sini: halaman memakai `src/lib/progress.ts`.
  */
 
 import type { Difficulty } from '@/types/content';
 import { DIFFICULTY_ORDER } from './difficulty.ts';
 import { missedQuestionIds, unansweredQuestionIds } from './progress.ts';
 import type { ProgressMap } from './progress.ts';
-
-export { combineSeed } from './random.ts';
 
 /** Jumlah soal per tingkat kesulitan. */
 export type DifficultyCounts = Record<Difficulty, number>;

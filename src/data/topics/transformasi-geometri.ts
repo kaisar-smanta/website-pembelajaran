@@ -69,7 +69,7 @@ Jika titik $A(2,-3)$ digeser sejauh $4$ satuan ke kanan dan $1$ satuan ke atas, 
           ],
           reveal: `Digeser $4$ satuan ke kanan dan $1$ satuan ke atas: $(2+4,\\,-3+1)=(6,-2)$. Kemudian rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\rightarrow(-y,x)$, sehingga
 $$(6,-2)\\rightarrow(2,6).$$
-Jadi bayangan akhirnya $(2,6)$. Perhatikan bahwa urutan langkah menentukan hasil, karena menggeser lalu memutar tidak sama dengan memutar lalu menggeser.`,
+Jadi bayangan akhirnya $(2,6)$. Ternyata urutan langkah menentukan hasil, karena menggeser lalu memutar tidak sama dengan memutar lalu menggeser.`,
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
@@ -101,7 +101,7 @@ $$(x,y)\\rightarrow(x+a,\\;y+b).$$
 Dalam bentuk vektor kolom:
 $$\\begin{pmatrix} x' \\\\ y' \\end{pmatrix}=\\begin{pmatrix} x \\\\ y \\end{pmatrix}+\\begin{pmatrix} a \\\\ b \\end{pmatrix}.$$
 
-Sebagai contoh, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$. Semua titik bergeser dengan panjang dan arah yang sama, sehingga luas dan orientasi bangun tetap.`,
+Misalnya, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$. Semua titik bergeser dengan panjang dan arah yang sama, sehingga luas dan orientasi bangun tetap.`,
       blocks: [
         {
           kind: "callout",
@@ -121,7 +121,7 @@ Sebagai contoh, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$. Semua t
 **Terhadap sumbu-$y$:** $(x,y)\\rightarrow(-x,y)$.
 **Terhadap garis $y=x$:** $(x,y)\\rightarrow(y,x)$.
 
-Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan refleksi terhadap sumbu-$y$ mengubah tanda absis. Keduanya berbeda dan tidak boleh dipertukarkan. Refleksi menjaga bentuk dan luas, tetapi membalik orientasi bangun.`,
+Refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan refleksi terhadap sumbu-$y$ mengubah tanda absis. Keduanya berbeda dan tidak boleh dipertukarkan. Refleksi menjaga bentuk dan luas, tetapi membalik orientasi bangun.`,
       blocks: [
         {
           kind: "table",
@@ -171,7 +171,7 @@ Perhatikan bahwa refleksi terhadap sumbu-$x$ mengubah tanda ordinat, sedangkan r
 $$(x,y)\\rightarrow(-y,x) \\quad (90^\\circ), \\qquad (x,y)\\rightarrow(-x,-y) \\quad (180^\\circ), \\qquad (x,y)\\rightarrow(y,-x) \\quad (270^\\circ),$$
 dihitung berlawanan arah jarum jam.
 
-Sebagai contoh, rotasi $90^\\circ$ memetakan $(3,1)$ ke $(-1,3)$, sedangkan rotasi $180^\\circ$ memetakan $(3,1)$ ke $(-3,-1)$. Rotasi menjaga bentuk dan luas bangun; hanya arahnya yang berputar. Bentuk matriks rotasi, termasuk rumus umum untuk sudut $\\theta$ sembarang, dipelajari pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
+Contohnya, rotasi $90^\\circ$ memetakan $(3,1)$ ke $(-1,3)$, sedangkan rotasi $180^\\circ$ memetakan $(3,1)$ ke $(-3,-1)$. Rotasi menjaga bentuk dan luas bangun; hanya arahnya yang berputar. Bentuk matriks rotasi, termasuk rumus umum untuk sudut $\\theta$ sembarang, dipelajari pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
       blocks: [
         {
           kind: "figure",
@@ -190,7 +190,7 @@ $$(x,y)\\rightarrow(kx,\\,ky).$$
 
 Jika $k>1$ bangun diperbesar; jika $0<k<1$ bangun diperkecil; dan jika $k<0$ ukurannya dikalikan $\\lvert k\\rvert$ sekaligus dicerminkan terhadap titik asal. Karena setiap panjang dikalikan $\\lvert k\\rvert$, luas bayangan menjadi $k^{2}$ kali luas semula.
 
-Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun menjadi $2^{2}=4$ kali semula.`,
+Dengan faktor skala $2$, titik $(-1,3)$ dipetakan ke $(-2,6)$ dan luas bangun menjadi $2^{2}=4$ kali semula.`,
       blocks: [
         {
           kind: "table",
@@ -368,7 +368,7 @@ Sebagai contoh, dengan faktor skala $2$ titik $(-1,3)$ dipetakan ke $(-2,6)$ dan
 $$T(x,y)=T_{2}\\bigl(T_{1}(x,y)\\bigr).$$
 Transformasi yang dikerjakan **lebih dahulu** diterapkan paling awal. Karena urutan langkah tidak dapat ditukar, **urutan transformasi menentukan hasil**.
 
-Sebagai contoh, refleksi terhadap sumbu-$x$ lalu rotasi $180^\\circ$ memindahkan $(2,1)$ ke $(-2,1)$ — sama dengan refleksi terhadap sumbu-$y$. Menukar urutan kedua langkah dapat memberi hasil yang berbeda.
+Misalnya, refleksi terhadap sumbu-$x$ lalu rotasi $180^\\circ$ memindahkan $(2,1)$ ke $(-2,1)$: sama dengan refleksi terhadap sumbu-$y$. Menukar urutan kedua langkah dapat memberi hasil yang berbeda.
 
 Satu bilangan merangkum pengaruh transformasi terhadap luas, yaitu faktor skala luas. Untuk dilatasi faktor $k$, luas berubah $k^{2}$ kali; rotasi dan refleksi tidak mengubah luas sama sekali. Cara menghitung faktor ini melalui determinan matriks dijelaskan pada topik [Matriks Transformasi](/matematika-lanjut/kelas/XI/aljabar-fungsi/matriks-transformasi).`,
     },
@@ -410,7 +410,7 @@ Untuk komposisi, kerjakan $T_{1}$ lebih dahulu lalu $T_{2}$; urutan tidak boleh 
               title: "Contoh 2: refleksi",
               text: `Tentukan bayangan titik $B(-5,2)$ oleh refleksi terhadap sumbu-$x$ dan terhadap garis $y=x$.
 
-*Penyelesaian.* Terhadap sumbu-$x$: $(-5,2)\\rightarrow(-5,-2)$. Terhadap garis $y=x$: $(-5,2)\\rightarrow(2,-5)$. Perhatikan bahwa absis dan ordinat bertukar peran pada refleksi $y=x$.`,
+*Penyelesaian.* Terhadap sumbu-$x$: $(-5,2)\\rightarrow(-5,-2)$. Terhadap garis $y=x$: $(-5,2)\\rightarrow(2,-5)$. Di sini absis dan ordinat bertukar peran pada refleksi $y=x$.`,
             },
             {
               title: "Contoh 3: rotasi",

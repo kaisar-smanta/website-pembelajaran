@@ -7,18 +7,16 @@
  * peramban karena mengakses DOM dan penyimpanan lokal.
  */
 
-import { loadProgress, STORAGE_KEY, type ProgressMap } from '@/lib/progress';
+import { loadProgress, type ProgressMap } from '@/lib/progress';
 import {
   loadCompletions,
   loadPredictions,
   loadReflections,
-  COMPLETION_KEY,
-  PREDICTION_KEY,
-  REFLECTION_KEY,
   type CompletionMap,
   type PredictionMap,
   type ReflectionMap,
 } from '@/lib/learner';
+import { LEARNER_KEYS } from '@/lib/storage-keys';
 import { safeStorage } from '@/lib/storage';
 import {
   buildOverview,
@@ -412,7 +410,7 @@ export function bootDashboard(): void {
 
       if (totalEl) totalEl.textContent = String(summary.total);
       if (averageEl) {
-        averageEl.textContent = summary.average === null ? '—' : `${summary.average.toFixed(1)}/5`;
+        averageEl.textContent = summary.average === null ? '–' : `${summary.average.toFixed(1)}/5`;
       }
       if (lowCountEl) lowCountEl.textContent = String(summary.low.length);
 
@@ -603,11 +601,8 @@ export function bootDashboard(): void {
         let ok = false;
         if (storage) {
           try {
-          storage.removeItem(STORAGE_KEY);
-          storage.removeItem(PREDICTION_KEY);
-          storage.removeItem(REFLECTION_KEY);
-          storage.removeItem(COMPLETION_KEY);
-          ok = true;
+            for (const key of LEARNER_KEYS) storage.removeItem(key);
+            ok = true;
           } catch {
             ok = false;
           }

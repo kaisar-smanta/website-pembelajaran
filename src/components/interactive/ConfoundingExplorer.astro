@@ -16,7 +16,7 @@ const { exploration } = Astro.props;
 
   <p class="sim-hint">
     Atur ukuran dan tingkat keberhasilan tiap strata. Perhatikan bagaimana kesimpulan
-    dapat <strong>berbalik</strong> ketika seluruh strata digabung — itulah jejak variabel perancu.
+    dapat <strong>berbalik</strong> ketika seluruh strata digabung: itulah jejak variabel perancu.
   </p>
 
   <div class="cf-strata">
@@ -359,7 +359,7 @@ const { exploration } = Astro.props;
         stat('Kesimpulan tiap strata', dir(analysis.stratumDirection)) +
         stat('Kesimpulan gabungan', dir(analysis.overallDirection)) +
         (analysis.reversed
-          ? stat('Peringatan', 'Arah berbalik saat digabung — ada variabel perancu (paradoks Simpson)!', true)
+          ? stat('Peringatan', 'Arah berbalik saat digabung: ada variabel perancu (paradoks Simpson)!', true)
           : stat('Peringatan', 'Arah tiap strata sejalan dengan keseluruhan', false));
 
       svg.setAttribute(

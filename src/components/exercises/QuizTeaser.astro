@@ -3,7 +3,7 @@ import type { Question } from '@/types/content';
 import { getQuestion, questions } from '@/data/questions';
 import { renderMarkdown } from '@/utils/markdown';
 import { url } from '@/utils/url';
-import { seededShuffle } from '@/lib/learner';
+import { seededShuffle } from '@/lib/random';
 
 interface Props {
   questionIds?: string[];
@@ -71,6 +71,9 @@ const first = quizData[0];
         data-questions={JSON.stringify(quizData)}
       >
         <span class="quiz-burst" aria-hidden="true" />
+        <p class="quiz-position text-muted" data-quiz-position>
+          Soal 1 dari {quizData.length}
+        </p>
         <div class="quiz-prompt prose" data-quiz-prompt set:html={first.promptHtml} />
         <div class="quiz-options" data-quiz-options>
           {first.options.map((opt) => (
@@ -103,7 +106,7 @@ const first = quizData[0];
 
   <p class="quiz-score" aria-live="polite">
     <span class="marker quiz-streak-value" data-streak>0</span>
-    <span>benar berturut-turut</span>
+    <span>Rentetan kuis tersimpan: benar berturut-turut</span>
   </p>
   <p class="quiz-reward" data-reward role="status" aria-live="polite" hidden>
     <span class="quiz-reward-text" data-reward-text />
@@ -165,6 +168,12 @@ const first = quizData[0];
   .quiz-prompt :global(> *:last-child) {
     margin-bottom: 0;
   }
+  .quiz-position {
+    margin: 0 0 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
   .quiz-options {
     display: grid;
     gap: 0.5rem;
@@ -204,6 +213,22 @@ const first = quizData[0];
   .quiz-options :global(.quiz-option.is-wrong) {
     border-color: var(--color-danger);
     background: var(--color-danger-soft);
+  }
+  .quiz-options :global(.quiz-option.is-correct::after) {
+    content: '✓';
+    margin-left: auto;
+    color: var(--color-success);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+  .quiz-options :global(.quiz-option.is-wrong::after) {
+    content: '✕';
+    margin-left: auto;
+    color: var(--color-danger);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1;
   }
   .quiz-options :global(.quiz-key) {
     display: grid;
@@ -378,8 +403,8 @@ const first = quizData[0];
 </style>
 
 <script>
-  import { seededShuffle } from '@/lib/learner';
-  import { combineSeed } from '@/lib/practice';
+  import { seededShuffle } from '@/lib/random';
+    import { combineSeed } from '@/lib/random';
   import {
     sessionSeed,
     loadQuizStreak,
@@ -409,6 +434,7 @@ const first = quizData[0];
 
         const scope = (box.closest('.quiz-teaser') as HTMLElement | null) || box;
         const promptEl = box.querySelector<HTMLElement>('[data-quiz-prompt]');
+        const positionEl = box.querySelector<HTMLElement>('[data-quiz-position]');
         const optionsEl = box.querySelector<HTMLElement>('[data-quiz-options]');
         const feedbackEl = box.querySelector<HTMLElement>('[data-feedback]');
         const nextBtn = box.querySelector<HTMLElement>('[data-next]');
@@ -493,6 +519,10 @@ const first = quizData[0];
               index === quiz.length - 1 ? 'Lihat hasil' : 'Lanjut, soal berikutnya';
           }
           if (promptEl) promptEl.innerHTML = q.promptHtml || '';
+          if (positionEl) {
+            positionEl.hidden = false;
+            positionEl.textContent = `Soal ${index + 1} dari ${quiz.length}`;
+          }
           if (optionsEl) {
             optionsEl.querySelectorAll('.quiz-option').forEach((el) => {
               el.removeAttribute('aria-disabled');
@@ -520,6 +550,7 @@ const first = quizData[0];
         function showComplete() {
           if (promptWrap) promptWrap.hidden = true;
           if (optionsEl) optionsEl.hidden = true;
+          if (positionEl) positionEl.hidden = true;
           if (feedbackEl) {
             feedbackEl.className = 'quiz-feedback';
             feedbackEl.innerHTML = '';
@@ -559,7 +590,10 @@ const first = quizData[0];
               (isCorrect ? '<strong>Benar!</strong> ' : '<strong>Belum tepat.</strong> ') +
               (q.explanationHtml || '');
           }
-          if (nextBtn) nextBtn.hidden = false;
+          if (nextBtn) {
+            nextBtn.hidden = false;
+            if (typeof nextBtn.focus === 'function') nextBtn.focus();
+          }
 
           recordProgress(q.id, isCorrect);
           answeredCount += 1;

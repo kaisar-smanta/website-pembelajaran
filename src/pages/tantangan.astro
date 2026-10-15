@@ -8,7 +8,7 @@ import CtaCard from '@/components/ui/CtaCard.astro';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS, GRADES, GRADE_ORDER, SUBJECTS, SUBJECT_ORDER } from '@/data/curriculum';
-import { seededShuffle } from '@/lib/learner';
+import { seededShuffle } from '@/lib/random';
 import { renderInlineMarkdown } from '@/utils/markdown';
 import { url, topicUrl } from '@/utils/url';
 import type { Grade, SubjectId } from '@/types/content';
@@ -143,6 +143,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
             title="Topik pengayaan"
             lead="Materi ini memperluas atau melampaui capaian pembelajaran resmi. Cocok untuk memperdalam dan menyiapkan bidang STEM."
           />
+          <h3 class="visually-hidden">Daftar topik pengayaan</h3>
           <div class="topic-grid">
             {supplementaryTopics.map((topic, i) => (
               <a

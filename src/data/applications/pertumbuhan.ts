@@ -16,7 +16,7 @@ export const pertumbuhanApplications: Application[] = [
     body: `Sebuah kultur bakteri mula-mula berisi 500 sel. Setiap 20 menit, setiap sel membelah menjadi dua sehingga populasi berlipat dua. Jika $t$ dinyatakan dalam menit, populasi setelah $t$ menit adalah:
 $$N(t) = 500 \\cdot 2^{t/20}.$$
 
-Perhatikan bahwa eksponen $t/20$ menyatakan **banyak selang 20 menit** yang sudah berlangsung, bukan banyak menitnya langsung.
+Eksponen $t/20$ menyatakan **banyak selang 20 menit** yang sudah berlangsung, bukan banyak menitnya langsung.
 
 Pertanyaan pemicunya: setelah 3 jam, berapa banyak sel yang ada, dan mengapa hasilnya jauh melampaui dugaan awal kebanyakan orang?`,
     analysis: `Setelah 3 jam ($t = 180$ menit) terdapat $180/20 = 9$ selang waktu, sehingga
@@ -88,7 +88,7 @@ Pertanyaan pemicunya: pada pekan ke berapa jumlah kasus menembus **1.000**, dan 
     analysis: `Selesaikan $20 \\cdot (1{,}5)^{t} = 1000$, yaitu $(1{,}5)^{t} = 50$. Dengan logaritma,
 $$t = \\frac{\\log 50}{\\log 1{,}5} \\approx \\frac{3{,}912}{0{,}405} \\approx 9{,}7 \\text{ pekan}.$$
 
-Jadi ambang itu dilewati sekitar **10 pekan** setelah pencatatan awal. **Asumsi penting:** model menganggap laju berlipat tetap. Pada kenyataannya jumlah penduduk yang belum terpapar berkurang sehingga pertumbuhan melambat — model eksponensial hanya akurat pada fase awal. Menyadari batas model ini adalah bagian inti dari pemodelan.`,
+Jadi ambang itu dilewati sekitar **10 pekan** setelah pencatatan awal. **Asumsi penting:** model menganggap laju berlipat tetap. Pada kenyataannya jumlah penduduk yang belum terpapar berkurang sehingga pertumbuhan melambat. Model eksponensial hanya akurat pada fase awal. Menyadari batas model ini adalah bagian inti dari pemodelan.`,
     takeaways: [
       'Logaritma dipakai untuk menyelesaikan persamaan eksponensial.',
       'Setiap model punya asumsi; mengenali batasnya sama penting dengan menghitung.',
@@ -126,13 +126,13 @@ $$D(10) = \\frac{14.802.443}{(1{,}03)^{10}} \\approx \\frac{14.802.443}{1{,}3439
 
 Jadi dari sisi daya beli, Rp10.000.000 hanya menjadi sekitar Rp11.014.000, bukan Rp14.802.000. Selisih sekitar Rp3,79 juta itu habis untuk menutup kenaikan harga.
 
-Menariknya, tingkat pertumbuhan riil **bukan** $4\\% - 3\\% = 1\\%$ per tahun, melainkan
+Menariknya, tingkat pertumbuhan riil tidak sama dengan $4\\% - 3\\% = 1\\%$ per tahun, yaitu
 $$\\frac{1{,}04}{1{,}03} - 1 \\approx 0{,}97\\% \\text{ per tahun}.$$
 
-Dalam 10 tahun faktor pertumbuhan daya beli adalah $\\left(\\dfrac{1{,}04}{1{,}03}\\right)^{10} \\approx 1{,}1014$, yaitu tumbuh sekitar $10{,}14\\%$ — masih positif, tetapi jauh lebih kecil daripada kesan dari angka nominal. Kesimpulannya: yang menentukan kesejahteraan bukan angka di rekening, melainkan daya belinya.`,
+Dalam 10 tahun faktor pertumbuhan daya beli adalah $\\left(\\dfrac{1{,}04}{1{,}03}\\right)^{10} \\approx 1{,}1014$, yaitu tumbuh sekitar $10{,}14\\%$, masih positif, tetapi jauh lebih kecil daripada kesan dari angka nominal. Kesimpulannya: yang menentukan kesejahteraan adalah daya beli, bukan angka di rekening.`,
     takeaways: [
       'Saldo nominal dan daya beli tumbuh dengan laju berbeda; inflasi menggerus keduanya secara eksponensial.',
-      'Tingkat bunga riil bukan sekadar selisih bunga dan inflasi, melainkan hasil bagi $(1+bunga)/(1+inflasi)$.',
+      'Tingkat bunga riil adalah hasil bagi $(1+bunga)/(1+inflasi)$; selisih bunga dan inflasi saja tidak cukup.',
       'Keputusan menabung atau berinvestasi sebaiknya memakai daya beli, bukan angka nominal.',
     ],
     reflection: [
@@ -170,7 +170,7 @@ Model yang lebih jujur adalah pertumbuhan logistik, misalnya
 $$N(t) = \\frac{K}{1 + \\left(\\dfrac{K-N_0}{N_0}\\right)e^{-rt}}$$
 dengan $K = 2000$ daya dukung dan $N_0 = 200$ populasi awal. Grafiknya menyerupai huruf S: cepat pada awalnya (mendekati eksponensial), lalu mendatar mendekati $K$ sebagai asimtot. Pertumbuhan logistik memiliki laju paling cepat di sekitar $N = K/2 = 1000$ ekor, bukan di awal.
 
-Pelajarannya bukan "eksponensial salah", melainkan **setiap model punya rentang keberlakuan**. Model eksponensial akurat selama sumber daya masih berlimpah; setelah itu perlu ditambahkan faktor pembatas.`,
+Pelajarannya: **setiap model punya rentang keberlakuan**, bukan berarti "eksponensial salah". Model eksponensial akurat selama sumber daya masih berlimpah; setelah itu perlu ditambahkan faktor pembatas.`,
     takeaways: [
       'Model eksponensial hanya berlaku selama sumber daya belum menjadi pembatas.',
       'Daya dukung $K$ membuat pertumbuhan melambat dan menghampiri nilai maksimum sebagai asimtot.',

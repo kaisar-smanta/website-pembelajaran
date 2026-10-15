@@ -60,7 +60,7 @@ function formatDate(iso: string): string {
           {active.effectiveDate ? (
             <time datetime={active.effectiveDate}>{formatDate(active.effectiveDate)}</time>
           ) : (
-            <span class="text-soft">—</span>
+            <span class="text-soft">–</span>
           )}
         </dd>
       </div>
@@ -259,7 +259,7 @@ function formatDate(iso: string): string {
   .cp-el-icon {
     width: 1.7rem;
     height: 1.7rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     flex: none;
   }
   .cp-list {
@@ -285,7 +285,7 @@ function formatDate(iso: string): string {
     font-weight: 700;
     letter-spacing: 0.02em;
     padding: 0.12rem 0.45rem;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     color: var(--accent, var(--color-primary));
     background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
     border: 1px solid

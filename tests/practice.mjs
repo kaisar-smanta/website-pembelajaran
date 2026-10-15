@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {
   difficultyCounts,
   groupByDifficulty,
-  combineSeed,
   reviewQuestionIds,
 } from '../src/lib/practice.ts';
+import { combineSeed } from '../src/lib/random.ts';
 
 let passed = 0;
 function check(label, fn) {

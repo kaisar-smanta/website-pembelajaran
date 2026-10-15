@@ -25,11 +25,11 @@ const { exploration } = Astro.props;
       <div class="sim-fields">
         <label class="sim-field">
           <span>Bilangan a</span>
-          <input type="number" min="1" step="1" value="1071" data-nt-euclid="a" />
+          <input type="number" inputmode="decimal" min="1" step="1" value="1071" data-nt-euclid="a" />
         </label>
         <label class="sim-field">
           <span>Bilangan b</span>
-          <input type="number" min="1" step="1" value="462" data-nt-euclid="b" />
+          <input type="number" inputmode="decimal" min="1" step="1" value="462" data-nt-euclid="b" />
         </label>
       </div>
       <div class="nt-steps" data-nt-euclid-steps></div>
@@ -40,7 +40,7 @@ const { exploration } = Astro.props;
       <h4>Saringan Eratosthenes</h4>
       <label class="sim-field">
         <span>Batas n</span>
-        <input type="number" min="2" max="120" step="1" value="60" data-nt-sieve />
+        <input type="number" inputmode="decimal" min="2" max="120" step="1" value="60" data-nt-sieve />
       </label>
       <div class="sim-chart">
         <svg
@@ -57,11 +57,11 @@ const { exploration } = Astro.props;
       <div class="sim-fields">
         <label class="sim-field">
           <span>Basis</span>
-          <input type="number" min="0" step="1" value="2" data-nt-mod="base" />
+          <input type="number" inputmode="decimal" min="0" step="1" value="2" data-nt-mod="base" />
         </label>
         <label class="sim-field">
           <span>Modulus m</span>
-          <input type="number" min="2" max="12" step="1" value="7" data-nt-mod="mod" />
+          <input type="number" inputmode="decimal" min="2" max="12" step="1" value="7" data-nt-mod="mod" />
         </label>
       </div>
       <div class="sim-chart">
@@ -233,7 +233,7 @@ const { exploration } = Astro.props;
 
       const remainder = result.steps.length
         ? `${result.steps[result.steps.length - 1].a} ÷ ${result.steps[result.steps.length - 1].b}`
-        : '—';
+        : '–';
       euclidOut.innerHTML =
         stat('FPB', String(result.gcd)) +
         stat('Banyak langkah', String(result.steps.length)) +
@@ -284,7 +284,7 @@ const { exploration } = Astro.props;
 
       sieveOut.innerHTML =
         stat('Banyak bilangan prima', String(primes.length)) +
-        stat('Daftar prima', primes.join(', ') || '—') +
+        stat('Daftar prima', primes.join(', ') || '–') +
         stat('Uji akhir', `${limit} ${isPrime(limit) ? 'prima' : 'bukan prima'}`);
 
       sieveSvg.setAttribute('aria-label', `Saringan prima sampai ${limit}: ${primes.length} prima`);

@@ -13,6 +13,7 @@ import { topicsBySubjectGradeElement, topicSubject, topics, resolveTopics } from
 import { topicIdsWithQuestions } from '@/data/questions';
 import { elementColor } from '@/data/display';
 import { applicationsForTopic, getApplication } from '@/data/applications';
+import { orderedExplorations } from '@/data/explorations';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
 import { sectionTitle } from '@/lib/content-text';
 import { url, absoluteUrl, subjectUrl, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
@@ -67,6 +68,8 @@ const relatedApplications = Array.from(
   ).values(),
 );
 
+const relatedExplorations = orderedExplorations().filter((e) => e.topicId === topic.id);
+
 const hasAuthoredDuniaNyata = topic.sections.some((s) => s.kind === 'dunia-nyata');
 const applicationsSection: Section | undefined =
   relatedApplications.length > 0
@@ -114,7 +117,7 @@ const jsonLd: Record<string, unknown> = {
 ---
 
 <BaseLayout
-  title={`${topic.title} — ${gradeMeta.name}`}
+  title={`${topic.title} · ${gradeMeta.name}`}
   description={description}
   ogType="article"
   structuredData={jsonLd}
@@ -343,6 +346,19 @@ const jsonLd: Record<string, unknown> = {
                   </a>
                 )
               }
+              {
+                relatedExplorations.map((e) => (
+                  <a class="btn btn-secondary btn-sm" href={url(`/eksplorasi/${e.id}`)}>
+                    {e.title}
+                  </a>
+                ))
+              }
+              <a class="btn btn-ghost btn-sm" href={url('/tantangan')}>
+                Soal tantangan
+              </a>
+              <a class="btn btn-ghost btn-sm" href={url('/review')}>
+                Tinjauan berkala
+              </a>
               <button type="button" class="btn btn-ghost btn-sm" data-print>Cetak halaman</button>
               <button type="button" class="btn btn-secondary btn-sm" data-print-worksheet>
                 Cetak lembar kerja
@@ -618,7 +634,7 @@ const jsonLd: Record<string, unknown> = {
     align-items: center;
     gap: 0.4rem;
     padding: 0.28rem 0.7rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--color-border));
     background: color-mix(in srgb, var(--accent) 10%, var(--color-surface));
     color: color-mix(in srgb, var(--accent) 68%, var(--color-text));
@@ -647,7 +663,7 @@ const jsonLd: Record<string, unknown> = {
     align-items: baseline;
     gap: 0.35rem;
     padding: 0.28rem 0.7rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--color-border));
     background: color-mix(in srgb, var(--accent) 7%, var(--color-surface-2));
     font-size: 0.82rem;

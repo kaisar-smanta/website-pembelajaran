@@ -86,7 +86,7 @@ Karena nilai harapannya nol, permainan ini **adil**: dalam jangka panjang, keunt
       title: "Situasi dan Konteks",
       body: `Banyak situasi nyata menuntut kita memberi **angka** pada hasil yang belum pasti. Banyaknya mobil yang datang ke tempat cuci mobil per jam, banyaknya produk cacat dalam satu kotak, atau keuntungan penjual per hari semuanya berupa bilangan yang nilainya bergantung pada kebetulan.
 
-Bilangan semacam itu disebut **variabel acak**. Jika nilainya tercacah dan terpisah — misalnya $0, 1, 2, 3$ mobil — variabelnya **diskret**. Sebaliknya, tinggi badan, berat badan, dan waktu tunggu dapat bernilai sembarang dalam suatu selang, sehingga termasuk variabel acak kontinu.
+Bilangan semacam itu disebut **variabel acak**. Jika nilainya tercacah dan terpisah (misalnya $0, 1, 2, 3$ mobil), variabelnya **diskret**. Sebaliknya, tinggi badan, berat badan, dan waktu tunggu dapat bernilai sembarang dalam suatu selang, sehingga termasuk variabel acak kontinu.
 
 Dengan mengetahui distribusi peluangnya, kita dapat memprediksi rata-rata jangka panjang (nilai harapan) dan seberapa besar hasil nyata biasanya menyimpang dari rata-rata itu (varians dan simpangan baku).`,
     },

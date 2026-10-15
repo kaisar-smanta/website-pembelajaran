@@ -1,14 +1,21 @@
 
 /* ---------- Print ---------- */
 @media print {
-  :root {
+  :root,
+  :root[data-theme='dark'] {
     --color-bg: #fff;
+    --color-bg-alt: #fff;
     --color-surface: #fff;
+    --color-surface-2: #fff;
     --color-text: #000;
     --color-text-muted: #333;
     --color-border: #bbb;
+    --color-border-strong: #999;
+    --color-primary: #000;
     --shadow: none;
     --shadow-sm: none;
+    --shadow-lg: none;
+    --highlight: transparent;
   }
   body {
     background: #fff;
@@ -21,7 +28,10 @@
   nav.breadcrumbs,
   .topic-aside,
   .theme-toggle,
-  .mobile-nav-toggle {
+  .mobile-nav-toggle,
+  .section-jump,
+  .section-next,
+  .topic-pager {
     display: none !important;
   }
   .container {

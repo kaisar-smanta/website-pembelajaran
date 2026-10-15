@@ -99,11 +99,11 @@ Menuliskan $2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\c
 
 $$a^{n} = \\underbrace{a \\cdot a \\cdot a \\cdots a}_{n \\text{ faktor}}$$
 
-Pada notasi $a^{n}$, bilangan $a$ disebut **basis** (bilangan pokok) dan $n$ disebut **eksponen** (pangkat). Sebagai contoh,
+Pada notasi $a^{n}$, bilangan $a$ disebut **basis** (bilangan pokok) dan $n$ disebut **eksponen** (pangkat). Misalnya,
 
 $$5^{3} = 5 \\cdot 5 \\cdot 5 = 125.$$
 
-Perhatikan bahwa eksponen berfungsi sebagai **penghitung banyaknya faktor**, bukan sebagai pengali biasa. Inilah alasan $2^{5} \\neq 2 \\times 5$.`,
+Eksponen di sini berfungsi sebagai **penghitung banyaknya faktor**, bukan sebagai pengali biasa. Inilah alasan $2^{5} \\neq 2 \\times 5$.`,
       blocks: [
         {
           kind: "callout",
@@ -271,7 +271,7 @@ $$a^{-n} = \\frac{1}{a^{n}}, \\qquad a \\neq 0.$$
 $$a^{\\frac{m}{n}} = \\sqrt[n]{a^{m}},$$
 dengan syarat: untuk $n$ genap, $a \\ge 0$; untuk $n$ ganjil, $a$ boleh negatif; untuk pangkat irasional atau negatif, $a > 0$.
 
-Sebagai contoh $27^{\\frac{2}{3}} = \\left(\\sqrt[3]{27}\\right)^{2} = 3^{2} = 9$.`,
+Contohnya $27^{\\frac{2}{3}} = \\left(\\sqrt[3]{27}\\right)^{2} = 3^{2} = 9$.`,
     },
     {
       id: "bentuk-akar",
@@ -450,7 +450,7 @@ tanpa menghitung nilai setiap pangkat secara langsung. Jelaskan pola yang membua
       title: "Jejak Sejarah",
       body: `Notasi pangkat yang kita pakai hari ini lahir dari upaya mempersingkat penulisan yang panjang. Pada abad ke-14, Nicole Oresme sudah menyinggung gagasan pangkat dengan eksponen pecahan. Baru pada 1544 Michael Stifel, dalam *Arithmetica Integra*, memakai istilah *exponent* dan menyusun tabel pangkat bilangan bulat. Puncaknya, René Descartes dalam *La Géométrie* (1637) memperkenalkan bentuk superskrip $a^{n}$ yang kita kenal sekarang, jauh lebih ringkas daripada menuliskan faktor berulang secara penuh.
 
-Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "mengalikan sebanyak setengah kali" sulit dibayangkan. John Wallis dalam *Arithmetica Infinitorum* (1655) dan kemudian Isaac Newton memperluas makna eksponen ke bilangan nol, negatif, dan pecahan dengan menjaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Perluasan itulah yang membuat aturan seperti $a^{-n} = \\dfrac{1}{a^{n}}$ dan $a^{1/2} = \\sqrt{a}$ terasa wajar, bukan sekadar kesepakatan. Notasi yang lahir untuk menyingkat perkalian berulang justru membuka pintu bagi bentuk akar, logaritma, dan fungsi eksponensial.`,
+Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "mengalikan sebanyak setengah kali" sulit dibayangkan. John Wallis dalam *Arithmetica Infinitorum* (1655) dan kemudian Isaac Newton memperluas makna eksponen ke bilangan nol, negatif, dan pecahan dengan menjaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Perluasan itulah yang membuat aturan seperti $a^{-n} = \\dfrac{1}{a^{n}}$ dan $a^{1/2} = \\sqrt{a}$ terasa wajar, sebab mengikuti sifat yang telah ada, bukan kesepakatan yang dipaksakan. Notasi yang lahir untuk menyingkat perkalian berulang justru membuka pintu bagi bentuk akar, logaritma, dan fungsi eksponensial.`,
       blocks: [
         {
           kind: "table",
@@ -486,7 +486,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
           kind: "callout",
           variant: "info",
           title: "Mengapa perluasan itu penting",
-          text: "Setiap perluasan eksponen ke bilangan baru selalu dijaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Aturan itulah yang menuntun mengapa $a^{0} = 1$ dan $a^{-n} = \\dfrac{1}{a^{n}}$, bukan sekadar ditetapkan begitu saja.",
+          text: "Setiap perluasan eksponen ke bilangan baru selalu dijaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Aturan itulah yang menuntun mengapa $a^{0} = 1$ dan $a^{-n} = \\dfrac{1}{a^{n}}$; keduanya mengikuti sifat tersebut, bukan ditetapkan begitu saja.",
         },
       ],
     },

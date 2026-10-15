@@ -34,6 +34,8 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     }
   </div>
 
+  <p class="visually-hidden" data-flip-status role="status" aria-live="polite" />
+
   <div class="itx-bar">
     <button type="button" class="btn btn-ghost btn-sm" data-flip-reset>Tutup semua</button>
     <a class="itx-link no-print" href={url('/glosarium')}>Buka glosarium</a>
@@ -110,6 +112,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     const id = root.getAttribute('data-storage-id') ?? '';
     const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-flip-btn]'));
     const reset = root.querySelector<HTMLButtonElement>('[data-flip-reset]');
+    const status = root.querySelector<HTMLElement>('[data-flip-status]');
     const storage = safeStorage();
     const revealed = new Set<number>();
 
@@ -123,6 +126,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 
     function complete() {
       if (storage) saveCompletions(storage, recordCompletion(loadCompletions(storage), id));
+      if (status) status.textContent = 'Selesai! Semua kartu sudah dibuka.';
     }
 
     buttons.forEach((btn, i) => {
@@ -138,6 +142,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 
     reset?.addEventListener('click', () => {
       buttons.forEach((_, i) => setPressed(i, false));
+      if (status) status.textContent = '';
       if (storage) saveCompletions(storage, clearCompletion(loadCompletions(storage), id));
       emitInteraction(id, 'flip-reset');
     });

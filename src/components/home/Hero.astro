@@ -23,11 +23,11 @@ const stats = [
       <p class="eyebrow-badge hero-eyebrow">Kurikulum Merdeka · Kelas X–XII</p>
       <h1>Pahami <span class="marker">konsep</span> matematika SMA, bukan sekadar hafal rumus</h1>
       <p class="hero-lead">
-        Di sini kamu belajar matematika SMA — wajib maupun Tingkat Lanjut — dengan memahami pola,
+        Di sini kamu belajar matematika SMA (wajib maupun Tingkat Lanjut) dengan memahami pola,
         membangun model, dan menalar, bukan sekadar menghitung. Semua dijelaskan bertahap.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary pulse-soft" href={url('/peta-pembelajaran')}>Mulai belajar</a>
+        <a class="btn btn-primary" href={url('/peta-pembelajaran')}>Mulai belajar</a>
         <a class="btn btn-secondary" href={url('/eksplorasi')}>Coba eksplorasi</a>
       </div>
       <HeroStats stats={stats} />
@@ -184,7 +184,7 @@ const stats = [
     height: 1.55rem;
     padding: 0.12rem;
     border-radius: 50%;
-    background: #fff;
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
   }
   .byline-logo img {

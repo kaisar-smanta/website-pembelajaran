@@ -63,7 +63,7 @@ $$\\hat{y} = 1{,}19x + 0{,}89, \\qquad r \\approx 0{,}97.$$
 
 Karena $r$ sangat dekat dengan 1, hubungan linear positifnya kuat: siswa yang belajar lebih lama cenderung memperoleh nilai lebih tinggi.
 
-Untuk siswa yang belajar 10 jam, perkiraan nilainya $\\hat{y} = 1{,}19(10) + 0{,}89 \\approx 12{,}8$. **Keterbatasan:** nilai dugaan ini adalah **ekstrapolasi** karena $x = 10$ berada di luar rentang data pengamatan ($x$ hanya 1–8), sehingga garis regresi dipaksa berlaku di luar wilayah yang didukung data. Selain itu, kuatnya korelasi **bukan bukti sebab-akibat** — mungkin ada faktor lain seperti kualitas belajar atau latar belakang siswa.`,
+Untuk siswa yang belajar 10 jam, perkiraan nilainya $\\hat{y} = 1{,}19(10) + 0{,}89 \\approx 12{,}8$. **Keterbatasan:** nilai dugaan ini adalah **ekstrapolasi** karena $x = 10$ berada di luar rentang data pengamatan ($x$ hanya 1–8), sehingga garis regresi dipaksa berlaku di luar wilayah yang didukung data. Selain itu, kuatnya korelasi **bukan bukti sebab-akibat**. Mungkin ada faktor lain seperti kualitas belajar atau latar belakang siswa.`,
     takeaways: [
       'Koefisien korelasi mengukur kekuatan hubungan linear, bukan sebab-akibat.',
       'Menduga di luar rentang data (ekstrapolasi) berisiko menyesatkan.',
@@ -129,7 +129,7 @@ Jadi $P(8,3)$ dapat dipandang sebagai "pilih 3 orang lalu urutkan mereka". Kalim
     tags: ['peluang bersyarat', 'teorema Bayes', 'sensitivitas', 'spesifisitas', 'prevalensi'],
     summary: 'Menghitung peluang benar-benar sakit setelah hasil tes positif, dan mengapa akurasi tes saja menyesatkan.',
     topicIds: ['peluang-bersyarat', 'peluang'],
-    body: `Sebuah berita menulis: *"Tes ini 95% akurat, jadi kalau hasilmu positif, hampir pasti kamu sakit."* Pernyataan itu terdengar masuk akal, tetapi bisa sangat menyesatkan. Kuncinya bukan hanya akurasi tes, melainkan seberapa banyak orang di populasi yang benar-benar sakit (**prevalensi**).
+    body: `Sebuah berita menulis: *"Tes ini 95% akurat, jadi kalau hasilmu positif, hampir pasti kamu sakit."* Pernyataan itu terdengar masuk akal, tetapi bisa sangat menyesatkan. Kuncinya adalah seberapa banyak orang di populasi yang benar-benar sakit (**prevalensi**), bukan hanya akurasi tes.
 
 Misalkan sebuah penyakit hanya diderita $1\\%$ penduduk. Tes memiliki **sensitivitas** $95\\%$ (memberi hasil positif pada orang sakit) dan **spesifisitas** $95\\%$ (memberi hasil negatif pada orang sehat).
 
@@ -190,7 +190,7 @@ Menyimpulkan sebab-akibat menuntut bukti yang lebih kuat, misalnya eksperimen de
     takeaways: [
       'Korelasi hanya menunjukkan gerak bersama, bukan arah sebab-akibat.',
       'Variabel perancu dapat menciptakan hubungan yang tampak nyata tetapi menyesatkan.',
-      'Uji sebab-akibat butuh eksperimen atau kontrol variabel, bukan sekadar angka korelasi.',
+      'Uji sebab-akibat butuh eksperimen atau kontrol variabel; angka korelasi saja tidak cukup.',
     ],
     reflection: [
       'Untuk klaim "siswa yang sarapan nilainya lebih baik", variabel perancu apa yang mungkin berperan?',
@@ -263,7 +263,7 @@ Inilah contoh **inklusi-eksklusi** sederhana: hitung semuanya, lalu kurangi yang
 
 **Menjamin PIN kembar.** PIN 4 angka memiliki $10^{4} = 10.000$ kemungkinan. Bayangkan setiap siswa sebagai "merpati" dan setiap PIN sebagai "sarang". Jika ada $10.000$ siswa, secara logika mereka masih bisa menempati seluruh sarang tanpa tabrakan. Begitu ada **10.001 siswa**, prinsip sarang merpati menjamin **pasti** ada dua siswa dengan PIN yang sama, karena terdapat lebih banyak merpati daripada sarang. Jadi jawabannya $10.000 + 1 = 10.001$ siswa.
 
-Kedua teknik saling melengkapi: pencacahan menghitung **berapa banyak** kemungkinan, sedangkan prinsip sarang merpati menjamin **kapan** suatu tabrakan pasti terjadi — bahkan tanpa mengetahui PIN siapa pun.`,
+Kedua teknik saling melengkapi: pencacahan menghitung **berapa banyak** kemungkinan, sedangkan prinsip sarang merpati menjamin **kapan** suatu tabrakan pasti terjadi, bahkan tanpa mengetahui PIN siapa pun.`,
     takeaways: [
       'Pencacahan dengan batasan sering paling mudah dikerjakan lewat komplemen (hitung semua, kurangi yang dilarang).',
       'Prinsip sarang merpati menjamin keberadaan tabrakan ketika jumlah objek melebihi jumlah wadah.',
@@ -306,7 +306,7 @@ Maka peluang produk yang dikirim benar-benar cacat adalah
 $$P(\\text{cacat} \\mid \\text{lolos}) = \\frac{8}{9.600 + 8} \\approx 0{,}083\\%.$$
 Tanpa tahap kedua, peluang cacat yang lolos adalah $\\frac{40}{10.000} = 0{,}4\\%$. Jadi tahap kedua menurunkan cacat terkirim dari $0{,}4\\%$ menjadi sekitar $0{,}083\\%$, yaitu **lima kali lebih kecil** karena menyaring 80% dari sisa.
 
-**Keputusan.** Manfaat tahap kedua dibandingkan dengan biayanya: tahap ini layak ditambahkan bila kerugian rata-rata akibat satu produk cacat yang sampai ke pelanggan lebih besar daripada $\\frac{\\text{biaya tahap 2}}{32\\ \\text{cacat yang tertangkap}}$. Perhatikan pula bahwa tahap kedua bekerja pada populasi kecil (hanya $40$ cacat yang lolos), sehingga jumlah yang diselamatkan tidak sebanding dengan memeriksa seluruh produksi — inilah sebabnya pemeriksaan bertahap disusun berlapis dan berfokus, bukan seragam.`,
+**Keputusan.** Manfaat tahap kedua dibandingkan dengan biayanya: tahap ini layak ditambahkan bila kerugian rata-rata akibat satu produk cacat yang sampai ke pelanggan lebih besar daripada $\\frac{\\text{biaya tahap 2}}{32\\ \\text{cacat yang tertangkap}}$. Tahap kedua bekerja pada populasi kecil (hanya $40$ cacat yang lolos), sehingga jumlah yang diselamatkan tidak sebanding dengan memeriksa seluruh produksi. Inilah sebabnya pemeriksaan bertahap disusun berlapis dan berfokus, bukan seragam.`,
     takeaways: [
       'Peluang bersyarat memakai informasi tahap sebelumnya, bukan lagi peluang awal.',
       'Pemeriksaan bertahap menurunkan cacat terkirim secara berlipat, tetapi bekerja pada populasi yang makin kecil.',

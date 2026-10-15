@@ -220,6 +220,14 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
   }
+  /* Sasaran sentuh preset dan tombol atur ulang pada perangkat penunjuk kasar. */
+  @media (pointer: coarse) {
+    .sim-presets button,
+    .sim-reset {
+      min-height: 2.75rem;
+      padding: 0.55rem 0.9rem;
+    }
+  }
   @media (max-width: 390px) {
     .sim-bar {
       gap: 0.4rem;

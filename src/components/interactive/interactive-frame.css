@@ -5,7 +5,7 @@
  * (PredictionBlock, ReflectionBlock, SpotMistake, MatchBlock, StepReveal,
  * FlipCards, TabsBlock). Karena gaya berskop Astro memakai strategi atribut
  * (spesifisitas lebih tinggi), penyesuaian lokal tiap komponen selalu menang
- * atas berkas ini — jadi tampilan tetap sama.
+ * atas berkas ini: jadi tampilan tetap sama.
  */
 
 .itx {

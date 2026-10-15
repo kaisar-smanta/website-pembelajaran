@@ -83,7 +83,7 @@ Ternyata **B** total bunganya lebih kecil meskipun suku bunga per bulannya lebih
       title: "Situasi dan Konteks",
       body: `Setiap hari kita berhadapan dengan keputusan uang: memilih KPR dengan tenor $15$ atau $20$ tahun, membeli barang secara tunai atau kredit, atau menabung rutin untuk dana pendidikan. Setiap pilihan punya konsekuensi berbeda.
 
-Pinjaman anuitas memberi kita sejumlah uang sekarang dan meminta pembayaran tetap di masa depan. Investasi berkala melakukan kebalikannya: kita menyetor sejumlah tetap sekarang agar memperoleh saldo di masa depan. Keduanya berkaitan melalui **nilai waktu uang** — uang yang dibayar atau diterima pada waktu berbeda tidak dapat langsung dibandingkan.`,
+Pinjaman anuitas memberi kita sejumlah uang sekarang dan meminta pembayaran tetap di masa depan. Investasi berkala melakukan kebalikannya: kita menyetor sejumlah tetap sekarang agar memperoleh saldo di masa depan. Keduanya berkaitan melalui **nilai waktu uang**: uang yang dibayar atau diterima pada waktu berbeda tidak dapat langsung dibandingkan.`,
     },
     {
       id: "konsep",
@@ -370,7 +370,7 @@ Saldo akhirnya sekitar Rp12.715.978, yaitu sekitar Rp715.978 lebih besar daripad
 - **Penawaran A:** bunga $1{,}25\\%$ per bulan, tenor 36 bulan → angsuran $\\approx$ Rp346.653, total bunga $\\approx$ Rp2.479.518.
 - **Penawaran B:** bunga $1{,}5\\%$ per bulan, tenor 24 bulan → angsuran $\\approx$ Rp499.241, total bunga $\\approx$ Rp1.981.784.
 
-Penawaran B memang berangsuran lebih besar, tetapi total bunganya hampir Rp500.000 lebih kecil karena tenornya lebih pendek. Sebaliknya, menabung Rp500.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan selama dua tahun menghasilkan saldo $\\approx$ Rp12.715.978 dari total setoran Rp12.000.000 — selisihnya adalah hasil bunga majemuk.
+Penawaran B memang berangsuran lebih besar, tetapi total bunganya hampir Rp500.000 lebih kecil karena tenornya lebih pendek. Sebaliknya, menabung Rp500.000 setiap bulan dengan bunga $0{,}5\\%$ per bulan selama dua tahun menghasilkan saldo $\\approx$ Rp12.715.978 dari total setoran Rp12.000.000. Selisihnya adalah hasil bunga majemuk.
 
 Pola pengambilan keputusan selalu sama: tentukan tujuan, susun model, hitung total biaya atau hasil, bandingkan alternatif, lalu putuskan. Lihat analisis penerapan pada halaman [Kredit Motor](/aplikasi/anuitas-pinjaman) untuk melihat bagaimana total bunga dihitung dari tabel amortisasi.`,
     },

@@ -1,7 +1,7 @@
 // Integritas halaman rujukan: glosarium & kumpulan rumus lintas topik.
 //
 // Menjaga agar pengumpul di `src/lib/reference.ts` benar-benar mengambil istilah
-// dari seluruh blok pengulangan — termasuk pasangan `match` yang sisi istilahnya
+// dari seluruh blok pengulangan, termasuk pasangan `match` yang sisi istilahnya
 // memuat matematika (mis. "Gradien $b$") selama masih mengandung kata. Tanpa
 // pemeriksaan ini, perubahan aturan penyaringan dapat mengosongkan glosarium
 // untuk banyak topik tanpa terdeteksi.

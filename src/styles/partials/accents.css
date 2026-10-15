@@ -1,5 +1,5 @@
 
-/* Aksen per elemen kurikulum — dipakai halaman dalam (kelas, peta, dll.). */
+/* Aksen per elemen kurikulum: dipakai halaman dalam (kelas, peta, dll.). */
 .accent-bilangan {
   --accent: var(--color-number);
 }
@@ -43,7 +43,7 @@
   place-items: center;
   width: 2.6rem;
   height: 2.6rem;
-  border-radius: 12px;
+  border-radius: var(--radius);
   color: var(--accent, var(--color-primary));
   background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
   border: 1px solid color-mix(in srgb, var(--accent, var(--color-primary)) 22%, var(--color-border));

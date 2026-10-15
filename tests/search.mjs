@@ -233,7 +233,7 @@ check('scoreItem mengenali entri istilah dan rumus sebagai hasil', () => {
   };
   const rumus = {
     ...base,
-    title: 'Rumus dan Prosedur — Anuitas',
+        title: 'Rumus dan Prosedur · Anuitas',
     type: 'rumus',
     keywords: 'rumus formula',
     text: 'A = P \\cdot \\frac{i}{1-(1+i)^{-n}}',

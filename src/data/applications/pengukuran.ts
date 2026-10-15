@@ -26,7 +26,7 @@ Untuk menilai keandalan tiap posisi, kita hitung seberapa besar taksiran $h$ ber
 - Dari 50 m ($\\theta = 30^\\circ$, $\\sec^{2}30^\\circ = \\tfrac{4}{3}$): $\\Delta h \\approx 50 \\times \\tfrac{4}{3} \\times 0{,}01745 \\approx 1{,}16$ m.
 - Dari 100 m (sudut terukur hanya $16{,}1^\\circ$, $\\sec^{2}16{,}1^\\circ \\approx 1{,}083$): $\\Delta h \\approx 100 \\times 1{,}083 \\times 0{,}01745 \\approx 1{,}89$ m.
 
-Jadi posisi 100 m memberi galat hampir **1,6 kali** lebih besar, dan jarak dasarnya sendiri lebih sulit diukur tepat. Kesimpulannya, berdiri lebih dekat sehingga sudut elevasi lebih besar memberi taksiran yang lebih andal — selama menara masih terlihat dan sudut tidak mendekati $90^\\circ$. Metode ini disebut **triangulasi** dan dipakai pada survei serta navigasi. Inilah alasan juru ukur mengukur dari beberapa titik berbeda lalu membandingkan hasilnya, bukan hanya dari satu posisi.`,
+Jadi posisi 100 m memberi galat hampir **1,6 kali** lebih besar, dan jarak dasarnya sendiri lebih sulit diukur tepat. Kesimpulannya, berdiri lebih dekat sehingga sudut elevasi lebih besar memberi taksiran yang lebih andal, selama menara masih terlihat dan sudut tidak mendekati $90^\\circ$. Metode ini disebut **triangulasi** dan dipakai pada survei serta navigasi. Inilah alasan juru ukur mengukur dari beberapa titik berbeda lalu membandingkan hasilnya, bukan hanya dari satu posisi.`,
     takeaways: [
       'Satu sudut dan satu jarak cukup untuk menaksir tinggi lewat tangen.',
       'Hasil pengukuran bergantung pada asumsi yang dipakai.',
@@ -70,7 +70,7 @@ $$L = \\frac{120}{360} \\times \\frac{22}{7} \\times 6^{2} = \\frac{1}{3} \\time
 $$s = \\frac{120}{360} \\times 2 \\times \\frac{22}{7} \\times 6 = \\frac{1}{3} \\times 37{,}71 \\approx 12{,}57\\ \\text{m}.$$
 Luasnya memang masih di bawah 40 m², tetapi busurnya $12{,}57 > 12$ m sehingga **melebihi anggaran pagar**.
 
-Pelajaran dari keputusan ini: mengubah sudut dan jari-jari tidak mengubah luas dan busur dengan laju yang sama, sehingga memenuhi satu kendala belum tentu memenuhi kendala lain. Rancangan A dipilih karena lolos kedua anggaran sekaligus. Perhatikan juga bahwa sisi lurus taman (dua jari-jari) tidak dihitung sebagai busur, sehingga anggaran material harus memisahkan bagian lurus dan bagian lengkung.`,
+Pelajaran dari keputusan ini: mengubah sudut dan jari-jari tidak mengubah luas dan busur dengan laju yang sama, sehingga memenuhi satu kendala belum tentu memenuhi kendala lain. Rancangan A dipilih karena lolos kedua anggaran sekaligus. Selain itu, sisi lurus taman (dua jari-jari) tidak dihitung sebagai busur, sehingga anggaran material harus memisahkan bagian lurus dan bagian lengkung.`,
     takeaways: [
       'Luas juring dan panjang busur sebanding dengan besar sudut pusat.',
       'Menghitung material berarti memisahkan bagian lurus dan bagian lengkung.',
@@ -97,7 +97,7 @@ Pelajaran dari keputusan ini: mengubah sudut dan jari-jari tidak mengubah luas d
     body: `Sebagian besaran memiliki jangkauan yang sangat lebar sehingga diukur dengan skala logaritma. Kekuatan gempa dinyatakan $M = \\log_{10}\\!\\left(\\dfrac{A}{A_0}\\right)$, sedangkan keasaman larutan dinyatakan $\\mathrm{pH} = -\\log_{10}[\\mathrm{H}^{+}]$.
 
 Mengapa gempa bermagnitudo $7$ jauh lebih dahsyat daripada magnitudo $5$, padahal angkanya hanya berbeda dua? Dan mengapa larutan dengan $\\mathrm{pH}$ satu satuan lebih rendah bisa jauh lebih asam? Kunci jawabannya ada pada sifat logaritma yang memampatkan rentang besar menjadi angka kecil.`,
-    analysis: `**Gempa.** Selisih satu satuan Richter berarti amplitudo $10$ kali lebih besar. Gempa bermagnitudo $7$ memiliki amplitudo $10^{7-5} = 10^{2} = 100$ kali gempa bermagnitudo $5$. Karena energi sebanding dengan $10^{1{,}5M}$, selisih dua satuan magnitudo menaikkan energi sekitar $10^{3} = 1000$ kali — kenaikan yang terasa kecil pada angka, tetapi sangat besar pada kenyataan.
+    analysis: `**Gempa.** Selisih satu satuan Richter berarti amplitudo $10$ kali lebih besar. Gempa bermagnitudo $7$ memiliki amplitudo $10^{7-5} = 10^{2} = 100$ kali gempa bermagnitudo $5$. Karena energi sebanding dengan $10^{1{,}5M}$, selisih dua satuan magnitudo menaikkan energi sekitar $10^{3} = 1000$ kali. Kenaikan yang terasa kecil pada angka, tetapi sangat besar pada kenyataan.
 
 **pH.** Larutan dengan $\\mathrm{pH}=3$ memiliki konsentrasi ion $\\mathrm{H}^{+}$ sebesar $10^{-3}$ M, sedangkan $\\mathrm{pH}=5$ sebesar $10^{-5}$ M. Selisih dua satuan pH berarti konsentrasinya **100 kali** berbeda. Skala logaritma memampatkan rentang raksasa menjadi angka yang mudah dibaca, tetapi justru menyembunyikan besarnya perbedaan jika hanya angka yang dilihat sekilas.`,
     takeaways: [
@@ -137,7 +137,7 @@ $$h(2) = -5(2)^{2} + 20(2) + 1 = 21 \\text{ m}.$$
 
 Sekarang periksa apakah tendangan itu masuk. Bola menempuh 30 m dengan laju 10 m/s, sehingga tiba di gawang pada $t = 3$ detik. Tinggi bola saat itu:
 $$h(3) = -5(3)^{2} + 20(3) + 1 = -45 + 60 + 1 = 16 \\text{ m}.$$
-Karena $16 \\text{ m} \\gg 2{,}44 \\text{ m}$, bola **jauh melewati mistar gawang** — tendangan ini bukan tembakan yang tepat sasaran. Keputusan yang benar adalah memakai tendangan yang lebih datar (memperkecil koefisien linear) agar bola tiba di gawang di bawah mistar.
+Karena $16 \\text{ m} \\gg 2{,}44 \\text{ m}$, bola **jauh melewati mistar gawang**. Tendangan ini bukan tembakan yang tepat sasaran. Keputusan yang benar adalah memakai tendangan yang lebih datar (memperkecil koefisien linear) agar bola tiba di gawang di bawah mistar.
 
 Model tetap memberi informasi lain yang berguna: bola kembali menyentuh tanah ketika $h(t) = 0$, yaitu pada $t \\approx 4{,}05$ detik. Menghitung tinggi pada satu waktu tertentu dan titik puncak sekaligus jauh lebih cepat daripada menguji nilai $t$ satu per satu.`,
     takeaways: [
@@ -203,7 +203,7 @@ Determinan mengungkap sifat tiap transformasi. Untuk $R$, $\\det R = 1 \\cdot (-
     topicIds: ['transformasi-fungsi', 'lingkaran'],
     body: `Peta desa digambar dengan skala **1 : 20.000**, artinya $1 \\text{ cm}$ pada peta mewakili $200 \\text{ m}$ di lapangan. Dua lokasi terletak di $A(0,0)$ dan $B(3,4)$ dengan satuan sentimeter pada peta.
 
-Berapa jarak sebenarnya kedua lokasi? Ketika peta diperbesar dan titik acuannya digeser, bagaimana persamaan sebuah jalan yang semula berbentuk $y = x^{2}$ berubah? Memperbesar peta adalah **dilatasi**, sedangkan menggeser acuan adalah **translasi** — dua transformasi yang dapat dipelajari langsung melalui fungsi.`,
+Berapa jarak sebenarnya kedua lokasi? Ketika peta diperbesar dan titik acuannya digeser, bagaimana persamaan sebuah jalan yang semula berbentuk $y = x^{2}$ berubah? Memperbesar peta adalah **dilatasi**, sedangkan menggeser acuan adalah **translasi**, dua transformasi yang dapat dipelajari langsung melalui fungsi.`,
     analysis: `Jarak pada peta dihitung dengan rumus jarak:
 
 $$AB = \\sqrt{3^{2} + 4^{2}} = \\sqrt{25} = 5 \\text{ cm}.$$
@@ -212,7 +212,7 @@ Skala $1 : 20.000$ berarti setiap $1 \\text{ cm}$ mewakili $20.000 \\text{ cm} =
 
 $$5 \\times 200 = 1000 \\text{ m} = 1 \\text{ km}.$$
 
-Peta itu juga menampilkan danau berbentuk lingkaran berjari-jari $2 \\text{ cm}$. Jari-jari sebenarnya $2 \\times 200 = 400 \\text{ m}$, sehingga luasnya $L = \\pi r^{2} = 3{,}14 \\times 400^{2} = 502.400 \\text{ m}^{2} \\approx 0{,}50 \\text{ km}^{2}$. Luas berubah mengikuti **kuadrat** faktor skala, bukan sekadar dikalikan faktor skala.
+Peta itu juga menampilkan danau berbentuk lingkaran berjari-jari $2 \\text{ cm}$. Jari-jari sebenarnya $2 \\times 200 = 400 \\text{ m}$, sehingga luasnya $L = \\pi r^{2} = 3{,}14 \\times 400^{2} = 502.400 \\text{ m}^{2} \\approx 0{,}50 \\text{ km}^{2}$. Luas berubah mengikuti **kuadrat** faktor skala, bukan hanya perkalian faktor skala.
 
 Untuk jalan $y = x^{2}$, andaikan peta diperbesar dua kali lalu acuannya digeser sehingga koordinat baru memenuhi $X = 2x + 1$ dan $Y = 2y + 3$. Maka $x = \\dfrac{X-1}{2}$ dan $y = \\dfrac{Y-3}{2}$, sehingga
 
@@ -300,7 +300,7 @@ Kesamaan AM-GM tercapai ketika kedua bilangan sama, yaitu $2x = y$. Gabungkan de
 $$2x + y = 40 \\Rightarrow 2x + 2x = 40 \\Rightarrow x = 10,\\quad y = 20.$$
 Ukuran optimal adalah $10\\ \\text{m} \\times 20\\ \\text{m}$ dengan luas maksimum $L = 10 \\times 20 = 200\\ \\text{m}^2$.
 
-Cara ini menghemat langkah dibandingkan memeriksa satu per satu nilai $x$. Perhatikan juga bahwa $x = 5$ memberi luas $5 \\times 30 = 150\\ \\text{m}^2$ dan $x = 15$ memberi $15 \\times 10 = 150\\ \\text{m}^2$ — keduanya sama-sama di bawah $200\\ \\text{m}^2$. Anggaran yang terbatas justru memaksa kita memilih proporsi yang paling efisien.`,
+Cara ini menghemat langkah dibandingkan memeriksa satu per satu nilai $x$. Nilai $x = 5$ memberi luas $5 \\times 30 = 150\\ \\text{m}^2$ dan $x = 15$ memberi $15 \\times 10 = 150\\ \\text{m}^2$. Keduanya sama-sama di bawah $200\\ \\text{m}^2$. Anggaran yang terbatas justru memaksa kita memilih proporsi yang paling efisien.`,
     takeaways: [
       'AM-GM mengubah masalah optimasi menjadi penentuan syarat kesamaan.',
       'Kesamaan AM-GM tercapai saat suku-suku yang dibandingkan sama besar.',

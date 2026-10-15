@@ -54,7 +54,7 @@ Pertanyaan: apakah setiap bulan ia membayar bunga yang sama? Jika bunga per bula
             "Rp150.000",
             "Rp50.000",
           ],
-          reveal: "Pada bulan pertama, bunga $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Karena angsuran Rp500.000, yang mengurangi pokok hanya Rp350.000. Bunga bulan berikutnya dihitung dari sisa utang yang lebih kecil, sehingga porsi pokok makin besar dan porsi bunga makin kecil — meskipun angsurannya tetap.",
+          reveal: "Pada bulan pertama, bunga $= 0{,}015 \\times 10.000.000 = \\text{Rp}150.000$. Karena angsuran Rp500.000, yang mengurangi pokok hanya Rp350.000. Bunga bulan berikutnya dihitung dari sisa utang yang lebih kecil, sehingga porsi pokok makin besar dan porsi bunga makin kecil, meskipun angsurannya tetap.",
           saveLabel: "Simpan dugaan",
         },
       ],
@@ -81,7 +81,7 @@ Memahami anuitas membantu kita menghitung kemampuan membayar, membandingkan pena
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti",
-      body: `**Anuitas** adalah rangkaian pembayaran sebesar $A$ yang dilakukan secara berkala (misalnya tiap bulan) untuk melunasi pinjaman atau mengumpulkan dana. Ciri utamanya: **besar setoran tetap**, tetapi **komposisinya berubah** dari periode ke periode — porsi bunga menyusut dan porsi pokok membesar.
+      body: `**Anuitas** adalah rangkaian pembayaran sebesar $A$ yang dilakukan secara berkala (misalnya tiap bulan) untuk melunasi pinjaman atau mengumpulkan dana. Ciri utamanya: **besar setoran tetap**, tetapi **komposisinya berubah** dari periode ke periode: porsi bunga menyusut dan porsi pokok membesar.
 
 Ide kuncinya adalah **menyetarakan nilai waktu uang**. Pokok pinjaman $M$ diterima hari ini, sedangkan seluruh angsuran dibayar pada masa mendatang. Agar adil, nilai sekarang seluruh angsuran harus sama dengan $M$. Karena angsuran ke-$k$ baru dibayar setelah $k$ periode, nilainya didiskontokan dengan faktor $\\dfrac{1}{(1+i)^k}$.
 
@@ -287,7 +287,7 @@ Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} 
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Anuitas adalah alat untuk menilai waktu uang: satu angsuran hari ini tidak setara dengan satu angsuran setahun lagi. Rumus nilai sekarang $PV = A\\cdot\\dfrac{1-(1+i)^{-n}}{i}$ mengubah rangkaian pembayaran menjadi satu angka hari ini. Misalnya, pembayaran Rp500.000 per bulan selama $24$ bulan pada bunga $1\\%$ per bulan setara dengan $500.000\\cdot\\dfrac{1-(1{,}01)^{-24}}{0{,}01} \\approx \\text{Rp}10.621.700$. Sebaliknya, rumus nilai masa depan $FV = A\\cdot\\dfrac{(1+i)^{n}-1}{i}$ menaksir dana terkumpul: setoran Rp1.000.000 per bulan berbunga $0{,}6\\%$ per bulan selama $5$ tahun menghasilkan sekitar $\\text{Rp}71.966.000$. Kedua rumus itu hanya berbeda sudut pandang waktu — satu mendiskontokan, yang lain memajemukkan. Perhitungan lengkap beserta tabel amortisasi dapat dilatih dengan simulasi dan soal berikutnya.`,
+      body: `Anuitas adalah alat untuk menilai waktu uang: satu angsuran hari ini tidak setara dengan satu angsuran setahun lagi. Rumus nilai sekarang $PV = A\\cdot\\dfrac{1-(1+i)^{-n}}{i}$ mengubah rangkaian pembayaran menjadi satu angka hari ini. Misalnya, pembayaran Rp500.000 per bulan selama $24$ bulan pada bunga $1\\%$ per bulan setara dengan $500.000\\cdot\\dfrac{1-(1{,}01)^{-24}}{0{,}01} \\approx \\text{Rp}10.621.700$. Sebaliknya, rumus nilai masa depan $FV = A\\cdot\\dfrac{(1+i)^{n}-1}{i}$ menaksir dana terkumpul: setoran Rp1.000.000 per bulan berbunga $0{,}6\\%$ per bulan selama $5$ tahun menghasilkan sekitar $\\text{Rp}71.966.000$. Kedua rumus itu hanya berbeda sudut pandang waktu: satu mendiskontokan, yang lain memajemukkan. Perhitungan lengkap beserta tabel amortisasi dapat dilatih dengan simulasi dan soal berikutnya.`,
     },
     {
       id: "kesalahan-umum",

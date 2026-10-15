@@ -10,7 +10,7 @@ export const barisanDeret: Topic = {
   element: 'bilangan',
   status: 'lengkap',
   cpNote:
-    'CP Fase F (Kelas XI) menempatkan barisan dan deret pada elemen Bilangan — lihat F-BIL-1.',
+    'CP Fase F (Kelas XI) menempatkan barisan dan deret pada elemen Bilangan: lihat F-BIL-1.',
   estimatedMinutes: 90,
   summary:
     'Mengenali pola bilangan serta menentukan suku ke-$n$ dan jumlah suku pada barisan dan deret aritmetika maupun geometri.',

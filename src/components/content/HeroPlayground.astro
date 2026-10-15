@@ -78,8 +78,13 @@ const factItems = facts.map((fact) => {
         reduce = false;
       }
 
-      function advance() {
+      function advance(announce) {
         index = (index + 1) % facts.length;
+        if (announce) {
+          bubble.setAttribute('aria-live', 'polite');
+        } else {
+          bubble.setAttribute('aria-live', 'off');
+        }
         bubble.innerHTML = facts[index];
         if (reduce) return;
         bubble.classList.remove('pop');
@@ -110,10 +115,14 @@ const factItems = facts.map((fact) => {
 
       function startAuto() {
         if (reduce || hovered || focused || timer !== null) return;
-        timer = window.setInterval(advance, 6500);
+        timer = window.setInterval(function () {
+          advance(false);
+        }, 6500);
       }
 
-      button.addEventListener('click', advance);
+      button.addEventListener('click', function () {
+        advance(true);
+      });
 
       root.addEventListener('mouseenter', function () {
         hovered = true;
@@ -238,7 +247,7 @@ const factItems = facts.map((fact) => {
     place-items: center;
     width: 2.6rem;
     height: 2.6rem;
-    border-radius: 14px;
+    border-radius: var(--radius-lg);
     background: color-mix(in srgb, currentColor 12%, var(--color-surface));
     border: 2px solid color-mix(in srgb, currentColor 48%, var(--color-border));
     box-shadow:

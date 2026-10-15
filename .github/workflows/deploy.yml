@@ -2,7 +2,7 @@ name: Deploy ke GitHub Pages
 
 # SENGAJA MINIMAL (deploy-only). Pemeriksaan mutu dijalankan secara lokal lewat
 # `npm run verify` untuk menghemat kuota GitHub Actions. Jangan menambahkan job
-# verifikasi/test/lint atau pemicu pull_request di sini — lihat AGENTS.md.
+# verifikasi/test/lint atau pemicu pull_request di sini, lihat AGENTS.md.
 
 on:
   push:

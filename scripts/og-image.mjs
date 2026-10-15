@@ -54,7 +54,7 @@ const html = `<!doctype html>
     <h1 class="headline">Paham konsep, bukan sekadar hafal rumus</h1>
     <p class="subtitle">Kurikulum Merdeka &middot; Kelas X&ndash;XII &middot; Gratis, tanpa akun</p>
   </main>
-  <footer class="footer">Disusun oleh Kaisar Titoniran Akbar, S.Pd &mdash; SMAN 1 Tanjung</footer>
+  <footer class="footer">Disusun oleh Kaisar Titoniran Akbar, S.Pd &middot; SMAN 1 Tanjung</footer>
 </body>
 </html>`;
 

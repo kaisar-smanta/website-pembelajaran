@@ -97,7 +97,7 @@
     transform: translate(6px, -10px);
   }
 }
-/* Reveal on scroll — hanya aktif bila JS & motion diizinkan (lihat BaseLayout). */
+/* Reveal on scroll: hanya aktif bila JS & motion diizinkan (lihat BaseLayout). */
 .motion-ready .reveal {
   opacity: 0;
   transform: translateY(16px);

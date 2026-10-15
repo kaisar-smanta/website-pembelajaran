@@ -8,7 +8,7 @@ import type { ElementId, Grade, Phase, SubjectId } from '@/types/content';
  *   1. tandai regulasi lama `status: 'digantikan'`;
  *   2. tambahkan regulasi baru dengan `supersedes` berisi id lama;
  *   3. perbarui daftar `cpStatements` (tambah/ubah/hapus) beserta `topicIds`;
- *   4. jalankan `npm test` — tests/cp-coverage.mjs akan menunjukkan pernyataan CP
+ *   4. jalankan `npm test`: tests/cp-coverage.mjs akan menunjukkan pernyataan CP
  *      tanpa topik dan topik yang belum dipetakan (kecuali `supplementary`).
  *
  * Teks CP di sini adalah parafrasa terverifikasi untuk keperluan instruksional,

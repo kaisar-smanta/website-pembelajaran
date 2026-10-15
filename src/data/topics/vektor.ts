@@ -64,7 +64,7 @@ export const vektor: Topic = {
           kind: "prediction",
           prompt: `Sebuah pesawat terbang dengan kecepatan $300$ km/jam menuju timur, sementara angin bertiup $80$ km/jam ke arah utara. Ke manakah arah gerak pesawat sebenarnya, dan berapa besar kecepatannya?
 
-Kedua kecepatan itu bukan sekadar bilangan; masing-masing memiliki **besar dan arah**. Untuk menggabungkannya kita memerlukan alat baru: **vektor**. Bagaimana cara menjumlahkan dua besaran berarah dan menentukan panjang hasilnya?`,
+Kedua kecepatan itu masing-masing membawa **besar dan arah**; bilangan biasa tidak cukup. Untuk menggabungkannya kita memerlukan alat baru: **vektor**. Bagaimana cara menjumlahkan dua besaran berarah dan menentukan panjang hasilnya?`,
           reveal: `Tulis kecepatan pesawat $\\vec{p} = \\begin{pmatrix} 300 \\\\ 0 \\end{pmatrix}$ dan angin $\\vec{w} = \\begin{pmatrix} 0 \\\\ 80 \\end{pmatrix}$. Kecepatan resultan adalah jumlah vektornya
 $$\\vec{r} = \\vec{p} + \\vec{w} = \\begin{pmatrix} 300 \\\\ 80 \\end{pmatrix}.$$
 Panjangnya $\\lVert \\vec{r} \\rVert = \\sqrt{300^{2} + 80^{2}} = \\sqrt{90000 + 6400} = \\sqrt{96400} \\approx 310{,}5$ km/jam. Jadi pesawat bergerak dengan laju sekitar $310{,}5$ km/jam, sedikit menyimpang dari arah timur.`,
@@ -104,7 +104,7 @@ Sebuah vektor juga dapat digambarkan sebagai **ruas garis berarah** dari titik p
 
 $$\\vec{AB} = B - A = \\begin{pmatrix} x_{2} - x_{1} \\\\ y_{2} - y_{1} \\end{pmatrix}.$$
 
-Sebagai contoh, dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. Vektor ini sama dengan vektor apa pun yang komponennya $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$; letaknya di bidang tidak mengubah nilainya.`,
+Misalnya, dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. Vektor ini sama dengan vektor apa pun yang komponennya $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$; letaknya di bidang tidak mengubah nilainya.`,
       blocks: [
         {
           kind: "callout",
@@ -144,7 +144,7 @@ Sebagai contoh, dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix
 
 $$\\lVert \\vec{a} \\rVert = \\sqrt{a_{1}^{2} + a_{2}^{2}}.$$
 
-Sebagai contoh, $\\lVert \\vec{a} \\rVert$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ adalah $\\sqrt{9 + 16} = \\sqrt{25} = 5$, dan untuk $\\vec{b} = \\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$ adalah $\\sqrt{25 + 144} = \\sqrt{169} = 13$.
+Contohnya, $\\lVert \\vec{a} \\rVert$ untuk $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ adalah $\\sqrt{9 + 16} = \\sqrt{25} = 5$, dan untuk $\\vec{b} = \\begin{pmatrix} 5 \\\\ 12 \\end{pmatrix}$ adalah $\\sqrt{25 + 144} = \\sqrt{169} = 13$.
 
 **Vektor satuan** adalah vektor yang panjangnya $1$. Vektor satuan searah $\\vec{a}$ dilambangkan $\\hat{a}$ dan untuk $\\vec{a} \\ne \\vec{0}$ dihitung dengan
 
@@ -172,7 +172,7 @@ $$\\vec{a} + \\vec{b} = \\begin{pmatrix} 4 \\\\ 6 \\end{pmatrix}, \\qquad \\vec{
 
 $$k\\vec{a} = \\begin{pmatrix} k a_{1} \\\\ k a_{2} \\end{pmatrix}.$$
 
-Sebagai contoh, $2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$ dan $3\\vec{a} - 2\\vec{b} = \\begin{pmatrix} 9 \\\\ 12 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 8 \\end{pmatrix}$.
+Misalnya, $2\\vec{a} = \\begin{pmatrix} 6 \\\\ 8 \\end{pmatrix}$ dan $3\\vec{a} - 2\\vec{b} = \\begin{pmatrix} 9 \\\\ 12 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 4 \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 8 \\end{pmatrix}$.
 
 Secara geometris, penjumlahan vektor mengikuti **aturan segitiga** atau **aturan jajargenjang**: tempatkan pangkal $\\vec{b}$ di ujung $\\vec{a}$, maka $\\vec{a} + \\vec{b}$ menghubungkan pangkal $\\vec{a}$ ke ujung $\\vec{b}$.`,
       blocks: [
@@ -206,11 +206,11 @@ Dari kedua bentuk itu, untuk $\\vec{a} \\ne \\vec{0}$ dan $\\vec{b} \\ne \\vec{0
 
 $$\\cos\\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{a} \\rVert \\, \\lVert \\vec{b} \\rVert}.$$
 
-Sebagai contoh, untuk $\\vec{a} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$: $\\vec{a} \\cdot \\vec{b} = 1(3) + 2(1) = 5$, $\\lVert \\vec{a} \\rVert = \\sqrt{5}$, dan $\\lVert \\vec{b} \\rVert = \\sqrt{10}$, sehingga
+Contohnya, untuk $\\vec{a} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}$: $\\vec{a} \\cdot \\vec{b} = 1(3) + 2(1) = 5$, $\\lVert \\vec{a} \\rVert = \\sqrt{5}$, dan $\\lVert \\vec{b} \\rVert = \\sqrt{10}$, sehingga
 
 $$\\cos\\theta = \\frac{5}{\\sqrt{5}\\,\\sqrt{10}} = \\frac{5}{\\sqrt{50}} = \\frac{1}{\\sqrt{2}}, \\qquad \\theta = 45^\\circ.$$
 
-**Akibat penting.** Dua vektor **tegak lurus** jika dan hanya jika $\\vec{a} \\cdot \\vec{b} = 0$, karena $\\cos 90^\\circ = 0$. Sebagai contoh, $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, jadi kedua vektor itu saling tegak lurus.`,
+**Akibat penting.** Dua vektor **tegak lurus** jika dan hanya jika $\\vec{a} \\cdot \\vec{b} = 0$, karena $\\cos 90^\\circ = 0$. Di sini, $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix} \\cdot \\begin{pmatrix} 4 \\\\ -3 \\end{pmatrix} = 12 - 12 = 0$, jadi kedua vektor itu saling tegak lurus.`,
       blocks: [
         {
           kind: "table",
@@ -247,7 +247,7 @@ $$c = \\frac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert}.$$
 
 $$\\vec{p} = \\left(\\frac{\\vec{a} \\cdot \\vec{b}}{\\lVert \\vec{b} \\rVert^{2}}\\right)\\vec{b}.$$
 
-Sebagai contoh, proyeksi $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada $\\vec{b} = \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$: karena $\\vec{a} \\cdot \\vec{b} = 3$ dan $\\lVert \\vec{b} \\rVert^{2} = 1$, maka $c = 3$ dan $\\vec{p} = \\begin{pmatrix} 3 \\\\ 0 \\end{pmatrix}$.
+Ambil proyeksi $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada $\\vec{b} = \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}$: karena $\\vec{a} \\cdot \\vec{b} = 3$ dan $\\lVert \\vec{b} \\rVert^{2} = 1$, maka $c = 3$ dan $\\vec{p} = \\begin{pmatrix} 3 \\\\ 0 \\end{pmatrix}$.
 
 Contoh lain, proyeksi $\\vec{a} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$ pada $\\vec{b} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}$: $\\vec{a} \\cdot \\vec{b} = 11$ dan $\\lVert \\vec{b} \\rVert^{2} = 5$, sehingga $c = \\dfrac{11}{\\sqrt{5}}$ dan
 
@@ -269,7 +269,7 @@ Panjang proyeksi vektor ini adalah $\\lVert \\vec{p} \\rVert = \\dfrac{11}{5}\\s
       title: "Pembuktian Geometris dengan Vektor",
       body: `Vektor memungkinkan pembuktian sifat geometri tanpa gambar yang rumit.
 
-**Kolinearitas (kesejajaran).** Titik-titik $A$, $B$, $C$ **kolinear** jika $\\vec{AB}$ dan $\\vec{AC}$ sejajar, yaitu $\\vec{AC} = k\\,\\vec{AB}$ untuk suatu skalar $k$. Sebagai contoh, $A(1,1)$, $B(3,3)$, $C(5,5)$: $\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$ dan $\\vec{AC} = \\begin{pmatrix} 4 \\\\ 4 \\end{pmatrix} = 2\\,\\vec{AB}$, jadi ketiga titik kolinear.
+**Kolinearitas (kesejajaran).** Titik-titik $A$, $B$, $C$ **kolinear** jika $\\vec{AB}$ dan $\\vec{AC}$ sejajar, yaitu $\\vec{AC} = k\\,\\vec{AB}$ untuk suatu skalar $k$. Contohnya, $A(1,1)$, $B(3,3)$, $C(5,5)$: $\\vec{AB} = \\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$ dan $\\vec{AC} = \\begin{pmatrix} 4 \\\\ 4 \\end{pmatrix} = 2\\,\\vec{AB}$, jadi ketiga titik kolinear.
 
 **Ketegaklurusan.** Dua ruas garis tegak lurus bila vektor arahnya memiliki perkalian titik nol. Pada segitiga $A(0,0)$, $B(3,0)$, $C(0,4)$: $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 0 \\end{pmatrix}$ dan $\\vec{AC} = \\begin{pmatrix} 0 \\\\ 4 \\end{pmatrix}$, sehingga $\\vec{AB} \\cdot \\vec{AC} = 0$. Jadi segitiga siku-siku di $A$.
 
@@ -415,7 +415,7 @@ Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor;
             "Jadi $\\lVert \\vec{a} \\rVert = 3$.",
           ],
           wrongIndex: 1,
-          explanation: "Panjang vektor bukan jumlah komponen, melainkan akar dari jumlah kuadrat komponen. Seharusnya $\\lVert \\vec{a} \\rVert = \\sqrt{1^{2} + 2^{2}} = \\sqrt{5} \\approx 2{,}24$.",
+          explanation: "Panjang vektor dihitung dari akar jumlah kuadrat komponen, bukan dari jumlah komponennya. Seharusnya $\\lVert \\vec{a} \\rVert = \\sqrt{1^{2} + 2^{2}} = \\sqrt{5} \\approx 2{,}24$.",
         },
       ],
     },

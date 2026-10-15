@@ -1,6 +1,6 @@
 ---
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
-import { seededShuffle } from '@/lib/learner';
+import { seededShuffle } from '@/lib/random';
 import { url } from '@/utils/url';
 import type { Block } from '@/types/content';
 import './interactive-frame.css';
@@ -112,6 +112,16 @@ const rightItems = seededShuffle(
     background: var(--color-danger-soft);
     animation: match-shake 300ms var(--ease-out-soft);
   }
+  .match-card.is-matched::after {
+    content: ' ✓';
+    color: var(--color-success);
+    font-weight: 700;
+  }
+  .match-card.is-wrong::after {
+    content: ' ✕';
+    color: var(--color-danger);
+    font-weight: 700;
+  }
   @keyframes match-shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-3px); }
@@ -159,7 +169,9 @@ const rightItems = seededShuffle(
 
     function updateFeedback() {
       if (feedback) {
-        feedback.textContent = `${matched.size} dari ${total} pasangan cocok.`;
+        let text = `${matched.size} dari ${total} pasangan cocok.`;
+        if (matched.size === total) text += ' Selesai! Semua pasangan cocok.';
+        feedback.textContent = text;
       }
       if (matched.size === total && reset) reset.hidden = false;
       if (matched.size === total) {

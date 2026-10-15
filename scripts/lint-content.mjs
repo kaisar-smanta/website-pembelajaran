@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { byExtension, collectFiles } from './lib/files.mjs';
+import { scanEmDashes } from './lib/emdash.mjs';
 
 // Daftar berkas materi yang dipindai: topik, aplikasi, bank soal, eksplorasi,
 // dan capaian pembelajaran. index.ts/planned.ts adalah agregator sehingga
@@ -261,6 +262,17 @@ for (const full of files) {
   }
 }
 
+// Pemindaian em-dash. Em-dash (U+2014) adalah sidik jari prosa mesin dan
+// dilarang di seluruh sumber (lihat scripts/lib/emdash.mjs). Tanda lain tetap
+// boleh: en-dash (U+2013) untuk rentang angka dan hyphen-minus ASCII untuk
+// tanda minus atau placeholder kode.
+const emdashFindings = scanEmDashes(process.cwd());
+for (const { file, line } of emdashFindings) {
+  problems.push(
+    `${file}:${line} memakai em-dash (U+2014) -> ganti dengan koma, titik dua, kurung, atau pisahkan kalimat`,
+  );
+}
+
 // Pemindaian kedua: template .astro untuk pola "spasi hilang sebelum tag inline".
 // Bila sebuah baris berakhir pada kata/tanda baca tanpa spasi lalu baris berikutnya
 // dimulai tag inline (<strong>, <em>, ...), teks dapat menyatu saat dirender.
@@ -306,6 +318,7 @@ for (const full of astroFiles) {
 }
 
 console.log(`Berkas materi diperiksa: ${files.length}`);
+console.log(`Temuan em-dash: ${emdashFindings.length}`);
 console.log(`Berkas .astro diperiksa: ${astroFiles.length}`);
 console.log(`Potensi masalah: ${problems.length}`);
 if (problems.length) console.log(problems.join('\n'));

@@ -59,7 +59,7 @@ export const asosiasiKausalitas: Topic = {
 - Adakah penjelasan lain yang lebih masuk akal?
 
 Sebelum menuduh es krim sebagai penyebab, pikirkan apa yang sama-sama berubah pada musim tertentu.`,
-          reveal: "Penjelasan paling wajar bukanlah sebab-akibat langsung, melainkan **variabel ketiga**: suhu udara. Saat cuaca panas, orang lebih banyak membeli es krim **dan** lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik. Suhu adalah **variabel perancu** yang membuat dua hal tampak berkaitan padahal tidak saling menyebabkan.",
+          reveal: "Penjelasan paling wajar bukan sebab-akibat langsung; yang berperan adalah **variabel ketiga**: suhu udara. Saat cuaca panas, orang lebih banyak membeli es krim **dan** lebih banyak beraktivitas di luar rumah sehingga peluang kejahatan naik. Suhu adalah **variabel perancu** yang membuat dua hal tampak berkaitan padahal tidak saling menyebabkan.",
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
@@ -86,9 +86,9 @@ Kemampuan membedakan keduanya adalah keterampilan berpikir kritis yang sangat be
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Asosiasi vs Kausalitas",
-      body: `**Asosiasi** (korelasi) berarti dua variabel cenderung berubah bersama: ketika $x$ naik, $y$ cenderung naik (asosiasi positif) atau turun (asosiasi negatif). Ini adalah pernyataan **statistik** tentang pola data.
+      body: `**Asosiasi** (korelasi) berarti dua variabel cenderung berubah bersama: ketika $x$ naik, $y$ cenderung naik (asosiasi positif) atau turun (asosiasi negatif). Ini pernyataan **statistik** tentang pola data.
 
-**Kausalitas** berarti perubahan pada satu variabel **menyebabkan** perubahan pada variabel lain. Ini adalah pernyataan tentang **mekanisme**, bukan sekadar pola.
+**Kausalitas** berarti perubahan pada satu variabel **menyebabkan** perubahan pada variabel lain. Ini pernyataan tentang **mekanisme**, bukan pola semata.
 
 Asosiasi adalah **syarat perlu** tetapi **bukan syarat cukup** untuk kausalitas. Artinya:
 
@@ -172,7 +172,7 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
         {
           kind: "callout",
           variant: "tip",
-          text: "Ubah klaim menjadi pertanyaan: \"Apa buktinya bahwa $x$ menyebabkan $y$, dan bukan sekadar keduanya dipengaruhi faktor yang sama?\"",
+          text: "Ubah klaim menjadi pertanyaan: \"Apa buktinya bahwa $x$ menyebabkan $y$, dan bukan karena keduanya dipengaruhi faktor yang sama?\"",
         },
       ],
     },
@@ -218,7 +218,7 @@ Jadi ukuran sepatu tidak menyebabkan kemampuan membaca; usia adalah variabel per
       id: "spurious",
       kind: "konsep",
       title: "Korelasi Semu dan Kausalitas Terbalik",
-      body: `**Korelasi semu** (spurious correlation) adalah asosiasi yang muncul tanpa hubungan kausal, biasanya karena **variabel perancu** atau **kebetulan**. Contoh terkenal: penjualan es krim dan angka kejahatan (perancu: suhu). Contoh yang tampak mengesankan padahal kebetulan: jumlah film yang dibintangi sebuah aktor tahun tertentu dan harga tiket bioskop — keduanya kebetulan naik bersama.
+      body: `**Korelasi semu** (spurious correlation) adalah asosiasi yang muncul tanpa hubungan kausal, biasanya karena **variabel perancu** atau **kebetulan**. Contoh terkenal: penjualan es krim dan angka kejahatan (perancu: suhu). Contoh yang tampak mengesankan padahal kebetulan: jumlah film yang dibintangi sebuah aktor tahun tertentu dan harga tiket bioskop. Keduanya kebetulan naik bersama.
 
 **Kausalitas terbalik** terjadi ketika kita menukar arah sebab-akibat. Misalnya, data menunjukkan "orang yang rutin berolahraga lebih jarang stres". Mungkin benar olahraga mengurangi stres, tetapi bisa juga **stres yang rendah membuat orang lebih mampu berolahraga**. Data korelasi sering tidak dapat menentukan arah ini sendiri.
 
@@ -295,7 +295,7 @@ Hati-hati: rumus-rumus ini hanya mengukur **kekuatan asosiasi**. Rumus itu tidak
               title: "Contoh 3: sarapan dan prestasi belajar",
               text: `Studi observasional menemukan siswa yang sarapan berprestasi lebih baik.
 
-*Analisis.* Siswa yang sarapan mungkin berasal dari keluarga dengan dukungan belajar lebih besar — sebuah **variabel perancu**. Untuk menguji kausalitas, peneliti dapat melakukan **eksperimen acak**: sebagian siswa diberi sarapan, sebagian tidak, dengan pembagian yang ditentukan acak.
+*Analisis.* Siswa yang sarapan mungkin berasal dari keluarga dengan dukungan belajar lebih besar, yaitu sebuah **variabel perancu**. Untuk menguji kausalitas, peneliti dapat melakukan **eksperimen acak**: sebagian siswa diberi sarapan, sebagian tidak, dengan pembagian yang ditentukan acak.
 
 *Kesimpulan.* Bukti observasional saja lemah; bila kelompok yang diberi sarapan meningkat secara signifikan dalam eksperimen, klaim kausal menjadi jauh lebih kuat.`,
             },
@@ -303,7 +303,7 @@ Hati-hati: rumus-rumus ini hanya mengukur **kekuatan asosiasi**. Rumus itu tidak
               title: "Contoh 4: lembur dan produktivitas",
               text: `Data menunjukkan pegawai yang lebih sering lembur melaporkan produktivitas lebih rendah. Ada tiga penjelasan yang mungkin.
 
-*Analisis.* Pertama, lembur menurunkan produktivitas. Kedua, **beban kerja tinggi** menyebabkan keduanya sekaligus. Ketiga, pegawai yang kurang produktif justru harus lembur — inilah **kausalitas terbalik**.
+*Analisis.* Pertama, lembur menurunkan produktivitas. Kedua, **beban kerja tinggi** menyebabkan keduanya sekaligus. Ketiga, pegawai yang kurang produktif justru harus lembur. Inilah **kausalitas terbalik**.
 
 *Kesimpulan.* Arah sebab-akibatnya tidak dapat ditentukan dari korelasi saja; diperlukan data urutan waktu dan pengendalian variabel.`,
             },

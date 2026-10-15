@@ -37,7 +37,7 @@ Titik impas terjadi pada $x = 3$, $x = 4$, dan $x = 5$ lusin. Uji tanda tiap sel
 - $4 < x < 5$: $P(4{,}5) = (1{,}5)(0{,}5)(-0{,}5) = -0{,}375 < 0$ (rugi);
 - $x > 5$: $P(6) = 6 > 0$ (untung).
 
-Teorema sisa memberi nilai laba tanpa pembagian penuh: $P(6) = 6$, yaitu sekitar Rp600.000. Perhatikan bahwa memproduksi $6$ lusin menguntungkan, sedangkan $4{,}5$ lusin justru merugi — pola laba bergelombang, bukan sekadar makin banyak makin untung. Daerah produksi yang menguntungkan adalah $3 \\le x \\le 4$ atau $x \\ge 5$.`,
+Teorema sisa memberi nilai laba tanpa pembagian penuh: $P(6) = 6$, yaitu sekitar Rp600.000. Memproduksi $6$ lusin menguntungkan, sedangkan $4{,}5$ lusin justru merugi. Pola laba bergelombang; makin banyak belum tentu makin untung. Daerah produksi yang menguntungkan adalah $3 \\le x \\le 4$ atau $x \\ge 5$.`,
     takeaways: [
       'Teorema faktor mengubah pencarian akar polinomial menjadi pengujian nilai di kandidat faktor suku tetap.',
       'Titik impas adalah akar-akar $P(x)=0$; uji tanda antar akar memisahkan daerah untung dan rugi.',
@@ -167,7 +167,7 @@ Perhitungan ini memanfaatkan identitas sudut berpelurus dan nilai sudut istimewa
       'Identitas $\\cos(180^\\circ-\\theta) = -\\cos\\theta$ menyederhanakan sudut apit tumpul.',
     ],
     reflection: [
-      'Mengapa sudut dalam segitiga bukan $60^\\circ$ melainkan $120^\\circ$?',
+      'Mengapa sudut dalam segitiga $120^\\circ$, bukan $60^\\circ$?',
       'Kapan aturan sinus lebih praktis daripada menguraikan vektor atas komponen?',
       'Bagaimana arah resultan berubah bila haluan kedua diperbesar?',
     ],
@@ -271,7 +271,7 @@ Perhatikan juga peluang merugi: hasil terendah adalah $X = 0$ dengan peluang $0{
 $$C(t) = 8 - \\frac{16}{t+2},\\qquad t \\ge 0.$$
 Dokter ingin mengetahui kadar yang bertahan dalam jangka panjang, serta seberapa cepat kadar berubah saat memasuki jam ke-$2$.
 
-Kadar awal $C(0) = 0$ karena obat belum terserap, lalu naik dan makin melambat. Pertanyaan "berapa kadar jangka panjangnya?" sebenarnya menanyakan nilai yang **didekati** $C(t)$ ketika $t$ membesar tanpa batas — tepatnya sebuah limit di tak hingga. Sementara pertanyaan laju perubahan pada satu saat menuntut limit bentuk $\\tfrac{0}{0}$ yang dihitung lewat pemfaktoran.`,
+Kadar awal $C(0) = 0$ karena obat belum terserap, lalu naik dan makin melambat. Pertanyaan "berapa kadar jangka panjangnya?" sebenarnya menanyakan nilai yang **didekati** $C(t)$ ketika $t$ membesar tanpa batas, tepatnya sebuah limit di tak hingga. Sementara pertanyaan laju perubahan pada satu saat menuntut limit bentuk $\\tfrac{0}{0}$ yang dihitung lewat pemfaktoran.`,
     analysis: `**Kadar jangka panjang.** Bagi pembilang dan penyebut suku pecahan dengan $t$:
 $$\\lim_{t \\to \\infty}\\left(8 - \\frac{16}{t+2}\\right) = 8 - 0 = 8\\ \\text{mg/L}.$$
 Suku $\\dfrac{16}{t+2}$ menuju nol, sehingga kadar obat mendatar menuju $8$ mg/L. Nilai ini adalah kadar stabil (steady state) yang menjadi acuan dosis berikutnya.
@@ -361,7 +361,7 @@ Karena menyebar normal secara kasar, menemukan $4$ cacat (jauh di atas rata-rata
     topicIds: ['irisan-kerucut'],
     body: `Batas jangkauan sebuah pemancar berbentuk lingkaran dan melewati tiga titik pengukur: $A(0,0)$, $B(8,0)$, dan $C(0,6)$ (satuan kilometer pada denah). Tentukan persamaan lingkaran jangkauan, lalu tentukan persamaan jalan lurus yang menyinggung batas itu di titik $B$.
 
-Tiga titik yang tidak segaris menentukan satu lingkaran. Karena $A$, $B$, dan $C$ membentuk sudut siku-siku di $A$, lingkaran itu berpusat di titik tengah sisi miring $BC$ — petunjuk yang mempercepat penentuan pusat dan jari-jari sebelum menulis persamaannya.`,
+Tiga titik yang tidak segaris menentukan satu lingkaran. Karena $A$, $B$, dan $C$ membentuk sudut siku-siku di $A$, lingkaran itu berpusat di titik tengah sisi miring $BC$, petunjuk yang mempercepat penentuan pusat dan jari-jari sebelum menulis persamaannya.`,
     analysis: `Karena sudut $A$ siku-siku, $BC$ adalah diameter lingkaran (sudut keliling $90^\\circ$ menghadap diameter). Maka pusatnya titik tengah $BC$:
 $$O\\left(\\frac{0+8}{2},\\ \\frac{6+0}{2}\\right) = (4, 3),$$
 dan jari-jarinya setengah $BC$:
@@ -402,7 +402,7 @@ Sebagai pemeriksaan, $B$ memenuhi $4(8) - 3(0) = 32$. Sebuah titik $(x,y)$ berad
     topicIds: ['integral'],
     body: `Sebuah kanopi kain diberi rangka lengkung yang mengikuti parabola $y = 4 - x^{2}$ (meter) dan ditopang palang lurus $y = 1$. Berapa luas kain yang diperlukan untuk menutup daerah di antara lengkung dan palang itu?
 
-Luas kain tidak dapat dicari dengan rumus bangun datar sederhana karena salah satu batasnya melengkung. Integral tentu memecah daerah menjadi potongan tipis tegak, lalu mengakumulasi luas tiap potongan — persis gagasan jumlah Riemann yang menjadi dasar integral.`,
+Luas kain tidak dapat dicari dengan rumus bangun datar sederhana karena salah satu batasnya melengkung. Integral tentu memecah daerah menjadi potongan tipis tegak, lalu mengakumulasi luas tiap potongan, persis gagasan jumlah Riemann yang menjadi dasar integral.`,
     analysis: `Cari titik potong kedua kurva:
 $$4 - x^{2} = 1 \\quad\\Longrightarrow\\quad x^{2} = 3 \\quad\\Longrightarrow\\quad x = \\pm\\sqrt{3}.$$
 Pada selang $[-\\sqrt{3}, \\sqrt{3}]$, lengkung $y = 4-x^{2}$ berada di atas garis $y = 1$ karena $4-x^{2} - 1 = 3 - x^{2} \\ge 0$. Luas daerah:
@@ -534,7 +534,7 @@ Berapa peluang satu botol memenuhi spesifikasi, dan berapa peluang isinya kurang
 $$z_1 = \\frac{496-500}{4} = -1, \\qquad z_2 = \\frac{504-500}{4} = 1.$$
 Maka
 $$P(496 \\le X \\le 504) = P(-1 \\le z \\le 1) \\approx 0{,}6827.$$
-Sekitar $68{,}3\\%$ botol memenuhi spesifikasi — artinya hampir sepertiga berada di luar selang $\\pm\\sigma$.
+Sekitar $68{,}3\\%$ botol memenuhi spesifikasi. Artinya hampir sepertiga berada di luar selang $\\pm\\sigma$.
 
 **Isi kurang dari $492$ mL.** Skor bakunya
 $$z = \\frac{492-500}{4} = -2,$$
@@ -590,7 +590,7 @@ $$BC = \\frac{AB \\cdot \\sin 65^\\circ}{\\sin 45^\\circ} = \\frac{120 \\times 0
 
 Jadi menara berjarak sekitar $159{,}5$ m dari $A$ dan $153{,}8$ m dari $B$. Karena menara paling dekat ke $B$, arah dari $B$ memang membentuk sudut yang lebih besar.
 
-Sebagai pemeriksaan, aturan kosinus pada segitiga yang sama, $AC^2 = 120^2 + 153{,}8^2 - 2(120)(153{,}8)\\cos 70^\\circ$, memberi $AC \\approx 159{,}5$ m — konsisten dengan hasil aturan sinus.`,
+Sebagai pemeriksaan, aturan kosinus pada segitiga yang sama, $AC^2 = 120^2 + 153{,}8^2 - 2(120)(153{,}8)\\cos 70^\\circ$, memberi $AC \\approx 159{,}5$ m, konsisten dengan hasil aturan sinus.`,
     takeaways: [
       'Aturan sinus menyelesaikan segitiga bila diketahui dua sudut dan satu sisi.',
       'Sudut ketiga diperoleh dari jumlah sudut segitiga, lalu sisi dicari lewat perbandingan sinus.',

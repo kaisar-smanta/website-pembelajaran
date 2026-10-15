@@ -14,6 +14,25 @@ import { absoluteUrl } from '@/utils/url';
 
 export const prerender = true;
 
+/**
+ * Tanggal build (YYYY-MM-DD) sebagai penanda kesegaran berkas statis. Data
+ * topik maupun studi kasus tidak menyimpan tanggal per item, sehingga seluruh
+ * entri memakai tanggal build yang sama.
+ */
+function buildDate(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/** Meng-escape teks agar aman sebagai isi elemen XML. */
+function escapeXml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 export const GET: APIRoute = () => {
   const paths = new Set<string>();
 
@@ -47,8 +66,12 @@ export const GET: APIRoute = () => {
     paths.add(`eksplorasi/${e.id}`);
   }
 
+  const lastmod = buildDate();
   const urls = Array.from(paths)
-    .map((p) => `  <url><loc>${absoluteUrl(`${p}/`)}</loc></url>`)
+    .map((p) => {
+      const loc = escapeXml(absoluteUrl(`${p}/`));
+      return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`;
+    })
     .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;

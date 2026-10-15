@@ -326,15 +326,15 @@ Hasil ini konsisten dengan segitiga $3$-$4$-$5$.`,
 Sisi depan $=10\\sin 30^\\circ=10\\cdot\\dfrac{1}{2}=5$ cm. Sisi samping $=10\\cos 30^\\circ=10\\cdot\\dfrac{\\sqrt{3}}{2}=5\\sqrt{3}\\approx 8{,}66$ cm. Periksa: $5^{2}+(5\\sqrt{3})^{2}=25+75=100=10^{2}$.`,
             },
             {
-              title: "Contoh 2: Sudut elevasi — kenali sisi",
+              title: "Contoh 2: kenali sisi sudut elevasi",
               text: "Pada jarak $40$ m dari kaki menara, sudut elevasi ke puncak adalah $30^\\circ$. Sudut itu menghadap tinggi menara $h$ (sisi depan) dan berdekatan dengan jarak $40$ m (sisi samping).",
             },
             {
-              title: "Contoh 2 — pilih perbandingan",
+              title: "Contoh 2: pilih perbandingan",
               text: "Karena memakai sisi depan dan sisi samping, gunakan tangen: $\\tan 30^\\circ=\\dfrac{h}{40}$.",
             },
             {
-              title: "Contoh 2 — hitung dan tafsirkan",
+              title: "Contoh 2: hitung dan tafsirkan",
               text: "$h=40\\tan 30^\\circ=40\\cdot\\dfrac{\\sqrt{3}}{3}=\\dfrac{40\\sqrt{3}}{3}\\approx 23{,}09$. Jadi tinggi menara sekitar $23{,}09$ m.",
             },
             {

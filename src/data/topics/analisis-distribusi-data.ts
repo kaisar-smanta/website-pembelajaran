@@ -82,7 +82,7 @@ Apakah kedua kelas benar-benar "sama baik"? Angka apa yang dapat membedakan kedu
       id: "konteks",
       kind: "konteks",
       title: "Situasi dan Konteks",
-      body: "Laporan survei, nilai rapor, dan data cuaca sering diringkas menjadi beberapa angka. Namun ringkasan yang baik harus menjawab **dua pertanyaan sekaligus**: *di mana pusat datanya* dan *seberapa menyebar datanya*. Nilai ulangan yang rata-ratanya tinggi tetapi sebarannya sangat lebar menandakan pemahaman siswa tidak merata — informasi yang penting bagi guru.",
+      body: "Laporan survei, nilai rapor, dan data cuaca sering diringkas menjadi beberapa angka. Namun ringkasan yang baik harus menjawab **dua pertanyaan sekaligus**: *di mana pusat datanya* dan *seberapa menyebar datanya*. Nilai ulangan yang rata-ratanya tinggi tetapi sebarannya sangat lebar menandakan pemahaman siswa tidak merata, yaitu informasi yang penting bagi guru.",
     },
     {
       id: "konsep",
@@ -232,7 +232,7 @@ $Q_1=4$ (median dari $2,3,4,4,6$) dan $Q_3=7$ (median dari $6,6,7,9,13$), sehing
 
 Data di luar rentang ini dianggap pencilan. Untuk data di atas, IQR $=3$, sehingga batas bawah $=4-4{,}5=-0{,}5$ dan batas atas $=7+4{,}5=11{,}5$. Karena $13>11{,}5$, nilai $13$ adalah **pencilan**.
 
-Pencilan tidak otomatis dibuang — ia bisa menandakan kesalahan pengukuran **atau** kejadian penting yang nyata.`,
+Pencilan tidak otomatis dibuang. Ia bisa menandakan kesalahan pengukuran **atau** kejadian penting yang nyata.`,
       blocks: [
         {
           kind: "callout",

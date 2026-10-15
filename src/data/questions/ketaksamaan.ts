@@ -181,7 +181,7 @@ export const ketaksamaanQuestions: Question[] = [
     prompt:
       'Buktikan bahwa untuk setiap bilangan real $a$ dan $b$ berlaku $a^2 + b^2 \\ge 2ab$. Jelaskan mengapa kesamaan hanya terjadi saat $a = b$.',
     answer:
-      'Perhatikan bahwa $(a-b)^2 \\ge 0$ untuk semua bilangan real, karena kuadrat selalu tak negatif. Jabarkan: $a^2 - 2ab + b^2 \\ge 0$, sehingga $a^2 + b^2 \\ge 2ab$. Kesamaan terjadi tepat ketika $(a-b)^2 = 0$, yaitu $a - b = 0$ atau $a = b$.',
+      '$(a-b)^2 \\ge 0$ untuk semua bilangan real, karena kuadrat selalu tak negatif. Jabarkan: $a^2 - 2ab + b^2 \\ge 0$, sehingga $a^2 + b^2 \\ge 2ab$. Kesamaan terjadi tepat ketika $(a-b)^2 = 0$, yaitu $a - b = 0$ atau $a = b$.',
     explanation:
       'Kunci jawaban: memulai dari kuadrat tak negatif $(a-b)^2 \\ge 0$, menjabarkannya, dan menafsirkan syarat kesamaan.',
     hints: ['Mulai dari $(a-b)^2 \\ge 0$.', 'Kapan suatu kuadrat bernilai nol?'],

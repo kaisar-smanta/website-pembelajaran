@@ -32,7 +32,7 @@ const structuredDataNodes: Array<Record<string, unknown>> = structuredData
   : [];
 
 const siteName = identity.name;
-const fullTitle = title.includes(siteName) ? title : `${title} — ${siteName}`;
+const fullTitle = title.includes(siteName) ? title : `${title} · ${siteName}`;
 const site = Astro.site ?? new URL('https://example.github.io');
 const canonical = new URL(Astro.url.pathname, site).href;
 const basePath = BASE;
@@ -122,7 +122,7 @@ const jsonLd = {
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/svg+xml" href={`${basePath}favicon.svg`} />
     <link rel="manifest" href={`${basePath}manifest.webmanifest`} />
-    <link rel="apple-touch-icon" href={`${basePath}logo-sman1-tanjung.jpg`} />
+    <link rel="apple-touch-icon" href={`${basePath}apple-touch-icon.png`} />
     <meta name="theme-color" content="#2f4fd8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d1526" media="(prefers-color-scheme: dark)" />
 
@@ -133,7 +133,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Matematika SMA — Paham konsep, bukan sekadar hafal rumus" />
+    <meta property="og:image:alt" content="Matematika SMA · Paham konsep, bukan sekadar hafal rumus" />
     <meta property="og:image:type" content={ogImageType} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -141,7 +141,7 @@ const jsonLd = {
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="Matematika SMA — Paham konsep, bukan sekadar hafal rumus" />
+    <meta name="twitter:image:alt" content="Matematika SMA · Paham konsep, bukan sekadar hafal rumus" />
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
 

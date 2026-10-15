@@ -20,6 +20,7 @@
     "check:bundle": "node scripts/check-client-bundle.mjs",
     "screenshot": "node scripts/screenshot.mjs",
     "og": "node scripts/og-image.mjs",
+    "pwa-icons": "node scripts/pwa-icons.mjs",
     "audit": "node scripts/audit.mjs",
     "verify": "npm run check && npm run lint:content && npm run build && npm run check:bundle && npm run check:latex && npm run test && npm run test:links"
   },

@@ -67,7 +67,7 @@ Hitung dulu dengan menuliskan seluruh kemungkinan jenis kelamin dua anak secara 
             "$\\tfrac14$",
             "$\\tfrac23$",
           ],
-          reveal: "Ruang sampel: $\\{LL, LP, PL, PP\\}$. Informasi \"paling sedikit satu laki-laki\" menyisakan $\\{LL, LP, PL\\}$ — tiga hasil sama mungkin. Dari ketiganya, hanya $LL$ yang memenuhi \"keduanya laki-laki\", sehingga peluangnya $\\tfrac13$, bukan $\\tfrac12$. Inilah inti **peluang bersyarat**: ruang sampel dipersempit oleh informasi yang sudah diketahui.",
+          reveal: "Ruang sampel: $\\{LL, LP, PL, PP\\}$. Informasi \"paling sedikit satu laki-laki\" menyisakan $\\{LL, LP, PL\\}$, yaitu tiga hasil sama mungkin. Dari ketiganya, hanya $LL$ yang memenuhi \"keduanya laki-laki\", sehingga peluangnya $\\tfrac13$, bukan $\\tfrac12$. Inilah inti **peluang bersyarat**: ruang sampel dipersempit oleh informasi yang sudah diketahui.",
           saveLabel: "Simpan dugaan",
         },
       ],
@@ -200,7 +200,7 @@ sedangkan
 
 $$P(F \\mid M) = \\frac{n(F \\cap M)}{n(M)} = \\frac{40}{60} = \\frac23 \\approx 0{,}667.$$
 
-Perhatikan bahwa $P(M \\mid F) \\neq P(F \\mid M)$ — peluang bersyarat bergantung pada **kondisi mana yang diketahui**.`,
+Tampak bahwa $P(M \\mid F) \\neq P(F \\mid M)$: peluang bersyarat bergantung pada **kondisi mana yang diketahui**.`,
       blocks: [
         {
           kind: "callout",
@@ -430,7 +430,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: `Jangan berpikir dalam satuan **kartu**, melainkan dalam satuan **muka (sisi)** kartu. Kedua sisi tiap kartu sama mungkin muncul di atas.`,
+          text: `Jangan berpikir dalam satuan **kartu**; berpikirlah dalam satuan **muka (sisi)** kartu. Kedua sisi tiap kartu sama mungkin muncul di atas.`,
         },
         {
           kind: "step-reveal",

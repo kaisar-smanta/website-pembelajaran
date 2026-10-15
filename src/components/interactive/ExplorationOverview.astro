@@ -109,6 +109,10 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
         autocomplete="off"
       />
     </div>
+
+    <div class="ex-filter-reset">
+      <button type="button" class="btn btn-secondary btn-sm" data-ex-reset>Atur ulang</button>
+    </div>
   </div>
 
   <p class="ex-result" data-ex-result aria-live="polite">Menampilkan {totalCount} eksplorasi</p>
@@ -177,7 +181,7 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
       try {
         root.classList.add('js-ready');
 
-        setupFilterPage({
+        const page = setupFilterPage({
           groups: chipGroups.map((group) => ({
             key: group.getAttribute('data-ex-chips') ?? '',
             group,
@@ -187,6 +191,8 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
             allValue: 'all',
           })),
           searchInput,
+          queryKey: 'q',
+          syncUrl: true,
           apply: (values, query) => {
             const q = normalizeText(query);
             const visibleByGrade: Record<string, number> = {};
@@ -230,6 +236,10 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
             if (result) result.textContent = `Menampilkan ${count} eksplorasi`;
           },
         });
+
+        root
+          .querySelector<HTMLButtonElement>('[data-ex-reset]')
+          ?.addEventListener('click', () => page.reset());
       } catch {
         root.classList.remove('js-ready');
       }
@@ -280,7 +290,7 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.45rem 0.95rem;
     font: inherit;
     font-size: 0.9rem;
@@ -316,7 +326,7 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     min-width: 1.4rem;
     height: 1.4rem;
     padding-inline: 0.35rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 700;
     background: var(--color-surface-2);
@@ -332,13 +342,17 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     min-width: 0;
     max-width: 22rem;
   }
+  .ex-filter-reset {
+    display: flex;
+    justify-content: flex-start;
+  }
   .ex-search-input {
     width: 100%;
     appearance: none;
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.5rem 1rem;
     font: inherit;
     font-size: 0.92rem;

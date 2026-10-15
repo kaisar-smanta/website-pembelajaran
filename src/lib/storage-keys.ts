@@ -33,3 +33,20 @@ export const STORAGE_KEYS = {
 } as const;
 
 export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS];
+
+/**
+ * Seluruh kunci milik fitur pembelajaran (progres, latihan, kuis, catatan).
+ * Dipakai untuk operasi menyeluruh seperti "hapus semua kemajuan".
+ * Sengaja tidak memuat `theme` agar preferensi terang/gelap tetap tersimpan.
+ */
+export const LEARNER_KEYS = [
+  STORAGE_KEYS.progress,
+  STORAGE_KEYS.predictions,
+  STORAGE_KEYS.reflections,
+  STORAGE_KEYS.rubric,
+  STORAGE_KEYS.completions,
+  STORAGE_KEYS.drafts,
+  STORAGE_KEYS.sessionSeed,
+  STORAGE_KEYS.quizStreak,
+  STORAGE_KEYS.meta,
+] as const;

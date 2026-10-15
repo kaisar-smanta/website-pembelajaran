@@ -230,6 +230,133 @@ const AUDIT_EXPR = `(() => {
   }
   if (taps.length) add({ type: 'small-tap-target', severity: 'low', items: taps.slice(0, 20) });
 
+  // Struktur aksesibilitas: jumlah h1, lompatan tingkat heading, alt gambar,
+  // nama kontrol formulir, landmark, dan tautan/tombol kosong. Halaman
+  // pengalihan lama (meta-refresh) atau yang ditandai noindex dilewati agar
+  // tidak memunculkan temuan palsu dari stub rute.
+  var skipStructural = false;
+  var metaTags = document.querySelectorAll('meta');
+  for (var mt = 0; mt < metaTags.length; mt++) {
+    var mName = (metaTags[mt].getAttribute('name') || '').toLowerCase();
+    var mEquiv = (metaTags[mt].getAttribute('http-equiv') || '').toLowerCase();
+    var mContent = (metaTags[mt].getAttribute('content') || '').toLowerCase();
+    if (mEquiv === 'refresh' || (mName === 'robots' && mContent.indexOf('noindex') >= 0)) skipStructural = true;
+  }
+
+  if (!skipStructural) {
+    // Nama dari aria-labelledby, label[for], atau <label> pembungkus.
+    function labelFor(el) {
+      var ids = (el.getAttribute('aria-labelledby') || '').split(/\\s+/);
+      var parts = [];
+      for (var li2 = 0; li2 < ids.length; li2++) {
+        if (!ids[li2]) continue;
+        var ref = document.getElementById(ids[li2]);
+        if (ref) parts.push((ref.textContent || '').trim());
+      }
+      var joined = parts.join(' ').trim();
+      if (joined) return joined;
+      if (el.id) {
+        var own = document.querySelector('label[for="' + CSS.escape(el.id) + '"]');
+        if (own && (own.textContent || '').trim()) return (own.textContent || '').trim();
+      }
+      var wrapped = el.closest('label');
+      if (wrapped && (wrapped.textContent || '').trim()) return (wrapped.textContent || '').trim();
+      return '';
+    }
+    function controlName(el) {
+      var al = el.getAttribute('aria-label');
+      if (al && al.trim()) return al.trim();
+      var lf = labelFor(el);
+      if (lf) return lf;
+      var tag = el.tagName.toLowerCase();
+      var type = (el.getAttribute('type') || '').toLowerCase();
+      if (tag === 'input' && type === 'image') return (el.getAttribute('alt') || '').trim();
+      if (tag === 'input' && (type === 'submit' || type === 'reset' || type === 'button')) {
+        return (el.getAttribute('value') || '').trim();
+      }
+      return '';
+    }
+    function linkName(el) {
+      var al = el.getAttribute('aria-label');
+      if (al && al.trim()) return al.trim();
+      var lf = labelFor(el);
+      if (lf) return lf;
+      var title = el.getAttribute('title');
+      if (title && title.trim()) return title.trim();
+      var inner = el.querySelector('img[alt]');
+      if (inner && (inner.getAttribute('alt') || '').trim()) return (inner.getAttribute('alt') || '').trim();
+      return (el.textContent || '').replace(/\\s+/g, ' ').trim();
+    }
+    function a11yHidden(el) { return !!(el.closest && el.closest('[aria-hidden="true"]')); }
+
+    // 1. Tepat satu <h1> per halaman.
+    var h1s = document.querySelectorAll('h1');
+    if (h1s.length !== 1) {
+      add({ type: 'heading-single-h1', severity: 'high', count: h1s.length, items: Array.prototype.map.call(h1s, function (h) { return desc(h); }) });
+    }
+
+    // 2. Tanpa lompatan tingkat heading di dalam konten utama.
+    var mainScope = document.querySelector('main') || document.querySelector('[role="main"]') || document.body;
+    var heads = mainScope.querySelectorAll('h1,h2,h3,h4,h5,h6');
+    var skips = [];
+    var prevLevel = 0;
+    for (var hd = 0; hd < heads.length; hd++) {
+      var level = parseInt(heads[hd].tagName.charAt(1), 10);
+      if (prevLevel && level > prevLevel + 1) {
+        skips.push({ el: desc(heads[hd]), from: 'h' + prevLevel, to: 'h' + level, text: (heads[hd].textContent || '').trim().slice(0, 40) });
+      }
+      prevLevel = level;
+    }
+    if (skips.length) add({ type: 'heading-level-skip', severity: 'medium', items: skips });
+
+    // 3. Gambar punya alt non-kosong, atau dekoratif (alt="" + aria-hidden).
+    var imgsNoAlt = [];
+    for (var ig = 0; ig < document.images.length; ig++) {
+      var im = document.images[ig];
+      var altAttr = im.getAttribute('alt');
+      var hasAlt = altAttr !== null && altAttr.trim() !== '';
+      var deco = altAttr === '' &&
+        (im.getAttribute('aria-hidden') === 'true' || (im.closest && im.closest('[aria-hidden="true"]')));
+      if (!hasAlt && !deco) imgsNoAlt.push({ el: desc(im), src: (im.currentSrc || im.src || '').slice(-80) });
+    }
+    if (imgsNoAlt.length) add({ type: 'img-missing-alt', severity: 'high', items: imgsNoAlt.slice(0, 12) });
+
+    // 4. Kontrol formulir punya nama aksesibel.
+    var controls = document.querySelectorAll('input:not([type="hidden"]), select, textarea');
+    var unnamed = [];
+    for (var ct = 0; ct < controls.length; ct++) {
+      var ctrl = controls[ct];
+      if (a11yHidden(ctrl)) continue;
+      var cst = getComputedStyle(ctrl);
+      if (cst.display === 'none' || cst.visibility === 'hidden') continue;
+      if (!controlName(ctrl)) {
+        unnamed.push({ el: desc(ctrl), type: (ctrl.getAttribute('type') || ctrl.tagName.toLowerCase()) });
+      }
+    }
+    if (unnamed.length) add({ type: 'control-missing-name', severity: 'high', items: unnamed.slice(0, 12) });
+
+    // 5. Landmark header/main/footer ada; main punya id atau role.
+    var missingLandmarks = [];
+    if (!document.querySelector('header')) missingLandmarks.push('header');
+    if (!document.querySelector('footer')) missingLandmarks.push('footer');
+    var mainEl = document.querySelector('main') || document.querySelector('[role="main"]');
+    if (!mainEl) missingLandmarks.push('main');
+    if (missingLandmarks.length) add({ type: 'landmark-missing', severity: 'high', items: missingLandmarks });
+    if (mainEl && !mainEl.id && !mainEl.getAttribute('role')) add({ type: 'main-no-id-role', severity: 'medium', el: desc(mainEl) });
+
+    // 6. Tautan/tombol tanpa teks maupun nama aksesibel.
+    var empties = [];
+    var clickables = document.querySelectorAll('a[href], button');
+    for (var cl = 0; cl < clickables.length; cl++) {
+      var link = clickables[cl];
+      if (a11yHidden(link)) continue;
+      var lst = getComputedStyle(link);
+      if (lst.display === 'none' || lst.visibility === 'hidden') continue;
+      if (!linkName(link)) empties.push({ el: desc(link) });
+    }
+    if (empties.length) add({ type: 'empty-link-button', severity: 'medium', items: empties.slice(0, 12) });
+  }
+
   return { viewport: { w: vw, h: vh }, doc: { scrollW: de.scrollWidth, scrollH: de.scrollHeight }, issues: issues };
 })()`;
 
@@ -412,6 +539,17 @@ function explorationDetailJobs() {
     });
 }
 
+// Temuan struktur aksesibilitas dari AUDIT_EXPR yang memengaruhi kode keluar.
+const STRUCTURAL_TYPES = new Set([
+  'heading-single-h1',
+  'heading-level-skip',
+  'img-missing-alt',
+  'control-missing-name',
+  'landmark-missing',
+  'main-no-id-role',
+  'empty-link-button',
+]);
+
 let handle;
 async function main() {
   if (!fs.existsSync(path.join(DIST, 'index.html'))) {
@@ -429,7 +567,8 @@ async function main() {
   }
   const { server, port } = await startServer(DIST, BASE);
   handle = await launchBrowser(browser);
-  const report = { generatedAt: new Date().toISOString(), base: BASE, pages: [] };
+  const report = { generatedAt: new Date().toISOString(), base: BASE, structuralFailures: 0, pages: [] };
+  let structuralFailures = 0;
 
   try {
     for (const job of jobs) {
@@ -458,12 +597,15 @@ async function main() {
         const v2 = res2.result?.value ?? {};
         issues = issues.concat(v2.issues ?? []);
       }
+      const structural = issues.filter((issue) => STRUCTURAL_TYPES.has(issue.type));
+      structuralFailures += structural.length;
       const entry = {
         name: job.name,
         path: job.path,
         viewport: { width: job.width, dark: !!job.dark, mobile: !!job.mobile },
         doc: value.doc,
         console: page.messages,
+        structural: structural.length,
         issues,
       };
       report.pages.push(entry);
@@ -477,8 +619,13 @@ async function main() {
     server.close();
   }
 
+  report.structuralFailures = structuralFailures;
   fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(report, null, 2));
   console.log(`\nLaporan lengkap: artifacts/audit/report.json`);
+  if (structuralFailures) {
+    console.error(`\nKode keluar 1: ${structuralFailures} temuan struktur aksesibilitas.`);
+  }
+  return structuralFailures;
 }
 
 function printEntry(entry) {
@@ -486,7 +633,7 @@ function printEntry(entry) {
   const tag = `${vp.width}px${vp.mobile ? ' mobile' : ''}${vp.dark ? ' gelap' : ''}`;
   const consoleIssues = entry.console.filter((m) => m.level === 'error');
   const total = entry.issues.length + consoleIssues.length;
-  console.log(`\n=== ${entry.name} (${tag}) — ${total} temuan ===`);
+  console.log(`\n=== ${entry.name} (${tag}): ${total} temuan ===`);
   for (const issue of entry.issues) {
     if (issue.detail) console.log(`  [${issue.severity}] ${issue.type}: ${issue.detail}`);
     else if (issue.count !== undefined) {
@@ -501,7 +648,7 @@ function printEntry(entry) {
 }
 
 main()
-  .then(() => process.exit(0))
+  .then((structuralFailures) => process.exit(structuralFailures ? 1 : 0))
   .catch((err) => {
     console.error(err);
     if (handle) killBrowser(handle.proc, handle.userDataDir);

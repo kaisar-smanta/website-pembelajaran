@@ -237,13 +237,13 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
                     data-practice-group
                     aria-labelledby={`elemen-${subjectGroup.subject}-${group.grade}-${elementGroup.element}`}
                   >
-                    <h5
+                    <h4
                       class:list={['element-title', `accent-${elementGroup.element}`]}
                       id={`elemen-${subjectGroup.subject}-${group.grade}-${elementGroup.element}`}
                     >
                       <span class="element-dot" aria-hidden="true"></span>
                       {elementGroup.label}
-                    </h5>
+                    </h4>
                     <div class="grid grid-3">
                       {elementGroup.topics.map((topic) => (
                         <PracticeCard
@@ -365,7 +365,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     color: var(--color-text);
     padding: 0.35rem 0.8rem;
     border: 1px solid var(--color-border-strong);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-surface);
     cursor: pointer;
     transition:
@@ -395,7 +395,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     width: 100%;
     appearance: none;
     border: 1px solid var(--color-border-strong);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-bg);
     color: var(--color-text);
     padding: 0.45rem 1rem;

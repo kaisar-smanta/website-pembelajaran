@@ -67,7 +67,7 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`${gradeMeta.name} — ${subjectMeta.name}`}
+  title={`${gradeMeta.name} · ${subjectMeta.name}`}
   description={`Materi ${subjectMeta.name} ${gradeMeta.name} (${gradeMeta.label}) menurut elemen ${elementOrderFor(subject).map((e) => ELEMENTS[e].name.toLowerCase()).join(', ')}.`}
 >
   <PageHeader
@@ -168,6 +168,8 @@ const crumbs = [
             )
           }
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
+          <a class="btn btn-secondary" href={url('/kemajuan')}>Kemajuan belajar</a>
+          <a class="btn btn-secondary" href={url('/review')}>Tinjauan berkala</a>
         </div>
       </div>
     </section>
@@ -200,7 +202,7 @@ const crumbs = [
     gap: 0.4rem;
     margin: -0.5rem 0 1.25rem;
     padding: 0.28rem 0.7rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid
       color-mix(in srgb, var(--accent, var(--color-primary)) 24%, var(--color-border));
     background: color-mix(in srgb, var(--accent, var(--color-primary)) 8%, var(--color-surface));

@@ -213,6 +213,13 @@ const elementSubjects = SUBJECT_ORDER.map((subject) => ({
   .entry-chip.is-active:hover {
     color: var(--color-on-primary);
   }
+  /* Sasaran sentuh chip pintu masuk pada perangkat penunjuk kasar. */
+  @media (pointer: coarse) {
+    .entry-chip {
+      min-height: 2.75rem;
+      padding-block: 0.55rem;
+    }
+  }
   .entry-doors.js-ready .entry-panel.is-hidden {
     display: none;
   }
@@ -321,7 +328,7 @@ const elementSubjects = SUBJECT_ORDER.map((subject) => ({
   .entry-door--element .icon-tile {
     width: 2.4rem;
     height: 2.4rem;
-    border-radius: 10px;
+    border-radius: var(--radius);
   }
   .entry-door--element h3 {
     font-size: 1rem;

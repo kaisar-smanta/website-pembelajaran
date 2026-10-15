@@ -3,7 +3,7 @@ import type { Question } from '@/types/content';
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import { getTopic, topicSubject } from '@/data/topics';
 import { topicUrl } from '@/utils/url';
-import { seededShuffle } from '@/lib/learner';
+import { seededShuffle } from '@/lib/random';
 import Figure from '@/components/content/Figure.astro';
 import DataTable from '@/components/content/DataTable.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
@@ -160,7 +160,7 @@ const competencies = question.competencies ?? [];
     <span class="q-feedback-mascot" data-mascot-no aria-hidden="true" hidden>
       <MathMascot size={3.5} state="oops" />
     </span>
-    <p class="q-feedback" data-feedback role="status" aria-live="polite"></p>
+    <p class="q-feedback" data-feedback role="status" aria-live="polite" tabindex="-1"></p>
   </div>
 
   <button type="button" class="btn btn-ghost btn-sm q-reset" data-reset hidden>Coba lagi</button>
@@ -236,6 +236,7 @@ const competencies = question.competencies ?? [];
     align-items: center;
     gap: 0.7rem;
     width: 100%;
+    min-height: 2.75rem;
     text-align: left;
     padding: 0.6rem 0.8rem;
     border: 1px solid var(--color-border-strong);
@@ -274,6 +275,27 @@ const competencies = question.competencies ?? [];
   .q-option.incorrect .q-key {
     background: var(--color-danger);
     color: var(--color-on-accent);
+  }
+  /* Penanda non-warna: glif centang/silang di ujung baris opsi agar status
+     benar/salah tetap terbaca tanpa mengandalkan warna saja. Konten CSS tidak
+     dibacakan pembaca layar; teks umpan balik live-region tetap mengumumkan
+     hasil penilaian. Hanya muncul pada keadaan yang sudah dinilai. */
+  .q-option.correct::after,
+  .q-option.incorrect::after {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding-left: 0.5rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+  .q-option.correct::after {
+    content: '✓';
+    color: var(--color-success);
+  }
+  .q-option.incorrect::after {
+    content: '✗';
+    color: var(--color-danger);
   }
   .q-short {
     display: flex;
@@ -426,7 +448,6 @@ const competencies = question.competencies ?? [];
   import { loadProgress, type Attempt, type AttemptState } from '@/lib/progress';
   import { isAcceptedAnswer, normalizeAnswer } from '@/lib/answer';
   import {
-    seededShuffle,
     loadRubricChecks,
     saveRubricChecks,
     toggleRubricCheck,
@@ -437,7 +458,7 @@ const competencies = question.competencies ?? [];
     clearDraft,
     type RubricCheckMap,
   } from '@/lib/learner';
-  import { combineSeed } from '@/lib/practice';
+  import { seededShuffle, combineSeed } from '@/lib/random';
   import { recordProgress, clearProgress, sessionSeed } from '@/lib/quiz-client';
 
   function record(
@@ -508,6 +529,12 @@ const competencies = question.competencies ?? [];
       if (mascotNo) mascotNo.hidden = kind !== 'no';
     }
 
+    // Pindahkan fokus ke umpan balik setelah penilaian agar pengguna papan
+    // ketik/pembaca layar langsung sampai ke penjelasan yang baru terbuka.
+    function focusFeedback() {
+      if (feedback) feedback.focus();
+    }
+
     function showReset() {
       if (reset) reset.hidden = false;
     }
@@ -571,6 +598,12 @@ const competencies = question.competencies ?? [];
       // Hapus percobaan tersimpan agar hitungan "dikerjakan" tidak menghitung
       // soal yang sudah dikembalikan ke keadaan belum dijawab.
       clearQuestion(root);
+      // Kembalikan fokus ke kontrol pertama sesuai jenis soal.
+      if (type === 'multiple-choice') {
+        root.querySelector<HTMLButtonElement>('[data-key]')?.focus();
+      } else if (type === 'short-answer') {
+        root.querySelector<HTMLInputElement>('[data-short-input]')?.focus();
+      }
     }
 
     if (type === 'multiple-choice') {
@@ -637,6 +670,7 @@ const competencies = question.competencies ?? [];
         reveal();
         record(root, isCorrect, { selected: key });
         lock();
+        focusFeedback();
       };
 
       unlock = () => {
@@ -716,6 +750,7 @@ const competencies = question.competencies ?? [];
         answered = true;
         input.disabled = true;
         check.disabled = true;
+        focusFeedback();
       };
 
       unlock = () => {

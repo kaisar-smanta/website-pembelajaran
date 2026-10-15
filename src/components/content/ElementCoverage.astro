@@ -19,8 +19,8 @@ const subjectElements = elementOrderFor(subject);
 
 // Peta elemen -> kelas tempat elemen itu benar-benar dipakai mata pelajaran ini,
 // diambil dari data topik (bukan daftar statis). Dipakai agar elemen yang
-// sengaja hanya dibuka di kelas lain — mis. Kalkulus/Data pada Matematika
-// Tingkat Lanjut Kelas XI — tidak tampil sebagai "segera disusun" di kelas
+// sengaja hanya dibuka di kelas lain: mis. Kalkulus/Data pada Matematika
+// Tingkat Lanjut Kelas XI: tidak tampil sebagai "segera disusun" di kelas
 // yang salah.
 const elementGradesForSubject = new Map<ElementId, Set<Grade>>();
 for (const { grade: comboGrade, element } of subjectGradeElementCombos(subject)) {
@@ -209,7 +209,7 @@ const topicSearch = (title: string, keywords?: string[]): string =>
   .elem-icon {
     width: 1.7rem;
     height: 1.7rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     flex: none;
   }
   .elem-name {
@@ -287,7 +287,7 @@ const topicSearch = (title: string, keywords?: string[]): string =>
     min-width: 1rem;
     height: 1rem;
     padding-inline: 0.26rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.62rem;
     font-weight: 700;
     line-height: 1;

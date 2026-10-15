@@ -156,7 +156,7 @@ export const peluangQuestions: Question[] = [
       'Penilaian menekankan dua perbedaan utama: saling lepas berbicara tentang tidak dapat terjadi bersamaan ($P(A \\cap B) = 0$), sedangkan saling bebas berbicara tentang tidak saling memengaruhi ($P(A \\cap B) = P(A)P(B)$).',
     hints: [
       'Saling lepas berbicara tentang irisan yang kosong; saling bebas tentang aturan perkalian.',
-      'Perhatikan bahwa dua kejadian berpeluang positif yang saling lepas justru tidak saling bebas.',
+      'Dua kejadian berpeluang positif yang saling lepas justru tidak saling bebas.',
     ],
     competencies: ['kejadian saling lepas', 'kejadian saling bebas', 'penalaran'],
     rubric: [

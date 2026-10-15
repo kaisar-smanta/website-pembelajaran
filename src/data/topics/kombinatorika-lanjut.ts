@@ -114,7 +114,7 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
           variant: 'concept',
           title: 'Kunci: jumlahkan, kalikan, koreksi irisan',
           text:
-            'Kata "atau" menandakan penjumlahan, kata "dan" menandakan perkalian. Namun jika dua himpunan beririsan, penjumlahan langsung akan menghitung irisan dua kali — di sinilah inklusi-eksklusi berperan.',
+            'Kata "atau" menandakan penjumlahan, kata "dan" menandakan perkalian. Namun jika dua himpunan beririsan, penjumlahan langsung akan menghitung irisan dua kali. Di sinilah inklusi-eksklusi berperan.',
         },
         {
           kind: 'match',

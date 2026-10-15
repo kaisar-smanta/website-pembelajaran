@@ -61,7 +61,7 @@ export const fungsiRasionalAkar: Topic = {
 Apakah grafik fungsi ini memiliki asimtot tegak di $x=2$, atau justru ada kemungkinan lain? Apa yang terjadi pada grafik tepat di titik itu?`,
           reveal: `Pembilang dapat difaktorkan: $x^{2}-4=(x-2)(x+2)$. Faktor $(x-2)$ muncul di pembilang dan penyebut lalu saling meniadakan, sehingga untuk $x\\neq2$
 $$f(x)=\\dfrac{x+2}{x-1}.$$
-Di $x=2$ fungsi tetap tidak terdefinisi, tetapi nilai di sekitarnya mendekati $\\dfrac{2+2}{2-1}=4$. Karena nilainya mendekati bilangan berhingga, titik itu bukan asimtot tegak melainkan **lubang** (diskontinuitas terhapus). Asimtot tegak justru berada di $x=1$, tempat penyebut yang tersisa bernilai nol.`,
+Di $x=2$ fungsi tetap tidak terdefinisi, tetapi nilai di sekitarnya mendekati $\\dfrac{2+2}{2-1}=4$. Karena nilainya mendekati bilangan berhingga, titik itu merupakan **lubang** (diskontinuitas terhapus), bukan asimtot tegak. Asimtot tegak justru berada di $x=1$, tempat penyebut yang tersisa bernilai nol.`,
           saveLabel: 'Simpan dugaan & lihat jawabannya',
         },
       ],
@@ -105,7 +105,7 @@ Ada tiga ciri grafik yang perlu dikenali:
 - **Lubang** (diskontinuitas terhapus) muncul bila faktor $(x-c)$ terdapat pada pembilang maupun penyebut lalu saling meniadakan. Fungsi tetap tak terdefinisi di $x=c$, tetapi nilai di sekitarnya mendekati bilangan berhingga.
 - **Asimtot datar** $y=L$ menggambarkan perilaku ujung: nilai yang didekati grafik ketika $x$ menjadi sangat besar atau sangat kecil.
 
-Sebagai contoh, pada $f(x)=\\dfrac{x^{2}-4}{(x-2)(x-1)}$ faktor $(x-2)$ meniadakan, sehingga grafik memiliki lubang di $x=2$ dan asimtot tegak di $x=1$.`,
+Misalnya, pada $f(x)=\\dfrac{x^{2}-4}{(x-2)(x-1)}$ faktor $(x-2)$ meniadakan, sehingga grafik memiliki lubang di $x=2$ dan asimtot tegak di $x=1$.`,
       blocks: [
         {
           kind: 'match',
@@ -169,7 +169,7 @@ $$g(x)=a\\sqrt{x-h}+k.$$
 - $k$ menggeser grafik **ke atas** sebesar $k$, sehingga range menjadi $y\\geq k$ (bila $a>0$);
 - $a$ meregangkan atau memampatkan grafik sekaligus mencerminkannya bila $a<0$.
 
-Sebagai contoh, $g(x)=\\sqrt{x-1}+1$ memiliki domain $x\\geq1$ dan range $y\\geq1$, serta grafik yang diperoleh dari $y=\\sqrt{x}$ dengan menggesernya 1 satuan ke kanan lalu 1 satuan ke atas.`,
+Contohnya, $g(x)=\\sqrt{x-1}+1$ memiliki domain $x\\geq1$ dan range $y\\geq1$, serta grafik yang diperoleh dari $y=\\sqrt{x}$ dengan menggesernya 1 satuan ke kanan lalu 1 satuan ke atas.`,
       blocks: [
         {
           kind: 'figure',
@@ -331,7 +331,7 @@ Perhatikan penentuan asimtot berikut. Ada satu langkah yang keliru. Klik langkah
       id: 'tantangan',
       kind: 'tantangan',
       title: 'Tantangan',
-      body: `Ini soal nonrutin yang menuntut penalaran, bukan sekadar menghitung.
+      body: `Soal nonrutin ini menuntut penalaran; menghitung saja tidak cukup.
 
 Tentukan semua nilai $k$ sehingga grafik
 $$f(x)=\\dfrac{x^{2}-4}{(x-1)(x-k)}$$
@@ -365,7 +365,7 @@ memiliki tepat satu lubang dan satu asimtot tegak. Jelaskan alasanmu.`,
             },
             {
               title: 'Menyimpulkan',
-              text: `Nilai $k=2$ dan $k=-2$ memenuhi. Perhatikan bahwa $k=1$ tidak memenuhi: penyebutnya menjadi $(x-1)^{2}$ yang tidak mencoret faktor pembilang, sehingga hanya memberi satu asimtot tegak tanpa lubang. Jadi himpunan jawabannya $k\\in\\{-2,\\,2\\}$.`,
+              text: `Nilai $k=2$ dan $k=-2$ memenuhi. Sebaliknya, $k=1$ tidak memenuhi: penyebutnya menjadi $(x-1)^{2}$ yang tidak mencoret faktor pembilang, sehingga hanya memberi satu asimtot tegak tanpa lubang. Jadi himpunan jawabannya $k\\in\\{-2,\\,2\\}$.`,
             },
           ],
         },

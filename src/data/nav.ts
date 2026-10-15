@@ -12,7 +12,7 @@ export interface NavItem {
 }
 
 /**
- * Navigasi utama — sengaja dijaga ringkas (enam pintu tingkat atas) agar header
+ * Navigasi utama: sengaja dijaga ringkas (enam pintu tingkat atas) agar header
  * tetap satu baris di desktop dan ramah bagi pelajar. Rincian tiap minat
  * ditampilkan pada panel dropdown, bukan dibebankan ke bilah utama.
  */

@@ -80,9 +80,9 @@ export const statistikDalamKehidupan: Topic = {
       id: "konteks",
       kind: "konteks",
       title: "Situasi dan Konteks",
-      body: `Setiap hari kita bertemu angka: rata-rata nilai ujian, persentase pertumbuhan, indeks kepuasan, hingga grafik penjualan. Angka-angka ini sering dipakai untuk meyakinkan kita. Namun angka yang benar pun dapat disajikan secara menyesatkan — misalnya dengan hanya menonjolkan rata-rata, memotong sumbu grafik, atau membandingkan dua kelompok yang ukurannya berbeda jauh.
+      body: `Setiap hari kita bertemu angka: rata-rata nilai ujian, persentase pertumbuhan, indeks kepuasan, hingga grafik penjualan. Angka-angka ini sering dipakai untuk meyakinkan kita. Namun angka yang benar pun dapat disajikan secara menyesatkan: misalnya dengan hanya menonjolkan rata-rata, memotong sumbu grafik, atau membandingkan dua kelompok yang ukurannya berbeda jauh.
 
-Kemampuan statistik yang paling berguna di kehidupan sehari-hari bukan sekadar menghitung, melainkan **bertanya kritis**: ukuran apa yang dipakai, seberapa besar sampelnya, dan apakah kesimpulan yang ditarik memang didukung data.`,
+Kemampuan statistik yang paling berguna di kehidupan sehari-hari adalah **bertanya kritis**: ukuran apa yang dipakai, seberapa besar sampelnya, dan apakah kesimpulan yang ditarik memang didukung data.`,
     },
     {
       id: "konsep",
@@ -108,7 +108,7 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
         {
           kind: "figure",
           alt: "Histogram data yang condong ke kanan; sebuah garis putus-putus menandai median dan garis putus berbeda menandai mean yang lebih besar.",
-          caption: "Karena data condong ke kanan, mean bergeser ke kanan median — keduanya ditandai pada sumbu nilai.",
+          caption: "Karena data condong ke kanan, mean bergeser ke kanan median. Keduanya ditandai pada sumbu nilai.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-stat-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="200" x2="305" y2="200" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-stat-axis)"/><line x1="45" y1="200" x2="45" y2="30" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-stat-axis)"/><rect x="56" y="80" width="12" height="120" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="73" y="100" width="12" height="100" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="90" y="140" width="12" height="60" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="107" y="160" width="12" height="40" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="124" y="160" width="12" height="40" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="141" y="180" width="12" height="20" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="277" y="180" width="12" height="20" fill="currentColor" opacity="0.2" stroke="currentColor" stroke-width="1"/><line x1="79" y1="200" x2="79" y2="62" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 3"/><line x1="99" y1="200" x2="99" y2="62" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 3"/><text x="77" y="56" font-size="11" fill="currentColor" text-anchor="end">median</text><text x="103" y="56" font-size="11" fill="currentColor" text-anchor="start">mean</text><text x="300" y="220" font-size="11" fill="currentColor">nilai</text><text x="14" y="120" font-size="11" fill="currentColor" transform="rotate(-90 14 120)" text-anchor="middle">frekuensi</text></svg>',
         },
         {
@@ -368,7 +368,7 @@ Rata-rata gabungan bukan $(72+84)/2=78$, karena kedua kelas berukuran berbeda.`,
       title: "Penerapan di Dunia Nyata",
       body: `Statistik dipakai untuk mengambil keputusan publik: alokasi anggaran, kebijakan kesehatan, hingga penetapan harga. Sebuah laporan penjualan bisa menulis "rata-rata pesanan Rp43,5 ribu" padahal $9$ dari $10$ pembeli berbelanja Rp15 ribu dan satu pemborong berbelanja Rp300 ribu; totalnya $9\\cdot15+300=435$ ribu sehingga mean $43{,}5$ ribu, sedangkan mediannya hanya Rp15 ribu. Di media sosial, grafik pertumbuhan yang dimulai dari angka $1.000$ alih-alih nol membuat kenaikan $1.000$ menjadi $1.100$ tampak naik $10$ kali lipat padahal sesungguhnya hanya $10\\%$.
 
-Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebuah statistik: **siapa yang diukur**, **ukuran apa yang dipakai**, dan **apakah penyajiannya adil**. Statistik yang baik membantu kita memahami dunia, bukan sekadar meyakinkan kita.`,
+Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebuah statistik: **siapa yang diukur**, **ukuran apa yang dipakai**, dan **apakah penyajiannya adil**. Statistik yang baik membantu kita memahami dunia, bukan alat untuk meyakinkan kita.`,
     },
     {
       id: "kesalahan-umum",

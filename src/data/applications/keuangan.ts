@@ -30,7 +30,7 @@ $$M_n = M_0(1+i)^n.$$`,
 - Bank A (bunga tunggal): $M_{10} = 10.000.000(1 + 0{,}06 \\cdot 10) = 10.000.000(1{,}6) = \\text{Rp}16.000.000$.
 - Bank B (bunga majemuk): $M_{10} = 10.000.000(1{,}06)^{10} = 10.000.000(1{,}7908477) \\approx \\text{Rp}17.908.477$.
 
-Selisihnya sekitar **Rp1.908.477** — cukup untuk membeli laptop atau menambah dana darurat. Kesimpulannya, pada suku bunga yang sama, bunga majemuk selalu lebih menguntungkan untuk jangka panjang karena bunga yang diperoleh ikut "bekerja" menghasilkan bunga berikutnya. Selisih ini akan terus melebar jika jangka waktunya diperpanjang: itulah ciri khas pertumbuhan eksponensial dibanding pertumbuhan linear.`,
+Selisihnya sekitar **Rp1.908.477**, cukup untuk membeli laptop atau menambah dana darurat. Kesimpulannya, pada suku bunga yang sama, bunga majemuk selalu lebih menguntungkan untuk jangka panjang karena bunga yang diperoleh ikut "bekerja" menghasilkan bunga berikutnya. Selisih ini akan terus melebar jika jangka waktunya diperpanjang: itulah ciri khas pertumbuhan eksponensial dibanding pertumbuhan linear.`,
     takeaways: [
       'Bunga tunggal tumbuh linear terhadap waktu, sedangkan bunga majemuk tumbuh eksponensial.',
       'Pada suku bunga sama, selisih keduanya membesar seiring bertambahnya jangka waktu.',
@@ -70,7 +70,7 @@ dengan $M$ pokok pinjaman, $i$ suku bunga per periode, dan $n$ banyak periode.`,
 
 $$A = \\frac{50.000.000 \\times 0{,}01}{1-(1{,}01)^{-60}} = \\frac{500.000}{0{,}449550} \\approx \\text{Rp}1.112.222.$$
 
-Total pembayaran $= 60 \\times 1.112.222{,}4 \\approx \\text{Rp}66.733.342$, sehingga **total bunga sekitar Rp16.733.342** — lebih dari sepertiga nilai pinjaman. Pada bulan pertama, bunga menyerap $0{,}01 \\times 50.000.000 = \\text{Rp}500.000$, sedangkan sisa angsuran barulah $\\text{Rp}1.112.222 - \\text{Rp}500.000 = \\text{Rp}612.222$ yang mengangsur pokok. Karena porsi pokok yang terbayar sangat kecil di awal, saldo pinjaman turun perlahan pada tahun-tahun pertama. Inilah sebabnya memahami tabel amortisasi penting sebelum menandatangani perjanjian kredit: yang tampak "ringan" secara bulanan bisa menjadi biaya total yang besar.`,
+Total pembayaran $= 60 \\times 1.112.222{,}4 \\approx \\text{Rp}66.733.342$, sehingga **total bunga sekitar Rp16.733.342**, lebih dari sepertiga nilai pinjaman. Pada bulan pertama, bunga menyerap $0{,}01 \\times 50.000.000 = \\text{Rp}500.000$, sedangkan sisa angsuran barulah $\\text{Rp}1.112.222 - \\text{Rp}500.000 = \\text{Rp}612.222$ yang mengangsur pokok. Karena porsi pokok yang terbayar sangat kecil di awal, saldo pinjaman turun perlahan pada tahun-tahun pertama. Inilah sebabnya memahami tabel amortisasi penting sebelum menandatangani perjanjian kredit: yang tampak "ringan" secara bulanan bisa menjadi biaya total yang besar.`,
     takeaways: [
       'Angsuran tetap, tetapi porsi bunga besar di awal dan mengecil kemudian.',
       'Total bunga adalah biaya riil yang sering terlewat saat melihat iklan kredit.',
@@ -103,7 +103,7 @@ Pemilik bengkel ingin laba harian sebesar mungkin. Berapa rak A dan rak B yang s
 Kendala sumber daya dapat ditulis sebagai sistem pertidaksamaan, dan laba sebagai fungsi objektif yang harus dimaksimumkan.`,
     analysis: `Misalkan $x$ banyak rak A dan $y$ banyak rak B. Kendalanya:
 $$2x + y \\le 8, \\qquad x + 2y \\le 10, \\qquad x \\ge 0,\\ y \\ge 0.$$
-Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian diperoleh dari perpotongan garis kendala: $(0,0)$, $(4,0)$, $(2,4)$, dan $(0,5)$. Nilai $f$ berturut-turut $0$, Rp600.000, Rp1.100.000, dan Rp1.000.000. Jadi laba maksimum **Rp1.100.000** dicapai dengan membuat **2 rak A dan 4 rak B**. Perhatikan bahwa kombinasi ini memakai seluruh 10 jam penghalusan tetapi hanya $2(2)+4=8$ jam pemotongan, tepat habis. Namun secara umum, mengejar "semua bahan terpakai" belum tentu optimal — yang menentukan adalah nilai fungsi objektif di titik sudut, bukan seberapa penuh kapasitas terpakai.`,
+Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian diperoleh dari perpotongan garis kendala: $(0,0)$, $(4,0)$, $(2,4)$, dan $(0,5)$. Nilai $f$ berturut-turut $0$, Rp600.000, Rp1.100.000, dan Rp1.000.000. Jadi laba maksimum **Rp1.100.000** dicapai dengan membuat **2 rak A dan 4 rak B**. Kombinasi ini memakai seluruh 10 jam penghalusan tetapi hanya $2(2)+4=8$ jam pemotongan, tepat habis. Namun secara umum, mengejar "semua bahan terpakai" belum tentu optimal. Yang menentukan adalah nilai fungsi objektif di titik sudut, bukan seberapa penuh kapasitas terpakai.`,
     takeaways: [
       'Solusi optimum program linear selalu berada di titik sudut daerah layak.',
       'Fungsi objektif, bukan tingkat pemakaian bahan, yang menentukan keputusan akhir.',
@@ -131,7 +131,7 @@ Fungsi objektif laba $f = 150000x + 200000y$. Titik sudut daerah penyelesaian di
     topicIds: ['pinjaman-investasi', 'anuitas', 'bunga-majemuk'],
     body: `Seseorang ingin mengumpulkan **Rp500.000.000** saat pensiun dengan menabung jumlah tetap setiap bulan ke produk investasi yang memberi bunga **0,6% per bulan**. Ia punya dua skenario: mulai sekarang sehingga tersedia **25 tahun** (300 bulan), atau menunda sehingga hanya tersisa **15 tahun** (180 bulan).
 
-Target dananya sama, bunganya sama, yang berbeda hanya waktu. Menurutmu, seberapa besar perbedaan setoran bulanan antara kedua skenario — dua kali, atau lebih?
+Target dananya sama, bunganya sama, yang berbeda hanya waktu. Menurutmu, seberapa besar perbedaan setoran bulanan antara kedua skenario, apakah dua kali atau lebih?
 
 Karena setoran dilakukan berkala, nilai masa depannya mengikuti rumus nilai masa depan anuitas:
 
@@ -141,7 +141,7 @@ $$A = \\dfrac{FV \\cdot i}{(1+i)^{n}-1}.$$`,
 - Mulai sekarang, $n = 300$: $(1{,}006)^{300} \\approx 6{,}017$, sehingga $A = \\dfrac{500.000.000 \\times 0{,}006}{6{,}017-1} = \\dfrac{3.000.000}{5{,}017} \\approx \\text{Rp}598.000$ per bulan.
 - Menunda menjadi $n = 180$: $(1{,}006)^{180} \\approx 2{,}935$, sehingga $A = \\dfrac{3.000.000}{1{,}935} \\approx \\text{Rp}1.550.000$ per bulan.
 
-Menunda 10 tahun membuat setoran bulanan naik dari sekitar Rp598.000 menjadi Rp1.550.000, yaitu **sekitar 2,6 kali lipat**. Artinya, selisih waktu jauh lebih menentukan daripada besarnya setoran: uang yang disetor lebih awal punya lebih banyak waktu untuk berbunga, sehingga setiap rupiah bekerja lebih keras. Bagi pelajar, kesimpulan praktisnya sederhana — mulai menabung sedini mungkin, sekalipun jumlahnya kecil.`,
+Menunda 10 tahun membuat setoran bulanan naik dari sekitar Rp598.000 menjadi Rp1.550.000, yaitu **sekitar 2,6 kali lipat**. Artinya, selisih waktu jauh lebih menentukan daripada besarnya setoran: uang yang disetor lebih awal punya lebih banyak waktu untuk berbunga, sehingga setiap rupiah bekerja lebih keras. Bagi pelajar, kesimpulan praktisnya sederhana: mulai menabung sedini mungkin, sekalipun jumlahnya kecil.`,
     takeaways: [
       'Waktu menabung berpengaruh lebih besar daripada besarnya setoran.',
       'Menunda 10 tahun bisa melipatgandakan setoran bulanan yang diperlukan untuk target yang sama.',
@@ -168,14 +168,14 @@ Menunda 10 tahun membuat setoran bulanan naik dari sekitar Rp598.000 menjadi Rp1
     summary:
       'Memodelkan diskon berlapis sebagai komposisi fungsi dan menyelidiki kapan urutannya berpengaruh.',
     topicIds: ['komposisi-fungsi', 'fungsi-invers'],
-    body: `Promo belanja sering memakai **diskon berlapis**, misalnya "diskon 20%, lalu tambahan diskon 10%". Banyak pembeli mengira totalnya 30%. Ada juga promo berupa **voucher potongan Rp50.000** yang bisa digabung dengan diskon persen. Toko biasanya menyerahkan urutan penerapannya — tetapi apakah urutan itu benar-benar mengubah harga akhir?
+    body: `Promo belanja sering memakai **diskon berlapis**, misalnya "diskon 20%, lalu tambahan diskon 10%". Banyak pembeli mengira totalnya 30%. Ada juga promo berupa **voucher potongan Rp50.000** yang bisa digabung dengan diskon persen. Toko biasanya menyerahkan urutan penerapannya, tetapi apakah urutan itu benar-benar mengubah harga akhir?
 
 Anggap harga awal sebuah barang adalah $x$. Diskon 20% berarti pembeli membayar 80%, sehingga dapat dimodelkan sebagai fungsi $f(x) = 0{,}8x$, dan diskon 10% sebagai $g(x) = 0{,}9x$. Menumpuk dua diskon berarti mengomposisikan kedua fungsi, misalnya $(g \\circ f)(x) = g(f(x))$. Sementara itu, voucher potongan tetap Rp50.000 dimodelkan sebagai $h(x) = x - 50.000$.`,
     analysis: `Ambil harga awal $x = 500.000$.
 
 **Dua diskon persen.** Terapkan diskon 20% dahulu, lalu 10%:
 $$(g \\circ f)(x) = 0{,}9(0{,}8x) = 0{,}72x = 0{,}72 \\times 500.000 = \\text{Rp}360.000.$$
-Bila urutan ditukar menjadi $(f \\circ g)(x) = 0{,}8(0{,}9x) = 0{,}72x$, hasilnya tetap Rp360.000. Diskon sebesar $1 - 0{,}72 = 0{,}28$, yaitu **28%**, bukan 30%. Kedua urutan memberi hasil sama karena keduanya hanyalah **perkalian** — dan perkalian bersifat komutatif.
+Bila urutan ditukar menjadi $(f \\circ g)(x) = 0{,}8(0{,}9x) = 0{,}72x$, hasilnya tetap Rp360.000. Diskon sebesar $1 - 0{,}72 = 0{,}28$, yaitu **28%**, bukan 30%. Kedua urutan memberi hasil sama karena keduanya hanyalah **perkalian**, dan perkalian bersifat komutatif.
 
 **Tambah voucher nominal tetap.** Bandingkan dua urutan:
 - Diskon 20% dahulu, lalu voucher: $(h \\circ f)(500.000) = 0{,}8(500.000) - 50.000 = 400.000 - 50.000 = \\text{Rp}350.000$.
@@ -183,7 +183,7 @@ Bila urutan ditukar menjadi $(f \\circ g)(x) = 0{,}8(0{,}9x) = 0{,}72x$, hasilny
 
 Sekarang urutannya penting: selisihnya **Rp10.000**. Kesimpulannya, selama semua potongan berbentuk persen (operasi perkalian), urutan tidak berpengaruh. Begitu ada potongan atau biaya bernilai nominal tetap (operasi penjumlahan/pengurangan), komposisi menjadi tidak komutatif. Untuk pembeli, memakai diskon persen lebih dahulu lalu voucher nominal selalu lebih murah; untuk penjual, urutan sebaliknya lebih menguntungkan.`,
     takeaways: [
-      'Dua diskon persen berturut-turut tidak dijumlahkan, melainkan dikalikan.',
+      'Dua diskon persen berturut-turut dikalikan, bukan dijumlahkan.',
       'Diskon berlapis murni persen bersifat komutatif sehingga urutannya tidak mengubah harga.',
       'Kehadiran komponen nominal tetap (voucher atau biaya administrasi) membuat urutan menjadi penting.',
     ],
@@ -254,7 +254,7 @@ $$S_n = 12.500n^{2} + 87.500n.$$
 
 Rumus ini enak dipakai, tetapi dari mana asalnya? Menguji beberapa bulan pertama saja tidak cukup, karena bisa saja rumus itu cocok di awal lalu melenceng pada bulan ke-13. Untuk memastikan rumus benar untuk **semua** $n$ bilangan asli, kita perlu **induksi matematika**.
 
-Pertanyaan pemicunya: bagaimana membuktikan rumus total setoran itu benar untuk setiap bulan, bukan sekadar beberapa bulan pertama?`,
+Pertanyaan pemicunya: bagaimana membuktikan rumus total setoran itu benar untuk setiap bulan, bukan hanya beberapa bulan pertama?`,
     analysis: `Total setoran setelah $n$ bulan adalah deret aritmetika
 $$S_n = 100.000 + 125.000 + \\cdots + \\bigl(100.000 + (n-1)25.000\\bigr).$$
 
@@ -274,7 +274,7 @@ Bandingkan dengan pengujian beberapa bulan: memeriksa $n = 1, 2, 3$ memang menco
     takeaways: [
       'Induksi matematika butuh dua bagian: basis ($n=1$) dan langkah induksi ($n \\to n+1$).',
       'Menguji beberapa kasus awal tidak pernah cukup untuk membuktikan pola jangka panjang.',
-      'Rumus deret aritmetika lebih meyakinkan jika diturunkan dan dibuktikan, bukan sekadar dipercaya.',
+      'Rumus deret aritmetika lebih meyakinkan bila diturunkan dan dibuktikan; mempercayainya saja tidak cukup.',
     ],
     reflection: [
       'Mengapa memeriksa 10 bulan pertama tetap belum membuktikan rumus angsuran ini benar?',

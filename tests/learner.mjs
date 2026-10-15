@@ -7,7 +7,6 @@ import {
   savePredictions,
   loadReflections,
   saveReflections,
-  seededShuffle,
   toggleRubricCheck,
   loadRubricChecks,
   saveRubricChecks,
@@ -26,6 +25,7 @@ import {
   COMPLETION_KEY,
   DRAFT_KEY,
 } from '../src/lib/learner.ts';
+import { seededShuffle } from '../src/lib/random.ts';
 import { check, checks, mockStorage } from './_util.mjs';
 
 check('recordPrediction menyimpan dan menimpa tanpa memutasi peta asal', () => {

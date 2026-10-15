@@ -421,7 +421,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
             },
             {
               title: 'Kontradiksi',
-              text: 'Faktor prima $q$ ini berbeda dari semua $p_i$ (karena tidak ada $p_i$ yang membagi $N$). Jadi daftar $p_1, \\dots, p_n$ ternyata tidak lengkap — bertentangan dengan pengandaian.',
+              text: 'Faktor prima $q$ ini berbeda dari semua $p_i$ (karena tidak ada $p_i$ yang membagi $N$). Jadi daftar $p_1, \\dots, p_n$ ternyata tidak lengkap: bertentangan dengan pengandaian.',
             },
             {
               title: 'Kesimpulan',

@@ -55,7 +55,7 @@ Bandingkan dua urutan:
 - diskon dahulu: $0{,}8x$, lalu dipajaki menjadi $0{,}8x \\cdot 1{,}1$;
 - tentukan dahulu hasil akhirnya secara langsung.
 
-Rangkaian dua proses seperti ini adalah contoh **komposisi fungsi**.`,
+Rangkaian dua proses seperti ini disebut **komposisi fungsi**.`,
       blocks: [
         {
           kind: "prediction",
@@ -142,7 +142,7 @@ sehingga komposisi **tidak komutatif**.`,
       title: "Representasi dengan Model Mesin",
       body: `Bayangkan dua mesin yang dihubungkan. Mesin $g$ menerima $x$ dan menghasilkan $g(x)$; keluaran itu langsung masuk ke mesin $f$ dan menghasilkan $f(g(x))$.
 
-Sebagai contoh, ambil $g(x)=x+1$ dan $f(x)=x^2$:
+Misalnya, ambil $g(x)=x+1$ dan $f(x)=x^2$:
 - masukan $x=2 \\to g(2)=3 \\to f(3)=9$, jadi $(f \\circ g)(2)=9$;
 - bandingkan $(g \\circ f)(2)$: $f(2)=4 \\to g(4)=5$, jadi $(g \\circ f)(2)=5$.
 
@@ -257,7 +257,7 @@ Untuk komposisi dua fungsi berlaku sifat penting berikut:
 
 $$(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}.$$
 
-Perhatikan bahwa urutannya **berbalik**: invers dari $g$ dikerjakan lebih dahulu. Sebagai contoh, jika $f(x)=3x+1$ dan $g(x)=x-2$, maka $(f \\circ g)(x)=3(x-2)+1=3x-5$ sehingga $(f \\circ g)^{-1}(x)=\\dfrac{x+5}{3}$.
+Urutannya **berbalik**: invers dari $g$ dikerjakan lebih dahulu. Misalnya, jika $f(x)=3x+1$ dan $g(x)=x-2$, maka $(f \\circ g)(x)=3(x-2)+1=3x-5$ sehingga $(f \\circ g)^{-1}(x)=\\dfrac{x+5}{3}$.
 Dengan cara lain, $f^{-1}(x)=\\dfrac{x-1}{3}$ dan $g^{-1}(x)=x+2$, sehingga
 $$(g^{-1} \\circ f^{-1})(x) = g^{-1}\\!\\left(\\frac{x-1}{3}\\right) = \\frac{x-1}{3}+2 = \\frac{x+5}{3}.$$
 Hasilnya sama, membenarkan sifat tersebut.`,

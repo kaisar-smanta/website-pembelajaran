@@ -268,7 +268,7 @@ Untuk bentuk yang lebih rumit, peraturannya juga mengikuti pola komposisi. Atura
 
 $$\\frac{d}{dx}f\\big(g(x)\\big) = f'\\big(g(x)\\big)\\,g'(x).$$
 
-Mengenali struktur fungsinya — pangkat, hasil kali, hasil bagi, atau komposisi — menjadi kunci memilih aturan yang tepat.`,
+Mengenali struktur fungsinya (pangkat, hasil kali, hasil bagi, atau komposisi) menjadi kunci memilih aturan yang tepat.`,
     },
     {
       id: "contoh",

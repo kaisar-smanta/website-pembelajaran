@@ -85,12 +85,13 @@ const topicHref = topic
   <footer class="panel-foot">
     <button
       type="button"
-      class="panel-anchor"
+      class="btn btn-secondary btn-sm panel-anchor"
       data-copy-link={`${url('/eksplorasi')}#ex-${exploration.id}`}
       aria-label={`Salin tautan ke ${exploration.title}`}
     >
       Salin tautan
     </button>
+    <span class="visually-hidden" role="status" aria-live="polite" data-copy-status></span>
     {topic && (
       <a class="panel-practice" href={url(`/latihan/${topic.slug}`)}>Latihan topik ini</a>
     )}
@@ -102,18 +103,22 @@ const topicHref = topic
 <script>
   document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((btn) => {
     const original = btn.textContent ?? 'Salin tautan';
+    const status = btn.parentElement?.querySelector<HTMLElement>('[data-copy-status]') ?? null;
     btn.addEventListener('click', async () => {
       const value = btn.getAttribute('data-copy-link') ?? '';
       try {
         await navigator.clipboard.writeText(new URL(value, location.href).href);
         btn.textContent = 'Tersalin';
         btn.classList.add('is-copied');
+        if (status) status.textContent = 'Tautan disalin.';
       } catch {
         btn.textContent = 'Gagal menyalin';
+        if (status) status.textContent = 'Gagal menyalin tautan. Silakan salin dari bilah alamat.';
       }
       window.setTimeout(() => {
         btn.textContent = original;
         btn.classList.remove('is-copied');
+        if (status) status.textContent = '';
       }, 1600);
     });
   });
@@ -145,7 +150,7 @@ const topicHref = topic
     place-items: center;
     width: 2.2rem;
     height: 2.2rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-family: var(--font-serif);
     font-size: 1.05rem;
     font-weight: 700;
@@ -175,7 +180,7 @@ const topicHref = topic
     display: inline-flex;
     align-items: center;
     padding: 0.15rem 0.55rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.03em;
@@ -210,7 +215,7 @@ const topicHref = topic
     display: inline-flex;
     align-items: center;
     padding: 0.12rem 0.5rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 600;
     color: var(--color-text-muted);
@@ -241,26 +246,16 @@ const topicHref = topic
     margin-top: 0.85rem;
     font-size: 0.84rem;
   }
-  .panel-foot a,
-  .panel-foot button {
+  .panel-foot a {
     display: inline-block;
     padding-block: 0.22rem;
     font: inherit;
-    background: none;
-    border: 0;
-    cursor: pointer;
     color: var(--color-text-muted);
     text-decoration: none;
   }
-  .panel-foot a:hover,
-  .panel-foot button:hover {
+  .panel-foot a:hover {
     color: var(--color-primary);
     text-decoration: underline;
-  }
-  .panel-foot button:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
   }
   .panel-foot .is-copied {
     color: var(--color-success);

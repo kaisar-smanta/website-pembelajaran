@@ -357,7 +357,7 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14}.$$`,
       id: "dunia-nyata",
       kind: "dunia-nyata",
       title: "Penerapan di Dunia Nyata",
-      body: `Aturan pencacahan membantu kita memahami skala kemungkinan di sekitar kita, dan angkanya sering mengejutkan. Sebuah PIN bank empat angka memiliki $10^{4} = 10.000$ kemungkinan, sedangkan kata sandi delapan karakter dari huruf besar, huruf kecil, dan angka (total $62$ karakter) memiliki $62^{8} \\approx 2{,}18 \\times 10^{14}$ kemungkinan — jauh lebih sulit ditebak. Pada undian "6 dari 49", banyak susunan angka yang mungkin adalah $\\binom{49}{6} = 13.983.816$.
+      body: `Aturan pencacahan membantu kita memahami skala kemungkinan di sekitar kita, dan angkanya sering mengejutkan. Sebuah PIN bank empat angka memiliki $10^{4} = 10.000$ kemungkinan, sedangkan kata sandi delapan karakter dari huruf besar, huruf kecil, dan angka (total $62$ karakter) memiliki $62^{8} \\approx 2{,}18 \\times 10^{14}$ kemungkinan, jauh lebih sulit ditebak. Pada undian "6 dari 49", banyak susunan angka yang mungkin adalah $\\binom{49}{6} = 13.983.816$.
 
 Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam penelitian juga dihitung dengan cara yang sama. Prinsipnya sederhana: bila setiap hasil sama mungkin, peluang adalah **perbandingan banyak cara**.`,
     },

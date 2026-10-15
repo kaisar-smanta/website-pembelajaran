@@ -16,7 +16,7 @@
   );
   padding-inline: 0.14em;
   margin-inline: -0.04em;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }

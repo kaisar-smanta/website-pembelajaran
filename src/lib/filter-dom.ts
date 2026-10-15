@@ -148,6 +148,11 @@ export interface FilterPageHandle {
   values(): Record<string, string>;
   /** Menetapkan nilai satu kelompok bila tersedia, lalu `apply`. */
   setValue(key: string, value: string): void;
+  /**
+   * Mengembalikan seluruh kelompok ke nilai "semua", mengosongkan pencarian,
+   * dan menghapus kueri URL.
+   */
+  reset(): void;
   /** Menjalankan ulang `apply` dengan state saat ini. */
   refresh(): void;
 }
@@ -160,6 +165,7 @@ export interface FilterPageHandle {
  */
 export function setupFilterPage(options: FilterPageOptions): FilterPageHandle {
   const handles = new Map<string, FilterGroupHandle>();
+  const allValues = new Map<string, string>();
   const state: Record<string, string> = {};
 
   const query = (): string => (options.searchInput ? options.searchInput.value : '');
@@ -207,6 +213,7 @@ export function setupFilterPage(options: FilterPageOptions): FilterPageHandle {
     });
     handles.set(spec.key, handle);
     state[spec.key] = handle.value();
+    allValues.set(spec.key, spec.allValue ?? '');
   }
 
   readUrl();
@@ -234,6 +241,19 @@ export function setupFilterPage(options: FilterPageOptions): FilterPageHandle {
       state[key] = value;
       run();
       writeUrl();
+    },
+    reset: () => {
+      const cleared: Record<string, string | null> = {};
+      for (const [key, handle] of handles) {
+        const all = allValues.get(key) ?? '';
+        handle.setValue(all);
+        state[key] = all;
+        cleared[key] = null;
+      }
+      if (options.searchInput) options.searchInput.value = '';
+      if (options.queryKey) cleared[options.queryKey] = null;
+      run();
+      if (options.syncUrl) writeQuery(cleared);
     },
     refresh: run,
   };

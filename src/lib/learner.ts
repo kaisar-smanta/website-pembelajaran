@@ -7,8 +7,6 @@
 import { readMap, writeMap } from './storage.ts';
 import { STORAGE_KEYS } from './storage-keys.ts';
 
-export { seededShuffle } from './random.ts';
-
 export interface PredictionRecord {
   value: string;
   at: number;

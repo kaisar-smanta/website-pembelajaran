@@ -16,7 +16,7 @@ export const spltv: Topic = {
   summary:
     'Menyusun dan menyelesaikan sistem persamaan linear tiga variabel dengan eliminasi dan substitusi, serta menafsirkan solusinya.',
   description:
-    'Banyak situasi nyata menuntut penentuan tiga besaran sekaligus, misalnya harga tiga jenis barang atau komposisi tiga bahan. Sistem persamaan linear tiga variabel (SPLTV) menyediakan cara sistematis untuk menemukannya. Pada topik ini kita belajar merepresentasikan SPLTV, menyelesaikannya dengan eliminasi dan substitusi, memodelkan masalah nyata, serta menafsirkan solusinya — termasuk kemungkinan tidak ada solusi atau tak berhingga banyak solusi.',
+    'Banyak situasi nyata menuntut penentuan tiga besaran sekaligus, misalnya harga tiga jenis barang atau komposisi tiga bahan. Sistem persamaan linear tiga variabel (SPLTV) menyediakan cara sistematis untuk menemukannya. Pada topik ini kita belajar merepresentasikan SPLTV, menyelesaikannya dengan eliminasi dan substitusi, memodelkan masalah nyata, serta menafsirkan solusinya, termasuk kemungkinan tidak ada solusi atau tak berhingga banyak solusi.',
   keywords: [
     'SPLTV',
     'tiga variabel',
@@ -150,9 +150,9 @@ $$\\begin{cases} a_1x + b_1y + c_1z = d_1 \\\\ a_2x + b_2y + c_2z = d_2 \\\\ a_3
 Solusinya adalah pasangan terurut $(x,y,z)$ yang memenuhi **ketiga** persamaan sekaligus. Secara geometris, solusi adalah titik potong tiga bidang.
 
 Ada tiga kemungkinan:
-- **solusi tunggal** — ketiga bidang berpotongan di satu titik;
-- **tak berhingga banyak solusi** — bidang-bidang berpotongan pada satu garis (persamaan tidak saling bebas);
-- **tidak ada solusi** — bidang-bidang sejajar atau bertemu sepanjang garis yang tidak memenuhi salah satu persamaan.
+- **solusi tunggal**: ketiga bidang berpotongan di satu titik;
+- **tak berhingga banyak solusi**: bidang-bidang berpotongan pada satu garis (persamaan tidak saling bebas);
+- **tidak ada solusi**: bidang-bidang sejajar atau bertemu sepanjang garis yang tidak memenuhi salah satu persamaan.
 
 Metode penyelesaian yang umum adalah **eliminasi** (mengurangkan atau menjumlahkan persamaan) dan **substitusi** (mengganti satu variabel dengan bentuk dari variabel lain).`,
       blocks: [
@@ -351,7 +351,7 @@ Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
       id: "sejarah",
       kind: "sejarah",
       title: "Jejak Sejarah",
-      body: `Sistem persamaan linear sudah diselesaikan jauh sebelum notasi aljabar modern. Kitab Tiongkok kuno *Sembilan Bab tentang Seni Matematika* (*Jiuzhang Suanshu*) yang disusun sekitar dua ribu tahun lalu memuat bab "fangcheng" yang menyusun koefisien dalam susunan tabel lalu mengeliminasi variabel — cara yang pada dasarnya sama dengan eliminasi modern. Bangsa Babilonia juga memecahkan soal campuran dengan bantuan tabel. Nama "eliminasi Gauss" dipakai karena Carl Friedrich Gauss mempopulerkan metode eliminasi sistematis pada awal abad ke-19, antara lain untuk menghitung orbit benda langit. Dari penjadwalan hingga grafika komputer, gagasan yang sama masih dipakai sampai sekarang.`,
+      body: `Sistem persamaan linear sudah diselesaikan jauh sebelum notasi aljabar modern. Kitab Tiongkok kuno *Sembilan Bab tentang Seni Matematika* (*Jiuzhang Suanshu*) yang disusun sekitar dua ribu tahun lalu memuat bab "fangcheng" yang menyusun koefisien dalam susunan tabel lalu mengeliminasi variabel, yaitu cara yang pada dasarnya sama dengan eliminasi modern. Bangsa Babilonia juga memecahkan soal campuran dengan bantuan tabel. Nama "eliminasi Gauss" dipakai karena Carl Friedrich Gauss mempopulerkan metode eliminasi sistematis pada awal abad ke-19, antara lain untuk menghitung orbit benda langit. Dari penjadwalan hingga grafika komputer, gagasan yang sama masih dipakai sampai sekarang.`,
     },
     {
       id: "refleksi",

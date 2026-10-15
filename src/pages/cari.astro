@@ -72,12 +72,32 @@ const meta = [
 
     <p class="search-status" data-search-status aria-live="polite"></p>
     <p class="search-hint" data-search-hint aria-live="polite" hidden></p>
+
+    <noscript>
+      <div class="search-noscript card">
+        <p class="search-noscript-lead">
+          Pencarian berjalan di peramban dan memerlukan JavaScript. Sementara itu, jelajahi halaman
+          berikut:
+        </p>
+        <ul class="search-noscript-list">
+          <li><a href={url('/peta-pembelajaran')}>Peta Pembelajaran</a></li>
+          <li><a href={url('/latihan')}>Latihan</a></li>
+          <li><a href={url('/glosarium')}>Glosarium</a></li>
+          <li><a href={url('/rumus')}>Kumpulan Rumus</a></li>
+        </ul>
+      </div>
+    </noscript>
+
     <ol class="search-results" data-search-results>
       <li class="result-empty card" data-search-empty hidden>
         <MathMascot size={6} state="oops" label="Maskot tidak menemukan hasil pencarian" />
         <p class="result-empty-text" data-search-empty-text></p>
       </li>
     </ol>
+
+    <p class="search-more" data-search-more hidden>
+      <button type="button" class="search-more-btn" data-search-more-btn>Tampilkan semua hasil</button>
+    </p>
   </div>
 
   <section class="section-alt cta-section">
@@ -150,7 +170,7 @@ const meta = [
     width: 100%;
     padding: 0.6rem 1rem;
     border: 1px solid var(--color-border-strong);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-surface-2);
     color: var(--color-text);
     font: inherit;
@@ -211,7 +231,64 @@ const meta = [
   .search-hint-btn:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
+  }
+  .search-noscript {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.1rem;
+    margin-bottom: 1.25rem;
+    border-style: dashed;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+  .search-noscript-lead {
+    margin: 0;
+  }
+  .search-noscript-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .search-noscript-list a {
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .search-more {
+    margin: 0.9rem 0 0;
+    text-align: center;
+  }
+  .search-more[hidden] {
+    display: none;
+  }
+  .search-more-btn {
+    appearance: none;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast),
+      background-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .search-more-btn:hover,
+  .search-more-btn:focus-visible {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+    color: var(--color-primary);
+  }
+  .search-more-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
   .search-results {
     list-style: none;
@@ -265,10 +342,16 @@ const meta = [
     const results = root.querySelector('[data-search-results]') as HTMLElement;
     const status = root.querySelector('[data-search-status]') as HTMLElement;
     const hint = root.querySelector('[data-search-hint]') as HTMLElement;
+    const more = root.querySelector('[data-search-more]') as HTMLElement | null;
+    const moreBtn = root.querySelector('[data-search-more-btn]') as HTMLButtonElement | null;
     const emptyItem = results.querySelector('[data-search-empty]') as HTMLElement | null;
     const emptyText = results.querySelector('[data-search-empty-text]') as HTMLElement | null;
 
+    /* Batas hasil yang dirender sekaligus; "tampilkan semua" melepas batas ini
+       hanya atas permintaan pengguna agar DOM tetap ringan. */
+    const RESULT_LIMIT = 40;
     let items: SearchItem[] = [];
+    let showAll = false;
 
     /* Menyelaraskan kueri + saringan ke URL lewat pembantu bersama
        (`src/lib/filter-dom.ts`) agar tautan yang dibagikan memulihkan hasil. */
@@ -292,6 +375,7 @@ const meta = [
     }
 
     function update() {
+      showAll = false;
       render();
       syncUrl();
     }
@@ -326,23 +410,30 @@ const meta = [
 
       let out: (SearchItem & { score: number })[];
       let suggestion: string | null = null;
+      let total = 0;
       if (raw.length === 0) {
         out = filtered.map((it) => ({ ...it, score: 0 })).slice(0, 12);
+        total = out.length;
       } else {
-        const outcome = searchItems(filtered, raw);
+        const outcome = searchItems(filtered, raw, showAll ? Infinity : RESULT_LIMIT);
         out = outcome.results;
         suggestion = outcome.suggestion;
+        total = outcome.total;
       }
 
       results.innerHTML = '';
+      const capped = raw.length > 0 && out.length < total;
       if (raw.length === 0) {
         status.textContent = `Menampilkan ${out.length} entri. Ketik untuk menyaring.`;
       } else if (out.length === 0) {
         status.textContent = `Tidak ada hasil untuk "${raw}".`;
+      } else if (capped) {
+        status.textContent = `Menampilkan ${out.length} dari ${total} hasil untuk "${raw}".`;
       } else {
         status.textContent = `${out.length} hasil untuk "${raw}".`;
       }
       renderSuggestion(suggestion);
+      if (more) more.hidden = !capped;
 
       if (out.length === 0) {
         if (emptyItem) {
@@ -370,7 +461,7 @@ const meta = [
               <span class="badge">${item.type}</span>
               ${gradeLabel ? `<span class="badge badge-grade" style="background:var(--color-primary-soft);color:var(--color-primary);border-color:transparent">${gradeLabel}</span>` : ''}
             </div>
-            <h3 style="margin:0 0 0.25rem;font-size:1.1rem">${highlight(item.title, raw)}</h3>
+            <h2 style="margin:0 0 0.25rem;font-size:1.1rem">${highlight(item.title, raw)}</h2>
             <p class="text-muted" style="margin:0;font-size:0.92rem">${buildSnippet(item, raw)}</p>
           </a>`;
         results.appendChild(li);
@@ -382,10 +473,12 @@ const meta = [
       .then((r) => r.json())
       .then((data) => {
         items = data;
-        const hasQuery = readUrl();
+        readUrl();
         render();
         results.setAttribute('aria-busy', 'false');
-        if (hasQuery) input.focus();
+        /* Fokus selalu, termasuk tanpa `?q=`; `preventScroll` menghindari
+           lompatan gulir di layar kecil. */
+        input.focus({ preventScroll: true });
       })
       .catch(() => {
         results.setAttribute('aria-busy', 'false');
@@ -400,6 +493,10 @@ const meta = [
     gradeFilter.addEventListener('change', update);
     elementFilter.addEventListener('change', update);
     typeFilter.addEventListener('change', update);
+    moreBtn?.addEventListener('click', () => {
+      showAll = true;
+      render();
+    });
   }
 
   document.querySelectorAll('[data-search-root]').forEach(setupSearch);

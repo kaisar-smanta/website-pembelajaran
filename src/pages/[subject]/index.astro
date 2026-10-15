@@ -144,6 +144,8 @@ const crumbs = [
         <div class="practice-cta-actions">
           <a class="btn btn-primary" href={url('/latihan')}>Mulai latihan</a>
           <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
+          <a class="btn btn-secondary" href={url('/kemajuan')}>Kemajuan belajar</a>
+          <a class="btn btn-secondary" href={url('/review')}>Tinjauan berkala</a>
         </div>
       </div>
     </section>
@@ -216,7 +218,7 @@ const crumbs = [
     width: 2.6rem;
     height: 2.6rem;
     flex: none;
-    border-radius: 12px;
+    border-radius: var(--radius);
     color: var(--accent, var(--color-primary));
     background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
   }

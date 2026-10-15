@@ -404,8 +404,8 @@ const helpId = `reg-help-${exploration.id}`;
         out.textContent = 'Nilai x harus beragam: tambahkan titik dengan nilai x berbeda agar garis regresi terdefinisi.';
       } else {
         const arah = st.slope > 0 ? 'positif' : st.slope < 0 ? 'negatif' : 'nol';
-        const rTeks = Number.isNaN(st.r) ? '—' : formatFixed(st.r, 3);
-        const r2Teks = Number.isNaN(st.r2) ? '—' : formatFixed(st.r2, 3);
+        const rTeks = Number.isNaN(st.r) ? '–' : formatFixed(st.r, 3);
+        const r2Teks = Number.isNaN(st.r2) ? '–' : formatFixed(st.r2, 3);
         const dasar = `ŷ = ${formatFixed(st.slope, 3)}x ${st.intercept >= 0 ? '+' : '−'} ${formatFixed(Math.abs(st.intercept), 3)} · korelasi r = ${rTeks} · determinasi r² = ${r2Teks} (${arah}).`;
         const catatan = st.diagnostic === 'zero-y-variance'
           ? ' Semua nilai y sama sehingga korelasi tidak terdefinisi.'

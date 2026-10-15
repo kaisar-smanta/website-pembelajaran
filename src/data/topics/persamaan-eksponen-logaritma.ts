@@ -16,7 +16,7 @@ export const persamaanEksponenLogaritma: Topic = {
   summary:
     'Menyelesaikan persamaan eksponen dengan menyamakan basis dan substitusi, serta memahami logaritma sebagai invers eksponen beserta sifat-sifatnya.',
   description:
-    'Setelah menguasai sifat-sifat eksponen, kita memakainya untuk menyelesaikan persamaan seperti $2^{x+1}=32$ dengan menyamakan basis atau menyubstitusi variabel. Namun tidak semua persamaan dapat diselesaikan dengan basis yang sama, sehingga kita memerlukan logaritma — invers dari eksponen. Pada topik ini kita membangun makna $\\log_{a} b = c$ sebagai jawaban atas pertanyaan "a pangkat berapa sama dengan b", mempelajari sifat-sifat logaritma, lalu menyelesaikan persamaan logaritma sederhana sambil selalu memeriksa syarat numerus positif.',
+    'Setelah menguasai sifat-sifat eksponen, kita memakainya untuk menyelesaikan persamaan seperti $2^{x+1}=32$ dengan menyamakan basis atau menyubstitusi variabel. Namun tidak semua persamaan dapat diselesaikan dengan basis yang sama, sehingga kita memerlukan logaritma, yaitu invers dari eksponen. Pada topik ini kita membangun makna $\\log_{a} b = c$ sebagai jawaban atas pertanyaan "a pangkat berapa sama dengan b", mempelajari sifat-sifat logaritma, lalu menyelesaikan persamaan logaritma sederhana sambil selalu memeriksa syarat numerus positif.',
   keywords: ['eksponen', 'logaritma', 'persamaan', 'sifat logaritma', 'basis'],
   prerequisites: ['eksponen', 'fungsi-eksponensial'],
   relatedTopics: ['barisan-deret', 'bunga-majemuk'],
@@ -59,7 +59,7 @@ Sekarang, berapa $t$ jika jumlahnya menjadi $100$ sel? Angka $100$ bukan pangkat
             "$8$ jam",
             "$100$ jam",
           ],
-          reveal: "Karena $2^{7}=128$, dibutuhkan $7$ jam — mudah karena $128$ adalah pangkat bulat dari $2$. Namun untuk $2^{t}=100$, nilai $t$ berada di antara $6$ dan $7$ karena $2^{6}=64$ dan $2^{7}=128$. Jawaban tepatnya ditulis $t=\\log_{2}100$, yaitu \"pangkat yang harus diberikan pada $2$ agar hasilnya $100$\", sekitar $6{,}64$ jam. Di sinilah logaritma muncul.",
+          reveal: "Karena $2^{7}=128$, dibutuhkan $7$ jam, mudah karena $128$ adalah pangkat bulat dari $2$. Namun untuk $2^{t}=100$, nilai $t$ berada di antara $6$ dan $7$ karena $2^{6}=64$ dan $2^{7}=128$. Jawaban tepatnya ditulis $t=\\log_{2}100$, yaitu \"pangkat yang harus diberikan pada $2$ agar hasilnya $100$\", sekitar $6{,}64$ jam. Di sinilah logaritma muncul.",
           saveLabel: "Simpan dugaan",
         },
       ],
@@ -80,7 +80,7 @@ Sekarang, berapa $t$ jika jumlahnya menjadi $100$ sel? Angka $100$ bukan pangkat
       title: "Situasi dan Konteks",
       body: `Persamaan eksponen muncul setiap kali kita menanyakan "kapan" suatu besaran yang berlipat mencapai nilai tertentu: kapan populasi bakteri mencapai sejuta, kapan investasi berbunga majemuk menjadi dua kali, atau kapan konsentrasi obat turun di bawah ambang tertentu.
 
-Bila nilai target kebetulan merupakan pangkat bulat dari basisnya, menyamakan basis saja cukup. Namun bilangan nyata jarang seberuntung itu. Logaritma diciptakan justru untuk menjawab pertanyaan semacam ini secara umum, dan juga sebagai skala yang memampatkan rentang nilai yang sangat lebar — seperti skala Richter untuk gempa atau skala pH untuk keasaman.`,
+Bila nilai target kebetulan merupakan pangkat bulat dari basisnya, menyamakan basis saja cukup. Namun bilangan nyata jarang seberuntung itu. Logaritma diciptakan justru untuk menjawab pertanyaan semacam ini secara umum, dan juga sebagai skala yang memampatkan rentang nilai yang sangat lebar, seperti skala Richter untuk gempa atau skala pH untuk keasaman.`,
     },
     {
       id: "konsep",
@@ -98,7 +98,7 @@ Karena fungsi eksponen bersifat satu-satu (monoton), kesamaan nilai hanya mungki
 
 $$a^{c}=b \\iff \\log_{a}b=c.$$
 
-Dengan kata lain, $\\log_{a}b$ menjawab pertanyaan "basis $a$ harus dipangkatkan berapa agar menghasilkan $b$". Sebagai contoh $2^{3}=8 \\iff \\log_{2}8=3$.
+Dengan kata lain, $\\log_{a}b$ menjawab pertanyaan "basis $a$ harus dipangkatkan berapa agar menghasilkan $b$". Misalnya, $2^{3}=8 \\iff \\log_{2}8=3$.
 
 **Sifat-sifat logaritma.** Untuk $a>0$, $a\\neq1$, dan numerus positif:
 
@@ -244,7 +244,7 @@ $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
       title: "Eksplorasi",
       body: `Gunakan eksplorasi grafik fungsi eksponensial berikut untuk melihat bagaimana nilai $a\\cdot b^{x}$ berubah, lalu bayangkan grafik logaritma sebagai hasil pencerminannya.
 
-Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik $y=\\log_{b}x$. Titik $(0,1)$ pada grafik eksponen bertukar menjadi $(1,0)$ pada grafik logaritma; titik $(1,b)$ bertukar menjadi $(b,1)$. Itulah alasan $\\log_{b}1=0$ dan $\\log_{b}b=1$. Ketika basis $b>1$, grafik eksponen menanjak cepat dan grafik logaritmanya menanjak lambat — keduanya saling membalik.`,
+Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik $y=\\log_{b}x$. Titik $(0,1)$ pada grafik eksponen bertukar menjadi $(1,0)$ pada grafik logaritma; titik $(1,b)$ bertukar menjadi $(b,1)$. Itulah alasan $\\log_{b}1=0$ dan $\\log_{b}b=1$. Ketika basis $b>1$, grafik eksponen menanjak cepat dan grafik logaritmanya menanjak lambat. Keduanya saling membalik.`,
       blocks: [
         {
           kind: "exploration",
@@ -258,7 +258,7 @@ Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik
           kind: "callout",
           variant: "info",
           title: "Menghubungkan dengan logaritma",
-          text: "Perhatikan bahwa grafik $y=b^{x}$ tidak pernah menyentuh sumbu-$x$. Akibatnya $b^{x}$ selalu positif, sehingga logaritma hanya terdefinisi untuk bilangan positif. Cerminan grafik juga menunjukkan bahwa sumbu-$y$ menjadi asimtot bagi grafik logaritma.",
+          text: "Grafik $y=b^{x}$ tidak pernah menyentuh sumbu-$x$. Akibatnya $b^{x}$ selalu positif, sehingga logaritma hanya terdefinisi untuk bilangan positif. Cerminan grafik juga menunjukkan bahwa sumbu-$y$ menjadi asimtot bagi grafik logaritma.",
         },
         {
           kind: "figure",
@@ -276,7 +276,7 @@ Ketika grafik $y=b^{x}$ dicerminkan terhadap garis $y=x$, kita memperoleh grafik
 
 $$a^{c}=b \\iff \\log_{a}b=c.$$
 
-Dari kesetaraan itu lahir dua strategi umum. Persamaan eksponen diselesaikan dengan **menyamakan basis** — karena fungsi eksponen satu-satu, $a^{m}=a^{n}$ hanya mungkin bila $m=n$ — atau dengan **substitusi** $t=a^{x}$ untuk mengubahnya menjadi persamaan kuadrat. Persamaan logaritma diselesaikan dengan mengubahnya kembali ke bentuk eksponen, atau menggabungkan suku dengan sifat $\\log_{a}m+\\log_{a}n=\\log_{a}(mn)$.
+Dari kesetaraan itu lahir dua strategi umum. Persamaan eksponen diselesaikan dengan **menyamakan basis** (karena fungsi eksponen satu-satu, $a^{m}=a^{n}$ hanya mungkin bila $m=n$) atau dengan **substitusi** $t=a^{x}$ untuk mengubahnya menjadi persamaan kuadrat. Persamaan logaritma diselesaikan dengan mengubahnya kembali ke bentuk eksponen, atau menggabungkan suku dengan sifat $\\log_{a}m+\\log_{a}n=\\log_{a}(mn)$.
 
 Kedua arah selalu ditutup dengan pemeriksaan: solusi eksponen harus memenuhi $t=a^{x}>0$, sedangkan solusi logaritma harus memenuhi syarat **numerus positif**.`,
     },
@@ -368,7 +368,7 @@ Periksa dengan $2^{3}=8$ benar.`,
 
 $$t=\\log_{b}\\!\\left(\\frac{P}{P_{0}}\\right).$$
 
-Sebagai contoh, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\\log_{2}100 \\approx 6{,}64$ jam. Skala logaritma juga memampatkan rentang yang sangat lebar: larutan dengan $[H^{+}]=10^{-3}$ memiliki $\\text{pH}=3$, dan gempa bermagnitudo $6$ mengguncang $10^{2}=100$ kali lebih kuat daripada gempa bermagnitudo $4$. Untuk penerapan lanjutan, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
+Misalnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\\log_{2}100 \\approx 6{,}64$ jam. Skala logaritma juga memampatkan rentang yang sangat lebar: larutan dengan $[H^{+}]=10^{-3}$ memiliki $\\text{pH}=3$, dan gempa bermagnitudo $6$ mengguncang $10^{2}=100$ kali lebih kuat daripada gempa bermagnitudo $4$. Untuk penerapan lanjutan, lihat topik [Bunga dan Investasi](/aplikasi/bunga-investasi).`,
     },
     {
       id: "kesalahan-umum",

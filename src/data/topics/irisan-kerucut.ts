@@ -95,13 +95,13 @@ Sifat fokus elips juga menjelaskan mengapa ruangan berkubah berbentuk elips mamp
 
 $$(x-a)^{2} + (y-b)^{2} = r^{2}.$$
 
-Ini adalah **bentuk baku**. Dari bentuk ini pusat dan jari-jari langsung terbaca.
+Ini **bentuk baku**. Dari bentuk ini pusat dan jari-jari langsung terbaca.
 
-Sebagai contoh:
+Misalnya:
 - $(x-2)^{2} + (y+3)^{2} = 16$ berpusat $(2,-3)$ dan berjari-jari $r = \\sqrt{16} = 4$;
 - $x^{2} + y^{2} = 49$ berpusat $(0,0)$ dan berjari-jari $r = 7$.
 
-Perhatikan bahwa tanda di dalam kurung **berlawanan** dengan tanda koordinat pusat: $(y+3)^{2}$ berarti ordinat pusat $-3$, bukan $+3$.`,
+Tanda di dalam kurung **berlawanan** dengan tanda koordinat pusat: $(y+3)^{2}$ berarti ordinat pusat $-3$, bukan $+3$.`,
       blocks: [
         {
           kind: "callout",
@@ -149,7 +149,7 @@ Jadi pusatnya adalah $\\left(-\\dfrac{D}{2},\\ -\\dfrac{E}{2}\\right)$ dan jari-
 
 $$r = \\sqrt{\\left(\\frac{D}{2}\\right)^{2} + \\left(\\frac{E}{2}\\right)^{2} - F}.$$
 
-Sebagai contoh, $x^{2} + y^{2} - 6x + 4y - 12 = 0$ memiliki $D = -6$, $E = 4$, dan $F = -12$, sehingga pusatnya $\\left(3, -2\\right)$ dan
+Contohnya, $x^{2} + y^{2} - 6x + 4y - 12 = 0$ memiliki $D = -6$, $E = 4$, dan $F = -12$, sehingga pusatnya $\\left(3, -2\\right)$ dan
 
 $$r = \\sqrt{9 + 4 + 12} = \\sqrt{25} = 5.$$
 
@@ -169,7 +169,7 @@ Untuk lingkaran berpusat $(a,b)$, aturannya serupa:
 
 $$(x_{1}-a)(x-a) + (y_{1}-b)(y-b) = r^{2}.$$
 
-Sebagai contoh, pada lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$:
+Sebagai ilustrasi, pada lingkaran $x^{2} + y^{2} = 25$ di titik $(3,4)$:
 
 $$3x + 4y = 25.$$
 
@@ -200,7 +200,7 @@ Unsur-unsurnya:
 
 Jika sumbu mayor sejajar sumbu-$y$, pertukar peran $a$ dan $b$: $\\dfrac{(x-h)^{2}}{b^{2}} + \\dfrac{(y-k)^{2}}{a^{2}} = 1$ dan fokusnya $(h,\\, k \\pm c)$.
 
-Sebagai contoh, untuk $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$: $a = 5$, $b = 3$, $c = \\sqrt{25 - 9} = 4$. Fokusnya $(\\pm 4, 0)$, sumbu mayor $2a = 10$, sumbu minor $2b = 6$, dan $e = \\dfrac{4}{5} = 0{,}8$.
+Contohnya, untuk $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$: $a = 5$, $b = 3$, $c = \\sqrt{25 - 9} = 4$. Fokusnya $(\\pm 4, 0)$, sumbu mayor $2a = 10$, sumbu minor $2b = 6$, dan $e = \\dfrac{4}{5} = 0{,}8$.
 
 Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a = 5$, $b = 4$, $c = \\sqrt{25 - 16} = 3$. Fokusnya $(-1,1)$ dan $(5,1)$, dengan $e = \\dfrac{3}{5} = 0{,}6$.`,
       blocks: [
@@ -320,7 +320,7 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
 
 $$\\frac{x\\,x_{1}}{a^{2}} + \\frac{y\\,y_{1}}{b^{2}} = 1.$$
 
-Sebagai contoh, pada elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$. Periksa dahulu titik itu pada elips:
+Misalnya, pada elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$. Periksa dahulu titik itu pada elips:
 
 $$\\frac{16}{25} + \\frac{(9/5)^{2}}{9} = \\frac{16}{25} + \\frac{9}{25} = 1.$$
 

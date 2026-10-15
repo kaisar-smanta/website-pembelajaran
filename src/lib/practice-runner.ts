@@ -3,7 +3,7 @@
  *
  * Logika dipindahkan apa adanya dari `<script>` halaman: ringkasan kemajuan,
  * daftar tinjauan, saringan tingkat/kategori/tinjau, paginasi, dan status URL.
- * Tidak ada perilaku yang diubah — hanya dijadikan modul agar halaman cukup
+ * Tidak ada perilaku yang diubah: hanya dijadikan modul agar halaman cukup
  * memanggil `setupPracticePage()`.
  */
 

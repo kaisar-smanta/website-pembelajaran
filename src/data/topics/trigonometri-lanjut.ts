@@ -96,7 +96,7 @@ Setiap parameter memiliki makna:
 - $C$ adalah **pergeseran fase** (geser mendatar);
 - $D$ adalah **pergeseran tegak** yang menggeser garis tengah grafik.
 
-Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rvert$. Sebagai contoh, $f(x)=3\\sin\\big(2(x-45^\\circ)\\big)-1$ memiliki amplitudo $3$, periode $\\dfrac{360^\\circ}{2}=180^\\circ$, pergeseran fase $45^\\circ$, nilai maksimum $2$, dan nilai minimum $-4$.`,
+Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rvert$. Misalnya, $f(x)=3\\sin\\big(2(x-45^\\circ)\\big)-1$ memiliki amplitudo $3$, periode $\\dfrac{360^\\circ}{2}=180^\\circ$, pergeseran fase $45^\\circ$, nilai maksimum $2$, dan nilai minimum $-4$.`,
       blocks: [
         {
           kind: "callout",
@@ -203,9 +203,9 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
 $$\\sin(\\alpha\\pm\\beta) = \\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta,$$
 $$\\cos(\\alpha\\pm\\beta) = \\cos\\alpha\\cos\\beta \\mp \\sin\\alpha\\sin\\beta,$$
 $$\\tan(\\alpha\\pm\\beta) = \\frac{\\tan\\alpha \\pm \\tan\\beta}{1 \\mp \\tan\\alpha\\tan\\beta}.$$
-Perhatikan bahwa pada kosinus tandanya **berlawanan**, sedangkan pada sinus tandanya **searah**.
+Pada kosinus tandanya **berlawanan**, sedangkan pada sinus tandanya **searah**.
 
-Sebagai contoh,
+Contohnya,
 $$\\sin 75^\\circ = \\sin(45^\\circ+30^\\circ) = \\frac{\\sqrt{6}+\\sqrt{2}}{4}.$$`,
     },
     {
@@ -218,7 +218,7 @@ $$\\cos 2\\alpha = \\cos^{2}\\alpha - \\sin^{2}\\alpha = 2\\cos^{2}\\alpha - 1 =
 $$\\tan 2\\alpha = \\frac{2\\tan\\alpha}{1-\\tan^{2}\\alpha}.$$
 Karena $\\cos 2\\alpha$ memiliki beberapa bentuk, pilih bentuk yang paling sesuai dengan data yang diketahui.
 
-Sebagai contoh, jika $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip, maka $\\cos\\alpha=\\dfrac{4}{5}$ sehingga
+Misalnya, jika $\\sin\\alpha=\\dfrac{3}{5}$ dan $\\alpha$ lancip, maka $\\cos\\alpha=\\dfrac{4}{5}$ sehingga
 $$\\sin 2\\alpha = 2\\cdot\\frac{3}{5}\\cdot\\frac{4}{5} = \\frac{24}{25}, \\qquad \\cos 2\\alpha = 1 - 2\\left(\\frac{3}{5}\\right)^{2} = 1-\\frac{18}{25} = \\frac{7}{25}.$$`,
       blocks: [
         {
@@ -257,7 +257,7 @@ Aturan sinus dipakai bila diketahui dua sudut dan satu sisi, atau dua sisi dan s
       title: "Luas Segitiga",
       body: `Jika dua sisi dan sudut apitnya diketahui, luas segitiga $ABC$ adalah
 $$L = \\frac{1}{2}bc\\sin A = \\frac{1}{2}ac\\sin B = \\frac{1}{2}ab\\sin C.$$
-Sebagai contoh, untuk $b=5$, $c=8$, dan $A=60^\\circ$:
+Contohnya, untuk $b=5$, $c=8$, dan $A=60^\\circ$:
 $$L = \\frac{1}{2}\\cdot5\\cdot8\\cdot\\sin 60^\\circ = 20\\cdot\\frac{\\sqrt{3}}{2} = 10\\sqrt{3} \\approx 17{,}32.$$`,
     },
     {

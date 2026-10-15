@@ -13,7 +13,7 @@ export const dataBivariat: Topic = {
   summary:
     'Menyajikan dua variabel kuantitatif pada diagram pencar dan menafsirkan pola, tren, serta kekuatan hubungannya secara kritis.',
   description:
-    'Ketika kita mengamati dua hal sekaligus — misalnya lama belajar dan nilai ujian — muncul pertanyaan apakah keduanya berkaitan. Diagram pencar (scatter plot) menampilkan setiap pasangan data sebagai satu titik, sehingga pola hubungan terlihat secara visual: naik, turun, melengkung, atau tidak berpola. Topik ini melatih membaca arah dan kekuatan hubungan serta menyadari keterbatasan diagram pencar, termasuk bahaya menyimpulkan sebab-akibat dari korelasi semata.',
+    'Ketika kita mengamati dua hal sekaligus (misalnya lama belajar dan nilai ujian), muncul pertanyaan apakah keduanya berkaitan. Diagram pencar (scatter plot) menampilkan setiap pasangan data sebagai satu titik, sehingga pola hubungan terlihat secara visual: naik, turun, melengkung, atau tidak berpola. Topik ini melatih membaca arah dan kekuatan hubungan serta menyadari keterbatasan diagram pencar, termasuk bahaya menyimpulkan sebab-akibat dari korelasi semata.',
   keywords: [
     'data bivariat',
     'diagram pencar',
@@ -94,7 +94,7 @@ Kita biasanya menyebut:
 - $x$ sebagai **variabel bebas** (variabel penjelas), dan
 - $y$ sebagai **variabel terikat** (variabel respons).
 
-Sebagai contoh, untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar (jam) dan $y$ adalah nilai. Perhatikan bahwa setiap orang menyumbang **satu titik**, bukan dua grafik terpisah.`,
+Misalnya, untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar (jam) dan $y$ adalah nilai. Setiap orang menyumbang **satu titik**, bukan dua grafik terpisah.`,
       blocks: [
         {
           kind: "callout",

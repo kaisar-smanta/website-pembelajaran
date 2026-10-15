@@ -1,4 +1,4 @@
-# AGENTS.md — catatan untuk sesi AI/otomatisasi
+# AGENTS.md · catatan untuk sesi AI/otomatisasi
 
 ## CI/CD: JANGAN ditambah (kebijakan proyek)
 
@@ -18,14 +18,31 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 
   Pemeriksaan tambahan (butuh peramban, lokal): `npm run audit`, `npm run screenshot`.
 
+## Prosa & tipografi (WAJIB)
+
+- **JANGAN memakai em-dash (U+2014) di mana pun.** Ini sidik jari prosa mesin dan membuat
+  situs terasa tidak profesional. Ganti dengan koma, titik dua, tanda kurung, atau pecah
+  menjadi kalimat baru.
+- **Pemisah judul/metadata** memakai titik tengah `·` (mis. `Trigonometri · Kelas X ·
+  Matematika SMA`), bukan tanda pisah.
+- **En-dash (U+2013) hanya untuk rentang angka** (`0–20`, `X–XII`, `E–F`) dan penanda nilai
+  kosong. Jangan menyentuh hyphen-minus ASCII (tanda minus, placeholder kode).
+- Bila kode memang perlu menyebut karakternya, tulis escape `\u2014`, bukan literal.
+- **Ditegakkan otomatis:** `scripts/lib/emdash.mjs` dipindai `npm run lint:content` dan
+  `tests/no-emdash.mjs` (bagian dari `npm test`). Repo harus tetap 0 em-dash.
+- **Struktur judul:** tepat satu `<h1>` per halaman dan tanpa lompatan tingkat (mis. h2 ke
+  h4). Ditegakkan `tests/heading.mjs` (memindai seluruh `dist/`).
+- `artifacts/` dan `.github/artifacts/` **diabaikan git** (ephemeral). Keputusan yang perlu
+  bertahan ditulis di `AGENTS.md` atau kode, bukan hanya di dokumen rencana di sana.
+
 ## Konvensi singkat
 
-- **Node >= 22.18** — uji memakai fitur pemisahan TypeScript bawaan Node.
+- **Node >= 22.18**: uji memakai fitur pemisahan TypeScript bawaan Node.
 - Materi adalah **data terstruktur TypeScript** di `src/data/` (topik, soal, eksplorasi,
   studi kasus). Jangan menduplikasi metadata di komponen; impor dari `src/data/`.
 - **Registrasi topik & soal otomatis.** `src/data/topics/index.ts` dan
   `src/data/questions/index.ts` memuat berkas lewat `import.meta.glob` (dengan urutan
-  deterministik). Menambah topik/soal **cukup membuat berkasnya** — jangan menambah impor
+  deterministik). Menambah topik/soal **cukup membuat berkasnya**: jangan menambah impor
   manual. `planned.ts`, `index.ts`, dan berkas berawalan `.`/`enhance` dikecualikan.
 - Blok interaktif ditulis langsung di data topik (tidak ada konversi otomatis).
 - **Indeks pencarian wajib lengkap.** `sectionSearchText` (`src/lib/content-text.ts`)
@@ -61,7 +78,7 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - Uji di `tests/*.mjs`, dijalankan `npm test` (lewat `tests/run-all.mjs`, auto-discovery).
   **Berkas berawalan `_` adalah pembantu bersama, bukan uji.** Utilitas bersama ada di
   `tests/_util.mjs` (`load`, `ok`, `check`, `checks`, `collectTopics`, `collectQuestions`,
-  `mockStorage`) — pakai itu alih-alih menyalin loop pemuat topik/soal atau assertion.
+  `mockStorage`): pakai itu alih-alih menyalin loop pemuat topik/soal atau assertion.
   Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
   (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`),
   integritas konten (`tests/content-integrity.mjs`: rujukan topik↔studi kasus, id/slug unik,
@@ -85,3 +102,12 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   `/peta-pembelajaran` memakai ulang `buildOverview`/`continueLearning`/`suggestedStart`
   untuk saran lanjut yang sadar prasyarat.
 - Bahasa konten: Indonesia, sapaan ramah tanpa emoji.
+- **Token desain** ada di `src/styles/partials/tokens.css` (warna, radius, `--space-*`,
+  `--text-*`, `--icon-*`, `--z-*`, `--focus-ring`). Pakai token, jangan nilai mentah.
+- Ikon PWA dibuat `npm run pwa-icons` (butuh Chrome/Edge terpasang); og image `npm run og`.
+  Keduanya memakai browser headless lewat `scripts/lib/browser.mjs`.
+- `npm run audit` (lokal) juga memeriksa struktur a11y (satu h1, urutan heading, `alt`,
+  label kontrol, landmark). Uji statis padanannya: `tests/heading.mjs`, `tests/seo.mjs`.
+- **Ditunda:** CSS KaTeX masih dimuat global di `BaseLayout.astro`; memindahkannya per
+  halaman butuh pemisahan CSS tingkat build (berisiko ke render matematika), jadi belum
+  dikerjakan.

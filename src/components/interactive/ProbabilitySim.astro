@@ -77,6 +77,9 @@ const { exploration } = Astro.props;
     font-size: 0.9rem;
     color: var(--color-text-muted);
   }
+  .prob-sim[aria-busy='true'] [data-prob-run] {
+    cursor: progress;
+  }
   .prob-chart {
     max-width: 36rem;
     margin: 0.6rem auto 0;
@@ -124,12 +127,12 @@ const { exploration } = Astro.props;
   .prob-result :global(.prob-bar-track) {
     height: 0.9rem;
     background: var(--color-surface-2);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     overflow: hidden;
   }
   .prob-result :global(.prob-bar-fill) {
     height: 100%;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--color-primary);
     transition: width 0.4s ease;
   }
@@ -236,7 +239,7 @@ const { exploration } = Astro.props;
       }
     }
 
-    function simulate() {
+    function runSimulation() {
       const n = Math.max(1, Math.min(MAX_TRIALS, Math.floor(Number(trials.value) || 0) || 1));
       const step = Math.max(1, Math.floor(n / MAX_POINTS));
       const before = total;
@@ -254,6 +257,28 @@ const { exploration } = Astro.props;
       total = before + n;
       downsample();
       render();
+    }
+
+    function nextFrame() {
+      return new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      });
+    }
+
+    async function simulate() {
+      if (run.disabled) return;
+      run.disabled = true;
+      run.classList.add('is-busy');
+      root.setAttribute('aria-busy', 'true');
+      totalEl.textContent = 'Menghitung…';
+      try {
+        await nextFrame();
+        runSimulation();
+      } finally {
+        run.disabled = false;
+        run.classList.remove('is-busy');
+        root.removeAttribute('aria-busy');
+      }
     }
 
     function renderTotal() {

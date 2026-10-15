@@ -58,7 +58,7 @@ export const polinomial: Topic = {
           prompt: `Perhatikan polinomial $P(x) = x^{3} - 4x^{2} + 5x - 2$. Nilai $P(1) = 1 - 4 + 5 - 2 = 0$ dan $P(2) = 8 - 16 + 10 - 2 = 0$. Kedua fakta ini bukan kebetulan.
 
 Pertanyaannya: apa hubungan antara nilai $P(c)$ dan sisa pembagian $P(x)$ oleh $(x-c)$?`,
-          reveal: "Sisa pembagian $P(x)$ oleh $(x-c)$ tepat sama dengan $P(c)$. Ini adalah **teorema sisa**. Karena $P(1)=0$ dan $P(2)=0$, baik $(x-1)$ maupun $(x-2)$ membagi habis $P(x)$. Memang $P(x) = (x-1)(x-1)(x-2)$, sehingga akar-akarnya $x=1$ (kembar) dan $x=2$. Gagasan inilah yang menjadi inti topik polinomial.",
+          reveal: "Sisa pembagian $P(x)$ oleh $(x-c)$ tepat sama dengan $P(c)$. Ini **teorema sisa**. Karena $P(1)=0$ dan $P(2)=0$, baik $(x-1)$ maupun $(x-2)$ membagi habis $P(x)$. Memang $P(x) = (x-1)(x-1)(x-2)$, sehingga akar-akarnya $x=1$ (kembar) dan $x=2$. Gagasan inilah yang menjadi inti topik polinomial.",
           saveLabel: "Simpan dugaan & lihat jawabannya",
         },
       ],
@@ -84,7 +84,7 @@ Pertanyaannya: apa hubungan antara nilai $P(c)$ dan sisa pembagian $P(x)$ oleh $
       title: "Notasi dan Operasi Aritmetika Polinomial",
       body: `Polinomial (suku banyak) dalam variabel $x$ berderajat $n$ berbentuk
 $$P(x) = a_{n}x^{n} + a_{n-1}x^{n-1} + \\cdots + a_{1}x + a_{0},$$
-dengan $a_{n} \\neq 0$. Bilangan $a_{n}$ disebut **koefisien utama**, $a_{0}$ disebut **konstanta**, dan $n$ adalah **derajat**. Sebagai contoh, $P(x)=2x^{3}-3x^{2}+4x-5$ berderajat $3$ dengan koefisien utama $2$.
+dengan $a_{n} \\neq 0$. Bilangan $a_{n}$ disebut **koefisien utama**, $a_{0}$ disebut **konstanta**, dan $n$ adalah **derajat**. Misalnya, $P(x)=2x^{3}-3x^{2}+4x-5$ berderajat $3$ dengan koefisien utama $2$.
 
 Penjumlahan dan pengurangan dilakukan dengan menggabungkan **suku-suku sejenis**. Untuk $P(x)=2x^{3}-3x^{2}+4x-5$ dan $Q(x)=x^{2}+2x+1$:
 $$P(x)+Q(x) = 2x^{3} - 2x^{2} + 6x - 4, \\qquad P(x)-Q(x) = 2x^{3} - 4x^{2} + 2x - 6.$$
@@ -168,7 +168,7 @@ $$P(x)Q(x) = 2x^{5} + x^{4} - 6x - 5.$$`,
       body: `Pembagian polinomial mengikuti **algoritma pembagian**: jika $P(x)$ dibagi oleh $Q(x)$ menghasilkan hasil bagi $H(x)$ dan sisa $S(x)$, maka
 $$P(x) = Q(x)\\,H(x) + S(x), \\qquad \\deg S < \\deg Q.$$
 
-**Cara bersusun** mirip pembagian bilangan: bagi suku berderajat tertinggi, kalikan, kurangkan, lalu ulangi. Sebagai contoh, bagi $x^{3}+2x^{2}-5x-6$ oleh $(x+2)$:
+**Cara bersusun** mirip pembagian bilangan: bagi suku berderajat tertinggi, kalikan, kurangkan, lalu ulangi. Contohnya, bagi $x^{3}+2x^{2}-5x-6$ oleh $(x+2)$:
 - $x^{3} \\div x = x^{2}$, lalu $x^{2}(x+2) = x^{3}+2x^{2}$; mengurangkan memberi sisa sementara $-5x-6$;
 - $(-5x) \\div x = -5$, lalu $-5(x+2) = -5x-10$; mengurangkan memberi sisa $4$.
 
@@ -188,7 +188,7 @@ Operasi yang sama dapat diverifikasi dengan teorema sisa: nilai $P(2)$ memang $1
       title: "Teorema Sisa dan Teorema Faktor",
       body: `**Teorema sisa.** Sisa pembagian $P(x)$ oleh $(x-c)$ adalah $P(c)$. Secara umum, sisa pembagian $P(x)$ oleh $(ax+b)$ adalah $P\\left(-\\dfrac{b}{a}\\right)$.
 
-Sebagai contoh, untuk $P(x)=2x^{3}-5x^{2}+4x-7$:
+Misalnya, untuk $P(x)=2x^{3}-5x^{2}+4x-7$:
 $$P(2) = 16 - 20 + 8 - 7 = -3, \\qquad P(-1) = -2 - 5 - 4 - 7 = -18.$$
 Jadi sisa pembagian oleh $(x-2)$ adalah $-3$ dan oleh $(x+1)$ adalah $-18$.
 
@@ -210,7 +210,7 @@ sehingga akar-akarnya $x=3$, $x=2$, dan $x=-1$.`,
       title: "Identitas Polinomial",
       body: `Dua polinomial **identik** jika koefisien suku-suku sejenisnya sama. Sifat ini dipakai untuk menentukan koefisien yang belum diketahui.
 
-Sebagai contoh, tentukan $a$ dan $b$ dari kesamaan
+Contohnya, tentukan $a$ dan $b$ dari kesamaan
 $$x^{3} + ax^{2} - 5x + b = (x-1)(x+2)(x-3).$$
 Jabarkan ruas kanan:
 $$(x-1)(x+2) = x^{2}+x-2, \\qquad (x^{2}+x-2)(x-3) = x^{3}-2x^{2}-5x+6.$$
@@ -254,7 +254,7 @@ Menyamakan koefisien suku sejenis memberi $a=-2$ dan $b=6$.`,
 
 $$P(x) = Q(x)\\,H(x) + S(x), \\qquad \\deg S < \\deg Q.$$
 
-Ketika pembaginya linear, $Q(x)=x-c$, sisanya berderajat nol, yaitu sebuah konstanta. Menyubstitusi $x=c$ menghapus suku $Q(c)H(c)$ sehingga tersisa $S(c)=P(c)$ — itulah **teorema sisa**. Bila $P(c)=0$, sisa menjadi nol dan $P(x)$ habis dibagi $(x-c)$ — itulah **teorema faktor**. Jadi kedua teorema itu bukan rumus terpisah, melainkan akibat langsung dari algoritma pembagian.`,
+Ketika pembaginya linear, $Q(x)=x-c$, sisanya berderajat nol, yaitu sebuah konstanta. Menyubstitusi $x=c$ menghapus suku $Q(c)H(c)$ sehingga tersisa $S(c)=P(c)$. Itulah **teorema sisa**. Bila $P(c)=0$, sisa menjadi nol dan $P(x)$ habis dibagi $(x-c)$. Itulah **teorema faktor**. Jadi kedua teorema itu merupakan akibat langsung dari algoritma pembagian, bukan aturan yang berdiri sendiri.`,
     },
     {
       id: "contoh",

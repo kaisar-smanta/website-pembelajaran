@@ -7,7 +7,7 @@ function assertNever(value: never): never {
 
 /**
  * Pencari teks eksplorasi berdasarkan id. Disuntikkan oleh pemanggil (mis.
- * `search.json.ts`) agar modul ini tidak bergantung pada data materi — data
+ * `search.json.ts`) agar modul ini tidak bergantung pada data materi: data
  * eksplorasi tetap ikut terindeks tanpa menyeretnya ke bundel mana pun.
  */
 export type ExplorationTextLookup = (id: string) => string | undefined;

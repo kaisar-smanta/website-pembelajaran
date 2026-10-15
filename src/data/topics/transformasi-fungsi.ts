@@ -96,7 +96,7 @@ Dengan memahami aturan transformasi, kita dapat menuliskan rumus baru tanpa haru
 
 **Geser horizontal.** Grafik $y=f(x-h)$ diperoleh dari $y=f(x)$ dengan menggeser ke kanan sejauh $h$ satuan bila $h>0$, dan ke kiri sejauh $\\lvert h\\rvert$ satuan bila $h<0$. Setiap titik $(a,b)$ berpindah menjadi $(a+h, b)$.
 
-Perhatikan bahwa pada pergeseran horizontal, tanda di dalam rumus **berlawanan** dengan arah pergeseran. Menggeser ke kanan berarti mengurangi $x$ di dalam fungsi.`,
+Pada pergeseran horizontal, tanda di dalam rumus **berlawanan** dengan arah pergeseran. Menggeser ke kanan berarti mengurangi $x$ di dalam fungsi.`,
       blocks: [
         {
           kind: "callout",
@@ -132,11 +132,11 @@ Kedua hasil tersebut berbeda, sehingga kedua jenis refleksi tidak boleh dipertuk
 
 **Dilatasi horizontal.** Grafik $y=f(kx)$ diperoleh dengan mengganti $x$ menjadi $kx$. Jika $k>1$ grafik menyusut horizontal (memampat); jika $0<k<1$ grafik meregang horizontal. Setiap titik $(p,q)$ menjadi $\\left(\\dfrac{p}{k}, q\\right)$.
 
-Sebagai contoh, dengan $f(x)=x^2$:
+Misalnya, dengan $f(x)=x^2$:
 - $y=2f(x)=2x^2$ meregang vertikal dengan faktor $2$;
 - $y=f(2x)=(2x)^2=4x^2$ menyusut horizontal dengan faktor $\\dfrac{1}{2}$.
 
-Perhatikan bahwa $y=2x^2$ dan $y=4x^2$ memiliki bentuk berbeda: yang pertama lebih landai, yang kedua lebih sempit.`,
+Bentuk $y=2x^2$ dan $y=4x^2$ berbeda: yang pertama lebih landai, yang kedua lebih sempit.`,
     },
     {
       id: "representasi",
@@ -242,7 +242,7 @@ $$y = a\\,f\\big(k(x-h)\\big) + c.$$
 
 Di sini $a$ mengatur peregangan vertikal dan refleksi terhadap sumbu-$x$, $k$ mengatur peregangan horizontal, $h$ menggeser horizontal, dan $c$ menggeser vertikal.
 
-**Urutan transformasi penting diperhatikan.** Menggeser lalu meregangkan tidak sama dengan meregangkan lalu menggeser. Sebagai contoh, mulai dari $f(x)=x^2$:
+**Urutan transformasi penting diperhatikan.** Menggeser lalu meregangkan tidak sama dengan meregangkan lalu menggeser. Misalnya, mulai dari $f(x)=x^2$:
 - meregangkan vertikal dengan faktor $2$ lalu menggeser ke atas $3$ menghasilkan $2x^2+3$;
 - menggeser ke atas $3$ lalu meregangkan vertikal dengan faktor $2$ menghasilkan $2(x^2+3)=2x^2+6$.
 

@@ -218,7 +218,7 @@ $$A+B = \\begin{pmatrix} 3 & 2 \\\\ 4 & 7 \\end{pmatrix}, \\qquad A-B = \\begin{
 
 $$kA = \\begin{pmatrix} k a_{11} & k a_{12} \\\\ k a_{21} & k a_{22} \\end{pmatrix}.$$
 
-Sebagai contoh, $2A = \\begin{pmatrix} 2 & 4 \\\\ 6 & 8 \\end{pmatrix}$.
+Misalnya, $2A = \\begin{pmatrix} 2 & 4 \\\\ 6 & 8 \\end{pmatrix}$.
 
 **Perkalian matriks.** Hasil kali $AB$ terdefinisi jika banyak kolom $A$ sama dengan banyak baris $B$. Jika $A$ berordo $m \\times n$ dan $B$ berordo $n \\times p$, maka $AB$ berordo $m \\times p$. Entri hasil kali pada baris ke-$i$ dan kolom ke-$j$ diperoleh dengan mengalikan entri baris ke-$i$ dari $A$ dengan entri kolom ke-$j$ dari $B$, lalu menjumlahkannya.
 
@@ -253,7 +253,7 @@ Karena $AB \\neq BA$, perkalian matriks **tidak komutatif**. Perhatikan juga bah
 
 $$\\det(A) = ad - bc.$$
 
-Sebagai contoh, untuk $A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix}$ diperoleh $\\det(A) = 3(4) - 1(2) = 10$.
+Contohnya, untuk $A = \\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix}$ diperoleh $\\det(A) = 3(4) - 1(2) = 10$.
 
 **Determinan $3 \\times 3$.** Determinan dihitung dengan **ekspansi baris atau kolom**. Untuk baris pertama:
 
@@ -261,7 +261,7 @@ $$\\det \\begin{pmatrix} a & b & c \\\\ d & e & f \\\\ g & h & i \\end{pmatrix} 
 
 Tanda bergantian $+$, $-$, $+$. Kita juga boleh mengekspansi kolom mana pun selama tanda mengikuti pola $(-1)^{i+j}$.
 
-Sebagai contoh, untuk $B = \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 5 & 6 & 0 \\end{pmatrix}$, ekspansi baris pertama memberi
+Untuk $B = \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 5 & 6 & 0 \\end{pmatrix}$, ekspansi baris pertama memberi
 $$\\det(B) = 1(1 \\cdot 0 - 4 \\cdot 6) - 2(0 \\cdot 0 - 4 \\cdot 5) + 3(0 \\cdot 6 - 1 \\cdot 5)$$
 $$= 1(-24) - 2(-20) + 3(-5) = -24 + 40 - 15 = 1.$$`,
     },
@@ -269,7 +269,7 @@ $$= 1(-24) - 2(-20) + 3(-5) = -24 + 40 - 15 = 1.$$`,
       id: "invers",
       kind: "konsep",
       title: "Matriks Singular, Invers, dan SPLDV",
-      body: `Suatu matriks persegi dikatakan **singular** jika determinannya nol. Matriks singular tidak memiliki invers. Sebagai contoh, $C = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$ memiliki $\\det(C) = 2(2) - 4(1) = 0$, sehingga $C$ singular.
+      body: `Suatu matriks persegi dikatakan **singular** jika determinannya nol. Matriks singular tidak memiliki invers. Contohnya, $C = \\begin{pmatrix} 2 & 4 \\\\ 1 & 2 \\end{pmatrix}$ memiliki $\\det(C) = 2(2) - 4(1) = 0$, sehingga $C$ singular.
 
 Jika $\\det(A) \\neq 0$, maka $A$ memiliki invers:
 
@@ -288,7 +288,7 @@ setara dengan
 $$\\begin{pmatrix} a & b \\\\ d & e \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} c \\\\ f \\end{pmatrix}.$$
 Jika $A = \\begin{pmatrix} a & b \\\\ d & e \\end{pmatrix}$ dan $\\det(A) \\neq 0$, penyelesaiannya adalah
 $$\\begin{pmatrix} x \\\\ y \\end{pmatrix} = A^{-1} \\begin{pmatrix} c \\\\ f \\end{pmatrix}.$$
-Sebagai contoh, selesaikan $2x + 3y = 8$ dan $x + 2y = 5$. Di sini $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$ dengan $\\det(A) = 2(2) - 3(1) = 1$, sehingga $A^{-1} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$, dan
+Misalnya, selesaikan $2x + 3y = 8$ dan $x + 2y = 5$. Di sini $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$ dengan $\\det(A) = 2(2) - 3(1) = 1$, sehingga $A^{-1} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$, dan
 $$\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix} \\begin{pmatrix} 8 \\\\ 5 \\end{pmatrix} = \\begin{pmatrix} 16 - 15 \\\\ -8 + 10 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}.$$
 Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
       blocks: [
@@ -490,7 +490,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
           kind: "callout",
           variant: "concept",
           title: "Mengapa perkalian tidak komutatif",
-          text: "Cayley menyadari bahwa $AB$ dan $BA$ umumnya berbeda. Sifat yang tampak \"aneh\" ini justru penting, sebab matriks tidak sekadar menyimpan data, melainkan juga mewakili transformasi yang urutannya menentukan hasil.",
+          text: "Cayley menyadari bahwa $AB$ dan $BA$ umumnya berbeda. Sifat yang tampak \"aneh\" ini justru penting, sebab selain menyimpan data, matriks juga mewakili transformasi yang urutannya menentukan hasil.",
         },
       ],
     },
