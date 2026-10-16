@@ -3,39 +3,42 @@
  * lewat `tests/review.mjs`.
  *
  * Model yang dipakai sederhana dan terinspirasi Leitner/Ebbinghaus: soal yang
- * belum tepat selalu dijadwalkan paling mendesak, lalu makin lama jarang
- * diulang. Karena `ProgressMap` hanya menyimpan percobaan terakhir tiap soal,
- * kotak (box) diturunkan langsung dari keadaan percobaan terakhir.
+ * belum tepat selalu dijadwalkan paling mendesak, sedangkan soal yang sudah
+ * tepat naik satu kotak tiap kali benar (`Attempt.box`) sehingga makin jarang
+ * diulang. Antrean hanya memuat soal yang jatuh tempo.
  */
 
-import type { ProgressMap } from './progress.ts';
+import { REVIEW_MAX_BOX, type ProgressMap } from './progress.ts';
 
 export const DAY_MS = 24 * 60 * 60 * 1000;
 
 /**
- * Interval tinjauan (dalam hari) menurut kotak:
- * `0` belum pernah dikerjakan, `1` baru saja belum tepat, lalu makin jarang.
+ * Interval tinjauan (dalam hari) menurut kotak Leitner.
+ *
+ * Kotak `0` berarti belum dikuasai (belum pernah dicoba atau baru saja salah)
+ * sehingga jatuh tempo saat itu juga. Kotak `1` sampai `REVIEW_MAX_BOX` naik
+ * setiap jawaban benar, dengan jeda yang makin panjang.
  */
-export const REVIEW_INTERVAL_DAYS: readonly number[] = [0, 0, 1, 3, 7, 16, 35];
+export const REVIEW_INTERVAL_DAYS: readonly number[] = [0, 1, 3, 7, 16, 35, 70];
 
 /** Interval tinjauan yang sama dalam milidetik. */
 export const REVIEW_INTERVAL_MS: readonly number[] = REVIEW_INTERVAL_DAYS.map(
   (days) => days * DAY_MS,
 );
 
-/** Interval tinjauan setelah satu jawaban benar (kotak 2). */
-export const REVIEW_CORRECT_INTERVAL_MS = REVIEW_INTERVAL_MS[2];
+/** Interval tinjauan setelah satu jawaban benar (kotak 1). */
+export const REVIEW_CORRECT_INTERVAL_MS = REVIEW_INTERVAL_MS[1];
 
 /** Batas keterlambatan yang diperhitungkan pada skor prioritas (satu tahun). */
 export const REVIEW_MAX_OVERDUE_MS = 365 * DAY_MS;
 
-export type ReviewReason = 'missed' | 'unanswered';
+export type ReviewReason = 'missed' | 'unanswered' | 'scheduled';
 
 /** Satu soal dalam antrean tinjauan lintas topik. */
 export interface ReviewItem {
   questionId: string;
   reason: ReviewReason;
-  /** Kotak Leitner: 0 belum pernah, 1 baru belum tepat. */
+  /** Kotak Leitner: 0 belum dikuasai, 1 sampai `REVIEW_MAX_BOX` makin jarang. */
   box: number;
   /** Ketepatan terakhir: 0 bila salah, null bila belum pernah dinilai. */
   accuracy: number | null;
@@ -53,16 +56,18 @@ export interface ReviewSummary {
   total: number;
   missed: number;
   unanswered: number;
+  /** Soal yang pernah tepat dan kini jatuh tempo untuk diulang. */
+  scheduled: number;
 }
 
 /**
  * Membangun antrean tinjauan berprioritas dari seluruh id soal yang diketahui.
  *
- * Soal yang sudah tepat atau tidak dapat dinilai otomatis tidak pernah masuk
- * antrean. Soal yang belum pernah dicoba ikut ditambahkan agar tetap terjangkau,
- * tetapi selalu berada di bawah soal yang pernah salah (ketepatan lebih rendah
- * lebih mendesak). Di antara soal yang pernah salah, percobaan yang lebih lama
- * lebih mendesak.
+ * Antrean memuat tiga hal: soal yang belum pernah dicoba, soal yang pernah
+ * salah (paling mendesak), dan soal yang sudah pernah tepat tetapi **jatuh
+ * tempo** menurut kotak Leitner-nya. Soal yang sudah tepat dan belum waktunya
+ * diulang tidak masuk antrean. Soal tanpa penilaian otomatis tidak pernah
+ * dijadwalkan.
  */
 export function buildReviewQueue(
   questionIds: readonly string[],
@@ -77,23 +82,34 @@ export function buildReviewQueue(
     let box: number;
     let accuracy: number | null;
     let lastAt: number;
+    let dueAt: number;
 
     if (!attempt) {
       reason = 'unanswered';
       box = 0;
       accuracy = null;
       lastAt = 0;
-    } else if (attempt.graded === false || attempt.correct) {
+      dueAt = now;
+    } else if (attempt.graded === false) {
       continue;
+    } else if (attempt.correct) {
+      const stored = Math.min(Math.max(attempt.box ?? 1, 1), REVIEW_MAX_BOX);
+      box = stored;
+      accuracy = 1;
+      lastAt = typeof attempt.at === 'number' ? attempt.at : 0;
+      dueAt = lastAt + (REVIEW_INTERVAL_MS[box] ?? 0);
+      // Belum waktunya diulang: tidak masuk antrean.
+      if (now < dueAt) continue;
+      reason = 'scheduled';
     } else {
       reason = 'missed';
-      box = 1;
+      box = 0;
       accuracy = 0;
       lastAt = typeof attempt.at === 'number' ? attempt.at : 0;
+      dueAt = lastAt;
     }
 
     const intervalMs = REVIEW_INTERVAL_MS[box] ?? 0;
-    const dueAt = reason === 'unanswered' ? now : lastAt + intervalMs;
     const overdueMs = Math.max(0, now - dueAt);
     const accuracyWeight = accuracy === null ? 0.5 : 1 - accuracy;
     const overdueWeight =
@@ -124,11 +140,13 @@ function compareReviewItems(a: ReviewItem, b: ReviewItem): number {
 export function summarizeReviewQueue(items: readonly ReviewItem[]): ReviewSummary {
   let missed = 0;
   let unanswered = 0;
+  let scheduled = 0;
   for (const item of items) {
     if (item.reason === 'missed') missed += 1;
+    else if (item.reason === 'scheduled') scheduled += 1;
     else unanswered += 1;
   }
-  return { total: items.length, missed, unanswered };
+  return { total: items.length, missed, unanswered, scheduled };
 }
 
 export function msUntilDue(item: Pick<ReviewItem, 'dueAt'>, now: number = Date.now()): number {

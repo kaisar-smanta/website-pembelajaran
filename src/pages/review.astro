@@ -19,12 +19,13 @@ const crumbs = [
 /**
  * Ukuran sesi tinjauan. Menyematkan seluruh bank soal (ratusan kartu beserta
  * kunci jawaban dan pembahasan) membuat halaman tumbuh belasan megabita dan
- * berat di ponsel, padahal halaman ini adalah *satu sesi*. Seperti
- * `latihan/kilat`, kandidat dibatasi: satu soal per topik (disaring lebih
- * lanjut oleh antrean berbasis kemajuan di peramban), sehingga tetap mewakili
- * seluruh topik tanpa membengkakkan muatan.
+ * berat di ponsel, padahal halaman ini adalah *satu sesi*. Kandidat dibatasi
+ * dua soal per topik (44 topik x 2 = 88 kartu), lalu disaring lebih lanjut
+ * oleh antrean berbasis kemajuan di peramban. Tiap topik juga menyediakan
+ * tautan ke sesi tinjau penuh topik itu, sehingga soal yang belum tepat di
+ * satu topik tidak terpotong batas ini.
  */
-const SESSION_SIZE = 44;
+const SESSION_SIZE = 88;
 
 /** Menyebar `n` soal secara bergilir antar topik agar tiap topik terwakili. */
 function spreadByTopic<T extends { topicId: string }>(list: T[], n: number): T[] {
@@ -57,6 +58,7 @@ const topicEntries = topics
       elementName: ELEMENTS[topic.element].name,
       element: topic.element,
       practiceHref: url(`/latihan/${topic.slug}`),
+      reviewHref: url(`/latihan/${topic.slug}?tinjau=missed`),
       materialHref: topicUrl(topic.grade, topic.element, topic.slug, subject),
       questions: questionsByTopic(topic.id).filter((q) => sessionIds.has(q.id)),
     };
@@ -167,7 +169,8 @@ const meta = [
                   </h2>
                   <p class="review-topic-meta text-muted">
                     {entry.gradeName} · {entry.elementName} ·{' '}
-                    <a href={entry.materialHref}>Baca materi</a>
+                    <a href={entry.materialHref}>Baca materi</a> ·{' '}
+                    <a href={entry.reviewHref}>Tinjau semua soal topik ini</a>
                   </p>
                 </div>
                 <span class="review-topic-count badge" data-topic-count>

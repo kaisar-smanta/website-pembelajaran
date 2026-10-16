@@ -88,6 +88,7 @@ Berapa luas rumput dan berapa panjang pagar yang dibutuhkan? Bisakah kamu menghi
       id: "unsur",
       kind: "konsep",
       title: "Unsur-Unsur Lingkaran",
+      questionIds: ['lk-02'],
       body: `Perhatikan istilah berikut:
 
 - **pusat** $(O)$: titik tetap yang menjadi acuan;
@@ -552,6 +553,7 @@ Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['lk-09'],
       body: `**Rangkuman akhir.** (1) Kapan sudut pusat sama dengan dua kali sudut keliling, dan mengapa syarat busur yang sama penting? (2) Dari mana asal rumus panjang garis singgung dari sebuah titik di luar lingkaran? Setelah menjawab, uji pemahamanmu pada [Latihan & Asesmen](/latihan) topik **Lingkaran**.`,
     },
   ],

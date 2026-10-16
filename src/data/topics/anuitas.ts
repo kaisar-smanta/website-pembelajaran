@@ -81,6 +81,7 @@ Memahami anuitas membantu kita menghitung kemampuan membayar, membandingkan pena
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti",
+      questionIds: ['an-02'],
       body: `**Anuitas** adalah rangkaian pembayaran sebesar $A$ yang dilakukan secara berkala (contohnya tiap bulan) untuk melunasi pinjaman atau mengumpulkan dana. Ciri utamanya: **besar setoran tetap**, tetapi **komposisinya berubah** dari periode ke periode: porsi bunga menyusut dan porsi pokok membesar.
 
 Ide kuncinya adalah **menyetarakan nilai waktu uang**. Pokok pinjaman $M$ diterima hari ini, sedangkan seluruh angsuran dibayar pada masa mendatang. Agar adil, nilai sekarang seluruh angsuran harus sama dengan $M$. Karena angsuran ke-$k$ baru dibayar setelah $k$ periode, nilainya didiskontokan dengan faktor $\\dfrac{1}{(1+i)^k}$.
@@ -429,6 +430,7 @@ Gunakan hasil itu untuk menunjukkan bahwa setelah $n$ angsuran utangnya lunas.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['an-09'],
       body: `**Renungan angka.** (1) Jelaskan mengapa porsi bunga menyusut sementara porsi pokok membesar walau angsuran tidak berubah. (2) Dengan rumus nilai sekarang, tunjukkan mengapa memperpanjang tenor menurunkan angsuran sekaligus menaikkan total bunga. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Anuitas** untuk latihan tambahan.`,
     },
   ],

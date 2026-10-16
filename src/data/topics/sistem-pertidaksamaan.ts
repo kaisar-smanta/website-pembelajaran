@@ -85,6 +85,7 @@ Sebelum mengoptimalkan, kita harus tahu daerah mana yang memenuhi semua kendala.
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Setengah Bidang dan Daerah Penyelesaian",
+      questionIds: ['spt-04'],
       body: `Pertidaksamaan linear dua variabel berbentuk
 $$ax + by \\le c, \\qquad ax + by \\ge c, \\qquad ax + by < c, \\qquad ax + by > c$$
 dengan $a$, $b$, dan $c$ bilangan real serta $a$ dan $b$ tidak keduanya nol. Garis $ax + by = c$ disebut **garis pembatas**, dan garis itu membagi bidang menjadi dua **setengah bidang**.
@@ -404,6 +405,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['spt-09'],
       body: `**Tiket keluar.** (1) Gambarkan daerah penyelesaian $x+2y\\le6$ di kuadran pertama, lalu sebutkan koordinat titik sudutnya. (2) Bila sistem ditambah kendala $x+y\\ge2$, jelaskan mengapa titik $(0,0)$ tidak lagi termasuk padahal sebelumnya termasuk. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Pertidaksamaan Linear** untuk latihan tambahan.`,
     },
   ],

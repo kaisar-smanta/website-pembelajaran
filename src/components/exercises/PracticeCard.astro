@@ -41,6 +41,7 @@ const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
 <article
   class:list={['practice-card', 'hover-lift', `accent-${element}`]}
   data-practice-card
+  data-mapel={subject}
   data-kelas={grade}
   data-elemen={element}
   data-levels={levels.join(' ')}

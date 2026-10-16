@@ -93,6 +93,7 @@ Gagasan "nilai yang didekati" inilah yang disebut **limit**. Limit menjadi fonda
       id: 'konsep',
       kind: 'konsep',
       title: 'Konsep Inti: Limit sebagai Nilai yang Didekati',
+      questionIds: ['lim-07'],
       body: `**Limit** fungsi $f$ di $x = a$ adalah nilai yang didekati $f(x)$ ketika $x$ mendekati $a$, tetapi $x \\neq a$. Kita menuliskan
 $$\\lim_{x \\to a} f(x) = L.$$
 Penting dipahami bahwa limit **tidak bergantung pada nilai $f(a)$**. Fungsi boleh tidak terdefinisi di $a$, atau terdefinisi dengan nilai yang berbeda, selama nilai di sekitar $a$ menuju satu bilangan yang sama.
@@ -458,6 +459,7 @@ $$\\frac{2x^{2}-8}{x-2}=\\frac{2(x^{2}-4)}{x-2}=\\frac{2(x-2)(x+2)}{x-2}.$$`,
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
+      questionIds: ['lim-10'],
       body: `**Cek pemahaman.** Tuliskan jawaban singkat untuk dua hal berikut. Pertama, jika substitusi memberi $\\dfrac{0}{0}$, langkah apa yang kamu pilih dahulu dan mengapa? Kedua, berikan satu contoh fungsi yang limitnya ada di suatu titik meski nilainya di titik itu tidak terdefinisi. Setelah itu, uji dirimu lewat [Latihan & Asesmen](/latihan) topik **Limit Fungsi**.`,
     },
   ],

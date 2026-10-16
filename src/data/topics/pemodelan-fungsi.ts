@@ -90,6 +90,7 @@ Pemodelan membuat perkiraan menjadi terukur. Alih-alih menebak, kita menyusun fu
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Langkah Pemodelan",
+      questionIds: ['pmf-02'],
       body: `Pemodelan fungsi mengikuti alur yang dapat diulang:
 
 1. **Pahami situasi dan tentukan variabel.** Beri nama tiap besaran beserta satuannya, seperti $t$ waktu (jam) dan $N$ populasi (ekor).
@@ -551,6 +552,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['pmf-09'],
       body: `**Kesimpulan singkat.** (1) Bagaimana pola perubahan data menunjukkan jenis fungsi yang paling tepat? (2) Mengapa domain model perlu dibatasi meskipun rumusnya berlaku untuk semua bilangan? Setelah menjawab, dalami lewat [Latihan & Asesmen](/latihan) topik **Pemodelan Fungsi**.`,
     },
   ],

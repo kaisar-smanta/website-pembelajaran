@@ -96,6 +96,7 @@ Fungsi akar muncul ketika suatu besaran tumbuh makin lambat, seperti jarak jatuh
       id: 'konsep',
       kind: 'konsep',
       title: 'Fungsi Rasional: Domain, Asimtot, dan Lubang',
+      questionIds: ['fra-01'],
       body: `Fungsi rasional adalah hasil bagi dua polinomial,
 $$f(x)=\\dfrac{p(x)}{q(x)}, \\qquad q(x)\\neq 0.$$
 **Domain** fungsi ini adalah semua bilangan real kecuali nilai yang membuat $q(x)=0$, sebab pembagian dengan nol tidak terdefinisi.
@@ -430,6 +431,7 @@ Fungsi rasional dan fungsi akar menjadi alat penting dalam pemodelan besaran per
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
+      questionIds: ['fra-10'],
       body: `Mengapa sebuah faktor yang saling meniadakan menghasilkan lubang alih-alih asimtot tegak, dan bagaimana derajat pembilang serta penyebut memandu pembacaan asimtot datar? Susun penjelasan singkat beserta satu contohmu sendiri, lalu lanjutkan ke [Latihan & Asesmen](/latihan) topik **Fungsi Rasional dan Fungsi Akar**.`,
     },
   ],

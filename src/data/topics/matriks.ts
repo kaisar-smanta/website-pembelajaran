@@ -93,6 +93,7 @@ Dalam grafika komputer, matriks dipakai untuk memindahkan dan memutar gambar. Da
       id: "notasi",
       kind: "konsep",
       title: "Notasi, Ordo, dan Kesamaan Matriks",
+      questionIds: ['mt-04'],
       body: `Matriks adalah susunan bilangan dalam baris dan kolom. Bilangan di dalamnya disebut **elemen** atau **entri**. Entri pada baris ke-$i$ dan kolom ke-$j$ ditulis $a_{ij}$.
 
 Banyaknya baris dan kolom menentukan **ordo**. Matriks
@@ -569,6 +570,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['mt-09'],
       body: `**Cek pemahaman.** (1) Mengapa ordo kedua matriks harus sama agar penjumlahannya terdefinisi? (2) Mengapa nilai determinan menentukan apakah sebuah matriks memiliki invers? Setelah menjawab, lanjutkan ke [Latihan & Asesmen](/latihan) topik **Matriks** untuk latihan tambahan.`,
     },
   ],

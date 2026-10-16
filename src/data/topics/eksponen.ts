@@ -95,6 +95,7 @@ Menuliskan $2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\c
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Makna Eksponen",
+      questionIds: ['eks-01'],
       body: `Untuk bilangan real $a$ dan bilangan bulat positif $n$,
 
 $$a^{n} = \\underbrace{a \\cdot a \\cdot a \\cdots a}_{n \\text{ faktor}}$$
@@ -599,6 +600,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['eks-08'],
       body: `**Tiket keluar.** (1) Hitung $2^{3} \\cdot 2^{5}$ dan $2^{3} + 2^{5}$, lalu jelaskan mengapa hasil keduanya berbeda. (2) Ubah $\\sqrt[3]{x^{2}}$ menjadi bentuk pangkat dan sebutkan nilai $x$ yang membuatnya terdefinisi. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Eksponen dan Bentuk Akar** untuk latihan tambahan.`,
     },
   ],

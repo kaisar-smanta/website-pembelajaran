@@ -93,6 +93,7 @@ Dua pertanyaan dasar yang selalu muncul adalah: apakah **urutan** hasil penting?
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Aturan Pencacahan, Permutasi, dan Kombinasi",
+      questionIds: ['perkom-08'],
       body: `**Aturan perkalian.** Jika suatu kejadian terdiri atas tahapan berurutan dengan $n_1$ cara pada tahap pertama, $n_2$ cara pada tahap kedua, dan seterusnya, maka total cara adalah hasil kalinya:
 $$n_1 \\cdot n_2 \\cdots n_k.$$
 Aturan ini dipakai ketika tahapan terjadi bersama-sama (dan/atau).
@@ -521,6 +522,7 @@ Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam p
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['perkom-09'],
       body: `**Tiket keluar.** (1) Apa satu pertanyaan penentu yang memisahkan permutasi dari kombinasi? (2) Mengapa hasil kombinasi selalu $k!$ kali lebih kecil daripada permutasi? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Permutasi dan Kombinasi** untuk latihan tambahan.`,
     },
   ],

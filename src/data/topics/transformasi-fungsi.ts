@@ -90,6 +90,7 @@ Dengan memahami aturan transformasi, kita dapat menuliskan rumus baru tanpa haru
       id: "translasi",
       kind: "konsep",
       title: "Translasi: Pergeseran Grafik",
+      questionIds: ['tf-01'],
       body: `Translasi adalah pergeseran grafik tanpa mengubah bentuknya.
 
 **Geser vertikal.** Grafik $y=f(x)+k$ diperoleh dari $y=f(x)$ dengan menggeser ke atas sejauh $k$ satuan bila $k>0$, dan ke bawah sejauh $\\lvert k\\rvert$ satuan bila $k<0$. Setiap titik $(a,b)$ berpindah menjadi $(a, b+k)$.
@@ -515,6 +516,7 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['tf-09'],
       body: `**Refleksi akhir.** (1) Bagaimana bentuk umum $y=a\\,f\\big(k(x-h)\\big)+c$ menunjukkan jenis transformasi yang terjadi? (2) Mengapa urutan langkah transformasi dapat mengubah hasil akhir? Setelah menjawab, uji kemampuanmu pada [Latihan & Asesmen](/latihan) topik **Transformasi Fungsi**.`,
     },
   ],

@@ -83,6 +83,7 @@ Dalam geometri, integral menghitung luas daerah yang batasnya berupa kurva. Dala
       id: "konsep",
       kind: "konsep",
       title: "Integral sebagai Antiturunan dan sebagai Luas",
+      questionIds: ['in-01'],
       body: `**Integral tak tentu.** Fungsi $F$ disebut **antiturunan** $f$ jika $F'(x) = f(x)$. Himpunan semua antiturunan ditulis
 $$\\int f(x)\\,dx = F(x) + C,$$
 dengan $C$ adalah konstanta integrasi. Karena turunan konstanta nol, setiap antiturunan berbeda hanya oleh konstanta.
@@ -490,6 +491,7 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['in-09'],
       body: `**Penutup singkat.** Bandingkan hasil dua pekerjaan ini: (1) menghitung $\\int_{0}^{1} x^{2}\\,dx$ dengan antiturunan, dan (2) menjelaskan dengan kata-katamu mengapa limit jumlah persegi panjang menghasilkan bilangan yang sama. Setelah keduanya selesai, asah kemampuanmu di [Latihan & Asesmen](/latihan) topik **Integral**.`,
     },
   ],

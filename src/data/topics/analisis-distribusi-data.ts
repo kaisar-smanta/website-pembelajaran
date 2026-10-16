@@ -88,6 +88,7 @@ Apakah kedua kelas benar-benar "sama baik"? Angka apa yang dapat membedakan kedu
       id: "konsep",
       kind: "konsep",
       title: "Ukuran Pemusatan: Mean, Median, Modus",
+      questionIds: ['ad-01'],
       body: `Untuk data tunggal berukuran $n$:
 
 - **Mean (rata-rata)** adalah jumlah semua data dibagi banyak data:
@@ -603,6 +604,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['ad-09'],
       body: `**Uji diri.** Diberikan dua kelompok data dengan jangkauan berbeda, jelaskan ukuran mana yang paling tepat membandingkan keragaman keduanya dan alasannya. Lanjutkan dengan menuliskan satu contoh nilai yang layak dicurigai sebagai pencilan beserta batas yang kamu pakai. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Analisis Distribusi Data** untuk latihan tambahan.`,
     },
   ],

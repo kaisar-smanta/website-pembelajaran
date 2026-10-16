@@ -29,13 +29,15 @@ for (const { grade: comboGrade, element } of subjectGradeElementCombos(subject))
   elementGradesForSubject.set(element, seen);
 }
 
-// Elemen dianggap "milik kelas ini" bila dipakai di kelas ini, dipakai di lebih
-// dari satu kelas (elemen lintas jenjang seperti pada Matematika wajib), atau
-// belum punya data sama sekali (masih benar-benar kosong untuk semua kelas).
+// Elemen dianggap "milik kelas ini" hanya bila memang dipakai di kelas ini,
+// atau belum punya data sama sekali (masih benar-benar kosong untuk semua
+// kelas). Elemen lintas jenjang tetap muncul di tiap kelas tempat ia dipakai
+// karena peta menyimpan kelas asalnya masing-masing; kelas yang tidak
+// menawarkan elemen itu tidak menampilkan chip "segera disusun" yang keliru.
 function isInScope(element: ElementId, grade: Grade): boolean {
   const seen = elementGradesForSubject.get(element);
   if (!seen || seen.size === 0) return true;
-  return seen.has(grade) || seen.size > 1;
+  return seen.has(grade);
 }
 
 // Topik rencana lama tidak menyimpan mata pelajaran; entri tanpa penanda
@@ -56,6 +58,11 @@ const groups = elements.map((element) => {
 });
 
 const totalCount = groups.reduce((sum, group) => sum + group.count, 0);
+const totalMinutes = groups.reduce(
+  (sum, group) =>
+    sum + group.complete.reduce((acc, topic) => acc + (topic.estimatedMinutes ?? 0), 0),
+  0,
+);
 const withTopics = groups.filter((group) => group.count > 0);
 const pending = groups.filter((group) => group.count === 0);
 
@@ -77,7 +84,9 @@ const topicSearch = (title: string, keywords?: string[]): string =>
       {GRADES[grade].name} <span class="badge">{GRADES[grade].label}</span>
       <span class="badge badge-subject">{subjectMeta.short}</span>
     </h3>
-    <p class="grade-count text-soft">{totalCount} topik</p>
+    <p class="grade-count text-soft">
+      {totalCount} topik{totalMinutes > 0 && <> · ≈ {totalMinutes} menit</>}
+    </p>
   </div>
 
   {

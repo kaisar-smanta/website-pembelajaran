@@ -34,9 +34,22 @@ check('buildReviewQueue menambahkan soal yang belum pernah dicoba sebagai unansw
   assert.equal(item.dueAt, NOW);
 });
 
-check('buildReviewQueue mengeluarkan soal yang sudah tepat', () => {
-  const attempts = { a: { questionId: 'a', correct: true, at: NOW - DAY_MS, graded: true } };
+check('buildReviewQueue mengeluarkan soal tepat yang belum jatuh tempo', () => {
+  const attempts = {
+    a: { questionId: 'a', correct: true, at: NOW - 1000, graded: true, box: 3 },
+  };
   assert.deepEqual(buildReviewQueue(['a'], attempts, NOW), []);
+});
+
+check('buildReviewQueue memasukkan soal tepat yang jatuh tempo sebagai scheduled', () => {
+  const attempts = {
+    a: { questionId: 'a', correct: true, at: NOW - 10 * DAY_MS, graded: true, box: 1 },
+  };
+  const [item] = buildReviewQueue(['a'], attempts, NOW);
+  assert.equal(item.reason, 'scheduled');
+  assert.equal(item.box, 1);
+  assert.equal(item.accuracy, 1);
+  assert.equal(item.dueAt, NOW - 10 * DAY_MS + DAY_MS);
 });
 
 check('buildReviewQueue mengabaikan percobaan tanpa penilaian otomatis', () => {
@@ -51,7 +64,7 @@ check('buildReviewQueue menandai soal yang belum tepat sebagai missed', () => {
   const attempts = { a: { questionId: 'a', correct: false, at: NOW - 2 * DAY_MS, graded: true } };
   const [item] = buildReviewQueue(['a'], attempts, NOW);
   assert.equal(item.reason, 'missed');
-  assert.equal(item.box, 1);
+  assert.equal(item.box, 0);
   assert.equal(item.accuracy, 0);
   assert.equal(item.lastAt, NOW - 2 * DAY_MS);
   assert.equal(item.dueAt, NOW - 2 * DAY_MS);
@@ -97,16 +110,26 @@ check('summarizeReviewQueue menghitung alasan tiap item', () => {
     m2: { questionId: 'm2', correct: false, at: NOW, graded: true },
   };
   const queue = buildReviewQueue(['m1', 'm2', 'u1', 'u2', 'u3'], attempts, NOW);
-  assert.deepEqual(summarizeReviewQueue(queue), { total: 5, missed: 2, unanswered: 3 });
+  assert.deepEqual(summarizeReviewQueue(queue), {
+    total: 5,
+    missed: 2,
+    unanswered: 3,
+    scheduled: 0,
+  });
 });
 
 check('summarizeReviewQueue aman pada antrean kosong', () => {
-  assert.deepEqual(summarizeReviewQueue([]), { total: 0, missed: 0, unanswered: 0 });
+  assert.deepEqual(summarizeReviewQueue([]), {
+    total: 0,
+    missed: 0,
+    unanswered: 0,
+    scheduled: 0,
+  });
 });
 
 check('interval Leitner naik dan jarak jawaban benar satu hari', () => {
-  assert.deepEqual(REVIEW_INTERVAL_MS[0], 0);
-  assert.deepEqual(REVIEW_INTERVAL_MS[1], 0);
+  assert.equal(REVIEW_INTERVAL_MS[0], 0);
+  assert.equal(REVIEW_INTERVAL_MS[1], DAY_MS);
   assert.ok(REVIEW_INTERVAL_MS[2] > REVIEW_INTERVAL_MS[1]);
   assert.ok(REVIEW_INTERVAL_MS[3] > REVIEW_INTERVAL_MS[2]);
   assert.equal(REVIEW_CORRECT_INTERVAL_MS, DAY_MS);

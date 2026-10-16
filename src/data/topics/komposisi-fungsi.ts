@@ -94,6 +94,7 @@ Masing-masing tahap dapat dimodelkan sebagai fungsi, dan keseluruhan proses adal
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Notasi Komposisi",
+      questionIds: ['kf-02'],
       body: `Komposisi fungsi $f$ dan $g$, ditulis $f \\circ g$ (dibaca "f bundaran g"), didefinisikan sebagai
 
 $$(f \\circ g)(x) = f(g(x)).$$
@@ -497,6 +498,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['kf-09'],
       body: `**Penutup.** (1) Mengapa $(f\\circ g)(x)$ umumnya berbeda dari $(g\\circ f)(x)$? (2) Syarat apa saja yang harus dipenuhi agar domain komposisi terdefinisi? Setelah menjawab, uji pemahamanmu lewat [Latihan & Asesmen](/latihan) topik **Komposisi Fungsi**.`,
     },
   ],

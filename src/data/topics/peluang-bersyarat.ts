@@ -94,6 +94,7 @@ Pertanyaan seperti "berapa peluang hujan **jika** pagi berawan?" atau "berapa pe
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Peluang Bersyarat",
+      questionIds: ['pb-01'],
       body: `Peluang kejadian $A$ **dengan syarat** kejadian $B$ terjadi ditulis $P(A \\mid B)$, dibaca "peluang $A$ jika $B$". Karena kita sudah tahu $B$ terjadi, ruang sampel dipersempit menjadi $B$ saja:
 
 $$P(A \\mid B) = \\frac{P(A \\cap B)}{P(B)}, \\qquad P(B) > 0.$$
@@ -538,6 +539,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['pb-09'],
       body: `**Tiket keluar.** (1) Ketika sebuah petunjuk baru tersedia, mengapa kita membagi dengan $P(B)$ alih-alih memakai total seluruh ruang sampel? (2) Berikan satu contoh ketika $P(A\\mid B)$ dan $P(B\\mid A)$ sangat berbeda, lalu jelaskan penyebabnya. Setelah menjawab, lanjutkan berlatih pada [Latihan & Asesmen](/latihan) topik **Peluang Bersyarat**.`,
     },
   ],

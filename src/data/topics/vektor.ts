@@ -94,6 +94,7 @@ Ketika sebuah kapal menyeberang sungai yang berarus, arah dan laju sesungguhnya 
       id: "notasi",
       kind: "konsep",
       title: "Notasi dan Representasi Vektor di Bidang Datar",
+      questionIds: ['vk-03'],
       body: `**Vektor** adalah besaran yang memiliki besar (panjang) dan arah. Di bidang datar, vektor ditulis sebagai pasangan terurut komponennya:
 
 $$\\vec{a} = \\begin{pmatrix} a_{1} \\\\ a_{2} \\end{pmatrix} = a_{1}\\,\\mathbf{i} + a_{2}\\,\\mathbf{j},$$
@@ -546,6 +547,7 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['vk-10'],
       body: `Tutup pelajaran dengan menjawab: bagaimana perkalian titik menghasilkan panjang, sudut, dan ketegaklurusan sekaligus, serta bagaimana vektor mempersingkat pembuktian geometri? Setelah itu, lanjut ke [Latihan & Asesmen](/latihan) topik **Vektor**.`,
     },
   ],

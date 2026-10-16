@@ -45,6 +45,47 @@ export function sectionTitle(section: Section): string {
 }
 
 /**
+ * Fase alur belajar. Dipakai untuk menampilkan penanda fase pada halaman topik
+ * dan sejalan dengan pengelompokan di `tests/section-order.mjs`.
+ */
+export type LearningPhase = 1 | 2 | 3 | 4;
+
+export const phaseByKind: Record<SectionKind, LearningPhase> = {
+  tujuan: 1,
+  pemantik: 1,
+  prasyarat: 1,
+  konteks: 1,
+  konsep: 2,
+  representasi: 2,
+  eksplorasi: 2,
+  generalisasi: 2,
+  rumus: 2,
+  contoh: 2,
+  'latihan-dasar': 3,
+  'latihan-cakap': 3,
+  'latihan-mahir': 3,
+  'dunia-nyata': 4,
+  'kesalahan-umum': 4,
+  refleksi: 4,
+  rangkuman: 4,
+  evaluasi: 4,
+  sejarah: 4,
+  tantangan: 4,
+};
+
+/** Label ramah tiap fase alur belajar. */
+export const phaseLabels: Record<LearningPhase, string> = {
+  1: 'Pembuka',
+  2: 'Inti',
+  3: 'Latihan',
+  4: 'Penutup',
+};
+
+export function sectionPhase(kind: SectionKind): LearningPhase {
+  return phaseByKind[kind];
+}
+
+/**
  * Teks untuk indeks pencarian, termasuk isi blok interaktif. Dipakai
  * `src/pages/search.json.ts`; sebelumnya tinggal di `enhance.ts` yang kini
  * dihapus karena blok interaktif sudah ditulis langsung pada data topik.

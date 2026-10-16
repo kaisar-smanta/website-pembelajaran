@@ -99,6 +99,7 @@ Dengan bantuan ketaksamaan, pertanyaan semacam itu dapat dijawab tanpa menggamba
       id: 'konsep',
       kind: 'konsep',
       title: 'Konsep Inti: Sifat-Sifat Ketaksamaan',
+      questionIds: ['ktk-02'],
       body: `Ketaksamaan adalah pernyataan perbandingan, seperti $a < b$ atau $a \\ge b$. Agar manipulasi tetap benar, ingat sifat-sifat berikut.
 
 1. **Menambah/mengurangi.** Jika $a < b$, maka $a + c < b + c$ untuk setiap bilangan real $c$.
@@ -422,6 +423,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
+      questionIds: ['ktk-10'],
       body: `**Uji pemahaman.** Tuliskan dua syarat agar sebuah batas bawah $f(x) \\ge c$ dapat disebut nilai minimum, lalu berikan satu contoh saat batas itu tercapai dan satu contoh saat tidak. Jelaskan juga mengapa AM-GM berhenti berlaku ketika salah satu bilangan negatif. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Ketaksamaan** untuk latihan tambahan.`,
     },
     {

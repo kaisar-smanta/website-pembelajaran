@@ -96,6 +96,7 @@ Pada semua contoh itu, tiap percobaan hanya memberi dua hasil (biasanya disebut 
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Percobaan Binomial",
+      questionIds: ['bin-01'],
       body: `Sebuah **percobaan binomial** adalah percobaan yang tersusun atas $n$ percobaan kecil (biasa disebut ulangan) dengan syarat berikut.
 
 1. Percobaan dilakukan **$n$ kali tetap**.
@@ -535,6 +536,7 @@ Terbukti.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['bin-10'],
       body: `**Tinjauan akhir.** Kerjakan dua tugas. (1) Ambil satu situasi nyata, tentukan apakah ia memenuhi keempat syarat binomial, dan jelaskan alasanmu. (2) Tanpa menghitung, perkirakan letak puncak distribusi bila $n=20$ dan $p=0{,}9$, lalu periksa dengan $E(X)=np$. Lanjutkan latihan di [Latihan & Asesmen](/latihan) topik **Distribusi Binomial**.`,
     },
   ],

@@ -88,6 +88,7 @@ Fungsi eksponensial merangkum kedua pola itu dalam satu bentuk. Memahaminya memb
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Bentuk Fungsi Eksponensial",
+      questionIds: ['fe-01'],
       body: `Fungsi eksponensial adalah fungsi yang variabel bebasnya muncul pada eksponen:
 
 $$f(x) = a \\cdot b^{x}, \\qquad a \\neq 0,\\ b > 0,\\ b \\neq 1.$$
@@ -487,6 +488,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['fe-08'],
       body: `**Tiket keluar.** (1) Diberikan $f(x)=200\\cdot(0{,}8)^{x}$. Tentukan apakah $f$ menggambarkan pertumbuhan atau peluruhan, lalu hitung $f(2)$. (2) Grafik digeser menjadi $y=2^{x}-3$; tentukan persamaan asimtot mendatarnya. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Eksponensial** untuk latihan tambahan.`,
     },
   ],

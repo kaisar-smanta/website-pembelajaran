@@ -15,7 +15,7 @@ const crumbs = [
 ];
 
 /** Banyak soal yang disiapkan per tingkat, disebar antar topik. */
-const PER_LEVEL = 6;
+const PER_LEVEL = 14;
 
 /**
  * Mengambil `n` soal dengan menyebar merata antar topik (giliran per topik),
@@ -98,6 +98,16 @@ const meta = [
       <p class="kilat-status text-soft" data-kilat-status aria-live="polite"></p>
     </div>
 
+    <div class="kilat-summary card" data-kilat-summary hidden aria-live="polite">
+      <p class="eyebrow-badge">Sesi selesai</p>
+      <h2 data-kilat-summary-title>Ringkasan sesi</h2>
+      <p class="kilat-summary-text" data-kilat-summary-text></p>
+      <div class="kilat-summary-actions">
+        <button type="button" class="btn btn-primary btn-sm" data-kilat-again>Sesi baru</button>
+        <a class="btn btn-secondary btn-sm" href={url('/review')}>Tinjauan berkala</a>
+      </div>
+    </div>
+
     <div class="kilat-list">
       {
         pool.map((question, index) => (
@@ -150,6 +160,29 @@ const meta = [
     margin: 0;
     font-size: 0.9rem;
   }
+  .kilat-summary {
+    display: grid;
+    gap: 0.4rem;
+    border-left: 4px solid var(--color-success);
+  }
+  .kilat-summary h2 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .kilat-summary-text {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+  .kilat-summary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .kilat-summary[hidden] {
+    display: none;
+  }
   .kilat-list {
     display: grid;
     gap: 1rem;
@@ -165,34 +198,86 @@ const meta = [
 <script>
   import { seededShuffle } from '@/lib/random';
   import { sessionSeed } from '@/lib/quiz-client';
+  import { loadProgress, type ProgressMap } from '@/lib/progress';
+  import { safeStorage } from '@/lib/storage';
 
   const root = document.querySelector<HTMLElement>('[data-kilat-root]');
   if (root) {
     const items = Array.from(root.querySelectorAll<HTMLElement>('[data-kilat-item]'));
     const status = root.querySelector<HTMLElement>('[data-kilat-status]');
     const newBtn = root.querySelector<HTMLButtonElement>('[data-kilat-new]');
+    const againBtn = root.querySelector<HTMLButtonElement>('[data-kilat-again]');
+    const summary = root.querySelector<HTMLElement>('[data-kilat-summary]');
+    const summaryTitle = root.querySelector<HTMLElement>('[data-kilat-summary-title]');
+    const summaryText = root.querySelector<HTMLElement>('[data-kilat-summary-text]');
     const SIZE = 10;
 
     let seed = `kilat-${sessionSeed()}`;
+    let shownIds: string[] = [];
+
+    const readAttempts = (): ProgressMap => {
+      try {
+        return loadProgress(safeStorage());
+      } catch {
+        return {};
+      }
+    };
+
+    const refreshSummary = () => {
+      if (!summary || shownIds.length === 0) return;
+      const attempts = readAttempts();
+      let answered = 0;
+      let correct = 0;
+      for (const id of shownIds) {
+        const attempt = attempts[id];
+        if (!attempt) continue;
+        answered += 1;
+        if (attempt.graded !== false && attempt.correct) correct += 1;
+      }
+      if (answered < shownIds.length) {
+        summary.hidden = true;
+        return;
+      }
+      const total = shownIds.length;
+      const pct = total ? Math.round((correct / total) * 100) : 0;
+      if (summaryTitle) {
+        summaryTitle.textContent =
+          correct === total ? 'Sempurna, semua tepat.' : 'Sesi selesai.';
+      }
+      if (summaryText) {
+        summaryText.textContent = `Kamu menjawab ${answered} soal: ${correct} tepat (${pct}%). Tekan "Sesi baru" untuk sepuluh soal acak berikutnya, atau tinjau soal yang belum tepat.`;
+      }
+      summary.hidden = false;
+    };
 
     const apply = () => {
       const chosen = new Set(seededShuffle(items, seed).slice(0, SIZE));
       let shown = 0;
+      shownIds = [];
       for (const item of items) {
         const show = chosen.has(item);
         item.hidden = !show;
-        if (show) shown += 1;
+        if (show) {
+          shown += 1;
+          const id = item.getAttribute('data-kilat-item');
+          if (id) shownIds.push(id);
+        }
       }
       if (status) {
         status.textContent = `Sesi ini menampilkan ${shown} soal acak dari ${items.length} soal pilihan. Tekan "Sesi baru" untuk mengganti soal.`;
       }
+      refreshSummary();
     };
 
-    newBtn?.addEventListener('click', () => {
+    const restart = () => {
       seed = `kilat-${Date.now()}-${Math.random()}`;
       apply();
       document.getElementById('mulai')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    };
+
+    newBtn?.addEventListener('click', restart);
+    againBtn?.addEventListener('click', restart);
+    window.addEventListener('mtk:progress', refreshSummary);
 
     apply();
   }

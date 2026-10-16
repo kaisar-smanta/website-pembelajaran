@@ -99,6 +99,7 @@ Selain menghitung, kombinatorika juga membuktikan keberadaan tanpa mencari conto
       id: 'konsep',
       kind: 'konsep',
       title: 'Konsep Inti: Aturan Dasar Pencacahan',
+      questionIds: ['komb-01'],
       body: `**Aturan penjumlahan.** Jika suatu pekerjaan dapat diselesaikan dengan $m$ cara **atau** $n$ cara yang saling lepas, maka totalnya $m + n$ cara. Gunakan ketika memilih salah satu dari beberapa kelompok yang tidak beririsan.
 
 **Aturan perkalian.** Jika suatu pekerjaan terdiri atas tahap-tahap yang berurutan, dengan $m$ cara pada tahap pertama dan $n$ cara pada tahap kedua, maka totalnya $m \\cdot n$ cara. Gunakan ketika tahap-tahapnya saling bergantung.
@@ -410,6 +411,7 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
+      questionIds: ['komb-10'],
       body: `**Tiket keluar.** (1) Mengapa inklusi-eksklusi perlu menambahkan kembali irisan ketiga? (2) Apa bedanya soal yang meminta banyak cara dengan soal yang meminta jaminan keberadaan? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Kombinatorika Lanjut** untuk latihan tambahan.`,
     },
     {

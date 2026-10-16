@@ -94,6 +94,7 @@ Dengan mengetahui distribusi peluangnya, kita dapat memprediksi rata-rata jangka
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Variabel Acak Diskret",
+      questionIds: ['vad-01'],
       body: `**Variabel acak** adalah fungsi yang memetakan setiap hasil pada ruang sampel ke suatu bilangan real. Variabel acak disebut **diskret** bila himpunan nilainya berhingga atau tercacah, biasanya berupa bilangan bulat.
 
 Contoh:
@@ -451,6 +452,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['vad-09'],
       body: `**Cek akhir.** Selesaikan dua hal berikut secara lisan atau tertulis. (1) Jelaskan dengan contoh mengapa sebuah tabel yang semua peluangnya antara $0$ dan $1$ belum tentu sah sebagai distribusi. (2) Untuk distribusi dengan $E(X)=2$ dan $\\operatorname{Var}(X)=9$, tafsirkan kedua angka itu dalam satu kalimat. Lanjutkan berlatih di [Latihan & Asesmen](/latihan) topik **Variabel Acak Diskret**.`,
     },
   ],

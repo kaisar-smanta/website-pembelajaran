@@ -91,6 +91,7 @@ Induksi matematika memberi cara membuktikan klaim "berlaku untuk setiap $n$" den
       id: 'konsep',
       kind: 'konsep',
       title: 'Konsep Inti: Prinsip Induksi Matematika',
+      questionIds: ['ind-01'],
       body: `Misalkan $P(n)$ adalah pernyataan tentang bilangan asli $n$. Untuk membuktikan $P(n)$ benar bagi semua $n \\ge n_0$, cukup dibuktikan dua hal:
 
 **1. Basis (langkah dasar).** Periksa bahwa $P(n_0)$ benar. Biasanya $n_0 = 1$.
@@ -492,6 +493,7 @@ Buktikan ketaksamaan ini dengan induksi matematika.`,
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
+      questionIds: ['ind-10'],
       body: '**Tugas akhir.** Kerjakan dua hal. (1) Tuliskan satu klaim yang benar untuk beberapa nilai awal tetapi sebenarnya salah untuk semua $n$, lalu jelaskan mengapa induksi akan gagal membuktikannya. (2) Susun kerangka tiga baris: basis, hipotesis, dan langkah induksi. Lanjutkan berlatih di [Latihan & Asesmen](/latihan) topik **Induksi Matematika**.',
     },
   ],

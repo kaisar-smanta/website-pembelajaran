@@ -92,6 +92,7 @@ Fungsi logaritma juga menjadi bahasa alami bagi besaran yang rentangnya sangat l
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Definisi dan Grafik Fungsi Logaritma",
+      questionIds: ['flg-01'],
       body: `Logaritma dibangun dari hubungan yang sudah kita kenal pada eksponen. Untuk basis $b>0$ dengan $b\\neq1$ dan bilangan positif $x$, berlaku
 
 $$b^{y}=x \\iff \\log_{b}x=y.$$
@@ -539,6 +540,7 @@ Pada mulanya logaritma dipandang sebagai alat hitung, bukan sebagai fungsi. Leon
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['flg-12'],
       body: `**Tiket keluar.** (1) Jelaskan mengapa $\\log_{2}(-8)$ dan $\\log_{1}5$ keduanya tidak terdefinisi. (2) Tentukan domain dan asimtot tegak $f(x)=\\log_{5}(x+4)-2$. (3) Tentukan $x$ dari $\\log_{3}(x-2)=2$ dan sebutkan syarat numerus yang harus dipenuhi. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Logaritma** untuk latihan tambahan.`,
     },
   ],

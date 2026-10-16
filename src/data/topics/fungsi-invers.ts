@@ -92,6 +92,7 @@ Ketika setiap keluaran hanya berasal dari satu masukan, arah pemetaan dapat diba
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Domain, Kodomain, dan Range",
+      questionIds: ['fi-02'],
       body: `Suatu fungsi $f: A \\to B$ memetakan setiap anggota **domain** $A$ ke tepat satu anggota **kodomain** $B$. Himpunan semua hasil pemetaan yang benar-benar muncul disebut **range** (daerah hasil), dan range selalu merupakan bagian dari kodomain.
 Ambil contoh $f(x) = 2x + 1$ untuk $x \\in \\{1,2,3\\}$:
 - domain: $\\{1,2,3\\}$;
@@ -495,6 +496,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['fi-09'],
       body: `**Uji diri.** (1) Mengapa hanya fungsi satu-satu yang memiliki invers? (2) Mengapa grafik $f$ dan $f^{-1}$ saling mencerminkan terhadap garis $y=x$? Setelah menjawab, kaitkan jawabanmu dengan soal pada [Latihan & Asesmen](/latihan) topik **Fungsi Invers**.`,
     },
   ],

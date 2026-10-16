@@ -143,6 +143,7 @@ bentuk aljabarnya adalah himpunan tiga persamaan di atas, sedangkan tiap persama
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: SPLTV dan Jenis Solusinya",
+      questionIds: ['sp-13'],
       body: `SPLTV adalah himpunan tiga persamaan linear yang memuat tiga variabel, yaitu
 
 $$\\begin{cases} a_1x + b_1y + c_1z = d_1 \\\\ a_2x + b_2y + c_2z = d_2 \\\\ a_3x + b_3y + c_3z = d_3 \\end{cases}$$
@@ -447,6 +448,7 @@ Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['sp-09'],
       body: `**Rangkai langkah.** Tuliskan urutan langkah yang akan kamu pakai untuk menyelesaikan sebuah SPLTV, mulai dari menyusun persamaan hingga memeriksa solusi. Kemudian berikan satu contoh situasi yang menghasilkan sistem tanpa solusi dan jelaskan mengapa demikian. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Sistem Persamaan Linear Tiga Variabel** untuk latihan tambahan.`,
     },
   ],

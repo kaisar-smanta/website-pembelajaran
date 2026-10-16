@@ -87,6 +87,7 @@ Data apa yang sebaiknya ia kumpulkan, dan bagaimana cara menampilkannya agar pol
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Variabel Bivariat",
+      questionIds: ['db-01'],
       body: `**Data bivariat** adalah data yang memuat **dua variabel kuantitatif** untuk setiap objek yang sama. Setiap pengamatan berupa pasangan terurut $(x, y)$.
 
 Kita biasanya menyebut:
@@ -501,6 +502,7 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['db-09'],
       body: `**Simpulkan sendiri.** (1) Terangkan bedanya arah dan kekuatan hubungan pada diagram pencar. (2) Berikan satu contoh korelasi kuat yang tidak layak disebut sebab-akibat, lalu sebutkan variabel perancunya. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Data Bivariat** untuk latihan tambahan.`,
     },
   ],

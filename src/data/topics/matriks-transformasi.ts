@@ -87,6 +87,7 @@ Transformasi geometri memetakan titik itu ke titik baru. Untuk translasi kita me
       id: "operasi-matriks",
       kind: "konsep",
       title: "Tinjauan Operasi Aljabar Matriks",
+      questionIds: ['mtf-08'],
       body: `Penjumlahan dan pengurangan hanya dapat dilakukan pada matriks berordo sama. Perkalian matriks $2 \\times 2$ mengikuti aturan baris dikali kolom:
 $$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} e & f \\\\ g & h \\end{pmatrix} = \\begin{pmatrix} ae+bg & af+bh \\\\ ce+dg & cf+dh \\end{pmatrix}.$$
 
@@ -512,6 +513,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['mtf-09'],
       body: `Kembali ke pertanyaan pemantik: mengapa urutan dua transformasi tidak boleh ditukar? Jelaskan pula bagaimana satu bilangan, yaitu determinan, merangkum pengaruh sebuah matriks terhadap luas. Tuliskan jawabanmu secara ringkas, lalu lanjut ke [Latihan & Asesmen](/latihan) topik **Matriks Transformasi** untuk memperdalam.`,
     },
   ],

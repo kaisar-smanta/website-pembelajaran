@@ -93,6 +93,7 @@ Membedakan kedua pola ini penting: menambah tetap memberi pertumbuhan **linear**
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Barisan dan Deret",
+      questionIds: ['bd-01'],
       body: `**Barisan** adalah urutan bilangan yang disusun menurut suatu aturan. Setiap bilangan disebut **suku** dan dituliskan $U_1, U_2, U_3, \\dots, U_n$, dengan $U_n$ menyatakan suku ke-$n$.
 
 **Deret** adalah jumlah suku-suku suatu barisan:
@@ -498,6 +499,7 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['bd-08'],
       body: `**Cek pemahaman.** Jawab singkat: (1) Jika selisih antarsuku berubah tetapi rasionya tetap, barisan jenis apa yang kamu hadapi? (2) Mengapa jumlah deret geometri tak hingga hanya berhingga ketika $\\lvert r\\rvert<1$? Bandingkan jawabanmu dengan teman, lalu lanjut ke [Latihan & Asesmen](/latihan) topik **Barisan dan Deret** untuk soal tambahan.`,
     },
   ],

@@ -46,6 +46,16 @@ function setupProgress() {
   const reviewWrap = root.querySelector<HTMLElement>('[data-review]');
   const reviewLink = root.querySelector<HTMLAnchorElement>('[data-review-link]');
   const reviewList = root.querySelector<HTMLElement>('[data-review-list]');
+  const levelIdsEl = root.querySelector<HTMLElement>('[data-level-ids]');
+  let levelIds: Record<string, string[]> = {};
+  try {
+    const parsed: unknown = JSON.parse(levelIdsEl?.textContent ?? '{}');
+    if (parsed && typeof parsed === 'object') {
+      levelIds = parsed as Record<string, string[]>;
+    }
+  } catch {
+    levelIds = {};
+  }
 
   const storage = safeStorage();
 
@@ -82,6 +92,14 @@ function setupProgress() {
       } else {
         noteEl.textContent = `${summary.answered} dari ${summary.total} soal dijawab (${answeredPct}%).`;
       }
+    }
+
+    // Penguasaan per tingkat: benar/total untuk tiap tingkat yang ada di topik.
+    for (const [level, idsForLevel] of Object.entries(levelIds)) {
+      const el = root.querySelector<HTMLElement>(`[data-level-stat="${level}"]`);
+      if (!el || !Array.isArray(idsForLevel)) continue;
+      const levelSummary = summarize(attempts, idsForLevel);
+      el.textContent = `${levelSummary.correct}/${idsForLevel.length}`;
     }
 
     const missed = missedQuestionIds(attempts, ids);
@@ -150,7 +168,13 @@ function setupProgress() {
   function reviewSet(mode: string): Set<string> | null {
     if (!mode) return null;
     const normalized: ReviewMode =
-      mode === 'missed' ? 'missed' : mode === 'unanswered' ? 'unanswered' : 'both';
+      mode === 'missed'
+        ? 'missed'
+        : mode === 'unanswered'
+          ? 'unanswered'
+          : mode === 'correct'
+            ? 'correct'
+            : 'both';
     return new Set(reviewQuestionIds(readAttempts(), ids, normalized));
   }
 
@@ -159,17 +183,20 @@ function setupProgress() {
       value ? new Set([value]) : new Set<string>();
     const tingkat = selected(values.tingkat);
     const kategori = selected(values.kategori);
+    const tipe = selected(values.tipe);
     const review = reviewSet(values.tinjau ?? '');
 
     const matched: HTMLElement[] = [];
     for (const row of rows) {
       const difficulty = row.getAttribute('data-difficulty') ?? '';
       const category = row.getAttribute('data-category') ?? '';
+      const type = row.getAttribute('data-type') ?? '';
       const id = row.getAttribute('data-question-row') ?? '';
       if (quickSet && !quickSet.has(id)) continue;
       const show =
         matchesAny(tingkat, [difficulty]) &&
         matchesAny(kategori, [category]) &&
+        matchesAny(tipe, [type]) &&
         (!review || review.has(id));
       if (show) matched.push(row);
     }
@@ -251,7 +278,7 @@ function setupProgress() {
       valueAttr: 'data-value',
       allValue: '',
     }))
-    .filter((spec) => ['tingkat', 'kategori', 'tinjau'].includes(spec.key));
+    .filter((spec) => ['tingkat', 'kategori', 'tipe', 'tinjau'].includes(spec.key));
 
   const filter = setupFilterPage({
     groups,

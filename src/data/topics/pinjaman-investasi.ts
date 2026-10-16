@@ -89,6 +89,7 @@ Pinjaman anuitas memberi kita sejumlah uang sekarang dan meminta pembayaran teta
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Membandingkan Penawaran dan Hasil",
+      questionIds: ['pinv-05'],
       body: `Dua penawaran pinjaman hampir tidak pernah bisa dibandingkan hanya dari besar angsuran bulanan. Ketika tenornya berbeda, angsuran yang lebih kecil justru sering berasal dari tenor panjang yang menambah banyak periode bunga. Ukuran yang jujur adalah **total biaya**, bukan angka angsuran.
 
 Besar angsuran tetap pada tiap penawaran dihitung dengan rumus anuitas yang sudah kamu pelajari di topik **Anuitas**. Dari sana kita menyusun dua besaran pembanding:
@@ -508,6 +509,7 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['pinv-09'],
       body: `**Tiket keluar.** (1) Mengapa angsuran bulanan yang lebih kecil belum tentu berarti pinjaman yang lebih murah? (2) Jika dua penawaran berbeda tenor dan suku bunga, ukuran apa yang paling jujur untuk membandingkannya? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Pinjaman dan Investasi** untuk latihan tambahan.`,
     },
   ],

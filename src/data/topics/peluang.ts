@@ -95,6 +95,7 @@ Dalam permainan dadu, pemain bertanya: seberapa besar kemungkinan jumlah dua dad
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Ruang Sampel dan Kejadian",
+      questionIds: ['pl-01'],
       body: `**Ruang sampel** $S$ adalah himpunan semua hasil yang mungkin dari suatu percobaan acak. Banyak anggotanya ditulis $n(S)$.
 
 - Pelemparan satu dadu: $S = \\{1, 2, 3, 4, 5, 6\\}$, $n(S) = 6$.
@@ -562,6 +563,7 @@ Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang pe
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['pl-07'],
       body: `**Uji pemahaman.** (1) Tuliskan syarat agar $P(A\\cup B)$ cukup dihitung sebagai $P(A)+P(B)$. (2) Jelaskan dengan kata-katamu sendiri beda kejadian saling lepas dan saling bebas, lengkap dengan satu contoh masing-masing. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Peluang** untuk latihan tambahan.`,
     },
   ],

@@ -97,6 +97,19 @@
   body.print-worksheet [data-reset] {
     display: none !important;
   }
+  /*
+   * Lembar kerja menyusutkan halaman menjadi kumpulan soal: hanya bagian
+   * contoh terbimbing dan latihan berjenjang yang dicetak. Materi konsep,
+   * eksplorasi, penanda fase, dan blok penerapan disembunyikan agar lembar
+   * benar-benar berisi latihan, bukan seluruh artikel.
+   */
+  body.print-worksheet .phase-eyebrow,
+  body.print-worksheet #penerapan,
+  body.print-worksheet .content-section:not(.kind-contoh):not(.kind-latihan-dasar):not(
+      .kind-latihan-cakap
+    ):not(.kind-latihan-mahir) {
+    display: none !important;
+  }
   /* Soal latihan jangan terpotong saat berganti halaman. */
   .question-card,
   .q-item {

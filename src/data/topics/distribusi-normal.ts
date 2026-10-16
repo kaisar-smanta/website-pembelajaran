@@ -98,6 +98,7 @@ Ketika sebaran pengukuran menumpuk di tengah dan makin jarang di kedua ujung sec
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Kurva Distribusi Normal",
+      questionIds: ['dn-01'],
       body: `**Variabel acak kontinu** adalah variabel yang dapat mengambil sembarang nilai dalam suatu selang. Distribusinya digambarkan oleh **fungsi kepadatan peluang** $f(x)$, dan peluang kejadian dihitung sebagai **luas daerah** di bawah kurva itu. Karena satu titik tidak punya lebar, peluang satu nilai tepat selalu $0$.
 
 **Distribusi normal** dengan rata-rata $\\mu$ dan simpangan baku $\\sigma$ ditulis $X \\sim N(\\mu, \\sigma^{2})$ dan memiliki fungsi kepadatan
@@ -536,6 +537,7 @@ Simetri kurva terhadap $0$ membuat luas ekor kiri sama dengan ekor kanannya, seh
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['dn-10'],
       body: `**Cek akhir.** Selesaikan dua tugas. (1) Untuk $X \\sim N(80, 10^{2})$, hitung $P(70 \\leq X \\leq 90)$ dan $P(X > 100)$, lalu tafsirkan keduanya. (2) Jelaskan mengapa menuntut **semua** botol berada dalam $\\mu \\pm \\sigma$ bertentangan dengan sifat distribusi normal, dan usulkan cara yang lebih realistis. Lanjutkan latihan di [Latihan & Asesmen](/latihan) topik **Distribusi Normal**.`,
     },
   ],

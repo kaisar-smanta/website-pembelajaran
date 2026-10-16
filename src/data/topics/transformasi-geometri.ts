@@ -96,6 +96,7 @@ Perpindahan pola pada kain, perputaran jarum jam, pencerminan pada cermin datar,
       id: "translasi",
       kind: "konsep",
       title: "Translasi: Pergeseran",
+      questionIds: ['tgeo-01'],
       body: `Translasi (pergeseran) sejauh $\\binom{a}{b}$ memindahkan setiap titik tanpa mengubah bentuk maupun ukuran bangun. Pemetaan titiknya adalah
 $$(x,y)\\rightarrow(x+a,\\;y+b).$$
 Dalam bentuk vektor kolom:
@@ -622,6 +623,7 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['tgeo-10'],
       body: `**Tiket keluar.** (1) Bagaimana kamu membedakan bayangan yang dihasilkan rotasi $90^\\circ$ dan $270^\\circ$ hanya dari tanda koordinatnya? (2) Mengapa urutan dua transformasi memengaruhi hasil akhir? Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Transformasi Geometri** untuk latihan tambahan.`,
     },
   ],

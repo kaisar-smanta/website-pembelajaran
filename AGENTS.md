@@ -57,7 +57,11 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - **Latihan tertanam**: bagian `latihan-dasar`/`latihan-cakap`/`latihan-mahir` menarik soal
   topik secara otomatis; untuk memilih soal eksplisit pakai `questionIds`, atau `practiceLevel`
   untuk menarik seluruh soal tingkat tertentu. Dihitung di `src/lib/practice.ts` dan dirender
-  `SectionBlock.astro`.
+  `SectionBlock.astro`. Bagian yang memakai `questionIds` di luar tiga jenis latihan tampil
+  sebagai **cek cepat** sisipan (varian `quick` `PracticeSet.astro`). Setiap topik wajib
+  punya >=1 cek cepat dan `evaluasi` yang menilai (ditegakkan `tests/section-question-refs.mjs`).
+- **Fase alur belajar** dipetakan `sectionPhase`/`phaseLabels` (`src/lib/content-text.ts`) dan
+  ditampilkan sebagai penanda fase pada halaman topik (Pembuka, Inti, Latihan, Penutup).
 - **Blok `geogebra` sudah dihapus.** Sematan GeoGebra hanya lewat tipe eksplorasi `geogebra`
   (`url` wajib menunjuk applet spesifik, bukan beranda generik).
 - **Jawaban singkat** dinilai `src/lib/answer.ts` (normalisasi penulisan + ekuivalensi numerik:
@@ -69,7 +73,10 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   mandiri, dirender `QuestionCard.astro`, tersimpan lewat `src/lib/learner.ts`). Halaman
   topik menyediakan ekspor **lembar kerja** dengan opsi **"Sertakan kunci jawaban"**.
   Halaman `/review` + `src/lib/review.ts` membangun antrean **tinjauan berkala** lintas
-  topik (model Leitner) dari `localStorage`, tanpa server.
+  topik (model Leitner) dari `localStorage`, tanpa server. Progres kotak disimpan di
+  `Attempt.box` (`0` belum dikuasai sampai `REVIEW_MAX_BOX`), naik tiap jawaban benar,
+  turun ke nol saat salah; antrean hanya memuat soal yang jatuh tempo
+  (`reason` = `missed` | `unanswered` | `scheduled`).
 - **PWA offline**: `public/sw.js` dan `public/offline.html` didaftarkan `BaseLayout.astro`
   pada build produksi (memakai `manifest.webmanifest`); halaman yang pernah dibuka tetap
   dapat diakses tanpa jaringan.

@@ -88,6 +88,7 @@ Kemampuan statistik yang paling berguna di kehidupan sehari-hari adalah **bertan
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Memilih Ukuran dan Membaca Klaim",
+      questionIds: ['sdk-02'],
       body: `Data dapat diringkas dengan ukuran pemusatan. Tidak ada satu ukuran yang selalu terbaik; pilihannya bergantung pada bentuk data dan tujuan.
 
 - **Mean** memanfaatkan semua nilai dan mudah dihitung, tetapi **peka terhadap pencilan**.
@@ -518,6 +519,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['sdk-09'],
       body: `**Tutup pelajaran.** Ambil satu klaim statistik dari iklan atau berita, lalu tuliskan tiga pertanyaan kritis yang perlu diajukan dan ukuran alternatif yang lebih jujur untuk klaim itu. Jelaskan pula mengapa mean gabungan dua kelompok berukuran berbeda tidak boleh dihitung sebagai rata-rata kedua mean. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Statistik dalam Kehidupan** untuk latihan tambahan.`,
     },
   ],

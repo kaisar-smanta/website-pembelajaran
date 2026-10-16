@@ -19,6 +19,7 @@ const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
       grade,
       name: `${GRADES[grade].name}`,
       subjectName: SUBJECTS[subject].short,
+      elective: SUBJECTS[subject].elective,
       total: complete + planned,
       href: `#kelas-${subject}-${grade}`,
     };
@@ -51,6 +52,7 @@ const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
             <a class="quick-link" href={g.href}>
               <span class="quick-text">
                 {g.name} <span class="text-soft">· {g.subjectName}</span>
+                {g.elective && <span class="quick-tag">pilihan</span>}
               </span>
               <span class="quick-count">{g.total} topik</span>
             </a>
@@ -136,6 +138,20 @@ const gradeTotals = SUBJECT_ORDER.flatMap((subject) =>
   }
   .quick-text {
     min-width: 0;
+  }
+  .quick-tag {
+    display: inline-block;
+    margin-left: 0.3rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    color: var(--color-text-soft);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    vertical-align: middle;
   }
   .quick-count {
     margin-left: auto;

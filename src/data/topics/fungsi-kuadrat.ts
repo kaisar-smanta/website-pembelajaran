@@ -93,6 +93,7 @@ Kata kunci pada fungsi kuadrat adalah **titik puncak**: nilai terbesar (maksimum
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Bentuk Fungsi Kuadrat",
+      questionIds: ['fk-12'],
       body: `Fungsi kuadrat adalah fungsi yang dapat ditulis dalam bentuk
 
 $$f(x) = ax^{2} + bx + c, \\qquad a \\neq 0.$$
@@ -605,6 +606,7 @@ Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['fk-08'],
       body: `**Tiket keluar.** (1) Tanpa menggambar, tentukan banyak akar real dari $f(x)=2x^{2}-4x+5$ dengan menghitung $D$. (2) Tentukan titik puncak $f(x)=x^{2}+6x+5$, lalu jelaskan apakah puncaknya maksimum atau minimum. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Fungsi Kuadrat** untuk latihan tambahan.`,
     },
   ],

@@ -12,6 +12,14 @@ export interface Attempt {
   correct: boolean;
   /** Waktu percobaan terakhir (epoch ms). */
   at: number;
+  /** Jumlah percobaan, termasuk yang terakhir. Dipakai menampilkan riwayat. */
+  attempts?: number;
+  /**
+   * Kotak Leitner untuk penjadwalan tinjauan. `0` berarti belum dikuasai
+   * (belum pernah atau baru saja salah) sehingga segera ditinjau; `1` sampai
+   * `REVIEW_MAX_BOX` berarti makin jarang diulang setelah jawaban benar.
+   */
+  box?: number;
   /**
    * false bila soal tidak dapat dinilai otomatis (mis. uraian terbuka).
    * Percobaan seperti ini tetap dihitung "dikerjakan" tetapi tidak
@@ -25,6 +33,9 @@ export interface Attempt {
   /** Apakah pembahasan soal uraian sudah dibuka. */
   revealed?: boolean;
 }
+
+/** Kotak Leitner tertinggi; menjaga progres tinjauan tidak tumbuh tanpa batas. */
+export const REVIEW_MAX_BOX = 6;
 
 /** Potongan keadaan soal yang ikut disimpan bersama percobaan. */
 export interface AttemptState {
@@ -55,7 +66,24 @@ export function recordAttempt(
   graded: boolean = true,
   state: AttemptState = {},
 ): ProgressMap {
-  const attempt: Attempt = { questionId, correct, at, graded };
+  const previous = map[questionId];
+  const attempt: Attempt = {
+    questionId,
+    correct,
+    at,
+    graded,
+    attempts: (previous?.attempts ?? 0) + 1,
+  };
+  if (graded) {
+    // Naik satu kotak tiap jawaban benar, turun ke nol saat salah, sehingga
+    // soal yang sudah dikuasai makin jarang muncul di antrean tinjauan.
+    attempt.box = correct
+      ? Math.min((previous?.correct ? (previous.box ?? 1) : 0) + 1, REVIEW_MAX_BOX)
+      : 0;
+  } else if (typeof previous?.box === 'number') {
+    // Soal tak dapat dinilai otomatis tidak mengubah jadwal tinjauan.
+    attempt.box = previous.box;
+  }
   if (state.selected !== undefined) attempt.selected = state.selected;
   if (state.input !== undefined) attempt.input = state.input;
   if (state.revealed !== undefined) attempt.revealed = state.revealed;
@@ -111,6 +139,14 @@ export function unansweredQuestionIds(attempts: ProgressMap, questionIds: string
   return questionIds.filter((id) => !attempts[id]);
 }
 
+/** Soal yang sudah dijawab tepat (hanya yang dinilai otomatis). */
+export function correctQuestionIds(attempts: ProgressMap, questionIds: string[]): string[] {
+  return questionIds.filter((id) => {
+    const attempt = attempts[id];
+    return Boolean(attempt && attempt.graded !== false && attempt.correct);
+  });
+}
+
 export function streakFrom(attempts: ProgressMap, questionIds: string[]): number {
   let streak = 0;
   for (const id of questionIds) {
@@ -139,6 +175,12 @@ export function loadProgress(storage: Storage | undefined): ProgressMap {
         at: typeof value.at === 'number' ? value.at : 0,
         graded: value.graded === false ? false : true,
       };
+      if (typeof value.attempts === 'number' && value.attempts > 0) {
+        attempt.attempts = Math.floor(value.attempts);
+      }
+      if (typeof value.box === 'number' && value.box >= 0) {
+        attempt.box = Math.min(Math.floor(value.box), REVIEW_MAX_BOX);
+      }
       if (typeof value.selected === 'string') attempt.selected = value.selected;
       if (typeof value.input === 'string') attempt.input = value.input;
       if (value.revealed === true) attempt.revealed = true;

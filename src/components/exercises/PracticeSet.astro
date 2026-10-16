@@ -10,9 +10,12 @@ interface Props {
   level: Difficulty;
   /** Bila diisi, pakai daftar soal eksplisit alih-alih seluruh bank tingkat ini. */
   questionIds?: string[];
+  /** `quick` untuk cek pemahaman singkat di tengah materi. */
+  variant?: 'practice' | 'quick';
 }
 
-const { topicId, level, questionIds } = Astro.props;
+const { topicId, level, questionIds, variant = 'practice' } = Astro.props;
+const isQuick = variant === 'quick';
 
 let questions: Question[];
 if (questionIds?.length) {
@@ -26,9 +29,11 @@ if (questionIds?.length) {
 
 {
   questions.length > 0 && (
-    <div class="practice-embed">
+    <div class:list={['practice-embed', isQuick && 'practice-embed-quick']}>
       <p class="practice-lead">
-        Kerjakan langsung di sini. Jawaban dan pembahasannya diperiksa otomatis.
+        {isQuick
+          ? 'Cek cepat: jawab dulu untuk memastikan kamu mengikuti. Pembahasan langsung terbuka.'
+          : 'Kerjakan langsung di sini. Jawaban dan pembahasannya diperiksa otomatis.'}
       </p>
       <div class="practice-list">
         {questions.map((question, i) => (
@@ -55,6 +60,10 @@ if (questionIds?.length) {
     border-left: 3px solid color-mix(in srgb, var(--sec) 70%, transparent);
     border-radius: var(--radius);
     background: color-mix(in srgb, var(--sec) 6%, var(--color-surface));
+  }
+  .practice-embed-quick {
+    border-style: dashed;
+    background: color-mix(in srgb, var(--sec) 4%, var(--color-surface));
   }
   .practice-lead {
     margin: 0 0 0.85rem;

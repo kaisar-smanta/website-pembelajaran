@@ -134,6 +134,19 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         lead="Saring daftar latihan menurut kelas, elemen kurikulum, dan tingkat kesulitan. Pilihanmu tersimpan di alamat halaman sehingga bisa dibagikan."
       />
       <div class="filter-bar" data-filter-bar>
+        <div class="filter-group" role="group" aria-labelledby="filter-mapel-label">
+          <span class="filter-label" id="filter-mapel-label">Mata pelajaran</span>
+          <div class="filter-options">
+            <button type="button" class="filter-btn" data-filter="mapel" data-value="" aria-pressed="true">Semua</button>
+            {
+              SUBJECT_ORDER.map((subject) => (
+                <button type="button" class="filter-btn" data-filter="mapel" data-value={subject} aria-pressed="false">
+                  {SUBJECTS[subject].short}
+                </button>
+              ))
+            }
+          </div>
+        </div>
         <div class="filter-group" role="group" aria-labelledby="filter-kelas-label">
           <span class="filter-label" id="filter-kelas-label">Kelas</span>
           <div class="filter-options">
@@ -177,6 +190,15 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
                 </button>
               ))
             }
+          </div>
+        </div>
+        <div class="filter-group" role="group" aria-labelledby="filter-kemajuan-label">
+          <span class="filter-label" id="filter-kemajuan-label">Kemajuan</span>
+          <div class="filter-options">
+            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="belum" aria-pressed="false">Belum dimulai</button>
+            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="sedang" aria-pressed="false">Sedang berjalan</button>
+            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="selesai" aria-pressed="false">Selesai</button>
           </div>
         </div>
         <div class="filter-group filter-search" role="search">
@@ -489,7 +511,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
   const root = document.querySelector<HTMLElement>('[data-latihan-root]');
 
   if (root) {
-    const KEYS = ['kelas', 'elemen', 'tingkat'] as const;
+    const KEYS = ['mapel', 'kelas', 'elemen', 'tingkat', 'kemajuan'] as const;
 
     const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-practice-card]'));
     const countEl = root.querySelector<HTMLElement>('[data-result-count]');
@@ -540,11 +562,21 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     const selected = (value: string | undefined): Set<string> =>
       value ? new Set([value]) : new Set();
 
+    /** Menentukan status kemajuan sebuah kartu: belum, sedang, atau selesai. */
+    function statusOf(card: HTMLElement): 'belum' | 'sedang' | 'selesai' {
+      const { answered, total } = summarize(progress, questionIdsOf(card));
+      if (answered === 0) return 'belum';
+      if (total > 0 && answered === total) return 'selesai';
+      return 'sedang';
+    }
+
     function matches(card: HTMLElement, values: Record<string, string>, query: string): boolean {
+      if (!matchesAny(selected(values.mapel), [card.getAttribute('data-mapel') ?? ''])) return false;
       if (!matchesAny(selected(values.kelas), [card.getAttribute('data-kelas') ?? ''])) return false;
       if (!matchesAny(selected(values.elemen), [card.getAttribute('data-elemen') ?? ''])) return false;
       const levels = (card.getAttribute('data-levels') ?? '').split(/\s+/).filter(Boolean);
       if (!matchesAny(selected(values.tingkat), levels)) return false;
+      if (!matchesAny(selected(values.kemajuan), [statusOf(card)])) return false;
       if (query && !(card.getAttribute('data-search') ?? '').includes(query)) return false;
       return true;
     }

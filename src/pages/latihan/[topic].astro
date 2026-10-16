@@ -68,6 +68,18 @@ const presentCategories = assessmentCategories
     ...category,
     count: all.filter((q) => q.category === category.id).length,
   }));
+
+// Faset jenis soal hanya menampilkan jenis yang benar-benar ada di topik ini.
+const typeMeta: { id: string; label: string }[] = [
+  { id: 'multiple-choice', label: 'Pilihan ganda' },
+  { id: 'short-answer', label: 'Isian singkat' },
+  { id: 'open-response', label: 'Uraian' },
+];
+const presentTypes = typeMeta.filter((t) => all.some((q) => q.type === t.id));
+
+// Id soal per tingkat untuk ringkasan penguasaan di panel kemajuan.
+const levelIds: Record<string, string[]> = {};
+for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id);
 ---
 
 <BaseLayout title={`Latihan ${topic?.title ?? ''}`} description={`Latihan soal ${topic?.title} berjenjang.`}>
@@ -191,6 +203,19 @@ const presentCategories = assessmentCategories
         Belum ada soal yang dijawab. Mulai dari tingkat Dasar.
       </p>
 
+      <dl class="level-mastery" aria-label="Penguasaan per tingkat">
+        {
+          DIFFICULTY_ORDER.filter((d) => counts[d] > 0).map((d) => (
+            <div class="level-mastery-item">
+              <dt>{DIFFICULTY_LABELS[d]}</dt>
+              <dd data-level-stat={d}>{`0/${counts[d]}`}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <script type="application/json" data-level-ids is:inline set:html={JSON.stringify(levelIds)} />
+
       <div class="progress-review" data-review hidden>
         <a class="btn btn-secondary btn-sm" data-review-link href="#">
           Tinjau soal yang belum tepat
@@ -272,6 +297,31 @@ const presentCategories = assessmentCategories
             </div>
           )
         }
+        {
+          presentTypes.length > 1 && (
+            <div class="filter-group" role="group" aria-labelledby="filter-tipe-label">
+              <span class="filter-label" id="filter-tipe-label">
+                Jenis soal
+              </span>
+              <div class="filter-options">
+                <button type="button" class="filter-btn" data-filter="tipe" data-value="" aria-pressed="true">
+                  Semua
+                </button>
+                {presentTypes.map((type) => (
+                  <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter="tipe"
+                    data-value={type.id}
+                    aria-pressed="false"
+                  >
+                    {type.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        }
         <div class="filter-group" role="group" aria-labelledby="filter-tinjau-label">
           <span class="filter-label" id="filter-tinjau-label">
             Tinjau ulang
@@ -297,6 +347,15 @@ const presentCategories = assessmentCategories
               aria-pressed="false"
             >
               Belum dicoba
+            </button>
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="tinjau"
+              data-value="correct"
+              aria-pressed="false"
+            >
+              Sudah tepat
             </button>
             <button
               type="button"
@@ -344,6 +403,7 @@ const presentCategories = assessmentCategories
                   data-question-row={q.id}
                   data-difficulty={q.difficulty}
                   data-category={q.category ?? ''}
+                  data-type={q.type}
                 >
                   <QuestionCard question={q} index={i} />
                 </div>
@@ -526,6 +586,34 @@ const presentCategories = assessmentCategories
   .progress-note {
     margin: 0.6rem 0 0;
     font-size: 0.88rem;
+  }
+  .level-mastery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .level-mastery-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-2);
+    font-size: 0.82rem;
+  }
+  .level-mastery-item dt {
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+  .level-mastery-item dd {
+    margin: 0;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
   }
   .progress-review {
     margin-top: 0.85rem;

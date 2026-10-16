@@ -56,6 +56,8 @@ export function bootReview(): void {
     const topicEls = Array.from(root.querySelectorAll<HTMLElement>('[data-review-topic]'));
 
     let queue: ReviewItem[] = [];
+    /** Soal yang sudah dijawab tepat selama sesi ini (untuk penanda "sudah tepat"). */
+    const sessionResolved = new Set<string>();
 
     function readAttempts(): ProgressMap {
       try {
@@ -120,7 +122,9 @@ export function bootReview(): void {
 
       for (const item of queue) {
         const attempt = attempts[item.questionId];
-        const isResolved = Boolean(attempt && attempt.graded !== false && attempt.correct);
+        const isResolved =
+          sessionResolved.has(item.questionId) ||
+          Boolean(attempt && attempt.graded !== false && attempt.correct && now < item.dueAt);
         if (isResolved) resolved += 1;
         if (attempt && attempt.graded !== false) graded += 1;
 
@@ -154,11 +158,17 @@ export function bootReview(): void {
       }
       if (noteEl) {
         const summary = summarizeReviewQueue(queue);
-        noteEl.textContent = `${summary.missed} soal belum tepat dan ${summary.unanswered} soal belum dicoba. Urutan di bawah memprioritaskan yang paling mendesak.`;
+        const parts = [
+          `${summary.missed} soal belum tepat`,
+          `${summary.unanswered} soal belum dicoba`,
+        ];
+        if (summary.scheduled > 0) parts.push(`${summary.scheduled} soal siap diulang`);
+        noteEl.textContent = `${parts.join(', ')}. Urutan di bawah memprioritaskan yang paling mendesak.`;
       }
     }
 
     function rebuild() {
+      sessionResolved.clear();
       const attempts = readAttempts();
       queue = buildReviewQueue(ids, attempts, Date.now());
 
@@ -187,7 +197,13 @@ export function bootReview(): void {
 
     rebuild();
 
-    window.addEventListener('mtk:progress', refreshStatus);
+    window.addEventListener('mtk:progress', (event) => {
+      const detail = (event as CustomEvent<{ questionId?: string; correct?: boolean }>).detail;
+      if (detail?.correct === true && detail.questionId) {
+        sessionResolved.add(detail.questionId);
+      }
+      refreshStatus();
+    });
     window.addEventListener('pageshow', rebuild);
     window.addEventListener('storage', rebuild);
   }

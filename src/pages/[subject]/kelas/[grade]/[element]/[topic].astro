@@ -15,7 +15,7 @@ import { elementColor } from '@/data/display';
 import { applicationsForTopic, getApplication } from '@/data/applications';
 import { orderedExplorations } from '@/data/explorations';
 import { renderInlineMarkdown, stripMarkdown } from '@/utils/markdown';
-import { sectionTitle } from '@/lib/content-text';
+import { sectionTitle, sectionPhase, phaseLabels } from '@/lib/content-text';
 import { url, absoluteUrl, subjectUrl, gradeUrl, elementUrl, topicUrl } from '@/utils/url';
 
 export function getStaticPaths() {
@@ -154,7 +154,9 @@ const jsonLd: Record<string, unknown> = {
             <div class="cp-chips">
               <span class="cp-chips-label">Capaian Pembelajaran</span>
               {cpCodes.map((code) => (
-                <span class="badge cp-chip">CP {code}</span>
+                <a class="badge cp-chip" href={`${url('/peta-pembelajaran')}#cakupan-cp`}>
+                  CP {code}
+                </a>
               ))}
               {topic.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
             </div>
@@ -187,14 +189,27 @@ const jsonLd: Record<string, unknown> = {
     <div class="topic-layout">
       <article class="topic-main">
         {
-          sectionList.map((section, index) => (
-            <SectionBlock
-              section={section}
-              index={index}
-              topicId={topic.id}
-              next={sectionList[index + 1] ?? applicationsSection}
-            />
-          ))
+          sectionList.map((section, index) => {
+            const phase = sectionPhase(section.kind);
+            const prevPhase = index > 0 ? sectionPhase(sectionList[index - 1].kind) : 0;
+            return (
+
+              <>
+                {phase !== prevPhase && (
+                  <p class="phase-eyebrow" aria-hidden="true">
+                    <span class="phase-eyebrow-label">Fase {phase}</span>
+                    <span class="phase-eyebrow-name">{phaseLabels[phase]}</span>
+                  </p>
+                )}
+                <SectionBlock
+                  section={section}
+                  index={index}
+                  topicId={topic.id}
+                  next={sectionList[index + 1] ?? applicationsSection}
+                />
+              </>
+            );
+          })
         }
 
         <TopicApplications
@@ -511,6 +526,11 @@ const jsonLd: Record<string, unknown> = {
     color: color-mix(in srgb, var(--accent) 70%, var(--color-text));
     background: color-mix(in srgb, var(--accent) 10%, var(--color-surface));
     border-color: color-mix(in srgb, var(--accent) 30%, var(--color-border));
+    text-decoration: none;
+  }
+  .cp-chip:hover,
+  .cp-chip:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--color-border));
   }
   .cp-note {
     margin: 0.5rem 0 0;
@@ -590,6 +610,32 @@ const jsonLd: Record<string, unknown> = {
   }
   .topic-main {
     min-width: 0;
+  }
+
+  /* Penanda fase alur belajar (Pembuka / Inti / Latihan / Penutup). */
+  .phase-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 2.25rem 0 0.35rem;
+    padding-top: 0.35rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .phase-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+  .phase-eyebrow-label {
+    color: var(--accent, var(--color-primary));
+  }
+  .topic-main > .content-section:first-of-type {
+    padding-top: 0.5rem;
   }
 
   .topic-aside {

@@ -88,6 +88,7 @@ Sementara itu, tidak semua segitiga memiliki sudut siku-siku. Aturan sinus dan a
       id: "periodik",
       kind: "konsep",
       title: "Fungsi Trigonometri dan Fenomena Periodik",
+      questionIds: ['tl-01'],
       body: `Fungsi trigonometri memodelkan gejala yang berulang. Bentuk umumnya
 $$f(x) = A\\sin\\big(B(x-C)\\big) + D.$$
 Setiap parameter memiliki makna:
@@ -503,6 +504,7 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['tl-10'],
       body: `Simpulkan: identitas mana yang menjadi akar semua identitas lain pada topik ini, dan kapan kamu memilih aturan sinus dibanding aturan kosinus? Tuliskan ringkasannya, kemudian lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri Lanjut**.`,
     },
   ],

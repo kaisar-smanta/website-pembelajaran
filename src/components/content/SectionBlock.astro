@@ -22,6 +22,10 @@ const practiceLevelByKind: Partial<Record<SectionKind, Difficulty>> = {
 const practiceLevel: Difficulty | undefined =
   section.practiceLevel ?? practiceLevelByKind[section.kind] ?? section.level;
 const showPractice = Boolean(section.questionIds?.length || (topicId && practiceLevel));
+/** Bagian latihan berjenjang vs cek cepat sisipan di tengah materi. */
+const practiceVariant: 'practice' | 'quick' = practiceLevelByKind[section.kind]
+  ? 'practice'
+  : 'quick';
 
 const title = sectionTitle(section);
 const showFormulaLink = section.kind === 'rumus' || section.kind === 'generalisasi';
@@ -59,7 +63,12 @@ function blockStorageId(blockIndex: number): string {
 
   {
     showPractice && topicId && (
-      <PracticeSet topicId={topicId} level={practiceLevel ?? 'dasar'} questionIds={section.questionIds} />
+      <PracticeSet
+        topicId={topicId}
+        level={practiceLevel ?? 'dasar'}
+        questionIds={section.questionIds}
+        variant={practiceVariant}
+      />
     )
   }
 

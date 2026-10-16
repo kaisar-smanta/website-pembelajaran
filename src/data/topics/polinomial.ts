@@ -82,6 +82,7 @@ Pertanyaannya: apa hubungan antara nilai $P(c)$ dan sisa pembagian $P(x)$ oleh $
       id: "operasi",
       kind: "konsep",
       title: "Notasi dan Operasi Aritmetika Polinomial",
+      questionIds: ['pol-02'],
       body: `Polinomial (suku banyak) dalam variabel $x$ berderajat $n$ berbentuk
 $$P(x) = a_{n}x^{n} + a_{n-1}x^{n-1} + \\cdots + a_{1}x + a_{0},$$
 dengan $a_{n} \\neq 0$. Bilangan $a_{n}$ disebut **koefisien utama**, $a_{0}$ disebut **konstanta**, dan $n$ adalah **derajat**. Misalnya, $P(x)=2x^{3}-3x^{2}+4x-5$ berderajat $3$ dengan koefisien utama $2$.
@@ -472,6 +473,7 @@ Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['pol-09'],
       body: `Uji pemahamanmu: mengapa sisa pembagian selalu berderajat lebih rendah daripada pembaginya, dan bagaimana teorema faktor mengalir dari teorema sisa? Susun penjelasan singkat, lalu teruskan ke [Latihan & Asesmen](/latihan) topik **Polinomial**.`,
     },
   ],

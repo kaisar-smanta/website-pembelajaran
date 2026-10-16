@@ -99,6 +99,7 @@ Muncul kecenderungan naik, tetapi titik-titiknya tidak tepat segaris. Pertanyaan
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Garis Regresi",
+      questionIds: ['rg-01'],
       body: `Garis regresi linear memodelkan nilai rata-rata $y$ sebagai fungsi linear dari $x$:
 
 $$\\hat{y} = bx + a$$
@@ -522,6 +523,7 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['rg-09'],
       body: `**Tutup pelajaran.** (1) Bedakan tugas $r$ dan $r^2$ saat menilai sebuah model linear. (2) Jelaskan mengapa prediksi jauh di luar rentang data tidak dapat dipercaya. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Regresi Linear** untuk latihan tambahan.`,
     },
   ],

@@ -88,6 +88,7 @@ Dalam fisika, turunan posisi adalah kecepatan dan turunan kecepatan adalah perce
       id: "konsep",
       kind: "konsep",
       title: "Laju Perubahan Rata-Rata dan Sesaat",
+      questionIds: ['tur-04'],
       body: `Untuk fungsi $f$, **laju perubahan rata-rata** pada selang $[a, a+h]$ adalah kemiringan garis yang menghubungkan dua titik pada grafik:
 $$\\frac{\\Delta y}{\\Delta x} = \\frac{f(a+h) - f(a)}{h}.$$
 Nilai ini disebut juga **hasil bagi selisih**.
@@ -515,6 +516,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['tur-10'],
       body: `**Sejenak meninjau ulang.** Jawab dua pertanyaan ini tanpa membuka catatan. (1) Dari dua grafik garis, mana yang gradiennya lebih besar, dan bagaimana turunan membantumu memastikannya? (2) Pilih satu aturan turunan yang paling sering kamu keliru, lalu tulis satu langkah pencegahannya. Uji hasil belajarmu di [Latihan & Asesmen](/latihan) topik **Turunan**.`,
     },
   ],

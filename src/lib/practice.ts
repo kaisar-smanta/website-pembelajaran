@@ -9,21 +9,23 @@
 
 import type { Difficulty } from '@/types/content';
 import { DIFFICULTY_ORDER } from './difficulty.ts';
-import { missedQuestionIds, unansweredQuestionIds } from './progress.ts';
+import { correctQuestionIds, missedQuestionIds, unansweredQuestionIds } from './progress.ts';
 import type { ProgressMap } from './progress.ts';
 
 /** Jumlah soal per tingkat kesulitan. */
 export type DifficultyCounts = Record<Difficulty, number>;
 
 /**
- * Mode sesi tinjau. `missed` = soal yang pernah dijawab belum tepat,
- * `unanswered` = soal yang belum pernah dicoba, `both` = gabungan keduanya.
+ * Mode saringan status pengerjaan. `missed` = soal yang pernah dijawab belum
+ * tepat, `unanswered` = soal yang belum pernah dicoba, `correct` = soal yang
+ * sudah tepat, `both` = gabungan `missed` dan `unanswered`.
  */
-export type ReviewMode = 'missed' | 'unanswered' | 'both';
+export type ReviewMode = 'missed' | 'unanswered' | 'correct' | 'both';
 
 /**
  * Memilih id soal untuk sesi tinjau berdasarkan kemajuan siswa, mempertahankan
- * urutan aslinya. Soal tanpa penilaian otomatis tidak pernah masuk mode `missed`.
+ * urutan aslinya. Soal tanpa penilaian otomatis tidak pernah masuk mode `missed`
+ * maupun `correct`.
  */
 export function reviewQuestionIds(
   attempts: ProgressMap,
@@ -32,6 +34,7 @@ export function reviewQuestionIds(
 ): string[] {
   if (mode === 'missed') return missedQuestionIds(attempts, questionIds);
   if (mode === 'unanswered') return unansweredQuestionIds(attempts, questionIds);
+  if (mode === 'correct') return correctQuestionIds(attempts, questionIds);
   const missed = new Set(missedQuestionIds(attempts, questionIds));
   return questionIds.filter((id) => missed.has(id) || !attempts[id]);
 }

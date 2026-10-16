@@ -86,6 +86,7 @@ Dalam topik ini kita belajar menerjemahkan pertanyaan "kapan fungsi naik?", "di 
       id: "konsep",
       kind: "konsep",
       title: "Garis Singgung, Kemonotonan, dan Kecekungan",
+      questionIds: ['ap-01'],
       body: `**Gradien garis singgung.** Turunan $f'(a)$ adalah gradien garis singgung kurva $y = f(x)$ di $(a, f(a))$. Persamaannya
 $$y - f(a) = f'(a)(x - a).$$
 Garis normal tegak lurus garis singgung, sehingga gradiennya $\\dfrac{-1}{f'(a)}$ bila $f'(a) \\neq 0$.
@@ -495,6 +496,7 @@ $$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['ap-09'],
       body: `**Uji penguasaan.** Kerjakan dua tugas singkat. (1) Diberikan $f'(x)=0$ di sebuah titik; sebutkan dua cara berbeda untuk menentukan jenis titik itu. (2) Tuliskan urutan langkah menyelesaikan soal optimasi cerita, mulai dari memilih variabel sampai memeriksa batas domain. Setelah itu, lanjut berlatih di [Latihan & Asesmen](/latihan) topik **Aplikasi Turunan**.`,
     },
   ],

@@ -95,6 +95,7 @@ Kunci penghematan tenaganya adalah **modulo**, yaitu sisa pembagian. Dengan modu
       id: 'konsep',
       kind: 'konsep',
       title: 'Konsep Inti: Keterbagian',
+      questionIds: ['tbil-01'],
       body: `Bilangan bulat $a$ dikatakan **membagi** $b$, ditulis $a \\mid b$, jika terdapat bilangan bulat $k$ sehingga
 
 $$b = a \\cdot k.$$
@@ -484,6 +485,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
       id: 'evaluasi',
       kind: 'evaluasi',
       title: 'Evaluasi',
+      questionIds: ['tbil-10'],
       body: '**Latihan menutup.** Jelaskan dengan kata-katamu sendiri mengapa setiap langkah algoritma Euklides tidak mengubah FPB dua bilangan. Lalu tuliskan satu contoh bilangan besar dan tunjukkan cara menentukan sisanya modulo $9$ tanpa menghitung hasil bagi secara panjang. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Teori Bilangan** untuk latihan tambahan.',
     },
   ],

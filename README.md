@@ -137,7 +137,7 @@ Field `status` pada `Topic` menandai materi `'lengkap'` atau `'rencana'`.
 Jenis bagian (`SectionKind`) yang tersedia: `tujuan`, `pemantik`, `prasyarat`, `konteks`,
 `konsep`, `representasi`, `eksplorasi`, `generalisasi`, `rumus`, `contoh`, `latihan-dasar`,
 `latihan-cakap`, `latihan-mahir`, `dunia-nyata`, `kesalahan-umum`, `refleksi`, `rangkuman`,
-`evaluasi`, `sejarah`, `tantangan`, `catatan`. Bagian `sejarah` memuat latar historis konsep,
+`evaluasi`, `sejarah`, `tantangan`. Bagian `sejarah` memuat latar historis konsep,
 sedangkan `tantangan` memuat soal nonrutin beserta pembahasan terbuka untuk siswa pengayaan.
 
 Bagian `latihan-dasar`, `latihan-cakap`, dan `latihan-mahir` menarik soal topik dari bank
@@ -303,10 +303,12 @@ halaman per topik `/latihan/[topic]`.
 - **Ekspor lembar kerja.** Halaman topik menyediakan tombol **"Cetak lembar kerja"** yang
   menyembunyikan pembahasan dan kunci, beserta opsi **"Sertakan kunci jawaban"** untuk
   versi berkunci. Gaya cetaknya diatur `src/styles/partials/print.css`.
-- **Antrean tinjauan berkala.** Halaman `/review` menghimpun soal yang belum tepat atau
-  belum dicoba dari seluruh topik menjadi satu sesi berprioritas. Urutan dan jadwal
-  pengulangan (model Leitner sederhana) dihitung `src/lib/review.ts` dari data
-  `localStorage`, tanpa akun maupun server.
+- **Antrean tinjauan berkala.** Halaman `/review` menghimpun soal yang belum tepat,
+  belum dicoba, dan yang sudah tepat tetapi **jatuh tempo** dari seluruh topik menjadi
+  satu sesi berprioritas. Soal yang pernah benar naik satu kotak Leitner tiap kali
+  benar (`Attempt.box`, disimpan di `localStorage`) sehingga makin jarang diulang, dan
+  turun ke nol saat salah; antrean hanya memuat soal yang jatuh tempo. Urutannya
+  dihitung `src/lib/review.ts`, tanpa akun maupun server.
 
 Uji terkait: `tests/practice.mjs`, `tests/questions.mjs`, `tests/answer.mjs`,
 `tests/progress.mjs`, dan `tests/review.mjs`.

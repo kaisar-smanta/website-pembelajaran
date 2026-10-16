@@ -86,6 +86,7 @@ Kemampuan membedakan keduanya adalah keterampilan berpikir kritis yang sangat be
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Asosiasi vs Kausalitas",
+      questionIds: ['ak-01'],
       body: `**Asosiasi** (korelasi) berarti dua variabel cenderung berubah bersama: ketika $x$ naik, $y$ cenderung naik (asosiasi positif) atau turun (asosiasi negatif). Ini pernyataan **statistik** tentang pola data.
 
 **Kausalitas** berarti perubahan pada satu variabel **menyebabkan** perubahan pada variabel lain. Ini pernyataan tentang **mekanisme**, bukan pola semata.
@@ -458,6 +459,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['ak-08'],
       body: `**Tiket keluar.** (1) Sebuah berita menulis "pengguna media sosial lebih mudah cemas"; langkah apa yang kamu ambil sebelum mempercayai klaim itu sebagai sebab-akibat? (2) Jelaskan bagaimana satu variabel perancu dapat membuat dua hal tampak berkaitan padahal tidak. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Asosiasi dan Kausalitas** untuk latihan tambahan.`,
     },
   ],

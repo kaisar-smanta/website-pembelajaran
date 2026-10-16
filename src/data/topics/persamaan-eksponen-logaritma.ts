@@ -85,6 +85,7 @@ Bila nilai target kebetulan merupakan pangkat bulat dari basisnya, menyamakan ba
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Menyamakan Basis dan Definisi Logaritma",
+      questionIds: ['ekslog-01'],
       body: `**Persamaan eksponen dengan basis sama.** Untuk $a>0$, $a\\neq1$, dan $a^{f(x)}=a^{g(x)}$, berlaku
 
 $$a^{f(x)}=a^{g(x)} \\Rightarrow f(x)=g(x).$$
@@ -503,6 +504,7 @@ Yang menjadikan logaritma penuntas persamaan adalah sifat baliknya terhadap eksp
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['ekslog-09'],
       body: `**Tiket keluar.** (1) Selesaikan $5^{x}=125$ dan $5^{x}=100$, lalu jelaskan mengapa yang kedua memerlukan logaritma. (2) Tentukan $x$ dari $\\log_{2}(x-1)=3$ dan sebutkan syarat numerus yang harus dipenuhi. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Persamaan Eksponen dan Logaritma** untuk latihan tambahan.`,
     },
   ],

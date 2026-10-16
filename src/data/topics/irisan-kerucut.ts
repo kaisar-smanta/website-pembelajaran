@@ -91,6 +91,7 @@ Sifat fokus elips juga menjelaskan mengapa ruangan berkubah berbentuk elips mamp
       id: "lingkaran-baku",
       kind: "konsep",
       title: "Persamaan Lingkaran Bentuk Baku",
+      questionIds: ['ik-01'],
       body: `**Lingkaran** adalah himpunan titik yang berjarak sama ($r$) dari sebuah titik tetap (pusat). Jika pusatnya $(a,b)$ dan jari-jarinya $r$, maka setiap titik $(x,y)$ pada lingkaran memenuhi
 
 $$(x-a)^{2} + (y-b)^{2} = r^{2}.$$
@@ -577,6 +578,7 @@ $$PF_1+PF_2=2a.$$`,
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['ik-09'],
       body: `Tinjau ulang: apa yang membedakan persamaan lingkaran dari persamaan elips, dan bagaimana kamu menemukan letak fokus pada elips sebarang? Tuliskan jawabanmu, lalu lanjut ke [Latihan & Asesmen](/latihan) topik **Irisan Kerucut**.`,
     },
   ],

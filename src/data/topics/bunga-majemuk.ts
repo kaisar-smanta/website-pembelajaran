@@ -82,6 +82,7 @@ Memahami bunga majemuk membantu kita membandingkan produk keuangan, memahami inf
       id: "bunga-tunggal",
       kind: "konsep",
       title: "Mengenal Bunga Tunggal",
+      questionIds: ['bm-04'],
       body: `Sebelum mendalami bunga majemuk, ingat kembali **bunga tunggal**. Pada bunga tunggal, bunga selalu dihitung dari modal awal, bukan dari saldo terbaru. Jika modal awal $M_0$, suku bunga $i$ per periode, dan lama $n$ periode, saldo akhirnya adalah
 
 $$M_n = M_0(1 + i\\,n).$$
@@ -478,6 +479,7 @@ Jadi saldonya sekitar **Rp4.779.324**.
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['bm-09'],
       body: `**Uji diri sebentar.** (1) Apa yang membuat saldo bunga majemuk tumbuh sebagai barisan geometri, bukan garis lurus? (2) Tunjukkan dengan contoh angka mengapa suku bunga efektif tidak pernah lebih kecil daripada nominal. Setelah itu, lanjut ke [Latihan & Asesmen](/latihan) topik **Bunga Majemuk** untuk latihan tambahan.`,
     },
   ],

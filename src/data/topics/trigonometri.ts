@@ -90,6 +90,7 @@ Kunci jawabannya terletak pada perbandingan sisi segitiga siku-siku. Jika sudut 
       id: "konsep",
       kind: "konsep",
       title: "Konsep Inti: Perbandingan Trigonometri",
+      questionIds: ['tr-02'],
       body: `Perhatikan segitiga siku-siku dengan sudut lancip $\\alpha$. Terhadap sudut $\\alpha$:
 
 - **sisi depan** adalah sisi di hadapan $\\alpha$;
@@ -546,6 +547,7 @@ Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*
       id: "evaluasi",
       kind: "evaluasi",
       title: "Evaluasi",
+      questionIds: ['tr-08'],
       body: `**Cek pemahaman.** Tuliskan dengan kata-katamu sendiri mengapa $\\sin$, $\\cos$, dan $\\tan$ bernilai sama untuk semua segitiga yang sebangun. Kemudian jelaskan satu situasi ketika aturan kosinus lebih tepat dipakai daripada teorema Pythagoras. Setelah menjawab, lanjut ke [Latihan & Asesmen](/latihan) topik **Trigonometri** untuk latihan tambahan.`,
     },
   ],
