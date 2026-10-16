@@ -209,7 +209,7 @@ export const fungsiRasionalAkarQuestions: Question[] = [
   {
     id: 'fra-11',
     topicId: 'fungsi-rasional-akar',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -304,17 +304,24 @@ export const fungsiRasionalAkarQuestions: Question[] = [
     id: 'fra-15',
     topicId: 'fungsi-rasional-akar',
     difficulty: 'mahir',
-    type: 'short-answer',
-    category: 'penalaran',
+    type: 'open-response',
+    category: 'pemodelan',
     prompt:
-      'Fungsi $f(x)=\\dfrac{x^{2}-a^{2}}{(x-a)(x-b)}$ dengan $a=3$ dan $b=0$. Tentukan ordinat (nilai $y$) titik lubangnya.',
-    answer: '2',
+      'Perhatikan fungsi $f(x)=\\dfrac{2x^{2}-8}{x^{2}-x-2}$. (a) Faktorkan pembilang dan penyebut, sederhanakan, lalu tuliskan syarat yang berlaku. (b) Tentukan koordinat titik lubang. (c) Tentukan asimtot tegak dan asimtot datarnya.',
+    answer:
+      '(a) Pembilang $2x^{2}-8=2(x^{2}-4)=2(x-2)(x+2)$. Penyebut $x^{2}-x-2=(x-2)(x+1)$. Jadi $f(x)=\\dfrac{2(x-2)(x+2)}{(x-2)(x+1)}=\\dfrac{2(x+2)}{x+1}$ dengan syarat $x\\neq2$ dan $x\\neq-1$. (b) Faktor $(x-2)$ mencoret, sehingga lubang berada di $x=2$ dengan ordinat $\\dfrac{2(2+2)}{2+1}=\\dfrac{8}{3}$. Jadi lubangnya di $\\left(2,\\dfrac{8}{3}\\right)$. (c) Faktor penyebut yang tersisa $(x+1)$ memberi asimtot tegak $x=-1$. Derajat pembilang dan penyebut bentuk sederhana sama-sama $1$, sehingga asimtot datarnya $y=\\dfrac{2}{1}=2$.',
     explanation:
-      'Faktorkan $x^{2}-9=(x-3)(x+3)$, lalu coret $(x-3)$ sehingga $f(x)=\\dfrac{x+3}{x}$ untuk $x\\neq3$. Faktor penyebut yang tersisa $x$ memberi asimtot tegak $x=0$, sedangkan lubang berada di $x=3$ dengan ordinat $\\dfrac{3+3}{3}=2$.',
+      'Kunci: memfaktorkan pembilang dan penyebut, mencoret faktor bersama beserta syaratnya, lalu menentukan lubang dari faktor tercoret dan asimtot dari faktor yang tersisa.',
     hints: [
-      'Sederhanakan $f(x)$ dengan mencoret $(x-3)$.',
-      'Substitusikan $x=3$ ke bentuk yang sudah disederhanakan.',
+      'Faktorkan pembilang dengan mengeluarkan $2$ lalu memakai selisih kuadrat.',
+      'Setelah mencoret $(x-2)$, hitung nilainya di $x=2$ untuk ordinat lubang.',
     ],
-    competencies: ['fungsi rasional', 'lubang'],
+    competencies: ['fungsi rasional', 'lubang', 'asimtot', 'pemodelan'],
+    rubric: [
+      'Memfaktorkan pembilang $2(x-2)(x+2)$ dan penyebut $(x-2)(x+1)$',
+      'Menyederhanakan menjadi $\\dfrac{2(x+2)}{x+1}$ dengan syarat $x\\neq2$ dan $x\\neq-1$',
+      'Menentukan koordinat lubang $\\left(2,\\dfrac{8}{3}\\right)$',
+      'Menentukan asimtot tegak $x=-1$ dan asimtot datar $y=2$',
+    ],
   },
 ];

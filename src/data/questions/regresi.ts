@@ -203,21 +203,22 @@ export const regresiQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Diberikan data $x: 2,3,4,5,6$ dan $y: 2,6,6,8,8$. Tentukan persamaan garis regresi kuadrat terkecil $\\hat{y}=bx+a$, lalu perkirakan nilai $y$ ketika $x=6$.',
+      'Diberikan ringkasan lima pasangan data, dengan nilai $x$ teramati hanya pada rentang $1$ sampai $5$: $n=5$, $\\sum x_i=15$, $\\sum y_i=25$, $\\sum x_iy_i=88$, dan $\\sum x_i^2=55$. (a) Tentukan gradien dan intersep garis regresi kuadrat terkecil $\\hat{y}=bx+a$. (b) Perkirakan nilai $y$ ketika $x=6$, lalu sebutkan satu keterbatasan perkiraan itu.',
     answer:
-      'Dengan $n=5$, $\\sum x = 20$, $\\sum y = 30$, $\\sum xy = 134$, dan $\\sum x^2 = 90$: gradien $b = \\dfrac{n\\sum xy-(\\sum x)(\\sum y)}{n\\sum x^2-(\\sum x)^2} = \\dfrac{5(134)-20(30)}{5(90)-20^{2}} = \\dfrac{670-600}{450-400} = \\dfrac{70}{50} = 1{,}4$. Karena $\\bar{x}=4$ dan $\\bar{y}=6$, maka $a = \\bar{y}-b\\bar{x} = 6-1{,}4(4) = 0{,}4$. Jadi $\\hat{y} = 1{,}4x+0{,}4$, dan untuk $x=6$ diperoleh $\\hat{y} = 1{,}4(6)+0{,}4 = 8{,}8$.',
+      '(a) Gradien $b=\\dfrac{n\\sum x_iy_i-(\\sum x_i)(\\sum y_i)}{n\\sum x_i^2-(\\sum x_i)^2}=\\dfrac{5(88)-(15)(25)}{5(55)-15^{2}}=\\dfrac{440-375}{275-225}=\\dfrac{65}{50}=1{,}3$. Karena $\\bar{x}=3$ dan $\\bar{y}=5$, intersepnya $a=\\bar{y}-b\\bar{x}=5-1{,}3(3)=1{,}1$. Jadi $\\hat{y}=1{,}3x+1{,}1$. (b) Untuk $x=6$ diperoleh $\\hat{y}=1{,}3(6)+1{,}1=7{,}8+1{,}1=8{,}9$. Namun $x=6$ berada di luar rentang pengamatan $1$ sampai $5$, sehingga perkiraan itu merupakan ekstrapolasi yang hanya sah bila pola linear tetap berlaku di luar data.',
     explanation:
-      'Kunci jawaban: menghitung $\\sum xy$ dan $\\sum x^2$, menentukan gradien dengan rumus kuadrat terkecil, lalu intersep melalui titik $(\\bar{x},\\bar{y})$ sebelum melakukan prediksi.',
+      'Kunci jawaban: menghitung gradien dengan rumus kuadrat terkecil dari ringkasan data, menentukan intersep melalui titik $(\\bar{x},\\bar{y})$, lalu menyadari risiko ekstrapolasi pada prediksi di luar rentang.',
     hints: [
-      'Hitung $\\sum xy$ dan $\\sum x^{2}$ dari data.',
-      'Setelah memperoleh $b$, gunakan $a = \\bar{y}-b\\bar{x}$.',
+      'Gunakan $b=\\dfrac{n\\sum x_iy_i-(\\sum x_i)(\\sum y_i)}{n\\sum x_i^2-(\\sum x_i)^2}$ dengan $n=5$.',
+      'Setelah $b$ diperoleh, hitung $\\bar{x}$ dan $\\bar{y}$, lalu $a=\\bar{y}-b\\bar{x}$.',
+      'Perhatikan bahwa $x=6$ sudah melewati nilai $x$ terbesar yang diamati.',
     ],
     competencies: ['regresi linear', 'prediksi', 'pemodelan'],
     rubric: [
-      'Menghitung $\\sum xy$ dan $\\sum x^2$',
-      'Menentukan gradien dengan rumus kuadrat terkecil',
-      'Menentukan intersep lewat $(\\bar x,\\bar y)$',
-      'Melakukan prediksi pada $x=6$',
+      'Menghitung gradien $b=1{,}3$ dengan rumus kuadrat terkecil',
+      'Menentukan intersep $a=1{,}1$ melalui $(\\bar{x},\\bar{y})=(3,5)$',
+      'Memprediksi $\\hat{y}=8{,}9$ pada $x=6$',
+      'Menyebut keterbatasan ekstrapolasi karena $x=6$ di luar rentang $1$ sampai $5$',
     ],
   },
   {
@@ -246,29 +247,30 @@ export const regresiQuestions: Question[] = [
     topicId: 'regresi',
     difficulty: 'mahir',
     type: 'open-response',
-    category: 'penalaran',
+    category: 'evaluasi',
     prompt:
-      'Sebuah garis regresi memberi taksiran $\\hat{y}=1{,}5x+2$. Salah satu data yang diamati adalah $(4,9)$. (a) Hitung nilai $\\hat{y}$ untuk $x=4$ dan tentukan residunya. (b) Jelaskan makna tanda residu tersebut terhadap posisi titik data. (c) Jelaskan mengapa residu dapat bernilai positif maupun negatif.',
+      'Dua siswa mengusulkan garis regresi berbeda untuk data $(1,3)$, $(2,5)$, $(3,6)$, dan $(4,9)$. Garis I: $\\hat{y}=1{,}5x+2$; Garis II: $\\hat{y}=1{,}2x+3$. (a) Hitung jumlah kuadrat residu (SSE) tiap garis. (b) Tentukan garis yang lebih baik dan jelaskan dasarnya. (c) Jelaskan mengapa residu dapat bernilai positif maupun negatif.',
     answer:
-      '(a) $\\hat{y}=1{,}5(4)+2=8$, sehingga residu $=y-\\hat{y}=9-8=1$. (b) Residu positif berarti nilai pengamatan $y$ berada di atas nilai yang ditaksir garis regresi pada $x$ tersebut. (c) Residu adalah selisih data terhadap garis taksiran; titik di atas garis memberi residu positif, sedangkan titik di bawah garis memberi residu negatif. Garis kuadrat terkecil dipilih agar jumlah kuadrat residunya minimum dan jumlah residu bertanda mendekati nol.',
+      '(a) Garis I: taksiran $3{,}5;\\,5;\\,6{,}5;\\,8$, residu $y-\\hat{y}$ berturut-turut $-0{,}5;\\,0;\\,-0{,}5;\\,1$, sehingga $\\text{SSE}=0{,}25+0+0{,}25+1=1{,}5$. Garis II: taksiran $4{,}2;\\,5{,}4;\\,6{,}6;\\,7{,}8$, residu $-1{,}2;\\,-0{,}4;\\,-0{,}6;\\,1{,}2$, sehingga $\\text{SSE}=1{,}44+0{,}16+0{,}36+1{,}44=3{,}4$. (b) Garis I lebih baik karena jumlah kuadrat residunya lebih kecil ($1{,}5<3{,}4$), artinya total penyimpangan terhadap data lebih sedikit. (c) Residu adalah selisih $y-\\hat{y}$; titik yang berada di atas garis memberi residu positif, sedangkan titik di bawah garis memberi residu negatif. Metode kuadrat terkecil memilih garis yang meminimumkan jumlah kuadrat residu, karena kuadrat menghilangkan pengaruh tanda sehingga simpangan besar tidak saling meniadakan.',
     explanation:
-      'Kunci: menghitung taksiran dan residu, menafsirkan tanda residu sebagai posisi titik terhadap garis, serta mengaitkan residu dengan penyimpangan data dari model.',
+      'Kunci: menghitung taksiran dan residu tiap titik untuk kedua garis, membandingkan SSE, lalu menjelaskan tanda residu dan alasan penggunaan kuadrat dalam kuadrat terkecil.',
     hints: [
-      'Residu dihitung dengan $y-\\hat{y}$.',
-      'Tanda residu menunjukkan titik berada di atas atau di bawah garis.',
+      'Hitung $\\hat{y}$ tiap titik pada masing-masing garis, lalu residu $=y-\\hat{y}$.',
+      'Jumlahkan kuadrat setiap residu; jumlah yang lebih kecil menandakan garis yang lebih sesuai.',
+      'Residu positif berarti titik di atas garis, negatif berarti di bawah garis.',
     ],
-    competencies: ['residu', 'interpretasi regresi', 'penalaran'],
+    competencies: ['residu', 'kuadrat terkecil', 'evaluasi model'],
     rubric: [
-      'Menghitung taksiran $\\hat y$',
-      'Menghitung residu sebagai $y-\\hat y$',
-      'Menafsirkan tanda residu',
-      'Menjelaskan mengapa residu dapat positif atau negatif',
+      'Menghitung taksiran dan residu tiap titik untuk Garis I',
+      'Menghitung $\\text{SSE}$ Garis I $=1{,}5$ dan Garis II $=3{,}4$',
+      'Memilih Garis I karena $\\text{SSE}$ lebih kecil',
+      'Menjelaskan tanda residu dan alasan pemakaian kuadrat',
     ],
   },
   {
     id: 'rg-14',
     topicId: 'regresi',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

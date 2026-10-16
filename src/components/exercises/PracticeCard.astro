@@ -18,9 +18,11 @@ interface Props {
   questionIds: string[];
   /** Kata kunci topik, dipakai untuk pencarian kartu. */
   keywords?: string[];
+  /** Topik pengayaan di atas capaian pembelajaran; menampilkan badge. */
+  supplementary?: boolean;
 }
 
-const { title, summary, grade, element, slug, subject = 'matematika', counts, questionIds, keywords } = Astro.props;
+const { title, summary, grade, element, slug, subject = 'matematika', counts, questionIds, keywords, supplementary = false } = Astro.props;
 
 const searchText = normalizeText([title, summary ?? '', ...(keywords ?? [])].join(' '));
 
@@ -45,6 +47,7 @@ const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
   data-kelas={grade}
   data-elemen={element}
   data-levels={levels.join(' ')}
+  data-pengayaan={supplementary ? 'true' : 'false'}
   data-question-ids={JSON.stringify(questionIds)}
   data-search={searchText}
 >
@@ -55,6 +58,7 @@ const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
         {subject === 'matematika-lanjut' && (
           <span class="badge badge-subject">{SUBJECTS[subject].short}</span>
         )}
+        {supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
         <span class="badge badge-grade">{gradeMeta.name}</span>
       </span>
     </div>

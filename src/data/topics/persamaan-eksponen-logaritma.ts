@@ -11,7 +11,7 @@ export const persamaanEksponenLogaritma: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Persamaan eksponen basis sama termasuk CP Fase E pada elemen Aljabar dan Fungsi (E-ALJ-3), sehingga topik ini ditempatkan pada elemen tersebut. Topik tetap ditandai pengayaan karena menambahkan logaritma yang melampaui tuntutan CP.',
+    'Persamaan eksponen dengan basis sama berada pada elemen Aljabar dan Fungsi Fase E, tepatnya E-ALJ-3 yang menuntut penyelesaian persamaan dan fungsi eksponensial berbasis sama. Inti topik ini, menyamakan basis seperti pada $2^{x+1}=32$ dan substitusi $t=a^{x}$, memenuhi tuntutan itu secara langsung. Logaritma baru diperlukan ketika target bukan pangkat bulat basisnya, misalnya $2^{t}=100$, sehingga bagian logaritma melampaui E-ALJ-3 dan topik ini ditandai sebagai pengayaan.',
   estimatedMinutes: 90,
   summary:
     'Menyelesaikan persamaan eksponen dengan menyamakan basis dan substitusi, serta memahami logaritma sebagai invers eksponen beserta sifat-sifatnya.',
@@ -400,32 +400,32 @@ Contohnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Tentukan semua nilai $x$ yang memenuhi $\\log_{2}(x+3)+\\log_{2}(x-1)=5$. Periksa syarat numerus sebelum menetapkan jawaban.`,
+      title: "Pangkat yang Tersembunyi dalam Hasil Kali",
+      body: `**Soal.** Diketahui $3^{a}=7$ dan $7^{b}=81$. Tentukan nilai $a\\cdot b$ tanpa menghitung nilai $a$ maupun $b$ secara langsung. Jelaskan mengapa hasilnya berupa bilangan bulat meskipun $a$ dan $b$ sendiri bukan bilangan bulat.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Gabungkan kedua logaritma, ubah ke bentuk eksponen, lalu saring jawabannya dengan syarat numerus.",
+          intro: "Susun pangkat $3^{ab}$ dari dua fakta yang diberikan, lalu samakan basisnya.",
           steps: [
             {
-              title: "Tulis syarat numerus",
-              text: "Numerus harus positif: $x+3>0$ dan $x-1>0$, sehingga berlaku $x>1$.",
+              title: "Manfaatkan sifat pangkat dari pangkat",
+              text: "Tulis $3^{ab}$ sebagai pangkat berlapis: $3^{ab}=\\left(3^{a}\\right)^{b}$.",
             },
             {
-              title: "Gabungkan logaritma",
-              text: "Dengan sifat penjumlahan, $\\log_{2}(x+3)+\\log_{2}(x-1)=\\log_{2}\\big((x+3)(x-1)\\big)=5$.",
+              title: "Substitusi fakta pertama",
+              text: "Karena $3^{a}=7$, maka $\\left(3^{a}\\right)^{b}=7^{b}$.",
             },
             {
-              title: "Ubah ke bentuk eksponen",
-              text: "$(x+3)(x-1)=2^{5}=32$.",
+              title: "Substitusi fakta kedua",
+              text: "Karena $7^{b}=81$, diperoleh $3^{ab}=81$. Nyatakan $81$ sebagai pangkat basis $3$: $81=3^{4}$.",
             },
             {
-              title: "Selesaikan persamaan kuadrat",
-              text: "Jabarkan: $x^{2}+2x-3=32 \\Rightarrow x^{2}+2x-35=0 \\Rightarrow (x+7)(x-5)=0$, sehingga $x=-7$ atau $x=5$.",
+              title: "Samakan pangkat",
+              text: "Dari $3^{ab}=3^{4}$, karena basis sama dan $3\\neq1$, berlaku $ab=4$.",
             },
             {
-              title: "Saring dengan syarat",
-              text: "$x=-7$ ditolak karena tidak memenuhi $x>1$, sedangkan $x=5$ memenuhi. Jadi solusinya $x=5$.",
+              title: "Kesimpulan",
+              text: "Nilai $a=\\log_{3}7$ dan $b=\\log_{7}81$ masing-masing irasional, tetapi hasil kalinya tetap bilangan bulat $4$. Sifat pangkat dari pangkat membuat pangkat bertingkat bertemu di basis yang sama.",
             },
           ],
         },
@@ -434,10 +434,8 @@ Contohnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Persamaan yang tidak dapat diselesaikan dengan menyamakan basislah yang mendorong logaritma dipakai sebagai alat. Sebelum ada logaritma, para astronom dan pedagang mengalikan bilangan besar lewat tabel panjang yang rawan salah. John Napier (1614) dan Henry Briggs (1617) menyusun tabel logaritma untuk mempersingkat perhitungan semacam itu: perkalian berat berubah menjadi penjumlahan ringan, dan pencarian pangkat yang tersembunyi menjadi mungkin.
-
-Yang menjadikan logaritma penuntas persamaan adalah sifat baliknya terhadap eksponen. Leonhard Euler (1748) menegaskan hubungan $a^{c}=b \\iff \\log_{a}b=c$ sebagai definisi, bukan hanya trik hitung. Sejak itu setiap persamaan $b^{t}=N$ dapat diselesaikan dengan menuliskan $t=\\log_{b}N$, dan setiap persamaan logaritma dapat dikembalikan ke bentuk eksponen. Di sinilah syarat numerus positif mulai berperan: hanya nilai yang membuat logaritma terdefinisi yang sah sebagai jawaban.`,
+      title: "Dari Tabel ke Penuntas Persamaan",
+      body: `Riwayat penemuan logaritma beserta tabel-tabel hitungnya dibahas pada topik [Fungsi Logaritma](/matematika-lanjut/kelas/XI/aljabar-fungsi/fungsi-logaritma). Bagi topik ini yang menarik adalah pergeseran perannya: sejak abad ke-18 logaritma tidak lagi sekadar alat mempercepat hitung, melainkan penuntas persamaan. Sifat baliknya terhadap eksponen memungkinkan setiap persamaan $b^{t}=N$ diselesaikan dengan menuliskan $t=\\log_{b}N$, dan setiap persamaan logaritma dikembalikan ke bentuk eksponen. Di sinilah syarat numerus positif berperan: hanya nilai yang membuat logaritma terdefinisi yang sah sebagai jawaban.`,
     },
     {
       id: "refleksi",

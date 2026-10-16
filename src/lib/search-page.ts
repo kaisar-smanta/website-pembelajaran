@@ -27,6 +27,7 @@ function setupSearch(root: Element) {
   const gradeFilter = root.querySelector('[data-filter-grade]') as HTMLSelectElement;
   const elementFilter = root.querySelector('[data-filter-element]') as HTMLSelectElement;
   const typeFilter = root.querySelector('[data-filter-type]') as HTMLSelectElement;
+  const pengayaanFilter = root.querySelector('[data-filter-pengayaan]') as HTMLSelectElement | null;
   const results = root.querySelector('[data-search-results]') as HTMLElement;
   const status = root.querySelector('[data-search-status]') as HTMLElement;
   const hint = root.querySelector('[data-search-hint]') as HTMLElement;
@@ -49,16 +50,18 @@ function setupSearch(root: Element) {
       grade: gradeFilter.value,
       element: elementFilter.value,
       type: typeFilter.value,
+      pengayaan: pengayaanFilter?.value ?? '',
     });
   }
 
   /* Membaca kueri + saringan dari URL; mengembalikan true bila `?q=` ada. */
   function readUrl() {
-    const values = readQuery(['q', 'grade', 'element', 'type']);
+    const values = readQuery(['q', 'grade', 'element', 'type', 'pengayaan']);
     if (values.q) input.value = values.q;
     if (values.grade) gradeFilter.value = values.grade;
     if (values.element) elementFilter.value = values.element;
     if (values.type) typeFilter.value = values.type;
+    if (values.pengayaan && pengayaanFilter) pengayaanFilter.value = values.pengayaan;
     return Boolean(values.q);
   }
 
@@ -94,6 +97,7 @@ function setupSearch(root: Element) {
       grade: gradeFilter.value,
       element: elementFilter.value,
       type: typeFilter.value,
+      pengayaan: pengayaanFilter?.value === 'pengayaan',
     });
 
     let out: (SearchItem & { score: number })[];
@@ -181,6 +185,7 @@ function setupSearch(root: Element) {
   gradeFilter.addEventListener('change', update);
   elementFilter.addEventListener('change', update);
   typeFilter.addEventListener('change', update);
+  pengayaanFilter?.addEventListener('change', update);
   moreBtn?.addEventListener('click', () => {
     showAll = true;
     render();

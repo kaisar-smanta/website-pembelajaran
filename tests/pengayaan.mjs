@@ -6,6 +6,11 @@
 
 import { ok, checks, collectTopics, collectQuestions } from './_util.mjs';
 
+// Frasa stok yang dilarang muncul pada `cpNote` topik pengayaan.
+const STOCK_PHRASES = ['Pengayaan:', 'bekal olimpiade', 'bekal penting untuk olimpiade', 'jembatan ke olimpiade'];
+const MIN_CP_NOTE_LENGTH = 200;
+const MIN_SUPPLEMENTARY_MAHIR = 5;
+
 // ---- Topik ----
 const topics = await collectTopics();
 
@@ -26,11 +31,28 @@ for (const topic of topics) {
   const mahir = mahirByTopic.get(topic.id) ?? 0;
   ok(mahir >= 3, `topik ${topic.id} hanya punya ${mahir} soal mahir (minimal 3)`);
 
+  const kinds = new Set(topic.sections.map((section) => section.kind));
+
   if (topic.supplementary) {
     supplementaryCount += 1;
+    const note = typeof topic.cpNote === 'string' ? topic.cpNote.trim() : '';
+    ok(note.length > 0, `topik pengayaan ${topic.id} wajib punya cpNote penjelas`);
     ok(
-      typeof topic.cpNote === 'string' && topic.cpNote.trim().length > 0,
-      `topik pengayaan ${topic.id} wajib punya cpNote penjelas`,
+      note.length >= MIN_CP_NOTE_LENGTH,
+      `cpNote topik pengayaan ${topic.id} terlalu pendek (${note.length} < ${MIN_CP_NOTE_LENGTH})`,
+    );
+    ok(
+      /CP|[EF]-[A-Z]{3}-\d/.test(note),
+      `cpNote topik pengayaan ${topic.id} harus menyebut CP atau kode butir CP`,
+    );
+    for (const phrase of STOCK_PHRASES) {
+      ok(!note.includes(phrase), `cpNote topik pengayaan ${topic.id} memakai frasa stok "${phrase}"`);
+    }
+    ok(kinds.has('sejarah'), `topik pengayaan ${topic.id} wajib punya bagian sejarah`);
+    ok(kinds.has('tantangan'), `topik pengayaan ${topic.id} wajib punya bagian tantangan`);
+    ok(
+      mahir >= MIN_SUPPLEMENTARY_MAHIR,
+      `topik pengayaan ${topic.id} hanya punya ${mahir} soal mahir (minimal ${MIN_SUPPLEMENTARY_MAHIR})`,
     );
   }
 

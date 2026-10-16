@@ -354,34 +354,37 @@ Dalam lalu lintas, kecepatan dan percepatan kendaraan dihitung dari rekaman posi
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah kotak tanpa tutup dibuat dari karton persegi berukuran $24$ cm $\\times$ $24$ cm. Di setiap sudut dipotong persegi kecil bersisi $x$ cm, lalu sisi-sisinya dilipat ke atas. Tentukan nilai $x$ yang membuat volume kotak **maksimum**, lalu hitung volume maksimum itu.`,
+      title: "Memotong Kawat: Persegi dan Lingkaran",
+      body: `**Soal.** Seutas kawat sepanjang $40$ cm dipotong menjadi dua bagian. Satu bagian dibengkokkan menjadi persegi, bagian lain menjadi lingkaran. Tentukan panjang potongan untuk persegi agar **jumlah luas** kedua bangun minimum, lalu hitung luas minimum itu.`,
       blocks: [
         {
           kind: "step-reveal",
           intro: "Ubah soal cerita menjadi fungsi satu variabel, lalu cari titik stasionernya.",
           steps: [
             {
-              title: "Langkah 1: Modelkan volume",
-              text: `Setelah sudut dipotong, alas kotak berukuran $(24-2x) \\times (24-2x)$ dan tingginya $x$, sehingga
-$$V(x) = x(24-2x)^{2}, \\qquad 0 < x < 12.$$`,
+              title: "Langkah 1: Modelkan luas total",
+              text: `Misalkan $x$ cm kawat dipakai untuk persegi, maka sisanya $40-x$ cm untuk lingkaran. Sisi persegi adalah $\\dfrac{x}{4}$ sehingga luasnya $\\dfrac{x^{2}}{16}$. Keliling lingkaran $40-x$ memberi jari-jari $\\dfrac{40-x}{2\\pi}$ dan luas $\\dfrac{(40-x)^{2}}{4\\pi}$. Jadi
+$$A(x)=\\frac{x^{2}}{16}+\\frac{(40-x)^{2}}{4\\pi}, \\qquad 0 \\le x \\le 40.$$`,
             },
             {
               title: "Langkah 2: Turunkan",
-              text: `Dengan aturan hasil kali:
-$$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x)(24-6x).$$`,
+              text: `Turunkan suku demi suku:
+$$A'(x)=\\frac{x}{8}-\\frac{40-x}{2\\pi}.$$`,
             },
             {
               title: "Langkah 3: Tentukan titik stasioner",
-              text: `Selesaikan $V'(x)=0$: $(24-2x)(24-6x)=0$ memberi $x=12$ atau $x=4$. Nilai $x=12$ berada di ujung selang dan memberi volume nol, jadi kandidat utama adalah $x=4$.`,
+              text: `Selesaikan $A'(x)=0$:
+$$\\frac{x}{8}=\\frac{40-x}{2\\pi} \\;\\Rightarrow\\; 2\\pi x=8(40-x) \\;\\Rightarrow\\; x(2\\pi+8)=320,$$
+sehingga $x=\\dfrac{320}{2\\pi+8}=\\dfrac{160}{\\pi+4}\\approx 22{,}4$ cm.`,
             },
             {
               title: "Langkah 4: Uji jenis titik stasioner",
-              text: `Untuk $0 < x < 4$, keduanya positif sehingga $V'(x) > 0$ (fungsi naik). Untuk $4 < x < 12$, faktor $(24-6x)$ menjadi negatif sehingga $V'(x) < 0$ (fungsi turun). Karena turunan berubah dari positif ke negatif, $x = 4$ memberi **maksimum**.`,
+              text: `$$A''(x)=\\frac{1}{8}+\\frac{1}{2\\pi}>0,$$
+sehingga $x=\\dfrac{160}{\\pi+4}$ memberi **minimum**.`,
             },
             {
-              title: "Langkah 5: Hitung volume maksimum",
-              text: `$V(4) = 4(24-8)^{2} = 4 \\cdot 16^{2} = 4 \\cdot 256 = 1024$. Jadi volume maksimumnya $1024$ cm$^{3}$ dengan potongan sudut $4$ cm.`,
+              title: "Langkah 5: Tafsirkan hasil",
+              text: `Sisi persegi $=\\dfrac{x}{4}=\\dfrac{40}{\\pi+4}\\approx 5{,}60$ cm dan jari-jari lingkaran $=\\dfrac{40-x}{2\\pi}=\\dfrac{20}{\\pi+4}\\approx 2{,}80$ cm. Karena $\\dfrac{40}{\\pi+4}=2\\cdot\\dfrac{20}{\\pi+4}$, sisi persegi tepat sama dengan diameter lingkaran. Luas minimumnya $A=\\dfrac{400}{\\pi+4}\\approx 56{,}0$ cm$^{2}$.`,
             },
           ],
         },
@@ -390,8 +393,8 @@ $$V'(x) = (24-2x)^{2} + x \\cdot 2(24-2x)(-2) = (24-2x)^{2} - 4x(24-2x) = (24-2x
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Masalah mencari nilai terbaik sudah lama menarik perhatian. Pierre de Fermat pada 1620-an menyusun metode mencari nilai maksimum dan minimum yang memuat gagasan inti $f'(x)=0$. Isaac Newton memakai kalkulusnya untuk memecahkan persoalan gerak dan bentuk kurva, termasuk menentukan keadaan ekstrem. Pada 1696 Johann Bernoulli mengajukan masalah *brachistochrone*, yaitu lengkung turun tercepat, yang mendorong lahirnya kalkulus variasi dan diselesaikan oleh Newton, Leibniz, dan L'Hôpital selain Bernoulli sendiri. Sejak abad ke-18, optimasi dengan turunan menjadi alat baku dalam fisika, teknik, dan ekonomi.`,
+      title: "Dari Brachistochrone ke Optimasi",
+      body: `Asal-usul pencarian nilai terbaik, termasuk cara Fermat menyusun gagasan $f'(x)=0$, sudah dicatat pada bagian *Jejak Sejarah* topik Turunan. Di sini kita menelusuri sisi penerapannya. Isaac Newton memakai kalkulusnya untuk memecahkan persoalan gerak dan bentuk kurva, termasuk menentukan keadaan ekstrem. Pada 1696 Johann Bernoulli mengajukan masalah *brachistochrone*, yaitu lengkung turun tercepat, yang mendorong lahirnya kalkulus variasi dan diselesaikan oleh Newton, Leibniz, dan L'Hôpital selain Bernoulli sendiri. Sejak abad ke-18, optimasi dengan turunan menjadi alat baku dalam fisika, teknik, dan ekonomi.`,
     },
     {
       id: "refleksi",

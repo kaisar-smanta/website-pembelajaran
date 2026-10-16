@@ -127,7 +127,7 @@ export type Block =
   | {
       kind: 'match';
       intro?: string;
-      /** Pasangan istilah–makna yang dicocokkan siswa. */
+      /** Pasangan istilah-makna yang dicocokkan siswa. */
       pairs: { left: string; right: string }[];
     }
   | {
@@ -375,7 +375,7 @@ export interface Exploration {
   order?: number;
   /** Satu kalimat: apa yang seharusnya ditemukan siswa. */
   goal?: string;
-  /** Skema prediksi–observasi–penjelasan. */
+  /** Skema prediksi-observasi-penjelasan. */
   prompts?: ExplorationPrompt;
   /** Kesalahan atau jebakan umum saat bereksplorasi. */
   cautions?: string[];

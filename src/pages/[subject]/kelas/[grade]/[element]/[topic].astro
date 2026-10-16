@@ -158,11 +158,19 @@ const jsonLd: Record<string, unknown> = {
                   CP {code}
                 </a>
               ))}
-              {topic.supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
             </div>
           )
         }
-        {topic.cpNote && <p class="cp-note text-soft" set:html={renderInlineMarkdown(topic.cpNote)} />}
+        {
+          (topic.cpNote || topic.supplementary) && (
+            <p class="cp-note text-soft">
+              {topic.supplementary && (
+                <span class="badge badge-pengayaan cp-note-badge">Pengayaan</span>
+              )}
+              {topic.cpNote && <span set:html={renderInlineMarkdown(topic.cpNote)} />}
+            </p>
+          )
+        }
       </div>
     </header>
 
@@ -533,10 +541,17 @@ const jsonLd: Record<string, unknown> = {
     border-color: color-mix(in srgb, var(--accent) 55%, var(--color-border));
   }
   .cp-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem;
     margin: 0.5rem 0 0;
     max-width: 60ch;
     font-size: 0.85rem;
     line-height: 1.5;
+  }
+  .cp-note-badge {
+    flex: none;
   }
 
   .section-jump {

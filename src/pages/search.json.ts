@@ -36,6 +36,7 @@ export const GET: APIRoute = () => {
       type: 'topik',
       grade: t.grade,
       element: t.element,
+      pengayaan: Boolean(t.supplementary),
       keywords: [
         ...(t.keywords ?? []),
         t.subtitle ?? '',
@@ -63,6 +64,7 @@ export const GET: APIRoute = () => {
       type: 'latihan',
       grade: t.grade,
       element: t.element,
+      pengayaan: Boolean(t.supplementary),
       keywords: [
         ...(t.keywords ?? []),
         t.subtitle ?? '',

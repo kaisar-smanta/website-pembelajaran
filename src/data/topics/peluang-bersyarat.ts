@@ -429,7 +429,7 @@ Topik ini juga menjadi jembatan ke penalaran tentang **asosiasi dan kausalitas**
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Tantangan: Tiga Kartu Dua Warna",
       body: `Ini masalah klasik yang jawabannya sering mengejutkan.
 
 Di dalam sebuah kotak terdapat tiga kartu yang tak dapat dibedakan dari belakang:
@@ -474,7 +474,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Bayes ke Peluang Invers",
       body: `Aturan Bayes berasal dari sebuah karangan Thomas Bayes yang diterbitkan secara anumerta pada 1763 berkat usaha Richard Price. Pierre-Simon Laplace kemudian merumuskannya lebih umum dan sistematis dalam *Théorie analytique des probabilités* (1812) sebagai bagian dari apa yang disebut peluang invers. Gagasan memperbarui peluang ketika informasi baru tersedia inilah inti peluang bersyarat. Istilah "Bayes" untuk pendekatan ini baru populer pada abad ke-20, ketika metode itu dipakai luas dalam statistika, pengambilan keputusan, dan pembelajaran mesin.`,
     },
     {

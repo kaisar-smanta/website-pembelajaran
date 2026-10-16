@@ -361,7 +361,7 @@ Dalam teknologi, kurva Bézier pada desain grafis dan animasi dibangun dari poli
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Akar Bulat dan Paritas",
       body: `Fakta sederhana tentang paritas dapat menyelesaikan masalah akar polinomial yang tampak sulit.
 
 Misalkan $P(x)$ adalah polinomial dengan koefisien bilangan bulat. Diketahui $P(0)$ dan $P(1)$ keduanya bilangan **ganjil**.
@@ -405,7 +405,7 @@ Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Kubik ke Gauss",
       body: `Penyelesaian persamaan kuadrat sudah dikenal sejak zaman Babilonia, tetapi persamaan kubik dan kuartik baru terpecahkan di Italia pada abad ke-16 melalui karya Gerolamo Cardano dan rekan-rekannya. Metode pembagian sintetis yang kini disebut skema Horner diperkenalkan oleh Paolo Ruffini (1804) dan William Horner (1819). Carl Friedrich Gauss membuktikan teorema dasar aljabar pada 1799, yang menjamin setiap polinomial berderajat $n$ memiliki $n$ akar kompleks bila dihitung dengan multiplisitas. Pada awal abad ke-19, Niels Henrik Abel dan Évariste Galois menunjukkan bahwa tidak ada rumus umum berakar untuk persamaan derajat lima dan lebih tinggi.`,
     },
     {

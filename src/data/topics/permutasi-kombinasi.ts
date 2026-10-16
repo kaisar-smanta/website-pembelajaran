@@ -421,7 +421,7 @@ Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam p
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Tantangan: Empat Angka Habis Dibagi 5",
       body: `**Soal.** Berapa banyak bilangan empat angka berbeda yang **lebih besar dari 5000** dan **habis dibagi 5**, yang dibentuk dari angka $1, 2, 3, 4, 5, 6, 7$ tanpa pengulangan?`,
       blocks: [
         {
@@ -451,8 +451,8 @@ Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam p
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Pencacahan sudah dipelajari jauh sebelum notasi modern. Teks India kuno membahas banyak susunan dan pilihan, dan segitiga koefisien yang kini disebut segitiga Pascal sudah dikenal di Persia dan Tiongkok sekitar abad ke-11, jauh sebelum Blaise Pascal. Notasi faktorial serta aturan permutasi dan kombinasi mulai tertata pada abad ke-17, ketika Pascal dan Pierre de Fermat bertukar gagasan tentang permainan peluang. Jacob Bernoulli dalam *Ars Conjectandi* (1713) menyusun pencacahan permutasi dan kombinasi secara sistematis dan mengaitkannya dengan peluang. Simbol $\\binom{n}{k}$ yang kita pakai sekarang mulai dibakukan pada abad ke-19.`,
+      title: "Pencacahan Sebelum Notasi Modern",
+      body: `Pencacahan sudah dipelajari jauh sebelum notasi modern. Teks India kuno membahas banyak susunan dan pilihan, dan segitiga koefisien yang kini disebut segitiga Pascal sudah dikenal di Persia dan Tiongkok sekitar abad ke-11, jauh sebelum Blaise Pascal. Notasi faktorial serta aturan permutasi dan kombinasi mulai tertata pada abad ke-17, seiring berkembangnya teori peluang awal yang tonggaknya diuraikan pada topik [Peluang](/matematika/kelas/XI/data-peluang/peluang). Simbol $\\binom{n}{k}$ yang kita pakai sekarang mulai dibakukan pada abad ke-19.`,
     },
     {
       id: "refleksi",

@@ -194,6 +194,9 @@ const meta = [
                         </h4>
                         <p class="rumus-topic-meta">
                           Kelas {topicGroup.topic.grade} · {group.meta.short}
+                          {topicGroup.topic.supplementary && (
+                            <span class="badge badge-pengayaan">Pengayaan</span>
+                          )}
                         </p>
                       </header>
 
@@ -528,6 +531,10 @@ const meta = [
     text-decoration: underline;
   }
   .rumus-topic-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
     margin: 0;
     font-size: 0.82rem;
     color: var(--color-text-soft);

@@ -464,42 +464,42 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Seorang peternak ingin membuat dua kandang persegi panjang berdampingan yang berbagi satu sekat di tengah. Seluruh pagar yang tersedia panjangnya $60$ m, termasuk sekat pemisah itu. Tentukan ukuran kandang agar **luas total** kedua kandang maksimum, lalu hitung luas maksimumnya.`,
+      title: "Merekonstruksi Parabola dari Tiga Titik",
+      body: `**Soal.** Grafik fungsi kuadrat $f(x)=ax^{2}+bx+c$ melalui titik $(0,3)$, $(1,6)$, dan $(3,6)$. (a) Tentukan nilai $a$, $b$, dan $c$. (b) Tentukan titik puncak dan nilai maksimumnya. (c) Tentukan nilai $k$ agar garis mendatar $y=k$ menyinggung parabola itu.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: "Misalkan lebar total $x$ dan tinggi $y$. Pagar yang dipakai adalah dua sisi lebar, dua sisi tinggi, dan satu sekat sepanjang $y$, sehingga $2x+3y=60$. Susun luas $L=x y$ sebagai fungsi kuadrat satu variabel.",
+          text: "Setiap titik memberi satu persamaan bagi $a$, $b$, dan $c$. Dua titik dengan nilai $y$ yang sama, yaitu $(1,6)$ dan $(3,6)$, menandakan sumbu simetri berada di tengah keduanya.",
         },
         {
           kind: "step-reveal",
-          intro: "Ubah kendala menjadi fungsi kuadrat, lalu cari titik puncaknya.",
+          intro: "Susun sistem persamaan dari tiga titik, lalu gunakan titik puncak.",
           steps: [
             {
-              title: "Tentukan variabel",
-              text: "Misalkan lebar total $x$ meter dan tinggi $y$ meter. Luas total $L=xy$.",
+              title: "Gunakan titik pertama",
+              text: "Titik $(0,3)$ memberi $f(0)=c=3$.",
             },
             {
-              title: "Susun kendala pagar",
-              text: "Pagar terdiri dari $2x$ (dua sisi lebar) ditambah $3y$ (dua sisi tinggi dan satu sekat), sehingga $2x+3y=60$.",
+              title: "Gunakan titik kedua",
+              text: "Titik $(1,6)$ memberi $a+b+3=6$, yaitu $a+b=3$.",
             },
             {
-              title: "Nyatakan $x$ dalam $y$",
-              text: "Dari kendala, $2x=60-3y$, sehingga $x=\\dfrac{60-3y}{2}=30-1{,}5y$.",
+              title: "Gunakan titik ketiga",
+              text: "Titik $(3,6)$ memberi $9a+3b+3=6$, yaitu $3a+b=1$.",
             },
             {
-              title: "Bentuk fungsi luas",
-              text: "$L(y)=y(30-1{,}5y)=30y-1{,}5y^{2}$, yaitu fungsi kuadrat terbuka ke bawah.",
+              title: "Selesaikan sistem",
+              text: "Kurangkan kedua persamaan: $(3a+b)-(a+b)=1-3$, sehingga $2a=-2$, $a=-1$, dan $b=3-(-1)=4$. Jadi $f(x)=-x^{2}+4x+3$.",
             },
             {
-              title: "Cari titik puncak",
-              text: "Sumbu simetri $y=-\\dfrac{30}{2\\cdot(-1{,}5)}=\\dfrac{30}{3}=10$. Maka $x=30-1{,}5(10)=15$.",
+              title: "Tentukan titik puncak",
+              text: "Absis puncak $x=-\\dfrac{b}{2a}=-\\dfrac{4}{2\\cdot(-1)}=2$ dan $f(2)=-4+8+3=7$. Karena $a<0$, parabola terbuka ke bawah, sehingga nilai maksimum $7$ di titik $(2,7)$. Titik $(1,6)$ dan $(3,6)$ memang simetris terhadap $x=2$.",
             },
             {
-              title: "Hitung luas maksimum",
-              text: "$L(10)=15\\cdot 10=150$. Jadi ukuran terbaik adalah lebar $15$ m dan tinggi $10$ m, dengan luas maksimum $150\\ \\text{m}^{2}$. Periksa pagar: $2(15)+3(10)=30+30=60$ m, sesuai.",
+              title: "Cari garis singgung mendatar",
+              text: "Garis $y=k$ menyinggung parabola tepat di titik puncaknya, sehingga $k=7$. Periksa: $-x^{2}+4x+3=7 \\iff x^{2}-4x+4=0 \\iff (x-2)^{2}=0$, yang hanya bertemu di $x=2$.",
             },
           ],
         },
@@ -508,7 +508,7 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Resep Babilonia ke Parabola",
       body: `Penyelesaian soal yang setara dengan persamaan kuadrat sudah tercatat pada lempeng tanah liat Babilonia kuno, ribuan tahun sebelum Masehi, meskipun disajikan sebagai resep hitung dan hanya untuk akar positif. Di India, Brahmagupta pada abad ke-7 memberi aturan penyelesaian yang lebih umum, termasuk penanganan akar negatif. Al-Khwarizmi dalam *Al-Jabr* (sekitar 820) menyusun metode sistematis lengkap dengan langkah melengkapi kuadrat, dan karyanya menjadi rujukan aljabar di dunia Islam lalu Eropa. Kedua akar persamaan kuadrat dihubungkan dengan koefisiennya melalui rumus jumlah dan hasil kali yang kemudian dikembangkan François Viète. Adapun kurva parabolanya baru dipahami sebagai grafik fungsi setelah geometri koordinat Descartes dan Fermat pada abad ke-17.
 
 Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya akar real tumbuh menjadi bagian baku aljabar.`,

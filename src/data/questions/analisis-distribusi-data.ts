@@ -173,19 +173,21 @@ export const analisisDistribusiDataQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Rata-rata lima bilangan adalah $8$. Setelah satu bilangan baru ditambahkan, rata-ratanya menjadi $9$. Tentukan bilangan baru tersebut.',
+      'Nilai rata-rata $20$ siswa di suatu kelas adalah $78$. Jika nilai rata-rata $15$ siswa putri adalah $80$, tentukan nilai rata-rata $5$ siswa putra.',
     answer:
-      'Jumlah lima bilangan $=5\\times8=40$. Jumlah enam bilangan $=6\\times9=54$. Bilangan baru $=54-40=14$.',
-    explanation: 'Gunakan hubungan jumlah $=$ banyak data $\\times$ rata-rata sebelum dan sesudah penambahan.',
+      'Jumlah nilai seluruh kelas $=20\\times78=1.560$. Jumlah nilai $15$ siswa putri $=15\\times80=1.200$. Jumlah nilai $5$ siswa putra $=1.560-1.200=360$, sehingga rata-ratanya $\\dfrac{360}{5}=72$.',
+    explanation:
+      'Kunci: mengubah tiap rata-rata menjadi jumlah total, mengurangkan jumlah kelompok putri dari total kelas, lalu membagi sisa jumlah dengan banyak siswa putra.',
     hints: [
-      'Hitung jumlah total data sebelum dan sesudah.',
-      'Jumlah $=$ banyak data $\\times$ rata-rata; kurangkan jumlah awal dari jumlah akhir untuk memperoleh bilangan baru.',
+      'Ubah rata-rata kelas dan rata-rata putri menjadi jumlah nilai.',
+      'Jumlah nilai putra adalah selisih kedua jumlah itu; bagi dengan $5$.',
     ],
-    competencies: ['mean', 'pemodelan'],
+    competencies: ['mean', 'mean gabungan', 'pemodelan'],
     rubric: [
-      'Menghitung jumlah awal $5\\times8=40$',
-      'Menghitung jumlah akhir $6\\times9=54$',
-      'Menemukan bilangan baru $54-40=14$',
+      'Menghitung jumlah nilai kelas $20\\times78=1.560$',
+      'Menghitung jumlah nilai putri $15\\times80=1.200$',
+      'Memperoleh jumlah nilai putra $360$',
+      'Menghitung rata-rata putra $\\dfrac{360}{5}=72$',
     ],
   },
   {

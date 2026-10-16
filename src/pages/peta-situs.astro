@@ -118,6 +118,9 @@ const meta = [`${topicCount} topik`, `${subjectGroups.length} mata pelajaran`, '
                       >
                         {topic.title}
                       </a>
+                      {topic.supplementary && (
+                        <span class="badge badge-pengayaan">Pengayaan</span>
+                      )}
                       {topic.summary && (
                         <span class="sitemap-topic-note">{stripMarkdown(topic.summary)}</span>
                       )}

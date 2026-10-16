@@ -28,6 +28,7 @@ export function setupLearningMap(): void {
     const subjectGroup = toolbar.querySelector<HTMLElement>('[data-map-subject-chips]');
     const gradeGroup = toolbar.querySelector<HTMLElement>('[data-map-grade-chips]');
     const chipGroup = toolbar.querySelector<HTMLElement>('.map-chips');
+    const supplementaryGroup = toolbar.querySelector<HTMLElement>('[data-map-pengayaan-chips]');
     const searchInput = toolbar.querySelector<HTMLInputElement>('[data-map-search]');
     const toggle = document.querySelector<HTMLButtonElement>('[data-map-toggle]');
     const status = document.querySelector<HTMLElement>('[data-map-status]');
@@ -63,12 +64,14 @@ export function setupLearningMap(): void {
       element: string,
       subject: string,
       grade: string,
+      supplementary: string,
       q: string,
     ): boolean {
       if (element !== 'all' && item.getAttribute('data-element') !== element) return false;
       const block = blockOf(item);
       if (subject !== 'all' && block?.getAttribute('data-subject') !== subject) return false;
       if (grade !== 'all' && block?.getAttribute('data-grade') !== grade) return false;
+      if (supplementary !== 'all' && item.getAttribute('data-pengayaan') !== 'true') return false;
       if (item.getAttribute('data-status') === 'rencana' && hidePlanned) return false;
       if (q && !(item.getAttribute('data-search') ?? '').includes(q)) return false;
       return true;
@@ -78,11 +81,12 @@ export function setupLearningMap(): void {
       const element = values.elemen || 'all';
       const subject = values.mapel || 'all';
       const grade = values.kelas || 'all';
+      const supplementary = values.pengayaan || 'all';
       const q = normalizeText(query);
 
       let visibleTopics = 0;
       for (const item of items) {
-        const show = itemVisible(item, element, subject, grade, q);
+        const show = itemVisible(item, element, subject, grade, supplementary, q);
         item.classList.toggle('is-hidden', !show);
         if (show) visibleTopics += 1;
       }
@@ -99,6 +103,7 @@ export function setupLearningMap(): void {
         const block = blockOf(pending);
         const show =
           !q &&
+          supplementary === 'all' &&
           (element === 'all' || pending.getAttribute('data-element') === element) &&
           (subject === 'all' || block?.getAttribute('data-subject') === subject) &&
           (grade === 'all' || block?.getAttribute('data-grade') === grade);
@@ -132,6 +137,7 @@ export function setupLearningMap(): void {
         if (subject !== 'all') parts.push(subjectLabels[subject] ?? subject);
         if (grade !== 'all') parts.push(gradeLabels[grade] ?? `Kelas ${grade}`);
         if (element !== 'all') parts.push(elementLabels[element] ?? element);
+        if (supplementary !== 'all') parts.push('Pengayaan');
         const suffix = parts.length ? ` · ${parts.join(', ')}` : '';
         const qText = query.trim() ? ` untuk "${query.trim()}"` : '';
         status.textContent = `Menampilkan ${visibleTopics} topik${qText}${suffix}.`;
@@ -174,6 +180,16 @@ export function setupLearningMap(): void {
           group: chipGroup,
           chipSelector: '[data-map-filter]',
           valueAttr: 'data-map-filter',
+          activeClass: 'is-active',
+          allValue: 'all',
+        });
+      }
+      if (supplementaryGroup) {
+        groups.push({
+          key: 'pengayaan',
+          group: supplementaryGroup,
+          chipSelector: '[data-map-pengayaan]',
+          valueAttr: 'data-map-pengayaan',
           activeClass: 'is-active',
           allValue: 'all',
         });

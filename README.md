@@ -106,8 +106,8 @@ alih-alih menyalin loop pemuat data atau assertion.
      objectives: [{ text: 'Peserta didik dapat ...' }],
      applications: ['contoh-studi'], // id studi kasus terkait (opsional)
      status: 'lengkap',              // 'lengkap' | 'rencana' (lihat planned.ts)
-     supplementary: true,            // pengayaan di luar CP (opsional)
-     cpNote: 'Catatan kaitan dengan CP.', // opsional
+     supplementary: true,            // pengayaan di luar/melampaui CP (opsional)
+     cpNote: 'Elemen dan kode CP yang diperkuat serta alasan pengayaannya.', // wajib bila supplementary
      sections: [
        {
          id: 'konsep',
@@ -165,7 +165,7 @@ Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
 | `reflection` | Pertanyaan refleksi dengan jawaban + skala keyakinan tersimpan di peramban. |
 | `step-reveal` | Contoh bertahap yang dibuka langkah demi langkah. |
 | `spot-mistake` | Siswa menebak langkah yang salah pada pembahasan. |
-| `match` | Mencocokkan istilah–makna dengan kartu. |
+| `match` | Mencocokkan istilah-makna dengan kartu. |
 | `flip-cards` | Kartu bolak-balik untuk istilah. |
 | `tabs` | Penukar representasi (simbolik/grafik/tabel). |
 
@@ -320,27 +320,33 @@ Uji terkait: `tests/practice.mjs`, `tests/questions.mjs`, `tests/answer.mjs`,
 Siswa yang melampaui capaian dapat menempuh lapisan pengayaan:
 
 - **Halaman `/tantangan`** menghimpun soal tingkat `mahir` dari seluruh topik menjadi
-  tantangan campuran (dipilih deterministik lewat `seededShuffle`), menampilkan rincian
-  topik berjenjang, serta mendaftar topik pengayaan. Halaman dibangkitkan dari data yang
-  sama dengan `/latihan` dan `/eksplorasi`.
+  tantangan campuran (dipilih deterministik lewat `seededShuffle`), menampilkan topik
+  berjenjang dengan saringan mapel/kelas/elemen dan pencarian, indeks bagian `sejarah`
+  dan `tantangan` tiap topik, serta daftar topik pengayaan. Kartu soal mahir menaut
+  langsung ke blok latihan mahir topik asalnya.
 - **Bagian `sejarah`** memberi latar historis konsep (mis. Napier/Euler untuk logaritma,
-  Archimedes untuk π, Pascal–Fermat untuk peluang).
+  Archimedes untuk π, Pascal-Fermat untuk peluang).
 - **Bagian `tantangan`** memuat satu soal nonrutin beserta pembahasan bertahap
   (`step-reveal`, `spot-mistake`, atau `details`) dan petunjuk strategi.
-- **Topik pengayaan** ditandai `supplementary: true` (mis. SPLTV, matriks, logaritma,
-  limit, distribusi binomial, transformasi geometri, teori bilangan, ketaksamaan,
-  induksi matematika, kombinatorika lanjut) dan wajib menyertakan `cpNote`.
+- **Topik pengayaan** ditandai `supplementary: true` (SPLTV, matriks, persamaan eksponen
+  dan logaritma, limit, transformasi geometri, teori bilangan, ketaksamaan, induksi
+  matematika, kombinatorika lanjut) dan wajib menyertakan `cpNote` yang menyebut elemen
+  CP, kode CP terkait, dan alasan konkretnya. Lencana pengayaan muncul di kartu topik,
+  katalog `/latihan`, `/peta-situs`, dan `/cari`.
 - **Jalur Pengayaan** pada `/peta-pembelajaran` (`src/data/learning-paths.ts`) merangkai
   teori bilangan → ketaksamaan → induksi matematika → kombinatorika lanjut sebagai
   lintasan penalaran dan pembuktian.
 - **Dasbor `/kemajuan`** menambahkan ringkasan **penguasaan topik** (berdasarkan ketepatan,
-  bukan hanya jumlah soal dijawab), **keyakinan refleksi**, dan ajakan **tantangan
-  berikutnya** saat ketepatan sudah tinggi.
+  bukan hanya jumlah soal dijawab), **keyakinan refleksi**, ringkasan **kemajuan
+  pengayaan**, dan ajakan **tantangan berikutnya** saat ketepatan sudah tinggi.
+- `/rumus` dan `/glosarium` menandai entri yang berasal dari topik pengayaan.
 
-Uji terkait: `tests/pengayaan.mjs` menjaga ambang soal mahir, `cpNote` pengayaan, serta
-keberadaan bagian `sejarah`/`tantangan`; `tests/mtl-tambahan.mjs` memverifikasi nilai
-matematika topik pengayaan yang lebih baru (limit, distribusi binomial, transformasi
-geometri).
+Uji terkait: `tests/pengayaan.mjs` menjaga ambang soal mahir, `cpNote` pengayaan
+(elemen/kode CP, tanpa frasa stok), serta bagian `sejarah`/`tantangan`;
+`tests/sejarah-quality.mjs`, `tests/tantangan-quality.mjs`, dan `tests/mahir-quality.mjs`
+menjaga kedalaman, kebaruan, dan ketiadaan duplikat lintas topik; `tests/mtl-tambahan.mjs`
+memverifikasi nilai matematika topik pengayaan yang lebih baru (limit, distribusi binomial,
+transformasi geometri).
 
 ---
 
@@ -396,7 +402,7 @@ dibangkitkan dari data ini.
    `integral`, `random-variable`, `limit`, `binomial-distribution`, atau `geogebra`. Isi juga `grade`, `element`,
    `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
    dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
-   (prediksi–amati–jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
+   (prediksi-amati-jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
    `/eksplorasi/[slug]`, pencarian, dan peta sitemap sepenuhnya dibangkitkan dari registri ini.
    Tipe `geogebra` menyematkan applet lewat `url` dan hanya boleh menunjuk applet spesifik,
    bukan beranda GeoGebra generik (diperiksa `tests/explorations.mjs`).
@@ -533,7 +539,7 @@ src/
 | `/kelas/...`, `/elemen/...` | Pengalih statis rute lama ke `/matematika/...` |
 | `/latihan`, `/latihan/[topic]` | Latihan berjenjang: saringan, paginasi, sesi tinjau, pemeriksaan sisi klien |
 | `/review` | Tinjauan lintas topik: soal salah/belum dicoba dari semua topik |
-| `/tantangan` | Tantangan & pengayaan: soal mahir campuran, topik pengayaan, bagian sejarah & tantangan |
+| `/tantangan` | Tantangan & pengayaan: soal mahir campuran (saringan + cari, tautan `#lv-mahir`), topik pengayaan, indeks bagian sejarah & tantangan |
 | `/eksplorasi` | Katalog & simulasi interaktif (dapat disaring) |
 | `/eksplorasi/[slug]` | Halaman rincian satu eksplorasi (simulasi, brief, navigasi) |
 | `/alat` | Alat matematika daring (kelompok beraksen elemen) |

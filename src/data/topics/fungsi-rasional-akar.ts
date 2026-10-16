@@ -339,7 +339,7 @@ Perhatikan penentuan asimtot berikut. Ada satu langkah yang keliru. Klik langkah
     {
       id: 'tantangan',
       kind: 'tantangan',
-      title: 'Tantangan',
+      title: 'Menyetel Parameter Lubang dan Asimtot',
       body: `Soal nonrutin ini menuntut penalaran; menghitung saja tidak cukup.
 
 Tentukan semua nilai $k$ sehingga grafik
@@ -383,7 +383,7 @@ memiliki tepat satu lubang dan satu asimtot tegak. Jelaskan alasanmu.`,
     {
       id: 'sejarah',
       kind: 'sejarah',
-      title: 'Jejak Sejarah',
+      title: 'Asal Istilah Asimtot',
       body: `Kata "asimtot" berasal dari bahasa Yunani *asymptotos* yang berarti "tidak pernah bersentuhan". Istilah ini dipakai oleh Apollonius dari Perga sekitar abad ke-3 SM ketika mempelajari cabang-cabang hiperbola yang makin dekat ke suatu garis namun tidak pernah memotongnya. Baru jauh kemudian, setelah kalkulus dikembangkan oleh Isaac Newton dan Gottfried Wilhelm Leibniz pada abad ke-17, gagasan "mendekati tanpa mencapai" diformalkan melalui limit dan perilaku ujung.
 
 Fungsi rasional dan fungsi akar menjadi alat penting dalam pemodelan besaran per satuan dan pertumbuhan yang melandai. Penggunaannya meluas seiring berkembangnya analisis matematis pada abad ke-18 dan ke-19, termasuk ketika Augustin-Louis Cauchy dan Karl Weierstrass merapikan dasar-dasar limit yang kita pakai untuk menjelaskan lubang, asimtot, dan diskontinuitas.`,

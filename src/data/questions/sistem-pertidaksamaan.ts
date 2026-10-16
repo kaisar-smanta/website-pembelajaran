@@ -192,7 +192,7 @@ export const sistemPertidaksamaanQuestions: Question[] = [
   {
     id: 'spt-10',
     topicId: 'sistem-pertidaksamaan',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -241,7 +241,7 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     topicId: 'sistem-pertidaksamaan',
     difficulty: 'mahir',
     type: 'open-response',
-    category: 'evaluasi',
+    category: 'kontekstual',
     prompt:
       'Sebuah penyedia layanan komputasi menyewa dua jenis server. Server A menyediakan $1$ inti CPU dan $2$ GB RAM dengan biaya Rp3 ribu per jam, sedangkan server B menyediakan $1$ inti CPU dan $1$ GB RAM dengan biaya Rp2 ribu per jam. Layanan harus memenuhi kebutuhan minimal $5$ inti CPU dan $8$ GB RAM. (a) Susun model kendala dengan $a$ server A dan $b$ server B. (b) Tentukan kombinasi server yang berbiaya minimum beserta biayanya.',
     answer:
@@ -310,7 +310,7 @@ export const sistemPertidaksamaanQuestions: Question[] = [
   {
     id: 'spt-15',
     topicId: 'sistem-pertidaksamaan',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

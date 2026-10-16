@@ -186,19 +186,25 @@ export const distribusiNormalQuestions: Question[] = [
     id: 'dn-10',
     topicId: 'distribusi-normal',
     difficulty: 'mahir',
-    type: 'short-answer',
+    type: 'open-response',
     category: 'penalaran',
     prompt:
-      'Nilai ujian berdistribusi normal $N(72, 9^{2})$. Tentukan peluang seorang peserta bernilai **di atas** $90$.',
-    answer: '0,0228',
-    acceptedAnswers: ['0,0228', '0.0228', '0,02275', '0.02275', '2,28%', '2.28%', '0,023', '0.023'],
+      'Nilai ujian berdistribusi normal $N(72, 9^{2})$. (a) Tentukan peluang peserta bernilai di atas $90$. (b) Tentukan peluang peserta bernilai antara $63$ dan $81$. (c) Jelaskan mengapa peluang peserta bernilai tepat $72$ sama dengan nol.',
+    answer:
+      '(a) Standardisasi: $z=\\dfrac{90-72}{9}=2$, sehingga $P(X>90)=P(z>2)\\approx0{,}0228$, sekitar $2{,}28\\%$. (b) Batas $63$ dan $81$ sama dengan $\\mu\\pm\\sigma$ karena $72\\pm9$, sehingga $z=-1$ sampai $z=1$ dan $P(63<X<81)=P(-1\\le z\\le1)\\approx0{,}6827$, sekitar $68{,}27\\%$. (c) Nilai ujian adalah variabel kontinu, sehingga peluang dihitung sebagai luas daerah; satu titik tidak memiliki lebar, maka $P(X=72)=0$.',
     explanation:
-      'Standardisasi: $z = \\dfrac{90-72}{9} = 2$. Maka $P(X > 90) = P(z > 2) \\approx 0{,}0228$, yaitu sekitar $2{,}28\\%$ peserta.',
+      'Kunci: menstandardisasi kedua batas, memakai kaidah empiris untuk peluang selang $\\pm1\\sigma$ dan ekor kanan $2\\sigma$, serta menyadari peluang satu titik pada variabel kontinu adalah nol.',
     hints: [
-      'Hitung $z$ untuk $x = 90$ dengan $\\mu = 72$ dan $\\sigma = 9$.',
-      'Setelah memperoleh $z = 2$, gunakan luas ekor kanan dari kaidah empiris.',
+      'Hitung $z$ untuk setiap batas dengan $\\mu=72$ dan $\\sigma=9$.',
+      'Selang $63$ sampai $81$ adalah $\\mu\\pm\\sigma$; gunakan kaidah empiris.',
+      'Pada variabel kontinu, peluang satu nilai tepat berupa luas titik yang bernilai nol.',
     ],
-    competencies: ['skor baku', 'peluang ekor', 'penalaran'],
+    competencies: ['skor baku', 'kaidah empiris', 'penalaran'],
+    rubric: [
+      'Menghitung $z=2$ dan $P(X>90)\\approx0{,}0228$',
+      'Mengenali $63$ dan $81$ sebagai $\\mu\\pm\\sigma$ dan menghitung $P(-1\\le z\\le1)\\approx0{,}6827$',
+      'Menjelaskan $P(X=72)=0$ karena variabel kontinu',
+    ],
   },
   {
     id: 'dn-11',

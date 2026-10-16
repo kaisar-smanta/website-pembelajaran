@@ -29,7 +29,8 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   kosong. Jangan menyentuh hyphen-minus ASCII (tanda minus, placeholder kode).
 - Bila kode memang perlu menyebut karakternya, tulis escape `\u2014`, bukan literal.
 - **Ditegakkan otomatis:** `scripts/lib/emdash.mjs` dipindai `npm run lint:content` dan
-  `tests/no-emdash.mjs` (bagian dari `npm test`). Repo harus tetap 0 em-dash.
+  `tests/no-emdash.mjs` (bagian dari `npm test`). Repo harus tetap 0 em-dash dan 0 en-dash
+  di luar rentang (en-dash yang bersebelahan dengan huruf kecil dianggap kekeliruan gaya).
 - **Struktur judul:** tepat satu `<h1>` per halaman dan tanpa lompatan tingkat (mis. h2 ke
   h4). Ditegakkan `tests/heading.mjs` (memindai seluruh `dist/`).
 - `artifacts/` dan `.github/artifacts/` **diabaikan git** (ephemeral). Keputusan yang perlu
@@ -85,12 +86,23 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   `tests/pengayaan.mjs`). Halaman `/tantangan` menghimpun soal `mahir` dan topik pengayaan;
   bagian `sejarah` (latar historis) dan `tantangan` (soal nonrutin) memperkaya materi.
   `tests/pengayaan.mjs` juga menjaga ambang soal mahir per topik.
+- **Kontrak pengayaan (dijaga uji).** `cpNote` topik pengayaan wajib menyebut elemen CP yang
+  diperkuat, kode CP terkait, dan alasan konkret; dilarang memakai frasa stok ("Pengayaan:",
+  "jembatan", "bekal olimpiade"). Setiap topik `supplementary` wajib punya bagian `sejarah`
+  dan `tantangan` berisi, minimal satu `figure`, dan >= 5 soal `mahir`; bagian `sejarah`
+  tidak boleh menduplikasi plot tokoh lintas topik dan setiap topik wajib menyertakan
+  acuan waktu. Bagian `tantangan` wajib berbeda dari soal `mahir` topik yang sama serta
+  tidak boleh membocorkan jawaban di bagian lain. `cpNote` pada topik non-supplementary
+  (mis. `barisan-deret`) adalah penunjuk CP yang sah, bukan penanda pengayaan. Ditegakkan
+  `tests/pengayaan.mjs`, `tests/sejarah-quality.mjs`, `tests/tantangan-quality.mjs`,
+  `tests/mahir-quality.mjs`.
 - Uji di `tests/*.mjs`, dijalankan `npm test` (lewat `tests/run-all.mjs`, auto-discovery).
   **Berkas berawalan `_` adalah pembantu bersama, bukan uji.** Utilitas bersama ada di
   `tests/_util.mjs` (`load`, `ok`, `check`, `checks`, `collectTopics`, `collectQuestions`,
   `mockStorage`): pakai itu alih-alih menyalin loop pemuat topik/soal atau assertion.
   Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
-  (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`),
+  (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`,
+  `tests/sejarah-quality.mjs`, `tests/tantangan-quality.mjs`, `tests/mahir-quality.mjs`),
   integritas konten (`tests/content-integrity.mjs`: rujukan topik↔studi kasus, id/slug unik,
   bagian tak kosong, kunci pilihan ganda sehat), teks indeks pencarian
   (`tests/content-text.mjs`), tata letak graf prasyarat, dan setiap simulasi

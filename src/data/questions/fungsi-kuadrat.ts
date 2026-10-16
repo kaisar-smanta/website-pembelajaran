@@ -245,7 +245,7 @@ export const fungsiKuadratQuestions: Question[] = [
   {
     id: 'fk-13',
     topicId: 'fungsi-kuadrat',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penalaran',
     prompt:

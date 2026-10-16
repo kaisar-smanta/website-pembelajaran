@@ -122,6 +122,7 @@ const topicSearch = (title: string, keywords?: string[]): string =>
                   class="topic-item"
                   data-status="lengkap"
                   data-element={element}
+                  data-pengayaan={t.supplementary ? 'true' : 'false'}
                   data-search={topicSearch(t.title, t.keywords)}
                 >
                   <a href={topicUrl(grade, element, t.slug, subject)} data-topic-id={t.id}>

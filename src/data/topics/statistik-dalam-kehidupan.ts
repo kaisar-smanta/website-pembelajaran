@@ -415,34 +415,39 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah kantor mengumumkan, "Rata-rata bonus karyawan tahun ini Rp11,4 juta." Data bonus dalam juta rupiah adalah: $1$ direktur menerima $60$, $2$ manajer masing-masing menerima $20$, dan $7$ staf masing-masing menerima $2$.
+      title: "Rata-Rata Kelas yang Hilang",
+      body: `**Soal.** Tiga kelas mengikuti ujian yang sama. Kelas A berisi $24$ siswa dengan rata-rata $70$, Kelas B berisi $36$ siswa dengan rata-rata $80$, dan Kelas C berisi $40$ siswa. Rata-rata gabungan ketiga kelas adalah $77$.
 
-(a) Hitung mean dan median bonus. (b) Ukuran mana yang lebih mewakili bonus karyawan tipikal? (c) Mengapa pengumuman itu berpotensi menyesatkan?`,
+(a) Tentukan rata-rata nilai Kelas C.
+(b) Seorang siswa menghitung rata-rata gabungan dengan cara $\\dfrac{70+80+x}{3}$ dan memperoleh angka yang berbeda. Bandingkan hasil cara itu dengan jawabanmu, lalu jelaskan mengapa cara tersebut keliru.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Hitung kedua ukuran pemusatan, lalu bandingkan maknanya dalam konteks.",
+          intro: "Kerjakan lewat jumlah nilai, bukan dengan merata-ratakan rata-rata antarkelompok.",
           steps: [
             {
-              title: "Hitung total dan banyak data",
-              text: "Total bonus $=60+2\\cdot20+7\\cdot2=60+40+14=114$ juta, dengan $1+2+7=10$ karyawan.",
+              title: "Hitung banyak siswa seluruhnya",
+              text: "Banyak siswa $=24+36+40=100$.",
             },
             {
-              title: "Hitung mean",
-              text: "$\\bar{x}=\\dfrac{114}{10}=11{,}4$ juta. Angka ini memang sama dengan pengumuman.",
+              title: "Hitung jumlah nilai seluruhnya",
+              text: "Karena rata-rata gabungan $77$, jumlah seluruh nilai $=100\\times77=7700$.",
             },
             {
-              title: "Urutkan dan cari median",
-              text: "Data terurut: $2,2,2,2,2,2,2,20,20,60$. Karena $n=10$ genap, median $=\\dfrac{2+2}{2}=2$ juta.",
+              title: "Hitung jumlah nilai Kelas A dan B",
+              text: "Kelas A: $24\\times70=1680$; Kelas B: $36\\times80=2880$; jumlahnya $1680+2880=4560$.",
             },
             {
-              title: "Bandingkan makna",
-              text: "Median $2$ juta mewakili $7$ dari $10$ karyawan (semua staf), sedangkan mean $11{,}4$ juta jauh di atas penghasilan kebanyakan karyawan.",
+              title: "Tentukan rata-rata Kelas C",
+              text: "Jumlah nilai Kelas C $=7700-4560=3140$, sehingga rata-ratanya $=\\dfrac{3140}{40}=78{,}5$.",
+            },
+            {
+              title: "Bandingkan dengan rata-rata antarkelompok",
+              text: "Cara $\\dfrac{70+80+78{,}5}{3}=\\dfrac{228{,}5}{3}\\approx76{,}17$ berbeda dari $77$. Cara itu memberi bobot sama pada setiap kelas, padahal jumlah siswanya berbeda.",
             },
             {
               title: "Simpulkan",
-              text: "Mean ditarik ke atas oleh satu nilai ekstrem $60$ juta. Pengumuman itu benar secara hitung, tetapi menyesatkan karena menyembunyikan sebaran. Menyebut median akan memberi gambaran yang lebih jujur.",
+              text: "Rata-rata gabungan harus dibobot ukuran kelas. Rata-rata Kelas C adalah $78{,}5$, dan rata-rata sederhana dari ketiga nilai kelas tidak sahih ketika ukuran kelasnya tidak sama.",
             },
           ],
         },
@@ -451,7 +456,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Membaca Keadaan Negara",
       body: `Kata "statistik" berasal dari bahasa Latin *status* (keadaan) dan pada abad ke-18 dipakai di Eropa untuk mencatat keadaan negara: jumlah penduduk, hasil panen, dan pajak. Dari kebutuhan itu lahir kebiasaan menyajikan data dalam tabel dan grafik. Florence Nightingale pada 1850-an memakai diagram untuk meyakinkan pemerintah tentang buruknya sanitasi rumah sakit, sedangkan John Snow pada 1854 memetakan kasus kolera di London untuk menelusuri sumber wabah. Keduanya menunjukkan bahwa penyajian data yang jujur dapat mengubah kebijakan. Sejak itu, membaca grafik secara kritis menjadi keterampilan warga yang penting.`,
     },
     {

@@ -403,7 +403,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Dilatasi lalu Rotasi: Matriks Gabungan dan Inversnya",
       body: `**Soal.** Sebuah titik dikenai dua transformasi berurutan: pertama **dilatasi** dengan pusat $O$ dan faktor $2$, kemudian **rotasi** $90^\\circ$ berlawanan arah jarum jam terhadap $O$. (a) Tentukan matriks tunggal $M$ yang mewakili kedua transformasi itu. (b) Tentukan $M^{-1}$, nyatakan transformasi balikannya, dan periksa hasilnya pada titik $(1,0)$.`,
       blocks: [
         {
@@ -445,8 +445,8 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Geometri sudah lama mempelajari pergeseran dan pencerminan bangun, tetapi cara menghitungnya dengan tabel bilangan baru matang pada abad ke-19. Arthur Cayley, dalam *A Memoir on the Theory of Matrices* (1858), menunjukkan bahwa sebuah matriks dapat mewakili transformasi linear dan bahwa menyusun dua transformasi setara dengan **mengalikan** matriksnya. Rekan sezamannya, James Joseph Sylvester, memperkaya kosakata aljabar linear, sementara Felix Klein pada 1872 merumuskan Program Erlangen yang memandang geometri sebagai kajian kelompok transformasi, yaitu gagasan bahwa sifat sebuah bangun ditentukan oleh transformasi yang mempertahankannya. Dari sana determinan dibaca sebagai faktor skala luas, dan rotasi, refleksi, serta dilatasi memperoleh bentuk matriksnya. Pada abad ke-20 bahasa yang sama menjadi dasar aljabar linear dan, kemudian, grafika komputer.`,
+      title: "Matriks sebagai Aturan Transformasi",
+      body: `Perkawinan matriks dengan transformasi geometri punya jejak sendiri: aljabar matriks dan transformasi linear tumbuh bersama pada abad ke-19, ketika sebuah matriks mulai dibaca sebagai aturan yang memindahkan titik, bukan sekadar tabel bilangan. Rincian asal-usul notasi dan operasi matriks ada pada bagian sejarah topik **Matriks**, sedangkan latar pandangan geometri sebagai kajian transformasi ada pada bagian sejarah topik **Transformasi Geometri**. Yang menarik bagi topik ini adalah akibat praktisnya: karena menyusun dua transformasi setara dengan mengalikan matriksnya, satu perkalian matriks dapat mewakili rangkaian pergeseran, pemutaran, dan penskalaan, dan gagasan itulah yang pada abad ke-20 menjadi mesin di balik grafika komputer.`,
     },
     {
       id: "refleksi",

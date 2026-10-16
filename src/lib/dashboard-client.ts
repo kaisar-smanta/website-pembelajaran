@@ -29,6 +29,7 @@ import {
   type TopicMastery,
   type MasteryBand,
   type LowConfidenceEntry,
+  type EnrichmentSummary,
 } from '@/lib/progress-overview';
 import { buildReviewQueue, summarizeReviewQueue } from '@/lib/review';
 
@@ -55,6 +56,7 @@ export function bootDashboard(): void {
       challenge: root.querySelector<HTMLElement>('[data-challenge]'),
       mastery: root.querySelector<HTMLElement>('[data-mastery]'),
       confidence: root.querySelector<HTMLElement>('[data-confidence]'),
+      enrichment: root.querySelector<HTMLElement>('[data-enrichment]'),
       continue: root.querySelector<HTMLElement>('[data-continue]'),
       suggest: root.querySelector<HTMLElement>('[data-suggest]'),
       breakdown: root.querySelector<HTMLElement>('[data-breakdown]'),
@@ -128,7 +130,18 @@ export function bootDashboard(): void {
       const when = topic.lastAt ? ` · terakhir ${formatDate(topic.lastAt)}` : '';
       meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy}${when}`;
 
-      main.append(link, meta);
+      main.append(link);
+      if (topic.supplementary) {
+        const row = document.createElement('span');
+        row.className = 'continue-meta-row';
+        const badge = document.createElement('span');
+        badge.className = 'badge badge-pengayaan';
+        badge.textContent = 'Pengayaan';
+        row.append(meta, badge);
+        main.append(row);
+      } else {
+        main.append(meta);
+      }
 
       const material = document.createElement('a');
       material.className = 'btn btn-secondary btn-sm';
@@ -165,6 +178,31 @@ export function bootDashboard(): void {
         sections.continue instanceof HTMLElement && !sections.continue.hidden;
       setSectionVisible(sections.suggest, !hasContinue && items.length > 0);
       if (list) list.replaceChildren(...items.map(topicListItem));
+    }
+
+    function renderEnrichment(summary: EnrichmentSummary) {
+      const startedEl = root.querySelector('[data-enrichment-started]');
+      const completedEl = root.querySelector('[data-enrichment-completed]');
+      const answeredEl = root.querySelector('[data-enrichment-answered]');
+      const accuracyEl = root.querySelector('[data-enrichment-accuracy]');
+      const list = sections.enrichment?.querySelector<HTMLOListElement>(
+        '[data-enrichment-list]',
+      );
+      const note = root.querySelector<HTMLElement>('[data-enrichment-note]');
+
+      if (startedEl) startedEl.textContent = `${summary.started}/${summary.total}`;
+      if (completedEl) completedEl.textContent = String(summary.completed);
+      if (answeredEl) {
+        answeredEl.textContent = `${summary.answered}/${summary.totalQuestions}`;
+      }
+      if (accuracyEl) accuracyEl.textContent = percent(summary.accuracy);
+      if (list) list.replaceChildren(...summary.topics.map(topicListItem));
+      if (note) {
+        note.textContent =
+          summary.started > 0
+            ? 'Topik pengayaan yang sudah disentuh tampil di atas. Materi wajib dan pengayaan dihitung terpisah.'
+            : 'Belum ada topik pengayaan yang dimulai. Buka salah satu lewat halaman tantangan bila ingin melangkah lebih jauh.';
+      }
     }
 
     function renderBreakdown(overview: SiteOverview) {
@@ -311,7 +349,8 @@ export function bootDashboard(): void {
       const accuracy = topic.gradedAnswered
         ? ` · ketepatan ${percent(topic.accuracy)}`
         : '';
-      meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy} · ${BAND_LABELS[topic.band]}`;
+      const enrich = topic.supplementary ? ' · pengayaan' : '';
+      meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy} · ${BAND_LABELS[topic.band]}${enrich}`;
 
       main.append(link, meta);
 
@@ -477,6 +516,7 @@ export function bootDashboard(): void {
         setSectionVisible(sections.challenge, false);
         setSectionVisible(sections.mastery, false);
         setSectionVisible(sections.confidence, false);
+        setSectionVisible(sections.enrichment, false);
         setSectionVisible(sections.continue, false);
         setSectionVisible(sections.suggest, false);
         setSectionVisible(sections.breakdown, false);
@@ -490,6 +530,7 @@ export function bootDashboard(): void {
       setSectionVisible(sections.challenge, true);
       setSectionVisible(sections.mastery, overview.answered > 0);
       setSectionVisible(sections.confidence, overview.confidence.total > 0);
+      setSectionVisible(sections.enrichment, overview.enrichment.total > 0);
       setSectionVisible(sections.breakdown, true);
       setSectionVisible(sections.manage, true);
       renderSummary(overview);
@@ -499,6 +540,7 @@ export function bootDashboard(): void {
         renderReview(progress);
       }
       if (overview.confidence.total > 0) renderConfidence(overview);
+      if (overview.enrichment.total > 0) renderEnrichment(overview.enrichment);
       renderContinue(overview);
       renderSuggest(overview);
       renderBreakdown(overview);

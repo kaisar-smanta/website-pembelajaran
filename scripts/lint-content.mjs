@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { byExtension, collectFiles } from './lib/files.mjs';
-import { scanEmDashes } from './lib/emdash.mjs';
+import { scanEmDashes, scanEnDashMisuse } from './lib/emdash.mjs';
 import { scanMath } from '../src/lib/math-scan.ts';
 
 // Daftar berkas materi yang dipindai: topik, aplikasi, bank soal, eksplorasi,
@@ -181,6 +181,14 @@ for (const { file, line } of emdashFindings) {
   );
 }
 
+// Pemindaian en-dash di luar rentang. En-dash hanya untuk rentang dan penanda
+// nilai kosong; yang bersebelahan dengan huruf kecil
+// adalah kekeliruan dan wajib memakai hyphen-minus.
+const endashFindings = scanEnDashMisuse(process.cwd());
+for (const { file, line, context } of endashFindings) {
+  problems.push(`${file}:${line} memakai en-dash di luar rentang -> ${context}`);
+}
+
 // Pemindaian kedua: template .astro untuk pola "spasi hilang sebelum tag inline".
 // Bila sebuah baris berakhir pada kata/tanda baca tanpa spasi lalu baris berikutnya
 // dimulai tag inline (<strong>, <em>, ...), teks dapat menyatu saat dirender.
@@ -227,6 +235,7 @@ for (const full of astroFiles) {
 
 console.log(`Berkas materi diperiksa: ${files.length}`);
 console.log(`Temuan em-dash: ${emdashFindings.length}`);
+console.log(`Temuan en-dash di luar rentang: ${endashFindings.length}`);
 console.log(`Berkas .astro diperiksa: ${astroFiles.length}`);
 console.log(`Potensi masalah: ${problems.length}`);
 if (problems.length) console.log(problems.join('\n'));

@@ -390,28 +390,28 @@ Jadi saldonya sekitar **Rp4.779.324**.
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Modal Rp2.000.000 dibungakan majemuk $8\\%$ per tahun. Setelah berapa tahun penuh saldo menjadi paling sedikit **dua kali** modal? Kerjakan tanpa kalkulator logaritma dengan memeriksa tahun demi tahun.`,
+      title: "Dua Saldo yang Berpacu",
+      body: `**Soal.** Modal A sebesar Rp5.000.000 dan modal B sebesar Rp8.000.000 ditabung pada hari yang sama. Modal A berbunga majemuk $10\\%$ per tahun, sedangkan modal B berbunga majemuk $5\\%$ per tahun. Tentukan setelah berapa tahun penuh saldo A pertama kali **melebihi** saldo B. Kerjakan dengan memeriksa tahun demi tahun tanpa kalkulator logaritma.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kita perlu mencari $n$ terkecil dengan $(1{,}08)^n \\ge 2$.",
+          intro: "Bandingkan kedua saldo lewat rasionya, lalu periksa tahun demi tahun.",
           steps: [
             {
               title: "Langkah 1",
-              text: "Syarat berlipat dua: $2.000.000(1{,}08)^n \\ge 4.000.000$, yaitu $(1{,}08)^n \\ge 2$.",
+              text: "Saldo A setelah $n$ tahun adalah $5.000.000(1{,}10)^n$ dan saldo B adalah $8.000.000(1{,}05)^n$. A melebihi B ketika $5.000.000(1{,}10)^n > 8.000.000(1{,}05)^n$, yaitu $\\left(\\dfrac{1{,}10}{1{,}05}\\right)^n > \\dfrac{8}{5} = 1{,}6$.",
             },
             {
               title: "Langkah 2",
-              text: "Periksa tahun ke-9: $(1{,}08)^{9} \\approx 1{,}999$, yang masih **kurang** dari $2$.",
+              text: "Periksa $n = 10$: saldo A $= 5.000.000(1{,}10)^{10} \\approx \\text{Rp}12.968.712$ dan saldo B $= 8.000.000(1{,}05)^{10} \\approx \\text{Rp}13.031.157$. Di sini B masih lebih besar.",
             },
             {
               title: "Langkah 3",
-              text: "Periksa tahun ke-10: $(1{,}08)^{10} = (1{,}08)^{9}\\times1{,}08 \\approx 1{,}999\\times1{,}08 \\approx 2{,}159 \\ge 2$.",
+              text: "Periksa $n = 11$: saldo A $= 5.000.000(1{,}10)^{11} \\approx \\text{Rp}14.265.584$ dan saldo B $= 8.000.000(1{,}05)^{11} \\approx \\text{Rp}13.682.715$. Kini A sudah melebihi B.",
             },
             {
               title: "Langkah 4",
-              text: "Jadi setelah **10 tahun** saldo mencapai paling sedikit dua kali modal, yaitu sekitar $2.000.000\\times2{,}159 = \\text{Rp}4.318.000$.",
+              text: "Jadi saldo A pertama kali melebihi saldo B setelah **11 tahun**, ketika A sekitar Rp14,27 juta dan B sekitar Rp13,68 juta.",
             },
           ],
         },
@@ -420,7 +420,7 @@ Jadi saldonya sekitar **Rp4.779.324**.
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Bankir Italia ke Liber Abaci",
       body: `Bunga majemuk sudah dikenal sejak lama di dunia perdagangan. Dokumen kuno dari Mesopotamia dan India menunjukkan perhitungan bunga, termasuk bunga atas bunga, untuk mencatat utang dan hasil panen. Pengetahuan itu masuk ke Eropa melalui para pedagang Italia; Leonardo dari Pisa (Fibonacci), dalam *Liber Abaci* (1202), memuat soal-soal pertumbuhan uang. Tabel bunga dan gagasan suku bunga efektif berkembang bersama berdirinya bank-bank modern pada abad ke-16 sampai ke-18. Gagasan kunci yang kita pakai sekarang, yaitu saldo tumbuh sebagai barisan geometri dengan rasio $(1+i)$, sudah tampak pada tabel perhitungan para bankir sejak berabad-abad lalu.`,
     },
     {

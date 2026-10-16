@@ -396,40 +396,44 @@ Untuk pembahasan lebih lengkap, lihat studi kasus [Skala Desibel dan pH](/aplika
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Tentukan semua nilai $x$ yang memenuhi $\\log_{2}x+\\log_{4}x=3$, lalu periksa jawabannya.
+      title: "Perubahan Basis yang Melahirkan Kuadrat",
+      body: `**Soal.** Tentukan semua nilai $x$ yang memenuhi $\\log_{x}4+\\log_{2}x=3$. Tuliskan syarat basis dan numerus, lalu periksa setiap kandidat solusi.
 
-Soal ini menuntutmu menyadari bahwa kedua logaritma berbeda basis, sehingga tidak dapat langsung disatukan sebelum diseragamkan.`,
+Di sini basis logaritma pertama justru memuat variabel, sehingga perubahan basis diarahkan ke basis $2$ agar muncul satu variabel bantu yang sama.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: "Ubah $\\log_{4}x$ ke basis $2$ memakai perubahan basis. Setelah basisnya sama, gabungkan suku-sukunya.",
+          text: "Ubah $\\log_{x}4$ ke basis $2$. Dengan menulis $u=\\log_{2}x$, bentuk itu menjadi fungsi dari $u$, sehingga persamaannya berubah menjadi persamaan kuadrat dalam $u$.",
         },
         {
           kind: "step-reveal",
           intro: "Ikuti langkah pembahasan berikut satu per satu.",
           steps: [
             {
-              title: "Menyamakan basis",
-              text: `Dengan perubahan basis, $\\log_{4}x=\\dfrac{\\log_{2}x}{\\log_{2}4}=\\dfrac{\\log_{2}x}{2}=\\dfrac{1}{2}\\log_{2}x$.`,
+              title: "Tulis syarat nilai",
+              text: "Basis harus $x>0$ dan $x\\neq1$, sedangkan numerus $4$ dan $x$ juga harus positif. Gabungan syaratnya adalah $x>0$ dan $x\\neq1$.",
             },
             {
-              title: "Menulis syarat numerus",
-              text: "Numerus harus positif, jadi $x>0$. Syarat ini akan dipakai untuk menyaring solusi.",
+              title: "Ubah ke basis 2 dengan variabel bantu",
+              text: `Misalkan $u=\\log_{2}x$. Dengan perubahan basis, $\\log_{x}4=\\dfrac{\\log_{2}4}{\\log_{2}x}=\\dfrac{2}{u}$.`,
             },
             {
-              title: "Menggabungkan suku",
-              text: `Substitusikan: $\\log_{2}x+\\dfrac{1}{2}\\log_{2}x=\\dfrac{3}{2}\\log_{2}x=3$.`,
+              title: "Bentuk persamaan dalam u",
+              text: `Substitusikan: $\\dfrac{2}{u}+u=3$.`,
             },
             {
-              title: "Menyelesaikan persamaan",
-              text: `Diperoleh $\\log_{2}x=2$, sehingga $x=2^{2}=4$.`,
+              title: "Selesaikan persamaan kuadrat",
+              text: `Kalikan kedua ruas dengan $u$ (dengan $u\\neq0$): $u^{2}+2=3u$, yaitu $u^{2}-3u+2=0$. Faktorkan: $(u-1)(u-2)=0$, sehingga $u=1$ atau $u=2$.`,
+            },
+            {
+              title: "Kembalikan ke x",
+              text: `Karena $u=\\log_{2}x$, maka $x=2^{u}$. Untuk $u=1$ diperoleh $x=2$, dan untuk $u=2$ diperoleh $x=4$. Keduanya memenuhi $x>0$ dan $x\\neq1$.`,
             },
             {
               title: "Memeriksa jawaban",
-              text: `Substitusi $x=4$: $\\log_{2}4+\\log_{4}4=2+1=3$ benar, dan $x=4>0$ memenuhi syarat. Jadi solusinya $x=4$.`,
+              text: `Substitusi $x=2$: $\\log_{2}4+\\log_{2}2=2+1=3$ benar. Substitusi $x=4$: $\\log_{4}4+\\log_{2}4=1+2=3$ benar. Jadi himpunan penyelesaiannya $\\{2,\\,4\\}$.`,
             },
           ],
         },
@@ -438,7 +442,7 @@ Soal ini menuntutmu menyadari bahwa kedua logaritma berbeda basis, sehingga tida
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Tabel Hitung ke Fungsi Invers",
       body: `Logaritma lahir dari kebutuhan berhitung yang sangat praktis. Pada awal abad ke-17, para astronom harus mengalikan bilangan-bilangan besar yang panjang. John Napier, dalam *Mirifici Logarithmorum Canonis Descriptio* (1614), memperkenalkan gagasan yang mengubah perkalian menjadi penjumlahan. Henry Briggs menyusun tabel logaritma basis 10 pada 1617 sehingga metode ini cepat menyebar. Kata *logarithm* berasal dari bahasa Yunani *logos* (perbandingan) dan *arithmos* (bilangan).
 
 Pada mulanya logaritma dipandang sebagai alat hitung, bukan sebagai fungsi. Leonhard Euler dalam *Introductio in analysin infinitorum* (1748) meletakkannya pada dasar modern: ia memperkenalkan bilangan $e\\approx2{,}71828$, menuliskan fungsi eksponen $e^{x}$, dan menegaskan bahwa logaritma adalah **operasi invers** dari eksponen. Sejak itu $f(x)=\\log_{b}x$ dipelajari sebagai fungsi dengan domain dan grafik tersendiri, tepat seperti yang kita pelajari pada topik ini.`,

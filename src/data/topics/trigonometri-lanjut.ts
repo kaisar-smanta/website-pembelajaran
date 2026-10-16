@@ -382,7 +382,7 @@ Aturan sinus dan kosinus dipakai dalam **triangulasi** untuk mengukur jarak anta
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Jumlah Tangen Tiga Sudut",
       body: `Identitas tangen jumlah sudut menyimpan hasil yang rapi.
 
 Misalkan $A$, $B$, dan $C$ adalah besar sudut sebuah segitiga, sehingga $A+B+C=180^\\circ$.
@@ -428,8 +428,8 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Rumus jumlah dan selisih sudut berakar pada tabel tali busur yang disusun astronom Yunani seperti Ptolemaeus, yang sifat-sifatnya setara dengan identitas trigonometri kita. Astronom India dan dunia Islam mengembangkan fungsi sinus serta aturan sinus untuk segitiga, termasuk bentuk bola, dan sekitar abad ke-15 Ghiyats al-Din al-Kashi menyatakan aturan kosinus dalam bentuk modernnya. Aturan kosinus sebenarnya memperumum teorema Pythagoras; dalam bentuk geometris, kasus tumpul dan lancip sudah dibahas Euclid dalam *Elements*. Identitas sudut rangkap serta bentuk baku trigonometri pada lingkaran satuan banyak dirapikan oleh Leonhard Euler pada abad ke-18.`,
+      title: "Identitas dan Aturan Segitiga",
+      body: `Aturan dan identitas pada topik ini berakar pada astronomi, namun kisah tabel tali busur Hipparchus dan *Almagest* Ptolemaeus sudah dibahas pada topik **Trigonometri**. Di sini sorotannya adalah identitas dan aturan pada segitiga sebarang. Sekitar 1424 Ghiyats al-Din al-Kashi, astronom di Samarkand, menyatakan aturan kosinus dalam bentuk yang setara dengan rumus modern dan menghitung nilai sinus dengan ketelitian luar biasa. Pada 1464 Regiomontanus menulis *De triangulis omnimodis*, buku sistematis pertama tentang segitiga. Identitas jumlah-sudut, sudut rangkap, dan bentuk baku trigonometri pada lingkaran satuan dirapikan Leonhard Euler, yang pada 1748 menghubungkan fungsi trigonometri dengan eksponen melalui rumus $e^{ix} = \\cos x + i\\sin x$.`,
     },
     {
       id: "refleksi",

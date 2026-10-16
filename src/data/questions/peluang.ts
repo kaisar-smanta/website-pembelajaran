@@ -127,7 +127,7 @@ export const peluangQuestions: Question[] = [
   {
     id: 'pl-07',
     topicId: 'peluang',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -293,22 +293,22 @@ export const peluangQuestions: Question[] = [
   {
     id: 'pl-14',
     topicId: 'peluang',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
-      'Sebuah kantong berisi $5$ bola merah dan $3$ bola putih. Dua bola diambil satu per satu tanpa pengembalian. Peluang terambil kedua bola merah adalah …',
+      'Sebuah kotak berisi $6$ kelereng merah, $3$ kelereng kuning, dan $3$ kelereng hijau. Dua kelereng diambil satu per satu tanpa pengembalian. Peluang terambil kedua kelereng hijau adalah …',
     options: [
-      { key: 'A', text: '$\\dfrac{5}{14}$' },
-      { key: 'B', text: '$\\dfrac{25}{64}$' },
-      { key: 'C', text: '$\\dfrac{5}{8}$' },
-      { key: 'D', text: '$\\dfrac{1}{2}$' },
+      { key: 'A', text: '$\\dfrac{1}{22}$' },
+      { key: 'B', text: '$\\dfrac{2}{11}$' },
+      { key: 'C', text: '$\\dfrac{1}{16}$' },
+      { key: 'D', text: '$\\dfrac{1}{4}$' },
     ],
     answer: 'A',
     explanation:
-      'Karena tanpa pengembalian, peluang berubah setelah pengambilan pertama. $P(M_{1})=\\dfrac{5}{8}$ dan setelah satu merah terambil tersisa $4$ merah dari $7$ bola sehingga $P(M_{2}\\mid M_{1})=\\dfrac{4}{7}$. Maka $P(M_{1}\\cap M_{2})=\\dfrac{5}{8}\\cdot\\dfrac{4}{7}=\\dfrac{20}{56}=\\dfrac{5}{14}$ (opsi A). Opsi B ($\\tfrac{25}{64}$) menganggap pengambilan dengan pengembalian, memakai $\\tfrac58\\cdot\\tfrac58$. Opsi C ($\\tfrac{5}{8}$) hanya peluang bola merah pada pengambilan pertama. Opsi D ($\\tfrac12$) keliru menganggap peluang kedua tetap $\\tfrac12$ tanpa menyesuaikan sisa bola.',
+      'Total kelereng $12$. Peluang hijau pada pengambilan pertama $P(H_1)=\\dfrac{3}{12}=\\dfrac{1}{4}$; setelah satu hijau terambil, tersisa $2$ hijau dari $11$ kelereng sehingga $P(H_2\\mid H_1)=\\dfrac{2}{11}$. Maka $P(H_1\\cap H_2)=\\dfrac{1}{4}\\cdot\\dfrac{2}{11}=\\dfrac{2}{44}=\\dfrac{1}{22}$ (opsi A). Opsi B ($\\tfrac{2}{11}$) memakai peluang pengambilan kedua saja tanpa mengalikan pengambilan pertama. Opsi C ($\\tfrac{1}{16}$) menganggap pengambilan dengan pengembalian sehingga memakai $\\tfrac14\\cdot\\tfrac14$. Opsi D ($\\tfrac14$) hanya peluang kelereng hijau pada pengambilan pertama.',
     hints: [
-      'Karena tanpa pengembalian, banyak bola dan banyak merah berkurang setelah pengambilan pertama.',
+      'Karena tanpa pengembalian, banyak kelereng dan banyak hijau berkurang setelah pengambilan pertama.',
       'Kalikan peluang pengambilan pertama dengan peluang bersyarat pengambilan kedua.',
     ],
     competencies: ['peluang bersyarat', 'aturan perkalian', 'penalaran'],

@@ -1,4 +1,4 @@
-// Uji logika murni eksponen–logaritma: node tests/sim-logarithm.mjs
+// Uji logika murni eksponen-logaritma: node tests/sim-logarithm.mjs
 import assert from 'node:assert/strict';
 import { check, checks, close } from './_util.mjs';
 import {

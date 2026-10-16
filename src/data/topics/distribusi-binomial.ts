@@ -426,7 +426,7 @@ Ingat, model ini tetap **perkiraan**. Ia hanya sah bila asumsi $n$ tetap, dua ha
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Tantangan: Membuktikan Nilai Harapan",
       body: `Rumus $E(X)=np$ biasanya diterima begitu saja. Mari kita buktikan.
 
 Misalkan $X\\sim B(n,p)$ dengan fungsi peluang
@@ -463,8 +463,8 @@ Terbukti.`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Distribusi binomial tumbuh dari kajian percobaan berulang yang hanya punya dua hasil. Blaise Pascal dan Pierre de Fermat membahas pola peluang semacam itu pada 1654, dan koefisiennya tampak pada segitiga Pascal. Jacob Bernoulli dalam *Ars Conjectandi* (1713) mengembangkan percobaan berulang dengan peluang sukses tetap, yang kemudian disebut percobaan Bernoulli, beserta rumus peluang banyaknya keberhasilan. Abraham de Moivre pada 1733 mempelajari distribusi ini dalam jumlah besar dan menemukan hampiran lengkung normalnya. Sejak itu distribusi binomial menjadi salah satu model peluang diskret yang paling banyak dipakai.`,
+      title: "Percobaan Bernoulli dan Hampiran De Moivre",
+      body: `Distribusi binomial tumbuh dari kajian percobaan berulang yang hanya punya dua hasil. Tonggak awal teori peluang, termasuk korespondensi Blaise Pascal dan Pierre de Fermat serta *Ars Conjectandi* Jacob Bernoulli, diuraikan pada topik [Peluang](/matematika/kelas/XI/data-peluang/peluang). Topik ini sendiri berfokus pada percobaan Bernoulli, yaitu pengulangan saling bebas dengan peluang sukses tetap, beserta rumus peluang banyaknya keberhasilan. Abraham de Moivre pada 1733 mempelajari distribusi ini dalam jumlah besar dan menemukan hampiran lengkung normalnya. Sejak itu distribusi binomial menjadi salah satu model peluang diskret yang paling banyak dipakai.`,
     },
     {
       id: "refleksi",

@@ -165,7 +165,7 @@ export const matriksQuestions: Question[] = [
   {
     id: 'mt-09',
     topicId: 'matriks',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -297,7 +297,7 @@ export const matriksQuestions: Question[] = [
   {
     id: 'mt-15',
     topicId: 'matriks',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -339,5 +339,29 @@ export const matriksQuestions: Question[] = [
       'Setiap entri hasil adalah jumlah hasil kali satu baris $R$ dengan kolom bobot $W$.',
     ],
     competencies: ['perkalian matriks', 'pemodelan matriks', 'kontekstual'],
+  },
+  {
+    id: 'mt-17',
+    topicId: 'matriks',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah jaringan irigasi memiliki dua gerbang. Debit dari gerbang A adalah $x$ liter/detik dan dari gerbang B adalah $y$ liter/detik. Diketahui $x+2y=13$ dan $3x-y=4$. (a) Tuliskan sistem ini sebagai $A\\begin{pmatrix} x \\\\ y \\end{pmatrix}=B$ dan tentukan $\\det(A)$. (b) Tentukan $x$ dan $y$ memakai invers matriks. (c) Jelaskan mengapa sistem ini punya penyelesaian tunggal.',
+    answer:
+      '(a) $A=\\begin{pmatrix} 1 & 2 \\\\ 3 & -1 \\end{pmatrix}$ dan $B=\\begin{pmatrix} 13 \\\\ 4 \\end{pmatrix}$, dengan $\\det(A)=1(-1)-2(3)=-7$. (b) $A^{-1}=\\dfrac{1}{-7}\\begin{pmatrix} -1 & -2 \\\\ -3 & 1 \\end{pmatrix}$, sehingga $\\begin{pmatrix} x \\\\ y \\end{pmatrix}=A^{-1}B=\\dfrac{1}{-7}\\begin{pmatrix} -13-8 \\\\ -39+4 \\end{pmatrix}=\\dfrac{1}{-7}\\begin{pmatrix} -21 \\\\ -35 \\end{pmatrix}=\\begin{pmatrix} 3 \\\\ 5 \\end{pmatrix}$. Jadi $x=3$ dan $y=5$. (c) Karena $\\det(A)=-7\\ne 0$, matriks koefisiennya punya invers sehingga sistem punya penyelesaian tunggal.',
+    explanation:
+      'Kunci: menyusun matriks koefisien dan vektor konstanta, menghitung determinan, lalu memakai invers untuk memperoleh penyelesaian tunggal.',
+    hints: [
+      'Susun koefisien $x$ dan $y$ sebagai kolom matriks $A$.',
+      'Gunakan $A^{-1}=\\dfrac{1}{\\det(A)}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$.',
+    ],
+    competencies: ['invers matriks', 'sistem linear', 'pemodelan matriks', 'kontekstual'],
+    rubric: [
+      'Menuliskan $A=\\begin{pmatrix}1&2\\\\3&-1\\end{pmatrix}$ dan $B=\\begin{pmatrix}13\\\\4\\end{pmatrix}$',
+      'Menghitung $\\det(A)=-7$',
+      'Menemukan $x=3$ dan $y=5$ melalui invers',
+      'Menjelaskan $\\det(A)\\ne 0$ memberi penyelesaian tunggal',
+    ],
   },
 ];

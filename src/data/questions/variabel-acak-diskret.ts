@@ -188,9 +188,9 @@ export const variabelAcakDiskretQuestions: Question[] = [
   {
     id: 'vad-11',
     topicId: 'variabel-acak-diskret',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
-    category: 'penalaran',
+    category: 'kontekstual',
     prompt:
       'Sebuah dadu dilempar. Jika muncul mata $6$ kamu menerima Rp24.000, sedangkan jika muncul mata lain kamu membayar Rp3.000. Nilai harapan keuntunganmu per lemparan adalah …',
     options: [

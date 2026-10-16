@@ -311,4 +311,28 @@ export const limitFungsiQuestions: Question[] = [
     ],
     competencies: ['limit di tak hingga', 'pemodelan kontekstual', 'interpretasi'],
   },
+  {
+    id: 'lim-17',
+    topicId: 'limit-fungsi',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Diketahui $\\lim_{x \\to \\infty}\\left(\\sqrt{x^{2}+a x+1}-x\\right)=3$. (a) Jelaskan mengapa bentuk ini perlu disederhanakan terlebih dahulu. (b) Tentukan nilai $a$ dengan menghitung limitnya.',
+    answer:
+      '(a) Substitusi langsung memberi $\\infty-\\infty$, yaitu bentuk tak tentu, sehingga perlu dikalikan dengan akar sekawan untuk menyederhanakannya. (b) Kalikan dengan $\\dfrac{\\sqrt{x^{2}+ax+1}+x}{\\sqrt{x^{2}+ax+1}+x}$: hasilnya $\\dfrac{(x^{2}+ax+1)-x^{2}}{\\sqrt{x^{2}+ax+1}+x}=\\dfrac{ax+1}{\\sqrt{x^{2}+ax+1}+x}$. Bagi pembilang dan penyebut dengan $x$: $\\dfrac{a+\\frac{1}{x}}{\\sqrt{1+\\frac{a}{x}+\\frac{1}{x^{2}}}+1}$. Saat $x\\to\\infty$, limitnya $\\dfrac{a}{1+1}=\\dfrac{a}{2}$. Karena $\\dfrac{a}{2}=3$, maka $a=6$.',
+    explanation:
+      'Kunci: mengenali bentuk tak tentu $\\infty-\\infty$, mengalikan dengan akar sekawan, membagi dengan $x$, lalu menyelesaikan $\\dfrac{a}{2}=3$.',
+    hints: [
+      'Kalikan dengan akar sekawan $\\sqrt{x^{2}+ax+1}+x$.',
+      'Setelah dibagi $x$, limit bernilai $\\dfrac{a}{2}$.',
+    ],
+    competencies: ['akar sekawan', 'limit di tak hingga', 'parameter', 'penalaran'],
+    rubric: [
+      'Mengenali bentuk tak tentu $\\infty-\\infty$',
+      'Mengalikan dengan akar sekawan dan memperoleh $\\dfrac{ax+1}{\\sqrt{x^{2}+ax+1}+x}$',
+      'Menyimpulkan limit bernilai $\\dfrac{a}{2}$',
+      'Menyelesaikan $\\dfrac{a}{2}=3$ sehingga $a=6$',
+    ],
+  },
 ];

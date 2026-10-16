@@ -11,7 +11,7 @@ export const matriks: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Pengayaan: CP menyebut matriks terutama sebagai penyajian data (Fase E), sedangkan aljabar matriks di sini melampaui tuntutan itu.',
+    'Topik ini melayani Matematika wajib: operasi aljabar matriks secara eksplisit baru diamanatkan CP Matematika Tingkat Lanjut lewat FL-ALJ-2 (elemen aljabar-fungsi, menerapkan matriks pada transformasi geometri), sedangkan di jenjang wajib matriks baru disinggung sebagai penyajian data pada E-DAT-3 (elemen data-peluang). Karena itu aljabar matriks di sini berperan sebagai pendalaman yang memperkuat penyajian data dan penyelesaian sistem persamaan, sekaligus menyiapkan landasan bagi tuntutan FL-ALJ-2.',
   estimatedMinutes: 90,
   summary:
     'Mengenal notasi dan jenis matriks, melakukan operasi matriks, menghitung determinan dan invers, serta menyelesaikan SPLDV.',
@@ -422,34 +422,28 @@ Untuk penggunaan matriks dalam transformasi geometri seperti rotasi, refleksi, d
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Diketahui matriks $A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$. Buktikan identitas yang dikenal sebagai **teorema Cayley–Hamilton** untuk matriks $2 \\times 2$:
-$$A^{2} - (a+d)\\,A + (ad-bc)\\,I = O,$$
-dengan $I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ dan $O = \\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$. Setelah itu, turunkan rumus invers $A$ dari identitas tersebut ketika $\\det(A) \\neq 0$.`,
+      title: "Pangkat Tinggi dan Invers lewat Cayley-Hamilton",
+      body: `**Soal.** Diketahui matriks $A = \\begin{pmatrix} 0 & 1 \\\\ -2 & 3 \\end{pmatrix}$. (a) Tunjukkan bahwa $A^{2} - 3A + 2I = O$ dengan $I$ matriks identitas dan $O$ matriks nol. (b) Gunakan hubungan itu untuk menghitung $A^{3}$ tanpa mengalikan $A$ tiga kali berturut-turut. (c) Tentukan $A^{-1}$ dari hubungan yang sama.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Hitung $A^{2}$, bandingkan dengan kelipatan $A$ dan $I$, lalu baca invers yang tersembunyi di dalamnya.",
+          intro: "Susun kuadrat matriks, cocokkan dengan kelipatan $A$ dan $I$, lalu pakai hubungan itu untuk pangkat tiga dan invers.",
           steps: [
             {
-              title: "Hitung kuadrat matriks",
-              text: "Kalikan $A$ dengan dirinya sendiri: $A^{2} = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = \\begin{pmatrix} a^{2}+bc & ab+bd \\\\ ac+cd & bc+d^{2} \\end{pmatrix}$.",
+              title: "Hitung $A^{2}$",
+              text: "Kalikan $A$ dengan dirinya sendiri: $A^{2} = \\begin{pmatrix} 0 & 1 \\\\ -2 & 3 \\end{pmatrix}\\begin{pmatrix} 0 & 1 \\\\ -2 & 3 \\end{pmatrix} = \\begin{pmatrix} -2 & 3 \\\\ -6 & 7 \\end{pmatrix}$.",
             },
             {
-              title: "Bandingkan dengan $(a+d)A$",
-              text: "Karena $a+d$ adalah jumlah entri diagonal, $(a+d)A = \\begin{pmatrix} a^{2}+ad & ab+bd \\\\ ac+cd & ad+d^{2} \\end{pmatrix}$.",
+              title: "Bentuk identitas Cayley-Hamilton",
+              text: "Trace $\\operatorname{tr}(A)=0+3=3$ dan determinan $\\det(A)=0(3)-1(-2)=2$, sehingga $A^{2}-3A+2I=O$. Periksa: $3A-2I = \\begin{pmatrix} 0 & 3 \\\\ -6 & 9 \\end{pmatrix} - \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} = \\begin{pmatrix} -2 & 3 \\\\ -6 & 7 \\end{pmatrix} = A^{2}$.",
             },
             {
-              title: "Kurangkan kedua bentuk",
-              text: "Selisihnya hanya menyisakan diagonal: $A^{2} - (a+d)A = \\begin{pmatrix} bc-ad & 0 \\\\ 0 & bc-ad \\end{pmatrix} = -(ad-bc)\\,I$.",
+              title: "Turunkan $A^{3}$",
+              text: "Dari $A^{2}=3A-2I$ diperoleh $A^{3}=A\\cdot A^{2}=A(3A-2I)=3A^{2}-2A=3(3A-2I)-2A=7A-6I=\\begin{pmatrix} 0 & 7 \\\\ -14 & 21 \\end{pmatrix}-\\begin{pmatrix} 6 & 0 \\\\ 0 & 6 \\end{pmatrix}=\\begin{pmatrix} -6 & 7 \\\\ -14 & 15 \\end{pmatrix}$. Periksa dengan perkalian langsung: $A^{2}A=\\begin{pmatrix} -2 & 3 \\\\ -6 & 7 \\end{pmatrix}\\begin{pmatrix} 0 & 1 \\\\ -2 & 3 \\end{pmatrix}=\\begin{pmatrix} -6 & 7 \\\\ -14 & 15 \\end{pmatrix}$.",
             },
             {
-              title: "Peroleh identitasnya",
-              text: "Jadi $A^{2} - (a+d)A + (ad-bc)\\,I = O$. Terbukti.",
-            },
-            {
-              title: "Turunkan rumus invers",
-              text: "Dari $(ad-bc)\\,I = (a+d)A - A^{2} = A\\big((a+d)I - A\\big)$ diperoleh $A\\cdot\\dfrac{(a+d)I - A}{ad-bc} = I$ untuk $\\det(A)=ad-bc \\neq 0$. Maka $A^{-1} = \\dfrac{(a+d)I - A}{ad-bc}$, yang setara dengan $A^{-1} = \\dfrac{1}{ad-bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$, sesuai rumus yang sudah kita kenal.",
+              title: "Tentukan $A^{-1}$",
+              text: "Kalikan $A^{2}-3A+2I=O$ dengan $A^{-1}$ dari kiri: $A-3I+2A^{-1}=O$, sehingga $A^{-1}=\\tfrac{1}{2}(3I-A)=\\tfrac{1}{2}\\begin{pmatrix} 3 & -1 \\\\ 2 & 0 \\end{pmatrix}=\\begin{pmatrix} \\tfrac{3}{2} & -\\tfrac{1}{2} \\\\ 1 & 0 \\end{pmatrix}$. Cocok dengan rumus invers $\\dfrac{1}{\\det A}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$.",
             },
           ],
         },
@@ -458,7 +452,7 @@ dengan $I = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ dan $O = \\begin{p
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Tabel Koefisien ke Aljabar Cayley",
       body: `Menyusun bilangan dalam baris dan kolom sebenarnya bukan gagasan baru. Buku matematika Tiongkok *Sembilan Bab Seni Berhitung* (sekitar abad ke-1 M) memuat tabel koefisien untuk menyelesaikan sistem persamaan linear dengan cara yang menyerupai eliminasi Gauss. Namun istilah dan aljabarnya baru dibentuk pada abad ke-19. James Joseph Sylvester pada 1850 menciptakan istilah **matriks** dari bahasa Latin *mater* ("ibu"), karena tabel itu melahirkan determinan. Arthur Cayley, dalam *A Memoir on the Theory of Matrices* (1858), memperkenalkan notasi satu huruf untuk matriks, mendefinisikan penjumlahan dan perkalian, matriks identitas, serta invers, lalu menunjukkan bahwa $AB$ umumnya tidak sama dengan $BA$.
 
 Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leibniz (1693) menurunkannya ketika menyelesaikan sistem persamaan, lalu Gabriel Cramer merumuskan aturan yang kini menyandang namanya pada 1750. Cayley menjalin keduanya menjadi aljabar tersendiri dan mengaitkannya dengan transformasi geometri. Dari sana matriks menjadi bahasa baku untuk menyelesaikan sistem persamaan linear secara ringkas: apa yang dahulu dikerjakan satu per satu dengan substitusi atau eliminasi, kini dapat dituliskan sebagai $AX = B$ dan diselesaikan dengan $X = A^{-1}B$. Notasi baris-kolom dan ordo yang kita pakai adalah penyempurnaan pada abad ke-20 atas gagasan Cayley.`,

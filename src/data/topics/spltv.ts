@@ -11,7 +11,7 @@ export const spltv: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Pengayaan: CP SMA tidak lagi memuat SPLTV secara eksplisit. Dipertahankan sebagai jembatan menuju sistem pertidaksamaan dan matriks.',
+    'CP Matematika SMA tidak mencantumkan SPLTV secara eksplisit; butir E-ALJ-1 hanya menuntut sistem pertidaksamaan linear dua variabel. Topik ini disajikan sebagai penguatan sebelum E-ALJ-1, karena kebiasaan mereduksi tiga persamaan menjadi dua lalu satu variabel mempermudah penyusunan dan penafsiran daerah penyelesaian. Penyelesaian tiga variabel dengan matriks juga disinggung sebagai lanjutan aljabar.',
   estimatedMinutes: 90,
   summary:
     'Menyusun dan menyelesaikan sistem persamaan linear tiga variabel dengan eliminasi dan substitusi, serta menafsirkan solusinya.',
@@ -26,7 +26,7 @@ export const spltv: Topic = {
     'solusi',
   ],
   prerequisites: [],
-  relatedTopics: ['fungsi-kuadrat'],
+  relatedTopics: ['sistem-pertidaksamaan', 'matriks'],
   prerequisiteKnowledge: [
     'Persamaan linear dua variabel dan penyelesaiannya',
     'Operasi bentuk aljabar dan menyederhanakan suku sejenis',
@@ -341,41 +341,46 @@ Pola pikirnya selalu sama: ubah situasi menjadi persamaan, selesaikan, lalu peri
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Di sebuah kios buah, tiga pembeli membayar sebagai berikut.
-- Pembeli A membeli $2$ mangga, $1$ jeruk, dan $1$ apel dengan total Rp34.000.
-- Pembeli B membeli $1$ mangga, $3$ jeruk, dan $2$ apel dengan total Rp47.000.
-- Pembeli C membeli $3$ mangga, $1$ jeruk, dan $2$ apel dengan total Rp53.000.
-
-Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
+      title: "Misteri Tiga Angka",
+      body: `**Soal.** Sebuah bilangan tiga angka memiliki jumlah digit $15$. Angka satuannya dua kali angka ratusannya. Jika urutan ketiga angkanya dibalik, bilangan baru bertambah $198$ dari bilangan semula. Tentukan bilangan itu.`,
       blocks: [
         {
+          kind: "callout",
+          variant: "tip",
+          title: "Petunjuk",
+          text: "Misalkan bilangan itu $100r + 10p + s$, dengan $r$ angka ratusan, $p$ puluhan, dan $s$ satuan. Nilai posisi angka membuat hubungan bilangan dengan balikannya dapat ditulis sebagai persamaan linear.",
+        },
+        {
           kind: "step-reveal",
-          intro: "Ubah situasi menjadi SPLTV, lalu eliminasi dan substitusi bertahap.",
+          intro: "Ubah tiap keterangan menjadi persamaan, lalu selesaikan bertahap.",
           steps: [
             {
               title: "Tetapkan variabel",
-              text: "Misalkan $m$, $j$, dan $a$ berturut-turut harga satu mangga, satu jeruk, dan satu apel dalam ribu rupiah.",
+              text: "Misalkan $r$, $p$, dan $s$ berturut-turut angka ratusan, puluhan, dan satuan. Bilangan semula adalah $100r + 10p + s$ dan balikannya $100s + 10p + r$.",
             },
             {
-              title: "Susun persamaan",
-              text: "Dari ketiga pembeli: (1) $2m+j+a=34$; (2) $m+3j+2a=47$; (3) $3m+j+2a=53$.",
+              title: "Jumlah digit",
+              text: "Jumlah digit $15$ memberi $r + p + s = 15$.",
             },
             {
-              title: "Eliminasi mangga dan apel",
-              text: "Kurangkan (1) dari (3): $(3m+j+2a)-(2m+j+a)=53-34$, sehingga $m+a=19$.",
+              title: "Hubungan satuan dan ratusan",
+              text: "Angka satuan dua kali angka ratusan: $s = 2r$.",
             },
             {
-              title: "Substitusi ke persamaan (2)",
-              text: "Dari $m+a=19$ diperoleh $a=19-m$. Substitusi ke (2): $m+3j+2(19-m)=47 \\Rightarrow 3j=9+m$.",
+              title: "Selisih dengan balikannya",
+              text: "Balikan bertambah $198$: $(100s + 10p + r) - (100r + 10p + s) = 198$. Suku $10p$ saling menghapus, sehingga $99s - 99r = 198$ atau $s - r = 2$.",
             },
             {
-              title: "Tentukan harga mangga",
-              text: "Substitusi $j=\\dfrac{9+m}{3}$ dan $a=19-m$ ke (1): $2m+\\dfrac{9+m}{3}+(19-m)=34$. Sederhanakan: $3m+9+m=45$, sehingga $4m=36$ dan $m=9$.",
+              title: "Tentukan angka ratusan dan satuan",
+              text: "Substitusi $s = 2r$ ke $s - r = 2$: $2r - r = 2$, maka $r = 2$ dan $s = 4$.",
             },
             {
-              title: "Kembalikan dan periksa",
-              text: "$a=19-9=10$ dan $j=\\dfrac{9+9}{3}=6$. Jadi mangga Rp9.000, jeruk Rp6.000, dan apel Rp10.000. Periksa (2): $9+18+20=47$ ✓.",
+              title: "Tentukan angka puluhan",
+              text: "Dari $r + p + s = 15$ diperoleh $2 + p + 4 = 15$, sehingga $p = 9$.",
+            },
+            {
+              title: "Periksa dan simpulkan",
+              text: "Bilangannya $294$. Periksa: jumlah digit $2+9+4=15$ ✓, satuan $4=2\\cdot2$ ✓, dan $492 - 294 = 198$ ✓. Jadi bilangan itu $294$.",
             },
           ],
         },
@@ -384,8 +389,8 @@ Tentukan harga satu mangga, satu jeruk, dan satu apel.`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Sistem persamaan linear sudah diselesaikan jauh sebelum notasi aljabar modern. Kitab Tiongkok kuno *Sembilan Bab tentang Seni Matematika* (*Jiuzhang Suanshu*) yang disusun sekitar dua ribu tahun lalu memuat bab "fangcheng" yang menyusun koefisien dalam susunan tabel lalu mengeliminasi variabel, yaitu cara yang pada dasarnya sama dengan eliminasi modern. Bangsa Babilonia juga memecahkan soal campuran dengan bantuan tabel. Nama "eliminasi Gauss" dipakai karena Carl Friedrich Gauss mempopulerkan metode eliminasi sistematis pada awal abad ke-19, antara lain untuk menghitung orbit benda langit. Dari penjadwalan hingga grafika komputer, gagasan yang sama masih dipakai sampai sekarang.`,
+      title: "Eliminasi dari Tiongkok ke Gauss",
+      body: `Sistem persamaan linear sudah diselesaikan jauh sebelum notasi aljabar modern. Asal-usul penyusunan koefisien dalam tabel dan eliminasi beruntun, dari kitab Tiongkok kuno sampai notasi Cayley, ditelusuri pada topik [Matriks](/matematika/kelas/XI/aljabar-fungsi/matriks). Khusus untuk SPLTV, nama "eliminasi Gauss" melekat karena Carl Friedrich Gauss memakai pengurangan beruntun yang sistematis pada awal abad ke-19, antara lain saat menghitung orbit benda langit. Cara memandang susunan baris dan kolom itu kini meringkas pekerjaan yang dahulu dilakukan satu persamaan demi satu persamaan.`,
     },
     {
       id: "refleksi",

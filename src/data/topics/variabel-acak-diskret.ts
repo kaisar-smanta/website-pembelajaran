@@ -349,7 +349,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Tantangan: Bola Merah dan Varians",
       body: `**Soal.** Sebuah kotak berisi $4$ bola merah dan $2$ bola biru. Dua bola diambil sekaligus. Misalkan $X$ menyatakan banyak bola merah yang terambil. Tentukan distribusi peluang $X$, lalu hitung nilai harapan dan variansnya.`,
       blocks: [
         {
@@ -379,8 +379,8 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Gagasan nilai harapan muncul bersama teori peluang awal. Christiaan Huygens pada 1657 memakai rata-rata tertimbang hasil untuk menghitung harapan dalam permainan, dan Jacob Bernoulli dalam *Ars Conjectandi* (1713) menjelaskan mengapa rata-rata jangka panjang mendekati nilai harapan. Ukuran sebaran berkembang kemudian; varians dan simpangan baku dibakukan oleh Karl Pearson pada akhir abad ke-19 setelah gagasan kuadrat terkecil dari Legendre dan Gauss. Istilah "variabel acak" dalam arti modern sebagai fungsi dari ruang sampel ke bilangan baru dipandang baku setelah Andrey Kolmogorov meletakkan dasar aksiomatik teori peluang pada 1933.`,
+      title: "Dari Harapan ke Aksioma Kolmogorov",
+      body: `Gagasan nilai harapan muncul bersama teori peluang awal, ketika rata-rata tertimbang hasil dipakai untuk menghitung harapan dalam permainan; tonggak awalnya diuraikan pada topik [Peluang](/matematika/kelas/XI/data-peluang/peluang). Ukuran sebaran berkembang kemudian; varians dan simpangan baku dibakukan oleh Karl Pearson pada akhir abad ke-19 setelah gagasan kuadrat terkecil dari Legendre dan Gauss. Istilah "variabel acak" dalam arti modern sebagai fungsi dari ruang sampel ke bilangan baru dipandang baku setelah Andrey Kolmogorov meletakkan dasar aksiomatik teori peluang pada 1933.`,
     },
     {
       id: "refleksi",

@@ -277,24 +277,25 @@ export const fungsiLogaritmaQuestions: Question[] = [
     id: 'flg-14',
     topicId: 'fungsi-logaritma',
     difficulty: 'mahir',
-    type: 'multiple-choice',
+    type: 'open-response',
     category: 'penalaran',
     prompt:
-      'Diketahui $\\log_{2}3=a$. Nilai $\\log_{2}12$ dinyatakan dalam $a$ adalah …',
-    options: [
-      { key: 'A', text: '$a+2$' },
-      { key: 'B', text: '$2a$' },
-      { key: 'C', text: '$a-2$' },
-      { key: 'D', text: '$4a$' },
-    ],
-    answer: 'A',
+      'Diketahui $\\log_{2}3=a$ dan $\\log_{2}5=b$. (a) Nyatakan $\\log_{2}45$ dalam $a$ dan $b$. (b) Gunakan perubahan basis untuk menentukan $\\log_{3}5$ dalam $a$ dan $b$.',
+    answer:
+      '(a) Tulis $45=9\\cdot5=3^{2}\\cdot5$, sehingga $\\log_{2}45=\\log_{2}(3^{2}\\cdot5)=2\\log_{2}3+\\log_{2}5=2a+b$. (b) Dengan perubahan basis ke basis $2$: $\\log_{3}5=\\dfrac{\\log_{2}5}{\\log_{2}3}=\\dfrac{b}{a}$.',
     explanation:
-      'Tulis $12=4\\cdot3$, sehingga $\\log_{2}12=\\log_{2}4+\\log_{2}3=2+a$ (A). Opsi B mengalikan $a$ dengan $2$ karena menyangka $\\log_{2}12=2\\log_{2}3$; opsi C mengurangi padahal seharusnya menambah; opsi D mengira $\\log_{2}12=4\\log_{2}3$ dengan memakai faktor $4$ secara keliru.',
+      'Kunci: memfaktorkan $45$ menjadi $3^{2}\\cdot5$ lalu memakai sifat penjumlahan dan pangkat logaritma, kemudian menerapkan perubahan basis $\\log_{3}5=\\dfrac{\\log_{2}5}{\\log_{2}3}$.',
     hints: [
-      'Faktorkan $12$ menjadi $4\\cdot3$.',
-      'Gunakan sifat perkalian dan nilai $\\log_{2}4$.',
+      'Faktorkan $45$ menjadi pangkat $3$ dikalikan $5$.',
+      'Ubah basis ke $2$ agar muncul $a$ dan $b$.',
     ],
-    competencies: ['sifat logaritma', 'penalaran aljabar'],
+    competencies: ['sifat logaritma', 'perubahan basis', 'penalaran aljabar'],
+    rubric: [
+      'Memfaktorkan $45=3^{2}\\cdot5$',
+      'Memakai $\\log_{2}(3^{2}\\cdot5)=2\\log_{2}3+\\log_{2}5$ sehingga memperoleh $2a+b$',
+      'Menerapkan perubahan basis $\\log_{3}5=\\dfrac{\\log_{2}5}{\\log_{2}3}$',
+      'Menyimpulkan $\\log_{3}5=\\dfrac{b}{a}$',
+    ],
   },
   {
     id: 'flg-15',

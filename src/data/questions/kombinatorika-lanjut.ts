@@ -208,18 +208,17 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Sebuah panitia beranggota $3$ orang akan dibentuk dari $5$ pria dan $4$ wanita. Berapa banyak susunan panitia yang memuat paling sedikit $1$ wanita?',
+      'Sebuah tim beranggota $4$ orang dibentuk dari $6$ matematikawan dan $5$ fisikawan. Berapa banyak tim yang memuat paling sedikit satu matematikawan **dan** paling sedikit satu fisikawan?',
     answer:
-      'Total cara memilih $3$ orang dari $9$ adalah $\\dbinom{9}{3} = 84$. Cara memilih panitia tanpa wanita (semuanya pria) adalah $\\dbinom{5}{3} = 10$. Dengan strategi komplemen, banyak panitia yang memuat paling sedikit $1$ wanita adalah $84 - 10 = 74$.',
+      'Total tim tanpa syarat $=\\dbinom{11}{4}=330$. Tim yang seluruhnya matematikawan $=\\dbinom{6}{4}=15$, dan tim yang seluruhnya fisikawan $=\\dbinom{5}{4}=5$. Tim yang gagal syarat adalah kedua jenis itu, sehingga banyak tim yang memenuhi $=330-15-5=310$.',
     explanation:
-      'Kunci jawaban: memakai komplemen, yaitu total susunan dikurangi susunan tanpa wanita.',
-    hints: ['Hitung total terlebih dahulu.', 'Kurangi dengan susunan yang semuanya pria.'],
+      'Kunci jawaban: memakai komplemen dua sisi, yaitu mengurangi tim yang seluruhnya berasal dari satu bidang.',
+    hints: ['Hitung total tim lebih dahulu.', 'Kurangi tim yang semuanya matematikawan dan tim yang semuanya fisikawan.'],
     competencies: ['kombinasi', 'strategi komplemen', 'pemodelan'],
     rubric: [
-      'Menghitung total cara memilih $3$ dari $9$ yaitu $\\dbinom{9}{3}=84$',
-      'Menghitung cara tanpa wanita (semuanya pria) $\\dbinom{5}{3}=10$',
-      'Memakai strategi komplemen $84-10=74$',
-      'Menyatakan hasil akhir banyak panitia $74$',
+      'Menghitung total tim $\\dbinom{11}{4}=330$',
+      'Menghitung tim semuanya matematikawan $\\dbinom{6}{4}=15$ dan semuanya fisikawan $\\dbinom{5}{4}=5$',
+      'Mengurangkan kedua kasus gagal dari total sehingga memperoleh $310$',
     ],
   },
   {
@@ -229,39 +228,46 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     type: 'open-response',
     category: 'penalaran',
     prompt:
-      'Buktikan bahwa di antara sebarang $n+1$ bilangan bulat yang dipilih dari $\\{1, 2, \\ldots, 2n\\}$, selalu ada dua bilangan yang jumlahnya $2n+1$.',
+      'Buktikan bahwa di antara sebarang $7$ bilangan bulat, selalu ada tiga bilangan yang jumlahnya habis dibagi $3$.',
     answer:
-      'Pasangkan bilangan $\\{1, 2, \\ldots, 2n\\}$ menjadi $\\{1, 2n\\}$, $\\{2, 2n-1\\}$, $\\ldots$, $\\{n, n+1\\}$. Terdapat tepat $n$ pasangan, dan setiap pasangan berjumlah $2n+1$. Pandang setiap pasangan sebagai satu kotak. Karena kita memilih $n+1$ bilangan dari $n$ kotak, prinsip sarang merpati menjamin ada kotak yang memuat paling sedikit $2$ bilangan. Kedua bilangan tersebut berada dalam satu pasangan, sehingga jumlahnya $2n+1$. Terbukti.',
+      'Setiap bilangan bulat memiliki sisa bagi $0$, $1$, atau $2$ ketika dibagi $3$. Pandang ketiga kelas sisa ini sebagai tiga kotak, lalu kelompokkan ketujuh bilangan ke dalamnya. Karena $7>2\\cdot3$, prinsip sarang merpati menjamin ada kelas sisa yang memuat paling sedikit $\\left\\lceil\\dfrac{7}{3}\\right\\rceil=3$ bilangan. Ketiga bilangan itu memiliki sisa yang sama, sehingga jumlahnya bersisa $3r\\equiv0 \\pmod{3}$, yaitu habis dibagi $3$. Terbukti.',
     explanation:
-      'Kunci jawaban: menggeneralisasi partisi menjadi $n$ pasangan berjumlah $2n+1$ dan menerapkan pigeonhole pada $n+1$ objek.',
-    hints: ['Ulangi pola pasangan pada soal sebelumnya.', 'Tunjukkan ada tepat $n$ pasangan.'],
-    competencies: ['pigeonhole', 'penalaran', 'pembuktian'],
+      'Kunci jawaban: meninjau kelas sisa modulo $3$ sebagai kotak, menerapkan pigeonhole untuk memperoleh tiga bilangan sekelas, lalu menunjukkan jumlah tiga bilangan bersisa sama habis dibagi $3$.',
+    hints: [
+      'Kelompokkan bilangan menurut sisa bagi $3$.',
+      'Jika tiga bilangan memiliki sisa sama $r$, jumlahnya bersisa $3r$ yang kelipatan $3$.',
+    ],
+    competencies: ['pigeonhole', 'keterbagian', 'pembuktian'],
     rubric: [
-      'Membentuk $n$ pasangan $\\{1,2n\\},\\{2,2n-1\\},\\ldots,\\{n,n+1\\}$ yang berjumlah $2n+1$',
-      'Menunjukkan tepat ada $n$ pasangan (kotak)',
-      'Menerapkan pigeonhole pada $n+1$ bilangan dan $n$ kotak',
-      'Menyimpulkan dua bilangan dalam satu pasangan berjumlah $2n+1$',
+      'Membagi bilangan bulat menjadi tiga kelas sisa modulo $3$',
+      'Menerapkan pigeonhole karena $7$ bilangan dan $3$ kelas sisa',
+      'Menyimpulkan ada tiga bilangan dengan sisa sama',
+      'Menunjukkan jumlah tiga bilangan bersisa $3r$ habis dibagi $3$',
     ],
   },
   {
     id: 'komb-14',
     topicId: 'kombinatorika-lanjut',
     difficulty: 'mahir',
-    type: 'multiple-choice',
+    type: 'open-response',
     category: 'evaluasi',
     prompt:
-      'Banyak bilangan bulat dari $1$ sampai $200$ yang habis dibagi $3$ atau $5$ adalah …',
-    options: [
-      { key: 'A', text: '$93$' },
-      { key: 'B', text: '$106$' },
-      { key: 'C', text: '$119$' },
-      { key: 'D', text: '$80$' },
-    ],
-    answer: 'A',
+      'Di antara bilangan bulat dari $1$ sampai $300$: (a) tentukan banyak bilangan yang habis dibagi $3$ atau $5$; (b) tentukan banyak bilangan yang habis dibagi $3$ atau $5$ tetapi **tidak** habis dibagi $7$.',
+    answer:
+      '(a) Kelipatan $3$: $\\left\\lfloor\\dfrac{300}{3}\\right\\rfloor=100$; kelipatan $5$: $\\left\\lfloor\\dfrac{300}{5}\\right\\rfloor=60$; kelipatan $15$: $\\left\\lfloor\\dfrac{300}{15}\\right\\rfloor=20$. Maka $100+60-20=140$ bilangan. (b) Hitung dulu kelipatan $7$ yang sekaligus kelipatan $3$ atau $5$: kelipatan $21$ ada $\\left\\lfloor\\dfrac{300}{21}\\right\\rfloor=14$, kelipatan $35$ ada $\\left\\lfloor\\dfrac{300}{35}\\right\\rfloor=8$, dan kelipatan $105$ ada $\\left\\lfloor\\dfrac{300}{105}\\right\\rfloor=2$. Jadi $14+8-2=20$ bilangan. Banyak yang diminta $=140-20=120$ bilangan.',
     explanation:
-      'Kelipatan $3$: $\\left\\lfloor \\dfrac{200}{3} \\right\\rfloor = 66$. Kelipatan $5$: $\\left\\lfloor \\dfrac{200}{5} \\right\\rfloor = 40$. Kelipatan $15$: $\\left\\lfloor \\dfrac{200}{15} \\right\\rfloor = 13$. Jadi $66 + 40 - 13 = 93$. Opsi B, $106$, muncul bila irisan tidak dikurangkan, $66 + 40$. Opsi C, $119$, muncul bila irisan justru ditambahkan, $66 + 40 + 13$. Opsi D, $80$, muncul bila irisan dikurangi dua kali, $66 + 40 - 2(13)$.',
-    hints: ['Hitung kelipatan $3$, kelipatan $5$, lalu kurangi kelipatan $15$.', 'Irisan kedua himpunan adalah kelipatan KPK dari $3$ dan $5$, yaitu kelipatan $15$.'],
-    competencies: ['inklusi-eksklusi', 'evaluasi'],
+      'Kunci jawaban: memakai inklusi-eksklusi untuk gabungan kelipatan $3$ atau $5$, lalu mengurangkan bagian yang juga kelipatan $7$ melalui inklusi-eksklusi kedua pada kelipatan $21$ dan $35$.',
+    hints: [
+      'Untuk (a), gunakan $|A\\cup B|=|A|+|B|-|A\\cap B|$ dengan irisan kelipatan $15$.',
+      'Untuk (b), yang dikurangi adalah kelipatan $7$ yang termasuk gabungan, yaitu kelipatan $21$ atau $35$.',
+    ],
+    competencies: ['inklusi-eksklusi', 'evaluasi', 'penalaran'],
+    rubric: [
+      'Menghitung $100$, $60$, dan $20$ untuk kelipatan $3$, $5$, dan $15$',
+      'Memperoleh $140$ bilangan untuk bagian (a)',
+      'Menghitung kelipatan $7$ dalam gabungan: $14+8-2=20$',
+      'Mengurangkan untuk memperoleh $140-20=120$ pada bagian (b)',
+    ],
   },
   {
     id: 'komb-15',
@@ -310,5 +316,23 @@ export const kombinatorikaLanjutQuestions: Question[] = [
       'Aturan perkalian: kalikan banyak pilihan setiap posisi tanpa mengurangi pilihan sebelumnya.',
     ],
     competencies: ['aturan perkalian', 'pemodelan', 'evaluasi'],
+  },
+  {
+    id: 'komb-17',
+    topicId: 'kombinatorika-lanjut',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah sistem membuat nomor identitas empat digit. Digit pertama tidak boleh $0$, sedangkan tiga digit lainnya dipilih dari $0$ sampai $9$ dan boleh berulang. Berapa banyak nomor identitas yang memuat paling sedikit satu digit $7$?',
+    answer: '3168',
+    acceptedAnswers: ['3168', '3.168', '3168 nomor'],
+    explanation:
+      'Total nomor empat digit $=9\\cdot10^{3}=9.000$ (digit pertama tidak boleh $0$). Nomor tanpa digit $7$: digit pertama punya $8$ pilihan ($1$ sampai $9$ kecuali $7$), sedangkan tiga digit berikutnya masing-masing $9$ pilihan (angka selain $7$), sehingga $8\\cdot9^{3}=8\\cdot729=5.832$. Dengan komplemen, banyak nomor yang memuat paling sedikit satu digit $7$ adalah $9.000-5.832=3.168$.',
+    hints: [
+      'Hitung seluruh nomor empat digit lebih dahulu.',
+      'Kurangi dengan nomor yang tidak memuat digit $7$ sama sekali, lalu manfaatkan komplemen.',
+    ],
+    competencies: ['aturan perkalian', 'strategi komplemen', 'kontekstual'],
   },
 ];

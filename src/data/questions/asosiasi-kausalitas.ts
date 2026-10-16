@@ -271,7 +271,7 @@ export const asosiasiKausalitasQuestions: Question[] = [
   {
     id: 'ak-12',
     topicId: 'asosiasi-kausalitas',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penalaran',
     prompt:

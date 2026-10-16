@@ -361,32 +361,40 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah artikel menulis: "Survei $1.000$ karyawan menunjukkan yang minum lebih dari tiga cangkir kopi sehari rata-rata tidur $6$ jam, sedangkan yang tidak minum kopi rata-rata tidur $7{,}5$ jam. Karena itu kopi mengurangi kebutuhan tidur."
+      title: "Paradoks dalam Data Gabungan",
+      body: `**Soal.** Sebuah studi membandingkan dua program belajar, P dan Q. Peserta dikelompokkan menurut tingkat kesulitan materi yang dipelajari. Pada materi mudah, $10$ peserta program P lulus $9$ kali, sedangkan $100$ peserta program Q lulus $89$ kali. Pada materi sulit, $10$ peserta program P lulus $4$ kali, sedangkan $10$ peserta program Q lulus $1$ kali.
 
-- Sebutkan satu variabel perancu yang mungkin menjelaskan perbedaan ini.
-- Jelaskan kemungkinan kausalitas terbalik.
-- Rancang langkah agar hubungan sebab-akibat dapat diuji dengan lebih meyakinkan.`,
+(a) Hitung persentase kelulusan tiap program pada masing-masing tingkat kesulitan.
+(b) Hitung persentase kelulusan gabungan kedua program.
+(c) Jelaskan mengapa kesimpulan gabungan dapat berbalik, dan sebutkan ukuran yang perlu dikendalikan.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Bedakan klaim statistik dari klaim sebab-akibat, lalu uji dengan kritis.",
+          intro: "Bandingkan data per strata, lalu data gabungan, dan jelaskan mengapa arahnya dapat berbalik.",
           steps: [
             {
-              title: "Langkah 1: Kenali jenis klaimnya",
-              text: "Data hanya menunjukkan **asosiasi**: dua kelompok berbeda rata-rata lama tidurnya. Pernyataan \"kopi mengurangi kebutuhan tidur\" melompat ke **kausalitas** yang belum dibuktikan oleh data observasional.",
+              title: "Persentase pada materi mudah",
+              text: "Program P: $\\dfrac{9}{10}=90\\%$. Program Q: $\\dfrac{89}{100}=89\\%$. Pada tingkat ini P unggul tipis.",
             },
             {
-              title: "Langkah 2: Cari variabel perancu",
-              text: "Variabel ketiga yang memengaruhi keduanya dapat menjelaskan perbedaan itu. Contohnya tekanan pekerjaan: pekerjaan yang menuntut dan penuh tenggat membuat orang lebih banyak minum kopi sekaligus lebih sedikit tidur. Usia, kebiasaan lembur, atau jadwal shift malam juga dapat berperan.",
+              title: "Persentase pada materi sulit",
+              text: "Program P: $\\dfrac{4}{10}=40\\%$. Program Q: $\\dfrac{1}{10}=10\\%$. Pada tingkat ini P unggul jauh.",
             },
             {
-              title: "Langkah 3: Pertimbangkan kausalitas terbalik",
-              text: "Arah sebab-akibat bisa saja terbalik. Orang yang kurang tidur memakai kopi untuk tetap terjaga, sehingga kurang tidur **menyebabkan** konsumsi kopi, bukan sebaliknya. Data korelasi sendiri tidak dapat menentukan arah ini.",
+              title: "Persentase gabungan",
+              text: "Program P: $\\dfrac{9+4}{10+10}=\\dfrac{13}{20}=65\\%$. Program Q: $\\dfrac{89+1}{100+10}=\\dfrac{90}{110}\\approx81{,}8\\%$. Secara gabungan Q justru tampak lebih baik.",
             },
             {
-              title: "Langkah 4: Rancang pengujian yang lebih kuat",
-              text: "Bukti terkuat datang dari **eksperimen acak**: bagi peserta secara acak menjadi kelompok yang diberi kopi (atau kafein) dan kelompok plasebo, lalu ukur lama tidur secara objektif. Randomisasi menekan pengaruh variabel perancu. Alternatifnya adalah studi longitudinal yang mengikuti orang dari waktu ke waktu sambil mengontrol pekerjaan, usia, dan kebiasaan tidur.",
+              title: "Mengapa arahnya berbalik",
+              text: "Hampir semua peserta Q mengerjakan materi mudah ($100$ dari $110$), yang tingkat kelulusannya tinggi, sedangkan peserta P terbagi rata antara materi mudah dan sulit. Komposisi yang tidak sebanding membuat angka gabungan menyesatkan.",
+            },
+            {
+              title: "Kendalikan variabel perancu",
+              text: "Tingkat kesulitan materi adalah **variabel perancu**. Perbandingan yang adil dilakukan dengan memisahkan tiap tingkat seperti pada bagian (a), atau membakukan komposisi kedua kelompok.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Pada kedua tingkat, P lebih baik, sehingga kesimpulan yang sahih adalah P unggul. Angka gabungan yang menempatkan Q di atas hanya muncul karena komposisi peserta yang berbeda, bukan karena Q lebih efektif.",
             },
           ],
         },
@@ -395,8 +403,8 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Gagasan korelasi diperkenalkan Francis Galton pada akhir abad ke-19 ketika mempelajari pewarisan sifat, lalu Karl Pearson mengembangkannya menjadi koefisien korelasi. Kesadaran bahwa korelasi dapat menyesatkan muncul sejak masa itu; Pearson sendiri menyoroti apa yang ia sebut *spurious correlation*. Sebelumnya, pada 1843 John Stuart Mill merumuskan metode penalaran untuk menetapkan sebab-akibat. Pada 1920-an Ronald Fisher mengembangkan percobaan dengan pengacakan sebagai cara mengendalikan variabel pengganggu. Pada 1965 Austin Bradford Hill menyusun kriteria penilaian bukti kausal, seperti asosiasi, urutan waktu, dan hubungan dosis-respons, yang antara lain dipakai untuk menetapkan hubungan merokok dan kanker paru.`,
+      title: "Dari Korelasi ke Kriteria Kausal",
+      body: `Pertanyaan "apakah yang satu menyebabkan yang lain?" menuntut perangkat berpikir yang berbeda dari sekadar mengukur keeratan hubungan. Perumusan koefisien korelasi dan garis regresi dibahas pada topik **Regresi Linear**; di sini perhatian kita tertuju pada upaya menetapkan sebab-akibat. Sebelum korelasi dirumuskan, pada 1843 John Stuart Mill menyusun metode penalaran untuk menetapkan sebab-akibat. Pada 1920-an Ronald Fisher mengembangkan percobaan dengan pengacakan sebagai cara mengendalikan variabel pengganggu, dasar bagi eksperimen acak modern. Pada 1965 Austin Bradford Hill menyusun kriteria penilaian bukti kausal, seperti asosiasi, urutan waktu, dan hubungan dosis-respons, yang antara lain dipakai untuk menetapkan hubungan merokok dan kanker paru.`,
     },
     {
       id: "refleksi",

@@ -303,36 +303,36 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah usaha rumahan memproduksi dua jenis tas. Tas jenis A memerlukan $2$ jam menjahit dan $1$ jam penyelesaian; tas jenis B memerlukan $1$ jam menjahit dan $2$ jam penyelesaian. Setiap hari tersedia $12$ jam menjahit dan $12$ jam penyelesaian. Keuntungan tas A Rp40.000 dan tas B Rp30.000. Tentukan banyak tiap jenis tas agar keuntungan maksimum, beserta besar keuntungan itu.`,
+      title: "Campuran Pakan Termurah",
+      body: `**Soal.** Sebuah peternakan mencampur dua bahan pakan. Bahan jenis P memberi $2$ unit protein dan $1$ unit serat per kilogram serta berharga Rp2.000 per kilogram; bahan jenis Q memberi $1$ unit protein dan $2$ unit serat per kilogram serta berharga Rp3.000 per kilogram. Campuran harian harus menyediakan paling sedikit $16$ unit protein dan $14$ unit serat. Pemasok membatasi persediaan bahan P paling banyak $8$ kg per hari. Tentukan banyak tiap bahan agar biaya campuran minimum, beserta biaya minimumnya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Susun kendala, tentukan daerah layak beserta titik sudutnya, lalu uji fungsi objektif.",
+          intro: "Ubah kebutuhan minimum menjadi kendala bertanda $\\ge$, tentukan titik sudut daerah layak, lalu uji fungsi biaya.",
           steps: [
             {
               title: "Tetapkan variabel",
-              text: "Misalkan $x$ banyak tas A dan $y$ banyak tas B. Keuntungan $f=40.000x+30.000y$.",
+              text: "Misalkan $x$ banyak bahan P (kg) dan $y$ banyak bahan Q (kg). Biaya $C = 2.000x + 3.000y$.",
             },
             {
               title: "Susun kendala",
-              text: "Jam menjahit: $2x+y\\le12$. Jam penyelesaian: $x+2y\\le12$. Ditambah $x\\ge0$ dan $y\\ge0$.",
+              text: "Protein: $2x + y \\ge 16$. Serat: $x + 2y \\ge 14$. Persediaan: $x \\le 8$. Ditambah $x \\ge 0$ dan $y \\ge 0$.",
             },
             {
               title: "Titik sudut pada sumbu",
-              text: "Garis $2x+y=12$ memotong sumbu di $(6,0)$ dan $(0,12)$; garis $x+2y=12$ memotong sumbu di $(12,0)$ dan $(0,6)$. Karena syarat tak negatif, titik sudut yang layak adalah $(0,0)$, $(6,0)$, dan $(0,6)$.",
+              text: "Garis $2x + y = 16$ memotong sumbu di $(8,0)$ dan $(0,16)$; garis $x + 2y = 14$ memotong sumbu di $(14,0)$ dan $(0,7)$. Karena kebutuhan bertanda $\\ge$, daerah layak berada di atas kedua garis, sehingga titik sudut pada sumbu adalah $(0,16)$ dan pada batas $x = 8$ adalah $(8,3)$.",
             },
             {
               title: "Titik potong kedua garis",
-              text: "Selesaikan $2x+y=12$ dan $x+2y=12$. Dari $y=12-2x$ diperoleh $x+2(12-2x)=12$, sehingga $-3x=-12$, $x=4$, dan $y=4$. Titik sudutnya $(4,4)$.",
+              text: "Selesaikan $2x + y = 16$ dan $x + 2y = 14$. Dari $y = 16 - 2x$ diperoleh $x + 2(16 - 2x) = 14$, sehingga $-3x = -18$, $x = 6$, dan $y = 4$. Titik sudutnya $(6,4)$.",
             },
             {
-              title: "Uji fungsi objektif",
-              text: "$(6,0)=240.000$; $(0,6)=180.000$; $(4,4)=40.000\\cdot4+30.000\\cdot4=280.000$. Nilai terbesar ada di $(4,4)$.",
+              title: "Uji fungsi biaya",
+              text: "$(0,16) = 48.000$; $(8,3) = 16.000 + 9.000 = 25.000$; $(6,4) = 12.000 + 12.000 = 24.000$. Nilai terkecil ada di $(6,4)$.",
             },
             {
-              title: "Tafsirkan",
-              text: "Buat $4$ tas A dan $4$ tas B untuk keuntungan maksimum Rp280.000. Periksa: menjahit $2(4)+4=12$ jam dan penyelesaian $4+2(4)=12$ jam, tepat habis.",
+              title: "Periksa dan tafsirkan",
+              text: "Campur $6$ kg bahan P dan $4$ kg bahan Q untuk biaya minimum Rp24.000. Periksa: protein $2(6) + 4 = 16$ unit ✓ dan serat $6 + 2(4) = 14$ unit ✓, tepat memenuhi batas minimum, serta $x = 6 \\le 8$ ✓.",
             },
           ],
         },
@@ -341,7 +341,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Lahirnya Program Linear",
       body: `Program linear sebagai bidang tersendiri lahir dari kebutuhan mengatur sumber daya yang terbatas. Pada 1939 Leonid Kantorovich merumuskan masalah alokasi produksi sebagai optimasi fungsi linear di bawah kendala pertidaksamaan, dan karyanya kemudian diakui dengan Nobel Ekonomi. Pada 1947 George Dantzig mengembangkan metode simpleks, prosedur sistematis untuk menyelesaikan program linear berukuran besar, sehingga bidang ini cepat menyebar ke industri. Gagasan sistem pertidaksamaan linear sendiri sudah muncul lebih awal, seperti pada karya Joseph Fourier pada 1820-an, tetapi baru pada abad ke-20 alat hitungnya cukup kuat. Kini program linear dipakai di bidang transportasi, penjadwalan, dan analisis ekonomi.`,
     },
     {

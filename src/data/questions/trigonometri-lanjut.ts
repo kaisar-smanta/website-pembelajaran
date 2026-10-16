@@ -332,7 +332,7 @@ export const trigonometriLanjutQuestions: Question[] = [
   {
     id: 'tl-16',
     topicId: 'trigonometri-lanjut',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

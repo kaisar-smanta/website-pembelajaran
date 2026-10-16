@@ -385,32 +385,32 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah laboratorium menumbuhkan dua kultur bakteri sekaligus. Kultur A mula-mula berisi $500$ bakteri dan berlipat dua setiap $20$ menit. Kultur B mula-mula berisi $8.000$ bakteri, tetapi setiap $20$ menit jumlahnya menjadi setengah karena pemberian antiseptik. Setelah berapa selang $20$ menit populasi kedua kultur menjadi sama, dan berapa populasi itu?`,
+      title: "Memulihkan Parameter dari Rasio",
+      body: `**Soal.** Sebuah fungsi eksponensial $f(x)=a\\cdot b^{x}$ dengan $a>0$ dan $b>0$ memenuhi $f(1)=6$ dan $f(4)=162$. (a) Tentukan nilai $a$ dan $b$. (b) Hitung $f(0)$ dan $f(5)$. (c) Tentukan nilai $x$ ketika $f(x)=486$.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Susun model tiap kultur, samakan, lalu selesaikan dengan sifat eksponen.",
+          intro: "Rasio dua nilai fungsi menghapus koefisien $a$ dan menyisakan pangkat dari basis.",
           steps: [
             {
-              title: "Model kultur A",
-              text: "Karena berlipat dua setiap selang, setelah $n$ selang $A(n)=500\\cdot 2^{n}$.",
+              title: "Bandingkan dua nilai",
+              text: "Bagi $f(4)$ dengan $f(1)$: $\\dfrac{a\\cdot b^{4}}{a\\cdot b^{1}}=b^{3}=\\dfrac{162}{6}=27$.",
             },
             {
-              title: "Model kultur B",
-              text: "Karena menyusut menjadi setengah, $B(n)=8.000\\left(\\tfrac{1}{2}\\right)^{n}=8.000\\cdot 2^{-n}$.",
+              title: "Tentukan basis",
+              text: "Karena $b^{3}=27$ dan $b>0$, maka $b=\\sqrt[3]{27}=3$. Modelnya menjadi $f(x)=a\\cdot3^{x}$.",
             },
             {
-              title: "Samakan kedua model",
-              text: "$500\\cdot 2^{n}=8.000\\cdot 2^{-n}$. Bagi kedua ruas dengan $500$: $2^{n}=16\\cdot 2^{-n}$.",
+              title: "Tentukan koefisien",
+              text: "Substitusi $f(1)=6$: $a\\cdot3=6$, sehingga $a=2$. Jadi $f(x)=2\\cdot3^{x}$.",
             },
             {
-              title: "Selesaikan eksponen",
-              text: "Kalikan dengan $2^{n}$: $2^{n}\\cdot 2^{n}=16 \\Rightarrow 2^{2n}=2^{4} \\Rightarrow 2n=4 \\Rightarrow n=2$.",
+              title: "Hitung dua nilai",
+              text: "$f(0)=2\\cdot3^{0}=2$ dan $f(5)=2\\cdot3^{5}=2\\cdot243=486$.",
             },
             {
-              title: "Tafsirkan",
-              text: "Setelah $n=2$ selang, yaitu $40$ menit, populasi keduanya sama. Periksa: $A(2)=500\\cdot4=2.000$ dan $B(2)=8.000\\cdot\\tfrac14=2.000$. Jadi keduanya berjumlah $2.000$ bakteri.",
+              title: "Selesaikan $f(x)=486$",
+              text: "Karena $f(5)=486$ telah diperoleh, nilai $x$ yang memenuhi adalah $x=5$. Periksa: $2\\cdot3^{5}=486$ benar.",
             },
           ],
         },
@@ -419,8 +419,8 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Fungsi eksponensial tumbuh dari penyelidikan bunga majemuk. Pada akhir abad ke-17, Jacob Bernoulli menelaah nilai tabungan yang dibungakan berkali-kali dalam setahun dan memperhatikan bahwa batas $(1+1/n)^{n}$ menuju suatu bilangan tetap. Leonhard Euler kemudian menandai bilangan itu dengan $e$ dan memperkenalkan fungsi $e^{x}$ sebagai fungsi yang lajunya sebanding dengan nilainya sendiri. Sejak itu bentuk $a\\cdot b^{x}$ dipakai untuk memodelkan pertumbuhan populasi, peluruhan zat, dan penyebaran penyakit. Karena itulah topik ini menjadi bahasa baku bagi perubahan yang berlipat.`,
+      title: "Dari Bunga Majemuk ke Bilangan e",
+      body: `Fungsi eksponensial tumbuh dari penyelidikan bunga majemuk. Pada 1683 Jacob Bernoulli menelaah tabungan yang dibungakan berkali-kali dalam setahun dan memperhatikan bahwa batas $(1+1/n)^{n}$ menuju suatu bilangan tetap di antara $2$ dan $3$. Leonhard Euler (1748) kemudian menandai bilangan itu dengan $e$ dan memperkenalkan fungsi $e^{x}$ sebagai fungsi yang lajunya sebanding dengan nilainya sendiri. Sejak itu bentuk $a\\cdot b^{x}$ dipakai untuk memodelkan pertumbuhan populasi, peluruhan zat, dan penyebaran penyakit. Karena itulah topik ini menjadi bahasa baku bagi perubahan yang berlipat.`,
     },
     {
       id: "refleksi",

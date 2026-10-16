@@ -321,20 +321,20 @@ export const peluangBersyaratQuestions: Question[] = [
     type: 'open-response',
     category: 'penalaran',
     prompt:
-      'Dua kejadian $A$ dan $B$ disebut saling bebas jika $P(A\\cap B)=P(A)P(B)$, yang ekuivalen dengan $P(A\\mid B)=P(A)$ ketika $P(B)>0$. (a) Jelaskan mengapa kedua rumus itu ekuivalen. (b) Periksa apakah kejadian "muncul mata genap" dan "muncul mata kelipatan $3$" pada satu lemparan dadu saling bebas. (c) Simpulkan hasilnya.',
+      'Dua kejadian $A$ dan $B$ disebut saling bebas jika $P(A\\cap B)=P(A)P(B)$, yang ekuivalen dengan $P(A\\mid B)=P(A)$ ketika $P(B)>0$. (a) Jelaskan mengapa kedua rumus itu ekuivalen. (b) Periksa apakah kejadian "terambil kartu merah" dan "terambil kartu As" pada pengambilan satu kartu dari $52$ kartu saling bebas. (c) Simpulkan hasilnya.',
     answer:
-      '(a) Jika $P(A\\cap B)=P(A)P(B)$, bagi kedua ruas dengan $P(B)$, diperoleh $\\dfrac{P(A\\cap B)}{P(B)}=P(A)$, yaitu $P(A\\mid B)=P(A)$. Sebaliknya, dari $P(A\\mid B)=P(A)$ dan definisi $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$, kalikan dengan $P(B)$ untuk memperoleh $P(A\\cap B)=P(A)P(B)$. (b) Ruang sampel $\\{1,2,3,4,5,6\\}$. Kejadian $A=$ genap $=\\{2,4,6\\}$ dengan $P(A)=\\dfrac{3}{6}=\\dfrac12$, dan $B=$ kelipatan $3$ $=\\{3,6\\}$ dengan $P(B)=\\dfrac{2}{6}=\\dfrac13$. Karena $A\\cap B=\\{6\\}$, maka $P(A\\cap B)=\\dfrac16$. Di sisi lain $P(A)P(B)=\\dfrac12\\cdot\\dfrac13=\\dfrac16$, sehingga keduanya sama. (c) Karena $P(A\\cap B)=P(A)P(B)$, kejadian "muncul mata genap" dan "muncul mata kelipatan $3$" saling bebas; munculnya mata kelipatan $3$ tidak mengubah peluang muncul mata genap.',
+      '(a) Jika $P(A\\cap B)=P(A)P(B)$, bagi kedua ruas dengan $P(B)$, diperoleh $\\dfrac{P(A\\cap B)}{P(B)}=P(A)$, yaitu $P(A\\mid B)=P(A)$. Sebaliknya, dari $P(A\\mid B)=P(A)$ dan definisi $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$, kalikan dengan $P(B)$ untuk memperoleh $P(A\\cap B)=P(A)P(B)$. (b) Ruang sampel adalah $52$ kartu. Kejadian $A=$ kartu merah memuat $26$ kartu sehingga $P(A)=\\dfrac{26}{52}=\\dfrac12$, dan $B=$ kartu As memuat $4$ kartu sehingga $P(B)=\\dfrac{4}{52}=\\dfrac{1}{13}$. Kartu As merah (As hati dan As wajik) ada $2$, sehingga $P(A\\cap B)=\\dfrac{2}{52}=\\dfrac{1}{26}$. Di sisi lain $P(A)P(B)=\\dfrac12\\cdot\\dfrac1{13}=\\dfrac1{26}$, sehingga keduanya sama. (c) Karena $P(A\\cap B)=P(A)P(B)$, kejadian "terambil kartu merah" dan "terambil kartu As" saling bebas; mengetahui kartu yang terambil berwarna merah tidak mengubah peluang kartu itu sebuah As.',
     explanation:
-      'Kunci: menurunkan ekuivalensi dua definisi saling bebas secara aljabar, lalu mengujinya pada ruang sampel dadu dengan perhitungan pecahan yang tepat.',
+      'Kunci: menurunkan ekuivalensi dua definisi saling bebas secara aljabar, lalu mengujinya pada ruang sampel $52$ kartu dengan perhitungan pecahan yang tepat.',
     hints: [
       'Gunakan definisi $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$ untuk menjembatani kedua rumus.',
-      'Daftar anggota kedua kejadian dan hitung peluangnya dari $6$ hasil yang sama mungkin.',
+      'Hitung banyak kartu merah ($26$), kartu As ($4$), dan As merah ($2$) dari $52$ kartu.',
     ],
     competencies: ['kejadian saling bebas', 'peluang bersyarat', 'penalaran'],
     rubric: [
       'Menurunkan ekuivalensi kedua rumus',
-      'Mendaftar anggota kedua kejadian',
-      'Menghitung peluang tiap kejadian',
+      'Menentukan $P(A)=\\dfrac12$ dan $P(B)=\\dfrac{1}{13}$',
+      'Menghitung $P(A\\cap B)=\\dfrac{1}{26}$ dan membandingkannya dengan $P(A)P(B)$',
       'Menyimpulkan kedua kejadian saling bebas',
     ],
   },

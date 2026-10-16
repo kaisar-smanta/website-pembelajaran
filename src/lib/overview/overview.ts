@@ -12,6 +12,7 @@ import type { SiteOverview, StampedRecord, TopicEntry, TopicOverview } from './t
 import { maxStamp, tally } from './tally.ts';
 import { buildMasterySummary } from './mastery.ts';
 import { buildConfidenceSummary } from './confidence.ts';
+import { buildEnrichmentSummary } from './enrichment.ts';
 
 /** Menghitung kemajuan seluruh topik dari peta penyimpanan. */
 export function buildOverview(
@@ -104,6 +105,7 @@ export function buildOverview(
     lastAt,
     hasData: answered > 0 || predictionsTotal > 0 || reflectionsTotal > 0 || activitiesTotal > 0,
     mastery: buildMasterySummary(topics),
+    enrichment: buildEnrichmentSummary(topics),
     confidence: buildConfidenceSummary(
       topics.map((topic) => ({
         id: topic.id,

@@ -248,9 +248,9 @@ export const anuitasQuestions: Question[] = [
     type: 'open-response',
     category: 'penalaran',
     prompt:
-      'Sebuah pinjaman Rp12.000.000 dikenai bunga 1% per bulan selama 12 bulan. Bandingkan total bunga bila memakai sistem anuitas dengan sistem bunga tetap (flat), yang menghitung bunga selalu dari pokok awal. Jelaskan mengapa salah satunya lebih besar.',
+      'Sebuah pinjaman Rp9.000.000 dikenai bunga 1% per bulan selama 12 bulan. Bandingkan total bunga bila memakai sistem anuitas dengan sistem bunga tetap (flat), yang menghitung bunga selalu dari pokok awal. Jelaskan mengapa salah satunya lebih besar.',
     answer:
-      'Sistem flat: bunga tiap bulan $=0{,}01\\times12.000.000=\\text{Rp}120.000$, sehingga total bunga $=12\\times120.000=\\text{Rp}1.440.000$. Sistem anuitas: $A=\\dfrac{12.000.000(0{,}01)}{1-(1{,}01)^{-12}}\\approx\\text{Rp}1.066.185,46$, sehingga total pembayaran $\\approx12\\times1.066.185,46=\\text{Rp}12.794.225$ dan total bunga $\\approx\\text{Rp}794.225$. Jadi total bunga flat lebih besar. Penyebabnya, pada sistem flat bunga selalu dihitung dari pokok penuh meskipun utang sudah berkurang, sedangkan pada anuitas bunga dihitung dari sisa utang yang terus menyusut sehingga bunga totalnya lebih kecil.',
+      'Sistem flat: bunga tiap bulan $=0{,}01\\times9.000.000=\\text{Rp}90.000$, sehingga total bunga $=12\\times90.000=\\text{Rp}1.080.000$. Sistem anuitas: $A=\\dfrac{9.000.000(0{,}01)}{1-(1{,}01)^{-12}}\\approx\\text{Rp}799.639,10$, sehingga total pembayaran $\\approx12\\times799.639,10=\\text{Rp}9.595.669,20$ dan total bunga $\\approx\\text{Rp}595.669,20$. Jadi total bunga flat lebih besar. Penyebabnya, pada sistem flat bunga selalu dihitung dari pokok penuh meskipun utang sudah berkurang, sedangkan pada anuitas bunga dihitung dari sisa utang yang terus menyusut sehingga bunga totalnya lebih kecil.',
     explanation:
       'Kunci jawaban membandingkan dasar perhitungan bunga (pokok awal vs sisa utang) dan menunjukkannya dengan angka pada tenor yang sama.',
     hints: [
@@ -259,8 +259,8 @@ export const anuitasQuestions: Question[] = [
     ],
     competencies: ['rumus anuitas', 'literasi keuangan', 'penalaran'],
     rubric: [
-      'Menghitung total bunga flat $12\\times0{,}01\\times12.000.000=\\text{Rp}1.440.000$',
-      'Menghitung total bunga anuitas dari $12A-M\\approx\\text{Rp}794.225$',
+      'Menghitung total bunga flat $12\\times0{,}01\\times9.000.000=\\text{Rp}1.080.000$',
+      'Menghitung total bunga anuitas dari $12A-M\\approx\\text{Rp}595.669$',
       'Menjelaskan flat lebih besar karena bunga selalu dihitung dari pokok awal',
     ],
   },

@@ -10,6 +10,7 @@ import fs from 'node:fs';
 import { registerHooks } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { sectionSearchText } from '../src/lib/content-text.ts';
 
 /** Akar repositori. */
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -184,6 +185,35 @@ export async function collectQuestionFiles(dir = 'src/data/questions') {
 export async function collectQuestions(dir = 'src/data/questions') {
   const files = await collectQuestionFiles(dir);
   return files.flatMap((entry) => entry.questions);
+}
+
+/**
+ * Teks lengkap sebuah bagian (judul + body + seluruh isi blok) memakai index
+ * pencarian kanonik, sehingga uji kedalaman/duplikasi tidak menyalin logika blok.
+ */
+export function sectionText(section) {
+  return sectionSearchText(section);
+}
+
+/** Himpunan kata bermakna (panjang > 2) untuk mengukur kemiripan teks. */
+export function wordSet(text) {
+  return new Set(
+    String(text)
+      .toLowerCase()
+      .replace(/[^a-z0-9\u00c0-\u024f]+/g, ' ')
+      .split(' ')
+      .filter((word) => word.length > 2),
+  );
+}
+
+/** Kemiripan Jaccard antara dua teks (0 bila salah satu kosong). */
+export function jaccard(a, b) {
+  const left = wordSet(a);
+  const right = wordSet(b);
+  if (left.size === 0 || right.size === 0) return 0;
+  let intersection = 0;
+  for (const word of left) if (right.has(word)) intersection += 1;
+  return intersection / (left.size + right.size - intersection);
 }
 
 /** Penyimpanan in-memory yang meniru antarmuka `Storage`. */

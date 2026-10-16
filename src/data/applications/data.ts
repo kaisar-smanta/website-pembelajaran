@@ -94,7 +94,7 @@ Untuk siswa yang belajar 10 jam, perkiraan nilainya $\\hat{y} = 1{,}19(10) + 0{,
 - Memilih **ketua dan wakil ketua**. Di sini urutan penting: susunan (Ani, Budi) berbeda dari (Budi, Ani).
 - Memilih **3 anggota tim** untuk mewakili kelas. Di sini urutan tidak penting: tim {Ani, Budi, Citra} sama saja dengan {Budi, Citra, Ani}.
 
-Pertanyaan pemicunya: mengapa jumlah cara memilih ketua–wakil lebih banyak daripada memilih 3 anggota, dan kapan kita memakai **permutasi** alih-alih **kombinasi**?`,
+Pertanyaan pemicunya: mengapa jumlah cara memilih ketua-wakil lebih banyak daripada memilih 3 anggota, dan kapan kita memakai **permutasi** alih-alih **kombinasi**?`,
     analysis: `**Ketua dan wakil (urutan penting).** Memilih 2 dari 8 dengan memperhatikan urutan adalah permutasi:
 $$P(8,2) = 8 \\times 7 = 56 \\text{ cara}.$$
 
@@ -178,7 +178,7 @@ Tetapi korelasi bukan otomatis sebab-akibat. Banyak faktor dapat memengaruhi ked
 Pertanyaan pemicunya: sebelum menyimpulkan "gim merusak nilai", variabel lain apa yang perlu diperiksa lebih dulu?`,
     analysis: `Kandidat perancu yang kuat adalah **jam belajar** dan **jam tidur**. Remaja yang menghabiskan lebih banyak waktu bermain gim cenderung juga belajar lebih sedikit, dan kurang tidur juga menurunkan nilai. Jika kita kelompokkan siswa menurut jam belajar per hari:
 
-- Kurang dari $1$ jam: korelasi gim–nilai sekitar $r = -0{,}08$.
+- Kurang dari $1$ jam: korelasi gim-nilai sekitar $r = -0{,}08$.
 - $1$–$2$ jam: korelasi sekitar $r = -0{,}07$.
 - Lebih dari $2$ jam: korelasi sekitar $r = -0{,}09$.
 

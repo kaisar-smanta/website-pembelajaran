@@ -12,7 +12,7 @@ export const induksiMatematika: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Induksi matematika adalah pengayaan pembuktian di luar tuntutan CP Fase F elemen Aljabar dan Fungsi. Kemampuan ini memperkuat penalaran deduktif, menutup pembuktian rumus barisan dan deret, serta menjadi bekal penting untuk olimpiade matematika.',
+    'Induksi matematika mengasah penalaran pembuktian pada elemen Aljabar dan Fungsi Fase F, khususnya untuk menuntaskan identitas dan rumus jumlah. Tidak ada butir CP Fase F yang menuntut pembuktian dengan induksi, sehingga topik ini berada di luar tuntutan resmi; hasilnya tetap menopang butir F-BIL-1 tentang barisan dan deret. Dengan basis dan langkah induksi, rumus seperti $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$ terjamin untuk semua bilangan asli, bukan sekadar diuji pada beberapa contoh.',
   estimatedMinutes: 80,
   summary:
     'Menggunakan prinsip induksi matematika untuk membuktikan rumus jumlah, ketaksamaan, dan keterbagian yang berlaku bagi semua bilangan asli.',
@@ -394,7 +394,7 @@ Dalam kehidupan sehari-hari, penalaran berantai seperti ini terlihat pada ramala
     {
       id: 'tantangan',
       kind: 'tantangan',
-      title: 'Tantangan',
+      title: 'Ketaksamaan Bernoulli',
       body: `Ketaksamaan Bernoulli menyatakan bahwa untuk setiap bilangan real $x \\ge -1$ dan setiap bilangan bulat $n \\ge 1$ berlaku
 
 $$(1+x)^n \\ge 1+nx.$$
@@ -442,8 +442,8 @@ Buktikan ketaksamaan ini dengan induksi matematika.`,
     {
       id: 'induksi-matematika-sejarah',
       kind: 'sejarah',
-      title: 'Jejak Sejarah',
-      body: `Gagasan induksi sudah tersirat dalam buku *Ars Conjectandi* karya Jacob Bernoulli (1713), ketika ia membuktikan rumus jumlah pangkat dengan cara yang bergerak dari satu kasus ke kasus berikutnya. Blaise Pascal sebelumnya memakai penalaran serupa untuk segitiga bilangannya. Istilah "induksi matematika" dan penggunaannya yang sistematis baru muncul pada abad ke-19, antara lain melalui karya Augustus De Morgan. Pada akhir abad ke-19, Giuseppe Peano menempatkan induksi sebagai salah satu aksioma dalam sistemnya untuk bilangan asli, sehingga prinsip ini menjadi landasan baku. Sejak itu induksi menjadi alat utama untuk membuktikan pernyataan tentang semua bilangan asli.`,
+      title: 'Dari Pascal ke Peano',
+      body: `Blaise Pascal sudah memakai penalaran setahap demi setahap pada pertengahan abad ke-17 untuk membuktikan sifat segitiga bilangannya, meski istilahnya belum ada saat itu. Pembahasan Bernoulli tentang percobaan berulang, yang berasal dari *Ars Conjectandi* (1713), lebih tepat dikaitkan dengan topik [Peluang](/matematika/kelas/XI/data-peluang/peluang). Istilah "induksi matematika" dan penggunaannya yang sistematis baru muncul pada abad ke-19, antara lain melalui karya Augustus De Morgan. Pada akhir abad ke-19, Giuseppe Peano menempatkan induksi sebagai salah satu aksioma untuk bilangan asli, sehingga prinsip ini menjadi landasan baku.`,
     },
     {
       id: 'refleksi',

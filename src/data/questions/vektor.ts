@@ -188,7 +188,7 @@ export const vektorQuestions: Question[] = [
   {
     id: 'vk-10',
     topicId: 'vektor',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -352,7 +352,7 @@ export const vektorQuestions: Question[] = [
   {
     id: 'vk-17',
     topicId: 'vektor',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

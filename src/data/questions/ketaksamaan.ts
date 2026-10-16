@@ -212,7 +212,7 @@ export const ketaksamaanQuestions: Question[] = [
   {
     id: 'ktk-11',
     topicId: 'ketaksamaan',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'kontekstual',
     prompt:
@@ -234,22 +234,21 @@ export const ketaksamaanQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Sebuah taman berbentuk persegi panjang akan dipagari. Satu sisinya dibatasi tembok sehingga tidak perlu dipagari. Jika pagar yang tersedia $40$ m, tentukan ukuran taman agar luasnya maksimum dan hitung luas maksimum itu.',
+      'Sebuah taman persegi panjang dirancang dengan keliling tepat $60$ m. (a) Nyatakan luas taman sebagai fungsi satu variabel. (b) Gunakan ketaksamaan AM-GM untuk membuktikan bahwa luas maksimumnya $225$ m$^2$ dan tentukan ukuran taman saat itu.',
     answer:
-      'Misal sisi yang tegak lurus tembok berukuran $x$ (ada dua sisi) dan sisi yang sejajar tembok berukuran $y$. Pagar memenuhi $2x + y = 40$, sehingga $y = 40 - 2x$. Luas $A = xy = x(40 - 2x) = 40x - 2x^2$. Fungsi kuadrat ini terbuka ke bawah dengan puncak di $x = \\dfrac{40}{2 \\cdot 2} = 10$. Maka $y = 20$ dan $A = 10 \\cdot 20 = 200$ m$^2$. Jadi ukurannya $10$ m (dua sisi tegak) dan $20$ m (sisi sejajar tembok), dengan luas maksimum $200$ m$^2$.',
+      '(a) Misal panjang $x$ dan lebar $y$ dengan $2(x+y)=60$, sehingga $x+y=30$ dan $y=30-x$. Luas $L=xy$ dengan jumlah $x+y$ tetap. (b) Dengan AM-GM pada dua bilangan positif $x$ dan $y$: $\\sqrt{xy}\\le\\dfrac{x+y}{2}=15$, sehingga $xy\\le15^{2}=225$. Jadi luas maksimum $225$ m$^2$, dan kesamaan tercapai ketika $x=y=15$ m, yaitu taman berbentuk persegi $15\\times15$ m.',
     explanation:
-      'Kunci jawaban: memodelkan $2x + y = 40$, menyusun luas $A = x(40-2x)$, lalu menemukan puncak parabola.',
+      'Kunci: mengubah kendala keliling menjadi $x+y=30$, lalu memakai AM-GM $\\sqrt{xy}\\le\\dfrac{x+y}{2}$ dengan kesamaan saat $x=y$.',
     hints: [
-      'Hanya tiga sisi yang dipagari.',
-      'Nyatakan $y$ dalam $x$ lalu susun fungsi luas.',
-      'Puncak parabola $f(x) = ax^2 + bx + c$ ada di $x = -\\dfrac{b}{2a}$.',
+      'Keliling $60$ berarti $x+y=30$.',
+      'AM-GM menyatakan $\\sqrt{xy}\\le\\dfrac{x+y}{2}$ dengan kesamaan saat $x=y$.',
     ],
-    competencies: ['pemodelan', 'optimasi', 'fungsi kuadrat'],
+    competencies: ['AM-GM', 'pemodelan', 'optimasi'],
     rubric: [
-      'Memodelkan $2x+y=40$ karena satu sisi dibatasi tembok',
-      'Menyusun luas $A=x(40-2x)$',
-      'Menemukan puncak parabola di $x=10$',
-      'Menentukan $y=20$ dan luas maksimum $200$ m$^2$',
+      'Mengubah keliling $60$ menjadi $x+y=30$',
+      'Menerapkan AM-GM $\\sqrt{xy}\\le\\dfrac{x+y}{2}=15$',
+      'Menyimpulkan luas maksimum $xy\\le225$ m$^2$',
+      'Menentukan kesamaan saat $x=y=15$ sehingga taman $15\\times15$ m',
     ],
   },
   {
@@ -294,5 +293,29 @@ export const ketaksamaanQuestions: Question[] = [
       'Periksa juga apakah setiap pernyataan yang benar tetap berlaku untuk $x > 0$.',
     ],
     competencies: ['AM-GM', 'evaluasi'],
+  },
+  {
+    id: 'ktk-15',
+    topicId: 'ketaksamaan',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Untuk bilangan real positif $a$, $b$, dan $c$ dengan $a+b+c=1$, buktikan bahwa $ab+bc+ca\\le\\dfrac{1}{3}$. Kapan kesamaan tercapai?',
+    answer:
+      'Karena $(a+b+c)^2=1$, maka $a^2+b^2+c^2+2(ab+bc+ca)=1$. Dari $\\tfrac{1}{2}\\left[(a-b)^2+(b-c)^2+(c-a)^2\\right]\\ge0$ diperoleh $a^2+b^2+c^2\\ge ab+bc+ca$. Substitusi: $1=(a^2+b^2+c^2)+2(ab+bc+ca)\\ge 3(ab+bc+ca)$, sehingga $ab+bc+ca\\le\\dfrac{1}{3}$. Kesamaan tercapai saat $a=b=c=\\dfrac{1}{3}$.',
+    explanation:
+      'Kunci: memakai identitas $(a+b+c)^2$ bersama $a^2+b^2+c^2\\ge ab+bc+ca$ yang berasal dari jumlah kuadrat selisih.',
+    hints: [
+      'Kembangkan $(a+b+c)^2$ dan gunakan $a+b+c=1$.',
+      'Tunjukkan $a^2+b^2+c^2\\ge ab+bc+ca$ dari $\\tfrac{1}{2}\\sum (a-b)^2\\ge0$.',
+    ],
+    competencies: ['ketaksamaan', 'pembuktian', 'optimasi'],
+    rubric: [
+      'Mengembangkan $(a+b+c)^2=1$ menjadi $a^2+b^2+c^2+2(ab+bc+ca)=1$',
+      'Menunjukkan $a^2+b^2+c^2\\ge ab+bc+ca$',
+      'Menyimpulkan $ab+bc+ca\\le\\dfrac{1}{3}$',
+      'Menentukan kesamaan saat $a=b=c=\\dfrac{1}{3}$',
+    ],
   },
 ];

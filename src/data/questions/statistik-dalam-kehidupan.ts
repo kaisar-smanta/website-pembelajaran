@@ -160,7 +160,7 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     topicId: 'statistik-dalam-kehidupan',
     difficulty: 'mahir',
     type: 'open-response',
-    category: 'penalaran',
+    category: 'kontekstual',
     prompt:
       'Sebuah grafik batang menunjukkan penjualan Januari $100$ unit dan Februari $105$ unit, tetapi sumbu vertikalnya dimulai dari $95$ sehingga batang Februari tampak dua kali lebih tinggi daripada batang Januari. Jelaskan mengapa grafik ini menyesatkan dan bagaimana penyajian yang jujur memperbaikinya.',
     answer:
@@ -202,16 +202,19 @@ export const statistikDalamKehidupanQuestions: Question[] = [
   {
     id: 'sdk-11',
     topicId: 'statistik-dalam-kehidupan',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
-    category: 'penalaran',
+    category: 'kontekstual',
     prompt:
-      'Rata-rata delapan bilangan adalah $12$. Setelah satu bilangan baru ditambahkan, rata-ratanya menjadi $13$. Tentukan bilangan baru tersebut.',
-    answer: '21',
-    acceptedAnswers: ['21'],
+      'Rata-rata berat delapan karung beras adalah $12$ kg. Setelah satu karung diambil, rata-rata berat karung yang tersisa menjadi $11{,}5$ kg. Tentukan berat karung yang diambil.',
+    answer: '15,5',
+    acceptedAnswers: ['15,5', '15.5', '15,50', '15.50', '31/2'],
     explanation:
-      'Jumlah delapan bilangan $=8\\times 12=96$. Jumlah sembilan bilangan $=9\\times 13=117$. Bilangan baru $=117-96=21$.',
-    hints: ['Ubah rata-rata menjadi jumlah total terlebih dahulu.', 'Bandingkan jumlah sebelum dan sesudah penambahan.'],
+      'Jumlah berat delapan karung $=8\\times 12=96$ kg. Jumlah berat tujuh karung yang tersisa $=7\\times 11{,}5=80{,}5$ kg. Berat karung yang diambil $=96-80{,}5=15{,}5$ kg.',
+    hints: [
+      'Ubah rata-rata menjadi jumlah total sebelum dan sesudah pengambilan.',
+      'Berat karung yang diambil adalah selisih jumlah berat awal dan jumlah berat sisa.',
+    ],
     competencies: ['mean', 'penalaran'],
   },
   {

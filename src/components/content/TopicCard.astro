@@ -14,6 +14,8 @@ interface Props {
   /** Mata pelajaran; kosong berarti 'matematika'. */
   subject?: SubjectId;
   status?: 'lengkap' | 'rencana';
+  /** Topik pengayaan di atas capaian pembelajaran; menampilkan badge. */
+  supplementary?: boolean;
   showMeta?: boolean;
   /** Tampilkan badge jenjang (mis. "Kelas X"). */
   showBadge?: boolean;
@@ -32,6 +34,7 @@ const {
   slug,
   subject = 'matematika',
   status = 'lengkap',
+  supplementary = false,
   showMeta = true,
   showBadge = true,
   showElementName = true,
@@ -69,7 +72,14 @@ const summaryHtml = renderInlineMarkdown(summary);
     <a class="topic-card-body" href={href}>
       <div class="card-top">
         <span class="icon-wrap" aria-hidden="true"><ElementIcon element={element} /></span>
-        {showMeta && showBadge && <span class="badge badge-grade">{gradeMeta.name}</span>}
+        {
+          (showMeta && showBadge) || supplementary ? (
+            <span class="card-badges">
+              {showMeta && showBadge && <span class="badge badge-grade">{gradeMeta.name}</span>}
+              {supplementary && <span class="badge badge-pengayaan">Pengayaan</span>}
+            </span>
+          ) : null
+        }
       </div>
       <h3 class="topic-title">{title}</h3>
       <p class="topic-summary" set:html={summaryHtml}></p>
@@ -153,6 +163,12 @@ const summaryHtml = renderInlineMarkdown(summary);
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+  }
+  .card-badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.3rem;
   }
   .icon-wrap {
     display: grid;

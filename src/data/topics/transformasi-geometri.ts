@@ -12,7 +12,7 @@ export const transformasiGeometri: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Transformasi geometri belum tercantum sebagai topik eksplisit dalam daftar CP saat ini, tetapi topik ini memperkuat elemen geometri sekaligus menjembatani fungsi, matriks, dan sistem koordinat.',
+    'Penerapan matriks pada transformasi geometri baru menjadi tuntutan CP Matematika Tingkat Lanjut melalui FL-ALJ-2 (elemen aljabar-fungsi), bukan bagian CP Matematika wajib. Di jenjang wajib, topik ini berfungsi sebagai pendalaman elemen geometri: peserta didik melatih pembacaan koordinat, pencerminan, dan penyusunan pola berulang seperti motif batik, tanpa menuntut aljabar matriks formal.',
   estimatedMinutes: 95,
   summary:
     'Mempelajari translasi, refleksi, rotasi, dan dilatasi titik serta bangun pada bidang koordinat dan menyatakannya dengan matriks $2 \\times 2$.',
@@ -492,42 +492,42 @@ Dalam desain motif batik, pola dicerminkan dan digeser untuk membentuk ragam hia
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `Komposisi dua pencerminan menyimpan pola yang indah.
+      title: "Titik Tetap pada Komposisi Rotasi dan Pencerminan",
+      body: `Tidak semua titik bergeser ketika dua transformasi dirangkai.
 
-Misalkan $R_x$ adalah refleksi terhadap sumbu-$x$ dan $R_{y=x}$ refleksi terhadap garis $y=x$. Kedua garis itu berpotongan di titik asal dan membentuk sudut $45^\\circ$.
+Misalkan titik $P(x,y)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal, lalu hasilnya dicerminkan terhadap sumbu-$y$.
 
-Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap garis $y=x$" setara dengan **rotasi $90^\\circ$ berlawanan arah jarum jam** terhadap titik asal.`,
+(a) Tuliskan pemetaan $(x,y)$ oleh komposisi ini. (b) Tentukan himpunan semua titik yang **tidak berpindah** oleh komposisi itu, lalu jelaskan bentuknya di bidang. (c) Periksa jawabanmu pada titik $(2,-5)$ dan pada sebuah titik yang kamu duga tetap.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: `Kerjakan dua aturan refleksi pada titik umum $(x,y)$ satu per satu, lalu bandingkan hasilnya dengan aturan rotasi $90^\\circ$.`,
+          text: `Rangkai kedua aturan pemetaan menjadi satu, lalu selesaikan persamaan yang menyatakan sebuah titik sama dengan bayangannya sendiri.`,
         },
         {
           kind: "step-reveal",
-          intro: "Terapkan aturan refleksi secara berurutan, lalu cocokkan dengan aturan rotasi.",
+          intro: "Rangkai aturan rotasi dan refleksi, cari titik yang memenuhi bayangan sama dengan titik asal, lalu uji dengan dua titik.",
           steps: [
             {
-              title: "Aturan refleksi sumbu-$x$",
-              text: `Refleksi terhadap sumbu-$x$ memetakan $(x,y)\\rightarrow(x,-y)$.`,
+              title: "Aturan rotasi",
+              text: `Rotasi $90^\\circ$ berlawanan arah jarum jam memetakan $(x,y)\\rightarrow(-y,x)$.`,
             },
             {
-              title: "Aturan refleksi garis $y=x$",
-              text: `Refleksi terhadap garis $y=x$ memetakan $(u,v)\\rightarrow(v,u)$.`,
+              title: "Aturan refleksi sumbu-$y$",
+              text: `Refleksi terhadap sumbu-$y$ memetakan $(u,v)\\rightarrow(-u,v)$.`,
             },
             {
-              title: "Terapkan berturut-turut",
-              text: `Mula-mula $(x,y)\\rightarrow(x,-y)$. Titik $(x,-y)$ lalu dikenai refleksi garis $y=x$ dan menjadi $(-y,x)$.`,
+              title: "Rangkai kedua aturan",
+              text: `Terapkan berturut-turut: $(x,y)\\rightarrow(-y,x)\\rightarrow(y,x)$. Jadi seluruh komposisi memetakan $(x,y)\\rightarrow(y,x)$, yaitu menukar absis dan ordinat.`,
             },
             {
-              title: "Bandingkan dengan rotasi",
-              text: `Aturan rotasi $90^\\circ$ berlawanan arah jarum jam adalah $(x,y)\\rightarrow(-y,x)$.`,
+              title: "Cari titik tetap",
+              text: `Sebuah titik tidak berpindah bila $(y,x)=(x,y)$, yang menuntut $x=y$. Himpunan titik tetapnya adalah seluruh garis $y=x$: setiap titik pada garis itu dipetakan ke dirinya sendiri.`,
             },
             {
-              title: "Kesimpulan",
-              text: `Kedua pemetaan memberi hasil yang sama untuk setiap $(x,y)$. Jadi komposisi refleksi sumbu-$x$ lalu refleksi garis $y=x$ setara dengan rotasi $90^\\circ$ berlawanan arah jarum jam. Terbukti.`,
+              title: "Periksa",
+              text: `Untuk $(2,-5)$: rotasi memberi $(5,2)$, lalu refleksi sumbu-$y$ memberi $(-5,2)$. Hasil $(y,x)=(-5,2)$ memang tidak sama dengan titik asal, sehingga titik itu berpindah karena tidak terletak pada $y=x$. Untuk $(3,3)$ di garis $y=x$: $(3,3)\\rightarrow(-3,3)\\rightarrow(3,3)$, tepat kembali ke posisi semula. Benar.`,
             },
           ],
         },
@@ -536,7 +536,7 @@ Buktikan bahwa komposisi "refleksi terhadap sumbu-$x$ **lalu** refleksi terhadap
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Descartes ke Program Erlangen",
       body: `Gagasan memindahkan dan mencerminkan bangun sudah lama hadir dalam seni, misalnya pola simetri pada ornamen dan motif batik. Perhitungan transformasi sebagai perubahan koordinat menjadi mungkin setelah René Descartes memperkenalkan geometri koordinat pada 1637. Pada 1872 Felix Klein dalam *Erlanger Programm* mengusulkan memandang geometri sebagai kajian sifat yang tetap di bawah sekelompok transformasi, sebuah cara pandang yang menyatukan berbagai cabang geometri. Perwakilan transformasi oleh matriks dikembangkan sejalan dengan aljabar matriks pada abad ke-19 dan kini menjadi dasar grafika komputer.`,
     },
     {

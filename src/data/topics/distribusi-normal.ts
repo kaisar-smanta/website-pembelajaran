@@ -433,35 +433,54 @@ Ingat, model ini tetap **perkiraan**. Sebelum memakainya, periksa apakah datanya
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `Kaidah empiris memberi luas $68{,}27\\%$, $95{,}45\\%$, dan $99{,}73\\%$ untuk $k = 1, 2, 3$. Tetapi dari manakah angka-angka itu berasal?
+      title: "Tantangan: Ambang Dua Kurva Normal",
+      body: `**Soal.** Dua kelas mengikuti ujian yang sama. Nilai kelas A berdistribusi $X \\sim N(70, 10^{2})$ dan nilai kelas B berdistribusi $Y \\sim N(60, 15^{2})$. Dosen ingin menetapkan satu ambang nilai $c$ sehingga peluang seorang siswa kelas A bernilai **di atas** $c$ sama dengan peluang siswa kelas B bernilai di atas $c$.
 
-**Soal.** Untuk distribusi normal baku $Z \\sim N(0,1)$, luas $P(-k \\leq z \\leq k)$ dihitung dari fungsi galat $\\operatorname{erf}$, yaitu
-$$P(-k \\leq z \\leq k) = \\operatorname{erf}\\!\\left(\\frac{k}{\\sqrt{2}}\\right).$$
-(a) Buktikanlah bahwa untuk $k = 1$ nilai ini sekitar $0{,}6827$. (b) Turunkan rumus peluang ekor $P(z > k) = \\dfrac{1}{2}\\left(1 - \\operatorname{erf}\\!\\left(\\dfrac{k}{\\sqrt{2}}\\right)\\right)$, lalu jelaskan mengapa $P(z < -2) = P(z > 2)$.`,
+(a) Tentukan $c$. (b) Hitung peluang bersama itu dengan kaidah empiris.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: "Ingat bahwa luas total di bawah kurva normal baku adalah $1$ dan kurva simetris terhadap $0$. Untuk bagian (a), substitusikan $k = 1$ dan gunakan nilai $\\operatorname{erf}\\!\\left(\\dfrac{1}{\\sqrt{2}}\\right) \\approx 0{,}6827$.",
+          text: "Dua peluang ekor sama besar hanya jika skor baku batasnya sama. Samakan $\\dfrac{c-70}{10}$ dengan $\\dfrac{c-60}{15}$, lalu selesaikan untuk $c$.",
         },
         {
-          kind: "details",
-          summary: "Pembahasan lengkap",
-          text: `**(a)** Sesuai rumus yang diberikan, $P(-1 \\leq z \\leq 1) = \\operatorname{erf}\\!\\left(\\dfrac{1}{\\sqrt{2}}\\right)$. Karena $\\dfrac{1}{\\sqrt{2}} \\approx 0{,}7071$ dan $\\operatorname{erf}(0{,}7071) \\approx 0{,}6827$, terbukti $P(-1 \\leq z \\leq 1) \\approx 0{,}6827$.
-
-**(b)** Karena luas total $1$ dan kurva simetris, peluang di kanan $k$ adalah separuh dari sisa setelah dikurangi luas tengah:
-$$P(z > k) = \\frac{1 - \\operatorname{erf}\\!\\left(\\dfrac{k}{\\sqrt{2}}\\right)}{2}.$$
-Simetri kurva terhadap $0$ membuat luas ekor kiri sama dengan ekor kanannya, sehingga $P(z < -k) = P(z > k)$. Khususnya $P(z < -2) = P(z > 2) \\approx 0{,}0228$.`,
+          kind: "step-reveal",
+          intro: "Samakan peluang ekor kedua kurva melalui skor baku.",
+          steps: [
+            {
+              title: "Tulis kedua peluang ekor",
+              text: "Yang diminta adalah $P(X > c) = P(Y > c)$.",
+            },
+            {
+              title: "Standardisasi masing-masing",
+              text: "$P(X > c) = P\\!\\left(z > \\dfrac{c - 70}{10}\\right)$ dan $P(Y > c) = P\\!\\left(z > \\dfrac{c - 60}{15}\\right)$.",
+            },
+            {
+              title: "Samakan skor baku batas",
+              text: "Karena fungsi sebaran normal baku naik tegas, dua peluang ekor kanan sama hanya bila batas skornya sama: $\\dfrac{c - 70}{10} = \\dfrac{c - 60}{15}$.",
+            },
+            {
+              title: "Selesaikan persamaan",
+              text: "Kalikan silang: $15(c - 70) = 10(c - 60)$, sehingga $15c - 1050 = 10c - 600$ dan $5c = 450$. Diperoleh $c = 90$.",
+            },
+            {
+              title: "Periksa",
+              text: "Untuk $c = 90$, skor baku kelas A adalah $\\dfrac{90 - 70}{10} = 2$ dan kelas B adalah $\\dfrac{90 - 60}{15} = 2$. Keduanya sama, jadi peluang ekornya memang seragam.",
+            },
+            {
+              title: "Hitung peluang bersama",
+              text: "Kaidah empiris memberi $P(z > 2) \\approx 0{,}0228$, yaitu sekitar $2{,}28\\%$ siswa dari tiap kelas bernilai di atas $90$.",
+            },
+          ],
         },
       ],
     },
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Kurva lonceng muncul lebih dahulu daripada namanya. Abraham de Moivre pada 1733 menurunkannya sebagai hampiran bagi distribusi binomial ketika $n$ membesar, dan Pierre-Simon Laplace mengembangkan alat ini pada awal 1800-an. Carl Friedrich Gauss memakainya untuk memodelkan galat pengukuran sehingga kurva ini sering disebut **kurva Gaussian**; nama "distribusi normal" dibakukan kemudian oleh Karl Pearson pada akhir abad ke-19. Pada 1812 Laplace menyumbangkan **teorema limit pusat**, yang menjelaskan mengapa jumlah banyak pengaruh kecil yang saling bebas cenderung menyebar normal, yaitu alasan mendalam mengapa kurva ini begitu sering muncul di alam dan dalam pengukuran.`,
+      title: "De Moivre, Gauss, dan Teorema Limit Pusat",
+      body: `Kurva lonceng muncul lebih dahulu daripada namanya. Abraham de Moivre pada 1733 menurunkannya sebagai hampiran bagi distribusi binomial ketika $n$ membesar, dan Pierre-Simon Laplace mengembangkan alat ini pada awal abad ke-1800-an. Carl Friedrich Gauss memakainya untuk memodelkan galat pengukuran sehingga kurva ini sering disebut **kurva Gaussian**. **Teorema limit pusat** menjelaskan mengapa jumlah banyak pengaruh kecil yang saling bebas cenderung menyebar normal: de Moivre sudah menemukan versi awalnya untuk kasus binomial pada 1733, lalu Laplace merumuskan bentuk yang lebih umum pada 1812, dan teorema versi modern dengan syarat yang lebih longgar dibuktikan kemudian oleh Aleksandr Lyapunov dan Jarl Waldemar Lindeberg pada awal abad ke-20. Sejarah korelasi dan regresi yang sering dikaitkan dengan nama Galton dan Pearson dibahas pada topik [Regresi](/matematika/kelas/XI/data-peluang/regresi).`,
     },
     {
       id: "refleksi",

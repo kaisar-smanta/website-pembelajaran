@@ -273,7 +273,7 @@ export const lingkaranQuestions: Question[] = [
   {
     id: 'lk-14',
     topicId: 'lingkaran',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penerapan',
     prompt:

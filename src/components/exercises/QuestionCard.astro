@@ -607,7 +607,7 @@ const competencies = question.competencies ?? [];
     }
 
     if (type === 'multiple-choice') {
-      // Acak ulang urutan opsi dengan benih sesi. Karena pasangan key–teks tetap
+      // Acak ulang urutan opsi dengan benih sesi. Karena pasangan key-teks tetap
       // utuh, penilaian lewat `data-answer` tidak terpengaruh.
       const list = root.querySelector<HTMLElement>('.q-options');
       if (list) {

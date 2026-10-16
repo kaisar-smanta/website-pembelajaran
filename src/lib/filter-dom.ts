@@ -110,7 +110,7 @@ export interface FilterPageOptions {
 }
 
 /**
- * Menulis pasangan kunci–nilai ke query string URL (via `replaceState`);
+ * Menulis pasangan kunci-nilai ke query string URL (via `replaceState`);
  * nilai kosong menghapus parameternya. Dipakai bersama oleh halaman saring.
  */
 export function writeQuery(values: Record<string, string | null | undefined>): void {

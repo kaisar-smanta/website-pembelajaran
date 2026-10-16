@@ -174,7 +174,7 @@ export const komposisiFungsiQuestions: Question[] = [
   {
     id: 'kf-09',
     topicId: 'komposisi-fungsi',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

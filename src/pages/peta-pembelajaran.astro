@@ -189,6 +189,22 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
               ))}
             </div>
           </div>
+          <div class="map-filter-group">
+            <span class="map-filter-label">Pengayaan</span>
+            <div
+              class="map-chip-row"
+              data-map-pengayaan-chips
+              role="group"
+              aria-label="Saring topik pengayaan"
+            >
+              <button type="button" class="topic-chip is-active" data-map-pengayaan="all" aria-pressed="true">
+                Semua
+              </button>
+              <button type="button" class="topic-chip" data-map-pengayaan="ya" aria-pressed="false">
+                Hanya pengayaan
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="map-toolbar-aside">

@@ -201,6 +201,13 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
             <button type="button" class="filter-btn" data-filter="kemajuan" data-value="selesai" aria-pressed="false">Selesai</button>
           </div>
         </div>
+        <div class="filter-group" role="group" aria-labelledby="filter-pengayaan-label">
+          <span class="filter-label" id="filter-pengayaan-label">Pengayaan</span>
+          <div class="filter-options">
+            <button type="button" class="filter-btn" data-filter="pengayaan" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="filter-btn" data-filter="pengayaan" data-value="ya" aria-pressed="false">Hanya pengayaan</button>
+          </div>
+        </div>
         <div class="filter-group filter-search" role="search">
           <label class="filter-label" for="latihan-search">Cari topik</label>
           <input
@@ -278,6 +285,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
                           counts={practiceCounts(topic.id)}
                           questionIds={questionsByTopic(topic.id).map((q) => q.id)}
                           keywords={topic.keywords}
+                          supplementary={topic.supplementary}
                         />
                       ))}
                     </div>
@@ -511,7 +519,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
   const root = document.querySelector<HTMLElement>('[data-latihan-root]');
 
   if (root) {
-    const KEYS = ['mapel', 'kelas', 'elemen', 'tingkat', 'kemajuan'] as const;
+    const KEYS = ['mapel', 'kelas', 'elemen', 'tingkat', 'kemajuan', 'pengayaan'] as const;
 
     const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-practice-card]'));
     const countEl = root.querySelector<HTMLElement>('[data-result-count]');
@@ -577,6 +585,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
       const levels = (card.getAttribute('data-levels') ?? '').split(/\s+/).filter(Boolean);
       if (!matchesAny(selected(values.tingkat), levels)) return false;
       if (!matchesAny(selected(values.kemajuan), [statusOf(card)])) return false;
+      if (values.pengayaan === 'ya' && card.getAttribute('data-pengayaan') !== 'true') return false;
       if (query && !(card.getAttribute('data-search') ?? '').includes(query)) return false;
       return true;
     }

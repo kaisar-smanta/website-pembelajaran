@@ -245,20 +245,20 @@ export const pemodelanFungsiQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Massa sebuah zat radioaktif berkurang menjadi setengah setiap $5$ tahun. Mula-mula tersedia $800$ gram. (a) Susun model massa $M(t)$ (gram) sebagai fungsi waktu $t$ (tahun). (b) Tentukan massa zat setelah $15$ tahun. (c) Tentukan setelah berapa tahun massa zat tersisa $200$ gram.',
+      'Konsentrasi sebuah obat dalam darah berkurang menjadi $60\\%$ dari konsentrasi sebelumnya setiap $2$ jam. Mula-mula terdapat $250$ mg obat. (a) Susun model konsentrasi $K(t)$ (mg) sebagai fungsi waktu $t$ (jam). (b) Tentukan konsentrasi obat setelah $6$ jam. (c) Tentukan setelah berapa jam konsentrasi obat tinggal $90$ mg.',
     answer:
-      '(a) Karena berkurang setengah tiap $5$ tahun, pangkatnya adalah $t/5$, sehingga $M(t)=800\\left(\\dfrac{1}{2}\\right)^{t/5}$. (b) $M(15)=800\\left(\\dfrac{1}{2}\\right)^{3}=800\\cdot\\dfrac{1}{8}=100$ gram. (c) Selesaikan $800\\left(\\dfrac{1}{2}\\right)^{t/5}=200$, maka $\\left(\\dfrac{1}{2}\\right)^{t/5}=\\dfrac{1}{4}=\\left(\\dfrac{1}{2}\\right)^{2}$, sehingga $\\dfrac{t}{5}=2$ dan $t=10$ tahun.',
+      '(a) Setiap selang $2$ jam konsentrasi dikalikan $0{,}6$, sehingga pangkatnya $t/2$ dan modelnya $K(t)=250\\,(0{,}6)^{t/2}$. (b) $K(6)=250\\,(0{,}6)^{3}=250\\cdot0{,}216=54$ mg. (c) Selesaikan $250\\,(0{,}6)^{t/2}=90$, maka $(0{,}6)^{t/2}=\\dfrac{90}{250}=0{,}36=(0{,}6)^{2}$. Jadi $\\dfrac{t}{2}=2$ dan $t=4$ jam.',
     explanation:
-      'Kunci: menerjemahkan konsep waktu paruh menjadi eksponen $t/5$, menghitung nilai model, dan menyelesaikan persamaan eksponensial dengan menyamakan pangkat.',
+      'Kunci: menerjemahkan pengurangan proporsional tiap $2$ jam menjadi eksponen $t/2$, menghitung nilai model, dan menyelesaikan persamaan eksponensial dengan menyamakan basis $0{,}6$.',
     hints: [
-      'Waktu paruh $5$ tahun berarti pangkatnya $t/5$, bukan $t$.',
-      'Nyatakan $\\dfrac{1}{4}$ sebagai pangkat dari $\\dfrac{1}{2}$.',
+      'Pengurangan tiap $2$ jam berarti eksponennya $t/2$, bukan $t$.',
+      'Untuk bagian (c), nyatakan $0{,}36$ sebagai pangkat dari $0{,}6$.',
     ],
-    competencies: ['pemodelan eksponensial', 'waktu paruh', 'persamaan eksponensial'],
+    competencies: ['pemodelan eksponensial', 'peluruhan', 'persamaan eksponensial'],
     rubric: [
-      'Menerjemahkan waktu paruh ke eksponen $t/5$',
-      'Menghitung massa setelah 15 tahun',
-      'Menyelesaikan persamaan eksponensial',
+      'Menerjemahkan pengurangan $60\\%$ tiap 2 jam menjadi eksponen $t/2$',
+      'Menghitung konsentrasi setelah 6 jam sebesar $54$ mg',
+      'Menyelesaikan persamaan eksponensial sehingga $t=4$ jam',
       'Memeriksa jawaban dengan substitusi',
     ],
   },

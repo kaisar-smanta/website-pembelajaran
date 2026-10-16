@@ -398,38 +398,42 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah bola dijatuhkan dari ketinggian $3$ m. Setiap kali memantul, bola mencapai $\\dfrac{2}{3}$ dari ketinggian sebelumnya. Tentukan panjang seluruh lintasan yang ditempuh bola sampai akhirnya berhenti.`,
+      title: "Kotak Bersarang",
+      body: `**Soal.** Sebuah persegi besar memiliki luas $64$ cm$^2$. Di dalamnya dibuat persegi baru dengan menghubungkan titik tengah tiap sisinya, lalu di dalam persegi itu dibuat persegi lagi dengan cara yang sama, dan begitu seterusnya tanpa henti. Tentukan jumlah luas seluruh persegi, termasuk persegi pertama.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: "Setiap pantulan menempuh jarak **dua kali** tinggi pantulannya: sekali naik, sekali turun. Pisahkan lintasan jatuh pertama dari deret pantulan.",
+          text: "Persegi yang menghubungkan titik tengah sebuah persegi memiliki luas tepat **setengah** luas persegi sebelumnya. Luas persegi-persegi itu membentuk deret geometri.",
         },
         {
           kind: "step-reveal",
-          intro: "Kita hitung lintasan bola satu bagian demi satu bagian.",
+          intro: "Susun luas tiap persegi, lalu jumlahkan deretnya sampai tak hingga.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Jatuh pertama menempuh $3$ m.",
+              title: "Luas persegi pertama",
+              text: "Persegi pertama memiliki luas $U_1 = 64$ cm$^2$.",
             },
             {
-              title: "Langkah 2",
-              text: "Pantulan pertama mencapai $\\dfrac{2}{3}\\times3 = 2$ m. Naik dan turun, sehingga menambah $2\\times2 = 4$ m.",
+              title: "Luas persegi kedua",
+              text: "Persegi dalam yang menghubungkan titik tengah sisinya memiliki luas setengahnya, yaitu $U_2 = 32$ cm$^2$.",
             },
             {
-              title: "Langkah 3",
-              text: "Tinggi pantulan membentuk barisan geometri $2, \\dfrac{4}{3}, \\dfrac{8}{9}, \\dots$ dengan $a=2$ dan $r=\\dfrac{2}{3}$.",
+              title: "Kenali polanya",
+              text: "Setiap persegi berikutnya berluas setengah persegi sebelumnya, sehingga luasnya membentuk barisan geometri $64, 32, 16, \\dots$ dengan $a = 64$ dan $r = \\dfrac12$.",
             },
             {
-              title: "Langkah 4",
-              text: "Jumlah semua lintasan naik (dan juga turun) adalah $\\dfrac{2}{1-\\tfrac{2}{3}} = \\dfrac{2}{\\tfrac13} = 6$ m.",
+              title: "Periksa kekonvergenan",
+              text: "Karena $\\lvert r \\rvert = \\dfrac12 < 1$, deret luasnya konvergen dan memiliki jumlah berhingga.",
             },
             {
-              title: "Langkah 5",
-              text: "Total lintasan $= 3 + 6 + 6 = 15$ m. Jadi panjang seluruh lintasan bola adalah $15$ m.",
+              title: "Jumlahkan deret",
+              text: "Gunakan $S_\\infty = \\dfrac{a}{1-r} = \\dfrac{64}{1-\\tfrac12} = \\dfrac{64}{\\tfrac12} = 128$.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Jumlah luas seluruh persegi adalah $128$ cm$^2$, dua kali luas persegi pertama. Periksa: jumlah dua persegi pertama sudah $96$ cm$^2$, sedangkan sisanya makin mengecil menuju $32$ cm$^2$.",
             },
           ],
         },
@@ -438,8 +442,8 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Penjumlahan deret sudah dipakai jauh sebelum lambangnya ada. Di Tiongkok dan India kuno, para matematikawan menjumlahkan deret aritmetika dan geometri untuk menghitung pajak, hasil panen, dan bunga. Kisah terkenal tentang Carl Friedrich Gauss, yang sebagai anak sekolah menemukan cara cepat menjumlahkan $1+2+\\cdots+100$, menggambarkan trik pasangan yang menjadi inti rumus $S_n=\\frac{n}{2}(a+U_n)$. Pada abad ke-12, Bhāskara II membahas deret aritmetika dan geometri secara sistematis dalam karyanya *Līlāvatī*. Pembahasan formal deret tak hingga baru matang kemudian, terutama melalui karya Leonhard Euler pada abad ke-18.`,
+      title: "Jejak Deret Kuno",
+      body: `Penjumlahan deret sudah dipakai jauh sebelum lambangnya ada. Di Tiongkok dan India kuno, para matematikawan menjumlahkan deret aritmetika dan geometri untuk menghitung pajak, hasil panen, dan bunga. Kisah terkenal tentang Carl Friedrich Gauss, yang sebagai anak sekolah menemukan cara cepat menjumlahkan $1+2+\\cdots+100$, menggambarkan trik pasangan yang menjadi inti rumus $S_n=\\frac{n}{2}(a+U_n)$. Pada abad ke-12, Bhāskara II membahas deret aritmetika dan geometri secara sistematis dalam karyanya *Līlāvatī*. Pembahasan formal deret tak hingga baru matang kemudian, terutama melalui *Introductio in analysin infinitorum* karya Leonhard Euler (1748).`,
     },
     {
       id: "refleksi",

@@ -413,32 +413,28 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Seorang pengamat berdiri di titik $A$ dan mengukur sudut elevasi ke puncak sebuah menara sebesar $30^\\circ$. Ia berjalan $20$ m lurus mendekati kaki menara menuju titik $B$, lalu mengukur lagi sudut elevasinya sebesar $60^\\circ$. Abaikan tinggi alat ukur. Tentukan tinggi menara.`,
+      title: "Lebar Sungai lewat Aturan Sinus",
+      body: `**Soal.** Untuk menaksir lebar sebuah sungai, dua patok $A$ dan $B$ dipasang pada tepi yang sama dengan jarak $50$ m. Sebuah pohon $P$ di tepi seberang diamati dari $A$ dengan sudut $75^\\circ$ antara garis $AB$ dan pandangan $AP$, dan dari $B$ dengan sudut $60^\\circ$ antara garis $BA$ dan pandangan $BP$. Tentukan lebar sungai, yaitu jarak tegak lurus dari $P$ ke garis $AB$.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Bentuk dua segitiga siku-siku dari kedua posisi, lalu samakan tinggi menara.",
+          intro: "Susun segitiga $ABP$, hitung sisi $AP$ dengan aturan sinus, lalu proyeksikan untuk memperoleh lebar.",
           steps: [
             {
-              title: "Tentukan variabel",
-              text: "Misalkan $h$ tinggi menara dan $x$ jarak dari titik $B$ ke kaki menara.",
+              title: "Susun segitiga $ABP$",
+              text: "Pada segitiga $ABP$ diketahui $\\angle A = 75^\\circ$, $\\angle B = 60^\\circ$, sehingga $\\angle P = 180^\\circ - 75^\\circ - 60^\\circ = 45^\\circ$. Sisi $AB = 50$ m berhadapan dengan $\\angle P$.",
             },
             {
-              title: "Dari titik dekat $B$",
-              text: "Segitiga siku-siku dengan sudut $60^\\circ$: $\\tan 60^\\circ=\\dfrac{h}{x}$, sehingga $h=x\\sqrt{3}$.",
+              title: "Hitung sisi $AP$",
+              text: "Dengan aturan sinus, $\\dfrac{AP}{\\sin B} = \\dfrac{AB}{\\sin P}$, sehingga $AP = 50 \\cdot \\dfrac{\\sin 60^\\circ}{\\sin 45^\\circ} = 50 \\cdot \\dfrac{\\sqrt{3}/2}{\\sqrt{2}/2} = 50\\sqrt{\\dfrac{3}{2}} \\approx 61{,}24$ m.",
             },
             {
-              title: "Dari titik jauh $A$",
-              text: "Jarak ke kaki menara sekarang $x+20$ dan sudutnya $30^\\circ$: $\\tan 30^\\circ=\\dfrac{h}{x+20}$, sehingga $h=\\dfrac{x+20}{\\sqrt{3}}$.",
+              title: "Proyeksikan ke garis $AB$",
+              text: "Lebar sungai $h$ adalah jarak tegak lurus dari $P$ ke $AB$. Pada segitiga siku-siku dengan sudut $75^\\circ$ di $A$, berlaku $h = AP \\sin 75^\\circ \\approx 61{,}24 \\times 0{,}9659 \\approx 59{,}15$ m.",
             },
             {
-              title: "Samakan dan selesaikan",
-              text: "$x\\sqrt{3}=\\dfrac{x+20}{\\sqrt{3}}$. Kalikan dengan $\\sqrt{3}$: $3x=x+20$, sehingga $2x=20$ dan $x=10$ m.",
-            },
-            {
-              title: "Hitung tinggi menara",
-              text: "$h=x\\sqrt{3}=10\\sqrt{3}\\approx 17{,}32$ m. Jadi tinggi menara sekitar $17{,}32$ m.",
+              title: "Tulis bentuk eksak",
+              text: "Dalam bentuk eksak, $h = 50\\,\\dfrac{\\sin 60^\\circ \\sin 75^\\circ}{\\sin 45^\\circ} = \\dfrac{25}{2}(3+\\sqrt{3}) \\approx 59{,}15$ m. Jadi lebar sungai sekitar $59{,}15$ m.",
             },
           ],
         },
@@ -447,7 +443,7 @@ Untuk latihan membaca kasus nyata, lihat [Menaksir Tinggi Menara](/aplikasi/peng
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Tabel Tali Busur Almagest",
       body: `Trigonometri tumbuh dari kebutuhan astronomi. Pada abad ke-2 SM, Hipparchus dari Nicea menyusun tabel **tali busur** yang menghubungkan sudut dengan panjang tali busur pada sebuah lingkaran, sebuah alat untuk memperkirakan posisi benda langit. Claudius Ptolemaeus, sekitar empat abad kemudian, menyempurnakan tabel itu dalam *Almagest* dengan mengambil lingkaran berjari-jari 60 dan membuktikan sifat tali busur yang setara dengan rumus penjumlahan sudut. Pada mulanya yang dihitung adalah tali busur penuh, bukan setengahnya.
 
 Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*), yang lebih dekat dengan sinus kita sekarang. Kata *jya* berarti tali busur; melalui terjemahan Arab menjadi *jayb* dan kemudian dibaca *jaib* ("kantong"), istilah itu masuk ke bahasa Latin sebagai *sinus*. Kosinus muncul belakangan sebagai *sinus complementi*, yakni sinus dari sudut penyiku, sedangkan istilah *tangen* dipopulerkan pada abad ke-16. Notasi singkat $\\sin$, $\\cos$, dan $\\tan$ serta perumusan pada lingkaran satuan baru matang pada karya Leonhard Euler pada abad ke-18. Jadi perbandingan $\\sin\\alpha = \\dfrac{\\text{depan}}{\\text{miring}}$ yang kita pelajari adalah warisan panjang dari cara para astronom mengukur langit.`,

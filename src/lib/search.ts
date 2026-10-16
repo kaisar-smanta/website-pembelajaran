@@ -26,6 +26,8 @@ export interface SearchItem {
   type: SearchItemType;
   grade?: string;
   element?: string;
+  /** Materi pengayaan (melampaui capaian pembelajaran); hanya pada topik/latihan. */
+  pengayaan?: boolean;
   keywords: string;
   text: string;
 }
@@ -349,11 +351,12 @@ export function searchItems(items: SearchItem[], query: string, limit = 40): Sea
   };
 }
 
-/** Saringan indeks: kelas, elemen, dan jenis hasil. */
+/** Saringan indeks: kelas, elemen, jenis hasil, dan pengayaan. */
 export interface SearchFilters {
   grade?: string;
   element?: string;
   type?: string;
+  pengayaan?: boolean;
 }
 
 /**
@@ -366,6 +369,7 @@ export function filterItems(items: SearchItem[], filters: SearchFilters): Search
   const type = filters.type ?? '';
   return items.filter((item) => {
     if (type && item.type !== type) return false;
+    if (filters.pengayaan && !item.pengayaan) return false;
     if (grade && item.grade !== grade && item.type !== 'halaman') return false;
     if (element && item.element !== element && item.type !== 'halaman') return false;
     return true;

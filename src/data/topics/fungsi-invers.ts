@@ -398,32 +398,32 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Tentukan rumus invers dari $f(x)=x^{2}-4x+7$ dengan domain $x \\ge 2$. Jelaskan mengapa pembatasan domain itu diperlukan.`,
+      title: "Invers Rasional dan Pertidaksamaan",
+      body: `**Soal.** Diketahui $f(x)=\\dfrac{2x+3}{x-1}$ dengan $x \\neq 1$. (a) Tentukan $f^{-1}(x)$ beserta domainnya. (b) Tentukan semua $x$ yang memenuhi $f^{-1}(x) \\le 1$. (c) Jelaskan mengapa domain $f^{-1}$ tidak memuat $x=2$.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kita lengkapi kuadrat, lalu balik arah pemetaannya.",
+          intro: "Balik pemetaannya, lalu selesaikan pertidaksamaan dan tafsirkan domainnya.",
           steps: [
             {
               title: "Langkah 1",
-              text: "Tanpa pembatasan, $f(x)=x^2-4x+7$ tidak satu-satu karena satu nilai $y$ dapat berasal dari dua nilai $x$. Pembatasan $x \\ge 2$ membuatnya satu-satu.",
+              text: "Mulai dari $y=\\dfrac{2x+3}{x-1}$, lalu kalikan silang: $y(x-1)=2x+3$, sehingga $xy-y=2x+3$.",
             },
             {
               title: "Langkah 2",
-              text: "Lengkapi kuadrat: $f(x)=x^2-4x+7=(x-2)^2+3$.",
+              text: "Kumpulkan suku $x$: $xy-2x=y+3$, yaitu $x(y-2)=y+3$, sehingga $x=\\dfrac{y+3}{y-2}$. Setelah menukar nama variabel, $f^{-1}(x)=\\dfrac{x+3}{x-2}$ dengan $x \\neq 2$.",
             },
             {
               title: "Langkah 3",
-              text: "Tulis $y=(x-2)^2+3$, sehingga $(x-2)^2=y-3$.",
+              text: "Selesaikan $\\dfrac{x+3}{x-2} \\le 1$. Pindahkan $1$ ke ruas kiri: $\\dfrac{x+3-(x-2)}{x-2} \\le 0$, yaitu $\\dfrac{5}{x-2} \\le 0$. Karena pembilangnya $5>0$, pecahan hanya bernilai negatif ketika $x-2<0$, sehingga $x<2$.",
             },
             {
               title: "Langkah 4",
-              text: "Karena $x \\ge 2$, maka $x-2 \\ge 0$, sehingga $x-2=\\sqrt{y-3}$ dan $x=2+\\sqrt{y-3}$.",
+              text: "Domain $f^{-1}$ adalah $x \\neq 2$ karena $2$ tidak pernah menjadi hasil $f$. Misalkan $\\dfrac{2x+3}{x-1}=2$, maka $2x+3=2x-2$, yaitu $3=-2$ yang mustahil. Jadi range $f$ tidak memuat $2$, dan range $f$ itulah domain $f^{-1}$.",
             },
             {
               title: "Langkah 5",
-              text: "Tukar nama variabel: $f^{-1}(x)=2+\\sqrt{x-3}$ dengan domain $x \\ge 3$. Periksa: $f(5)=25-20+7=12$ dan $f^{-1}(12)=2+\\sqrt{9}=5$.",
+              text: "Periksa dengan $x=5$: $f(5)=\\dfrac{13}{4}=3{,}25$ dan $f^{-1}(3{,}25)=\\dfrac{6{,}25}{1{,}25}=5$, kembali ke nilai semula.",
             },
           ],
         },
@@ -432,8 +432,8 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Gagasan fungsi baru matang pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* pada akhir abad ke-17 untuk menyatakan besaran yang bergantung pada variabel, dan Leonhard Euler pada abad ke-18 memberi notasi $f(x)$ yang kita pakai sekarang. Gagasan membalik pemetaan juga tumbuh dari kebutuhan operasi kebalikan, seperti dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers dibakukan seiring berkembangnya notasi himpunan dan pemetaan pada abad ke-19 dan ke-20. Sejak itu fungsi invers menjadi alat baku untuk "membaca kembali" nilai semula dari suatu hasil.`,
+      title: "Dari Notasi Euler ke Simbol Invers",
+      body: `Gagasan fungsi menjadi bahasa baku matematika pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* sekitar 1673 untuk menyatakan besaran yang bergantung pada variabel lain, dan Leonhard Euler memperkenalkan penulisan $f(x)$ pada 1734, notasi yang kita pakai sampai sekarang. Gagasan membalik pemetaan tumbuh dari operasi kebalikan yang lebih tua, seperti dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers baru muncul jauh kemudian, antara lain dipakai John Herschel pada 1813, lalu menyebar seiring berkembangnya bahasa himpunan dan pemetaan. Sejak itu fungsi invers menjadi alat baku untuk membaca kembali nilai semula dari suatu hasil. Kaitan invers dengan komposisi dibahas lebih lanjut pada topik **Komposisi Fungsi**.`,
     },
     {
       id: "refleksi",

@@ -9,7 +9,7 @@
 
 const SQRT_2PI = Math.sqrt(2 * Math.PI);
 
-/** Fungsi galat (aproksimasi Abramowitz–Stegun 7.1.26). */
+/** Fungsi galat (aproksimasi Abramowitz-Stegun 7.1.26). */
 export function erf(x: number): number {
   const sign = x < 0 ? -1 : 1;
   const ax = Math.abs(x);

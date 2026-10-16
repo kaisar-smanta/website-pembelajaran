@@ -91,6 +91,7 @@ const hasPractice = topicsBySubjectElement(subject, element).some((t) =>
                 slug={t.slug}
                 subject={subject}
                 status={t.status}
+                supplementary={'supplementary' in t && t.supplementary === true}
                 showMeta={true}
                 delay={i * 60}
               />

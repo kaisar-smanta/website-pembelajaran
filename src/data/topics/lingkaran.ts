@@ -410,7 +410,7 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Garis Singgung dan Garis Potong",
       body: `**Soal.** Lingkaran berpusat $O$ berjari-jari $6$ cm. Sebuah titik $P$ berada $10$ cm dari $O$. Dari $P$ ditarik satu **garis singgung** yang menyentuh lingkaran di $A$, dan satu **garis potong** melalui $P$ yang memotong lingkaran berturut-turut di $C$ (dekat $P$) lalu $D$. Diketahui $PC = 4$ cm. Dengan teorema garis singgung dan garis potong berlaku $PA^{2} = PC \\cdot PD$. Hitunglah $PA$, $PD$, dan panjang tali busur $CD$.`,
       blocks: [
         {
@@ -448,7 +448,7 @@ Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-ta
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Menghampiri Pi dengan Poligon",
       body: `Bilangan $\\pi$ sudah dipakai berabad-abad sebelum mendapat namanya. Archimedes dari Sirakusa, sekitar 250 SM, menghampiri $\\pi$ dengan menggambar poligon beraturan **di dalam dan di luar** sebuah lingkaran. Dengan poligon bersisi 96 ia membuktikan
 $$3\\tfrac{10}{71} < \\pi < 3\\tfrac{1}{7}.$$
 Batas atas $3\\tfrac{1}{7} = \\frac{22}{7}$ itulah hampiran yang masih kita pakai di kelas. Archimedes juga membuktikan bahwa luas lingkaran sama dengan luas segitiga yang alasnya keliling lingkaran dan tingginya jari-jari, yaitu $L = \\frac{1}{2} \\cdot 2\\pi r \\cdot r = \\pi r^{2}$.
@@ -460,27 +460,33 @@ Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3
           caption: "Tokoh dalam pendekatan nilai pi",
           headers: [
             "Tokoh",
-            "Sumbangan",
+            "Tahun",
+            "Kontribusi",
           ],
           rows: [
             [
-              "Archimedes (sekitar 250 SM)",
-              "Membatasi $\\pi$ dengan poligon 96 sisi.",
+              "Archimedes",
+              "sekitar 250 SM",
+              "Membatasi $\\pi$ dengan poligon 96 sisi di dalam dan di luar lingkaran.",
             ],
             [
-              "Liu Hui (abad ke-3)",
-              "Memakai poligon bersisi 3.072.",
+              "Liu Hui",
+              "abad ke-3",
+              "Memakai poligon bersisi 3.072 untuk menghampiri $\\pi$.",
             ],
             [
-              "Zu Chongzhi (abad ke-5)",
-              "Menghampiri $\\pi$ dengan $\\frac{355}{113}$.",
+              "Zu Chongzhi",
+              "abad ke-5",
+              "Menghampiri $\\pi$ dengan $\\frac{355}{113}$ sampai enam angka di belakang koma.",
             ],
             [
-              "William Jones (1706)",
+              "William Jones",
+              "1706",
               "Memperkenalkan simbol $\\pi$.",
             ],
             [
-              "Leonhard Euler (1737)",
+              "Leonhard Euler",
+              "1737",
               "Mempopulerkan pemakaian simbol $\\pi$.",
             ],
           ],

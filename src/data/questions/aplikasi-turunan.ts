@@ -170,12 +170,12 @@ export const aplikasiTurunanQuestions: Question[] = [
     type: 'short-answer',
     category: 'pemodelan',
     prompt:
-      'Kotak terbuka dibuat dari karton $20 \\text{ cm} \\times 20 \\text{ cm}$ dengan memotong persegi bersisi $x$ di tiap sudut. Tentukan nilai $x$ yang membuat volume maksimum.',
-    answer: '10/3',
-    acceptedAnswers: ['3,33', '3.33', '3,333', '3.333', '10/3', '10 per 3', '3 1/3'],
+      'Sebuah wadah tanpa tutup dibuat dari karton berukuran $16 \\text{ cm} \\times 10 \\text{ cm}$ dengan memotong persegi bersisi $x$ di tiap sudut lalu melipat sisinya. Tentukan nilai $x$ yang membuat volume wadah maksimum.',
+    answer: '2',
+    acceptedAnswers: ['2', '2 cm', '2cm'],
     explanation:
-      'Volume $V(x) = x(20 - 2x)^{2}$. Turunan $V\'(x) = (20 - 2x)(20 - 6x) = 0$ memberi $x = 10$ atau $x = \\dfrac{10}{3}$. Nilai $x = 10$ tidak sah karena membuat lebar nol, jadi $x = \\dfrac{10}{3} \\approx 3{,}33$ cm.',
-    hints: ['Faktorkan $V\'(x)$ dan buang akar yang membuat ukuran tidak positif.', 'Sisi alas menjadi $20 - 2x$, sehingga $x$ harus memenuhi $0 < x < 10$.'],
+      'Volume $V(x)=x(16-2x)(10-2x)=4x^{3}-52x^{2}+160x$. Turunan $V\'(x)=12x^{2}-104x+160=4(3x-20)(x-2)=0$ memberi $x=\\dfrac{20}{3}$ atau $x=2$. Karena lebar $10-2x$ harus positif, $x<5$, sehingga $x=\\dfrac{20}{3}$ tidak sah. Jadi $x=2$ cm memberi volume maksimum.',
+    hints: ['Nyatakan volume sebagai $V(x)=x(16-2x)(10-2x)$ lalu turunkan.', 'Buang akar yang membuat $10-2x$ tidak positif.'],
     competencies: ['optimasi', 'pemodelan'],
   },
   {
@@ -292,20 +292,20 @@ export const aplikasiTurunanQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'evaluasi',
     prompt:
-      'Diketahui $f(x) = x^{3}$. Pernyataan yang paling tepat mengenai titik $x = 0$ adalah …',
+      'Diketahui $f(x)=x^{4}-4x^{3}+4x^{2}$. Pernyataan yang paling tepat mengenai titik stasionernya adalah …',
     options: [
-      { key: 'A', text: '$f\'(0) = 0$ dan titik $(0,0)$ merupakan titik belok' },
-      { key: 'B', text: '$f\'(0) = 0$ dan titik $(0,0)$ merupakan maksimum lokal' },
-      { key: 'C', text: '$f\'(0)$ tidak ada karena grafik berbelok tajam di titik asal' },
-      { key: 'D', text: '$f\'(0) = 0$ dan titik $(0,0)$ merupakan minimum lokal' },
+      { key: 'A', text: '$x=1$ titik maksimum lokal, sedangkan $x=0$ dan $x=2$ titik minimum lokal' },
+      { key: 'B', text: 'ketiga titik stasioner $x=0,1,2$ semuanya titik minimum lokal' },
+      { key: 'C', text: '$x=1$ titik minimum lokal, sedangkan $x=0$ dan $x=2$ titik maksimum lokal' },
+      { key: 'D', text: 'tidak ada titik stasioner karena $f\'(x)$ tidak pernah nol' },
     ],
     answer: 'A',
     explanation:
-      'Turunan $f\'(x) = 3x^{2}$ sehingga $f\'(0) = 0$. Karena $f\'\'(x) = 6x$ berubah tanda di sekitar $x = 0$ dan nilai $f$ terus naik pada kedua sisinya, titik $(0,0)$ adalah titik belok, bukan ekstrem. Opsi B dan D salah karena $f(x)=x^{3}$ tidak memiliki maksimum maupun minimum lokal di titik asal. Opsi C salah karena $f\'(0) = 0$ ada dan terdefinisi; grafik memang mendatar di titik itu, tidak menimbulkan turunan tak ada.',
+      '$f\'(x)=4x^{3}-12x^{2}+8x=4x(x-1)(x-2)$, sehingga titik stasioner di $x=0$, $x=1$, dan $x=2$. Turunan kedua $f\'\'(x)=12x^{2}-24x+8$ memberi $f\'\'(0)=8>0$ (minimum lokal), $f\'\'(1)=-4<0$ (maksimum lokal), dan $f\'\'(2)=8>0$ (minimum lokal). Jadi opsi A tepat. Opsi B mengabaikan bahwa $f\'\'(1)<0$. Opsi C menukar peran maksimum dan minimum. Opsi D salah karena $f\'(x)$ bernilai nol di tiga titik itu.',
     hints: [
-      'Hitung $f\'(0)$ dan $f\'\'(0)$ terlebih dahulu.',
-      'Periksa apakah nilai fungsi di kiri dan kanan $x=0$ lebih kecil atau lebih besar dari $f(0)$.',
+      'Faktorkan $f\'(x)=4x(x-1)(x-2)$ untuk menemukan titik stasioner.',
+      'Uji tiap titik stasioner dengan tanda $f\'\'(x)=12x^{2}-24x+8$.',
     ],
-    competencies: ['titik belok', 'evaluasi konsep turunan'],
+    competencies: ['titik stasioner', 'uji turunan kedua', 'evaluasi'],
   },
 ];

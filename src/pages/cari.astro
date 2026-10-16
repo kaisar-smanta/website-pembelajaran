@@ -5,12 +5,14 @@ import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
 import { url } from '@/utils/url';
 import { ALL_ELEMENT_ORDER, GRADE_ORDER, ELEMENTS } from '@/data/curriculum';
+import { topics } from '@/data/topics';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
   { label: 'Cari' },
 ];
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const hasPengayaan = topics.some((t) => t.supplementary);
 const meta = [
   `${ALL_ELEMENT_ORDER.length} elemen kurikulum`,
   `${GRADE_ORDER.length} jenjang kelas`,
@@ -67,6 +69,17 @@ const meta = [
             <option value="halaman">Halaman</option>
           </select>
         </label>
+        {
+          hasPengayaan && (
+            <label>
+              <span class="visually-hidden">Filter pengayaan</span>
+              <select data-filter-pengayaan>
+                <option value="">Semua materi</option>
+                <option value="pengayaan">Pengayaan</option>
+              </select>
+            </label>
+          )
+        }
       </div>
     </form>
 

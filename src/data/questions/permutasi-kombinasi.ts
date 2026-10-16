@@ -156,7 +156,7 @@ export const permutasiKombinasiQuestions: Question[] = [
   {
     id: 'perkom-09',
     topicId: 'permutasi-kombinasi',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'kontekstual',
     prompt:
@@ -253,27 +253,27 @@ export const permutasiKombinasiQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Sebuah panitia beranggota $5$ orang akan dibentuk dari $6$ pria dan $4$ wanita. (a) Berapa banyak susunan panitia yang memuat tepat $2$ wanita? (b) Berapa banyak susunan panitia yang memuat paling sedikit $1$ wanita?',
+      'Sebuah tim futsal beranggotakan $4$ orang akan dibentuk dari $5$ pemain bertahan dan $3$ penyerang. (a) Berapa banyak tim yang memuat tepat $1$ penyerang? (b) Berapa banyak tim yang memuat paling banyak $2$ penyerang?',
     answer:
-      '(a) Pilih $2$ wanita dari $4$ dan $3$ pria dari $6$: $\\binom{4}{2}\\binom{6}{3}=6\\cdot20=120$. (b) Hitung total semua panitia lalu kurangi panitia tanpa wanita: $\\binom{10}{5}-\\binom{6}{5}=252-6=246$. Jadi ada $246$ susunan yang memuat paling sedikit $1$ wanita.',
+      '(a) Pilih $1$ penyerang dari $3$ dan $3$ pemain bertahan dari $5$: $\\binom{3}{1}\\binom{5}{3}=3\\cdot10=30$ tim. (b) Total semua tim adalah $\\binom{8}{4}=70$. Tim dengan lebih dari $2$ penyerang berarti tepat $3$ penyerang, yaitu $\\binom{3}{3}\\binom{5}{1}=1\\cdot5=5$. Jadi banyak tim dengan paling banyak $2$ penyerang adalah $70-5=65$ tim.',
     explanation:
-      'Kunci: memakai aturan perkalian kombinasi untuk kasus "tepat", dan strategi komplemen (total dikurangi tanpa wanita) untuk kasus "paling sedikit".',
+      'Kunci: memakai aturan perkalian kombinasi untuk kasus "tepat", lalu strategi komplemen (total dikurangi banyak penyerang penuh) untuk kasus "paling banyak".',
     hints: [
-      'Untuk "tepat $2$ wanita", pilih wanita dan pria secara terpisah lalu kalikan.',
-      'Untuk "paling sedikit $1$", kurangi total dengan susunan tanpa wanita.',
+      'Untuk "tepat $1$ penyerang", pilih penyerang dan pemain bertahan secara terpisah lalu kalikan.',
+      'Untuk "paling banyak $2$ penyerang", kurangi total tim dengan tim yang memuat $3$ penyerang.',
     ],
     competencies: ['kombinasi', 'aturan perkalian', 'strategi komplemen', 'pemodelan'],
     rubric: [
-      'Menghitung banyak panitia dengan tepat 2 wanita',
-      'Menghitung total semua panitia',
-      'Menggunakan komplemen untuk paling sedikit 1 wanita',
-      'Menafsirkan hasil sesuai konteks',
+      'Menghitung banyak tim dengan tepat 1 penyerang $\\binom{3}{1}\\binom{5}{3}=30$',
+      'Menghitung total semua tim $\\binom{8}{4}=70$',
+      'Menghitung tim dengan 3 penyerang $\\binom{3}{3}\\binom{5}{1}=5$',
+      'Memakai komplemen sehingga paling banyak 2 penyerang $70-5=65$',
     ],
   },
   {
     id: 'perkom-15',
     topicId: 'permutasi-kombinasi',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'kontekstual',
     prompt:
@@ -291,7 +291,7 @@ export const permutasiKombinasiQuestions: Question[] = [
   {
     id: 'perkom-16',
     topicId: 'permutasi-kombinasi',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'evaluasi',
     prompt:

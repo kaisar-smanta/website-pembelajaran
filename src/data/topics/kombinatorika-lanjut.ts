@@ -12,7 +12,7 @@ export const kombinatorikaLanjut: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Pengayaan: memperdalam aturan pencacahan dari CP data-peluang menuju teknik olimpiade seperti inklusi-eksklusi dan prinsip sarang merpati, serta menautkannya dengan teorema binomial.',
+    'Melanjutkan pencacahan dasar element data-peluang pada CP F-DAT-5 (peluang bersyarat dengan permutasi dan kombinasi). Teknik inklusi-eksklusi, prinsip sarang merpati, dan teorema binomial melampaui tuntutan CP, sebab soal gabungan beririsan dan soal jaminan keberadaan tidak dapat diselesaikan dengan pencacahan langsung.',
   estimatedMinutes: 110,
   summary:
     'Menguasai aturan pencacahan, inklusi-eksklusi, prinsip sarang merpati (pigeonhole), dan koefisien binomial untuk menyelesaikan masalah kombinatorika yang menantang.',
@@ -369,8 +369,8 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
     {
       id: 'sejarah',
       kind: 'sejarah',
-      title: 'Jejak Sejarah',
-      body: `Prinsip sarang merpati sering dinamai menurut Peter Gustav Lejeune Dirichlet yang merumuskannya pada abad ke-19, meski gagasan serupa sudah muncul lebih awal. Prinsip inklusi-eksklusi dipakai Abraham de Moivre pada awal abad ke-18 untuk menghitung masalah *derangement*, lalu dikembangkan lebih lanjut. Teorema binomial telah dikenal di Tiongkok dan Persia jauh sebelum Blaise Pascal, sedangkan Isaac Newton pada 1665 memperluasnya ke pangkat rasional. Segitiga koefisien binomial yang kita pakai menghubungkan ketiga gagasan ini dengan segitiga Pascal.`,
+      title: 'Dirichlet, De Moivre, dan Teorema Binomial',
+      body: `Prinsip sarang merpati sering dinamai menurut Peter Gustav Lejeune Dirichlet yang merumuskannya pada abad ke-19, meski gagasan serupa sudah muncul lebih awal. Prinsip inklusi-eksklusi dipakai Abraham de Moivre pada awal abad ke-18 untuk menghitung masalah *derangement*, lalu dikembangkan lebih lanjut. Teorema binomial telah dikenal di Tiongkok dan Persia jauh sebelum Blaise Pascal, sedangkan Isaac Newton pada 1665 memperluasnya ke pangkat rasional. Tonggak awal teori peluang yang melatarbelakangi gagasan-gagasan ini diuraikan pada topik [Peluang](/matematika/kelas/XI/data-peluang/peluang), sedangkan segitiga koefisien binomial tetap menghubungkan pencacahan dengan segitiga Pascal.`,
     },
     {
       id: 'refleksi',
@@ -417,39 +417,49 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
     {
       id: 'tantangan',
       kind: 'tantangan',
-      title: 'Tantangan',
-      body: `Buktikan bahwa di antara sebarang $5$ bilangan bulat yang dipilih dari himpunan $\\{1, 2, \\ldots, 8\\}$, selalu terdapat dua bilangan yang jumlahnya $9$.`,
+      title: 'Tantangan: Bilangan Tak Habis Dibagi 2, 3, atau 5',
+      body: `**Soal.** Berapa banyak bilangan bulat dari $1$ sampai $1000$ yang **tidak habis dibagi** $2$, $3$, maupun $5$?`,
       blocks: [
         {
           kind: 'callout',
           variant: 'tip',
           title: 'Petunjuk',
           text:
-            'Bagi himpunan menjadi pasangan-pasangan yang jumlahnya $9$, lalu hitung ada berapa pasangan dan berapa bilangan yang dipilih.',
+            'Hitung dahulu banyak bilangan yang habis dibagi paling sedikit satu di antara $2$, $3$, dan $5$ memakai inklusi-eksklusi tiga himpunan, lalu ambil komplemennya terhadap $1000$.',
         },
         {
           kind: 'step-reveal',
-          intro: 'Bukti dengan prinsip sarang merpati.',
+          intro: 'Hitung gabungan himpunan kelipatan dengan inklusi-eksklusi, lalu ambil komplemennya.',
           steps: [
             {
-              title: 'Susun pasangan berjumlah 9',
+              title: 'Definisikan himpunan',
               text:
-                '$\\{1,8\\}$, $\\{2,7\\}$, $\\{3,6\\}$, dan $\\{4,5\\}$. Ada $4$ pasangan, dan setiap dua anggota dalam satu pasangan berjumlah $9$.',
+                'Misalkan $A$ himpunan kelipatan $2$, $B$ kelipatan $3$, dan $C$ kelipatan $5$ pada $1$ sampai $1000$. Yang dicari adalah bilangan di luar $A \\cup B \\cup C$.',
             },
             {
-              title: 'Pandang pasangan sebagai kotak',
+              title: 'Hitung tiap himpunan',
               text:
-                'Setiap pasangan berperan sebagai satu "sarang". Jadi tersedia $4$ sarang.',
+                '$|A| = \\left\\lfloor \\dfrac{1000}{2} \\right\\rfloor = 500$, $|B| = \\left\\lfloor \\dfrac{1000}{3} \\right\\rfloor = 333$, dan $|C| = \\left\\lfloor \\dfrac{1000}{5} \\right\\rfloor = 200$.',
             },
             {
-              title: 'Terapkan pigeonhole',
+              title: 'Hitung irisan berpasangan',
               text:
-                'Kita memilih $5$ bilangan (merpati) ke dalam $4$ pasangan (sarang). Karena $5 > 4$, paling sedikit dua bilangan berada pada pasangan yang sama.',
+                'Irisan $A \\cap B$ adalah kelipatan $\\operatorname{lcm}(2,3) = 6$, sehingga $|A \\cap B| = \\left\\lfloor \\dfrac{1000}{6} \\right\\rfloor = 166$. Dengan cara sama, $|A \\cap C| = \\left\\lfloor \\dfrac{1000}{10} \\right\\rfloor = 100$ dan $|B \\cap C| = \\left\\lfloor \\dfrac{1000}{15} \\right\\rfloor = 66$.',
             },
             {
-              title: 'Simpulkan',
+              title: 'Hitung irisan bertiga',
               text:
-                'Dua bilangan pada pasangan yang sama pasti berjumlah $9$. Jadi selalu ada dua bilangan yang jumlahnya $9$. Terbukti.',
+                'Irisan $A \\cap B \\cap C$ adalah kelipatan $\\operatorname{lcm}(2,3,5) = 30$, sehingga $|A \\cap B \\cap C| = \\left\\lfloor \\dfrac{1000}{30} \\right\\rfloor = 33$.',
+            },
+            {
+              title: 'Terapkan inklusi-eksklusi',
+              text:
+                '$|A \\cup B \\cup C| = 500 + 333 + 200 - 166 - 100 - 66 + 33 = 1033 - 332 + 33 = 734$.',
+            },
+            {
+              title: 'Ambil komplemen dan simpulkan',
+              text:
+                'Bilangan yang tidak habis dibagi $2$, $3$, maupun $5$ adalah $1000 - 734 = 266$.',
             },
           ],
         },
@@ -457,21 +467,7 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
           kind: 'details',
           summary: 'Generalisasi',
           text:
-            'Untuk bilangan $\\{1, 2, \\ldots, 2n\\}$, himpunan dapat dipasangkan menjadi $\\{1,2n\\}, \\{2,2n-1\\}, \\ldots, \\{n, n+1\\}$, yaitu $n$ pasangan yang masing-masing berjumlah $2n+1$. Maka setiap pemilihan $n+1$ bilangan pasti memuat dua bilangan yang jumlahnya $2n+1$. Soal di atas adalah kasus khusus $n = 4$.',
-        },
-        {
-          kind: 'spot-mistake',
-          intro:
-            'Seorang siswa mencoba memakai pigeonhole tetapi keliru menyimpulkan. Klik langkah yang salah.',
-          steps: [
-            'Himpunan $\\{1,2,\\ldots,8\\}$ dibagi menjadi pasangan berjumlah $9$: $\\{1,8\\}$, $\\{2,7\\}$, $\\{3,6\\}$, $\\{4,5\\}$.',
-            'Terdapat $4$ pasangan, sedangkan kita memilih $5$ bilangan.',
-            'Karena $5 > 4$, kelima bilangan pasti berasal dari pasangan yang berbeda-beda.',
-            'Jadi tidak dijamin ada dua bilangan yang berjumlah $9$.',
-          ],
-          wrongIndex: 2,
-          explanation:
-            'Kesimpulan pada langkah 3 terbalik. Menempatkan $5$ objek ke dalam $4$ kotak justru menjamin ada kotak dengan paling sedikit $2$ objek, yaitu dua bilangan dari pasangan yang sama. Jadi ada dua yang berjumlah $9$.',
+            'Untuk batas $N$ sebarang, banyak bilangan yang tidak habis dibagi $2$, $3$, maupun $5$ adalah $N$ dikurangi ukuran gabungan tiga himpunan kelipatan. Kuncinya tetap sama: setiap irisan adalah himpunan kelipatan $\\operatorname{lcm}$ dari pembaginya, dan tanda bergantian tambah, kurang, tambah.',
         },
       ],
     },

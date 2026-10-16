@@ -377,7 +377,7 @@ Dalam fisika, kerja adalah integral gaya terhadap perpindahan, dan muatan listri
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Simetri pada Integral Trigonometri",
       body: `Sebuah simetri kecil dapat menghitung integral yang tampak mustahil.
 
 **Sifat simetri.** Untuk fungsi $f$ yang kontinu pada $[0,a]$, berlaku
@@ -419,8 +419,8 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Menghitung luas dan volume bangun melengkung sudah dilakukan Archimedes pada abad ke-3 SM dengan metode penghabisan (*exhaustion*). Pada abad ke-17 Bonaventura Cavalieri mengembangkan gagasan "indivisibel" untuk menghitung luas, dan Isaac Barrow, guru Newton, menyadari hubungan antara masalah garis singgung dan masalah luas. Isaac Newton serta Gottfried Wilhelm Leibniz kemudian merumuskan teorema dasar kalkulus yang mengaitkan turunan dan integral sebagai dua proses yang saling membatalkan. Bentuk modern integral tentu sebagai limit jumlah dirumuskan Bernhard Riemann pada pertengahan abad ke-19.`,
+      title: "Dari Archimedes ke Riemann",
+      body: `Menghitung luas dan volume bangun melengkung sudah dilakukan Archimedes pada abad ke-3 SM dengan metode penghabisan (*exhaustion*). Pada abad ke-17 Bonaventura Cavalieri mengembangkan gagasan "indivisibel" untuk menghitung luas, dan Isaac Barrow, guru Newton, pada 1670 menyadari hubungan antara masalah garis singgung dan masalah luas. Isaac Newton serta Gottfried Wilhelm Leibniz kemudian merumuskan teorema dasar kalkulus yang mengaitkan turunan dan integral sebagai dua proses yang saling membatalkan. Bentuk modern integral tentu sebagai limit jumlah dirumuskan Bernhard Riemann pada 1854.`,
     },
     {
       id: "refleksi",

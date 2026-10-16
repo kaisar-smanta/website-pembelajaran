@@ -150,21 +150,21 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     difficulty: 'mahir',
     type: 'multiple-choice',
     category: 'penalaran',
-    prompt: 'Tentukan nilai $x$ yang memenuhi $3^{2x+1}=27^{x-2}$.',
+    prompt: 'Tentukan nilai $x$ yang memenuhi $\\left(\\dfrac{1}{9}\\right)^{x-1}=27^{x+1}$.',
     options: [
-      { key: 'A', text: '$3$' },
-      { key: 'B', text: '$6$' },
-      { key: 'C', text: '$8$' },
-      { key: 'D', text: '$7$' },
+      { key: 'A', text: '$-\\dfrac{1}{5}$' },
+      { key: 'B', text: '$\\dfrac{1}{5}$' },
+      { key: 'C', text: '$-5$' },
+      { key: 'D', text: '$-1$' },
     ],
-    answer: 'D',
+    answer: 'A',
     explanation:
-      'Karena $27=3^{3}$, maka $27^{x-2}=3^{3(x-2)}=3^{3x-6}$. Samakan pangkat: $2x+1=3x-6 \\Rightarrow x=7$. Periksa: kedua ruas bernilai $3^{15}$. Opsi $3$ muncul bila $3$ tidak didistribusikan ke $-2$, opsi $6$ bila salah memindahkan suku, dan opsi $8$ bila menambah $1$, bukan mengurangi.',
+      'Ubah kedua ruas ke basis $3$. Ruas kiri $\\left(\\dfrac{1}{9}\\right)^{x-1}=9^{-(x-1)}=(3^{2})^{-(x-1)}=3^{-2x+2}$, sedangkan ruas kanan $27^{x+1}=(3^{3})^{x+1}=3^{3x+3}$. Samakan pangkat: $-2x+2=3x+3$, sehingga $-5x=1$ dan $x=-\\dfrac{1}{5}$ (A). Opsi B ($\\dfrac15$) salah tanda saat memindahkan suku; opsi C ($-5$) lupa membagi $1$ dengan $5$; opsi D ($-1$) mengabaikan faktor $2$ dan $3$ sehingga mendistribusikan eksponen secara keliru.',
     hints: [
-      'Ubahlah $27$ menjadi pangkat basis $3$.',
-      'Distribusikan eksponen $3(x-2)$ dengan benar sebelum menyamakan pangkat.',
+      'Nyatakan $\\dfrac{1}{9}$ sebagai $3^{-2}$ dan $27$ sebagai $3^{3}$.',
+      'Distribusikan eksponen $-2(x-1)$ dan $3(x+1)$ dengan benar sebelum menyamakan pangkat.',
     ],
-    competencies: ['persamaan eksponen', 'menyamakan basis'],
+    competencies: ['persamaan eksponen', 'menyamakan basis', 'eksponen negatif'],
   },
   {
     id: 'ekslog-10',
@@ -194,7 +194,7 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
   {
     id: 'ekslog-11',
     topicId: 'persamaan-eksponen-logaritma',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penalaran',
     prompt: 'Diketahui $2^{a}=3$. Tentukan nilai dari $4^{a+1}$.',
@@ -289,5 +289,29 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
       'Bandingkan kedua konsentrasi sebagai hasil bagi pangkat $10$.',
     ],
     competencies: ['logaritma', 'skala logaritma', 'kontekstual'],
+  },
+  {
+    id: 'ekslog-16',
+    topicId: 'persamaan-eksponen-logaritma',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Tentukan semua $x$ yang memenuhi $\\log_2(x)+\\log_2(x-2)=3$. Periksa kelayakan setiap nilai yang kamu peroleh terhadap domain logaritma.',
+    answer:
+      'Syarat domain: $x>0$ dan $x-2>0$, jadi $x>2$. Gabungkan ruas kiri: $\\log_2\\!\\big(x(x-2)\\big)=3$, sehingga $x(x-2)=2^{3}=8$ dan $x^2-2x-8=0$. Faktorkan: $(x-4)(x+2)=0$, memberi $x=4$ atau $x=-2$. Nilai $x=-2$ ditolak karena di luar domain ($x>2$). Jadi penyelesaiannya $x=4$. Periksa: $\\log_2 4+\\log_2 2=2+1=3$, benar.',
+    explanation:
+      'Kunci: menyatukan logaritma dengan sifat penjumlahan, menyelesaikan persamaan kuadrat, lalu membuang akar yang tidak memenuhi domain.',
+    hints: [
+      'Setiap argumen logaritma harus positif: tentukan domain lebih dahulu.',
+      'Gunakan $\\log_2 u+\\log_2 v=\\log_2(uv)$, lalu ubah ke bentuk eksponen.',
+    ],
+    competencies: ['logaritma', 'domain', 'penalaran'],
+    rubric: [
+      'Menentukan domain $x>2$',
+      'Menggabungkan menjadi $x(x-2)=8$',
+      'Menyelesaikan $x^2-2x-8=0$ menjadi $x=4$ atau $x=-2$',
+      'Menolak $x=-2$ karena di luar domain dan memverifikasi $x=4$',
+    ],
   },
 ];

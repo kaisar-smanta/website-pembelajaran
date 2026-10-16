@@ -296,24 +296,22 @@ export const pinjamanInvestasiQuestions: Question[] = [
     topicId: 'pinjaman-investasi',
     difficulty: 'mahir',
     type: 'open-response',
-    category: 'penalaran',
+    category: 'pemodelan',
     prompt:
-      'Sebuah pinjaman Rp10.000.000 dilunasi dengan anuitas bulanan pada bunga $2\\%$ per bulan selama $12$ bulan. Diketahui $(1{,}02)^{-12}\\approx0{,}7885$. (a) Hitung besar angsuran bulanan. (b) Hitung total bunga yang dibayarkan. (c) Jelaskan mengapa memperpanjang tenor menurunkan angsuran tetapi menaikkan total bunga.',
+      'Bu Tari menabung Rp500.000 setiap bulan selama $12$ bulan dengan bunga $0{,}6\\%$ per bulan (gunakan $(1{,}006)^{12}\\approx1{,}074424$). Setoran dilakukan pada awal setiap bulan, bukan pada akhir bulan. (a) Tentukan saldo akhir jika setoran dilakukan pada akhir bulan. (b) Tentukan saldo akhir jika setoran dilakukan pada awal bulan. (c) Jelaskan mengapa setoran awal bulan memberi hasil lebih besar.',
     answer:
-      '(a) Dengan $M=10.000.000$, $i=0{,}02$, dan $n=12$, angsuran $A=\\dfrac{M\\cdot i}{1-(1+i)^{-n}}=\\dfrac{10.000.000\\times0{,}02}{1-0{,}7885}=\\dfrac{200.000}{0{,}2115}\\approx\\text{Rp}945.626$. (b) Total pembayaran $=12\\times945.626=\\text{Rp}11.347.509$, sehingga total bunga $\\approx\\text{Rp}1.347.509$. (c) Memperpanjang tenor memperkecil angsuran karena pokok dicicil dalam lebih banyak periode, tetapi bunga dihitung dari sisa utang selama periode yang lebih panjang, sehingga total bunga justru bertambah.',
+      '(a) Untuk setoran akhir bulan, saldo akhir $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}=500.000\\cdot\\dfrac{1{,}074424-1}{0{,}006}=500.000\\cdot\\dfrac{0{,}074424}{0{,}006}=500.000\\cdot12{,}404=\\text{Rp}6.202.000$. (b) Setoran awal bulan membuat setiap setoran berbunga satu periode lebih lama, sehingga saldonya $FV_{\\text{awal}}=FV\\cdot(1+i)=6.202.000\\cdot1{,}006=\\text{Rp}6.239.212$. (c) Setoran awal bulan memberi hasil lebih besar karena tiap setoran sudah berada di rekening sejak awal periode, sehingga seluruhnya berbunga satu bulan lebih lama daripada setoran akhir bulan. Selisih Rp6.239.212 $-$ Rp6.202.000 $=$ Rp37.212 berasal dari tambahan bunga satu periode atas tiap setoran.',
     explanation:
-      'Kunci: menerapkan rumus anuitas, menghitung total bunga sebagai $n\\times A-M$, dan menjelaskan hubungan tenor dengan besar angsuran serta total bunga.',
+      'Kunci: memakai rumus nilai masa depan anuitas untuk setoran akhir bulan, mengalikan dengan faktor $(1+i)$ untuk setoran awal bulan, lalu menjelaskan selisih sebagai tambahan bunga satu periode per setoran.',
     hints: [
-      'Gunakan $A=\\dfrac{M\\cdot i}{1-(1+i)^{-n}}$.',
-      'Total bunga adalah total pembayaran dikurangi pokok.',
-      'Tenor lebih panjang berarti lebih banyak periode bunga berjalan.',
+      'Gunakan $FV=A\\cdot\\dfrac{(1+i)^{n}-1}{i}$ untuk setoran akhir bulan.',
+      'Setoran awal bulan setara dengan menggeser seluruh pembayaran satu periode lebih awal, sehingga saldo akhir dikalikan $(1+i)$.',
     ],
-    competencies: ['anuitas', 'total bunga', 'penalaran'],
+    competencies: ['anuitas', 'nilai masa depan', 'pemodelan'],
     rubric: [
-      'Menghitung angsuran bulanan dengan rumus anuitas',
-      'Menghitung total pembayaran',
-      'Menentukan total bunga',
-      'Menjelaskan pengaruh tenor terhadap angsuran dan total bunga',
+      'Menghitung saldo akhir setoran akhir bulan Rp6.202.000',
+      'Mengalikan dengan $(1+i)$ untuk memperoleh saldo setoran awal bulan Rp6.239.212',
+      'Menjelaskan selisih sebagai bunga satu periode tambahan per setoran',
     ],
   },
 ];

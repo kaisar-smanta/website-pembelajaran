@@ -502,7 +502,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Mean Sama dengan Median",
       body: `**Soal.** Nilai ulangan enam siswa adalah $6, 7, 7, 8, 9$, dan $x$. Diketahui rata-ratanya sama dengan mediannya. Tentukan semua nilai $x$ yang mungkin.`,
       blocks: [
         {
@@ -536,8 +536,8 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Penggunaan rata-rata untuk meringkas data sudah sangat tua, tetapi gagasan **median** sebagai nilai tengah yang tahan terhadap nilai ekstrem baru dipopulerkan Francis Galton pada akhir abad ke-19. Kata "statistik" sendiri berasal dari bahasa Latin *status* (keadaan), karena awalnya statistik dipakai untuk mencatat keadaan penduduk dan ekonomi suatu negara. Pada awal abad ke-20, Karl Pearson membantu meletakkan dasar statistika modern dengan ukuran-ukuran yang lebih teliti. Adapun **box plot** yang kita pakai untuk membandingkan sebaran diperkenalkan John Tukey pada 1977 dalam bukunya *Exploratory Data Analysis*. Jadi ukuran pemusatan dan penyebaran yang kita pelajari adalah hasil akumulasi gagasan selama berabad-abad.`,
+      title: "Dari Rata-Rata ke Box Plot",
+      body: `Penggunaan rata-rata untuk meringkas data sudah sangat tua. Gagasan **median** sebagai nilai tengah yang tahan terhadap nilai ekstrem bukan penemuan sesaat: gagasan ini sudah ada jauh sebelum abad ke-19, dan **Francis Galton** mempopulerkannya pada akhir abad ke-19 sebagai salah satu ringkasan sebaran. Karena itu Galton lebih tepat disebut pemopuler, bukan penemu. Adapun asal-usul istilah "statistik" dibahas pada topik **Statistik dalam Kehidupan**. Pada awal abad ke-20 Karl Pearson membantu meletakkan dasar statistika modern dengan ukuran-ukuran yang lebih teliti, sedangkan **box plot** yang kita pakai untuk membandingkan sebaran diperkenalkan John Tukey pada 1977 dalam bukunya *Exploratory Data Analysis*. Ukuran pemusatan dan penyebaran yang kita pelajari adalah hasil akumulasi gagasan selama berabad-abad.`,
     },
     {
       id: "refleksi",

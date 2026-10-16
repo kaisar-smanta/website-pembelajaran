@@ -400,7 +400,7 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
     {
       id: "data-bivariat-tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Korelasi Sepatu dan Kacamata",
       body: `**Soal.** Sebuah kota mencatat banyak sepatu terjual $(x)$ dan banyak kacamata hitam terjual $(y)$ setiap bulan. Diagram pencarnya menunjukkan hubungan positif yang sangat kuat, sekitar $r \\approx 0{,}93$. Seorang pengusaha menyimpulkan: "Menjual lebih banyak sepatu akan meningkatkan penjualan kacamata hitam."
 
 - Apa kelemahan kesimpulan itu?
@@ -434,8 +434,8 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
     {
       id: "data-bivariat-sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Diagram pencar dan koefisien korelasi tumbuh dari penyelidikan Francis Galton pada akhir abad ke-19 tentang pewarisan sifat, seperti kaitan tinggi badan orang tua dan anak. Dari pengamatan itu Galton memakai istilah "regresi", sebab tinggi anak cenderung kembali (regress) ke arah rata-rata populasi. Karl Pearson kemudian mengembangkan gagasan tersebut menjadi **koefisien korelasi** $r$ yang kita pakai sekarang, sehingga ukuran ini juga dikenal sebagai korelasi Pearson. Sejak itu diagram pencar menjadi langkah baku untuk memeriksa hubungan dua variabel sebelum regresi dihitung. Kehati-hatian terhadap korelasi semu pun tumbuh pada masa yang sama, sebab Pearson sendiri mengingatkan bahwa dua hal dapat berkorelasi tanpa saling menyebabkan.`,
+      title: "Anscombe dan Batas Ringkasan",
+      body: `Diagram pencar lahir dari kebutuhan memeriksa hubungan dua variabel secara visual sebelum menghitung ukuran apa pun. Selama berabad-abad peneliti sudah memetakan pasangan data pada bidang koordinat, dan kebiasaan ini menjadi baku menjelang abad ke-20. Pada 1973 Francis Anscombe menunjukkan empat kumpulan data yang memiliki rata-rata, varians, dan koefisien korelasi yang sama, tetapi diagram pencarnya sangat berbeda: satu lurus, satu melengkung, satu memuat pencilan, dan satu tersusun hampir tegak. Contoh yang kemudian dikenal sebagai **kuartet Anscombe** itu menegaskan bahwa ringkasan angka saja dapat menyembunyikan bentuk sebenarnya, sehingga diagram pencar tetap wajib diperiksa. Kisah perumusan garis tren dan koefisien korelasi dibahas pada topik **Regresi Linear**, sedangkan peringatan bahwa korelasi tidak sama dengan sebab-akibat menjadi tema utama topik **Asosiasi dan Kausalitas**.`,
     },
     {
       id: "refleksi",

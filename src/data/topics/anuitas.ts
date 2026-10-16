@@ -329,40 +329,38 @@ Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} 
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Misalkan pinjaman $M$ dilunasi dengan angsuran tetap $A$ setiap periode dan suku bunga per periode $i$. Buktikan bahwa sisa utang setelah $k$ angsuran adalah
-$$S_k = M(1+i)^k - A\\,\\frac{(1+i)^k-1}{i}.$$
-Gunakan hasil itu untuk menunjukkan bahwa setelah $n$ angsuran utangnya lunas.`,
+      title: "Berapa Bulan Pinjaman Lunas",
+      body: `**Soal.** Pak Rudi meminjam Rp20.000.000 dengan bunga $1\\%$ per bulan. Ia sanggup mengangsur Rp1.000.000 setiap bulan, sedangkan angsuran terakhir boleh lebih kecil agar utang tepat lunas. (a) Tentukan setelah berapa bulan utangnya lunas. (b) Hitung besar angsuran terakhir. (c) Hitung total bunga yang dibayar.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: "Mulailah dari hubungan tiap periode: sisa utang berbunga, lalu dikurangi angsuran, yaitu $S_k = S_{k-1}(1+i) - A$ dengan $S_0 = M$.",
+          text: "Lacak sisa utang dengan $S_k = M(1+i)^k - A\\,\\dfrac{(1+i)^k-1}{i}$, lalu cari $k$ terkecil yang membuat sisanya tidak positif.",
         },
         {
           kind: "step-reveal",
-          intro: "Kita lacak sisa utang periode demi periode, lalu mengenali polanya.",
+          intro: "Gunakan rumus sisa utang, lalu tentukan bulan terakhir dan angsuran penutupnya.",
           steps: [
             {
               title: "Langkah 1",
-              text: "Setiap periode utang berbunga lalu dikurangi angsuran: $S_k = S_{k-1}(1+i) - A$, dengan $S_0 = M$.",
+              text: "Dengan $M = 20.000.000$, $i = 0{,}01$, dan $A = 1.000.000$, sisa utang setelah $k$ angsuran adalah $S_k = 100.000.000 - 80.000.000(1{,}01)^k$.",
             },
             {
               title: "Langkah 2",
-              text: "Hitung beberapa suku: $S_1 = M(1+i)-A$ dan $S_2 = M(1+i)^2 - A(1+i) - A$.",
+              text: "Periksa $k = 22$: karena $(1{,}01)^{22} \\approx 1{,}244716$, diperoleh $S_{22} \\approx 100.000.000 - 99.577.269 = \\text{Rp}422.731$. Utang belum lunas.",
             },
             {
               title: "Langkah 3",
-              text: "Pola yang tampak: $S_k = M(1+i)^k - A\\big[1+(1+i)+\\cdots+(1+i)^{k-1}\\big]$.",
+              text: "Periksa $k = 23$: $(1{,}01)^{23} \\approx 1{,}257163$ memberi $S_{23} \\approx -\\text{Rp}573.041$. Nilai negatif berarti angsuran penuh Rp1.000.000 pada bulan ke-23 melebihi sisa utang.",
             },
             {
               title: "Langkah 4",
-              text: "Jumlah deret geometri dalam kurung adalah $\\dfrac{(1+i)^k-1}{i}$, sehingga $S_k = M(1+i)^k - A\\,\\dfrac{(1+i)^k-1}{i}$.",
+              text: "Sisa utang setelah $22$ bulan Rp422.731 masih berbunga $1\\%$ selama bulan ke-23, yaitu $\\approx \\text{Rp}4.227$. Jadi angsuran terakhir $= 422.731 + 4.227 \\approx \\text{Rp}426.959$.",
             },
             {
               title: "Langkah 5",
-              text: "Untuk $k=n$, gunakan $A = \\dfrac{M\\,i\\,(1+i)^n}{(1+i)^n-1}$. Substitusi memberi $S_n = M(1+i)^n - M(1+i)^n = 0$, jadi utang lunas.",
+              text: "Total pembayaran $= 22 \\times 1.000.000 + 426.959 = \\text{Rp}22.426.959$, sehingga total bunga $= 22.426.959 - 20.000.000 \\approx \\text{Rp}2.426.959$.",
             },
           ],
         },
@@ -371,7 +369,7 @@ Gunakan hasil itu untuk menunjukkan bahwa setelah $n$ angsuran utangnya lunas.`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Anuitas Jiwa dan De Moivre",
       body: `Kata *anuitas* berasal dari bahasa Latin *annus* ("tahun"), karena pembayaran berkala pada awalnya dilakukan setiap tahun. Bangsa Romawi sudah mengenal kontrak pembayaran tahunan, dan pada abad pertengahan lembaga keuangan Eropa mengembangkan skema serupa untuk membiayai kota maupun perang. Abraham de Moivre pada awal abad ke-18 merumuskan teori anuitas dalam bukunya *Annuities upon Lives* (1725), dengan menyertakan perhitungan nilai sekarang. Sejak itu anuitas menjadi alat baku keuangan: kredit, dana pensiun, dan asuransi memakai gagasan angsuran tetap yang komposisinya berubah dari waktu ke waktu.`,
     },
     {

@@ -60,6 +60,7 @@ export function buildMasterySummary(
         completion,
         band: classifyMastery(topic.answered, accuracy, completion),
         lastAt: topic.lastAt ?? 0,
+        supplementary: topic.supplementary ?? false,
       };
     });
 

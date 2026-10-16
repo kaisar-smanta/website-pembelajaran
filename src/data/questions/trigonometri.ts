@@ -204,7 +204,7 @@ export const trigonometriQuestions: Question[] = [
       '(a) $\\tan50^\\circ=\\dfrac{h}{12}$, sehingga $h=12\\tan50^\\circ\\approx12(1{,}192)=14{,}30$ m. (b) $\\cos50^\\circ=\\dfrac{12}{L}$, sehingga $L=\\dfrac{12}{0{,}643}\\approx18{,}66$ m. (c) Tinggi tiang adalah sisi depan sudut, sedangkan $12$ m adalah sisi samping; perbandingan yang menghubungkan sisi depan dan sisi samping adalah tangen. Kosinus menghubungkan sisi samping dengan sisi miring sehingga tidak langsung memberi tinggi.',
     explanation:
       'Kunci: memilih perbandingan trigonometri yang tepat sesuai sisi yang diketahui, menghitung tinggi dan panjang kabel, lalu menjelaskan alasan pemilihannya.',
-    hints: ['Sisi $12$ m berperan sebagai sisi samping sudut.', 'Gunakan tangen untuk depan–samping dan kosinus untuk samping–miring.'],
+    hints: ['Sisi $12$ m berperan sebagai sisi samping sudut.', 'Gunakan tangen untuk depan-samping dan kosinus untuk samping-miring.'],
     competencies: ['trigonometri', 'sudut elevasi', 'evaluasi'],
     rubric: [
       'Memilih tangen karena sisi $12$ m adalah sisi samping',
@@ -261,7 +261,7 @@ export const trigonometriQuestions: Question[] = [
   {
     id: 'tr-14',
     topicId: 'trigonometri',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

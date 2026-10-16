@@ -429,7 +429,7 @@ Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor;
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Teorema Varignon: Titik Tengah Segiempat",
       body: `Salah satu hasil klasik geometri dapat dibuktikan dengan vektor hanya dalam beberapa baris.
 
 Ambil sebarang segiempat $ABCD$. Tandai titik tengah setiap sisinya:
@@ -463,8 +463,8 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Kata "vektor" dipopulerkan oleh William Rowan Hamilton, yang pada 1843 menciptakan kuaternion untuk menyatakan putaran dan gerak dalam ruang. Hermann Grassmann secara terpisah mengembangkan aljabar yang menyerupai vektor dalam *Ausdehnungslehre* (1844). Pada akhir abad ke-19, Josiah Willard Gibbs dan Oliver Heaviside menyaring gagasan-gagasan itu menjadi analisis vektor modern dengan perkalian titik dan perkalian silang seperti yang kita pakai sekarang. Perkalian titik sendiri terkait dengan ketaksamaan Cauchy–Schwarz yang dirumuskan pada abad ke-19. Sejak itu vektor menjadi bahasa baku fisika dan teknik.`,
+      title: "Dari Kuaternion ke Analisis Vektor",
+      body: `Kata "vektor" dipopulerkan oleh William Rowan Hamilton, yang pada 1843 menciptakan kuaternion untuk menyatakan putaran dan gerak dalam ruang. Hermann Grassmann secara terpisah mengembangkan aljabar yang menyerupai vektor dalam *Ausdehnungslehre* (1844). Pada akhir abad ke-19, Josiah Willard Gibbs dan Oliver Heaviside menyaring gagasan-gagasan itu menjadi analisis vektor modern dengan perkalian titik dan perkalian silang seperti yang kita pakai sekarang. Perkalian titik sendiri terkait dengan ketaksamaan Cauchy-Schwarz yang dirumuskan pada abad ke-19. Sejak itu vektor menjadi bahasa baku fisika dan teknik.`,
     },
     {
       id: "refleksi",

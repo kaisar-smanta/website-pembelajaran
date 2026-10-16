@@ -454,7 +454,7 @@ Untuk latihan pemodelan, lihat topik [Pertumbuhan Populasi](/aplikasi/pertumbuha
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Faktor Pangkat yang Saling Menghapus",
       body: `**Soal.** Tentukan nilai dari
 $$\\frac{2^{2026}+2^{2024}}{2^{2024}+2^{2022}}$$
 tanpa menghitung nilai setiap pangkat secara langsung. Jelaskan pola yang membuat jawabannya sederhana.`,
@@ -490,7 +490,7 @@ tanpa menghitung nilai setiap pangkat secara langsung. Jelaskan pola yang membua
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Menyusun Notasi Pangkat",
       body: `Notasi pangkat yang kita pakai hari ini lahir dari upaya mempersingkat penulisan yang panjang. Pada abad ke-14, Nicole Oresme sudah menyinggung gagasan pangkat dengan eksponen pecahan. Baru pada 1544 Michael Stifel, dalam *Arithmetica Integra*, memakai istilah *exponent* dan menyusun tabel pangkat bilangan bulat. Puncaknya, René Descartes dalam *La Géométrie* (1637) memperkenalkan bentuk superskrip $a^{n}$ yang kita kenal sekarang, jauh lebih ringkas daripada menuliskan faktor berulang secara penuh.
 
 Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "mengalikan sebanyak setengah kali" sulit dibayangkan. John Wallis dalam *Arithmetica Infinitorum* (1655) dan kemudian Isaac Newton memperluas makna eksponen ke bilangan nol, negatif, dan pecahan dengan menjaga agar sifat $a^{m} \\cdot a^{n} = a^{m+n}$ tetap berlaku. Perluasan itulah yang membuat aturan seperti $a^{-n} = \\dfrac{1}{a^{n}}$ dan $a^{1/2} = \\sqrt{a}$ terasa wajar, sebab mengikuti sifat yang telah ada, bukan kesepakatan yang dipaksakan. Notasi yang lahir untuk menyingkat perkalian berulang justru membuka pintu bagi bentuk akar, logaritma, dan fungsi eksponensial.`,

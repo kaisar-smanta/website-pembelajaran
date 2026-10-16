@@ -150,7 +150,7 @@ export const eksponenQuestions: Question[] = [
   {
     id: 'eks-08',
     topicId: 'eksponen',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt: 'Manakah pernyataan berikut yang **selalu benar** untuk semua bilangan real $a, b$?',
@@ -284,20 +284,21 @@ export const eksponenQuestions: Question[] = [
     type: 'open-response',
     category: 'pemodelan',
     prompt:
-      'Massa sebuah zat radioaktif mula-mula $320$ gram. Setelah $15$ tahun, massanya tersisa $40$ gram. Massa zat itu menyusut mengikuti $M(t)=M_0\\left(\\dfrac{1}{2}\\right)^{t/T}$ dengan $T$ waktu paruh. (a) Tentukan waktu paruh $T$. (b) Tuliskan model lengkapnya. (c) Tentukan massa zat setelah $25$ tahun.',
+      'Konsentrasi polutan di sebuah danau berkurang $25\\%$ setiap tahun karena penguraian alami. Pada awal pengamatan, konsentrasinya $512.000$ satuan. (a) Tuliskan model $P(t)=P_0 r^{t}$ untuk konsentrasi setelah $t$ tahun. (b) Tentukan konsentrasi setelah $4$ tahun. (c) Tentukan setelah berapa tahun penuh konsentrasi tersisa kurang dari $150.000$ satuan dengan menghitung nilainya tiap tahun.',
     answer:
-      '(a) Dari $320\\left(\\dfrac{1}{2}\\right)^{15/T}=40$ diperoleh $\\left(\\dfrac{1}{2}\\right)^{15/T}=\\dfrac{40}{320}=\\dfrac{1}{8}=\\left(\\dfrac{1}{2}\\right)^{3}$, sehingga $\\dfrac{15}{T}=3$ dan $T=5$ tahun. (b) Modelnya $M(t)=320\\left(\\dfrac{1}{2}\\right)^{t/5}$. (c) Setelah $25$ tahun terjadi $\\dfrac{25}{5}=5$ waktu paruh, sehingga $M(25)=320\\left(\\dfrac{1}{2}\\right)^{5}=320\\cdot\\dfrac{1}{32}=10$ gram.',
+      '(a) Karena berkurang $25\\%$, faktor tiap tahun $r=1-0{,}25=0{,}75$, sehingga $P(t)=512.000\\,(0{,}75)^{t}$. (b) $P(4)=512.000\\,(0{,}75)^{4}=512.000\\cdot0{,}31640625=162.000$ satuan. (c) Hitung tiap tahun: $P(1)=384.000$, $P(2)=288.000$, $P(3)=216.000$, $P(4)=162.000$, dan $P(5)=121.500$. Nilai pertama yang kurang dari $150.000$ muncul pada $t=5$. Jadi setelah $5$ tahun penuh konsentrasi tersisa sekitar $121.500$ satuan.',
     explanation:
-      'Kunci: mengubah data pengamatan menjadi persamaan eksponen, menyatakan $\\dfrac{1}{8}$ sebagai $\\left(\\dfrac{1}{2}\\right)^{3}$ untuk memperoleh waktu paruh, lalu memakai model pada waktu yang diminta.',
+      'Kunci: menafsirkan penyusutan $25\\%$ sebagai faktor $0{,}75$, menyusun model eksponen, menghitung nilai setelah $4$ tahun, dan mendata nilai tiap tahun untuk menemukan tahun pertama di bawah ambang.',
     hints: [
-      'Nyatakan rasio massa yang tersisa sebagai pangkat dari $\\dfrac{1}{2}$.',
-      'Setelah waktu paruh diketahui, bagi lama waktu dengan $T$ untuk memperoleh banyak waktu paruh.',
+      'Berkurang $25\\%$ berarti sisa $75\\%$ dari nilai tahun sebelumnya.',
+      'Kalikan berulang dengan $0{,}75$ untuk melihat tahun pertama yang nilainya di bawah ambang.',
     ],
-    competencies: ['peluruhan eksponen', 'waktu paruh', 'persamaan eksponen', 'pemodelan'],
+    competencies: ['peluruhan eksponen', 'pemodelan', 'interpretasi'],
     rubric: [
-      'Menyusun $320\\left(\\tfrac12\\right)^{15/T}=40$ lalu $\\left(\\tfrac12\\right)^{15/T}=\\left(\\tfrac12\\right)^{3}$',
-      'Memperoleh waktu paruh $T=5$ tahun dan menuliskan model lengkapnya',
-      'Menghitung $M(25)=10$ gram',
+      'Menafsirkan penyusutan $25\\%$ sebagai faktor $0{,}75$',
+      'Menuliskan model $P(t)=512.000\\,(0{,}75)^{t}$',
+      'Menghitung $P(4)=162.000$ satuan',
+      'Menemukan tahun pertama di bawah ambang, yaitu $t=5$',
     ],
   },
   {

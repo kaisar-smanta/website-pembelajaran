@@ -421,32 +421,36 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
     {
       id: "regresi-tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Dari $12$ pasangan data, seorang siswa memperoleh garis regresi $\\hat{y} = 2{,}5x + 4$ dengan koefisien korelasi $r = 0{,}6$. Data $x$ berada pada rentang $2$ sampai $10$.
-
-- Benarkah ia menyatakan bahwa "$x$ menjelaskan $60\\%$ variasi $y$"?
-- Tafsirkan gradien dan intersepnya, lalu hitung dugaan $y$ untuk $x = 15$.
-- Sebutkan dua alasan mengapa prediksi $x = 15$ kurang dapat dipercaya.`,
+      title: "Dua Garis Regresi yang Berbeda",
+      body: `**Soal.** Empat pengamatan $(x,y)$ adalah $(1,2)$, $(2,3)$, $(3,5)$, dan $(4,6)$. Seorang analis menyimpulkan bahwa satu garis regresi sudah cukup untuk mewakili hubungan keduanya. Tentukan garis regresi $y$ terhadap $x$ dan garis regresi $x$ terhadap $y$, lalu jelaskan mengapa keduanya tidak sama. Periksa pula hubungan antara kedua gradien itu dengan koefisien korelasi.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Periksa tafsiran koefisien, prediksi, dan batas keberlakuannya.",
+          intro: "Hitung kedua arah regresi dari data yang sama, lalu bandingkan.",
           steps: [
             {
-              title: "Perbaiki tafsiran korelasi",
-              text: "Pernyataan itu keliru. Proporsi variasi $y$ yang dijelaskan adalah $r^2 = 0{,}6^2 = 0{,}36$, yaitu **sekitar $36\\%$**, bukan $60\\%$. Nilai $r$ mengukur kekuatan dan arah hubungan linear, bukan persentase variasi.",
+              title: "Hitung jumlah yang diperlukan",
+              text: "Dengan $n=4$: $\\sum x_i=10$, $\\sum y_i=16$, $\\sum x_iy_i=47$, $\\sum x_i^2=30$, dan $\\sum y_i^2=74$.",
             },
             {
-              title: "Tafsirkan koefisien",
-              text: "Gradien $b = 2{,}5$ berarti setiap tambahan $1$ satuan $x$ dikaitkan dengan kenaikan rata-rata $2{,}5$ satuan $y$. Intersep $a = 4$ adalah nilai dugaan $\\hat{y}$ saat $x = 0$; karena $x = 0$ di luar rentang data ($2$ sampai $10$), angka ini lebih bermakna sebagai bagian persamaan daripada sebagai prediksi nyata.",
+              title: "Garis $y$ terhadap $x$",
+              text: "Gradien $b=\\dfrac{4(47)-(10)(16)}{4(30)-10^2}=\\dfrac{188-160}{120-100}=\\dfrac{28}{20}=1{,}4$. Karena $\\bar{x}=2{,}5$ dan $\\bar{y}=4$, intersep $a=4-1{,}4(2{,}5)=0{,}5$, sehingga $\\hat{y}=1{,}4x+0{,}5$.",
             },
             {
-              title: "Hitung prediksi",
-              text: "Untuk $x = 15$: $\\hat{y} = 2{,}5(15) + 4 = 37{,}5 + 4 = 41{,}5$.",
+              title: "Garis $x$ terhadap $y$",
+              text: "Gradien $b'=\\dfrac{4(47)-(16)(10)}{4(74)-16^2}=\\dfrac{188-160}{296-256}=\\dfrac{28}{40}=0{,}7$. Intersep $a'=\\bar{x}-b'\\bar{y}=2{,}5-0{,}7(4)=-0{,}3$, sehingga $x=0{,}7y-0{,}3$.",
             },
             {
-              title: "Sebutkan alasan kehati-hatian",
-              text: "Pertama, $x = 15$ jauh di luar rentang data $2$ sampai $10$ sehingga termasuk **ekstrapolasi** dan pola linear belum tentu berlaku. Kedua, dengan $r^2 = 0{,}36$, sekitar $64\\%$ variasi $y$ dijelaskan faktor lain, sehingga prediksi tunggal pasti meleset dari nilai amatan yang wajar.",
+              title: "Mengapa keduanya berbeda",
+              text: "Kedua garis dioptimalkan untuk arah galat yang berbeda: garis $y$ terhadap $x$ meminimumkan jumlah kuadrat residu **tegak**, sedangkan garis $x$ terhadap $y$ meminimumkan residu **mendatar**. Keduanya baru berimpit ketika titik-titik tepat segaris sempurna.",
+            },
+            {
+              title: "Hubungan kedua gradien",
+              text: "Koefisien korelasinya $r=\\dfrac{28}{\\sqrt{(120-100)(296-256)}}=\\dfrac{28}{\\sqrt{20\\cdot40}}=\\dfrac{28}{\\sqrt{800}}\\approx0{,}99$. Perhatikan $b\\cdot b'=1{,}4\\times0{,}7=0{,}98=r^2$: garis balik membagi kembali kuadrat korelasi, bukan menggantikan garis semula.",
+            },
+            {
+              title: "Simpulkan",
+              text: "Untuk hubungan yang tidak sempurna, garis regresi $y$ terhadap $x$ dan $x$ terhadap $y$ memang berbeda. Kesimpulan analis bahwa satu garis cukup adalah keliru bila arah prediksinya ditukar.",
             },
           ],
         },
@@ -455,8 +459,8 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
     {
       id: "regresi-sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Metode kuadrat terkecil tumbuh dari kebutuhan astronomi untuk mencocokkan pengamatan yang mengandung galat. Pada 1805 Adrien-Marie Legendre menerbitkannya secara terbuka, sedangkan Carl Friedrich Gauss mengaku telah memakainya sejak 1795 dan memberinya dasar yang lebih ketat. Gauss memakai metode ini untuk menghitung kembali orbit Ceres dari sekumpulan kecil pengamatan. Istilah "regresi" kemudian dipopulerkan Francis Galton ketika menelaah tinggi badan orang tua dan anak, sebab tinggi anak cenderung kembali ke arah rata-rata. Pada awal abad ke-20 Karl Pearson merumuskan kaitan antara garis regresi dan koefisien korelasi, sehingga prediksi dan ukuran kekuatan hubungan dapat dipakai bersama. Kini kuadrat terkecil menjadi salah satu metode pemodelan data yang paling luas digunakan.`,
+      title: "Kuadrat Terkecil dan Kelahiran Regresi",
+      body: `Metode kuadrat terkecil tumbuh dari kebutuhan astronomi untuk mencocokkan pengamatan yang mengandung galat. Pada 1805 Adrien-Marie Legendre menerbitkannya secara terbuka, sedangkan Carl Friedrich Gauss mengaku telah memakainya sejak 1795 dan memberinya dasar yang lebih ketat. Gauss memakai metode ini untuk menghitung kembali orbit Ceres dari sekumpulan kecil pengamatan yang tersebar, sebuah keberhasilan yang membuat metode tersebut cepat dikenal. Istilah "regresi" kemudian dipopulerkan Francis Galton pada akhir abad ke-19 ketika menelaah tinggi badan orang tua dan anak: tinggi anak cenderung kembali (regress) ke arah rata-rata populasi, sehingga garis yang menggambarkan kecenderungan itu ia sebut garis regresi. Pada awal abad ke-20 Karl Pearson merumuskan kaitan yang rapi antara garis regresi dan koefisien korelasi, sehingga prediksi dan ukuran kekuatan hubungan dapat dipakai bersama sebagai satu kerangka. Sejak itu garis kuadrat terkecil menjadi langkah baku setelah diagram pencar diperiksa, dan kini metode ini menjadi salah satu alat pemodelan data yang paling luas digunakan.`,
     },
     {
       id: "refleksi",

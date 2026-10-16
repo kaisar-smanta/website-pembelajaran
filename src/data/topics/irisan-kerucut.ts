@@ -459,7 +459,7 @@ Dalam astronomi, hukum Kepler menyatakan orbit planet berbentuk elips dengan Mat
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Membuktikan Sifat Fokus Elips",
       body: `Sifat paling khas elips ternyata sekaligus dapat dibuktikan dari persamaannya.
 
 Diberikan elips dengan persamaan
@@ -510,8 +510,41 @@ $$PF_1+PF_2=2a.$$`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Menaechmus sampai Kepler",
       body: `Irisan kerucut sudah dipelajari sejak zaman Yunani kuno. Menaechmus pada abad ke-4 SM menemukannya ketika mencari cara memperbesar kubus, dan Apollonius dari Perga dalam karyanya *Conics* (sekitar 200 SM) menamai serta mengkaji elips, parabola, dan hiperbola secara sistematis. Berabad-abad kemudian, Johannes Kepler pada 1609 menunjukkan bahwa orbit planet berbentuk elips dengan Matahari di salah satu fokusnya, sebuah penemuan yang mengubah astronomi. Galileo juga menjelaskan lintasan proyektil sebagai parabola. Sifat fokus elips kemudian dijelaskan secara geometris melalui bola-bola Dandelin pada abad ke-19.`,
+      blocks: [
+        {
+          kind: "table",
+          caption: "Tokoh dalam sejarah irisan kerucut",
+          headers: [
+            "Tokoh",
+            "Tahun",
+            "Kontribusi",
+          ],
+          rows: [
+            [
+              "Menaechmus",
+              "abad ke-4 SM",
+              "Menemukan irisan kerucut saat memecahkan masalah penggandaan kubus.",
+            ],
+            [
+              "Apollonius dari Perga",
+              "sekitar 200 SM",
+              "Menulis Conics dan menamai elips, parabola, serta hiperbola.",
+            ],
+            [
+              "Johannes Kepler",
+              "1609",
+              "Menunjukkan orbit planet berbentuk elips dengan Matahari di salah satu fokus.",
+            ],
+            [
+              "Germinal Pierre Dandelin",
+              "1822",
+              "Menjelaskan sifat fokus elips melalui bola-bola Dandelin.",
+            ],
+          ],
+        },
+      ],
     },
     {
       id: "refleksi",

@@ -195,6 +195,36 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
       </div>
     </section>
 
+    <section data-enrichment hidden aria-labelledby="pengayaan">
+      <SectionHeading
+        id="pengayaan"
+        eyebrow="Pengayaan"
+        title="Kemajuan materi pengayaan"
+        lead="Topik pengayaan melampaui tuntutan CP. Kemajuannya dipisahkan agar terlihat jelas dari materi wajib."
+        reveal={false}
+      />
+      <dl class="stats enrichment-stats">
+        <div class="stat">
+          <dt>Topik pengayaan dimulai</dt>
+          <dd data-enrichment-started>0/0</dd>
+        </div>
+        <div class="stat">
+          <dt>Tuntas</dt>
+          <dd data-enrichment-completed>0</dd>
+        </div>
+        <div class="stat">
+          <dt>Soal dikerjakan</dt>
+          <dd data-enrichment-answered>0/0</dd>
+        </div>
+        <div class="stat">
+          <dt>Ketepatan</dt>
+          <dd data-enrichment-accuracy>0%</dd>
+        </div>
+      </dl>
+      <ol class="continue-list" data-enrichment-list></ol>
+      <p class="subhead-note text-muted" data-enrichment-note></p>
+    </section>
+
     <section data-continue hidden aria-labelledby="lanjutkan">
       <SectionHeading
         id="lanjutkan"
@@ -387,6 +417,7 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
   section[data-challenge],
   section[data-mastery],
   section[data-confidence],
+  section[data-enrichment],
   section[data-continue],
   section[data-suggest],
   section[data-breakdown],
@@ -399,6 +430,7 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
   section[data-challenge] :global(.section-heading),
   section[data-mastery] :global(.section-heading),
   section[data-confidence] :global(.section-heading),
+  section[data-enrichment] :global(.section-heading),
   section[data-continue] :global(.section-heading),
   section[data-suggest] :global(.section-heading),
   section[data-breakdown] :global(.section-heading),
@@ -434,6 +466,9 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     font-size: 0.92rem;
     color: var(--color-text-muted);
     max-width: 60ch;
+  }
+  .enrichment-stats .stat {
+    border-style: dashed;
   }
   .mastery-bands {
     margin: 0;
@@ -529,6 +564,12 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
   .continue-meta {
     font-size: 0.85rem;
     color: var(--color-text-muted);
+  }
+  .continue-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
   }
   .breakdown {
     display: grid;

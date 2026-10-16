@@ -171,7 +171,7 @@ export const polinomialQuestions: Question[] = [
   {
     id: 'pol-09',
     topicId: 'polinomial',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

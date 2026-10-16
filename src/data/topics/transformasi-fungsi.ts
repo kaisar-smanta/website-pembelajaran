@@ -411,32 +411,32 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Grafik $y=x^{2}$ digeser sehingga titik puncaknya berada di $(-3,2)$ dan grafiknya melalui titik $(-1,10)$. Tentukan rumus fungsi hasil transformasi itu.`,
+      title: "Menentukan Parabola dari Akar dan Titik Lain",
+      body: `**Soal.** Grafik $y=x^{2}$ ditransformasi menjadi parabola $y=a(x-h)^{2}+k$ yang memotong sumbu-$x$ di $x=-1$ dan $x=5$, serta melalui titik $(0,-10)$. Tentukan nilai $a$, $h$, dan $k$, lalu tuliskan rumus lengkapnya.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kita gunakan bentuk puncak dan satu titik untuk menentukan faktor regangannya.",
+          intro: "Baca sumbu simetri dari dua titik potong, susun bentuk faktor, lalu lengkapkan kuadrat.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Puncak di $(-3,2)$ memberi bentuk $y = a(x+3)^2 + 2$.",
+              title: "Baca sumbu simetri",
+              text: "Parabola memotong sumbu-$x$ di $x=-1$ dan $x=5$. Sumbu simetrinya berada tepat di tengah kedua titik potong: $h = \\dfrac{-1+5}{2} = 2$.",
             },
             {
-              title: "Langkah 2",
-              text: "Grafik melalui $(-1,10):$ substitusi $x=-1$ dan $y=10$.",
+              title: "Susun bentuk faktor",
+              text: "Karena akarnya $-1$ dan $5$, rumusnya dapat ditulis $y = a(x+1)(x-5)$, yang sumbu simetrinya juga $x=2$.",
             },
             {
-              title: "Langkah 3",
-              text: "$10 = a(-1+3)^2 + 2 = a(2)^2 + 2 = 4a + 2$, sehingga $4a = 8$ dan $a = 2$.",
+              title: "Tentukan $a$ dari titik yang dilalui",
+              text: "Substitusi $(0,-10)$: $-10 = a(0+1)(0-5) = -5a$, sehingga $a = 2$.",
             },
             {
-              title: "Langkah 4",
-              text: "Jadi rumusnya $y = 2(x+3)^2 + 2 = 2x^2 + 12x + 20$.",
+              title: "Ubah ke bentuk puncak",
+              text: "Jabarkan: $y = 2(x+1)(x-5) = 2(x^{2}-4x-5) = 2x^{2}-8x-10$. Melengkapkan kuadrat memberi $y = 2(x-2)^{2}-18$, jadi $h=2$ dan $k=-18$.",
             },
             {
-              title: "Langkah 5",
-              text: "Periksa titik $(-1,10)$: $2(-1+3)^2+2 = 2(4)+2 = 10$. Benar.",
+              title: "Periksa",
+              text: "Di $x=-1$ dan $x=5$ nilai fungsinya nol, sesuai titik potong sumbu-$x$. Di $x=0$: $2(2)^{2}-18 = 8-18 = -10$, sesuai titik $(0,-10)$. Benar.",
             },
           ],
         },
@@ -445,8 +445,8 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Pergeseran, pencerminan, dan perputaran bangun telah dibahas sejak lama, tetapi baru pada abad ke-19 transformasi dipelajari sebagai objek aljabar tersendiri. Pada 1872 Felix Klein dalam *Erlanger Programm*-nya mengusulkan agar setiap cabang geometri dikenali dari jenis transformasi yang membiarkan sifat tertentu tetap. Gagasan bahwa grafik fungsi dapat digeser dan diregangkan dengan mengganti $x$ menjadi $x-h$ atau $f(x)$ menjadi $a\\,f(x)$ menjadi bahasa baku di sekolah pada abad ke-20. Aturan yang sama kini dipakai ketika menyesuaikan kurva dengan data atau merancang animasi.`,
+      title: "Dari Geometri Koordinat ke Regangan Grafik",
+      body: `Gagasan menggeser dan meregangkan kurva berakar pada geometri koordinat yang diperkenalkan René Descartes pada 1637. Begitu grafik menjadi himpunan pasangan $(x,y)$ pada bidang, mengganti $x$ atau $y$ dengan ungkapan baru otomatis memindahkan atau meregangkan grafik itu. Pada abad ke-19 transformasi mulai dipelajari sebagai objek aljabar tersendiri; latar pandangan itu dirangkum pada bagian sejarah topik **Transformasi Geometri**, sedangkan kaitan matriks dengan transformasi linear ada pada topik **Matriks Transformasi**. Di bangku sekolah, aturan mengganti $x$ menjadi $x-h$ atau $f(x)$ menjadi $a\\,f(x)$ menjadi bahasa baku pada abad ke-20, dan aturan yang sama kini dipakai untuk menyesuaikan kurva dengan data atau merancang animasi.`,
     },
     {
       id: "refleksi",

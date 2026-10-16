@@ -272,7 +272,7 @@ export const dataBivariatQuestions: Question[] = [
   {
     id: 'db-14',
     topicId: 'data-bivariat',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'short-answer',
     category: 'penerapan',
     prompt:

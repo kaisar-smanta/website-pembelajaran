@@ -1,7 +1,7 @@
 /**
  * Logika murni untuk eksplorasi variabel acak diskret (tanpa DOM).
  *
- * Distribusi peluang disimpan sebagai daftar pasangan nilai–peluang. Modul
+ * Distribusi peluang disimpan sebagai daftar pasangan nilai-peluang. Modul
  * menghitung jumlah peluang, nilai harapan, momen kedua, varians, dan simpangan
  * baku, serta menyusun rangkuman verbal untuk pembaca.
  */

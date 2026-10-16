@@ -450,32 +450,32 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Sebuah mesin dibeli dengan harga Rp50.000.000. Nilainya menyusut $20\\%$ setiap tahun. (a) Susun model nilainya. (b) Berapa nilainya setelah $3$ tahun? (c) Setelah berapa tahun nilai mesin turun di bawah Rp20.000.000?`,
+      title: "Gaji Tetap versus Gaji Berlipat",
+      body: `**Soal.** Sebuah perusahaan menawarkan dua skema gaji bulanan. Skema A membayar Rp4.000.000 tetap setiap bulan. Skema B membayar Rp500.000 pada bulan pertama, lalu berlipat dua setiap bulan berikutnya. (a) Susun model gaji $A(n)$ dan $B(n)$ untuk bulan ke-$n$. (b) Tentukan bulan pertama ketika gaji skema B **melampaui** gaji skema A, dengan memeriksa nilai tiap bulan. (c) Jelaskan mengapa kesimpulan jangka panjang berbeda dari perbandingan pada bulan-bulan awal.`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Kita susun model eksponensial lalu memeriksa nilainya tahun demi tahun.",
+          intro: "Model linear (tetap) dibandingkan dengan model eksponensial, lalu diuji bulan demi bulan.",
           steps: [
             {
-              title: "Langkah 1",
-              text: "Penyusutan $20\\%$ berarti nilai setiap tahun tersisa $80\\%$, yaitu faktor $0{,}8$. Modelnya $V(t)=50.000.000\\times(0{,}8)^{t}$ dengan $t$ dalam tahun.",
+              title: "Model skema A",
+              text: "Gaji tetap setiap bulan, sehingga $A(n)=4.000.000$ untuk setiap $n$.",
             },
             {
-              title: "Langkah 2",
-              text: "Setelah $3$ tahun: $(0{,}8)^{3}=0{,}512$, sehingga $V(3)=50.000.000\\times0{,}512=\\text{Rp}25.600.000$.",
+              title: "Model skema B",
+              text: "Bulan pertama $500.000$ dan berlipat dua tiap bulan berikutnya, sehingga $B(n)=500.000\\times2^{\\,n-1}$.",
             },
             {
-              title: "Langkah 3",
-              text: "Ingin $V(t)<20.000.000$, yaitu $50.000.000\\times(0{,}8)^{t}<20.000.000$, sehingga $(0{,}8)^{t}<0{,}4$.",
+              title: "Susun pertidaksamaan",
+              text: "Cari $n$ dengan $500.000\\times2^{\\,n-1}>4.000.000$. Bagi kedua ruas dengan $500.000$: $2^{\\,n-1}>8$.",
             },
             {
-              title: "Langkah 4",
-              text: "Periksa tahun ke-4: $(0{,}8)^{4}=0{,}4096$, nilai $\\text{Rp}20.480.000$ masih **di atas** Rp20.000.000.",
+              title: "Uji bulan demi bulan",
+              text: "Bulan ke-$4$: $2^{3}=8$, sehingga $B(4)=4.000.000$, tepat **sama** dengan A dan belum melampaui. Bulan ke-$5$: $2^{4}=16$, sehingga $B(5)=8.000.000>4.000.000$.",
             },
             {
-              title: "Langkah 5",
-              text: "Periksa tahun ke-5: $(0{,}8)^{5}=0{,}32768$, nilai $\\text{Rp}16.384.000$ sudah **di bawah** Rp20.000.000. Jadi pada tahun ke-5.",
+              title: "Tafsirkan hasil",
+              text: "Gaji skema B pertama kali melampaui skema A pada bulan ke-$5$. Pada bulan-bulan awal A jauh lebih besar, tetapi karena B berlipat dua tiap bulan, selisihnya berbalik cepat dan makin melebar; pertumbuhan eksponensial akhirnya menyusul pertumbuhan tetap.",
             },
           ],
         },
@@ -484,7 +484,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Kelahiran Pemodelan Matematis",
       body: `Pemodelan matematis menjadi ciri ilmu modern. Pada abad ke-17, Isaac Newton dan Gottfried Leibniz mengembangkan kalkulus untuk memodelkan gerak dan perubahan, sedangkan pada abad ke-18 Leonhard Euler serta Daniel Bernoulli memakai fungsi eksponensial untuk pertumbuhan dan peluruhan. Abad ke-19 dan ke-20 melihat model dipakai makin luas di fisika, biologi, dan ekonomi; Thomas Malthus merumuskan model pertumbuhan populasi pada 1798, dan Pierre-François Verhulst menambahkan batas pertumbuhan pada 1838. Kini memilih jenis fungsi dari pola data, baik linear, kuadrat, maupun eksponensial, menjadi keterampilan dasar dalam sains dan analisis data.`,
     },
     {

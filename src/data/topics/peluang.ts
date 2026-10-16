@@ -419,12 +419,12 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Tantangan: Derangement Surat",
       body: `**Soal.** Empat surat akan dimasukkan ke empat amplop yang sudah dialamatkan berbeda-beda. Karena tergesa-gesa, surat-surat itu dimasukkan ke amplop **secara acak**. Berapa peluang bahwa **tidak ada satu pun** surat yang masuk ke amplop yang benar? (Susunan semacam ini disebut *derangement*.)`,
       blocks: [
         {
           kind: "step-reveal",
-          intro: "Hitung peluang komplemennya memakai prinsip inklusi–eksklusi, lalu kurangkan dari $1$.",
+          intro: "Hitung peluang komplemennya memakai prinsip inklusi-eksklusi, lalu kurangkan dari $1$.",
           steps: [
             {
               title: "Ruang sampel",
@@ -447,7 +447,7 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
               text: "Dengan cara sama, $\\lvert A_i \\cap A_j \\cap A_k \\rvert = 1! = 1$ untuk $\\binom{4}{3} = 4$ pilihan, dan $\\lvert A_1 \\cap A_2 \\cap A_3 \\cap A_4 \\rvert = 1$.",
             },
             {
-              title: "Terapkan inklusi–eksklusi",
+              title: "Terapkan inklusi-eksklusi",
               text: "$\\lvert A_1 \\cup A_2 \\cup A_3 \\cup A_4 \\rvert = 24 - 12 + 4 - 1 = 15$.",
             },
             {
@@ -465,7 +465,7 @@ Ingat: frekuensi harapan hanyalah **perkiraan jangka panjang**. Dalam jumlah per
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Lahirnya Teori Peluang",
       body: `Teori peluang tidak dimulai dari rumus, tetapi dari sebuah pertanyaan tentang permainan. Sekitar 1654, Antoine Gombaud (Chevalier de Méré) menanyakan kepada Blaise Pascal bagaimana membagi taruhan secara adil ketika sebuah permainan harus dihentikan sebelum selesai. Pascal lalu berkorespondensi dengan Pierre de Fermat; keduanya menyelesaikan *masalah pembagian taruhan* dengan dua pendekatan berbeda dan memperoleh jawaban yang sama. Korespondensi inilah yang biasanya dianggap sebagai titik tolak teori peluang.
 
 Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang peluang, *De ratiociniis in ludo aleae* (1657). Jacob Bernoulli dalam *Ars Conjectandi* (1713) merumuskan apa yang kemudian dikenal sebagai **hukum bilangan besar**, yaitu penjelasan mengapa peluang empiris merapat ke peluang teoretis pada percobaan yang panjang. Pierre-Simon Laplace dalam *Théorie analytique des probabilités* (1812) merapikan definisi klasiknya sebagai perbandingan kasus yang menguntungkan terhadap seluruh kasus yang sama mungkin. Definisi itulah yang kita pakai sebagai $P(A) = \\dfrac{n(A)}{n(S)}$, sehingga mendata ruang sampel dengan benar menjadi langkah pertama setiap perhitungan.`,

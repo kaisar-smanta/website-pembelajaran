@@ -35,6 +35,11 @@ export interface TopicEntry {
    * dipakai untuk menaksir kemajuan aktivitas (flip-cards, tabs, dsb.).
    */
   activityIds?: string[];
+  /**
+   * Topik pengayaan yang melampaui tuntutan CP. Dipakai agar dasbor dapat
+   * memisahkan kemajuan materi pengayaan dari materi wajib.
+   */
+  supplementary?: boolean;
 }
 
 /** Rekaman berstempel waktu; `at` dipakai di sini dan `confidence` untuk refleksi. */
@@ -81,6 +86,7 @@ export interface MasteryTopicInput {
   gradedAnswered: number;
   total: number;
   lastAt?: number;
+  supplementary?: boolean;
 }
 
 export interface TopicMastery {
@@ -100,6 +106,7 @@ export interface TopicMastery {
   completion: number;
   band: MasteryBand;
   lastAt: number;
+  supplementary?: boolean;
 }
 
 export interface MasterySummary {
@@ -137,6 +144,23 @@ export interface ConfidenceSummary {
   lowLimit: number;
 }
 
+/** Ringkasan kemajuan khusus topik pengayaan, dipisahkan dari materi wajib. */
+export interface EnrichmentSummary {
+  /** Seluruh topik pengayaan yang terdaftar. */
+  total: number;
+  /** Topik pengayaan yang sudah disentuh. */
+  started: number;
+  /** Topik pengayaan yang seluruh soalnya sudah dikerjakan. */
+  completed: number;
+  /** Topik pengayaan yang sudah dimulai, diurutkan aktivitas terbaru. */
+  topics: TopicOverview[];
+  /** Soal pengayaan yang dikerjakan dan seluruh soal pengayaan. */
+  answered: number;
+  totalQuestions: number;
+  /** 0..1, ketepatan soal pengayaan yang dinilai otomatis. */
+  accuracy: number;
+}
+
 export interface SiteOverview {
   topics: TopicOverview[];
   totalQuestions: number;
@@ -154,6 +178,8 @@ export interface SiteOverview {
   hasData: boolean;
   mastery: MasterySummary;
   confidence: ConfidenceSummary;
+  /** Kemajuan materi pengayaan, terhitung dari penanda `supplementary`. */
+  enrichment: EnrichmentSummary;
 }
 
 export interface ElementGroup {

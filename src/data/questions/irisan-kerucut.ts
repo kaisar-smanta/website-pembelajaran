@@ -172,23 +172,30 @@ export const irisanKerucutQuestions: Question[] = [
     id: 'ik-09',
     topicId: 'irisan-kerucut',
     difficulty: 'mahir',
-    type: 'short-answer',
+    type: 'open-response',
     category: 'penalaran',
     prompt:
-      'Garis singgung elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$ di titik $\\left(4, \\tfrac{9}{5}\\right)$ berbentuk $4x + 5y = c$. Tentukan nilai $c$.',
-    answer: '25',
+      'Titik $\\left(4, \\tfrac{9}{5}\\right)$ terletak pada elips $\\dfrac{x^{2}}{25} + \\dfrac{y^{2}}{9} = 1$. (a) Tentukan persamaan garis singgung elips di titik itu. (b) Tentukan titik potong garis singgung tersebut dengan sumbu-$x$. (c) Jelaskan mengapa garis itu menyinggung elips di tepat satu titik.',
+    answer:
+      '(a) Garis singgung di $(x_{1},y_{1})$ adalah $\\dfrac{x\\,x_{1}}{25}+\\dfrac{y\\,y_{1}}{9}=1$. Substitusi $x_{1}=4$ dan $y_{1}=\\tfrac{9}{5}$: $\\dfrac{4x}{25}+\\dfrac{y}{5}=1$, atau $4x+5y=25$ setelah dikalikan $25$. (b) Pada sumbu-$x$, $y=0$ sehingga $4x=25$ dan $x=\\dfrac{25}{4}=6{,}25$. Titik potongnya $\\left(\\dfrac{25}{4},0\\right)$. (c) Substitusi $y=\\dfrac{25-4x}{5}$ ke persamaan elips menghasilkan persamaan kuadrat dalam $x$ dengan diskriminan nol, sehingga hanya ada satu solusi. Satu titik potong inilah yang membuat garis menjadi garis singgung.',
     explanation:
-      'Garis singgung di $(x_{1}, y_{1})$ adalah $\\dfrac{x\\,x_{1}}{25} + \\dfrac{y\\,y_{1}}{9} = 1$. Substitusi $x_{1} = 4$ dan $y_{1} = \\tfrac{9}{5}$: $\\dfrac{4x}{25} + \\dfrac{y}{5} = 1$. Kalikan dengan $25$: $4x + 5y = 25$, sehingga $c = 25$. Periksa: $4(4) + 5\\left(\\tfrac{9}{5}\\right) = 25$.',
+      'Kunci: memakai rumus garis singgung elips di satu titik, menghitung titik potong dengan sumbu-$x$, dan menjelaskan ketunggalan titik singgung melalui diskriminan nol.',
     hints: [
-      'Gunakan $\\dfrac{x\\,x_{1}}{a^{2}} + \\dfrac{y\\,y_{1}}{b^{2}} = 1$, lalu kalikan dengan penyebut bersama.',
-      'Setelah memperoleh $4x+5y=25$, bandingkan dengan bentuk $4x+5y=c$.',
+      'Gunakan $\\dfrac{x\\,x_{1}}{a^{2}}+\\dfrac{y\\,y_{1}}{b^{2}}=1$ lalu kalikan dengan penyebut bersama.',
+      'Titik potong sumbu-$x$ diperoleh dengan menetapkan $y=0$.',
+      'Garis singgung menyentuh elips di satu titik ketika persamaan gabungannya berdiskriminan nol.',
     ],
-    competencies: ['garis singgung elips'],
+    competencies: ['garis singgung elips', 'penalaran', 'pembuktian'],
+    rubric: [
+      'Memperoleh persamaan garis singgung $4x+5y=25$',
+      'Menentukan titik potong sumbu-$x$ $\\left(\\dfrac{25}{4},0\\right)$',
+      'Menjelaskan ketunggalan titik singgung melalui diskriminan nol',
+    ],
   },
   {
     id: 'ik-10',
     topicId: 'irisan-kerucut',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

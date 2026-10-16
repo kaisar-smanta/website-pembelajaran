@@ -402,7 +402,7 @@ Pola keputusannya tetap: tetapkan tujuan, susun model, ubah setiap alternatif me
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Dua Penawaran, Total Biaya Terkecil",
       body: `**Soal.** Pak Andi membutuhkan pinjaman Rp20.000.000 dan menerima dua penawaran.
 - **Penawaran A:** bunga $0{,}8\\%$ per bulan, tenor $36$ bulan, tanpa biaya tambahan.
 - **Penawaran B:** bunga $0{,}6\\%$ per bulan, tenor $48$ bulan, dikenakan biaya administrasi Rp500.000 dibayar di muka.
@@ -442,8 +442,8 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Matematika keuangan bukan penemuan modern. Peradaban Babilonia kuno sudah mencatat perhitungan bunga pada lempeng tanah liat, dan banyak hukum kuno mengatur larangan menarik riba. Leonardo dari Pisa, yang dikenal sebagai Fibonacci, dalam *Liber Abaci* (1202) memuat soal-soal bunga majemuk dan nilai sekarang. Pada akhir abad ke-17 Jacob Bernoulli menyelidiki bunga majemuk yang dihitung makin sering dan menemukan batas yang kini kita kenal sebagai bilangan $e$. Ilmu anuitas dan asuransi jiwa berkembang pada abad ke-17 sampai ke-18, antara lain setelah Edmond Halley menyusun tabel kematian pada 1693.`,
+      title: "Anuitas Jiwa dan Risiko Kredit",
+      body: `Banyak akar matematika keuangan sudah diuraikan pada topik lain. Asal perhitungan bunga majemuk, termasuk soal dari *Liber Abaci* Leonardo dari Pisa (1202), dibahas pada topik **Bunga Majemuk**, sedangkan kisah bilangan $e$ dari pemajemukan yang makin sering diuraikan pada topik **Fungsi Eksponensial**; keduanya tidak diulang di sini. Sudut khas topik ini adalah penilaian risiko pembayaran berkala. Pada 1671 pemerintah Belanda meminta Johan de Witt menghitung nilai anuitas jiwa, salah satu kajian kuantitatif pertama tentang rangkaian pembayaran. Setelah Edmond Halley menerbitkan tabel kematian pada 1693, perusahaan asuransi jiwa dan lembaga kredit tumbuh, dan perbandingan penawaran pinjaman maupun hasil investasi menjadi makin terukur.`,
     },
     {
       id: "refleksi",

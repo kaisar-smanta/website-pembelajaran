@@ -11,5 +11,6 @@ export { topicOfStorageKey } from './overview/tally.ts';
 export * from './overview/overview.ts';
 export * from './overview/mastery.ts';
 export * from './overview/confidence.ts';
+export * from './overview/enrichment.ts';
 export * from './overview/suggestion.ts';
 export * from './overview/group.ts';

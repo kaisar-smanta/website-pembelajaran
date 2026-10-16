@@ -392,7 +392,7 @@ Dalam teknik, laju pendinginan sebuah benda mengikuti turunan suhunya: jika suhu
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
+      title: "Persamaan Fungsional dan Turunan",
       body: `Definisi turunan dapat mengungkap sifat fungsi yang ditentukan oleh persamaan fungsional.
 
 Misalkan $f$ dapat diturunkan pada seluruh bilangan real dan memenuhi
@@ -440,7 +440,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
+      title: "Dari Fermat ke Notasi Leibniz",
       body: `Turunan lahir dari upaya menggambar garis singgung dan mencari nilai terbesar atau terkecil. Pierre de Fermat pada 1620-an mengembangkan metode menentukan titik ekstrem yang menyerupai turunan. Isaac Newton dan Gottfried Wilhelm Leibniz, bekerja secara terpisah pada paruh kedua abad ke-17, menyusun kalkulus diferensial sebagai sistem, dan Leibniz memberi notasi $\\dfrac{dy}{dx}$ yang kita pakai hingga kini. Dasar limit yang ketat baru dibangun kemudian, terutama oleh Augustin-Louis Cauchy pada 1820-an dan Karl Weierstrass melalui definisi $\\varepsilon$-$\\delta$. Sejak itu turunan menjadi alat baku dalam fisika, teknik, dan ekonomi.`,
     },
     {

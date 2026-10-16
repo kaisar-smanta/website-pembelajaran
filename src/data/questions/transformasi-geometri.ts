@@ -241,7 +241,7 @@ export const transformasiGeometriQuestions: Question[] = [
   {
     id: 'tgeo-12',
     topicId: 'transformasi-geometri',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:
@@ -327,5 +327,29 @@ export const transformasiGeometriQuestions: Question[] = [
       'Setelah rotasi, jumlahkan vektor translasi $\\binom{3}{-2}$ pada hasilnya.',
     ],
     competencies: ['rotasi', 'translasi', 'kontekstual'],
+  },
+  {
+    id: 'tgeo-16',
+    topicId: 'transformasi-geometri',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Segitiga $ABC$ dengan $A(1,0)$, $B(0,2)$, dan $C(2,2)$ dikenai dilatasi berpusat di titik asal dengan faktor skala $k>0$. (a) Hitung luas segitiga $ABC$. (b) Tentukan matriks dilatasinya dan jelaskan bagaimana luas berubah. (c) Tentukan $k$ jika luas bayangan menjadi $12$ satuan luas.',
+    answer:
+      '(a) Luas $ABC=\\tfrac{1}{2}\\left|1(2-2)+0(2-0)+2(0-2)\\right|=\\tfrac{1}{2}|-4|=2$ satuan luas. (b) Matriks dilatasi $\\begin{pmatrix} k & 0 \\\\ 0 & k \\end{pmatrix}$ dengan $\\det=k^2$, sehingga luas bayangan sama dengan $k^2$ kali luas awal. (c) Dari $k^2\\times2=12$ diperoleh $k^2=6$, jadi $k=\\sqrt{6}$ karena $k>0$.',
+    explanation:
+      'Kunci: menghitung luas dengan rumus koordinat, memakai determinan dilatasi untuk skala luas, lalu menyelesaikan $k^2=6$.',
+    hints: [
+      'Gunakan rumus luas $\\tfrac{1}{2}\\left|x_A(y_B-y_C)+x_B(y_C-y_A)+x_C(y_A-y_B)\\right|$.',
+      'Dilatasi faktor $k$ mengalikan luas dengan $k^2$ karena determinannya $k^2$.',
+    ],
+    competencies: ['dilatasi', 'determinan', 'luas bangun', 'penalaran'],
+    rubric: [
+      'Menghitung luas awal $2$ satuan luas',
+      'Menuliskan matriks dilatasi dan $\\det=k^2$',
+      'Menyimpulkan luas bayangan sama dengan $k^2$ kali luas awal',
+      'Menyelesaikan $k=\\sqrt{6}$',
+    ],
   },
 ];

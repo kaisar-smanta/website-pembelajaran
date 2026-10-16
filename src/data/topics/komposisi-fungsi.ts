@@ -390,38 +390,42 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
     {
       id: "tantangan",
       kind: "tantangan",
-      title: "Tantangan",
-      body: `**Soal.** Diketahui $f(x)=2x+3$ dan $(f \\circ g)(x)=6x-1$. Tentukan rumus $g(x)$ beserta inversnya $g^{-1}(x)$.`,
+      title: "Membongkar Fungsi dari Komposisi",
+      body: `**Soal.** Diketahui $f(x)=2x+1$ dan $(g \\circ f)(x)=4x^{2}+4x+3$. (a) Tentukan rumus $g(x)$. (b) Tentukan $(f \\circ g)(x)$, lalu bandingkan dengan $(g \\circ f)(x)$. (c) Tentukan semua $x$ yang memenuhi $(f \\circ g)(x)=(g \\circ f)(x)$.`,
       blocks: [
         {
           kind: "callout",
           variant: "tip",
           title: "Petunjuk",
-          text: "Gunakan definisi $(f \\circ g)(x)=f(g(x))$. Karena $f$ diketahui, kita dapat membaca $g(x)$ dari dalam komposisi.",
+          text: "Karena $g \\circ f$ diketahui, bacalah fungsi luar $g$ dengan memisalkan $u=f(x)=2x+1$, lalu nyatakan $x$ dalam $u$.",
         },
         {
           kind: "step-reveal",
-          intro: "Kita uraikan komposisinya lalu membalik $g$.",
+          intro: "Bongkar fungsi dalam dari komposisi, susun fungsi luarnya, lalu cari titik temu kedua komposisi.",
           steps: [
             {
               title: "Langkah 1",
-              text: "Tulis definisinya: $(f \\circ g)(x)=f(g(x))=2g(x)+3$.",
+              text: "Menurut definisinya, $(g \\circ f)(x)=g(f(x))=g(2x+1)=4x^{2}+4x+3$.",
             },
             {
               title: "Langkah 2",
-              text: "Samakan dengan yang diketahui: $2g(x)+3=6x-1$.",
+              text: "Misalkan $u=2x+1$, maka $x=\\dfrac{u-1}{2}$. Substitusikan: $g(u)=4\\left(\\dfrac{u-1}{2}\\right)^{2}+4\\left(\\dfrac{u-1}{2}\\right)+3$.",
             },
             {
               title: "Langkah 3",
-              text: "Kurangi $3$ lalu bagi $2$: $2g(x)=6x-4$, sehingga $g(x)=3x-2$.",
+              text: "Sederhanakan: $g(u)=(u-1)^{2}+2(u-1)+3=u^{2}-2u+1+2u-2+3=u^{2}+2$, sehingga $g(x)=x^{2}+2$.",
             },
             {
               title: "Langkah 4",
-              text: "Balik $g$: dari $y=3x-2$ diperoleh $x=\\dfrac{y+2}{3}$, jadi $g^{-1}(x)=\\dfrac{x+2}{3}$.",
+              text: "Hitung komposisi sebaliknya: $(f \\circ g)(x)=f(x^{2}+2)=2(x^{2}+2)+1=2x^{2}+5$. Bandingkan dengan $(g \\circ f)(x)=4x^{2}+4x+3$; keduanya berbeda, menegaskan komposisi tidak komutatif.",
             },
             {
               title: "Langkah 5",
-              text: "Periksa: $g(1)=1$ dan $g^{-1}(1)=\\dfrac{3}{3}=1$. Benar.",
+              text: "Selesaikan $2x^{2}+5=4x^{2}+4x+3$, sehingga $2x^{2}+4x-2=0$ atau $x^{2}+2x-1=0$. Akarnya $x=-1\\pm\\sqrt{2}$.",
+            },
+            {
+              title: "Langkah 6",
+              text: "Ambil $x=1$: $(f \\circ g)(1)=7$ dan $(g \\circ f)(1)=11$, memang berbeda. Untuk $x=-1+\\sqrt{2}\\approx 0{,}414$ dan $x=-1-\\sqrt{2}\\approx -2{,}414$, kedua komposisi memberi nilai yang sama.",
             },
           ],
         },
@@ -430,8 +434,8 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
     {
       id: "sejarah",
       kind: "sejarah",
-      title: "Jejak Sejarah",
-      body: `Gagasan merangkai dua fungsi, yaitu keluaran satu fungsi menjadi masukan fungsi berikutnya, tumbuh bersama notasi fungsi itu sendiri. Leonhard Euler pada abad ke-18 sudah memakai $f(x)$ dan menghitung nilai fungsi dari fungsi lain, meskipun lambang khusus untuk komposisi belum ada. Selama bertahun-tahun komposisi ditulis dengan tanda kurung seperti $f(g(x))$ untuk menghindari kerancuan. Lambang bundaran $\\circ$ baru lahir pada abad ke-20 dan menyebar luas melalui buku teks aljabar. Gagasan ini menjadi penting ketika matematikawan mempelajari struktur aljabar dan pemetaan, termasuk sifat bahwa urutan pengerjaan mengubah hasil dan bahwa $(f\\circ g)^{-1}=g^{-1}\\circ f^{-1}$.`,
+      title: "Merangkai Fungsi sejak Euler",
+      body: `Gagasan merangkai dua fungsi, yaitu keluaran satu fungsi menjadi masukan fungsi berikutnya, tumbuh bersama notasi fungsi itu sendiri. Leonhard Euler memakai penulisan $f(x)$ pada 1734, dan sejak itu nilai fungsi dari fungsi lain muncul secara alami. Selama lebih dari seratus tahun komposisi ditulis dengan tanda kurung seperti $f(g(x))$ demi menghindari kerancuan. Lambang bundaran $\\circ$ baru dipakai pada abad ke-20 dan meluas melalui buku teks aljabar. Gagasan ini menjadi penting ketika matematikawan menelaah struktur aljabar dan pemetaan, termasuk sifat bahwa urutan pengerjaan mengubah hasil dan bahwa $(f\\circ g)^{-1}=g^{-1}\\circ f^{-1}$. Kisah lengkap notasi fungsi dan fungsi invers dibahas pada topik **Fungsi Invers**.`,
     },
     {
       id: "refleksi",

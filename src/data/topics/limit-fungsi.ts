@@ -12,7 +12,7 @@ export const limitFungsi: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Menjembatani intuisi nilai fungsi menuju turunan; memperkuat elemen Kalkulus Matematika Tingkat Lanjut meski belum menjadi CP tersendiri.',
+    'Menyiapkan dasar konseptual bagi elemen Kalkulus Matematika Tingkat Lanjut, khususnya FL-KAL-1 tentang turunan sebagai laju perubahan dan FL-KAL-2 tentang penerapannya. Limit hasil bagi selisih yang dilatih di sini memperkuat perhitungan turunan pada topik Turunan, meski limit sendiri belum berdiri sebagai pernyataan CP tersendiri.',
   estimatedMinutes: 100,
   summary:
     'Memahami limit sebagai nilai yang didekati fungsi, menghitung limit aljabar dengan substitusi, pemfaktoran, dan perkalian akar sekawan, serta menentukan limit di tak hingga.',
@@ -364,44 +364,42 @@ Semua contoh ini berbagi satu gagasan: kita tidak menghitung nilai di titik yang
     {
       id: 'tantangan',
       kind: 'tantangan',
-      title: 'Tantangan',
-      body: `Kadang limit tidak muncul sendirian; ia hadir melalui sebuah **parameter** yang harus kita pilih agar limitnya ada.
+      title: 'Akar Pangkat Tiga pada Limit',
+      body: `Perkalian akar sekawan tidak hanya berlaku untuk akar kuadrat. Untuk akar pangkat tiga, kita memanfaatkan identitas selisih kubus $u^{3}-1=(u-1)\\left(u^{2}+u+1\\right)$.
 
-**Soal.** Tentukan nilai $a$ sehingga limit berikut ada, lalu hitung nilai limit itu:
-$$\\lim_{x\\to 2}\\frac{ax^{2}-8}{x-2}.$$
+**Soal.** Hitung
+$$\\lim_{x\\to 0}\\frac{\\sqrt[3]{1+x}-1}{x}.$$
 
-Di $x = 2$ penyebutnya nol. Limit hanya dapat bernilai berhingga bila pembilangnya **juga** menuju nol, sehingga nilai $a$ harus ditentukan lebih dahulu.`,
+Substitusi langsung $x=0$ memberi $\\dfrac{0}{0}$, jadi bentuk ini perlu disederhanakan lebih dahulu.`,
       blocks: [
         {
           kind: 'callout',
           variant: 'tip',
           title: 'Petunjuk',
-          text: `Substitusikan $x = 2$ pada pembilang. Agar penyebut dan pembilang sama-sama nol, pembilang harus ikut lenyap di $x = 2$, sehingga $a$ dapat dicari dari persamaan $a(2)^{2} - 8 = 0$.`,
+          text: 'Misalkan $u=\\sqrt[3]{1+x}$, sehingga $u^{3}=1+x$ dan $x=u^{3}-1$. Perhatikan bahwa $x$ dapat difaktorkan sebagai $(u-1)\\left(u^{2}+u+1\\right)$.',
         },
         {
           kind: 'step-reveal',
-          intro: 'Kerjakan berurutan: tentukan $a$, sederhanakan bentuknya, lalu hitung limitnya.',
+          intro: 'Ubah limit ke variabel $u$, sederhanakan dengan selisih kubus, lalu ambil limitnya.',
           steps: [
             {
-              title: 'Langkah 1: Syarat limit berhingga',
-              text: `Substitusi langsung $x=2$ memberi pembilang $4a-8$ dan penyebut $0$. Agar limitnya berhingga, pembilang harus turut menjadi nol: $4a - 8 = 0$, sehingga $a = 2$.`,
+              title: 'Langkah 1: Substitusi variabel',
+              text: `Misalkan $u=\\sqrt[3]{1+x}$. Maka $u^{3}=1+x$, sehingga $x=u^{3}-1$. Ketika $x\\to 0$, nilai $u\\to 1$. Pembilangnya menjadi $u-1$, sehingga
+$$\\frac{\\sqrt[3]{1+x}-1}{x}=\\frac{u-1}{u^{3}-1}.$$`,
             },
             {
-              title: 'Langkah 2: Substitusikan nilai $a$',
-              text: `Dengan $a = 2$, limitnya menjadi $\\lim_{x\\to 2}\\dfrac{2x^{2}-8}{x-2}$.`,
+              title: 'Langkah 2: Faktorkan selisih kubus',
+              text: `Gunakan identitas $u^{3}-1=(u-1)\\left(u^{2}+u+1\\right)$, sehingga penyebutnya dapat ditulis $(u-1)\\left(u^{2}+u+1\\right)$.`,
             },
             {
-              title: 'Langkah 3: Faktorkan pembilang',
-              text: `Keluarkan faktor $2$ lalu gunakan selisih kuadrat:
-$$\\frac{2x^{2}-8}{x-2}=\\frac{2(x^{2}-4)}{x-2}=\\frac{2(x-2)(x+2)}{x-2}.$$`,
+              title: 'Langkah 3: Coret faktor sekutu',
+              text: `Untuk $u\\neq 1$ berlaku
+$$\\frac{u-1}{(u-1)\\left(u^{2}+u+1\\right)}=\\frac{1}{u^{2}+u+1}.$$`,
             },
             {
-              title: 'Langkah 4: Coret faktor sekutu',
-              text: `Untuk $x \\neq 2$, bentuk itu sama dengan $2(x+2)$.`,
-            },
-            {
-              title: 'Langkah 5: Hitung limit',
-              text: `Karena substitusi langsung kembali dapat dilakukan, $\\lim_{x\\to 2}2(x+2)=2(4)=8$. Jadi $a=2$ dan nilai limitnya $8$.`,
+              title: 'Langkah 4: Hitung limit',
+              text: `Karena substitusi kembali dapat dilakukan ketika $u\\to 1$,
+$$\\lim_{x\\to 0}\\frac{\\sqrt[3]{1+x}-1}{x}=\\frac{1}{1^{2}+1+1}=\\frac{1}{3}.$$`,
             },
           ],
         },
@@ -410,7 +408,7 @@ $$\\frac{2x^{2}-8}{x-2}=\\frac{2(x^{2}-4)}{x-2}=\\frac{2(x-2)(x+2)}{x-2}.$$`,
     {
       id: 'sejarah',
       kind: 'sejarah',
-      title: 'Jejak Sejarah',
+      title: 'Lahirnya Gagasan Limit',
       body: `Gagasan "mendekati" muncul sejak awal kalkulus. Isaac Newton berbicara tentang kuantitas yang menyusut menuju nol, dan pada abad ke-18 Jean le Rond d'Alembert mulai merumuskan limit sebagai nilai yang didekati. Pada 1821 Augustin-Louis Cauchy memberikan definisi limit yang sistematis, memperbaiki dasar kalkulus yang sebelumnya bersandar pada bilangan sangat kecil. Karl Weierstrass kemudian, pada pertengahan abad ke-19, memperkenalkan definisi $\\varepsilon$-$\\delta$ yang menjadi bentuk baku hingga kini. Dengan fondasi ini, limit menjadi dasar bagi turunan dan integral.`,
     },
     {

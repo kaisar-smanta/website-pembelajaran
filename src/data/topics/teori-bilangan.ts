@@ -12,7 +12,7 @@ export const teoriBilangan: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Teori bilangan memperdalam elemen Bilangan Fase E (keterbagian, FPB/KPK, bilangan prima) di luar tuntutan CP resmi. Materi ini melatih penalaran dan menjadi bekal penting untuk olimpiade matematika serta dasar kriptografi.',
+    'Teori bilangan memperluas elemen Bilangan Fase E dari butir E-BIL-1, yang menuntut sifat bilangan berpangkat dan pangkat pecahan, menuju keterbagian, FPB, dan aritmetika modulo bilangan bulat. Tidak ada butir CP lain yang menuntut algoritma Euklides atau kongruensi, sehingga materi ini berada di luar cakupan resmi. Penerapan nyata seperti digit pemeriksa nomor identitas dan sandi kunci publik menjadi alasan topik ini tetap diajarkan.',
   estimatedMinutes: 80,
   summary:
     'Menelaah keterbagian, FPB dan KPK, algoritma Euklides, kongruensi modulo, bilangan prima, serta dasar aritmetika modular.',
@@ -397,7 +397,7 @@ Sistem sandi kunci publik (seperti RSA) bertumpu pada bilangan prima besar dan o
     {
       id: 'tantangan',
       kind: 'tantangan',
-      title: 'Tantangan',
+      title: 'Tak Berhingga Banyak Prima',
       body: `Euclid membuktikan bahwa tidak ada bilangan prima terbesar, dengan kata lain banyak bilangan prima **tak berhingga**.
 
 Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu temukan kontradiksinya.`,
@@ -443,7 +443,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
     {
       id: 'sejarah',
       kind: 'sejarah',
-      title: 'Jejak Sejarah',
+      title: 'Dari Euklides ke Gauss',
       body: `Teori bilangan termasuk cabang matematika tertua. Dalam *Elements*-nya (sekitar 300 SM), Euklides sudah membuktikan bahwa banyak bilangan prima tak berhingga dan menyusun algoritma pencarian FPB yang kini menyandang namanya. Bahasa kongruensi dan aritmetika modulo baru matang pada *Disquisitiones Arithmeticae* karya Carl Friedrich Gauss (1801), yang menyebut teori bilangan sebagai "ratu matematika". Di Tiongkok kuno, kitab *Sunzi Suanjing* memuat apa yang kini dikenal sebagai teorema sisa Tiongkok untuk menyelesaikan sistem kongruensi. Pierre de Fermat pada abad ke-17 menemukan hasil penting tentang pangkat dan modulo yang kemudian diperumum Leonhard Euler. Gagasan-gagasan inilah yang kini menopang kriptografi modern seperti RSA.`,
     },
     {

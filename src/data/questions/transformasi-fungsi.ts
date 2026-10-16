@@ -172,7 +172,7 @@ export const transformasiFungsiQuestions: Question[] = [
   {
     id: 'tf-09',
     topicId: 'transformasi-fungsi',
-    difficulty: 'mahir',
+    difficulty: 'cakap',
     type: 'multiple-choice',
     category: 'penalaran',
     prompt:

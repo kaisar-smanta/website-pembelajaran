@@ -7,11 +7,12 @@ import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
-import { ELEMENTS, GRADES, GRADE_ORDER, SUBJECTS, SUBJECT_ORDER } from '@/data/curriculum';
+import { ELEMENTS, GRADES, GRADE_ORDER, SUBJECTS, SUBJECT_ORDER, ALL_ELEMENT_ORDER } from '@/data/curriculum';
 import { seededShuffle } from '@/lib/random';
+import { normalizeText } from '@/lib/filter';
 import { renderInlineMarkdown } from '@/utils/markdown';
 import { url, topicUrl } from '@/utils/url';
-import type { Grade, SubjectId } from '@/types/content';
+import type { Grade, Section, SubjectId } from '@/types/content';
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -23,13 +24,19 @@ const featured = seededShuffle(mahir, 'tantangan-unggulan').slice(0, 6);
 
 const supplementaryTopics = topics.filter((t) => t.supplementary);
 
+// Topik pengayaan tampil pada bagiannya sendiri, jadi tidak diulang pada
+// kelompok mata pelajaran/kelas (menghindari duplikasi daftar).
 const challengeTopics = topics
+  .filter((t) => !t.supplementary)
   .map((topic) => {
     const items = questionsByTopic(topic.id);
     const mahirCount = items.filter((q) => q.difficulty === 'mahir').length;
     return { topic, mahirCount };
   })
   .filter((entry) => entry.mahirCount > 0);
+
+const searchText = (topic: (typeof topics)[number]): string =>
+  normalizeText([topic.title, topic.summary, ...(topic.keywords ?? [])].join(' '));
 
 const groups = SUBJECT_ORDER.map((subject: SubjectId) => ({
   subject,
@@ -41,6 +48,36 @@ const groups = SUBJECT_ORDER.map((subject: SubjectId) => ({
       .filter((entry) => topicSubject(entry.topic) === subject && entry.topic.grade === grade)
       .sort((a, b) => a.topic.title.localeCompare(b.topic.title, 'id')),
   })).filter((g) => g.topics.length > 0),
+})).filter((g) => g.grades.length > 0);
+
+// Indeks bagian `sejarah` dan `tantangan` lintas topik. Anchor mengikuti `id`
+// bagian pada halaman topik (`SectionBlock` merender `id={section.id}`).
+interface SectionIndexEntry {
+  topic: (typeof topics)[number];
+  subject: SubjectId;
+  sejarah?: Section;
+  tantangan?: Section;
+}
+
+const sectionEntries: SectionIndexEntry[] = [];
+for (const topic of topics) {
+  const sejarah = topic.sections.find((s) => s.kind === 'sejarah');
+  const tantangan = topic.sections.find((s) => s.kind === 'tantangan');
+  if (sejarah || tantangan) {
+    sectionEntries.push({ topic, subject: topicSubject(topic), sejarah, tantangan });
+  }
+}
+
+const sectionGroups = SUBJECT_ORDER.map((subject: SubjectId) => ({
+  subject,
+  meta: SUBJECTS[subject],
+  grades: GRADE_ORDER.map((grade: Grade) => ({
+    grade,
+    meta: GRADES[grade],
+    entries: sectionEntries
+      .filter((entry) => entry.subject === subject && entry.topic.grade === grade)
+      .sort((a, b) => a.topic.title.localeCompare(b.topic.title, 'id')),
+  })).filter((g) => g.entries.length > 0),
 })).filter((g) => g.grades.length > 0);
 
 const totalMahir = mahir.length;
@@ -89,49 +126,136 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     </div>
   </section>
 
-  {
-    groups.map((group, gi) => (
-      <section
-        class:list={['section', gi % 2 === 0 ? 'section-alt' : 'section-paper']}
-        aria-labelledby={`tantangan-${group.subject}`}
-      >
-        <div class="container">
-          <SectionHeading
-            id={`tantangan-${group.subject}`}
-            eyebrow={group.meta.name}
-            title={`Tantangan ${group.meta.short}`}
-            lead="Pilih topik untuk membuka sesi latihan berjenjangnya, lalu fokuskan pada tingkat mahir."
-          />
-          {group.grades.map((gradeGroup) => (
-            <div class="grade-block">
-              <h3 class="grade-label">
-                {gradeGroup.meta.name}
-                <span class="grade-tag">{gradeGroup.meta.label}</span>
-              </h3>
-              <div class="topic-grid">
-                {gradeGroup.topics.map(({ topic, mahirCount }, i) => (
-                  <a
-                    class:list={['card', 'topic-card', 'hover-lift', 'reveal', 'card-accent', `accent-${topic.element}`]}
-                    href={url(`/latihan/${topic.slug}`)}
-                    style={revealStyle(i)}
-                  >
-                    <span class="topic-element">{ELEMENTS[topic.element].short}</span>
-                    <h4 set:html={renderInlineMarkdown(topic.title)} />
-                    <p class="topic-summary" set:html={renderInlineMarkdown(topic.summary)} />
-                    <span class="topic-meta">
-                      {mahirCount} soal mahir
-                      {topic.supplementary ? ' · pengayaan' : ''}
-                    </span>
-                    <span class="topic-link">Buka latihan →</span>
-                  </a>
-                ))}
-              </div>
+  <div data-tantangan-root>
+    <section class="section section-paper" aria-labelledby="saring-tantangan">
+      <div class="container">
+        <SectionHeading
+          id="saring-tantangan"
+          eyebrow="Saring"
+          title="Temukan tantangan"
+          lead="Saring daftar topik tantangan menurut mata pelajaran, kelas, dan elemen, atau cari dengan kata kunci. Pilihanmu tersimpan di alamat halaman."
+        />
+        <div class="filter-bar" data-filter-bar>
+          <div class="filter-group" role="group" aria-labelledby="filter-mapel-label">
+            <span class="filter-label" id="filter-mapel-label">Mata pelajaran</span>
+            <div class="filter-options">
+              <button type="button" class="filter-btn" data-filter="mapel" data-value="" aria-pressed="true">Semua</button>
+              {
+                SUBJECT_ORDER.map((subject) => (
+                  <button type="button" class="filter-btn" data-filter="mapel" data-value={subject} aria-pressed="false">
+                    {SUBJECTS[subject].short}
+                  </button>
+                ))
+              }
             </div>
-          ))}
+          </div>
+          <div class="filter-group" role="group" aria-labelledby="filter-kelas-label">
+            <span class="filter-label" id="filter-kelas-label">Kelas</span>
+            <div class="filter-options">
+              <button type="button" class="filter-btn" data-filter="kelas" data-value="" aria-pressed="true">Semua</button>
+              {
+                GRADE_ORDER.map((grade) => (
+                  <button type="button" class="filter-btn" data-filter="kelas" data-value={grade} aria-pressed="false">
+                    Kelas {grade}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+          <div class="filter-group" role="group" aria-labelledby="filter-elemen-label">
+            <span class="filter-label" id="filter-elemen-label">Elemen</span>
+            <div class="filter-options">
+              <button type="button" class="filter-btn" data-filter="elemen" data-value="" aria-pressed="true">Semua</button>
+              {
+                ALL_ELEMENT_ORDER.map((element) => (
+                  <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter="elemen"
+                    data-value={element}
+                    aria-pressed="false"
+                  >
+                    {ELEMENTS[element].short}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+          <div class="filter-group filter-search" role="search">
+            <label class="filter-label" for="tantangan-search">Cari topik</label>
+            <input
+              id="tantangan-search"
+              type="search"
+              class="filter-input"
+              data-tantangan-search
+              placeholder="Mis. limit, kombinatorika, induksi"
+              autocomplete="off"
+            />
+          </div>
         </div>
-      </section>
-    ))
-  }
+        <p class="filter-result" data-result-count aria-live="polite"></p>
+      </div>
+    </section>
+
+    {
+      groups.map((group, gi) => (
+        <section
+          class:list={['section', gi % 2 === 0 ? 'section-alt' : 'section-paper']}
+          data-subject-group
+          aria-labelledby={`tantangan-${group.subject}`}
+        >
+          <div class="container">
+            <SectionHeading
+              id={`tantangan-${group.subject}`}
+              eyebrow={group.meta.name}
+              title={`Tantangan ${group.meta.short}`}
+              lead="Pilih topik untuk membuka sesi latihan berjenjangnya, lalu fokuskan pada tingkat mahir."
+            />
+            {group.grades.map((gradeGroup) => (
+              <div class="grade-block" data-grade-group>
+                <h3 class="grade-label">
+                  {gradeGroup.meta.name}
+                  <span class="grade-tag">{gradeGroup.meta.label}</span>
+                </h3>
+                <div class="topic-grid">
+                  {gradeGroup.topics.map(({ topic, mahirCount }, i) => (
+                    <a
+                      class:list={['card', 'topic-card', 'hover-lift', 'reveal', 'card-accent', `accent-${topic.element}`]}
+                      data-challenge-card
+                      data-mapel={group.subject}
+                      data-kelas={topic.grade}
+                      data-elemen={topic.element}
+                      data-search={searchText(topic)}
+                      href={url(`/latihan/${topic.slug}#lv-mahir`)}
+                      style={revealStyle(i)}
+                    >
+                      <span class="topic-element">{ELEMENTS[topic.element].short}</span>
+                      <h4 set:html={renderInlineMarkdown(topic.title)} />
+                      <p class="topic-summary" set:html={renderInlineMarkdown(topic.summary)} />
+                      <span class="topic-meta">{mahirCount} soal mahir</span>
+                      <span class="topic-link">Buka latihan →</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <div class="container">
+      <p class="empty-state card" data-empty hidden>
+        <strong>Belum ada tantangan yang cocok.</strong>
+        <span class="text-muted">Coba ubah atau reset saringan untuk melihat topik lain.</span>
+      </p>
+      <p class="show-more" data-show-more hidden>
+        <button type="button" class="btn btn-secondary btn-sm" data-show-more-btn>
+          Tampilkan lebih banyak
+        </button>
+      </p>
+    </div>
+  </div>
 
   {
     supplementaryTopics.length > 0 && (
@@ -155,10 +279,53 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
                 <h4 set:html={renderInlineMarkdown(topic.title)} />
                 <p class="topic-summary" set:html={renderInlineMarkdown(topic.summary)} />
                 {topic.cpNote && <p class="topic-note" set:html={renderInlineMarkdown(topic.cpNote)} />}
+                <span class="badge badge-pengayaan">Pengayaan</span>
                 <span class="topic-link">Buka materi →</span>
               </a>
             ))}
           </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    sectionGroups.length > 0 && (
+      <section class="section section-alt" aria-labelledby="jejak-sejarah-tantangan">
+        <div class="container">
+          <SectionHeading
+            id="jejak-sejarah-tantangan"
+            eyebrow="Penelusuran"
+            title="Jejak sejarah & tantangan per topik"
+            lead="Setiap topik yang memuat latar historis atau soal tantangan nonrutin dikumpulkan di sini. Tautan membuka langsung bagiannya pada halaman materi."
+          />
+          {sectionGroups.map((subjectGroup) => (
+            <div class="index-subject">
+              <h3 class="index-subject-title">{subjectGroup.meta.name}</h3>
+              {subjectGroup.grades.map((gradeGroup) => (
+                <div class="grade-block">
+                  <h4 class="grade-label">
+                    {gradeGroup.meta.name}
+                    <span class="grade-tag">{gradeGroup.meta.label}</span>
+                  </h4>
+                  <ul class="index-list" role="list">
+                    {gradeGroup.entries.map(({ topic, subject, sejarah, tantangan }) => {
+                      const base = topicUrl(topic.grade, topic.element, topic.slug, subject);
+                      return (
+                        <li>
+                          <a class="index-topic" href={base} set:html={renderInlineMarkdown(topic.title)} />
+                          <span class="index-links">
+                            {sejarah && <a href={`${base}#${sejarah.id}`}>Jejak sejarah</a>}
+                            {tantangan && <a href={`${base}#${tantangan.id}`}>Tantangan</a>}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
     )
@@ -260,7 +427,250 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
     font-size: 0.9rem;
     color: color-mix(in srgb, var(--accent, var(--color-primary)) 78%, var(--color-text));
   }
+  .filter-bar {
+    display: grid;
+    gap: 1rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-group {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .filter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .filter-btn {
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text);
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast),
+      border-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .filter-btn[aria-pressed='true'] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .filter-btn:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .filter-search {
+    max-width: 24rem;
+  }
+  .filter-input {
+    width: 100%;
+    appearance: none;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding: 0.45rem 1rem;
+    font: inherit;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .filter-input:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+  .filter-result {
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .empty-state {
+    display: grid;
+    gap: 0.2rem;
+    margin-top: 1.5rem;
+    padding: 1.6rem 1rem;
+    text-align: center;
+    border-style: dashed;
+    color: var(--color-text);
+  }
+  .empty-state[hidden] {
+    display: none;
+  }
+  .show-more {
+    margin: 1.25rem 0 0;
+    text-align: center;
+  }
+  .show-more[hidden] {
+    display: none;
+  }
+  .index-subject + .index-subject {
+    margin-top: 2.25rem;
+  }
+  .index-subject-title {
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-border-strong);
+    font-size: 1.35rem;
+  }
+  .index-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 0.6rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .index-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 0.7rem;
+    min-width: 0;
+  }
+  .index-topic {
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .index-topic:hover,
+  .index-topic:focus-visible {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .index-links {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.7rem;
+  }
+  .index-links a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--color-primary) 78%, var(--color-text));
+  }
+  .index-links a:hover,
+  .index-links a:focus-visible {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
   .cta-section {
     padding-block: 2.5rem;
   }
 </style>
+
+<script>
+  import { matchesAny, normalizeText } from '@/lib/filter';
+  import { setupFilterPage } from '@/lib/filter-dom';
+
+  const root = document.querySelector<HTMLElement>('[data-tantangan-root]');
+
+  if (root) {
+    const FILTER_KEYS = ['mapel', 'kelas', 'elemen'] as const;
+    const PAGE_SIZE = 12;
+
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-challenge-card]'));
+    const countEl = root.querySelector<HTMLElement>('[data-result-count]');
+    const emptyEl = root.querySelector<HTMLElement>('[data-empty]');
+    const moreWrap = root.querySelector<HTMLElement>('[data-show-more]');
+    const moreBtn = root.querySelector<HTMLButtonElement>('[data-show-more-btn]');
+    const gradeEls = Array.from(root.querySelectorAll<HTMLElement>('[data-grade-group]'));
+    const subjectEls = Array.from(root.querySelectorAll<HTMLElement>('[data-subject-group]'));
+
+    let limit = PAGE_SIZE;
+
+    const selected = (value: string | undefined): Set<string> =>
+      value ? new Set([value]) : new Set();
+
+    function matches(card: HTMLElement, values: Record<string, string>, query: string): boolean {
+      if (!matchesAny(selected(values.mapel), [card.getAttribute('data-mapel') ?? ''])) return false;
+      if (!matchesAny(selected(values.kelas), [card.getAttribute('data-kelas') ?? ''])) return false;
+      if (!matchesAny(selected(values.elemen), [card.getAttribute('data-elemen') ?? ''])) return false;
+      if (query && !(card.getAttribute('data-search') ?? '').includes(query)) return false;
+      return true;
+    }
+
+    function render(values: Record<string, string>, rawQuery: string): void {
+      const query = normalizeText(rawQuery);
+      const matched = cards.filter((card) => matches(card, values, query));
+
+      for (let i = 0; i < matched.length; i++) {
+        matched[i].hidden = i >= limit;
+      }
+      const shown = Math.min(matched.length, limit);
+
+      for (const grade of gradeEls) {
+        grade.hidden = grade.querySelector<HTMLElement>('[data-challenge-card]:not([hidden])') === null;
+      }
+      for (const subject of subjectEls) {
+        subject.hidden = subject.querySelector<HTMLElement>('[data-grade-group]:not([hidden])') === null;
+      }
+
+      if (emptyEl) emptyEl.hidden = matched.length !== 0;
+      if (countEl) {
+        const q = rawQuery.trim();
+        countEl.textContent =
+          matched.length === 0
+            ? q
+              ? `Tidak ada topik tantangan yang cocok dengan "${q}".`
+              : 'Tidak ada topik tantangan yang cocok dengan saringan ini.'
+            : shown < matched.length
+              ? q
+                ? `Menampilkan ${shown} dari ${matched.length} topik untuk "${q}".`
+                : `Menampilkan ${shown} dari ${matched.length} topik tantangan.`
+              : q
+                ? `${matched.length} topik tantangan untuk "${q}".`
+                : `Menampilkan ${matched.length} topik tantangan.`;
+      }
+      if (moreWrap) moreWrap.hidden = matched.length <= limit;
+      if (moreBtn && matched.length > limit) {
+        moreBtn.textContent = `Tampilkan ${matched.length - limit} topik lagi`;
+      }
+    }
+
+    function apply(values: Record<string, string>, rawQuery: string): void {
+      limit = PAGE_SIZE;
+      render(values, rawQuery);
+    }
+
+    const groups = Array.from(root.querySelectorAll<HTMLElement>('.filter-group'))
+      .map((group) => ({
+        key: group.querySelector<HTMLElement>('[data-filter]')?.getAttribute('data-filter') ?? '',
+        group,
+        chipSelector: '[data-filter]',
+        valueAttr: 'data-value',
+        allValue: '',
+      }))
+      .filter((spec) => (FILTER_KEYS as readonly string[]).includes(spec.key));
+
+    const searchInput = root.querySelector<HTMLInputElement>('[data-tantangan-search]');
+
+    const handle = setupFilterPage({ groups, apply, searchInput, queryKey: 'q', syncUrl: true });
+
+    moreBtn?.addEventListener('click', () => {
+      limit += PAGE_SIZE;
+      render(handle.values(), searchInput?.value ?? '');
+    });
+  }
+</script>

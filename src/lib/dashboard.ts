@@ -28,6 +28,8 @@ export interface DashboardEntry {
   activityIds: string[];
   /** Id topik prasyarat, dipakai saran awal yang sadar urutan. */
   prerequisites: string[];
+  /** Topik pengayaan, agar dasbor dapat memisahkan kemajuannya. */
+  supplementary: boolean;
   practiceHref: string;
   materialHref: string;
 }
@@ -67,6 +69,7 @@ export function buildDashboardEntries(): DashboardEntry[] {
       reflections,
       activityIds,
       prerequisites: topic.prerequisites ?? [],
+      supplementary: topic.supplementary ?? false,
       practiceHref: url(`/latihan/${topic.slug}`),
       materialHref: topicUrl(topic.grade, topic.element, topic.slug, subject),
     };

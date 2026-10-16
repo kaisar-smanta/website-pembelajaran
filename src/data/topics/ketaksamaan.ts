@@ -12,7 +12,7 @@ export const ketaksamaan: Topic = {
   status: 'lengkap',
   supplementary: true,
   cpNote:
-    'Pengayaan: memperluas sifat pertidaksamaan dan pemodelan fungsi kuadrat menuju ketaksamaan klasik (AM-GM, Cauchy-Schwarz) serta optimasi, sebagai jembatan ke olimpiade dan kalkulus.',
+    'Ketaksamaan memperluas sifat pertidaksamaan dan pemodelan fungsi kuadrat pada elemen Aljabar dan Fungsi Fase E, khususnya butir E-ALJ-2 tentang persamaan dan fungsi kuadrat. AM-GM, Cauchy-Schwarz, dan ketaksamaan segitiga tidak dituntut butir CP mana pun, jadi topik ini berada di luar cakupan resmi. Optimasi tanpa kalkulus, seperti luas maksimum dengan pagar tetap, menjadi alasan materi ini layak dipelajari lebih jauh.',
   estimatedMinutes: 100,
   summary:
     'Menguasai sifat ketaksamaan, AM-GM, Cauchy-Schwarz sederhana, dan ketaksamaan segitiga untuk membandingkan besaran serta menentukan nilai optimum.',
@@ -223,7 +223,7 @@ Sifat nomor 3 adalah sumber kesalahan paling umum. Setiap kali mengalikan atau m
       id: 'generalisasi',
       kind: 'generalisasi',
       title: 'Pola Umum: AM-GM, Cauchy-Schwarz, dan Segitiga',
-      body: `**AM-GM (Rata-rata Aritmetika–Geometri).** Untuk bilangan tak negatif $a$ dan $b$:
+      body: `**AM-GM (Rata-rata Aritmetika-Geometri).** Untuk bilangan tak negatif $a$ dan $b$:
 
 $$\\frac{a+b}{2} \\ge \\sqrt{ab}.$$
 
@@ -381,7 +381,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
     {
       id: 'ketaksamaan-sejarah',
       kind: 'sejarah',
-      title: 'Jejak Sejarah',
+      title: 'Tiga Abad Ketaksamaan',
       body: `Ketaksamaan menjadi alat matematika yang berdiri sendiri ketika Augustin-Louis Cauchy membuktikan ketaksamaan jumlah kuadrat pada 1821, yang kemudian dikenal sebagai ketaksamaan Cauchy-Schwarz setelah Hermann Schwarz memperluasnya pada 1885. Sementara itu, hubungan antara rata-rata aritmetika dan geometri atau AM-GM sudah dikenal sejak karya Colin Maclaurin dan Leonhard Euler pada abad ke-18, dan menjadi dasar pembuktian banyak ketaksamaan lain. Pafnuty Chebyshev serta muridnya Andrey Markov menyumbang sekumpulan ketaksamaan yang kini dipakai dalam peluang dan statistika. Ketaksamaan segitiga sendiri jauh lebih tua, sudah muncul dalam geometri Yunani dan menjadi aksioma jarak. Dari sini ketaksamaan tumbuh menjadi bahasa baku untuk membandingkan besaran dan mencari nilai optimum.`,
     },
     {
@@ -429,7 +429,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
     {
       id: 'tantangan',
       kind: 'tantangan',
-      title: 'Tantangan',
+      title: 'Jumlah Kuadrat Minimum',
       body: `Diketahui bilangan real positif $a$, $b$, dan $c$ dengan $a + b + c = 3$.
 
 Buktikan bahwa

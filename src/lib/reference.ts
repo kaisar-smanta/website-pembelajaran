@@ -25,6 +25,8 @@ export interface ReferenceTopic {
   grade: Grade;
   element: ElementId;
   slug: string;
+  /** Topik pengayaan (melampaui CP), ditandai pada halaman rujukan. */
+  supplementary?: boolean;
 }
 
 /** Membentuk rujukan topik; topik lama tanpa mata pelajaran dianggap Matematika. */
@@ -36,6 +38,7 @@ export function referenceTopic(topic: Topic): ReferenceTopic {
     grade: topic.grade,
     element: topic.element,
     slug: topic.slug,
+    supplementary: topic.supplementary ?? false,
   };
 }
 
@@ -66,6 +69,8 @@ export interface GlossaryEntry {
   topics: ReferenceTopic[];
   /** Elemen unik dari seluruh topik, untuk penyaringan. */
   elements: ElementId[];
+  /** Benar bila istilah berasal dari topik pengayaan mana pun. */
+  supplementary: boolean;
 }
 
 export interface GlossaryOptions {
@@ -99,6 +104,7 @@ export function collectGlossaryEntries(
     if (existing) {
       if (!existing.topics.some((item) => item.id === ref.id)) existing.topics.push(ref);
       if (!existing.elements.includes(topic.element)) existing.elements.push(topic.element);
+      if (ref.supplementary) existing.supplementary = true;
       return;
     }
     byKey.set(key, {
@@ -107,6 +113,7 @@ export function collectGlossaryEntries(
       termText,
       topics: [ref],
       elements: [topic.element],
+      supplementary: ref.supplementary ?? false,
     });
   };
 
