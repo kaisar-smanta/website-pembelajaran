@@ -7,11 +7,34 @@
 
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { registerHooks } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 /** Akar repositori. */
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/**
+ * Node ESM tidak mengenal alias `@/*` dari `tsconfig.json`, padahal modul
+ * sumber banyak yang memakainya. Tanpa ini, setiap berkas yang dimuat uji
+ * terpaksa memakai impor relatif dan mudah lupa. Hook ini menyelesaikan `@/x`
+ * ke `src/x.ts` (atau `src/x/index.ts`) agar sumber yang dimuat uji setara
+ * dengan yang dibangun Astro.
+ */
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    if (specifier.startsWith('@/')) {
+      const base = path.join(root, 'src', specifier.slice(2));
+      const candidates = [base, `${base}.ts`, path.join(base, 'index.ts')];
+      for (const candidate of candidates) {
+        if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+          return { url: pathToFileURL(candidate).href, shortCircuit: true };
+        }
+      }
+    }
+    return nextResolve(specifier, context);
+  },
+});
 
 /**
  * Memuat berkas TypeScript sumber lewat type stripping bawaan Node.
@@ -35,6 +58,65 @@ export function check(label, fn) {
   fn();
   checks.count++;
   console.log(`  ok - ${label}`);
+}
+
+/**
+ * Menyatakan `actual` dekat dengan `expected` dalam toleransi `tol`; melempar
+ * galat berlabel bila selisih melebihi toleransi. Urutan argumen kanonik:
+ * `(actual, expected, label, tol)`.
+ */
+export function close(actual, expected, label, tol = 1e-9) {
+  const diff = Math.abs(actual - expected);
+  if (!(diff <= tol)) {
+    throw new Error(`${label}: diharapkan ≈ ${expected}, diperoleh ${actual}`);
+  }
+  checks.count++;
+}
+
+/**
+ * Seperti `close`, tetapi untuk larik bilangan (atau vektor `{ x, y }`); tiap
+ * komponen dibandingkan dan dihitung sebagai satu pemeriksaan.
+ */
+export function closeVec(actual, expected, label, tol = 1e-9) {
+  if (!actual || !expected) {
+    throw new Error(`${label}: nilai kosong`);
+  }
+  if (Array.isArray(actual) && actual.length !== expected.length) {
+    throw new Error(`${label}: panjang larik ${actual.length} ≠ ${expected.length}`);
+  }
+  const keys = Array.isArray(actual) ? actual.map((_, index) => index) : Object.keys(actual);
+  for (const key of keys) {
+    const suffix = Array.isArray(actual) ? `[${key}]` : `.${key}`;
+    close(actual[key], expected[key], `${label}${suffix}`, tol);
+  }
+}
+
+/** Penghitung kegagalan `runCase` (lokal modul). */
+let failures = 0;
+
+/**
+ * Menjalankan `fn` sebagai satu kasus berlabel: cetak `PASS <label>` bila lulus
+ * atau `FAIL <label>` beserta galatnya bila gagal, tanpa menghentikan berkas.
+ */
+export function runCase(label, fn) {
+  try {
+    fn();
+    checks.count++;
+    console.log(`PASS ${label}`);
+  } catch (error) {
+    failures += 1;
+    console.error(`FAIL ${label}`);
+    console.error(`  ${error && error.message ? error.message : error}`);
+  }
+}
+
+/** Mencetak ringkasan jumlah pemeriksaan dan keluar 1 bila ada kasus gagal. */
+export function report() {
+  if (failures > 0) {
+    console.error(`\n${failures} pemeriksaan gagal, ${checks.count} lulus.`);
+    process.exit(1);
+  }
+  console.log(`\n${checks.count} pemeriksaan lulus.`);
 }
 
 const SKIP_TOPIC_FILES = new Set(['index.ts', 'planned.ts', 'enhance.ts']);

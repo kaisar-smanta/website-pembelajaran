@@ -1,6 +1,6 @@
 // Uji logika murni eksplorasi keluarga fungsi: node tests/sim-function-family.mjs
 import assert from 'node:assert/strict';
-import { check, checks } from './_util.mjs';
+import { check, checks, close } from './_util.mjs';
 import {
   evalRaw,
   evalSimplified,
@@ -10,23 +10,18 @@ import {
   describeFunctionFamily,
 } from '../src/lib/sim/function-family.ts';
 
-const close = (actual, expected, tol, label) =>
-  assert.ok(
-    Math.abs(actual - expected) <= tol,
-    `${label}: diharapkan ≈${expected}, diperoleh ${actual}`,
-  );
 
 check('nilai fungsi di luar titik istimewa', () => {
   const p = evaluate(1, 2, 3);
   assert.equal(p.kind, 'value');
-  close(p.y, -1.5, 1e-9, 'f(1)');
-  close(evalSimplified(0, 2, 3), -2 / 3, 1e-9, 'bentuk sederhana');
+  close(p.y, -1.5, 'f(1)', 1e-9);
+  close(evalSimplified(0, 2, 3), -2 / 3, 'bentuk sederhana', 1e-9);
 });
 
 check('diskontinuitas terhapus (lubang) di x = a', () => {
   const p = evaluate(2, 2, 3);
   assert.equal(p.kind, 'hole');
-  close(p.y, -4, 1e-9, 'ordinat lubang = 2a/(a-b)');
+  close(p.y, -4, 'ordinat lubang = 2a/(a-b)', 1e-9);
   assert.ok(Number.isNaN(evalRaw(2, 2, 3)), 'bentuk mentah tak terdefinisi');
 });
 
@@ -42,7 +37,7 @@ check('kasus a = b menjadi kutub, bukan lubang', () => {
   assert.equal(p.y, null);
   const far = evaluate(0, 2, 2);
   assert.equal(far.kind, 'value');
-  close(far.y, -1, 1e-9, 'f(0) saat a = b');
+  close(far.y, -1, 'f(0) saat a = b', 1e-9);
 });
 
 check('analisis lubang dan asimtot', () => {

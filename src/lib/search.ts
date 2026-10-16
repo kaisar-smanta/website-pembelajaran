@@ -8,12 +8,22 @@
 
 import { normalizeText } from './filter.ts';
 
+/** Jenis entri pada indeks `search.json`. */
+export type SearchItemType =
+  | 'topik'
+  | 'aplikasi'
+  | 'eksplorasi'
+  | 'latihan'
+  | 'istilah'
+  | 'rumus'
+  | 'halaman';
+
 /** Satu entri pada indeks `search.json`. */
 export interface SearchItem {
   title: string;
   summary: string;
   url: string;
-  type: string;
+  type: SearchItemType;
   grade?: string;
   element?: string;
   keywords: string;

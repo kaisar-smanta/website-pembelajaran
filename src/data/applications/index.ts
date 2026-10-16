@@ -1,4 +1,5 @@
 import type { Application, ApplicationCategory, ElementId } from '@/types/content';
+import { ELEMENT_COLOR } from '../display.ts';
 import { keuanganApplications } from './keuangan.ts';
 import { dataApplications } from './data.ts';
 import { pertumbuhanApplications } from './pertumbuhan.ts';
@@ -21,38 +22,44 @@ export interface ApplicationCategoryMeta {
  * `/aplikasi` dan komponen beranda dengan urutan yang berbeda. Sekarang semua
  * konsumen membaca objek ini.
  */
-export const applicationCategories: Record<ApplicationCategory, ApplicationCategoryMeta> = {
+/** Metadata kategori tanpa aksen; aksen diturunkan dari `element`. */
+type ApplicationCategoryBase = Omit<ApplicationCategoryMeta, 'accent'>;
+
+const APPLICATION_CATEGORY_BASE: Record<ApplicationCategory, ApplicationCategoryBase> = {
   keuangan: {
     name: 'Keuangan',
     description: 'Bunga, anuitas, investasi, dan pinjaman dalam keputusan finansial.',
     element: 'bilangan',
-    accent: 'var(--color-number)',
   },
   data: {
     name: 'Data',
     description: 'Survei, statistik di media, regresi, dan keputusan berbasis data.',
     element: 'data-peluang',
-    accent: 'var(--color-data)',
   },
   pertumbuhan: {
     name: 'Pertumbuhan & Peluruhan',
     description: 'Populasi, investasi, dan peluruhan zat yang mengikuti pola eksponensial.',
     element: 'aljabar-fungsi',
-    accent: 'var(--color-algebra)',
   },
   pengukuran: {
     name: 'Pengukuran',
     description: 'Jarak, tinggi, sudut, luas, dan volume yang diukur secara tidak langsung.',
     element: 'geometri',
-    accent: 'var(--color-geometry)',
   },
   kalkulus: {
     name: 'Perubahan & Akumulasi',
     description: 'Laju perubahan, optimasi, dan akumulasi; inti Matematika Tingkat Lanjut.',
     element: 'kalkulus',
-    accent: 'var(--color-calculus)',
   },
 };
+
+export const applicationCategories: Record<ApplicationCategory, ApplicationCategoryMeta> =
+  Object.fromEntries(
+    Object.entries(APPLICATION_CATEGORY_BASE).map(([id, meta]) => [
+      id,
+      { ...meta, accent: ELEMENT_COLOR[meta.element] },
+    ]),
+  ) as Record<ApplicationCategory, ApplicationCategoryMeta>;
 
 export const applicationCategoryOrder: ApplicationCategory[] = Object.keys(
   applicationCategories,

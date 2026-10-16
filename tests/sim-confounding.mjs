@@ -1,6 +1,6 @@
 // Uji logika murni eksplorasi perancu/paradoks Simpson: node tests/sim-confounding.mjs
 import assert from 'node:assert/strict';
-import { check, checks } from './_util.mjs';
+import { check, checks, close } from './_util.mjs';
 import {
   rate,
   makeStratum,
@@ -10,11 +10,6 @@ import {
   defaultStrata,
 } from '../src/lib/sim/confounding.ts';
 
-const close = (actual, expected, tol, label) =>
-  assert.ok(
-    Math.abs(actual - expected) <= tol,
-    `${label}: diharapkan ≈${expected}, diperoleh ${actual}`,
-  );
 
 check('proporsi kelompok dan pengaman ukuran', () => {
   assert.equal(rate({ n: 10, success: 4 }).rate, 0.4);
@@ -30,9 +25,9 @@ check('data bawaan memperlihatkan paradoks Simpson', () => {
   assert.deepEqual(analysis.perStratumDifferences.map((d) => Number(d.toFixed(4))), [0.1, 0.1]);
   assert.equal(analysis.stratumDirection, 'treatment');
   // ... tetapi kalah saat digabung.
-  close(analysis.overallControl.rate, 0.83, 1e-9, 'kontrol keseluruhan');
-  close(analysis.overallTreatment.rate, 0.37, 1e-9, 'perlakuan keseluruhan');
-  close(analysis.overallDifference, -0.46, 1e-9, 'selisih keseluruhan');
+  close(analysis.overallControl.rate, 0.83, 'kontrol keseluruhan', 1e-9);
+  close(analysis.overallTreatment.rate, 0.37, 'perlakuan keseluruhan', 1e-9);
+  close(analysis.overallDifference, -0.46, 'selisih keseluruhan', 1e-9);
   assert.equal(analysis.overallDirection, 'control');
   assert.equal(analysis.reversed, true);
 });
@@ -45,8 +40,8 @@ check('agregasi menjumlahkan hitungan, bukan merata-ratakan proporsi', () => {
   const overall = aggregate(strata);
   assert.equal(overall.control.n, 100);
   assert.equal(overall.treatment.n, 100);
-  close(overall.control.rate, 0.83, 1e-9, 'kontrol');
-  close(overall.treatment.rate, 0.37, 1e-9, 'perlakuan');
+  close(overall.control.rate, 0.83, 'kontrol', 1e-9);
+  close(overall.treatment.rate, 0.37, 'perlakuan', 1e-9);
 });
 
 check('tanpa perancu, arah strata sama dengan keseluruhan', () => {

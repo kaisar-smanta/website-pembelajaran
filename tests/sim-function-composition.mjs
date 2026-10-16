@@ -1,4 +1,5 @@
 // Uji logika murni komposisi fungsi linear: node tests/sim-function-composition.mjs
+import { check, report } from './_util.mjs';
 import assert from 'node:assert/strict';
 import {
   composeLinear,
@@ -6,12 +7,6 @@ import {
   formatLinear,
 } from '../src/lib/sim/function-composition.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`PASS ${label}`);
-}
 
 const f = { a: 2, b: 1 };
 const g = { a: -1, b: 3 };
@@ -44,4 +39,4 @@ check('evaluateLinear dasar', () => {
   assert.equal(evaluateLinear({ a: 3, b: -2 }, 4), 10);
 });
 
-console.log(`PASS sim-function-composition (${passed} pemeriksaan)`);
+report();

@@ -1,13 +1,8 @@
 // Uji logika murni matriks 2×2: node tests/sim-matrix.mjs
+import { check, report } from './_util.mjs';
 import assert from 'node:assert/strict';
 import { multiply, determinant, equals } from '../src/lib/sim/matrix.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`PASS ${label}`);
-}
 
 const A = [
   [1, 2],
@@ -47,4 +42,4 @@ check('AB ≠ BA', () => {
   ]);
 });
 
-console.log(`PASS sim-matrix (${passed} pemeriksaan)`);
+report();

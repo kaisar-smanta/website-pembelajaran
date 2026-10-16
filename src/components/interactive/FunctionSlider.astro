@@ -205,7 +205,6 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
   }
   .sim-presets button:focus-visible,
   .sim-reset:focus-visible {
-    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
   .sim-reset {
@@ -237,12 +236,6 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
     }
     .sim-reset {
       margin-left: 0;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .sim-presets button,
-    .sim-reset {
-      transition: none;
     }
   }
 </style>

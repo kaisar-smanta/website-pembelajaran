@@ -4,7 +4,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { findBrowser, killBrowser, launchBrowser, sleep } from './lib/browser.mjs';
+import { findBrowser, killBrowser, launchBrowser, preparePage } from './lib/browser.mjs';
+import { replaceFile, writeTempFile } from './lib/files.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(root, 'public');
@@ -48,38 +49,33 @@ const JOBS = [
 
 let handle;
 
-async function capture(browser, job) {
+async function capture(cdp, job) {
   const out = path.join(OUT_DIR, job.file);
-  const tmp = `${out}.tmp`;
   const url = `data:text/html;charset=utf-8,${encodeURIComponent(
     iconHtml(job.size, { maskable: job.maskable }),
   )}`;
 
-  const target = await handle.cdp.send('Target.createTarget', { url: 'about:blank' });
-  const { sessionId } = await handle.cdp.send('Target.attachToTarget', {
-    targetId: target.targetId,
-    flatten: true,
-  });
-  const s = (m, p) => handle.cdp.send(m, p, sessionId);
-  await s('Page.enable');
-  await s('Emulation.setDeviceMetricsOverride', {
+  // preparePage menyeragamkan penyiapan target/viewport/navigasi dengan skrip
+  // peramban lain; ikon berukuran pas viewport sehingga tidak perlu digulir.
+  const page = await preparePage(cdp, {
+    url,
     width: job.size,
     height: job.size,
-    deviceScaleFactor: 1,
-    mobile: false,
-    screenWidth: job.size,
-    screenHeight: job.size,
+    dsf: 1,
+    scroll: false,
   });
-
-  const loaded = handle.cdp.once('Page.loadEventFired');
-  await s('Page.navigate', { url });
-  await Promise.race([loaded, sleep(8000)]);
-  await sleep(300);
-
-  const shot = await s('Page.captureScreenshot', { format: 'png' });
-  fs.writeFileSync(tmp, Buffer.from(shot.data, 'base64'));
-  fs.renameSync(tmp, out);
-  await handle.cdp.send('Target.closeTarget', { targetId: target.targetId });
+  let tmp;
+  try {
+    const shot = await page.s('Page.captureScreenshot', { format: 'png' });
+    tmp = writeTempFile(out, Buffer.from(shot.data, 'base64'));
+    await page.close();
+    replaceFile(tmp, out);
+    tmp = undefined;
+  } finally {
+    try {
+      if (tmp && fs.existsSync(tmp)) fs.rmSync(tmp, { force: true });
+    } catch {}
+  }
 
   const stat = fs.statSync(out);
   console.log(`public/${job.file}  (${job.size}x${job.size}, ${Math.round(stat.size / 1024)} KB)`);
@@ -96,7 +92,7 @@ async function main() {
 
   handle = await launchBrowser(browser);
   try {
-    for (const job of JOBS) await capture(browser, job);
+    for (const job of JOBS) await capture(handle.cdp, job);
   } finally {
     handle.cdp.close();
     killBrowser(handle.proc, handle.userDataDir);

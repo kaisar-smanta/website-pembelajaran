@@ -1,4 +1,5 @@
 import { staticFooterGroups } from './display.ts';
+import { gradesFor } from './curriculum.ts';
 
 export interface NavItem {
   label: string;
@@ -113,11 +114,10 @@ export const mainNav: NavItem[] = [
 ];
 
 /** Tautan footer tambahan yang bukan halaman statis (rute dinamis per kelas). */
-const footerExtraItems: NavItem[] = [
-  { label: 'Kelas X', href: '/matematika/kelas/X' },
-  { label: 'Kelas XI', href: '/matematika/kelas/XI' },
-  { label: 'Kelas XII', href: '/matematika/kelas/XII' },
-];
+const footerExtraItems: NavItem[] = gradesFor('matematika').map((grade) => ({
+  label: `Kelas ${grade}`,
+  href: `/matematika/kelas/${grade}`,
+}));
 
 /**
  * Grup footer diturunkan dari `STATIC_PAGES` (`src/data/display.ts`) agar tidak

@@ -17,6 +17,7 @@ import {
   preparePage,
   startServer,
 } from './lib/browser.mjs';
+import { collectFiles } from './lib/files.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(root, 'dist');
@@ -508,11 +509,12 @@ const NEW_EXPLORATION_SLUGS = new Set([
 // otomatis tanpa perlu menyunting daftar ini.
 function explorationDetailJobs() {
   const dir = path.join(DIST, 'eksplorasi');
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(dir, entry.name, 'index.html')))
-    .map((entry) => entry.name)
+  // Hanya direktori tingkat satu `/eksplorasi/<slug>` yang punya index.html,
+  // sama seperti penelusuran readdir lama; berkas `dist/eksplorasi/index.html`
+  // (halaman daftar) dan kedalaman lain dikecualikan.
+  return collectFiles(dir, (name) => name === 'index.html')
+    .filter((full) => path.dirname(path.dirname(full)) === dir)
+    .map((full) => path.basename(path.dirname(full)))
     .sort()
     .flatMap((slug) => {
       const jobs = [

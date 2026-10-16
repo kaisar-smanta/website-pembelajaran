@@ -61,11 +61,6 @@ const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X)
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
   .rv-rows {
     display: grid;
     gap: 0.4rem;
@@ -121,13 +116,6 @@ const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X)
     max-width: 34rem;
     margin: 0.85rem auto 0;
   }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
-  }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -149,11 +137,6 @@ const initialAria = 'Diagram batang distribusi peluang dengan nilai harapan E(X)
   }
   .rv-sim svg :global(*) {
     transition: opacity var(--dur) var(--ease-out-soft);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .rv-sim svg :global(*) {
-      transition: none;
-    }
   }
 </style>
 

@@ -62,36 +62,10 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
   .sim-fields {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     gap: 0.75rem;
-  }
-  .sim-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-  }
-  .sim-field span {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-  .sim-field output {
-    color: var(--color-primary);
-    font-family: var(--font-mono);
-  }
-  .sim-field input[type='range'] {
-    width: 100%;
-    accent-color: var(--color-primary);
   }
   .sim-actions {
     display: flex;
@@ -102,13 +76,6 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
   .sim-chart {
     max-width: 24rem;
     margin: 0.85rem auto 0;
-  }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
   }
   .legend {
     display: flex;
@@ -124,22 +91,12 @@ const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} d
   .legend .l2 {
     color: var(--color-geometry);
   }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
-  }
   .circle-sim svg :global(*) {
     transition: opacity var(--dur) var(--ease-out-soft);
   }
   @media (max-width: 390px) {
     .sim-fields {
       grid-template-columns: 1fr;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .circle-sim svg :global(*) {
-      transition: none;
     }
   }
 </style>

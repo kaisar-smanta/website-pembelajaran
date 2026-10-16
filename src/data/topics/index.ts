@@ -1,9 +1,8 @@
 import type { ElementId, Grade, SubjectId, Topic } from '@/types/content';
-import { SUBJECT_ORDER, SUBJECTS } from '@/data/curriculum';
+import { GRADE_ORDER, SUBJECT_ORDER, SUBJECTS } from '@/data/curriculum';
 import { plannedTopics } from './planned';
-import { sectionSearchText } from '@/lib/content-text';
 
-export { plannedTopics, sectionSearchText };
+export { plannedTopics };
 
 /**
  * Berkas topik didaftarkan otomatis lewat glob sehingga menambah topik baru
@@ -12,8 +11,6 @@ export { plannedTopics, sectionSearchText };
 const modules = import.meta.glob(['./*.ts', '!./index.ts', '!./planned.ts'], {
   eager: true,
 }) as Record<string, unknown>;
-
-const GRADE_ORDER: Grade[] = ['X', 'XI', 'XII'];
 
 function isTopic(value: unknown): value is Topic {
   return (
@@ -54,16 +51,12 @@ export function getTopic(id: string): Topic | undefined {
 }
 
 /** Mata pelajaran sebuah topik; topik lama tanpa penanda dianggap Matematika. */
-export function topicSubject(topic: Topic): SubjectId {
+export function topicSubject(topic: { subject?: SubjectId }): SubjectId {
   return topic.subject ?? 'matematika';
 }
 
 export function topicsBySubject(subject: SubjectId): Topic[] {
   return topics.filter((t) => topicSubject(t) === subject);
-}
-
-export function topicsBySubjectGrade(subject: SubjectId, grade: Grade): Topic[] {
-  return topics.filter((t) => topicSubject(t) === subject && t.grade === grade);
 }
 
 export function topicsBySubjectElement(subject: SubjectId, element: ElementId): Topic[] {

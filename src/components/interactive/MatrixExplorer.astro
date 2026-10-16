@@ -144,11 +144,6 @@ const cellIndex = [0, 1];
     text-align: center;
     color: var(--color-primary);
   }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
-  }
   .sim-readout :global(.stat) {
     flex-wrap: wrap;
     gap: 0.35rem 1rem;
@@ -160,14 +155,6 @@ const cellIndex = [0, 1];
   @media (max-width: 430px) {
     .sim {
       padding: 0.85rem;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .matrix-sim *,
-    .matrix-sim *::before,
-    .matrix-sim *::after {
-      transition: none !important;
-      animation: none !important;
     }
   }
 </style>

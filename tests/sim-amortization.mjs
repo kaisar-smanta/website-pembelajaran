@@ -1,37 +1,32 @@
 // Uji logika murni jadwal amortisasi: node tests/sim-amortization.mjs
 import assert from 'node:assert/strict';
-import { check, checks } from './_util.mjs';
+import { check, checks, close } from './_util.mjs';
 import {
   monthlyPayment,
   amortizationSchedule,
   summarizeRows,
 } from '../src/lib/sim/amortization.ts';
 
-const close = (actual, expected, tol, label) =>
-  assert.ok(
-    Math.abs(actual - expected) <= tol,
-    `${label}: diharapkan ≈${expected}, diperoleh ${actual}`,
-  );
 
 const P = 12_000_000;
 const RATE = 0.12;
 const MONTHS = 12;
 
 check('angsuran bulanan anuitas', () => {
-  close(monthlyPayment(P, RATE, MONTHS), 1_066_185.9, 1, 'angsuran');
-  close(monthlyPayment(P, 0, MONTHS), P / MONTHS, 1e-6, 'tanpa bunga');
+  close(monthlyPayment(P, RATE, MONTHS), 1_066_185.9, 'angsuran', 1);
+  close(monthlyPayment(P, 0, MONTHS), P / MONTHS, 'tanpa bunga', 1e-6);
 });
 
 check('jadwal tanpa tambahan lunas dalam tenor', () => {
   const result = amortizationSchedule(P, RATE, MONTHS);
   assert.equal(result.rows.length, MONTHS);
   assert.equal(result.months, MONTHS);
-  close(result.rows[0].interest, 120_000, 1e-6, 'bunga bulan 1');
-  close(result.rows[0].principal, result.monthlyPayment - 120_000, 1e-6, 'pokok bulan 1');
+  close(result.rows[0].interest, 120_000, 'bunga bulan 1', 1e-6);
+  close(result.rows[0].principal, result.monthlyPayment - 120_000, 'pokok bulan 1', 1e-6);
   assert.ok(result.rows[MONTHS - 1].balance < 0.01, 'sisa akhir mendekati nol');
   const sumPrincipal = result.rows.reduce((a, r) => a + r.principal, 0);
-  close(sumPrincipal, P, 0.5, 'jumlah pokok = pinjaman');
-  close(result.totalInterest, result.monthlyPayment * MONTHS - P, 1, 'total bunga');
+  close(sumPrincipal, P, 'jumlah pokok = pinjaman', 0.5);
+  close(result.totalInterest, result.monthlyPayment * MONTHS - P, 'total bunga', 1);
 });
 
 check('sisa pinjaman menurun monoton', () => {
@@ -46,12 +41,7 @@ check('angsuran tambahan mempercepat pelunasan dan menghemat bunga', () => {
   const extra = amortizationSchedule(P, RATE, MONTHS, 500_000);
   assert.ok(extra.months < base.months, 'lunas lebih cepat');
   assert.ok(extra.totalInterest < base.totalInterest, 'bunga lebih kecil');
-  close(
-    extra.rows.reduce((a, r) => a + r.principal, 0),
-    P,
-    1,
-    'jumlah pokok dengan tambahan',
-  );
+  close(extra.rows.reduce((a, r) => a + r.principal, 0), P, 'jumlah pokok dengan tambahan', 1);
 });
 
 check('tambahan lebih besar mempercepat lebih banyak', () => {

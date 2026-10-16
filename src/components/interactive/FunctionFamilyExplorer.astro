@@ -55,36 +55,10 @@ const { exploration } = Astro.props;
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
   .sim-fields {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     gap: 0.75rem;
-  }
-  .sim-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-  }
-  .sim-field span {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-  .sim-field output {
-    color: var(--color-primary);
-    font-family: var(--font-mono);
-  }
-  .sim-field input[type='range'] {
-    width: 100%;
-    accent-color: var(--color-primary);
   }
   .sim-actions {
     margin-top: 0.7rem;
@@ -92,13 +66,6 @@ const { exploration } = Astro.props;
   .sim-chart {
     max-width: 34rem;
     margin: 0.85rem auto 0;
-  }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
   }
   .sim-legend {
     display: flex;
@@ -117,11 +84,6 @@ const { exploration } = Astro.props;
   .sim-legend .l3 {
     color: var(--color-data);
   }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
-  }
   .sim-readout :global(.stat) {
     display: flex;
     justify-content: space-between;
@@ -131,22 +93,11 @@ const { exploration } = Astro.props;
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
   }
-  .sim-readout :global(.stat span) {
-    color: var(--color-text-muted);
-  }
   .sim-readout :global(.stat strong) {
     font-family: var(--font-mono);
     color: var(--color-primary);
     text-align: right;
     overflow-wrap: anywhere;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ff-sim *,
-    .ff-sim *::before,
-    .ff-sim *::after {
-      transition: none !important;
-      animation: none !important;
-    }
   }
 </style>
 

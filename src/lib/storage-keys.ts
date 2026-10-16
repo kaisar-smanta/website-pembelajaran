@@ -32,8 +32,6 @@ export const STORAGE_KEYS = {
   meta: 'mtk-meta',
 } as const;
 
-export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS];
-
 /**
  * Seluruh kunci milik fitur pembelajaran (progres, latihan, kuis, catatan).
  * Dipakai untuk operasi menyeluruh seperti "hapus semua kemajuan".

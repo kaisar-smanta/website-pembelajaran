@@ -17,6 +17,7 @@ import { matchesAny } from '@/lib/filter';
 import { setupFilterPage } from '@/lib/filter-dom';
 import { seededShuffle } from '@/lib/random';
 import { reviewQuestionIds, type ReviewMode } from '@/lib/practice';
+import { safeStorage } from '@/lib/storage';
 
 const PAGE_SIZE = 6;
 
@@ -46,12 +47,7 @@ function setupProgress() {
   const reviewLink = root.querySelector<HTMLAnchorElement>('[data-review-link]');
   const reviewList = root.querySelector<HTMLElement>('[data-review-list]');
 
-  let storage: Storage | undefined;
-  try {
-    storage = window.localStorage;
-  } catch {
-    storage = undefined;
-  }
+  const storage = safeStorage();
 
   const render = () => {
     let attempts: ProgressMap = {};

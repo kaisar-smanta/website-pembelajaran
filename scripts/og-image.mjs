@@ -1,11 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { findBrowser, killBrowser, launchBrowser, sleep } from './lib/browser.mjs';
+import { findBrowser, killBrowser, launchBrowser, preparePage } from './lib/browser.mjs';
+import { replaceFile, writeTempFile } from './lib/files.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(root, 'public', 'og-default.png');
-const TMP = `${OUT}.tmp`;
 const WIDTH = 1200;
 const HEIGHT = 630;
 
@@ -72,38 +72,28 @@ async function main() {
   console.log(`Browser: ${browser}`);
 
   handle = await launchBrowser(browser);
+  let tmp;
   try {
-    const target = await handle.cdp.send('Target.createTarget', { url: 'about:blank' });
-    const { sessionId } = await handle.cdp.send('Target.attachToTarget', {
-      targetId: target.targetId,
-      flatten: true,
-    });
-    const s = (m, p) => handle.cdp.send(m, p, sessionId);
-    await s('Page.enable');
-    await s('Emulation.setDeviceMetricsOverride', {
+    // preparePage menyiapkan target, viewport, dan navigasi dengan cara yang
+    // sama seperti tangkapan layar/audit; halaman ini tidak perlu digulir.
+    const page = await preparePage(handle.cdp, {
+      url,
       width: WIDTH,
       height: HEIGHT,
-      deviceScaleFactor: 1,
-      mobile: false,
-      screenWidth: WIDTH,
-      screenHeight: HEIGHT,
+      dsf: 1,
+      scroll: false,
     });
+    const shot = await page.s('Page.captureScreenshot', { format: 'png' });
+    tmp = writeTempFile(OUT, Buffer.from(shot.data, 'base64'));
+    await page.close();
+    replaceFile(tmp, OUT);
+    tmp = undefined;
 
-    const loaded = handle.cdp.once('Page.loadEventFired');
-    await s('Page.navigate', { url });
-    await Promise.race([loaded, sleep(8000)]);
-    await sleep(500);
-
-    const shot = await s('Page.captureScreenshot', { format: 'png' });
-    fs.writeFileSync(TMP, Buffer.from(shot.data, 'base64'));
-    fs.renameSync(TMP, OUT);
-
-    await handle.cdp.send('Target.closeTarget', { targetId: target.targetId });
     const stat = fs.statSync(OUT);
     console.log(`public/og-default.png  (${WIDTH}x${HEIGHT}, ${Math.round(stat.size / 1024)} KB)`);
   } finally {
     try {
-      if (fs.existsSync(TMP)) fs.rmSync(TMP, { force: true });
+      if (tmp && fs.existsSync(tmp)) fs.rmSync(tmp, { force: true });
     } catch {}
     handle.cdp.close();
     killBrowser(handle.proc, handle.userDataDir);

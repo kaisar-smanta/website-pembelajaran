@@ -1,13 +1,17 @@
 import type { APIRoute } from 'astro';
-import { topics, sectionSearchText, topicSubject } from '@/data/topics';
+import { topics, topicSubject } from '@/data/topics';
+import { sectionSearchText } from '@/lib/content-text';
 import { applications, applicationCategories } from '@/data/applications';
 import { explorations, orderedExplorations } from '@/data/explorations';
 import { topicIdsWithQuestions, questionsByTopic, practiceCounts } from '@/data/questions';
 import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
-import { DIFFICULTY_ORDER, STATIC_PAGES } from '@/data/display';
+import { STATIC_PAGES } from '@/data/display';
+import { DIFFICULTY_ORDER } from '@/lib/difficulty';
 import { subjectsWithContent, subjectElementsWithContent } from '@/lib/routes';
 import { collectFormulaEntries, collectGlossaryEntries } from '@/lib/reference';
 import { stripMarkdown } from '@/utils/markdown';
+import { elementOverviewPath, topicPath } from '@/utils/url';
+import type { SearchItem } from '@/lib/search';
 
 export const prerender = true;
 
@@ -16,17 +20,6 @@ export const prerender = true;
 const explorationTextById = new Map(
   explorations.map((e) => [e.id, [e.title, e.goal ?? '', e.description].join(' ')]),
 );
-
-interface SearchItem {
-  title: string;
-  summary: string;
-  url: string;
-  type: 'topik' | 'aplikasi' | 'eksplorasi' | 'latihan' | 'istilah' | 'rumus' | 'halaman';
-  grade?: string;
-  element?: string;
-  keywords: string;
-  text: string;
-}
 
 export const GET: APIRoute = () => {
   const items: SearchItem[] = [];
@@ -39,7 +32,7 @@ export const GET: APIRoute = () => {
     items.push({
       title: t.title,
       summary: stripMarkdown(t.summary),
-      url: `/${subject}/kelas/${t.grade}/${t.element}/${t.slug}/`,
+      url: `/${topicPath(t.grade, t.element, t.slug, subject)}/`,
       type: 'topik',
       grade: t.grade,
       element: t.element,
@@ -174,7 +167,7 @@ export const GET: APIRoute = () => {
     items.push({
       title: `${formula.title} · ${topic.title}`,
       summary: body.slice(0, 200),
-      url: `/${topic.subject}/kelas/${topic.grade}/${topic.element}/${topic.slug}/#${formula.sectionId}`,
+      url: `/${topicPath(topic.grade, topic.element, topic.slug, topicSubject(topic))}/#${formula.sectionId}`,
       type: 'rumus',
       grade: topic.grade,
       element: topic.element,
@@ -184,7 +177,7 @@ export const GET: APIRoute = () => {
         topic.title,
         GRADES[topic.grade].name,
         ELEMENTS[topic.element].name,
-        SUBJECTS[topic.subject].name,
+        SUBJECTS[topicSubject(topic)].name,
         'rumus',
         'formula',
         'generalisasi',
@@ -208,7 +201,7 @@ export const GET: APIRoute = () => {
     for (const e of subjectElementsWithContent(subject)) {
       pages.push({
         title: `Elemen ${ELEMENTS[e].name} · ${SUBJECTS[subject].short}`,
-        path: `${subject}/elemen/${e}`,
+        path: elementOverviewPath(e, subject),
         summary: ELEMENTS[e].description,
       });
     }

@@ -1,4 +1,5 @@
 // Uji logika murni barisan dan deret: node tests/sim-sequence.mjs
+import { check, report } from './_util.mjs';
 import assert from 'node:assert/strict';
 import {
   arithmeticTerm,
@@ -8,12 +9,6 @@ import {
   sequenceTerms,
 } from '../src/lib/sim/sequence.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
 
 const eq = (actual, expected, label) =>
   assert.deepEqual(actual, expected, `${label}: diharapkan ${JSON.stringify(expected)}, diperoleh ${JSON.stringify(actual)}`);
@@ -48,4 +43,4 @@ check('geometri r=1 menghasilkan Sn = n·a', () => {
   assert.equal(geometricSum(3, 1, 5), 15);
 });
 
-console.log(`PASS sim-sequence (${passed} pemeriksaan)`);
+report();

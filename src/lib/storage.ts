@@ -19,6 +19,15 @@ export function safeStorage(): Storage | undefined {
   }
 }
 
+/** Mengembalikan `sessionStorage` bila tersedia, selain itu `undefined`. */
+export function safeSessionStorage(): Storage | undefined {
+  try {
+    return typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 function readRaw(storage: Storage | undefined, key: string): string | null {
   if (!storage) return null;
   try {
@@ -76,7 +85,8 @@ export function readMap<T>(
   const version = readSchemaVersion(storage);
   // Data dari versi yang lebih baru tidak boleh dibaca dengan skema lama.
   if (version > SCHEMA_VERSION) return {};
-  if (version >= 1 && version < SCHEMA_VERSION) migrate(storage, version);
+  // Data lama (belum bertanda, versi 0) hingga versi sebelumnya ikut dimigrasi.
+  if (version < SCHEMA_VERSION) migrate(storage, version);
 
   const raw = readRaw(storage, key);
   if (!raw) return {};

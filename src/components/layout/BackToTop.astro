@@ -14,7 +14,7 @@ const label = 'Kembali ke atas';
     position: fixed;
     right: clamp(1rem, 4vw, 1.75rem);
     bottom: calc(clamp(1rem, 4vw, 1.75rem) + env(safe-area-inset-bottom, 0px));
-    z-index: 45;
+    z-index: var(--z-fab);
     display: grid;
     place-items: center;
     width: 2.85rem;
@@ -48,7 +48,6 @@ const label = 'Kembali ke atas';
     color: var(--color-on-primary);
   }
   .back-to-top:focus-visible {
-    outline: 2px solid var(--color-primary);
     outline-offset: 3px;
   }
   @media (max-width: 48rem) {

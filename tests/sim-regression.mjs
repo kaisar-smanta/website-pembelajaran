@@ -1,5 +1,6 @@
 // Uji murni untuk src/lib/sim/regression.ts
 // Pemakaian: node tests/sim-regression.mjs
+import { runCase, report } from './_util.mjs';
 import assert from 'node:assert/strict';
 import {
   regression,
@@ -9,10 +10,8 @@ import {
   coefficientOfDetermination,
 } from '../src/lib/sim/regression.ts';
 
-const tests = [];
-const test = (name, fn) => tests.push([name, fn]);
 
-test('garis sempurna (0,1),(1,3),(2,5) -> slope 2, intercept 1, r 1, r2 1', () => {
+runCase('garis sempurna (0,1),(1,3),(2,5) -> slope 2, intercept 1, r 1, r2 1', () => {
   const r = regression([
     { x: 0, y: 1 },
     { x: 1, y: 3 },
@@ -25,7 +24,7 @@ test('garis sempurna (0,1),(1,3),(2,5) -> slope 2, intercept 1, r 1, r2 1', () =
   assert.equal(r.diagnostic, 'ok');
 });
 
-test('x konstan mengembalikan diagnostik constant-x', () => {
+runCase('x konstan mengembalikan diagnostik constant-x', () => {
   const r = regression([
     { x: 3, y: 1 },
     { x: 3, y: 2 },
@@ -36,7 +35,7 @@ test('x konstan mengembalikan diagnostik constant-x', () => {
   assert.ok(Number.isNaN(r.intercept), 'intercept harus NaN');
 });
 
-test('ragam y nol mengembalikan r NaN', () => {
+runCase('ragam y nol mengembalikan r NaN', () => {
   const r = regression([
     { x: 0, y: 4 },
     { x: 1, y: 4 },
@@ -47,12 +46,12 @@ test('ragam y nol mengembalikan r NaN', () => {
   assert.ok(Number.isNaN(r.r2), 'r2 harus NaN');
 });
 
-test('kurang dari dua titik -> insufficient', () => {
+runCase('kurang dari dua titik -> insufficient', () => {
   assert.equal(regression([]).diagnostic, 'insufficient');
   assert.equal(regression([{ x: 1, y: 1 }]).diagnostic, 'insufficient');
 });
 
-test('helper computeSums/diagnose/pearsonR konsisten', () => {
+runCase('helper computeSums/diagnose/pearsonR konsisten', () => {
   const pts = [
     { x: 0, y: 2 },
     { x: 1, y: 4 },
@@ -65,19 +64,5 @@ test('helper computeSums/diagnose/pearsonR konsisten', () => {
   assert.equal(coefficientOfDetermination(0.5), 0.25);
 });
 
-let failed = 0;
-for (const [name, fn] of tests) {
-  try {
-    fn();
-    console.log(`PASS ${name}`);
-  } catch (err) {
-    failed += 1;
-    console.error(`FAIL ${name}: ${err.message}`);
-  }
-}
 
-if (failed > 0) {
-  console.error(`\n${failed} uji gagal.`);
-  process.exit(1);
-}
-console.log(`\nSemua ${tests.length} uji regresi lulus.`);
+report();

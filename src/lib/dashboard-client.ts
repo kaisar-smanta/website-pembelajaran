@@ -16,7 +16,7 @@ import {
   type PredictionMap,
   type ReflectionMap,
 } from '@/lib/learner';
-import { LEARNER_KEYS } from '@/lib/storage-keys';
+import { LEARNER_KEYS, SCHEMA_VERSION } from '@/lib/storage-keys';
 import { safeStorage } from '@/lib/storage';
 import {
   buildOverview,
@@ -515,7 +515,7 @@ export function bootDashboard(): void {
         return JSON.stringify(
           {
             aplikasi: 'Matematika SMA',
-            versiSkema: 1,
+            versiSkema: SCHEMA_VERSION,
             dieksporPada: new Date().toISOString(),
             progress,
             predictions,

@@ -6,7 +6,7 @@ import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import { getTopic, resolveTopics, topicSubject } from '@/data/topics';
 import { assessmentCategories, questionsByTopic, topicIdsWithQuestions } from '@/data/questions';
 import { ELEMENTS } from '@/data/curriculum';
-import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/lib/difficulty';
 import { difficultyCounts, groupByDifficulty } from '@/lib/practice';
 import { buildReviewEntries } from '@/lib/review-entries';
 import { url, topicUrl } from '@/utils/url';

@@ -20,6 +20,44 @@ export function url(path = ''): string {
   return `${BASE}${clean}`;
 }
 
+/**
+ * Bentuk jalur tanpa base path, untuk konsumen yang menambahkan base sendiri
+ * (mis. `sitemap.xml` dan `search.json`). Semua bentuk rute didefinisikan di
+ * sini agar tidak ada templat string yang tersebar.
+ */
+export function subjectPath(subject: SubjectId, path = ''): string {
+  const clean = String(path).replace(/^\/+/, '');
+  return `${subject}${clean ? `/${clean}` : ''}`;
+}
+
+export function gradePath(grade: string, subject: SubjectId = 'matematika'): string {
+  return subjectPath(subject, `kelas/${grade}`);
+}
+
+export function elementPath(
+  grade: string,
+  element: string,
+  subject: SubjectId = 'matematika',
+): string {
+  return subjectPath(subject, `kelas/${grade}/${element}`);
+}
+
+export function topicPath(
+  grade: string,
+  element: string,
+  slug: string,
+  subject: SubjectId = 'matematika',
+): string {
+  return subjectPath(subject, `kelas/${grade}/${element}/${slug}`);
+}
+
+export function elementOverviewPath(
+  element: string,
+  subject: SubjectId = 'matematika',
+): string {
+  return subjectPath(subject, `elemen/${element}`);
+}
+
 /** Membuat URL absolut menggunakan `site` untuk metadata & sitemap. */
 export function absoluteUrl(pathname = ''): string {
   const site = env?.SITE || 'https://example.github.io';
@@ -35,13 +73,12 @@ export function absoluteUrl(pathname = ''): string {
  * `src/pages/elemen/**`).
  */
 export function subjectUrl(subject: SubjectId, path = ''): string {
-  const clean = String(path).replace(/^\/+/, '');
-  return url(`${subject}${clean ? `/${clean}` : ''}`);
+  return url(subjectPath(subject, path));
 }
 
 /** URL halaman kelas. */
 export function gradeUrl(grade: string, subject: SubjectId = 'matematika'): string {
-  return subjectUrl(subject, `kelas/${grade}`);
+  return url(gradePath(grade, subject));
 }
 
 /** URL halaman elemen dalam suatu kelas. */
@@ -50,7 +87,7 @@ export function elementUrl(
   element: string,
   subject: SubjectId = 'matematika',
 ): string {
-  return subjectUrl(subject, `kelas/${grade}/${element}`);
+  return url(elementPath(grade, element, subject));
 }
 
 /** URL halaman topik. */
@@ -60,10 +97,10 @@ export function topicUrl(
   slug: string,
   subject: SubjectId = 'matematika',
 ): string {
-  return subjectUrl(subject, `kelas/${grade}/${element}/${slug}`);
+  return url(topicPath(grade, element, slug, subject));
 }
 
 /** URL ikhtisar elemen lintas kelas. */
 export function elementOverviewUrl(element: string, subject: SubjectId = 'matematika'): string {
-  return subjectUrl(subject, `elemen/${element}`);
+  return url(elementOverviewPath(element, subject));
 }

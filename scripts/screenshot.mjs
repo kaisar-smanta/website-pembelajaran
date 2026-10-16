@@ -67,11 +67,12 @@ const JOBS = [
 ];
 
 async function capture(cdp, port, job) {
+  const scale = job.dsf ?? 1;
   const page = await preparePage(cdp, {
     url: `http://127.0.0.1:${port}${BASE}${job.pathname}`,
     width: job.width,
     height: job.height,
-    dsf: job.dsf ?? 1,
+    dsf: scale,
     mobile: job.mobile ?? false,
     dark: job.dark ?? false,
     // Nonaktifkan animasi reveal agar seluruh konten tampil pada cuplikan
@@ -86,7 +87,7 @@ async function capture(cdp, port, job) {
     y: 0,
     width: Math.ceil(size.width),
     height: Math.min(Math.ceil(size.height), 24000),
-    scale: 1,
+    scale,
   };
   const shot = await page.s('Page.captureScreenshot', {
     format: 'png',
@@ -99,7 +100,7 @@ async function capture(cdp, port, job) {
   await page.close();
   const kb = Math.round(fs.statSync(file).size / 1024);
   console.log(
-    `  ${job.name}.png  (${job.width}x${clip.height} @${job.dsf ?? 1}x, ${job.dark ? 'gelap' : 'terang'})  ${kb} KB`,
+    `  ${job.name}.png  (${job.width}x${clip.height} @${scale}x, ${job.dark ? 'gelap' : 'terang'})  ${kb} KB`,
   );
 }
 

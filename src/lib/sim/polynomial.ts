@@ -24,9 +24,6 @@ export interface CriticalPoint extends Point {
   kind: 'max' | 'min';
 }
 
-/** Model kubik contoh yang akarnya bulat $1, 2, 3$. */
-export const DEFAULT_CUBIC: Cubic = { a: 1, b: -6, c: 11, d: -6 };
-
 /** Menghitung $f(x)$ dengan skema Horner. */
 export function evalCubic(k: Cubic, x: number): number {
   return ((k.a * x + k.b) * x + k.c) * x + k.d;

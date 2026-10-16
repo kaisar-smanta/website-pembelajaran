@@ -47,9 +47,6 @@ export interface TopicProgress {
   lastAt: number;
 }
 
-/** Jarak antar-percobaan yang dianggap sesi baru (30 menit). */
-export const SESSION_GAP_MS = 30 * 60 * 1000;
-
 export function recordAttempt(
   map: ProgressMap,
   questionId: string,

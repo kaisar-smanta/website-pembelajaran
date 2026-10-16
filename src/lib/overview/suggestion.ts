@@ -23,6 +23,8 @@ export function continueLearning(overview: SiteOverview, limit = 6): TopicOvervi
     .slice(0, limit);
 }
 
+// Sengaja disalin dari `src/data/curriculum.ts` (bukan diimpor): modul ini murni
+// dan boleh dipakai di sisi klien, sehingga tidak boleh menarik data materi.
 const GRADE_RANK: Partial<Record<Grade, number>> = { X: 0, XI: 1, XII: 2 };
 
 /**

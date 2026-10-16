@@ -57,50 +57,12 @@ const initialAria = 'Kurva distribusi normal dengan rata-rata 70 dan simpangan b
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
-  .sim-fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 0.75rem;
-  }
-  .sim-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-  }
-  .sim-field span {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-  .sim-field output {
-    color: var(--color-primary);
-    font-family: var(--font-mono);
-  }
-  .sim-field input[type='range'] {
-    width: 100%;
-    accent-color: var(--color-primary);
-  }
   .sim-actions {
     margin-top: 0.7rem;
   }
   .sim-chart {
     max-width: 34rem;
     margin: 0.85rem auto 0;
-  }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
   }
   .legend {
     display: flex;
@@ -118,11 +80,6 @@ const initialAria = 'Kurva distribusi normal dengan rata-rata 70 dan simpangan b
   }
   .legend .l3 {
     color: var(--color-primary);
-  }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
   }
 </style>
 

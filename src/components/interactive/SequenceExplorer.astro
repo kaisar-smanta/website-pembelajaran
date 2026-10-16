@@ -66,11 +66,6 @@ const { exploration } = Astro.props;
 </figure>
 
 <style>
-  .sim-fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 0.75rem;
-  }
   .sim-field {
     display: flex;
     flex-direction: column;
@@ -99,13 +94,6 @@ const { exploration } = Astro.props;
     max-width: 36rem;
     margin: 0.85rem auto 0;
   }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
-  }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -123,11 +111,6 @@ const { exploration } = Astro.props;
   .sequence-sim .sim-chart svg rect,
   .sequence-sim .sim-chart svg circle {
     transition: opacity var(--dur) var(--ease-out-soft);
-  }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
   }
   table.urut {
     width: 100%;
@@ -161,12 +144,6 @@ const { exploration } = Astro.props;
   }
   table.urut :global(tbody tr:nth-child(even)) {
     background: color-mix(in srgb, var(--color-surface-2) 45%, transparent);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .sequence-sim .sim-chart svg rect,
-    .sequence-sim .sim-chart svg circle {
-      transition: none;
-    }
   }
 </style>
 

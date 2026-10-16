@@ -7,8 +7,6 @@
  * kumulatif, serta nilai harapan, varians, dan simpangan bakunya.
  */
 
-import { formatPlain } from '../format.ts';
-
 /** Satu titik distribusi: nilai $k$ dan peluang $P(X=k)$. */
 export interface BinomialPoint {
   k: number;
@@ -84,9 +82,3 @@ export function binomialStats(n: number, p: number): BinomialStats {
   };
 }
 
-/** Rangkuman verbal nilai harapan, varians, dan simpangan baku. */
-export function describeBinomial(n: number, p: number): string {
-  const st = binomialStats(n, p);
-  const f = (v: number) => formatPlain(Number(v.toFixed(4)));
-  return `Untuk n = ${n} percobaan dengan peluang sukses p = ${f(p)}, nilai harapan E(X) = np = ${f(st.mean)}, varians np(1 − p) = ${f(st.variance)}, dan simpangan baku σ = ${f(st.stdDev)}.`;
-}

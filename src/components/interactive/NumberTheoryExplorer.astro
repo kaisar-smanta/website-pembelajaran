@@ -79,11 +79,6 @@ const { exploration } = Astro.props;
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
   .nt-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
@@ -111,11 +106,6 @@ const { exploration } = Astro.props;
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--color-text-muted);
-  }
-  .sim-field span {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
   }
   .sim-field input {
     padding: 0.35rem 0.45rem;
@@ -166,22 +156,11 @@ const { exploration } = Astro.props;
     border-radius: var(--radius-sm);
     font-size: 0.85rem;
   }
-  .sim-readout :global(.stat span) {
-    color: var(--color-text-muted);
-  }
   .sim-readout :global(.stat strong) {
     font-family: var(--font-mono);
     color: var(--color-primary);
     text-align: right;
     overflow-wrap: anywhere;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .nt-sim *,
-    .nt-sim *::before,
-    .nt-sim *::after {
-      transition: none !important;
-      animation: none !important;
-    }
   }
 </style>
 

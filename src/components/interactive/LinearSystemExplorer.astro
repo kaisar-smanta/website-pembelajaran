@@ -82,16 +82,6 @@ const initialAria = `Grafik dua garis dari sistem persamaan linear ${a1}x + ${b1
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
-  .sim-fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 0.75rem;
-  }
   .sim-field {
     display: flex;
     flex-direction: column;
@@ -119,13 +109,6 @@ const initialAria = `Grafik dua garis dari sistem persamaan linear ${a1}x + ${b1
     max-width: 34rem;
     margin: 0.85rem auto 0;
   }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
-  }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -139,11 +122,6 @@ const initialAria = `Grafik dua garis dari sistem persamaan linear ${a1}x + ${b1
   }
   .legend .l2 {
     color: var(--color-data);
-  }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
   }
   .sim-readout :global(.sim-note) {
     margin: 0;
@@ -160,11 +138,6 @@ const initialAria = `Grafik dua garis dari sistem persamaan linear ${a1}x + ${b1
   @media (max-width: 390px) {
     .sim-fields {
       grid-template-columns: 1fr;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .linear-system-sim svg :global(*) {
-      transition: none;
     }
   }
 </style>

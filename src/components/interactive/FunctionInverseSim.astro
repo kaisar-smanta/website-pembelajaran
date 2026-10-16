@@ -163,7 +163,6 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     color: var(--color-primary);
   }
   .sim-reset:focus-visible {
-    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
   .sim-readout {
@@ -190,11 +189,6 @@ const initialAria = `Grafik f(x) = ${initialA}x + ${initialB}, fungsi inversnya,
     }
     .inverse-sim .sim-canvas {
       max-width: 100%;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .sim-reset {
-      transition: none;
     }
   }
 </style>

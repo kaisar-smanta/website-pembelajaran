@@ -20,12 +20,6 @@
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
-.ink-underline {
-  text-decoration-line: underline;
-  text-decoration-color: var(--highlight-strong);
-  text-decoration-thickness: 0.18em;
-  text-underline-offset: 0.12em;
-}
 .eyebrow-badge {
   display: inline-flex;
   align-items: center;
@@ -47,10 +41,4 @@
   border-radius: 50%;
   background: currentColor;
   box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
-}
-.divider-wave {
-  display: block;
-  width: 100%;
-  height: 2.5rem;
-  color: var(--color-bg-alt);
 }

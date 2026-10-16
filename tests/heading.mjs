@@ -6,6 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { root, check, checks } from './_util.mjs';
+import { collectFiles } from '../scripts/lib/files.mjs';
 
 const dist = path.join(root, 'dist');
 
@@ -13,15 +14,7 @@ if (!fs.existsSync(dist)) {
   console.log('  lewati - dist/ belum ada, uji struktur judul dilewati');
   console.log('PASS heading (dilewati)');
 } else {
-  const pages = [];
-  const walk = (dir) => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) walk(full);
-      else if (entry.name === 'index.html') pages.push(full);
-    }
-  };
-  walk(dist);
+  const pages = collectFiles(dist, (name) => name === 'index.html');
 
   const h1Failures = [];
   const skipFailures = [];

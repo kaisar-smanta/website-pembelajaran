@@ -4,11 +4,6 @@
  * build stabil dan dapat diuji.
  */
 
-import { STORAGE_KEYS } from './storage-keys.ts';
-
-/** Kunci `sessionStorage` untuk benih acak sesi kuis aktif. */
-export const SESSION_SEED_KEY = STORAGE_KEYS.sessionSeed;
-
 /**
  * Mengacak daftar secara deterministik dari sebuah benih sehingga urutan hasil
  * build stabil untuk seluruh pengunjung, tetapi tidak mengungkap pasangan pada

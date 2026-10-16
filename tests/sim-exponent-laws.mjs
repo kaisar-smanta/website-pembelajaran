@@ -1,6 +1,6 @@
 // Uji logika murni sifat-sifat eksponen: node tests/sim-exponent-laws.mjs
 import assert from 'node:assert/strict';
-import { check, checks } from './_util.mjs';
+import { check, checks, close } from './_util.mjs';
 import {
   powerValue,
   almostEqual,
@@ -8,18 +8,13 @@ import {
   describeExponentLaws,
 } from '../src/lib/sim/exponent-laws.ts';
 
-const close = (actual, expected, tol, label) =>
-  assert.ok(
-    Math.abs(actual - expected) <= tol,
-    `${label}: diharapkan ≈${expected}, diperoleh ${actual}`,
-  );
 
 check('nilai pangkat a^x', () => {
   assert.equal(powerValue(2, 3), 8);
   assert.equal(powerValue(5, 2), 25);
-  close(powerValue(2, 0), 1, 1e-12, 'a^0');
-  close(powerValue(2, -1), 0.5, 1e-12, 'a^-1');
-  close(powerValue(3, -2), 1 / 9, 1e-12, 'a^-2');
+  close(powerValue(2, 0), 1, 'a^0', 1e-12);
+  close(powerValue(2, -1), 0.5, 'a^-1', 1e-12);
+  close(powerValue(3, -2), 1 / 9, 'a^-2', 1e-12);
   assert.ok(Number.isNaN(powerValue(0, -1)), 'nol pangkat negatif tak terdefinisi');
 });
 
@@ -41,7 +36,7 @@ check('aturan a^m * a^n = a^(m+n)', () => {
   ]) {
     const r = exponentLaws(a, m, n);
     assert.ok(r.productHolds, `aturan hasil kali gagal untuk a=${a}, m=${m}, n=${n}`);
-    close(r.productLeft, r.productRight, 1e-9, `ruas a=${a}, m=${m}, n=${n}`);
+    close(r.productLeft, r.productRight, `ruas a=${a}, m=${m}, n=${n}`, 1e-9);
   }
 });
 
@@ -73,14 +68,14 @@ check('aturan (a^m)^n = a^(mn)', () => {
 
 check('nilai pendukung a^m dan a^n', () => {
   const r = exponentLaws(2, 3, 4);
-  close(r.aPowM, 8, 1e-12, 'a^m');
-  close(r.aPowN, 16, 1e-12, 'a^n');
-  close(r.productLeft, 128, 1e-9, 'a^m * a^n');
-  close(r.productRight, 128, 1e-9, 'a^(m+n)');
-  close(r.quotientLeft, 0.5, 1e-9, 'a^m / a^n');
-  close(r.quotientRight, 0.5, 1e-9, 'a^(m-n)');
-  close(r.powerLeft, 4096, 1e-6, '(a^m)^n');
-  close(r.powerRight, 4096, 1e-6, 'a^(mn)');
+  close(r.aPowM, 8, 'a^m', 1e-12);
+  close(r.aPowN, 16, 'a^n', 1e-12);
+  close(r.productLeft, 128, 'a^m * a^n', 1e-9);
+  close(r.productRight, 128, 'a^(m+n)', 1e-9);
+  close(r.quotientLeft, 0.5, 'a^m / a^n', 1e-9);
+  close(r.quotientRight, 0.5, 'a^(m-n)', 1e-9);
+  close(r.powerLeft, 4096, '(a^m)^n', 1e-6);
+  close(r.powerRight, 4096, 'a^(mn)', 1e-6);
 });
 
 check('ringkasan sifat eksponen', () => {

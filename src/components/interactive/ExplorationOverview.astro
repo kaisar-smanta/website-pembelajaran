@@ -2,7 +2,7 @@
 import type { Difficulty, ElementId, Exploration, Grade } from '@/types/content';
 import { ELEMENTS, ALL_ELEMENT_ORDER } from '@/data/curriculum';
 import type { GradeMeta } from '@/data/curriculum';
-import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/data/display';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/lib/difficulty';
 import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
 
@@ -308,7 +308,6 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     color: var(--color-primary);
   }
   .ex-chip:focus-visible {
-    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
   .ex-chip.is-active {
@@ -360,7 +359,6 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
   }
   .ex-search-input:focus-visible {
-    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
     border-color: var(--color-primary);
   }
@@ -420,19 +418,7 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .ex-chip,
-    .ex-chip-count,
-    .ex-search-input {
-      transition: none;
-    }
-  }
-
   @media print {
-    .ex-item[hidden],
-    .ex-group-label[hidden] {
-      display: block !important;
-    }
     .ex-empty {
       display: none !important;
     }

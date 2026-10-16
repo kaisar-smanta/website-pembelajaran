@@ -7,13 +7,6 @@
   background: var(--color-bg-alt);
   border-block: 1px solid var(--color-border);
 }
-.band-paper {
-  background-color: var(--color-bg-alt);
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: calc(var(--grid-size) * 1.5) calc(var(--grid-size) * 1.5);
-}
 .band-deep {
   position: relative;
   isolation: isolate;

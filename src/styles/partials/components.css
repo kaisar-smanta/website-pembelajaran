@@ -144,6 +144,11 @@ input[type='range'] {
   color: var(--color-warning);
   border-color: transparent;
 }
+.badge-grade {
+  background: color-mix(in srgb, var(--accent, var(--color-primary)) 12%, var(--color-surface-2));
+  color: color-mix(in srgb, var(--accent, var(--color-primary)) 68%, var(--color-text));
+  border-color: transparent;
+}
 
 /* ---------- Grids ---------- */
 .grid {
@@ -155,9 +160,6 @@ input[type='range'] {
 }
 .grid-3 {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-}
-.grid-4 {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
 }
 
 .section {

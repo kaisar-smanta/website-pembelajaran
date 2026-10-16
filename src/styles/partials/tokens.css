@@ -27,10 +27,6 @@
   --color-data: #a85a0b;
   --color-calculus: #d6336c;
 
-  /* Varian teks aksen yang memenuhi WCAG AA (>= 4.5:1) pada latar terang. */
-  --color-geometry-strong: #0c7c6a;
-  --color-data-strong: #a85a0b;
-
   --color-success: #17795e;
   --color-success-soft: #e2f5ee;
   --color-warning: #9a5b06;
@@ -51,36 +47,21 @@
   --maxw: 74rem;
   --header-h: 3.75rem;
 
-  /* Spasi */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-
   /* Skala tipe */
-  --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
 
-  /* Ikon */
-  --icon-sm: 1rem;
-  --icon: 1.25rem;
-  --icon-lg: 1.5rem;
-
-  /* Garis & fokus */
-  --border-width: 1px;
-  --border-width-strong: 2px;
+  /* Fokus */
   --focus-ring: 3px;
 
-  /* Lapisan (z-index) */
+  /* Lapisan (z-index) untuk elemen tetap/sticky global. */
   --z-base: 1;
+  --z-raised: 5;
   --z-sticky: 20;
+  --z-aside: 39;
+  --z-fab: 45;
+  --z-bottom-nav: 46;
   --z-header: 50;
   --z-drawer: 60;
   --z-overlay: 70;
@@ -113,7 +94,6 @@
   --grid-line: color-mix(in srgb, var(--color-primary) 12%, transparent);
   --grid-size: 24px;
   --highlight: #ffe6a3;
-  --highlight-strong: #ffd45e;
 
   color-scheme: light;
 }
@@ -141,10 +121,6 @@
   --color-data: #f0a94e;
   --color-calculus: #f478a8;
 
-  /* Di latar gelap warna dasar sudah terang, jadi varian teks sama. */
-  --color-geometry-strong: #4fd0b8;
-  --color-data-strong: #f0a94e;
-
   --color-success: #5fd0a8;
   --color-success-soft: #12332a;
   --color-warning: #e7b25f;
@@ -160,7 +136,6 @@
 
   --grid-line: color-mix(in srgb, var(--color-primary) 20%, transparent);
   --highlight: #5c4a14;
-  --highlight-strong: #7a6118;
 
   color-scheme: dark;
 }

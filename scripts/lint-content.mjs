@@ -4,26 +4,27 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { byExtension, collectFiles } from './lib/files.mjs';
 import { scanEmDashes } from './lib/emdash.mjs';
+import { scanMath } from '../src/lib/math-scan.ts';
 
 // Daftar berkas materi yang dipindai: topik, aplikasi, bank soal, eksplorasi,
 // dan capaian pembelajaran. index.ts/planned.ts adalah agregator sehingga
 // dilewati (isinya menunjuk ke berkas lain yang tetap dipindai).
-function tsFilesIn(dir, skip = ['index.ts', 'planned.ts']) {
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith('.ts') && !skip.includes(f))
-    .map((f) => path.join(dir, f));
-}
+// Daftar berkas materi yang dipindai: topik, aplikasi, bank soal, eksplorasi,
+// dan capaian pembelajaran. index.ts/planned.ts adalah agregator sehingga
+// dilewati (isinya menunjuk ke berkas lain yang tetap dipindai). Penelusuran
+// rekursif `collectFiles` superset dari versi non-rekursif lama, sehingga
+// cakupan berkas tidak berkurang.
+const SKIP_MATERI = new Set(['index.ts', 'planned.ts']);
+const isMateriTs = (name) => name.endsWith('.ts') && !SKIP_MATERI.has(name);
 
 function existingFiles(...paths) {
   return paths.filter((p) => fs.existsSync(p));
 }
 
 const files = [
-  ...tsFilesIn('src/data/topics'),
-  ...tsFilesIn('src/data/applications'),
-  ...tsFilesIn('src/data/questions'),
+  ...collectFiles('src/data/topics', isMateriTs),
+  ...collectFiles('src/data/applications', isMateriTs),
+  ...collectFiles('src/data/questions', isMateriTs),
   ...existingFiles('src/data/explorations.ts', 'src/data/curriculum/cp.ts'),
 ];
 
@@ -39,111 +40,15 @@ function lineOf(text, index) {
   return line;
 }
 
-// Ekstrak seluruh segmen math ($...$ dan $$...$$) dari teks penuh, bukan per
-// baris, agar display math multi-baris ikut terbaca. Dolar yang di-escape (\$)
-// dan interpolasi template (`${...}`) diabaikan.
-function extractMathSegments(text) {
-  const segs = [];
-  const len = text.length;
-  let i = 0;
-  while (i < len) {
-    const c = text[i];
-    if (c === '\\') {
-      i += 2;
-      continue;
-    }
-    if (c === '$' && text[i + 1] !== '{') {
-      if (text[i + 1] === '$') {
-        const start = i + 2;
-        let j = start;
-        let end = -1;
-        while (j < len) {
-          if (text[j] === '\\') {
-            j += 2;
-            continue;
-          }
-          if (text[j] === '$' && text[j + 1] === '$') {
-            end = j;
-            break;
-          }
-          j += 1;
-        }
-        if (end === -1) break;
-        segs.push({ body: text.slice(start, end), display: true, index: i });
-        i = end + 2;
-      } else {
-        const start = i + 1;
-        let j = start;
-        let end = -1;
-        while (j < len && text[j] !== '\n') {
-          if (text[j] === '\\') {
-            j += 2;
-            continue;
-          }
-          if (text[j] === '$') {
-            end = j;
-            break;
-          }
-          j += 1;
-        }
-        if (end === -1) {
-          i += 1;
-          continue;
-        }
-        segs.push({ body: text.slice(start, end), display: false, index: i });
-        i = end + 1;
-      }
-      continue;
-    }
-    i += 1;
-  }
-  return segs;
-}
+// Pemindai dolar tunggal dibagi bersama di `src/lib/math-scan.ts` (dipakai juga
+// renderer markdown), sehingga segmen math, jumlah dolar tak tertutup, dan teks
+// ber-math-dikosongkan selalu konsisten antar perkakas.
 
 // Ambil baris sumber yang memuat indeks karakter tertentu.
 function lineAt(text, index) {
   const start = text.lastIndexOf('\n', index) + 1;
   const end = text.indexOf('\n', index);
   return text.slice(start, end === -1 ? text.length : end);
-}
-
-// Buang seluruh segmen math dari sebuah baris, sehingga sisa '|' yang tertinggal
-// benar-benar milik sintaks tabel markdown (bukan tanda nilai mutlak di dalam math).
-function stripMathFromLine(line) {
-  let out = '';
-  let i = 0;
-  while (i < line.length) {
-    if (line[i] === '\\') {
-      out += line.slice(i, i + 2);
-      i += 2;
-      continue;
-    }
-    if (line[i] === '$' && line[i + 1] !== '{') {
-      if (line[i + 1] === '$') {
-        const end = line.indexOf('$$', i + 2);
-        i = end === -1 ? line.length : end + 2;
-        continue;
-      }
-      let j = i + 1;
-      let end = -1;
-      while (j < line.length) {
-        if (line[j] === '\\') {
-          j += 2;
-          continue;
-        }
-        if (line[j] === '$') {
-          end = j;
-          break;
-        }
-        j += 1;
-      }
-      i = end === -1 ? line.length : end + 1;
-      continue;
-    }
-    out += line[i];
-    i += 1;
-  }
-  return out;
 }
 
 // Istilah baku dan sapaan seragam. Setiap pelanggaran dilaporkan sebagai galat
@@ -190,18 +95,21 @@ for (const full of files) {
     }
   }
 
+  // Satu pemindaian dolar: segmen math, jumlah dolar (deteksi math tak
+  // tertutup), dan teks ber-math-dikosongkan untuk pemeriksaan baris tabel.
+  const scan = scanMath(text);
+
   // Jumlah dolar tak ter-escape yang ganjil menandakan math tidak tertutup.
-  const dollars = (text.match(/(?<!\\)\$(?!\{)/g) || []).length;
-  if (dollars % 2 === 1) {
-    problems.push(`${f}: jumlah $ tak berpasangan (ganjil): ${dollars}`);
+  if (scan.dollars % 2 === 1) {
+    problems.push(`${f}: jumlah $ tak berpasangan (ganjil): ${scan.dollars}`);
   }
 
-  for (const seg of extractMathSegments(text)) {
+  for (const seg of scan.segments) {
     const line = lineOf(text, seg.index);
     const body = seg.body;
     const snippet = body.replace(/\s+/g, ' ').trim().slice(0, 60);
 
-    if (body.includes('|') && stripMathFromLine(lineAt(text, seg.index)).includes('|')) {
+    if (body.includes('|') && lineAt(scan.cleaned, seg.index).includes('|')) {
       problems.push(`${f}:${line} pipe di dalam math pada baris tabel -> ${snippet}`);
     }
 

@@ -1,16 +1,10 @@
-import type { ElementId, Grade, SubjectId } from '@/types/content';
+import type { Topic } from '@/types/content';
 
-export interface PlannedTopic {
-  id: string;
-  slug: string;
-  title: string;
-  grade: Grade;
-  element: ElementId;
-  /** Mata pelajaran; kosong berarti 'matematika'. */
-  subject?: SubjectId;
-  status: 'rencana';
-  summary: string;
-}
+/** Topik roadmap: subset field `Topic` dengan status tetap `rencana`. */
+export type PlannedTopic = Pick<
+  Topic,
+  'id' | 'slug' | 'title' | 'grade' | 'element' | 'subject' | 'summary'
+> & { status: 'rencana' };
 
 /**
  * Topik yang tercantum dalam peta kurikulum namun materinya masih dalam tahap

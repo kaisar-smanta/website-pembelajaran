@@ -10,7 +10,13 @@ import {
   subjectGradesWithContent,
   subjectsWithContent,
 } from '@/lib/routes';
-import { absoluteUrl } from '@/utils/url';
+import {
+  absoluteUrl,
+  elementOverviewPath,
+  elementPath,
+  gradePath,
+  topicPath,
+} from '@/utils/url';
 
 export const prerender = true;
 
@@ -40,13 +46,13 @@ export const GET: APIRoute = () => {
 
   for (const subject of subjectsWithContent()) {
     for (const g of subjectGradesWithContent(subject)) {
-      paths.add(`${subject}/kelas/${g}`);
+      paths.add(gradePath(g, subject));
     }
     for (const { grade, element } of subjectGradeElementCombos(subject)) {
-      paths.add(`${subject}/kelas/${grade}/${element}`);
+      paths.add(elementPath(grade, element, subject));
     }
     for (const e of subjectElementsWithContent(subject)) {
-      paths.add(`${subject}/elemen/${e}`);
+      paths.add(elementOverviewPath(e, subject));
     }
   }
 
@@ -54,7 +60,7 @@ export const GET: APIRoute = () => {
   for (const t of topics) {
     if (t.status === 'rencana') continue;
     const subject = topicSubject(t);
-    paths.add(`${subject}/kelas/${t.grade}/${t.element}/${t.slug}`);
+    paths.add(topicPath(t.grade, t.element, t.slug, subject));
     if (practiceTopicIds.has(t.id)) paths.add(`latihan/${t.slug}`);
   }
 

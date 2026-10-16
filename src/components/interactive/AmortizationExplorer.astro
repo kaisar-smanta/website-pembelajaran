@@ -74,16 +74,6 @@ const { exploration } = Astro.props;
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
-  .sim-fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 0.75rem;
-  }
   .sim-field {
     display: flex;
     flex-direction: column;
@@ -132,13 +122,6 @@ const { exploration } = Astro.props;
   .sim-chart {
     max-width: 36rem;
     margin-inline: auto;
-  }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
   }
   .sim-legend {
     display: flex;
@@ -197,14 +180,6 @@ const { exploration } = Astro.props;
   @media (max-width: 30rem) {
     .sim-fields {
       grid-template-columns: 1fr;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .amort-sim *,
-    .amort-sim *::before,
-    .amort-sim *::after {
-      transition: none !important;
-      animation: none !important;
     }
   }
 </style>

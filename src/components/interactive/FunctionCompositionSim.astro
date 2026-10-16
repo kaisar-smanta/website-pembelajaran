@@ -183,11 +183,6 @@ const initialAria =
     gap: 0.5rem;
     margin-top: 0.85rem;
   }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
-  }
   .sim-readout :global(.stat) {
     flex-wrap: wrap;
     gap: 0.35rem 1rem;
@@ -199,14 +194,6 @@ const initialAria =
   @media (max-width: 430px) {
     .sim {
       padding: 0.85rem;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .compose-sim *,
-    .compose-sim *::before,
-    .compose-sim *::after {
-      transition: none !important;
-      animation: none !important;
     }
   }
 </style>

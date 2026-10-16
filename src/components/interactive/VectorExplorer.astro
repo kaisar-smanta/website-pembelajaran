@@ -96,11 +96,6 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
 </figure>
 
 <style>
-  .sim-hint {
-    margin: 0 0 0.85rem;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-  }
   .sim-fields {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
@@ -129,15 +124,6 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
     font-weight: 600;
     color: var(--color-text-muted);
   }
-  .sim-field span {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-  .sim-field output {
-    color: var(--color-primary);
-    font-family: var(--font-mono);
-  }
   .sim-field input[type='number'] {
     width: 100%;
     box-sizing: border-box;
@@ -160,13 +146,6 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
     max-width: 36rem;
     margin: 0.85rem auto 0;
   }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
-  }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -184,11 +163,6 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
   .legend .l3 {
     color: var(--color-warning);
   }
-  .sim-readout {
-    display: grid;
-    gap: 0.4rem;
-    margin-top: 0.85rem;
-  }
   .sim-readout :global(.stat) {
     flex-wrap: wrap;
     gap: 0.35rem 1rem;
@@ -196,11 +170,6 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
   }
   .vector-sim svg :global(*) {
     transition: opacity var(--dur) var(--ease-out-soft);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .vector-sim svg :global(*) {
-      transition: none;
-    }
   }
 </style>
 

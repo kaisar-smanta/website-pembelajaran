@@ -6,6 +6,10 @@ export interface MathTool {
   ext?: boolean;
   note: string;
   use: string;
+  /** Peringkat pada daftar alat unggulan beranda (kecil = lebih awal). */
+  featured?: number;
+  /** Catatan ringkas khusus kartu unggulan; default `note`. */
+  featuredNote?: string;
 }
 
 export interface ToolGroup {
@@ -35,6 +39,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Perangkat matematika dinamis.',
         use: 'Menggambar grafik fungsi, konstruksi geometri, dan eksplorasi parameter.',
+        featured: 1,
+        featuredNote: 'Menggambar grafik, geometri, dan parameter.',
       },
       {
         name: 'Desmos Graphing Calculator',
@@ -42,6 +48,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Kalkulator grafik daring yang cepat.',
         use: 'Memeriksa bentuk grafik kuadrat, eksponen, dan trigonometri.',
+        featured: 2,
+        featuredNote: 'Memeriksa grafik fungsi dengan cepat.',
       },
       {
         name: 'GeoGebra Calculator Suite',
@@ -63,6 +71,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Penyelesai langkah demi langkah.',
         use: 'Memeriksa turunan, integral, dan limit melalui langkah penyelesaian.',
+        featured: 3,
+        featuredNote: 'Memeriksa langkah turunan dan integral.',
       },
       {
         name: 'GeoGebra CAS Calculator',
@@ -105,6 +115,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Kalkulator operasi matriks.',
         use: 'Menghitung determinan, invers, dan perkalian matriks.',
+        featured: 5,
+        featuredNote: 'Menghitung determinan, invers, dan perkalian matriks.',
       },
       {
         name: 'Microsoft Math Solver',
@@ -126,6 +138,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Mesin pengetahuan komputasional.',
         use: 'Memeriksa langkah penyelesaian dan bentuk sederhana.',
+        featured: 4,
+        featuredNote: 'Memeriksa langkah dan bentuk sederhana.',
       },
       {
         name: 'Desmos Scientific Calculator',
@@ -147,6 +161,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Lembar kerja daring.',
         use: 'Menghitung rata-rata, kuartil, dan membuat diagram pencar.',
+        featured: 6,
+        featuredNote: 'Menghitung statistik dan membuat diagram.',
       },
       {
         name: 'GeoGebra Classic',
@@ -182,6 +198,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Kalkulator statistika dan peluang.',
         use: 'Menghitung peluang, distribusi, dan ukuran statistik.',
+        featured: 7,
+        featuredNote: 'Menghitung peluang dan ukuran statistik.',
       },
       {
         name: 'Kalkulator Permutasi dan Kombinasi',
@@ -210,6 +228,8 @@ export const toolGroups: ToolGroup[] = [
         ext: true,
         note: 'Kalkulator keuangan resmi OJK.',
         use: 'Menghitung bunga majemuk, anuitas, dan simulasi pinjaman.',
+        featured: 8,
+        featuredNote: 'Menghitung bunga majemuk dan anuitas.',
       },
       {
         name: 'Wardaya College',
@@ -222,53 +242,18 @@ export const toolGroups: ToolGroup[] = [
   },
 ];
 
-export const featuredTools: FeaturedTool[] = [
-  {
-    name: 'GeoGebra',
-    url: 'https://www.geogebra.org/',
-    ext: true,
-    note: 'Menggambar grafik, geometri, dan parameter.',
-  },
-  {
-    name: 'Desmos Graphing Calculator',
-    url: 'https://www.desmos.com/calculator',
-    ext: true,
-    note: 'Memeriksa grafik fungsi dengan cepat.',
-  },
-  {
-    name: 'Symbolab',
-    url: 'https://www.symbolab.com/',
-    ext: true,
-    note: 'Memeriksa langkah turunan dan integral.',
-  },
-  {
-    name: 'Wolfram Alpha',
-    url: 'https://www.wolframalpha.com/',
-    ext: true,
-    note: 'Memeriksa langkah dan bentuk sederhana.',
-  },
-  {
-    name: 'Matrix Calculator',
-    url: 'https://matrixcalc.org/',
-    ext: true,
-    note: 'Menghitung determinan, invers, dan perkalian matriks.',
-  },
-  {
-    name: 'Google Sheets',
-    url: 'https://docs.google.com/spreadsheets/',
-    ext: true,
-    note: 'Menghitung statistik dan membuat diagram.',
-  },
-  {
-    name: 'Statistics Kingdom',
-    url: 'https://www.statskingdom.com/',
-    ext: true,
-    note: 'Menghitung peluang dan ukuran statistik.',
-  },
-  {
-    name: 'Kalkulator Keuangan Sikapi Uangmu',
-    url: 'https://sikapiuangmu.ojk.go.id/',
-    ext: true,
-    note: 'Menghitung bunga majemuk dan anuitas.',
-  },
-];
+/**
+ * Alat unggulan beranda, diturunkan dari `toolGroups` agar tidak ada daftar
+ * yang disalin ganda. Urutan mengikuti `featured`, catatan memakai
+ * `featuredNote` bila ada.
+ */
+export const featuredTools: FeaturedTool[] = toolGroups
+  .flatMap((group) => group.tools)
+  .filter((tool) => tool.featured !== undefined)
+  .sort((a, b) => (a.featured ?? 0) - (b.featured ?? 0))
+  .map((tool) => ({
+    name: tool.name,
+    url: tool.url,
+    ext: Boolean(tool.ext),
+    note: tool.featuredNote ?? tool.note,
+  }));

@@ -18,9 +18,6 @@ export interface CubicModel {
 /** $f(x)=x^{3}-3x$: stasioner di $x=\\pm 1$, mudah diuji. */
 export const DEFAULT_MODEL: CubicModel = { a: 1, b: 0, c: -3, d: 0 };
 
-/** Selang titik singgung yang dipakai komponen. */
-export const POINT_RANGE = { min: -2.5, max: 2.5, step: 0.1 };
-
 export interface TangentLine {
   /** Gradien garis singgung $f'(x_0)$. */
   slope: number;

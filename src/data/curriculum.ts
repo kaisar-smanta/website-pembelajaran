@@ -58,14 +58,6 @@ export const ELEMENTS: Record<ElementId, ElementMeta> = {
   },
 };
 
-/** Urutan elemen untuk mata pelajaran Matematika (wajib). */
-export const ELEMENT_ORDER: ElementId[] = [
-  'bilangan',
-  'aljabar-fungsi',
-  'geometri',
-  'data-peluang',
-];
-
 /** Seluruh elemen lintas mata pelajaran (termasuk Kalkulus). */
 export const ALL_ELEMENT_ORDER: ElementId[] = [
   'bilangan',
@@ -147,11 +139,6 @@ export function gradesFor(subject: SubjectId): Grade[] {
   return SUBJECTS[subject].grades;
 }
 
-/** Fase yang dicakup suatu mata pelajaran. */
-export function phasesFor(subject: SubjectId): Phase[] {
-  return SUBJECTS[subject].phases;
-}
-
 export interface GradeMeta {
   id: Grade;
   phase: Phase;
@@ -188,3 +175,6 @@ export const GRADES: Record<Grade, GradeMeta> = {
 };
 
 export const GRADE_ORDER: Grade[] = ['X', 'XI', 'XII'];
+
+/** Peringkat kelas untuk pengurutan deterministik (satu sumber). */
+export const GRADE_RANK: Record<Grade, number> = { X: 0, XI: 1, XII: 2 };

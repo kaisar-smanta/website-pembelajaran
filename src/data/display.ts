@@ -1,4 +1,4 @@
-import type { ElementId, ExplorationType, SubjectId } from '@/types/content';
+import type { ElementId, ExplorationType } from '@/types/content';
 
 /**
  * Metadata tampilan terpusat (warna aksen, label tingkat, kelas unggulan,
@@ -16,13 +16,12 @@ export const ELEMENT_COLOR: Record<ElementId, string> = {
 };
 
 /** Nama variabel warna elemen tanpa pembungkus `var()` (untuk gaya inline). */
-export const ELEMENT_COLOR_VAR: Record<ElementId, string> = {
-  bilangan: '--color-number',
-  'aljabar-fungsi': '--color-algebra',
-  geometri: '--color-geometry',
-  kalkulus: '--color-calculus',
-  'data-peluang': '--color-data',
-};
+export const ELEMENT_COLOR_VAR: Record<ElementId, string> = Object.fromEntries(
+  Object.entries(ELEMENT_COLOR).map(([element, color]) => [
+    element,
+    color.replace(/^var\(/, '').replace(/\)$/, ''),
+  ]),
+) as Record<ElementId, string>;
 
 /** Warna aksen untuk elemen, dengan cadangan warna primer. */
 export function elementColor(element: ElementId | undefined): string {
@@ -33,19 +32,6 @@ export function elementColor(element: ElementId | undefined): string {
 export function elementColorVar(element: ElementId | undefined): string {
   return element ? ELEMENT_COLOR_VAR[element] : '--color-primary';
 }
-
-/** Kelas aksen elemen (mis. `accent-bilangan`) yang menyetel `--accent`. */
-export function elementAccentClass(element: ElementId): string {
-  return `accent-${element}`;
-}
-
-/** Kelas aksen mata pelajaran. */
-export function subjectAccentClass(subject: SubjectId): string {
-  return subject === 'matematika-lanjut' ? 'subject-lanjut' : 'subject-matematika';
-}
-
-/** Label dan urutan tingkat kesulitan (sumber tunggal di `src/lib/difficulty.ts`). */
-export { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '../lib/difficulty.ts';
 
 /** Label ramah untuk tiap tipe eksplorasi. */
 export const EXPLORATION_TYPE_LABELS: Record<ExplorationType, string> = {

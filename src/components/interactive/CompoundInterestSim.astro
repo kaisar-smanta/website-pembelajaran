@@ -70,11 +70,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
 </figure>
 
 <style>
-  .sim-fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 0.75rem;
-  }
   .sim-field {
     display: flex;
     flex-direction: column;
@@ -130,13 +125,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
     max-width: 36rem;
     margin-inline: auto;
   }
-  .sim-chart svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: var(--color-surface-2);
-    border-radius: var(--radius);
-  }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -187,12 +175,6 @@ const mode = exploration.id === 'anuitas-sim' ? 'anuitas' : 'bunga';
   @media (max-width: 30rem) {
     .sim-fields {
       grid-template-columns: 1fr;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .sim :global(*) {
-      animation: none !important;
-      transition: none !important;
     }
   }
 </style>

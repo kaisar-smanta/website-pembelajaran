@@ -1,5 +1,6 @@
 // Verifikasi matematika src/lib/sim/distribution.ts
 // Pemakaian: node tests/sim-distribution.mjs
+import { runCase, report } from './_util.mjs';
 import assert from 'node:assert/strict';
 import {
   parseData,
@@ -7,20 +8,8 @@ import {
   classifySkew,
 } from '../src/lib/sim/distribution.ts';
 
-let failed = 0;
 
-function run(name, fn) {
-  try {
-    fn();
-    console.log(`PASS ${name}`);
-  } catch (error) {
-    failed += 1;
-    console.error(`FAIL ${name}`);
-    console.error(`  ${error && error.message ? error.message : error}`);
-  }
-}
-
-run('IQR = 0 tetap mendeteksi pencilan', () => {
+runCase('IQR = 0 tetap mendeteksi pencilan', () => {
   const st = computeStats(parseData('5,5,5,5,5,100'));
   assert.ok(st, 'statistik tersedia');
   assert.equal(st.iqr, 0, 'IQR nol');
@@ -30,7 +19,7 @@ run('IQR = 0 tetap mendeteksi pencilan', () => {
   assert.deepEqual(st.inside, [5, 5, 5, 5, 5], 'nilai lain tetap di dalam pagar');
 });
 
-run('rata-rata, median, dan kuartil [1,2,3,4,5]', () => {
+runCase('rata-rata, median, dan kuartil [1,2,3,4,5]', () => {
   const st = computeStats([1, 2, 3, 4, 5]);
   assert.ok(st, 'statistik tersedia');
   assert.equal(st.n, 5);
@@ -41,14 +30,10 @@ run('rata-rata, median, dan kuartil [1,2,3,4,5]', () => {
   assert.equal(st.iqr, 3, 'IQR');
 });
 
-run('sebaran simetris tidak ditandai miring', () => {
+runCase('sebaran simetris tidak ditandai miring', () => {
   const st = computeStats([1, 2, 3, 4, 5]);
   assert.ok(st, 'statistik tersedia');
   assert.equal(classifySkew(st.mean, st.median), 'simetris');
 });
 
-if (failed > 0) {
-  console.error(`\n${failed} pemeriksaan gagal.`);
-  process.exit(1);
-}
-console.log('\nSemua pemeriksaan distribusi lulus.');
+report();

@@ -15,7 +15,7 @@
   position: absolute;
   left: -9999px;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-skip);
   background: var(--color-primary);
   color: var(--color-on-primary);
   padding: 0.6rem 1rem;

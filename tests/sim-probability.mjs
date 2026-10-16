@@ -1,13 +1,8 @@
 // Uji logika murni peluang: node tests/sim-probability.mjs
+import { check, report } from './_util.mjs';
 import assert from 'node:assert/strict';
 import { outcomesFor, sampleOnce } from '../src/lib/sim/probability.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
 
 const near = (a, b, tol = 1e-12) => Math.abs(a - b) <= tol;
 
@@ -47,4 +42,4 @@ check('sampler mengembalikan salah satu hasil yang valid', () => {
   }
 });
 
-console.log(`PASS sim-probability (${passed} pemeriksaan)`);
+report();

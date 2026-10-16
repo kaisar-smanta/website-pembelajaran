@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { spawn, spawnSync } from 'node:child_process';
+import { resolveDistFile } from './files.mjs';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -25,19 +26,6 @@ const MIME = {
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
 };
-
-export function resolveDistFile(distDir, base, urlPath) {
-  let p = decodeURIComponent(urlPath.split('?')[0]);
-  if (base !== '/' && p.startsWith(base)) p = p.slice(base.length);
-  if (!p.startsWith('/')) p = `/${p}`;
-  let file = path.join(distDir, p);
-  if (fs.existsSync(file) && fs.statSync(file).isDirectory()) {
-    file = path.join(file, 'index.html');
-  } else if (!path.extname(file)) {
-    file = path.join(distDir, p, 'index.html');
-  }
-  return file;
-}
 
 export function startServer(distDir, base) {
   const server = http.createServer((req, res) => {

@@ -108,8 +108,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   `/peta-pembelajaran` memakai ulang `buildOverview`/`continueLearning`/`suggestedStart`
   untuk saran lanjut yang sadar prasyarat.
 - Bahasa konten: Indonesia, sapaan ramah tanpa emoji.
-- **Token desain** ada di `src/styles/partials/tokens.css` (warna, radius, `--space-*`,
-  `--text-*`, `--icon-*`, `--z-*`, `--focus-ring`). Pakai token, jangan nilai mentah.
+- **Token desain** ada di `src/styles/partials/tokens.css` (warna, radius, skala tipe
+  `--text-sm/base/lg`, `--z-*` untuk lapisan tetap, `--focus-ring`, `--dur-*`/`--ease-*`).
+  Pakai token alih-alih nilai mentah. Token yang tak terpakai dihapus agar tidak menyesatkan.
 - Ikon PWA dibuat `npm run pwa-icons` (butuh Chrome/Edge terpasang); og image `npm run og`.
   Keduanya memakai browser headless lewat `scripts/lib/browser.mjs`.
 - `npm run audit` (lokal) juga memeriksa struktur a11y (satu h1, urutan heading, `alt`,
@@ -117,3 +118,37 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - **Ditunda:** CSS KaTeX masih dimuat global di `BaseLayout.astro`; memindahkannya per
   halaman butuh pemisahan CSS tingkat build (berisiko ke render matematika), jadi belum
   dikerjakan.
+
+## Keputusan arsitektur (refactor perawatan)
+
+- **Batas lapisan `data` → `lib` ditegakkan.** `src/data/**` tidak boleh mengimpor nilai
+  dari `src/lib/**`. Label/urutan tingkat kesulitan tinggal di `src/lib/difficulty.ts`
+  (re-export lama di `data/display.ts` dihapus), dan `sectionSearchText` diimpor langsung
+  dari `src/lib/content-text.ts`, bukan lewat `data/topics`.
+- **Harness uji menyelesaikan alias `@/*`.** `tests/_util.mjs` mendaftarkan hook
+  `node:module` sehingga berkas sumber yang dimuat uji boleh memakai `@/...` dengan type
+  stripping Node. `import.meta.glob` tetap tidak tersedia di Node, jadi berkas `index.ts`
+  ber-glob tidak boleh dimuat uji (uji memakai berkas per-entitas). Primitif uji bersama:
+  `close(actual, expected, label, tol)`, `closeVec`, `runCase`, `report`.
+- **Registri eksplorasi dipecah** menjadi `src/data/explorations/bagian-*.ts` dan digabung
+  **berurutan** oleh `src/data/explorations.ts`. Urutan entri dipertahankan karena beranda
+  memilih tiga eksplorasi unggulan pertama.
+- **`BlockRenderer.astro` punya penjaga kelengkapan** `Record<Block['kind'], true>`
+  sehingga menambah jenis blok baru tanpa menanganinya gagal saat `astro check`.
+- **Skema penyimpanan** kini juga dimigrasikan dari versi 0 (data lama tanpa penanda);
+  ekspor memakai `SCHEMA_VERSION`, bukan literal. Semua akses penyimpanan lewat
+  `safeStorage()`/`safeSessionStorage()` di `src/lib/storage.ts`.
+- **Skrip bersama wajib dipakai:** `scripts/lib/files.mjs` (`collectFiles`,
+  `resolveDistFile`, `writeTempFile`, `replaceFile`) dan `scripts/lib/browser.mjs`
+  (`preparePage`) menggantikan penelusur berkas dan penyiapan peramban yang dulu disalin.
+- **Logika klien besar dipindah ke `src/lib`:** `header-nav.ts`, `review-client.ts`,
+  `search-page.ts`, `map-client.ts`, `topic-page.ts`.
+- **Pemindai matematika bersama** `src/lib/math-scan.ts` (`scanMath`/`replaceMath`) dipakai
+  renderer markdown (`src/utils/markdown.ts`) dan linter konten (`scripts/lint-content.mjs`).
+  Sisa implementasi terpisah: pencarian LaTeX pada HTML (`scripts/check-latex.mjs`) dan
+  audit DOM (`scripts/audit.mjs`).
+- **Token tak terpakai dihapus** dari `tokens.css`; `--z-*` kini dipakai untuk lapisan tetap.
+  `.badge-grade` tinggal di `components.css`. `featuredTools` diturunkan dari `toolGroups`
+  (flag `featured`/`featuredNote`), dan tautan kelas footer dari `gradesFor('matematika')`.
+- **Ditunda (sengaja):** `mainNav` dibiarkan eksplisit (struktur IA dropdown tidak
+  diturunkan dari `STATIC_PAGES`); relasi topik↔studi kasus masih dua registri.

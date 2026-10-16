@@ -62,27 +62,6 @@
     background-position: -200% 0;
   }
 }
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 40%, transparent);
-  }
-  70% {
-    box-shadow: 0 0 0 12px transparent;
-  }
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-@keyframes draw-line {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
 @keyframes orbit-reverse {
   to {
     transform: rotate(-360deg);
@@ -142,9 +121,6 @@
 .bob {
   animation: bob 5.5s var(--ease-out-soft) infinite;
 }
-.pulse-soft {
-  animation: pulse-ring 2.6s var(--ease-out-soft) infinite;
-}
 .shimmer {
   background: linear-gradient(
     100deg,
@@ -154,14 +130,6 @@
   );
   background-size: 200% 100%;
   animation: shimmer 6s linear infinite;
-}
-.draw-line {
-  stroke-dasharray: 320;
-  stroke-dashoffset: 320;
-  animation: draw-line 1.6s var(--ease-out-soft) forwards;
-}
-.spin-slow {
-  animation: orbit 26s linear infinite;
 }
 .spin-slow-rev {
   animation: orbit-reverse 60s linear infinite;
@@ -230,10 +198,7 @@
   .float-slow,
   .float-delayed,
   .bob,
-  .pulse-soft,
   .shimmer,
-  .draw-line,
-  .spin-slow,
   .spin-slow-rev,
   .drift,
   .wiggle-on-hover:hover .wiggle-target,

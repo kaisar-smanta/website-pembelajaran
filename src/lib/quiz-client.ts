@@ -12,11 +12,13 @@ import {
   type AttemptState,
 } from './progress.ts';
 import { STORAGE_KEYS } from './storage-keys.ts';
+import { safeSessionStorage, safeStorage } from './storage.ts';
 
 /** Benih sesi per tab; stabil selama satu percobaan sehingga urutan opsi tetap. */
 export function sessionSeed(storage?: Storage): string {
   try {
-    const store = storage ?? window.sessionStorage;
+    const store = storage ?? safeSessionStorage();
+    if (!store) return 'sesi-tetap';
     let seed = store.getItem(STORAGE_KEYS.sessionSeed);
     if (!seed) {
       seed = Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -37,7 +39,7 @@ export function recordProgress(
   if (!questionId) return;
   const graded = options.graded ?? true;
   try {
-    const storage = window.localStorage;
+    const storage = safeStorage();
     const map = loadProgress(storage);
     saveProgress(
       storage,
@@ -53,7 +55,7 @@ export function recordProgress(
 export function clearProgress(questionId: string): void {
   if (!questionId) return;
   try {
-    const storage = window.localStorage;
+    const storage = safeStorage();
     const map = loadProgress(storage);
     saveProgress(storage, clearAttempt(map, questionId));
   } catch {
@@ -73,7 +75,7 @@ function dispatchProgress(detail: Record<string, unknown>): void {
 /** Rentetan jawaban benar kuis kilat yang tersimpan. */
 export function loadQuizStreak(): number {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEYS.quizStreak);
+    const raw = safeStorage()?.getItem(STORAGE_KEYS.quizStreak) ?? null;
     const parsed = raw ? Number.parseInt(raw, 10) : 0;
     return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
   } catch {
@@ -83,7 +85,7 @@ export function loadQuizStreak(): number {
 
 export function saveQuizStreak(value: number): void {
   try {
-    window.localStorage.setItem(STORAGE_KEYS.quizStreak, String(value));
+    safeStorage()?.setItem(STORAGE_KEYS.quizStreak, String(value));
   } catch {
     /* abaikan */
   }

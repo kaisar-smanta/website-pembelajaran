@@ -17,6 +17,25 @@ interface Props {
   storageId: string;
 }
 const { block, storageId } = Astro.props;
+
+// Penjaga kelengkapan: menambah jenis `Block` baru tanpa menanganinya di sini
+// akan menggagalkan `astro check`. `details` dirender `SectionBlock`, bukan di
+// sini, tetapi tetap wajib terdaftar karena bagian dari union `Block`.
+const RENDERED_BLOCK_KINDS: Record<Block['kind'], true> = {
+  callout: true,
+  table: true,
+  figure: true,
+  exploration: true,
+  details: true,
+  prediction: true,
+  reflection: true,
+  'step-reveal': true,
+  'spot-mistake': true,
+  match: true,
+  'flip-cards': true,
+  tabs: true,
+};
+void RENDERED_BLOCK_KINDS;
 ---
 
 {

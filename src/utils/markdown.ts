@@ -1,5 +1,6 @@
 import { marked } from 'marked';
 import katex from 'katex';
+import { replaceMath } from '../lib/math-scan.ts';
 import { BASE } from './url.ts';
 
 marked.setOptions({
@@ -62,17 +63,11 @@ export function renderMarkdown(input: string): string {
     return token;
   };
 
-  // 1. Ganti blok display $$...$$ terlebih dahulu.
-  let withTokens = input.replace(/\$\$([\s\S]+?)\$\$/g, (_m, tex: string) => {
-    const html = katex.renderToString(tex.trim(), { ...KATEX_OPTIONS, displayMode: true });
-    return stash(html);
-  });
-
-  // 2. Ganti inline $...$ (hindari $$ yang sudah habis).
-  withTokens = withTokens.replace(/(?<!\\)\$([^\n$]+?)\$/g, (_m, tex: string) => {
-    const html = katex.renderToString(tex.trim(), { ...KATEX_OPTIONS, displayMode: false });
-    return stash(html);
-  });
+  // 1-2. Ganti blok display $$...$$ dan inline $...$ dengan token, memakai
+  // pemindai bersama (`replaceMath`) agar semantiknya sama dengan lint.
+  const withTokens = replaceMath(input, (body, display) =>
+    stash(katex.renderToString(body.trim(), { ...KATEX_OPTIONS, displayMode: display })),
+  );
 
   // 3. Render markdown.
   const parsed = marked.parse(withTokens, { async: false }) as string;
@@ -104,9 +99,7 @@ export function renderMath(tex: string, display = true): string {
 /** Membersihkan markdown menjadi teks biasa, untuk deskripsi meta dan pencarian. */
 export function stripMarkdown(input: string): string {
   if (!input) return '';
-  return input
-    .replace(/\$\$([\s\S]+?)\$\$/g, ' $1 ')
-    .replace(/\$([^\n$]+?)\$/g, '$1 ')
+  return replaceMath(input, (body, display) => (display ? ` ${body} ` : `${body} `))
     .replace(/\\([a-zA-Z]+)/g, ' $1 ')
     .replace(/[{}]/g, ' ')
     .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')

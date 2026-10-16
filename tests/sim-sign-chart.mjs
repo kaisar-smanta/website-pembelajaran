@@ -1,6 +1,6 @@
 // Uji logika murni peta tanda (sign chart): node tests/sim-sign-chart.mjs
 import assert from 'node:assert/strict';
-import { check, checks } from './_util.mjs';
+import { check, checks, close } from './_util.mjs';
 import {
   quadraticRoots,
   quadraticSignChart,
@@ -10,11 +10,6 @@ import {
   signOf,
 } from '../src/lib/sim/sign-chart.ts';
 
-const close = (actual, expected, tol, label) =>
-  assert.ok(
-    Math.abs(actual - expected) <= tol,
-    `${label}: diharapkan ≈${expected}, diperoleh ${actual}`,
-  );
 
 check('akar kuadrat x² − x − 6 = (x+2)(x−3)', () => {
   assert.deepEqual(quadraticRoots(1, -1, -6), [-2, 3]);
@@ -85,7 +80,7 @@ check('signOf dengan toleransi', () => {
 
 check('kasus linear (a = 0) tetap terbaca', () => {
   const chart = quadraticSignChart(0, 1, -4);
-  close(chart.critical[0].value, 4, 1e-9, 'akar linear');
+  close(chart.critical[0].value, 4, 'akar linear', 1e-9);
   assert.equal(describeSolution(chart, '>'), 'x > 4');
 });
 
