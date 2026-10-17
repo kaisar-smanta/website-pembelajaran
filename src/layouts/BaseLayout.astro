@@ -114,7 +114,7 @@ const jsonLd = {
 <html lang="id">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={identity.author.name} />
@@ -188,7 +188,13 @@ const jsonLd = {
           event.preventDefault();
           target.setAttribute('tabindex', '-1');
           target.focus({ preventScroll: true });
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var reduceMotion = false;
+          try {
+            reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          } catch (e) {
+            reduceMotion = false;
+          }
+          target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
           history.replaceState(null, '', '#' + id);
         }
       });

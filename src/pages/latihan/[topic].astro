@@ -242,18 +242,23 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
         title="Temukan soal"
         lead="Saring soal menurut tingkat, kategori, atau status pengerjaanmu, lalu telusuri tiap halaman."
       />
-      <div class="filter-bar">
+      <details class="filter-panel" data-filter-panel open>
+        <summary class="filter-panel__summary">
+          <span class="filter-panel__summary-label">Saring</span>
+          <span class="filter-panel__count" data-filter-summary-count hidden></span>
+        </summary>
+        <div class="filter-panel__body">
         <div class="filter-group" role="group" aria-labelledby="filter-tingkat-label">
           <span class="filter-label" id="filter-tingkat-label">Tingkat</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="tingkat" data-value="" aria-pressed="true">
+            <button type="button" class="chip filter-btn" data-filter="tingkat" data-value="" aria-pressed="true">
               Semua
             </button>
             {
               DIFFICULTY_ORDER.filter((d) => counts[d] > 0).map((d) => (
                 <button
                   type="button"
-                  class="filter-btn"
+                  class="chip filter-btn"
                   data-filter="tingkat"
                   data-value={d}
                   aria-pressed="false"
@@ -273,7 +278,7 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
               <div class="filter-options">
                 <button
                   type="button"
-                  class="filter-btn"
+                  class="chip filter-btn"
                   data-filter="kategori"
                   data-value=""
                   aria-pressed="true"
@@ -283,14 +288,14 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
                 {presentCategories.map((category) => (
                   <button
                     type="button"
-                    class="filter-btn"
+                    class="chip filter-btn"
                     data-filter="kategori"
                     data-value={category.id}
                     aria-pressed="false"
                     title={category.description}
                   >
                     {category.name}
-                    <span class="filter-count">{category.count}</span>
+                    <span class="chip__count filter-count">{category.count}</span>
                   </button>
                 ))}
               </div>
@@ -304,13 +309,13 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
                 Jenis soal
               </span>
               <div class="filter-options">
-                <button type="button" class="filter-btn" data-filter="tipe" data-value="" aria-pressed="true">
+                <button type="button" class="chip filter-btn" data-filter="tipe" data-value="" aria-pressed="true">
                   Semua
                 </button>
                 {presentTypes.map((type) => (
                   <button
                     type="button"
-                    class="filter-btn"
+                    class="chip filter-btn"
                     data-filter="tipe"
                     data-value={type.id}
                     aria-pressed="false"
@@ -327,12 +332,12 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
             Tinjau ulang
           </span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="tinjau" data-value="" aria-pressed="true">
+            <button type="button" class="chip filter-btn" data-filter="tinjau" data-value="" aria-pressed="true">
               Semua
             </button>
             <button
               type="button"
-              class="filter-btn"
+              class="chip filter-btn"
               data-filter="tinjau"
               data-value="missed"
               aria-pressed="false"
@@ -341,7 +346,7 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
             </button>
             <button
               type="button"
-              class="filter-btn"
+              class="chip filter-btn"
               data-filter="tinjau"
               data-value="unanswered"
               aria-pressed="false"
@@ -350,7 +355,7 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
             </button>
             <button
               type="button"
-              class="filter-btn"
+              class="chip filter-btn"
               data-filter="tinjau"
               data-value="correct"
               aria-pressed="false"
@@ -359,7 +364,7 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
             </button>
             <button
               type="button"
-              class="filter-btn"
+              class="chip filter-btn"
               data-filter="tinjau"
               data-value="both"
               aria-pressed="false"
@@ -368,7 +373,8 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      </details>
       <p class="filter-result" data-filter-count aria-live="polite"></p>
       <div class="quick-drill">
         <button type="button" class="btn btn-primary btn-sm" data-quick-drill aria-pressed="false">
@@ -723,14 +729,8 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
   .filter-block :global(.section-heading) {
     margin-bottom: 1rem;
   }
-  .filter-bar {
-    display: grid;
+  .filter-panel__body {
     gap: 1rem;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-sm);
   }
   .filter-group {
     display: grid;
@@ -747,58 +747,6 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
-  }
-  .filter-btn {
-    font: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--color-text);
-    padding: 0.35rem 0.8rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-pill);
-    background: var(--color-surface);
-    cursor: pointer;
-    transition:
-      background-color var(--dur-fast),
-      border-color var(--dur-fast),
-      color var(--dur-fast);
-  }
-  .filter-btn:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .filter-btn[aria-pressed='true'] {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-  .filter-btn:focus-visible {
-    outline: 3px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-  /* Sasaran sentuh chip filter pada perangkat penunjuk kasar. */
-  @media (pointer: coarse) {
-    .filter-btn {
-      min-height: 2.75rem;
-      padding-block: 0.5rem;
-    }
-  }
-  .filter-btn .filter-count {
-    display: inline-grid;
-    place-items: center;
-    min-width: 1.2rem;
-    height: 1.2rem;
-    margin-left: 0.3rem;
-    padding-inline: 0.3rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.72rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    background: color-mix(in srgb, var(--color-text) 10%, transparent);
-    vertical-align: middle;
-  }
-  .filter-btn[aria-pressed='true'] .filter-count {
-    background: color-mix(in srgb, var(--color-on-primary) 24%, transparent);
   }
   .filter-result {
     margin: 0.85rem 0 0;
@@ -844,5 +792,7 @@ for (const d of DIFFICULTY_ORDER) levelIds[d] = byDifficulty[d].map((q) => q.id)
 
 <script>
   import { setupPracticePage } from '@/lib/practice-runner';
+  import { collapseFiltersOnMobile } from '@/lib/filter-dom';
   setupPracticePage();
+  collapseFiltersOnMobile(document);
 </script>

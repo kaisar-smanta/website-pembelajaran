@@ -29,25 +29,90 @@ export function setupHeaderNav(): void {
     return nav?.getAttribute('data-open') === 'true';
   }
 
-  function setOpen(open: boolean): void {
+  /**
+   * Menandai apakah drawer saat ini menyisipkan satu entri riwayat. Sengaja
+   * disimpan lokal, bukan dibaca dari `history.state`, agar siklus kembali lalu
+   * maju (yang meninggalkan state lama) tidak membuat drawer menutup dengan
+   * `history.back()` ke halaman sebelumnya.
+   */
+  let historyPushed = false;
+
+  /**
+   * Menyembunyikan isi di belakang drawer dari pembaca layar dan menjadikan
+   * elemen tetap (footer, navigasi bawah, tombol ke atas) inert. Konten utama
+   * hanya `aria-hidden` (bukan inert) agar klik di luar tetap menutup drawer.
+   */
+  function setBackgroundHidden(on: boolean): void {
+    const main = document.getElementById('konten');
+    if (main) {
+      if (on) main.setAttribute('aria-hidden', 'true');
+      else main.removeAttribute('aria-hidden');
+    }
+    document
+      .querySelectorAll<HTMLElement>('footer, [data-back-to-top], .bottom-nav')
+      .forEach((node) => {
+        if (on) {
+          node.setAttribute('inert', '');
+          node.setAttribute('aria-hidden', 'true');
+        } else {
+          node.removeAttribute('inert');
+          node.removeAttribute('aria-hidden');
+        }
+      });
+  }
+
+  interface SetOpenOptions {
+    /** Perubahan berasal dari tombol kembali peramban; jangan mengubah riwayat. */
+    fromHistory?: boolean;
+    /** Jangan sisihkan riwayat (mis. saat tautan menavigasi ke halaman lain). */
+    keepHistory?: boolean;
+  }
+
+  function setOpen(open: boolean, options: SetOpenOptions = {}): void {
     const wasOpen = isOpen();
+    if (open === wasOpen) return;
+
     nav?.setAttribute('data-open', String(open));
     document.body.classList.toggle('nav-open', open);
-    if (!toggle) return;
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+    setBackgroundHidden(open);
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+    }
 
-    if (open && !wasOpen) {
+    if (open) {
+      // Dorong satu entri riwayat agar tombol kembali menutup drawer, bukan
+      // meninggalkan halaman.
+      if (!options.fromHistory && !historyPushed) {
+        window.history.pushState({ drawerOpen: true }, '');
+        historyPushed = true;
+      }
       window.requestAnimationFrame(() => {
         nav?.querySelector<HTMLElement>('a, button')?.focus();
       });
-    } else if (!open && wasOpen && nav?.contains(document.activeElement)) {
-      toggle.focus();
+    } else {
+      if (!options.fromHistory && historyPushed) {
+        if (options.keepHistory) {
+          // Tautan sedang menavigasi; ganti entri agar tidak ada sisa di riwayat.
+          window.history.replaceState(null, '');
+          historyPushed = false;
+        } else {
+          // `popstate` akan membersihkan penanda begitu navigasi selesai.
+          window.history.back();
+        }
+      }
+      if (wasOpen && nav?.contains(document.activeElement)) toggle?.focus();
     }
   }
 
   toggle?.addEventListener('click', () => {
     setOpen(!isOpen());
+  });
+
+  // Tombol kembali peramban (Android/iOS) menutup drawer tanpa mengunci pengguna.
+  window.addEventListener('popstate', () => {
+    historyPushed = false;
+    if (isOpen()) setOpen(false, { fromHistory: true });
   });
 
   desktopQuery.addEventListener('change', (event) => {
@@ -119,6 +184,28 @@ export function setupHeaderNav(): void {
     toggle?.focus();
   });
 
+  // Perangkap fokus: selama drawer terbuka, Tab berputar di dalamnya saja.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Tab' || !isOpen() || !nav) return;
+    const focusables = Array.from(
+      nav.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+    ).filter((el) => el.offsetParent !== null);
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (!nav.contains(active)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
   document.addEventListener('click', (event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
@@ -135,7 +222,8 @@ export function setupHeaderNav(): void {
   });
 
   nav?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => setOpen(false));
+    // Tutup tanpa menyisihkan riwayat: tautan sedang menavigasi ke halaman lain.
+    link.addEventListener('click', () => setOpen(false, { keepHistory: true }));
   });
 
   const onScroll = (): void => {

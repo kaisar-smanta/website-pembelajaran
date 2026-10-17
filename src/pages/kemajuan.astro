@@ -4,6 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { url } from '@/utils/url';
 import { buildDashboardEntries } from '@/lib/dashboard';
 
@@ -37,7 +38,7 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     </p>
 
     <section class="empty card" data-empty aria-labelledby="kosong">
-      <MathMascot size={6} state="sleep" label="Maskot menunggu data kemajuan" />
+      <MathMascot size={6} state="sleep" label={`${site.mascot.name} menunggu data kemajuan`} />
       <h2 id="kosong">Belum ada kemajuan yang tersimpan</h2>
       <p class="text-muted">
         Mulai kerjakan latihan, simpan dugaan pada bagian pemantik, atau tulis refleksi di
@@ -61,6 +62,22 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
         lead="Angka-angka ini diperbarui setiap kali kamu menjawab soal atau menyimpan interaksi."
         reveal={false}
       />
+      <span class="summary-mascot">
+        <span data-summary-mascot-happy>
+          <MathMascot
+            size={6}
+            state="happy"
+            label={`${site.mascot.name} senang kamu terus berlatih`}
+          />
+        </span>
+        <span data-summary-mascot-celebrate hidden>
+          <MathMascot
+            size={6}
+            state="celebrate"
+            label={`${site.mascot.name} ikut bangga pada ketepatanmu`}
+          />
+        </span>
+      </span>
       <dl class="stats">
         <div class="stat">
           <dt>Soal dikerjakan</dt>
@@ -364,6 +381,14 @@ const topicsJson = JSON.stringify(entries).replace(/</g, '\\u003c');
   .empty-note {
     margin: 0.25rem 0 0;
     font-size: 0.85rem;
+  }
+  .summary-mascot {
+    display: flex;
+    justify-content: center;
+    line-height: 0;
+  }
+  .summary-mascot span[hidden] {
+    display: none;
   }
   .stats {
     display: grid;

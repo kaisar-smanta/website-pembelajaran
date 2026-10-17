@@ -5,6 +5,7 @@ import type { GradeMeta } from '@/data/curriculum';
 import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/lib/difficulty';
 import ExplorationPreviewCard from '@/components/content/ExplorationPreviewCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 
 interface Props {
   groups: Array<{ grade: Grade; meta: GradeMeta; items: Exploration[] }>;
@@ -43,19 +44,24 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     <p class="text-muted">{lead}</p>
   </div>
 
-  <div class="ex-filters">
+  <details class="filter-panel filter-panel--plain" data-filter-panel open>
+    <summary class="filter-panel__summary">
+      <span class="filter-panel__summary-label">Saring</span>
+      <span class="filter-panel__count" data-filter-summary-count hidden></span>
+    </summary>
+    <div class="filter-panel__body">
     <div class="ex-filter" data-ex-chips="grade" role="group" aria-label="Saring menurut kelas">
       <span class="ex-filter-label">Kelas</span>
       <div class="ex-chip-row">
-        <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+        <button type="button" class="chip ex-chip is-active" data-ex-filter="all" aria-pressed="true">
           Semua
-          <span class="ex-chip-count">{totalCount}</span>
+          <span class="chip__count ex-chip-count">{totalCount}</span>
         </button>
         {
           groups.map((g) => (
-            <button type="button" class="ex-chip" data-ex-filter={g.grade} aria-pressed="false">
+            <button type="button" class="chip ex-chip" data-ex-filter={g.grade} aria-pressed="false">
               {g.meta.name}
-              <span class="ex-chip-count">{g.items.length}</span>
+              <span class="chip__count ex-chip-count">{g.items.length}</span>
             </button>
           ))
         }
@@ -65,15 +71,15 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     <div class="ex-filter" data-ex-chips="element" role="group" aria-label="Saring menurut elemen">
       <span class="ex-filter-label">Elemen</span>
       <div class="ex-chip-row">
-        <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+        <button type="button" class="chip ex-chip is-active" data-ex-filter="all" aria-pressed="true">
           Semua
-          <span class="ex-chip-count">{totalCount}</span>
+          <span class="chip__count ex-chip-count">{totalCount}</span>
         </button>
         {
           elementChips.map((c) => (
-            <button type="button" class="ex-chip" data-ex-filter={c.id} aria-pressed="false">
+            <button type="button" class="chip ex-chip" data-ex-filter={c.id} aria-pressed="false">
               {c.label}
-              <span class="ex-chip-count">{c.count}</span>
+              <span class="chip__count ex-chip-count">{c.count}</span>
             </button>
           ))
         }
@@ -83,15 +89,15 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     <div class="ex-filter" data-ex-chips="level" role="group" aria-label="Saring menurut tingkat kesulitan">
       <span class="ex-filter-label">Tingkat</span>
       <div class="ex-chip-row">
-        <button type="button" class="ex-chip is-active" data-ex-filter="all" aria-pressed="true">
+        <button type="button" class="chip ex-chip is-active" data-ex-filter="all" aria-pressed="true">
           Semua
-          <span class="ex-chip-count">{totalCount}</span>
+          <span class="chip__count ex-chip-count">{totalCount}</span>
         </button>
         {
           levelChips.map((c) => (
-            <button type="button" class="ex-chip" data-ex-filter={c.id} aria-pressed="false">
+            <button type="button" class="chip ex-chip" data-ex-filter={c.id} aria-pressed="false">
               {c.label}
-              <span class="ex-chip-count">{c.count}</span>
+              <span class="chip__count ex-chip-count">{c.count}</span>
             </button>
           ))
         }
@@ -113,7 +119,8 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     <div class="ex-filter-reset">
       <button type="button" class="btn btn-secondary btn-sm" data-ex-reset>Atur ulang</button>
     </div>
-  </div>
+    </div>
+  </details>
 
   <p class="ex-result" data-ex-result aria-live="polite">Menampilkan {totalCount} eksplorasi</p>
 
@@ -142,14 +149,14 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
   </div>
 
   <p class="ex-empty" data-ex-empty hidden>
-    <MathMascot size={6} state="oops" label="Maskot tidak menemukan eksplorasi" />
+    <MathMascot size={6} state="oops" label={`${site.mascot.name} tidak menemukan eksplorasi`} />
     Tidak ada eksplorasi yang cocok dengan saringan ini. Coba ubah kata kunci atau pilih saringan lain.
   </p>
 </section>
 
 <script>
   import { matchesAny, normalizeText } from '@/lib/filter';
-  import { setupFilterPage } from '@/lib/filter-dom';
+  import { setupFilterPage, collapseFiltersOnMobile } from '@/lib/filter-dom';
 
   const root = document.querySelector<HTMLElement>('[data-ex-overview]');
 
@@ -240,6 +247,8 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
         root
           .querySelector<HTMLButtonElement>('[data-ex-reset]')
           ?.addEventListener('click', () => page.reset());
+
+        collapseFiltersOnMobile(root);
       } catch {
         root.classList.remove('js-ready');
       }
@@ -255,11 +264,11 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     margin-bottom: 1.25rem;
   }
 
-  .ex-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
+  .filter-panel {
     margin-bottom: 1.1rem;
+  }
+  .filter-panel__body {
+    gap: 0.85rem;
   }
   .ex-filter {
     display: flex;
@@ -281,60 +290,6 @@ const lead = 'Ubah nilainya, amati apa yang berubah, lalu temukan polanya sendir
     flex-wrap: wrap;
     gap: 0.5rem;
     min-width: 0;
-  }
-  .ex-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    appearance: none;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    border-radius: var(--radius-pill);
-    padding: 0.45rem 0.95rem;
-    font: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.2;
-    cursor: pointer;
-    transition:
-      background var(--dur-fast),
-      border-color var(--dur-fast),
-      color var(--dur-fast),
-      transform var(--dur) var(--ease-out-soft);
-  }
-  .ex-chip:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .ex-chip:focus-visible {
-    outline-offset: 2px;
-  }
-  .ex-chip.is-active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-  .ex-chip.is-active:hover {
-    color: var(--color-on-primary);
-  }
-  .ex-chip-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.4rem;
-    height: 1.4rem;
-    padding-inline: 0.35rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.72rem;
-    font-weight: 700;
-    background: var(--color-surface-2);
-    color: var(--color-text-muted);
-    transition: background var(--dur-fast), color var(--dur-fast);
-  }
-  .ex-chip.is-active .ex-chip-count {
-    background: var(--color-on-primary);
-    color: var(--color-primary);
   }
 
   .ex-search {

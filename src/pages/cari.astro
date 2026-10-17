@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { url } from '@/utils/url';
 import { ALL_ELEMENT_ORDER, GRADE_ORDER, ELEMENTS } from '@/data/curriculum';
 import { topics } from '@/data/topics';
@@ -83,7 +84,12 @@ const meta = [
       </div>
     </form>
 
-    <p class="search-status" data-search-status aria-live="polite"></p>
+    <div class="search-status-row">
+      <span class="search-thinking" data-search-thinking aria-hidden="true" hidden>
+        <MathMascot size={6} state="thinking" />
+      </span>
+      <p class="search-status" data-search-status aria-live="polite"></p>
+    </div>
     <p class="search-hint" data-search-hint aria-live="polite" hidden></p>
 
     <noscript>
@@ -103,7 +109,11 @@ const meta = [
 
     <ol class="search-results" data-search-results>
       <li class="result-empty card" data-search-empty hidden>
-        <MathMascot size={6} state="oops" label="Maskot tidak menemukan hasil pencarian" />
+        <MathMascot
+          size={6}
+          state="oops"
+          label={`${site.mascot.name} tidak menemukan hasil pencarian`}
+        />
         <p class="result-empty-text" data-search-empty-text></p>
       </li>
     </ol>
@@ -200,8 +210,22 @@ const meta = [
     border-color: var(--color-primary);
     background: var(--color-surface);
   }
-  .search-status {
+  .search-status-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     margin: 0 0 0.9rem;
+  }
+  .search-thinking {
+    flex: 0 0 auto;
+    width: 3.25rem;
+    line-height: 0;
+  }
+  .search-thinking[hidden] {
+    display: none;
+  }
+  .search-status {
+    margin: 0;
     color: var(--color-text-muted);
     font-size: 0.92rem;
   }

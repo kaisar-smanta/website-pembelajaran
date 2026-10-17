@@ -185,6 +185,7 @@ const competencies = question.competencies ?? [];
 
 <style>
   .question-card {
+    position: relative;
     min-width: 0;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -459,7 +460,14 @@ const competencies = question.competencies ?? [];
     type RubricCheckMap,
   } from '@/lib/learner';
   import { seededShuffle, combineSeed } from '@/lib/random';
-  import { recordProgress, clearProgress, sessionSeed } from '@/lib/quiz-client';
+  import {
+    clearProgress,
+    loadQuizStreak,
+    recordProgress,
+    saveQuizStreak,
+    sessionSeed,
+  } from '@/lib/quiz-client';
+  import { celebrate } from '@/lib/celebrate';
 
   function record(
     root: Element,
@@ -518,15 +526,35 @@ const competencies = question.competencies ?? [];
     // Dijalankan saat soal dikembalikan ke keadaan belum dijawab.
     let unlock: (() => void) | null = null;
 
-    function showFeedback(kind: 'ok' | 'no' | 'info', text: string) {
+    // Ulangi animasi CSS pada elemen yang sama tanpa menyalin keyframes.
+    function replay(target: HTMLElement | null, className: string) {
+      if (!target) return;
+      target.classList.remove(className);
+      void target.offsetWidth;
+      target.classList.add(className);
+    }
+
+    function noteCorrectAnswer() {
+      const streak = loadQuizStreak() + 1;
+      saveQuizStreak(streak);
+      celebrate(root as HTMLElement, { count: 7 + Math.min(streak, 6) });
+    }
+
+    function noteWrongAnswer() {
+      saveQuizStreak(0);
+    }
+
+    function showFeedback(kind: 'ok' | 'no' | 'info', text: string, animate = true) {
       feedback.hidden = false;
       feedback.className = `q-feedback ${kind}`;
-      if (kind === 'ok') feedback.classList.add('settle-pop');
-      else if (kind === 'no') feedback.classList.add('nudge');
+      if (animate && kind === 'ok') feedback.classList.add('settle-pop');
+      else if (animate && kind === 'no') feedback.classList.add('nudge');
       feedback.textContent = text;
       if (feedbackRow) feedbackRow.hidden = false;
       if (mascotOk) mascotOk.hidden = kind !== 'ok';
       if (mascotNo) mascotNo.hidden = kind !== 'no';
+      if (animate && kind === 'ok') replay(mascotOk, 'streak-pop');
+      else if (animate && kind === 'no') replay(mascotNo, 'nudge');
     }
 
     // Pindahkan fokus ke umpan balik setelah penilaian agar pengguna papan
@@ -667,6 +695,8 @@ const competencies = question.competencies ?? [];
           isCorrect ? 'ok' : 'no',
           isCorrect ? 'Tepat! Bandingkan dengan jawaban model di bawah.' : `Belum tepat. ${conceptHint()}`,
         );
+        if (isCorrect) noteCorrectAnswer();
+        else noteWrongAnswer();
         reveal();
         record(root, isCorrect, { selected: key });
         lock();
@@ -719,6 +749,7 @@ const competencies = question.competencies ?? [];
         showFeedback(
           attempt.correct ? 'ok' : 'no',
           attempt.correct ? 'Tepat!' : `Belum tepat. ${conceptHint()}`,
+          false,
         );
         reveal();
         lock();
@@ -740,8 +771,10 @@ const competencies = question.competencies ?? [];
         const isCorrect = isAcceptedAnswer(input.value, answer, accepted);
         if (isCorrect) {
           showFeedback('ok', 'Benar! Bandingkan dengan jawaban model di bawah.');
+          noteCorrectAnswer();
         } else {
           showFeedback('no', `Belum tepat. ${conceptHint()}`);
+          noteWrongAnswer();
         }
         showExplanation();
         showModel();
@@ -768,6 +801,7 @@ const competencies = question.competencies ?? [];
         showFeedback(
           attempt.correct ? 'ok' : 'no',
           attempt.correct ? 'Benar!' : `Belum tepat. ${conceptHint()}`,
+          false,
         );
         showExplanation();
         showModel();

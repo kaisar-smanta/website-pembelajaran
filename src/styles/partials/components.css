@@ -168,3 +168,162 @@ input[type='range'] {
 .section-heading {
   margin-bottom: 1.25rem;
 }
+
+/* ---------- Chip saringan (resep bersama) ---------- */
+/* Satu resep untuk seluruh tombol saringan di dalam panel saring agar tampil
+   konsisten. Kelas lama (`.ref-chip`, `.filter-btn`, `.topic-chip`,
+   `.app-chip`, `.ex-chip`) tetap dipakai sebagai pengait skrip, jadi jangan
+   dihapus dari markup. Dipagari `:where(.filter-panel)` agar tidak bentrok
+   dengan label statis `.chip` di `ExplorationPanel.astro`. */
+:where(.filter-panel) .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  appearance: none;
+  min-height: 2.25rem;
+  padding: 0.42rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast),
+    border-color var(--dur-fast),
+    color var(--dur-fast);
+}
+:where(.filter-panel) .chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+:where(.filter-panel) .chip:is(.chip--active, .is-active),
+:where(.filter-panel) .chip[aria-pressed='true'] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+:where(.filter-panel) .chip:is(.chip--active, .is-active):hover,
+:where(.filter-panel) .chip[aria-pressed='true']:hover {
+  color: var(--color-on-primary);
+}
+:where(.filter-panel) .chip__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding-inline: 0.35rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  transition:
+    background var(--dur-fast),
+    color var(--dur-fast);
+}
+:where(.filter-panel) .chip:is(.chip--active, .is-active) .chip__count,
+:where(.filter-panel) .chip[aria-pressed='true'] .chip__count {
+  background: var(--color-on-primary);
+  color: var(--color-primary);
+}
+/* Sasaran sentuh chip: 2.75rem (44px) pada penunjuk kasar atau layar sempit. */
+@media (pointer: coarse), (max-width: 48rem) {
+  :where(.filter-panel) .chip {
+    min-height: 2.75rem;
+  }
+}
+
+/* ---------- Panel saringan (disclosure untuk ponsel) ---------- */
+/* `details.filter-panel` menutupi dinding filter di ponsel tanpa mematikan
+   fungsinya: tetap `<details open>` sehingga pengguna tanpa JS tetap melihat
+   seluruh saringan. Ringkasan disembunyikan dan isi selalu tampil di layar
+   lebar. */
+.filter-panel {
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 1.1rem;
+}
+.filter-panel__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.filter-panel__summary::-webkit-details-marker {
+  display: none;
+}
+.filter-panel__summary::marker {
+  content: '';
+}
+.filter-panel__summary:focus-visible {
+  outline: var(--focus-ring) solid var(--color-primary);
+  outline-offset: 2px;
+}
+.filter-panel__summary-label {
+  margin-inline-end: auto;
+}
+.filter-panel__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding-inline: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.filter-panel__count[hidden] {
+  display: none;
+}
+.filter-panel__body {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.9rem;
+}
+@media (min-width: 40rem) {
+  .filter-panel__summary {
+    display: none;
+  }
+  .filter-panel__body {
+    margin-top: 0;
+  }
+  /* Halaman yang saringannya semula bukan kartu: kembalikan tampilan datar. */
+  .filter-panel--plain {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .filter-panel__summary,
+  :where(.filter-panel) .chip,
+  :where(.filter-panel) .chip__count {
+    transition: none;
+  }
+}

@@ -5,6 +5,8 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import Callout from '@/components/content/Callout.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS, GRADES, GRADE_ORDER, SUBJECTS, SUBJECT_ORDER, ALL_ELEMENT_ORDER } from '@/data/curriculum';
@@ -246,6 +248,11 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 
     <div class="container">
       <p class="empty-state card" data-empty hidden>
+        <MathMascot
+          size={6}
+          state="oops"
+          label={`${site.mascot.name} belum menemukan tantangan yang cocok`}
+        />
         <strong>Belum ada tantangan yang cocok.</strong>
         <span class="text-muted">Coba ubah atau reset saringan untuk melihat topik lain.</span>
       </p>
@@ -518,6 +525,9 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
   }
   .empty-state[hidden] {
     display: none;
+  }
+  .empty-state :global(.mascot) {
+    margin-inline: auto;
   }
   .show-more {
     margin: 1.25rem 0 0;

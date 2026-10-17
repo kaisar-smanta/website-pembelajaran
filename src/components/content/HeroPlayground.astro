@@ -204,6 +204,20 @@ const factItems = facts.map((fact) => {
     width: 100%;
     max-width: 100%;
   }
+  /* Fokus/hover maskot dipicu tombol karena akar SVG maskot `focusable="false"`
+     sehingga tidak menerima fokus sendiri. `mascot-bounce` didefinisikan di
+     MathMascot dan berlaku global. */
+  .mascot-button:hover :global(.mascot),
+  .mascot-button:focus-visible :global(.mascot) {
+    filter: drop-shadow(0 16px 30px color-mix(in srgb, var(--color-primary) 30%, transparent));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mascot-button:hover :global(.mascot),
+    .mascot-button:focus-visible :global(.mascot) {
+      animation: mascot-bounce var(--dur-slow) var(--ease-bounce) both;
+    }
+  }
+  /* Aturan `reacting` sengaja menyusul agar klik mengalahkan hover/fokus. */
   .mascot-button.reacting :global(.mascot) {
     animation: mascot-react var(--dur-slow) var(--ease-bounce) both;
   }

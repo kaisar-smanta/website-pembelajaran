@@ -5,6 +5,7 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import QuestionCard from '@/components/exercises/QuestionCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic } from '@/data/questions';
 import { ELEMENTS, GRADES } from '@/data/curriculum';
@@ -98,7 +99,20 @@ const meta = [
     </p>
 
     <section class="empty card" data-review-empty aria-labelledby="review-kosong">
-      <MathMascot size={6} state="sleep" label="Maskot menunggu soal untuk ditinjau" />
+      <span class="empty-mascot" data-review-mascot-sleep>
+        <MathMascot
+          size={6}
+          state="sleep"
+          label={`${site.mascot.name} menunggu soal untuk ditinjau`}
+        />
+      </span>
+      <span class="empty-mascot" data-review-mascot-celebrate hidden>
+        <MathMascot
+          size={6}
+          state="celebrate"
+          label={`${site.mascot.name} senang semua soal yang dicoba sudah tepat`}
+        />
+      </span>
       <h2 id="review-kosong" data-empty-title>Belum ada soal untuk ditinjau</h2>
       <p class="text-muted" data-empty-text>
         Kerjakan beberapa latihan dulu, lalu kembali ke sini untuk meninjau soal yang belum
@@ -247,6 +261,9 @@ const meta = [
   }
   .empty h2 {
     margin: 0;
+  }
+  .empty-mascot[hidden] {
+    display: none;
   }
   .empty-note {
     margin: 0.25rem 0 0;

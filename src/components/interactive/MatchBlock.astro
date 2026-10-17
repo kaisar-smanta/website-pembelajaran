@@ -148,6 +148,16 @@ const rightItems = seededShuffle(
   import { emitInteraction } from '@/lib/interaction';
   import { clearCompletion, loadCompletions, recordCompletion, saveCompletions } from '@/lib/learner';
   import { safeStorage } from '@/lib/storage';
+  import { celebrate } from '@/lib/celebrate';
+
+  function pulseMatched(cards: HTMLButtonElement[]) {
+    cards.forEach((card) => {
+      if (!card.classList.contains('is-matched')) return;
+      card.classList.remove('settle-pop');
+      void card.offsetWidth;
+      card.classList.add('settle-pop');
+    });
+  }
 
   function setupMatch(root: Element) {
     const lefts = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-match-left]'));
@@ -214,7 +224,10 @@ const rightItems = seededShuffle(
           right.disabled = true;
           clearSelection();
           updateFeedback();
-          if (feedback && matched.size < total) {
+          if (matched.size === total) {
+            pulseMatched(lefts.concat(rights));
+            celebrate(root as HTMLElement, { count: 16 });
+          } else if (feedback) {
             feedback.textContent = `Tepat! ${matched.size} dari ${total} pasangan cocok.`;
           }
         } else {
@@ -235,7 +248,7 @@ const rightItems = seededShuffle(
       clearSelection();
       lefts.concat(rights).forEach((btn) => {
         btn.disabled = false;
-        btn.classList.remove('is-matched', 'is-wrong', 'is-selected');
+        btn.classList.remove('is-matched', 'is-wrong', 'is-selected', 'settle-pop');
         btn.setAttribute('aria-pressed', 'false');
       });
       if (storage) saveCompletions(storage, clearCompletion(loadCompletions(storage), id));

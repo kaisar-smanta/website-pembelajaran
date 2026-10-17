@@ -125,6 +125,24 @@ const explanationHtml = renderMarkdown(block.explanation);
     background: var(--color-danger);
     color: var(--color-on-primary);
   }
+  /* Penanda non-warna agar benar/salah tidak bergantung pada warna saja. */
+  .spot-step.is-correct::after,
+  .spot-step.is-wrong::after {
+    flex: none;
+    margin-left: auto;
+    padding-left: 0.5rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+  .spot-step.is-correct::after {
+    content: '✓';
+    color: var(--color-success);
+  }
+  .spot-step.is-wrong::after {
+    content: '✕';
+    color: var(--color-danger);
+  }
   .itx-feedback {
     margin: 0.75rem 0 0;
     padding: 0.5rem 0.75rem;
@@ -153,6 +171,14 @@ const explanationHtml = renderMarkdown(block.explanation);
     saveCompletions,
   } from '@/lib/learner';
   import { safeStorage } from '@/lib/storage';
+  import { celebrate } from '@/lib/celebrate';
+
+  function replay(target: HTMLElement | null, className: string) {
+    if (!target) return;
+    target.classList.remove(className);
+    void target.offsetWidth;
+    target.classList.add(className);
+  }
 
   function setupSpot(root: Element) {
     const wrong = Number(root.getAttribute('data-wrong') ?? '-1');
@@ -165,7 +191,7 @@ const explanationHtml = renderMarkdown(block.explanation);
     const id = root.getAttribute('data-storage-id') ?? '';
     const storage = safeStorage();
 
-    function finish(correct: boolean) {
+    function finish(correct: boolean, celebrateNow = false) {
       steps.forEach((btn, i) => {
         btn.disabled = true;
         if (i === wrong) btn.classList.add('is-correct');
@@ -179,6 +205,11 @@ const explanationHtml = renderMarkdown(block.explanation);
           ? 'Tepat! Itu langkah yang keliru.'
           : 'Belum tepat. Langkah yang salah sudah ditandai hijau.';
       }
+      if (correct && celebrateNow) {
+        replay(feedback, 'settle-pop');
+        replay(steps[wrong] ?? null, 'settle-pop');
+        celebrate(root as HTMLElement, { count: 10 });
+      }
       if (correct && storage) {
         saveCompletions(storage, recordCompletion(loadCompletions(storage), id));
       }
@@ -188,13 +219,15 @@ const explanationHtml = renderMarkdown(block.explanation);
     steps.forEach((btn, i) => {
       btn.addEventListener('click', () => {
         if (i === wrong) {
-          finish(true);
+          finish(true, true);
         } else {
           btn.classList.add('is-wrong');
+          replay(btn, 'nudge');
           if (feedback) {
             feedback.hidden = false;
             feedback.className = 'itx-feedback no';
             feedback.textContent = 'Bukan langkah itu. Coba periksa lagi.';
+            replay(feedback, 'nudge');
           }
         }
       });
@@ -206,10 +239,11 @@ const explanationHtml = renderMarkdown(block.explanation);
     reset?.addEventListener('click', () => {
       steps.forEach((btn) => {
         btn.disabled = false;
-        btn.classList.remove('is-correct', 'is-wrong');
+        btn.classList.remove('is-correct', 'is-wrong', 'settle-pop', 'nudge');
       });
       if (feedback) {
         feedback.hidden = true;
+        feedback.className = 'itx-feedback';
         feedback.textContent = '';
       }
       if (reveal) reveal.hidden = true;

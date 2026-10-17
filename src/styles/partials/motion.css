@@ -1,4 +1,36 @@
 
+/* ---------- Transisi antar halaman ---------- */
+/* Peningkatan progresif tanpa router klien: peramban yang mendukung view
+   transition lintas dokumen memudarkan halaman lama ke halaman baru saat
+   navigasi biasa. Peramban lain tetap memakai navigasi penuh seperti semula,
+   sehingga tidak ada skrip yang perlu diinisialisasi ulang. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root) {
+  animation: page-fade-out var(--dur) var(--ease-out-soft) both;
+}
+::view-transition-new(root) {
+  animation: page-rise-in var(--dur-slow) var(--ease-out-soft) both;
+}
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes page-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 /* ---------- Motion & personality ---------- */
 @keyframes rise-in {
   from {
@@ -185,6 +217,73 @@
   animation: nudge var(--dur-slow) var(--ease-out-soft);
 }
 
+/* ---------- Perayaan bersama (dipakai `src/lib/celebrate.ts`) ---------- */
+@keyframes celebrate-fly {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--celebrate-x, 0px)),
+        calc(-50% + var(--celebrate-y, 0px))
+      )
+      scale(1);
+  }
+}
+.celebrate-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.celebrate-ring {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: -0.6rem 0 0 -0.6rem;
+  border: 2px solid var(--color-success);
+  border-radius: 50%;
+  opacity: 0;
+  animation: burst-ring 620ms var(--ease-out-soft) forwards;
+}
+.celebrate-dot {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--celebrate-color, var(--color-primary));
+  opacity: 0;
+  animation: celebrate-fly 760ms var(--ease-out-soft) forwards;
+  animation-delay: var(--celebrate-delay, 0ms);
+}
+
+/* Panel tab muncul lembut saat dipilih. */
+@keyframes tab-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tab-panel-in {
+  animation: tab-panel-in var(--dur) var(--ease-out-soft) both;
+}
+
 /* Karakter/maskot matematika sederhana (dekoratif). */
 .mascot {
   display: block;
@@ -209,8 +308,16 @@
   .streak-pop,
   .settle-pop,
   .nudge,
+  .celebrate-ring,
+  .celebrate-dot,
+  .tab-panel-in,
+  .match-card.is-wrong,
+  .step:not([hidden]),
   .hero-copy > * {
     animation: none !important;
+  }
+  .celebrate-layer {
+    display: none !important;
   }
   .motion-ready .reveal {
     opacity: 1 !important;

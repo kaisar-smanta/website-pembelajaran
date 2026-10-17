@@ -75,6 +75,7 @@ const { title = 'Kemajuan halaman' } = Astro.props;
 <script>
   import { loadProgress } from '@/lib/progress';
   import { loadCompletions, loadPredictions, loadReflections } from '@/lib/learner';
+  import { celebrate } from '@/lib/celebrate';
 
   function setupTopicProgress(root: Element) {
     const countEl = root.querySelector<HTMLElement>('[data-tp-count]');
@@ -88,6 +89,9 @@ const { title = 'Kemajuan halaman' } = Astro.props;
     } catch {
       storage = undefined;
     }
+
+    let lastPct: number | null = null;
+    let celebrated = false;
 
     function render() {
       const questions = Array.from(document.querySelectorAll<HTMLElement>('[data-question-id]'));
@@ -121,6 +125,16 @@ const { title = 'Kemajuan halaman' } = Astro.props;
       }
 
       const pct = total ? Math.round((done / total) * 100) : 0;
+      if (!celebrated && lastPct !== null && pct >= 100 && lastPct < 100) {
+        celebrated = true;
+        if (countEl) {
+          countEl.classList.remove('streak-pop');
+          void countEl.offsetWidth;
+          countEl.classList.add('streak-pop');
+        }
+        celebrate(root as HTMLElement, { count: 16, duration: 900 });
+      }
+      lastPct = pct;
       if (countEl) countEl.textContent = `${done}/${total} aktivitas`;
       if (barEl) barEl.style.width = `${pct}%`;
       if (trackEl) {

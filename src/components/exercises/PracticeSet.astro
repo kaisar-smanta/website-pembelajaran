@@ -1,6 +1,8 @@
 ---
 import type { Difficulty, Question } from '@/types/content';
 import { getQuestion, questionsByTopicAndDifficulty } from '@/data/questions';
+import { site } from '@/data/site';
+import MathMascot from '@/components/content/MathMascot.astro';
 import QuestionCard from './QuestionCard.astro';
 
 interface Props {
@@ -47,7 +49,14 @@ if (questionIds?.length) {
 {
   questions.length === 0 && (
     <p class="practice-empty">
-      Belum ada soal pada tingkat ini untuk topik tersebut. Soal akan ditambahkan menyusul.
+      <MathMascot
+        size={6}
+        state="oops"
+        label={`${site.mascot.name} belum menemukan soal pada tingkat ini`}
+      />
+      <span>
+        Belum ada soal pada tingkat ini untuk topik tersebut. Soal akan ditambahkan menyusul.
+      </span>
     </p>
   )
 }
@@ -78,9 +87,16 @@ if (questionIds?.length) {
     margin-bottom: 0;
   }
   .practice-empty {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
     margin: 0.5rem 0 1.1rem;
     color: var(--color-text-muted);
     font-size: 0.9rem;
     font-style: italic;
+    text-align: center;
+  }
+  .practice-empty :global(.mascot) {
+    margin-inline: auto;
   }
 </style>

@@ -34,6 +34,7 @@ import PiecewiseExplorer from './PiecewiseExplorer.astro';
 import ExponentLawsExplorer from './ExponentLawsExplorer.astro';
 import SimSkeleton from './SimSkeleton.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 
 interface Props {
   exploration: Exploration;
@@ -90,7 +91,11 @@ const SimComponent = SIM_COMPONENTS[exploration.type];
     </div>
   ) : (
     <div class="sim-fallback" role="note">
-      <MathMascot size={5} state="oops" label="Maskot belum menemukan simulasi ini" />
+      <MathMascot
+        size={5}
+        state="oops"
+        label={`${site.mascot.name} belum menemukan simulasi ini`}
+      />
       <p>Simulasi belum tersedia untuk topik ini.</p>
     </div>
   )

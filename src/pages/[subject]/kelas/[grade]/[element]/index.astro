@@ -4,6 +4,8 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
+import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import {
   ELEMENTS,
   GRADES,
@@ -149,6 +151,11 @@ const crumbs = [
             <span class="icon-tile" aria-hidden="true">
               <ElementIcon element={element} size={24} />
             </span>
+            <MathMascot
+              size={6}
+              state="oops"
+              label={`${site.mascot.name} belum menemukan topik di sini`}
+            />
             <p class="eyebrow-badge">Segera hadir</p>
             <h2 id="materi-kosong">Belum ada topik di sini</h2>
             <p class="text-muted">

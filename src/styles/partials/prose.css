@@ -32,6 +32,7 @@
   width: max-content;
   max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   font-size: 0.95rem;
@@ -55,6 +56,7 @@
 .prose pre {
   max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
 }
 

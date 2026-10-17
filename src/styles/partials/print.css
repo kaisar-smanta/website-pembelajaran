@@ -62,6 +62,10 @@
   details > summary {
     list-style: none;
   }
+  /* Ringkasan panel saring hanya untuk layar sentuh; jangan ikut tercetak. */
+  .filter-panel__summary {
+    display: none !important;
+  }
   /* Buka isi <details> yang tertutup agar pembahasan/petunjuk ikut tercetak. */
   details > *:not(summary) {
     display: block !important;

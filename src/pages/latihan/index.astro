@@ -5,6 +5,7 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import PracticeCard from '@/components/exercises/PracticeCard.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { topics, topicSubject } from '@/data/topics';
 import { questions, questionsByTopic, practiceCounts, topicIdsWithQuestions } from '@/data/questions';
 import {
@@ -133,14 +134,19 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         title="Temukan Latihan"
         lead="Saring daftar latihan menurut kelas, elemen kurikulum, dan tingkat kesulitan. Pilihanmu tersimpan di alamat halaman sehingga bisa dibagikan."
       />
-      <div class="filter-bar" data-filter-bar>
+      <details class="filter-panel" data-filter-bar data-filter-panel open>
+        <summary class="filter-panel__summary">
+          <span class="filter-panel__summary-label">Saring</span>
+          <span class="filter-panel__count" data-filter-summary-count hidden></span>
+        </summary>
+        <div class="filter-panel__body">
         <div class="filter-group" role="group" aria-labelledby="filter-mapel-label">
           <span class="filter-label" id="filter-mapel-label">Mata pelajaran</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="mapel" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="chip filter-btn" data-filter="mapel" data-value="" aria-pressed="true">Semua</button>
             {
               SUBJECT_ORDER.map((subject) => (
-                <button type="button" class="filter-btn" data-filter="mapel" data-value={subject} aria-pressed="false">
+                <button type="button" class="chip filter-btn" data-filter="mapel" data-value={subject} aria-pressed="false">
                   {SUBJECTS[subject].short}
                 </button>
               ))
@@ -150,10 +156,10 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         <div class="filter-group" role="group" aria-labelledby="filter-kelas-label">
           <span class="filter-label" id="filter-kelas-label">Kelas</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="kelas" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="chip filter-btn" data-filter="kelas" data-value="" aria-pressed="true">Semua</button>
             {
               GRADE_ORDER.map((grade) => (
-                <button type="button" class="filter-btn" data-filter="kelas" data-value={grade} aria-pressed="false">
+                <button type="button" class="chip filter-btn" data-filter="kelas" data-value={grade} aria-pressed="false">
                   Kelas {grade}
                 </button>
               ))
@@ -163,12 +169,12 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         <div class="filter-group" role="group" aria-labelledby="filter-elemen-label">
           <span class="filter-label" id="filter-elemen-label">Elemen</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="elemen" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="chip filter-btn" data-filter="elemen" data-value="" aria-pressed="true">Semua</button>
             {
               ALL_ELEMENT_ORDER.map((element) => (
                 <button
                   type="button"
-                  class="filter-btn"
+                  class="chip filter-btn"
                   data-filter="elemen"
                   data-value={element}
                   aria-pressed="false"
@@ -182,10 +188,10 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         <div class="filter-group" role="group" aria-labelledby="filter-tingkat-label">
           <span class="filter-label" id="filter-tingkat-label">Tingkat</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="tingkat" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="chip filter-btn" data-filter="tingkat" data-value="" aria-pressed="true">Semua</button>
             {
               levels.map((lv) => (
-                <button type="button" class="filter-btn" data-filter="tingkat" data-value={lv.value} aria-pressed="false">
+                <button type="button" class="chip filter-btn" data-filter="tingkat" data-value={lv.value} aria-pressed="false">
                   {lv.name}
                 </button>
               ))
@@ -195,17 +201,17 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         <div class="filter-group" role="group" aria-labelledby="filter-kemajuan-label">
           <span class="filter-label" id="filter-kemajuan-label">Kemajuan</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="" aria-pressed="true">Semua</button>
-            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="belum" aria-pressed="false">Belum dimulai</button>
-            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="sedang" aria-pressed="false">Sedang berjalan</button>
-            <button type="button" class="filter-btn" data-filter="kemajuan" data-value="selesai" aria-pressed="false">Selesai</button>
+            <button type="button" class="chip filter-btn" data-filter="kemajuan" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="chip filter-btn" data-filter="kemajuan" data-value="belum" aria-pressed="false">Belum dimulai</button>
+            <button type="button" class="chip filter-btn" data-filter="kemajuan" data-value="sedang" aria-pressed="false">Sedang berjalan</button>
+            <button type="button" class="chip filter-btn" data-filter="kemajuan" data-value="selesai" aria-pressed="false">Selesai</button>
           </div>
         </div>
         <div class="filter-group" role="group" aria-labelledby="filter-pengayaan-label">
           <span class="filter-label" id="filter-pengayaan-label">Pengayaan</span>
           <div class="filter-options">
-            <button type="button" class="filter-btn" data-filter="pengayaan" data-value="" aria-pressed="true">Semua</button>
-            <button type="button" class="filter-btn" data-filter="pengayaan" data-value="ya" aria-pressed="false">Hanya pengayaan</button>
+            <button type="button" class="chip filter-btn" data-filter="pengayaan" data-value="" aria-pressed="true">Semua</button>
+            <button type="button" class="chip filter-btn" data-filter="pengayaan" data-value="ya" aria-pressed="false">Hanya pengayaan</button>
           </div>
         </div>
         <div class="filter-group filter-search" role="search">
@@ -219,7 +225,8 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
             autocomplete="off"
           />
         </div>
-      </div>
+        </div>
+      </details>
       <p class="filter-result" data-result-count aria-live="polite"></p>
       <div class="quick-cross">
         <button type="button" class="btn btn-primary btn-sm" data-quick-cross>
@@ -297,7 +304,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
         ))
       }
       <p class="empty-state card" data-empty hidden>
-        <MathMascot size={6} state="oops" label="Maskot tidak menemukan latihan yang cocok" />
+        <MathMascot size={6} state="oops" label={`${site.mascot.name} tidak menemukan latihan yang cocok`} />
         <strong>Belum ada latihan yang cocok.</strong>
         <span class="text-muted">Coba ubah atau reset filter untuk melihat topik lain.</span>
       </p>
@@ -363,14 +370,8 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     pointer-events: none;
     user-select: none;
   }
-  .filter-bar {
-    display: grid;
+  .filter-panel__body {
     gap: 1rem;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-sm);
   }
   .filter-group {
     display: grid;
@@ -387,36 +388,6 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
-  }
-  .filter-btn {
-    font: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--color-text);
-    padding: 0.35rem 0.8rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-pill);
-    background: var(--color-surface);
-    cursor: pointer;
-    transition:
-      background-color var(--dur-fast),
-      border-color var(--dur-fast),
-      color var(--dur-fast),
-      transform var(--dur-fast) var(--ease-bounce);
-  }
-  .filter-btn:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    transform: translateY(-1px);
-  }
-  .filter-btn[aria-pressed='true'] {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-  .filter-btn:focus-visible {
-    outline: 3px solid var(--color-primary);
-    outline-offset: 2px;
   }
   .filter-search {
     max-width: 24rem;
@@ -514,7 +485,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
 <script>
   import { loadProgress, summarize, type ProgressMap } from '@/lib/progress';
   import { matchesAny, normalizeText } from '@/lib/filter';
-  import { setupFilterPage } from '@/lib/filter-dom';
+  import { setupFilterPage, collapseFiltersOnMobile } from '@/lib/filter-dom';
 
   const root = document.querySelector<HTMLElement>('[data-latihan-root]');
 
@@ -636,6 +607,7 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
     const searchInput = root.querySelector<HTMLInputElement>('[data-latihan-search]');
 
     setupFilterPage({ groups, apply, searchInput, queryKey: 'q', syncUrl: true });
+    collapseFiltersOnMobile(root);
 
     // Pintasan lintas topik: buka satu topik yang lolos saringan lalu minta
     // halaman topik memulai sesi kilat 5 soal acak (`?kilat=1`).

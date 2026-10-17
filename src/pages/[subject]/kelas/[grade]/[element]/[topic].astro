@@ -556,7 +556,7 @@ const jsonLd: Record<string, unknown> = {
 
   .section-jump {
     position: sticky;
-    top: calc(var(--header-h) + 3px);
+    top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 3px);
     z-index: var(--z-aside);
     display: none;
     align-items: center;
@@ -581,8 +581,24 @@ const jsonLd: Record<string, unknown> = {
     padding: 0;
     min-width: 0;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    /* Petunjuk gulir mendatar: tepi kiri/kanan memudar samar. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 0.75rem,
+      #000 calc(100% - 0.75rem),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 0.75rem,
+      #000 calc(100% - 0.75rem),
+      transparent 100%
+    );
   }
   .section-jump-list::-webkit-scrollbar {
     display: none;
@@ -613,6 +629,15 @@ const jsonLd: Record<string, unknown> = {
     border-color: color-mix(in srgb, var(--accent) 42%, var(--color-border));
     color: var(--color-text);
     font-weight: 600;
+  }
+  /* Chip "Bagian" >=44px pada peranti sentuh. */
+  @media (pointer: coarse) {
+    .section-jump-list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      padding-block: 0;
+    }
   }
 
   .topic-layout {
@@ -655,7 +680,7 @@ const jsonLd: Record<string, unknown> = {
 
   .topic-aside {
     position: sticky;
-    top: calc(var(--header-h) + 1.25rem);
+    top: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 1.25rem);
     display: grid;
     gap: 1rem;
   }
@@ -868,22 +893,41 @@ const jsonLd: Record<string, unknown> = {
     }
     .topic-layout {
       grid-template-columns: minmax(0, 1fr);
+      row-gap: 0;
     }
-    .topic-aside {
-      display: contents;
-    }
+    /* Buka bungkus artikel dan kolom samping agar kartu "Kemajuan halaman"
+       dapat disisipkan tepat setelah bagian pertama, bukan mendahului artikel. */
+    .topic-main,
+    .topic-aside,
     .aside-primary {
-      order: 1;
+      display: contents;
     }
     /* Daftar isi ringkas sudah disediakan bilah "Bagian" yang lengket di atas. */
     .aside-primary .aside-card:has([data-outline-disclosure]) {
       display: none;
     }
-    .topic-main {
+    .aside-primary :global([data-topic-progress]) {
       order: 2;
+      margin-block: 1.5rem 0.5rem;
+    }
+    .topic-main > :global(*) {
+      order: 3;
+    }
+    .topic-main > .phase-eyebrow:first-child,
+    .topic-main > :global(.content-section:first-of-type) {
+      order: 1;
     }
     .aside-secondary {
-      order: 3;
+      order: 4;
+      margin-top: 2rem;
+    }
+    /* Cadangkan tinggi bilah "Bagian" yang lengket agar tautan anchor (termasuk
+       ulasan soal) tidak tersembunyi di baliknya. Nilai ini ditambahkan ke
+       `scroll-padding-top` global (`--header-h` + 1rem), jadi cukup setinggi
+       bilah chip plus sisipan aman, bukan setinggi header lagi. */
+    .topic-main :global(.content-section),
+    .topic-main :global([data-question]) {
+      scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 2.75rem) !important;
     }
   }
   @media (min-width: 62rem) {

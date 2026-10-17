@@ -37,6 +37,8 @@ export function bootReview(): void {
 
     const storage = safeStorage();
     const emptyEl = root.querySelector<HTMLElement>('[data-review-empty]');
+    const mascotSleep = root.querySelector<HTMLElement>('[data-review-mascot-sleep]');
+    const mascotCelebrate = root.querySelector<HTMLElement>('[data-review-mascot-celebrate]');
     const emptyTitle = root.querySelector<HTMLElement>('[data-empty-title]');
     const emptyText = root.querySelector<HTMLElement>('[data-empty-text]');
     const bodyEl = root.querySelector<HTMLElement>('[data-review-body]');
@@ -174,6 +176,10 @@ export function bootReview(): void {
 
       if (queue.length === 0) {
         const hasAttempts = Object.keys(attempts).length > 0;
+        /* Numi tidur bila belum ada yang dicoba, dan merayakan bila semua soal
+           yang pernah dicoba sudah tepat. */
+        if (mascotSleep) mascotSleep.hidden = hasAttempts;
+        if (mascotCelebrate) mascotCelebrate.hidden = !hasAttempts;
         if (emptyTitle) {
           emptyTitle.textContent = hasAttempts
             ? 'Tidak ada soal yang perlu ditinjau'

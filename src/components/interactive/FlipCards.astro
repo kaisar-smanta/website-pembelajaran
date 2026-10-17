@@ -27,7 +27,11 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
           <button type="button" class="flip-btn" data-flip-btn aria-pressed="false">
             <span class="visually-hidden">Balik kartu</span>
             <span class="flip-face flip-front prose" set:html={renderMarkdown(card.front)} />
-            <span class="flip-face flip-back prose" set:html={renderMarkdown(card.back)} />
+            <span
+              class="flip-face flip-back prose"
+              aria-hidden="true"
+              set:html={renderMarkdown(card.back)}
+            />
           </button>
         </div>
       ))
@@ -48,9 +52,12 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
     gap: 0.7rem;
   }
+  .flip-card {
+    perspective: 900px;
+  }
   .flip-btn {
     position: relative;
-    display: block;
+    display: grid;
     width: 100%;
     min-height: 7rem;
     padding: 0.85rem 0.9rem;
@@ -61,7 +68,9 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     font: inherit;
     text-align: left;
     cursor: pointer;
+    transform-style: preserve-3d;
     transition:
+      transform var(--dur) var(--ease-out-soft),
       border-color var(--dur-fast) var(--ease-out-soft),
       background-color var(--dur-fast) var(--ease-out-soft);
   }
@@ -69,7 +78,10 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     border-color: var(--accent, var(--color-primary));
   }
   .flip-face {
+    grid-area: 1 / 1;
     display: block;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   .flip-face :global(> *:last-child) {
     margin-bottom: 0;
@@ -78,18 +90,31 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     font-weight: 700;
   }
   .flip-back {
-    margin-top: 0.5rem;
     padding-top: 0.5rem;
     border-top: 1px dashed var(--color-border-strong);
     color: var(--color-text-muted);
     font-size: 0.92rem;
-  }
-  .flip-btn:not([aria-pressed='true']) .flip-back {
-    display: none;
+    transform: rotateY(180deg);
   }
   .flip-btn[aria-pressed='true'] {
+    transform: rotateY(180deg);
     border-color: var(--color-success);
     background: var(--color-success-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flip-btn {
+      transition: none;
+      transform: none !important;
+    }
+    .flip-face {
+      transform: none;
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+    }
+    .flip-btn:not([aria-pressed='true']) .flip-back,
+    .flip-btn[aria-pressed='true'] .flip-front {
+      visibility: hidden;
+    }
   }
 </style>
 
@@ -102,6 +127,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     saveCompletions,
   } from '@/lib/learner';
   import { safeStorage } from '@/lib/storage';
+  import { celebrate } from '@/lib/celebrate';
 
   function setupFlip(root: Element) {
     const id = root.getAttribute('data-storage-id') ?? '';
@@ -110,11 +136,16 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     const status = root.querySelector<HTMLElement>('[data-flip-status]');
     const storage = safeStorage();
     const revealed = new Set<number>();
+    let completed = false;
 
     function setPressed(index: number, pressed: boolean) {
       const btn = buttons[index];
       if (!btn) return;
       btn.setAttribute('aria-pressed', String(pressed));
+      const front = btn.querySelector<HTMLElement>('.flip-front');
+      const back = btn.querySelector<HTMLElement>('.flip-back');
+      if (front) front.setAttribute('aria-hidden', String(pressed));
+      if (back) back.setAttribute('aria-hidden', String(!pressed));
       if (pressed) revealed.add(index);
       else revealed.delete(index);
     }
@@ -122,6 +153,10 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     function complete() {
       if (storage) saveCompletions(storage, recordCompletion(loadCompletions(storage), id));
       if (status) status.textContent = 'Selesai! Semua kartu sudah dibuka.';
+      if (!completed) {
+        completed = true;
+        celebrate(root as HTMLElement, { count: 12 });
+      }
     }
 
     buttons.forEach((btn, i) => {
@@ -137,6 +172,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
 
     reset?.addEventListener('click', () => {
       buttons.forEach((_, i) => setPressed(i, false));
+      completed = false;
       if (status) status.textContent = '';
       if (storage) saveCompletions(storage, clearCompletion(loadCompletions(storage), id));
       emitInteraction(id, 'flip-reset');
@@ -145,6 +181,7 @@ const introHtml = block.intro ? renderMarkdown(block.intro) : '';
     // Pulihkan keadaan selesai agar bilah kemajuan konsisten setelah muat ulang.
     if (storage && loadCompletions(storage)[id]) {
       buttons.forEach((_, i) => setPressed(i, true));
+      completed = true;
     }
   }
 

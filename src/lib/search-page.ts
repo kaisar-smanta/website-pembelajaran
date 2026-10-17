@@ -30,6 +30,7 @@ function setupSearch(root: Element) {
   const pengayaanFilter = root.querySelector('[data-filter-pengayaan]') as HTMLSelectElement | null;
   const results = root.querySelector('[data-search-results]') as HTMLElement;
   const status = root.querySelector('[data-search-status]') as HTMLElement;
+  const thinking = root.querySelector('[data-search-thinking]') as HTMLElement | null;
   const hint = root.querySelector('[data-search-hint]') as HTMLElement;
   const more = root.querySelector('[data-search-more]') as HTMLElement | null;
   const moreBtn = root.querySelector('[data-search-more-btn]') as HTMLButtonElement | null;
@@ -65,10 +66,41 @@ function setupSearch(root: Element) {
     return Boolean(values.q);
   }
 
+  /* Numi berpikir selama hasil belum siap: saat indeks masih dimuat, dan
+     selama jeda singkat setelah pengetikan sebelum hasil dirender. Status kosong
+     yang selesai memakai Numi `oops` pada kartu hasil kosong. */
+  function setThinking(active: boolean) {
+    if (thinking) thinking.hidden = !active;
+  }
+
   function update() {
     showAll = false;
     render();
     syncUrl();
+    setThinking(false);
+  }
+
+  let renderTimer: number | null = null;
+
+  /**
+   * Menahan render sejenak setelah pengetikan agar Numi sempat menampilkan
+   * keadaan berpikir; memakai kembali `update()` saat tuntas.
+   */
+  function scheduleUpdate() {
+    const raw = input.value.trim();
+    setThinking(raw.length > 0);
+    if (renderTimer !== null) {
+      window.clearTimeout(renderTimer);
+      renderTimer = null;
+    }
+    if (raw.length === 0) {
+      update();
+      return;
+    }
+    renderTimer = window.setTimeout(() => {
+      renderTimer = null;
+      update();
+    }, 140);
   }
 
   function renderSuggestion(suggestion: string | null): void {
@@ -161,23 +193,26 @@ function setupSearch(root: Element) {
   }
 
   results.setAttribute('aria-busy', 'true');
+  readUrl();
+  setThinking(input.value.trim().length > 0);
   fetch(`${base}search.json`)
     .then((r) => r.json())
     .then((data) => {
       items = data;
-      readUrl();
       render();
       results.setAttribute('aria-busy', 'false');
+      setThinking(false);
       /* Fokus selalu, termasuk tanpa `?q=`; `preventScroll` menghindari
          lompatan gulir di layar kecil. */
       input.focus({ preventScroll: true });
     })
     .catch(() => {
       results.setAttribute('aria-busy', 'false');
+      setThinking(false);
       status.textContent = 'Indeks pencarian gagal dimuat.';
     });
 
-  input.addEventListener('input', update);
+  input.addEventListener('input', scheduleUpdate);
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     update();

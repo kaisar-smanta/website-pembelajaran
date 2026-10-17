@@ -50,6 +50,8 @@ export function bootDashboard(): void {
 
     const storage = safeStorage();
     const emptyEl = root.querySelector<HTMLElement>('[data-empty]');
+    const mascotHappy = root.querySelector<HTMLElement>('[data-summary-mascot-happy]');
+    const mascotCelebrate = root.querySelector<HTMLElement>('[data-summary-mascot-celebrate]');
     const sections = {
       summary: root.querySelector<HTMLElement>('[data-summary]'),
       review: root.querySelector<HTMLElement>('[data-review]'),
@@ -526,6 +528,11 @@ export function bootDashboard(): void {
 
       if (emptyEl) emptyEl.hidden = true;
       setSectionVisible(sections.summary, true);
+      /* Numi pada ringkasan beralih dari senang ke merayakan begitu ketepatan
+         dan jumlah soal yang dikerjakan cukup. */
+      const celebrate = overview.answered >= 10 && overview.accuracy >= 0.8;
+      if (mascotHappy) mascotHappy.hidden = celebrate;
+      if (mascotCelebrate) mascotCelebrate.hidden = !celebrate;
       setSectionVisible(sections.review, overview.answered > 0);
       setSectionVisible(sections.challenge, true);
       setSectionVisible(sections.mastery, overview.answered > 0);

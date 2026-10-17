@@ -575,7 +575,10 @@ src/
   `bob`, `wiggle`), kelas utilitas reveal saat scroll (IntersectionObserver), hover lift, dan
   mikrointeraksi pada tombol, kartu, badge, serta header. Semua gerak **dimatikan** saat
   `prefers-reduced-motion: reduce`, konten tidak disembunyikan tanpa JS, dan gaya cetak dibersihkan.
-- **Maskot**: ilustrasi SVG sederhana (`MathMascot.astro`) bersifat dekoratif.
+- **Maskot (Numi)**: ilustrasi SVG (`MathMascot.astro`) dengan beberapa ekspresi
+  (`happy`, `thinking`, `celebrate`, `oops`, `sleep`). Bersifat dekoratif secara bawaan, tetapi
+  diberi label aksesibel (`role="img"`) saat menyampaikan makna, mis. pada keadaan kosong, dan
+  dipakai interaktif di `HeroPlayground`.
 - **Kredit terpusat**: identitas penyusun, sekolah, logo, dan tautan resmi disimpan di
   `src/data/site.ts`. Ubah satu berkas untuk memperbarui beranda, footer, header, dan `/tentang`.
 - **Logo sekolah**: letakkan berkas di `public/logo-sman1-tanjung.jpg` (atau ubah

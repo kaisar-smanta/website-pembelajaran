@@ -1,19 +1,26 @@
 ---
-type MascotState = 'default' | 'happy' | 'thinking' | 'celebrate' | 'oops' | 'sleep';
+export type MascotState = 'default' | 'happy' | 'thinking' | 'celebrate' | 'oops' | 'sleep';
 
 interface Props {
   /** Bila diisi, maskot diberi label aksesibel. Default dekoratif. */
   label?: string;
   size?: number;
-  /** Bila true, tambahkan respons hover/fokus halus. Default dekoratif & statis. */
+  /**
+   * Bila true, tandai maskot sebagai interaktif. Respons hover/fokus dipicu
+   * induk, bukan SVG-nya sendiri (akar SVG memakai `focusable="false"` sehingga
+   * tak pernah menerima fokus). Contoh: `.mascot-button:focus-visible .mascot`
+   * di HeroPlayground.
+   */
   interactive?: boolean;
   /** Karakter ekspresi maskot. Default tampil seperti semula. */
   state?: MascotState;
+  /** Kelas tambahan yang dijahit ke elemen akar, mis. pengait gaya dari induk. */
+  class?: string;
 }
-const { label, size = 15, interactive = false, state = 'default' } = Astro.props;
+const { label, size = 15, interactive = false, state = 'default', class: className } = Astro.props;
 const decorative = !label;
 const motionClass = state === 'sleep' ? 'mascot-sleep' : 'bob';
-const classList = `mascot ${motionClass} mascot--${state}${interactive ? ' mascot--interactive' : ''}`;
+const classList = `mascot ${motionClass} mascot--${state}${interactive ? ' mascot--interactive' : ''}${className ? ` ${className}` : ''}`;
 const eyesClass = `mascot-eyes${state === 'thinking' ? ' mascot-eyes--up' : ''}`;
 
 const cheek =
@@ -32,6 +39,7 @@ const cheek =
 
 <svg
   class={classList}
+  data-state={state}
   viewBox="0 0 200 200"
   width={size * 16}
   height={size * 16}
@@ -201,18 +209,12 @@ const cheek =
   .mascot-eyes--up {
     transform: translateY(-3px);
   }
+  /* Respons interaktif sengaja tidak dipasang di SVG ini: akarnya memakai
+     `focusable="false"` sehingga tak pernah menerima `:focus-visible`. Induk
+     yang membidik `.mascot` (mis. `.mascot-button:focus-visible .mascot` pada
+     HeroPlayground) yang memberi filter dan animasi `mascot-bounce` di bawah. */
   .mascot--interactive {
     transition: filter var(--dur) var(--ease-out-soft);
-  }
-  .mascot--interactive:hover,
-  .mascot--interactive:focus-visible {
-    filter: drop-shadow(0 16px 30px color-mix(in srgb, var(--color-primary) 30%, transparent));
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .mascot--interactive:hover,
-    .mascot--interactive:focus-visible {
-      animation: mascot-bounce var(--dur-slow) var(--ease-bounce) both;
-    }
   }
   @keyframes mascot-bounce {
     0% {

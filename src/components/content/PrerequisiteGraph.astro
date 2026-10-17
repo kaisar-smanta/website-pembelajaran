@@ -9,6 +9,8 @@ import {
   SUBJECT_ORDER,
 } from '@/data/curriculum';
 import { topics, topicSubject } from '@/data/topics';
+import { site } from '@/data/site';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { topicUrl } from '@/utils/url';
 import { DEFAULT_NODE_HEIGHT, DEFAULT_NODE_WIDTH, layoutGraph } from '@/lib/graph/layout';
 
@@ -280,7 +282,14 @@ const cycleTitles = layout.cycle
                               })}
                             </ul>
                           ) : (
-                            <p class="prereq-empty">Tanpa prasyarat.</p>
+                            <p class="prereq-empty">
+                              <MathMascot
+                                size={6}
+                                state="thinking"
+                                label={`${site.mascot.name} mencatat belum ada prasyarat`}
+                              />
+                              <span>Tanpa prasyarat.</span>
+                            </p>
                           )}
                         </div>
                         <div class="prereq-chip-group">
@@ -307,7 +316,14 @@ const cycleTitles = layout.cycle
                               })}
                             </ul>
                           ) : (
-                            <p class="prereq-empty">Belum ada lanjutan tercatat.</p>
+                            <p class="prereq-empty">
+                              <MathMascot
+                                size={6}
+                                state="oops"
+                                label={`${site.mascot.name} mencatat belum ada lanjutan`}
+                              />
+                              <span>Belum ada lanjutan tercatat.</span>
+                            </p>
                           )}
                         </div>
                       </div>
@@ -341,6 +357,7 @@ const cycleTitles = layout.cycle
   .prereq-scroll {
     overflow-x: auto;
     overflow-y: hidden;
+    overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     border-radius: var(--radius);
   }
@@ -527,10 +544,17 @@ const cycleTitles = layout.cycle
     text-decoration: underline;
   }
   .prereq-empty {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
     margin: 0;
     font-size: 0.82rem;
     font-style: italic;
     color: var(--color-text-soft);
+  }
+  .prereq-empty :global(.mascot) {
+    flex: 0 0 auto;
+    width: 3.75rem;
   }
   .prereq-toolbar {
     display: none;

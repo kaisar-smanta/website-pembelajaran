@@ -3,6 +3,7 @@ import { getExploration } from '@/data/explorations';
 import ExplorationSim from './ExplorationSim.astro';
 import ExplorationBrief from './ExplorationBrief.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { url } from '@/utils/url';
 
 interface Props {
@@ -26,7 +27,7 @@ const exploration = getExploration(explorationId);
     </section>
   ) : (
     <div class="callout callout-info embed-missing" role="note">
-      <MathMascot size={5} state="oops" label="Maskot belum menemukan eksplorasi" />
+      <MathMascot size={5} state="oops" label={`${site.mascot.name} belum menemukan eksplorasi`} />
       <p>Eksplorasi tidak ditemukan: {explorationId}</p>
     </div>
   )

@@ -4,6 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import Callout from '@/components/content/Callout.astro';
 import CtaCard from '@/components/ui/CtaCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import { topics } from '@/data/topics';
 import { ALL_ELEMENT_ORDER, ELEMENTS } from '@/data/curriculum';
 import {
@@ -76,42 +77,48 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
         />
       ) : (
         <>
-          <div class="ref-toolbar" data-glos-toolbar>
-            <div class="ref-filter">
-              <span class="ref-filter-label">Elemen</span>
-              <div class="ref-chip-row" data-glos-chips role="group" aria-label="Saring menurut elemen">
-                <button
-                  type="button"
-                  class="ref-chip is-active"
-                  data-glos-filter="all"
-                  aria-pressed="true"
-                >
-                  Semua <span class="ref-chip-count">{entries.length}</span>
-                </button>
-                {elementChips.map((chip) => (
+          <details class="filter-panel" data-glos-toolbar data-filter-panel open>
+            <summary class="filter-panel__summary">
+              <span class="filter-panel__summary-label">Saring</span>
+              <span class="filter-panel__count" data-filter-summary-count hidden></span>
+            </summary>
+            <div class="filter-panel__body">
+              <div class="ref-filter">
+                <span class="ref-filter-label">Elemen</span>
+                <div class="ref-chip-row" data-glos-chips role="group" aria-label="Saring menurut elemen">
                   <button
                     type="button"
-                    class="ref-chip"
-                    data-glos-filter={chip.id}
-                    aria-pressed="false"
+                    class="chip ref-chip is-active"
+                    data-glos-filter="all"
+                    aria-pressed="true"
                   >
-                    {chip.label} <span class="ref-chip-count">{chip.count}</span>
+                    Semua <span class="chip__count ref-chip-count">{entries.length}</span>
                   </button>
-                ))}
+                  {elementChips.map((chip) => (
+                    <button
+                      type="button"
+                      class="chip ref-chip"
+                      data-glos-filter={chip.id}
+                      aria-pressed="false"
+                    >
+                      {chip.label} <span class="chip__count ref-chip-count">{chip.count}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div class="ref-search">
+                <label class="visually-hidden" for="glos-search">Cari istilah</label>
+                <input
+                  id="glos-search"
+                  type="search"
+                  class="ref-search-input"
+                  data-glos-search
+                  placeholder="Cari istilah atau makna"
+                  autocomplete="off"
+                />
               </div>
             </div>
-            <div class="ref-search">
-              <label class="visually-hidden" for="glos-search">Cari istilah</label>
-              <input
-                id="glos-search"
-                type="search"
-                class="ref-search-input"
-                data-glos-search
-                placeholder="Cari istilah atau makna"
-                autocomplete="off"
-              />
-            </div>
-          </div>
+          </details>
 
           <p class="ref-result" data-glos-result aria-live="polite">
             Menampilkan {entries.length} istilah
@@ -169,7 +176,7 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
           ))}
 
           <p class="ref-empty" data-glos-empty hidden>
-            <MathMascot size={6} state="oops" label="Maskot tidak menemukan istilah" />
+            <MathMascot size={6} state="oops" label={`${site.mascot.name} tidak menemukan istilah`} />
             Tidak ada istilah yang cocok dengan saringan ini. Coba kata kunci lain atau pilih elemen
             yang berbeda.
           </p>
@@ -196,7 +203,7 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
 
 <script>
   import { normalizeText } from '@/lib/filter';
-  import { setupFilterPage, type FilterPageGroup } from '@/lib/filter-dom';
+  import { setupFilterPage, collapseFiltersOnMobile, type FilterPageGroup } from '@/lib/filter-dom';
 
   const toolbar = document.querySelector<HTMLElement>('[data-glos-toolbar]');
 
@@ -250,6 +257,7 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
     // Kueri `?q=` diselaraskan otomatis lewat `queryKey` (baca saat mulai,
     // tulis saat mengetik) sehingga tidak perlu penanganan URL terpisah.
     setupFilterPage({ groups: filterGroups, searchInput, queryKey: 'q', apply, syncUrl: true });
+    collapseFiltersOnMobile(document);
   }
 </script>
 
@@ -258,18 +266,8 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
     padding-block: 1.5rem 2.5rem;
   }
 
-  .ref-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.9rem;
+  .filter-panel {
     margin-bottom: 1rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-sm);
   }
   .ref-filter {
     display: flex;
@@ -291,59 +289,6 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
     flex-wrap: wrap;
     gap: 0.5rem;
     min-width: 0;
-  }
-  .ref-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    appearance: none;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    border-radius: var(--radius-pill);
-    padding: 0.42rem 0.9rem;
-    font: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.2;
-    cursor: pointer;
-    transition:
-      background var(--dur-fast),
-      border-color var(--dur-fast),
-      color var(--dur-fast);
-  }
-  .ref-chip:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .ref-chip:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-  .ref-chip.is-active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-  .ref-chip.is-active:hover {
-    color: var(--color-on-primary);
-  }
-  .ref-chip-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.4rem;
-    height: 1.4rem;
-    padding-inline: 0.35rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.72rem;
-    font-weight: 700;
-    background: var(--color-surface-2);
-    color: var(--color-text-muted);
-  }
-  .ref-chip.is-active .ref-chip-count {
-    background: var(--color-on-primary);
-    color: var(--color-primary);
   }
   .ref-search {
     flex: 1 1 15rem;
@@ -488,6 +433,16 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
 
   .cta-section {
     padding-block: 2.5rem;
+  }
+
+  @media (min-width: 40rem) {
+    .filter-panel__body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.9rem;
+    }
   }
 
   @media (max-width: 30rem) {

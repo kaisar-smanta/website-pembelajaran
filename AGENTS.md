@@ -116,7 +116,22 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   keacakan deterministik (`seededShuffle`, `combineSeed`) di `src/lib/random.ts`; pembantu
   klien kuis (`sessionSeed`, `recordProgress`, `clearProgress`, `loadQuizStreak`) di
   `src/lib/quiz-client.ts` (dipakai `QuestionCard.astro` & `QuizTeaser.astro`); ruang rute
-  (`subjectGradeElementCombos`, `legacyCombos`, dst.) di `src/lib/routes.ts`.
+  (`subjectGradeElementCombos`, `legacyCombos`, dst.) di `src/lib/routes.ts`; perayaan bersama
+  (`celebrate`, `prefersReducedMotion`) di `src/lib/celebrate.ts` (QuestionCard, MatchBlock,
+  FlipCards, StepReveal, TopicProgress); pelipat saringan ponsel (`collapseFiltersOnMobile`) di
+  `src/lib/filter-dom.ts`.
+- **Panel saringan ponsel**: halaman daftar dibungkus `<details class="filter-panel" open>`
+  dengan `<summary class="filter-panel__summary">`; chip memakai resep bersama `.chip`,
+  `.chip--active`, `.chip__count` di `components.css` (kelas lama seperti `.ref-chip` tetap
+  sebagai pengait skrip). Panel ditutup otomatis di ponsel lewat `collapseFiltersOnMobile`,
+  dan ringkasan menampilkan jumlah saringan aktif.
+- **Maskot Numi**: `MathMascot.astro` mengekspor `MascotState` dan memancarkan `data-state`;
+  label aksesibel memakai `site.mascot.name`; efek hover/fokus interaktif diatur pemanggil
+  (mis. `.mascot-button:focus-visible .mascot`), bukan pada SVG yang `focusable="false"`.
+  Uji `tests/mascot.mjs` menjaga setiap state terpakai dan semantik label.
+- **Transisi antar halaman** memakai view transition lintas dokumen (`@view-transition` di
+  `motion.css`), bukan router klien, agar skrip tidak perlu diinisialisasi ulang; dimatikan
+  saat `prefers-reduced-motion`. Shell memakai `viewport-fit=cover` dan sisipan `env(safe-area-*)`.
 - **Alur bagian materi** mengikuti fase tetap (pembuka → inti → latihan → penutup);
   `tests/section-order.mjs` menegakkannya, dan setiap topik wajib punya blok
   pengulangan `match`/`flip-cards` (`tests/content-blocks.mjs`).

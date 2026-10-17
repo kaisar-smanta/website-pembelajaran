@@ -5,6 +5,7 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import ApplicationCard from '@/components/content/ApplicationCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
 import {
   applications,
   applicationCategories,
@@ -84,7 +85,12 @@ const searchText = (application: (typeof applications)[number]) =>
         </p>
       </div>
 
-      <div class="app-filters">
+      <details class="filter-panel filter-panel--plain" data-filter-panel open>
+        <summary class="filter-panel__summary">
+          <span class="filter-panel__summary-label">Saring</span>
+          <span class="filter-panel__count" data-filter-summary-count hidden></span>
+        </summary>
+        <div class="filter-panel__body">
         <div
           class="app-filter"
           data-app-chips="grade"
@@ -95,18 +101,18 @@ const searchText = (application: (typeof applications)[number]) =>
           <div class="app-chip-row">
             <button
               type="button"
-              class="app-chip is-active"
+              class="chip app-chip is-active"
               data-app-filter="all"
               aria-pressed="true"
             >
               Semua
-              <span class="app-chip-count">{total}</span>
+              <span class="chip__count app-chip-count">{total}</span>
             </button>
             {
               gradeChips.map((c) => (
-                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                <button type="button" class="chip app-chip" data-app-filter={c.id} aria-pressed="false">
                   {c.label}
-                  <span class="app-chip-count">{c.count}</span>
+                  <span class="chip__count app-chip-count">{c.count}</span>
                 </button>
               ))
             }
@@ -123,18 +129,18 @@ const searchText = (application: (typeof applications)[number]) =>
           <div class="app-chip-row">
             <button
               type="button"
-              class="app-chip is-active"
+              class="chip app-chip is-active"
               data-app-filter="all"
               aria-pressed="true"
             >
               Semua
-              <span class="app-chip-count">{total}</span>
+              <span class="chip__count app-chip-count">{total}</span>
             </button>
             {
               elementChips.map((c) => (
-                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                <button type="button" class="chip app-chip" data-app-filter={c.id} aria-pressed="false">
                   {c.label}
-                  <span class="app-chip-count">{c.count}</span>
+                  <span class="chip__count app-chip-count">{c.count}</span>
                 </button>
               ))
             }
@@ -151,18 +157,18 @@ const searchText = (application: (typeof applications)[number]) =>
           <div class="app-chip-row">
             <button
               type="button"
-              class="app-chip is-active"
+              class="chip app-chip is-active"
               data-app-filter="all"
               aria-pressed="true"
             >
               Semua
-              <span class="app-chip-count">{total}</span>
+              <span class="chip__count app-chip-count">{total}</span>
             </button>
             {
               categoryChips.map((c) => (
-                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                <button type="button" class="chip app-chip" data-app-filter={c.id} aria-pressed="false">
                   {c.label}
-                  <span class="app-chip-count">{c.count}</span>
+                  <span class="chip__count app-chip-count">{c.count}</span>
                 </button>
               ))
             }
@@ -179,18 +185,18 @@ const searchText = (application: (typeof applications)[number]) =>
           <div class="app-chip-row">
             <button
               type="button"
-              class="app-chip is-active"
+              class="chip app-chip is-active"
               data-app-filter="all"
               aria-pressed="true"
             >
               Semua
-              <span class="app-chip-count">{total}</span>
+              <span class="chip__count app-chip-count">{total}</span>
             </button>
             {
               levelChips.map((c) => (
-                <button type="button" class="app-chip" data-app-filter={c.id} aria-pressed="false">
+                <button type="button" class="chip app-chip" data-app-filter={c.id} aria-pressed="false">
                   {c.label}
-                  <span class="app-chip-count">{c.count}</span>
+                  <span class="chip__count app-chip-count">{c.count}</span>
                 </button>
               ))
             }
@@ -214,7 +220,8 @@ const searchText = (application: (typeof applications)[number]) =>
             Atur ulang
           </button>
         </div>
-      </div>
+        </div>
+      </details>
 
       <p class="app-result" data-app-result aria-live="polite">Menampilkan {total} studi kasus</p>
     </div>
@@ -265,7 +272,7 @@ const searchText = (application: (typeof applications)[number]) =>
   <section class="section">
     <div class="container">
       <p class="app-empty" data-app-empty hidden>
-        <MathMascot size={6} state="oops" label="Maskot tidak menemukan studi kasus" />
+        <MathMascot size={6} state="oops" label={`${site.mascot.name} tidak menemukan studi kasus`} />
         Tidak ada studi kasus yang cocok dengan saringan ini. Coba ubah kata kunci atau pilih
         saringan lain.
       </p>
@@ -282,7 +289,7 @@ const searchText = (application: (typeof applications)[number]) =>
 
 <script>
   import { matchesAny, normalizeText } from '@/lib/filter';
-  import { setupFilterPage } from '@/lib/filter-dom';
+  import { setupFilterPage, collapseFiltersOnMobile } from '@/lib/filter-dom';
 
   const chipGroups = Array.from(document.querySelectorAll<HTMLElement>('[data-app-chips]'));
   const items = Array.from(document.querySelectorAll<HTMLElement>('[data-app-item]'));
@@ -357,15 +364,17 @@ const searchText = (application: (typeof applications)[number]) =>
     } catch {
       /* Biarkan semua kartu tetap tampil bila skrip gagal. */
     }
+
+    collapseFiltersOnMobile(document);
   }
 </script>
 
 <style>
-  .app-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
+  .filter-panel {
     margin-bottom: 1.1rem;
+  }
+  .filter-panel__body {
+    gap: 0.85rem;
   }
   .app-filter {
     display: flex;
@@ -387,61 +396,6 @@ const searchText = (application: (typeof applications)[number]) =>
     flex-wrap: wrap;
     gap: 0.5rem;
     min-width: 0;
-  }
-  .app-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    appearance: none;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    border-radius: var(--radius-pill);
-    padding: 0.45rem 0.95rem;
-    font: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.2;
-    cursor: pointer;
-    transition:
-      background var(--dur-fast),
-      border-color var(--dur-fast),
-      color var(--dur-fast),
-      transform var(--dur) var(--ease-out-soft);
-  }
-  .app-chip:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .app-chip:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-  .app-chip.is-active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-  .app-chip.is-active:hover {
-    color: var(--color-on-primary);
-  }
-  .app-chip-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.4rem;
-    height: 1.4rem;
-    padding-inline: 0.35rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.72rem;
-    font-weight: 700;
-    background: var(--color-surface-2);
-    color: var(--color-text-muted);
-    transition: background var(--dur-fast), color var(--dur-fast);
-  }
-  .app-chip.is-active .app-chip-count {
-    background: var(--color-on-primary);
-    color: var(--color-primary);
   }
 
   .app-search {
@@ -548,7 +502,7 @@ const searchText = (application: (typeof applications)[number]) =>
     [data-app-item][hidden] {
       display: block !important;
     }
-    .app-filters,
+    .filter-panel,
     .app-search,
     .app-result,
     .app-empty {

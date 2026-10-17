@@ -142,6 +142,91 @@ export function readQuery(keys: string[]): Record<string, string> {
   return out;
 }
 
+/** Atribut pembawa nilai chip, dicoba berurutan hingga yang pertama ada. */
+const CHIP_VALUE_ATTRS = [
+  'data-value',
+  'data-glos-filter',
+  'data-rumus-filter',
+  'data-app-filter',
+  'data-ex-filter',
+  'data-map-subject',
+  'data-map-grade',
+  'data-map-filter',
+  'data-map-pengayaan',
+];
+
+/** Opsi `collapseFiltersOnMobile`. */
+export interface CollapseFiltersOptions {
+  /** Media query ponsel; default `(max-width: 40rem)`. */
+  query?: string;
+}
+
+/**
+ * Membuat panel saringan (`details.filter-panel`) dapat dilipat di ponsel.
+ *
+ * Menutup panel saat media query ponsel cocok, membukanya kembali di layar
+ * lebar, dan memperbarui lencana jumlah saringan aktif pada ringkasan
+ * (`[data-filter-summary-count]`). Jumlah dihitung dari chip ber-`aria-pressed`
+ * bernilai nyata (bukan "semua") ditambah kolom pencarian yang terisi.
+ *
+ * Mengembalikan fungsi pembongkaran agar pendengar media/observer dapat
+ * dilepas (mis. di uji).
+ */
+export function collapseFiltersOnMobile(
+  root: ParentNode = document,
+  options: CollapseFiltersOptions = {},
+): () => void {
+  const panel = root.querySelector<HTMLDetailsElement>('[data-filter-panel]');
+  if (!panel) return () => {};
+  const countEl = panel.querySelector<HTMLElement>('[data-filter-summary-count]');
+  const media = window.matchMedia(options.query ?? '(max-width: 40rem)');
+
+  const chipValue = (chip: HTMLElement): string => {
+    for (const attr of CHIP_VALUE_ATTRS) {
+      const value = chip.getAttribute(attr);
+      if (value !== null) return value;
+    }
+    return '';
+  };
+
+  const updateCount = (): void => {
+    if (!countEl) return;
+    let count = 0;
+    for (const chip of panel.querySelectorAll<HTMLElement>('[aria-pressed="true"]')) {
+      const value = chipValue(chip);
+      if (value && value !== 'all') count += 1;
+    }
+    for (const input of panel.querySelectorAll<HTMLInputElement>('input[type="search"]')) {
+      if (input.value.trim() !== '') count += 1;
+    }
+    countEl.textContent = String(count);
+    countEl.hidden = count === 0;
+  };
+
+  const applyCollapse = (): void => {
+    if (media.matches) panel.removeAttribute('open');
+    else panel.setAttribute('open', '');
+  };
+
+  applyCollapse();
+  updateCount();
+
+  media.addEventListener('change', applyCollapse);
+  panel.addEventListener('input', updateCount);
+  const observer = new MutationObserver(updateCount);
+  observer.observe(panel, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['aria-pressed'],
+  });
+
+  return () => {
+    media.removeEventListener('change', applyCollapse);
+    panel.removeEventListener('input', updateCount);
+    observer.disconnect();
+  };
+}
+
 /** Pegangan yang dikembalikan `setupFilterPage`. */
 export interface FilterPageHandle {
   /** Salinan state nilai per kelompok. */

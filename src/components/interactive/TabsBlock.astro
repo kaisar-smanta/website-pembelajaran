@@ -134,7 +134,14 @@ const base = storageId.replace(/[^a-zA-Z0-9_-]/g, '-');
         btn.tabIndex = selected ? 0 : -1;
       });
       panels.forEach((panel, i) => {
-        panel.hidden = i !== index;
+        const willShow = i === index;
+        const wasHidden = panel.hidden;
+        panel.hidden = !willShow;
+        if (willShow && user && wasHidden) {
+          panel.classList.remove('tab-panel-in');
+          void panel.offsetWidth;
+          panel.classList.add('tab-panel-in');
+        }
       });
       viewed.add(index);
       if (user) interacted = true;

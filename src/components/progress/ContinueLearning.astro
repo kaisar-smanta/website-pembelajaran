@@ -2,6 +2,8 @@
 import { topics as allTopics, topicSubject } from '@/data/topics';
 import { questionsByTopic } from '@/data/questions';
 import { ELEMENTS, GRADES, SUBJECTS } from '@/data/curriculum';
+import { site } from '@/data/site';
+import MathMascot from '@/components/content/MathMascot.astro';
 import { url, topicUrl } from '@/utils/url';
 import type { Grade, SubjectId } from '@/types/content';
 import {
@@ -102,8 +104,15 @@ const entriesJson = JSON.stringify(entries).replace(/</g, '\\u003c');
       {
         serverSuggestions.length === 0 && (
           <p class="cl-empty text-muted">
-            Belum ada topik yang siap disarankan di sini. Jelajahi{' '}
-            <a href={url('/peta-pembelajaran')}>peta pembelajaran</a> untuk melihat urutan materi.
+            <MathMascot
+              size={6}
+              state="oops"
+              label={`${site.mascot.name} belum menemukan topik yang siap disarankan`}
+            />
+            <span>
+              Belum ada topik yang siap disarankan di sini. Jelajahi{' '}
+              <a href={url('/peta-pembelajaran')}>peta pembelajaran</a> untuk melihat urutan materi.
+            </span>
           </p>
         )
       }
@@ -149,8 +158,12 @@ const entriesJson = JSON.stringify(entries).replace(/</g, '\\u003c');
     gap: 0.6rem;
   }
   .cl-empty {
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
     margin: 0;
     font-size: 0.92rem;
+    text-align: center;
   }
   .continue-learning :global(.cl-item) {
     display: flex;

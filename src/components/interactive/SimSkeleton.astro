@@ -1,4 +1,7 @@
 ---
+import MathMascot from '@/components/content/MathMascot.astro';
+import { site } from '@/data/site';
+
 interface Props {
   height?: string | number;
   label?: string;
@@ -17,6 +20,13 @@ const minHeight = typeof height === 'number' ? `${height}px` : height;
   <span class="sim-skeleton-bar shimmer" aria-hidden="true"></span>
   <span class="sim-skeleton-bar sim-skeleton-bar--wide shimmer" aria-hidden="true"></span>
   <span class="sim-skeleton-bar sim-skeleton-bar--short shimmer" aria-hidden="true"></span>
+  <span class="sim-skeleton-mascot">
+    <MathMascot
+      size={6}
+      state="thinking"
+      label={`${site.mascot.name} sedang menyiapkan simulasi`}
+    />
+  </span>
   <span class="sim-skeleton-label">{label}</span>
 </div>
 
@@ -56,6 +66,15 @@ const minHeight = typeof height === 'number' ? `${height}px` : height;
   }
   .sim-skeleton-bar--short {
     width: min(45%, 14rem);
+  }
+  .sim-skeleton-mascot {
+    position: relative;
+    z-index: 1;
+    display: block;
+    line-height: 0;
+  }
+  .sim-skeleton-mascot :global(.mascot) {
+    margin-inline: auto;
   }
   .sim-skeleton-label {
     position: relative;

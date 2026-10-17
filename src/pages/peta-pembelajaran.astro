@@ -139,6 +139,12 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
       </div>
 
       <div class="map-toolbar" data-map-toolbar>
+        <details class="filter-panel filter-panel--plain" data-filter-panel open>
+          <summary class="filter-panel__summary">
+            <span class="filter-panel__summary-label">Saring</span>
+            <span class="filter-panel__count" data-filter-summary-count hidden></span>
+          </summary>
+          <div class="filter-panel__body">
         <div class="map-filters">
           <div class="map-filter-group">
             <span class="map-filter-label">Mapel</span>
@@ -148,11 +154,11 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
               role="group"
               aria-label="Saring topik menurut mata pelajaran"
             >
-              <button type="button" class="topic-chip is-active" data-map-subject="all" aria-pressed="true">
+              <button type="button" class="chip topic-chip is-active" data-map-subject="all" aria-pressed="true">
                 Semua
               </button>
               {SUBJECT_ORDER.map((subject) => (
-                <button type="button" class="topic-chip" data-map-subject={subject} aria-pressed="false">
+                <button type="button" class="chip topic-chip" data-map-subject={subject} aria-pressed="false">
                   {SUBJECTS[subject].short}
                 </button>
               ))}
@@ -166,11 +172,11 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
               role="group"
               aria-label="Saring topik menurut kelas"
             >
-              <button type="button" class="topic-chip is-active" data-map-grade="all" aria-pressed="true">
+              <button type="button" class="chip topic-chip is-active" data-map-grade="all" aria-pressed="true">
                 Semua
               </button>
               {GRADE_ORDER.map((grade) => (
-                <button type="button" class="topic-chip" data-map-grade={grade} aria-pressed="false">
+                <button type="button" class="chip topic-chip" data-map-grade={grade} aria-pressed="false">
                   {GRADES[grade].name}
                 </button>
               ))}
@@ -179,11 +185,11 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
           <div class="map-filter-group">
             <span class="map-filter-label">Elemen</span>
             <div class="map-chip-row map-chips" role="group" aria-label="Saring topik menurut elemen">
-              <button type="button" class="topic-chip is-active" data-map-filter="all" aria-pressed="true">
+              <button type="button" class="chip topic-chip is-active" data-map-filter="all" aria-pressed="true">
                 Semua
               </button>
               {ALL_ELEMENT_ORDER.map((id) => (
-                <button type="button" class="topic-chip" data-map-filter={id} aria-pressed="false">
+                <button type="button" class="chip topic-chip" data-map-filter={id} aria-pressed="false">
                   {ELEMENTS[id].short}
                 </button>
               ))}
@@ -197,28 +203,31 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
               role="group"
               aria-label="Saring topik pengayaan"
             >
-              <button type="button" class="topic-chip is-active" data-map-pengayaan="all" aria-pressed="true">
+              <button type="button" class="chip topic-chip is-active" data-map-pengayaan="all" aria-pressed="true">
                 Semua
               </button>
-              <button type="button" class="topic-chip" data-map-pengayaan="ya" aria-pressed="false">
+              <button type="button" class="chip topic-chip" data-map-pengayaan="ya" aria-pressed="false">
                 Hanya pengayaan
               </button>
             </div>
           </div>
         </div>
 
-        <div class="map-toolbar-aside">
-          <div class="map-search">
-            <label class="visually-hidden" for="peta-search">Cari topik</label>
-            <input
-              id="peta-search"
-              type="search"
-              class="map-search-input"
-              data-map-search
-              placeholder="Cari topik atau kata kunci"
-              autocomplete="off"
-            />
+        <div class="map-search">
+          <label class="visually-hidden" for="peta-search">Cari topik</label>
+          <input
+            id="peta-search"
+            type="search"
+            class="map-search-input"
+            data-map-search
+            placeholder="Cari topik atau kata kunci"
+            autocomplete="off"
+          />
+        </div>
           </div>
+        </details>
+
+        <div class="map-toolbar-aside">
           {
             plannedTopics.length > 0 && (
               <button
@@ -291,8 +300,12 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
 
 <script>
   import { setupLearningMap } from '@/lib/map-client';
+  import { collapseFiltersOnMobile } from '@/lib/filter-dom';
 
-  const start = () => setupLearningMap();
+  const start = () => {
+    setupLearningMap();
+    collapseFiltersOnMobile(document);
+  };
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start, { once: true });
   } else {
@@ -341,14 +354,28 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
   }
   .map-toolbar {
     display: none;
+    flex-direction: column;
+    align-items: stretch;
     flex-wrap: wrap;
-    align-items: flex-end;
     justify-content: space-between;
     gap: 0.9rem 1.25rem;
     margin-top: 1.1rem;
   }
   .map-toolbar.is-ready {
     display: flex;
+  }
+  @media (min-width: 40rem) {
+    .map-toolbar {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+    .filter-panel__body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.9rem 1.25rem;
+    }
   }
   .map-filters {
     display: flex;
@@ -440,36 +467,6 @@ const dashboardJson = JSON.stringify(dashboardEntries).replace(/</g, '\\u003c');
   }
   .map-continue-meta {
     font-size: 0.82rem;
-  }
-  .topic-chip {
-    appearance: none;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    border-radius: var(--radius-pill);
-    padding: 0.4rem 0.9rem;
-    font: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.2;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s, color 0.15s;
-  }
-  .topic-chip:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .topic-chip:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-  .topic-chip.is-active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-  .topic-chip.is-active:hover {
-    color: var(--color-on-primary);
   }
   .map-status {
     min-height: 1.2rem;

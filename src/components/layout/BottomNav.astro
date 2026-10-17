@@ -5,22 +5,45 @@ interface Item {
   label: string;
   href: string;
   paths: string[];
+  /** Awalan rute yang ikut menyorot item ini (mis. topik di bawah /matematika). */
+  match?: string[];
 }
 
+/*
+ * Lima item dipertahankan agar bilah tetap lapang di ponsel sempit. Untuk
+ * menambah "Tinjau/Lanjut" sebagai item keenam akan melewati batas lima kolom
+ * yang nyaman disentuh, jadi rute /review dipetakan ke "Kemajuan" yang
+ * maknanya paling dekat (keduanya soal kemajuan belajar).
+ */
 const items: Item[] = [
   { label: 'Beranda', href: '/', paths: ['M4 11 12 4l8 7', 'M6 10v9h12v-9'] },
   {
     label: 'Peta',
     href: '/peta-pembelajaran',
+    match: [
+      '/peta-pembelajaran',
+      '/matematika',
+      '/matematika-lanjut',
+      '/eksplorasi',
+      '/glosarium',
+      '/rumus',
+      '/aplikasi',
+    ],
     paths: ['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z', 'M9 4v14', 'M15 6v14'],
   },
   {
     label: 'Latihan',
     href: '/latihan',
+    match: ['/latihan', '/tantangan'],
     paths: ['M4 20l3.6-.9L19.4 7.3a2 2 0 0 0-2.8-2.8L4.9 16.4 4 20Z', 'M15.4 6.2l2.4 2.4'],
   },
   { label: 'Cari', href: '/cari', paths: ['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z', 'm20 20-3.6-3.6'] },
-  { label: 'Kemajuan', href: '/kemajuan', paths: ['M3 17l5-5 4 3 6-7', 'M3 20h18'] },
+  {
+    label: 'Kemajuan',
+    href: '/kemajuan',
+    match: ['/kemajuan', '/review'],
+    paths: ['M3 17l5-5 4 3 6-7', 'M3 20h18'],
+  },
 ];
 
 const base = BASE;
@@ -30,10 +53,14 @@ function isCurrent(href: string): boolean {
   return href === '/' ? current === '/' : current === href.replace(/\/$/, '');
 }
 
-function isActive(href: string): boolean {
-  if (href === '/') return current === '/';
-  const clean = href.replace(/\/$/, '');
+function matchesPrefix(prefix: string): boolean {
+  if (prefix === '/') return current === '/';
+  const clean = prefix.replace(/\/$/, '');
   return current === clean || current.startsWith(`${clean}/`);
+}
+
+function isActive(item: Item): boolean {
+  return (item.match ?? [item.href]).some(matchesPrefix);
 }
 ---
 
@@ -44,7 +71,7 @@ function isActive(href: string): boolean {
         <li>
           <a
             href={url(item.href)}
-            class={isActive(item.href) ? 'bottom-nav-link is-active' : 'bottom-nav-link'}
+            class={isActive(item) ? 'bottom-nav-link is-active' : 'bottom-nav-link'}
             aria-current={isCurrent(item.href) ? 'page' : undefined}
           >
             <span class="bottom-nav-ico">

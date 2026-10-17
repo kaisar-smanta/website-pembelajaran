@@ -95,6 +95,14 @@ const { items } = Astro.props;
     );
     border-radius: var(--radius-sm);
   }
+  /* Sasaran sentuh nyaman pada peranti penunjuk kasar; tampilan desktop tetap. */
+  @media (pointer: coarse) {
+    .breadcrumbs a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.5rem;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .breadcrumbs a {
       transition: none;
