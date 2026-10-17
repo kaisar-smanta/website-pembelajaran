@@ -304,4 +304,38 @@ export const barisanDeretQuestions: Question[] = [
     ],
     competencies: ['deret aritmetika', 'pemodelan', 'kontekstual'],
   },
+  {
+    id: 'bd-16',
+    topicId: 'barisan-deret',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Perhatikan tabel nilai beberapa suku sebuah barisan geometri berikut. Jumlah suku ke-3 sampai suku ke-7 barisan itu adalah …',
+    table: {
+      caption: 'Nilai suku ke-3 sampai suku ke-5 sebuah barisan geometri.',
+      headers: ['Suku ke-n', 'Nilai'],
+      rows: [
+        ['3', '12'],
+        ['4', '24'],
+        ['5', '48'],
+      ],
+      math: true,
+    },
+    options: [
+      { key: 'A', text: '$360$' },
+      { key: 'B', text: '$372$' },
+      { key: 'C', text: '$381$' },
+      { key: 'D', text: '$384$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Dari tabel, rasio $r=\\dfrac{24}{12}=2$. Karena $U_3=ar^{2}=4a=12$, maka $a=3$. Suku ke-3 sampai ke-7 adalah $12+24+48+96+192=372$ (opsi B). Opsi A ($360$) menjumlahkan suku ke-4 sampai ke-7, lupa menyertakan $U_3$. Opsi C ($381$) adalah jumlah tujuh suku pertama $S_7=3(2^{7}-1)=381$, bukan rentang yang diminta. Opsi D ($384$) adalah $U_8=3\\cdot2^{7}$, yaitu menjawab satu suku alih-alih jumlah.',
+    hints: [
+      'Tentukan rasio $r$ dari dua nilai berdekatan pada tabel.',
+      'Gunakan $U_3=ar^{2}$ untuk memperoleh suku pertama $a$.',
+      'Jumlahkan langsung $U_3+U_4+U_5+U_6+U_7$.',
+    ],
+    competencies: ['barisan geometri', 'jumlah suku'],
+  },
 ];

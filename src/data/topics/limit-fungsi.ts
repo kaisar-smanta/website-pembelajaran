@@ -143,6 +143,12 @@ Bila kedua limit sepihak berbeda atau salah satunya tidak ada, maka limit di tit
           caption: 'Grafik $f(x)=\\dfrac{|x|}{x}$ untuk $x \\neq 0$. Dari kiri nilainya menuju $-1$ dan dari kanan menuju $1$. Karena limit kiri dan limit kanan berbeda, $\\lim_{x \\to 0} f(x)$ tidak ada.',
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="130" x2="300" y2="130" stroke="currentColor" stroke-width="1.3"/><line x1="170" y1="25" x2="170" y2="210" stroke="currentColor" stroke-width="1.3"/><line x1="70" y1="160" x2="164" y2="160" stroke="currentColor" stroke-width="2.4"/><line x1="176" y1="100" x2="280" y2="100" stroke="currentColor" stroke-width="2.4"/><circle cx="164" cy="160" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="176" cy="100" r="4" fill="none" stroke="currentColor" stroke-width="2"/><text x="292" y="146" font-size="12" fill="currentColor">x</text><text x="176" y="36" font-size="12" fill="currentColor">y</text><text x="158" y="146" font-size="11" fill="currentColor">0</text><text x="58" y="176" font-size="11" fill="currentColor">limit kiri = -1</text><text x="196" y="92" font-size="11" fill="currentColor">limit kanan = 1</text></svg>',
         },
+        {
+          kind: 'figure',
+          alt: 'Grafik fungsi dengan lompatan di titik a. Dari kiri nilai menuju satu, dari kanan menuju tiga, sedangkan nilai fungsi di titik a sama dengan dua.',
+          caption: 'Nilai fungsi berpindah di $x=a$. Limit kiri $1$ dan limit kanan $3$ berbeda, sehingga $\\lim_{x \\to a} f(x)$ tidak ada, walaupun $f(a)=2$ terdefinisi. Ini menegaskan limit bergantung pada perilaku di sekitar $a$, bukan pada nilai di $a$.',
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><defs><marker id="fig-limit-fungsi-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-limit-fungsi-arrow)"/><line x1="60" y1="185" x2="60" y2="25" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-limit-fungsi-arrow)"/><line x1="200" y1="150" x2="200" y2="35" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><line x1="70" y1="105" x2="193" y2="105" stroke="currentColor" stroke-width="2.4"/><line x1="207" y1="75" x2="285" y2="75" stroke="currentColor" stroke-width="2.4"/><circle cx="193" cy="105" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="207" cy="75" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="200" cy="90" r="4" fill="currentColor"/><text x="292" y="166" font-size="12" fill="currentColor">x</text><text x="42" y="34" font-size="12" fill="currentColor">y</text><text x="52" y="166" font-size="11" fill="currentColor">0</text><text x="196" y="166" font-size="11" fill="currentColor">a</text><text x="78" y="98" font-size="11" fill="currentColor">limit kiri = 1</text><text x="212" y="66" font-size="11" fill="currentColor">limit kanan = 3</text><text x="212" y="105" font-size="11" fill="currentColor">f(a) = 2</text></svg>',
+        },
       ],
     },
     {
@@ -304,9 +310,17 @@ $$\\lim_{x \\to \\infty} \\frac{2x^{3}-x}{x^{2}+5} = \\infty.$$`,
 *Penyelesaian.* Di sini derajat pembilang $1$ lebih kecil daripada derajat penyebut $2$. Bagi pembilang dan penyebut dengan $x^{2}$:
 $$\\frac{\\frac{3}{x} + \\frac{1}{x^{2}}}{1 - \\frac{4}{x^{2}}}.$$
 Karena $\\dfrac{3}{x} \\to 0$ dan $\\dfrac{1}{x^{2}} \\to 0$ ketika $x \\to \\infty$, hasilnya
-$$\\lim_{x \\to \\infty} \\frac{3x+1}{x^{2}-4} = \\frac{0+0}{1-0} = 0.$$`,
+              $$\\lim_{x \\to \\infty} \\frac{3x+1}{x^{2}-4} = \\frac{0+0}{1-0} = 0.$$`,
             },
           ],
+        },
+        {
+          kind: 'details',
+          summary: 'Coba sendiri: pilih teknik limit yang tepat',
+          text: `Hitung dua limit berikut dan tentukan teknik yang paling efisien.
+**a.** $\\lim_{x \\to 5} \\dfrac{x^{2}-25}{x-5}$. **b.** $\\lim_{x \\to \\infty} \\dfrac{4x^{2}-x}{2x^{2}+3}$.
+
+*Penyelesaian.* Untuk (a), substitusi memberi $\\dfrac{0}{0}$, jadi faktorkan pembilangnya: $\\dfrac{(x-5)(x+5)}{x-5}=x+5$ untuk $x \\neq 5$, sehingga limitnya $5+5=10$. Untuk (b), ini bentuk $\\dfrac{\\infty}{\\infty}$ dengan derajat pembilang dan penyebut sama, yaitu $2$; bandingkan koefisien suku berpangkat tertinggi sehingga hasilnya $\\dfrac{4}{2}=2$.`,
         },
       ],
     },
@@ -375,7 +389,7 @@ Substitusi langsung $x=0$ memberi $\\dfrac{0}{0}$, jadi bentuk ini perlu diseder
         {
           kind: 'callout',
           variant: 'tip',
-          title: 'Petunjuk',
+          title: 'Ganti variabel untuk membuka selisih kubus',
           text: 'Misalkan $u=\\sqrt[3]{1+x}$, sehingga $u^{3}=1+x$ dan $x=u^{3}-1$. Perhatikan bahwa $x$ dapat difaktorkan sebagai $(u-1)\\left(u^{2}+u+1\\right)$.',
         },
         {
@@ -436,6 +450,7 @@ $$\\lim_{x\\to 0}\\frac{\\sqrt[3]{1+x}-1}{x}=\\frac{1}{1^{2}+1+1}=\\frac{1}{3}.$
       blocks: [
         {
           kind: 'table',
+          caption: 'Ringkasan konsep dan rumus limit sebagai rujukan cepat saat mengerjakan soal.',
           headers: ['Konsep', 'Bentuk / Rumus'],
           math: true,
           rows: [
@@ -450,6 +465,12 @@ $$\\lim_{x\\to 0}\\frac{\\sqrt[3]{1+x}-1}{x}=\\frac{1}{1^{2}+1+1}=\\frac{1}{3}.$
             ['Limit di tak hingga', '\\lim_{x \\to \\infty} \\dfrac{1}{x^{n}} = 0'],
             ['Menuju turunan', 'f\'(x) = \\lim_{h \\to 0} \\dfrac{f(x+h)-f(x)}{h}'],
           ],
+        },
+        {
+          kind: 'callout',
+          variant: 'concept',
+          title: 'Benang merah: satu gagasan mendekat, tiga cara menghitung',
+          text: 'Semua teknik di atas melayani satu gagasan, yaitu **nilai yang didekati** ketika $x$ menuju sebuah titik. Substitusi, pemfaktoran, dan akar sekawan hanyalah cara menghilangkan bentuk tak tentu agar nilai itu tampak. Gagasan yang sama menyusun definisi turunan $f\'(x)=\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$, sehingga limit di sini menjadi pintu masuk menuju **Turunan**, dan lewat luas di bawah kurva menuju **Integral**.',
         },
       ],
     },

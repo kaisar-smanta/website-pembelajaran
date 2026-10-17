@@ -360,4 +360,21 @@ export const transformasiFungsiQuestions: Question[] = [
     ],
     competencies: ['translasi grafik', 'membaca grafik'],
   },
+  {
+    id: 'tf-17',
+    topicId: 'transformasi-fungsi',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Diketahui $f(x) = 2x + 1$. Grafik $y = f(x)$ dicerminkan terhadap sumbu-$y$, lalu digeser ke kiri sejauh $3$ satuan. Tentukan nilai grafik hasil transformasi pada $x = 0$.',
+    answer: '-5',
+    explanation:
+      'Refleksi terhadap sumbu-$y$ mengganti $x$ dengan $-x$, sehingga $g(x) = f(-x) = 2(-x) + 1 = -2x + 1$. Menggeser grafik ke kiri $3$ satuan berarti mengganti $x$ dengan $x + 3$, sehingga $h(x) = g(x+3) = -2(x+3) + 1 = -2x - 6 + 1 = -2x - 5$. Jadi nilai pada $x = 0$ adalah $h(0) = -5$.',
+    hints: [
+      'Refleksi terhadap sumbu-$y$ mengubah $x$ menjadi $-x$ di dalam argumen fungsi.',
+      'Setelah refleksi, geser ke kiri $3$ satuan mengganti setiap $x$ dengan $x + 3$.',
+    ],
+    competencies: ['komposisi transformasi', 'refleksi', 'translasi horizontal'],
+  },
 ];

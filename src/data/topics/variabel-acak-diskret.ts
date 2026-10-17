@@ -133,6 +133,32 @@ Contoh:
           ],
         },
         {
+          kind: "match",
+          intro: "Pasangkan istilah distribusi diskret dengan maknanya.",
+          pairs: [
+            {
+              left: "Variabel acak diskret",
+              right: "Peubah yang nilainya tercacah, biasanya bilangan bulat",
+            },
+            {
+              left: "Fungsi peluang $f(x)$",
+              right: "Memberi peluang tiap nilai, dengan $\\sum f(x) = 1$",
+            },
+            {
+              left: "Nilai harapan $E(X)$",
+              right: "Rata-rata jangka panjang berbobot peluang",
+            },
+            {
+              left: "Varians",
+              right: "Ukuran sebaran nilai dari rata-ratanya",
+            },
+            {
+              left: "Simpangan baku $\\sigma$",
+              right: "Akar varians, bersatuan sama dengan $X$",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Diagram batang peluang banyak gambar pada pelemparan tiga koin untuk nilai 0, 1, 2, dan 3; batang untuk 1 dan 2 paling tinggi, dan garis putus-putus menandai nilai harapan 1,5.",
           caption: "Fungsi peluang $X$ = banyak gambar pada tiga koin; garis putus-putus menandai nilai harapan $E(X)=1{,}5$.",
@@ -158,7 +184,7 @@ Syarat kedua sering dipakai untuk mencari konstanta yang belum diketahui. Contoh
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Periksa kedua syarat fungsi peluang",
           text: "Periksa kedua syarat sekaligus. Sebuah tabel bisa saja semua nilainya antara $0$ dan $1$, tetapi jumlahnya belum tentu $1$.",
         },
       ],
@@ -186,6 +212,23 @@ Jumlah seluruh peluangnya $\\frac{1+2+3+4+5+6+5+4+3+2+1}{36} = \\frac{36}{36} = 
 Sekali lagi, jumlah peluangnya $\\frac{1+3+3+1}{8} = \\frac{8}{8} = 1$.`,
       blocks: [
         {
+          kind: "tabs",
+          items: [
+            {
+              label: "Tabel",
+              body: "Baris pertama nilai $x$, baris kedua peluang $f(x)=P(X=x)$. Jumlah baris peluang selalu $1$.",
+            },
+            {
+              label: "Rumus",
+              body: "Bila polanya teratur, distribusi cukup ditulis sebagai rumus, misalnya $f(x)=kx$ untuk $x=1,2,3,4$ dengan $k$ ditentukan dari $\\sum f(x)=1$.",
+            },
+            {
+              label: "Grafik",
+              body: "Diagram batang menampilkan tinggi $f(x)$; letak garis nilai harapan memberi gambaran pusat sebaran.",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Diagram batang distribusi peluang jumlah mata dua dadu untuk nilai 2 sampai 12; batang tertinggi di 7 dan sebarannya simetris.",
           caption: "Fungsi peluang jumlah dua dadu: $P(X=k)$ bernilai $\\frac{1}{36}, \\frac{2}{36}, \\ldots, \\frac{6}{36}$ lalu turun kembali, dengan puncak di $k=7$ dan total luas $1$.",
@@ -205,6 +248,14 @@ Nilai harapan menggambarkan **rata-rata hasil jangka panjang** jika percobaan di
 
 Untuk distribusi $f(x) = 0{,}1x$ dengan $x = 1, 2, 3, 4$:
 $$E(X) = 1(0{,}1) + 2(0{,}2) + 3(0{,}3) + 4(0{,}4) = 0{,}1 + 0{,}4 + 0{,}9 + 1{,}6 = 3.$$`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Diagram batang distribusi peluang f dari x sama dengan 0,1 kali x untuk nilai 1 sampai 4 dengan tinggi batang yang menaik, dan garis putus-putus menandai nilai harapan 3.",
+          caption: "Distribusi $f(x)=0{,}1x$ untuk $x=1,2,3,4$. Batangnya menaik dan tidak simetris, tetapi titik keseimbangannya tepat di nilai harapan $E(X)=3$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="190" x2="40" y2="45" stroke="currentColor" stroke-width="1.5"/><rect x="60" y="155" width="40" height="35" fill="currentColor" fill-opacity="0.28" stroke="currentColor" stroke-width="1.2"/><rect x="120" y="120" width="40" height="70" fill="currentColor" fill-opacity="0.28" stroke="currentColor" stroke-width="1.2"/><rect x="180" y="85" width="40" height="105" fill="currentColor" fill-opacity="0.28" stroke="currentColor" stroke-width="1.2"/><rect x="240" y="50" width="40" height="140" fill="currentColor" fill-opacity="0.28" stroke="currentColor" stroke-width="1.2"/><line x1="200" y1="190" x2="200" y2="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"/><text x="200" y="39" font-size="11" text-anchor="middle" fill="currentColor">E(X) = 3</text><text x="80" y="206" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="140" y="206" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="200" y="206" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="260" y="206" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="300" y="186" font-size="11" fill="currentColor">x</text><text x="14" y="110" font-size="11" fill="currentColor" transform="rotate(-90 14 110)" text-anchor="middle">P(X = x)</text></svg>',
+        },
+      ],
     },
     {
       id: "varians",
@@ -288,6 +339,15 @@ Untuk variansnya, hitung dahulu $E(X^{2}) = \\frac{0(1) + 1(3) + 4(3) + 9(1)}{8}
 $$\\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2} = 3 - (1{,}5)^{2} = 3 - 2{,}25 = 0{,}75, \\qquad \\sigma = \\sqrt{0{,}75} \\approx 0{,}87.$$`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: undian berhadiah dan nilai harapannya",
+          text: `Sebuah undian menjual $100$ tiket. Satu tiket berhadiah Rp50.000 dan empat tiket berhadiah Rp10.000. Misalkan $X$ adalah hadiah yang diterima pemegang satu tiket, dengan $X=0$ bila tidak menang. Tentukan distribusinya, lalu hitung $E(X)$.
+
+*Penyelesaian.* Peluangnya $P(X=50.000)=\\dfrac{1}{100}$, $P(X=10.000)=\\dfrac{4}{100}$, dan $P(X=0)=\\dfrac{95}{100}$. Jumlah peluangnya $\\dfrac{1+4+95}{100}=1$, jadi distribusinya sah. Nilai harapannya
+$$E(X) = 50.000\\left(\\dfrac{1}{100}\\right) + 10.000\\left(\\dfrac{4}{100}\\right) + 0\\left(\\dfrac{95}{100}\\right) = 500 + 400 = 900.$$
+Jadi rata-rata hadiah per tiket adalah Rp900. Bila harga tiket lebih dari Rp900, penyelenggara untung dalam jangka panjang.`,
         },
       ],
     },
@@ -407,6 +467,7 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan konsep, distribusi, dan ukuran pada variabel acak diskret",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -445,6 +506,12 @@ Ingat, nilai harapan hanyalah **perkiraan jangka panjang**. Pada hari tertentu, 
               "$\\sigma = \\sqrt{\\operatorname{Var}(X)}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: semua besaran adalah jumlah berbobot",
+          text: "Satu gagasan menyatukan seluruh topik ini: peluang bertindak sebagai bobot. Distribusi sah bila total bobot $1$, nilai harapan adalah titik keseimbangan $\\sum x\\,f(x)$, dan varians mengukur seberapa jauh bobot tersebar dari titik itu. Simpangan baku hanya mengembalikan ukuran sebaran ke satuan $X$ agar lebih mudah ditafsirkan.",
         },
       ],
     },

@@ -117,13 +117,19 @@ Pola ini berlanjut dan menghasilkan rumus umum:
 
 $$M_n = M_0(1+i)^n$$
 
-dengan $M_n$ saldo setelah $n$ periode. Barisan saldo $M_0, M_1, M_2, \\dots$ adalah **barisan geometri** dengan rasio $(1+i)$.`,
+dengan $M_n$ saldo setelah $n$ periode.`,
       blocks: [
         {
           kind: "callout",
           variant: "concept",
           title: "Hubungan dengan barisan geometri",
           text: "Rumus bunga majemuk identik dengan suku ke-$n$ barisan geometri: $U_n = a r^{n-1}$. Di sini $a = M_0(1+i)$ dan $r = (1+i)$.",
+        },
+        {
+          kind: "figure",
+          alt: "Diagram batang membandingkan saldo bunga tunggal dan bunga majemuk pada tahun ke-10, 15, dan 20; selisih keduanya melebar, terutama pada tahun ke-20.",
+          caption: "Dengan modal Rp5.000.000 dan bunga $8\\%$ per tahun, saldo bunga tunggal tumbuh linear (batang berongga) sedangkan saldo bunga majemuk berlipat (batang terisi). Selisih pada tahun ke-20, sekitar Rp10,3 juta, adalah bunga atas bunga yang tidak muncul pada bunga tunggal.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="bm-gap-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="200" x2="305" y2="200" stroke="currentColor" stroke-width="1.4"/><line x1="45" y1="200" x2="45" y2="20" stroke="currentColor" stroke-width="1.4"/><rect x="55" y="24" width="12" height="10" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="72" y="33" font-size="10" fill="currentColor">tunggal</text><rect x="132" y="24" width="12" height="10" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><text x="149" y="33" font-size="10" fill="currentColor">majemuk</text><rect x="83" y="137" width="18" height="63" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="105" y="124" width="18" height="76" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="163" y="123" width="18" height="77" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="185" y="89" width="18" height="111" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="243" y="109" width="18" height="91" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="265" y="37" width="18" height="163" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><line x1="298" y1="109" x2="298" y2="37" stroke="currentColor" stroke-width="1.2" marker-start="url(#bm-gap-arrow)" marker-end="url(#bm-gap-arrow)"/><text x="302" y="76" font-size="9" fill="currentColor">selisih</text><text x="97" y="216" font-size="11" fill="currentColor" text-anchor="middle">10</text><text x="177" y="216" font-size="11" fill="currentColor" text-anchor="middle">15</text><text x="257" y="216" font-size="11" fill="currentColor" text-anchor="middle">20</text><text x="8" y="26" font-size="11" fill="currentColor">saldo (juta)</text><text x="160" y="232" font-size="10" fill="currentColor" text-anchor="middle">tahun ke-</text></svg>',
         },
         {
           kind: "flip-cards",
@@ -234,6 +240,32 @@ Contoh: nominal $12\\%$ dihitung bulanan memberi $i_{\\text{efektif}} = (1{,}01)
           caption: "Kurva suku bunga efektif untuk nominal $12\\%$ per tahun: $i_{\\text{efektif}} = \\left(1+\\dfrac{0{,}12}{m}\\right)^{m}-1$. Nilai menanjak seiring frekuensi $m$, tetapi tambahannya makin kecil dan mendekati $12{,}75\\%$.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="50" y1="210" x2="300" y2="210" stroke="currentColor" stroke-width="1.2"/><line x1="50" y1="210" x2="50" y2="45" stroke="currentColor" stroke-width="1.2"/><line x1="55" y1="60" x2="300" y2="60" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 4"/><polyline points="74,190 93,128 113,106 132,95 170,83 285,72" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="74" cy="190" r="2.8" fill="currentColor"/><circle cx="93" cy="128" r="2.8" fill="currentColor"/><circle cx="113" cy="106" r="2.8" fill="currentColor"/><circle cx="132" cy="95" r="2.8" fill="currentColor"/><circle cx="170" cy="83" r="2.8" fill="currentColor"/><circle cx="285" cy="72" r="2.8" fill="currentColor"/><text x="292" y="226" font-size="12" fill="currentColor">m</text><text x="30" y="52" font-size="12" fill="currentColor">i</text><text x="198" y="53" font-size="11" fill="currentColor">batas 12,75%</text><text x="62" y="206" font-size="10" fill="currentColor">1</text><text x="270" y="206" font-size="10" fill="currentColor">12</text></svg>',
         },
+        {
+          kind: "match",
+          intro: "Pasangkan istilah berikut dengan maknanya, lalu perhatikan bedanya bunga nominal dan bunga efektif.",
+          pairs: [
+            {
+              left: "Bunga tunggal",
+              right: "Bunga yang selalu dihitung dari modal awal",
+            },
+            {
+              left: "Bunga majemuk",
+              right: "Bunga yang dihitung dari saldo terbaru",
+            },
+            {
+              left: "Suku bunga nominal",
+              right: "Bunga tahunan sebelum dibagi banyaknya frekuensi",
+            },
+            {
+              left: "Suku bunga efektif",
+              right: "Pertumbuhan nyata saldo selama satu tahun",
+            },
+            {
+              left: "Bunga atas bunga",
+              right: "Tambahan yang muncul karena bunga ikut menghasilkan bunga",
+            },
+          ],
+        },
       ],
     },
     {
@@ -330,6 +362,17 @@ Jadi saldonya sekitar **Rp4.779.324**.
 *Verifikasi.* Setiap kuartal saldo dikali $1{,}0225$; delapan kali pengalian setara dengan $(1{,}0225)^{8} \\approx 1{,}194831$. Cocok.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: modal Rp1.500.000 dengan bunga 10% per tahun",
+          text: `Modal Rp1.500.000 ditabung dengan bunga majemuk $10\\%$ per tahun selama $3$ tahun. Tentukan saldo akhir dan besar bunga atas bunga dibandingkan bunga tunggal.
+
+*Penyelesaian.* Dengan $M_0 = 1.500.000$, $i = 0{,}10$, dan $n = 3$:
+$$M_3 = 1.500.000(1{,}10)^3 = 1.500.000(1{,}331) = \\text{Rp}1.996.500.$$
+Bunga tunggal memberi $1.500.000(1 + 0{,}10 \\cdot 3) = \\text{Rp}1.950.000$, sehingga selisih Rp46.500 adalah bunga atas bunga.
+
+*Verifikasi.* Telusuri baris per tahun: $1.500.000 \\to 1.650.000 \\to 1.815.000 \\to 1.996.500$. Cocok dengan hasil pangkat.`,
         },
       ],
     },
@@ -446,6 +489,7 @@ Jadi saldonya sekitar **Rp4.779.324**.
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus bunga tunggal, bunga majemuk, dan suku bunga efektif. Gunakan tabel ini untuk memilih rumus sesuai besaran yang diketahui.",
           headers: [
             "Konsep",
             "Rumus",
@@ -472,6 +516,12 @@ Jadi saldonya sekitar **Rp4.779.324**.
               "$M_n = M_0(1 + i\\,n)$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: setiap periode mengalikan saldo dengan $(1+i)$",
+          text: "Karena saldo selalu dikali faktor tetap $(1+i)$, pertumbuhannya berlipat, bukan bertambah dengan jumlah tetap. Pola inilah yang dilanjutkan pada topik **Anuitas**, ketika faktor $(1+i)$ dipakai untuk mendiskontokan pembayaran tetap, bukan untuk menumbuhkan saldo.",
         },
       ],
     },

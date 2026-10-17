@@ -313,4 +313,32 @@ export const lingkaranQuestions: Question[] = [
     ],
     competencies: ['sudut keliling', 'jumlah sudut segitiga'],
   },
+  {
+    id: 'lk-16',
+    topicId: 'lingkaran',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Perhatikan gambar. $O$ adalah pusat lingkaran, $A$ dan $B$ terletak pada lingkaran, dan $C$ berada pada busur mayor $AB$. Diketahui besar sudut pusat $\\angle AOB=(3x-20)^\\circ$ dan besar sudut keliling $\\angle ACB=(x+15)^\\circ$ yang menghadap busur $AB$ yang sama. Besar $\\angle ACB$ adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 240" role="img" xmlns="http://www.w3.org/2000/svg"><circle cx="160" cy="120" r="80" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="160" y1="120" x2="90.7" y2="160" stroke="currentColor" stroke-width="1.6"/><line x1="160" y1="120" x2="235.2" y2="147.4" stroke="currentColor" stroke-width="1.6"/><line x1="90.7" y1="160" x2="160" y2="40" stroke="currentColor" stroke-width="1.6"/><line x1="235.2" y1="147.4" x2="160" y2="40" stroke="currentColor" stroke-width="1.6"/><circle cx="160" cy="120" r="2.5" fill="currentColor"/><circle cx="90.7" cy="160" r="2.5" fill="currentColor"/><circle cx="235.2" cy="147.4" r="2.5" fill="currentColor"/><circle cx="160" cy="40" r="2.5" fill="currentColor"/><text x="165" y="134" font-size="11" fill="currentColor">O</text><text x="78" y="172" font-size="11" fill="currentColor">A</text><text x="240" y="160" font-size="11" fill="currentColor">B</text><text x="156" y="32" font-size="11" fill="currentColor">C</text></svg>',
+      alt: 'Lingkaran berpusat O dengan titik A dan B pada lingkaran serta titik C pada busur mayor AB. Segmen OA, OB, AC, dan BC membentuk sudut pusat AOB dan sudut keliling ACB yang menghadap busur AB yang sama.',
+      caption: 'Sudut pusat $\\angle AOB$ dan sudut keliling $\\angle ACB$ menghadap busur $AB$ yang sama.',
+    },
+    options: [
+      { key: 'A', text: '$50^\\circ$' },
+      { key: 'B', text: '$65^\\circ$' },
+      { key: 'C', text: '$130^\\circ$' },
+      { key: 'D', text: '$32{,}5^\\circ$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Sudut pusat dan sudut keliling yang menghadap busur yang sama memenuhi $\\angle AOB=2\\angle ACB$. Maka $3x-20=2(x+15)$, yaitu $3x-20=2x+30$, sehingga $x=50$. Besar $\\angle ACB=x+15=65^\\circ$ (B). Opsi A ($50^\\circ$) adalah nilai $x$, bukan sudut yang diminta; opsi C ($130^\\circ$) adalah besar sudut pusat $\\angle AOB=3(50)-20$; opsi D ($32{,}5^\\circ$) muncul bila keliru membagi $65^\\circ$ dua kali, menganggap sudut keliling seperempat sudut pusat.',
+    hints: [
+      'Gunakan hubungan $\\angle AOB=2\\angle ACB$ untuk menyusun persamaan dalam $x$.',
+      'Setelah $x$ ditemukan, hitung $x+15$ untuk memperoleh besar $\\angle ACB$.',
+    ],
+    competencies: ['sudut pusat dan sudut keliling', 'penalaran aljabar'],
+  },
 ];

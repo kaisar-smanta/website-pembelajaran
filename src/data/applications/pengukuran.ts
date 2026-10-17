@@ -326,4 +326,137 @@ Cara ini menghemat langkah dibandingkan memeriksa satu per satu nilai $x$. Nilai
     source:
       'Skenario pengajaran yang dikonstruksi mengikuti desain taman berpagar di lahan yang berbatas dinding; panjang pagar dan harga dipilih agar kesamaan AM-GM mudah diterapkan, bukan proyek tertentu.',
   },
+  {
+    id: 'roda-gigi-sabuk',
+    title: 'Roda Gigi dan Sabuk Mesin',
+    category: 'pengukuran',
+    element: 'geometri',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    tags: ['lingkaran', 'busur', 'sudut pusat', 'garis singgung', 'sabuk mesin'],
+    summary:
+      'Menghitung panjang sabuk yang menghubungkan dua puli dengan busur, sudut pusat, dan segmen garis singgung.',
+    topicIds: ['lingkaran', 'trigonometri'],
+    body: `Dua puli pada sebuah mesin dihubungkan oleh sebuah sabuk. Puli besar berjari-jari $R = 20$ cm dan puli kecil berjari-jari $r = 5$ cm. Jarak antara kedua pusatnya $d = 30$ cm, dan sabuk membelit kedua puli secara terbuka (tidak menyilang).
+
+Bagian sabuk yang lurus menyinggung kedua lingkaran, sedangkan bagian yang melengkung menempel pada keliling masing-masing puli. Pertanyaan pemicunya: berapa panjang sabuk total yang dibutuhkan, dan berapa besar sudut kontak sabuk pada tiap puli? Karena garis singgung luar membentuk sudut yang sama terhadap garis pusat, seluruh perhitungan dapat diselesaikan lewat satu sudut bantu.`,
+    analysis: `**Menentukan sudut bantu.** Tarik garis singgung luar yang menyinggung kedua lingkaran. Sudut $\\theta$ antara garis pusat dan garis singgung memenuhi
+$$\\sin\\theta = \\frac{R - r}{d} = \\frac{20 - 5}{30} = \\frac{1}{2},$$
+sehingga $\\theta = 30^\\circ$. Panjang segmen garis singgung antara kedua titik singgung
+$$t = \\sqrt{d^{2} - (R - r)^{2}} = \\sqrt{30^{2} - 15^{2}} = \\sqrt{675} = 15\\sqrt{3} \\approx 25{,}98\\ \\text{cm}.$$
+Ada dua segmen lurus, jadi kontribusinya $2t = 30\\sqrt{3} \\approx 51{,}96$ cm.
+
+**Sudut kontak dan panjang busur.** Sabuk membelit puli besar dengan sudut pusat
+$$\\alpha_R = 180^\\circ + 2\\theta = 240^\\circ,$$
+dan puli kecil dengan
+$$\\alpha_r = 180^\\circ - 2\\theta = 120^\\circ.$$
+Panjang busur masing-masing
+$$s_R = \\frac{240}{360} \\times 2\\pi(20) = \\frac{2}{3}\\times 40\\pi = \\frac{80\\pi}{3} \\approx 83{,}78\\ \\text{cm},$$
+$$s_r = \\frac{120}{360} \\times 2\\pi(5) = \\frac{1}{3}\\times 10\\pi = \\frac{10\\pi}{3} \\approx 10{,}47\\ \\text{cm}.$$
+
+**Panjang sabuk total.**
+$$L = s_R + s_r + 2t = \\frac{80\\pi}{3} + \\frac{10\\pi}{3} + 30\\sqrt{3} = 30\\pi + 30\\sqrt{3} \\approx 94{,}25 + 51{,}96 = 146{,}21\\ \\text{cm}.$$
+Jadi dibutuhkan sabuk sekitar $1{,}46$ m. Sebagai pemeriksaan, kecepatan linier sabuk sama di kedua puli: jika puli besar berputar $45$ rpm, puli kecil berputar $\\frac{R}{r} \\times 45 = 4 \\times 45 = 180$ rpm. Sudut kontak yang lebih kecil pada puli mungil ($120^\\circ$) menjelaskan mengapa puli berjari-jari kecil lebih mudah selip. Roda gigi bekerja dengan prinsip serupa, tetapi gigi mengunci gerak sehingga tidak bergantung pada gesekan.`,
+    takeaways: [
+      'Garis singgung luar dua lingkaran menyinggung keduanya pada sudut yang sama terhadap garis pusat.',
+      'Sudut kontak puli besar bertambah $2\\theta$ sedangkan puli kecil berkurang $2\\theta$.',
+      'Panjang sabuk menggabungkan dua segmen lurus dan dua panjang busur.',
+    ],
+    reflection: [
+      'Apa yang berubah jika kedua puli berjari-jari sama?',
+      'Mengapa sabuk lebih mudah selip pada puli yang sudut kontaknya lebih kecil?',
+      'Bagaimana panjang sabuk berubah bila jarak pusat kedua puli diperbesar?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi mengikuti perhitungan panjang sabuk (belt) pada sistem dua puli; jari-jari dan jarak pusat dipilih agar sudut bantu dan panjang sabuk mudah diperiksa, bukan spesifikasi mesin tertentu.',
+  },
+  {
+    id: 'resultan-gaya-rangka',
+    title: 'Resultan Gaya pada Rangka Jembatan',
+    category: 'pengukuran',
+    subject: 'matematika-lanjut',
+    element: 'geometri',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 12,
+    tags: ['vektor', 'resultan gaya', 'komponen', 'keseimbangan', 'rangka'],
+    summary:
+      'Menguraikan gaya pada simpul rangka menjadi komponen, menghitung resultan, lalu memeriksa keseimbangan.',
+    topicIds: ['vektor', 'trigonometri-lanjut'],
+    body: `Tiga batang bertemu pada satu simpul rangka jembatan. Batang A menarik simpul ke arah timur dengan gaya $30$ kN, sedangkan batang B menariknya ke arah utara dengan gaya $40$ kN. Batang C adalah anggota diagonal yang harus menahan simpul agar tidak bergerak.
+
+Pertanyaan pemicunya: berapa besar dan arah resultan gaya batang A dan B, lalu berapa gaya yang harus diberikan batang C agar simpul dalam keadaan seimbang? Karena arah timur dan utara saling tegak lurus, komponen kedua gaya tidak bercampur sehingga perhitungannya menjadi sederhana.`,
+    analysis: `**Menguraikan komponen.** Tetapkan arah timur sebagai sumbu $x$ positif dan utara sebagai sumbu $y$ positif:
+$$\\vec{F}_A = (30,\\ 0)\\ \\text{kN}, \\qquad \\vec{F}_B = (0,\\ 40)\\ \\text{kN}.$$
+
+**Resultan A dan B.**
+$$\\vec{R} = \\vec{F}_A + \\vec{F}_B = (30,\\ 40)\\ \\text{kN},$$
+dengan besar
+$$\\lvert\\vec{R}\\rvert = \\sqrt{30^{2} + 40^{2}} = \\sqrt{2500} = 50\\ \\text{kN}.$$
+Arahnya membentuk sudut $\\phi$ terhadap arah timur dengan
+$$\\tan\\phi = \\frac{40}{30} = \\frac{4}{3} \\quad\\Rightarrow\\quad \\phi \\approx 53{,}13^\\circ.$$
+Jadi resultan kedua batang adalah $50$ kN pada arah $53{,}13^\\circ$ di atas sumbu timur.
+
+**Memeriksa keseimbangan.** Simpul seimbang bila jumlah seluruh gaya nol. Maka batang C harus memberikan gaya
+$$\\vec{F}_C = -\\vec{R} = (-30,\\ -40)\\ \\text{kN},$$
+yang besarnya juga $50$ kN tetapi berarah $180^\\circ + 53{,}13^\\circ = 233{,}13^\\circ$ (ke barat daya). Periksa kembali:
+$$\\vec{F}_A + \\vec{F}_B + \\vec{F}_C = (30 + 0 - 30,\\ 0 + 40 - 40) = (0,\\ 0).$$
+Karena jumlah komponen $x$ dan $y$ sama-sama nol, simpul memang seimbang. Kunci penyelesaiannya adalah menguraikan setiap gaya menjadi komponen tegak lurus, menjumlahkan per sumbu, lalu memakai teorema Pythagoras dan tangen untuk menentukan besar dan arah.`,
+    takeaways: [
+      'Gaya diuraikan menjadi komponen $x$ dan $y$ sebelum dijumlahkan.',
+      'Besar resultan dihitung dengan teorema Pythagoras, arahnya dengan tangen perbandingan komponen.',
+      'Simpul seimbang bila jumlah komponen gaya pada setiap sumbu sama dengan nol.',
+    ],
+    reflection: [
+      'Bagaimana resultan berubah jika sudut antara kedua batang bukan tegak lurus?',
+      'Mengapa batang diagonal C harus mampu menahan gaya yang lebih besar daripada batang A atau B?',
+      'Apa yang terjadi pada simpul jika batang C dipasang dengan arah yang salah?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi mengikuti analisis kesetimbangan gaya pada simpul rangka dengan metode komponen; besar gaya dipilih agar resultan membentuk segitiga 3-4-5, bukan data jembatan tertentu.',
+  },
+  {
+    id: 'ph-air-hujan',
+    title: 'pH Air Hujan dan Konsentrasi Ion',
+    category: 'pengukuran',
+    subject: 'matematika-lanjut',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 10,
+    tags: ['logaritma', 'pH', 'konsentrasi', 'air hujan', 'asam'],
+    summary:
+      'Memakai logaritma basis 10 untuk mengubah pH menjadi konsentrasi ion hidrogen dan sebaliknya.',
+    topicIds: ['fungsi-logaritma', 'persamaan-eksponen-logaritma'],
+    body: `Tingkat keasaman air hujan dinyatakan dengan **pH**, yaitu negatif logaritma basis 10 dari konsentrasi ion hidrogen:
+$$\\mathrm{pH} = -\\log_{10}[\\mathrm{H}^{+}].$$
+Air hujan yang bersih memiliki pH sekitar $5{,}6$ karena gas karbon dioksida di udara larut membentuk asam karbonat. Dua sampel air hujan dari lokasi berbeda diuji. Sampel P memiliki konsentrasi $[\\mathrm{H}^{+}] = 2{,}5 \\times 10^{-5}$ M, sedangkan sampel Q memiliki pH $4{,}2$.
+
+Pertanyaan pemicunya: berapa pH sampel P, berapa konsentrasi ion sampel Q, dan berapa kali sampel Q lebih asam daripada sampel P? Perlu dicatat bahwa pH adalah model standar kimia yang didefinisikan lewat rumus tersebut, bukan besaran yang diukur langsung di lokasi. Angkanya diperoleh dari pembacaan elektrode lalu dihitung ulang, dan nilai di sini dipilih agar perbandingan mudah diperiksa.`,
+    analysis: `**Menentukan pH sampel P.** Substitusikan konsentrasinya:
+$$\\mathrm{pH}_P = -\\log_{10}(2{,}5 \\times 10^{-5}) = 5 - \\log_{10} 2{,}5.$$
+Karena $\\log_{10} 2{,}5 \\approx 0{,}398$, maka
+$$\\mathrm{pH}_P \\approx 5 - 0{,}398 = 4{,}60.$$
+Sampel P tergolong hujan asam karena pH-nya di bawah $5{,}6$.
+
+**Menentukan konsentrasi sampel Q.**
+$$[\\mathrm{H}^{+}]_Q = 10^{-4{,}2} \\approx 6{,}31 \\times 10^{-5}\\ \\text{M}.$$
+
+**Membandingkan keasaman.** Karena pH adalah logaritma, selisih satu satuan pH berarti perbedaan konsentrasi sepuluh kali. Selisih pH kedua sampel
+$$4{,}60 - 4{,}20 = 0{,}40,$$
+sehingga sampel Q lebih asam $10^{0{,}40} \\approx 2{,}51$ kali daripada sampel P. Periksa lewat konsentrasi: $\\frac{6{,}31 \\times 10^{-5}}{2{,}5 \\times 10^{-5}} \\approx 2{,}52$, cocok dengan hasil sebelumnya. Dibandingkan air hujan bersih dengan pH $5{,}6$, sampel Q lebih asam $10^{5{,}6 - 4{,}2} = 10^{1{,}4} \\approx 25{,}1$ kali. Inilah sebabnya dua angka pH yang tampak berdekatan dapat menyembunyikan perbedaan konsentrasi yang besar.`,
+    takeaways: [
+      'pH didefinisikan sebagai negatif logaritma basis 10 konsentrasi ion hidrogen.',
+      'Konsentrasi dapat dihitung kembali dengan $[\\mathrm{H}^{+}] = 10^{-\\mathrm{pH}}$.',
+      'Selisih satu satuan pH berarti perbedaan konsentrasi sepuluh kali, bukan perbedaan satu langkah biasa.',
+    ],
+    reflection: [
+      'Mengapa selisih pH yang kecil bisa berarti perbedaan keasaman yang besar?',
+      'Jika pH sebuah sampel naik dari 4 ke 6, bagaimana konsentrasinya berubah?',
+      'Mengapa pH disebut model standar kimia dan bukan hasil pengukuran langsung?',
+    ],
+    source:
+      'Mengacu pada definisi pH sebagai negatif logaritma basis 10 konsentrasi ion hidrogen dan nilai pH air hujan bersih sekitar 5,6 akibat larutnya CO2; nilai sampel dipilih agar perbandingan mudah diperiksa, bukan hasil pengukuran satu peristiwa hujan tertentu. pH adalah model standar kimia, bukan besaran yang diukur langsung di lokasi.',
+  },
 ];

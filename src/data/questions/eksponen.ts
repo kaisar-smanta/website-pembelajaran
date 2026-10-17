@@ -324,4 +324,27 @@ export const eksponenQuestions: Question[] = [
     ],
     competencies: ['pemodelan peluruhan', 'kontekstual'],
   },
+  {
+    id: 'eks-16',
+    topicId: 'eksponen',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt: 'Diketahui $2^{p}=3$ dan $2^{q}=5$. Nilai dari $2^{2p+q}$ adalah …',
+    options: [
+      { key: 'A', text: '$11$' },
+      { key: 'B', text: '$30$' },
+      { key: 'C', text: '$45$' },
+      { key: 'D', text: '$225$' },
+    ],
+    answer: 'C',
+    explanation:
+      'Uraikan $2^{2p+q}=2^{2p}\\cdot2^{q}=(2^{p})^{2}\\cdot2^{q}$. Substitusi nilai yang diketahui: $3^{2}\\cdot5=9\\cdot5=45$ (opsi C). Opsi A ($11$) menjumlahkan $2\\cdot3+5$, padahal eksponen jumlah berarti perkalian pangkat. Opsi B ($30$) mengalikan $2p$ dengan $q$ menjadi $2\\cdot3\\cdot5$, bukan memangkatkan. Opsi D ($225$) mengkuadratkan kedua nilai, $(3\\cdot5)^{2}$, padahal hanya $2^{p}$ yang dipangkatkan dua.',
+    hints: [
+      'Pisahkan eksponen jumlah menjadi perkalian dua pangkat: $2^{2p+q}=2^{2p}\\cdot2^{q}$.',
+      'Gunakan $2^{2p}=(2^{p})^{2}$.',
+      'Setelah bentuknya terurai, substitusikan $2^{p}=3$ dan $2^{q}=5$.',
+    ],
+    competencies: ['sifat eksponen', 'penalaran'],
+  },
 ];

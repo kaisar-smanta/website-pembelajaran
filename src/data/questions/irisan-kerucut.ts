@@ -334,4 +334,50 @@ export const irisanKerucutQuestions: Question[] = [
     ],
     competencies: ['persamaan elips', 'representasi grafik'],
   },
+  {
+    id: 'ik-16',
+    topicId: 'irisan-kerucut',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Tabel berikut memuat empat titik puncak sebuah elips yang berpusat di titik asal. Persamaan elips tersebut beserta eksentrisitasnya adalah …',
+    table: {
+      caption: 'Titik puncak elips berpusat di titik asal.',
+      math: true,
+      headers: ['Titik', 'x', 'y'],
+      rows: [
+        ['A', '4', '0'],
+        ['B', '0', '3'],
+        ['C', '-4', '0'],
+        ['D', '0', '-3'],
+      ],
+    },
+    options: [
+      {
+        key: 'A',
+        text: '$\\dfrac{x^{2}}{16}+\\dfrac{y^{2}}{9}=1$ dan $e=\\dfrac{\\sqrt{7}}{4}$',
+      },
+      {
+        key: 'B',
+        text: '$\\dfrac{x^{2}}{9}+\\dfrac{y^{2}}{16}=1$ dan $e=\\dfrac{\\sqrt{7}}{4}$',
+      },
+      {
+        key: 'C',
+        text: '$\\dfrac{x^{2}}{16}+\\dfrac{y^{2}}{9}=1$ dan $e=\\dfrac{3}{4}$',
+      },
+      {
+        key: 'D',
+        text: '$\\dfrac{x^{2}}{16}+\\dfrac{y^{2}}{9}=1$ dan $e=\\sqrt{7}$',
+      },
+    ],
+    answer: 'A',
+    explanation:
+      'Dari tabel, titik puncak terjauh berada pada sumbu-$x$ di $(4,0)$ dan $(-4,0)$, sehingga sumbu mayor mendatar dengan $a=4$. Titik puncak pada sumbu-$y$ di $(0,3)$ dan $(0,-3)$ memberi $b=3$. Persamaannya $\\dfrac{x^{2}}{16}+\\dfrac{y^{2}}{9}=1$. Selanjutnya $c=\\sqrt{a^{2}-b^{2}}=\\sqrt{16-9}=\\sqrt{7}$ dan $e=\\dfrac{c}{a}=\\dfrac{\\sqrt{7}}{4}$ (A). Opsi B menukar penyebut sehingga sumbu mayor dianggap vertikal, padahal titik $(4,0)$ menunjukkan sumbu mayor mendatar; opsi C memakai $e=\\dfrac{b}{a}=\\dfrac{3}{4}$ alih-alih $\\dfrac{c}{a}$; opsi D lupa membagi $c$ dengan $a$ sehingga memakai $e=\\sqrt{7}$.',
+    hints: [
+      'Baca $a$ dari titik puncak terjauh pada sumbu-$x$ dan $b$ dari titik puncak pada sumbu-$y$.',
+      'Hitung $c=\\sqrt{a^{2}-b^{2}}$ lebih dahulu, lalu $e=\\dfrac{c}{a}$.',
+    ],
+    competencies: ['persamaan elips', 'eksentrisitas elips', 'representasi tabel'],
+  },
 ];

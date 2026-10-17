@@ -493,6 +493,28 @@ const BASE_JOBS = [
   { name: 'aplikasi-interaktif', path: '/aplikasi', width: 1440, height: 900, interact: true },
   { name: 'glosarium-interaktif', path: '/glosarium', width: 1440, height: 900, interact: true },
   { name: 'rumus-interaktif', path: '/rumus', width: 1440, height: 900, interact: true },
+  {
+    name: 'topik-fungsi-khusus',
+    path: '/matematika-lanjut/kelas/XI/aljabar-fungsi/fungsi-nilai-mutlak-piecewise',
+    width: 1440,
+    height: 900,
+  },
+  {
+    name: 'topik-fungsi-khusus-mobile',
+    path: '/matematika-lanjut/kelas/XI/aljabar-fungsi/fungsi-nilai-mutlak-piecewise',
+    width: 390,
+    height: 844,
+    dsf: 2,
+    mobile: true,
+  },
+  {
+    name: 'aplikasi-ongkos-kirim-mobile',
+    path: '/aplikasi/ongkos-kirim-bertingkat',
+    width: 390,
+    height: 844,
+    dsf: 2,
+    mobile: true,
+  },
 ];
 
 // Halaman rincian eksplorasi yang baru dibuat; diberi varian seluler juga.
@@ -502,6 +524,12 @@ const NEW_EXPLORATION_SLUGS = new Set([
   'mtl-aplikasi-turunan-garis-singgung',
   'mtl-integral-riemann',
   'mtl-variabel-acak-pmf',
+  'piecewise-nilai-mutlak',
+  'lingkaran-busur-juring',
+  'matriks-invers-determinan',
+  'logaritma-basis-grafik',
+  'sistem-tiga-kasus',
+  'normal-luas-selang',
 ]);
 
 // Setiap halaman rincian `/eksplorasi/<slug>` yang ada di dist diaudit secara

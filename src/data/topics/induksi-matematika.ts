@@ -129,6 +129,28 @@ Jika keduanya berhasil, maka $P(n)$ benar untuk setiap $n \\ge n_0$.`,
           ],
         },
         {
+          kind: 'match',
+          intro: 'Cocokkan setiap bagian pembuktian induksi dengan perannya.',
+          pairs: [
+            {
+              left: 'Basis',
+              right: 'Memeriksa bahwa $P(n_0)$ benar untuk memulai rantai.',
+            },
+            {
+              left: 'Hipotesis induksi',
+              right: 'Mengandaikan $P(k)$ benar untuk suatu $k \\ge n_0$.',
+            },
+            {
+              left: 'Langkah induksi',
+              right: 'Membuktikan $P(k+1)$ dengan memakai kebenaran $P(k)$.',
+            },
+            {
+              left: 'Kesimpulan',
+              right: '$P(n)$ benar untuk setiap $n \\ge n_0$.',
+            },
+          ],
+        },
+        {
           kind: 'figure',
           alt: 'Rantai lingkaran berlabel P(1), P(2), P(3), lalu P(k) dan P(k+1), dengan tanda panah menegaskan langkah dari P(k) ke P(k+1) serta penanda basis pada P(1).',
           caption: 'Langkah induksi menjembatani kebenaran $P(k)$ menuju $P(k+1)$; basis menyalakan rantai pada $P(1)$, sehingga seluruh rantai ikut jatuh.',
@@ -217,7 +239,15 @@ Samakan penyebut:
 
 $$=\\frac{k(k+1)}{2}+\\frac{2(k+1)}{2}=\\frac{(k+1)(k+2)}{2}=\\frac{(k+1)\\big((k+1)+1\\big)}{2}.$$
 
-Bentuk terakhir tepat $P(k+1)$. Karena basis dan langkah induksi benar, rumus terbukti untuk semua $n \\ge 1$.`,
+Bentuk terakhir tepat $P(k+1)$. Karena basis dan langkah induksi benar, rumus terbukti untuk semua $n \ge 1$.`,
+      blocks: [
+        {
+          kind: 'figure',
+          alt: 'Anak tangga satuan dengan empat kolom bertingkat satu, dua, tiga, dan empat persegi, membentuk segitiga berisi sepuluh persegi.',
+          caption: "Jumlah $1+2+3+4$ sebagai anak tangga satuan: banyak persegi sama dengan $10=\\dfrac{4\\cdot 5}{2}$. Pola inilah yang dibuktikan berlaku umum sebagai $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="60" y1="168" x2="188" y2="168" stroke="currentColor" stroke-width="1.4"/><rect x="70" y="142" width="26" height="26" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.3"/><rect x="96" y="116" width="26" height="52" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.3"/><rect x="122" y="90" width="26" height="78" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.3"/><rect x="148" y="64" width="26" height="104" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.3"/><text x="83" y="136" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="109" y="110" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="135" y="84" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="161" y="58" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="214" y="104" font-size="11" fill="currentColor">1 + 2 + 3 + 4</text><text x="214" y="122" font-size="11" fill="currentColor">= 10 = 4 \u00b7 5 / 2</text></svg>',
+        },
+      ],
     },
     {
       id: 'rumus',
@@ -238,7 +268,7 @@ $$1+r+r^2+\\cdots+r^{n-1}=\\frac{r^{n}-1}{r-1}.$$`,
         {
           kind: 'callout',
           variant: 'warning',
-          title: 'Hati-hati',
+          title: 'Rumus target, bukan alat bukti',
           text: 'Rumus-rumus ini adalah **target** pembuktian, bukan alat yang boleh dipakai sebelum terbukti. Saat membuktikan dengan induksi, gunakan hipotesis induksi, bukan rumus itu sendiri.',
         },
       ],
@@ -404,7 +434,7 @@ Buktikan ketaksamaan ini dengan induksi matematika.`,
         {
           kind: 'callout',
           variant: 'tip',
-          title: 'Petunjuk',
+          title: 'Jaga arah tanda saat mengalikan',
           text: 'Setelah menuliskan $(1+x)^{k+1}=(1+x)^k(1+x)$, manfaatkan bahwa $1+x \\ge 0$ sehingga tanda ketaksamaan tidak berubah saat kedua ruas dikalikan. Perhatikan suku $kx^2$ yang muncul dan selalu bernilai tak negatif.',
         },
         {
@@ -468,6 +498,7 @@ Buktikan ketaksamaan ini dengan induksi matematika.`,
       blocks: [
         {
           kind: 'table',
+          caption: 'Kerangka pembuktian induksi dari basis sampai kesimpulan',
           headers: ['Langkah', 'Isi', 'Tujuan'],
           rows: [
             ['Basis', 'Periksa $P(n_0)$', 'Memulai rantai'],

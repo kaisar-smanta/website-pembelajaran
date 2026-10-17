@@ -315,4 +315,22 @@ export const spltvQuestions: Question[] = [
     ],
     competencies: ['pemodelan SPLTV', 'kontekstual'],
   },
+  {
+    id: 'sp-16',
+    topicId: 'spltv',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'pemodelan',
+    prompt:
+      'Rata-rata tiga bilangan adalah $12$. Bilangan kedua sama dengan rata-rata bilangan pertama dan ketiga, sedangkan bilangan ketiga $5$ lebihnya dari bilangan pertama. Tentukan bilangan ketiga.',
+    answer: '14,5',
+    acceptedAnswers: ['14,5', '14.5', '29/2', '14,50', '14.50'],
+    explanation:
+      'Misal bilangan pertama $a$, kedua $b$, dan ketiga $c$. Dari rata-rata, $a+b+c=36$. Dari hubungan, $b=\\dfrac{a+c}{2}$ dan $c=a+5$. Substitusi $c=a+5$ memberi $b=\\dfrac{a+a+5}{2}=a+2{,}5$. Maka $a+(a+2{,}5)+(a+5)=36$, sehingga $3a+7{,}5=36$, $3a=28{,}5$, dan $a=9{,}5$. Jadi $c=a+5=14{,}5$. Periksa: $9{,}5+12+14{,}5=36$ dan $12=\\dfrac{9{,}5+14{,}5}{2}$.',
+    hints: [
+      'Ubah rata-rata menjadi jumlah ketiga bilangan, yaitu $36$.',
+      'Nyatakan semua bilangan dalam satu variabel memakai $c=a+5$ dan $b=\\dfrac{a+c}{2}$.',
+    ],
+    competencies: ['pemodelan SPLTV', 'substitusi'],
+  },
 ];

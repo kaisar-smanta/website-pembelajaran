@@ -194,6 +194,28 @@ $$\\sin\\alpha=\\frac{3}{5},\\qquad \\cos\\alpha=\\frac{4}{5},\\qquad \\tan\\alp
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Latih istilah perbandingan trigonometri berikut.",
+          cards: [
+            {
+              front: "Sinus",
+              back: "Perbandingan sisi depan dengan sisi miring: $\\sin\\alpha=\\dfrac{\\text{depan}}{\\text{miring}}$",
+            },
+            {
+              front: "Kosinus",
+              back: "Perbandingan sisi samping dengan sisi miring: $\\cos\\alpha=\\dfrac{\\text{samping}}{\\text{miring}}$",
+            },
+            {
+              front: "Tangen",
+              back: "Perbandingan sisi depan dengan sisi samping: $\\tan\\alpha=\\dfrac{\\text{depan}}{\\text{samping}}$",
+            },
+            {
+              front: "Sudut berpenyiku",
+              back: "Karena $\\alpha+\\beta=90^\\circ$, berlaku $\\sin\\alpha=\\cos\\beta$ dan $\\cos\\alpha=\\sin\\beta$",
+            },
+          ],
+        },
       ],
     },
     {
@@ -288,7 +310,7 @@ Hasil ini konsisten dengan segitiga $3$-$4$-$5$.`,
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Pasangan sudut dan sisi",
           text: "Sudut dan sisi harus **berpasangan dengan benar**: sisi $a$ selalu berhadapan dengan sudut $A$. Menukar pasangan ini adalah penyebab kesalahan paling umum.",
         },
       ],
@@ -354,6 +376,11 @@ Dengan aturan sinus, $\\dfrac{b}{\\sin B}=\\dfrac{a}{\\sin A}$, sehingga
 $$b=a\\cdot\\frac{\\sin B}{\\sin A}=10\\cdot\\frac{\\frac{1}{2}}{\\frac{\\sqrt{2}}{2}}=\\frac{10}{\\sqrt{2}}=5\\sqrt{2}\\approx 7{,}07.$$`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: tinggi tiang dengan sudut elevasi",
+          text: `Sebuah tiang bendera berjarak $24$ m dari pengamat, dan sudut elevasi ke puncaknya $35^\\circ$. Tentukan dahulu sisi yang diketahui dan sisi yang dicari, pilih perbandingan trigonometri yang tepat, lalu hitung tinggi tiang. Periksa jawabanmu mendekati $16{,}8$ m, kemudian kerjakan satu soal pada bagian latihan sebagai langkah mandiri.`,
         },
       ],
     },
@@ -506,6 +533,7 @@ Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus inti trigonometri: setiap baris mengubah satu sudut atau hubungan sisi-sudut menjadi panjang sisi lain.",
           headers: [
             "Konsep",
             "Bentuk",
@@ -536,6 +564,12 @@ Di India, Aryabhata (sekitar 500 M) memakai **setengah tali busur** (*ardha-jya*
               "$a^{2}=b^{2}+c^{2}-2bc\\cos A$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: dari sudut ke panjang sisi",
+          text: "Satu sudut bersama satu panjang sudah menentukan seluruh ukuran segitiga. Perbandingan dasar bekerja pada segitiga siku-siku; ketika sudutnya sebarang, aturan sinus dan kosinus mengambil alih, dan teorema Pythagoras menjadi kasus khusus dari aturan kosinus. Gagasan yang sama melandasi perbandingan pada lingkaran dan fenomena periodik di topik berikutnya.",
         },
       ],
     },

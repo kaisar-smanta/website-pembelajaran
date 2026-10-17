@@ -304,4 +304,22 @@ export const trigonometriQuestions: Question[] = [
     ],
     competencies: ['aturan kosinus', 'kontekstual'],
   },
+  {
+    id: 'tr-16',
+    topicId: 'trigonometri',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Diketahui $\\sin\\beta = \\dfrac{8}{17}$ dan $\\beta$ adalah sudut tumpul. Tentukan nilai $\\tan\\beta$.',
+    answer: '-8/15',
+    acceptedAnswers: ['-8/15', '-\\dfrac{8}{15}', '-8 / 15'],
+    explanation:
+      'Karena $\\beta$ tumpul ($90^\\circ < \\beta < 180^\\circ$), maka $\\cos\\beta < 0$. Dengan identitas Pythagoras, $\\cos\\beta = -\\sqrt{1 - \\left(\\dfrac{8}{17}\\right)^{2}} = -\\sqrt{\\dfrac{225}{289}} = -\\dfrac{15}{17}$. Jadi $\\tan\\beta = \\dfrac{\\sin\\beta}{\\cos\\beta} = \\dfrac{8/17}{-15/17} = -\\dfrac{8}{15}$.',
+    hints: [
+      'Karena $\\beta$ tumpul, kosinusnya negatif; tentukan $\\cos\\beta$ dari identitas Pythagoras.',
+      'Setelah $\\sin\\beta$ dan $\\cos\\beta$ diketahui, gunakan $\\tan\\beta = \\dfrac{\\sin\\beta}{\\cos\\beta}$.',
+    ],
+    competencies: ['perbandingan trigonometri', 'identitas trigonometri', 'kuadran sudut'],
+  },
 ];

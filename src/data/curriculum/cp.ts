@@ -311,7 +311,7 @@ export const cpStatements: CpStatement[] = [
     element: 'aljabar-fungsi',
     grades: ['XI', 'XII'],
     text: 'Mengenal berbagai fungsi (termasuk fungsi rasional, fungsi akar, fungsi eksponensial, fungsi logaritma, fungsi nilai mutlak, fungsi tangga, dan fungsi piecewise) dan menggunakannya untuk memodelkan berbagai fenomena.',
-    topicIds: ['fungsi-rasional-akar', 'fungsi-logaritma'],
+    topicIds: ['fungsi-rasional-akar', 'fungsi-logaritma', 'fungsi-nilai-mutlak-piecewise'],
   },
   {
     id: 'FL-GEO-1',

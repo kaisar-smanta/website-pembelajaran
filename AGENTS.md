@@ -63,8 +63,11 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   punya >=1 cek cepat dan `evaluasi` yang menilai (ditegakkan `tests/section-question-refs.mjs`).
 - **Fase alur belajar** dipetakan `sectionPhase`/`phaseLabels` (`src/lib/content-text.ts`) dan
   ditampilkan sebagai penanda fase pada halaman topik (Pembuka, Inti, Latihan, Penutup).
-- **Blok `geogebra` sudah dihapus.** Sematan GeoGebra hanya lewat tipe eksplorasi `geogebra`
-  (`url` wajib menunjuk applet spesifik, bukan beranda generik).
+- **Blok dan tipe eksplorasi `geogebra` sudah dihapus.** Seluruh simulasi berupa komponen
+  native di `src/components/interactive/`; tidak ada sematan applet eksternal. Tipe
+  `piecewise` (topik `fungsi-nilai-mutlak-piecewise`) adalah simulasi native terbaru;
+  setiap tipe baru wajib punya komponen, logika murni di `src/lib/sim/`, dan uji
+  `tests/sim-<tipe>.mjs`.
 - **Jawaban singkat** dinilai `src/lib/answer.ts` (normalisasi penulisan + ekuivalensi numerik:
   nol di belakang koma, pecahan ↔ desimal, derajat, mata uang). Untuk `short-answer`, jawaban
   selain bilangan bulat telanjang wajib punya `acceptedAnswers` (ditegakkan `tests/questions.mjs`).
@@ -103,10 +106,11 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
   (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`,
   `tests/sejarah-quality.mjs`, `tests/tantangan-quality.mjs`, `tests/mahir-quality.mjs`),
+  kedalaman materi (`tests/content-depth.mjs`) dan bank soal (`tests/question-depth.mjs`),
   integritas konten (`tests/content-integrity.mjs`: rujukan topik↔studi kasus, id/slug unik,
   bagian tak kosong, kunci pilihan ganda sehat), teks indeks pencarian
   (`tests/content-text.mjs`), tata letak graf prasyarat, dan setiap simulasi
-  (`tests/sim-*.mjs`, termasuk limit & binomial).
+  (`tests/sim-*.mjs`, termasuk limit, binomial, dan piecewise).
 - Simulasi disiapkan lazy lewat `initWhenVisible` (`src/lib/dom.ts`).
 - **Pustaka bersama (jangan duplikasi):** kunci `localStorage` di `src/lib/storage-keys.ts`;
   keacakan deterministik (`seededShuffle`, `combineSeed`) di `src/lib/random.ts`; pembantu
@@ -118,7 +122,12 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   pengulangan `match`/`flip-cards` (`tests/content-blocks.mjs`).
 - **Keragaman konten**: `tests/content-variety.mjs` menolak judul eksplorasi/studi kasus
   ganda, prompt soal duplikat lintas berkas, topik tanpa `figure`, serta pembuka
-  `prasyarat`/label keyakinan refleksi yang generik dan berulang.
+  `prasyarat`/label keyakinan refleksi yang generik dan berulang. Capaian kedalaman
+  ditegakkan `tests/content-depth.mjs`: setiap topik punya >=3 gambar, satu `tabs`, satu
+  `spot-mistake`, satu blok pengulangan, dua contoh bertahap, dan `rangkuman` berisi >=2
+  blok; label callout stok dan frasa prosa dibatasi. Bank soal dijaga
+  `tests/question-depth.mjs`: setiap topik punya >=1 `mahir` berpenilaian otomatis,
+  proporsi `mahir` otomatis >=20 persen, serta soal bergambar/tabel memadai.
 - Halaman `/latihan` dan `/peta-pembelajaran` mendukung saringan URL (`?q=`, dll.)
   lewat `setupFilterPage` (`syncUrl`); sesi "latihan kilat" memakai `seededShuffle`
   (per topik maupun campuran lintas topik di `/latihan/kilat`).

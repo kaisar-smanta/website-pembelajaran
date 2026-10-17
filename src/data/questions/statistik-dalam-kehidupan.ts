@@ -366,4 +366,27 @@ export const statistikDalamKehidupanQuestions: Question[] = [
     ],
     competencies: ['membaca diagram kotak-garis', 'IQR', 'kontekstual'],
   },
+  {
+    id: 'sdk-18',
+    topicId: 'statistik-dalam-kehidupan',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Lama belajar harian (jam) sepuluh siswa adalah $1, 1, 2, 2, 2, 3, 3, 4, 5, 7$. Karena kekeliruan pencatatan, data $7$ dikoreksi menjadi $4$. Pernyataan yang benar tentang mean dan median sebelum dan sesudah koreksi adalah …',
+    options: [
+      { key: 'A', text: 'Mean turun $0{,}3$ dan median tetap $2{,}5$.' },
+      { key: 'B', text: 'Mean turun $0{,}3$ dan median turun menjadi $2$.' },
+      { key: 'C', text: 'Mean tetap $3$ dan median tetap $2{,}5$.' },
+      { key: 'D', text: 'Mean naik $0{,}3$ dan median tetap $2{,}5$.' },
+    ],
+    answer: 'A',
+    explanation:
+      'Jumlah data semula $30$ dengan $n=10$, sehingga mean $=3$. Setelah $7$ diganti $4$, jumlahnya menjadi $27$ dan mean $=2{,}7$, yaitu turun $0{,}3$. Urutan semula $1,1,2,2,2,3,3,4,5,7$ memiliki dua nilai tengah $2$ dan $3$, jadi median $2{,}5$; setelah koreksi urutannya $1,1,2,2,2,3,3,4,4,5$ yang tetap berpusat pada $2$ dan $3$, sehingga median tidak berubah. Jadi opsi A. Opsi B salah karena median tidak bergeser. Opsi C salah karena mean jelas berubah ketika satu data diubah. Opsi D salah arah, sebab mengganti nilai besar dengan nilai lebih kecil menurunkan mean, bukan menaikkannya.',
+    hints: [
+      'Ubah data menjadi jumlah total untuk menghitung mean sebelum dan sesudah koreksi.',
+      'Median ditentukan dua nilai tengah setelah data diurutkan, bukan oleh besar perubahan satu data.',
+    ],
+    competencies: ['mean', 'median', 'penalaran'],
+  },
 ];

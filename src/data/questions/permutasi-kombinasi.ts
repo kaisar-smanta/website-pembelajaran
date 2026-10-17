@@ -314,4 +314,22 @@ export const permutasiKombinasiQuestions: Question[] = [
     ],
     competencies: ['permutasi unsur sama', 'evaluasi penalaran'],
   },
+  {
+    id: 'perkom-17',
+    topicId: 'permutasi-kombinasi',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Sebuah komite beranggotakan $4$ orang akan dipilih dari $6$ pria dan $4$ wanita, dengan syarat paling sedikit $2$ wanita. Berapa banyak komite yang mungkin?',
+    answer: '115',
+    acceptedAnswers: ['115', '115 komite'],
+    explanation:
+      'Hitung menurut banyak wanita yang terpilih. Tepat $2$ wanita: $\\binom{4}{2}\\binom{6}{2}=6\\cdot15=90$. Tepat $3$ wanita: $\\binom{4}{3}\\binom{6}{1}=4\\cdot6=24$. Tepat $4$ wanita: $\\binom{4}{4}\\binom{6}{0}=1\\cdot1=1$. Jumlahnya $90+24+1=115$. Cara komplemen memberi hasil sama: $\\binom{10}{4}-\\binom{6}{4}-\\binom{4}{1}\\binom{6}{3}=210-15-80=115$.',
+    hints: [
+      'Karena urutan tidak penting, gunakan kombinasi dan pisahkan menurut banyak wanita yang terpilih.',
+      'Atau pakai komplemen: kurangi total komite dengan komite yang memuat $0$ atau $1$ wanita.',
+    ],
+    competencies: ['kombinasi', 'aturan perkalian', 'strategi komplemen'],
+  },
 ];

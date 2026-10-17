@@ -129,6 +129,36 @@ Untuk data lama belajar dan nilai ujian, $x$ adalah lama belajar (jam) dan $y$ a
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Hafalkan istilah dasar data bivariat.",
+          cards: [
+            {
+              front: "Data bivariat",
+              back: "Pasangan $(x,y)$ dari dua variabel kuantitatif untuk objek yang sama",
+            },
+            {
+              front: "Variabel bebas",
+              back: "Variabel penjelas $x$ yang diatur atau diduga sebagai penyebab",
+            },
+            {
+              front: "Variabel terikat",
+              back: "Variabel respons $y$ yang diukur sebagai akibat",
+            },
+            {
+              front: "Diagram pencar",
+              back: "Setiap pasangan $(x,y)$ digambar sebagai satu titik pada bidang koordinat",
+            },
+            {
+              front: "Korelasi $r$",
+              back: "Bilangan pada rentang $-1$ sampai $1$ yang merangkum arah dan kekuatan hubungan linear",
+            },
+            {
+              front: "Ekstrapolasi",
+              back: "Perkiraan di luar rentang data, berisiko karena pola bisa berubah",
+            },
+          ],
+        },
       ],
     },
     {
@@ -330,9 +360,23 @@ Tanda $r$ menyatakan arah: $r>0$ berarti hubungan positif, sedangkan $r<0$ berar
 
 *Penyelesaian.* Dengan $n=5$ diperoleh $\\sum x_i = 15$, $\\sum y_i = 25$, $\\sum x_i y_i = 84$, $\\sum x_i^2 = 55$, dan $\\sum y_i^2 = 135$. Substitusi ke rumus $r$:
 $$r = \\frac{5(84) - (15)(25)}{\\sqrt{\\left[5(55) - 15^2\\right]\\left[5(135) - 25^2\\right]}} = \\frac{420 - 375}{\\sqrt{(275-225)(675-625)}} = \\frac{45}{\\sqrt{50 \\cdot 50}} = \\frac{45}{50} = 0{,}9.$$
-Jadi $r = 0{,}9$, yaitu hubungan linear positif yang kuat. Karena $r^2 = 0{,}81$, sekitar $81\\%$ variasi nilai $y$ berkaitan dengan variabel $x$.`,
+Jadi $r = 0{,}9$, yaitu hubungan linear positif yang kuat. Karena $r^2 = 0{,}81$, sekitar $81\%$ variasi nilai $y$ berkaitan dengan variabel $x$.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: menghitung korelasi dari tabel",
+          text: `Diberikan empat pasangan data $(1,2)$, $(2,4)$, $(3,5)$, $(4,8)$. Hitung koefisien korelasinya, lalu tentukan arah dan kekuatannya.
+
+*Langkah 1.* Dengan $n=4$ diperoleh $\\sum x_i=10$, $\\sum y_i=19$, $\\sum x_i y_i=57$, $\\sum x_i^2=30$, dan $\\sum y_i^2=109$.
+
+*Langkah 2.* Substitusi ke rumus $r$:
+$$r = \\frac{4(57) - (10)(19)}{\\sqrt{\\left[4(30) - 10^2\\right]\\left[4(109) - 19^2\\right]}} = \\frac{228 - 190}{\\sqrt{(120-100)(436-361)}} = \\frac{38}{\\sqrt{20 \\cdot 75}} = \\frac{38}{\\sqrt{1500}} \\approx 0{,}98.$$
+
+*Langkah 3.* Karena $r \\approx 0{,}98$ bertanda positif dan dekat dengan $1$, hubungannya linear positif yang kuat.
+
+*Langkah 4.* Periksa bahwa $r$ tetap hanya mengukur hubungan **linear**. Dengan empat titik saja, satu titik menyimpang dapat mengubah nilai $r$ secara drastis, jadi selalu periksa diagram pencarnya, bukan hanya angka $r$.`,
         },
       ],
     },
@@ -461,6 +505,7 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan konsep data bivariat dan tafsirannya",
           headers: [
             "Konsep",
             "Penjelasan",
@@ -495,6 +540,12 @@ Diagram pencar menjadi jembatan menuju **regresi**, yaitu membuat garis atau kur
               "Korelasi $\\neq$ sebab-akibat",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: lihat sebaran sebelum percaya angka",
+          text: "Satu gagasan menyatukan seluruh topik ini: sebelum menghitung apa pun, gambar dahulu titik-titiknya. Arah, kekuatan, bentuk lengkung, dan pencilan semuanya terbaca dari diagram pencar, sedangkan koefisien $r$ hanya meringkas bagian linearnya. Peringatan bahwa korelasi kuat belum tentu sebab-akibat menjadi pintu masuk ke dua topik berikutnya: **Regresi Linear** memakai garis tren untuk memodelkan, sedangkan **Asosiasi dan Kausalitas** memeriksa apakah hubungan itu benar-benar sebab-akibat.",
         },
       ],
     },

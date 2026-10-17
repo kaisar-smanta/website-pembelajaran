@@ -233,7 +233,7 @@ Karena $AB \\neq BA$, perkalian matriks **tidak komutatif**. Perhatikan juga bah
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Ordo harus sepadan",
           text: "Penjumlahan matriks menuntut ordo yang sama. Matriks $2 \\times 3$ tidak dapat dijumlahkan dengan matriks $3 \\times 2$.",
         },
         {
@@ -265,6 +265,25 @@ Tanda bergantian $+$, $-$, $+$. Kita juga boleh mengekspansi kolom mana pun sela
 Untuk $B = \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 5 & 6 & 0 \\end{pmatrix}$, ekspansi baris pertama memberi
 $$\\det(B) = 1(1 \\cdot 0 - 4 \\cdot 6) - 2(0 \\cdot 0 - 4 \\cdot 5) + 3(0 \\cdot 6 - 1 \\cdot 5)$$
 $$= 1(-24) - 2(-20) + 3(-5) = -24 + 40 - 15 = 1.$$`,
+      blocks: [
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: "Untuk $2\\times2$: $\\det(A)=ad-bc$. Untuk $3\\times3$: $\\det(A)=a(ei-fh)-b(di-fg)+c(dh-eg)$.",
+            },
+            {
+              label: "Tabel",
+              body: "Susun entri menurut baris dan kolom. Tanda ekspansi mengikuti pola $+,-,+$, sehingga minor tiap entri tidak tertukar.",
+            },
+            {
+              label: "Prosedur",
+              body: "Pilih baris atau kolom dengan nol terbanyak, hitung minor tiap entri, kalikan dengan tanda $(-1)^{i+j}$, lalu jumlahkan hasilnya.",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "invers",
@@ -296,7 +315,7 @@ Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Periksa determinan lebih dahulu",
           text: "Matriks singular (determinan nol) tidak punya invers. Selalu periksa $\\det(A) \\neq 0$ sebelum menghitung $A^{-1}$.",
         },
         {
@@ -320,6 +339,18 @@ Jadi $x=1$ dan $y=2$. Periksa: $2(1)+3(2)=8$ dan $1+2(2)=5$. Benar.`,
       ],
     },
     {
+      id: "eksplorasi-invers-determinan",
+      kind: "eksplorasi",
+      title: "Eksplorasi Determinan dan Invers",
+      body: `Setelah melihat bagaimana operasi mengubah susunan matriks, sekarang fokus pada satu bilangan yang menentukan banyak hal. Ubah unsur matriks dan amati nilai determinannya. Ketika determinan mencapai nol, rumus invers kehilangan arti karena pembaginya nol. Catat kapan invers masih ada dan mengapa keberadaannya bergantung pada determinan.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "matriks-invers-determinan",
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Determinan sebagai Penentu",
@@ -330,6 +361,14 @@ Nilai nol atau tidaknya determinan memisahkan dua kemungkinan. Jika $\\det(A) \\
 $$A^{-1} = \\frac{1}{\\det(A)}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix},$$
 
 dan sistem $A\\mathbf{x} = \\mathbf{b}$ memiliki penyelesaian tunggal $\\mathbf{x} = A^{-1}\\mathbf{b}$. Jika $\\det(A) = 0$, matriks singular, invers tidak ada, dan sistem tidak memiliki penyelesaian tunggal. Memeriksa determinan lebih dahulu menghemat langkah sekaligus menghindari pembagian oleh nol.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Persegi satuan dengan garis putus-putus dipetakan oleh matriks menjadi jajar genjang dengan titik sudut (0,0), (3,1), (4,3), dan (1,2). Luas jajar genjang itu lima satuan, sama dengan nilai mutlak determinan matriks.",
+          caption: "Matriks $A=\\begin{pmatrix}3&1\\\\1&2\\end{pmatrix}$ memetakan persegi satuan (garis putus-putus) ke jajar genjang beralas vektor $(3,1)$ dan $(1,2)$. Luasnya $|\\det A|=|6-1|=5$, sehingga determinan mengukur faktor skala luas.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="25" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.3"/><line x1="55" y1="210" x2="55" y2="18" stroke="currentColor" stroke-width="1.3"/><polygon points="55,190 93,190 93,152 55,152" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/><polygon points="55,190 169,152 207,76 93,114" fill="currentColor" opacity="0.16"/><polygon points="55,190 169,152 207,76 93,114" fill="none" stroke="currentColor" stroke-width="2"/><line x1="55" y1="190" x2="169" y2="152" stroke="currentColor" stroke-width="1.6"/><line x1="55" y1="190" x2="93" y2="114" stroke="currentColor" stroke-width="1.6"/><circle cx="169" cy="152" r="2.8" fill="currentColor"/><circle cx="93" cy="114" r="2.8" fill="currentColor"/><circle cx="207" cy="76" r="2.8" fill="currentColor"/><text x="174" y="148" font-size="10" fill="currentColor">(3,1)</text><text x="66" y="110" font-size="10" fill="currentColor">(1,2)</text><text x="212" y="72" font-size="10" fill="currentColor">(4,3)</text><text x="72" y="184" font-size="10" fill="currentColor">1</text><text x="98" y="146" font-size="10" fill="currentColor">satuan</text><text x="150" y="224" font-size="11" fill="currentColor">luas = |det A| = 5</text><text x="294" y="206" font-size="11" fill="currentColor">x</text><text x="62" y="26" font-size="11" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "contoh",
@@ -364,6 +403,17 @@ $$\\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\frac{1}{5}\\begin{pmatrix} 3 & -1
 Jadi $x=2$ dan $y=3$. Periksa: $2(2)+3=7$ dan $2+3(3)=11$. Benar.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: invers dengan determinan negatif",
+          text: `Diketahui $A=\\begin{pmatrix}4&2\\\\3&1\\end{pmatrix}$. Tentukan $A^{-1}$, lalu selesaikan $4x+2y=10$ dan $3x+y=7$.
+
+*Penyelesaian.* $\\det(A)=4(1)-2(3)=-2$. Karena determinan tidak nol,
+$$A^{-1}=\\frac{1}{-2}\\begin{pmatrix}1&-2\\\\-3&4\\end{pmatrix}=\\begin{pmatrix}-\\tfrac12&1\\\\\\tfrac32&-2\\end{pmatrix}.$$
+Maka
+$$\\begin{pmatrix}x\\\\y\\end{pmatrix}=A^{-1}\\begin{pmatrix}10\\\\7\\end{pmatrix}=\\begin{pmatrix}-5+7\\\\15-14\\end{pmatrix}=\\begin{pmatrix}2\\\\1\\end{pmatrix}.$$
+Periksa: $4(2)+2(1)=10$ dan $3(2)+1=7$. Jadi $x=2$ dan $y=1$.`,
         },
       ],
     },
@@ -519,6 +569,7 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan operasi, determinan, dan invers matriks yang dipakai menyelesaikan SPLDV.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -557,6 +608,12 @@ Determinan ditemukan lebih dahulu: Seki Kowa (1683) di Jepang dan Gottfried Leib
               "$AX = B \\Rightarrow X = A^{-1}B$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Satu bilangan, banyak keputusan",
+          text: "Determinan adalah saklar utama topik ini. Selama nilainya tidak nol, matriks dapat dibalik dan sistem punya penyelesaian tunggal; begitu nilainya nol, invers lenyap dan informasi tidak cukup untuk kembali ke jawaban semula. Peran yang sama muncul di topik **Matriks Transformasi**, tempat determinan menentukan apakah transformasi mempertahankan luas, menyusutkan, atau meruntuhkan bidang menjadi garis.",
         },
       ],
     },

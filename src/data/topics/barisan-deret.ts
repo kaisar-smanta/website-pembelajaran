@@ -271,8 +271,14 @@ Jika $\\lvert r\\rvert \\geq 1$, suku-sukunya tidak menuju nol dan deret **diver
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Syarat konvergen",
           text: "Rumus $S_\\infty = \\dfrac{a}{1-r}$ hanya berlaku bila $\\lvert r\\rvert < 1$. Periksa dulu rasionya sebelum memakainya.",
+        },
+        {
+          kind: "figure",
+          alt: "Grafik jumlah parsial deret geometri berasio setengah: titik-titik jumlah parsial menanjak makin rapat menuju garis putus-putus yang menandai batas jumlah tak hingga.",
+          caption: "Ketika $\\lvert r\\rvert<1$, jumlah parsial $S_n$ makin dekat ke batas $S_\\infty=\\dfrac{a}{1-r}$ tanpa pernah melewatinya. Inilah makna deret geometri konvergen.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="190" x2="40" y2="40" stroke="currentColor" stroke-width="1.2"/><line x1="248" y1="50" x2="248" y2="190" stroke="currentColor" stroke-width="1.4" stroke-dasharray="6 4"/><polyline points="144,175 196,152 222,128 235,106 242,88 248,72" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="144" cy="175" r="2.8" fill="currentColor"/><circle cx="196" cy="152" r="2.8" fill="currentColor"/><circle cx="222" cy="128" r="2.8" fill="currentColor"/><circle cx="235" cy="106" r="2.8" fill="currentColor"/><circle cx="242" cy="88" r="2.8" fill="currentColor"/><text x="118" y="170" font-size="11" fill="currentColor">S1</text><text x="186" y="148" font-size="11" fill="currentColor">S2</text><text x="208" y="124" font-size="11" fill="currentColor">S3</text><text x="196" y="206" font-size="11" fill="currentColor">a/(1-r)</text><text x="252" y="62" font-size="11" fill="currentColor">S\u221e</text><text x="42" y="206" font-size="11" fill="currentColor">0</text><text x="292" y="206" font-size="12" fill="currentColor">n</text><text x="26" y="30" font-size="12" fill="currentColor">S</text></svg>',
         },
       ],
     },
@@ -339,6 +345,22 @@ $$7 + (n-1)\\cdot 4 = 87 \\Rightarrow (n-1)\\cdot 4 = 80 \\Rightarrow n-1 = 20 \
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: menemukan rasio dari dua suku",
+          text: `Barisan geometri memiliki $U_{2}=6$ dan $U_{5}=48$. Tentukan suku pertama, rasio, dan $U_{8}$.
+
+*Langkah 1.* Bandingkan kedua suku agar suku pertama terhapus:
+$$\\frac{U_{5}}{U_{2}}=\\frac{a r^{4}}{a r^{1}}=r^{3}=\\frac{48}{6}=8.$$
+
+*Langkah 2.* Karena $r^{3}=8$, maka $r=2$.
+
+*Langkah 3.* Dari $U_{2}=a r=6$ diperoleh $a=\\dfrac{6}{2}=3$.
+
+*Langkah 4.* Maka $U_{8}=a r^{7}=3\\cdot2^{7}=3\\cdot128=384$.
+
+*Verifikasi.* Suku-sukunya $3,6,12,24,48,\\dots$, sehingga $U_{5}=48$ benar dan $U_{8}=384$. Cocok.`,
+        },
       ],
     },
     {
@@ -404,7 +426,7 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Kunci: setengah luas",
           text: "Persegi yang menghubungkan titik tengah sebuah persegi memiliki luas tepat **setengah** luas persegi sebelumnya. Luas persegi-persegi itu membentuk deret geometri.",
         },
         {
@@ -469,6 +491,7 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
       blocks: [
         {
           kind: "table",
+          caption: "Perbandingan rumus aritmetika dan geometri pada suku ke-$n$, jumlah, dan deret tak hingga",
           headers: [
             "Konsep",
             "Aritmetika",
@@ -496,6 +519,12 @@ Sebaliknya, koloni bakteri yang mula-mula $500$ sel dan berlipat dua setiap jam 
               "$S_\\infty=\\dfrac{a}{1-r},\\ \\lvert r\\rvert<1$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu pilihan antara menambah dan mengali",
+          text: "Seluruh rumus di atas hanya bergantung pada satu pertanyaan: apakah pola bertambah dengan selisih tetap (**aritmetika**) atau berkali dengan rasio tetap (**geometri**). Pilihan itulah yang menentukan bentuk suku ke-$n$, bentuk jumlah $S_n$, dan ada atau tidaknya jumlah tak hingga. Gagasan rasio tetap inilah yang berlanjut pada **bunga majemuk** dan **anuitas**, ketika $r=1+i$ mengubah barisan geometri menjadi model tabungan.",
         },
       ],
     },

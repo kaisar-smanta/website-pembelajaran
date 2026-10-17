@@ -57,12 +57,14 @@ const stepCount = block.steps.length;
     margin: 0;
     padding: 0;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.7rem;
   }
   .step {
     display: flex;
     align-items: flex-start;
     gap: 0.7rem;
+    min-width: 0;
   }
   .step:not([hidden]) {
     animation: step-in var(--dur) var(--ease-out-soft) both;

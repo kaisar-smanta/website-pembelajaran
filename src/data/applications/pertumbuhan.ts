@@ -228,4 +228,96 @@ Cara berpikir ini dipakai di dunia nyata untuk menyelaraskan jadwal piket, peraw
     source:
       'Skenario pengajaran yang dikonstruksi mengikuti pola penjadwalan berkala (piket, ronda, atau perawatan mesin); periode 4, 6, dan 9 malam dipilih agar KPK dan aritmetika modulonya mudah dihitung, bukan jadwal satu kampung tertentu.',
   },
+  {
+    id: 'depresiasi-kendaraan',
+    title: 'Nilai Jual Mobil yang Menyusut',
+    category: 'pertumbuhan',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    explorationId: 'fungsi-eksponensial-grafik',
+    tags: ['depresiasi', 'peluruhan eksponensial', 'waktu paruh', 'bunga majemuk', 'fungsi eksponensial', 'nilai jual'],
+    summary:
+      'Memodelkan penyusutan nilai mobil dengan peluruhan eksponensial lalu membandingkannya dengan klaim penyusutan linear.',
+    topicIds: ['bunga-majemuk', 'fungsi-eksponensial'],
+    body: `Seorang pemilik mobil membeli kendaraan baru seharga Rp300.000.000. Ia mendengar bahwa mobil kehilangan sekitar 15% nilainya setiap tahun. Dengan pola itu, nilai jual mobil setelah $t$ tahun dimodelkan sebagai peluruhan eksponensial:
+$$V(t) = 300.000.000 \\cdot (0{,}85)^{t}.$$
+Faktor $0{,}85$ muncul karena nilai yang tersisa tiap tahun adalah $100\\% - 15\\% = 85\\%$ dari nilai tahun sebelumnya.
+
+Di sisi lain, seorang penjual menawarkan model lain: nilai mobil turun Rp45.000.000 setiap tahun, yang berarti penyusutan linear
+$$L(t) = 300.000.000 - 45.000.000\\,t.$$
+
+Pertanyaan pemicunya: model mana yang lebih masuk akal setelah beberapa tahun, dan berapa lama nilai mobil menyusut menjadi setengah harga barunya?`,
+    analysis: `Perhatikan bahwa pada tahun pertama kedua model memberi hasil yang sama, karena $15\\%$ dari Rp300.000.000 memang Rp45.000.000. Perbedaannya baru muncul setelah itu.
+
+**Model eksponensial.** Setelah 5 tahun,
+$$V(5) = 300.000.000 \\cdot (0{,}85)^{5} \\approx 300.000.000 \\cdot 0{,}4437 \\approx 133.111.000.$$
+Jadi nilai jualnya masih sekitar **Rp133 juta**.
+
+**Model linear.** Setelah 5 tahun,
+$$L(5) = 300.000.000 - 5 \\cdot 45.000.000 = 75.000.000,$$
+yaitu hanya **Rp75 juta**. Model linear menyusut terlalu cepat karena memotong jumlah rupiah yang tetap, padahal $15\\%$ dari mobil yang makin murah seharusnya makin kecil juga. Mobil bekas pada kenyataannya memang menyusut makin lambat, sehingga model eksponensial lebih jujur. Model linear bahkan menyatakan mobil bernilai nol pada $t = 300.000.000 / 45.000.000 \\approx 6{,}7$ tahun, yang jelas tidak realistis.
+
+**Waktu paruh.** Waktu agar nilainya menjadi setengah harga awal, yaitu Rp150.000.000, dicari dari
+$$300.000.000 \\cdot (0{,}85)^{t} = 150.000.000 \\iff (0{,}85)^{t} = 0{,}5.$$
+Dengan logaritma,
+$$t = \\frac{\\ln 0{,}5}{\\ln 0{,}85} \\approx \\frac{-0{,}6931}{-0{,}1625} \\approx 4{,}3 \\text{ tahun}.$$
+Jadi dibutuhkan sekitar **4,3 tahun** agar nilai mobil turun menjadi setengah. Angka ini adalah waktu paruh penyusutan, sifat yang sama dengan peluruhan zat radioaktif, hanya namanya berbeda.`,
+    takeaways: [
+      'Penyusutan dengan persentase tetap bersifat multiplikatif, sehingga memakai peluruhan eksponensial, bukan pengurangan rupiah tetap.',
+      'Klaim linear hanya cocok pada tahun pertama; setelah itu ia melebih-lebihkan penyusutan karena mengabaikan nilai yang makin kecil.',
+      'Waktu paruh, sekitar 4,3 tahun, menyatakan lama waktu nilai turun menjadi setengah.',
+      'Frasa "susut 15% per tahun" berarti faktor penyusutan $0{,}85$ tiap tahun.',
+    ],
+    reflection: [
+      'Mengapa pada tahun pertama kedua model memberi angka yang sama, tetapi berbeda setelahnya?',
+      'Jika laju penyusutan menjadi 20% per tahun, apakah waktu paruhnya lebih panjang atau lebih pendek?',
+      'Data harga pasar apa yang kamu butuhkan sebelum mempercayai salah satu model?',
+    ],
+    source:
+      'Skenario konstruksi dengan angka realistis: mobil baru lazim kehilangan sekitar 15 persen nilainya pada tahun pertama, lalu penyusutan melambat. Harga awal Rp300.000.000 dan laju 15 persen per tahun dipilih agar perhitungan mudah; bukan data penjualan satu merek tertentu.',
+  },
+  {
+    id: 'penanggalan-karbon',
+    title: 'Menaksir Usia Fosil dengan Karbon-14',
+    category: 'pertumbuhan',
+    element: 'aljabar-fungsi',
+    grade: 'X',
+    level: 'mahir',
+    estimatedMinutes: 12,
+    explorationId: 'logaritma-invers-grafik',
+    tags: ['radiokarbon', 'waktu paruh', 'peluruhan eksponensial', 'logaritma', 'persamaan eksponen', 'karbon-14'],
+    summary:
+      'Menaksir usia bahan organik dari sisa karbon-14 memakai peluruhan eksponensial dan logaritma, beserta batas metodenya.',
+    topicIds: ['persamaan-eksponen-logaritma', 'eksponen'],
+    body: `Makhluk hidup terus menyerap karbon dari lingkungan sehingga kadar karbon-14 di tubuhnya tetap selama hidup. Setelah mati, karbon-14 itu meluruh dan tidak bertambah lagi. Peluruhan ini mengikuti waktu paruh, yaitu lama waktu agar separuh karbon-14 tersisa. Nilai yang diterima secara ilmiah untuk waktu paruh karbon-14 adalah sekitar **5.730 tahun**.
+
+Jika sepotong kayu fosil mula-mula memiliki aktivitas karbon-14 sebesar $A_0$, maka setelah $t$ tahun aktivitasnya dimodelkan
+$$A(t) = A_0 \\left(\\tfrac{1}{2}\\right)^{t/5730}.$$
+
+Pertanyaan pemicunya: sebuah laboratorium mengukur bahwa kayu fosil hanya menyisakan $40\\%$ aktivitas karbon-14 dibanding kayu hidup. Berapa perkiraan usianya, dan seberapa jauh kita boleh mempercayai angka itu?`,
+    analysis: `Kita selesaikan $A(t) = 0{,}4\\,A_0$:
+$$\\left(\\tfrac{1}{2}\\right)^{t/5730} = 0{,}4.$$
+Ambil logaritma pada kedua ruas:
+$$\\frac{t}{5730}\\, \\ln\\!\\left(\\tfrac{1}{2}\\right) = \\ln(0{,}4) \\quad\\Longrightarrow\\quad t = 5730 \\cdot \\frac{\\ln 0{,}4}{\\ln 0{,}5}.$$
+Karena $\\ln 0{,}4 \\approx -0{,}9163$ dan $\\ln 0{,}5 \\approx -0{,}6931$,
+$$t \\approx 5730 \\cdot \\frac{-0{,}9163}{-0{,}6931} \\approx 5730 \\cdot 1{,}3219 \\approx 7.575 \\text{ tahun}.$$
+Jadi perkiraan usianya sekitar **7.575 tahun**, yang biasanya dibulatkan menjadi sekitar 7.600 tahun. Perhatikan bahwa hasil ini adalah pembagian dua logaritma, sehingga basis logaritmanya bebas: memakai $\\log$ basis 10 memberi nilai yang sama karena faktor basis saling menghapus.
+
+**Batas metode.** Penanggalan karbon-14 hanya andal sampai sekitar **50.000 tahun**, kira-kira sembilan sampai sepuluh waktu paruh. Setelah itu sisa karbon-14 terlalu sedikit untuk diukur dengan andal. Metode ini juga hanya berlaku untuk bahan yang pernah hidup seperti tulang, kayu, atau kain, bukan batuan. Karena kadar karbon-14 di atmosfer tidak selalu tetap, hasil usia mentah perlu dikalibrasi, misalnya dengan data lingkaran tahun pohon (dendrokronologi). Uji nuklir pada pertengahan abad ke-20 sempat menaikkan kadar karbon-14 di atmosfer sehingga bahan yang hidup setelahnya tampak lebih muda bila tidak dikoreksi.`,
+    takeaways: [
+      'Peluruhan karbon-14 bersifat eksponensial dengan waktu paruh sekitar 5.730 tahun.',
+      'Logaritma mengubah pertanyaan "berapa lama" menjadi pembagian dua logaritma.',
+      'Metode ini hanya andal sampai sekitar 50.000 tahun dan hanya untuk bahan organik.',
+      'Kalibrasi dan pencemaran memengaruhi hasil, jadi angka usia selalu berupa taksiran.',
+    ],
+    reflection: [
+      'Mengapa usia fosil dihitung dengan logaritma, bukan dengan membagi sisa aktivitas secara langsung?',
+      'Apa yang terjadi pada ketelitian taksiran setelah sekitar sepuluh waktu paruh, dan mengapa?',
+      'Faktor apa saja yang dapat membuat hasil penanggalan terlalu tua atau terlalu muda?',
+    ],
+    source:
+      'Prinsip penanggalan radiokarbon dan nilai waktu paruh karbon-14 sekitar 5.730 tahun (konvensi Cambridge; nilai Libby yang lebih lama adalah 5.568 tahun) sesuai dengan literatur ilmiah yang lazim. Fraksi sisa 40 persen dan hasil sekitar 7.575 tahun adalah contoh hitungan untuk latihan, bukan pengukuran satu fosil tertentu.',
+  },
 ];

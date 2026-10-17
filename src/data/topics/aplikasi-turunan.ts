@@ -251,6 +251,14 @@ $$f'(x) > 0 \\Rightarrow \\text{naik}, \\qquad f'(x) < 0 \\Rightarrow \\text{tur
 $$f''(x) > 0 \\Rightarrow \\text{cekung ke atas}, \\qquad f''(x) < 0 \\Rightarrow \\text{cekung ke bawah}.$$
 
 Akibatnya, titik dengan $f'(x)=0$ adalah satu-satunya calon nilai ekstrem, dan jenisnya diputuskan oleh tanda $f''$ di titik itu. Untuk masalah nyata, pola ini dipakai dengan urutan tetap: nyatakan besaran yang dicari sebagai fungsi satu variabel, selesaikan $f'(x)=0$, lalu periksa jenisnya dan buang solusi yang tidak masuk domain.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Grafik fungsi luas kandang L sama dengan x dikali 40 dikurangi 2x pada selang nol sampai dua puluh, berbentuk parabola terbalik dengan puncak di titik sepuluh koma dua ratus.",
+          caption: "Jendela optimasi kandang dari pertanyaan pemantik: domain sah $0 < x < 20$ dan puncak $L(x)=x(40-2x)$ di $x=10$ dengan luas maksimum $200$ m$^{2}$. Di luar domain itu kandang tidak lagi berbentuk persegi panjang.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><defs><marker id="fig-aplikasi-turunan-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="185" x2="300" y2="185" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-aplikasi-turunan-arrow)"/><line x1="55" y1="200" x2="55" y2="30" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-aplikasi-turunan-arrow)"/><polyline points="70,185 123.75,80 177.5,45 231.25,80 285,185" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="177.5" y1="185" x2="177.5" y2="45" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><line x1="55" y1="45" x2="177.5" y2="45" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><circle cx="177.5" cy="45" r="4" fill="currentColor"/><text x="292" y="201" font-size="12" fill="currentColor">x</text><text x="32" y="40" font-size="12" fill="currentColor">L(x)</text><text x="70" y="201" font-size="11" fill="currentColor">0</text><text x="196" y="201" font-size="11" fill="currentColor">20</text><text x="182" y="38" font-size="11" fill="currentColor">maksimum (10, 200)</text><text x="103" y="120" font-size="11" fill="currentColor">L(x) = x(40 - 2x)</text></svg>',
+        },
+      ],
     },
     {
       id: "contoh",
@@ -299,6 +307,15 @@ jadi $x = 1000$ memberi minimum. Nilai $A(1000) = 0{,}01(1000) + 40 + \\dfrac{10
           alt: "Kurva biaya rata-rata yang menurun lalu menanjak, dengan titik minimum ditandai pada x sama dengan 1000 dan biaya 60.",
           caption: "Grafik biaya rata-rata $A(x) = 0{,}01x + 40 + \\dfrac{10000}{x}$ dari Contoh 4. Kurva menurun lalu menanjak, dan titik optimumnya berada di $x = 1000$ dengan biaya rata-rata Rp60 per unit.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="55" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.4"/><line x1="55" y1="200" x2="55" y2="30" stroke="currentColor" stroke-width="1.4"/><polyline points="78.5,121.8 102,141.4 125.5,146.7 149,148.6 172.5,149 196,148.7 231.3,147.6 290,144.8" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="172.5" y1="200" x2="172.5" y2="149" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="55" y1="149" x2="172.5" y2="149" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><circle cx="172.5" cy="149" r="3.4" fill="currentColor"/><text x="292" y="216" font-size="12" fill="currentColor">x</text><text x="34" y="40" font-size="12" fill="currentColor">A(x)</text><text x="176" y="162" font-size="11" fill="currentColor">minimum (1000, 60)</text><text x="120" y="216" font-size="11" fill="currentColor">x = 1000</text><text x="16" y="153" font-size="11" fill="currentColor">60</text></svg>',
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: optimasi keliling tetap",
+          text: `Seutas kawat sepanjang $24$ cm dibentuk menjadi persegi panjang. Tentukan ukuran agar **luasnya maksimum**.
+
+*Penyelesaian.* Misalkan panjang $x$ cm, maka lebarnya $12-x$ cm dan luasnya $L(x)=x(12-x)=12x-x^{2}$, dengan $0<x<12$. Selesaikan $L'(x)=0$:
+$$L'(x)=12-2x=0 \\quad \\Rightarrow \\quad x=6.$$
+Karena $L''(x)=-2<0$, titik $x=6$ memberi **maksimum**. Jadi persegi panjang berukuran $6\\text{ cm}\\times6\\text{ cm}$ (persegi) dengan luas maksimum $36\\text{ cm}^{2}$.`,
         },
       ],
     },
@@ -420,6 +437,7 @@ sehingga $x=\\dfrac{160}{\\pi+4}$ memberi **minimum**.`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan cara membaca bentuk kurva dengan turunan pertama dan kedua.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -462,6 +480,12 @@ sehingga $x=\\dfrac{160}{\\pi+4}$ memberi **minimum**.`,
               "modelkan, cari $f' = 0$, uji jenisnya",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu turunan, banyak keputusan",
+          text: "Garis singgung, kemonotonan, kecekungan, dan optimasi semuanya membaca satu hal yang sama, yaitu **tanda turunan**. Turunan pertama menentukan arah grafik, turunan kedua menentukan lengkungannya, dan keduanya bersama menunjukkan di mana nilai terbaik berada. Pola **cari titik dengan $f'(x)=0$, lalu periksa jenisnya** inilah yang dipakai lagi pada **Integral**, ketika laju yang diketahui diubah menjadi akumulasi seperti jarak tempuh.",
         },
         {
           kind: "match",

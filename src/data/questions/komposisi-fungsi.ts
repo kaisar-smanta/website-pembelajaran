@@ -331,4 +331,22 @@ export const komposisiFungsiQuestions: Question[] = [
     ],
     competencies: ['menentukan fungsi dalam komposisi', 'penalaran aljabar'],
   },
+  {
+    id: 'kf-16',
+    topicId: 'komposisi-fungsi',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Fungsi $f$ dan $g$ memenuhi $f(x)=x-2$ dan $(f\\circ g)(x)=2x^{2}-3$. Tentukan nilai $g(3)$.',
+    answer: '17',
+    explanation:
+      'Karena $(f\\circ g)(x)=f(g(x))=g(x)-2$ dan nilainya $2x^{2}-3$, maka $g(x)-2=2x^{2}-3$ sehingga $g(x)=2x^{2}-1$. Substitusi $x=3$ memberi $g(3)=2(3)^{2}-1=18-1=17$. Periksa: $f(17)=17-2=15$ dan $2(3)^{2}-3=15$, cocok.',
+    hints: [
+      'Tulis $(f\\circ g)(x)=f(g(x))$, lalu gantikan $f$ dengan aturannya.',
+      'Selesaikan $g(x)-2=2x^{2}-3$ untuk memperoleh rumus $g(x)$ terlebih dahulu.',
+      'Setelah rumus $g$ ditemukan, substitusikan $x=3$.',
+    ],
+    competencies: ['menentukan fungsi dalam komposisi', 'nilai komposisi fungsi'],
+  },
 ];

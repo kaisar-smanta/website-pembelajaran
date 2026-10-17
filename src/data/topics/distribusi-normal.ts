@@ -113,7 +113,11 @@ Grafiknya berupa **kurva lonceng** dengan sifat berikut.
 4. Titik belok kurva berada di $\\mu - \\sigma$ dan $\\mu + \\sigma$.
 5. Kurva **mendekati** sumbu mendatar di kedua ujung tetapi tidak pernah menyentuhnya.
 
-**Peran $\\mu$ dan $\\sigma$.** Rata-rata $\\mu$ menentukan **letak pusat**: memperbesar $\\mu$ menggeser kurva ke kanan tanpa mengubah bentuknya. Simpangan baku $\\sigma$ menentukan **lebar sebaran**: $\\sigma$ kecil membuat kurva tinggi dan sempit (data menumpuk dekat rata-rata), sedangkan $\\sigma$ besar membuat kurva rendah dan lebar (data lebih tersebar). Karena luas total tetap $1$, kurva yang lebih lebar harus lebih rendah.`,
+**Peran $\\mu$ dan $\\sigma$.** Rata-rata $\\mu$ menentukan **letak pusat**: memperbesar $\\mu$ menggeser kurva ke kanan tanpa mengubah bentuknya. Simpangan baku $\\sigma$ menentukan **lebar sebaran**: $\\sigma$ kecil membuat kurva tinggi dan sempit (data menumpuk dekat rata-rata), sedangkan $\\sigma$ besar membuat kurva rendah dan lebar (data lebih tersebar). Karena luas total tetap $1$, kurva yang lebih lebar harus lebih rendah.
+
+**Nilai harapan dan varians.** Kedua parameter itu bukan sekadar pusat dan lebar kurva. Untuk $X \\sim N(\\mu, \\sigma^{2})$ berlaku
+$$E(X) = \\mu, \\qquad \\operatorname{Var}(X) = \\sigma^{2}.$$
+Karena kurva simetris terhadap $\\mu$, penyimpangan ke kanan dan ke kiri saling meniadakan sehingga rata-rata jangka panjangnya tepat $\\mu$. Simpangan bakunya $\\sigma$, sehingga variansnya $\\sigma^{2}$. Jadi menuliskan $N(\\mu, \\sigma^{2})$ sekaligus menyatakan nilai harapan dan sebaran variabelnya.`,
       blocks: [
         {
           kind: "callout",
@@ -210,6 +214,12 @@ artinya botol itu terisi dua simpangan baku di bawah rata-rata.`,
             },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Kurva normal baku dengan daerah antara z sama dengan 0 dan z sama dengan 1,5 diarsir, berlabel luas sekitar 0,4332.",
+          caption: "Membaca tabel $z$: luas di bawah kurva normal baku dari $z=0$ sampai $z=1{,}5$ adalah $0{,}4332$. Untuk peluang kumulatif $P(z \\leq 1{,}5)$, tambahkan luasan separuh kiri sehingga menjadi $0{,}5 + 0{,}4332 = 0{,}9332$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="35" y1="190" x2="308" y2="190" stroke="currentColor" stroke-width="1.2"/><line x1="35" y1="190" x2="35" y2="45" stroke="currentColor" stroke-width="1.2"/><path d="M170,60 L192.5,72 L215,111 L237.5,145 L237.5,190 L170,190 Z" fill="currentColor" fill-opacity="0.28" stroke="none"/><path d="M35,187 L57.5,181 L80,168 L102.5,145 L125,111 L147.5,72 L170,60 L192.5,72 L215,111 L237.5,145 L260,168 L282.5,181 L305,187" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="170" y1="190" x2="170" y2="60" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="237.5" y1="190" x2="237.5" y2="145" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><text x="170" y="207" font-size="12" text-anchor="middle" fill="currentColor">0</text><text x="237" y="207" font-size="11" text-anchor="middle" fill="currentColor">z = 1,5</text><text x="203" y="122" font-size="11" text-anchor="middle" fill="currentColor">0,4332</text><text x="300" y="183" font-size="11" fill="currentColor">z</text><text x="18" y="52" font-size="11" fill="currentColor">f(z)</text></svg>',
+        },
       ],
     },
     {
@@ -221,6 +231,20 @@ artinya botol itu terisi dua simpangan baku di bawah rata-rata.`,
         {
           kind: "exploration",
           explorationId: "normal-distribusi-sim",
+        },
+      ],
+    },
+    {
+      id: "eksplorasi-tabel-z",
+      kind: "eksplorasi",
+      title: "Eksplorasi Luas Selang dan Aturan Empiris",
+      body: `Eksplorasi kedua membandingkan dua cara menaksir peluang pada selang $\\mu \\pm k\\sigma$: membaca **luas selang** yang dihitung simulator, dan memakai **aturan empiris** $68\\%$, $95\\%$, dan $99{,}7\\%$ yang praktis. Geser batas bawah dan atas ke $\\mu \\pm \\sigma$, $\\mu \\pm 2\\sigma$, lalu $\\mu \\pm 3\\sigma$, dan bandingkan luas dari simulator dengan angka aturan empiris.
+
+Perhatikan bahwa keduanya hanya dekat, tidak selalu persis. Aturan empiris cocok untuk taksiran cepat, sedangkan simulator memberi nilai yang lebih halus.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "normal-luas-selang",
         },
       ],
     },
@@ -276,12 +300,18 @@ $$P(\\mu - 3\\sigma \\leq X \\leq \\mu + 3\\sigma) \\approx 0{,}9973.$$
 
 **Peluang ekor.** Karena simetri dan luas total $1$:
 
-$$P(z < -2) = P(z > 2) \\approx 0{,}0228, \\qquad P(z < -1) = P(z > 1) \\approx 0{,}1587.$$`,
+$$P(z < -2) = P(z > 2) \\approx 0{,}0228, \\qquad P(z < -1) = P(z > 1) \\approx 0{,}1587.$$
+
+**Nilai harapan dan varians.** Untuk $X \\sim N(\\mu, \\sigma^{2})$:
+
+$$E(X) = \\mu, \\qquad \\operatorname{Var}(X) = \\sigma^{2}.$$
+
+Karena $f$ simetris terhadap $\\mu$, suku yang memuat penyimpangan saling meniadakan, sehingga $E(X) = \\mu$; karena simpangan bakunya $\\sigma$, variansnya $\\operatorname{Var}(X) = \\sigma^{2}$. Jadi parameter yang menamai distribusi itu memang nilai harapan dan variansnya.`,
       blocks: [
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Standardisasi dahulu, luas bukan tinggi",
           text: "Selalu **standardisasi dahulu** sebelum membaca tabel. Selain itu, $f(x)$ bukan peluang; peluang hanya diperoleh dari **luas** di bawah kurva, bukan dari tinggi kurva.",
         },
       ],
@@ -370,6 +400,17 @@ $$P(z < -2) = P(z > 2) \\approx 0{,}0228, \\qquad P(z < -1) = P(z > 1) \\approx 
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Mengapa rumus ini berlaku?",
+          text: `Kepadatan normal simetris terhadap $\\mu$, sehingga tinggi kurva di $\\mu - t$ sama dengan di $\\mu + t$ untuk setiap $t$. Akibatnya penyimpangan positif dan negatif saling meniadakan saat dijumlahkan berbobot, dan momen pertamanya tepat $\\mu$.
+
+Secara lebih formal, substitusi $u = \\dfrac{x-\\mu}{\\sigma}$ mengubah $E(X) = \\int x\\,f(x)\\,dx$ menjadi
+$$E(X) = \\int_{-\\infty}^{\\infty} (\\mu + \\sigma u)\\,\\varphi(u)\\,du = \\mu\\int_{-\\infty}^{\\infty}\\varphi(u)\\,du + \\sigma\\int_{-\\infty}^{\\infty} u\\,\\varphi(u)\\,du,$$
+dengan $\\varphi$ kepadatan normal baku. Karena $\\int \\varphi(u)\\,du = 1$ dan $\\int u\\,\\varphi(u)\\,du = 0$ oleh simetri, diperoleh $E(X) = \\mu$. Dengan langkah serupa, momen kedua normal baku bernilai $1$, sehingga
+$$\\operatorname{Var}(X) = \\int (x-\\mu)^{2} f(x)\\,dx = \\sigma^{2}\\int u^{2}\\varphi(u)\\,du = \\sigma^{2}.$$
+Jadi parameter pada $N(\\mu, \\sigma^{2})$ memang nilai harapan dan variansnya.`,
+        },
       ],
     },
     {
@@ -441,7 +482,7 @@ Ingat, model ini tetap **perkiraan**. Sebelum memakainya, periksa apakah datanya
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Samakan skor baku kedua ekor",
           text: "Dua peluang ekor sama besar hanya jika skor baku batasnya sama. Samakan $\\dfrac{c-70}{10}$ dengan $\\dfrac{c-60}{15}$, lalu selesaikan untuk $c$.",
         },
         {
@@ -507,6 +548,7 @@ Ingat, model ini tetap **perkiraan**. Sebelum memakainya, periksa apakah datanya
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan kurva normal, standardisasi, dan kaidah empiris",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -533,6 +575,14 @@ Ingat, model ini tetap **perkiraan**. Sebelum memakainya, periksa apakah datanya
               "$\\sigma$ besar $\\to$ kurva rendah dan lebar",
             ],
             [
+              "Nilai harapan",
+              "$E(X) = \\mu$",
+            ],
+            [
+              "Varians",
+              "$\\operatorname{Var}(X) = \\sigma^{2}$",
+            ],
+            [
               "Normal baku",
               "$Z \\sim N(0,1)$",
             ],
@@ -549,6 +599,12 @@ Ingat, model ini tetap **perkiraan**. Sebelum memakainya, periksa apakah datanya
               "$P(z < -2) = P(z > 2) \\approx 0{,}0228$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu kurva baku untuk semua normal",
+          text: "Setiap kurva normal hanyalah kurva baku yang digeser oleh $\\mu$ lalu diregangkan oleh $\\sigma$. Karena itu satu tabel $z$ cukup untuk semua distribusi normal: ubah dahulu menjadi skor baku, lalu baca luasnya. Di baliknya, dua parameter $\\mu$ dan $\\sigma$ sekaligus menyatakan pusat dan sebaran, yaitu nilai harapan $E(X)=\\mu$ dan varians $\\operatorname{Var}(X)=\\sigma^{2}$.",
         },
       ],
     },

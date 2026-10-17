@@ -248,6 +248,24 @@ Fungsi logaritma $f(x)=\\log_{b}x$ adalah **invers** dari fungsi eksponen $g(x)=
       ],
     },
     {
+      id: "eksplorasi-skala-log",
+      kind: "eksplorasi",
+      title: "Eksplorasi Basis Logaritma dan Bentuk Grafik",
+      body: `Nilai basis menentukan arah dan kecuraman grafik logaritma. Pada eksplorasi berikut, geser $b$ dan bandingkan $y=b^{x}$ dengan $y=\\log_{b}x$. Perhatikan bahwa kedua kurva saling mencerminkan terhadap garis $y=x$, dan bahwa $b>1$ memberi fungsi naik sedangkan $0<b<1$ memberi fungsi turun.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "logaritma-basis-grafik",
+        },
+        {
+          kind: "figure",
+          alt: "Dua grafik berdampingan: kurva pertumbuhan eksponensial yang melengkung naik pada skala linear, dan titik data yang sama membentuk garis lurus pada skala logaritma.",
+          caption: "Data pertumbuhan eksponensial tampak melengkung pada skala linear (kiri), tetapi menjadi garis lurus ketika nilai digambar pada skala logaritma (kanan, semilog). Kemiringan garis semilog itu mengukur laju pertumbuhan.",
+          svg: '<svg viewBox="0 0 360 180" aria-hidden="true" role="presentation"><defs><marker id="flg-semilog-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="24" y1="142" x2="168" y2="142" stroke="currentColor" stroke-width="1.2" marker-end="url(#flg-semilog-axis)"/><line x1="32" y1="150" x2="32" y2="22" stroke="currentColor" stroke-width="1.2" marker-end="url(#flg-semilog-axis)"/><polyline points="32,140 52,134 72,124 92,108 112,86 132,58 152,28" fill="none" stroke="currentColor" stroke-width="2.2"/><text x="58" y="166" font-size="11" fill="currentColor">skala linear</text><text x="162" y="138" font-size="11" fill="currentColor">x</text><text x="14" y="30" font-size="11" fill="currentColor">y</text><line x1="220" y1="142" x2="356" y2="142" stroke="currentColor" stroke-width="1.2" marker-end="url(#flg-semilog-axis)"/><line x1="228" y1="150" x2="228" y2="22" stroke="currentColor" stroke-width="1.2" marker-end="url(#flg-semilog-axis)"/><polyline points="228,136 248,112 268,88 288,64 308,40 328,22" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="248" cy="112" r="2.6" fill="currentColor"/><circle cx="288" cy="64" r="2.6" fill="currentColor"/><circle cx="328" cy="22" r="2.6" fill="currentColor"/><text x="204" y="138" font-size="10" fill="currentColor">1</text><text x="200" y="104" font-size="10" fill="currentColor">10</text><text x="196" y="70" font-size="10" fill="currentColor">100</text><text x="192" y="34" font-size="10" fill="currentColor">1000</text><text x="258" y="166" font-size="11" fill="currentColor">skala log</text></svg>',
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Generalisasi: Dari Definisi ke Sifat-Sifat Logaritma",
@@ -255,7 +273,7 @@ Fungsi logaritma $f(x)=\\log_{b}x$ adalah **invers** dari fungsi eksponen $g(x)=
 
 $$\\log_{b}(mn)=\\log_{b}m+\\log_{b}n, \\qquad \\log_{b}\\!\\left(\\frac{m}{n}\\right)=\\log_{b}m-\\log_{b}n, \\qquad \\log_{b}(m^{n})=n\\,\\log_{b}m.$$
 
-Dari sifat pangkat lahir **perubahan basis**. Menuliskan $\\log_{b}x$ dengan basis baru $a$ tidak mengubah nilainya, hanya mengalikannya dengan faktor tetap. Sifat ini memungkinkan kita menghitung logaritma basis apa pun memakai kalkulator yang hanya menyediakan basis $10$ atau $e$.
+Dari sifat pangkat kita peroleh **perubahan basis**. Menuliskan $\\log_{b}x$ dengan basis baru $a$ tidak mengubah nilainya, hanya mengalikannya dengan faktor tetap. Sifat ini memungkinkan kita menghitung logaritma basis apa pun memakai kalkulator yang hanya menyediakan basis $10$ atau $e$.
 
 $$\\log_{b}x=\\frac{\\log_{a}x}{\\log_{a}b}=\\frac{\\ln x}{\\ln b}.$$
 
@@ -333,6 +351,13 @@ Karena skala pH logaritmik, turun satu satuan berarti $[\\text{H}^{+}]$ naik sep
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: domain dan nilai fungsi logaritma",
+          text: `Tentukan domain $f(x)=\\log_{2}(x-1)+3$, lalu hitung $f(3)$.
+
+*Penyelesaian.* Numerus harus positif: $x-1>0$, sehingga domainnya $\\{x \\mid x>1\\}$. Untuk $x=3$ diperoleh $f(3)=\\log_{2}2+3=1+3=4$. Periksa syaratnya: $3>1$ terpenuhi.`,
+        },
       ],
     },
     {
@@ -404,7 +429,7 @@ Di sini basis logaritma pertama justru memuat variabel, sehingga perubahan basis
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Kunci: samakan basis",
           text: "Ubah $\\log_{x}4$ ke basis $2$. Dengan menulis $u=\\log_{2}x$, bentuk itu menjadi fungsi dari $u$, sehingga persamaannya berubah menjadi persamaan kuadrat dalam $u$.",
         },
         {
@@ -443,7 +468,7 @@ Di sini basis logaritma pertama justru memuat variabel, sehingga perubahan basis
       id: "sejarah",
       kind: "sejarah",
       title: "Dari Tabel Hitung ke Fungsi Invers",
-      body: `Logaritma lahir dari kebutuhan berhitung yang sangat praktis. Pada awal abad ke-17, para astronom harus mengalikan bilangan-bilangan besar yang panjang. John Napier, dalam *Mirifici Logarithmorum Canonis Descriptio* (1614), memperkenalkan gagasan yang mengubah perkalian menjadi penjumlahan. Henry Briggs menyusun tabel logaritma basis 10 pada 1617 sehingga metode ini cepat menyebar. Kata *logarithm* berasal dari bahasa Yunani *logos* (perbandingan) dan *arithmos* (bilangan).
+      body: `Logaritma muncul untuk memenuhi kebutuhan berhitung yang sangat praktis. Pada awal abad ke-17, para astronom harus mengalikan bilangan-bilangan besar yang panjang. John Napier, dalam *Mirifici Logarithmorum Canonis Descriptio* (1614), memperkenalkan gagasan yang mengubah perkalian menjadi penjumlahan. Henry Briggs menyusun tabel logaritma basis 10 pada 1617 sehingga metode ini cepat menyebar. Kata *logarithm* diambil dari bahasa Yunani *logos* (perbandingan) dan *arithmos* (bilangan).
 
 Pada mulanya logaritma dipandang sebagai alat hitung, bukan sebagai fungsi. Leonhard Euler dalam *Introductio in analysin infinitorum* (1748) meletakkannya pada dasar modern: ia memperkenalkan bilangan $e\\approx2{,}71828$, menuliskan fungsi eksponen $e^{x}$, dan menegaskan bahwa logaritma adalah **operasi invers** dari eksponen. Sejak itu $f(x)=\\log_{b}x$ dipelajari sebagai fungsi dengan domain dan grafik tersendiri, tepat seperti yang kita pelajari pada topik ini.`,
       blocks: [
@@ -495,6 +520,7 @@ Pada mulanya logaritma dipandang sebagai alat hitung, bukan sebagai fungsi. Leon
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan definisi, domain, sifat, dan kaitan skala logaritmik fungsi logaritma",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -537,6 +563,12 @@ Pada mulanya logaritma dipandang sebagai alat hitung, bukan sebagai fungsi. Leon
               "pH, desibel, dan skala Richter",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Inti logaritma: invers yang memadatkan skala",
+          text: "Seluruh butir di atas bertumpu pada satu gagasan: logaritma membalik eksponen, sehingga rentang hasil yang sangat lebar berubah menjadi jarak yang rapat pada skala logaritmik. Sifat operasi dan perubahan basis hanyalah cara bekerja dengan pembalikan itu. Pada topik berikutnya, **Persamaan dan Pertidaksamaan Eksponen-Logaritma**, gagasan yang sama dipakai untuk menyelesaikan persamaan sekaligus menyaring solusi yang lolos syarat numerus.",
         },
       ],
     },

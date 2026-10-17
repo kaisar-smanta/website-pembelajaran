@@ -32,3 +32,17 @@ export function equals(A: Matrix2, B: Matrix2): boolean {
     A[1][1] === B[1][1]
   );
 }
+
+/**
+ * Invers matriks 2×2, atau `null` bila determinannya nol.
+ * Rumus: A⁻¹ = (1/det A) [[d, -b], [-c, a]].
+ */
+export function inverse(A: Matrix2): Matrix2 | null {
+  const det = determinant(A);
+  if (det === 0) return null;
+  const [[a, b], [c, d]] = A;
+  return [
+    [d / det, -b / det],
+    [-c / det, a / det],
+  ];
+}

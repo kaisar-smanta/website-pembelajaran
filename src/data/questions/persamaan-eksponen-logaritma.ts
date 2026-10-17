@@ -40,7 +40,10 @@ export const persamaanEksponenLogaritmaQuestions: Question[] = [
     answer: 'D',
     explanation:
       'Karena $3^{4}=81$, maka menurut definisi logaritma $\\log_{3}81=4$. Opsi $3$ menjawab basisnya, opsi $27$ berasal dari membagi $81$ dengan $3$, dan opsi $5$ dari menebak pangkat tanpa memeriksa hasilnya.',
-    hints: ['Cari pangkat yang membuat $3$ menjadi $81$.'],
+    hints: [
+      'Cari pangkat yang membuat $3$ menjadi $81$.',
+      'Tulis $81$ sebagai hasil perkalian berulang faktor $3$, lalu hitung banyak faktornya.',
+    ],
     competencies: ['definisi logaritma'],
   },
   {

@@ -144,6 +144,40 @@ Metode yang meminimumkan besaran ini disebut **metode kuadrat terkecil** (least 
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Hafalkan istilah kunci regresi linear.",
+          cards: [
+            {
+              front: "Garis regresi",
+              back: "Garis lurus $\\hat{y}=bx+a$ yang paling mewakili pola data",
+            },
+            {
+              front: "Gradien $b$",
+              back: "Perubahan rata-rata $\\hat{y}$ untuk setiap tambahan satu satuan $x$",
+            },
+            {
+              front: "Intersep $a$",
+              back: "Nilai dugaan $\\hat{y}$ ketika $x=0$",
+            },
+            {
+              front: "Residu",
+              back: "Selisih $y-\\hat{y}$ antara nilai amatan dan nilai dugaan",
+            },
+            {
+              front: "Kuadrat terkecil",
+              back: "Metode memilih garis yang membuat jumlah kuadrat residu minimum",
+            },
+            {
+              front: "Determinasi $r^2$",
+              back: "Proporsi variasi $y$ yang dijelaskan oleh model linear",
+            },
+            {
+              front: "Ekstrapolasi",
+              back: "Prediksi di luar rentang data, lebih berisiko",
+            },
+          ],
+        },
       ],
     },
     {
@@ -223,6 +257,27 @@ Metode yang meminimumkan besaran ini disebut **metode kuadrat terkecil** (least 
           variant: "tip",
           text: "Jumlah residu mendekati nol. Sifat ini selalu berlaku pada garis kuadrat terkecil dan menjadi tanda bahwa perhitunganmu konsisten.",
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: "Model ditulis $\\hat{y} = bx + a$, dengan $b$ gradien dan $a$ intersep.",
+            },
+            {
+              label: "Grafik",
+              body: "Titik data digambar pada diagram pencar, lalu ditarik garis lurus yang membuat jumlah kuadrat residu minimum.",
+            },
+            {
+              label: "Tabel",
+              body: "Bandingkan tiap nilai amatan $y$ dengan nilai dugaan $\\hat{y}$ dan hitung residu $y-\\hat{y}$.",
+            },
+            {
+              label: "Prosedur",
+              body: "Hitung $\\sum x_i$, $\\sum y_i$, $\\sum x_i y_i$, $\\sum x_i^2$, lalu gradien $b$, intersep $a = \\bar{y} - b\\bar{x}$, baru prediksi.",
+            },
+          ],
+        },
       ],
     },
     {
@@ -254,6 +309,14 @@ Setelah $b$ diperoleh, intersep dihitung dengan
 $$a = \\bar{y} - b\\,\\bar{x}.$$
 
 Tanda gradien memberi tahu arah hubungan: $b > 0$ berarti $y$ cenderung naik saat $x$ naik, $b < 0$ berarti sebaliknya. Satuan $b$ adalah satuan $y$ per satuan $x$, seperti "puluhan unit penjualan per juta rupiah iklan".`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Plot residu terhadap biaya iklan. Titik-titik residu tersebar di sekitar garis nol tanpa pola melengkung maupun mengumpul di satu sisi.",
+          caption: "Plot residu $y-\\hat{y}$ terhadap $x$. Residu tersebar acak di sekitar nol tanpa pola melengkung, tanda model linear sudah memadai. Pola yang membentuk kurva atau mengumpul di satu sisi menandakan model linear kurang tepat meski nilai $r$ tinggi.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="45" y1="120" x2="304" y2="120" stroke="currentColor" stroke-width="1.4"/><line x1="45" y1="200" x2="45" y2="30" stroke="currentColor" stroke-width="1.4"/><text x="33" y="124" font-size="10" fill="currentColor">0</text><text x="16" y="60" font-size="11" fill="currentColor">residu</text><text x="290" y="136" font-size="11" fill="currentColor">x</text><circle cx="60" cy="117.2" r="3" fill="currentColor"/><circle cx="90" cy="105.3" r="3" fill="currentColor"/><circle cx="120" cy="93.8" r="3" fill="currentColor"/><circle cx="150" cy="187.2" r="3" fill="currentColor"/><circle cx="180" cy="105.3" r="3" fill="currentColor"/><circle cx="210" cy="128.8" r="3" fill="currentColor"/><circle cx="240" cy="117.2" r="3" fill="currentColor"/><circle cx="270" cy="105.3" r="3" fill="currentColor"/><text x="150" y="212" font-size="10" fill="currentColor">biaya iklan</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -270,7 +333,7 @@ Jika $r = 0{,}9$, maka $r^2 = 0{,}81$, artinya sekitar **81%** variasi $y$ dijel
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Jebakan skor $r^2$ tinggi",
           text: "$r^2$ mengukur seberapa besar variasi yang dijelaskan, bukan persentase prediksi yang tepat. Nilai $r^2$ tinggi pun tidak menjamin setiap titik dekat garis; periksa selalu diagram pencar dan residunya.",
         },
       ],
@@ -345,6 +408,19 @@ Jika $r = 0{,}9$, maka $r^2 = 0{,}81$, artinya sekitar **81%** variasi $y$ dijel
 **Kesimpulan.** $\\hat{y}=0{,}9x+2{,}3$. Untuk $x=6$ diperoleh $\\hat{y}=0{,}9(6)+2{,}3=7{,}7$; karena $x=6$ sedikit di luar rentang $1$ sampai $5$, angka ini termasuk ekstrapolasi.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: menaksir penjualan dari garis regresi",
+          text: `Biaya iklan (juta rupiah) dan penjualan (puluhan unit) selama empat minggu adalah $(1,4)$, $(2,5)$, $(3,8)$, $(4,9)$. Tentukan garis regresinya, lalu taksir penjualan ketika biaya iklan $5$ juta rupiah.
+
+*Langkah 1.* Dengan $n=4$ diperoleh $\\sum x_i=10$, $\\sum y_i=26$, $\\sum x_i y_i=74$, dan $\\sum x_i^2=30$.
+
+*Langkah 2.* Gradien $b=\\dfrac{4(74)-(10)(26)}{4(30)-10^2}=\\dfrac{296-260}{120-100}=\\dfrac{36}{20}=1{,}8$.
+
+*Langkah 3.* Karena $\\bar{x}=2{,}5$ dan $\\bar{y}=6{,}5$, intersep $a=6{,}5-1{,}8(2{,}5)=2$, sehingga $\\hat{y}=1{,}8x+2$. Tiap tambahan $1$ juta iklan menaikkan penjualan sekitar $1{,}8$ puluhan unit.
+
+*Langkah 4.* Untuk $x=5$: $\\hat{y}=1{,}8(5)+2=11$. Karena $x=5$ berada di luar rentang data $1$ sampai $4$, angka $11$ adalah **ekstrapolasi** yang perlu ditafsirkan hati-hati.`,
         },
         {
           kind: "callout",
@@ -486,6 +562,7 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus dan tafsiran garis regresi",
           headers: [
             "Konsep",
             "Bentuk / Makna",
@@ -520,6 +597,12 @@ Untuk melihat penerapan lengkap pada data nilai ujian, buka studi kasus [Apakah 
               "prediksi di luar rentang data, lebih berisiko",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu garis, tiga pertanyaan",
+          text: "Garis regresi menjawab tiga pertanyaan sekaligus: ke arah mana $y$ bergerak ($b$), dari mana titik awalnya ($a$), dan seberapa besar variasi yang terjelaskan ($r^2$). Kuadrat terkecil membuat pilihan garis menjadi objektif, tetapi sebuah garis yang cocok secara statistik tetap bukan bukti sebab-akibat. Garis hanya merangkum asosiasi; pertanyaan apakah hubungan itu benar-benar kausal dibahas pada topik **Asosiasi dan Kausalitas**.",
         },
       ],
     },

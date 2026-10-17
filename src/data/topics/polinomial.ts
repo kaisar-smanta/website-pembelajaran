@@ -208,8 +208,57 @@ sehingga akar-akarnya $x=3$, $x=2$, dan $x=-1$.`,
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Tanda pada pembagi linear",
           text: "Teorema sisa memakai $(x-c)$, sehingga yang disubstitusi adalah $c$ (lawan dari angka pada kurung). Untuk pembagi $(ax+b)$, substitusikan $x=-\\dfrac{b}{a}$, bukan $\\dfrac{b}{a}$.",
+        },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: "Jika $P(x)=(x-c)^{m}Q(x)$ dengan $Q(c)\\neq0$, maka $x=c$ adalah akar dengan multiplisitas $m$. Multiplisitas ganjil membuat grafik memotong sumbu-$x$, sedangkan multiplisitas genap membuat grafik menyentuh lalu berbalik.",
+            },
+            {
+              label: "Tabel",
+              body: "Multiplisitas $1$: memotong sumbu-$x$. Multiplisitas $2$: menyentuh sumbu-$x$ lalu berbalik. Multiplisitas $3$: memotong dengan perlambatan di titik itu. Multiplisitas $4$: menyentuh dengan perlambatan.",
+            },
+            {
+              label: "Grafik",
+              body: "Contoh $P(x)=(x+1)(x-2)^{2}$: di $x=-1$ grafik memotong sumbu karena multiplisitas $1$, sedangkan di $x=2$ grafik menyentuh sumbu karena multiplisitas $2$.",
+            },
+          ],
+        },
+        {
+          kind: "flip-cards",
+          intro: "Balik tiap kartu untuk menguji istilah teorema dan akar.",
+          cards: [
+            {
+              front: "Teorema sisa",
+              back: "Sisa pembagian $P(x)$ oleh $(x-c)$ adalah $P(c)$.",
+            },
+            {
+              front: "Teorema faktor",
+              back: "$(x-c)$ faktor $P(x)$ jika dan hanya jika $P(c)=0$.",
+            },
+            {
+              front: "Skema Horner",
+              back: "Cara ringkas membagi polinomial oleh pembagi linear.",
+            },
+            {
+              front: "Multiplisitas akar",
+              back: "Banyaknya kemunculan akar yang sama pada pemfaktoran polinomial.",
+            },
+            {
+              front: "Identitas polinomial",
+              back: "Dua polinomial sama untuk semua $x$ bila koefisien suku sejenisnya sama.",
+            },
+          ],
+        },
+        {
+          kind: "figure",
+          alt: "Grafik polinomial yang memotong sumbu x di x sama dengan minus satu dan menyentuh lalu berbalik di x sama dengan dua, dengan kedua titik akar ditandai.",
+          caption: "Grafik $P(x)=(x+1)(x-2)^{2}$: akar $x=-1$ bermultiplisitas $1$ sehingga kurva memotong sumbu-$x$, sedangkan akar $x=2$ bermultiplisitas $2$ sehingga kurva menyentuh sumbu lalu berbalik.",
+          svg: '<svg viewBox="0 0 340 240" aria-hidden="true" role="presentation"><defs><marker id="pol-mult-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="30" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="1.3" marker-end="url(#pol-mult-axis)"/><line x1="120" y1="225" x2="120" y2="25" stroke="currentColor" stroke-width="1.3" marker-end="url(#pol-mult-axis)"/><polyline points="45,227 54,199 76,150 98,125 120,118 142,123 164,134 186,145 208,150 230,143 252,118" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="76" cy="150" r="3.4" fill="currentColor"/><circle cx="208" cy="150" r="3.4" fill="currentColor"/><text x="68" y="168" font-size="11" fill="currentColor">-1</text><text x="204" y="168" font-size="11" fill="currentColor">2</text><text x="44" y="118" font-size="11" fill="currentColor">memotong</text><text x="198" y="196" font-size="11" fill="currentColor">menyentuh</text><text x="314" y="168" font-size="11" fill="currentColor">x</text><text x="126" y="34" font-size="11" fill="currentColor">y</text></svg>',
         },
       ],
     },
@@ -307,6 +356,22 @@ Menyamakan koefisien suku sejenis memberi $a=3$, $b=-1$, dan $c=-3$.`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: sisa pembagian oleh $(2x-1)$",
+          text: `Diketahui $P(x)=2x^{3}-3x^{2}+4x-5$. Tentukan sisa pembagian $P(x)$ oleh $(2x-1)$, lalu periksa hasilnya dengan skema Horner.
+
+*Penyelesaian.* Untuk pembagi $(ax+b)=(2x-1)$, substitusikan $x=-\\dfrac{b}{a}=\\dfrac{1}{2}$:
+$$P\\left(\\dfrac{1}{2}\\right)=2\\left(\\dfrac{1}{8}\\right)-3\\left(\\dfrac{1}{4}\\right)+4\\left(\\dfrac{1}{2}\\right)-5=\\dfrac{1}{4}-\\dfrac{3}{4}+2-5=-\\dfrac{7}{2}.$$
+Jadi sisanya $-\\dfrac{7}{2}$.
+
+*Periksa dengan Horner.* Tulis koefisien $2,-3,4,-5$, lalu kalikan dengan $\\dfrac{1}{2}$ dan jumlahkan:
+- turunkan $2$;
+- $2\\cdot\\dfrac{1}{2}=1$, lalu $-3+1=-2$;
+- $-2\\cdot\\dfrac{1}{2}=-1$, lalu $4-1=3$;
+- $3\\cdot\\dfrac{1}{2}=\\dfrac{3}{2}$, lalu $-5+\\dfrac{3}{2}=-\\dfrac{7}{2}$.
+Baris terakhir memberi sisa $-\\dfrac{7}{2}$, sama dengan hasil teorema sisa.`,
+        },
       ],
     },
     {
@@ -371,7 +436,7 @@ Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Paritas akar sebagai kunci",
           text: `Perhatikan hanya **paritas** (genap atau ganjil). Jika $k$ akar bulat, tuliskan $P(x)=(x-k)Q(x)$, lalu selidiki paritas $P(0)$ dan $P(1)$.`,
         },
         {
@@ -432,6 +497,7 @@ Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan konsep, bentuk, dan aturan polinomial",
           headers: [
             "Konsep",
             "Bentuk / Aturan",
@@ -466,6 +532,12 @@ Buktikan bahwa $P(x)$ tidak memiliki akar bilangan bulat.`,
               "koefisien suku sejenis sama",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu algoritma, dua teorema",
+          text: "Semua aturan pada topik ini mengalir dari **algoritma pembagian**. Sisa pembagian oleh $(x-c)$ adalah $P(c)$; bila sisa itu nol, $(x-c)$ menjadi faktor. Dari faktorisasi itu, multiplisitas akar menjelaskan apakah grafik memotong atau menyentuh sumbu-$x$. Jadi satu identitas pembagian menyatukan teorema sisa, teorema faktor, dan bentuk kurva.",
         },
       ],
     },

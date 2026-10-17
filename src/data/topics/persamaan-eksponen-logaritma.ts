@@ -109,6 +109,12 @@ $$\\log_{a}\\!\\left(\\frac{m}{n}\\right)=\\log_{a}m-\\log_{a}n$$
 $$\\log_{a}(m^{n})=n\\,\\log_{a}m \\qquad \\log_{a}a=1 \\qquad \\log_{a}1=0$$`,
       blocks: [
         {
+          kind: "figure",
+          alt: "Grafik y sama dengan 2 pangkat t yang naik makin cepat; garis putus-putus menandai nilai 64 dan 128, sementara sebuah titik di antaranya menandai penyelesaian 2 pangkat t sama dengan 100 di sekitar t sama dengan 6,64.",
+          caption: "Grafik $y=2^{t}$ memotong nilai $100$ di antara $2^{6}=64$ dan $2^{7}=128$. Karena $100$ bukan pangkat bulat basis $2$, nilai $t=\\log_{2}100 \\approx 6{,}64$ inilah yang dijawab logaritma.",
+          svg: '<svg viewBox="0 0 320 220" aria-hidden="true" role="presentation"><line x1="40" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="190" x2="40" y2="16" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="96" x2="300" y2="96" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><line x1="40" y1="32" x2="300" y2="32" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><polyline points="40,188 72,186 104,182 136,174 168,160 200,136 232,96 264,32" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="253" y1="55" x2="253" y2="190" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/><circle cx="232" cy="96" r="2.8" fill="currentColor"/><circle cx="264" cy="32" r="2.8" fill="currentColor"/><circle cx="253" cy="55" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><text x="196" y="120" font-size="11" fill="currentColor">y = 2^t</text><text x="286" y="92" font-size="11" fill="currentColor">64</text><text x="280" y="29" font-size="11" fill="currentColor">128</text><text x="260" y="150" font-size="11" fill="currentColor">t = 6,64</text><text x="294" y="206" font-size="12" fill="currentColor">t</text><text x="26" y="24" font-size="12" fill="currentColor">y</text></svg>',
+        },
+        {
           kind: "callout",
           variant: "concept",
           title: "Eksponen dan logaritma saling membalik",
@@ -341,6 +347,20 @@ Periksa dengan $2^{3}=8$ benar.`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: persamaan logaritma dengan selisih",
+          text: `Tentukan $x$ dari $\\log_{2}(x+1)-\\log_{2}(x-1)=1$.
+
+*Langkah 1.* Gabungkan selisih logaritma dengan sifat pembagian:
+$$\\log_{2}(x+1)-\\log_{2}(x-1)=\\log_{2}\\!\\left(\\frac{x+1}{x-1}\\right)=1.$$
+
+*Langkah 2.* Ubah ke bentuk eksponen: $\\dfrac{x+1}{x-1}=2^{1}=2$.
+
+*Langkah 3.* Kalikan silang: $x+1=2(x-1)=2x-2$, sehingga $x=3$.
+
+*Pemeriksaan syarat.* Numerus harus positif: $x+1=4>0$ dan $x-1=2>0$, jadi $x=3$ diterima. Periksa: $\\log_{2}4-\\log_{2}2=2-1=1$. Cocok.`,
+        },
       ],
     },
     {
@@ -461,6 +481,7 @@ Contohnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan strategi persamaan eksponen dan logaritma beserta syaratnya",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -495,6 +516,12 @@ Contohnya, satu sel yang berlipat dua setiap jam mencapai $100$ sel setelah $t=\
               "basis $a>0$, $a\\neq1$, dan numerus selalu positif",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: logaritma menutup lubang yang ditinggalkan eksponen",
+          text: "Semua soal pada topik ini bermuara pada satu kesetaraan, yaitu $a^{c}=b \\iff \\log_{a}b=c$. Selama target berupa pangkat bulat dari basis, menyamakan basis atau substitusi cukup. Begitu targetnya bukan pangkat bulat, seperti $2^{t}=100$, logaritma menjadi satu-satunya penuntas, dengan catatan wajib memeriksa syarat numerus positif. Hubungan balik ini kamu pakai lagi saat menghitung waktu pada **bunga majemuk** dan **anuitas**, serta mendasari **fungsi logaritma** yang dipelajari pada Matematika Tingkat Lanjut.",
         },
       ],
     },

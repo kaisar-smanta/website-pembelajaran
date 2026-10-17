@@ -30,8 +30,8 @@ import NumberTheoryExplorer from './NumberTheoryExplorer.astro';
 import InductionExplorer from './InductionExplorer.astro';
 import ConfoundingExplorer from './ConfoundingExplorer.astro';
 import FunctionFamilyExplorer from './FunctionFamilyExplorer.astro';
+import PiecewiseExplorer from './PiecewiseExplorer.astro';
 import ExponentLawsExplorer from './ExponentLawsExplorer.astro';
-import GeogebraEmbed from './GeogebraEmbed.astro';
 import SimSkeleton from './SimSkeleton.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
 
@@ -43,8 +43,7 @@ const { exploration } = Astro.props;
 /**
  * Peta jenis eksplorasi ke komponennya. `satisfies Record<ExplorationType, …>`
  * memaksa setiap anggota `ExplorationType` terdaftar, sehingga menambah jenis
- * baru tanpa komponen menjadi galat tipe. Jenis yang belum punya komponen dan
- * `geogebra` diisi `null`.
+ * baru tanpa komponen menjadi galat tipe.
  */
 const SIM_COMPONENTS = {
   'function-slider': FunctionSlider,
@@ -77,16 +76,14 @@ const SIM_COMPONENTS = {
   induction: InductionExplorer,
   confounding: ConfoundingExplorer,
   'function-family': FunctionFamilyExplorer,
+  piecewise: PiecewiseExplorer,
   'exponent-laws': ExponentLawsExplorer,
-  geogebra: null,
 } satisfies Record<ExplorationType, unknown>;
 
 const SimComponent = SIM_COMPONENTS[exploration.type];
 ---
 {
-  exploration.type === 'geogebra' && exploration.url ? (
-    <GeogebraEmbed url={exploration.url} title={exploration.title} />
-  ) : SimComponent ? (
+  SimComponent ? (
     <div class="sim-shell" data-sim-shell>
       <SimComponent exploration={exploration} />
       <SimSkeleton label={`Menyiapkan simulasi ${exploration.title}…`} />
@@ -94,13 +91,7 @@ const SimComponent = SIM_COMPONENTS[exploration.type];
   ) : (
     <div class="sim-fallback" role="note">
       <MathMascot size={5} state="oops" label="Maskot belum menemukan simulasi ini" />
-      <p>
-        Simulasi belum tersedia,{' '}
-        <a
-          href={exploration.url ?? 'https://www.geogebra.org/classic'}
-          target="_blank"
-          rel="noopener noreferrer">buka di GeoGebra</a>.
-      </p>
+      <p>Simulasi belum tersedia untuk topik ini.</p>
     </div>
   )
 }

@@ -192,6 +192,17 @@ Ketiga bentuk itu menyingkap informasi berbeda: bentuk faktor menunjukkan akar, 
           ],
         },
         {
+          kind: "match",
+          intro: "Cocokkan kondisi koefisien dengan bentuk grafik yang dihasilkannya.",
+          pairs: [
+            { left: "$a>0$", right: "terbuka ke atas, titik puncak minimum" },
+            { left: "$a<0$", right: "terbuka ke bawah, titik puncak maksimum" },
+            { left: "$D>0$", right: "memotong sumbu-$x$ di dua titik" },
+            { left: "$D=0$", right: "menyinggung sumbu-$x$ di satu titik" },
+            { left: "$D<0$", right: "tidak memotong sumbu-$x$" },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Parabola terbuka ke atas dengan titik puncak di bawah sumbu-x, garis putus-putus vertikal sebagai sumbu simetri, dua titik potong pada sumbu-x, dan satu titik potong pada sumbu-y.",
           caption: "Grafik $f(x)=x^{2}-6x+8$: titik puncak $(3,-1)$, sumbu simetri $x=3$ (garis putus-putus), akar $x=2$ dan $x=4$ pada sumbu-$x$, serta titik potong sumbu-$y$ di $(0,8)$.",
@@ -249,7 +260,7 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Tanda pada sumbu simetri",
           text: "Sumbu simetri adalah garis $x=-\\dfrac{b}{2a}$, bukan nilai $x$ itu saja. Tanda negatif di depan $b$ sering terlewat; periksa kembali sebelum menggambar.",
         },
         {
@@ -388,6 +399,13 @@ Nilai puncak juga dapat dinyatakan dengan diskriminan: $k = -\\dfrac{D}{4a}$.`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: tinggi maksimum kembang api",
+          text: `Sebuah kembang api diluncurkan sehingga tingginya (meter) setelah $t$ detik adalah $h(t)=-4t^{2}+24t$. Tentukan tinggi maksimum dan waktu mencapainya, lalu tentukan lama kembang api berada di udara.
+
+*Penyelesaian.* Sumbu simetrinya $t=-\\dfrac{24}{2\\cdot(-4)}=3$. Karena $a=-4<0$, titik puncak adalah maksimum: $h(3)=-4(9)+72=36$ meter. Kembang api menyentuh tanah saat $h(t)=0$, yaitu $-4t(t-6)=0$, sehingga berada di udara selama $6$ detik.`,
+        },
       ],
     },
     {
@@ -470,7 +488,7 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Manfaatkan titik yang simetris",
           text: "Setiap titik memberi satu persamaan bagi $a$, $b$, dan $c$. Dua titik dengan nilai $y$ yang sama, yaitu $(1,6)$ dan $(3,6)$, menandakan sumbu simetri berada di tengah keduanya.",
         },
         {
@@ -511,7 +529,7 @@ Untuk melihat contoh data nyata, lihat [Apakah Waktu Belajar Berkaitan dengan Ni
       title: "Dari Resep Babilonia ke Parabola",
       body: `Penyelesaian soal yang setara dengan persamaan kuadrat sudah tercatat pada lempeng tanah liat Babilonia kuno, ribuan tahun sebelum Masehi, meskipun disajikan sebagai resep hitung dan hanya untuk akar positif. Di India, Brahmagupta pada abad ke-7 memberi aturan penyelesaian yang lebih umum, termasuk penanganan akar negatif. Al-Khwarizmi dalam *Al-Jabr* (sekitar 820) menyusun metode sistematis lengkap dengan langkah melengkapi kuadrat, dan karyanya menjadi rujukan aljabar di dunia Islam lalu Eropa. Kedua akar persamaan kuadrat dihubungkan dengan koefisiennya melalui rumus jumlah dan hasil kali yang kemudian dikembangkan François Viète. Adapun kurva parabolanya baru dipahami sebagai grafik fungsi setelah geometri koordinat Descartes dan Fermat pada abad ke-17.
 
-Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya akar real tumbuh menjadi bagian baku aljabar.`,
+Sejak itu istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya akar real menjadi bagian baku aljabar.`,
       blocks: [
         {
           kind: "table",
@@ -565,6 +583,7 @@ Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus inti fungsi kuadrat, dari bentuk umum sampai akar kompleks.",
           headers: [
             "Konsep",
             "Rumus",
@@ -599,6 +618,12 @@ Dari sinilah istilah "akar" (solusi) dan "diskriminan" yang membedakan banyaknya
               "$D=b^{2}-4ac$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Puncak adalah kunci, bukan sekadar titik",
+          text: "Semua rumus di tabel bertumpu pada satu langkah: melengkapi kuadrat. Langkah itu mengubah parabola menjadi bentuk $a(x-h)^{2}+k$, sehingga arah bukaan, sumbu simetri, dan nilai ekstrem terbaca sekaligus. Gagasan yang sama menyambung ke topik **Fungsi Invers**: dengan membatasi domain di satu sisi puncak, parabola menjadi satu-satu dan dapat dibalik.",
         },
       ],
     },

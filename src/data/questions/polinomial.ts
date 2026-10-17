@@ -362,4 +362,22 @@ export const polinomialQuestions: Question[] = [
     ],
     competencies: ['perkalian polinomial', 'pemodelan volume'],
   },
+  {
+    id: 'pol-18',
+    topicId: 'polinomial',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Polinomial $P(x)=x^{3}+ax^{2}+bx-6$ habis dibagi oleh $(x-1)$ dan $(x+2)$. Tentukan nilai $P(2)$.',
+    answer: '20',
+    acceptedAnswers: ['20'],
+    explanation:
+      'Karena $(x-1)$ dan $(x+2)$ faktor, berlaku $P(1)=0$ dan $P(-2)=0$. Dari $P(1)=1+a+b-6=0$ diperoleh $a+b=5$. Dari $P(-2)=-8+4a-2b-6=0$ diperoleh $4a-2b=14$, yaitu $2a-b=7$. Menyelesaikan $a+b=5$ dan $2a-b=7$ memberi $3a=12$, sehingga $a=4$ dan $b=1$. Maka $P(x)=x^{3}+4x^{2}+x-6$, sehingga $P(2)=8+16+2-6=20$.',
+    hints: [
+      'Gunakan teorema faktor: $P(1)=0$ dan $P(-2)=0$ menghasilkan dua persamaan pada $a$ dan $b$.',
+      'Setelah $a$ dan $b$ diperoleh, substitusikan $x=2$ untuk menghitung $P(2)$.',
+    ],
+    competencies: ['teorema faktor', 'sistem persamaan', 'nilai polinomial'],
+  },
 ];

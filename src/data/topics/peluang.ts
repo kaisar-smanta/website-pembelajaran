@@ -141,6 +141,40 @@ dengan $n(A)$ menyatakan banyak anggota kejadian $A$. Karena $A \\subseteq S$, s
           ],
         },
         {
+          kind: "flip-cards",
+          intro: "Hafalkan istilah dasar peluang.",
+          cards: [
+            {
+              front: "Ruang sampel",
+              back: "Himpunan semua hasil yang mungkin dari suatu percobaan",
+            },
+            {
+              front: "Kejadian",
+              back: "Himpunan bagian dari ruang sampel",
+            },
+            {
+              front: "Peluang teoretis",
+              back: "$P(A)=\\dfrac{n(A)}{n(S)}$, berlaku bila setiap hasil sama mungkin",
+            },
+            {
+              front: "Peluang empiris",
+              back: "Frekuensi relatif yang diperoleh dari percobaan nyata",
+            },
+            {
+              front: "Frekuensi harapan",
+              back: "$F_h = N \\cdot P(A)$, perkiraan jangka panjang bukan jaminan",
+            },
+            {
+              front: "Saling lepas",
+              back: "Dua kejadian tidak dapat terjadi bersamaan: $P(A\\cap B)=0$",
+            },
+            {
+              front: "Saling bebas",
+              back: "Terjadinya satu kejadian tidak mengubah peluang kejadian lain",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Grid berukuran enam kali enam sebagai ruang sampel pelemparan dua dadu, dengan enam sel diagonal ditandai.",
           caption: "Ruang sampel dua dadu memuat $6 \\times 6 = 36$ hasil. Sel bertanda adalah pasangan berjumlah $7$, yaitu $6$ dari $36$ kemungkinan sehingga $P=\\tfrac{6}{36}=\\tfrac16$.",
@@ -244,7 +278,7 @@ Contoh: pada satu lemparan dadu, kejadian "muncul angka genap" dan "muncul angka
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Saling lepas atau beririsan",
           text: "Aturan $P(A \\cup B) = P(A) + P(B)$ hanya boleh dipakai bila $A$ dan $B$ **saling lepas**. Jika beririsan, hasilnya akan melebihi nilai sebenarnya.",
         },
         {
@@ -288,7 +322,7 @@ Contoh: dua dadu dilempar $180$ kali. Peluang jumlah mata $7$ adalah $P=\\tfrac{
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Lepas bukan berarti bebas",
           text: "\"Saling bebas\" berbeda dari \"saling lepas\". Kejadian saling lepas tidak dapat terjadi bersamaan ($P(A\\cap B)=0$), sedangkan kejadian saling bebas mengalikan peluang ($P(A\\cap B)=P(A)P(B)$).",
         },
       ],
@@ -335,6 +369,19 @@ $$P(A \\cup B) = P(A) + P(B) - P(A \\cap B) = \\tfrac12 + \\tfrac12 - \\tfrac16 
 $$P(\\text{dadu }6 \\cap \\text{gambar}) = \\tfrac16 \\cdot \\tfrac12 = \\tfrac{1}{12}.$$`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: frekuensi harapan dua dadu",
+          text: `Dua dadu dilempar bersama $360$ kali. Tentukan frekuensi harapan muncul jumlah mata $5$ dan jumlah mata $8$.
+
+*Langkah 1.* Ruang sampelnya $n(S)=6\\times6=36$, dan setiap hasil sama mungkin.
+
+*Langkah 2.* Jumlah $5$ muncul dari $(1,4),(2,3),(3,2),(4,1)$, yaitu $4$ cara, sehingga $P(\\text{jumlah }5)=\\dfrac{4}{36}=\\dfrac19$.
+
+*Langkah 3.* Jumlah $8$ muncul dari $(2,6),(3,5),(4,4),(5,3),(6,2)$, yaitu $5$ cara, sehingga $P(\\text{jumlah }8)=\\dfrac{5}{36}$.
+
+*Langkah 4.* Frekuensi harapannya $F_h = 360\\cdot\\dfrac19 = 40$ untuk jumlah $5$, dan $F_h = 360\\cdot\\dfrac{5}{36} = 50$ untuk jumlah $8$. Jadi dari $360$ lemparan kita mengharapkan sekitar $90$ lemparan berjumlah $5$ atau $8$. Angka ini perkiraan jangka panjang, bukan jaminan hasil nyata.`,
         },
       ],
     },
@@ -522,6 +569,7 @@ Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang pe
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan aturan peluang dan frekuensi harapan",
           headers: [
             "Konsep",
             "Bentuk",
@@ -556,6 +604,12 @@ Gagasan itu tumbuh cepat. Christiaan Huygens menerbitkan buku pertama tentang pe
               "$F_h = N \\cdot P(\\text{kejadian majemuk})$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: dari ruang sampel ke perkiraan jangka panjang",
+          text: "Semua rumus di atas berakar pada satu gagasan: peluang adalah rasio bagian terhadap keseluruhan, sehingga ruang sampel yang didata dengan benar menyelesaikan sebagian besar soal. Komplemen, aturan penjumlahan, dan aturan perkalian hanyalah cara menghitung rasio itu ketika kejadiannya bertingkat. Konsep peluang teoretis yang merapat ke peluang empiris inilah yang berlanjut ke **Peluang Bersyarat**, ketika sebagian informasi sudah diketahui sebelum peluang dihitung.",
         },
       ],
     },

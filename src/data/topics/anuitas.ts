@@ -109,6 +109,12 @@ Rumus ini setara dengan $A = \\dfrac{M \\cdot i}{1-(1+i)^{-n}}$: cukup membagi p
             ["$n$", "banyak periode pembayaran", "periode"],
           ],
         },
+        {
+          kind: "figure",
+          alt: "Garis waktu anuitas dengan lima pembayaran tetap A dan dua diagram batang bertumpuk yang menunjukkan porsi bunga mengecil dan porsi pokok membesar dari periode awal ke periode akhir.",
+          caption: "Setiap periode membayar $A$ yang sama, tetapi isinya berubah: bunga dihitung dari sisa utang sehingga porsi bunga menyusut, sedangkan porsi pokok makin besar sampai utang lunas.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="anu-cash-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="30" y1="70" x2="300" y2="70" stroke="currentColor" stroke-width="1.5" marker-end="url(#anu-cash-arrow)"/><line x1="60" y1="70" x2="60" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#anu-cash-arrow)"/><line x1="105" y1="70" x2="105" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#anu-cash-arrow)"/><line x1="150" y1="70" x2="150" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#anu-cash-arrow)"/><line x1="195" y1="70" x2="195" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#anu-cash-arrow)"/><line x1="240" y1="70" x2="240" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#anu-cash-arrow)"/><text x="64" y="100" font-size="11" fill="currentColor">A</text><text x="109" y="100" font-size="11" fill="currentColor">A</text><text x="154" y="100" font-size="11" fill="currentColor">A</text><text x="199" y="100" font-size="11" fill="currentColor">A</text><text x="244" y="100" font-size="11" fill="currentColor">A</text><text x="57" y="126" font-size="10" fill="currentColor">1</text><text x="102" y="126" font-size="10" fill="currentColor">2</text><text x="147" y="126" font-size="10" fill="currentColor">3</text><text x="192" y="126" font-size="10" fill="currentColor">4</text><text x="237" y="126" font-size="10" fill="currentColor">5</text><text x="255" y="60" font-size="10" fill="currentColor">periode</text><rect x="55" y="150" width="22" height="24" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="0.8"/><rect x="55" y="174" width="22" height="36" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="245" y="190" width="22" height="8" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="0.8"/><rect x="245" y="150" width="22" height="40" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><text x="84" y="166" font-size="10" fill="currentColor">bunga</text><text x="84" y="196" font-size="10" fill="currentColor">pokok</text><text x="60" y="144" font-size="10" fill="currentColor">awal</text><text x="248" y="144" font-size="10" fill="currentColor">akhir</text><text x="120" y="225" font-size="10" fill="currentColor">bunga menyusut, porsi pokok membesar</text></svg>',
+        },
       ],
     },
     {
@@ -212,6 +218,36 @@ Rumus $PV$ menjawab "berapa pinjaman yang setara dengan angsuran ini", sedangkan
           ],
         },
         {
+          kind: "flip-cards",
+          intro: "Balik kartu untuk mengingat istilah yang muncul saat membaca tabel amortisasi.",
+          cards: [
+            {
+              front: "Anuitas",
+              back: "Rangkaian pembayaran sama besar yang dilakukan secara berkala.",
+            },
+            {
+              front: "Amortisasi",
+              back: "Proses mencicil pokok pinjaman sehingga sisa utang turun tiap periode.",
+            },
+            {
+              front: "Nilai sekarang (PV)",
+              back: "Nilai tunai seluruh angsuran jika diukur pada hari ini.",
+            },
+            {
+              front: "Nilai masa depan (FV)",
+              back: "Saldo yang terkumpul dari setoran rutin pada akhir periode.",
+            },
+            {
+              front: "Tenor",
+              back: "Lama waktu pinjaman, biasanya dinyatakan dalam bulan.",
+            },
+            {
+              front: "Komposisi angsuran",
+              back: "Pembagian angsuran tetap menjadi porsi bunga dan porsi pokok.",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Diagram batang bertumpuk yang menunjukkan komposisi angsuran tetap tiap periode: porsi bunga yang menyusut berada di bawah dan porsi pokok yang membesar berada di atas.",
           caption: "Karena angsuran $A$ tetap, tinggi total batang tetap. Namun porsi bunga (bawah) menyusut dari periode ke periode, sedangkan porsi pokok (atas) makin besar, sejalan dengan hubungan $A = \\text{bunga} + \\text{pokok}$.",
@@ -269,6 +305,19 @@ $$FV = 500.000 \\cdot \\frac{(1{,}008)^{36}-1}{0{,}008}.$$
 Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} \\approx 41{,}528$, sehingga $FV \\approx 500.000 \\times 41{,}528 \\approx \\text{Rp}20.764.000$. Total setoran $= \\text{Rp}18.000.000$, jadi bunga yang terkumpul sekitar **Rp2.764.000**.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: angsuran pinjaman Rp12.000.000",
+          text: `Pinjaman Rp12.000.000 dilunasi dengan anuitas $12$ bulan dan bunga $1\\%$ per bulan. Tentukan besar angsuran dan total bunga.
+
+*Penyelesaian.* Dengan $M = 12.000.000$, $i = 0{,}01$, dan $n = 12$:
+$$A = \\frac{12.000.000 \\times 0{,}01}{1-(1{,}01)^{-12}}.$$
+Karena $(1{,}01)^{12} \\approx 1{,}126825$, maka $(1{,}01)^{-12} \\approx 0{,}887449$ dan penyebutnya $\\approx 0{,}112551$. Jadi
+$$A \\approx \\frac{120.000}{0{,}112551} \\approx \\text{Rp}1.066.185.$$
+Total pembayaran $= 12 \\times 1.066.185 = \\text{Rp}12.794.220$, sehingga total bunga $\\approx \\text{Rp}794.220$.
+
+*Verifikasi.* Bunga bulan pertama $= 0{,}01 \\times 12.000.000 = \\text{Rp}120.000$, sehingga angsuran pokok pertama $\\approx \\text{Rp}946.185$. Porsi pokok ini masuk akal karena masih di bawah angsuran penuh. Cocok.`,
         },
       ],
     },
@@ -335,7 +384,7 @@ Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} 
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Cara melacak sisa utang",
           text: "Lacak sisa utang dengan $S_k = M(1+i)^k - A\\,\\dfrac{(1+i)^k-1}{i}$, lalu cari $k$ terkecil yang membuat sisanya tidak positif.",
         },
         {
@@ -395,6 +444,7 @@ Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} 
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan hubungan angsuran, nilai sekarang, nilai masa depan, dan total pembayaran. Gunakan tabel ini untuk memilih rumus sesuai pertanyaan yang diajukan.",
           headers: [
             "Konsep",
             "Rumus",
@@ -421,6 +471,12 @@ Karena $(1{,}008)^{36} \\approx 1{,}332225$, maka $\\dfrac{0{,}332225}{0{,}008} 
               "$n \\times A$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: angsuran tetap, komposisi bergeser",
+          text: "Angsuran $A$ tidak pernah berubah, tetapi bunga selalu dihitung dari sisa utang yang menurun, sehingga porsi pokok makin besar. Pola ini menjadi dasar perbandingan penawaran pada topik **Pinjaman dan Investasi**: yang dibandingkan bukan besar angsuran, melainkan total biaya.",
         },
       ],
     },

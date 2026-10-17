@@ -179,6 +179,30 @@ Jika suatu bangun seluas $L$ ditransformasi oleh matriks $M$, luas bayangannya a
           caption: "Persegi satuan $A$ (garis penuh, luas $1$) dan bayangannya $B$ (garis putus-putus) oleh matriks $M=\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$. Bayangan berupa persegi panjang $2 \\times 3$ dengan luas $6$, sebab $\\lvert \\det M \\rvert = 6$ menjadi faktor skala luas.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="45" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.3"/><line x1="100" y1="185" x2="100" y2="25" stroke="currentColor" stroke-width="1.3"/><polygon points="100,150 140,150 140,110 100,110" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="100,150 180,150 180,30 100,30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><text x="292" y="166" font-size="12" fill="currentColor">x</text><text x="106" y="36" font-size="12" fill="currentColor">y</text><text x="106" y="130" font-size="11" fill="currentColor">A</text><text x="150" y="48" font-size="11" fill="currentColor">B (luas 6)</text><text x="100" y="146" font-size="11" fill="currentColor">O</text></svg>',
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: `Setiap transformasi linear diwakili matriks $2\\times2$ yang bekerja pada vektor kolom:
+$$\\begin{pmatrix}x'\\\\y'\\end{pmatrix}=M\\begin{pmatrix}x\\\\y\\end{pmatrix}.$$
+Bila $T_{1}$ dikerjakan lebih dahulu lalu $T_{2}$, matriks gabungannya $M_{2}M_{1}$, sehingga $M_{1}$ ditulis di kanan.`,
+            },
+            {
+              label: "Tabel transformasi",
+              body: `| Transformasi | Matriks | Determinan |
+| --- | --- | --- |
+| Rotasi $\\theta$ | $\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$ | $1$ |
+| Refleksi sumbu $x$ | $\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ | $-1$ |
+| Dilatasi faktor $k$ | $\\begin{pmatrix}k&0\\\\0&k\\end{pmatrix}$ | $k^{2}$ |
+| Regangan arah $x$ | $\\begin{pmatrix}k&0\\\\0&1\\end{pmatrix}$ | $k$ |`,
+            },
+            {
+              label: "Tafsir geometris",
+              body: `Nilai $\\lvert\\det(M)\\rvert$ menyatakan faktor skala luas, sedangkan tandanya menunjukkan orientasi. Rotasi dan refleksi mempertahankan luas karena $\\lvert\\det(M)\\rvert=1$. Dilatasi faktor $k$ mengubah luas menjadi $k^{2}$ kali semula, dan $\\det(M)=0$ membuat bangun runtuh menjadi ruas garis.`,
+            },
+          ],
+        },
       ],
     },
     {
@@ -247,7 +271,7 @@ Contohnya, translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$.`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Cek cepat",
+          title: "Tanda determinan refleksi",
           text: "Semua matriks refleksi memiliki determinan $-1$, sehingga luas bangun tetap tetapi orientasinya terbalik.",
         },
       ],
@@ -292,6 +316,14 @@ dengan $M_{1}$ di kanan karena dipakai lebih dahulu. Urutan perkalian tidak bole
 **Contoh ringkas.** Rotasi $90^\\circ$ berlawanan arah jarum jam dilanjutkan refleksi terhadap sumbu $x$ memberi
 $$M = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix} = \\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix},$$
 yang tidak lain adalah refleksi terhadap garis $y=-x$.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Diagram kartesius dengan titik P(2,1), bayangan (-1,-2) setelah rotasi lalu refleksi, dan bayangan (1,2) setelah refleksi lalu rotasi, menunjukkan urutan komposisi mengubah hasil.",
+          caption: "Dua urutan dengan bahan yang sama berakhir di titik berbeda. Garis penuh: rotasi $90^\\circ$ lalu refleksi sumbu $x$, sehingga $S(R(P))=(-1,-2)$. Garis putus-putus: refleksi sumbu $x$ lalu rotasi $90^\\circ$, sehingga $R(S(P))=(1,2)$.",
+          svg: '<svg viewBox="0 0 340 270" aria-hidden="true" role="presentation"><defs><marker id="mtf-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="currentColor"/></marker></defs><g stroke="currentColor" stroke-width="1" opacity="0.18"><line x1="50" y1="10" x2="50" y2="250"/><line x1="110" y1="10" x2="110" y2="250"/><line x1="230" y1="10" x2="230" y2="250"/><line x1="290" y1="10" x2="290" y2="250"/><line x1="20" y1="40" x2="320" y2="40"/><line x1="20" y1="100" x2="320" y2="100"/><line x1="20" y1="160" x2="320" y2="160"/><line x1="20" y1="220" x2="320" y2="220"/></g><line x1="20" y1="130" x2="320" y2="130" stroke="currentColor" stroke-width="1.4"/><line x1="170" y1="250" x2="170" y2="10" stroke="currentColor" stroke-width="1.4"/><line x1="230" y1="100" x2="140" y2="70" stroke="currentColor" stroke-width="2" marker-end="url(#mtf-arrow)"/><line x1="140" y1="70" x2="140" y2="190" stroke="currentColor" stroke-width="2" marker-end="url(#mtf-arrow)"/><line x1="230" y1="100" x2="230" y2="160" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#mtf-arrow)"/><line x1="230" y1="160" x2="200" y2="70" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#mtf-arrow)"/><circle cx="230" cy="100" r="3.4" fill="currentColor"/><circle cx="140" cy="70" r="3.4" fill="currentColor"/><circle cx="140" cy="190" r="3.4" fill="currentColor"/><circle cx="230" cy="160" r="3.4" fill="currentColor"/><circle cx="200" cy="70" r="3.4" fill="currentColor"/><text x="236" y="94" font-size="11" fill="currentColor">P(2,1)</text><text x="92" y="64" font-size="11" fill="currentColor">R(P)</text><text x="78" y="204" font-size="11" fill="currentColor">S(R(P))=(-1,-2)</text><text x="236" y="178" font-size="11" fill="currentColor">S(P)</text><text x="208" y="62" font-size="11" fill="currentColor">R(S(P))=(1,2)</text><text x="324" y="126" font-size="11" fill="currentColor">x</text><text x="176" y="20" font-size="11" fill="currentColor">y</text><text x="24" y="262" font-size="10" fill="currentColor">garis penuh: rotasi lalu refleksi, garis putus-putus: refleksi lalu rotasi</text></svg>',
+        },
+      ],
     },
     {
       id: "eksplorasi",
@@ -363,6 +395,15 @@ sehingga luasnya tetap $1$ satuan luas.`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: setengah putaran skala",
+          text: `Titik $Q(4,-1)$ didilatasi dengan pusat $O$ dan faktor $\\tfrac{1}{2}$, lalu diputar $90^\\circ$ berlawanan arah jarum jam. Tentukan bayangan akhirnya dan faktor skala luas gabungannya.
+
+*Penyelesaian.* Dilatasi lebih dahulu memberi $(2,-\\tfrac{1}{2})$. Rotasi $90^\\circ$ memetakan $(x,y)$ ke $(-y,x)$, sehingga bayangan akhirnya $(\\tfrac{1}{2},2)$. Matriks gabungannya $M=R_{90^\\circ}D_{\\tfrac{1}{2}}$:
+$$M=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}\\begin{pmatrix}\\tfrac{1}{2}&0\\\\0&\\tfrac{1}{2}\\end{pmatrix}=\\begin{pmatrix}0&-\\tfrac{1}{2}\\\\\\tfrac{1}{2}&0\\end{pmatrix}.$$
+$\\det(M)=\\tfrac{1}{4}$, jadi luas bangun menjadi $\\tfrac{1}{4}$ kali semula. Periksa: $M\\begin{pmatrix}4\\\\-1\\end{pmatrix}=\\begin{pmatrix}\\tfrac{1}{2}\\\\2\\end{pmatrix}$, sesuai hasil langkah demi langkah.`,
+        },
       ],
     },
     {
@@ -399,6 +440,20 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
 **2. Salah menggunakan matriks rotasi.** Rotasi berlawanan arah jarum jam memakai $\\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}$; tanda pada $\\sin\\theta$ mudah tertukar.
 **3. Mencampur translasi dengan perkalian matriks.** Translasi adalah penjumlahan vektor, bukan perkalian matriks $2 \\times 2$ terhadap titik asal.
 **4. Melupakan nilai mutlak determinan.** Luas memakai $\\lvert \\det(M) \\rvert$, sedangkan tanda determinan hanya menunjukkan orientasi.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan penentuan matriks gabungan titik $P(1,0)$ oleh rotasi $90^\\circ$ berlawanan arah jarum jam lalu refleksi terhadap sumbu $x$. Ada satu langkah yang keliru. Klik langkah itu.",
+          steps: [
+            "Tentukan matriks tiap tahap: $R=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$ dan $S=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$.",
+            "Rotasi dikerjakan lebih dahulu, lalu refleksi, sehingga matriks gabungannya $M=RS$.",
+            "Hitung $RS=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$.",
+            "Jadi $M$ mewakili refleksi terhadap garis $y=x$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Langkah kedua keliru. Transformasi yang dikerjakan lebih dahulu ditulis di kanan, sehingga $M=SR$, bukan $RS$. Dengan $SR=\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$, titik $(1,0)$ berakhir di $(0,-1)$, sesuai hasil dua langkah: rotasi memberi $(0,1)$, lalu refleksi sumbu $x$ memberi $(0,-1)$.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -472,6 +527,7 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan matriks tiap transformasi, aturan komposisi, dan faktor skala luas",
           headers: [
             "Transformasi",
             "Rumus / Matriks",
@@ -506,6 +562,12 @@ Pada robotika, lengan robot menggunakan transformasi untuk menghitung posisi uju
               "$\\lvert \\det(M) \\rvert$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu matriks, dua bacaan",
+          text: "Setiap transformasi linear punya satu matriks, dan matriks itu dibaca dua arah: sebagai pemetaan titik lewat $M\\mathbf{v}$, serta sebagai bilangan yang merangkum luas lewat $\\lvert\\det M\\rvert$. Urutan komposisi menjadi aturan kedua: karena $M_{2}M_{1}$ umumnya berbeda dari $M_{1}M_{2}$, langkah yang dikerjakan lebih dahulu ditulis di kanan. Gagasan yang sama berlanjut pada topik **Transformasi Geometri**, tempat aturan itu dipakai untuk seluruh bangun, bukan hanya satu titik.",
         },
       ],
     },

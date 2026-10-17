@@ -56,10 +56,10 @@ const curves: Record<Exploration['type'], string> = {
   induction: 'M6 56 L48 56 L48 42 L90 42 L90 28 L132 28 L132 14 L194 14',
   confounding: 'M6 46 L70 22 L134 22 L194 50',
   'function-family': 'M6 48 C52 48 82 30 92 14 M108 58 C126 46 158 42 194 38',
+  piecewise: 'M6 58 L96 12 L194 58',
   'normal-distribution': 'M6 58 C52 58 62 10 100 10 C138 10 148 58 194 58',
   triangle: 'M16 56 L150 16 L196 56 Z',
   'exponent-laws': 'M6 58 C60 56 120 40 194 8',
-  geogebra: 'M6 58 C45 58 60 14 100 14 C140 14 155 58 194 58',
 };
 
 const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>> = {
@@ -198,6 +198,11 @@ const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>
     [30, 46],
     [92, 14],
   ],
+  piecewise: [
+    [6, 58],
+    [96, 12],
+    [194, 58],
+  ],
   'normal-distribution': [
     [100, 10],
     [70, 22],
@@ -212,11 +217,6 @@ const dots: Record<Exploration['type'], ReadonlyArray<readonly [number, number]>
     [6, 58],
     [100, 32],
     [194, 8],
-  ],
-  geogebra: [
-    [40, 40],
-    [100, 14],
-    [160, 40],
   ],
 };
 const curve = curves[exploration.type];

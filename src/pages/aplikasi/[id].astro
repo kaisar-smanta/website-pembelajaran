@@ -256,6 +256,7 @@ const jsonLd = {
     gap: 1.5rem;
   }
   .case-body {
+    min-width: 0;
     padding: 1.25rem 1.4rem 1.4rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -267,6 +268,7 @@ const jsonLd = {
     margin-top: 0;
   }
   .panel {
+    min-width: 0;
     padding: 1.15rem 1.3rem 1.3rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -434,7 +436,7 @@ const jsonLd = {
   }
   @media (max-width: 58rem) {
     .app-layout {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
     .app-aside {
       position: static;

@@ -352,4 +352,27 @@ export const transformasiGeometriQuestions: Question[] = [
       'Menyelesaikan $k=\\sqrt{6}$',
     ],
   },
+  {
+    id: 'tgeo-17',
+    topicId: 'transformasi-geometri',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Titik $B(-3,5)$ dicerminkan terhadap garis $y = x$, lalu hasilnya ditranslasi oleh $\\binom{-2}{4}$. Koordinat bayangan akhirnya adalah …',
+    options: [
+      { key: 'A', text: '$(3,1)$' },
+      { key: 'B', text: '$(5,-3)$' },
+      { key: 'C', text: '$(9,-5)$' },
+      { key: 'D', text: '$(1,9)$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Pencerminan terhadap garis $y = x$ menukar absis dan ordinat, sehingga $(-3,5) \\rightarrow (5,-3)$. Translasi $\\binom{-2}{4}$ lalu memberi $(5-2,\\, -3+4) = (3,1)$ (A). Opsi B berhenti setelah pencerminan karena lupa melakukan translasi. Opsi C menukar urutan langkah: melakukan translasi lebih dahulu, lalu mencerminkan sehingga memperoleh $(9,-5)$. Opsi D salah menerapkan pencerminan dengan membalik tanda absis (refleksi sumbu-$y$), lalu meneruskan translasi sehingga memperoleh $(1,9)$.',
+    hints: [
+      'Pencerminan terhadap $y = x$ menukar koordinat: $(x,y) \\rightarrow (y,x)$.',
+      'Terapkan translasi $\\binom{-2}{4}$ pada hasil pencerminan, komponen per komponen.',
+    ],
+    competencies: ['refleksi terhadap garis $y=x$', 'translasi', 'komposisi transformasi'],
+  },
 ];

@@ -169,8 +169,8 @@ Selain markdown, sebuah `Section` dapat memuat `blocks`. Blok yang dirender
 | `flip-cards` | Kartu bolak-balik untuk istilah. |
 | `tabs` | Penukar representasi (simbolik/grafik/tabel). |
 
-> Blok `geogebra` sudah dihapus. Sematan GeoGebra kini hanya melalui tipe eksplorasi
-> `geogebra` (lihat bagian Aktivitas Interaktif), bukan blok di dalam `Section`.
+> Blok `geogebra` sudah dihapus, demikian pula tipe eksplorasi `geogebra`. Seluruh
+> simulasi kini berupa komponen native di `src/components/interactive/`.
 
 Contoh blok interaktif:
 
@@ -399,13 +399,13 @@ dibangkitkan dari data ini.
    `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
    `distribution`, `conditional-probability`, `circle`, `matrix`, `linear-system`,
    `function-composition`, `function-inverse`, `polynomial`, `vector`, `conic`, `derivative`,
-   `integral`, `random-variable`, `limit`, `binomial-distribution`, atau `geogebra`. Isi juga `grade`, `element`,
+   `integral`, `random-variable`, `limit`, `binomial-distribution`, `piecewise`, atau
+   `exponent-laws`. Isi juga `grade`, `element`,
    `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
    dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
    (prediksi-amati-jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
    `/eksplorasi/[slug]`, pencarian, dan peta sitemap sepenuhnya dibangkitkan dari registri ini.
-   Tipe `geogebra` menyematkan applet lewat `url` dan hanya boleh menunjuk applet spesifik,
-   bukan beranda GeoGebra generik (diperiksa `tests/explorations.mjs`).
+   Setiap tipe wajib punya komponen native; `tests/explorations.mjs` menjaga kelengkapannya.
 2. Untuk tipe yang sudah ada, cukup menautkan `explorationId` pada blok `exploration` di dalam
    sebuah `section`:
 

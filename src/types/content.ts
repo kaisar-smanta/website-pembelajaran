@@ -336,10 +336,10 @@ export type ExplorationType =
   | 'induction'
   | 'confounding'
   | 'function-family'
+  | 'piecewise'
   | 'normal-distribution'
   | 'triangle'
-  | 'exponent-laws'
-  | 'geogebra';
+  | 'exponent-laws';
 
 /** Ajakan berpikir sebelum, selama, dan sesudah bereksplorasi. */
 export interface ExplorationPrompt {
@@ -365,8 +365,6 @@ export interface Exploration {
   description: string;
   /** Parameter awal untuk tipe berbasis slider. */
   params?: ExplorationParam[];
-  /** Untuk tipe geogebra. */
-  url?: string;
   /** Kelas tempat eksplorasi paling relevan. */
   grade?: Grade;
   /** Elemen kurikulum. */

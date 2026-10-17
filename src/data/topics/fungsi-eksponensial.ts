@@ -225,8 +225,14 @@ Untuk $a>0$, domain fungsi adalah seluruh bilangan real dan daerah hasilnya $y>0
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Bukan eksponensial: variabel di basis",
           text: "$f(x)=x^{2}$ **bukan** fungsi eksponensial (variabelnya di basis), sedangkan $f(x)=2^{x}$ bukan fungsi kuadrat. Bentuk grafik keduanya berbeda: parabola simetris versus kurva yang terus menanjak.",
+        },
+        {
+          kind: "figure",
+          alt: "Grafik garis linear y sama dengan tiga x dan kurva eksponensial y sama dengan dua pangkat x; kurva eksponensial awalnya di bawah lalu menyalip garis linear di sekitar x sama dengan tiga koma enam.",
+          caption: "Pertumbuhan linear $y=3x$ dan pertumbuhan eksponensial $y=2^{x}$. Awalnya garis lurus lebih tinggi, tetapi kurva eksponensial menyalipnya di sekitar $x\\approx 3{,}6$ dan terus meninggalkannya.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="50" y1="185" x2="300" y2="185" stroke="currentColor" stroke-width="1.4"/><line x1="50" y1="185" x2="50" y2="20" stroke="currentColor" stroke-width="1.4"/><line x1="50" y1="185" x2="250" y2="65" stroke="currentColor" stroke-width="2.2"/><polyline points="50,175 100,165 150,145 200,105 250,25" fill="none" stroke="currentColor" stroke-width="2.2" stroke-dasharray="6 3"/><circle cx="50" cy="175" r="3" fill="currentColor"/><circle cx="100" cy="165" r="3" fill="currentColor"/><circle cx="150" cy="145" r="3" fill="currentColor"/><circle cx="200" cy="105" r="3" fill="currentColor"/><circle cx="250" cy="25" r="3" fill="currentColor"/><text x="252" y="82" font-size="11" fill="currentColor">y = 3x</text><text x="146" y="122" font-size="11" fill="currentColor">y = 2^x</text><text x="294" y="181" font-size="11" fill="currentColor">x</text><text x="36" y="26" font-size="11" fill="currentColor">y</text><text x="50" y="197" font-size="10" text-anchor="middle" fill="currentColor">0</text><text x="100" y="197" font-size="10" text-anchor="middle" fill="currentColor">1</text><text x="150" y="197" font-size="10" text-anchor="middle" fill="currentColor">2</text><text x="200" y="197" font-size="10" text-anchor="middle" fill="currentColor">3</text><text x="250" y="197" font-size="10" text-anchor="middle" fill="currentColor">4</text></svg>',
         },
       ],
     },
@@ -326,6 +332,19 @@ $$y=2^{2}-3=4-3=1.$$
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: membaca parameter dari sebuah grafik",
+          text: `Sebuah grafik $f(x)=a\\cdot b^{x}$ melalui $(0,4)$ dan $(2,36)$. Tentukan $a$, $b$, lalu hitung $f(3)$.
+
+*Langkah 1.* Titik $(0,4)$ memberi nilai awal: $f(0)=a\\cdot b^{0}=a=4$.
+
+*Langkah 2.* Titik $(2,36)$ memberi $4\\cdot b^{2}=36$, sehingga $b^{2}=9$. Karena basis harus positif, $b=3$.
+
+*Langkah 3.* Modelnya $f(x)=4\\cdot3^{x}$, maka $f(3)=4\\cdot3^{3}=4\\cdot27=108$.
+
+*Verifikasi.* Setiap kenaikan $x$ satu mengalikan nilai dengan $3$: $4 \\to 12 \\to 36 \\to 108$. Cocok, dan grafik memang naik karena $b=3>1$.`,
+        },
       ],
     },
     {
@@ -420,7 +439,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       id: "sejarah",
       kind: "sejarah",
       title: "Dari Bunga Majemuk ke Bilangan e",
-      body: `Fungsi eksponensial tumbuh dari penyelidikan bunga majemuk. Pada 1683 Jacob Bernoulli menelaah tabungan yang dibungakan berkali-kali dalam setahun dan memperhatikan bahwa batas $(1+1/n)^{n}$ menuju suatu bilangan tetap di antara $2$ dan $3$. Leonhard Euler (1748) kemudian menandai bilangan itu dengan $e$ dan memperkenalkan fungsi $e^{x}$ sebagai fungsi yang lajunya sebanding dengan nilainya sendiri. Sejak itu bentuk $a\\cdot b^{x}$ dipakai untuk memodelkan pertumbuhan populasi, peluruhan zat, dan penyebaran penyakit. Karena itulah topik ini menjadi bahasa baku bagi perubahan yang berlipat.`,
+      body: `Fungsi eksponensial bermula dari penyelidikan bunga majemuk. Pada 1683 Jacob Bernoulli menelaah tabungan yang dibungakan berkali-kali dalam setahun dan memperhatikan bahwa batas $(1+1/n)^{n}$ menuju suatu bilangan tetap di antara $2$ dan $3$. Leonhard Euler (1748) kemudian menandai bilangan itu dengan $e$ dan memperkenalkan fungsi $e^{x}$ sebagai fungsi yang lajunya sebanding dengan nilainya sendiri. Sejak itu bentuk $a\\cdot b^{x}$ dipakai untuk memodelkan pertumbuhan populasi, peluruhan zat, dan penyebaran penyakit. Karena itulah topik ini menjadi bahasa baku bagi perubahan yang berlipat.`,
     },
     {
       id: "refleksi",
@@ -447,6 +466,7 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan bentuk, arah grafik, dan asimtot fungsi eksponensial",
           headers: [
             "Konsep",
             "Bentuk / Sifat",
@@ -481,6 +501,12 @@ Untuk contoh lengkap, lihat [Pertumbuhan Populasi Bakteri](/aplikasi/pertumbuhan
               "$f(t)=a\\cdot b^{t}$: $a$ nilai awal, $b$ faktor tiap periode",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu faktor tetap yang menentukan arah",
+          text: "Inti topik ini sederhana: pada $f(x)=a\\cdot b^{x}$, bilangan $a$ menetapkan titik awal dan basis $b$ menetapkan faktor pengali tiap langkah. Dari situ lahir semua pembedaan yang penting, yaitu $b>1$ untuk pertumbuhan dan $0<b<1$ untuk peluruhan, beserta asimtot $y=0$. Gagasan faktor tetap inilah yang kamu pakai lagi pada **bunga majemuk** dan **barisan geometri**, lalu diperluas dengan menanyakan waktu pada topik **persamaan eksponen dan logaritma**.",
         },
       ],
     },

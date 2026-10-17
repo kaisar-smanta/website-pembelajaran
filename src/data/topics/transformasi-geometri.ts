@@ -107,7 +107,7 @@ Translasi $\\binom{3}{-2}$ memetakan $(1,4)$ ke $(4,2)$. Semua titik bergeser de
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Translasi bukan perkalian matriks",
           text: "Translasi adalah penjumlahan vektor, bukan perkalian matriks $2 \\times 2$. Mengalikan dengan matriks identitas tidak memindahkan titik.",
         },
       ],
@@ -433,6 +433,11 @@ Untuk komposisi, kerjakan $T_{1}$ lebih dahulu lalu $T_{2}$; urutan tidak boleh 
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: komposisi rotasi lalu translasi",
+          text: `Titik $F(1,4)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal, lalu digeser oleh translasi $\\binom{-2}{3}$. Tentukan bayangan akhirnya. Kerjakan rotasi lebih dahulu karena ia muncul lebih awal, lalu jumlahkan vektor translasinya, dan cocokkan hasilmu dengan $(-6,4)$.`,
+        },
       ],
     },
     {
@@ -502,7 +507,7 @@ Misalkan titik $P(x,y)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap 
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Rangkai dua aturan",
           text: `Rangkai kedua aturan pemetaan menjadi satu, lalu selesaikan persamaan yang menyatakan sebuah titik sama dengan bayangannya sendiri.`,
         },
         {
@@ -564,6 +569,7 @@ Misalkan titik $P(x,y)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap 
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan pemetaan titik tiap transformasi beserta sifat yang tetap, seperti luas dan orientasi.",
           headers: [
             "Transformasi",
             "Pemetaan titik",
@@ -616,6 +622,12 @@ Misalkan titik $P(x,y)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap 
               "urutan tidak boleh ditukar",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: urutan menentukan hasil",
+          text: "Setiap transformasi hanyalah aturan yang mengubah koordinat titik, sehingga bentuk bangun, luas, dan orientasinya dapat dilacak langsung dari koordinat. Ketika beberapa transformasi dirangkai, hasilnya sama dengan satu transformasi tunggal, dan urutan langkah tidak boleh ditukar. Dari sudut pandang inilah geometri bidang dipandang sebagai kajian atas apa yang tetap di bawah sekelompok transformasi.",
         },
       ],
     },

@@ -149,7 +149,7 @@ sehingga komposisi **tidak komutatif**.`,
       title: "Representasi dengan Model Mesin",
       body: `Bayangkan dua mesin yang dihubungkan. Mesin $g$ menerima $x$ dan menghasilkan $g(x)$; keluaran itu langsung masuk ke mesin $f$ dan menghasilkan $f(g(x))$.
 
-Misalnya, ambil $g(x)=x+1$ dan $f(x)=x^2$:
+Sebagai gambaran, ambil $g(x)=x+1$ dan $f(x)=x^2$:
 - masukan $x=2 \\to g(2)=3 \\to f(3)=9$, jadi $(f \\circ g)(2)=9$;
 - bandingkan $(g \\circ f)(2)$: $f(2)=4 \\to g(4)=5$, jadi $(g \\circ f)(2)=5$.
 
@@ -208,6 +208,12 @@ Hasil $9$ dan $5$ berbeda, meskipun masukan keduanya sama, yaitu $2$.`,
           caption: "Model mesin komposisi $(g \\circ f)(x)=g(f(x))$: nilai $x$ diproses $f$ lebih dahulu, lalu hasilnya diproses $g$.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-komp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><text x="18" y="125" font-size="13" fill="currentColor">x</text><line x1="34" y1="120" x2="76" y2="120" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komp-arrow)"/><rect x="78" y="94" width="56" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="101" y="125" font-size="14" fill="currentColor">f</text><line x1="136" y1="120" x2="188" y2="120" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komp-arrow)"/><text x="142" y="110" font-size="12" fill="currentColor">f(x)</text><rect x="190" y="94" width="56" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="213" y="125" font-size="14" fill="currentColor">g</text><line x1="248" y1="120" x2="292" y2="120" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komp-arrow)"/><text x="244" y="108" font-size="12" fill="currentColor">g(f(x))</text><text x="24" y="152" font-size="11" fill="currentColor">masuk</text><text x="250" y="152" font-size="11" fill="currentColor">hasil</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Dua jalur mesin bertingkat untuk masukan dua. Jalur atas menjalankan g lalu f dan menghasilkan sembilan, jalur bawah menjalankan f lalu g dan menghasilkan lima.",
+          caption: "Urutan menentukan hasil: $(f \\circ g)(2)=9$ (atas, $g$ lebih dahulu) berbeda dari $(g \\circ f)(2)=5$ (bawah, $f$ lebih dahulu) meski masukannya sama.",
+          svg: '<svg viewBox="0 0 340 220" aria-hidden="true" role="presentation"><defs><marker id="fig-komposisi-fungsi-order" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><text x="14" y="30" font-size="11" fill="currentColor">(f ∘ g)(2)</text><text x="16" y="66" font-size="13" fill="currentColor">2</text><line x1="34" y1="60" x2="64" y2="60" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komposisi-fungsi-order)"/><rect x="66" y="40" width="44" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="88" y="56" font-size="13" fill="currentColor" text-anchor="middle">g</text><text x="88" y="72" font-size="10" fill="currentColor" text-anchor="middle">+1</text><line x1="110" y1="60" x2="148" y2="60" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komposisi-fungsi-order)"/><text x="120" y="52" font-size="11" fill="currentColor">3</text><rect x="150" y="40" width="44" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="172" y="56" font-size="13" fill="currentColor" text-anchor="middle">f</text><text x="172" y="72" font-size="10" fill="currentColor" text-anchor="middle">x²</text><line x1="194" y1="60" x2="232" y2="60" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komposisi-fungsi-order)"/><text x="204" y="52" font-size="11" fill="currentColor">9</text><text x="16" y="130" font-size="13" fill="currentColor">2</text><text x="14" y="94" font-size="11" fill="currentColor">(g ∘ f)(2)</text><line x1="34" y1="124" x2="64" y2="124" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komposisi-fungsi-order)"/><rect x="66" y="104" width="44" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="88" y="120" font-size="13" fill="currentColor" text-anchor="middle">f</text><text x="88" y="136" font-size="10" fill="currentColor" text-anchor="middle">x²</text><line x1="110" y1="124" x2="148" y2="124" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komposisi-fungsi-order)"/><text x="120" y="116" font-size="11" fill="currentColor">4</text><rect x="150" y="104" width="44" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="172" y="120" font-size="13" fill="currentColor" text-anchor="middle">g</text><text x="172" y="136" font-size="10" fill="currentColor" text-anchor="middle">+1</text><line x1="194" y1="124" x2="232" y2="124" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-komposisi-fungsi-order)"/><text x="204" y="116" font-size="11" fill="currentColor">5</text><text x="14" y="180" font-size="11" fill="currentColor">urutan berbeda, hasil berbeda</text></svg>',
+        },
       ],
     },
     {
@@ -227,6 +233,30 @@ $$(f \\circ g) \\circ h = f \\circ (g \\circ h).$$
 $$f \\circ I = I \\circ f = f.$$
 
 Sifat asosiatif memungkinkan kita menuliskan komposisi tiga fungsi tanpa tanda kurung, yaitu $f \\circ g \\circ h$.`,
+      blocks: [
+        {
+          kind: "flip-cards",
+          intro: "Bolak-balik kartu untuk menguji sifat dan notasi komposisi.",
+          cards: [
+            {
+              front: "Komposisi $(f \\circ g)(x)$",
+              back: "Sama dengan $f(g(x))$; kerjakan $g$ lebih dahulu, lalu $f$.",
+            },
+            {
+              front: "Tidak komutatif",
+              back: "Secara umum $f \\circ g \\neq g \\circ f$, sehingga urutan menentukan hasil.",
+            },
+            {
+              front: "Asosiatif",
+              back: "$(f \\circ g) \\circ h = f \\circ (g \\circ h)$, sehingga tanda kurung dapat digeser.",
+            },
+            {
+              front: "Invers komposisi",
+              back: "$(f \\circ g)^{-1} = g^{-1} \\circ f^{-1}$; urutannya berbalik.",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "operasi-dan-domain",
@@ -247,7 +277,7 @@ Sebaliknya, $(g \\circ f)(x)=2\\sqrt{x}+4$ terdefinisi untuk $x \\geq 0$. Domain
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Domain yang tersembunyi",
           text: "Rumus $(f \\circ g)(x)$ yang sudah disederhanakan tidak selalu memperlihatkan batasan aslinya. Selalu periksa domain $g$ **dan** syarat $g(x)$ masuk domain $f$.",
         },
       ],
@@ -338,6 +368,15 @@ Kedua cara memberi hasil sama. *Periksa* di $x=5$: $(f \\circ g)(5)=13$ dan $(f 
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: komposisi dengan fungsi akar",
+          text: `Diketahui $f(x)=x^{2}+1$ dan $g(x)=\\sqrt{x}$. Tentukan $(f \\circ g)(x)$ dan $(g \\circ f)(x)$ beserta domainnya.
+
+*Penyelesaian.* Untuk $(f \\circ g)(x)=f(\\sqrt{x})=(\\sqrt{x})^{2}+1=x+1$. Rumusnya tampak berlaku untuk semua $x$, padahal akar menuntut $x \\ge 0$, sehingga domainnya $x \\ge 0$.
+Sebaliknya $(g \\circ f)(x)=\\sqrt{x^{2}+1}$. Karena $x^{2}+1 \\ge 1 > 0$ untuk setiap bilangan real, bentuk ini terdefinisi untuk semua $x \\in \\mathbb{R}$.
+Jadi domain keduanya berbeda: rumus sederhana belum tentu memperlihatkan batas aslinya.`,
+        },
       ],
     },
     {
@@ -396,7 +435,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Membaca fungsi luar",
           text: "Karena $g \\circ f$ diketahui, bacalah fungsi luar $g$ dengan memisalkan $u=f(x)=2x+1$, lalu nyatakan $x$ dalam $u$.",
         },
         {
@@ -461,6 +500,7 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan definisi, sifat, dan domain komposisi",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -495,6 +535,12 @@ Pada pemrograman, sebuah nilai sering melewati beberapa fungsi secara berurutan,
               "$(f \\circ g)^{-1}=g^{-1} \\circ f^{-1}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: urutan menentukan hasil",
+          text: "Komposisi merangkai dua fungsi menjadi satu alur, dan urutan tahapannya tidak boleh ditukar karena hasilnya berubah. Gagasan yang sama muncul kembali pada topik **Transformasi Fungsi**, tempat urutan menggeser dan meregangkan grafik juga mengubah hasil akhir.",
         },
       ],
     },

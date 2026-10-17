@@ -170,6 +170,28 @@ Aturan penjumlahan dipakai untuk pilihan "atau", sedangkan aturan perkalian untu
           ],
         },
         {
+          kind: 'flip-cards',
+          intro: 'Balik kartu untuk mengingat istilah kunci kombinatorika lanjut.',
+          cards: [
+            {
+              front: 'Inklusi-eksklusi',
+              back: 'Mengoreksi cacah ganda: $|A \\cup B| = |A| + |B| - |A \\cap B|$',
+            },
+            {
+              front: 'Prinsip sarang merpati',
+              back: 'Jika $n > k$, paling sedikit satu kotak memuat lebih dari satu objek',
+            },
+            {
+              front: 'Versi kuat pigeonhole',
+              back: 'Satu kotak memuat paling sedikit $\\left\\lceil n/k \\right\\rceil$ objek',
+            },
+            {
+              front: 'Teorema binomial',
+              back: '$(x+y)^n = \\sum_{k=0}^{n} \\binom{n}{k} x^{n-k} y^{k}$',
+            },
+          ],
+        },
+        {
           kind: 'figure',
           alt: 'Diagram Venn dua himpunan A dan B yang berpotongan, dengan bagian irisan ditandai berisi tiga anggota.',
           caption:
@@ -236,7 +258,7 @@ Koefisien $x^{n-k}y^k$ adalah $\\binom{n}{k}$. Dengan penggantian variabel, kita
         {
           kind: 'callout',
           variant: 'warning',
-          title: 'Hati-hati',
+          title: 'Tanda bergantian pada inklusi-eksklusi',
           text:
             'Inklusi-eksklusi menuntut tanda yang bergantian: tambah, kurang, tambah. Lupa mengurangkan irisan adalah kesalahan yang paling sering terjadi.',
         },
@@ -307,6 +329,13 @@ $$\\binom{6}{3} = \\frac{6!}{3!\\,3!} = 20.$$
 *Verifikasi.* Baris ke-$6$ segitiga Pascal adalah $1, 6, 15, 20, 15, 6, 1$; suku keempat bernilai $20$, cocok dengan hasil di atas.`,
             },
           ],
+        },
+        {
+          kind: 'details',
+          summary: 'Coba sendiri: siswa yang menyukai keduanya',
+          text: `Di sebuah kelas terdapat $40$ siswa. Sebanyak $25$ menyukai sepak bola, $20$ menyukai bulu tangkis, dan $10$ menyukai keduanya. Berapa siswa yang menyukai paling sedikit satu olahraga, dan berapa yang tidak menyukai keduanya?
+
+*Penyelesaian.* Pakai inklusi-eksklusi dua himpunan: $|S \\cup B| = 25 + 20 - 10 = 35$ siswa menyukai paling sedikit satu olahraga. Sisanya tidak menyukai keduanya, yaitu $40 - 35 = 5$ siswa. Irisan $10$ tidak dihitung dua kali, sehingga hasilnya konsisten.`,
         },
       ],
     },
@@ -396,6 +425,7 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
       blocks: [
         {
           kind: 'table',
+          caption: 'Ringkasan teknik kombinatorika: kapan dipakai dan bentuknya',
           headers: ['Teknik', 'Kapan dipakai', 'Bentuk'],
           rows: [
             ['Aturan penjumlahan', 'Memilih "atau" antar kelompok saling lepas', '$m + n$'],
@@ -404,6 +434,12 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
             ['Pigeonhole', 'Menjamin adanya tabrakan', '$\\left\\lceil n/k \\right\\rceil$'],
             ['Koefisien binomial', 'Suku pada $(x+y)^n$', '$\\binom{n}{k}$'],
           ],
+        },
+        {
+          kind: 'callout',
+          variant: 'concept',
+          title: 'Benang merah: menghitung versus menjamin keberadaan',
+          text: 'Tiga teknik pada topik ini menjawab dua jenis pertanyaan berbeda. Inklusi-eksklusi dan teorema binomial **menghitung** banyak cara secara tepat, sedangkan prinsip sarang merpati hanya **menjamin** keberadaan tanpa menyebut objek mana. Kenali dahulu pertanyaannya: bila meminta banyak cara, hitung; bila meminta kepastian adanya tabrakan, cukup pakai pigeonhole.',
         },
       ],
     },
@@ -423,7 +459,7 @@ Pola berpikirnya tetap: (1) tentukan objek dan "kotak"-nya, (2) pilih antara men
         {
           kind: 'callout',
           variant: 'tip',
-          title: 'Petunjuk',
+          title: 'Hitung gabungan dahulu, lalu komplemen',
           text:
             'Hitung dahulu banyak bilangan yang habis dibagi paling sedikit satu di antara $2$, $3$, dan $5$ memakai inklusi-eksklusi tiga himpunan, lalu ambil komplemennya terhadap $1000$.',
         },

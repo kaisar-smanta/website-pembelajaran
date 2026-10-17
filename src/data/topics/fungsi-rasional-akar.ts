@@ -22,8 +22,6 @@ export const fungsiRasionalAkar: Topic = {
     'asimtot',
     'lubang',
     'perilaku ujung',
-    'nilai mutlak',
-    'piecewise',
   ],
   prerequisites: ['fungsi-kuadrat', 'komposisi-fungsi'],
   relatedTopics: ['pemodelan-fungsi', 'limit-fungsi', 'fungsi-logaritma', 'transformasi-fungsi'],
@@ -39,7 +37,7 @@ export const fungsiRasionalAkar: Topic = {
     { text: 'Peserta didik dapat membedakan diskontinuitas terhapus (lubang) dari asimtot tegak.' },
     { text: 'Peserta didik dapat menganalisis transformasi fungsi akar beserta domain dan rangenya.' },
     { text: 'Peserta didik dapat memodelkan biaya rata-rata sebagai fungsi rasional dan menafsirkan asimtot datarnya.' },
-    { text: 'Peserta didik dapat mengenali fungsi nilai mutlak, fungsi tangga, dan fungsi piecewise sebagai bagian keluarga fungsi yang lebih luas.' },
+    { text: 'Peserta didik dapat menautkan fungsi rasional dan fungsi akar ke topik lanjutan tentang fungsi nilai mutlak, tangga, dan piecewise.' },
   ],
   applications: ['mtl-biaya-rata-rasional'],
   sections: [
@@ -179,6 +177,14 @@ Contohnya, $g(x)=\\sqrt{x-1}+1$ memiliki domain $x\\geq1$ dan range $y\\geq1$, s
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fra-arrow-r2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="currentColor"/></marker></defs><line x1="30" y1="200" x2="310" y2="200" stroke="currentColor" stroke-width="1.4" marker-end="url(#fra-arrow-r2)"/><line x1="60" y1="224" x2="60" y2="24" stroke="currentColor" stroke-width="1.4" marker-end="url(#fra-arrow-r2)"/><line x1="94" y1="174" x2="94" y2="206" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5 4"/><polyline points="94,174 128,148 162,137 196,129 230,122 264,116 298,110" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="94" cy="174" r="3" fill="currentColor"/><text x="300" y="194" font-size="11" fill="currentColor">x</text><text x="66" y="34" font-size="11" fill="currentColor">y</text><text x="98" y="198" font-size="10" fill="currentColor">x = 1</text><text x="122" y="188" font-size="10" fill="currentColor">(1, 1)</text></svg>',
         },
         {
+          kind: 'tabs',
+          items: [
+            { label: 'Simbolik', body: 'Bentuk umum $g(x)=a\\sqrt{x-h}+k$ dengan syarat $x-h\\geq0$.' },
+            { label: 'Grafik', body: 'Kurva mulai di titik $(h,k)$ lalu naik makin landai ke kanan bila $a>0$.' },
+            { label: 'Tabel', body: 'Untuk $g(x)=\\sqrt{x-1}+1$: $x=1\\to g=1$, $x=2\\to g=2$, $x=5\\to g=3$, dan $x=10\\to g=4$.' },
+          ],
+        },
+        {
           kind: 'flip-cards',
           intro: 'Balik kartu untuk menguji ingatanmu tentang fungsi akar.',
           cards: [
@@ -216,7 +222,7 @@ Contohnya, $g(x)=\\sqrt{x-1}+1$ memiliki domain $x\\geq1$ dan range $y\\geq1$, s
 
 Gagasannya berlaku umum. Untuk setiap fungsi rasional, derajat pembilang dan penyebut menentukan perilaku ujung, sedangkan akar penyebut menentukan posisi titik-titik istimewa setelah faktor bersama dicoret. Menyederhanakan pecahan **tanpa** melupakan syarat $q(x)\\neq0$ adalah kunci agar tidak salah menyimpulkan.
 
-Fungsi rasional dan fungsi akar hanyalah dua anggota keluarga fungsi yang lebih luas. Dalam capaian pembelajaran Matematika Tingkat Lanjut, kita juga mengenal **fungsi nilai mutlak** seperti $|x|$, **fungsi tangga** yang nilainya melompat pada setiap selang, dan **fungsi piecewise** yang rumusnya berbeda pada tiap bagian domainnya. Setiap anggota keluarga ini dipilih sesuai pola fenomena yang dimodelkan: rasional untuk besaran per satuan, akar untuk pertumbuhan yang melandai, tangga untuk tarif bertingkat, dan nilai mutlak untuk besaran tanpa tanda.`,
+Fungsi nilai mutlak, fungsi tangga, dan fungsi piecewise yang sempat disinggung di sini dibahas penuh pada topik [Fungsi Nilai Mutlak, Tangga, dan Piecewise](/matematika-lanjut/kelas/XI/aljabar-fungsi/fungsi-nilai-mutlak-piecewise), sedangkan topik ini berfokus pada fungsi rasional dan fungsi akar.`,
       blocks: [
         {
           kind: 'figure',
@@ -278,6 +284,13 @@ Domainnya semua bilangan real kecuali $x=3$ dan $x=-1$.`,
 *Penyelesaian.* Untuk $h$, derajat pembilang $1$ lebih kecil daripada derajat penyebut $2$, sehingga asimtot datarnya $y=0$. Untuk $\\ell$, derajat pembilang sama dengan derajat penyebut, sehingga asimtot datarnya $y=\\dfrac{3}{1}=3$.`,
             },
           ],
+        },
+        {
+          kind: 'details',
+          summary: 'Coba sendiri: domain dan asimtot datar',
+          text: `Tentukan domain dan asimtot datar $f(x)=\\dfrac{3x-1}{x+4}$, lalu hitung $f(0)$.
+
+*Penyelesaian.* Penyebut bernilai nol saat $x=-4$, sehingga domainnya semua bilangan real kecuali $x=-4$. Derajat pembilang dan penyebut sama, yaitu $1$, sehingga asimtot datarnya $y=\\dfrac{3}{1}=3$. Nilai $f(0)=\\dfrac{-1}{4}=-0{,}25$.`,
         },
       ],
     },
@@ -349,7 +362,7 @@ memiliki tepat satu lubang dan satu asimtot tegak. Jelaskan alasanmu.`,
         {
           kind: 'callout',
           variant: 'tip',
-          title: 'Petunjuk',
+          title: 'Buru faktor bersama',
           text: 'Lubang hanya muncul bila ada faktor bersama antara pembilang dan penyebut. Faktorkan pembilang menjadi $(x-2)(x+2)$, lalu selidiki nilai $k$ yang membuat salah satu faktor itu muncul pada penyebut tanpa menghilangkan asimtot tegak.',
         },
         {
@@ -412,6 +425,7 @@ Fungsi rasional dan fungsi akar menjadi alat penting dalam pemodelan besaran per
       blocks: [
         {
           kind: 'table',
+          caption: 'Ringkasan domain, lubang, asimtot, dan bentuk fungsi akar',
           headers: ['Konsep', 'Bentuk / Aturan'],
           rows: [
             ['Fungsi rasional', '$f(x)=\\dfrac{p(x)}{q(x)}$ dengan $q(x)\\neq0$'],
@@ -422,8 +436,14 @@ Fungsi rasional dan fungsi akar menjadi alat penting dalam pemodelan besaran per
             ['Asimtot datar: $\\deg p>\\deg q$', 'tidak ada'],
             ['Lubang', 'faktor bersama $(x-c)$ yang saling meniadakan'],
             ['Fungsi akar', '$g(x)=a\\sqrt{x-h}+k$, domain $x\\geq h$'],
-            ['Keluarga fungsi lain', 'nilai mutlak, tangga, dan piecewise'],
+            ['Keluarga fungsi lain', 'nilai mutlak, tangga, dan piecewise (dibahas di topik lanjutan)'],
           ],
+        },
+        {
+          kind: 'callout',
+          variant: 'concept',
+          title: 'Satu pecahan, tiga ciri grafik',
+          text: 'Semua kaidah pada tabel ini bertolak dari satu gagasan: perilaku fungsi rasional ditentukan oleh faktor yang tersisa setelah faktor bersama dicoret. Akar penyebut yang tersisa memberi asimtot tegak, faktor yang tercoret memberi lubang, dan perbandingan derajat menentukan perilaku ujung. Topik **Limit Fungsi** melanjutkan gagasan itu dengan mendefinisikan secara formal apa yang dimaksud "mendekati tanpa mencapai", termasuk nilai yang didekati di sekitar lubang.',
         },
       ],
     },

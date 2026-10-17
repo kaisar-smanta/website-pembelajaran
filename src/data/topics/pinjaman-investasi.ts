@@ -212,6 +212,23 @@ Keputusan yang baik dibuat dengan urutan sederhana: tetapkan tujuan, susun model
             ],
           ],
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: "Total biaya $= nA - M + \\text{biaya tambahan}$. Angsuran $A$ dihitung dengan rumus anuitas, lalu seluruh komponen dijumlahkan.",
+            },
+            {
+              label: "Tabel",
+              body: "Tabel perbandingan mencatat angsuran, total pembayaran, total bunga, biaya tambahan, dan total biaya untuk setiap penawaran.",
+            },
+            {
+              label: "Keputusan",
+              body: "Pilih total biaya terkecil, tetapi periksa juga kemampuan membayar angsuran bulanan dan risiko kenaikan suku bunga di tengah tenor.",
+            },
+          ],
+        },
       ],
     },
     {
@@ -249,6 +266,14 @@ Keputusan yang baik dibuat dengan urutan sederhana: tetapkan tujuan, susun model
       body: `Membandingkan penawaran bukan pekerjaan menghafal rumus, tetapi menyetarakan besaran yang sebanding. Besar angsuran dari dua tenor yang berbeda tidak sebanding; yang sebanding adalah **total biaya** sepanjang pinjaman.
 
 Pola ini muncul berulang. Karena memperpanjang tenor memperkecil angsuran tetapi menambah banyak periode bunga, total bunga dapat bertambah. Biaya administrasi, asuransi, dan denda ikut menambah total biaya meskipun tidak tampak pada angka angsuran. Sebab itu, ketika dua penawaran punya tenor dan biaya berbeda, ubah keduanya menjadi satu ukuran yang sama: total biaya untuk pinjaman, atau saldo akhir untuk investasi. Bila waktu pembayarannya berbeda, setarakan dengan nilai sekarang. Prinsip yang sama berlaku untuk memilih pinjaman maupun menilai hasil investasi.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Dua kurva sisa utang menurun terhadap waktu; kurva tenor 18 bulan turun lebih tajam dan menyentuh nol lebih cepat daripada kurva tenor 24 bulan.",
+          caption: "Dengan pokok pinjaman yang sama, tenor 18 bulan melunasi utang lebih cepat (garis turun tajam), sedangkan tenor 24 bulan menurun lebih lambat karena angsurannya lebih kecil. Sisa utang yang bertahan lebih lama berbunga lebih panjang, sehingga total bunga tenor 24 bulan dapat lebih besar meski angsurannya terlihat ringan.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="pin-balance-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="45" y1="200" x2="305" y2="200" stroke="currentColor" stroke-width="1.3" marker-end="url(#pin-balance-arrow)"/><line x1="45" y1="200" x2="45" y2="20" stroke="currentColor" stroke-width="1.3" marker-end="url(#pin-balance-arrow)"/><polyline points="45,30 80,62 115,98 150,135 185,172 228,200" fill="none" stroke="currentColor" stroke-width="2.4"/><polyline points="45,30 85,55 125,82 165,112 205,146 245,184 290,200" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="7 4"/><text x="212" y="192" font-size="10" fill="currentColor">18 bulan</text><text x="262" y="178" font-size="10" fill="currentColor">24 bulan</text><text x="8" y="26" font-size="11" fill="currentColor">sisa utang</text><text x="250" y="222" font-size="11" fill="currentColor">bulan</text><text x="42" y="215" font-size="10" fill="currentColor">0</text><text x="288" y="215" font-size="10" fill="currentColor">24</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -344,6 +369,17 @@ Total setoran $= 30 \\times 300.000 = \\text{Rp}9.000.000$, sehingga bunga yang 
           caption: "Total biaya dua penawaran. Penawaran $A$ (bunga $1{,}1\\%$, tenor $18$ bulan) seluruhnya bunga sebesar Rp2.693.426, sedangkan penawaran $B$ (bunga $0{,}9\\%$, tenor $24$ bulan) terdiri atas bunga Rp2.909.023 ditambah administrasi Rp400.000, sehingga totalnya Rp3.309.023. Meskipun angsuran $B$ lebih kecil, total biaya $A$ lebih murah.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><rect x="55" y="25" width="16" height="11" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><text x="77" y="35" font-size="11" fill="currentColor">bunga</text><rect x="150" y="25" width="16" height="11" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="0.8"/><text x="172" y="35" font-size="11" fill="currentColor">administrasi</text><line x1="50" y1="200" x2="300" y2="200" stroke="currentColor" stroke-width="1.4"/><rect x="80" y="78" width="60" height="122" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="180" y="68" width="60" height="132" fill="currentColor" opacity="0.7" stroke="currentColor" stroke-width="0.8"/><rect x="180" y="50" width="60" height="18" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="0.8"/><text x="76" y="72" font-size="10" fill="currentColor">Rp2.693.426</text><text x="176" y="44" font-size="10" fill="currentColor">Rp3.309.023</text><text x="98" y="216" font-size="12" fill="currentColor">A</text><text x="198" y="216" font-size="12" fill="currentColor">B</text><text x="76" y="232" font-size="10" fill="currentColor">1,1% / 18 bln</text><text x="176" y="232" font-size="10" fill="currentColor">0,9% / 24 bln</text></svg>',
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: setoran bulanan Rp250.000",
+          text: `Seseorang menyetor Rp250.000 setiap bulan dengan bunga $0{,}4\\%$ per bulan selama $24$ bulan. Tentukan saldo akhir dan bunga yang terkumpul.
+
+*Penyelesaian.* Gunakan nilai masa depan dengan $A = 250.000$, $i = 0{,}004$, dan $n = 24$:
+$$FV = 250.000 \\cdot \\frac{(1{,}004)^{24}-1}{0{,}004}.$$
+Karena $(1{,}004)^{24} \\approx 1{,}100548$, maka $\\dfrac{0{,}100548}{0{,}004} \\approx 25{,}137$, sehingga $FV \\approx 250.000 \\times 25{,}137 \\approx \\text{Rp}6.284.269$. Total setoran $= 24 \\times 250.000 = \\text{Rp}6.000.000$, jadi bunga yang terkumpul $\\approx \\text{Rp}284.269$.
+
+*Verifikasi.* Saldo akhir lebih besar daripada total setoran, dan selisihnya berasal dari bunga majemuk atas saldo yang berjalan. Cocok.`,
+        },
       ],
     },
     {
@@ -394,8 +430,20 @@ Pola keputusannya tetap: tetapkan tujuan, susun model, ubah setiap alternatif me
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati promosi \"bunga rendah\"",
+          title: "Janji bunga rendah belum tentu murah",
           text: "Suku bunga yang terlihat kecil bisa disertai biaya administrasi, asuransi, atau denda yang membuat total pembayaran jauh lebih besar. Selalu hitung **total biaya**.",
+        },
+        {
+          kind: "spot-mistake",
+          intro: "Perhatikan cara memisahkan bunga dan pokok pada angsuran pertama pinjaman Rp25.000.000 dengan bunga 1,1% per bulan. Ada satu langkah keliru. Klik langkah yang salah.",
+          steps: [
+            "Pokok pinjaman Rp25.000.000 dengan bunga $1{,}1\\%$ per bulan dan angsuran Rp1.538.524.",
+            "Bunga bulan pertama $= 1{,}1\\% \\times 1.538.524 \\approx \\text{Rp}16.924$.",
+            "Angsuran pokok $= 1.538.524 - 16.924 = \\text{Rp}1.521.600$.",
+            "Sisa utang $= 25.000.000 - 1.521.600 = \\text{Rp}23.478.400$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Bunga selalu dihitung dari **sisa utang pokok**, bukan dari besar angsuran. Bunga bulan pertama $= 0{,}011 \\times 25.000.000 = \\text{Rp}275.000$, angsuran pokok $= 1.538.524 - 275.000 = \\text{Rp}1.263.524$, dan sisa utang $= \\text{Rp}23.736.476$. Memakai angsuran sebagai dasar bunga membuat porsi pokok tampak jauh lebih besar daripada kenyataan.",
         },
       ],
     },
@@ -468,6 +516,7 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan ukuran pembanding dan urutan keputusan. Gunakan tabel ini untuk memastikan dua penawaran dibandingkan pada dasar yang sama sebelum memilih.",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -502,6 +551,12 @@ $$A_B = \\frac{20.000.000 \\times 0{,}006}{1-(1{,}006)^{-48}} \\approx \\text{Rp
               "tetapkan tujuan, hitung tiap alternatif, pilih berdasarkan total biaya atau hasil",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: setarakan dulu, baru pilih",
+          text: "Dua penawaran hanya bisa dibandingkan setelah diubah ke ukuran yang sama, yaitu total biaya untuk pinjaman atau saldo akhir untuk investasi. Nilai waktu uang menjaga agar pembayaran pada waktu berbeda tidak dijumlahkan mentah-mentah.",
         },
       ],
     },

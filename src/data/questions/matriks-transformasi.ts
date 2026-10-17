@@ -378,4 +378,21 @@ export const matriksTransformasiQuestions: Question[] = [
     ],
     competencies: ['refleksi terhadap garis $y=x$', 'membaca grafik'],
   },
+  {
+    id: 'mtf-18',
+    topicId: 'matriks-transformasi',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Sebuah bangun datar berluas $3$ satuan luas dikenai transformasi linear dengan matriks $A$ yang memiliki $\\det(A)=-4$. Bayangannya kemudian diperbesar $3$ kali terhadap titik asal. Tentukan luas bangun akhir.',
+    answer: '108',
+    explanation:
+      'Transformasi linear mengubah luas sebesar $|\\det(A)|=|-4|=4$, sehingga luas setelah transformasi pertama $3\\times4=12$. Dilatasi terhadap titik asal dengan faktor $3$ mengalikan luas dengan $3^{2}=9$, sehingga luas akhir $12\\times9=108$ satuan luas. Tanda negatif pada determinan hanya membalik orientasi, tidak mengubah luas.',
+    hints: [
+      'Luas berubah sebesar $|\\det(A)|$, bukan $\\det(A)$ mentah, karena luas selalu positif.',
+      'Dilatasi faktor $k$ pada bidang mengalikan luas dengan $k^{2}$, bukan $k$.',
+    ],
+    competencies: ['determinan sebagai faktor luas', 'dilatasi'],
+  },
 ];

@@ -364,4 +364,27 @@ export const matriksQuestions: Question[] = [
       'Menjelaskan $\\det(A)\\ne 0$ memberi penyelesaian tunggal',
     ],
   },
+  {
+    id: 'mt-18',
+    topicId: 'matriks',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Jumlah rute langsung antarkota dicatat pada matriks $M=\\begin{pmatrix} 2 & 1 \\\\ 3 & 2 \\end{pmatrix}$, dengan baris menyatakan kota asal dan kolom menyatakan kota tujuan. Entri baris pertama kolom pertama dari $M^{2}$ menyatakan banyak rute yang berpindah dua kali (melalui satu kota perantara) dari kota 1 kembali ke kota 1. Nilai entri tersebut adalah …',
+    options: [
+      { key: 'A', text: '$5$' },
+      { key: 'B', text: '$7$' },
+      { key: 'C', text: '$12$' },
+      { key: 'D', text: '$4$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Entri baris pertama kolom pertama $M^{2}=M\\cdot M$ adalah $2(2)+1(3)=4+3=7$ (B). Opsi A ($5$) diperoleh dengan menjumlahkan $2+3$ tanpa mengalikan pasangan yang benar. Opsi C ($12$) adalah entri baris kedua kolom pertama, yaitu $3(2)+2(3)=12$. Opsi D ($4$) hanya menghitung $2\\times2$ dan melupakan suku kedua $1\\times3$.',
+    hints: [
+      'Entri $(1,1)$ dari $M^{2}$ adalah hasil kali baris pertama $M$ dengan kolom pertama $M$.',
+      'Hitung $2\\cdot2+1\\cdot3$.',
+    ],
+    competencies: ['perkalian matriks', 'pemodelan matriks', 'kontekstual'],
+  },
 ];

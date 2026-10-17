@@ -217,6 +217,28 @@ yaitu $5$ pilihan untuk kotak pertama, $4$ untuk kedua, dan $3$ untuk ketiga. Ca
           ],
         },
         {
+          kind: "flip-cards",
+          intro: "Balik kartu untuk mengingat istilah kunci pencacahan.",
+          cards: [
+            {
+              front: "Permutasi",
+              back: "Susunan dengan urutan diperhatikan: $P(n,k)=\\dfrac{n!}{(n-k)!}$",
+            },
+            {
+              front: "Kombinasi",
+              back: "Pemilihan dengan urutan tidak diperhatikan: $\\binom{n}{k}=\\dfrac{n!}{k!(n-k)!}$",
+            },
+            {
+              front: "Faktorial",
+              back: "$n!=n(n-1)\\cdots1$ dan $0!=1$",
+            },
+            {
+              front: "Unsur sama",
+              back: "Bagi $n!$ dengan faktorial tiap kelompok: $\\dfrac{n!}{k_1!\\,k_2!\\cdots}$",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Diagram pohon dengan dua cabang di tahap pertama dan masing-masing dua cabang lagi di tahap kedua.",
           caption: "Diagram pohon aturan perkalian: $2$ pilihan pada tahap pertama dan $2$ pilihan pada tahap kedua memberi $2 \\times 2 = 4$ hasil. Banyaknya daun menyatakan banyak cara.",
@@ -263,6 +285,14 @@ Yang menentukan pilihan rumus bukan panjangnya rumus, tetapi pertanyaannya: **ap
 $$\\text{urutan penting} \\Rightarrow P(n,k) = \\frac{n!}{(n-k)!}, \\qquad \\text{urutan tidak penting} \\Rightarrow \\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}.$$
 
 Karena menyusun ulang $k$ objek dapat dilakukan dalam $k!$ cara, setiap kombinasi bersesuaian dengan $k!$ permutasi, sehingga $\\binom{n}{k} = \\dfrac{P(n,k)}{k!}$ dan hasil kombinasi selalu $k!$ kali lebih kecil. Untuk keperluan peluang, banyak cara yang menguntungkan dibagi banyak cara seluruhnya.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Diagram pohon permutasi tiga objek A, B, dan C; tiga pilihan pada posisi pertama, dua pada posisi kedua, dan satu pada posisi ketiga, menghasilkan enam susunan berbeda.",
+          caption: "Pohon permutasi $3$ objek: $3$ pilihan pada posisi pertama, $2$ pada posisi kedua, dan $1$ pada posisi ketiga, sehingga banyak daun $3 \\times 2 \\times 1 = 3! = 6$.",
+          svg: '<svg viewBox="0 0 320 230" aria-hidden="true" role="presentation"><line x1="24" y1="110" x2="76" y2="50" stroke="currentColor" stroke-width="1.2"/><line x1="24" y1="110" x2="76" y2="110" stroke="currentColor" stroke-width="1.2"/><line x1="24" y1="110" x2="76" y2="170" stroke="currentColor" stroke-width="1.2"/><line x1="82" y1="48" x2="138" y2="28" stroke="currentColor" stroke-width="1.1"/><line x1="82" y1="50" x2="138" y2="68" stroke="currentColor" stroke-width="1.1"/><line x1="82" y1="110" x2="138" y2="90" stroke="currentColor" stroke-width="1.1"/><line x1="82" y1="110" x2="138" y2="130" stroke="currentColor" stroke-width="1.1"/><line x1="82" y1="170" x2="138" y2="152" stroke="currentColor" stroke-width="1.1"/><line x1="82" y1="172" x2="138" y2="192" stroke="currentColor" stroke-width="1.1"/><line x1="144" y1="28" x2="200" y2="28" stroke="currentColor" stroke-width="1"/><line x1="144" y1="68" x2="200" y2="68" stroke="currentColor" stroke-width="1"/><line x1="144" y1="90" x2="200" y2="90" stroke="currentColor" stroke-width="1"/><line x1="144" y1="130" x2="200" y2="130" stroke="currentColor" stroke-width="1"/><line x1="144" y1="152" x2="200" y2="152" stroke="currentColor" stroke-width="1"/><line x1="144" y1="192" x2="200" y2="192" stroke="currentColor" stroke-width="1"/><circle cx="22" cy="110" r="3" fill="currentColor"/><circle cx="78" cy="48" r="3" fill="currentColor"/><circle cx="78" cy="110" r="3" fill="currentColor"/><circle cx="78" cy="172" r="3" fill="currentColor"/><circle cx="140" cy="28" r="2.5" fill="currentColor"/><circle cx="140" cy="68" r="2.5" fill="currentColor"/><circle cx="140" cy="90" r="2.5" fill="currentColor"/><circle cx="140" cy="130" r="2.5" fill="currentColor"/><circle cx="140" cy="152" r="2.5" fill="currentColor"/><circle cx="140" cy="192" r="2.5" fill="currentColor"/><text x="88" y="52" font-size="12" fill="currentColor">A</text><text x="88" y="114" font-size="12" fill="currentColor">B</text><text x="88" y="176" font-size="12" fill="currentColor">C</text><text x="206" y="32" font-size="11" fill="currentColor">ABC</text><text x="206" y="72" font-size="11" fill="currentColor">ACB</text><text x="206" y="94" font-size="11" fill="currentColor">BAC</text><text x="206" y="134" font-size="11" fill="currentColor">BCA</text><text x="206" y="156" font-size="11" fill="currentColor">CAB</text><text x="206" y="196" font-size="11" fill="currentColor">CBA</text><text x="150" y="222" font-size="12" text-anchor="middle" fill="currentColor">3 \u00d7 2 \u00d7 1 = 6</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -362,6 +392,13 @@ $$P = \\frac{\\binom{5}{2}}{\\binom{8}{2}} = \\frac{10}{28} = \\frac{5}{14} \\ap
 Hasilnya antara $0$ dan $1$, dan lebih kecil dari $0{,}5$ karena bola putih masih cukup banyak.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: menyusun urutan tiga mata pelajaran",
+          text: `Seorang siswa harus menyusun urutan tiga mata pelajaran berbeda dari lima pilihan untuk jadwal pagi. Berapa banyak urutan yang mungkin, dan berapa banyak bila urutan tidak penting?
+
+*Penyelesaian.* Urutan diperhatikan karena urutan mata pelajaran menghasilkan jadwal berbeda, sehingga $P(5,3) = 5 \\cdot 4 \\cdot 3 = 60$ urutan. Bila yang dihitung hanya kumpulan tiga mata pelajaran tanpa urutan, pakai kombinasi: $\\binom{5}{3} = \\dfrac{5 \\cdot 4 \\cdot 3}{3!} = 10$ pilihan. Perhatikan bahwa $60 = 6 \\cdot 10$, sesuai hubungan $P(n,k) = k!\\,\\binom{n}{k}$.`,
         },
       ],
     },
@@ -477,6 +514,7 @@ Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam p
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan aturan pencacahan, faktorial, permutasi, dan kombinasi",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -515,6 +553,12 @@ Banyaknya susunan kartu, urutan penjadwalan, dan pengambilan sampel acak dalam p
               "$P(A) = \\dfrac{n(A)}{n(S)}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu pertanyaan menentukan seluruh rumus",
+          text: "Seluruh rumus pada topik ini tumbuh dari aturan perkalian. Permutasi dan kombinasi hanya berbeda pada satu hal, yaitu apakah urutan penting. Saat ragu, bayangkan kotak pengisian: jika menukar dua pilihan menghasilkan susunan baru, pakai permutasi; jika tidak, bagi dengan $k!$ dan pakai kombinasi.",
         },
       ],
     },

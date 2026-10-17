@@ -328,4 +328,28 @@ export const bungaMajemukQuestions: Question[] = [
     ],
     competencies: ['pemodelan peluruhan', 'kontekstual'],
   },
+  {
+    id: 'bm-16',
+    topicId: 'bunga-majemuk',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'kontekstual',
+    prompt:
+      'Harga beli sebuah mobil Rp240.000.000. Setiap tahun nilainya menjadi $0{,}85$ kali nilai tahun sebelumnya. Kurva berikut menunjukkan nilainya selama lima tahun pertama. Pada akhir tahun keberapakah nilai mobil pertama kali berada di bawah Rp120.000.000?',
+    figure: {
+      svg: '<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><line x1="40" y1="30" x2="40" y2="180" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="170" x2="290" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="100" x2="290" y2="100" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><polyline points="50,30 96,51 142,69 188,84 234,97 280,108" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="30" r="3" fill="currentColor"/><circle cx="96" cy="51" r="3" fill="currentColor"/><circle cx="142" cy="69" r="3" fill="currentColor"/><circle cx="188" cy="84" r="3" fill="currentColor"/><circle cx="234" cy="97" r="3" fill="currentColor"/><circle cx="280" cy="108" r="3" fill="currentColor"/><text x="205" y="96" font-size="10" fill="currentColor">120 juta</text><text x="44" y="188" font-size="10" fill="currentColor">0</text><text x="272" y="188" font-size="10" fill="currentColor">5</text></svg>',
+      alt: 'Kurva peluruhan nilai mobil turun dari 240 juta rupiah pada tahun ke-0 menjadi sekitar 106 juta rupiah pada tahun ke-5, memotong garis putus-putus ambang 120 juta rupiah di antara tahun ke-4 dan ke-5.',
+      caption: 'Nilai mobil menyusut 15% setiap tahun dan melewati ambang 120 juta rupiah pada tahun ke-5.',
+    },
+    answer: '5',
+    acceptedAnswers: ['5', 'tahun ke-5', '5 tahun'],
+    explanation:
+      'Nilai setelah $t$ tahun adalah $240.000.000\\times(0{,}85)^{t}$. Kita perlu $(0{,}85)^{t}<\\dfrac{120.000.000}{240.000.000}=0{,}5$. Uji bertahap: $0{,}85^{4}\\approx0{,}5220$ memberi nilai Rp125.281.500 yang masih di atas $120$ juta, sedangkan $0{,}85^{5}\\approx0{,}4437$ memberi nilai Rp106.489.275 yang sudah di bawah $120$ juta. Jadi nilai mobil pertama kali di bawah Rp120.000.000 pada akhir tahun ke-5.',
+    hints: [
+      'Tulis model nilainya sebagai $V(t)=240.000.000\\times(0{,}85)^{t}$.',
+      'Bagi ambang dengan harga awal sehingga muncul pertidaksamaan $(0{,}85)^{t}<0{,}5$.',
+      'Uji nilai $t$ berturut-turut, khususnya $t=4$ dan $t=5$.',
+    ],
+    competencies: ['pemodelan peluruhan', 'pertidaksamaan eksponen'],
+  },
 ];

@@ -65,8 +65,8 @@ export const EXPLORATION_TYPE_LABELS: Record<ExplorationType, string> = {
   induction: 'Domino induksi',
   confounding: 'Perancu & paradoks',
   'function-family': 'Keluarga fungsi',
+  piecewise: 'Fungsi piecewise',
   'exponent-laws': 'Sifat eksponen',
-  geogebra: 'GeoGebra',
 };
 
 /** Entri daftar ringkas "Halaman" pada `/peta-situs`. */

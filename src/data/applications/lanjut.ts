@@ -606,4 +606,153 @@ Sebagai pemeriksaan, aturan kosinus pada segitiga yang sama, $AC^2 = 120^2 + 153
     source:
       'Mengacu pada metode triangulasi dengan garis dasar dan dua sudut ukur; garis dasar dan sudut realistis, tetapi bukan data survei lapangan tertentu.',
   },
+  {
+    id: 'kunci-publik-modulo',
+    title: 'Kunci Publik Sederhana dengan Aritmetika Modulo',
+    category: 'data',
+    element: 'bilangan',
+    grade: 'XI',
+    level: 'mahir',
+    estimatedMinutes: 13,
+    tags: ['aritmetika modulo', 'kunci publik', 'FPB', 'kongruensi', 'RSA sederhana', 'kriptografi'],
+    summary:
+      'Membangun pertukaran kunci publik bergaya RSA dengan bilangan kecil melalui FPB, kongruensi, dan perpangkatan modular, sekaligus mengenali batas penyederhanaannya.',
+    topicIds: ['teori-bilangan', 'matriks'],
+    body: `Sekolah ingin mengirim pesan angka rahasia antarkelas. Ali membangun kunci publik sederhana: ia memilih dua bilangan prima kecil $p = 5$ dan $q = 11$, lalu menghitung $n = p \\cdot q = 55$ dan $\\varphi(n) = (p-1)(q-1) = 40$. Ia memilih kunci publik $e = 3$ karena $\\gcd(3, 40) = 1$, sehingga pasangan kunci publiknya $(e, n) = (3, 55)$. Kunci privatnya adalah $d$ dengan $3d \\equiv 1 \\pmod{40}$.
+
+Pesan yang dikirim berupa satu angka $m = 9$, cukup kecil agar seluruh hitungan dapat dikerjakan dengan tangan. Bagaimana pesan itu disandikan, mengapa penerima dapat memulihkannya kembali, dan mengapa skema sekecil ini tidak layak dipakai untuk keamanan sungguhan?`,
+    analysis: `**Menentukan kunci privat.** Cari invers dari $3$ modulo $40$ dengan algoritma Euklides:
+$$40 = 13 \\cdot 3 + 1.$$
+Maka $1 = 40 - 13 \\cdot 3$, sehingga $3(-13) \\equiv 1 \\pmod{40}$. Karena $-13 \\equiv 27 \\pmod{40}$, kunci privatnya $d = 27$.
+
+**Menyandikan pesan.** Pesan $m = 9$ dienkripsi dengan $c \\equiv m^{e} \\pmod{n}$:
+$$c \\equiv 9^{3} = 729 \\equiv 14 \\pmod{55},$$
+karena $55 \\cdot 13 = 715$. Jadi sandi yang dikirim adalah $c = 14$.
+
+**Memulihkan pesan.** Penerima menghitung $m \\equiv c^{d} = 14^{27} \\pmod{55}$ dengan perpangkatan berulang:
+$$14^{2} \\equiv 31, \\quad 14^{4} \\equiv 26, \\quad 14^{8} \\equiv 16, \\quad 14^{16} \\equiv 36 \\pmod{55}.$$
+Karena $27 = 16 + 8 + 2 + 1$,
+$$14^{27} \\equiv 36 \\cdot 16 \\cdot 31 \\cdot 14 \\equiv 9 \\pmod{55}.$$
+Pesan $m = 9$ kembali utuh.
+
+**Mengapa berhasil.** Teorema Euler (dengan $\\gcd(m, n) = 1$) memberi $m^{\\varphi(n)} \\equiv 1 \\pmod{n}$. Karena $ed = 3 \\cdot 27 = 81 = 1 + 2 \\cdot 40$, maka $m^{ed} = m^{1 + 2\\varphi(n)} \\equiv m \\pmod{n}$. Penerima dapat membalik enkripsi karena memegang $d$, sedangkan $d$ sulit dicari tanpa memfaktorkan $n$.
+
+**Kaitan dengan blok dan vektor.** Pesan yang lebih panjang daripada $n$ dipecah menjadi blok angka. Tiap blok diperlakukan sebagai deretan komponen dan dikenai peta modular yang sama, sehingga pengelolaan banyak komponen menyerupai operasi pada vektor dan matriks.
+
+**Batas penyederhanaan.** Angka $n = 55$ dapat difaktorkan seketika, sehingga kunci privat $d = 27$ mudah ditemukan. RSA sungguhan memakai modulus sekitar $2048$ bit, menambah pengacakan (padding), dan memilih $e$ serta $d$ dengan prosedur yang jauh lebih ketat. Skema di atas hanya laboratorium konsep, bukan alat pengamanan.`,
+    takeaways: [
+      'Kunci publik dapat dibuka siapa saja; keamanannya bergantung pada kerumitan memperoleh kunci privat dari kunci publik.',
+      'Algoritma Euklides memberi FPB sekaligus invers modulo yang dipakai sebagai kunci privat.',
+      'Perpangkatan modular memakai pengkuadratan berulang agar eksponen besar dapat dihitung langkah demi langkah.',
+      'Skema dengan bilangan kecil hanya alat belajar; RSA sungguhan memakai modulus ratusan digit.',
+    ],
+    reflection: [
+      'Mengapa $n = 55$ terlalu kecil untuk dianggap aman, dan apa yang berubah bila bilangan primanya jauh lebih besar?',
+      'Apa peran $\\gcd(e, \\varphi(n)) = 1$ dalam pemilihan kunci publik?',
+      'Mengapa penerima dapat membalik enkripsi sementara penyadap tidak?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi mengikuti gagasan kunci publik RSA (Rivest, Shamir, Adleman, 1977); bilangan prima dan eksponen dipilih sangat kecil agar FPB, invers modulo, dan perpangkatan modular dapat dihitung dengan tangan, sehingga bukan parameter kriptografi yang aman.',
+  },
+  {
+    id: 'jaringan-rute-matriks',
+    title: 'Jaringan Rute dan Perkalian Matriks',
+    category: 'data',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    tags: ['matriks', 'perkalian matriks', 'matriks ketetanggaan', 'jaringan berarah', 'lintasan', 'vektor baris'],
+    summary:
+      'Membaca jaringan rute berarah sebagai matriks ketetanggaan, mengalikan matriks untuk menghitung banyak rute dua langkah, lalu menafsirkan tiap entrinya.',
+    topicIds: ['matriks', 'vektor'],
+    body: `Sebuah layanan kurir memiliki empat simpul $A$, $B$, $C$, dan $D$. Rute bersifat satu arah:
+- $A \\to B$ dan $A \\to C$;
+- $B \\to C$ dan $B \\to D$;
+- $C \\to D$;
+- $D \\to A$.
+
+Jaringan ini disusun sebagai matriks ketetanggaan $M$, dengan entri $M_{ij}$ menyatakan banyak rute langsung dari simpul $i$ ke simpul $j$. Berapa banyak rute **dua langkah** dari $A$ ke $D$, dan bagaimana menafsirkan entri pada $M^{2}$?`,
+    analysis: `Urutkan simpul $A, B, C, D$ sebagai baris dan kolom. Matriks ketetanggaan jaringan adalah
+$$M = \\begin{pmatrix} 0 & 1 & 1 & 0 \\\\ 0 & 0 & 1 & 1 \\\\ 0 & 0 & 0 & 1 \\\\ 1 & 0 & 0 & 0 \\end{pmatrix}.$$
+
+**Mengapa $M^{2}$ menghitung rute dua langkah.** Entri $(M^{2})_{ij} = \\sum_{k} M_{ik} M_{kj}$ menjumlahkan seluruh simpul perantara $k$: dari $i$ ke $k$, lalu dari $k$ ke $j$. Setiap pasangan rute langsung yang bersambung menyumbang satu.
+
+**Menghitung satu entri.** Untuk rute dari $A$ ke $D$:
+$$(M^{2})_{AD} = M_{AB}M_{BD} + M_{AC}M_{CD} = 1 \\cdot 1 + 1 \\cdot 1 = 2,$$
+yaitu $A \\to B \\to D$ dan $A \\to C \\to D$.
+
+**Hasil lengkap.**
+$$M^{2} = \\begin{pmatrix} 0 & 0 & 1 & 2 \\\\ 1 & 0 & 0 & 1 \\\\ 1 & 0 & 0 & 0 \\\\ 0 & 1 & 1 & 0 \\end{pmatrix}.$$
+Baris $A$ menyatakan tiga rute dua langkah dari $A$ (satu ke $C$, dua ke $D$); baris $B$ menyatakan dua (satu ke $A$, satu ke $D$); baris $C$ menyatakan satu (ke $A$); baris $D$ menyatakan dua (ke $B$ dan ke $C$). Entri diagonal semuanya nol, menandakan tidak ada rute dua langkah yang kembali ke simpul asal.
+
+**Sudut pandang vektor.** Bila perjalanan dimulai di $A$, tulis vektor baris $v_0 = (1, 0, 0, 0)$. Setelah satu langkah $v_1 = v_0 M = (0, 1, 1, 0)$, dan setelah dua langkah $v_2 = v_1 M = (0, 0, 1, 2)$, sama dengan baris $A$ pada $M^{2}$. Cara ini memperlihatkan bahwa $v_k = v_0 M^{k}$ menyebarkan banyak rute ke tiap simpul.
+
+Sebagai catatan, $M^{k}$ menghitung lintasan sepanjang $k$ langkah dan mengizinkan simpul dikunjungi ulang. Urutan perkalian tetap penting karena matriks tidak komutatif.`,
+    takeaways: [
+      'Matriks ketetanggaan mencatat banyak rute langsung antarsimpul.',
+      'Entri $M^{2}$ menghitung rute dua langkah dengan menjumlahkan seluruh simpul perantara.',
+      'Vektor baris dikalikan matriks menyebarkan banyak rute ke tiap simpul.',
+      'Urutan perkalian matriks penting karena matriks tidak komutatif.',
+    ],
+    reflection: [
+      'Mengapa entri $(M^{2})_{ij}$ berupa jumlahan atas simpul perantara, bukan hasil kali biasa?',
+      'Apa yang berubah bila sebuah rute dua arah ditambahkan pada jaringan?',
+      'Bagaimana kamu memperoleh banyak rute tiga langkah dari matriks ini?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi mengikuti metode baku matriks ketetanggaan pada teori graf, dengan entri pangkat matriks menghitung banyak lintasan sepanjang sejumlah langkah; jaringan dan simpulnya dipilih kecil agar hasil perkalian mudah diperiksa, bukan data layanan logistik tertentu.',
+  },
+  {
+    id: 'energi-dari-daya',
+    title: 'Energi Listrik dari Grafik Daya',
+    category: 'kalkulus',
+    subject: 'matematika-lanjut',
+    element: 'kalkulus',
+    grade: 'XII',
+    level: 'cakap',
+    estimatedMinutes: 12,
+    tags: ['integral', 'daya', 'energi', 'luas di bawah kurva', 'grafik sepotong', 'laju perubahan'],
+    summary:
+      'Menghitung energi listrik sebagai luas di bawah grafik daya sepotong garis lurus, lalu membandingkannya dengan daya rata-rata.',
+    topicIds: ['integral', 'aplikasi-turunan'],
+    body: `Sebuah alat elektronik mengonsumsi daya yang berubah terhadap waktu. Daya sesaat $P(t)$ dalam watt dicatat selama $6$ jam dan membentuk grafik garis lurus:
+- pada $0 \\le t \\le 2$, daya naik dari $0$ ke $400$ W;
+- pada $2 \\le t \\le 4$, daya tetap $400$ W;
+- pada $4 \\le t \\le 6$, daya turun dari $400$ ke $0$ W.
+
+Energi listrik yang terpakai adalah **luas di bawah grafik daya**, yaitu $E = \\int P(t)\\,dt$. Berapa energi total dalam Wh dan kWh, dan berapa daya rata-rata selama $6$ jam?`,
+    analysis: `Tulis daya sebagai fungsi sepotong-sepotong:
+$$P(t) = \\begin{cases} 200t, & 0 \\le t \\le 2 \\\\ 400, & 2 \\le t \\le 4 \\\\ 1200 - 200t, & 4 \\le t \\le 6 \\end{cases}$$
+Periksa titik sambungnya: $P(2) = 400$ dari kedua aturan, lalu $P(4) = 400$ serta $P(6) = 0$, sehingga grafiknya tersambung.
+
+**Energi lewat luas bangun.** Grafik terbagi menjadi dua segitiga dan satu persegi panjang:
+$$E = \\tfrac{1}{2}(2)(400) + (2)(400) + \\tfrac{1}{2}(2)(400) = 400 + 800 + 400 = 1600\\ \\text{Wh}.$$
+Dalam kWh, $E = 1{,}6\\ \\text{kWh}$.
+
+**Energi lewat integral.** Setiap penggal garis lurus membentuk trapesium, sehingga
+$$\\int_{0}^{2} 200t\\,dt = 400, \\qquad \\int_{2}^{4} 400\\,dt = 800, \\qquad \\int_{4}^{6}(1200 - 200t)\\,dt = 400,$$
+dengan jumlah yang sama, $1600\\ \\text{Wh}$.
+
+**Daya rata-rata.**
+$$\\bar{P} = \\frac{E}{\\Delta t} = \\frac{1600}{6} = \\frac{800}{3} \\approx 266{,}7\\ \\text{W}.$$
+Daya rata-rata ini jauh di bawah puncak $400$ W karena alat menghabiskan waktu untuk menanjak dan menurun.
+
+**Sudut pandang turunan.** Kemiringan tiap penggal adalah laju perubahan daya $P'(t)$. Pada penggal pertama $P'(t) = 200$ W per jam (daya menanjak), pada penggal kedua $P'(t) = 0$ (daya mendatar), dan pada penggal ketiga $P'(t) = -200$ W per jam (daya menurun). Turunan membaca kemiringan grafik, sedangkan integral membaca luas di bawahnya.
+
+Sebagai gambaran tagihan, bila tarif listrik sekitar Rp1.500 per kWh, pemakaian $1{,}6$ kWh setara sekitar Rp2.400.`,
+    takeaways: [
+      'Energi adalah akumulasi daya terhadap waktu, yaitu $E = \\int P(t)\\,dt$.',
+      'Luas di bawah grafik garis lurus dapat dihitung sebagai bangun datar atau lewat integral tentu.',
+      'Daya rata-rata sama dengan energi total dibagi selang waktu, bukan rata-rata nilai puncak.',
+      'Turunan membaca kemiringan (laju perubahan daya), integral membaca luas (energi).',
+    ],
+    reflection: [
+      'Mengapa daya rata-rata lebih rendah daripada daya puncak $400$ W?',
+      'Bagaimana energi total berubah bila penggal daya tetap diperpanjang dua jam?',
+      'Mengapa luas di bawah grafik daya, bukan tinggi puncaknya, yang menentukan biaya listrik?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi mengikuti hubungan baku energi sebagai integral daya terhadap waktu pada rangkaian listrik; profil daya disusun dari penggal garis lurus dengan angka bulat agar luas di bawah grafik mudah dihitung, bukan data pengukuran alat tertentu.',
+  },
 ];

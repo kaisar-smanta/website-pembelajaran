@@ -370,4 +370,22 @@ export const asosiasiKausalitasQuestions: Question[] = [
     ],
     competencies: ['membaca tabel kontingensi', 'asosiasi vs kausalitas', 'evaluasi klaim'],
   },
+  {
+    id: 'ak-16',
+    topicId: 'asosiasi-kausalitas',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Sebuah program belajar diikuti $80$ siswa pada kelompok perlakuan dan $80$ siswa pada kelompok kontrol, tetapi pembagiannya tidak acak. Pada kelompok perlakuan, $56$ siswa mencapai nilai tuntas, sedangkan pada kelompok kontrol $40$ siswa tuntas. Berapa kali lipat persentase ketuntasan kelompok perlakuan dibandingkan kelompok kontrol?',
+    answer: '1,4',
+    acceptedAnswers: ['1,4', '1.4', '7/5', '1,40', '1.40'],
+    explanation:
+      'Persentase ketuntasan kelompok perlakuan $= \\dfrac{56}{80} = 70\\%$, sedangkan kelompok kontrol $= \\dfrac{40}{80} = 50\\%$. Perbandingannya $\\dfrac{70\\%}{50\\%} = \\dfrac{70}{50} = 1{,}4$. Jadi ketuntasan kelompok perlakuan $1{,}4$ kali kelompok kontrol. Angka ini hanya menunjukkan kekuatan asosiasi; karena kelompok tidak dibagi secara acak, variabel perancu tetap mungkin berperan sehingga sebab-akibat belum dapat disimpulkan.',
+    hints: [
+      'Hitung persentase ketuntasan tiap kelompok sebagai bagian dari total anggotanya.',
+      'Bagi persentase kelompok perlakuan dengan persentase kelompok kontrol.',
+    ],
+    competencies: ['membandingkan proporsi', 'asosiasi', 'penalaran'],
+  },
 ];

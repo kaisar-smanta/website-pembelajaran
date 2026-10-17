@@ -321,4 +321,27 @@ export const fungsiLogaritmaQuestions: Question[] = [
       'Menolak kandidat yang melanggar syarat numerus',
     ],
   },
+  {
+    id: 'flg-16',
+    topicId: 'fungsi-logaritma',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt: 'Nilai dari $\\log_{3}8\\cdot\\log_{2}9$ adalah …',
+    options: [
+      { key: 'A', text: '$5$' },
+      { key: 'B', text: '$6$' },
+      { key: 'C', text: '$9$' },
+      { key: 'D', text: '$12$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Ubah ke basis yang sama, misalnya basis $10$: $\\log_{3}8=\\dfrac{\\log8}{\\log3}$ dan $\\log_{2}9=\\dfrac{\\log9}{\\log2}$. Hasil kalinya $\\dfrac{\\log8\\cdot\\log9}{\\log3\\cdot\\log2}=\\dfrac{3\\log2\\cdot2\\log3}{\\log3\\cdot\\log2}=6$ (opsi B). Opsi A ($5$) menjumlahkan pangkat $3$ dan $2$. Opsi C ($9$) salah membaca hasil sebagai numerus $\\log_{2}9$. Opsi D ($12$) menggandakan hasil yang benar.',
+    hints: [
+      'Ubah kedua logaritma ke basis yang sama dengan perubahan basis.',
+      'Tulis $\\log8=3\\log2$ dan $\\log9=2\\log3$.',
+      'Setelah disubstitusi, faktor yang sama saling menghapus di pembilang dan penyebut.',
+    ],
+    competencies: ['perubahan basis', 'sifat logaritma', 'penalaran'],
+  },
 ];

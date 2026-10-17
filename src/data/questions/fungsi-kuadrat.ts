@@ -335,4 +335,28 @@ export const fungsiKuadratQuestions: Question[] = [
     ],
     competencies: ['membaca grafik fungsi kuadrat', 'akar fungsi kuadrat'],
   },
+  {
+    id: 'fk-17',
+    topicId: 'fungsi-kuadrat',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Fungsi $f(x)=x^{2}-2kx+k+2$ bernilai positif untuk setiap bilangan real $x$. Rentang nilai $k$ yang memenuhi adalah …',
+    options: [
+      { key: 'A', text: '$-1<k<2$' },
+      { key: 'B', text: '$k<-1$ atau $k>2$' },
+      { key: 'C', text: '$-2<k<1$' },
+      { key: 'D', text: '$0<k<2$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Koefisien $x^{2}$ positif, yaitu $a=1>0$, sehingga $f$ selalu positif tepat ketika diskriminannya negatif. Hitung $D=(-2k)^{2}-4\\cdot1\\cdot(k+2)=4k^{2}-4k-8=4(k^{2}-k-2)$. Syarat $D<0$ menjadi $k^{2}-k-2<0$, yaitu $(k-2)(k+1)<0$, sehingga $-1<k<2$ (opsi A). Opsi B adalah penyelesaian untuk $D>0$, tandanya terbalik. Opsi C memakai akar yang keliru dari $k^{2}-k-2$. Opsi D terlalu sempit karena memotong batas bawah yang benar.',
+    hints: [
+      'Parabola terbuka ke atas, sehingga selalu positif bila tidak memotong sumbu-$x$.',
+      'Susun diskriminan $D=b^{2}-4ac$ lalu syaratkan $D<0$.',
+      'Faktorkan $k^{2}-k-2=(k-2)(k+1)$ dan selesaikan pertidaksamaannya.',
+    ],
+    competencies: ['diskriminan', 'pertidaksamaan kuadrat', 'penalaran'],
+  },
 ];

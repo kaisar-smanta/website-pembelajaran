@@ -213,6 +213,28 @@ Garis normal di titik yang sama tegak lurus garis singgung, sehingga gradiennya 
           caption: "Garis sekan (putus-putus) melalui dua titik kurva; ketika titik kedua mendekat, kemiringannya menuju kemiringan garis singgung di satu titik.",
           svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="40" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.5"/><line x1="40" y1="170" x2="40" y2="18" stroke="currentColor" stroke-width="1.5"/><polyline points="60,155 100,138 140,114 180,84 220,55 260,34 290,26" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="100" y1="143" x2="250" y2="33" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/><line x1="90" y1="137" x2="240" y2="69" stroke="currentColor" stroke-width="1.2"/><circle cx="140" cy="114" r="4" fill="currentColor"/><text x="292" y="188" font-size="12" fill="currentColor">x</text><text x="18" y="24" font-size="12" fill="currentColor">y</text></svg>',
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: `Turunan di $x=a$ didefinisikan sebagai limit hasil bagi selisih:
+$$f'(a)=\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}.$$`,
+            },
+            {
+              label: "Grafik",
+              body: "Garis sekan melalui dua titik kurva. Ketika titik kedua digeser mendekati titik pertama, kemiringan sekan menuju kemiringan **garis singgung** di satu titik.",
+            },
+            {
+              label: "Numerik",
+              body: `Untuk $f(x)=x^{2}$ di $a=1$, laju perubahan rata-rata pada selang yang menyusut menuju nilai tetap:
+| $h$ | $1$ | $0{,}5$ | $0{,}1$ | $0{,}01$ |
+| :--: | :--: | :--: | :--: | :--: |
+| $\\dfrac{f(1+h)-f(1)}{h}$ | $3$ | $2{,}5$ | $2{,}1$ | $2{,}01$ |
+Nilainya menuju $2$, yaitu $f'(1)=2$.`,
+            },
+          ],
+        },
       ],
     },
     {
@@ -270,6 +292,14 @@ Untuk bentuk yang lebih rumit, peraturannya juga mengikuti pola komposisi. Atura
 $$\\frac{d}{dx}f\\big(g(x)\\big) = f'\\big(g(x)\\big)\\,g'(x).$$
 
 Mengenali struktur fungsinya (pangkat, hasil kali, hasil bagi, atau komposisi) menjadi kunci memilih aturan yang tepat.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Garis bilangan dengan dua titik kritis; selang kiri dan kanan bertanda positif dengan panah naik, sedangkan selang tengah bertanda negatif dengan panah turun.",
+          caption: "Garis tanda turunan: pada selang $f'(x)>0$ grafik naik, pada $f'(x)<0$ grafik turun. Titik $x_{1}$ dan $x_{2}$ adalah pembuat $f'(x)=0$, yaitu kandidat titik stasioner.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><defs><marker id="fig-tur-sign-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="25" y1="100" x2="295" y2="100" stroke="currentColor" stroke-width="1.6" marker-end="url(#fig-tur-sign-arrow)"/><circle cx="110" cy="100" r="4" fill="currentColor"/><circle cx="210" cy="100" r="4" fill="currentColor"/><line x1="65" y1="92" x2="65" y2="58" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-tur-sign-arrow)"/><line x1="160" y1="58" x2="160" y2="92" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-tur-sign-arrow)"/><line x1="255" y1="92" x2="255" y2="58" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-tur-sign-arrow)"/><text x="65" y="50" font-size="11" text-anchor="middle" fill="currentColor">(+)</text><text x="160" y="50" font-size="11" text-anchor="middle" fill="currentColor">(-)</text><text x="255" y="50" font-size="11" text-anchor="middle" fill="currentColor">(+)</text><text x="65" y="122" font-size="11" text-anchor="middle" fill="currentColor">naik</text><text x="160" y="122" font-size="11" text-anchor="middle" fill="currentColor">turun</text><text x="255" y="122" font-size="11" text-anchor="middle" fill="currentColor">naik</text><text x="110" y="118" font-size="11" text-anchor="middle" fill="currentColor">x1</text><text x="210" y="118" font-size="11" text-anchor="middle" fill="currentColor">x2</text></svg>',
+        },
+      ],
     },
     {
       id: "contoh",
@@ -333,9 +363,18 @@ Maka $f'(4) = \\dfrac{-7}{(4-3)^{2}} = -7$.`,
 *Penyelesaian.* Fungsi $\\sin(3x)$ adalah komposisi, dengan fungsi luar $\\sin u$ dan fungsi dalam $u = 3x$. Karena $\\dfrac{d}{du}\\sin u = \\cos u$ dan $\\dfrac{du}{dx} = 3$:
 $$h'(x) = \\cos(3x) \\cdot 3 = 3\\cos(3x).$$
 Dengan pola yang sama, untuk $e^{2x}$ fungsi dalamnya $u = 2x$ sehingga
-$$p'(x) = e^{2x} \\cdot 2 = 2e^{2x}.$$`,
+              $$p'(x) = e^{2x} \\cdot 2 = 2e^{2x}.$$`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: hasil kali bertemu aturan rantai",
+          text: `Tentukan turunan $f(x)=x^{2}\\sin(3x)$ dan $g(x)=e^{2x}(x+1)$.
+
+*Penyelesaian.* Untuk $f$, gunakan aturan hasil kali dengan $u=x^{2}$ dan $v=\\sin(3x)$; karena $v'=3\\cos(3x)$, diperoleh
+$$f'(x)=2x\\sin(3x)+3x^{2}\\cos(3x).$$
+Untuk $g$, aturan hasil kali memberi $g'(x)=2e^{2x}(x+1)+e^{2x}=e^{2x}(2x+3)$.`,
         },
       ],
     },
@@ -406,7 +445,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Mulai dari definisi turunan, bukan aturan",
           text: `Gunakan definisi turunan $f'(x)=\\lim_{h\\to 0}\\dfrac{f(x+h)-f(x)}{h}$ dan ubah $f(x+h)$ dengan persamaan fungsional.`,
         },
         {
@@ -467,6 +506,7 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan definisi dan aturan turunan sebagai rujukan cepat saat mengerjakan soal.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -509,6 +549,12 @@ lalu simpulkan bahwa jika $f'(0)=0$, maka $f$ konstan.`,
               "$\\sin \\to \\cos$, $\\cos \\to -\\sin$, $\\tan \\to \\sec^{2}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: turunan membaca perubahan, aturan hanyalah jalan pintas",
+          text: "Semua aturan di atas bertumpu pada satu gagasan, yaitu **laju perubahan sesaat** yang didekati hasil bagi selisih. Aturan pangkat, hasil kali, hasil bagi, dan rantai hanya jalan pintas agar kita tidak selalu menghitung limit. Tanda $f'$ dan $f''$ kemudian dipakai membaca bentuk kurva pada **Aplikasi Turunan**, sementara gagasan yang sama dipakai terbalik pada **Integral** untuk mengumpulkan perubahan menjadi akumulasi.",
         },
       ],
     },

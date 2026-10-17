@@ -130,6 +130,36 @@ $$\\bar{x}=\\frac{x_1+x_2+\\cdots+x_n}{n}.$$
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Hafalkan ukuran statistik dan fungsinya.",
+          cards: [
+            {
+              front: "Mean",
+              back: "Jumlah semua data dibagi banyak data; peka terhadap pencilan",
+            },
+            {
+              front: "Median",
+              back: "Nilai tengah data terurut; tahan terhadap pencilan",
+            },
+            {
+              front: "Modus",
+              back: "Nilai yang paling sering muncul",
+            },
+            {
+              front: "Kuartil",
+              back: "$Q_1, Q_2, Q_3$ membagi data terurut menjadi empat bagian sama banyak",
+            },
+            {
+              front: "Jangkauan interkuartil (IQR)",
+              back: "$Q_3-Q_1$, lebar separuh data tengah",
+            },
+            {
+              front: "Pencilan",
+              back: "Data di luar $Q_1-1{,}5\\,\\text{IQR}$ atau $Q_3+1{,}5\\,\\text{IQR}$",
+            },
+          ],
+        },
       ],
     },
     {
@@ -457,6 +487,19 @@ Semakin besar simpangan baku, semakin lebar sebaran data di sekitar mean.`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: kuartil dan pencilan dari data baru",
+          text: `Gunakan data lama waktu mengerjakan tugas (menit) delapan siswa: $20, 22, 25, 26, 30, 31, 33, 60$ (sudah terurut).
+
+*Langkah 1.* Karena $n=8$ genap, median $=\\dfrac{26+30}{2}=28$.
+
+*Langkah 2.* Separuh bawah $20,22,25,26$ memberi $Q_1=\\dfrac{22+25}{2}=23{,}5$; separuh atas $30,31,33,60$ memberi $Q_3=\\dfrac{31+33}{2}=32$.
+
+*Langkah 3.* $\\text{IQR}=32-23{,}5=8{,}5$, sehingga batas bawah $=23{,}5-1{,}5(8{,}5)=10{,}75$ dan batas atas $=32+1{,}5(8{,}5)=44{,}75$.
+
+*Langkah 4.* Karena $60>44{,}75$, nilai $60$ adalah pencilan, sedangkan $33$ masih di dalam batas. Jadi hanya $60$ yang perlu diperiksa asalnya. Perhatikan bahwa jangkauan $60-20=40$ jauh lebih besar daripada IQR $8{,}5$, tanda sebaran yang menahan sedikit nilai ekstrem.`,
+        },
       ],
     },
     {
@@ -498,6 +541,19 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
 **3. Menyamakan kuartil dengan membagi data menjadi empat sama besar tanpa aturan.** Untuk $n$ kecil, $Q_1$ dan $Q_3$ ditentukan sebagai median separuh data, bukan dengan mencari persentil secara sembarangan.
 
 **4. Langsung membuang pencilan.** Pencilan dapat berasal dari kesalahan pencatatan, tetapi bisa juga peristiwa nyata. Selidiki dahulu sebelum mengambil keputusan.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Seorang siswa menentukan median dari data $12, 14, 15, 18, 19, 20, 22, 45$. Klik langkah yang keliru.",
+          steps: [
+            "Urutkan data lebih dahulu: $12, 14, 15, 18, 19, 20, 22, 45$.",
+            "Karena $n=8$ genap dan ada dua data tengah, ambil data ke-4 saja sebagai median: $18$.",
+            "Jadi mediannya $18$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Untuk $n$ genap, median adalah **rata-rata dua data tengah**, yaitu $\\dfrac{18+19}{2}=18{,}5$, bukan salah satu data tengah saja. Mengambil data ke-4 saja adalah kekeliruan yang sering terjadi.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -563,6 +619,7 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan ukuran pemusatan, penyebaran, dan aturan pencilan",
           headers: [
             "Ukuran",
             "Rumus / Pengertian",
@@ -597,6 +654,12 @@ Untuk contoh membaca berita statistik secara kritis, lihat [Membaca Hasil Survei
               "$Q_1-1{,}5\\,\\text{IQR}$ dan $Q_3+1{,}5\\,\\text{IQR}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: pusat tanpa sebaran menyesatkan",
+          text: "Setiap ukuran di atas menjawab satu pertanyaan yang sama: seberapa jauh data menyimpang dari pusatnya. Mean memberi pusat yang peka, median memberi pusat yang tahan, sedangkan jangkauan dan IQR mengukur lebar sebaran. Dua kumpulan data bisa berbagi mean yang sama namun berbeda jauh pada IQR, jadi ringkasan yang jujur selalu memasangkan pusat dengan sebaran. Gagasan memasangkan dua variabel inilah yang membuka jalan ke **Diagram Pencar** dan topik **Data Bivariat**.",
         },
       ],
     },

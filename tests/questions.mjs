@@ -60,6 +60,14 @@ for (const { q, file } of all) {
   ok(DIFFICULTIES.has(q.difficulty), `${label}: difficulty tidak dikenal (${q.difficulty})`);
   ok(TYPES.has(q.type), `${label}: type tidak dikenal (${q.type})`);
   ok(typeof q.prompt === 'string' && q.prompt.length > 0, `${label}: prompt kosong`);
+  ok(Array.isArray(q.hints) && q.hints.length >= 1, `${label}: tanpa petunjuk`);
+  ok(
+    typeof q.explanation === 'string' && q.explanation.trim().length > 0,
+    `${label}: tanpa pembahasan`,
+  );
+  if (q.type === 'open-response') {
+    ok(Array.isArray(q.rubric) && q.rubric.length >= 1, `${label}: uraian tanpa rubrik`);
+  }
 
   if (q.figure !== undefined) {
     ok(typeof q.figure.alt === 'string' && q.figure.alt.trim().length > 0, `${label}: figure tanpa alt`);

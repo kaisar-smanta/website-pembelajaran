@@ -38,10 +38,10 @@ const EXPLORATION_TYPES = new Set([
   'induction',
   'confounding',
   'function-family',
+  'piecewise',
   'normal-distribution',
   'triangle',
   'exponent-laws',
-  'geogebra',
 ]);
 
 const { explorations } = await load('src/data/explorations.ts');
@@ -116,17 +116,6 @@ for (const item of explorations) {
       ok(p.min <= p.value, `${label}: param ${p.name}: min (${p.min}) > value (${p.value})`);
       ok(p.value <= p.max, `${label}: param ${p.name}: value (${p.value}) > max (${p.max})`);
     }
-  }
-
-  if (item.type === 'geogebra') {
-    ok(typeof item.url === 'string' && item.url.length > 0, `${label}: url kosong`);
-    // Tautan beranda generik tidak dapat dipakai siswa; geogebra wajib menunjuk
-    // applet spesifik, atau diganti simulasi native. Dipertahankan sebagai
-    // kegagalan berlabel (bukan peringatan senyap) sampai perbaikan tuntas.
-    ok(
-      item.url !== 'https://www.geogebra.org/classic',
-      `${label}: url hanya beranda GeoGebra generik (menunggu applet spesifik/simulasi native)`,
-    );
   }
 
   if (item.order !== undefined && item.grade && item.element) {

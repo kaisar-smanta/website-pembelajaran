@@ -311,4 +311,23 @@ export const fungsiEksponensialQuestions: Question[] = [
     ],
     competencies: ['pemodelan pertumbuhan'],
   },
+  {
+    id: 'fe-16',
+    topicId: 'fungsi-eksponensial',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Akar-akar persamaan $4^{x}-5\\cdot2^{x}+4=0$ adalah $x_1$ dan $x_2$. Tentukan nilai $x_1+x_2$.',
+    answer: '2',
+    acceptedAnswers: ['2'],
+    explanation:
+      'Karena $4^{x}=(2^{x})^{2}$, misalkan $y=2^{x}$ dengan $y>0$. Persamaan menjadi $y^{2}-5y+4=0$, yaitu $(y-1)(y-4)=0$, sehingga $y=1$ atau $y=4$. Dari $2^{x}=1$ diperoleh $x=0$, dan dari $2^{x}=4$ diperoleh $x=2$. Jadi $x_1+x_2=0+2=2$.',
+    hints: [
+      'Tulis $4^{x}$ sebagai $(2^{x})^{2}$ lalu misalkan $y=2^{x}$.',
+      'Selesaikan persamaan kuadrat pada $y$, lalu kembalikan ke $x$ lewat $2^{x}=y$.',
+      'Karena $2^{x}$ selalu positif, setiap akar kuadrat yang bernilai positif dapat diterima.',
+    ],
+    competencies: ['persamaan eksponen', 'substitusi'],
+  },
 ];

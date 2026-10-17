@@ -272,8 +272,14 @@ Aturan Bayes dipakai untuk **memperbarui** dugaan awal $P(A)$ setelah melihat bu
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Bebas bukan berarti lepas",
           text: "Jangan menyamakan \"bebas\" dengan \"lepas\". Bila $A$ dan $B$ saling **lepas** dan keduanya berpeluang positif, maka $P(A \\cap B) = 0 \\neq P(A)P(B)$, sehingga **tidak bebas**.",
+        },
+        {
+          kind: "figure",
+          alt: "Diagram kotak Bayes berupa persegi panjang terbagi dua kolom sesuai peluang A nol koma tiga dan bukan A nol koma tujuh, dengan daerah berwarna menyatakan kejadian B yang tingginya sebanding peluang bersyarat.",
+          caption: "Diagram kotak Bayes: lebar tiap kolom sebanding dengan $P(A)=0{,}3$ dan $P(A^{c})=0{,}7$, sedangkan tinggi bagian berwarna sebanding dengan $P(B\\mid A)=0{,}8$ dan $P(B\\mid A^{c})=0{,}3$. Maka $P(A\\mid B)=\\dfrac{0{,}24}{0{,}24+0{,}21}\\approx 0{,}53$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><rect x="40" y="30" width="240" height="150" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="112" y1="30" x2="112" y2="180" stroke="currentColor" stroke-width="1.2"/><rect x="40" y="60" width="72" height="120" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1"/><rect x="112" y="135" width="168" height="45" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1"/><text x="76" y="22" font-size="11" text-anchor="middle" fill="currentColor">A (0,3)</text><text x="196" y="22" font-size="11" text-anchor="middle" fill="currentColor">bukan A (0,7)</text><text x="76" y="127" font-size="11" text-anchor="middle" fill="currentColor">A \u2229 B</text><text x="196" y="162" font-size="11" text-anchor="middle" fill="currentColor">(bukan A) \u2229 B</text><text x="76" y="48" font-size="10" text-anchor="middle" fill="currentColor">A tanpa B</text><text x="196" y="92" font-size="10" text-anchor="middle" fill="currentColor">tanpa B</text><text x="160" y="196" font-size="10" text-anchor="middle" fill="currentColor">daerah berwarna menyatakan kejadian B</text></svg>',
         },
       ],
     },
@@ -365,6 +371,21 @@ Bandingkan dengan Contoh 4: memilih 3 orang tanpa jabatan hanya $56$ cara, sedan
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: membalik kondisi dengan aturan Bayes",
+          text: `Dua mesin memproduksi komponen. Mesin A menghasilkan $60\\%$ komponen dengan $2\\%$ cacat, sedangkan mesin B menghasilkan $40\\%$ komponen dengan $5\\%$ cacat. Sebuah komponen diambil acak dan ternyata cacat. Berapa peluang komponen itu dari mesin B?
+
+*Langkah 1.* Tulis peluang awal: $P(A)=0{,}6$ dan $P(B)=0{,}4$.
+
+*Langkah 2.* Hitung peluang cacat keseluruhan:
+$$P(\\text{cacat})=P(\\text{cacat}\\mid A)P(A)+P(\\text{cacat}\\mid B)P(B)=0{,}02(0{,}6)+0{,}05(0{,}4)=0{,}032.$$
+
+*Langkah 3.* Terapkan aturan Bayes untuk membalik kondisinya:
+$$P(B\\mid\\text{cacat})=\\frac{P(\\text{cacat}\\mid B)P(B)}{P(\\text{cacat})}=\\frac{0{,}05(0{,}4)}{0{,}032}=\\frac{0{,}02}{0{,}032}=0{,}625.$$
+
+*Langkah 4.* Meski mesin B hanya menghasilkan $40\\%$ komponen, tingkat cacatnya lebih tinggi sehingga peluang komponen cacat berasal dari B naik menjadi $62{,}5\\%$. Inilah gunanya peluang bersyarat: informasi baru menggeser dugaan awal.`,
+        },
       ],
     },
     {
@@ -444,7 +465,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Pikirkan muka kartu, bukan kartunya",
           text: `Jangan berpikir dalam satuan **kartu**; berpikirlah dalam satuan **muka (sisi)** kartu. Kedua sisi tiap kartu sama mungkin muncul di atas.`,
         },
         {
@@ -502,6 +523,7 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus peluang bersyarat dan pencacahan",
           headers: [
             "Konsep",
             "Bentuk",
@@ -532,6 +554,12 @@ Berapa peluang sisi balik kartu itu juga berwarna merah?`,
               "$\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: informasi baru menajamkan peluang",
+          text: "Satu gagasan mengikat seluruh topik ini: peluang berubah ketika sebagian informasi sudah diketahui. Peluang bersyarat mempersempit ruang sampel, aturan perkalian menggabungkan dua tahap, dan aturan Bayes membalik arah sekaligus memperbarui dugaan awal. Permutasi dan kombinasi hanya alat untuk menghitung banyak cara ketika ruang sampelnya besar. Gagasan memperbarui keyakinan inilah yang berlanjut ke penalaran **Asosiasi dan Kausalitas**, ketika bukti dari data ditimbang sebelum mengambil kesimpulan.",
         },
       ],
     },

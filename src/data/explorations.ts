@@ -14,6 +14,7 @@ import { explorationsBagian2 } from './explorations/bagian-2.ts';
 import { explorationsBagian3 } from './explorations/bagian-3.ts';
 import { explorationsBagian4 } from './explorations/bagian-4.ts';
 import { explorationsBagian5 } from './explorations/bagian-5.ts';
+import { explorationsBagian6 } from './explorations/bagian-6.ts';
 
 export const explorations: Exploration[] = [
   ...explorationsBagian1,
@@ -21,6 +22,7 @@ export const explorations: Exploration[] = [
   ...explorationsBagian3,
   ...explorationsBagian4,
   ...explorationsBagian5,
+  ...explorationsBagian6,
 ];
 
 const byId = new Map<string, Exploration>(explorations.map((e) => [e.id, e]));

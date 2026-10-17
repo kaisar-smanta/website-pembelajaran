@@ -87,7 +87,7 @@ Karena $45$ habis dibagi $9$, bilangan asalnya juga habis dibagi $9$. Mengapa tr
       id: 'konteks',
       kind: 'konteks',
       title: 'Situasi dan Konteks',
-      body: `Teori bilangan lahir dari pertanyaan sederhana tentang pembagian. Meski tampak abstrak, gagasannya meresap ke banyak hal: pemeriksaan digit terakhir nomor kartu, penjadwalan yang berulang, sampai sandi pengaman pesan digital.
+      body: `Teori bilangan bertolak dari pertanyaan sederhana tentang pembagian. Meski tampak abstrak, gagasannya meresap ke banyak hal: pemeriksaan digit terakhir nomor kartu, penjadwalan yang berulang, sampai sandi pengaman pesan digital.
 
 Kunci penghematan tenaganya adalah **modulo**, yaitu sisa pembagian. Dengan modulo, perkalian dan pangkat besar bisa diringkas menjadi sisa yang kecil. Topik ini membangun alat-alat itu secara bertahap.`,
     },
@@ -133,6 +133,23 @@ Kongruensi $a \\equiv b \\pmod{m}$ berarti $m \\mid (a-b)$, yaitu $a$ dan $b$ me
               back: '$m$ membagi $a-b$; kedua bilangan bersisa sama saat dibagi $m$.',
             },
           ],
+        },
+        {
+          kind: 'match',
+          intro: 'Cocokkan notasi dengan makna operasionalnya.',
+          pairs: [
+            { left: '$a \\mid b$', right: '$b=ak$ untuk suatu bilangan bulat $k$' },
+            { left: '$a \\equiv b \\pmod{m}$', right: '$m \\mid (a-b)$' },
+            { left: 'FPB', right: 'pangkat terkecil tiap prima yang muncul' },
+            { left: 'KPK', right: 'pangkat terbesar tiap prima yang muncul' },
+            { left: 'Algoritma Euklides', right: '$\\gcd(a,b)=\\gcd(b,\\,a\\bmod b)$' },
+          ],
+        },
+        {
+          kind: 'figure',
+          alt: 'Jam modulo dua belas dengan angka 0 sampai 11. Dua panah dari pusat menunjuk pukul 5 dan pukul 2, menunjukkan pergeseran sembilan jam.',
+          caption: 'Jam dinding bekerja modulo $12$. Dari pukul $5$, maju $9$ jam berarti $5+9=14$, dan $14\\equiv2\\pmod{12}$, sehingga jarum berhenti di pukul $2$.',
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-tbil-clock-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><circle cx="160" cy="115" r="70" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="160" cy="115" r="2.5" fill="currentColor"/><line x1="160" y1="115" x2="195" y2="175" stroke="currentColor" stroke-width="1.6" marker-end="url(#fig-tbil-clock-arrow)"/><line x1="160" y1="115" x2="220" y2="81" stroke="currentColor" stroke-width="1.6" marker-end="url(#fig-tbil-clock-arrow)"/><circle cx="195" cy="175.6" r="3.4" fill="currentColor"/><circle cx="220.6" cy="80" r="3.4" fill="currentColor"/><text x="160" y="49" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="195" y="58" font-size="11" fill="currentColor" text-anchor="middle">1</text><text x="221" y="84" font-size="11" fill="currentColor" text-anchor="middle">2</text><text x="230" y="119" font-size="11" fill="currentColor" text-anchor="middle">3</text><text x="221" y="154" font-size="11" fill="currentColor" text-anchor="middle">4</text><text x="195" y="181" font-size="11" fill="currentColor" text-anchor="middle">5</text><text x="160" y="189" font-size="11" fill="currentColor" text-anchor="middle">6</text><text x="125" y="181" font-size="11" fill="currentColor" text-anchor="middle">7</text><text x="99" y="154" font-size="11" fill="currentColor" text-anchor="middle">8</text><text x="90" y="119" font-size="11" fill="currentColor" text-anchor="middle">9</text><text x="99" y="84" font-size="11" fill="currentColor" text-anchor="middle">10</text><text x="125" y="58" font-size="11" fill="currentColor" text-anchor="middle">11</text><text x="160" y="226" font-size="12" fill="currentColor" text-anchor="middle">5 + 9 ≡ 2 (mod 12)</text></svg>',
         },
       ],
     },
@@ -245,7 +262,7 @@ $$a \\equiv b \\pmod{m} \\implies a^{n} \\equiv b^{n} \\pmod{m}.$$`,
         {
           kind: 'callout',
           variant: 'warning',
-          title: 'Hati-hati',
+          title: 'Pembagian pada kongruensi',
           text: 'Kongruensi tidak boleh dibagi begitu saja. Dari $ac \\equiv bc \\pmod{m}$ kita **tidak** selalu boleh mencoret $c$ kecuali $\\gcd(c,m)=1$.',
         },
       ],
@@ -339,6 +356,15 @@ $$a \\equiv b \\pmod{m} \\implies a^{n} \\equiv b^{n} \\pmod{m}.$$`,
             },
           ],
         },
+        {
+          kind: 'details',
+          summary: 'Coba sendiri: sisa pangkat yang sangat besar',
+          text: `Tentukan $5^{2026} \\bmod 7$.
+
+*Penyelesaian.* Cari periode sisa pangkat $5$. Karena $5^{2}=25\\equiv4\\pmod7$, $5^{3}\\equiv4\\cdot5=20\\equiv6\\pmod7$, dan $5^{6}\\equiv6\\cdot6=36\\equiv1\\pmod7$, sisa pangkat berulang setiap $6$. Tulis $2026=6\\cdot337+4$, sehingga
+$$5^{2026}\\equiv(5^{6})^{337}\\cdot5^{4}\\equiv1\\cdot625\\equiv2\\pmod7.$$
+Jadi sisanya $2$.`,
+        },
       ],
     },
     {
@@ -365,7 +391,7 @@ $$a \\equiv b \\pmod{m} \\implies a^{n} \\equiv b^{n} \\pmod{m}.$$`,
       title: 'Penerapan di Dunia Nyata',
       body: `Aritmetika modulo hadir di banyak tempat. Nomor induk kependudukan memuat digit pemeriksa yang dihitung dari sisa pembagian kombinasi angka sebelumnya. Jam dinding bekerja modulo $12$ atau modulo $24$: pukul $10$ ditambah $5$ jam menjadi pukul $3$, bukan $15$. Penjadwalan dua kegiatan berulang memakai KPK; dua ronda yang berulang setiap $4$ hari dan $6$ hari bertemu lagi setelah $\\operatorname{lcm}(4,6)=12$ hari.
 
-Sistem sandi kunci publik (seperti RSA) bertumpu pada bilangan prima besar dan operasi modulo: pesan dikodekan dengan perpangkatan modulo suatu bilangan yang sangat besar, dan keamanannya bersandar pada sulitnya memfaktorkan bilangan besar. Dari pembagian bersisa, lahirlah pengaman komunikasi digital.`,
+Sistem sandi kunci publik (seperti RSA) bertumpu pada bilangan prima besar dan operasi modulo: pesan dikodekan dengan perpangkatan modulo suatu bilangan yang sangat besar, dan keamanannya bersandar pada sulitnya memfaktorkan bilangan besar. Dari pembagian bersisa, muncullah pengaman komunikasi digital.`,
     },
     {
       id: 'kesalahan-umum',
@@ -405,7 +431,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
         {
           kind: 'callout',
           variant: 'tip',
-          title: 'Petunjuk',
+          title: 'Bentuk bilangan baru',
           text: 'Andaikan prima-prima itu $p_1, p_2, \\dots, p_n$. Bentuk bilangan $N = p_1 p_2 \\cdots p_n + 1$, lalu selidiki sisa pembagian $N$ oleh setiap $p_i$. Gunakan fakta bahwa setiap bilangan bulat lebih besar dari $1$ memiliki faktor prima.',
         },
         {
@@ -470,6 +496,7 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
       blocks: [
         {
           kind: 'table',
+          caption: 'Ringkasan keterbagian, kongruensi, FPB dan KPK, serta pengujian keprimaan.',
           headers: ['Konsep', 'Makna / Rumus'],
           rows: [
             ['Keterbagian', '$a \\mid b \\iff b = ak$ untuk suatu bilangan bulat $k$'],
@@ -478,6 +505,12 @@ Buktikan pernyataan tersebut. Andaikan hanya ada berhingga bilangan prima, lalu 
             ['FPB dan KPK', '$\\gcd(a,b)\\cdot \\operatorname{lcm}(a,b)=ab$'],
             ['Bilangan prima', 'Bilangan $>1$ dengan tepat dua faktor positif'],
           ],
+        },
+        {
+          kind: 'callout',
+          variant: 'concept',
+          title: 'Sisa yang berulang, pola yang bisa diramalkan',
+          text: 'Inti topik ini adalah mengganti bilangan besar dengan sisanya tanpa mengubah jawaban tentang keterbagian. Karena sisa berulang secara periodik, pangkat raksasa dapat dihitung dari periode kecilnya. Gagasan periode yang sama muncul lagi di topik **Barisan dan Deret**: mengenali pola berulang membuat suku yang jauh dapat ditentukan tanpa menuliskan semuanya.',
         },
       ],
     },

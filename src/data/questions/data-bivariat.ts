@@ -348,4 +348,31 @@ export const dataBivariatQuestions: Question[] = [
     ],
     competencies: ['pencilan bivariat', 'membaca tabel data'],
   },
+  {
+    id: 'db-17',
+    topicId: 'data-bivariat',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Perhatikan tabel pasangan data $(x, y)$ berikut. Tentukan jumlah kuadrat residual (selisih nilai teramati dengan nilai prediksi, dikuadratkan lalu dijumlahkan) terhadap garis $y = x + 2$.',
+    table: {
+      caption: 'Pasangan data x dan y untuk menghitung residual terhadap garis y = x + 2.',
+      headers: ['x', 'y'],
+      math: true,
+      rows: [
+        ['1', '4'],
+        ['2', '3'],
+        ['3', '7'],
+      ],
+    },
+    answer: '6',
+    explanation:
+      'Garis $y = x + 2$ memberi nilai prediksi $\\hat{y}$ untuk setiap $x$ pada tabel: pada $x = 1$, $\\hat{y} = 3$ sehingga residualnya $4 - 3 = 1$; pada $x = 2$, $\\hat{y} = 4$ sehingga residualnya $3 - 4 = -1$; pada $x = 3$, $\\hat{y} = 5$ sehingga residualnya $7 - 5 = 2$. Jumlah kuadrat residualnya $1^{2} + (-1)^{2} + 2^{2} = 1 + 1 + 4 = 6$.',
+    hints: [
+      'Hitung nilai prediksi $\\hat{y} = x + 2$ untuk setiap nilai $x$ pada tabel.',
+      'Residual adalah $y - \\hat{y}$; kuadratkan setiap residual sebelum menjumlahkan.',
+    ],
+    competencies: ['regresi linear', 'residual', 'membaca tabel data'],
+  },
 ];

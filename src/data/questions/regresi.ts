@@ -323,4 +323,37 @@ export const regresiQuestions: Question[] = [
     ],
     competencies: ['diagram pencar', 'korelasi linear', 'interpretasi'],
   },
+  {
+    id: 'rg-16',
+    topicId: 'regresi',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Tabel berikut memuat empat pasangan data. Residu untuk $x=3$ pada garis regresi kuadrat terkecil $\\hat{y}=bx+a$ adalah …',
+    table: {
+      caption: 'Data $x$ dan $y$ untuk menentukan garis regresi kuadrat terkecil.',
+      headers: ['$x$', '$y$'],
+      rows: [
+        ['$1$', '$2$'],
+        ['$2$', '$4$'],
+        ['$3$', '$5$'],
+        ['$4$', '$7$'],
+      ],
+    },
+    options: [
+      { key: 'A', text: '$-0{,}3$' },
+      { key: 'B', text: '$0{,}3$' },
+      { key: 'C', text: '$-0{,}5$' },
+      { key: 'D', text: '$0{,}5$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Diperoleh $\\sum x=10$, $\\sum y=18$, $\\sum xy=53$, dan $\\sum x^{2}=30$ dengan $n=4$. Gradien $b=\\dfrac{4(53)-(10)(18)}{4(30)-10^{2}}=\\dfrac{212-180}{120-100}=1{,}6$, serta $\\bar{x}=2{,}5$ dan $\\bar{y}=4{,}5$ sehingga $a=4{,}5-1{,}6(2{,}5)=0{,}5$. Jadi $\\hat{y}=1{,}6x+0{,}5$ dan pada $x=3$ taksirannya $5{,}3$. Residu $=y-\\hat{y}=5-5{,}3=-0{,}3$, sehingga opsi A benar. Opsi B hanya salah tanda. Opsi C memakai taksiran $5{,}5$ akibat intersep keliru. Opsi D salah tanda sekaligus memakai taksiran yang salah.',
+    hints: [
+      'Hitung gradien dan intersep dari ringkasan $\\sum x$, $\\sum y$, $\\sum xy$, dan $\\sum x^{2}$ lebih dahulu.',
+      'Residu adalah selisih nilai teramati dan nilai taksiran, yaitu $y-\\hat{y}$.',
+    ],
+    competencies: ['garis regresi', 'residu', 'penerapan'],
+  },
 ];

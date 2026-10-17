@@ -135,6 +135,12 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
         },
         {
           kind: "figure",
+          alt: "Diagram alur pemilihan model: beda tetap memilih linear, beda kedua tetap memilih kuadrat, rasio tetap memilih eksponensial, dan nilai berulang teratur memilih periodik.",
+          caption: "Urutan pemeriksaan pola data menentukan jenis model. Periksa beda, lalu beda kedua, kemudian rasio sebelum menetapkan bentuk fungsi.",
+          svg: '<svg viewBox="0 0 340 250" aria-hidden="true" role="presentation"><defs><marker id="pmf-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><text x="20" y="22" font-size="12" fill="currentColor">Pilih model dari pola perubahan</text><rect x="20" y="34" width="300" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="32" y="58" font-size="11" fill="currentColor">Beda tetap: linear y = mx + c</text><line x1="170" y1="72" x2="170" y2="86" stroke="currentColor" stroke-width="1.4" marker-end="url(#pmf-flow-arrow)"/><rect x="20" y="88" width="300" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="32" y="112" font-size="11" fill="currentColor">Beda kedua tetap: kuadrat y = a(x-h)² + k</text><line x1="170" y1="126" x2="170" y2="140" stroke="currentColor" stroke-width="1.4" marker-end="url(#pmf-flow-arrow)"/><rect x="20" y="142" width="300" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="32" y="166" font-size="11" fill="currentColor">Rasio tetap: eksponensial y = a · bˣ</text><line x1="170" y1="180" x2="170" y2="194" stroke="currentColor" stroke-width="1.4" marker-end="url(#pmf-flow-arrow)"/><rect x="20" y="196" width="300" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="32" y="220" font-size="11" fill="currentColor">Nilai berulang: periodik y = A sin(Bx) + C</text></svg>',
+        },
+        {
+          kind: "figure",
           alt: "Satu bidang koordinat dengan tiga kurva: garis lurus linear yang naik tetap, kurva kuadrat yang melengkung, dan kurva eksponensial yang naik makin cepat. Gaya garis dan keterangan membedakan ketiganya.",
           caption: "Tiga keluarga fungsi yang sering dipakai memodelkan data: linear (beda tetap), kuadrat (berpuncak dan simetris), serta eksponensial (rasio tetap).",
           svg: '<svg viewBox="0 0 340 220" aria-hidden="true" role="presentation"><defs><marker id="fig-model-family" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="190" x2="320" y2="190" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-model-family)"/><line x1="40" y1="205" x2="40" y2="45" stroke="currentColor" stroke-width="1.3" marker-end="url(#fig-model-family)"/><line x1="52" y1="30" x2="76" y2="30" stroke="currentColor" stroke-width="2.2"/><text x="82" y="34" font-size="11" fill="currentColor">linear</text><line x1="140" y1="30" x2="164" y2="30" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><text x="170" y="34" font-size="11" fill="currentColor">kuadrat</text><line x1="228" y1="30" x2="252" y2="30" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="258" y="34" font-size="11" fill="currentColor">eksponensial</text><polyline points="40,180 130,150 220,110 300,55" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="40,188 90,182 130,168 170,140 205,95 230,55" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 3"/><polyline points="40,192 95,186 140,170 180,140 210,90 230,35" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/><text x="316" y="206" font-size="11" fill="currentColor">x</text><text x="46" y="52" font-size="11" fill="currentColor">y</text></svg>',
@@ -148,7 +154,7 @@ Tiga jenis fungsi yang paling sering dipakai memiliki ciri pola yang khas. Selai
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Batas keberlakuan model",
           text: "Model hanya berlaku pada domain yang wajar. Memakai model di luar rentang data (ekstrapolasi jauh) dapat memberi nilai yang tidak masuk akal secara fisik.",
         },
         {
@@ -335,6 +341,34 @@ Setelah bentuk dipilih, konstanta diperoleh dengan menyubstitusi titik data yang
 - Kuadrat: substitusi titik puncak dan satu titik lain untuk memperoleh $a$.
 
 **Prosedur.** (1) Tentukan variabel dan satuannya. (2) Tuliskan asumsi. (3) Kenali pola perubahan dan pilih jenis fungsi. (4) Tentukan konstanta dari data. (5) Periksa kecocokan dengan grafik. (6) Tafsirkan parameter dan batasi domainnya.`,
+      blocks: [
+        {
+          kind: "flip-cards",
+          intro: "Balik tiap kartu untuk menguji istilah model dan pola datanya.",
+          cards: [
+            {
+              front: "Model linear",
+              back: "Beda antar nilai berurutan tetap; bentuknya $y=mx+c$.",
+            },
+            {
+              front: "Model kuadrat",
+              back: "Beda kedua tetap atau datanya memiliki titik puncak; bentuknya $y=a(x-h)^2+k$.",
+            },
+            {
+              front: "Model eksponensial",
+              back: "Rasio antar nilai berurutan tetap; bentuknya $y=a\\cdot b^{x}$.",
+            },
+            {
+              front: "Model periodik",
+              back: "Nilai berulang pada periode tetap; bentuknya $y=A\\sin(Bx)+C$.",
+            },
+            {
+              front: "Ekstrapolasi",
+              back: "Memakai model di luar rentang data yang diamati, sehingga hasilnya perlu diperiksa ulang.",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "contoh",
@@ -405,6 +439,17 @@ Perkiraan populasinya sekitar $16.589$ jiwa.`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: model penyusutan mesin",
+          text: `Sebuah mesin dibeli seharga Rp20.000.000. Setelah $2$ tahun, nilai jualnya tercatat Rp12.800.000. Susun model penyusutan $N(t)=N_0\\cdot b^{t}$ dengan $t$ dalam tahun, lalu ramalkan nilai mesin setelah $5$ tahun.
+
+*Penyelesaian.* Nilai awal memberi $N_0=20.000.000$. Dari data tahun kedua:
+$$20.000.000\\cdot b^{2}=12.800.000 \\Rightarrow b^{2}=0{,}64 \\Rightarrow b=0{,}8.$$
+Modelnya $N(t)=20.000.000\\cdot(0{,}8)^{t}$. Faktor $b=0{,}8$ berarti nilai menyusut $20\\%$ per tahun. Untuk $t=5$:
+$$N(5)=20.000.000\\cdot(0{,}8)^{5}=20.000.000\\cdot0{,}32768=6.553.600.$$
+Jadi nilai mesin setelah $5$ tahun sekitar Rp6.553.600. Model ini hanya wajar selama mesin masih memiliki nilai jual dan pola penyusutan tetap.`,
+        },
       ],
     },
     {
@@ -446,6 +491,20 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
 **4. Menganggap laju eksponensial sama dengan $b$.** Faktor $b=1{,}1$ berarti tumbuh $10\\%$ per selang, bukan $1{,}1\\%$. Laju persentasenya adalah $b-1$.
 
 **5. Lupa menuliskan asumsi.** Setiap model dibangun di atas penyederhanaan, seperti "tidak ada biaya lain" atau "laju pertumbuhan tetap". Asumsi ini perlu disadari agar kesimpulan tidak berlebihan.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Seorang siswa menyusun model populasi dari data tahun 2018 sebanyak $8000$ jiwa dan tahun 2020 sebanyak $11.520$ jiwa. Ia langsung memilih model linear. Klik langkah yang keliru.",
+          steps: [
+            "Dua titik data selalu dapat dihubungkan oleh satu garis lurus.",
+            "Karena itu, dua titik sudah cukup untuk memastikan model linear adalah model terbaik.",
+            "Garis melalui $(0,8000)$ dan $(2,11.520)$ memberi laju $1760$ jiwa per tahun.",
+            "Jadi populasi tahun 2022, yaitu $t=4$, diprediksi $8000+4\\cdot1760=15.040$ jiwa.",
+          ],
+          wrongIndex: 1,
+          explanation: "Langkah kedua keliru. Dua titik hanya menentukan sebuah garis, tetapi tidak membuktikan bahwa pola datanya linear. Rasio $11.520/8000=1{,}44$ menunjukkan faktor $1{,}2$ per tahun, sehingga model eksponensial lebih masuk akal dan memberi prediksi sekitar $16.589$ jiwa. Pilihan model harus berdasar pola, bukan sekadar kemampuan mencocokkan dua titik.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -511,6 +570,7 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan langkah pemodelan dan ciri tiap jenis fungsi",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -545,6 +605,12 @@ Alur kerjanya selalu sama: tentukan variabel dan satuannya, tuliskan asumsi, pil
               "sebutkan arti dan satuan setiap konstanta",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: pola lebih dulu, konstanta kemudian",
+          text: "Inti pemodelan bukan menghitung konstanta, melainkan membaca **pola perubahan** dari data. Jenis fungsi ditentukan lebih dahulu oleh beda, beda kedua, atau rasio yang tetap; konstanta baru menyusul dari titik-titik yang diketahui. Setelah model terbentuk, tafsirkan parameter beserta satuannya dan batasi domainnya. Ketika data tersebar dan tidak lagi mengikuti pola rapi, topik **Regresi** menawarkan cara mencocokkan model pada banyak titik sekaligus.",
         },
       ],
     },

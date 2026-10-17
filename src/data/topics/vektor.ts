@@ -135,6 +135,32 @@ Dari $A(1,2)$ ke $B(4,6)$ diperoleh $\\vec{AB} = \\begin{pmatrix} 3 \\\\ 4 \\end
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Latih istilah dasar vektor berikut.",
+          cards: [
+            {
+              front: "Vektor",
+              back: "Besaran yang memiliki besar (panjang) sekaligus arah",
+            },
+            {
+              front: "Komponen",
+              back: "$a_{1}$ dan $a_{2}$ pada $\\vec{a}=\\begin{pmatrix} a_{1} \\\\ a_{2} \\end{pmatrix}$",
+            },
+            {
+              front: "Vektor satuan",
+              back: "Vektor berpanjang $1$ yang searah $\\vec{a}$, yaitu $\\hat{a}=\\dfrac{\\vec{a}}{\\lVert \\vec{a} \\rVert}$",
+            },
+            {
+              front: "Perkalian titik",
+              back: "Menghasilkan bilangan: $\\vec{a}\\cdot\\vec{b}=a_{1}b_{1}+a_{2}b_{2}$",
+            },
+            {
+              front: "Kolinear",
+              back: "Dua vektor sejajar: $\\vec{AC}=k\\,\\vec{AB}$",
+            },
+          ],
+        },
       ],
     },
     {
@@ -186,7 +212,7 @@ Secara geometris, penjumlahan vektor mengikuti **aturan segitiga** atau **aturan
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Komponen yang seposisi",
           text: "Penjumlahan mengikuti komponen yang **seposisi**: komponen-$x$ dengan komponen-$x$, komponen-$y$ dengan komponen-$y$. Jangan mencampur keduanya.",
         },
       ],
@@ -371,6 +397,11 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: sudut dan proyeksi",
+          text: `Diberikan $\\vec{a}=\\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix}$ dan $\\vec{b}=\\begin{pmatrix} 3 \\\\ 0 \\end{pmatrix}$. Hitung dahulu $\\vec{a}\\cdot\\vec{b}$ dan panjang kedua vektor, lalu tentukan sudut di antara keduanya serta proyeksi vektor $\\vec{a}$ pada $\\vec{b}$. Cocokkan sudutmu dengan $45^\\circ$ dan proyeksinya dengan $\\begin{pmatrix} 2 \\\\ 0 \\end{pmatrix}$.`,
+        },
       ],
     },
     {
@@ -398,6 +429,14 @@ $$\\vec{p} = \\frac{11}{5}\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} = \\begin{pma
       body: `Vektor muncul pada navigasi: kecepatan kapal digabung dengan arus sungai, dan kecepatan pesawat digabung dengan angin. Hasil penjumlahan vektor menentukan arah serta laju sebenarnya.
 
 Dalam fisika dan teknik, gaya-gaya pada sebuah benda dijumlahkan sebagai vektor; benda seimbang bila resultannya nol. Perkalian titik dipakai untuk menghitung kerja (usaha) suatu gaya, sedangkan proyeksi vektor membantu memecah gaya menjadi komponen yang sejajar dan tegak lurus. Pada grafika komputer dan animasi, vektor menggeser serta memutar objek, dan vektor satuan memberi arah normal pada permukaan sehingga pencahayaan terlihat realistis.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Sebuah vektor gaya F berpangkal di titik asal mengarah ke kanan atas; komponen mendatar digambar sepanjang sumbu x dan komponen tegak digambar putus-putus, membentuk segitiga siku-siku dengan sudut theta di pangkal.",
+          caption: "Sebuah gaya $\\vec{F}$ diuraikan menjadi komponen mendatar dan komponen tegak yang saling tegak lurus, yaitu $F_{x}=\\lVert\\vec{F}\\rVert\\cos\\theta$ dan $F_{y}=\\lVert\\vec{F}\\rVert\\sin\\theta$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-vektor-gaya-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="35" x2="40" y2="212" stroke="currentColor" stroke-width="1.2"/><line x1="30" y1="190" x2="302" y2="190" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="190" x2="200" y2="80" stroke="currentColor" stroke-width="2.2" marker-end="url(#fig-vektor-gaya-arrow)"/><line x1="40" y1="190" x2="200" y2="190" stroke="currentColor" stroke-width="1.8" marker-end="url(#fig-vektor-gaya-arrow)"/><line x1="200" y1="190" x2="200" y2="80" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#fig-vektor-gaya-arrow)"/><path d="M 186,190 L 186,176 L 200,176" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M 78,190 A 38,38 0 0 0 70.8,166.8" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="122" y="120" font-size="12" fill="currentColor">F</text><text x="96" y="207" font-size="12" fill="currentColor">komponen-x</text><text x="206" y="140" font-size="12" fill="currentColor">komponen-y</text><text x="52" y="178" font-size="12" fill="currentColor">&#952;</text></svg>',
+        },
+      ],
     },
     {
       id: "kesalahan-umum",
@@ -443,7 +482,7 @@ Buktikan bahwa $PQRS$ selalu berupa **jajargenjang** (hasil ini dikenal sebagai 
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Nyatakan titik tengah sebagai vektor",
           text: `Nyatakan setiap titik tengah sebagai vektor posisi, yaitu $\\vec{p}=\\tfrac{1}{2}(\\vec{a}+\\vec{b})$. Kemudian bandingkan $\\vec{PQ}$ dengan $\\vec{SR}$.`,
         },
         {
@@ -490,6 +529,7 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus vektor: dari notasi dan panjang sampai perkalian titik, sudut, dan proyeksi.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -540,6 +580,12 @@ Karena $\\vec{PQ}=\\vec{SR}$, sepasang sisi berhadapan itu sejajar dan sama panj
               "$\\vec{AC} = k\\,\\vec{AB}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu perkalian titik, banyak jawaban",
+          text: "Hampir semua sifat geometri pada topik ini dibaca dari satu operasi, yaitu perkalian titik. Dari bentuk komponen dan bentuk geometrisnya, kita memperoleh panjang, sudut, ketegaklurusan, dan proyeksi sekaligus. Dengan mengubah titik-titik menjadi vektor, pertanyaan geometri berubah menjadi perhitungan aljabar yang ringkas, sehingga teorema titik tengah dan sifat segitiga dapat dibuktikan tanpa gambar ulang.",
         },
       ],
     },

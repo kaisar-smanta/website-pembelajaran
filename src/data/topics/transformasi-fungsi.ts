@@ -76,7 +76,7 @@ Titik puncaknya berada di $(2,3)$. Periksa: untuk $x=2$ diperoleh $y=0+3=3$. Ini
       body: `Transformasi fungsi menuntut kenyamanan membaca grafik dasar dan mengganti variabel di dalam rumus. Pastikan kamu sudah menguasai:
 - menggambar grafik fungsi dasar seperti $y=x^2$ dan $y=x^3$;
 - membaca koordinat titik pada bidang Cartesius;
-- mensubstitusi bentuk aljabar, misalnya menghitung $f(x-2)$ untuk $f(x)=x^2$;
+- mensubstitusi bentuk aljabar, seperti menghitung $f(x-2)$ untuk $f(x)=x^2$;
 - mengembangkan bentuk $(x-h)^2$ menjadi bentuk umum kuadrat.`,
     },
     {
@@ -102,7 +102,7 @@ Pada pergeseran horizontal, tanda di dalam rumus **berlawanan** dengan arah perg
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Arah berlawanan tanda",
           text: "Menggeser ke kanan $h$ satuan memakai $f(x-h)$, bukan $f(x+h)$. Inilah sumber kesalahan yang paling sering terjadi.",
         },
       ],
@@ -359,6 +359,14 @@ Kedua hasil berbeda. *Periksa* di $x=1$: urutan pertama $2(1)+3=5$, sedangkan ur
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: refleksi lalu translasi",
+          text: `Grafik $y=x^{2}$ dicerminkan terhadap sumbu-$x$, lalu digeser ke kanan $1$ satuan dan ke bawah $2$ satuan. Tentukan rumus grafik barunya beserta titik puncaknya.
+
+*Penyelesaian.* Refleksi terhadap sumbu-$x$ mengganti $f(x)$ menjadi $-f(x)$: $y=-x^{2}$. Geser ke kanan $1$ satuan berarti mengganti $x$ dengan $x-1$: $y=-(x-1)^{2}$. Geser ke bawah $2$ satuan mengurangi nilai fungsi: $y=-(x-1)^{2}-2$.
+Periksa di $x=1$: nilai fungsinya $-2$, sehingga titik puncaknya $(1,-2)$. Karena faktornya negatif, parabola terbuka ke bawah dan titik itu memang puncak tertinggi.`,
+        },
       ],
     },
     {
@@ -472,6 +480,7 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
       blocks: [
         {
           kind: "table",
+          caption: "Enam transformasi dasar dan pengaruhnya pada titik $(a,b)$",
           headers: [
             "Transformasi",
             "Bentuk",
@@ -509,6 +518,12 @@ Dengan menguasai transformasi, kita dapat menyusun model yang tepat tanpa harus 
               "$\\left(\\tfrac{a}{k},\\,b\\right)$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: aturan di dalam fungsi berjalan lebih dulu",
+          text: "Semua transformasi dapat dibaca dari **posisi perubahan** pada rumus. Perubahan di dalam fungsi mengurus arah horizontal dan memakai tanda berlawanan, sedangkan perubahan di luar fungsi mengurus arah vertikal dengan tanda apa adanya. Kerjakan perubahan horizontal lebih dahulu, lalu vertikal, dan lacak satu titik kunci untuk memeriksa hasilnya. Topik **Komposisi Fungsi** melanjutkan gagasan yang sama: dua fungsi yang dirangkai menuntut urutan yang jelas agar hasilnya dapat ditafsirkan.",
         },
       ],
     },

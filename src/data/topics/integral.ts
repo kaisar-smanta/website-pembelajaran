@@ -233,6 +233,34 @@ Batas $a$ dan $b$ ditentukan dari titik potong kedua kurva, yaitu penyelesaian $
           caption: "Jumlah Riemann dengan persegi panjang tipis menghampiri luas di bawah kurva. Ketika banyak persegi panjang diperbesar, jumlah luasnya menuju $\\int_{0}^{1} x^{2}\\,dx = \\dfrac{1}{3}$.",
           svg: '<svg viewBox="0 0 320 210" aria-hidden="true" role="presentation"><line x1="50" y1="175" x2="300" y2="175" stroke="currentColor" stroke-width="1.5"/><line x1="60" y1="188" x2="60" y2="35" stroke="currentColor" stroke-width="1.5"/><rect x="104" y="170" width="44" height="5" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><rect x="148" y="156" width="44" height="19" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><rect x="192" y="132" width="44" height="43" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><rect x="236" y="98" width="44" height="77" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/><polyline points="60,175 104,170 148,156 192,132 236,98 280,55" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="292" y="193" font-size="12" fill="currentColor">x</text><text x="44" y="42" font-size="12" fill="currentColor">y</text><text x="60" y="190" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="280" y="190" font-size="11" fill="currentColor" text-anchor="middle">1</text></svg>',
         },
+        {
+          kind: "figure",
+          alt: "Kurva y sama dengan x kuadrat pada selang nol sampai satu dengan empat persegi panjang yang tingginya mengikuti titik kanan tiap bagian, memberikan taksiran atas luas daerah.",
+          caption: "Jumlah Riemann dengan titik kanan (taksiran atas). Bersama jumlah kiri pada gambar sebelumnya, keduanya mengurung nilai eksak $\\dfrac{1}{3}$ dan makin rapat ketika banyak persegi panjang ditambah.",
+          svg: '<svg viewBox="0 0 320 210" aria-hidden="true" role="presentation"><defs><marker id="fig-integral-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="50" y1="175" x2="300" y2="175" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-integral-arrow)"/><line x1="60" y1="185" x2="60" y2="30" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-integral-arrow)"/><rect x="60" y="166.25" width="56.25" height="8.75" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="116.25" y="140" width="56.25" height="35" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="172.5" y="96.25" width="56.25" height="78.75" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-width="1"/><rect x="228.75" y="35" width="56.25" height="140" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-width="1"/><polyline points="60,175 116.25,166.25 172.5,140 228.75,96.25 285,35" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="292" y="193" font-size="12" fill="currentColor">x</text><text x="44" y="38" font-size="12" fill="currentColor">y</text><text x="60" y="190" font-size="11" fill="currentColor" text-anchor="middle">0</text><text x="285" y="190" font-size="11" fill="currentColor" text-anchor="middle">1</text></svg>',
+        },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: `Integral tentu dihitung lewat antiturunan: $\\displaystyle\\int_{a}^{b} f(x)\\,dx = F(b)-F(a)$ dengan $F'=f$.`,
+            },
+            {
+              label: "Grafik",
+              body: "Luas bertanda di bawah kurva. Daerah di atas sumbu-$x$ dihitung positif dan di bawahnya negatif, sedangkan luas antara dua kurva memakai selisih $f(x)-g(x)$.",
+            },
+            {
+              label: "Numerik",
+              body: `Jumlah Riemann menghampiri $\\displaystyle\\int_{0}^{1} x^{2}\\,dx = \\dfrac{1}{3}$ dari dua arah:
+| $n$ | Jumlah kiri | Jumlah kanan |
+| :--: | :--: | :--: |
+| $4$ | $\\dfrac{7}{32}$ | $\\dfrac{15}{32}$ |
+| $8$ | $\\dfrac{35}{128}$ | $\\dfrac{51}{128}$ |
+Jumlah kiri **di bawah** dan jumlah kanan **di atas** nilai eksak, dan keduanya makin rapat ketika $n$ diperbesar.`,
+            },
+          ],
+        },
       ],
     },
     {
@@ -323,6 +351,14 @@ $$L = \\left| -\\frac{4}{3} \\right| = \\frac{4}{3}.$$`,
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: luas antara dua kurva",
+          text: `Tentukan luas daerah antara $y=2x$ dan $y=x^{2}$.
+
+*Penyelesaian.* Titik potong kedua kurva diperoleh dari $2x=x^{2}$, yaitu $x=0$ dan $x=2$. Karena $2x \\ge x^{2}$ pada $[0,2]$, fungsi atas dikurangi fungsi bawah:
+$$L=\\int_{0}^{2}\\left(2x-x^{2}\\right)dx=\\left[x^{2}-\\frac{x^{3}}{3}\\right]_{0}^{2}=4-\\frac{8}{3}=\\frac{4}{3}.$$`,
+        },
       ],
     },
     {
@@ -389,7 +425,7 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Pasangkan fungsi dengan bayangan simetrinya",
           text: `Terapkan sifat simetri dengan $a=\\dfrac{\\pi}{2}$ pada fungsi $f(x)=\\dfrac{\\sin x}{\\sin x+\\cos x}$, lalu jumlahkan hasilnya dengan bentuk semula.`,
         },
         {
@@ -446,6 +482,7 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus integral dan tafsirnya untuk meninjau cepat sebelum berlatih.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -484,6 +521,12 @@ $$I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx.$$`,
               "$L = \\int_{a}^{b} \\left[f(x)-g(x)\\right] dx$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: integral menutup lingkaran turunan",
+          text: "Dua wajah integral, yaitu **limit jumlah** dan **antiturunan**, disatukan oleh teorema dasar kalkulus. Ketika persegi panjang diperbanyak, jumlahnya menuju bilangan tetap yang dapat dihitung sebagai selisih antiturunan. Gagasan akumulasi inilah yang menjelaskan mengapa luas di bawah grafik kecepatan sama dengan jarak tempuh, sekaligus menutup lingkaran yang dimulai dari limit dan turunan pada topik sebelumnya.",
         },
       ],
     },

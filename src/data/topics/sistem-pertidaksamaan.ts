@@ -127,6 +127,16 @@ Daerah penyelesaian sistem adalah **irisan** semua setengah bidang, yaitu himpun
           ],
         },
         {
+          kind: "match",
+          intro: "Cocokkan pertidaksamaan dengan cara mengarsir daerahnya.",
+          pairs: [
+            { left: "$x+y\\le4$", right: "arsir sisi yang memuat $(0,0)$" },
+            { left: "$x+y\\ge4$", right: "arsir sisi yang tidak memuat $(0,0)$" },
+            { left: "$x\\ge0$", right: "setengah bidang di kanan sumbu-$y$" },
+            { left: "$y\\ge0$", right: "setengah bidang di atas sumbu-$x$" },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Setengah bidang di bawah garis x tambah y sama dengan 4 yang diarsir, mencakup titik asal, dengan garis pembatas digambar penuh.",
           caption: "Daerah penyelesaian $x+y\\le4$ di kuadran pertama, termasuk titik asal $(0,0)$ yang lolos uji; garis $x+y=4$ digambar penuh karena ketaksamaannya memuat tanda sama dengan.",
@@ -200,12 +210,32 @@ Cara memakainya untuk setengah bidang: anggap setiap garis sebagai garis pembata
       ],
     },
     {
+      id: "eksplorasi-daerah-tujuan",
+      kind: "eksplorasi",
+      title: "Eksplorasi Tiga Kemungkinan Solusi Sistem Linear",
+      body: `Setelah mengenal titik potong dua garis, selidiki tiga kemungkinan yang dapat muncul. Atur koefisien kedua persamaan agar garisnya berpotongan, sejajar, atau berimpit. Catat banyak solusi yang dilaporkan simulator, lalu hubungkan ketiga kasus itu dengan nilai determinan dan posisi garis.`,
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "sistem-tiga-kasus",
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Pola Umum Program Linear Dua Variabel",
       body: `Sistem pertidaksamaan linear selalu menghasilkan daerah penyelesaian berupa **irisan setengah bidang**, yaitu sebuah poligon yang disebut daerah layak. Cara menentukannya mengikuti langkah tetap: gambar tiap garis pembatas, uji satu titik untuk memilih setengah bidang, lalu ambil irisannya.
 
 Dari bentuk daerah layak muncul sifat penting program linear. Fungsi objektif linear $f = px + qy$ mencapai nilai maksimum atau minimumnya di **titik sudut** daerah layak, bukan di tengah. Karena itu pencarian nilai optimum cukup memeriksa titik-titik sudut, yaitu titik potong antargaris pembatas dan titik potong dengan sumbu koordinat.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Daerah layak berbentuk segiempat dengan titik sudut (0,0), (5,0), (4,2), dan (0,4). Dua garis kendala membentuk batasnya, sedangkan garis tujuan putus-putus menyentuh titik (4,2).",
+          caption: "Daerah layak dari $x+2y\\le8$, $2x+y\\le10$, $x\\ge0$, $y\\ge0$. Garis tujuan $2x+3y=14$ menyentuh titik sudut $(4,2)$; di titik itu $f=2.000x+3.000y$ bernilai $14.000$.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-spt-obj-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="35" y1="190" x2="310" y2="190" stroke="currentColor" stroke-width="1.4"/><line x1="50" y1="190" x2="50" y2="15" stroke="currentColor" stroke-width="1.4"/><polygon points="50,190 180,190 154,126 50,62" fill="currentColor" opacity="0.16"/><line x1="258" y1="190" x2="50" y2="62" stroke="currentColor" stroke-width="2"/><line x1="180" y1="190" x2="55" y2="20" stroke="currentColor" stroke-width="2"/><line x1="50" y1="41" x2="245" y2="200" stroke="currentColor" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#fig-spt-obj-arrow)"/><circle cx="50" cy="190" r="2.6" fill="currentColor"/><circle cx="180" cy="190" r="2.6" fill="currentColor"/><circle cx="154" cy="126" r="3.2" fill="currentColor"/><circle cx="50" cy="62" r="2.6" fill="currentColor"/><text x="190" y="66" font-size="11" fill="currentColor">x + 2y = 8</text><text x="88" y="50" font-size="11" fill="currentColor">2x + y = 10</text><text x="214" y="212" font-size="10" fill="currentColor">tujuan f = 14.000</text><text x="162" y="120" font-size="11" fill="currentColor">(4,2)</text><text x="184" y="206" font-size="10" fill="currentColor">(5,0)</text><text x="22" y="66" font-size="10" fill="currentColor">(0,4)</text><text x="34" y="206" font-size="10" fill="currentColor">O</text><text x="304" y="206" font-size="11" fill="currentColor">x</text><text x="58" y="24" font-size="11" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -217,7 +247,7 @@ Dari bentuk daerah layak muncul sifat penting program linear. Fungsi objektif li
 
 **Uji titik.** Substitusikan titik di luar garis, biasanya $(0,0)$. Bila pernyataannya benar, arsir sisi yang memuat titik uji; bila salah, arsir sisi seberangnya.
 
-**Titik sudut.** Titik sudut daerah layak berasal dari perpotongan dua garis pembatas atau perpotongan dengan sumbu koordinat.
+**Titik sudut.** Titik sudut daerah layak terbentuk oleh perpotongan dua garis pembatas atau perpotongan dengan sumbu koordinat.
 
 **Fungsi objektif.** Untuk $f=px+qy$, nilai optimum dicapai di salah satu titik sudut. Hitung $f$ pada setiap titik sudut, lalu pilih nilai terbesar (maksimum) atau terkecil (minimum).
 
@@ -243,7 +273,7 @@ Dari bentuk daerah layak muncul sifat penting program linear. Fungsi objektif li
 
 $$\\begin{cases} x + y \\le 4 \\\\ x + 2y \\le 6 \\\\ x \\ge 0, \\ y \\ge 0 \\end{cases}$$
 
-*Penyelesaian.* Titik sudut berasal dari titik potong sumbu dan titik potong antargaris.
+*Penyelesaian.* Titik sudut muncul dari titik potong sumbu dan titik potong antargaris.
 - Garis $x + y = 4$ memotong sumbu di $(4,0)$ dan $(0,4)$.
 - Garis $x + 2y = 6$ memotong sumbu di $(6,0)$ dan $(0,3)$.
 - Titik potong kedua garis: $x + y = 4$ dan $x + 2y = 6$ menghasilkan $y = 2$, lalu $x = 2$, yaitu titik $(2,2)$.
@@ -259,6 +289,13 @@ Dengan memeriksa setiap titik pada semua pertidaksamaan, titik sudut daerah peny
 Titik sudutnya adalah $(0,0)$, $(5,0)$, $(0,4)$, dan titik potong kedua garis. Dari $x + 2y = 8$ dan $2x + y = 10$ diperoleh $x = 4$ dan $y = 2$. Nilai $f$: $(0,0)=0$, $(5,0)=10000$, $(0,4)=12000$, dan $(4,2)=14000$. Keuntungan maksimum Rp14.000 dicapai saat $x = 4$ dan $y = 2$.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: kendala bertanda lebih besar",
+          text: `Tentukan titik sudut daerah layak $x+2y\\ge8$, $2x+y\\ge10$, $x\\ge0$, $y\\ge0$, lalu hitung nilai minimum $f=3x+4y$.
+
+*Penyelesaian.* Kedua garis berpotongan di $(4,2)$. Pada sumbu-$y$, kendala $2x+y\\ge10$ menuntut $y\\ge10$, sehingga titik sudutnya $(0,10)$; pada sumbu-$x$, kendala $x+2y\\ge8$ menuntut $x\\ge8$, sehingga titik sudutnya $(8,0)$. Uji $f$: $f(0,10)=40$, $f(4,2)=20$, dan $f(8,0)=24$. Nilai minimum $20$ tercapai di $(4,2)$.`,
         },
       ],
     },
@@ -292,13 +329,26 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "kesalahan-umum",
       kind: "kesalahan-umum",
       title: "Kesalahan Umum",
-      body: `**1. Mengarsir sisi yang salah.** Selalu uji satu titik, misalnya $(0,0)$, sebelum mengarsir. Jangan menebak hanya dari tanda koefisien.
+      body: `**1. Mengarsir sisi yang salah.** Selalu uji satu titik, seperti $(0,0)$, sebelum mengarsir. Jangan menebak hanya dari tanda koefisien.
 
 **2. Mengira garis pembatas selalu termasuk.** Tanda $\\le$ dan $\\ge$ menyertakan garis, sedangkan $<$ dan $>$ tidak. Perbedaannya tampak pada garis penuh dan garis putus-putus.
 
 **3. Lupa syarat tak negatif.** Banyak masalah nyata menuntut $x \\ge 0$ dan $y \\ge 0$. Tanpa itu, daerah penyelesaian bisa membentang tanpa batas.
 
 **4. Menyimpulkan nilai optimum tanpa memeriksa semua titik sudut.** Satu titik sudut belum tentu memberi nilai terbaik; periksa seluruhnya.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Seorang siswa menentukan daerah penyelesaian $x+y\\le4$. Klik langkah yang keliru.",
+          steps: [
+            "Gambar garis $x+y=4$ melalui $(4,0)$ dan $(0,4)$.",
+            "Ambil titik uji $(2,2)$ yang terletak pada garis: $2+2=4$.",
+            "Karena $4\\le4$ benar, arsir sisi yang memuat $(2,2)$, yaitu daerah di atas garis, sehingga $(1,1)$ tidak termasuk.",
+          ],
+          wrongIndex: 2,
+          explanation: "Titik uji harus berada di luar garis. Karena $(2,2)$ terletak tepat pada garis, hasil uji tidak menentukan sisi mana yang harus diarsir. Uji $(0,0)$: $0\\le4$ benar, jadi arsir sisi yang memuat $(0,0)$, yaitu daerah di bawah garis; titik $(1,1)$ sebenarnya termasuk.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -342,7 +392,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       id: "sejarah",
       kind: "sejarah",
       title: "Lahirnya Program Linear",
-      body: `Program linear sebagai bidang tersendiri lahir dari kebutuhan mengatur sumber daya yang terbatas. Pada 1939 Leonid Kantorovich merumuskan masalah alokasi produksi sebagai optimasi fungsi linear di bawah kendala pertidaksamaan, dan karyanya kemudian diakui dengan Nobel Ekonomi. Pada 1947 George Dantzig mengembangkan metode simpleks, prosedur sistematis untuk menyelesaikan program linear berukuran besar, sehingga bidang ini cepat menyebar ke industri. Gagasan sistem pertidaksamaan linear sendiri sudah muncul lebih awal, seperti pada karya Joseph Fourier pada 1820-an, tetapi baru pada abad ke-20 alat hitungnya cukup kuat. Kini program linear dipakai di bidang transportasi, penjadwalan, dan analisis ekonomi.`,
+      body: `Program linear sebagai bidang tersendiri bertolak dari kebutuhan mengatur sumber daya yang terbatas. Pada 1939 Leonid Kantorovich merumuskan masalah alokasi produksi sebagai optimasi fungsi linear di bawah kendala pertidaksamaan, dan karyanya kemudian diakui dengan Nobel Ekonomi. Pada 1947 George Dantzig mengembangkan metode simpleks, prosedur sistematis untuk menyelesaikan program linear berukuran besar, sehingga bidang ini cepat menyebar ke industri. Gagasan sistem pertidaksamaan linear sendiri sudah muncul lebih awal, seperti pada karya Joseph Fourier pada 1820-an, tetapi baru pada abad ke-20 alat hitungnya cukup kuat. Kini program linear dipakai di bidang transportasi, penjadwalan, dan analisis ekonomi.`,
     },
     {
       id: "refleksi",
@@ -368,6 +418,7 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan istilah dan langkah program linear, dari garis pembatas sampai nilai optimum.",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -398,6 +449,12 @@ Langkah pemodelan yang baik: (1) tentukan variabel dan satuannya, (2) ubah setia
               "mengoptimalkan fungsi objektif linear di bawah kendala",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Irisan kendala, puncak keputusan",
+          text: "Setiap kendala hanya mempersempit pilihan, dan irisan semua kendala itulah yang layak. Karena fungsi objektif linear, nilai terbaik selalu menempel di titik sudut, bukan di tengah daerah. Gagasan ini bersambung ke topik **Fungsi Kuadrat**: ketika fungsi tujuannya melengkung, titik puncak mengambil alih peran titik sudut sebagai kandidat optimum.",
         },
       ],
     },

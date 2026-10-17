@@ -250,7 +250,7 @@ Setiap sifat dapat dibuktikan dengan menuliskan kembali definisi perkalian berul
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Basis harus sama",
           text: "Sifat $a^{m}\\cdot a^{n}=a^{m+n}$ hanya berlaku jika **basisnya sama**. Bentuk $2^{3}\\cdot 3^{3}$ tidak dapat disatukan menjadi $6^{6}$; gunakan $(ab)^n=a^n b^n$ sehingga $2^3\\cdot 3^3=(2\\cdot3)^3=6^3$.",
         },
       ],
@@ -396,6 +396,22 @@ $$2^{x+1} = 2^{5} \\Rightarrow x+1 = 5 \\Rightarrow x = 4.$$
 *Verifikasi.* $2^{4+1} = 2^{5} = 32$ benar. Penyetaraan eksponen sah karena fungsi $2^{x}$ selalu naik, jadi setiap nilai hanya dicapai sekali.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: menyederhanakan pangkat bercampur",
+          text: `Sederhanakan $\\dfrac{(3a^{2}b^{-1})^{2}\\cdot a^{-3}b^{4}}{9ab}$.
+
+*Langkah 1.* Kuadratkan faktor pertama dengan $(ab)^{n}=a^{n}b^{n}$:
+$$(3a^{2}b^{-1})^{2}=9a^{4}b^{-2}.$$
+
+*Langkah 2.* Kalikan dengan $a^{-3}b^{4}$, lalu jumlahkan eksponen basis yang sama:
+$$9a^{4}b^{-2}\\cdot a^{-3}b^{4}=9a^{4-3}b^{-2+4}=9a^{1}b^{2}.$$
+
+*Langkah 3.* Bagi dengan $9ab$:
+$$\\frac{9a^{1}b^{2}}{9ab}=a^{1-1}b^{2-1}=a^{0}b^{1}=b.$$
+
+Jadi bentuk sederhananya adalah $b$. Periksa dengan $a=2$ dan $b=3$: ruas asal bernilai $\\dfrac{(3\\cdot4\\cdot\\tfrac13)^{2}\\cdot2^{-3}\\cdot81}{9\\cdot2\\cdot3}=\\dfrac{16\\cdot\\tfrac{81}{8}}{54}=3$, sama dengan $b=3$. Cocok.`,
         },
       ],
     },
@@ -559,6 +575,7 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan aturan eksponen: dari definisi sampai pangkat pecahan",
           headers: [
             "Konsep",
             "Bentuk",
@@ -593,6 +610,12 @@ Mula-mula eksponen hanya dibatasi pada bilangan bulat positif, sebab gagasan "me
               "$a^{m/n}=\\sqrt[n]{a^{m}}$ ($n$ genap: $a\\ge0$; $n$ ganjil: $a<0$ boleh; pangkat irasional: $a>0$)",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu gagasan, banyak aturan",
+          text: "Semua aturan di atas bertumpu pada satu gagasan: eksponen **menghitung banyaknya faktor**, sehingga mengalikan pangkat sama dengan menjumlahkan eksponennya. Karena setiap aturan dijaga konsisten dengan gagasan itu, pangkat nol, negatif, dan pecahan terasa wajar, bukan hafalan. Kebiasaan menyamakan basis lalu menyederhanakan inilah yang kamu pakai lagi pada **barisan geometri**, **fungsi eksponensial**, dan **bunga majemuk**, ketika bentuk $a\\cdot b^{n}$ menggantikan perkalian berulang yang panjang.",
         },
       ],
     },

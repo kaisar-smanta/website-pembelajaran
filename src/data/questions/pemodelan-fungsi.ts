@@ -334,4 +334,27 @@ export const pemodelanFungsiQuestions: Question[] = [
       'Mengaitkan faktor pembatas dengan pertumbuhan yang melambat',
     ],
   },
+  {
+    id: 'pmf-18',
+    topicId: 'pemodelan-fungsi',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah bioskop menetapkan harga tiket Rp40.000 dan rata-rata terjual $200$ tiket per hari. Menurut survei, setiap penurunan harga Rp5.000 menambah $50$ tiket terjual. Agar pendapatan harian maksimum, harga tiket sebaiknya ditetapkan …',
+    options: [
+      { key: 'A', text: 'Rp30.000' },
+      { key: 'B', text: 'Rp35.000' },
+      { key: 'C', text: 'Rp40.000' },
+      { key: 'D', text: 'Rp25.000' },
+    ],
+    answer: 'A',
+    explanation:
+      'Misal $x$ banyak penurunan Rp5.000, maka harga menjadi $40.000-5.000x$ dan banyak tiket $200+50x$. Pendapatan $R(x)=(40.000-5.000x)(200+50x)=8.000.000+1.000.000x-250.000x^{2}$, yaitu parabola terbuka ke bawah dengan puncak di $x=\\dfrac{-1.000.000}{2(-250.000)}=2$. Jadi harga terbaik $40.000-5.000(2)=\\text{Rp}30.000$ dengan $300$ tiket dan pendapatan Rp9.000.000. Opsi B (Rp35.000) hanya sekali penurunan sehingga pendapatan Rp8.750.000; opsi C (Rp40.000) tidak menurunkan harga dan bertahan di Rp8.000.000; opsi D (Rp25.000) menurunkan terlalu jauh sehingga pendapatan kembali turun menjadi Rp8.750.000.',
+    hints: [
+      'Nyatakan harga dan banyak tiket dalam satu variabel, lalu kalikan keduanya untuk memperoleh pendapatan.',
+      'Pendapatan berbentuk fungsi kuadrat, sehingga nilai maksimumnya ada di titik puncak.',
+    ],
+    competencies: ['pemodelan kuadrat', 'optimasi pendapatan'],
+  },
 ];

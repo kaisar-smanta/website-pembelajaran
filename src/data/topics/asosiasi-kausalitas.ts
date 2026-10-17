@@ -126,6 +126,32 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
             },
           ],
         },
+        {
+          kind: "match",
+          intro: "Pasangkan istilah dengan maknanya.",
+          pairs: [
+            {
+              left: "Asosiasi",
+              right: "Dua variabel cenderung berubah bersama",
+            },
+            {
+              left: "Kausalitas",
+              right: "Perubahan satu variabel menyebabkan perubahan variabel lain",
+            },
+            {
+              left: "Variabel perancu",
+              right: "Faktor ketiga yang memengaruhi keduanya",
+            },
+            {
+              left: "Korelasi semu",
+              right: "Asosiasi tanpa hubungan sebab-akibat",
+            },
+            {
+              left: "Kausalitas terbalik",
+              right: "Arah sebab-akibat berlawanan dari dugaan",
+            },
+          ],
+        },
       ],
     },
     {
@@ -175,6 +201,27 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
           variant: "tip",
           text: "Ubah klaim menjadi pertanyaan: \"Apa buktinya bahwa $x$ menyebabkan $y$, dan bukan karena keduanya dipengaruhi faktor yang sama?\"",
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Statistik",
+              body: "Asosiasi diukur dari data: arah dan kekuatan hubungan, misalnya diagram pencar dan koefisien $r$.",
+            },
+            {
+              label: "Mekanisme",
+              body: "Kausalitas menuntut penjelasan **mengapa**: jalur sebab-akibat yang masuk akal, bukan sekadar pola.",
+            },
+            {
+              label: "Waktu",
+              body: "Urutan waktu harus benar: dugaan penyebab mesti terjadi sebelum akibat agar kausalitas masuk akal.",
+            },
+            {
+              label: "Perancu",
+              body: "Periksa apakah ada variabel ketiga yang memengaruhi keduanya sekaligus, sehingga asosiasinya semu.",
+            },
+          ],
+        },
       ],
     },
     {
@@ -190,6 +237,14 @@ Semboyan klasiknya: **"korelasi tidak menyiratkan kausalitas"**.`,
 5. **Eksperimen.** Bukti terkuat datang dari percobaan di mana peneliti **mengendalikan** variabel dan melakukan **pengacakan** (randomisasi), sehingga pengaruh variabel perancu dapat ditekan.
 
 Semakin banyak pertanyaan di atas terjawab "ya", semakin masuk akal kesimpulan kausalnya. Sebaliknya, bila hanya satu asosiasi yang dimiliki, kesimpulan harus dinyatakan dengan sangat hati-hati.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Peta mosaik dua arah satu tabel kontingensi. Kolom sarapan lebih lebar dan bagian lulusnya mencapai delapan puluh persen tinggi, sedangkan kolom tidak sarapan lebih sempit dengan bagian lulus enam puluh persen.",
+          caption: "Peta mosaik (asosiasi dua arah). Lebar kolom mengikuti ukuran kelompok ($60$ dan $40$), sedangkan tinggi bagian lulus dalam tiap kolom adalah proporsi $P(\\text{lulus}\\mid\\text{sarapan})=0{,}8$ dan $P(\\text{lulus}\\mid\\text{tidak sarapan})=0{,}6$. Selisih tinggi kedua kolom menunjukkan besarnya asosiasi, bukan bukti sebab-akibat.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><rect x="50" y="30" width="150" height="136" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="1.6"/><rect x="50" y="166" width="150" height="34" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.6"/><rect x="200" y="30" width="100" height="102" fill="currentColor" fill-opacity="0.3" stroke="currentColor" stroke-width="1.6"/><rect x="200" y="132" width="100" height="68" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="1.6"/><text x="125" y="24" font-size="11" text-anchor="middle" fill="currentColor">Sarapan (60)</text><text x="250" y="24" font-size="11" text-anchor="middle" fill="currentColor">Tidak sarapan (40)</text><text x="92" y="102" font-size="11" fill="currentColor">lulus 0,8</text><text x="228" y="86" font-size="11" fill="currentColor">lulus 0,6</text><text x="106" y="188" font-size="10" fill="currentColor">tidak lulus</text><text x="236" y="170" font-size="10" fill="currentColor">tidak lulus</text></svg>',
+        },
+      ],
     },
     {
       id: "perancu",
@@ -210,7 +265,7 @@ Jadi ukuran sepatu tidak menyebabkan kemampuan membaca; usia adalah variabel per
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Perancu yang tak terlihat",
           text: "Variabel perancu tidak selalu terlihat di data. Ia bisa tersembunyi, sehingga asosiasi kuat sekalipun belum cukup untuk menyimpulkan kausalitas.",
         },
         {
@@ -316,6 +371,19 @@ Hati-hati: rumus-rumus ini hanya mengukur **kekuatan asosiasi**. Rumus itu tidak
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: memilah penjelasan dari sebuah asosiasi",
+          text: `Sebuah studi melaporkan siswa yang memiliki lebih banyak buku di rumah cenderung bernilai lebih tinggi.
+
+*Langkah 1.* Kenali jenis buktinya. Studi ini **observasional**: peneliti hanya mengamati buku dan nilai, tanpa mengendalikan apa pun, sehingga bukti yang dihasilkan adalah **asosiasi**.
+
+*Langkah 2.* Cari variabel perancu. Pendidikan orang tua dan pendapatan keluarga berkaitan dengan jumlah buku **dan** dengan nilai anak. Keduanya dapat menjelaskan asosiasi itu tanpa perlu hubungan sebab-akibat langsung.
+
+*Langkah 3.* Periksa urutan waktu dan arah. Tidak ada mekanisme jelas yang membuat rak buku menaikkan nilai begitu saja, dan data tidak menunjukkan bagian mana yang berubah lebih dahulu.
+
+*Langkah 4.* Rancang pembanding yang lebih kuat. Bila ingin menaksir kausalitas, bandingkan siswa **pada tingkat pendidikan orang tua yang setara**, atau lakukan eksperimen pemberian buku secara acak. Tanpa pengendalian variabel perancu, kesimpulan yang jujur hanya berkata "berkaitan", bukan "menyebabkan".`,
+        },
       ],
     },
     {
@@ -357,6 +425,19 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
 **4. Menyamakan studi observasional dengan eksperimen.** Studi observasional mengamati tanpa mengendalikan variabel; eksperimen acak jauh lebih kuat untuk menetapkan sebab-akibat.
 
 **5. Menggeneralisasi dari satu studi kecil.** Satu temuan lemah belum cukup menjadi dasar kebijakan atau keyakinan kuat.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Sebuah survei observasional menemukan pengguna media sosial lebih sering melaporkan rasa cemas. Klik langkah yang keliru.",
+          steps: [
+            "Survei ini mengamati tanpa mengendalikan variabel, jadi hasilnya berupa asosiasi.",
+            "Karena keduanya berkaitan, bermedia sosial pasti menyebabkan kecemasan.",
+            "Jadi mengurangi media sosial akan menghilangkan kecemasan semua orang.",
+          ],
+          wrongIndex: 1,
+          explanation: "Asosiasi dari survei observasional tidak membuktikan sebab-akibat. Beban kerja, usia, atau kondisi sosial bisa menjadi variabel perancu. Arah pun bisa terbalik: orang yang cemas mungkin mencari pelarian di media sosial.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -430,6 +511,7 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan istilah asosiasi dan kausalitas",
           headers: [
             "Istilah",
             "Makna",
@@ -460,6 +542,12 @@ Topik ini melengkapi temuan **regresi**: garis regresi dapat mengukur asosiasi d
               "bukti terkuat untuk kausalitas",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: pola bukan mekanisme",
+          text: "Satu kesadaran menyatukan seluruh topik ini: data dapat menunjukkan **bahwa** dua hal bergerak bersama, tetapi tidak pernah cukup untuk menjelaskan **mengapa**. Menjawab mengapa menuntut mekanisme, urutan waktu, dan pengendalian variabel perancu. Karena itu langkah paling jujur setelah menemukan asosiasi kuat adalah bertanya lebih dahulu, bukan menyimpulkan sebab-akibat. Kebiasaan ini menutup rangkaian topik data: dari merangkum satu variabel, membaca dua variabel, memodelkannya, sampai menimbang kausalitasnya.",
         },
       ],
     },

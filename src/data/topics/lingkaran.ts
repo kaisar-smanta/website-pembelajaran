@@ -191,7 +191,7 @@ Jika $\\angle AOB=80^\\circ$, maka $\\angle ACB=40^\\circ$; jika $\\angle AOB=12
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Syarat busur yang sama",
           text: "Hubungan $\\angle AOB=2\\angle ACB$ hanya berlaku jika kedua sudut **menghadap busur yang sama**. Jika menghadap busur berbeda, hubungan itu tidak berlaku.",
         },
         {
@@ -232,6 +232,30 @@ Contohnya, untuk $r=14$ dan $\\theta=90^\\circ$ dengan $\\pi=\\dfrac{22}{7}$:
 $$s=\\frac{1}{4}\\times 2\\times\\frac{22}{7}\\times14=22, \\qquad L=\\frac{1}{4}\\times\\frac{22}{7}\\times14^{2}=154.$$
 
 Keduanya diperoleh dari perbandingan $\\dfrac{\\theta}{360^\\circ}$.`,
+      blocks: [
+        {
+          kind: "match",
+          intro: "Pasangkan besaran lingkaran dengan rumusnya.",
+          pairs: [
+            {
+              left: "Panjang busur",
+              right: "$s=\\dfrac{\\theta}{360^\\circ}\\,2\\pi r$",
+            },
+            {
+              left: "Luas juring",
+              right: "$L=\\dfrac{\\theta}{360^\\circ}\\,\\pi r^{2}$",
+            },
+            {
+              left: "Luas tembereng",
+              right: "$L_{\\text{juring}}-L_{\\text{segitiga}}$",
+            },
+            {
+              left: "Garis singgung dari titik luar",
+              right: "$\\ell=\\sqrt{d^{2}-r^{2}}$",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "tembereng",
@@ -294,6 +318,18 @@ Semua rumus ini berasal dari teorema Pythagoras pada segitiga yang dibentuk gari
       ],
     },
     {
+      id: "eksplorasi-singgung-sekan",
+      kind: "eksplorasi",
+      title: "Eksplorasi Pendalaman Busur dan Juring",
+      body: "Setelah meninjau sudut dan busur, perdalam hubungan keduanya dengan keliling dan luas lingkaran. Ubah jari-jari dan sudut pusat, lalu bandingkan panjang busur serta luas juring. Selidiki apa yang terjadi ketika jari-jari digandakan.",
+      blocks: [
+        {
+          kind: "exploration",
+          explorationId: "lingkaran-busur-juring",
+        },
+      ],
+    },
+    {
       id: "generalisasi",
       kind: "generalisasi",
       title: "Benang Merah Rumus Lingkaran",
@@ -350,6 +386,11 @@ $$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}=\\sqrt{10^{2}-(8-2)^{2}}=\\sqrt{1
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: panjang sabuk pada dua roda",
+          text: `Dua roda berjari-jari $R=8$ cm dan $r=3$ cm berjarak pusat $d=13$ cm. Hitung dahulu panjang sabuk lurus tiap sisi dengan rumus garis singgung persekutuan luar, yaitu $\\sqrt{d^{2}-(R-r)^{2}}$. Periksa hasilnya $12$ cm per sisi, lalu tentukan panjang totalnya jika bagian lengkung diabaikan.`,
+        },
       ],
     },
     {
@@ -379,6 +420,14 @@ $$\\ell_{\\text{luar}}=\\sqrt{d^{2}-(R-r)^{2}}=\\sqrt{10^{2}-(8-2)^{2}}=\\sqrt{1
 Garis singgung persekutuan dipakai menghitung panjang **sabuk** atau rantai yang melilit dua roda mesin. Bila dua roda berjari-jari $R=8$ cm dan $r=3$ cm dengan jarak pusat $d=13$ cm, panjang sabuk lurus bagian luar pada tiap sisi adalah $\\sqrt{13^{2}-(8-3)^{2}}=\\sqrt{144}=12$ cm, ditambah dua busur pada roda.
 
 Untuk latihan, lihat [Merancang Taman Berbentuk Juring](/aplikasi/luas-juring-taman).`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Dua roda lingkaran berjari-jari berbeda dihubungkan sebuah sabuk; sabuk menyinggung kedua roda di sisi atas dan bawah, lalu melingkari sisi luar tiap roda.",
+          caption: "Sabuk yang melilit dua roda: bagian lurus di tiap sisi adalah garis singgung persekutuan luar dengan panjang $\\sqrt{d^{2}-(R-r)^{2}}$, sedangkan panjang total sabuk masih menambahkan dua busur pada kedua roda.",
+          svg: '<svg viewBox="0 0 340 220" aria-hidden="true" role="presentation"><circle cx="90" cy="110" r="50" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="250" cy="110" r="30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="88" y1="60" x2="252" y2="81" stroke="currentColor" stroke-width="1.8"/><line x1="88" y1="160" x2="252" y2="139" stroke="currentColor" stroke-width="1.8"/><path d="M88,60 A50,50 0 0 0 88,160" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M252,81 A30,30 0 0 0 252,139" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="90" y1="52" x2="90" y2="64" stroke="currentColor" stroke-width="1"/><line x1="138" y1="110" x2="150" y2="110" stroke="currentColor" stroke-width="1"/><line x1="90" y1="156" x2="90" y2="168" stroke="currentColor" stroke-width="1"/><line x1="30" y1="110" x2="42" y2="110" stroke="currentColor" stroke-width="1"/><circle cx="90" cy="110" r="2.5" fill="currentColor"/><circle cx="250" cy="110" r="2.5" fill="currentColor"/><text x="150" y="58" font-size="11" fill="currentColor">sabuk</text><text x="50" y="200" font-size="11" fill="currentColor">roda besar</text><text x="220" y="200" font-size="11" fill="currentColor">roda kecil</text></svg>',
+        },
+      ],
     },
     {
       id: "kesalahan-umum",
@@ -518,6 +567,7 @@ Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus lingkaran: setiap baris menyatakan hubungan sudut, busur, luas, atau garis singgung pada satu lingkaran.",
           headers: [
             "Konsep",
             "Bentuk",
@@ -552,6 +602,12 @@ Metode poligon ini bertahan lama. Di Tiongkok, Liu Hui memakai poligon bersisi 3
               "$\\sqrt{d^{2}-(R+r)^{2}}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: bagian sebanding sudut, tegak lurus dari jari-jari",
+          text: "Dua gagasan menopang seluruh topik ini. Bagian lingkaran sebanding dengan sudut pusatnya, sehingga panjang busur dan luas juring hanyalah pecahan dari keliling dan luas penuh. Gagasan kedua, garis singgung selalu tegak lurus jari-jari, sehingga jari-jari, garis singgung, dan garis ke titik luar membentuk segitiga siku-siku. Dari Pythagoras itulah semua rumus garis singgung diturunkan.",
         },
       ],
     },

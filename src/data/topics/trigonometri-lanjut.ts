@@ -139,6 +139,12 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
             { front: "Identitas dasar", back: "$\\sin^{2}\\alpha+\\cos^{2}\\alpha=1$" },
           ],
         },
+        {
+          kind: "figure",
+          alt: "Grafik satu gelombang sinus dengan garis tengah mendatar; panah tegak menandai amplitudo dari garis tengah ke puncak, dan panah mendatar menandai satu periode penuh dari puncak ke puncak berikutnya.",
+          caption: "Grafik $y=A\\sin(Bx)$: amplitudo $\\lvert A\\rvert$ mengatur jarak puncak dari garis tengah, periode $\\dfrac{360^\\circ}{\\lvert B\\rvert}$ mengatur panjang satu siklus, dan garis tengah bergeser sejauh $D$.",
+          svg: '<svg viewBox="0 0 340 220" aria-hidden="true" role="presentation"><defs><marker id="fig-trigonometri-lanjut-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="30" y1="130" x2="330" y2="130" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="20" x2="40" y2="210" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="130" x2="320" y2="130" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><polyline points="40,130 55,101.7 70,90 85,101.7 100,130 115,158.3 130,170 145,158.3 160,130 175,101.7 190,90 205,101.7 220,130 235,158.3 250,170 265,158.3 280,130 295,101.7 310,90 320,95.4" fill="none" stroke="currentColor" stroke-width="2.2"/><line x1="70" y1="90" x2="70" y2="130" stroke="currentColor" stroke-width="1.2" marker-start="url(#fig-trigonometri-lanjut-arrow)" marker-end="url(#fig-trigonometri-lanjut-arrow)"/><line x1="70" y1="195" x2="190" y2="195" stroke="currentColor" stroke-width="1.2" marker-start="url(#fig-trigonometri-lanjut-arrow)" marker-end="url(#fig-trigonometri-lanjut-arrow)"/><text x="74" y="114" font-size="11" fill="currentColor">amplitudo</text><text x="112" y="209" font-size="11" fill="currentColor">periode</text><text x="322" y="126" font-size="11" fill="currentColor">D</text></svg>',
+        },
       ],
     },
     {
@@ -194,6 +200,23 @@ Nilai maksimum adalah $D+\\lvert A \\rvert$ dan nilai minimum $D-\\lvert A \\rve
           caption: "Grafik $y=\\sin x$ (garis penuh) dan $y=2\\sin 3x$ (putus-putus) pada $0^\\circ$ sampai $360^\\circ$: amplitudo menaikkan puncak, faktor $3$ memampatkan periode menjadi $120^\\circ$.",
           svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-tri-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="40" y1="130" x2="305" y2="130" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-tri-axis)"/><line x1="40" y1="215" x2="40" y2="25" stroke="currentColor" stroke-width="1.2" marker-end="url(#fig-tri-axis)"/><polyline points="40,130 61.7,110 83.3,95.4 105,90 126.7,95.4 148.3,110 170,130 191.7,150 213.3,164.6 235,170 256.7,164.6 278.3,150 300,130" fill="none" stroke="currentColor" stroke-width="2.2"/><polyline points="40,130 50.8,73.4 61.7,50 72.5,73.4 83.3,130 94.2,186.6 105,210 115.8,186.6 126.7,130 137.5,73.4 148.3,50 159.2,73.4 170,130 180.8,186.6 191.7,210 202.5,186.6 213.3,130 224.2,73.4 235,50 245.8,73.4 256.7,130 267.5,186.6 278.3,210 289.2,186.6 300,130" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 3"/><line x1="48" y1="22" x2="72" y2="22" stroke="currentColor" stroke-width="2.2"/><text x="78" y="26" font-size="11" fill="currentColor">y = sin x</text><line x1="178" y1="22" x2="202" y2="22" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 3"/><text x="208" y="26" font-size="11" fill="currentColor">y = 2 sin 3x</text><text x="296" y="124" font-size="11" fill="currentColor">x</text><text x="30" y="146" font-size="10" fill="currentColor">0</text><text x="284" y="146" font-size="10" fill="currentColor">360</text></svg>',
         },
+        {
+          kind: "tabs",
+          items: [
+            {
+              label: "Simbolik",
+              body: "Bentuk umum $f(x)=A\\sin\\big(B(x-C)\\big)+D$ memuat amplitudo, periode, pergeseran fase, dan garis tengah sekaligus.",
+            },
+            {
+              label: "Grafik",
+              body: "Pada grafik, $\\lvert A\\rvert$ mengatur tinggi gelombang, $\\lvert B\\rvert$ memampatkan periode, dan $D$ menggeser garis tengah.",
+            },
+            {
+              label: "Tabel",
+              body: "Tabel parameter memecah satu rumus menjadi nilai amplitudo, periode, pergeseran fase, serta nilai maksimum dan minimum.",
+            },
+          ],
+        },
       ],
     },
     {
@@ -241,7 +264,7 @@ Ingat kembali pasangan yang benar: sisi $a$ berhadapan dengan sudut $A$, sisi $b
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Pasangan sisi dan sudut",
           text: "Pasangan sudut dan sisi harus benar: sisi $a$ selalu berhadapan dengan sudut $A$. Menukar pasangan ini adalah penyebab kesalahan paling umum.",
         },
       ],
@@ -328,6 +351,11 @@ $$L = \\frac{1}{2}bc\\sin A = 20\\cdot\\frac{\\sqrt{3}}{2} = 10\\sqrt{3} \\appro
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: sinus sudut tidak istimewa",
+          text: `Hitung $\\cos 15^\\circ$ tanpa kalkulator. Tulis $15^\\circ=45^\\circ-30^\\circ$, terapkan identitas selisih sudut untuk kosinus, lalu substitusikan nilai sudut istimewa. Periksa hasilnya mendekati $0{,}966$ dan cocokkan bentuk eksaknya dengan $\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}$.`,
+        },
       ],
     },
     {
@@ -394,7 +422,7 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Mulai dari jumlah sudut",
           text: `Mulailah dari $A+B=180^\\circ-C$, lalu terapkan identitas $\\tan(A+B)$. Ingat pula bahwa $\\tan(180^\\circ-C)=-\\tan C$.`,
         },
         {
@@ -455,6 +483,7 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus trigonometri lanjut: dari parameter gelombang sampai identitas sudut dan aturan segitiga sebarang.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -497,6 +526,12 @@ $$\\tan A+\\tan B+\\tan C=\\tan A\\,\\tan B\\,\\tan C.$$
               "$L=\\dfrac{1}{2}bc\\sin A$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu identitas, banyak turunan",
+          text: "Semua rumus di topik ini berakar pada satu identitas jumlah sudut dan satu hubungan sisi-sudut. Sudut rangkap lahir dengan mengambil $\\beta=\\alpha$, sedangkan aturan kosinus menyusut menjadi teorema Pythagoras saat sudutnya $90^\\circ$. Karena itu, memahami dua akar ini lebih berguna daripada menghafal semua turunannya.",
         },
       ],
     },

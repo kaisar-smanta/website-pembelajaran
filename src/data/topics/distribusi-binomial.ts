@@ -270,8 +270,14 @@ $$E(X) = np, \\qquad \\operatorname{Var}(X) = np(1-p), \\qquad \\sigma = \\sqrt{
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Bedakan tepat, paling sedikit, dan paling banyak",
           text: "Bedakan **tepat** dan **paling sedikit**. $P(X = 3)$ hanya satu suku, sedangkan $P(X \\geq 3) = P(X=3) + P(X=4) + \\cdots$; sering lebih cepat dihitung dengan komplemen.",
+        },
+        {
+          kind: "figure",
+          alt: "Grafik tangga fungsi distribusi kumulatif binomial untuk n sama dengan empat dan p sama dengan nol koma lima, menanjak pada tiap bilangan bulat k dari nol sampai empat hingga bernilai satu.",
+          caption: "Fungsi distribusi kumulatif $F(k)=P(X\\leq k)$ untuk $X\\sim B(4;\\,0{,}5)$: nilainya menanjak pada setiap bilangan bulat, dari $F(0)=\\tfrac{1}{16}$ sampai $F(4)=1$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><line x1="42" y1="185" x2="300" y2="185" stroke="currentColor" stroke-width="1.4"/><line x1="42" y1="185" x2="42" y2="22" stroke="currentColor" stroke-width="1.4"/><line x1="42" y1="105" x2="295" y2="105" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3"/><polyline points="60,170.6 100,170.6 100,133.1 140,133.1 140,76.9 180,76.9 180,39.4 220,39.4 220,30 270,30" fill="none" stroke="currentColor" stroke-width="2.2"/><text x="46" y="20" font-size="11" fill="currentColor">F(k)</text><text x="34" y="189" font-size="11" text-anchor="end" fill="currentColor">0</text><text x="34" y="34" font-size="11" text-anchor="end" fill="currentColor">1</text><text x="34" y="109" font-size="10" text-anchor="end" fill="currentColor">0,5</text><text x="60" y="197" font-size="11" text-anchor="middle" fill="currentColor">0</text><text x="100" y="197" font-size="11" text-anchor="middle" fill="currentColor">1</text><text x="140" y="197" font-size="11" text-anchor="middle" fill="currentColor">2</text><text x="180" y="197" font-size="11" text-anchor="middle" fill="currentColor">3</text><text x="220" y="197" font-size="11" text-anchor="middle" fill="currentColor">4</text><text x="290" y="181" font-size="11" fill="currentColor">k</text></svg>',
         },
       ],
     },
@@ -363,6 +369,15 @@ $$E(X) = np, \\qquad \\operatorname{Var}(X) = np(1-p), \\qquad \\sigma = \\sqrt{
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Mengapa rumus ini berlaku?",
+          text: `Rumus $E(X)=np$ dan $\\operatorname{Var}(X)=np(1-p)$ dapat dipahami lewat **variabel penunjuk**. Tulis
+$$X = X_1 + X_2 + \\cdots + X_n,$$
+dengan $X_i = 1$ bila ulangan ke-$i$ sukses dan $X_i = 0$ bila gagal. Setiap $X_i$ adalah percobaan Bernoulli dengan $P(X_i=1)=p$, sehingga $E(X_i)=p$ dan $\\operatorname{Var}(X_i)=p(1-p)$. Karena nilai harapan bersifat linear, $E(X)=E(X_1)+\\cdots+E(X_n)=np$. Karena ulangan saling bebas, variansnya juga bertambah, sehingga $\\operatorname{Var}(X)=n\\,p(1-p)$.
+
+Argumen ini menjelaskan mengapa hasilnya sesederhana $np$ tanpa perlu menjabarkan koefisien binomial, sekaligus menunjukkan bahwa varians terbesar terjadi saat $p=\\tfrac12$.`,
+        },
       ],
     },
     {
@@ -438,7 +453,7 @@ $$k\\binom{n}{k}=n\\binom{n-1}{k-1}.$$`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Pakai identitas untuk mengubah penjumlahan",
           text: `Tulis $E(X)=\\sum_{k=0}^{n}k\\,P(X=k)$, keluarkan faktor $p$, lalu pakai identitas yang diberikan agar penjumlahan berubah menjadi penjabaran binomial $(p+(1-p))^{n-1}$.`,
         },
         {
@@ -491,6 +506,7 @@ Terbukti.`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan syarat, peluang, dan ukuran distribusi binomial",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -529,6 +545,12 @@ Terbukti.`,
               "$\\sigma=\\sqrt{np(1-p)}$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu rumus, dua gagasan",
+          text: "Setiap peluang binomial menggabungkan dua gagasan yang sudah dikenal: **banyak susunan** dari kombinasi $\\binom{n}{k}$ dan **peluang satu susunan** dari aturan perkalian peluang bebas $p^{k}(1-p)^{n-k}$. Dari penjabaran $(p+q)^n$ mengalir seluruh topik ini, termasuk peluang kumulatif lewat komplemen serta nilai harapan $np$ dan varians $np(1-p)$.",
         },
       ],
     },

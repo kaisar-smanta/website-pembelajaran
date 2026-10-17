@@ -186,6 +186,32 @@ Metode penyelesaian yang umum adalah **eliminasi** (mengurangkan atau menjumlahk
           ],
         },
         {
+          kind: "flip-cards",
+          intro: "Balik tiap kartu untuk mengingat langkah dan jenis solusi SPLTV.",
+          cards: [
+            {
+              front: "Reduksi",
+              back: "Mengurangi banyak variabel dari tiga menjadi dua, lalu menjadi satu.",
+            },
+            {
+              front: "Substitusi balik",
+              back: "Memasukkan nilai variabel yang sudah ditemukan ke persamaan awal untuk memperoleh sisanya.",
+            },
+            {
+              front: "Solusi tunggal",
+              back: "Ketiga bidang bertemu tepat di satu titik $(x,y,z)$.",
+            },
+            {
+              front: "Sistem bergantung",
+              back: "Salah satu persamaan mengikuti persamaan lain, sehingga solusinya tak berhingga.",
+            },
+            {
+              front: "Sistem tak konsisten",
+              back: "Tidak ada titik yang memenuhi ketiga persamaan sekaligus.",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Tiga bidang berpotongan dan bertemu pada satu titik, ditandai sebagai solusi sistem.",
           caption: "Secara geometris, solusi SPLTV adalah titik potong tiga bidang. Bila bidang-bidang bertemu sepanjang sebuah garis atau tidak bertemu sama sekali, sistemnya bergantung atau tidak konsisten.",
@@ -216,6 +242,14 @@ Kurangkan persamaan (1) dengan (2). Variabel apa yang hilang? Lalu kurangkan per
       body: `Baik eliminasi maupun substitusi bermuara pada satu ide yang sama: **kurangi banyak variabel satu per satu sampai tersisa satu**. Setiap langkah memilih dua persamaan, menyetel koefisien satu variabel agar berlawanan atau sama, lalu menjumlahkan atau mengurangkannya. Hasilnya adalah sistem baru dengan satu variabel lebih sedikit yang memiliki solusi sama.
 
 Pola ini menjelaskan mengapa SPLTV selalu dapat diredam menjadi dua persamaan dua variabel, lalu menjadi satu. Setelah satu nilai diperoleh, nilainya disubstitusi kembali ke belakang. Hasil akhirnya hanya mungkin salah satu dari tiga kemungkinan: solusi tunggal, tak berhingga banyak solusi, atau tidak ada solusi, bergantung pada apakah tiga bidangnya berpotongan di satu titik, sepanjang garis, atau tidak bertemu.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Diagram alur penyelesaian SPLTV dari kotak tiga persamaan menuju kotak dua persamaan, lalu kotak satu variabel, dan akhirnya kotak solusi x y z melalui substitusi balik.",
+          caption: "Alur reduksi SPLTV: tiga persamaan dieliminasi bertahap menjadi dua persamaan, lalu satu variabel, dan nilai $x$, $y$, $z$ diperoleh lewat substitusi balik.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><defs><marker id="fig-spltv-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><rect x="15" y="55" width="85" height="32" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="118" y="55" width="85" height="32" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="221" y="55" width="85" height="32" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="100" y="140" width="120" height="34" rx="4" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.5"/><line x1="100" y1="71" x2="115" y2="71" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-spltv-flow-arrow)"/><line x1="203" y1="71" x2="218" y2="71" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-spltv-flow-arrow)"/><polyline points="263,87 263,118 160,118 160,138" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#fig-spltv-flow-arrow)"/><text x="57" y="76" font-size="11" text-anchor="middle" fill="currentColor">3 persamaan</text><text x="160" y="76" font-size="11" text-anchor="middle" fill="currentColor">2 persamaan</text><text x="263" y="76" font-size="11" text-anchor="middle" fill="currentColor">1 variabel</text><text x="160" y="161" font-size="11" text-anchor="middle" fill="currentColor">solusi (x, y, z)</text><text x="107" y="96" font-size="10" text-anchor="middle" fill="currentColor">eliminasi</text><text x="210" y="96" font-size="10" text-anchor="middle" fill="currentColor">eliminasi</text><text x="212" y="113" font-size="10" text-anchor="middle" fill="currentColor">substitusi balik</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -298,6 +332,14 @@ Jadi tiap bungkus berisi $20$ gram arabika, $30$ gram robusta, dan $10$ gram lib
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: eliminasi dua kali",
+          text: `Selesaikan sistem
+$$\\begin{cases} x+y+z=6 \\\\ 2x-y+z=2 \\\\ x+2y-z=7 \\end{cases}$$
+
+*Penyelesaian.* Kurangkan (1) dengan (2): $-x+2y=4$, sehingga $x=2y-4$. Kurangkan (1) dengan (3): $-y+2z=-1$, sehingga $y=1+2z$ dan $x=4z-2$. Substitusikan ke (1): $(4z-2)+(1+2z)+z=6$, yaitu $7z=7$, maka $z=1$, $y=3$, dan $x=2$. Periksa: $2+3+1=6$, $4-3+1=2$, dan $2+6-1=7$. Solusinya $(2,3,1)$.`,
+        },
       ],
     },
     {
@@ -337,6 +379,19 @@ Pola pikirnya selalu sama: ubah situasi menjadi persamaan, selesaikan, lalu peri
 **3. Tidak memeriksa solusi pada semua persamaan.** Solusi harus memenuhi **ketiga** persamaan. Periksa selalu agar kesalahan aritmetika terdeteksi.
 
 **4. Mengira setiap SPLTV punya solusi tunggal.** Bisa saja sistem konsisten dengan tak berhingga solusi, atau tidak punya solusi sama sekali.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Seorang siswa mengeliminasi $x$ dari dua persamaan. Klik langkah yang keliru.",
+          steps: [
+            "Tulis persamaan (1) $x+y+z=6$ dan (2) $x-y+z=2$.",
+            "Kurangkan (1) dengan (2) ruas demi ruas: $(x-x)+(y-y)+(z-z)=6-2$.",
+            "Sederhanakan: $0=4$, sehingga sistem tidak punya solusi.",
+          ],
+          wrongIndex: 1,
+          explanation: "Pada langkah kedua, $y-(-y)$ sama dengan $2y$, bukan $y-y=0$. Pengurangan yang benar memberi $2y=4$, yaitu $y=2$. Setelah $z=1$ dan $x=3$ diperoleh, solusinya $(3,2,1)$ dan sistem tetap konsisten.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -347,7 +402,7 @@ Pola pikirnya selalu sama: ubah situasi menjadi persamaan, selesaikan, lalu peri
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Manfaatkan nilai posisi",
           text: "Misalkan bilangan itu $100r + 10p + s$, dengan $r$ angka ratusan, $p$ puluhan, dan $s$ satuan. Nilai posisi angka membuat hubungan bilangan dengan balikannya dapat ditulis sebagai persamaan linear.",
         },
         {
@@ -416,6 +471,7 @@ Pola pikirnya selalu sama: ubah situasi menjadi persamaan, selesaikan, lalu peri
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan metode penyelesaian SPLTV dan tiga kemungkinan jenis solusinya.",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -446,6 +502,12 @@ Pola pikirnya selalu sama: ubah situasi menjadi persamaan, selesaikan, lalu peri
               "tidak ada titik yang memenuhi ketiga persamaan",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Reduksi bertahap, satu titik temu",
+          text: "Tiga persamaan tidak diselesaikan sekaligus. Setiap eliminasi membuang satu variabel, dan setelah tersisa satu nilai, substitusi balik mengisi sisanya. Pola ini adalah versi tangan dari eliminasi baris pada topik **Matriks**, yang menuliskan koefisien dalam tabel agar langkah yang sama menjadi lebih ringkas dan mudah diperiksa.",
         },
       ],
     },

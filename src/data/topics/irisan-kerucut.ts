@@ -107,7 +107,7 @@ Tanda di dalam kurung **berlawanan** dengan tanda koordinat pusat: $(y+3)^{2}$ b
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Jari-jari dari $r^{2}$",
           text: "Jari-jari diperoleh dari $\\sqrt{r^{2}}$, bukan $r^{2}$ itu sendiri. Jika tertulis $=16$, maka $r=4$, bukan $16$.",
         },
         {
@@ -288,6 +288,28 @@ Untuk $\\dfrac{(x-2)^{2}}{25} + \\dfrac{(y-1)^{2}}{16} = 1$: pusat $(2,1)$, $a =
           ],
         },
         {
+          kind: "match",
+          intro: "Pasangkan setiap irisan kerucut dengan bentuk bakunya.",
+          pairs: [
+            {
+              left: "Lingkaran",
+              right: "$(x-a)^{2}+(y-b)^{2}=r^{2}$",
+            },
+            {
+              left: "Elips",
+              right: "$\\dfrac{(x-h)^{2}}{a^{2}}+\\dfrac{(y-k)^{2}}{b^{2}}=1$",
+            },
+            {
+              left: "Parabola",
+              right: "$(x-h)^{2}=4p(y-k)$",
+            },
+            {
+              left: "Hiperbola",
+              right: "$\\dfrac{(x-h)^{2}}{a^{2}}-\\dfrac{(y-k)^{2}}{b^{2}}=1$",
+            },
+          ],
+        },
+        {
           kind: "figure",
           alt: "Parabola vertikal dengan puncak di titik asal, titik fokus di atas puncak pada sumbu simetri, dan garis direktriks mendatar di bawah puncak.",
           caption: "Parabola $x^{2}=4py$: puncak di titik asal, fokus terletak pada sumbu simetri, dan direktriks berupa garis mendatar. Setiap titik pada parabola berjarak sama ke fokus dan ke direktriks.",
@@ -401,6 +423,11 @@ Periksa definisi dengan titik $P\\left(5, \\tfrac{16}{3}\\right)$: substitusi me
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: garis singgung elips",
+          text: `Tentukan garis singgung elips $\\dfrac{x^{2}}{16}+\\dfrac{y^{2}}{9}=1$ di titik $\\left(2,\\dfrac{3\\sqrt{3}}{2}\\right)$. Periksa dahulu bahwa titik itu memenuhi persamaan elips, lalu terapkan pola $\\dfrac{x\\,x_{1}}{a^{2}}+\\dfrac{y\\,y_{1}}{b^{2}}=1$. Cocokkan hasilmu dengan $3x+4\\sqrt{3}\\,y=24$.`,
+        },
       ],
     },
     {
@@ -472,7 +499,7 @@ $$PF_1+PF_2=2a.$$`,
         {
           kind: "callout",
           variant: "tip",
-          title: "Petunjuk",
+          title: "Mulai dari jarak ke fokus",
           text: `Tulis $PF_1^2=(x+c)^2+y^2$, lalu ganti $y^2$ dari persamaan elips dan lengkapkan kuadrat. Bandingkan hasilnya dengan bentuk $\\left(a+\\tfrac{c}{a}x\\right)^2$.`,
         },
         {
@@ -570,6 +597,7 @@ $$PF_1+PF_2=2a.$$`,
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan rumus irisan kerucut: dari persamaan lingkaran dan elips sampai garis singgungnya.",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -604,6 +632,12 @@ $$PF_1+PF_2=2a.$$`,
               "$\\dfrac{x\\,x_{1}}{a^{2}} + \\dfrac{y\\,y_{1}}{b^{2}} = 1$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: satu pola bentuk baku",
+          text: "Lingkaran dan elips mengikuti pola yang sama: setelah ditulis dalam bentuk baku, posisi pusat, sumbu, dan fokus dapat dibaca langsung dari koefisiennya. Lingkaran hanyalah elips dengan $a=b=r$, sehingga $c^{2}=a^{2}-b^{2}=0$ dan kedua fokus berimpit di pusat. Pola bentuk baku ini pula yang melandasi rumus garis singgung: setiap suku pangkat dua diganti bentuk rata-rata di titik singgung.",
         },
       ],
     },

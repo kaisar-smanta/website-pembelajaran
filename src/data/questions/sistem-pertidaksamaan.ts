@@ -358,4 +358,32 @@ export const sistemPertidaksamaanQuestions: Question[] = [
     ],
     competencies: ['daerah penyelesaian', 'membaca grafik'],
   },
+  {
+    id: 'spt-17',
+    topicId: 'sistem-pertidaksamaan',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Perhatikan daerah penyelesaian pada gambar. Nilai maksimum fungsi objektif $f=3x+4y$ pada daerah tersebut adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 260 210" xmlns="http://www.w3.org/2000/svg"><polygon points="50,180 210,180 130,100 50,60" fill="currentColor" opacity="0.18"/><line x1="50" y1="180" x2="235" y2="180" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="180" x2="50" y2="25" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="20" x2="215" y2="185" stroke="currentColor" stroke-width="1.6"/><line x1="50" y1="60" x2="215" y2="143" stroke="currentColor" stroke-width="1.6"/><text x="222" y="196" font-size="11" fill="currentColor">x</text><text x="56" y="32" font-size="11" fill="currentColor">y</text></svg>',
+      alt: 'Daerah penyelesaian di kuadran pertama dengan titik sudut (0,0), (8,0), (4,4), dan (0,6).',
+      caption: 'Daerah penyelesaian dengan titik sudut (0,0), (8,0), (4,4), dan (0,6).',
+    },
+    options: [
+      { key: 'A', text: '$24$' },
+      { key: 'B', text: '$28$' },
+      { key: 'C', text: '$32$' },
+      { key: 'D', text: '$36$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Nilai $f=3x+4y$ diuji pada tiap titik sudut: $(0,0)$ memberi $0$; $(8,0)$ memberi $24$; $(4,4)$ memberi $12+16=28$; dan $(0,6)$ memberi $24$. Nilai terbesar $28$ di titik $(4,4)$, jadi opsi B. Opsi A ($24$) berasal dari titik $(8,0)$ atau $(0,6)$ yang bukan titik optimum. Opsi C ($32$) muncul bila koefisien tertukar menjadi $4x+3y$ yang di titik $(8,0)$ bernilai $32$. Opsi D ($36$) berasal dari titik di luar daerah, misalnya $(4,6)$ yang melanggar $x+y\\le8$.',
+    hints: [
+      'Titik sudut daerah itu adalah $(0,0)$, $(8,0)$, $(4,4)$, dan $(0,6)$.',
+      'Substitusikan setiap titik sudut ke $f=3x+4y$, lalu pilih nilai terbesar.',
+    ],
+    competencies: ['program linear', 'nilai maksimum', 'membaca grafik'],
+  },
 ];

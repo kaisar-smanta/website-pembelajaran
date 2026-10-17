@@ -324,4 +324,23 @@ export const fungsiRasionalAkarQuestions: Question[] = [
       'Menentukan asimtot tegak $x=-1$ dan asimtot datar $y=2$',
     ],
   },
+  {
+    id: 'fra-16',
+    topicId: 'fungsi-rasional-akar',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Fungsi $f(x)=\\dfrac{x^{2}+x-6}{x^{2}-4}$ memiliki lubang (diskontinuitas terhapus) di titik $(a,b)$. Tentukan ordinat $b$ dari lubang tersebut.',
+    answer: '5/4',
+    acceptedAnswers: ['5/4', '1,25', '1.25'],
+    explanation:
+      'Faktorkan pembilang dan penyebut: $x^{2}+x-6=(x+3)(x-2)$ dan $x^{2}-4=(x-2)(x+2)$. Faktor $(x-2)$ saling mencoret sehingga bentuk sederhananya $f(x)=\\dfrac{x+3}{x+2}$ untuk $x\\neq2$. Ordinat lubang dibaca dari bentuk sederhana di $x=2$, yaitu $\\dfrac{2+3}{2+2}=\\dfrac{5}{4}$. Jadi $b=\\dfrac{5}{4}$.',
+    hints: [
+      'Faktorkan pembilang dan penyebut, lalu coret faktor yang sama.',
+      'Ordinat lubang dihitung dari bentuk sederhana, bukan dari bentuk asli yang tak terdefinisi di $x=2$.',
+      'Substitusikan $x=2$ ke $\\dfrac{x+3}{x+2}$.',
+    ],
+    competencies: ['diskontinuitas terhapus', 'pemfaktoran'],
+  },
 ];

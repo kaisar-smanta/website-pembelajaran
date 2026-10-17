@@ -310,4 +310,32 @@ export const anuitasQuestions: Question[] = [
     ],
     competencies: ['rumus anuitas', 'literasi keuangan', 'kontekstual'],
   },
+  {
+    id: 'an-15',
+    topicId: 'anuitas',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah koperasi memberi pinjaman Rp8.000.000 dengan bunga 1,5% per bulan. Pinjaman dilunasi memakai angsuran anuitas tetap selama 12 bulan. Hitung total bunga yang dibayar peminjam, bulatkan ke rupiah terdekat.',
+    answer: 'Rp801.279',
+    acceptedAnswers: [
+      'Rp801.279',
+      'Rp801.279,00',
+      '801.279',
+      '801279',
+      '801.279,32',
+      'Rp801.279,32',
+      '801279,32',
+      'Rp 801.279',
+    ],
+    explanation:
+      'Angsuran anuitas $A=\\dfrac{M i}{1-(1+i)^{-n}}=\\dfrac{8.000.000(0{,}015)}{1-(1{,}015)^{-12}}$. Dengan $(1{,}015)^{-12}\\approx0{,}836387$, penyebutnya $1-0{,}836387=0{,}163613$, sehingga $A\\approx\\dfrac{120.000}{0{,}163613}\\approx\\text{Rp}733.440$. Total pembayaran $=12\\times733.440=\\text{Rp}8.801.279$ (lebih tepat Rp8.801.279,32). Jadi total bunga $=8.801.279-8.000.000=\\text{Rp}801.279$.',
+    hints: [
+      'Total bunga adalah hasil kali angsuran bulanan dengan banyak bulan, lalu dikurangi pokok pinjaman.',
+      'Hitung dahulu angsuran anuitas dengan $A=\\dfrac{M i}{1-(1+i)^{-n}}$ pada $M=8.000.000$, $i=0{,}015$, dan $n=12$.',
+      'Gunakan $(1{,}015)^{-12}\\approx0{,}836387$ untuk memperoleh penyebut $1-0{,}836387=0{,}163613$.',
+    ],
+    competencies: ['rumus anuitas', 'total bunga', 'pemodelan keuangan'],
+  },
 ];

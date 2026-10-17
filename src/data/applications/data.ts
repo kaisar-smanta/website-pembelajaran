@@ -321,4 +321,177 @@ Tanpa filter kedua, peluang phishing yang lolos adalah $\\frac{40}{10.000} = 0{,
     source:
       'Skenario pengajaran yang dikonstruksi mengikuti gagasan penyaringan dua tahap (dua lapis filter) yang lazim dipakai pada penyaring surel; angka 4%, 90%, dan 80% dibulatkan agar peluang bersyaratnya mudah dihitung, bukan data sistem tertentu.',
   },
+  {
+    id: 'uji-ab-dua-tombol',
+    title: 'Uji A/B Dua Tombol',
+    category: 'data',
+    subject: 'matematika-lanjut',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 13,
+    topicIds: ['distribusi-binomial', 'variabel-acak-diskret'],
+    tags: ['distribusi binomial', 'uji a/b', 'konversi', 'nilai harapan', 'ketidakpastian', 'pengambilan keputusan'],
+    summary:
+      'Memodelkan banyak konversi dua tombol dengan distribusi binomial, lalu menilai selisihnya terhadap ketidakpastian sampel.',
+    body: `Sebuah toko daring menguji dua tombol ajakan bertindak pada halaman produk yang sama. Selama dua minggu, pengunjung dibagi secara acak: **setengah** melihat tombol A dan **setengah** melihat tombol B. Hasilnya:
+
+| Tombol | Pengunjung | Konversi | Laju konversi |
+|---|---|---|---|
+| A | 400 | 48 | 12,0% |
+| B | 400 | 60 | 15,0% |
+
+Tombol B tampak unggul tiga poin persentase. Pertanyaan pemicunya: cukupkah data ini untuk menyimpulkan bahwa B lebih baik, dan seberapa besar ketidakpastian di balik selisih itu? Setiap pengunjung dipandang sebagai satu percobaan Bernoulli: berhasil (membeli) atau tidak, dengan peluang yang sama untuk semua pengunjung pada varian yang sama.`,
+    analysis: `**Model binomial.** Misalkan $X_A$ banyak konversi tombol A dan $X_B$ banyak konversi tombol B. Bila tiap pengunjung berperilaku saling bebas dan peluang konversi tetap, maka
+
+$$X_A \\sim \\text{Bin}(400, p_A), \\qquad X_B \\sim \\text{Bin}(400, p_B).$$
+
+Laju yang teramati adalah $\\hat{p}_A = 48/400 = 0{,}12$ dan $\\hat{p}_B = 60/400 = 0{,}15$.
+
+**Nilai harapan.** Bila kedua tombol sebenarnya sama baik, yaitu $p_A = p_B = p$, taksiran terbaik untuk $p$ adalah peluang gabungan $\\hat{p} = 108/800 = 0{,}135$. Maka nilai harapan banyak konversi tiap varian adalah
+
+$$E(X) = np = 400(0{,}135) = 54 \\text{ konversi}.$$
+
+Hasil A yang hanya 48 dan B yang 60 memang berbeda dari 54, tetapi nilai harapan bukan janji. Simpangan baku binomial $\\sqrt{np(1-p)} = \\sqrt{400(0{,}135)(0{,}865)} \\approx 6{,}8$ konversi menunjukkan bahwa selisih beberapa konversi dari 54 adalah hal biasa.
+
+**Ketidakpastian selisih.** Selisih laju $0{,}15 - 0{,}12 = 0{,}03$, atau tiga poin persentase. Simpangan baku selisih dua proporsi dengan $n = 400$ per kelompok sekitar
+
+$$SE = \\sqrt{\\frac{0{,}135(0{,}865)}{400} + \\frac{0{,}135(0{,}865)}{400}} \\approx 0{,}024,$$
+
+yaitu sekitar $2{,}4$ poin persentase. Selisih tiga poin hanya sekitar $1{,}24$ kali simpangan baku. Selang kepercayaan 95% yang kasar untuk selisih itu adalah
+
+$$0{,}03 \\pm 1{,}96(0{,}024) \\approx (-0{,}017;\\ 0{,}077).$$
+
+Karena selang memuat nol, data ini masih konsisten dengan "tidak ada perbedaan" sekaligus dengan keunggulan B hingga sekitar tujuh poin persentase. Menyatakan B sebagai pemenang pasti terlalu cepat.
+
+**Berapa sampel yang dibutuhkan?** Untuk mendeteksi selisih tiga poin dengan keyakinan dan daya yang wajar, tiap varian kira-kira memerlukan $2.000$ pengunjung, bukan $400$. Dengan sampel sebesar ini, selisih tiga poin masih dapat muncul oleh kebetulan. Uji A/B yang jujur melaporkan taksiran selisih beserta ketidakpastiannya, bukan hanya memilih angka yang lebih besar. Model binomial juga bergantung pada asumsi: pengunjung tidak boleh melihat kedua versi, kunjungan berulang tidak boleh dihitung ganda, dan peluang konversi tidak boleh berubah karena musim atau promosi.`,
+    takeaways: [
+      'Distribusi binomial memodelkan banyak konversi dari sejumlah pengunjung dengan peluang sukses yang tetap.',
+      'Nilai harapan $np$ memperkirakan banyak konversi, sedangkan simpangan baku menunjukkan ayunan yang wajar.',
+      'Selisih dua proporsi harus dibandingkan dengan ketidakpastiannya; selisih kecil pada sampel kecil belum menjadi bukti.',
+      'Kesimpulan uji A/B yang baik menyertakan selang ketidakpastian, bukan hanya satu angka pemenang.',
+    ],
+    reflection: [
+      'Jika tombol B unggul lima poin persentase pada 400 pengunjung, apakah kesimpulannya berubah? Perkirakan dahulu sebelum menghitung.',
+      'Mengapa menambah jumlah pengunjung memperkecil ketidakpastian, tetapi tidak menghilangkan risiko kesalahan?',
+      'Asumsi apa yang paling mudah dilanggar dalam uji A/B di dunia nyata, dan bagaimana akibatnya pada model binomial?',
+    ],
+    source:
+      'Skenario konstruksi dengan angka realistis mengikuti praktik uji A/B dua varian pada halaman produk; banyak pengunjung, konversi, dan laju dibuat agar nilai harapan serta simpangan baku binomial mudah diperiksa, bukan data satu perusahaan tertentu.',
+  },
+  {
+    id: 'interval-rujukan-lab',
+    title: 'Interval Rujukan Hasil Laboratorium',
+    category: 'data',
+    subject: 'matematika-lanjut',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'cakap',
+    estimatedMinutes: 12,
+    topicIds: ['distribusi-normal', 'statistik-dalam-kehidupan'],
+    tags: ['distribusi normal', 'interval rujukan', 'skor z', 'variasi biologis', 'hasil laboratorium'],
+    summary:
+      'Menghitung skor z dan menafsirkan hasil di luar interval rujukan tanpa menyamakannya dengan diagnosis.',
+    body: `Sebuah laboratorium melaporkan kadar enzim ALT (alanine aminotransferase) dalam darah. Dari populasi orang dewasa sehat, kadar ALT dimodelkan normal dengan rata-rata $\\mu = 28$ U/L dan simpangan baku $\\sigma = 9$ U/L. Laboratorium menetapkan **interval rujukan 95%** pada $28 \\pm 1{,}96(9)$, yaitu sekitar $10$ sampai $46$ U/L.
+
+Seorang pasien mendapat hasil $58$ U/L. Pertanyaan pemicunya: seberapa jauh hasil itu dari rata-rata populasi, dan apakah berada di luar interval rujukan berarti pasien pasti sakit?`,
+    analysis: `**Skor z.** Jarak hasil dari rata-rata diukur dalam satuan simpangan baku:
+
+$$z = \\frac{x - \\mu}{\\sigma} = \\frac{58 - 28}{9} \\approx 3{,}33.$$
+
+Hasil $58$ U/L berada sekitar $3{,}33$ simpangan baku di atas rata-rata. Pada distribusi normal, luas ekor kanan di $z = 3{,}33$ sekitar $0{,}0004$, jadi hanya sekitar $0{,}04\\%$ populasi rujukan yang memiliki kadar setinggi itu atau lebih.
+
+| Ukuran | Nilai | Skor z |
+|---|---|---|
+| Rata-rata | 28 U/L | 0 |
+| Batas bawah | 10 U/L | -2,00 |
+| Batas atas | 46 U/L | +2,00 |
+| Hasil pasien | 58 U/L | +3,33 |
+
+**Mengapa ada batas 95%.** Interval rujukan dibentuk dari sebaran populasi sehat, bukan dari sebaran orang sakit. Dengan $\\mu \\pm 1{,}96\\sigma$, sekitar $95\\%$ orang sehat berada di dalam interval dan sekitar $5\\%$ di luar, terbagi di kedua ekor. Jadi satu hasil di luar interval bukan bukti penyakit: kira-kira satu dari dua puluh orang sehat memang akan berada di luar batas.
+
+**Tidak semua hasil di luar sama.** Hasil $58$ U/L berada jauh di ekor, sedangkan hasil $47$ U/L baru sedikit melewati batas atas. Semakin besar jarak dalam satuan $z$, semakin kuat alasan untuk memeriksa ulang, tetapi arah dan besarnya penyimpangan tetap harus dibaca bersama gejala, riwayat, dan pengukuran sebelumnya. Hasil $22$ U/L, misalnya, memiliki $z \\approx -0{,}67$ dan masih wajar.
+
+**Interval rujukan bukan diagnosis.** Kadar enzim dapat berubah karena variasi alat ukur, kondisi puasa, massa otot, obat, atau aktivitas fisik. Sebaliknya, hasil di dalam interval juga tidak menjamin bebas penyakit. Karena itu hasil di luar interval biasanya ditindaklanjuti dengan pengukuran ulang atau pemeriksaan tambahan. Interval rujukan juga bergantung pada populasi dan metode laboratorium, sehingga batas dari laboratorium lain tidak boleh dipindahkan begitu saja. Terakhir, interval rujukan berbeda dari **interval kepercayaan** untuk rata-rata: yang pertama mencakup sekitar $95\\%$ individu, sedangkan yang kedua mencakup nilai rata-rata yang masuk akal.`,
+    takeaways: [
+      'Skor z menyatakan jarak hasil dari rata-rata dalam satuan simpangan baku.',
+      'Interval rujukan 95% memang menyisakan sekitar 5% populasi sehat di luar batas, sehingga hasil di luar interval belum tentu penyakit.',
+      'Hasil yang jauh di ekor lebih layak ditindaklanjuti daripada hasil yang hanya sedikit melewati batas.',
+      'Interval rujukan menggambarkan populasi rujukan, bukan ambang diagnosis, dan bergantung pada metode laboratorium.',
+    ],
+    reflection: [
+      'Hasil $47$ U/L memiliki skor z sekitar $2{,}11$. Mengapa hasil ini tidak sama mendesaknya dengan $58$ U/L?',
+      'Mengapa interval rujukan 95% tidak boleh dibaca sebagai "peluang 95% orang ini sehat"?',
+      'Faktor apa saja yang dapat membuat satu hasil laboratorium menyimpang tanpa menunjukkan penyakit?',
+    ],
+    source:
+      'Skenario konstruksi dengan angka realistis mengikuti cara laboratorium menurunkan interval rujukan 95% dari sebaran populasi sehat; nilai ALT, rata-rata, dan simpangan baku dibulatkan agar skor z mudah dihitung, bukan data laboratorium atau rujukan medis tertentu.',
+  },
+  {
+    id: 'deteksi-transaksi-mencurigakan',
+    title: 'Deteksi Transaksi Mencurigakan Dua Tahap',
+    category: 'data',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 13,
+    topicIds: ['peluang-bersyarat', 'peluang'],
+    tags: ['teorema bayes', 'peluang bersyarat', 'angka dasar', 'deteksi penipuan', 'positif palsu'],
+    summary:
+      'Menghitung ketepatan peringatan penipuan pada dua tahap penyaringan dan menjelaskan kekeliruan angka dasar.',
+    body: `Sebuah penyedia pembayaran memproses sekitar $1.000.000$ transaksi per bulan. Dari pengalaman, sekitar **0,2%** transaksi adalah penipuan. Sistem penyaringan bekerja dua tahap:
+
+- **Tahap 1 (otomatis):** aturan dan model skor menandai 90% transaksi penipuan, tetapi juga menandai 2% transaksi sah.
+- **Tahap 2 (tinjauan analis):** transaksi yang ditandai tahap 1 diperiksa lebih dalam. Tahap ini mengenali 80% penipuan yang sampai ke tahap itu, tetapi tetap meloloskan 10% transaksi sah yang diperiksa sebagai tersangka.
+
+Pertanyaan pemicunya: dari semua transaksi yang ditandai, berapa proporsi yang benar-benar penipuan pada tiap tahap? Apakah "mendeteksi 90% penipuan" berarti sebagian besar peringatan benar?`,
+    analysis: `**Tahap 1.** Dari $1.000.000$ transaksi, sekitar $2.000$ adalah penipuan dan $998.000$ sah.
+
+| Hasil tahap 1 | Penipuan | Sah | Total |
+|---|---|---|---|
+| Ditandai | 1.800 | 19.960 | 21.760 |
+| Tidak ditandai | 200 | 978.040 | 978.240 |
+| Total | 2.000 | 998.000 | 1.000.000 |
+
+Dari $2.000$ penipuan, $90\\%$ atau $1.800$ tertangkap. Dari $998.000$ transaksi sah, $2\\%$ atau $19.960$ ikut ditandai sebagai positif palsu. Maka ketepatan peringatan tahap 1 adalah
+
+$$P(\\text{penipuan} \\mid \\text{ditandai}) = \\frac{1.800}{21.760} \\approx 0{,}083.$$
+
+Dengan rumus Bayes,
+
+$$P(F \\mid A_1) = \\frac{0{,}90(0{,}002)}{0{,}90(0{,}002) + 0{,}02(0{,}998)} = \\frac{0{,}0018}{0{,}02176} \\approx 0{,}083.$$
+
+Jadi hanya sekitar **8,3%** peringatan tahap 1 yang benar-benar penipuan. Sensitivitas 90% terdengar tinggi, tetapi angka dasar yang rendah membuat kelompok transaksi sah jauh lebih besar, sehingga positif palsunya menumpuk.
+
+**Tahap 2.** Analis memeriksa $21.760$ peringatan. Dari $1.800$ penipuan di dalamnya, $80\\%$ atau $1.440$ dikonfirmasi. Dari $19.960$ transaksi sah, $10\\%$ atau $1.996$ tetap salah diduga.
+
+| Hasil tahap 2 | Penipuan | Sah | Total |
+|---|---|---|---|
+| Diteruskan ke investigasi | 1.440 | 1.996 | 3.436 |
+| Dilepas | 360 | 17.964 | 18.324 |
+| Diperiksa | 1.800 | 19.960 | 21.760 |
+
+Ketepatan peringatan setelah dua tahap adalah
+
+$$P(F \\mid A_1 \\cap A_2) = \\frac{0{,}80(0{,}0827)}{0{,}80(0{,}0827) + 0{,}10(0{,}9173)} \\approx 0{,}419.$$
+
+Sekarang sekitar **41,9%** peringatan yang diteruskan benar-benar penipuan, jauh lebih baik daripada tahap 1, tetapi masih berarti sekitar 58% di antaranya bukan penipuan. Secara keseluruhan, sistem menangkap $1.440$ dari $2.000$ penipuan, atau **72%**. Ada $560$ penipuan yang lolos: $200$ tidak pernah ditandai tahap 1 dan $360$ dilepas tahap 2.
+
+**Kekeliruan angka dasar.** Kesalahan umum adalah membaca sensitivitas sebagai ketepatan: "sistem mendeteksi 90% penipuan, jadi 90% peringatan pasti benar". Padahal sensitivitas menjawab "berapa bagian penipuan yang tertangkap", sedangkan yang dibutuhkan analis adalah "berapa bagian peringatan yang benar-benar penipuan". Keduanya berbeda karena angka dasar penipuan hanya 0,2%. Kekeliruan yang sama muncul pada tes medis dan penyaring surel.
+
+**Menilai dua tahap secara jujur.** Tahap 2 memangkas peringatan dari $21.760$ menjadi $3.436$, sekitar $84\\%$ lebih sedikit, sehingga beban investigasi turun tajam. Harganya, recall turun dari $90\\%$ menjadi $72\\%$ karena tahap 2 juga melepas sebagian penipuan. Apakah penurunan ini layak bergantung pada biaya investigasi, kerugian akibat penipuan yang lolos, dan risiko memblokir transaksi sah. Sistem yang baik melaporkan sensitivitas, ketepatan, dan beban kerja sekaligus, bukan satu angka akurasi.`,
+    takeaways: [
+      'Peluang bersyarat pada tahap kedua memakai angka dasar yang sudah diperbarui oleh tahap pertama, bukan lagi 0,2%.',
+      'Sensitivitas tinggi tidak menjamin ketepatan tinggi ketika angka dasar kejadian sangat rendah.',
+      'Penyaringan berlapis menurunkan beban peringatan, tetapi dapat menurunkan recall dan melepas sebagian penipuan.',
+      'Penilaian sistem deteksi harus membandingkan positif palsu, negatif palsu, dan biaya keduanya secara terbuka.',
+    ],
+    reflection: [
+      'Mengapa hanya 8,3% peringatan tahap 1 yang benar, padahal 90% penipuan berhasil ditangkap?',
+      'Jika biaya memblokir transaksi sah jauh lebih besar daripada kerugian satu penipuan, ambang mana yang sebaiknya diubah?',
+      'Bagaimana kamu akan menjelaskan arti "ketepatan 41,9%" kepada pengguna yang tidak mempelajari peluang?',
+    ],
+    source:
+      'Skenario konstruksi dengan angka realistis mengikuti pola penyaringan penipuan dua tahap pada sistem pembayaran; angka dasar 0,2%, sensitivitas 90% dan 80%, serta laju positif palsu 2% dan 10% dibulatkan agar perhitungan Bayes mudah diperiksa, bukan data satu penyedia pembayaran.',
+  },
 ];

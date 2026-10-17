@@ -372,4 +372,27 @@ export const vektorQuestions: Question[] = [
     ],
     competencies: ['ketegaklurusan', 'perkalian titik', 'penalaran'],
   },
+  {
+    id: 'vk-18',
+    topicId: 'vektor',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penerapan',
+    prompt:
+      'Diketahui $\\vec{a} = \\begin{pmatrix} 3 \\\\ -1 \\end{pmatrix}$ dan $\\vec{b} = \\begin{pmatrix} 1 \\\\ 3 \\end{pmatrix}$. Panjang vektor $2\\vec{a} - \\vec{b}$ adalah …',
+    options: [
+      { key: 'A', text: '$5\\sqrt{2}$' },
+      { key: 'B', text: '$\\sqrt{20}$' },
+      { key: 'C', text: '$5$' },
+      { key: 'D', text: '$50$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Hitung $2\\vec{a} = \\begin{pmatrix} 6 \\\\ -2 \\end{pmatrix}$, lalu $2\\vec{a} - \\vec{b} = \\begin{pmatrix} 6-1 \\\\ -2-3 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ -5 \\end{pmatrix}$. Panjangnya $\\sqrt{5^{2} + (-5)^{2}} = \\sqrt{50} = 5\\sqrt{2}$ (A). Opsi B diperoleh bila lupa mengalikan $\\vec{a}$ dengan $2$, sehingga menghitung $\\vec{a} - \\vec{b} = \\begin{pmatrix} 2 \\\\ -4 \\end{pmatrix}$ yang panjangnya $\\sqrt{20}$. Opsi C hanya mengambil satu komponen hasil, yaitu $5$, tanpa menghitung panjang. Opsi D berhenti pada jumlah kuadrat $25 + 25 = 50$ tanpa menarik akar.',
+    hints: [
+      'Hitung $2\\vec{a}$ lebih dahulu, baru kurangkan $\\vec{b}$ komponen per komponen.',
+      'Panjang vektor $\\begin{pmatrix} p \\\\ q \\end{pmatrix}$ adalah $\\sqrt{p^{2} + q^{2}}$.',
+    ],
+    competencies: ['perkalian skalar', 'pengurangan vektor', 'panjang vektor'],
+  },
 ];

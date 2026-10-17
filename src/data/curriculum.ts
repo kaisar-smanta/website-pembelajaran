@@ -121,7 +121,7 @@ export const SUBJECTS: Record<SubjectId, SubjectMeta> = {
     hours: 800,
     accent: 'subject-lanjut',
     gradeDescriptions: {
-      XI: 'Penguatan abstraksi: polinomial, matriks dan transformasi geometri, trigonometri lanjut, vektor, serta irisan kerucut.',
+      XI: 'Penguatan abstraksi: polinomial, fungsi nilai mutlak dan piecewise, matriks dan transformasi geometri, trigonometri lanjut, vektor, serta irisan kerucut.',
       XII: 'Kalkulus dan peluang lanjutan: limit, turunan, penerapannya, integral, variabel acak diskret, serta distribusi binomial untuk bidang STEM.',
     },
   },

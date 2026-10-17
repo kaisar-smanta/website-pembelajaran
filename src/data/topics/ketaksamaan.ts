@@ -246,9 +246,15 @@ Ini kasus khusus Cauchy-Schwarz dan menyatakan bahwa panjang sisi ketiga segitig
         {
           kind: 'callout',
           variant: 'warning',
-          title: 'Hati-hati',
+          title: 'AM-GM menuntut tak negatif',
           text:
             'AM-GM hanya berlaku untuk bilangan **tak negatif**. Menerapkannya pada bilangan negatif menghasilkan kesimpulan palsu.',
+        },
+        {
+          kind: 'figure',
+          alt: 'Persegi besar bersisi a tambah b terbagi menjadi dua persegi bersisi a dan b serta dua persegi panjang berukuran a kali b, menggambarkan bukti geometris ketaksamaan AM-GM.',
+          caption: "Bukti geometris AM-GM: persegi bersisi $a+b$ terbagi menjadi $a^{2}$, $b^{2}$, dan dua persegi panjang $ab$. Karena $(a+b)^{2}\\geq 4ab$, maka $\\dfrac{a+b}{2}\\geq\\sqrt{ab}$, dengan kesamaan saat $a=b$.",
+          svg: '<svg viewBox="0 0 320 200" aria-hidden="true" role="presentation"><rect x="60" y="30" width="150" height="150" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="150" y1="30" x2="150" y2="180" stroke="currentColor" stroke-width="1.2"/><line x1="60" y1="120" x2="210" y2="120" stroke="currentColor" stroke-width="1.2"/><text x="105" y="80" font-size="12" text-anchor="middle" fill="currentColor">a^2</text><text x="180" y="80" font-size="12" text-anchor="middle" fill="currentColor">ab</text><text x="105" y="155" font-size="12" text-anchor="middle" fill="currentColor">ab</text><text x="180" y="155" font-size="12" text-anchor="middle" fill="currentColor">b^2</text><text x="105" y="22" font-size="11" text-anchor="middle" fill="currentColor">a</text><text x="180" y="22" font-size="11" text-anchor="middle" fill="currentColor">b</text><text x="50" y="80" font-size="11" text-anchor="end" fill="currentColor">a</text><text x="50" y="155" font-size="11" text-anchor="end" fill="currentColor">b</text><text x="236" y="105" font-size="11" fill="currentColor">(a + b)^2</text></svg>',
         },
       ],
     },
@@ -320,6 +326,15 @@ Jadi penyelesaiannya $x < -2$ atau $x \\ge 1$. Titik $x=1$ ikut karena membuat h
             },
           ],
         },
+        {
+          kind: 'details',
+          summary: 'Coba sendiri: minimum dengan hasil kali tetap',
+          text: `Diketahui $x>0$ dan $y>0$ dengan $xy=16$. Tentukan nilai minimum $2x+y$.
+
+*Penyelesaian.* Terapkan AM-GM pada $2x$ dan $y$:
+$$2x+y \\ge 2\\sqrt{(2x)(y)} = 2\\sqrt{2xy} = 2\\sqrt{32} = 8\\sqrt{2}.$$
+Kesamaan terjadi saat $2x=y$. Dengan $xy=16$ diperoleh $2x^{2}=16$, yaitu $x=2\\sqrt{2}$ dan $y=4\\sqrt{2}$. Jadi nilai minimumnya $8\\sqrt{2}$, dan batas itu benar-benar tercapai.`,
+        },
       ],
     },
     {
@@ -382,7 +397,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
       id: 'ketaksamaan-sejarah',
       kind: 'sejarah',
       title: 'Tiga Abad Ketaksamaan',
-      body: `Ketaksamaan menjadi alat matematika yang berdiri sendiri ketika Augustin-Louis Cauchy membuktikan ketaksamaan jumlah kuadrat pada 1821, yang kemudian dikenal sebagai ketaksamaan Cauchy-Schwarz setelah Hermann Schwarz memperluasnya pada 1885. Sementara itu, hubungan antara rata-rata aritmetika dan geometri atau AM-GM sudah dikenal sejak karya Colin Maclaurin dan Leonhard Euler pada abad ke-18, dan menjadi dasar pembuktian banyak ketaksamaan lain. Pafnuty Chebyshev serta muridnya Andrey Markov menyumbang sekumpulan ketaksamaan yang kini dipakai dalam peluang dan statistika. Ketaksamaan segitiga sendiri jauh lebih tua, sudah muncul dalam geometri Yunani dan menjadi aksioma jarak. Dari sini ketaksamaan tumbuh menjadi bahasa baku untuk membandingkan besaran dan mencari nilai optimum.`,
+      body: `Ketaksamaan menjadi alat matematika yang berdiri sendiri ketika Augustin-Louis Cauchy membuktikan ketaksamaan jumlah kuadrat pada 1821, yang kemudian dikenal sebagai ketaksamaan Cauchy-Schwarz setelah Hermann Schwarz memperluasnya pada 1885. Sementara itu, hubungan antara rata-rata aritmetika dan geometri atau AM-GM sudah dikenal sejak karya Colin Maclaurin dan Leonhard Euler pada abad ke-18, dan menjadi dasar pembuktian banyak ketaksamaan lain. Pafnuty Chebyshev serta muridnya Andrey Markov menyumbang sekumpulan ketaksamaan yang kini dipakai dalam peluang dan statistika. Ketaksamaan segitiga sendiri jauh lebih tua, sudah muncul dalam geometri Yunani dan menjadi aksioma jarak. Sejak itu ketaksamaan menjadi bahasa baku untuk membandingkan besaran dan mencari nilai optimum.`,
     },
     {
       id: 'refleksi',
@@ -408,6 +423,7 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
       blocks: [
         {
           kind: 'table',
+          caption: 'Ringkasan sifat dan ketaksamaan penting beserta syarat kesamaannya.',
           headers: ['Konsep', 'Bentuk', 'Catatan'],
           rows: [
             ['Sifat dasar', 'Jika $a < b$ dan $c > 0$ maka $ac < bc$', 'Tanda tetap'],
@@ -416,6 +432,12 @@ Pola berpikirnya selalu sama: (1) nyatakan besaran yang dioptimalkan sebagai fun
             ['Cauchy-Schwarz', '$(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2$', 'Sama saat $(a,b)$ sebanding $(c,d)$'],
             ['Ketaksamaan segitiga', '$|x+y| \\le |x| + |y|$', 'Selalu benar'],
           ],
+        },
+        {
+          kind: 'callout',
+          variant: 'concept',
+          title: 'Batas bawah baru bernilai bila tercapai',
+          text: 'Ketaksamaan memberi batas, tetapi batas itu baru menjadi nilai minimum ketika ada keadaan yang membuat tanda $\\le$ atau $\\ge$ berubah menjadi $=$. Karena itu memeriksa syarat kesamaan bukan langkah tambahan, melainkan bagian dari jawaban. Gagasan yang sama muncul di topik **Fungsi Kuadrat**: titik puncak baru menjadi nilai optimum setelah dipastikan termasuk daerah yang dibicarakan.',
         },
       ],
     },
@@ -441,7 +463,7 @@ dan tentukan kapan kesamaan tercapai.`,
         {
           kind: 'callout',
           variant: 'tip',
-          title: 'Petunjuk',
+          title: 'Pandang sebagai dua vektor',
           text:
             'Pandang $(a,b,c)$ dan $(1,1,1)$ sebagai dua vektor, lalu terapkan Cauchy-Schwarz pada hasil kali titiknya.',
         },

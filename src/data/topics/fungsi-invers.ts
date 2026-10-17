@@ -86,7 +86,7 @@ Untuk $F = 77$ diperoleh $C = \\dfrac{5}{9}(77 - 32) = \\dfrac{5}{9}(45) = 25$. 
       kind: "konteks",
       title: "Situasi dan Konteks",
       body: `Banyak proses bersifat dua arah. Seorang guru memetakan setiap siswa ke nomor induknya, dan sebaliknya setiap nomor induk menunjuk tepat satu siswa. Kasir memetakan harga ke jumlah bayar, dan kita ingin tahu berapa barang yang bisa dibeli dari sejumlah uang.
-Ketika setiap keluaran hanya berasal dari satu masukan, arah pemetaan dapat dibalik. Fungsi yang arahnya dapat dibalik secara sempurna disebut fungsi **bijektif**, dan pembaliknya disebut **fungsi invers**.`,
+Ketika setiap keluaran hanya dipetakan dari satu masukan, arah pemetaan dapat dibalik. Fungsi yang arahnya dapat dibalik secara sempurna disebut fungsi **bijektif**, dan pembaliknya disebut **fungsi invers**.`,
     },
     {
       id: "konsep",
@@ -199,7 +199,7 @@ Contohnya, $f(x)=x^2$ pada domain $\\mathbb{R}$ **bukan** injektif karena $f(2)=
         {
           kind: "callout",
           variant: "warning",
-          title: "Hati-hati",
+          title: "Uji garis horizontal",
           text: "Menguji grafik: fungsi satu-satu bila setiap garis horizontal memotong grafik paling banyak satu kali. Grafik parabola $y=x^2$ dipotong dua kali oleh garis horizontal $y=4$.",
         },
         {
@@ -226,6 +226,14 @@ Fungsi invers memenuhi dua identitas penting:
 $$f\\left(f^{-1}(x)\\right) = x \\qquad \\text{dan} \\qquad f^{-1}\\left(f(x)\\right) = x.$$
 
 Kedua identitas ini berguna untuk memeriksa kebenaran jawaban: memasukkan hasil invers ke fungsi asal harus mengembalikan nilai semula.`,
+      blocks: [
+        {
+          kind: "figure",
+          alt: "Bidang koordinat dengan kurva y sama dengan x kuadrat untuk x lebih besar atau sama dengan nol, kurva y sama dengan akar x, dan garis putus-putus y sama dengan x. Titik dua koma empat pada parabola bercermin menjadi titik empat koma dua pada kurva akar.",
+          caption: "Grafik $f(x)=x^{2}$ (domain $x \\ge 0$) dan $f^{-1}(x)=\\sqrt{x}$ saling mencerminkan terhadap garis $y=x$; pasangan titik $(2,4)$ dan $(4,2)$ bertukar koordinat.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><defs><marker id="fig-fungsi-invers-recip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0,0 L 10,5 L 0,10 z" fill="currentColor"/></marker></defs><line x1="20" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-fungsi-invers-recip)"/><line x1="60" y1="215" x2="60" y2="25" stroke="currentColor" stroke-width="1.4" marker-end="url(#fig-fungsi-invers-recip)"/><line x1="60" y1="190" x2="250" y2="55" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/><polyline points="60,190 82.5,182 105,158 127.5,118 150,62" fill="none" stroke="currentColor" stroke-width="2.4"/><polyline points="60,190 82.5,167.4 105,158 150,144.7 195,134.6 240,126" fill="none" stroke="currentColor" stroke-width="2.1" stroke-dasharray="2 3"/><circle cx="105" cy="158" r="3" fill="currentColor"/><circle cx="150" cy="62" r="3" fill="currentColor"/><circle cx="240" cy="126" r="3" fill="currentColor"/><text x="155" y="72" font-size="11" fill="currentColor">(2,4)</text><text x="204" y="144" font-size="11" fill="currentColor">(4,2)</text><text x="64" y="178" font-size="11" fill="currentColor">(1,1)</text><text x="152" y="52" font-size="11" fill="currentColor">y = x²</text><text x="196" y="120" font-size="11" fill="currentColor">y = √x</text><text x="214" y="50" font-size="11" fill="currentColor">y = x</text><text x="296" y="186" font-size="11" fill="currentColor">x</text><text x="66" y="34" font-size="11" fill="currentColor">y</text></svg>',
+        },
+      ],
     },
     {
       id: "rumus",
@@ -243,6 +251,30 @@ $$f\\left(f^{-1}(x)\\right)=x \\qquad \\text{dan} \\qquad f^{-1}\\left(f(x)\\rig
 **Prosedur.** (1) Tulis $y=f(x)$. (2) Nyatakan $x$ dalam $y$. (3) Tukar nama $x$ dan $y$. (4) Tulis hasilnya sebagai $f^{-1}(x)$ dan periksa dengan $f\\left(f^{-1}(x)\\right)=x$.
 
 **Grafik.** Grafik $f$ dan $f^{-1}$ saling mencerminkan terhadap garis $y=x$.`,
+      blocks: [
+        {
+          kind: "flip-cards",
+          intro: "Bolak-balik kartu untuk menguji istilah dan rumus invers.",
+          cards: [
+            {
+              front: "Fungsi bijektif",
+              back: "Fungsi yang injektif sekaligus surjektif, sehingga memiliki invers.",
+            },
+            {
+              front: "Injektif (satu-satu)",
+              back: "Setiap hasil berbeda dipetakan dari masukan berbeda; $f(x_1)=f(x_2)$ berakibat $x_1=x_2$.",
+            },
+            {
+              front: "Identitas invers",
+              back: "$f(f^{-1}(x))=x$ dan $f^{-1}(f(x))=x$.",
+            },
+            {
+              front: "Invers linear $ax+b$",
+              back: "$f^{-1}(x)=\\dfrac{x-b}{a}$.",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "grafik",
@@ -352,9 +384,20 @@ $$f^{-1}(x) = \\sqrt{x}, \\qquad x \\geq 0.$$`,
 
 $$f^{-1}(x) = \\sqrt[3]{x-1}.$$
 
-*Periksa:* $f(2)=2^{3}+1=9$ dan $f^{-1}(9)=\\sqrt[3]{8}=2$. Benar.`,
+ *Periksa:* $f(2)=2^{3}+1=9$ dan $f^{-1}(9)=\\sqrt[3]{8}=2$. Benar.`,
             },
           ],
+        },
+        {
+          kind: "details",
+          summary: "Coba sendiri: invers sebuah fungsi rasional",
+          text: `Tentukan invers dari $f(x)=\\dfrac{x+2}{2x-1}$ dengan $x \\neq \\tfrac{1}{2}$.
+
+*Penyelesaian.* Tulis $y=\\dfrac{x+2}{2x-1}$, lalu kalikan silang:
+$$y(2x-1)=x+2 \\Rightarrow 2xy-y=x+2.$$
+Kumpulkan suku yang memuat $x$: $x(2y-1)=y+2$, sehingga
+$$x=\\frac{y+2}{2y-1} \\quad \\Rightarrow \\quad f^{-1}(x)=\\frac{x+2}{2x-1}.$$
+Rumusnya sama dengan fungsi asal, jadi $f$ adalah **invers bagi dirinya sendiri**. Periksa: $f(3)=\\dfrac{5}{5}=1$ dan $f(1)=\\dfrac{3}{1}=3$, sehingga menerapkan $f$ dua kali mengembalikan nilai semula.`,
         },
       ],
     },
@@ -394,6 +437,20 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
 **4. Mengabaikan domain hasil akhir.** Pada $f(x)=\\dfrac{2x+1}{x-3}$, nilai $x=3$ dikecualikan; pada inversnya, nilai $x=2$ juga harus dikecualikan.
 
 **5. Menuliskan domain $f^{-1}$ tanpa melihat range $f$.** Domain $f^{-1}$ sama dengan range $f$. Untuk $f(x)=x^{2}$ dengan $x \\geq 0$ diperoleh range $y \\geq 0$, sehingga $f^{-1}(x)=\\sqrt{x}$ hanya terdefinisi untuk $x \\geq 0$. Melupakan syarat ini membuat rumus invers tidak lengkap.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Seorang siswa menentukan invers $f(x)=2x+3$. Klik langkah yang keliru.",
+          steps: [
+            "Notasi $f^{-1}$ berarti fungsi invers, bukan pangkat negatif.",
+            "Karena $f(x)=2x+3$, maka $f^{-1}(x)=\\dfrac{1}{2x+3}$.",
+            "Balik pemetaannya: tulis $y=2x+3$, lalu peroleh $x=\\dfrac{y-3}{2}$.",
+            "Setelah menukar nama variabel, $f^{-1}(x)=\\dfrac{x-3}{2}$.",
+          ],
+          wrongIndex: 1,
+          explanation: "$f^{-1}$ bukan kebalikan perkalian. Kebalikan dari $2x+3$ adalah $\\dfrac{1}{2x+3}$, sedangkan fungsi inversnya membalik pemetaan, yaitu $f^{-1}(x)=\\dfrac{x-3}{2}$. Periksa: $f(1)=5$ dan $f^{-1}(5)=1$.",
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -433,7 +490,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       id: "sejarah",
       kind: "sejarah",
       title: "Dari Notasi Euler ke Simbol Invers",
-      body: `Gagasan fungsi menjadi bahasa baku matematika pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* sekitar 1673 untuk menyatakan besaran yang bergantung pada variabel lain, dan Leonhard Euler memperkenalkan penulisan $f(x)$ pada 1734, notasi yang kita pakai sampai sekarang. Gagasan membalik pemetaan tumbuh dari operasi kebalikan yang lebih tua, seperti dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers baru muncul jauh kemudian, antara lain dipakai John Herschel pada 1813, lalu menyebar seiring berkembangnya bahasa himpunan dan pemetaan. Sejak itu fungsi invers menjadi alat baku untuk membaca kembali nilai semula dari suatu hasil. Kaitan invers dengan komposisi dibahas lebih lanjut pada topik **Komposisi Fungsi**.`,
+      body: `Gagasan fungsi menjadi bahasa baku matematika pada abad ke-17 dan ke-18. Gottfried Leibniz memakai kata *function* sekitar 1673 untuk menyatakan besaran yang bergantung pada variabel lain, dan Leonhard Euler memperkenalkan penulisan $f(x)$ pada 1734, notasi yang kita pakai sampai sekarang. Gagasan membalik pemetaan bersandar pada operasi kebalikan yang lebih tua, seperti dari kuadrat ke akar atau dari eksponen ke logaritma. Simbol $f^{-1}$ untuk fungsi invers baru muncul jauh kemudian, antara lain dipakai John Herschel pada 1813, lalu menyebar seiring berkembangnya bahasa himpunan dan pemetaan. Sejak itu fungsi invers menjadi alat baku untuk membaca kembali nilai semula dari suatu hasil. Kaitan invers dengan komposisi dibahas lebih lanjut pada topik **Komposisi Fungsi**.`,
     },
     {
       id: "refleksi",
@@ -459,6 +516,7 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan syarat invers, rumus, dan sifat grafiknya",
           headers: [
             "Konsep",
             "Bentuk / Rumus",
@@ -489,6 +547,12 @@ Latihan pemodelan lebih lanjut dapat ditemukan pada topik [Aplikasi](/aplikasi).
               "grafik $f$ dan $f^{-1}$ bercermin terhadap $y=x$",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: membalik arah pemetaan",
+          text: "Inti fungsi invers adalah membalik arah: keluaran dikembalikan menjadi masukan, sehingga grafiknya bercermin terhadap $y=x$. Gagasan ini menopang topik **Komposisi Fungsi**, sebab membalik rangkaian dua fungsi berarti membalik urutannya, $(f\\circ g)^{-1}=g^{-1}\\circ f^{-1}$.",
         },
       ],
     },

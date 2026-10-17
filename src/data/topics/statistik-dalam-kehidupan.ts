@@ -156,6 +156,36 @@ $$\\bar{x}_{gab}=\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}.$$
             },
           ],
         },
+        {
+          kind: "flip-cards",
+          intro: "Hafalkan istilah statistik yang sering muncul di berita.",
+          cards: [
+            {
+              front: "Mean",
+              back: "Jumlah semua data dibagi banyak data; mudah tertarik pencilan",
+            },
+            {
+              front: "Median",
+              back: "Nilai tengah data terurut; lebih mewakili data yang condong",
+            },
+            {
+              front: "Modus",
+              back: "Nilai yang paling sering muncul; berguna untuk data kategorik",
+            },
+            {
+              front: "Rata-rata gabungan",
+              back: "Gabungan dua kelompok memakai bobot ukuran masing-masing kelompok",
+            },
+            {
+              front: "Pencilan",
+              back: "Nilai jauh dari kelompok utama yang dapat menggeser mean",
+            },
+            {
+              front: "Grafik menyesatkan",
+              back: "Sumbu tidak dari nol atau sebaran disembunyikan agar perbedaan tampak besar",
+            },
+          ],
+        },
       ],
     },
     {
@@ -370,6 +400,19 @@ $$Q_1-1{,}5\\,\\text{IQR} \\qquad \\text{dan} \\qquad Q_3+1{,}5\\,\\text{IQR}, \
             },
           ],
         },
+        {
+          kind: "details",
+          summary: "Coba sendiri: menilai klaim rata-rata gaji",
+          text: `Sebuah artikel menulis, "Rata-rata gaji karyawan di kantor ini Rp7 juta". Data sembilan karyawan (juta rupiah) adalah $3, 3, 4, 4, 5, 5, 6, 7, 55$.
+
+*Langkah 1.* Hitung jumlahnya: $3+3+4+4+5+5+6+7+55=92$, sehingga mean $=\\dfrac{92}{9}\\approx 10{,}2$ juta.
+
+*Langkah 2.* Karena $n=9$ ganjil, median adalah data ke-5, yaitu $5$ juta.
+
+*Langkah 3.* Nilai $55$ juta jauh dari kelompok utama. Separuh bawah $3,3,4,4$ memberi $Q_1=3{,}5$ dan separuh atas $5,6,7,55$ memberi $Q_3=\\dfrac{6+7}{2}=6{,}5$, sehingga IQR $=6{,}5-3{,}5=3$ dan batas atas $=6{,}5+1{,}5(3)=11$. Karena $55>11$, nilai itu adalah pencilan.
+
+*Langkah 4.* Klaim "rata-rata Rp7 juta" tidak cocok dengan data mana pun di atas; mean sebenarnya sekitar Rp10,2 juta karena satu nilai ekstrem, sedangkan median Rp5 juta lebih mewakili karyawan tipikal. Sebelum mempercayai klaim, tanyakan ukuran apa yang dipakai dan tanyakan apakah ada nilai ekstrem.`,
+        },
       ],
     },
     {
@@ -411,6 +454,25 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
 **4. Menyimpulkan sebab-akibat dari korelasi.** Dua hal bisa bergerak bersamaan tanpa salah satunya menyebabkan yang lain.
 
 **5. Mengabaikan ukuran sampel.** Kesimpulan dari beberapa orang tidak dapat digeneralisasi ke seluruh populasi.`,
+      blocks: [
+        {
+          kind: "spot-mistake",
+          intro: "Penjualan dua bulan berturut-turut $100$ dan $105$ unit ditampilkan pada diagram batang yang sumbunya dimulai dari $95$. Klik langkah yang keliru.",
+          steps: [
+            "Selisih penjualan kedua bulan adalah $105-100=5$ unit.",
+            "Pada diagram, batang kedua tampak dua kali lebih tinggi, jadi penjualan naik dua kali lipat.",
+            "Jadi kenaikannya $100\\%$.",
+          ],
+          wrongIndex: 1,
+          explanation: "Kenaikan sebenarnya hanya $\\dfrac{5}{100}=5\\%$. Batang kedua tampak dua kali lebih tinggi karena sumbu dipotong, yaitu beda tampilan, bukan beda nilai. Menyimpulkan dua kali lipat dari tinggi batang adalah kekeliruan membaca grafik.",
+        },
+        {
+          kind: "figure",
+          alt: "Dua box plot sejajar membandingkan Kelas A dan Kelas B pada skala nilai yang sama. Kotak Kelas A sempit dengan median di 68, sedangkan kotak Kelas B lebar dengan median di 58 dan sebuah pencilan di 99.",
+          caption: "Membandingkan dua kelompok hanya lewat median dapat menyesatkan. Median Kelas A (68) sedikit lebih tinggi, tetapi Kelas B memiliki IQR yang jauh lebih lebar dan sebuah pencilan di 99, tanda hasil yang tidak merata. Box plot memperlihatkan pusat, sebaran, dan pencilan sekaligus.",
+          svg: '<svg viewBox="0 0 320 240" aria-hidden="true" role="presentation"><line x1="40" y1="200" x2="304" y2="200" stroke="currentColor" stroke-width="1.2"/><line x1="40" y1="200" x2="40" y2="204" stroke="currentColor" stroke-width="1"/><line x1="83.3" y1="200" x2="83.3" y2="204" stroke="currentColor" stroke-width="1"/><line x1="126.7" y1="200" x2="126.7" y2="204" stroke="currentColor" stroke-width="1"/><line x1="170" y1="200" x2="170" y2="204" stroke="currentColor" stroke-width="1"/><line x1="213.3" y1="200" x2="213.3" y2="204" stroke="currentColor" stroke-width="1"/><line x1="256.7" y1="200" x2="256.7" y2="204" stroke="currentColor" stroke-width="1"/><line x1="300" y1="200" x2="300" y2="204" stroke="currentColor" stroke-width="1"/><rect x="135.3" y="60" width="52" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.6"/><line x1="161.3" y1="60" x2="161.3" y2="100" stroke="currentColor" stroke-width="2"/><line x1="105" y1="80" x2="135.3" y2="80" stroke="currentColor" stroke-width="1.4"/><line x1="105" y1="71" x2="105" y2="89" stroke="currentColor" stroke-width="1.4"/><line x1="187.3" y1="80" x2="222" y2="80" stroke="currentColor" stroke-width="1.4"/><line x1="222" y1="71" x2="222" y2="89" stroke="currentColor" stroke-width="1.4"/><rect x="83.3" y="130" width="164.7" height="40" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.6"/><line x1="118" y1="130" x2="118" y2="170" stroke="currentColor" stroke-width="2"/><line x1="57.3" y1="150" x2="83.3" y2="150" stroke="currentColor" stroke-width="1.4"/><line x1="57.3" y1="141" x2="57.3" y2="159" stroke="currentColor" stroke-width="1.4"/><line x1="248" y1="150" x2="265.3" y2="150" stroke="currentColor" stroke-width="1.4"/><line x1="265.3" y1="141" x2="265.3" y2="159" stroke="currentColor" stroke-width="1.4"/><circle cx="295.7" cy="150" r="3.4" fill="currentColor"/><text x="12" y="84" font-size="11" fill="currentColor">A</text><text x="12" y="154" font-size="11" fill="currentColor">B</text><text x="40" y="216" font-size="10" fill="currentColor">40</text><text x="80" y="216" font-size="10" fill="currentColor">50</text><text x="123" y="216" font-size="10" fill="currentColor">60</text><text x="166" y="216" font-size="10" fill="currentColor">70</text><text x="209" y="216" font-size="10" fill="currentColor">80</text><text x="253" y="216" font-size="10" fill="currentColor">90</text><text x="293" y="216" font-size="10" fill="currentColor">100</text><text x="262" y="130" font-size="10" fill="currentColor">pencilan</text></svg>',
+        },
+      ],
     },
     {
       id: "tantangan",
@@ -483,6 +545,7 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
       blocks: [
         {
           kind: "table",
+          caption: "Ringkasan ukuran, penyajian, dan penilaian klaim statistik",
           headers: [
             "Aspek",
             "Penjelasan",
@@ -517,6 +580,12 @@ Sebagai warga yang cermat, biasakan menanyakan tiga hal sebelum mempercayai sebu
               "Berdasarkan sampel memadai, ukuran tepat, sebab-akibat tidak diasumsikan",
             ],
           ],
+        },
+        {
+          kind: "callout",
+          variant: "concept",
+          title: "Benang merah: angka benar belum tentu jujur",
+          text: "Satu pertanyaan menyatukan seluruh topik ini: apakah angka yang disajikan benar-benar mewakili datanya? Mean bisa tertarik pencilan, grafik bisa dipotong sumbunya, dan persentase bisa dibandingkan dari kelompok yang tidak sebanding. Kebiasaan bertanya (siapa yang diukur, ukuran apa yang dipakai, dan apakah penyajiannya adil) adalah keterampilan yang berlanjut ke **Data Bivariat**, ketika dua variabel dibandingkan dan bahaya membaca hubungan sebagai sebab-akibat muncul kembali.",
         },
       ],
     },

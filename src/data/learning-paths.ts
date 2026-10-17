@@ -195,7 +195,7 @@ export const learningPaths: LearningPath[] = [
     subject: 'matematika-lanjut',
     accent: 'aljabar-fungsi',
     title: 'Jalur MTL: dari polinomial ke vektor dan irisan kerucut',
-    note: 'Mata pelajaran pilihan Fase F yang memperkuat abstraksi dan penalaran geometris.',
+    note: 'Mata pelajaran pilihan Fase F yang memperkuat abstraksi, keluarga fungsi, dan penalaran geometris.',
     nodes: [
       { label: 'Polinomial', id: 'polinomial', grade: 'XI', element: 'aljabar-fungsi' },
       {
@@ -216,6 +216,12 @@ export const learningPaths: LearningPath[] = [
       {
         label: 'Fungsi Rasional & Akar',
         id: 'fungsi-rasional-akar',
+        grade: 'XI',
+        element: 'aljabar-fungsi',
+      },
+      {
+        label: 'Fungsi Nilai Mutlak & Piecewise',
+        id: 'fungsi-nilai-mutlak-piecewise',
         grade: 'XI',
         element: 'aljabar-fungsi',
       },

@@ -160,7 +160,7 @@ const cellIndex = [0, 1];
 </style>
 
 <script>
-  import { multiply, determinant, equals } from '../../lib/sim/matrix';
+  import { multiply, determinant, equals, inverse } from '../../lib/sim/matrix';
   import type { Matrix2 } from '../../lib/sim/matrix';
   import { formatId as fmt } from '../../lib/format';
   import { initWhenVisible } from '../../lib/dom';
@@ -226,6 +226,8 @@ const cellIndex = [0, 1];
       const dB = determinant(B);
       const dAB = determinant(AB);
       const same = equals(AB, BA);
+      const invA = inverse(A);
+      const invB = inverse(B);
 
       results.replaceChildren(matrixCard('Hasil AB', AB), matrixCard('Hasil BA', BA));
 
@@ -240,6 +242,12 @@ const cellIndex = [0, 1];
         `<div class="stat"><span>det(A)</span><strong>${fmt(dA)}</strong></div>` +
         `<div class="stat"><span>det(B)</span><strong>${fmt(dB)}</strong></div>` +
         `<div class="stat"><span>det(AB)</span><strong>${fmt(dAB)}</strong></div>` +
+        `<div class="stat"><span>Invers A</span><strong>${
+          invA ? fmtMatrix(invA) : 'tidak ada (det A = 0)'
+        }</strong></div>` +
+        `<div class="stat"><span>Invers B</span><strong>${
+          invB ? fmtMatrix(invB) : 'tidak ada (det B = 0)'
+        }</strong></div>` +
         `<div class="stat"><span>Sifat determinan</span><strong>det(AB) = det(A)·det(B) = ${fmt(
           dA,
         )} · ${fmt(dB)} = ${fmt(dA * dB)}</strong></div>`;

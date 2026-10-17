@@ -1,0 +1,335 @@
+---
+import './sim.css';
+import type { Exploration } from '@/types/content';
+import { renderMarkdown } from '@/utils/markdown';
+
+interface Props {
+  exploration: Exploration;
+}
+const { exploration } = Astro.props;
+
+/**
+ * Nilai awal slider diambil dari `exploration.params` agar entri berbeda dapat
+ * memakai rentang dan nilai bawaan sendiri. Bila parameter tidak disebut, dipakai
+ * nilai cadangan berikut supaya komponen tetap berfungsi.
+ */
+function range(name: string, fallback: { min: number; max: number; step: number; value: number }) {
+  const found = exploration.params?.find((param) => param.name === name);
+  return {
+    min: found?.min ?? fallback.min,
+    max: found?.max ?? fallback.max,
+    step: found?.step ?? fallback.step,
+    value: found?.value ?? fallback.value,
+  };
+}
+
+const c = range('c', { min: -4, max: 4, step: 1, value: 0 });
+const m1 = range('m1', { min: -3, max: 3, step: 0.5, value: -1 });
+const m2 = range('m2', { min: -3, max: 3, step: 0.5, value: 1 });
+const k = range('k', { min: -3, max: 3, step: 0.5, value: 0 });
+---
+
+<figure
+  class="sim pw-sim"
+  data-piecewise
+  data-exploration={exploration.id}
+  data-pw-default-c={c.value}
+  data-pw-default-m1={m1.value}
+  data-pw-default-m2={m2.value}
+  data-pw-default-k={k.value}
+>
+  <div class="sim-head">
+    <h3>Fungsi Piecewise Dua Potong</h3>
+  </div>
+
+  <p
+    class="sim-hint"
+    set:html={renderMarkdown(
+      'Atur titik sambung $c$, kemiringan kiri $m_1$, kemiringan kanan $m_2$, dan geseran $k$. Perhatikan kedua nilai satu sisi dan lencana kesinambungan saat $c$ berubah.',
+    )}
+  />
+
+  <div class="sim-fields">
+    <label class="sim-field">
+      <span>Titik sambung c <output data-pw-value="c">{c.value}</output></span>
+      <input
+        type="range"
+        min={c.min}
+        max={c.max}
+        step={c.step}
+        value={c.value}
+        data-pw-field="c"
+        aria-label="Titik sambung c"
+      />
+    </label>
+    <label class="sim-field">
+      <span>Kemiringan kiri m₁ <output data-pw-value="m1">{m1.value}</output></span>
+      <input
+        type="range"
+        min={m1.min}
+        max={m1.max}
+        step={m1.step}
+        value={m1.value}
+        data-pw-field="m1"
+        aria-label="Kemiringan potongan kiri m satu"
+      />
+    </label>
+    <label class="sim-field">
+      <span>Kemiringan kanan m₂ <output data-pw-value="m2">{m2.value}</output></span>
+      <input
+        type="range"
+        min={m2.min}
+        max={m2.max}
+        step={m2.step}
+        value={m2.value}
+        data-pw-field="m2"
+        aria-label="Kemiringan potongan kanan m dua"
+      />
+    </label>
+    <label class="sim-field">
+      <span>Geseran vertikal k <output data-pw-value="k">{k.value}</output></span>
+      <input
+        type="range"
+        min={k.min}
+        max={k.max}
+        step={k.step}
+        value={k.value}
+        data-pw-field="k"
+        aria-label="Geseran vertikal k"
+      />
+    </label>
+  </div>
+
+  <div class="sim-actions">
+    <button type="button" class="btn btn-secondary btn-sm" data-pw-reset>Atur ulang</button>
+  </div>
+
+  <div class="sim-chart">
+    <svg
+      viewBox="0 0 480 340"
+      role="img"
+      aria-label="Grafik fungsi piecewise dua potong dengan titik sambung, titik ujung terbuka, dan titik ujung tertutup"
+      data-pw-plot></svg>
+    <div class="sim-legend" aria-hidden="true">
+      <span class="l1">x &lt; c</span>
+      <span class="l2">x &ge; c</span>
+      <span class="l3">titik sambung</span>
+    </div>
+  </div>
+
+  <output class="sim-readout" data-pw-readout aria-live="polite" aria-atomic="true"></output>
+
+  <figcaption class="sim-caption" set:html={renderMarkdown(exploration.description)} />
+</figure>
+
+<style>
+  .sim-actions {
+    margin-top: 0.7rem;
+  }
+  .sim-chart {
+    max-width: 34rem;
+    margin: 0.85rem auto 0;
+  }
+  .sim-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0.4rem 0 0;
+  }
+  .sim-legend .l1 {
+    color: var(--color-primary);
+  }
+  .sim-legend .l2 {
+    color: var(--color-data);
+  }
+  .sim-legend .l3 {
+    color: var(--color-warning);
+  }
+  .sim-readout :global(.stat) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.7rem;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .sim-readout :global(.stat strong) {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+</style>
+
+<script>
+  import {
+    analyze,
+    samplePiecewise,
+    continuityLabel,
+  } from '../../lib/sim/piecewise';
+  import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { formatPlain } from '../../lib/format';
+
+  function setupPiecewise(root: Element) {
+    const cInput = root.querySelector('[data-pw-field="c"]') as HTMLInputElement;
+    const m1Input = root.querySelector('[data-pw-field="m1"]') as HTMLInputElement;
+    const m2Input = root.querySelector('[data-pw-field="m2"]') as HTMLInputElement;
+    const kInput = root.querySelector('[data-pw-field="k"]') as HTMLInputElement;
+    const outputs = {
+      c: root.querySelector('[data-pw-value="c"]') as HTMLOutputElement,
+      m1: root.querySelector('[data-pw-value="m1"]') as HTMLOutputElement,
+      m2: root.querySelector('[data-pw-value="m2"]') as HTMLOutputElement,
+      k: root.querySelector('[data-pw-value="k"]') as HTMLOutputElement,
+    };
+    const svg = root.querySelector('[data-pw-plot]') as SVGSVGElement;
+    const readout = root.querySelector('[data-pw-readout]') as HTMLElement;
+    const reset = root.querySelector('[data-pw-reset]') as HTMLButtonElement;
+
+    const defaults = {
+      c: Number(root.getAttribute('data-pw-default-c') ?? 0),
+      m1: Number(root.getAttribute('data-pw-default-m1') ?? -1),
+      m2: Number(root.getAttribute('data-pw-default-m2') ?? 1),
+      k: Number(root.getAttribute('data-pw-default-k') ?? 0),
+    };
+
+    const X_MIN = -6;
+    const X_MAX = 6;
+    const Y_MIN = -6;
+    const Y_MAX = 6;
+    const W = 480;
+    const H = 340;
+    const pad = 34;
+
+    const { sx, sy } = linearScale(
+      { xMin: X_MIN, xMax: X_MAX, yMin: Y_MIN, yMax: Y_MAX },
+      { width: W, height: H, pad },
+    );
+
+    const inBounds = (x: number, y: number): boolean =>
+      x >= X_MIN && x <= X_MAX && y >= Y_MIN && y <= Y_MAX;
+
+    function drawGrid() {
+      for (let i = 0; i <= 6; i++) {
+        const x = pad + (i / 6) * (W - 2 * pad);
+        const y = pad + (i / 6) * (H - 2 * pad);
+        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
+      }
+      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+    }
+
+    function drawPiece(points: Array<{ x: number; y: number }>, color: string) {
+      if (points.length < 2) return;
+      svg.appendChild(
+        el('path', {
+          d: polyline(points.map((point) => [sx(point.x), sy(point.y)] as [number, number])),
+          fill: 'none',
+          stroke: color,
+          'stroke-width': 2.6,
+          'stroke-linecap': 'round',
+        }),
+      );
+    }
+
+    function dot(x: number, y: number, kind: 'open' | 'closed') {
+      if (!inBounds(x, y)) return;
+      svg.appendChild(
+        el('circle', {
+          cx: sx(x),
+          cy: sy(y),
+          r: 5.5,
+          fill: kind === 'closed' ? 'var(--color-data)' : 'var(--color-surface)',
+          stroke: 'var(--color-data)',
+          'stroke-width': 2.4,
+        }),
+      );
+    }
+
+    function draw(params: { c: number; m1: number; m2: number; k: number }) {
+      clear(svg);
+      drawGrid();
+
+      if (params.c >= X_MIN && params.c <= X_MAX) {
+        svg.appendChild(
+          el('line', {
+            x1: sx(params.c),
+            y1: pad,
+            x2: sx(params.c),
+            y2: H - pad,
+            stroke: 'var(--color-warning)',
+            'stroke-width': 1.6,
+            'stroke-dasharray': '6 4',
+          }),
+        );
+      }
+
+      const samples = samplePiecewise(params, X_MIN, X_MAX, 300);
+      drawPiece(samples.left, 'var(--color-primary)');
+      drawPiece(samples.right, 'var(--color-data)');
+
+      const info = analyze(params);
+      dot(info.open.x, info.open.y, 'open');
+      dot(info.closed.x, info.closed.y, 'closed');
+    }
+
+    function stat(label: string, value: string): string {
+      return `<div class="stat"><span>${label}</span><strong>${value}</strong></div>`;
+    }
+
+    function render() {
+      const params = {
+        c: Number(cInput.value),
+        m1: Number(m1Input.value),
+        m2: Number(m2Input.value),
+        k: Number(kInput.value),
+      };
+
+      outputs.c.textContent = formatPlain(params.c);
+      outputs.m1.textContent = formatPlain(params.m1);
+      outputs.m2.textContent = formatPlain(params.m2);
+      outputs.k.textContent = formatPlain(params.k);
+
+      const info = analyze(params);
+      draw(params);
+
+      const line = (slope: number): string => `${formatPlain(slope)}x + ${formatPlain(params.k)}`;
+      const status = info.continuous
+        ? 'kontinu di titik sambung'
+        : `tak kontinu, melompat ${formatPlain(Math.abs(info.jump))}`;
+
+      readout.innerHTML =
+        stat('Potongan kiri (x < c)', line(params.m1)) +
+        stat('Potongan kanan (x ≥ c)', line(params.m2)) +
+        stat('Nilai dari kiri', formatPlain(info.leftLimit)) +
+        stat('Nilai di titik sambung', formatPlain(info.rightValue)) +
+        stat('Lompatan', formatPlain(info.jump)) +
+        stat('Kesinambungan', status);
+
+      svg.setAttribute(
+        'aria-label',
+        `Grafik piecewise dengan titik sambung c = ${formatPlain(params.c)}; potongan kiri ${line(params.m1)} untuk x kurang dari c, potongan kanan ${line(params.m2)} untuk x lebih dari sama dengan c; ${continuityLabel(params)}; ${
+          info.continuous
+            ? 'kedua potongan bertemu di titik sambung'
+            : `ada lompatan sebesar ${formatPlain(Math.abs(info.jump))}`
+        }`,
+      );
+    }
+
+    [cInput, m1Input, m2Input, kInput].forEach((input) => input.addEventListener('input', render));
+    reset.addEventListener('click', () => {
+      cInput.value = String(defaults.c);
+      m1Input.value = String(defaults.m1);
+      m2Input.value = String(defaults.m2);
+      kInput.value = String(defaults.k);
+      render();
+    });
+
+    render();
+  }
+
+  initWhenVisible(document.querySelectorAll('[data-piecewise]'), setupPiecewise);
+</script>

@@ -343,4 +343,169 @@ Mengapa demikian? Bunga utang hanya dikenakan pada **saldo yang terus menurun**,
     source:
       'Skenario pengajaran yang dikonstruksi dengan angka realistis: suku bunga pinjaman 1,5% per bulan dan imbal hasil 1,2% per bulan berada dalam kisaran produk yang umum; keputusan banding ini menyederhanakan risiko dan biaya tambahan, serta membulatkan angka.',
   },
+  {
+    id: 'ongkos-kirim-bertingkat',
+    title: 'Ongkos Kirim Bertingkat: Menghitung Biaya dan Menebak Beratnya',
+    category: 'keuangan',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 10,
+    tags: ['ongkos kirim', 'tarif bertingkat', 'fungsi piecewise', 'fungsi tangga', 'pertanyaan kebalikan'],
+    summary:
+      'Memodelkan ongkos kirim berlapis sebagai fungsi piecewise, menghitung biaya, lalu membalik modelnya untuk menebak berat paket dari tagihan.',
+    topicIds: ['fungsi-nilai-mutlak-piecewise', 'pemodelan-fungsi'],
+    body: `Sebuah jasa pengiriman **tidak memakai satu tarif per kg**. Semakin berat paket, semakin murah tarif per kg tambahannya, sehingga biaya total naik makin landai pada lapisan berat berikutnya. Aturan tarifnya disusun berlapis seperti tabel berikut.
+
+| Lapisan berat $w$ (kg) | Rumus ongkos |
+|---|---|
+| $0 < w \\leq 1$ | Rp8.000 (tarif dasar) |
+| $1 < w \\leq 3$ | Rp8.000 + Rp4.000 per kg lebih dari 1 |
+| $3 < w \\leq 5$ | Rp16.000 + Rp3.000 per kg lebih dari 3 |
+| $w > 5$ | Rp22.000 + Rp2.000 per kg lebih dari 5 |
+
+Dengan aturan ini, seluruh rumus dapat disatukan menjadi satu **fungsi piecewise**:
+$$C(w)=\\begin{cases} 8.000, & 0 < w \\leq 1 \\\\ 8.000+4.000(w-1), & 1 < w \\leq 3 \\\\ 16.000+3.000(w-3), & 3 < w \\leq 5 \\\\ 22.000+2.000(w-5), & w > 5 \\end{cases}$$
+
+Pertanyaan pemicu: kenapa tarif tambahan per kg justru **turun** saat paket makin berat? Lalu, jika kamu hanya tahu tagihan seorang pelanggan, apakah berat paketnya masih bisa ditebak?`,
+    analysis: `**Menghitung ongkos sebuah paket.** Ambil paket $4\\ \\text{kg}$. Berat ini berada pada lapisan $3 < w \\leq 5$, sehingga
+$$C(4)=16.000+3.000(4-3)=16.000+3.000=19.000,$$
+yaitu Rp19.000. Model ini **menyambung** di tiap batas: di $w=3$, lapisan kedua memberi $8.000+4.000(2)=16.000$ dan lapisan ketiga memberi $16.000+3.000(0)=16.000$, sama. Jadi grafiknya terhubung meski kemiringannya berkurang.
+
+**Membalik model untuk menebak berat.** Seorang pelanggan membayar Rp25.000. Karena Rp25.000 melebihi ongkos maksimum lapisan ketiga, yaitu $16.000+3.000(2)=22.000$, beratnya pasti di lapisan $w>5$. Gunakan $22.000+2.000(w-5)=25.000$:
+$$2.000(w-5)=3.000 \\Rightarrow w-5=1{,}5 \\Rightarrow w=6{,}5\\ \\text{kg}.$$
+Substitusi balik memberi $22.000+2.000(1{,}5)=25.000$, cocok dengan tagihan.
+
+**Mengapa tarif tambahan menurun.** Lapisan bertingkat adalah bentuk diskon grosir terbalik: biaya penanganan tetap per paket (penimbangan, pencatatan, penjemputan) tersebar makin tipis saat berat bertambah, sehingga tarif per kg tambahan bisa diturunkan. Pola ini menyerupai pajak progresif yang tarifnya justru naik per lapisan; yang sama adalah gagasan "aturan berganti di ambang", bukan arah perubahannya.`,
+    takeaways: [
+      'Tarif berlapis ditulis paling rapi sebagai satu fungsi piecewise dengan domain tiap potongan.',
+      'Model seperti ini menyambung bila nilai potongan di setiap batas bertemu, sehingga grafiknya tidak melompat.',
+      'Selama tiap lapisan linear dan satu-satu, fungsi ongkos dapat dibalik untuk menebak berat dari tagihan.',
+      'Lapisan di mana suatu nilai jatuh ditentukan dengan membandingkan nilai itu terhadap ongkos pada batas lapisan sebelumnya.',
+    ],
+    reflection: [
+      'Mengapa membandingkan tagihan dengan ongkos pada batas tiap lapisan lebih cepat daripada menebak-nebak beratnya?',
+      'Jika perusahaan ingin seluruh model menjadi satu garis lurus tanpa lapisan, keuntungan apa yang hilang bagi paket ringan?',
+      'Bagaimana kamu akan mengubah tabel tarif agar ongkos paket $4\\ \\text{kg}$ tepat Rp20.000 tanpa mengubah lapisan lainnya?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi dengan angka realistis, bukan tarif resmi penyedia jasa kirim mana pun. Struktur tarif berlapis mengikuti praktik umum ongkos kirim dan pajak progresif; seluruh angka, batas berat, dan tarif dibulatkan agar perhitungan mudah diperiksa.',
+  },
+  {
+    id: 'laba-maksimum-kedai',
+    title: 'Laba Maksimum Kedai Kopi',
+    category: 'keuangan',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 10,
+    explorationId: 'kuadrat-parameter',
+    tags: ['fungsi kuadrat', 'laba maksimum', 'titik puncak', 'biaya tetap', 'biaya variabel', 'optimasi'],
+    summary:
+      'Memodelkan laba harian kedai kopi sebagai fungsi kuadrat harga, lalu mencari harga yang memberi laba maksimum dari titik puncaknya.',
+    topicIds: ['fungsi-kuadrat', 'pemodelan-fungsi'],
+    body: `Sebuah kedai kopi menjual satu cangkir kopi susu dengan harga $p$ (dalam ribu rupiah). Dari catatan penjualan, manajer menemukan bahwa **setiap kenaikan harga Rp2.000 menurunkan penjualan sekitar 8 cangkir per hari**, sehingga hubungan harga dan banyak cangkir yang terjual berbentuk linear:
+
+$$q(p) = 140 - 4p.$$
+
+Di sisi biaya, kedai menanggung **biaya tetap Rp300.000 per hari** (sewa, gaji, listrik) dan **biaya variabel Rp10.000 per cangkir** (bahan, susu, gelas). Pemilik ingin tahu pada harga berapa laba harian paling besar.
+
+Pertanyaan pemicunya: jika harga dinaikkan, pendapatan per cangkir naik tetapi jumlah pembeli turun. Apakah menaikkan harga selalu menambah laba, dan sampai titik mana?
+
+Pendapatan adalah harga kali banyak cangkir yang terjual, sedangkan biaya adalah biaya tetap ditambah biaya variabel. Laba adalah selisih keduanya, dan bentuknya fungsi kuadrat.`,
+    analysis: `Semua besaran dihitung dalam ribu rupiah agar ringkas.
+
+**Pendapatan.** $R(p) = p \\cdot q(p) = p(140 - 4p) = -4p^{2} + 140p$.
+
+**Biaya.** $C(p) = 300 + 10(140 - 4p) = 300 + 1.400 - 40p = 1.700 - 40p$.
+
+**Laba.** $P(p) = R(p) - C(p) = -4p^{2} + 140p - (1.700 - 40p)$, sehingga
+
+$$P(p) = -4p^{2} + 180p - 1.700.$$
+
+Karena koefisien $p^{2}$ negatif, grafik laba adalah parabola terbuka ke bawah dengan satu titik puncak, yaitu laba maksimum. Sumbu simetrinya di
+
+$$p^{*} = -\\frac{180}{2(-4)} = \\frac{180}{8} = 22{,}5,$$
+
+artinya harga terbaik adalah **Rp22.500**. Substitusi balik:
+
+$$P(22{,}5) = -4(22{,}5)^{2} + 180(22{,}5) - 1.700 = -2.025 + 4.050 - 1.700 = 325,$$
+
+yaitu **laba maksimum Rp325.000 per hari**. Pada harga itu, $q(22{,}5) = 140 - 90 = 50$ cangkir terjual.
+
+**Cek di dua titik lain.** Pada $p = 20$ (Rp20.000) diperoleh $P(20) = -1.600 + 3.600 - 1.700 = 300$. Pada $p = 25$ (Rp25.000) diperoleh $P(25) = -2.500 + 4.500 - 1.700 = 300$. Keduanya memberi laba Rp300.000, lebih kecil daripada Rp325.000, dan simetris mengapit $p^{*} = 22{,}5$. Ini menegaskan titik puncak berada tepat di tengah keduanya.
+
+**Menafsirkan titik puncak.** Titik puncak $(22{,}5,\\ 325)$ berarti harga Rp22.500 memberi laba terbesar. Menaikkan harga di atas itu membuat penurunan jumlah penjualan lebih besar daripada tambahan margin per cangkir, sehingga laba turun. Sebaliknya, menurunkan harga menambah penjualan, tetapi setiap cangkir menyumbang margin lebih tipis, sehingga laba juga turun. Titik puncak adalah harga yang menyeimbangkan kedua efek itu. Harga juga harus melebihi biaya variabel, yaitu $p \\gt 10$; jika $p$ turun sampai Rp10.000, margin per cangkir nol dan kedai hanya menanggung biaya tetap.`,
+    takeaways: [
+      'Laba sebagai fungsi harga berbentuk kuadrat dengan koefisien $p^{2}$ negatif, sehingga selalu punya nilai maksimum.',
+      'Titik puncak parabola fungsi laba memberi harga jual yang memaksimumkan laba harian.',
+      'Menaikkan harga tidak selalu menambah laba karena jumlah penjualan ikut berkurang.',
+    ],
+    reflection: [
+      'Mengapa menaikkan harga di atas Rp22.500 justru menurunkan laba, padahal pendapatan per cangkir bertambah?',
+      'Jika biaya variabel naik dari Rp10.000 menjadi Rp12.000 per cangkir, ke arah mana titik puncak harga bergeser? Duga dulu tanpa menghitung.',
+      'Faktor di luar model, seperti suasana kedai atau jam sibuk, bagaimana bisa menggeser hubungan harga dan jumlah pembeli?',
+    ],
+    source:
+      'Skenario konstruksi dengan angka realistis, bukan data kedai tertentu. Hubungan harga dan jumlah penjualan dimodelkan linear, biaya tetap dan variabel dibulatkan, dan seluruh angka dipilih agar titik puncak parabola mudah diperiksa.',
+  },
+  {
+    id: 'pakan-ternak-tiga-bahan',
+    title: 'Meracik Pakan Ternak dengan Tiga Bahan',
+    category: 'keuangan',
+    element: 'aljabar-fungsi',
+    grade: 'X',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    explorationId: 'spltv-perpotongan',
+    tags: ['spltv', 'sistem persamaan linear', 'pakan ternak', 'eliminasi', 'substitusi', 'protein'],
+    summary:
+      'Menyusun dan menyelesaikan sistem persamaan linear tiga variabel dari resep pakan ternak bertiga bahan, lalu memeriksa dan menafsirkan solusinya.',
+    topicIds: ['spltv', 'sistem-pertidaksamaan'],
+    body: `Seorang peternak ingin meracik **100 kg pakan** dari tiga bahan: **bahan A**, **bahan B**, dan **bahan C**. Setiap bahan berbeda dalam kadar protein dan harga.
+
+| Bahan | Kadar protein | Harga per kg |
+|---|---|---|
+| A | $30\\%$ | Rp16.000 |
+| B | $20\\%$ | Rp8.000 |
+| C | $10\\%$ | Rp4.000 |
+
+Pakan jadi harus berbobot 100 kg, mengandung total protein 18 kg (setara kadar 18%), dan menelan biaya tepat Rp820.000. Berapa kilogram setiap bahan yang harus dicampur?
+
+Pertanyaan pemicunya: dengan tiga ketentuan (bobot, protein, biaya) dan tiga bahan yang jumlahnya belum diketahui, apakah campurannya tunggal? Jika salah satu ketentuan diubah, masih adakah campuran yang memenuhi?
+
+Misalkan $x$, $y$, dan $z$ berturut-turut banyak bahan A, B, dan C dalam kg. Ketiga ketentuan di atas menjadi sistem persamaan linear tiga variabel.`,
+    analysis: `Sistemnya:
+
+$$x + y + z = 100,$$
+$$0{,}30x + 0{,}20y + 0{,}10z = 18,$$
+$$16x + 8y + 4z = 820.$$
+
+Persamaan protein dikalikan 100 menjadi $30x + 20y + 10z = 1.800$ agar koefisiennya bulat, sedangkan persamaan biaya dinyatakan dalam ribuan rupiah (Rp16.000 menjadi 16).
+
+**Eliminasi satu variabel.** Dari persamaan pertama, $z = 100 - x - y$. Substitusi ke persamaan protein:
+$$30x + 20y + 10(100 - x - y) = 1.800 \\;\\Rightarrow\\; 20x + 10y = 800 \\;\\Rightarrow\\; 2x + y = 80. \\quad (\\text{I})$$
+Substitusi ke persamaan biaya:
+$$16x + 8y + 4(100 - x - y) = 820 \\;\\Rightarrow\\; 12x + 4y = 420 \\;\\Rightarrow\\; 3x + y = 105. \\quad (\\text{II})$$
+
+Kurangkan persamaan I dari persamaan II: $x = 25$. Lalu $y = 80 - 2(25) = 30$, dan $z = 100 - 25 - 30 = 45$.
+
+**Pemeriksaan.** Bobot: $25 + 30 + 45 = 100$ kg. Protein: $0{,}30(25) + 0{,}20(30) + 0{,}10(45) = 7{,}5 + 6 + 4{,}5 = 18$ kg. Biaya: $16.000(25) + 8.000(30) + 4.000(45) = 400.000 + 240.000 + 180.000 = 820.000$. Ketiganya cocok.
+
+**Menafsirkan solusi.** Campurannya tunggal: **25 kg bahan A, 30 kg bahan B, dan 45 kg bahan C**. Bahan C yang paling murah dan berprotein rendah menempati porsi terbesar, sedangkan bahan A yang berprotein tinggi dan termahal dipakai paling sedikit. Susunan ini menekan biaya dengan memperbanyak C, sementara kadar protein 18% dijaga dengan menambahkan A.
+
+**Mengapa solusinya tunggal.** Ketiga persamaan saling bebas: tidak ada satu persamaan yang dapat diturunkan dari dua lainnya, sehingga ketiga bidang berpotongan di satu titik. Jika harga ketiga bahan membuat koefisien biaya sebanding dengan koefisien protein, persamaan biaya tidak lagi bebas dan solusinya menjadi tak berhingga banyak.`,
+    takeaways: [
+      'Tiga ketentuan berbeda (bobot, protein, biaya) menjadi tiga persamaan linear; solusinya unik bila persamaannya saling bebas.',
+      'Solusi sistem wajib diperiksa kembali ke besaran nyata: bobot, total protein, dan biaya.',
+      'Bahan termurah cenderung menempati porsi terbesar, sedangkan bahan berprotein tinggi dipakai secukupnya untuk memenuhi target.',
+    ],
+    reflection: [
+      'Mengapa campuran ini tunggal, sementara sebagian sistem tiga variabel justru punya tak berhingga solusi?',
+      'Jika harga bahan A turun, bagaimana komposisi campuran dapat berubah meskipun target protein dan biaya tetap?',
+      'Jika target protein dinaikkan menjadi 20%, apakah campuran 25 kg A, 30 kg B, dan 45 kg C masih memenuhi? Periksa dulu sebelum menjawab.',
+    ],
+    source:
+      'Skenario konstruksi dengan angka realistis, bukan data peternakan tertentu. Kadar protein dan harga ketiga bahan dipilih agar sistem persamaan linear tiga variabel punya solusi bulat yang mudah diperiksa.',
+  },
 ];

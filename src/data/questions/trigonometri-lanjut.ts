@@ -352,4 +352,31 @@ export const trigonometriLanjutQuestions: Question[] = [
     ],
     competencies: ['identitas trigonometri', 'penalaran'],
   },
+  {
+    id: 'tl-17',
+    topicId: 'trigonometri-lanjut',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt: 'Perhatikan gambar grafik fungsi trigonometri berikut. Rumus fungsi pada gambar adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" role="img" xmlns="http://www.w3.org/2000/svg"><line x1="40" y1="170" x2="305" y2="170" stroke="currentColor" stroke-width="1.2"/><line x1="55" y1="175" x2="55" y2="45" stroke="currentColor" stroke-width="1.2"/><line x1="55" y1="110" x2="300" y2="110" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4" opacity="0.35"/><polyline points="55,70 73,75 91,90 109,110 127,130 145,139 163,150 181,139 199,130 217,110 235,90 253,75 271,70" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="55" cy="70" r="3" fill="currentColor"/><text x="292" y="164" font-size="11" fill="currentColor">x</text><text x="60" y="45" font-size="11" fill="currentColor">y</text><text x="55" y="186" font-size="10" fill="currentColor" text-anchor="middle">0</text><text x="163" y="186" font-size="10" fill="currentColor" text-anchor="middle">90</text><text x="271" y="186" font-size="10" fill="currentColor" text-anchor="middle">180</text></svg>',
+      alt: 'Grafik fungsi trigonometri dengan nilai maksimum 5 pada x sama dengan 0 derajat, nilai minimum 1 pada 90 derajat, dan kembali ke 5 pada 180 derajat.',
+      caption: 'Grafik fungsi yang dimaksud pada soal.',
+    },
+    options: [
+      { key: 'A', text: '$y = 2\\cos(2x) + 3$' },
+      { key: 'B', text: '$y = 2\\cos(x) + 3$' },
+      { key: 'C', text: '$y = 2\\sin(2x) + 3$' },
+      { key: 'D', text: '$y = 3\\cos(2x) + 2$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Nilai maksimum grafik $5$ dan minimum $1$, sehingga amplitudo $=\\dfrac{5-1}{2}=2$ dan nilai tengah $=\\dfrac{5+1}{2}=3$. Grafik bernilai maksimum pada $x=0$, jadi memakai bentuk kosinus, bukan sinus. Satu gelombang penuh selesai dalam $180^\\circ$, sehingga $B=\\dfrac{360^\\circ}{180^\\circ}=2$. Jadi rumusnya $y = 2\\cos(2x) + 3$ (A). Opsi B memberi periode $360^\\circ$ sehingga gelombangnya terlalu lebar. Opsi C memakai sinus sehingga bernilai $0$ pada $x=0$, tidak sesuai gambar yang mulai dari puncak. Opsi D menukar amplitudo dan nilai tengah sehingga minimumnya menjadi $-1$, bukan $1$ seperti pada gambar.',
+    hints: [
+      'Amplitudo adalah setengah selisih nilai maksimum dan minimum; nilai tengah adalah setengah jumlah keduanya.',
+      'Perhatikan nilai pada $x=0$ dan panjang satu gelombang penuh untuk menentukan bentuk kosinus atau sinus serta koefisien $x$.',
+    ],
+    competencies: ['grafik fungsi trigonometri', 'amplitudo dan periode', 'membaca grafik'],
+  },
 ];

@@ -364,4 +364,27 @@ export const peluangQuestions: Question[] = [
     ],
     competencies: ['diagram Venn', 'peluang komplemen', 'kontekstual'],
   },
+  {
+    id: 'pl-17',
+    topicId: 'peluang',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'penalaran',
+    prompt:
+      'Sebuah kotak berisi $4$ bola merah dan $6$ bola putih. Dua bola diambil satu per satu tanpa pengembalian. Peluang terambil paling sedikit satu bola merah adalah …',
+    options: [
+      { key: 'A', text: '$\\dfrac{1}{3}$' },
+      { key: 'B', text: '$\\dfrac{2}{3}$' },
+      { key: 'C', text: '$\\dfrac{8}{15}$' },
+      { key: 'D', text: '$\\dfrac{2}{15}$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Lebih mudah memakai komplemen. Peluang kedua bola putih adalah $\\dfrac{6}{10}\\cdot\\dfrac{5}{9}=\\dfrac{30}{90}=\\dfrac{1}{3}$, sehingga peluang paling sedikit satu merah $=1-\\dfrac{1}{3}=\\dfrac{2}{3}$ (B). Opsi A ($\\dfrac{1}{3}$) adalah peluang kedua bola putih, yaitu komplemen dari kejadian yang justru dicari. Opsi C ($\\dfrac{8}{15}$) adalah peluang tepat satu bola merah, $\\dfrac{4}{10}\\cdot\\dfrac{6}{9}+\\dfrac{6}{10}\\cdot\\dfrac{4}{9}=\\dfrac{8}{15}$. Opsi D ($\\dfrac{2}{15}$) adalah peluang kedua bola merah, $\\dfrac{4}{10}\\cdot\\dfrac{3}{9}=\\dfrac{2}{15}$.',
+    hints: [
+      'Hitung peluang komplemen, yaitu kedua bola putih, lalu kurangkan dari $1$.',
+      'Karena tanpa pengembalian, pengambilan kedua memakai total $9$ bola dan sisa $5$ bola putih.',
+    ],
+    competencies: ['aturan komplemen', 'peluang bersyarat', 'penalaran'],
+  },
 ];
