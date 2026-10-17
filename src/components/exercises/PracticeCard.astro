@@ -4,6 +4,7 @@ import { GRADES, SUBJECTS } from '@/data/curriculum';
 import { url } from '@/utils/url';
 import { renderInlineMarkdown } from '@/utils/markdown';
 import { normalizeText } from '@/lib/filter';
+import { DIFFICULTY_LABELS, DIFFICULTY_ORDER } from '@/lib/difficulty';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 
 interface Props {
@@ -26,17 +27,10 @@ const { title, summary, grade, element, slug, subject = 'matematika', counts, qu
 
 const searchText = normalizeText([title, summary ?? '', ...(keywords ?? [])].join(' '));
 
-const LEVEL_ORDER: Difficulty[] = ['dasar', 'cakap', 'mahir'];
-const LEVEL_LABEL: Record<Difficulty, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
-
 const gradeMeta = GRADES[grade];
 const href = url(`/latihan/${slug}`);
 const total = questionIds.length;
-const levels = LEVEL_ORDER.filter((level) => counts[level] > 0);
+const levels = DIFFICULTY_ORDER.filter((level) => counts[level] > 0);
 const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
 ---
 
@@ -68,7 +62,7 @@ const summaryHtml = summary ? renderInlineMarkdown(summary) : '';
       {
         levels.map((level) => (
           <span class:list={['badge', `badge-${level}`]}>
-            {counts[level]} {LEVEL_LABEL[level]}
+            {counts[level]} {DIFFICULTY_LABELS[level]}
           </span>
         ))
       }

@@ -65,6 +65,49 @@ export function initWhenVisible(
   list.forEach((node) => observer.observe(node));
 }
 
+/**
+ * `querySelector` berbertipe pada sebuah akar. Mengembalikan `null` bila tidak
+ * ada, sehingga pemanggil tidak perlu menulis `as HTMLInputElement` mentah.
+ */
+export function query<T extends Element = Element>(
+  root: ParentNode,
+  selector: string,
+): T | null {
+  return root.querySelector<T>(selector);
+}
+
+/**
+ * Seperti `query`, tetapi melempar bila elemen tidak ditemukan. Dipakai saat
+ * kontrak markup (mis. kontrol simulasi) wajib ada, sehingga kegagalan muncul
+ * sebagai galat jelas alih-alih `null` yang menjalar.
+ */
+export function requireEl<T extends Element = Element>(
+  root: ParentNode,
+  selector: string,
+): T {
+  const node = root.querySelector<T>(selector);
+  if (!node) throw new Error(`Elemen wajib tidak ditemukan: ${selector}`);
+  return node;
+}
+
+/**
+ * Membaca larik JSON dari elemen `<script type="application/json">` lalu
+ * menyaring setiap item dengan `isItem`. Aman terhadap JSON rusak dan isi
+ * bukan-larik, sehingga pembacaan data tersemat tidak perlu menyalin guard.
+ */
+export function readJsonArray<T>(
+  el: Element | null,
+  isItem: (value: unknown) => value is T,
+): T[] {
+  if (!el) return [];
+  try {
+    const parsed: unknown = JSON.parse(el.textContent ?? '[]');
+    return Array.isArray(parsed) ? parsed.filter(isItem) : [];
+  } catch {
+    return [];
+  }
+}
+
 /** Menjepit `value` ke rentang `[lo, hi]`. */
 export function clamp(value: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, value));

@@ -2,6 +2,7 @@
 import type { Block, Difficulty, Section, SectionKind } from '@/types/content';
 import { renderMarkdown, renderInlineMarkdown } from '@/utils/markdown';
 import { sectionTitle } from '@/lib/content-text';
+import { DIFFICULTY_LABELS } from '@/lib/difficulty';
 import { url } from '@/utils/url';
 import BlockRenderer from './BlockRenderer.astro';
 import PracticeSet from '@/components/exercises/PracticeSet.astro';
@@ -30,11 +31,6 @@ const practiceVariant: 'practice' | 'quick' = practiceLevelByKind[section.kind]
 const title = sectionTitle(section);
 const showFormulaLink = section.kind === 'rumus' || section.kind === 'generalisasi';
 const bodyHtml = section.body ? renderMarkdown(section.body) : '';
-const levelBadge: Record<string, string> = {
-  dasar: 'Dasar',
-  cakap: 'Cakap',
-  mahir: 'Mahir',
-};
 
 function blockList(blocks: Block[] | undefined) {
   return blocks ?? [];
@@ -57,7 +53,7 @@ function blockStorageId(blockIndex: number): string {
       <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
       <span class="section-title-text">{title}</span>
       <span class="section-check" aria-hidden="true"></span>
-      {section.level && <span class={`badge badge-${section.level}`}>{levelBadge[section.level]}</span>}
+      {section.level && <span class={`badge badge-${section.level}`}>{DIFFICULTY_LABELS[section.level]}</span>}
     </h2>
   </div>
 
@@ -68,6 +64,7 @@ function blockStorageId(blockIndex: number): string {
         level={practiceLevel ?? 'dasar'}
         questionIds={section.questionIds}
         variant={practiceVariant}
+        idPrefix={section.id}
       />
     )
   }

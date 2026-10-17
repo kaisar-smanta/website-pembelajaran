@@ -70,6 +70,18 @@ export const fungsiLogaritmaQuestions: Question[] = [
     type: 'short-answer',
     category: 'cepat',
     prompt: 'Hitunglah $\\log_{2}64$.',
+    table: {
+      caption: 'Beberapa pangkat dari $2$.',
+      headers: ['n', '2^{n}'],
+      rows: [
+        ['1', '2'],
+        ['2', '4'],
+        ['3', '8'],
+        ['4', '16'],
+        ['5', '32'],
+      ],
+      math: true,
+    },
     answer: '6',
     explanation: 'Karena $2^{6}=64$, maka $\\log_{2}64=6$.',
     hints: [

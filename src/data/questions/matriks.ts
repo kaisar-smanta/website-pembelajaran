@@ -325,6 +325,14 @@ export const matriksQuestions: Question[] = [
     category: 'kontekstual',
     prompt:
       'Dalam sebuah turnamen, dua tim mengikuti tiga babak. Poin tiap tim dicatat pada matriks $R = \\begin{pmatrix} 4 & 2 & 3 \\\\ 1 & 5 & 2 \\end{pmatrix}$ (baris menyatakan tim, kolom menyatakan babak). Bobot tiap babak dinyatakan vektor kolom $W = \\begin{pmatrix} 2 \\\\ 3 \\\\ 1 \\end{pmatrix}$. Total skor tiap tim adalah $RW$. Hasilnya adalah …',
+    table: {
+      caption: 'Poin tiap tim pada tiga babak.',
+      headers: ['Tim', 'Babak 1', 'Babak 2', 'Babak 3'],
+      rows: [
+        ['Tim 1', '4', '2', '3'],
+        ['Tim 2', '1', '5', '2'],
+      ],
+    },
     options: [
       { key: 'A', text: '$\\begin{pmatrix} 17 \\\\ 19 \\end{pmatrix}$' },
       { key: 'B', text: '$\\begin{pmatrix} 19 \\\\ 17 \\end{pmatrix}$' },
@@ -372,6 +380,11 @@ export const matriksQuestions: Question[] = [
     category: 'kontekstual',
     prompt:
       'Jumlah rute langsung antarkota dicatat pada matriks $M=\\begin{pmatrix} 2 & 1 \\\\ 3 & 2 \\end{pmatrix}$, dengan baris menyatakan kota asal dan kolom menyatakan kota tujuan. Entri baris pertama kolom pertama dari $M^{2}$ menyatakan banyak rute yang berpindah dua kali (melalui satu kota perantara) dari kota 1 kembali ke kota 1. Nilai entri tersebut adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" role="img" aria-hidden="true"><circle cx="90" cy="110" r="20" fill="currentColor" opacity="0.1" stroke="currentColor" stroke-width="1.4"/><circle cx="230" cy="110" r="20" fill="currentColor" opacity="0.1" stroke="currentColor" stroke-width="1.4"/><text x="86" y="115" font-size="12" fill="currentColor">1</text><text x="226" y="115" font-size="12" fill="currentColor">2</text><line x1="110" y1="110" x2="208" y2="110" stroke="currentColor" stroke-width="1.3"/><polygon points="212,110 200,105 200,115" fill="currentColor"/><line x1="210" y1="130" x2="112" y2="130" stroke="currentColor" stroke-width="1.3"/><polygon points="108,130 120,125 120,135" fill="currentColor"/><path d="M78 92 A16 16 0 1 1 102 92" fill="none" stroke="currentColor" stroke-width="1.3"/><polygon points="102,92 94,88 96,99" fill="currentColor"/><path d="M218 92 A16 16 0 1 1 242 92" fill="none" stroke="currentColor" stroke-width="1.3"/><polygon points="242,92 234,88 236,99" fill="currentColor"/><text x="158" y="102" font-size="11" fill="currentColor">1</text><text x="158" y="146" font-size="11" fill="currentColor">3</text><text x="60" y="82" font-size="11" fill="currentColor">2</text><text x="246" y="82" font-size="11" fill="currentColor">2</text></svg>',
+      alt: 'Graf berarah dua kota. Kota 1 memiliki dua rute kembali ke dirinya sendiri dan satu rute ke kota 2. Kota 2 memiliki tiga rute ke kota 1 dan dua rute kembali ke dirinya sendiri.',
+      caption: 'Rute langsung antarkota; angka pada panah menyatakan banyak rute.',
+    },
     options: [
       { key: 'A', text: '$5$' },
       { key: 'B', text: '$7$' },

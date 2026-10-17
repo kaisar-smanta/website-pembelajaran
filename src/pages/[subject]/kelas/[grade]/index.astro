@@ -4,6 +4,7 @@ import PageHeader from '@/components/content/PageHeader.astro';
 import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import ContinueLearning from '@/components/progress/ContinueLearning.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import {
   ELEMENTS,
   GRADES,
@@ -58,6 +59,22 @@ const practiceTopicIds = new Set(topicIdsWithQuestions());
 const hasPractice = elementData.some((entry) =>
   entry.complete.some((t) => practiceTopicIds.has(t.id)),
 );
+
+type CtaAction = { label: string; href: string; variant?: 'primary' | 'secondary' };
+const nextActions: CtaAction[] = hasPractice
+  ? [
+      { label: 'Latihan kelas ini', href: url(`/latihan?kelas=${grade}`), variant: 'primary' },
+      { label: 'Semua latihan', href: url('/latihan'), variant: 'secondary' },
+      { label: 'Peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'secondary' },
+      { label: 'Kemajuan belajar', href: url('/kemajuan'), variant: 'secondary' },
+      { label: 'Tinjauan berkala', href: url('/review'), variant: 'secondary' },
+    ]
+  : [
+      { label: 'Latihan soal', href: url('/latihan'), variant: 'primary' },
+      { label: 'Peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'secondary' },
+      { label: 'Kemajuan belajar', href: url('/kemajuan'), variant: 'secondary' },
+      { label: 'Tinjauan berkala', href: url('/review'), variant: 'secondary' },
+    ];
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -142,37 +159,13 @@ const crumbs = [
     </div>
 
     <section class="next-step reveal no-print" aria-labelledby="langkah-berikutnya">
-      <div class="card next-step-inner">
-        <div>
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2 id="langkah-berikutnya">Uji pemahaman {gradeMeta.name}</h2>
-          <p class="text-muted">
-            Kerjakan latihan berjenjang atau lihat kembali peta pembelajaran untuk merencanakan
-            urutan belajarmu.
-          </p>
-        </div>
-        <div class="next-step-actions">
-          {
-            hasPractice ? (
-              <>
-                <a class="btn btn-primary" href={url(`/latihan?kelas=${grade}`)}>
-                  Latihan kelas ini
-                </a>
-                <a class="btn btn-secondary" href={url('/latihan')}>
-                  Semua latihan
-                </a>
-              </>
-            ) : (
-              <a class="btn btn-primary" href={url('/latihan')}>
-                Latihan soal
-              </a>
-            )
-          }
-          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
-          <a class="btn btn-secondary" href={url('/kemajuan')}>Kemajuan belajar</a>
-          <a class="btn btn-secondary" href={url('/review')}>Tinjauan berkala</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title={`Uji pemahaman ${gradeMeta.name}`}
+        titleId="langkah-berikutnya"
+        text="Kerjakan latihan berjenjang atau lihat kembali peta pembelajaran untuk merencanakan urutan belajarmu."
+        actions={nextActions}
+      />
     </section>
   </div>
 </BaseLayout>
@@ -212,29 +205,5 @@ const crumbs = [
   }
   .next-step {
     margin-bottom: 3rem;
-  }
-  .next-step-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-    padding: clamp(1.25rem, 4vw, 2rem);
-    border-top: 3px solid var(--color-primary);
-  }
-  .next-step-inner h2 {
-    margin-bottom: 0.25rem;
-  }
-  .next-step-inner p {
-    margin: 0;
-    max-width: 46ch;
-  }
-  .next-step .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .next-step-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 </style>

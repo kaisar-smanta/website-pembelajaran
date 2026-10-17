@@ -126,6 +126,15 @@ export const spltvQuestions: Question[] = [
     category: 'kontekstual',
     prompt:
       'Harga $2$ buku, $1$ pena, dan $1$ pensil adalah Rp13.000. Harga $1$ buku, $2$ pena, dan $1$ pensil Rp17.000. Harga $1$ buku, $1$ pena, dan $2$ pensil Rp12.000. Tentukan harga satu buku dalam rupiah.',
+    table: {
+      caption: 'Data harga tiga paket alat tulis.',
+      headers: ['Paket', 'Buku', 'Pena', 'Pensil', 'Total'],
+      rows: [
+        ['1', '2', '1', '1', 'Rp13.000'],
+        ['2', '1', '2', '1', 'Rp17.000'],
+        ['3', '1', '1', '2', 'Rp12.000'],
+      ],
+    },
     answer: '2500',
     acceptedAnswers: ['2500', '2.500', '2.500,00', '2500,00', 'Rp2.500', 'Rp2.500,00'],
     explanation:

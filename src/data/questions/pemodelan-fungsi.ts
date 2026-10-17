@@ -32,6 +32,12 @@ export const pemodelanFungsiQuestions: Question[] = [
     category: 'konsep',
     prompt:
       'Perhatikan data $x=0,1,2,3$ dengan $y=4,7,10,13$. Jenis fungsi yang paling tepat untuk memodelkan data ini adalah …',
+    table: {
+      caption: 'Data pasangan $x$ dan $y$.',
+      headers: ['x', '0', '1', '2', '3'],
+      rows: [['y', '4', '7', '10', '13']],
+      math: true,
+    },
     options: [
       { key: 'A', text: 'Linear' },
       { key: 'B', text: 'Kuadrat' },

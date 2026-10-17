@@ -21,6 +21,7 @@ const { title = 'Kemajuan halaman' } = Astro.props;
   >
     <span class="tp-bar" data-tp-bar style="width: 0%"></span>
   </div>
+  <p class="tp-mastery" data-tp-mastery aria-live="polite" hidden></p>
   <p class="tp-note" data-tp-note aria-live="polite">
     Jawab tebak-dugaan, refleksi, latihan, dan selesaikan aktivitas interaktif untuk menaikkan kemajuanmu.
   </p>
@@ -70,17 +71,30 @@ const { title = 'Kemajuan halaman' } = Astro.props;
     font-size: 0.84rem;
     color: var(--color-text-muted);
   }
+  .tp-mastery {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+  }
+  .tp-mastery[hidden] {
+    display: none;
+  }
 </style>
 
 <script>
-  import { loadProgress } from '@/lib/progress';
+  import { loadProgress, REVIEW_MAX_BOX } from '@/lib/progress';
   import { loadCompletions, loadPredictions, loadReflections } from '@/lib/learner';
+  import { topicMasterySignal } from '@/lib/topic-mastery';
   import { celebrate } from '@/lib/celebrate';
 
   function setupTopicProgress(root: Element) {
     const countEl = root.querySelector<HTMLElement>('[data-tp-count]');
     const barEl = root.querySelector<HTMLElement>('[data-tp-bar]');
     const trackEl = root.querySelector<HTMLElement>('[data-tp-track]');
+    const masteryEl = root.querySelector<HTMLElement>('[data-tp-mastery]');
     const noteEl = root.querySelector<HTMLElement>('[data-tp-note]');
 
     let storage: Storage | undefined;
@@ -124,6 +138,13 @@ const { title = 'Kemajuan halaman' } = Astro.props;
         if (id && completions[id]) done += 1;
       }
 
+      const questionIds: string[] = [];
+      for (const el of questions) {
+        const id = el.getAttribute('data-question-id');
+        if (id) questionIds.push(id);
+      }
+      const mastery = topicMasterySignal(progress, questionIds);
+
       const pct = total ? Math.round((done / total) * 100) : 0;
       if (!celebrated && lastPct !== null && pct >= 100 && lastPct < 100) {
         celebrated = true;
@@ -146,6 +167,22 @@ const { title = 'Kemajuan halaman' } = Astro.props;
         if (total === 0) noteEl.textContent = 'Belum ada aktivitas interaktif di halaman ini.';
         else if (done === total) noteEl.textContent = 'Semua aktivitas halaman ini sudah kamu selesaikan.';
         else noteEl.textContent = `Tersisa ${total - done} aktivitas lagi di halaman ini.`;
+      }
+      if (masteryEl) {
+        const parts: string[] = [];
+        if (mastery.answered > 0 && mastery.gradedAnswered > 0) {
+          parts.push(`Ketepatan ${Math.round(mastery.accuracy * 100)}%`);
+        }
+        if (mastery.answered > 0 && mastery.maxBox > 0) {
+          parts.push(`Kotak ulangan ${mastery.maxBox}/${REVIEW_MAX_BOX}`);
+        }
+        if (parts.length > 0) {
+          masteryEl.textContent = parts.join(' · ');
+          masteryEl.hidden = false;
+        } else {
+          masteryEl.textContent = '';
+          masteryEl.hidden = true;
+        }
       }
     }
 

@@ -9,12 +9,7 @@ import {
   normalizeText,
 } from '../src/lib/filter.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 check('toggleSet menambah dan menghapus tanpa memutasi set asal', () => {
   const base = new Set(['a']);
@@ -99,4 +94,4 @@ check('normalizeText membantu pemetaan kata kunci', () => {
   assert.ok(!haystack.includes(normalizeText('peluang')));
 });
 
-console.log(`PASS filter (${passed} pemeriksaan)`);
+console.log(`PASS filter (${checks.count} pemeriksaan)`);

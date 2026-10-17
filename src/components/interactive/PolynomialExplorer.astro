@@ -2,21 +2,17 @@
 import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
+import { paramValue } from '@/lib/sim/plot';
 
 interface Props {
   exploration: Exploration;
 }
 const { exploration } = Astro.props;
 
-const paramValue = (name: string, fallback: number): number => {
-  const found = exploration.params?.find((p) => p.name === name);
-  return found && Number.isFinite(found.value) ? found.value : fallback;
-};
-
-const a0 = paramValue('a', 1);
-const b0 = paramValue('b', -6);
-const c0 = paramValue('c', 11);
-const d0 = paramValue('d', -6);
+const a0 = paramValue(exploration.params, 'a', 1);
+const b0 = paramValue(exploration.params, 'b', -6);
+const c0 = paramValue(exploration.params, 'c', 11);
+const d0 = paramValue(exploration.params, 'd', -6);
 const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c0}, d = ${d0}`;
 ---
 
@@ -93,6 +89,7 @@ const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c
   import { evalCubic, criticalPoints, findRoots, cubicDomain, describeCubic } from '../../lib/sim/polynomial';
   import type { Cubic } from '../../lib/sim/polynomial';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid, drawAxes } from '../../lib/sim/plot';
 
   function setupPolynomial(root: Element) {
     const names = ['a', 'b', 'c', 'd'] as const;
@@ -122,18 +119,8 @@ const initialAria = `Grafik polinomial f(x) dengan a = ${a0}, b = ${b0}, c = ${c
       const { xMin, xMax, yMin, yMax } = cubicDomain();
       const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
       clear(svg);
-      const gridColor = 'var(--color-border)';
-      const axisColor = 'var(--color-text-soft)';
-      for (let i = 0; i <= 8; i++) {
-        const x = pad + (i / 8) * (W - 2 * pad);
-        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: gridColor, 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 6; i++) {
-        const y = pad + (i / 6) * (H - 2 * pad);
-        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: gridColor, 'stroke-width': 1 }));
-      }
-      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: axisColor, 'stroke-width': 1.6 }));
-      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: axisColor, 'stroke-width': 1.6 }));
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
+      drawAxes(svg, { sx, sy }, { width: W, height: H, pad });
 
       const points: Array<[number, number] | null> = [];
       for (let i = 0; i <= W; i++) {

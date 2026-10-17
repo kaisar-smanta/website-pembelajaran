@@ -312,4 +312,47 @@ export const variabelAcakDiskretQuestions: Question[] = [
     ],
     competencies: ['nilai harapan', 'kontekstual', 'interpretasi'],
   },
+  {
+    id: 'vad-17',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penalaran',
+    prompt:
+      'Tiga koin dilempar dan $X$ menyatakan banyak gambar yang muncul. Tentukan varians $X$ (tuliskan sebagai pecahan paling sederhana).',
+    answer: '3/4',
+    acceptedAnswers: ['3/4', '0,75', '0.75'],
+    explanation:
+      'Distribusinya $P(X=0)=P(X=3)=\\tfrac18$ dan $P(X=1)=P(X=2)=\\tfrac38$, sehingga $E(X)=\\tfrac{12}{8}=1{,}5$ dan $E(X^{2})=\\tfrac{0(1)+1(3)+4(3)+9(1)}{8}=\\tfrac{24}{8}=3$. Maka $\\operatorname{Var}(X)=3-(1{,}5)^{2}=3-2{,}25=0{,}75=\\dfrac34$.',
+    hints: [
+      'Susun dahulu distribusi $X$ dari $2^{3}=8$ hasil sama mungkin.',
+      'Gunakan $\\operatorname{Var}(X)=E(X^{2})-(E(X))^{2}$.',
+    ],
+    competencies: ['varians variabel acak', 'penalaran'],
+  },
+  {
+    id: 'vad-18',
+    topicId: 'variabel-acak-diskret',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'pemodelan',
+    prompt:
+      'Sebuah kotak berisi empat bola bernomor $1, 2, 3, 4$. Dua bola diambil sekaligus dan $X$ menyatakan jumlah kedua nomor. (a) Susun distribusi peluang $X$. (b) Hitung $E(X)$. (c) Periksa bahwa jumlah seluruh peluang sama dengan $1$.',
+    answer:
+      'Ada $\\binom{4}{2}=6$ pasangan sama mungkin dengan jumlah $1+2=3$, $1+3=4$, $1+4=5$, $2+3=5$, $2+4=6$, dan $3+4=7$. Jadi $P(X=3)=P(X=4)=P(X=6)=P(X=7)=\\dfrac16$ dan $P(X=5)=\\dfrac26$. Jumlah peluang $=\\dfrac{1+1+2+1+1}{6}=1$ (sah), dan $E(X)=\\dfrac{3+4+5+5+6+7}{6}=\\dfrac{30}{6}=5$.',
+    explanation:
+      'Kunci: mencacah $6$ pasangan sama mungkin, mengelompokkan jumlah yang sama (khususnya $5$ muncul dari dua pasangan), memeriksa jumlah peluang, lalu menghitung nilai harapan.',
+    hints: [
+      'Cacah seluruh pasangan dari $4$ bola, yaitu $\\binom{4}{2}=6$ pasangan.',
+      'Jumlah $5$ muncul dari dua pasangan berbeda, sehingga peluangnya $\\dfrac{2}{6}$.',
+      'Periksa bahwa jumlah seluruh peluang sama dengan $1$ sebelum menghitung $E(X)$.',
+    ],
+    competencies: ['distribusi peluang', 'nilai harapan', 'pemodelan'],
+    rubric: [
+      'Mencacah $\\binom{4}{2}=6$ pasangan sama mungkin',
+      'Menuliskan distribusi $X$ lengkap dengan $P(X=5)=\\dfrac{2}{6}$',
+      'Memeriksa jumlah seluruh peluang sama dengan $1$',
+      'Menghitung $E(X)=5$',
+    ],
+  },
 ];

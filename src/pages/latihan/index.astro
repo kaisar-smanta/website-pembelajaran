@@ -484,8 +484,15 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
 
 <script>
   import { loadProgress, summarize, type ProgressMap } from '@/lib/progress';
-  import { matchesAny, normalizeText } from '@/lib/filter';
+  import { matchesAny } from '@/lib/filter';
   import { setupFilterPage, collapseFiltersOnMobile } from '@/lib/filter-dom';
+  import {
+    dataMatches,
+    hideEmptyAncestors,
+    resultStatus,
+    selectedSet,
+    type MatchField,
+  } from '@/lib/list-filter';
 
   const root = document.querySelector<HTMLElement>('[data-latihan-root]');
 
@@ -538,9 +545,6 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
       updateProgress();
     }
 
-    const selected = (value: string | undefined): Set<string> =>
-      value ? new Set([value]) : new Set();
-
     /** Menentukan status kemajuan sebuah kartu: belum, sedang, atau selesai. */
     function statusOf(card: HTMLElement): 'belum' | 'sedang' | 'selesai' {
       const { answered, total } = summarize(progress, questionIdsOf(card));
@@ -549,48 +553,51 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 70}ms`;
       return 'sedang';
     }
 
+    const matchFields: MatchField[] = [
+      { key: 'mapel', attr: 'data-mapel' },
+      { key: 'kelas', attr: 'data-kelas' },
+      { key: 'elemen', attr: 'data-elemen' },
+      { key: 'tingkat', attr: 'data-levels', multi: true },
+    ];
+
     function matches(card: HTMLElement, values: Record<string, string>, query: string): boolean {
-      if (!matchesAny(selected(values.mapel), [card.getAttribute('data-mapel') ?? ''])) return false;
-      if (!matchesAny(selected(values.kelas), [card.getAttribute('data-kelas') ?? ''])) return false;
-      if (!matchesAny(selected(values.elemen), [card.getAttribute('data-elemen') ?? ''])) return false;
-      const levels = (card.getAttribute('data-levels') ?? '').split(/\s+/).filter(Boolean);
-      if (!matchesAny(selected(values.tingkat), levels)) return false;
-      if (!matchesAny(selected(values.kemajuan), [statusOf(card)])) return false;
+      if (
+        !dataMatches(card, matchFields, values, query, {
+          allValue: '',
+          searchAttr: 'data-search',
+        })
+      ) {
+        return false;
+      }
+      if (!matchesAny(selectedSet(values.kemajuan), [statusOf(card)])) return false;
       if (values.pengayaan === 'ya' && card.getAttribute('data-pengayaan') !== 'true') return false;
-      if (query && !(card.getAttribute('data-search') ?? '').includes(query)) return false;
       return true;
     }
 
     function apply(values: Record<string, string>, rawQuery = ''): void {
-      const query = normalizeText(rawQuery);
       let visible = 0;
       for (const card of cards) {
-        const show = matches(card, values, query);
+        const show = matches(card, values, rawQuery);
         card.hidden = !show;
         if (show) visible += 1;
       }
 
-      for (const group of groupEls) {
-        group.hidden = group.querySelector<HTMLElement>('[data-practice-card]:not([hidden])') === null;
-      }
-      for (const grade of gradeEls) {
-        grade.hidden = grade.querySelector<HTMLElement>('[data-practice-group]:not([hidden])') === null;
-      }
-      for (const subject of subjectEls) {
-        subject.hidden = subject.querySelector<HTMLElement>('[data-grade-group]:not([hidden])') === null;
-      }
+      hideEmptyAncestors([
+        { groups: groupEls, childSelector: '[data-practice-card]' },
+        { groups: gradeEls, childSelector: '[data-practice-group]' },
+        { groups: subjectEls, childSelector: '[data-grade-group]' },
+      ]);
 
       if (emptyEl) emptyEl.hidden = visible !== 0;
       if (countEl) {
-        const q = rawQuery.trim();
-        countEl.textContent =
-          visible === 0
-            ? q
-              ? `Tidak ada topik latihan yang cocok dengan "${q}".`
-              : 'Tidak ada latihan yang cocok dengan filter ini.'
-            : q
-              ? `Menampilkan ${visible} topik latihan untuk "${q}".`
-              : `Menampilkan ${visible} dari ${cards.length} topik latihan.`;
+        countEl.textContent = resultStatus(visible, {
+          noun: 'topik latihan',
+          query: rawQuery,
+          total: cards.length,
+          empty: true,
+          emptyNoun: 'latihan',
+          filterNoun: 'filter ini',
+        });
       }
     }
 

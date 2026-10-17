@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/content/PageHeader.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { site } from '@/data/site';
 import {
   ELEMENTS,
@@ -61,9 +62,11 @@ const practiceTopicIds = new Set(topicIdsWithQuestions());
 const hasPractice = topicsBySubjectElement(subject, element).some((t) =>
   practiceTopicIds.has(t.id),
 );
+// Judul halaman elemen sama antar mata pelajaran; bedakan yang tingkat lanjut.
+const subjectTag = subject === 'matematika-lanjut' ? ' · Matematika Tingkat Lanjut' : '';
 ---
 
-<BaseLayout title={`Elemen ${meta.name}`} description={meta.description}>
+<BaseLayout title={`Elemen ${meta.name}${subjectTag}`} description={meta.description}>
   <PageHeader
     title={meta.name}
     eyebrow="Elemen"
@@ -119,23 +122,17 @@ const hasPractice = topicsBySubjectElement(subject, element).some((t) =>
     {
       hasPractice && (
         <section class="section practice-cta no-print" aria-labelledby="latihan-elemen">
-          <div class="card practice-cta-inner">
-            <div>
-              <p class="eyebrow-badge">Latihan</p>
-              <h2 id="latihan-elemen">Latihan semua topik elemen ini</h2>
-              <p class="text-muted">
-                Uji pemahamanmu pada seluruh topik {meta.name} dengan soal berjenjang dasar, cakap,
-                dan mahir.
-              </p>
-            </div>
-            <div class="practice-cta-actions">
-              <a class="btn btn-primary" href={url(`/latihan?elemen=${element}`)}>
-                Mulai latihan
-              </a>
-              <a class="btn btn-secondary" href={url('/kemajuan')}>Kemajuan belajar</a>
-              <a class="btn btn-secondary" href={url('/review')}>Tinjauan berkala</a>
-            </div>
-          </div>
+          <CtaCard
+            eyebrow="Latihan"
+            title="Latihan semua topik elemen ini"
+            titleId="latihan-elemen"
+            text={`Uji pemahamanmu pada seluruh topik ${meta.name} dengan soal berjenjang dasar, cakap, dan mahir.`}
+            actions={[
+              { label: 'Mulai latihan', href: url(`/latihan?elemen=${element}`), variant: 'primary' },
+              { label: 'Kemajuan belajar', href: url('/kemajuan'), variant: 'secondary' },
+              { label: 'Tinjauan berkala', href: url('/review'), variant: 'secondary' },
+            ]}
+          />
         </section>
       )
     }
@@ -168,29 +165,5 @@ const hasPractice = topicsBySubjectElement(subject, element).some((t) =>
   }
   .practice-cta {
     padding-bottom: 3rem;
-  }
-  .practice-cta-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-    padding: clamp(1.25rem, 4vw, 2rem);
-    border-top: 3px solid var(--color-primary);
-  }
-  .practice-cta-inner h2 {
-    margin-bottom: 0.25rem;
-  }
-  .practice-cta-inner p {
-    margin: 0;
-    max-width: 46ch;
-  }
-  .practice-cta-inner .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .practice-cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 </style>

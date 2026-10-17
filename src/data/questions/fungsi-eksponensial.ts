@@ -52,6 +52,11 @@ export const fungsiEksponensialQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'konsep',
     prompt: 'Manakah pernyataan yang benar tentang sifat grafik fungsi eksponensial berikut?',
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" role="img" aria-hidden="true"><line x1="30" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="1.3"/><line x1="160" y1="170" x2="160" y2="20" stroke="currentColor" stroke-width="1.3"/><path d="M40 138 L80 132 L120 123 L160 110 L200 90 L240 60 L280 15" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M80 39 L120 83 L160 110 L200 126 L240 136 L280 141" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/><circle cx="160" cy="110" r="2.4" fill="currentColor"/><text x="150" y="164" font-size="10" fill="currentColor">0</text><text x="292" y="164" font-size="10" fill="currentColor">x</text><text x="166" y="26" font-size="10" fill="currentColor">y</text><text x="232" y="44" font-size="10" fill="currentColor">1,5^x</text><text x="66" y="32" font-size="10" fill="currentColor">0,6^x</text></svg>',
+      alt: 'Dua kurva pada bidang koordinat. Kurva y sama dengan 1,5 pangkat x naik dari kiri bawah ke kanan atas, sedangkan kurva y sama dengan 0,6 pangkat x turun dari kiri atas ke kanan bawah. Keduanya berpotongan di titik (0, 1).',
+      caption: 'Grafik $y=0{,}6^{x}$ (garis putus-putus) dan $y=1{,}5^{x}$.',
+    },
     options: [
       { key: 'A', text: '$f(x)=0{,}6^{x}$ adalah pertumbuhan dan $g(x)=1{,}5^{x}$ adalah peluruhan.' },
       { key: 'B', text: '$f(x)=0{,}6^{x}$ dan $g(x)=1{,}5^{x}$ keduanya peluruhan.' },

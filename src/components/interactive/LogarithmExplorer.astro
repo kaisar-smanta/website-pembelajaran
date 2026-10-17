@@ -107,6 +107,7 @@ const { exploration } = Astro.props;
     describeLogarithm,
   } from '../../lib/sim/logarithm';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid, drawAxes } from '../../lib/sim/plot';
   import { formatPlain } from '../../lib/format';
 
   function setupLogarithm(root: Element) {
@@ -144,24 +145,12 @@ const { exploration } = Astro.props;
       return polyline(points);
     }
 
-    function drawGrid() {
-      for (let i = 0; i <= 8; i++) {
-        const x = pad + (i / 8) * (W - 2 * pad);
-        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 6; i++) {
-        const y = pad + (i / 6) * (H - 2 * pad);
-        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
-      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
-      // Garis y = x sebagai sumbu pencerminan.
-      svg.appendChild(el('line', { x1: sx(X_MIN), y1: sy(X_MIN), x2: sx(X_MAX), y2: sy(X_MAX), stroke: 'var(--color-text-soft)', 'stroke-width': 1.2, 'stroke-dasharray': '5 4' }));
-    }
-
     function draw(base: number) {
       clear(svg);
-      drawGrid();
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
+      drawAxes(svg, { sx, sy }, { width: W, height: H, pad });
+      // Garis y = x sebagai sumbu pencerminan.
+      svg.appendChild(el('line', { x1: sx(X_MIN), y1: sy(X_MIN), x2: sx(X_MAX), y2: sy(X_MAX), stroke: 'var(--color-text-soft)', 'stroke-width': 1.2, 'stroke-dasharray': '5 4' }));
 
       svg.appendChild(
         el('path', {

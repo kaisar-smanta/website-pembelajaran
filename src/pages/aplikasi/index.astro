@@ -288,8 +288,13 @@ const searchText = (application: (typeof applications)[number]) =>
 </BaseLayout>
 
 <script>
-  import { matchesAny, normalizeText } from '@/lib/filter';
   import { setupFilterPage, collapseFiltersOnMobile } from '@/lib/filter-dom';
+  import {
+    dataMatches,
+    hideEmptyAncestors,
+    resultStatus,
+    type MatchField,
+  } from '@/lib/list-filter';
 
   const chipGroups = Array.from(document.querySelectorAll<HTMLElement>('[data-app-chips]'));
   const items = Array.from(document.querySelectorAll<HTMLElement>('[data-app-item]'));
@@ -300,19 +305,22 @@ const searchText = (application: (typeof applications)[number]) =>
     const empty = document.querySelector<HTMLElement>('[data-app-empty]');
     const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-app-section]'));
 
-    const selected = (value: string | undefined): Set<string> =>
-      value && value !== 'all' ? new Set([value]) : new Set();
+    const matchFields: MatchField[] = [
+      { key: 'grade', attr: 'data-app-grade' },
+      { key: 'element', attr: 'data-app-element' },
+      { key: 'category', attr: 'data-app-category' },
+      { key: 'level', attr: 'data-app-level' },
+    ];
 
     const matches = (
       el: HTMLElement,
       values: Record<string, string>,
       query: string,
     ): boolean =>
-      matchesAny(selected(values.grade), [el.getAttribute('data-app-grade') ?? '']) &&
-      matchesAny(selected(values.element), [el.getAttribute('data-app-element') ?? '']) &&
-      matchesAny(selected(values.category), [el.getAttribute('data-app-category') ?? '']) &&
-      matchesAny(selected(values.level), [el.getAttribute('data-app-level') ?? '']) &&
-      (query === '' || normalizeText(el.getAttribute('data-app-search') ?? '').includes(query));
+      dataMatches(el, matchFields, values, query, {
+        allValue: 'all',
+        searchAttr: 'data-app-search',
+      });
 
     try {
       const page = setupFilterPage({
@@ -328,11 +336,10 @@ const searchText = (application: (typeof applications)[number]) =>
         queryKey: 'q',
         syncUrl: true,
         apply: (values, query) => {
-          const q = normalizeText(query);
           let count = 0;
 
           for (const item of items) {
-            const show = matches(item, values, q);
+            const show = matches(item, values, query);
             item.hidden = !show;
             if (show) {
               count += 1;
@@ -341,20 +348,15 @@ const searchText = (application: (typeof applications)[number]) =>
           }
 
           for (const section of sections) {
-            let any = false;
-            const sectionItems = section.querySelectorAll<HTMLElement>('[data-app-item]');
-            for (const item of sectionItems) {
-              if (!item.hidden) {
-                any = true;
-                break;
-              }
-            }
-            section.hidden = !any;
+            const any = Array.from(section.querySelectorAll<HTMLElement>('[data-app-item]')).some(
+              (el) => !el.hidden,
+            );
             if (any) section.querySelector('.reveal')?.classList.add('is-visible');
           }
+          hideEmptyAncestors([{ groups: sections, childSelector: '[data-app-item]' }]);
 
           if (empty) empty.hidden = count !== 0;
-          if (result) result.textContent = `Menampilkan ${count} studi kasus`;
+          if (result) result.textContent = resultStatus(count, { noun: 'studi kasus' });
         },
       });
 

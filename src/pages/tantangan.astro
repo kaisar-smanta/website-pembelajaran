@@ -591,8 +591,8 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 </style>
 
 <script>
-  import { matchesAny, normalizeText } from '@/lib/filter';
   import { setupFilterPage } from '@/lib/filter-dom';
+  import { dataMatches, hideEmptyAncestors, type MatchField } from '@/lib/list-filter';
 
   const root = document.querySelector<HTMLElement>('[data-tantangan-root]');
 
@@ -610,32 +610,28 @@ const revealStyle = (i: number) => `--reveal-delay:${Math.min(i, 6) * 60}ms`;
 
     let limit = PAGE_SIZE;
 
-    const selected = (value: string | undefined): Set<string> =>
-      value ? new Set([value]) : new Set();
+    const matchFields: MatchField[] = [
+      { key: 'mapel', attr: 'data-mapel' },
+      { key: 'kelas', attr: 'data-kelas' },
+      { key: 'elemen', attr: 'data-elemen' },
+    ];
 
     function matches(card: HTMLElement, values: Record<string, string>, query: string): boolean {
-      if (!matchesAny(selected(values.mapel), [card.getAttribute('data-mapel') ?? ''])) return false;
-      if (!matchesAny(selected(values.kelas), [card.getAttribute('data-kelas') ?? ''])) return false;
-      if (!matchesAny(selected(values.elemen), [card.getAttribute('data-elemen') ?? ''])) return false;
-      if (query && !(card.getAttribute('data-search') ?? '').includes(query)) return false;
-      return true;
+      return dataMatches(card, matchFields, values, query, { searchAttr: 'data-search' });
     }
 
     function render(values: Record<string, string>, rawQuery: string): void {
-      const query = normalizeText(rawQuery);
-      const matched = cards.filter((card) => matches(card, values, query));
+      const matched = cards.filter((card) => matches(card, values, rawQuery));
 
       for (let i = 0; i < matched.length; i++) {
         matched[i].hidden = i >= limit;
       }
       const shown = Math.min(matched.length, limit);
 
-      for (const grade of gradeEls) {
-        grade.hidden = grade.querySelector<HTMLElement>('[data-challenge-card]:not([hidden])') === null;
-      }
-      for (const subject of subjectEls) {
-        subject.hidden = subject.querySelector<HTMLElement>('[data-grade-group]:not([hidden])') === null;
-      }
+      hideEmptyAncestors([
+        { groups: gradeEls, childSelector: '[data-challenge-card]' },
+        { groups: subjectEls, childSelector: '[data-grade-group]' },
+      ]);
 
       if (emptyEl) emptyEl.hidden = matched.length !== 0;
       if (countEl) {

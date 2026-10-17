@@ -320,4 +320,45 @@ export const distribusiBinomialQuestions: Question[] = [
     ],
     competencies: ['peluang kumulatif binomial', 'evaluasi target', 'kontekstual'],
   },
+  {
+    id: 'bin-18',
+    topicId: 'distribusi-binomial',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Diketahui $X \\sim B\\!\\left(8, \\tfrac12\\right)$. Tentukan peluang $P(X=2)$ (tuliskan sebagai pecahan paling sederhana).',
+    answer: '7/64',
+    acceptedAnswers: ['7/64', '0,109375', '0.109375', '0,109', '0.109'],
+    explanation:
+      'Karena $n=8$, $p=\\tfrac12$, dan $k=2$: $P(X=2)=\\binom{8}{2}\\left(\\tfrac12\\right)^{2}\\left(\\tfrac12\\right)^{6}=28\\cdot\\dfrac{1}{256}=\\dfrac{28}{256}=\\dfrac{7}{64}\\approx0{,}1094$.',
+    hints: [
+      'Gunakan $P(X=k)=\\binom{n}{k}p^{k}(1-p)^{n-k}$ dengan $n=8$ dan $p=\\tfrac12$.',
+      'Hitung $\\binom{8}{2}=28$, lalu bagi dengan $2^{8}=256$ dan sederhanakan pecahannya.',
+    ],
+    competencies: ['rumus distribusi binomial'],
+  },
+  {
+    id: 'bin-19',
+    topicId: 'distribusi-binomial',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Sebuah kuis berisi $10$ soal pilihan ganda, masing-masing dengan $5$ pilihan dan tepat satu jawaban benar. Seorang siswa menjawab seluruh soal secara acak. Peluang ia menjawab benar tepat $2$ soal adalah …',
+    options: [
+      { key: 'A', text: '$0{,}3020$' },
+      { key: 'B', text: '$0{,}2013$' },
+      { key: 'C', text: '$0{,}1074$' },
+      { key: 'D', text: '$0{,}2684$' },
+    ],
+    answer: 'A',
+    explanation:
+      'Dengan $n=10$, $p=\\tfrac15=0{,}2$, dan $k=2$: $P(X=2)=\\binom{10}{2}(0{,}2)^{2}(0{,}8)^{8}=45\\cdot0{,}04\\cdot0{,}167772\\approx0{,}3020$ (opsi A). Opsi B ($0{,}2013$) adalah $P(X=3)$, opsi C ($0{,}1074$) adalah $P(X=0)=(0{,}8)^{10}$, dan opsi D ($0{,}2684$) adalah $P(X=1)$.',
+    hints: [
+      'Peluang benar satu soal $p=\\tfrac15=0{,}2$, sehingga peluang salah $0{,}8$.',
+      'Gunakan $\\binom{10}{2}=45$ lalu kalikan dengan $(0{,}2)^{2}(0{,}8)^{8}$.',
+    ],
+    competencies: ['rumus distribusi binomial', 'kontekstual'],
+  },
 ];

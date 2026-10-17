@@ -755,4 +755,46 @@ Sebagai gambaran tagihan, bila tarif listrik sekitar Rp1.500 per kWh, pemakaian 
     source:
       'Skenario pengajaran yang dikonstruksi mengikuti hubungan baku energi sebagai integral daya terhadap waktu pada rangkaian listrik; profil daya disusun dari penggal garis lurus dengan angka bulat agar luas di bawah grafik mudah dihitung, bukan data pengukuran alat tertentu.',
   },
+  {
+    id: 'mtl-kotak-karton-polinomial',
+    title: 'Kotak Kemasan dari Karton: Volume sebagai Polinomial',
+    category: 'pengukuran',
+    subject: 'matematika-lanjut',
+    element: 'aljabar-fungsi',
+    grade: 'XI',
+    level: 'cakap',
+    estimatedMinutes: 11,
+    explorationId: 'mtl-polinomial-akar',
+    tags: ['polinomial', 'pemfaktoran', 'volume', 'kubik', 'kotak kemasan'],
+    summary:
+      'Menyusun volume kotak tanpa tutup dari lipatan karton menjadi polinomial kubik, lalu menafsirkan akar dan nilainya.',
+    topicIds: ['polinomial'],
+    body: `Sebuah usaha kertas mendesain kotak tanpa tutup dari lembar karton berukuran $60\\ \\text{cm} \\times 40\\ \\text{cm}$. Di setiap sudut karton dipotong persegi bersisi $x$ cm, lalu sisi-sisinya dilipat ke atas. Pemilik ingin menuliskan volume kotak sebagai fungsi satu variabel $x$ agar dapat menghitungnya pada berbagai ukuran potongan.
+
+Setelah dipotong, panjang alas menjadi $(60 - 2x)$ cm, lebarnya $(40 - 2x)$ cm, dan tingginya $x$ cm, sehingga
+$$V(x) = x(60 - 2x)(40 - 2x).$$
+Pertanyaan pemicunya: berapa volume kotak bila $x = 10$ cm, pada nilai $x$ berapa kotak menjadi rata (volume nol), dan mengapa $x$ tidak boleh lebih dari $20$ cm?`,
+    analysis: `Jabarkan perkaliannya langkah demi langkah. Pertama, $(60 - 2x)(40 - 2x) = 2400 - 200x + 4x^{2}$. Kalikan dengan $x$:
+$$V(x) = 4x^{3} - 200x^{2} + 2400x.$$
+Bentuk terfaktor $V(x) = x(60 - 2x)(40 - 2x)$ lebih cepat dibaca: volumenya nol ketika salah satu faktornya nol, yaitu $x = 0$, $x = 20$, atau $x = 30$.
+
+Untuk $x = 10$ cm:
+$$V(10) = 10 \\cdot 40 \\cdot 20 = 8000,$$
+jadi volumenya $8000\\ \\text{cm}^{3}$ atau $8$ liter. Ukuran alas saat itu $40\\ \\text{cm} \\times 20\\ \\text{cm}$ dengan tinggi $10$ cm.
+
+Akar $x = 0$ berarti tidak ada potongan sehingga kotak tidak terbentuk. Akar $x = 20$ membuat lebar alas $40 - 2(20) = 0$, dan akar $x = 30$ membuat panjang alas $60 - 2(30) = 0$; keduanya menghasilkan bangun gepeng bervolume nol. Karena kedua sisi alas harus positif, potongan yang bermakna berada pada $0 < x < 20$. Derajat polinomial $V$ adalah $3$, sejalan dengan adanya tiga titik yang membuat volumenya nol: dua di antaranya berupa batas geometris, dan satu di titik asal.`,
+    takeaways: [
+      'Volume benda dari lipatan karton dapat ditulis sebagai polinomial satu variabel setelah ukuran alas dinyatakan dalam $x$.',
+      'Bentuk terfaktor lebih mudah dibaca: akar polinomial menandai nilai $x$ yang membuat volume nol.',
+      'Tidak semua akar bermakna secara geometris; batas sisi alas positif menyaring nilai $x$ yang sah.',
+      'Mensubstitusikan nilai $x$ ke polinomial memberi volume pada ukuran potongan itu.',
+    ],
+    reflection: [
+      'Mengapa bentuk terfaktor lebih cepat menunjukkan kapan volume bernilai nol daripada bentuk terjabar?',
+      'Bagaimana rentang $x$ yang sah berubah bila ukuran karton dibuat lebih kecil?',
+      'Jika $x$ diperbesar mendekati $20$, apa yang terjadi pada alas kotak dan volumenya?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi dari geometri lipatan karton persegi panjang tanpa tutup; ukuran karton dan nilai $x$ dipilih agar volume dan akarnya bulat, bukan data satu usaha tertentu.',
+  },
 ];

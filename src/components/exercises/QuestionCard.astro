@@ -13,8 +13,16 @@ interface Props {
   index: number;
   number?: number;
   showTopic?: boolean;
+  /**
+   * Awalan unik untuk id kontrol formulir. Beberapa soal dapat dirender lebih
+   * dari sekali pada satu halaman (cek cepat dan latihan), sehingga id yang
+   * hanya bersumber dari `question.id` akan bertabrakan. Pemanggil menyematkan
+   * konteks bagiannya (mis. id bagian) agar id tetap unik per instance.
+   */
+  idPrefix?: string;
 }
-const { question, index, number, showTopic = false } = Astro.props;
+const { question, index, number, showTopic = false, idPrefix = '' } = Astro.props;
+const uid = idPrefix ? `${idPrefix}-${question.id}` : question.id;
 const promptHtml = renderMarkdown(question.prompt);
 const explanationHtml = question.explanation ? renderMarkdown(question.explanation) : '';
 const topic = getTopic(question.topicId);
@@ -37,6 +45,16 @@ const modelSource =
     : question.answer;
 const modelHtml = renderMarkdown(`**Jawaban:** ${modelSource}`);
 const competencies = question.competencies ?? [];
+
+// Penjaga kelengkapan: bila tipe soal baru ditambahkan pada `Question['type']`
+// tanpa menambah UI-nya di bawah, `astro check` gagal di sini alih-alih
+// diam-diam menampilkan kartu tanpa kontrol jawaban.
+const HANDLED_TYPES: Record<Question['type'], true> = {
+  'multiple-choice': true,
+  'short-answer': true,
+  'open-response': true,
+};
+void HANDLED_TYPES;
 ---
 
 <article
@@ -92,11 +110,11 @@ const competencies = question.competencies ?? [];
   {
     question.type === 'short-answer' && (
       <div class="q-short">
-        <label class="visually-hidden" for={`answer-${question.id}`}>
+        <label class="visually-hidden" for={`answer-${uid}`}>
           Jawaban singkat
         </label>
         <input
-          id={`answer-${question.id}`}
+          id={`answer-${uid}`}
           type="text"
           class="q-input"
           data-short-input
@@ -113,11 +131,11 @@ const competencies = question.competencies ?? [];
   {
     question.type === 'open-response' && (
       <div class="q-open">
-        <label class="visually-hidden" for={`open-${question.id}`}>
+        <label class="visually-hidden" for={`open-${uid}`}>
           Jawaban uraian
         </label>
         <textarea
-          id={`open-${question.id}`}
+          id={`open-${uid}`}
           class="q-textarea"
           data-open-input
           rows="4"
@@ -130,10 +148,10 @@ const competencies = question.competencies ?? [];
               <ul class="q-rubric-list" role="list">
                 {question.rubric.map((criterion, i) => (
                   <li>
-                    <label class="q-rubric-item" for={`rubric-${question.id}-${i}`}>
+                    <label class="q-rubric-item" for={`rubric-${uid}-${i}`}>
                       <input
                         type="checkbox"
-                        id={`rubric-${question.id}-${i}`}
+                        id={`rubric-${uid}-${i}`}
                         class="q-rubric-check"
                         data-rubric-check
                         value={String(i)}
@@ -446,8 +464,7 @@ const competencies = question.competencies ?? [];
 </style>
 
 <script>
-  import { loadProgress, type Attempt, type AttemptState } from '@/lib/progress';
-  import { isAcceptedAnswer, normalizeAnswer } from '@/lib/answer';
+  import { loadProgress, type Attempt } from '@/lib/progress';
   import {
     loadRubricChecks,
     saveRubricChecks,
@@ -459,36 +476,25 @@ const competencies = question.competencies ?? [];
     clearDraft,
     type RubricCheckMap,
   } from '@/lib/learner';
-  import { seededShuffle, combineSeed } from '@/lib/random';
   import {
-    clearProgress,
-    loadQuizStreak,
-    recordProgress,
-    saveQuizStreak,
-    sessionSeed,
-  } from '@/lib/quiz-client';
-  import { celebrate } from '@/lib/celebrate';
-
-  function record(
-    root: Element,
-    isCorrect: boolean,
-    state: AttemptState & { graded?: boolean } = {},
-  ) {
-    const questionId = root.getAttribute('data-question-id');
-    if (!questionId) return;
-    recordProgress(questionId, isCorrect, { graded: state.graded ?? true, state });
-  }
-
-  function clearQuestion(root: Element) {
-    const questionId = root.getAttribute('data-question-id');
-    if (!questionId) return;
-    clearProgress(questionId);
-  }
+    celebrateCorrect,
+    clearQuestion,
+    conceptHint as buildConceptHint,
+    createChoiceGroup,
+    gradeShortAnswer,
+    parseCompetencies,
+    parseJsonStringList,
+    recordQuestion,
+    replayAnimation,
+    resetQuizStreak,
+    shuffleOptionElements,
+    type ChoiceGroup,
+  } from '@/lib/quiz-engine';
 
   function setupQuestion(root: Element) {
     const type = root.getAttribute('data-type');
     const answer = (root.getAttribute('data-answer') ?? '').trim();
-    const accepted: string[] = JSON.parse(root.getAttribute('data-accepted') ?? '[]');
+    const accepted = parseJsonStringList(root.getAttribute('data-accepted'));
     const feedback = root.querySelector('[data-feedback]') as HTMLElement;
     const feedbackRow = root.querySelector('[data-feedback-row]') as HTMLElement | null;
     const mascotOk = root.querySelector('[data-mascot-ok]') as HTMLElement | null;
@@ -497,20 +503,12 @@ const competencies = question.competencies ?? [];
     const model = root.querySelector('[data-model]') as HTMLElement | null;
     const reset = root.querySelector('[data-reset]') as HTMLButtonElement | null;
     const hasExplanation = Boolean(explanation.innerHTML.trim());
-    let competencies: string[] = [];
-    try {
-      const parsed: unknown = JSON.parse(root.getAttribute('data-competencies') ?? '[]');
-      if (Array.isArray(parsed)) competencies = parsed.filter((c): c is string => typeof c === 'string');
-    } catch {
-      competencies = [];
-    }
+    const competencies = parseCompetencies(root);
 
     // Menyebut konsep yang perlu diperiksa agar umpan balik menuntun siswa, bukan
     // sekadar menyatakan jawaban salah.
     function conceptHint(): string {
-      return competencies.length
-        ? `Periksa kembali: ${competencies.join(', ')}.`
-        : 'Periksa kembali langkah-langkahmu.';
+      return buildConceptHint(competencies);
     }
 
     // Pulihkan percobaan yang tersimpan agar soal yang sudah dikerjakan tidak
@@ -525,24 +523,8 @@ const competencies = question.competencies ?? [];
 
     // Dijalankan saat soal dikembalikan ke keadaan belum dijawab.
     let unlock: (() => void) | null = null;
-
-    // Ulangi animasi CSS pada elemen yang sama tanpa menyalin keyframes.
-    function replay(target: HTMLElement | null, className: string) {
-      if (!target) return;
-      target.classList.remove(className);
-      void target.offsetWidth;
-      target.classList.add(className);
-    }
-
-    function noteCorrectAnswer() {
-      const streak = loadQuizStreak() + 1;
-      saveQuizStreak(streak);
-      celebrate(root as HTMLElement, { count: 7 + Math.min(streak, 6) });
-    }
-
-    function noteWrongAnswer() {
-      saveQuizStreak(0);
-    }
+    // Mesin pilihan ganda; hanya diisi untuk soal bertipe multiple-choice.
+    let choiceGroup: ChoiceGroup | null = null;
 
     function showFeedback(kind: 'ok' | 'no' | 'info', text: string, animate = true) {
       feedback.hidden = false;
@@ -553,8 +535,8 @@ const competencies = question.competencies ?? [];
       if (feedbackRow) feedbackRow.hidden = false;
       if (mascotOk) mascotOk.hidden = kind !== 'ok';
       if (mascotNo) mascotNo.hidden = kind !== 'no';
-      if (animate && kind === 'ok') replay(mascotOk, 'streak-pop');
-      else if (animate && kind === 'no') replay(mascotNo, 'nudge');
+      if (animate && kind === 'ok') replayAnimation(mascotOk, 'streak-pop');
+      else if (animate && kind === 'no') replayAnimation(mascotNo, 'nudge');
     }
 
     // Pindahkan fokus ke umpan balik setelah penilaian agar pengguna papan
@@ -584,11 +566,7 @@ const competencies = question.competencies ?? [];
     }
 
     function resetQuestion() {
-      root.querySelectorAll('[data-key]').forEach((o) => {
-        o.classList.remove('correct', 'incorrect');
-        o.setAttribute('aria-checked', 'false');
-        (o as HTMLButtonElement).disabled = false;
-      });
+      choiceGroup?.reset();
       const input = root.querySelector('[data-short-input]') as HTMLInputElement | null;
       if (input) {
         input.value = '';
@@ -638,41 +616,8 @@ const competencies = question.competencies ?? [];
       // Acak ulang urutan opsi dengan benih sesi. Karena pasangan key-teks tetap
       // utuh, penilaian lewat `data-answer` tidak terpengaruh.
       const list = root.querySelector<HTMLElement>('.q-options');
-      if (list) {
-        const qid = root.getAttribute('data-question-id') ?? '';
-        const ordered = seededShuffle(Array.from(list.children), combineSeed(sessionSeed(), qid));
-        for (const node of ordered) list.appendChild(node);
-      }
+      if (list) shuffleOptionElements(list, root.getAttribute('data-question-id') ?? '');
       const options = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-key]'));
-      let answered = false;
-
-      // Roving tabindex: hanya satu opsi masuk urutan Tab pada satu waktu.
-      const setRoving = (activeKey: string | null) => {
-        options.forEach((o) => {
-          const k = o.getAttribute('data-key');
-          o.tabIndex = activeKey !== null && k === activeKey ? 0 : -1;
-        });
-      };
-
-      const focusByIndex = (i: number) => {
-        if (!options.length) return;
-        const clamped = (i + options.length) % options.length;
-        const btn = options[clamped];
-        setRoving(btn.getAttribute('data-key'));
-        btn.focus();
-      };
-
-      const apply = (key: string | null) => {
-        const isCorrect = key !== null && key === answer;
-        options.forEach((o) => {
-          const k = o.getAttribute('data-key');
-          o.classList.remove('correct', 'incorrect');
-          if (k === answer) o.classList.add('correct');
-          else if (key !== null && k === key && !isCorrect) o.classList.add('incorrect');
-          o.setAttribute('aria-checked', String(key !== null && k === key));
-        });
-        return isCorrect;
-      };
 
       const reveal = () => {
         showExplanation();
@@ -680,79 +625,37 @@ const competencies = question.competencies ?? [];
         showReset();
       };
 
-      // Kunci pilihan setelah dijawab agar tidak bisa merekam ulang.
-      const lock = () => {
-        answered = true;
-        options.forEach((o) => {
-          o.disabled = true;
-        });
-      };
-
-      const choose = (key: string | null) => {
-        if (answered || key === null) return;
-        const isCorrect = apply(key);
-        showFeedback(
-          isCorrect ? 'ok' : 'no',
-          isCorrect ? 'Tepat! Bandingkan dengan jawaban model di bawah.' : `Belum tepat. ${conceptHint()}`,
-        );
-        if (isCorrect) noteCorrectAnswer();
-        else noteWrongAnswer();
-        reveal();
-        record(root, isCorrect, { selected: key });
-        lock();
-        focusFeedback();
-      };
-
-      unlock = () => {
-        answered = false;
-        options.forEach((o) => {
-          o.disabled = false;
-        });
-        setRoving(options[0]?.getAttribute('data-key') ?? null);
-      };
-
-      setRoving(options[0]?.getAttribute('data-key') ?? null);
-
-      options.forEach((btn, i) => {
-        btn.addEventListener('click', () => choose(btn.getAttribute('data-key')));
-        btn.addEventListener('keydown', (e) => {
-          switch (e.key) {
-            case 'ArrowDown':
-            case 'ArrowRight':
-              e.preventDefault();
-              focusByIndex(i + 1);
-              break;
-            case 'ArrowUp':
-            case 'ArrowLeft':
-              e.preventDefault();
-              focusByIndex(i - 1);
-              break;
-            case 'Home':
-              e.preventDefault();
-              focusByIndex(0);
-              break;
-            case 'End':
-              e.preventDefault();
-              focusByIndex(options.length - 1);
-              break;
-            case ' ':
-            case 'Enter':
-              e.preventDefault();
-              choose(btn.getAttribute('data-key'));
-              break;
-          }
-        });
+      const group = createChoiceGroup({
+        options,
+        answer,
+        correctClass: 'correct',
+        incorrectClass: 'incorrect',
+        roving: true,
+        onChoose: (key, isCorrect) => {
+          showFeedback(
+            isCorrect ? 'ok' : 'no',
+            isCorrect
+              ? 'Tepat! Bandingkan dengan jawaban model di bawah.'
+              : `Belum tepat. ${conceptHint()}`,
+          );
+          if (isCorrect) celebrateCorrect(root as HTMLElement);
+          else resetQuizStreak();
+          reveal();
+          recordQuestion(root, isCorrect, { selected: key });
+          focusFeedback();
+        },
       });
+      choiceGroup = group;
 
       if (attempt) {
-        apply(attempt.selected ?? (attempt.correct ? answer : null));
+        group.apply(attempt.selected ?? (attempt.correct ? answer : null));
+        group.lock();
         showFeedback(
           attempt.correct ? 'ok' : 'no',
           attempt.correct ? 'Tepat!' : `Belum tepat. ${conceptHint()}`,
           false,
         );
         reveal();
-        lock();
       }
     }
 
@@ -763,23 +666,23 @@ const competencies = question.competencies ?? [];
 
       const run = () => {
         if (answered) return;
-        const value = normalizeAnswer(input.value);
-        if (!value) {
+        const result = gradeShortAnswer(input.value, answer, accepted);
+        if (result.status === 'empty') {
           showFeedback('info', 'Tulis jawabanmu terlebih dahulu.');
           return;
         }
-        const isCorrect = isAcceptedAnswer(input.value, answer, accepted);
+        const isCorrect = result.status === 'correct';
         if (isCorrect) {
           showFeedback('ok', 'Benar! Bandingkan dengan jawaban model di bawah.');
-          noteCorrectAnswer();
+          celebrateCorrect(root as HTMLElement);
         } else {
           showFeedback('no', `Belum tepat. ${conceptHint()}`);
-          noteWrongAnswer();
+          resetQuizStreak();
         }
         showExplanation();
         showModel();
         showReset();
-        record(root, isCorrect, { input: input.value });
+        recordQuestion(root, isCorrect, { input: input.value });
         answered = true;
         input.disabled = true;
         check.disabled = true;
@@ -886,7 +789,7 @@ const competencies = question.competencies ?? [];
             recorded = true;
             // Soal uraian tidak dinilai otomatis; tandai "dikerjakan" tanpa
             // memengaruhi ketepatan begitu siswa membuka pembahasan.
-            record(root, true, {
+            recordQuestion(root, true, {
               graded: false,
               revealed: true,
               input: openInput ? openInput.value : undefined,

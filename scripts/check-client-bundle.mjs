@@ -18,8 +18,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const target = process.argv[2] ? path.resolve(process.argv[2]) : path.join(root, 'dist', '_astro');
 
 if (!fs.existsSync(target)) {
-  console.log('dist/_astro belum ada. Jalankan: npm run build');
-  process.exit(0);
+  console.error('dist/_astro belum ada. Jalankan: npm run build');
+  process.exit(1);
 }
 
 // Tanda khas pustaka yang seharusnya hanya ada di sisi server.
@@ -32,6 +32,10 @@ const hitsFor = (code) =>
   SIGNATURES.filter((sig) => sig.re.test(code)).map((sig) => sig.name);
 
 const files = collectFiles(target, byExtension('.js'));
+if (files.length === 0) {
+  console.error(`Tidak ada berkas JS klien yang diperiksa di ${target}. Pastikan dist/ dibangun.`);
+  process.exit(1);
+}
 const leaks = [];
 
 for (const file of files) {

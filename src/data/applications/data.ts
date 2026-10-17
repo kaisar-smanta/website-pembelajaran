@@ -494,4 +494,42 @@ Sekarang sekitar **41,9%** peringatan yang diteruskan benar-benar penipuan, jauh
     source:
       'Skenario konstruksi dengan angka realistis mengikuti pola penyaringan penipuan dua tahap pada sistem pembayaran; angka dasar 0,2%, sensitivitas 90% dan 80%, serta laju positif palsu 2% dan 10% dibulatkan agar perhitungan Bayes mudah diperiksa, bukan data satu penyedia pembayaran.',
   },
+  {
+    id: 'komb-beban-server',
+    title: 'Membagi Beban Server dengan Prinsip Sarang Merpati',
+    category: 'data',
+    element: 'data-peluang',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 12,
+    tags: ['pigeonhole', 'pencacahan', 'hash', 'beban server', 'jaminan'],
+    summary:
+      'Memakai prinsip sarang merpati untuk menjamin pemerataan beban server dan mendeteksi tabrakan pada tabel hash.',
+    topicIds: ['kombinatorika-lanjut'],
+    body: `Sebuah penyedia layanan menjalankan $100$ tugas latar belakang pada $7$ server. Manajer ingin tahu **jaminan terburuk**: berapa banyak tugas paling sedikit yang pasti diterima satu server, apa pun cara pembagiannya.
+
+Pada sistem terpisah, sebuah tabel hash menyediakan $10^{6}$ slot untuk menyimpan $2^{20}$ kunci data. Karena jumlah kunci lebih banyak daripada slot, tentu ada slot yang harus menampung lebih dari satu kunci. Pertanyaan pemicunya: berapa banyak kunci paling sedikit yang pasti berbagi satu slot, dan mengapa jaminan ini tidak memberi tahu pembagian sesungguhnya?`,
+    analysis: `**Prinsip sarang merpati.** Jika $n$ objek ditempatkan ke $k$ kotak, maka ada kotak yang memuat paling sedikit $\\left\\lceil \\dfrac{n}{k} \\right\\rceil$ objek. Untuk $100$ tugas dan $7$ server: $\\left\\lceil \\dfrac{100}{7} \\right\\rceil = \\left\\lceil 14{,}28 \\right\\rceil = 15$, jadi ada server yang pasti menerima paling sedikit $15$ tugas.
+
+Cara memeriksanya lewat kontradiksi lebih meyakinkan. Andaikan setiap server menerima paling banyak $14$ tugas. Total tugas paling banyak $7 \\times 14 = 98$, padahal ada $100$ tugas. Karena $98 < 100$, pengandaian itu mustahil. Jadi untuk $7$ server memang wajib ada yang menerima sekurang-kurangnya $15$ tugas.
+
+**Tabrakan tabel hash.** Dengan $2^{20} = 1\\,048\\,576$ kunci dan $10^{6} = 1\\,000\\,000$ slot, nilai jaminannya
+$$\\left\\lceil \\dfrac{2^{20}}{10^{6}} \\right\\rceil = \\left\\lceil 1{,}048576 \\right\\rceil = 2,$$
+sehingga ada slot yang pasti menyimpan paling sedikit $2$ kunci, yaitu terjadi tabrakan. Bila setiap slot hanya boleh menyimpan satu kunci, kapasitas total $1\\,000\\,000$ masih kurang dari $1\\,048\\,576$, jadi tabrakan tidak mungkin dihindari.
+
+**Makna jaminan.** Prinsip ini berbicara tentang keadaan terburuk, bukan pembagian nyata. Distribusi sesungguhnya bisa jauh lebih rata: $100$ tugas dapat dibagi menjadi $14, 14, 14, 14, 14, 15, 15$, sehingga tiap server menerima dekat $14$ sampai $15$ tugas. Jaminan hanya menegaskan batas yang tak mungkin dilanggar. Pada tabel hash, menyadari jaminan tabrakan inilah yang mendorong hadirnya penanganan tumbukan seperti penautan (chaining) atau pengalamatan terbuka.`,
+    takeaways: [
+      'Prinsip sarang merpati menjamin ada kotak dengan paling sedikit $\\lceil n/k \\rceil$ objek.',
+      'Jaminan terburuk diperiksa paling jelas lewat kontradiksi: bila tiap kotak dibatasi, total kapasitasnya lebih kecil daripada banyak objek.',
+      'Jumlah kunci yang melebihi jumlah slot memastikan terjadinya tabrakan pada tabel hash.',
+      'Jaminan menetapkan batas yang tak mungkin dilanggar, bukan menggambarkan pembagian yang sebenarnya terjadi.',
+    ],
+    reflection: [
+      'Mengapa hasil pembagian pada prinsip sarang merpati selalu dibulatkan ke atas?',
+      'Bagaimana jawabannya berubah bila jumlah server ditambah menjadi $8$?',
+      'Mengapa mengetahui jaminan tabrakan penting saat merancang tabel hash?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi dari prinsip sarang merpati dan karakteristik dasar tabel hash; angka tugas, jumlah server, dan banyak slot dipilih agar hasil pembulatan ke atas mudah diperiksa, bukan data satu sistem produksi.',
+  },
 ];

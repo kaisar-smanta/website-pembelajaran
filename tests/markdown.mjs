@@ -11,12 +11,7 @@ import {
   rewriteBase,
 } from '../src/utils/markdown.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 const BASE = '/website-pembelajaran/';
 
@@ -102,4 +97,4 @@ check('stripMarkdown menangani daftar berbutir', () => {
   assert.equal(stripMarkdown('- satu\n- dua'), 'satu dua');
 });
 
-console.log(`PASS markdown (${passed} pemeriksaan)`);
+console.log(`PASS markdown (${checks.count} pemeriksaan)`);

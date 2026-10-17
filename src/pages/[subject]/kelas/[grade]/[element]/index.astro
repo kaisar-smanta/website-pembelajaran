@@ -5,6 +5,7 @@ import SectionHeading from '@/components/content/SectionHeading.astro';
 import TopicCard from '@/components/content/TopicCard.astro';
 import ElementIcon from '@/components/content/ElementIcon.astro';
 import MathMascot from '@/components/content/MathMascot.astro';
+import CtaCard from '@/components/ui/CtaCard.astro';
 import { site } from '@/data/site';
 import {
   ELEMENTS,
@@ -50,6 +51,25 @@ const otherElements = elementOrderFor(subject).filter((e) => e !== element);
 
 const practiceTopicIds = new Set(topicIdsWithQuestions());
 const hasPractice = complete.some((t) => practiceTopicIds.has(t.id));
+// Halaman hanya berisi penanda "Segera hadir" bila belum ada materi maupun
+// rencana; jangan indeks halaman kosong semacam itu.
+const hasContent = complete.length > 0 || planned.length > 0;
+
+type CtaAction = { label: string; href: string; variant?: 'primary' | 'secondary' };
+const nextActions: CtaAction[] = hasPractice
+  ? [
+      {
+        label: 'Latihan materi ini',
+        href: url(`/latihan?kelas=${grade}&elemen=${element}`),
+        variant: 'primary',
+      },
+      { label: 'Semua latihan', href: url('/latihan'), variant: 'secondary' },
+      { label: 'Peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'secondary' },
+    ]
+  : [
+      { label: 'Latihan soal', href: url('/latihan'), variant: 'primary' },
+      { label: 'Peta pembelajaran', href: url('/peta-pembelajaran'), variant: 'secondary' },
+    ];
 
 const crumbs = [
   { label: 'Beranda', href: url('/') },
@@ -57,11 +77,14 @@ const crumbs = [
   { label: gradeMeta.name, href: gradeUrl(grade, subject) },
   { label: elementMeta.name },
 ];
+// Judul halaman elemen sama antar mata pelajaran; bedakan yang tingkat lanjut.
+const subjectTag = subject === 'matematika-lanjut' ? ' · Matematika Tingkat Lanjut' : '';
 ---
 
 <BaseLayout
-  title={`${elementMeta.name} · ${gradeMeta.name}`}
-  description={`${elementMeta.description} Materi ${elementMeta.name} untuk ${gradeMeta.name}.`}
+  title={`${elementMeta.name} · ${gradeMeta.name}${subjectTag}`}
+  description={`${elementMeta.description} Materi ${elementMeta.name} untuk ${gradeMeta.name}${subjectTag}.`}
+  noindex={!hasContent}
 >
   <PageHeader
     title={elementMeta.name}
@@ -175,35 +198,13 @@ const crumbs = [
     }
 
     <section class="next-step reveal no-print" aria-labelledby="langkah-berikutnya">
-      <div class="card next-step-inner">
-        <div>
-          <p class="eyebrow-badge">Langkah berikutnya</p>
-          <h2 id="langkah-berikutnya">Latih dan jelajahi lebih jauh</h2>
-          <p class="text-muted">
-            Uji pemahamanmu lewat latihan berjenjang, atau lihat bagaimana elemen ini tersusun
-            lintas kelas pada peta pembelajaran.
-          </p>
-        </div>
-        <div class="next-step-actions">
-          {
-            hasPractice ? (
-              <>
-                <a class="btn btn-primary" href={url(`/latihan?kelas=${grade}&elemen=${element}`)}>
-                  Latihan materi ini
-                </a>
-                <a class="btn btn-secondary" href={url('/latihan')}>
-                  Semua latihan
-                </a>
-              </>
-            ) : (
-              <a class="btn btn-primary" href={url('/latihan')}>
-                Latihan soal
-              </a>
-            )
-          }
-          <a class="btn btn-secondary" href={url('/peta-pembelajaran')}>Peta pembelajaran</a>
-        </div>
-      </div>
+      <CtaCard
+        eyebrow="Langkah berikutnya"
+        title="Latih dan jelajahi lebih jauh"
+        titleId="langkah-berikutnya"
+        text="Uji pemahamanmu lewat latihan berjenjang, atau lihat bagaimana elemen ini tersusun lintas kelas pada peta pembelajaran."
+        actions={nextActions}
+      />
     </section>
   </div>
 </BaseLayout>
@@ -249,29 +250,5 @@ const crumbs = [
   }
   .next-step {
     margin-bottom: 3rem;
-  }
-  .next-step-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-    padding: clamp(1.25rem, 4vw, 2rem);
-    border-top: 3px solid var(--color-primary);
-  }
-  .next-step-inner h2 {
-    margin-bottom: 0.25rem;
-  }
-  .next-step-inner p {
-    margin: 0;
-    max-width: 46ch;
-  }
-  .next-step .eyebrow-badge {
-    margin-bottom: 0.6rem;
-  }
-  .next-step-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 </style>

@@ -20,12 +20,7 @@ const base = {
   text: '',
 };
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 check('normalizeSearch menurunkan huruf dan menghapus diakritik', () => {
   assert.equal(normalizeSearch('Bunga MAJEMUK'), 'bunga majemuk');
@@ -244,4 +239,4 @@ check('scoreItem mengenali entri istilah dan rumus sebagai hasil', () => {
   assert.ok(scoreItemFuzzy(istilah, 'anuitass') > 0);
 });
 
-console.log(`PASS search (${passed} pemeriksaan)`);
+console.log(`PASS search (${checks.count} pemeriksaan)`);

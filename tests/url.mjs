@@ -16,12 +16,7 @@ import {
   elementOverviewUrl,
 } from '../src/utils/url.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 check('BASE dinormalisasi dengan trailing slash', () => {
   assert.equal(BASE, '/');
@@ -75,4 +70,4 @@ check('absoluteUrl() memakai site dan base', () => {
   assert.equal(absoluteUrl(), 'https://example.github.io/');
 });
 
-console.log(`PASS url (${passed} pemeriksaan)`);
+console.log(`PASS url (${checks.count} pemeriksaan)`);

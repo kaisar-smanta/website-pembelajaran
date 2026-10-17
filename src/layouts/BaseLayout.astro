@@ -37,6 +37,9 @@ const site = Astro.site ?? new URL('https://example.github.io');
 const canonical = new URL(Astro.url.pathname, site).href;
 const basePath = BASE;
 const siteOrigin = site.origin;
+// URL akar situs termasuk base path (mis. /website-pembelajaran). Tanpa ini,
+// kanonik pada project page menunjuk ke akar pengguna, bukan ke situs ini.
+const siteRoot = `${siteOrigin}${basePath}`.replace(/\/$/, '') || siteOrigin;
 const ogImage = new URL(`${basePath}og-default.png`, site).href;
 const ogImageExt = (ogImage.split('.').pop() ?? '').toLowerCase();
 const ogImageType =
@@ -56,7 +59,7 @@ const jsonLd = {
     {
       '@type': 'WebSite',
       name: siteName,
-      url: siteOrigin,
+      url: siteRoot,
       inLanguage: 'id',
       description,
       author: {
@@ -69,7 +72,7 @@ const jsonLd = {
           url: identity.school.url,
         },
       },
-      publisher: { '@id': `${siteOrigin}#organization` },
+      publisher: { '@id': `${siteRoot}#organization` },
       potentialAction: {
         '@type': 'SearchAction',
         target: searchTarget,
@@ -78,7 +81,7 @@ const jsonLd = {
     },
     {
       '@type': 'EducationalOrganization',
-      '@id': `${siteOrigin}#organization`,
+      '@id': `${siteRoot}#organization`,
       name: identity.school.name,
       url: identity.school.url,
       logo: logoUrl,
@@ -86,14 +89,14 @@ const jsonLd = {
     {
       '@type': 'LearningResource',
       name: siteName,
-      url: siteOrigin,
+      url: siteRoot,
       inLanguage: 'id',
       isAccessibleForFree: true,
       learningResourceType: 'Course',
       educationalLevel: ['SMA Kelas X', 'SMA Kelas XI', 'SMA Kelas XII'],
       teaches: ['Bilangan', 'Aljabar dan Fungsi', 'Geometri', 'Analisis Data dan Peluang'],
       about: 'Matematika SMA',
-      provider: { '@id': `${siteOrigin}#organization` },
+      provider: { '@id': `${siteRoot}#organization` },
       author: {
         '@type': 'Person',
         name: identity.author.name,
@@ -170,6 +173,19 @@ const jsonLd = {
   </head>
   <body>
     <a class="skip-link" href="#konten">Lewati ke konten utama</a>
+    <div class="storage-notice no-print" data-storage-notice role="status" hidden>
+      <p class="storage-notice__text">
+        Penyimpanan di peramban ini tidak tersedia. Kemajuan belajarmu tidak akan tersimpan di perangkat ini.
+      </p>
+      <button
+        type="button"
+        class="storage-notice__dismiss"
+        data-storage-notice-dismiss
+        aria-label="Tutup pemberitahuan penyimpanan"
+      >
+        Tutup
+      </button>
+    </div>
     <Header />
     <main id="konten">
       <slot />
@@ -253,6 +269,30 @@ const jsonLd = {
         });
       })();
     </script>
+    <script>
+      import { hasLocalStorage } from '@/lib/storage';
+      import { dismissStorageNotice, wasStorageNoticeDismissed } from '@/lib/storage-notice';
+
+      function setupStorageNotice() {
+        const notice = document.querySelector<HTMLElement>('[data-storage-notice]');
+        if (!notice) return;
+        if (hasLocalStorage()) return;
+        if (wasStorageNoticeDismissed()) return;
+        notice.hidden = false;
+        notice
+          .querySelector<HTMLButtonElement>('[data-storage-notice-dismiss]')
+          ?.addEventListener('click', () => {
+            dismissStorageNotice();
+            notice.hidden = true;
+          });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupStorageNotice);
+      } else {
+        setupStorageNotice();
+      }
+    </script>
     {import.meta.env.PROD && (
       <script is:inline define:vars={{ swBase: basePath }}>
         (function () {
@@ -267,5 +307,46 @@ const jsonLd = {
         })();
       </script>
     )}
+    <style>
+      .storage-notice {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem 0.9rem;
+        padding: 0.65rem clamp(0.9rem, 4vw, 1.5rem);
+        background: var(--color-warning-soft);
+        border-bottom: 1px solid color-mix(in srgb, var(--color-warning) 34%, var(--color-border));
+        color: var(--color-text);
+        font-size: var(--text-sm);
+      }
+      .storage-notice[hidden] {
+        display: none;
+      }
+      .storage-notice__text {
+        flex: 1 1 16rem;
+        margin: 0;
+      }
+      .storage-notice__dismiss {
+        flex: none;
+        margin-left: auto;
+        padding: 0.35rem 0.85rem;
+        border: 1px solid color-mix(in srgb, var(--color-warning) 46%, var(--color-border));
+        border-radius: var(--radius-pill);
+        background: var(--color-surface);
+        color: var(--color-text);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color var(--dur-fast) var(--ease-out-soft);
+      }
+      .storage-notice__dismiss:hover {
+        background: var(--color-surface-2);
+      }
+      @media print {
+        .storage-notice {
+          display: none;
+        }
+      }
+    </style>
   </body>
 </html>

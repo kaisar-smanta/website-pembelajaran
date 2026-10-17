@@ -11,7 +11,7 @@ import { difficultyCounts, groupByDifficulty } from '@/lib/practice';
 import { buildReviewEntries } from '@/lib/review-entries';
 import { url, topicUrl } from '@/utils/url';
 import { renderInlineMarkdown } from '@/utils/markdown';
-import type { Difficulty } from '@/types/content';
+import type { Difficulty, Question } from '@/types/content';
 
 export function getStaticPaths() {
   const ids = topicIdsWithQuestions();
@@ -70,11 +70,17 @@ const presentCategories = assessmentCategories
   }));
 
 // Faset jenis soal hanya menampilkan jenis yang benar-benar ada di topik ini.
-const typeMeta: { id: string; label: string }[] = [
-  { id: 'multiple-choice', label: 'Pilihan ganda' },
-  { id: 'short-answer', label: 'Isian singkat' },
-  { id: 'open-response', label: 'Uraian' },
-];
+// `Record` atas union tipe soal memaksa tiap jenis punya label, sehingga jenis
+// baru tidak dapat diam-diam absen dari saringan.
+const TYPE_LABELS: Record<Question['type'], string> = {
+  'multiple-choice': 'Pilihan ganda',
+  'short-answer': 'Isian singkat',
+  'open-response': 'Uraian',
+};
+const typeMeta = (Object.keys(TYPE_LABELS) as Question['type'][]).map((id) => ({
+  id,
+  label: TYPE_LABELS[id],
+}));
 const presentTypes = typeMeta.filter((t) => all.some((q) => q.type === t.id));
 
 // Id soal per tingkat untuk ringkasan penguasaan di panel kemajuan.

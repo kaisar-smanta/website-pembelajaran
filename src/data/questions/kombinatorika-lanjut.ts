@@ -84,6 +84,11 @@ export const kombinatorikaLanjutQuestions: Question[] = [
     category: 'penerapan',
     prompt:
       'Tentukan banyak bilangan bulat dari $1$ sampai $50$ yang habis dibagi $2$ atau $5$.',
+    figure: {
+      svg: '<svg viewBox="0 0 320 180" role="img" aria-hidden="true"><rect x="30" y="16" width="260" height="150" rx="8" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="130" cy="95" r="58" fill="currentColor" opacity="0.08" stroke="currentColor" stroke-width="1.3"/><circle cx="210" cy="95" r="58" fill="currentColor" opacity="0.08" stroke="currentColor" stroke-width="1.3"/><text x="170" y="34" font-size="10" fill="currentColor">1 sampai 50</text><text x="88" y="46" font-size="11" fill="currentColor">A</text><text x="242" y="46" font-size="11" fill="currentColor">B</text><text x="78" y="100" font-size="11" fill="currentColor">20</text><text x="150" y="100" font-size="11" fill="currentColor">5</text><text x="226" y="100" font-size="11" fill="currentColor">5</text></svg>',
+      alt: 'Diagram Venn dua himpunan di dalam himpunan semesta 1 sampai 50. Himpunan A memuat 20 bilangan kelipatan 2 yang bukan kelipatan 5, himpunan B memuat 5 bilangan kelipatan 5 yang bukan kelipatan 2, dan irisannya memuat 5 bilangan kelipatan 10.',
+      caption: 'Himpunan kelipatan $2$ dan kelipatan $5$; irisan berisi kelipatan $10$.',
+    },
     answer: '30',
     acceptedAnswers: ['30'],
     explanation:

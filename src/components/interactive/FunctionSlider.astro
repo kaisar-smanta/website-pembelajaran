@@ -244,6 +244,7 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
   import { evalFormula, mapFor, describe } from '../../lib/sim/function-slider';
   import type { Formula } from '../../lib/sim/function-slider';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid } from '../../lib/sim/plot';
   import { formatPlain } from '../../lib/format';
 
   type Params = { name: string; value: number };
@@ -272,17 +273,9 @@ const initialAria = `Grafik ${formLabel[formula]} dengan ${params.map((p) => `${
 
       clear(svg);
 
-      const gridColor = 'var(--color-border)';
       const axisColor = 'var(--color-text-soft)';
 
-      for (let i = 0; i <= 8; i++) {
-        const x = pad + (i / 8) * (W - 2 * pad);
-        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: gridColor, 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 6; i++) {
-        const y = pad + (i / 6) * (H - 2 * pad);
-        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: gridColor, 'stroke-width': 1 }));
-      }
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
 
       if (yMin <= 0 && yMax >= 0) {
         svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: axisColor, 'stroke-width': 1.6 }));

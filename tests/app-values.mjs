@@ -101,4 +101,30 @@ close(shipping(1), 8000, 'ongkos: C(1)', 1e-9);
 close(shipping(4), 19000, 'ongkos: C(4)', 1e-9);
 close((25000 - 22000) / 2000 + 5, 6.5, 'ongkos: berat untuk Rp25.000', 1e-9);
 
+// Sarang merpati: 100 tugas pada 7 server, dan 2^20 kunci pada 10^6 slot.
+close(Math.ceil(100 / 7), 15, 'beban server: jaminan tugas per server', 1e-9);
+close(Math.ceil(2 ** 20 / 10 ** 6), 2, 'beban server: jaminan kunci per slot', 1e-9);
+
+// Kotak karton: V(x) = x(60 - 2x)(40 - 2x), akar x = 0, 20, 30.
+const carton = (x) => x * (60 - 2 * x) * (40 - 2 * x);
+close(carton(10), 8000, 'kotak karton: volume di x = 10', 1e-9);
+close(carton(0), 0, 'kotak karton: volume di x = 0', 1e-9);
+close(carton(20), 0, 'kotak karton: volume di x = 20', 1e-9);
+close(carton(30), 0, 'kotak karton: volume di x = 30', 1e-9);
+const cartonRoots = [0, 20, 30].filter((x) => Math.abs(carton(x)) < 1e-9);
+close(cartonRoots.length, 3, 'kotak karton: tiga akar', 1e-9);
+close(Math.min(...cartonRoots.filter((x) => x > 0)), 20, 'kotak karton: batas sah terdekat adalah 20', 1e-9);
+
+// Kavling segitiga: rotasi 90 derajat lalu dilatasi faktor 2 dari luas 6.
+const rotation = ([x, y]) => [-y, x];
+const scale2 = ([x, y]) => [2 * x, 2 * y];
+const area0 = 0.5 * 4 * 3;
+close(area0, 6, 'kavling: luas awal', 1e-9);
+close(4 * area0, 24, 'kavling: luas akhir setelah rotasi dan dilatasi', 1e-9);
+ok(
+  JSON.stringify([[0, 0], [4, 0], [0, 3]].map((point) => scale2(rotation(point)))) ===
+    JSON.stringify([[0, 0], [0, 8], [-6, 0]]),
+  'kavling: koordinat bayangan sesuai',
+);
+
 report();

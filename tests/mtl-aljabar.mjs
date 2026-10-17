@@ -89,7 +89,7 @@ closeVec(apply(invD, [2, -6]), [1, -2], 'invers matriks (2,3) pada (2,-6)', 0);
 closeVec([1 + 3, 4 - 2], [4, 2], 'translasi (3,-2) pada (1,4)', 0);
 
 // ---------- Trigonometri lanjut: periodik ----------
-close(4, 4, 'amplitudo y=4 sin(3x)', 0);
+close((4 - (-4)) / 2, 4, 'amplitudo y=4 sin(3x)', 0);
 close(360 / 2, 180, 'periode y=sin(2x) dalam derajat', 0);
 close(360 / 3, 120, 'periode f(x)=2 sin(3(x-30))+1', 0);
 close(2 + 1, 3, 'nilai maksimum f(x)=2 sin(3(x-30))+1', 0);

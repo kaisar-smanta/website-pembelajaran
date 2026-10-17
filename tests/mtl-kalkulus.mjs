@@ -2,18 +2,13 @@
 // turunan, aplikasi turunan, dan integral. Dipanggil otomatis oleh tests/run-all.mjs.
 //
 // Pemakaian: node tests/mtl-kalkulus.mjs
-import { close, ok, report } from './_util.mjs';
+import { checkFileExists, close, ok, report } from './_util.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
-
-function checkFileExists(label, relativePath) {
-  const full = path.join(root, relativePath);
-  ok(fs.existsSync(full), `${label}: berkas ${relativePath} tidak ditemukan`);
-}
 
 function checkFileContains(label, relativePath, needle) {
   const full = path.join(root, relativePath);
@@ -54,7 +49,7 @@ close(avgRate(3, 1), 4, 'laju rata-rata x^2 pada [1,3]', 0);
 // ---------- Aplikasi turunan: garis singgung & normal ----------
 close(2 * 3, 6, 'gradien y=x^2 di x=3', 0);
 close(6 * 0 - 9, -9, 'nilai garis singgung y=6x-9 di x=0', 0);
-close(-1 / 6, -1 / 6, 'gradien garis normal y=x^2 di x=3', 1e-12);
+close(-1 / (2 * 3), -1 / 6, 'gradien garis normal y=x^2 di x=3', 1e-12);
 
 // ---------- Aplikasi turunan: sketsa kurva ----------
 close(f1(0), 0, 'titik stasioner f di x=0', 0);
@@ -85,7 +80,8 @@ close(antiX2(2) - antiX2(0), 8 / 3, 'integral 0..2 x^2', 1e-12);
 const antiLinear = (x) => x ** 2 + x;
 close(antiLinear(3) - antiLinear(1), 10, 'integral 1..3 (2x+1)', 0);
 close(-Math.cos(Math.PI) - -Math.cos(0), 2, 'integral 0..pi sin x', 1e-12);
-close(Math.E - 1, Math.E - 1, 'integral 0..1 e^x', 1e-12);
+const antiExp = (x) => Math.exp(x);
+close(antiExp(1) - antiExp(0), Math.E - 1, 'integral 0..1 e^x', 1e-12);
 
 const anti3x2 = (x) => x ** 3;
 close(anti3x2(2) - anti3x2(1), 7, 'integral 1..2 3x^2', 0);

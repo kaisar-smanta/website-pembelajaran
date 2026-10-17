@@ -340,4 +340,45 @@ export const distribusiNormalQuestions: Question[] = [
     ],
     competencies: ['membaca kurva normal', 'peluang selang'],
   },
+  {
+    id: 'dn-17',
+    topicId: 'distribusi-normal',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Variabel $X$ berdistribusi normal $N(60, 5^{2})$. Tentukan $P(X > 70)$.',
+    answer: '0,0228',
+    acceptedAnswers: ['0,0228', '0.0228', '0,02275', '0.02275', '2,28%', '2.28%'],
+    explanation:
+      'Standardisasi: $z=\\dfrac{70-60}{5}=2$, sehingga $P(X>70)=P(z>2)$. Dari kaidah empiris, luas di luar $\\pm2$ adalah $1-0{,}9545=0{,}0455$ dan terbagi dua ekor, jadi $P(z>2)\\approx0{,}0228$.',
+    hints: [
+      'Ubah $x=70$ menjadi skor baku dengan $\\sigma=5$.',
+      'Peluang ekor kanan $z>2$ sama dengan $\\dfrac{1-P(-2\\le z\\le2)}{2}$.',
+    ],
+    competencies: ['skor baku', 'peluang ekor'],
+  },
+  {
+    id: 'dn-18',
+    topicId: 'distribusi-normal',
+    difficulty: 'mahir',
+    type: 'multiple-choice',
+    category: 'kontekstual',
+    prompt:
+      'Skor seleksi berdistribusi normal $N(500, 100^{2})$. Hanya peserta dengan skor di $2{,}5\\%$ teratas yang lolos. Dengan skor baku kritis $z\\approx1{,}96$, skor minimum kelulusan adalah …',
+    options: [
+      { key: 'A', text: '$669$' },
+      { key: 'B', text: '$696$' },
+      { key: 'C', text: '$720$' },
+      { key: 'D', text: '$700$' },
+    ],
+    answer: 'B',
+    explanation:
+      'Batas $2{,}5\\%$ teratas berarti $P(Z>z)=0{,}025$, sehingga skor baku kritisnya $z\\approx1{,}96$. Skor minimum $x=\\mu+z\\sigma=500+1{,}96(100)=696$ (opsi B). Opsi A ($669$) memakai $z\\approx1{,}69$; opsi D ($700$) memakai $z=2$ sehingga justru memotong sekitar $2{,}28\\%$ (lebih sedikit dari $2{,}5\\%$); opsi C ($720$) memakai batas yang terlalu tinggi.',
+    hints: [
+      'Ubah "2,5% teratas" menjadi skor baku kritis $z$.',
+      'Gunakan $x=\\mu+z\\sigma$ dengan $\\mu=500$ dan $\\sigma=100$.',
+    ],
+    competencies: ['skor baku', 'nilai kritis', 'kontekstual'],
+  },
 ];

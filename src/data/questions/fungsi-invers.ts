@@ -172,6 +172,11 @@ export const fungsiInversQuestions: Question[] = [
     category: 'penalaran',
     prompt:
       'Grafik fungsi $f$ melalui titik $(5, 4)$. Titik yang pasti dilalui grafik $f^{-1}$ adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 200" role="img" aria-hidden="true"><line x1="30" y1="180" x2="300" y2="180" stroke="currentColor" stroke-width="1.3"/><line x1="60" y1="190" x2="60" y2="20" stroke="currentColor" stroke-width="1.3"/><line x1="70" y1="170" x2="215" y2="25" stroke="currentColor" stroke-width="1" stroke-dasharray="5 3"/><polyline points="120,125 150,105 180,84 210,68 240,50" fill="none" stroke="currentColor" stroke-width="1.6"/><polyline points="115,120 135,90 156,60 172,30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/><circle cx="180" cy="84" r="2.8" fill="currentColor"/><circle cx="156" cy="60" r="2.8" fill="currentColor"/><text x="184" y="80" font-size="10" fill="currentColor">(5, 4)</text><text x="118" y="54" font-size="10" fill="currentColor">(4, 5)</text><text x="242" y="62" font-size="10" fill="currentColor">f</text><text x="106" y="132" font-size="10" fill="currentColor">f⁻¹</text><text x="196" y="36" font-size="10" fill="currentColor">y = x</text></svg>',
+      alt: 'Bidang koordinat dengan garis putus-putus y sama dengan x. Kurva f melalui titik (5, 4), sedangkan kurva f invers adalah pencerminannya terhadap garis y sama dengan x sehingga melalui titik (4, 5).',
+      caption: 'Grafik $f$ dan $f^{-1}$ simetris terhadap garis $y=x$.',
+    },
     options: [
       { key: 'A', text: '$(4, 5)$' },
       { key: 'B', text: '$(-5, 4)$' },

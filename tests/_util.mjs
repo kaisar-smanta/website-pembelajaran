@@ -122,6 +122,11 @@ export function report() {
 
 const SKIP_TOPIC_FILES = new Set(['index.ts', 'planned.ts', 'enhance.ts']);
 
+// `index.ts` memakai impor tanpa ekstensi; `categories.ts` adalah metadata
+// kategori asesmen (bukan bank soal) yang tinggal di direktori yang sama agar
+// bebas impor ber-glob sehingga dapat dimuat uji Node.
+const SKIP_QUESTION_FILES = new Set(['index.ts', 'categories.ts']);
+
 function isTopic(value) {
   return Boolean(value) && typeof value === 'object' && typeof value.id === 'string' && Array.isArray(value.sections);
 }
@@ -166,7 +171,7 @@ export async function collectTopicIds(dir = 'src/data/topics') {
 export async function collectQuestionFiles(dir = 'src/data/questions') {
   const files = fs
     .readdirSync(path.join(root, dir))
-    .filter((name) => name.endsWith('.ts') && name !== 'index.ts')
+    .filter((name) => name.endsWith('.ts') && !SKIP_QUESTION_FILES.has(name))
     .sort();
   const out = [];
   for (const file of files) {
@@ -185,6 +190,20 @@ export async function collectQuestionFiles(dir = 'src/data/questions') {
 export async function collectQuestions(dir = 'src/data/questions') {
   const files = await collectQuestionFiles(dir);
   return files.flatMap((entry) => entry.questions);
+}
+
+/**
+ * Memuat satu berkas soal dan mengembalikan soal ber-`id` yang dicari. Melempar
+ * galat bila berkas tidak mengekspor larik soal atau id tidak ditemukan, sehingga
+ * uji yang memeriksa nilai konten gagal keras ketika soal dipindah atau dihapus,
+ * alih-alih menghitung ulang aritmetika lepas dari berkas.
+ */
+export async function loadQuestion(file, id) {
+  const mod = await load(file);
+  const list = Object.values(mod).find(Array.isArray);
+  const question = (list ?? []).find((item) => isQuestion(item) && item.id === id);
+  if (!question) throw new Error(`soal ${id} tidak ditemukan di ${file}`);
+  return question;
 }
 
 /**
@@ -233,4 +252,12 @@ export function mockStorage() {
       return data.size;
     },
   };
+}
+
+/**
+ * Memastikan berkas relatif terhadap akar repositori benar-benar ada.
+ * Menggantikan pembantu lokal yang dahulu disalin ke beberapa berkas uji.
+ */
+export function checkFileExists(label, relativePath) {
+  ok(fs.existsSync(path.join(root, relativePath)), `${label}: berkas ${relativePath} tidak ditemukan`);
 }

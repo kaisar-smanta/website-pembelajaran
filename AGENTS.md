@@ -18,6 +18,10 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 
   Pemeriksaan tambahan (butuh peramban, lokal): `npm run audit`, `npm run screenshot`.
 
+- `npm run build` juga menjalankan pasca-build `scripts/prune-fonts.mjs`: berkas font KaTeX
+  berformat lama (`ttf`/`woff`) dihapus bila ada padanan `.woff2` untuk basename yang sama
+  (menghemat sekitar 786 KB pada `dist/`).
+
 ## Prosa & tipografi (WAJIB)
 
 - **JANGAN memakai em-dash (U+2014) di mana pun.** Ini sidik jari prosa mesin dan membuat
@@ -44,7 +48,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - **Registrasi topik & soal otomatis.** `src/data/topics/index.ts` dan
   `src/data/questions/index.ts` memuat berkas lewat `import.meta.glob` (dengan urutan
   deterministik). Menambah topik/soal **cukup membuat berkasnya**: jangan menambah impor
-  manual. `planned.ts`, `index.ts`, dan berkas berawalan `.`/`enhance` dikecualikan.
+  manual. Glob topik memakai `['./*.ts', '!./index.ts', '!./planned.ts']`; glob soal memakai
+  `['./*.ts', '!./index.ts']`. Ingat bahwa `src/data/questions/categories.ts` adalah modul
+  metadata kategori asesmen, bukan kumpulan soal, sehingga tidak boleh dikumpulkan sebagai soal.
 - **`relatedTopics` bersifat terarah, tidak wajib simetris.** A boleh menyebut B tanpa B
   menyebut A. Uji hanya menegakkan id yang ada (`tests/content-integrity.mjs`); jangan
   memaksa simetri saat menyunting materi.
@@ -66,8 +72,9 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - **Blok dan tipe eksplorasi `geogebra` sudah dihapus.** Seluruh simulasi berupa komponen
   native di `src/components/interactive/`; tidak ada sematan applet eksternal. Tipe
   `piecewise` (topik `fungsi-nilai-mutlak-piecewise`) adalah simulasi native terbaru;
-  setiap tipe baru wajib punya komponen, logika murni di `src/lib/sim/`, dan uji
-  `tests/sim-<tipe>.mjs`.
+  setiap tipe baru wajib punya komponen, logika murni di `src/lib/sim/` (pembantu gambar
+  grafik bersama di `src/lib/sim/plot.ts`), dan uji `tests/sim-<tipe>.mjs` yang memakai
+  `runSimSuite` dari `tests/_sim-harness.mjs`.
 - **Jawaban singkat** dinilai `src/lib/answer.ts` (normalisasi penulisan + ekuivalensi numerik:
   nol di belakang koma, pecahan ↔ desimal, derajat, mata uang). Untuk `short-answer`, jawaban
   selain bilangan bulat telanjang wajib punya `acceptedAnswers` (ditegakkan `tests/questions.mjs`).
@@ -102,15 +109,22 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - Uji di `tests/*.mjs`, dijalankan `npm test` (lewat `tests/run-all.mjs`, auto-discovery).
   **Berkas berawalan `_` adalah pembantu bersama, bukan uji.** Utilitas bersama ada di
   `tests/_util.mjs` (`load`, `ok`, `check`, `checks`, `collectTopics`, `collectQuestions`,
-  `mockStorage`): pakai itu alih-alih menyalin loop pemuat topik/soal atau assertion.
-  Mencakup jawaban, pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
+  `mockStorage`) dan harness simulasi `tests/_sim-harness.mjs` (`runSimSuite`): pakai itu
+  alih-alih menyalin loop pemuat topik/soal atau assertion. Seluruh `tests/sim-*.mjs` kini
+  memakai `runSimSuite`.
+  Mencakup jawaban dan kontrak isinya (`tests/answer.mjs`, `tests/answer-content.mjs`),
+  pencarian (termasuk fuzzy), latihan/kemajuan, tinjauan lintas topik
   (`tests/review.mjs`), pengayaan (`tests/pengayaan.mjs`, `tests/mtl-tambahan.mjs`,
   `tests/sejarah-quality.mjs`, `tests/tantangan-quality.mjs`, `tests/mahir-quality.mjs`),
   kedalaman materi (`tests/content-depth.mjs`) dan bank soal (`tests/question-depth.mjs`),
   integritas konten (`tests/content-integrity.mjs`: rujukan topik↔studi kasus, id/slug unik,
   bagian tak kosong, kunci pilihan ganda sehat), teks indeks pencarian
-  (`tests/content-text.mjs`), tata letak graf prasyarat, dan setiap simulasi
-  (`tests/sim-*.mjs`, termasuk limit, binomial, dan piecewise).
+  (`tests/content-text.mjs`), pemformat angka (`tests/format.mjs`), ringkasan kemajuan murni
+  (`tests/overview.mjs`), tata letak graf prasyarat, serta pemeriksaan hasil build
+  (aksesibilitas `tests/a11y.mjs`, id dokumen `tests/dist-ids.mjs`, sitemap `tests/sitemap.mjs`,
+  metadata `tests/meta.mjs`, anggaran ukuran `tests/budget.mjs`), dan setiap simulasi
+  (`tests/sim-*.mjs`, termasuk limit, binomial, piecewise, dan pembantu plot
+  `tests/sim-plot.mjs`).
 - Simulasi disiapkan lazy lewat `initWhenVisible` (`src/lib/dom.ts`).
 - **Pustaka bersama (jangan duplikasi):** kunci `localStorage` di `src/lib/storage-keys.ts`;
   keacakan deterministik (`seededShuffle`, `combineSeed`) di `src/lib/random.ts`; pembantu
@@ -119,7 +133,13 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   (`subjectGradeElementCombos`, `legacyCombos`, dst.) di `src/lib/routes.ts`; perayaan bersama
   (`celebrate`, `prefersReducedMotion`) di `src/lib/celebrate.ts` (QuestionCard, MatchBlock,
   FlipCards, StepReveal, TopicProgress); pelipat saringan ponsel (`collapseFiltersOnMobile`) di
-  `src/lib/filter-dom.ts`.
+  `src/lib/filter-dom.ts`; mesin kuis pilihan ganda bersama di `src/lib/quiz-engine.ts`
+  (mengacak opsi, menandai jawaban, rentetan kuis) yang dipakai `QuestionCard.astro` &
+  `QuizTeaser.astro`; penyaring daftar berbasis DOM di `src/lib/list-filter.ts`; pembantu klien
+  kecil (`formatPercentWhole`, `setSectionVisible`) di `src/lib/client-shared.ts`; pembantu
+  gambar grafik simulasi (kisi, sumbu, nilai parameter) di `src/lib/sim/plot.ts`; pemberitahuan
+  penyimpanan tak tersedia di `src/lib/storage-notice.ts`; sinyal penguasaan topik di
+  `src/lib/topic-mastery.ts`; metadata kategori asesmen di `src/data/questions/categories.ts`.
 - **Panel saringan ponsel**: halaman daftar dibungkus `<details class="filter-panel" open>`
   dengan `<summary class="filter-panel__summary">`; chip memakai resep bersama `.chip`,
   `.chip--active`, `.chip__count` di `components.css` (kelas lama seperti `.ref-chip` tetap
@@ -157,7 +177,8 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
 - Ikon PWA dibuat `npm run pwa-icons` (butuh Chrome/Edge terpasang); og image `npm run og`.
   Keduanya memakai browser headless lewat `scripts/lib/browser.mjs`.
 - `npm run audit` (lokal) juga memeriksa struktur a11y (satu h1, urutan heading, `alt`,
-  label kontrol, landmark). Uji statis padanannya: `tests/heading.mjs`, `tests/seo.mjs`.
+  label kontrol, landmark). Uji statis padanannya: `tests/heading.mjs`, `tests/seo.mjs`,
+  `tests/a11y.mjs`.
 - **Ditunda:** CSS KaTeX masih dimuat global di `BaseLayout.astro`; memindahkannya per
   halaman butuh pemisahan CSS tingkat build (berisiko ke render matematika), jadi belum
   dikerjakan.
@@ -182,10 +203,13 @@ Workflow `.github/workflows/deploy.yml` hanya **deploy-only**: membangun dan men
   ekspor memakai `SCHEMA_VERSION`, bukan literal. Semua akses penyimpanan lewat
   `safeStorage()`/`safeSessionStorage()` di `src/lib/storage.ts`.
 - **Skrip bersama wajib dipakai:** `scripts/lib/files.mjs` (`collectFiles`,
-  `resolveDistFile`, `writeTempFile`, `replaceFile`) dan `scripts/lib/browser.mjs`
-  (`preparePage`) menggantikan penelusur berkas dan penyiapan peramban yang dulu disalin.
+  `resolveDistFile`, `writeTempFile`, `replaceFile`), `scripts/lib/browser.mjs`
+  (`preparePage`), dan `scripts/lib/html.mjs` (`decodeEntities`, `stripTags`,
+  `stripNonVisible`, dipakai `check-latex.mjs` dan `check-links.mjs`) menggantikan penelusur
+  berkas, penyiapan peramban, dan pengolahan HTML yang dulu disalin.
 - **Logika klien besar dipindah ke `src/lib`:** `header-nav.ts`, `review-client.ts`,
-  `search-page.ts`, `map-client.ts`, `topic-page.ts`.
+  `search-page.ts`, `map-client.ts`, `topic-page.ts`, `quiz-engine.ts`, `list-filter.ts`,
+  `client-shared.ts`.
 - **Pemindai matematika bersama** `src/lib/math-scan.ts` (`scanMath`/`replaceMath`) dipakai
   renderer markdown (`src/utils/markdown.ts`) dan linter konten (`scripts/lint-content.mjs`).
   Sisa implementasi terpisah: pencarian LaTeX pada HTML (`scripts/check-latex.mjs`) dan

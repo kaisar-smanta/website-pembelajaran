@@ -200,13 +200,13 @@ input[type='range'] {
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
-:where(.filter-panel) .chip:is(.chip--active, .is-active),
+:where(.filter-panel) .chip.is-active,
 :where(.filter-panel) .chip[aria-pressed='true'] {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--color-on-primary);
 }
-:where(.filter-panel) .chip:is(.chip--active, .is-active):hover,
+:where(.filter-panel) .chip.is-active:hover,
 :where(.filter-panel) .chip[aria-pressed='true']:hover {
   color: var(--color-on-primary);
 }
@@ -227,7 +227,7 @@ input[type='range'] {
     background var(--dur-fast),
     color var(--dur-fast);
 }
-:where(.filter-panel) .chip:is(.chip--active, .is-active) .chip__count,
+:where(.filter-panel) .chip.is-active .chip__count,
 :where(.filter-panel) .chip[aria-pressed='true'] .chip__count {
   background: var(--color-on-primary);
   color: var(--color-primary);

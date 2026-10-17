@@ -42,9 +42,6 @@
     color: #000;
     text-decoration: none;
   }
-  .print-break {
-    break-inside: avoid;
-  }
   .reveal,
   .motion-ready .reveal {
     opacity: 1 !important;

@@ -2,19 +2,15 @@
 import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
+import { paramValue } from '@/lib/sim/plot';
 
 interface Props {
   exploration: Exploration;
 }
 const { exploration } = Astro.props;
 
-const paramValue = (name: string, fallback: number): number => {
-  const found = exploration.params?.find((p) => p.name === name);
-  return found && Number.isFinite(found.value) ? found.value : fallback;
-};
-
-const r0 = paramValue('r', 4);
-const theta0 = paramValue('sudut', 90);
+const r0 = paramValue(exploration.params, 'r', 4);
+const theta0 = paramValue(exploration.params, 'sudut', 90);
 const initialAria = `Lingkaran berjari-jari ${r0} dengan sudut pusat ${theta0} derajat`;
 ---
 

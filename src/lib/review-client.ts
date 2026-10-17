@@ -10,6 +10,8 @@
 
 import { loadProgress, type ProgressMap } from './progress.ts';
 import { safeStorage } from './storage.ts';
+import { readJsonArray } from './dom.ts';
+import { formatPercentWhole, isString, setSectionVisible } from './client-shared.ts';
 import {
   buildReviewQueue,
   summarizeReviewQueue,
@@ -24,16 +26,7 @@ export function bootReview(): void {
     const root = document.querySelector<HTMLElement>('[data-review-root]');
     if (!root) return;
 
-    const idsEl = document.getElementById('review-ids');
-    let ids: string[] = [];
-    try {
-      const parsed: unknown = idsEl ? JSON.parse(idsEl.textContent ?? '[]') : [];
-      if (Array.isArray(parsed)) {
-        ids = parsed.filter((id): id is string => typeof id === 'string');
-      }
-    } catch {
-      ids = [];
-    }
+    const ids = readJsonArray(document.getElementById('review-ids'), isString);
 
     const storage = safeStorage();
     const emptyEl = root.querySelector<HTMLElement>('[data-review-empty]');
@@ -67,14 +60,6 @@ export function bootReview(): void {
       } catch {
         return {};
       }
-    }
-
-    function setVisible(el: HTMLElement | null, visible: boolean) {
-      if (el) el.hidden = !visible;
-    }
-
-    function percent(ratio: number): string {
-      return `${Math.round(ratio * 100)}%`;
     }
 
     function applyQueue() {
@@ -148,7 +133,7 @@ export function bootReview(): void {
       const accuracy = graded ? resolved / graded : 0;
       if (totalEl) totalEl.textContent = String(total);
       if (doneEl) doneEl.textContent = `${resolved}/${total}`;
-      if (accuracyEl) accuracyEl.textContent = percent(accuracy);
+      if (accuracyEl) accuracyEl.textContent = formatPercentWhole(accuracy);
       if (barEl) barEl.style.width = `${total ? Math.round((resolved / total) * 100) : 0}%`;
       if (trackEl) {
         trackEl.setAttribute('aria-valuemax', String(total));
@@ -190,13 +175,13 @@ export function bootReview(): void {
             ? 'Semua soal yang pernah kamu kerjakan sudah tepat. Pertahankan dengan berlatih soal baru atau soal tingkat mahir.'
             : 'Kerjakan beberapa latihan dulu, lalu kembali ke sini untuk meninjau soal yang belum tepat atau belum dicoba secara lintas topik.';
         }
-        setVisible(emptyEl, true);
-        setVisible(bodyEl, false);
+        setSectionVisible(emptyEl, true);
+        setSectionVisible(bodyEl, false);
         return;
       }
 
-      setVisible(emptyEl, false);
-      setVisible(bodyEl, true);
+      setSectionVisible(emptyEl, false);
+      setSectionVisible(bodyEl, true);
       applyQueue();
       refreshStatus();
     }

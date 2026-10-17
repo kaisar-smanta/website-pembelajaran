@@ -202,8 +202,14 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
 </BaseLayout>
 
 <script>
-  import { normalizeText } from '@/lib/filter';
   import { setupFilterPage, collapseFiltersOnMobile, type FilterPageGroup } from '@/lib/filter-dom';
+  import {
+    classHideMode,
+    dataMatches,
+    hideEmptyAncestors,
+    resultStatus,
+    type MatchField,
+  } from '@/lib/list-filter';
 
   const toolbar = document.querySelector<HTMLElement>('[data-glos-toolbar]');
 
@@ -215,30 +221,27 @@ const meta = [`${entries.length} istilah`, `${groups.length} abjad`, `${topicCou
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-glos-item]'));
     const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-glos-group]'));
 
+    const matchFields: MatchField[] = [{ key: 'element', attr: 'data-elements', multi: true }];
+
     const apply = (values: Record<string, string>, query: string): void => {
-      const element = values.element || 'all';
-      const q = normalizeText(query);
       let visible = 0;
 
       for (const item of items) {
-        const elements = (item.getAttribute('data-elements') ?? '').split(' ').filter(Boolean);
-        const haystack = item.getAttribute('data-search') ?? '';
-        const show =
-          (element === 'all' || elements.includes(element)) &&
-          (q === '' || haystack.includes(q));
+        const show = dataMatches(item, matchFields, values, query, {
+          allValue: 'all',
+          searchAttr: 'data-search',
+        });
         item.classList.toggle('is-hidden', !show);
         if (show) visible += 1;
       }
 
-      for (const group of groups) {
-        const any = Array.from(group.querySelectorAll<HTMLElement>('[data-glos-item]')).some(
-          (item) => !item.classList.contains('is-hidden'),
-        );
-        group.classList.toggle('is-hidden', !any);
-      }
+      hideEmptyAncestors(
+        [{ groups, childSelector: '[data-glos-item]' }],
+        classHideMode('is-hidden'),
+      );
 
       if (empty) empty.hidden = visible !== 0;
-      if (result) result.textContent = `Menampilkan ${visible} dari ${items.length} istilah`;
+      if (result) result.textContent = resultStatus(visible, { noun: 'istilah', total: items.length });
     };
 
     const filterGroups: FilterPageGroup[] = chips

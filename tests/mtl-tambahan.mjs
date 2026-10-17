@@ -4,17 +4,7 @@
 //
 // Pemakaian: node tests/mtl-tambahan.mjs
 import assert from 'node:assert/strict';
-import { check, close, ok, report } from './_util.mjs';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-function checkFileExists(label, relativePath) {
-  ok(fs.existsSync(path.join(root, relativePath)), `${label}: berkas ${relativePath} tidak ditemukan`);
-}
+import { check, checkFileExists, close, report } from './_util.mjs';
 
 // ---------- Limit fungsi ----------
 const fLimit = (x) => (x * x - 1) / (x - 1);

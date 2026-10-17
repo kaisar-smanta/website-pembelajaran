@@ -329,4 +329,45 @@ export const analisisDistribusiDataQuestions: Question[] = [
     ],
     competencies: ['modus dan median berkelompok', 'evaluasi'],
   },
+  {
+    id: 'ad-17',
+    topicId: 'analisis-distribusi-data',
+    difficulty: 'mahir',
+    type: 'short-answer',
+    category: 'penerapan',
+    prompt:
+      'Rata-rata nilai $10$ siswa adalah $15$. Setelah nilai seorang siswa baru dimasukkan, rata-rata menjadi $16$. Tentukan nilai siswa baru tersebut.',
+    answer: '26',
+    explanation:
+      'Jumlah nilai $10$ siswa $=10\\times15=150$. Setelah data baru masuk, jumlahnya menjadi $11\\times16=176$. Jadi nilai siswa baru $=176-150=26$.',
+    hints: [
+      'Ubah kedua rata-rata menjadi jumlah total nilai.',
+      'Nilai data baru adalah selisih jumlah $11$ datum dengan jumlah $10$ datum sebelumnya.',
+    ],
+    competencies: ['mean', 'mean setelah penambahan data'],
+  },
+  {
+    id: 'ad-18',
+    topicId: 'analisis-distribusi-data',
+    difficulty: 'mahir',
+    type: 'open-response',
+    category: 'penalaran',
+    prompt:
+      'Data A adalah $65, 70, 75$ dan data B adalah $50, 70, 90$. Keduanya memiliki rata-rata $70$. (a) Hitung simpangan baku masing-masing data. (b) Bandingkan keragamannya dan jelaskan makna hasilnya.',
+    answer:
+      'Data A: simpangan terhadap $70$ adalah $-5, 0, 5$, sehingga variansi $=\\dfrac{25+0+25}{3}=\\dfrac{50}{3}\\approx16{,}67$ dan simpangan baku $\\approx4{,}08$. Data B: simpangan $-20, 0, 20$, sehingga variansi $=\\dfrac{400+0+400}{3}=\\dfrac{800}{3}\\approx266{,}67$ dan simpangan baku $\\approx16{,}33$. Data B jauh lebih menyebar meskipun rata-ratanya sama, karena nilai-nilainya berjarak lebih jauh dari rata-rata.',
+    explanation:
+      'Kunci: menghitung simpangan tiap datum dari rata-rata $70$, membentuk rata-rata kuadrat simpangan, lalu membandingkan sebaran kedua data.',
+    hints: [
+      'Hitung selisih setiap nilai dengan rata-rata $70$ lebih dahulu.',
+      'Simpangan baku adalah akar dari rata-rata kuadrat simpangan.',
+    ],
+    competencies: ['simpangan baku', 'membandingkan sebaran', 'penalaran'],
+    rubric: [
+      'Menghitung simpangan tiap datum data A dan data B terhadap rata-rata $70$',
+      'Memperoleh variansi data A sekitar $16{,}67$ dengan simpangan baku sekitar $4{,}08$',
+      'Memperoleh variansi data B sekitar $266{,}67$ dengan simpangan baku sekitar $16{,}33$',
+      'Menyimpulkan data B lebih menyebar dan menjelaskan maknanya',
+    ],
+  },
 ];

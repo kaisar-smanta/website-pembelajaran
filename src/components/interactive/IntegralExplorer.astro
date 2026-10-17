@@ -79,6 +79,7 @@ const initialAria = 'Grafik f(x) = x² dengan 6 persegi panjang Riemann pada sel
 <script>
   import { evalIntegrand, riemannSum, describeIntegral } from '../../lib/sim/integral';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid, drawAxes } from '../../lib/sim/plot';
 
   function setupIntegral(root: Element) {
     const inputA = root.querySelector('[data-field="a"]') as HTMLInputElement;
@@ -102,14 +103,8 @@ const initialAria = 'Grafik f(x) = x² dengan 6 persegi panjang Riemann pada sel
     function draw(a: number, b: number, n: number) {
       const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
       clear(svg);
-      for (let i = 0; i <= 8; i++) {
-        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 5; i++) {
-        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 5) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 5) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
-      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 5 });
+      drawAxes(svg, { sx, sy }, { width: W, height: H, pad });
 
       const dx = (b - a) / n;
       for (let i = 0; i < n; i++) {

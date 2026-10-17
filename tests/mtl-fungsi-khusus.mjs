@@ -4,17 +4,7 @@
 // Dipanggil otomatis oleh tests/run-all.mjs.
 //
 // Pemakaian: node tests/mtl-fungsi-khusus.mjs
-import { check, close, ok, report } from './_util.mjs';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
-
-function checkFileExists(label, relativePath) {
-  ok(fs.existsSync(path.join(root, relativePath)), `${label}: berkas ${relativePath} tidak ditemukan`);
-}
+import { checkFileExists, close, ok, report } from './_util.mjs';
 
 const abs = Math.abs;
 

@@ -66,6 +66,11 @@ export const trigonometriQuestions: Question[] = [
     type: 'short-answer',
     category: 'penerapan',
     prompt: 'Pada segitiga $ABC$ diketahui $a=12$, $A=30^\\circ$, dan $B=60^\\circ$. Tentukan panjang sisi $b$ menggunakan aturan sinus.',
+    figure: {
+      svg: '<svg viewBox="0 0 320 220" role="img" aria-hidden="true"><polygon points="80,180 80,52 162,180" fill="currentColor" opacity="0.08" stroke="currentColor" stroke-width="1.4"/><rect x="80" y="168" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1"/><text x="70" y="48" font-size="12" fill="currentColor">A</text><text x="166" y="192" font-size="12" fill="currentColor">B</text><text x="66" y="194" font-size="12" fill="currentColor">C</text><text x="96" y="196" font-size="11" fill="currentColor">a = 12</text><text x="56" y="124" font-size="11" fill="currentColor">b</text><text x="132" y="112" font-size="11" fill="currentColor">c</text><text x="84" y="72" font-size="10" fill="currentColor">30°</text><text x="126" y="174" font-size="10" fill="currentColor">60°</text></svg>',
+      alt: 'Segitiga ABC siku-siku di C dengan sudut A 30 derajat dan sudut B 60 derajat, sisi a sama dengan BC sama dengan 12 di hadapan sudut A, sisi b sama dengan CA di hadapan sudut B, dan sisi c sama dengan AB sebagai sisi miring.',
+      caption: 'Segitiga pada soal, dengan sisi $b$ yang dicari.',
+    },
     answer: '12√3',
     acceptedAnswers: ['12\\sqrt{3}', '12√3', '12 akar 3'],
     explanation:
@@ -289,6 +294,11 @@ export const trigonometriQuestions: Question[] = [
     category: 'kontekstual',
     prompt:
       'Dua pemain sepak bola berlari dari titik yang sama. Pemain pertama menempuh $8$ m dan pemain kedua $5$ m, dengan sudut antara arah lari keduanya $60^\\circ$. Jarak kedua pemain itu adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 220" role="img" aria-hidden="true"><line x1="40" y1="180" x2="240" y2="180" stroke="currentColor" stroke-width="1.4"/><line x1="40" y1="180" x2="102" y2="72" stroke="currentColor" stroke-width="1.4"/><line x1="240" y1="180" x2="102" y2="72" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4"/><path d="M78 180 A38 38 0 0 0 59 147" fill="none" stroke="currentColor" stroke-width="1"/><text x="30" y="194" font-size="12" fill="currentColor">O</text><text x="244" y="194" font-size="12" fill="currentColor">P₁</text><text x="96" y="64" font-size="12" fill="currentColor">P₂</text><text x="132" y="194" font-size="11" fill="currentColor">8 m</text><text x="58" y="122" font-size="11" fill="currentColor">5 m</text><text x="166" y="120" font-size="11" fill="currentColor">d</text><text x="62" y="172" font-size="10" fill="currentColor">60°</text></svg>',
+      alt: 'Dua pemain berlari dari titik O. Pemain pertama menempuh 8 m lurus ke kanan sampai titik P₁, pemain kedua menempuh 5 m sampai titik P₂ dengan sudut 60 derajat terhadap arah pemain pertama, dan d adalah jarak P₁ ke P₂.',
+      caption: 'Jarak kedua pemain $d$ dapat dicari dengan aturan kosinus.',
+    },
     options: [
       { key: 'A', text: '$7$ m' },
       { key: 'B', text: '$\\sqrt{89}$ m' },

@@ -2,25 +2,14 @@
 // Pemakaian: node scripts/check-links.mjs
 import fs from 'node:fs';
 import { byExtension, collectFiles, resolveDistFile } from './lib/files.mjs';
+import { decodeEntities } from './lib/html.mjs';
 
 const dist = 'dist';
 const base = process.env.BASE_PATH || '/website-pembelajaran';
 
 if (!fs.existsSync(dist)) {
-  console.log('dist/ belum ada. Jalankan: npm run build');
-  process.exit(0);
-}
-
-// Dekode entitas HTML yang umum agar hash/anchor yang ditulis sebagai entitas
-// (mis. `&amp;`) tetap cocok dengan id di dokumen tujuan.
-function decodeEntities(text) {
-  return text
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&#x27;/gi, "'");
+  console.error('dist/ belum ada. Jalankan: npm run build');
+  process.exit(1);
 }
 
 // Pencocokan id memakai `includes` literal, bukan RegExp dari hash, sehingga
@@ -63,6 +52,37 @@ for (const file of files) {
       }
     }
   }
+
+  // Aset yang dirujuk lewat src/poster/srcset juga ikut diperiksa agar gambar,
+  // skrip, dan berkas gaya yang hilang tidak lolos tanpa terdeteksi.
+  const srcRe = /\b(?:src|poster)="([^"]+)"/g;
+  while ((m = srcRe.exec(html))) {
+    const src = decodeEntities(m[1]);
+    if (!src.startsWith(base)) continue;
+    checked++;
+    if (!fs.existsSync(resolveDistFile(dist, base, src))) {
+      broken.push(`${file.replace(dist, '')} -> ${src}`);
+    }
+  }
+  const srcsetRe = /\bsrcset="([^"]+)"/g;
+  while ((m = srcsetRe.exec(html))) {
+    for (const candidate of decodeEntities(m[1]).split(',')) {
+      const src = candidate.trim().split(/\s+/)[0];
+      if (!src || !src.startsWith(base)) continue;
+      checked++;
+      if (!fs.existsSync(resolveDistFile(dist, base, src))) {
+        broken.push(`${file.replace(dist, '')} -> ${src}`);
+      }
+    }
+  }
+}
+
+if (checked === 0) {
+  console.error(
+    `Tidak ada tautan internal yang diperiksa (base: ${base}). ` +
+      'Pastikan dist/ dibangun dengan BASE_PATH yang sama.',
+  );
+  process.exit(1);
 }
 
 console.log(`Berkas HTML: ${files.length} | tautan internal diperiksa: ${checked}`);

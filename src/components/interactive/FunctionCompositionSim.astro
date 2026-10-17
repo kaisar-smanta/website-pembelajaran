@@ -206,6 +206,7 @@ const initialAria =
   } from '../../lib/sim/function-composition';
   import type { Linear } from '../../lib/sim/function-composition';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid } from '../../lib/sim/plot';
   import { formatPlain } from '../../lib/format';
 
   type ParamName = 'a' | 'b' | 'c' | 'd';
@@ -269,18 +270,7 @@ const initialAria =
 
       clear(svg);
 
-      for (let i = 0; i <= 8; i++) {
-        const x = pad + (i / 8) * (W - 2 * pad);
-        svg.appendChild(
-          el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }),
-        );
-      }
-      for (let i = 0; i <= 6; i++) {
-        const y = pad + (i / 6) * (H - 2 * pad);
-        svg.appendChild(
-          el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }),
-        );
-      }
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
 
       if (yMin <= 0 && yMax >= 0) {
         svg.appendChild(

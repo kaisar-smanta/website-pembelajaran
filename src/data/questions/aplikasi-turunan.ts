@@ -8,6 +8,11 @@ export const aplikasiTurunanQuestions: Question[] = [
     type: 'multiple-choice',
     category: 'cepat',
     prompt: 'Gradien garis singgung kurva $y = x^{2}$ di $x = 3$ adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 190" role="img" aria-hidden="true"><line x1="30" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1.3"/><line x1="40" y1="180" x2="40" y2="20" stroke="currentColor" stroke-width="1.3"/><polyline points="54,89 76,134 98,161 120,170 142,161 164,134 186,89" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="153" y1="170" x2="208" y2="35" stroke="currentColor" stroke-width="1.3"/><line x1="186" y1="89" x2="186" y2="170" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><circle cx="186" cy="89" r="3" fill="currentColor"/><text x="56" y="82" font-size="10" fill="currentColor">y = x²</text><text x="190" y="84" font-size="10" fill="currentColor">(3, 9)</text><text x="176" y="184" font-size="10" fill="currentColor">3</text><text x="212" y="46" font-size="10" fill="currentColor">garis singgung</text></svg>',
+      alt: 'Grafik parabola y sama dengan x kuadrat beserta garis singgungnya di titik (3, 9). Garis singgung menyinggung kurva tepat di titik itu, dengan absis x sama dengan 3 ditandai garis putus-putus.',
+      caption: 'Garis singgung kurva $y=x^{2}$ di $x=3$.',
+    },
     options: [
       { key: 'A', text: '$6$' },
       { key: 'B', text: '$9$' },

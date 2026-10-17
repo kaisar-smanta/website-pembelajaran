@@ -32,41 +32,51 @@ import {
   type EnrichmentSummary,
 } from '@/lib/progress-overview';
 import { buildReviewQueue, summarizeReviewQueue } from '@/lib/review';
+import { elementColorVar } from '@/data/display';
+import { query, readJsonArray } from '@/lib/dom';
+import { formatPercentWhole, setSectionVisible } from '@/lib/client-shared';
+import type { ElementId } from '@/types/content';
+
+interface ContinueItemData {
+  element?: string;
+  title: string;
+  practiceHref: string;
+  materialHref: string;
+  meta: string;
+  supplementary?: boolean;
+}
+
+/** Menyaring entri JSON tersemat sebelum dipakai `buildOverview`. */
+function isTopicEntry(value: unknown): value is TopicEntry {
+  return typeof value === 'object' && value !== null && 'id' in value;
+}
 
 export function bootDashboard(): void {
   function boot() {
-    const rootEl = document.querySelector<HTMLElement>('[data-kemajuan-root]');
+    const rootEl = query<HTMLElement>(document, '[data-kemajuan-root]');
     if (!rootEl) return;
     const root = rootEl;
 
-    const dataEl = document.getElementById('kemajuan-data');
-    let entries: TopicEntry[] = [];
-    try {
-      const parsed: unknown = dataEl ? JSON.parse(dataEl.textContent ?? '[]') : [];
-      if (Array.isArray(parsed)) entries = parsed as TopicEntry[];
-    } catch {
-      entries = [];
-    }
+    const entries = readJsonArray<TopicEntry>(query(document, '#kemajuan-data'), isTopicEntry);
 
     const storage = safeStorage();
-    const emptyEl = root.querySelector<HTMLElement>('[data-empty]');
-    const mascotHappy = root.querySelector<HTMLElement>('[data-summary-mascot-happy]');
-    const mascotCelebrate = root.querySelector<HTMLElement>('[data-summary-mascot-celebrate]');
+    const emptyEl = query<HTMLElement>(root, '[data-empty]');
+    const mascotHappy = query<HTMLElement>(root, '[data-summary-mascot-happy]');
+    const mascotCelebrate = query<HTMLElement>(root, '[data-summary-mascot-celebrate]');
     const sections = {
-      summary: root.querySelector<HTMLElement>('[data-summary]'),
-      review: root.querySelector<HTMLElement>('[data-review]'),
-      challenge: root.querySelector<HTMLElement>('[data-challenge]'),
-      mastery: root.querySelector<HTMLElement>('[data-mastery]'),
-      confidence: root.querySelector<HTMLElement>('[data-confidence]'),
-      enrichment: root.querySelector<HTMLElement>('[data-enrichment]'),
-      continue: root.querySelector<HTMLElement>('[data-continue]'),
-      suggest: root.querySelector<HTMLElement>('[data-suggest]'),
-      breakdown: root.querySelector<HTMLElement>('[data-breakdown]'),
-      manage: root.querySelector<HTMLElement>('[data-manage]'),
+      summary: query<HTMLElement>(root, '[data-summary]'),
+      review: query<HTMLElement>(root, '[data-review]'),
+      challenge: query<HTMLElement>(root, '[data-challenge]'),
+      mastery: query<HTMLElement>(root, '[data-mastery]'),
+      confidence: query<HTMLElement>(root, '[data-confidence]'),
+      enrichment: query<HTMLElement>(root, '[data-enrichment]'),
+      continue: query<HTMLElement>(root, '[data-continue]'),
+      suggest: query<HTMLElement>(root, '[data-suggest]'),
+      breakdown: query<HTMLElement>(root, '[data-breakdown]'),
+      manage: query<HTMLElement>(root, '[data-manage]'),
     };
 
     const dateFmt = new Intl.DateTimeFormat('id-ID', { dateStyle: 'long', timeStyle: 'short' });
-    const percent = (ratio: number) => `${Math.round(ratio * 100)}%`;
     const formatDate = (value: number) => {
       try {
         return dateFmt.format(new Date(value));
@@ -74,10 +84,6 @@ export function bootDashboard(): void {
         return '';
       }
     };
-
-    function setSectionVisible(el: HTMLElement | null, visible: boolean) {
-      if (el) el.hidden = !visible;
-    }
 
     function readStores(): {
       progress: ProgressMap;
@@ -101,39 +107,33 @@ export function bootDashboard(): void {
       track.setAttribute('aria-valuemin', '0');
       track.setAttribute('aria-valuemax', String(total));
       track.setAttribute('aria-valuenow', String(answered));
-      track.setAttribute(
-        'aria-valuetext',
-        `${answered} dari ${total} soal dikerjakan`,
-      );
+      track.setAttribute('aria-valuetext', `${answered} dari ${total} soal dikerjakan`);
       const bar = document.createElement('span');
       bar.className = 'bar';
-      bar.style.width = total ? `${Math.round((answered / total) * 100)}%` : '0%';
+      bar.style.width = total ? formatPercentWhole(answered / total) : '0%';
       track.appendChild(bar);
       return track;
     }
 
-    function topicListItem(topic: TopicOverview): HTMLLIElement {
+    function continueItem(data: ContinueItemData): HTMLLIElement {
       const item = document.createElement('li');
       item.className = 'continue-item';
-      item.style.setProperty('--accent', `var(--color-${accentKey(topic.element)})`);
+      item.style.setProperty('--accent', `var(${elementColorVar(data.element as ElementId | undefined)})`);
 
       const main = document.createElement('div');
       main.className = 'continue-main';
 
       const link = document.createElement('a');
       link.className = 'continue-title';
-      link.href = topic.practiceHref;
-      link.textContent = topic.title;
+      link.href = data.practiceHref;
+      link.textContent = data.title;
 
       const meta = document.createElement('span');
       meta.className = 'continue-meta';
-      const ratio = topic.total ? `${topic.answered}/${topic.total} soal (${percent(topic.answered / topic.total)})` : 'belum ada soal';
-      const accuracy = topic.gradedAnswered ? ` · ketepatan ${percent(topic.accuracy)}` : '';
-      const when = topic.lastAt ? ` · terakhir ${formatDate(topic.lastAt)}` : '';
-      meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy}${when}`;
+      meta.textContent = data.meta;
 
       main.append(link);
-      if (topic.supplementary) {
+      if (data.supplementary) {
         const row = document.createElement('span');
         row.className = 'continue-meta-row';
         const badge = document.createElement('span');
@@ -147,26 +147,29 @@ export function bootDashboard(): void {
 
       const material = document.createElement('a');
       material.className = 'btn btn-secondary btn-sm';
-      material.href = topic.materialHref;
+      material.href = data.materialHref;
       material.textContent = 'Baca materi';
 
       item.append(main, material);
       return item;
     }
 
-    function accentKey(element: string): string {
-      const map: Record<string, string> = {
-        bilangan: 'number',
-        'aljabar-fungsi': 'algebra',
-        geometri: 'geometry',
-        kalkulus: 'calculus',
-        'data-peluang': 'data',
-      };
-      return map[element] ?? 'primary';
+    function topicListItem(topic: TopicOverview): HTMLLIElement {
+      const ratio = topic.total ? `${topic.answered}/${topic.total} soal (${formatPercentWhole(topic.answered / topic.total)})` : 'belum ada soal';
+      const accuracy = topic.gradedAnswered ? ` · ketepatan ${formatPercentWhole(topic.accuracy)}` : '';
+      const when = topic.lastAt ? ` · terakhir ${formatDate(topic.lastAt)}` : '';
+      return continueItem({
+        element: topic.element,
+        title: topic.title,
+        practiceHref: topic.practiceHref,
+        materialHref: topic.materialHref,
+        meta: `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy}${when}`,
+        supplementary: topic.supplementary,
+      });
     }
 
     function renderContinue(overview: SiteOverview) {
-      const list = sections.continue?.querySelector<HTMLOListElement>('[data-continue-list]');
+      const list = sections.continue ? query<HTMLOListElement>(sections.continue, '[data-continue-list]') : null;
       const items = continueLearning(overview, 6);
       setSectionVisible(sections.continue, items.length > 0);
       if (!list) return;
@@ -174,7 +177,7 @@ export function bootDashboard(): void {
     }
 
     function renderSuggest(overview: SiteOverview) {
-      const list = sections.suggest?.querySelector<HTMLOListElement>('[data-suggest-list]');
+      const list = sections.suggest ? query<HTMLOListElement>(sections.suggest, '[data-suggest-list]') : null;
       const items = suggestedStart(overview, 4);
       const hasContinue =
         sections.continue instanceof HTMLElement && !sections.continue.hidden;
@@ -183,21 +186,19 @@ export function bootDashboard(): void {
     }
 
     function renderEnrichment(summary: EnrichmentSummary) {
-      const startedEl = root.querySelector('[data-enrichment-started]');
-      const completedEl = root.querySelector('[data-enrichment-completed]');
-      const answeredEl = root.querySelector('[data-enrichment-answered]');
-      const accuracyEl = root.querySelector('[data-enrichment-accuracy]');
-      const list = sections.enrichment?.querySelector<HTMLOListElement>(
-        '[data-enrichment-list]',
-      );
-      const note = root.querySelector<HTMLElement>('[data-enrichment-note]');
+      const startedEl = query(root, '[data-enrichment-started]');
+      const completedEl = query(root, '[data-enrichment-completed]');
+      const answeredEl = query(root, '[data-enrichment-answered]');
+      const accuracyEl = query(root, '[data-enrichment-accuracy]');
+      const list = sections.enrichment ? query<HTMLOListElement>(sections.enrichment, '[data-enrichment-list]') : null;
+      const note = query<HTMLElement>(root, '[data-enrichment-note]');
 
       if (startedEl) startedEl.textContent = `${summary.started}/${summary.total}`;
       if (completedEl) completedEl.textContent = String(summary.completed);
       if (answeredEl) {
         answeredEl.textContent = `${summary.answered}/${summary.totalQuestions}`;
       }
-      if (accuracyEl) accuracyEl.textContent = percent(summary.accuracy);
+      if (accuracyEl) accuracyEl.textContent = formatPercentWhole(summary.accuracy);
       if (list) list.replaceChildren(...summary.topics.map(topicListItem));
       if (note) {
         note.textContent =
@@ -208,7 +209,7 @@ export function bootDashboard(): void {
     }
 
     function renderBreakdown(overview: SiteOverview) {
-      const body = root.querySelector<HTMLElement>('[data-breakdown-body]');
+      const body = query<HTMLElement>(root, '[data-breakdown-body]');
       if (!body) return;
       body.replaceChildren();
 
@@ -222,7 +223,7 @@ export function bootDashboard(): void {
 
         const subjectMeta = document.createElement('p');
         subjectMeta.className = 'subject-meta';
-        subjectMeta.textContent = `${subject.answered}/${subject.total} soal dikerjakan · ketepatan ${percent(subject.accuracy)}`;
+        subjectMeta.textContent = `${subject.answered}/${subject.total} soal dikerjakan · ketepatan ${formatPercentWhole(subject.accuracy)}`;
         subjectBlock.appendChild(subjectMeta);
 
         for (const grade of subject.grades) {
@@ -247,7 +248,7 @@ export function bootDashboard(): void {
             name.append(dot, document.createTextNode(element.elementName));
             const count = document.createElement('span');
             count.className = 'element-count';
-            count.textContent = `${element.answered}/${element.total} soal · ${percent(element.accuracy)}`;
+            count.textContent = `${element.answered}/${element.total} soal · ${formatPercentWhole(element.accuracy)}`;
             head.append(name, count);
 
             const started = element.topics
@@ -289,16 +290,16 @@ export function bootDashboard(): void {
     }
 
     function renderSummary(overview: SiteOverview) {
-      const answered = root.querySelector('[data-stat-answered]');
-      const accuracy = root.querySelector('[data-stat-accuracy]');
-      const topicsEl = root.querySelector('[data-stat-topics]');
-      const interactions = root.querySelector('[data-stat-interactions]');
-      const lastEl = root.querySelector('[data-stat-last]');
-      const bar = root.querySelector<HTMLElement>('[data-overall-bar]');
-      const track = root.querySelector<HTMLElement>('[data-overall-track]');
+      const answered = query(root, '[data-stat-answered]');
+      const accuracy = query(root, '[data-stat-accuracy]');
+      const topicsEl = query(root, '[data-stat-topics]');
+      const interactions = query(root, '[data-stat-interactions]');
+      const lastEl = query(root, '[data-stat-last]');
+      const bar = query<HTMLElement>(root, '[data-overall-bar]');
+      const track = query<HTMLElement>(root, '[data-overall-track]');
 
       if (answered) answered.textContent = `${overview.answered}/${overview.totalQuestions}`;
-      if (accuracy) accuracy.textContent = percent(overview.accuracy);
+      if (accuracy) accuracy.textContent = formatPercentWhole(overview.accuracy);
       if (topicsEl) topicsEl.textContent = `${overview.topicsStarted}/${overview.topics.length}`;
       if (interactions) {
         interactions.textContent = String(
@@ -306,7 +307,7 @@ export function bootDashboard(): void {
         );
       }
       const ratio = overview.totalQuestions ? overview.answered / overview.totalQuestions : 0;
-      if (bar) bar.style.width = `${Math.round(ratio * 100)}%`;
+      if (bar) bar.style.width = formatPercentWhole(ratio);
       if (track) {
         track.setAttribute('aria-valuemax', String(overview.totalQuestions));
         track.setAttribute('aria-valuenow', String(overview.answered));
@@ -330,44 +331,21 @@ export function bootDashboard(): void {
     };
 
     function masteryListItem(topic: TopicMastery): HTMLLIElement {
-      const item = document.createElement('li');
-      item.className = 'continue-item';
-      item.style.setProperty('--accent', `var(--color-${accentKey(topic.element ?? '')})`);
-
-      const main = document.createElement('div');
-      main.className = 'continue-main';
-
-      const link = document.createElement('a');
-      link.className = 'continue-title';
-      link.href = topic.practiceHref;
-      link.textContent = topic.title;
-
-      const meta = document.createElement('span');
-      meta.className = 'continue-meta';
-      const ratio =
-        topic.total > 0
-          ? `${topic.answered}/${topic.total} soal (${percent(topic.completion)})`
-          : 'belum ada soal';
-      const accuracy = topic.gradedAnswered
-        ? ` · ketepatan ${percent(topic.accuracy)}`
-        : '';
+      const ratio = topic.total > 0 ? `${topic.answered}/${topic.total} soal (${formatPercentWhole(topic.completion)})` : 'belum ada soal';
+      const accuracy = topic.gradedAnswered ? ` · ketepatan ${formatPercentWhole(topic.accuracy)}` : '';
       const enrich = topic.supplementary ? ' · pengayaan' : '';
-      meta.textContent = `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy} · ${BAND_LABELS[topic.band]}${enrich}`;
-
-      main.append(link, meta);
-
-      const material = document.createElement('a');
-      material.className = 'btn btn-secondary btn-sm';
-      material.href = topic.materialHref;
-      material.textContent = 'Baca materi';
-
-      item.append(main, material);
-      return item;
+      return continueItem({
+        element: topic.element,
+        title: topic.title,
+        practiceHref: topic.practiceHref,
+        materialHref: topic.materialHref,
+        meta: `${topic.gradeName} · ${topic.elementName} · ${ratio}${accuracy} · ${BAND_LABELS[topic.band]}${enrich}`,
+      });
     }
 
     function renderReview(progress: ProgressMap) {
-      const title = root.querySelector<HTMLElement>('[data-review-title]');
-      const text = root.querySelector<HTMLElement>('[data-review-text]');
+      const title = query<HTMLElement>(root, '[data-review-title]');
+      const text = query<HTMLElement>(root, '[data-review-text]');
       const ids = entries.flatMap((entry) => entry.questionIds);
       const queue = buildReviewQueue(ids, progress, Date.now());
       const summary = summarizeReviewQueue(queue);
@@ -387,18 +365,18 @@ export function bootDashboard(): void {
     }
 
     function renderChallenge(overview: SiteOverview) {
-      const kicker = root.querySelector<HTMLElement>('[data-challenge-kicker]');
-      const title = root.querySelector<HTMLElement>('[data-challenge-title]');
-      const text = root.querySelector<HTMLElement>('[data-challenge-text]');
-      const link = root.querySelector<HTMLAnchorElement>('[data-challenge-link]');
-      const secondary = root.querySelector<HTMLAnchorElement>('[data-challenge-secondary]');
+      const kicker = query<HTMLElement>(root, '[data-challenge-kicker]');
+      const title = query<HTMLElement>(root, '[data-challenge-title]');
+      const text = query<HTMLElement>(root, '[data-challenge-text]');
+      const link = query<HTMLAnchorElement>(root, '[data-challenge-link]');
+      const secondary = query<HTMLAnchorElement>(root, '[data-challenge-secondary]');
       const ready = overview.answered >= 10 && overview.accuracy >= 0.8;
 
       if (kicker) kicker.textContent = ready ? 'Pengayaan' : 'Latihan';
       if (title) title.textContent = ready ? 'Kamu siap untuk tantangan' : 'Tingkatkan ketepatanmu';
       if (text) {
         text.textContent = ready
-          ? `Ketepatanmu ${percent(overview.accuracy)} dari ${overview.answered} soal yang dikerjakan. Coba soal tingkat mahir dan topik pengayaan untuk melangkah lebih jauh.`
+          ? `Ketepatanmu ${formatPercentWhole(overview.accuracy)} dari ${overview.answered} soal yang dikerjakan. Coba soal tingkat mahir dan topik pengayaan untuk melangkah lebih jauh.`
           : 'Lanjutkan berlatih untuk memperkuat dasar sebelum menuju soal tantangan.';
       }
       if (link) {
@@ -410,9 +388,9 @@ export function bootDashboard(): void {
     }
 
     function renderMastery(overview: SiteOverview) {
-      const bandsEl = root.querySelector<HTMLElement>('[data-mastery-bands]');
-      const list = root.querySelector<HTMLOListElement>('[data-mastery-list]');
-      const note = root.querySelector<HTMLElement>('[data-mastery-note]');
+      const bandsEl = query<HTMLElement>(root, '[data-mastery-bands]');
+      const list = query<HTMLOListElement>(root, '[data-mastery-list]');
+      const note = query<HTMLElement>(root, '[data-mastery-note]');
       const summary = overview.mastery;
 
       if (bandsEl) {
@@ -443,11 +421,11 @@ export function bootDashboard(): void {
 
     function renderConfidence(overview: SiteOverview) {
       const summary = overview.confidence;
-      const totalEl = root.querySelector('[data-conf-total]');
-      const averageEl = root.querySelector('[data-conf-average]');
-      const lowCountEl = root.querySelector('[data-conf-low-count]');
-      const list = root.querySelector<HTMLUListElement>('[data-conf-list]');
-      const note = root.querySelector<HTMLElement>('[data-conf-note]');
+      const totalEl = query(root, '[data-conf-total]');
+      const averageEl = query(root, '[data-conf-average]');
+      const lowCountEl = query(root, '[data-conf-low-count]');
+      const list = query<HTMLUListElement>(root, '[data-conf-list]');
+      const note = query<HTMLElement>(root, '[data-conf-note]');
 
       if (totalEl) totalEl.textContent = String(summary.total);
       if (averageEl) {
@@ -554,10 +532,10 @@ export function bootDashboard(): void {
     }
 
     function setupExport() {
-      const copyBtn = root.querySelector<HTMLButtonElement>('[data-export-copy]');
-      const downloadBtn = root.querySelector<HTMLButtonElement>('[data-export-download]');
-      const output = root.querySelector<HTMLTextAreaElement>('[data-export-output]');
-      const status = root.querySelector<HTMLElement>('[data-export-status]');
+      const copyBtn = query<HTMLButtonElement>(root, '[data-export-copy]');
+      const downloadBtn = query<HTMLButtonElement>(root, '[data-export-download]');
+      const output = query<HTMLTextAreaElement>(root, '[data-export-output]');
+      const status = query<HTMLElement>(root, '[data-export-status]');
 
       const collect = () => {
         const { progress, predictions, reflections, completions } = readStores();
@@ -625,11 +603,11 @@ export function bootDashboard(): void {
     }
 
     function setupReset() {
-      const start = root.querySelector<HTMLButtonElement>('[data-reset-start]');
-      const confirm = root.querySelector<HTMLElement>('[data-reset-confirm]');
-      const yes = root.querySelector<HTMLButtonElement>('[data-reset-yes]');
-      const cancel = root.querySelector<HTMLButtonElement>('[data-reset-cancel]');
-      const status = root.querySelector<HTMLElement>('[data-reset-status]');
+      const start = query<HTMLButtonElement>(root, '[data-reset-start]');
+      const confirm = query<HTMLElement>(root, '[data-reset-confirm]');
+      const yes = query<HTMLButtonElement>(root, '[data-reset-yes]');
+      const cancel = query<HTMLButtonElement>(root, '[data-reset-cancel]');
+      const status = query<HTMLElement>(root, '[data-reset-status]');
 
       const showConfirm = (visible: boolean) => {
         if (confirm) confirm.hidden = !visible;

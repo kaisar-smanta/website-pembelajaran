@@ -11,12 +11,7 @@ import {
   reviewDueHint,
 } from '../src/lib/review.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 const NOW = 1000 * DAY_MS;
 
@@ -162,4 +157,4 @@ check('reviewDueHint membedakan belum dicoba, jatuh tempo, dan terjadwal', () =>
   );
 });
 
-console.log(`PASS review (${passed} pemeriksaan)`);
+console.log(`PASS review (${checks.count} pemeriksaan)`);

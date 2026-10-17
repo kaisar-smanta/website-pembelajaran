@@ -292,6 +292,11 @@ export const polinomialQuestions: Question[] = [
     category: 'pemodelan',
     prompt:
       'Sebuah kotak berbentuk balok memiliki panjang $(x+2)$ cm, lebar $(x-1)$ cm, dan tinggi $x$ cm. (a) Nyatakan volume kotak sebagai polinomial dalam $x$. (b) Tentukan volume kotak bila $x=5$ cm.',
+    figure: {
+      svg: '<svg viewBox="0 0 320 220" role="img" aria-hidden="true"><rect x="60" y="70" width="140" height="100" fill="currentColor" opacity="0.06" stroke="currentColor" stroke-width="1.4"/><polyline points="60,70 100,40 240,40 200,70" fill="currentColor" opacity="0.06" stroke="currentColor" stroke-width="1.4"/><polyline points="100,40 100,140 200,170" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="240" y1="40" x2="240" y2="140" stroke="currentColor" stroke-width="1.4"/><line x1="240" y1="140" x2="200" y2="170" stroke="currentColor" stroke-width="1.4"/><text x="86" y="190" font-size="11" fill="currentColor">x+2</text><text x="30" y="126" font-size="11" fill="currentColor">x</text><text x="220" y="160" font-size="11" fill="currentColor">x-1</text></svg>',
+      alt: 'Balok dengan panjang x+2 cm pada sisi depan bawah, lebar x-1 cm pada sisi miring, dan tinggi x cm pada rusuk tegak.',
+      caption: 'Balok pada soal, ukuran dalam cm.',
+    },
     answer: '140',
     acceptedAnswers: ['140', '140 cm^3', '140 cm3'],
     explanation:
@@ -352,6 +357,11 @@ export const polinomialQuestions: Question[] = [
     category: 'kontekstual',
     prompt:
       'Sebuah wadah tanpa tutup dibuat dari karton persegi berukuran $20$ cm dengan memotong persegi bersisi $x$ cm di setiap sudut lalu melipat sisinya. (a) Nyatakan volume wadah sebagai polinomial dalam $x$. (b) Hitung volume wadah ketika $x=3$ cm.',
+    figure: {
+      svg: '<svg viewBox="0 0 320 260" role="img" aria-hidden="true"><rect x="60" y="40" width="200" height="200" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="60" y="40" width="40" height="40" fill="currentColor" opacity="0.16" stroke="currentColor" stroke-width="1"/><rect x="220" y="40" width="40" height="40" fill="currentColor" opacity="0.16" stroke="currentColor" stroke-width="1"/><rect x="60" y="200" width="40" height="40" fill="currentColor" opacity="0.16" stroke="currentColor" stroke-width="1"/><rect x="220" y="200" width="40" height="40" fill="currentColor" opacity="0.16" stroke="currentColor" stroke-width="1"/><line x1="100" y1="40" x2="100" y2="240" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="220" y1="40" x2="220" y2="240" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="60" y1="80" x2="260" y2="80" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="60" y1="200" x2="260" y2="200" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><text x="72" y="66" font-size="11" fill="currentColor">x</text><text x="232" y="228" font-size="11" fill="currentColor">x</text><text x="140" y="32" font-size="11" fill="currentColor">20 cm</text></svg>',
+      alt: 'Karton persegi berukuran 20 cm dengan persegi bersisi x cm dipotong di keempat sudutnya; garis putus-putus menandai garis lipatan.',
+      caption: 'Pola karton pada soal, garis putus-putus adalah garis lipatan.',
+    },
     answer: '588',
     acceptedAnswers: ['588', '588 cm^3', '588 cm3'],
     explanation:

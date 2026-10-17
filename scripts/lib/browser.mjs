@@ -20,11 +20,16 @@ const MIME = {
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.webp': 'image/webp',
+  '.avif': 'image/avif',
+  '.ico': 'image/x-icon',
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
+  '.otf': 'font/otf',
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
+  '.webmanifest': 'application/manifest+json',
+  '.map': 'application/json; charset=utf-8',
 };
 
 export function startServer(distDir, base) {
@@ -44,15 +49,25 @@ export function startServer(distDir, base) {
 }
 
 export function findBrowser() {
+  // Selain pemasangan tingkat mesin, sertakan pemasangan tingkat pengguna
+  // (LOCALAPPDATA) dan lokasi Linux/macOS lain agar browser yang benar-benar
+  // terpasang tidak terlewat.
+  const local = process.env.LOCALAPPDATA;
   const candidates = [
     process.env.CHROME_PATH,
     'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    local && path.join(local, 'Google', 'Chrome', 'Application', 'chrome.exe'),
     'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
     'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    local && path.join(local, 'Microsoft', 'Edge', 'Application', 'msedge.exe'),
     '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
     '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    '/snap/bin/chromium',
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
   ].filter(Boolean);
   return candidates.find((p) => fs.existsSync(p));
 }
@@ -88,10 +103,25 @@ export function connectCdp(wsUrl) {
     ws.addEventListener('error', () => reject(new Error('Gagal membuka koneksi DevTools')));
   });
 
-  const send = (method, params = {}, sessionId) =>
+  // Batas waktu agar perintah yang tidak dijawab (browser menggantung atau
+  // soket putus) tidak membiarkan promise menggantung selamanya.
+  const send = (method, params = {}, sessionId, timeoutMs = 30000) =>
     new Promise((resolve, reject) => {
       const mid = ++id;
-      pending.set(mid, { resolve, reject });
+      const timer = setTimeout(() => {
+        pending.delete(mid);
+        reject(new Error(`Perintah DevTools ${method} melewati batas ${timeoutMs} ms`));
+      }, timeoutMs);
+      pending.set(mid, {
+        resolve: (value) => {
+          clearTimeout(timer);
+          resolve(value);
+        },
+        reject: (error) => {
+          clearTimeout(timer);
+          reject(error);
+        },
+      });
       ws.send(JSON.stringify({ id: mid, method, params, ...(sessionId ? { sessionId } : {}) }));
     });
 
@@ -152,9 +182,21 @@ export async function launchBrowser(browserPath) {
     throw new Error('DevToolsActivePort tidak muncul');
   }
   const debugPort = Number(fs.readFileSync(portFile, 'utf8').split('\n')[0]);
-  const info = await waitForEndpoint(debugPort);
-  const cdp = connectCdp(info.webSocketDebuggerUrl);
-  await cdp.ready;
+  let cdp;
+  try {
+    const info = await waitForEndpoint(debugPort);
+    cdp = connectCdp(info.webSocketDebuggerUrl);
+    await cdp.ready;
+  } catch (error) {
+    // Jangan tinggalkan proses browser yatim bila kesiapan gagal.
+    try {
+      cdp?.close();
+    } catch {
+      /* abaikan */
+    }
+    killBrowser(proc, userDataDir);
+    throw error;
+  }
   return { proc, userDataDir, cdp };
 }
 

@@ -302,6 +302,22 @@ export const teoriBilanganQuestions: Question[] = [
     category: 'kontekstual',
     prompt:
       'Sistem penomoran buku ISBN-10 memuat $9$ digit data dan $1$ digit cek $c$ (bisa $0$ sampai $10$, dan $10$ ditulis X). Digit cek dipilih agar $\\sum_{k=1}^{10}(11-k)\\,d_k \\equiv 0 \\pmod{11}$, dengan $d_k$ digit ke-$k$ dan $d_{10}=c$. Tentukan digit cek $c$ untuk $9$ digit pertama $030640615$.',
+    table: {
+      caption: 'Bobot dan hasil kali sembilan digit pertama.',
+      headers: ['k', 'd_{k}', '11-k', 'd_{k}(11-k)'],
+      rows: [
+        ['1', '0', '10', '0'],
+        ['2', '3', '9', '27'],
+        ['3', '0', '8', '0'],
+        ['4', '6', '7', '42'],
+        ['5', '4', '6', '24'],
+        ['6', '0', '5', '0'],
+        ['7', '6', '4', '24'],
+        ['8', '1', '3', '3'],
+        ['9', '5', '2', '10'],
+      ],
+      math: true,
+    },
     answer: '2',
     acceptedAnswers: ['2'],
     explanation:

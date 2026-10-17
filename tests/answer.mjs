@@ -6,12 +6,7 @@
 import assert from 'node:assert/strict';
 import { normalizeAnswer, isAcceptedAnswer, answerCandidates } from '../src/lib/answer.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 // ---- Format dasar ----
 check('lowercase, trim, dan spasi internal dibuang', () => {
@@ -244,4 +239,4 @@ check('perkalian tidak disamakan dengan penggabungan digit', () => {
   assert.notEqual(normalizeAnswer('3×4'), normalizeAnswer('34'));
 });
 
-console.log(`\nPASS answer (${passed} pemeriksaan)`);
+console.log(`\nPASS answer (${checks.count} pemeriksaan)`);

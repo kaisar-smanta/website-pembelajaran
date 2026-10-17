@@ -277,6 +277,7 @@ const helpId = `reg-help-${exploration.id}`;
     type Domain,
   } from '../../lib/sim/regression';
   import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
+  import { drawGrid } from '../../lib/sim/plot';
   import { formatFixed } from '../../lib/format';
 
   interface Pt {
@@ -347,14 +348,7 @@ const helpId = `reg-help-${exploration.id}`;
     function draw() {
       clear(svg);
 
-      for (let i = 0; i <= 8; i++) {
-        const x = pad + (i / 8) * (W - 2 * pad);
-        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 6; i++) {
-        const y = pad + (i / 6) * (H - 2 * pad);
-        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
       svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.5 }));
       svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.5 }));
 

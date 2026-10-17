@@ -33,6 +33,15 @@ export const anuitasQuestions: Question[] = [
     category: 'konsep',
     prompt:
       'Pada anuitas dengan besar angsuran tetap, pernyataan yang benar tentang komposisi angsuran dari bulan ke bulan adalah …',
+    table: {
+      caption: 'Ilustrasi komposisi angsuran bulanan (angsuran tetap Rp499.241,02).',
+      headers: ['Bulan', 'Angsuran bunga', 'Angsuran pokok', 'Sisa utang'],
+      rows: [
+        ['1', 'Rp150.000,00', 'Rp349.241,02', 'Rp9.650.758,98'],
+        ['2', 'Rp144.761,38', 'Rp354.479,64', 'Rp9.296.279,34'],
+        ['3', 'Rp139.444,19', 'Rp359.796,83', 'Rp8.936.482,51'],
+      ],
+    },
     options: [
       { key: 'A', text: 'Porsi bunga tetap karena angsurannya tetap.' },
       { key: 'B', text: 'Porsi bunga makin besar, porsi pokok makin kecil.' },

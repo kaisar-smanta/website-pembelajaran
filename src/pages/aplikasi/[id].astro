@@ -139,7 +139,8 @@ const jsonLd = {
           {
             app.source && (
               <p class="case-source">
-                <span class="case-source-label">Sumber:</span> {app.source}
+                <span class="case-source-label">Sumber:</span>{' '}
+                <span set:html={renderInlineMarkdown(app.source)} />
               </p>
             )
           }

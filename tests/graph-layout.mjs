@@ -2,12 +2,7 @@
 import assert from 'node:assert/strict';
 import { layoutGraph } from '../src/lib/graph/layout.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 function byId(result) {
   return new Map(result.nodes.map((node) => [node.id, node]));
@@ -124,4 +119,4 @@ check('siklus terdeteksi dan tidak menghasilkan NaN', () => {
   }
 });
 
-console.log(`PASS graph-layout (${passed} pemeriksaan)`);
+console.log(`PASS graph-layout (${checks.count} pemeriksaan)`);

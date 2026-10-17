@@ -56,32 +56,19 @@
   --focus-ring: 3px;
 
   /* Lapisan (z-index) untuk elemen tetap/sticky global. */
-  --z-base: 1;
   --z-raised: 5;
-  --z-sticky: 20;
   --z-aside: 39;
   --z-fab: 45;
   --z-bottom-nav: 46;
   --z-header: 50;
   --z-drawer: 60;
-  --z-overlay: 70;
   --z-skip: 100;
 
-  /* Skala breakpoint kanonik (satu-satunya acuan untuk seluruh situs).
-     Catatan: custom property TIDAK dapat dipakai di dalam kondisi @media pada
-     CSS murni, jadi nilai literal `@media (max-width: 40rem)` harus mengacu ke
-     nama token yang sesuai, dan var(--bp-*) hanya dipakai pada properti biasa
-     (mis. max-width), bukan di @media.
-     384px xs · 480px sm · 544px md · 640px lg · 768px xl · 896px 2xl ·
-     1024px 3xl · 1280px 4xl */
-  --bp-xs: 24rem;
-  --bp-sm: 30rem;
-  --bp-md: 34rem;
+  /* Breakpoint pada properti biasa (mis. max-width). Custom property tidak
+     dapat dipakai di dalam kondisi @media pada CSS murni, jadi nilai literal
+     `@media (max-width: 40rem)` harus mengacu ke token yang sama namanya. */
   --bp-lg: 40rem;
   --bp-xl: 48rem;
-  --bp-2xl: 56rem;
-  --bp-3xl: 64rem;
-  --bp-4xl: 80rem;
 
   /* Gerak & kepribadian */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);

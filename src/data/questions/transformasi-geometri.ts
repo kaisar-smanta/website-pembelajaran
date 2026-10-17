@@ -70,6 +70,11 @@ export const transformasiGeometriQuestions: Question[] = [
     category: 'penerapan',
     prompt:
       'Titik $D(2,5)$ dirotasi $90^\\circ$ berlawanan arah jarum jam terhadap titik asal $O$. Bayangannya adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 180" role="img" aria-hidden="true"><line x1="30" y1="140" x2="300" y2="140" stroke="currentColor" stroke-width="1.3"/><line x1="160" y1="170" x2="160" y2="20" stroke="currentColor" stroke-width="1.3"/><line x1="160" y1="140" x2="200" y2="40" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><line x1="160" y1="140" x2="60" y2="100" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/><path d="M200 40 C160 8 96 46 60 100" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="200" cy="40" r="3" fill="currentColor"/><circle cx="60" cy="100" r="3" fill="currentColor"/><circle cx="160" cy="140" r="2.6" fill="currentColor"/><text x="205" y="36" font-size="10" fill="currentColor">D(2, 5)</text><text x="24" y="98" font-size="10" fill="currentColor">D′(-5, 2)</text><text x="146" y="156" font-size="10" fill="currentColor">O</text><text x="150" y="30" font-size="10" fill="currentColor">90°</text></svg>',
+      alt: 'Bidang koordinat berpusat di O. Titik D(2, 5) di kuadran pertama dan bayangannya D′(-5, 2) di kuadran kedua dihubungkan oleh busur rotasi 90 derajat berlawanan arah jarum jam terhadap O.',
+      caption: 'Rotasi $D(2,5)$ sebesar $90^\\circ$ berlawanan arah jarum jam.',
+    },
     options: [
       { key: 'A', text: '$(-5,2)$' },
       { key: 'B', text: '$(5,-2)$' },

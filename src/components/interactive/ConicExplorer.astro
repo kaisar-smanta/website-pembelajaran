@@ -2,21 +2,17 @@
 import './sim.css';
 import type { Exploration } from '@/types/content';
 import { renderMarkdown } from '@/utils/markdown';
+import { paramValue } from '@/lib/sim/plot';
 
 interface Props {
   exploration: Exploration;
 }
 const { exploration } = Astro.props;
 
-const paramValue = (name: string, fallback: number): number => {
-  const found = exploration.params?.find((p) => p.name === name);
-  return found && Number.isFinite(found.value) ? found.value : fallback;
-};
-
-const a0 = paramValue('a', 4);
-const b0 = paramValue('b', 3);
-const h0 = paramValue('h', 0);
-const k0 = paramValue('k', 0);
+const a0 = paramValue(exploration.params, 'a', 4);
+const b0 = paramValue(exploration.params, 'b', 3);
+const h0 = paramValue(exploration.params, 'h', 0);
+const k0 = paramValue(exploration.params, 'k', 0);
 const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0}`;
 ---
 
@@ -110,6 +106,7 @@ const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0
   import { sampleConic, conicFoci, parabolaDirectrix, describeConic } from '../../lib/sim/conic';
   import type { ConicKind, ConicParams } from '../../lib/sim/conic';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid, drawAxes } from '../../lib/sim/plot';
 
   function setupConic(root: Element) {
     const kindInput = root.querySelector('[data-kind]') as HTMLSelectElement;
@@ -151,14 +148,8 @@ const initialAria = `Elips berpusat (${h0}, ${k0}) dengan a = ${a0} dan b = ${b0
         { width: W, height: H, pad },
       );
       clear(svg);
-      for (let i = 0; i <= 8; i++) {
-        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 6; i++) {
-        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 6) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 6) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
-      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
+      drawAxes(svg, { sx, sy }, { width: W, height: H, pad });
 
       if (kind === 'parabola') {
         const dy = parabolaDirectrix(p);

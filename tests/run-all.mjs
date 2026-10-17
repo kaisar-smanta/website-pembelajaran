@@ -15,12 +15,19 @@ const files = fs
   .filter((name) => name.endsWith('.mjs') && name !== 'run-all.mjs' && !name.startsWith('_'))
   .sort();
 
+// Batas waktu per berkas agar satu uji yang menggantung tidak memblokir
+// seluruh rangkaian tanpa batas.
+const TIMEOUT_MS = 120_000;
 let failed = 0;
 for (const file of files) {
   const result = spawnSync(process.execPath, [path.join(here, file)], {
     stdio: 'inherit',
+    timeout: TIMEOUT_MS,
   });
-  if (result.status !== 0) {
+  if (result.error && result.error.code === 'ETIMEDOUT') {
+    failed += 1;
+    console.error(`\nGAGAL (batas waktu ${TIMEOUT_MS} ms): ${file}`);
+  } else if (result.status !== 0) {
     failed += 1;
     console.error(`\nGAGAL: ${file}`);
   }

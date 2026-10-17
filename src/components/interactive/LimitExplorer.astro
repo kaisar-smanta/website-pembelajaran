@@ -131,6 +131,7 @@ const initialAria =
   import { LIMIT_FUNCTIONS, buildLimitTable, describeLimit } from '../../lib/sim/limit';
   import type { LimitFunctionKey } from '../../lib/sim/limit';
   import { el, clear, linearScale, polyline, initWhenVisible } from '../../lib/dom';
+  import { drawGrid } from '../../lib/sim/plot';
 
   function setupLimit(root: Element) {
     const select = root.querySelector('[data-field="fungsi"]') as HTMLSelectElement;
@@ -169,12 +170,7 @@ const initialAria =
       const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
       clear(svg);
 
-      for (let i = 0; i <= 8; i++) {
-        svg.appendChild(el('line', { x1: pad + (i / 8) * (W - 2 * pad), y1: pad, x2: pad + (i / 8) * (W - 2 * pad), y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 6; i++) {
-        svg.appendChild(el('line', { x1: pad, y1: pad + (i / 6) * (H - 2 * pad), x2: W - pad, y2: pad + (i / 6) * (H - 2 * pad), stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
+      drawGrid(svg, { width: W, height: H, pad, cols: 8, rows: 6 });
       svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
       svg.appendChild(el('line', { x1: sx(target), y1: pad, x2: sx(target), y2: H - pad, stroke: 'var(--color-warning)', 'stroke-width': 1.4, 'stroke-dasharray': '4 4' }));
 

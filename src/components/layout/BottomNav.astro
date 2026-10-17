@@ -10,16 +10,18 @@ interface Item {
 }
 
 /*
- * Lima item dipertahankan agar bilah tetap lapang di ponsel sempit. Untuk
- * menambah "Tinjau/Lanjut" sebagai item keenam akan melewati batas lima kolom
- * yang nyaman disentuh, jadi rute /review dipetakan ke "Kemajuan" yang
- * maknanya paling dekat (keduanya soal kemajuan belajar).
+ * Lima item dipertahankan agar bilah tetap lapang di ponsel sempit. Item
+ * "Materi" menghimpun pintu masuk materi dan rujukan (peta pembelajaran,
+ * subjek, eksplorasi, glosarium, rumus, aplikasi) dengan label yang jujur
+ * mencakup semuanya; sebelumnya label "Peta" menyesatkan karena menyorot
+ * banyak halaman yang bukan peta. Tautan tinjauan berkala (/review) adalah
+ * sesi latihan soal, jadi mengikuti "Latihan", bukan "Kemajuan".
  */
 const items: Item[] = [
   { label: 'Beranda', href: '/', paths: ['M4 11 12 4l8 7', 'M6 10v9h12v-9'] },
   {
-    label: 'Peta',
-    href: '/peta-pembelajaran',
+    label: 'Materi',
+    href: '/matematika',
     match: [
       '/peta-pembelajaran',
       '/matematika',
@@ -29,19 +31,23 @@ const items: Item[] = [
       '/rumus',
       '/aplikasi',
     ],
-    paths: ['M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z', 'M9 4v14', 'M15 6v14'],
+    paths: [
+      'M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z',
+      'M4 17h16',
+      'M9 7h7',
+    ],
   },
   {
     label: 'Latihan',
     href: '/latihan',
-    match: ['/latihan', '/tantangan'],
+    match: ['/latihan', '/tantangan', '/review'],
     paths: ['M4 20l3.6-.9L19.4 7.3a2 2 0 0 0-2.8-2.8L4.9 16.4 4 20Z', 'M15.4 6.2l2.4 2.4'],
   },
   { label: 'Cari', href: '/cari', paths: ['M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z', 'm20 20-3.6-3.6'] },
   {
     label: 'Kemajuan',
     href: '/kemajuan',
-    match: ['/kemajuan', '/review'],
+    match: ['/kemajuan'],
     paths: ['M3 17l5-5 4 3 6-7', 'M3 20h18'],
   },
 ];

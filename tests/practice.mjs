@@ -7,12 +7,7 @@ import {
 } from '../src/lib/practice.ts';
 import { combineSeed } from '../src/lib/random.ts';
 
-let passed = 0;
-function check(label, fn) {
-  fn();
-  passed++;
-  console.log(`  ok - ${label}`);
-}
+import { check, checks } from './_util.mjs';
 
 const items = [
   { id: 'a', difficulty: 'dasar' },
@@ -78,4 +73,4 @@ check('reviewQuestionIds menggabungkan belum tepat dan belum dicoba', () => {
   assert.deepEqual(reviewQuestionIds({}, ids, 'both'), ['a', 'b', 'c', 'd']);
 });
 
-console.log(`PASS practice (${passed} pemeriksaan)`);
+console.log(`PASS practice (${checks.count} pemeriksaan)`);

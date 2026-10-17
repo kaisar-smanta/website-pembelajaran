@@ -36,7 +36,7 @@ close(-5 * 9 + 30 * 3, 45, 'bola h(3)', 0);
 
 // ---------- Fungsi eksponensial ----------
 close(4 ** 3, 64, '4^3', 0);
-close(3, 3, '4^x=8^(x-1) => x', 0); // 2^{2x}=2^{3x-3}
+close(2 * 3, 3 * 3 - 3, '4^x=8^(x-1) => x=3', 0); // 2^{2x}=2^{3x-3}
 close(Math.round(500 * 1.08 ** 10), 1079, '500*1.08^10', 0);
 close(120 * 0.5 ** 3, 15, '120*(1/2)^3', 0);
 close(3 * 2 ** 3, 24, '3*2^3', 0);
@@ -51,10 +51,11 @@ close(Math.cos(Math.PI / 4), Math.SQRT2 / 2, 'cos45', 1e-12);
 
 // ---------- Analisis distribusi data ----------
 const dataA = [2, 3, 4, 4, 6, 6, 6, 7, 9, 13];
+const sortedA = [...dataA].sort((a, b) => a - b);
 close(dataA.reduce((a, b) => a + b, 0) / dataA.length, 6, 'mean dataA', 0);
-close(6, 6, 'median dataA', 0);
-close(4, 4, 'Q1 dataA', 0);
-close(7, 7, 'Q3 dataA', 0);
+close((sortedA[4] + sortedA[5]) / 2, 6, 'median dataA', 0);
+close(sortedA[2], 4, 'Q1 dataA', 0);
+close(sortedA[7], 7, 'Q3 dataA', 0);
 close(7 - 4, 3, 'IQR dataA', 0);
 close(7 + 1.5 * 3, 11.5, 'pagar atas dataA', 0);
 close(dataA.filter((x) => x > 11.5).length, 1, 'dataA outlier', 0);
@@ -164,7 +165,7 @@ close(gk(fk(3)), 35, '(g∘f)(3)', 0);
 close(0.75 * 40 + 5, 35, 'diskon 25% lalu +5', 0);
 
 // ---------- Transformasi fungsi ----------
-close(2, 2, 'vertex (x-2)^2+3', 0);
+close(-(-4) / (2 * 1), 2, 'vertex (x-2)^2+3', 0);
 close(2 * 2 - 4 * 2 + 7, 3, 'nilai min (2)^2-4(2)+7', 0);
 close(-(2 * 1 + 1), -3, 'refleksi x-axis', 0);
 close(2 * -1 + 1, -1, 'refleksi y-axis', 0);
@@ -241,7 +242,7 @@ close(5 * 3 + 4 * 4, 31, 'program linear max 5x+4y di (3,4)', 0);
 
 // ---------- Persamaan eksponen & logaritma ----------
 close(Math.log(81) / Math.log(3), 4, 'log_3 81', 1e-12);
-close(5, 5, '4^(x+1)=8^(x-1) => x', 0);
+close(2 * 5 + 2, 3 * 5 - 3, '4^(x+1)=8^(x-1) => x=5', 0);
 close(Math.log((12 * 6) / 9) / Math.log(2), 3, 'log2(12*6/9)', 1e-12);
 close(4 * 4 - 4 * 4 + 3, 3, '9^x-4*3^x+3 => t', 0);
 close(50 * 2 ** 4, 800, '50*2^4', 0);
@@ -252,7 +253,8 @@ close((5 + 6 + 6 + 7 + 7 + 7 + 8 + 10) / 8, 7, 'mean data 5..10', 0);
 close((30 * 72 + 20 * 84) / 50, 76.8, 'mean gabungan kelas', 1e-9);
 close(21 - 15, 6, 'IQR data', 0);
 close((9 * 4_000_000 + 40_000_000) / 10, 7_600_000, 'mean gaji 9+1', 0);
-close(4_000_000, 4_000_000, 'median gaji 9+1', 0);
+const gaji = [...Array(9).fill(4_000_000), 40_000_000];
+close((gaji[4] + gaji[5]) / 2, 4_000_000, 'median gaji 9+1', 0);
 
 // ---------- Pemodelan fungsi ----------
 const biayaLinear = (x) => 2000 * x + 5000;

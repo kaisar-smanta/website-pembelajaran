@@ -18,6 +18,7 @@ import { setupFilterPage } from '@/lib/filter-dom';
 import { seededShuffle } from '@/lib/random';
 import { reviewQuestionIds, type ReviewMode } from '@/lib/practice';
 import { safeStorage } from '@/lib/storage';
+import { isString, readJsonArrayText } from '@/lib/client-shared';
 
 const PAGE_SIZE = 6;
 
@@ -25,16 +26,7 @@ function setupProgress() {
   const root = document.querySelector<HTMLElement>('[data-question-ids]');
   if (!root) return;
 
-  let ids: string[] = [];
-  try {
-    const raw = root.getAttribute('data-question-ids');
-    const parsed: unknown = raw ? JSON.parse(raw) : [];
-    if (Array.isArray(parsed)) {
-      ids = parsed.filter((id): id is string => typeof id === 'string');
-    }
-  } catch {
-    ids = [];
-  }
+  const ids = readJsonArrayText(root.getAttribute('data-question-ids'), isString);
   if (!ids.length) return;
 
   const answeredEl = root.querySelector<HTMLElement>('[data-stat-answered]');

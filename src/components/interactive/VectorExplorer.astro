@@ -184,6 +184,7 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
   } from '../../lib/sim/vector';
   import type { Vec2 } from '../../lib/sim/vector';
   import { el, clear, linearScale, initWhenVisible } from '../../lib/dom';
+  import { drawGrid, drawAxes } from '../../lib/sim/plot';
   import { formatPlain } from '../../lib/format';
 
   function setupVector(root: Element) {
@@ -268,16 +269,8 @@ const initialAria = `Diagram vektor A = (${initialA.x}, ${initialA.y}), B = (${i
       const { sx, sy } = linearScale({ xMin, xMax, yMin, yMax }, { width: W, height: H, pad });
       clear(svg);
 
-      for (let i = 0; i <= 10; i++) {
-        const x = pad + (i / 10) * (W - 2 * pad);
-        svg.appendChild(el('line', { x1: x, y1: pad, x2: x, y2: H - pad, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      for (let i = 0; i <= 8; i++) {
-        const y = pad + (i / 8) * (H - 2 * pad);
-        svg.appendChild(el('line', { x1: pad, y1: y, x2: W - pad, y2: y, stroke: 'var(--color-border)', 'stroke-width': 1 }));
-      }
-      svg.appendChild(el('line', { x1: pad, y1: sy(0), x2: W - pad, y2: sy(0), stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
-      svg.appendChild(el('line', { x1: sx(0), y1: pad, x2: sx(0), y2: H - pad, stroke: 'var(--color-text-soft)', 'stroke-width': 1.6 }));
+      drawGrid(svg, { width: W, height: H, pad, cols: 10, rows: 8 });
+      drawAxes(svg, { sx, sy }, { width: W, height: H, pad });
 
       const A = vecA();
       const B = vecB();

@@ -13,38 +13,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { byExtension, collectFiles } from './lib/files.mjs';
+import { stripNonVisible } from './lib/html.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const target = process.argv[2] ? path.resolve(process.argv[2]) : path.join(root, 'dist');
 
 if (!fs.existsSync(target)) {
-  console.log('dist/ belum ada. Jalankan: npm run build');
-  process.exit(0);
-}
-
-// Elemen yang isinya bukan teks terlihat (kode, skrip, gaya) atau bukan LaTeX
-// terlihat: <annotation> MathML menyimpan TeX asli KaTeX dan tidak tampil.
-const EXCLUDE_BLOCKS = [
-  /<script\b[^>]*>[\s\S]*?<\/script>/gi,
-  /<style\b[^>]*>[\s\S]*?<\/style>/gi,
-  /<pre\b[^>]*>[\s\S]*?<\/pre>/gi,
-  /<code\b[^>]*>[\s\S]*?<\/code>/gi,
-  /<annotation\b[^>]*>[\s\S]*?<\/annotation>/gi,
-  /<math\b[^>]*>[\s\S]*?<\/math>/gi,
-  /<!--[\s\S]*?-->/g,
-];
-
-// Tag HTML, menghormati tanda kutip sehingga '>' di dalam nilai atribut
-// (mis. data-ex-search="... $b>1$ ...") tidak memotong tag lebih awal.
-const TAG = /<\/?[a-zA-Z](?:"[^"]*"|'[^']*'|[^>])*>/g;
-
-function decodeEntities(text) {
-  return text
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&#36;/g, '$')
-    .replace(/&#92;/g, '\\');
+  console.error('dist/ belum ada. Jalankan: npm run build');
+  process.exit(1);
 }
 
 const CHECKS = [
@@ -55,12 +31,14 @@ const CHECKS = [
 ];
 
 const files = collectFiles(target, byExtension('.html'));
+if (files.length === 0) {
+  console.error(`Tidak ada berkas HTML yang diperiksa di ${target}. Pastikan dist/ dibangun.`);
+  process.exit(1);
+}
 let leaks = 0;
 
 for (const full of files) {
-  let text = fs.readFileSync(full, 'utf8');
-  for (const re of EXCLUDE_BLOCKS) text = text.replace(re, ' ');
-  text = decodeEntities(text.replace(TAG, ' '));
+  const text = stripNonVisible(fs.readFileSync(full, 'utf8'));
 
   const found = [];
   for (const check of CHECKS) {

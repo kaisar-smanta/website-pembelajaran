@@ -263,8 +263,14 @@ const meta = [
 </BaseLayout>
 
 <script>
-  import { normalizeText } from '@/lib/filter';
   import { setupFilterPage, collapseFiltersOnMobile, type FilterPageGroup } from '@/lib/filter-dom';
+  import {
+    classHideMode,
+    dataMatches,
+    hideEmptyAncestors,
+    resultStatus,
+    type MatchField,
+  } from '@/lib/list-filter';
 
   const toolbar = document.querySelector<HTMLElement>('[data-rumus-toolbar]');
 
@@ -277,37 +283,30 @@ const meta = [
     const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-rumus-element]'));
     const subjects = Array.from(document.querySelectorAll<HTMLElement>('[data-rumus-subject]'));
 
+    const matchFields: MatchField[] = [{ key: 'element', attr: 'data-elements' }];
+
     const apply = (values: Record<string, string>, query: string): void => {
-      const element = values.element || 'all';
-      const q = normalizeText(query);
       let visible = 0;
 
       for (const topic of topics) {
-        const topicElement = topic.getAttribute('data-elements') ?? '';
-        const haystack = topic.getAttribute('data-search') ?? '';
-        const show =
-          (element === 'all' || topicElement === element) &&
-          (q === '' || haystack.includes(q));
+        const show = dataMatches(topic, matchFields, values, query, {
+          allValue: 'all',
+          searchAttr: 'data-search',
+        });
         topic.classList.toggle('is-hidden', !show);
         if (show) visible += 1;
       }
 
-      for (const group of elements) {
-        const any = Array.from(group.querySelectorAll<HTMLElement>('[data-rumus-topic]')).some(
-          (topic) => !topic.classList.contains('is-hidden'),
-        );
-        group.classList.toggle('is-hidden', !any);
-      }
-
-      for (const subject of subjects) {
-        const any = Array.from(subject.querySelectorAll<HTMLElement>('[data-rumus-element]')).some(
-          (group) => !group.classList.contains('is-hidden'),
-        );
-        subject.classList.toggle('is-hidden', !any);
-      }
+      hideEmptyAncestors(
+        [
+          { groups: elements, childSelector: '[data-rumus-topic]' },
+          { groups: subjects, childSelector: '[data-rumus-element]' },
+        ],
+        classHideMode('is-hidden'),
+      );
 
       if (empty) empty.hidden = visible !== 0;
-      if (result) result.textContent = `Menampilkan ${visible} dari ${topics.length} topik`;
+      if (result) result.textContent = resultStatus(visible, { noun: 'topik', total: topics.length });
     };
 
     const filterGroups: FilterPageGroup[] = chips

@@ -14,9 +14,11 @@ interface Props {
   questionIds?: string[];
   /** `quick` untuk cek pemahaman singkat di tengah materi. */
   variant?: 'practice' | 'quick';
+  /** Awalan id unik instance (mis. id bagian) agar tidak bertabrakan antar sisipan. */
+  idPrefix?: string;
 }
 
-const { topicId, level, questionIds, variant = 'practice' } = Astro.props;
+const { topicId, level, questionIds, variant = 'practice', idPrefix = '' } = Astro.props;
 const isQuick = variant === 'quick';
 
 let questions: Question[];
@@ -39,7 +41,11 @@ if (questionIds?.length) {
       </p>
       <div class="practice-list">
         {questions.map((question, i) => (
-          <QuestionCard question={question} index={i} />
+          <QuestionCard
+            question={question}
+            index={i}
+            idPrefix={idPrefix ? `${idPrefix}-${i}` : ''}
+          />
         ))}
       </div>
     </div>

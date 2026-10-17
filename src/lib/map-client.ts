@@ -10,6 +10,7 @@
 
 import { normalizeText } from './filter.ts';
 import { setupFilterPage, type FilterPageGroup, type FilterPageHandle } from './filter-dom.ts';
+import { classHideMode, hideEmptyAncestors } from './list-filter.ts';
 import { loadProgress } from './progress.ts';
 import { loadCompletions, loadPredictions, loadReflections } from './learner.ts';
 import { safeStorage } from './storage.ts';
@@ -91,12 +92,6 @@ export function setupLearningMap(): void {
         if (show) visibleTopics += 1;
       }
 
-      for (const col of cols) {
-        const own = Array.from(col.querySelectorAll<HTMLElement>('.topic-item'));
-        const anyVisible = own.some((item) => !item.classList.contains('is-hidden'));
-        col.classList.toggle('is-hidden', !anyVisible);
-      }
-
       // Chip "segera disusun" mengikuti saringan elemen/kelas/mapel, tetapi
       // disembunyikan saat ada kata kunci karena tidak punya judul untuk dicari.
       for (const pending of pendings) {
@@ -109,24 +104,18 @@ export function setupLearningMap(): void {
           (grade === 'all' || block?.getAttribute('data-grade') === grade);
         pending.classList.toggle('is-hidden', !show);
       }
-      for (const strip of strips) {
-        const own = Array.from(strip.querySelectorAll<HTMLElement>('[data-pending]'));
-        const anyVisible = own.some((pending) => !pending.classList.contains('is-hidden'));
-        strip.classList.toggle('is-hidden', own.length > 0 && !anyVisible);
-      }
 
-      // Sembunyikan blok yang tidak punya isi tampak agar judul kelas/mapel
+      // Sembunyikan grup yang seluruh isinya tersembunyi agar judul kelas/mapel
       // yatim tidak tertinggal.
-      for (const block of gradeBlocks) {
-        const hasTopic = block.querySelector<HTMLElement>('.topic-item:not(.is-hidden)') !== null;
-        const hasPending =
-          block.querySelector<HTMLElement>('[data-pending]:not(.is-hidden)') !== null;
-        block.classList.toggle('is-hidden', !hasTopic && !hasPending);
-      }
-      for (const block of subjectBlocks) {
-        const anyGrade = block.querySelector<HTMLElement>('.grade-block:not(.is-hidden)') !== null;
-        block.classList.toggle('is-hidden', !anyGrade);
-      }
+      hideEmptyAncestors(
+        [
+          { groups: cols, childSelector: '.topic-item' },
+          { groups: strips, childSelector: '[data-pending]', keepEmpty: true },
+          { groups: gradeBlocks, childSelector: '.topic-item, [data-pending]' },
+          { groups: subjectBlocks, childSelector: '.grade-block' },
+        ],
+        classHideMode('is-hidden'),
+      );
 
       if (status) {
         if (visibleTopics === 0) {

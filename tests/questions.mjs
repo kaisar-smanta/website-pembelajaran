@@ -16,26 +16,10 @@
 import { load, ok, checks, collectTopicIds, collectQuestionFiles } from './_util.mjs';
 
 // ---- Kategori asesmen ----
-// index.ts memakai impor relatif tanpa ekstensi sehingga biasanya gagal dimuat
-// langsung. Coba dulu; bila gagal, pakai daftar cadangan yang sama.
-const FALLBACK_CATEGORIES = [
-  'cepat',
-  'konsep',
-  'penerapan',
-  'pemodelan',
-  'penalaran',
-  'kontekstual',
-  'evaluasi',
-];
-let assessmentCategoryIds = new Set(FALLBACK_CATEGORIES);
-try {
-  const mod = await load('src/data/questions/index.ts');
-  if (Array.isArray(mod.assessmentCategories)) {
-    assessmentCategoryIds = new Set(mod.assessmentCategories.map((c) => c.id));
-  }
-} catch {
-  // Diharapkan: impor tanpa ekstensi tidak didukung Node ESM.
-}
+// Diambil dari modul bebas-glob, sehingga daftar yang diuji selalu sama dengan
+// yang dipakai situs (tidak ada cadangan yang bisa basi).
+const { assessmentCategories } = await load('src/data/questions/categories.ts');
+const assessmentCategoryIds = new Set(assessmentCategories.map((c) => c.id));
 
 const DIFFICULTIES = new Set(['dasar', 'cakap', 'mahir']);
 const TYPES = new Set(['multiple-choice', 'short-answer', 'open-response']);

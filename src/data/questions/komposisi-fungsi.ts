@@ -9,6 +9,11 @@ export const komposisiFungsiQuestions: Question[] = [
     category: 'cepat',
     prompt:
       'Diketahui $f(x) = x + 2$ dan $g(x) = 3x$. Rumus $(f \\circ g)(x)$ adalah …',
+    figure: {
+      svg: '<svg viewBox="0 0 320 180" role="img" aria-hidden="true"><rect x="60" y="65" width="80" height="50" rx="8" fill="currentColor" opacity="0.08" stroke="currentColor" stroke-width="1.3"/><rect x="180" y="65" width="80" height="50" rx="8" fill="currentColor" opacity="0.08" stroke="currentColor" stroke-width="1.3"/><text x="78" y="95" font-size="12" fill="currentColor">g: ×3</text><text x="198" y="95" font-size="12" fill="currentColor">f: +2</text><text x="24" y="95" font-size="12" fill="currentColor">x</text><line x1="38" y1="90" x2="56" y2="90" stroke="currentColor" stroke-width="1.3"/><polygon points="60,90 50,86 50,94" fill="currentColor"/><line x1="140" y1="90" x2="176" y2="90" stroke="currentColor" stroke-width="1.3"/><polygon points="180,90 170,86 170,94" fill="currentColor"/><line x1="260" y1="90" x2="284" y2="90" stroke="currentColor" stroke-width="1.3"/><polygon points="288,90 278,86 278,94" fill="currentColor"/><text x="262" y="76" font-size="11" fill="currentColor">(f∘g)(x)</text></svg>',
+      alt: 'Dua mesin fungsi berurutan. Masukan x dikerjakan fungsi g yang mengalikan tiga, lalu hasilnya dikerjakan fungsi f yang menambah dua, menghasilkan (f komposisi g)(x).',
+      caption: 'Alur pengerjaan komposisi $(f\\circ g)(x)$: fungsi $g$ lebih dahulu.',
+    },
     options: [
       { key: 'A', text: '$3x + 2$' },
       { key: 'B', text: '$3x + 6$' },

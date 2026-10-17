@@ -95,6 +95,11 @@ export const ketaksamaanQuestions: Question[] = [
     type: 'short-answer',
     category: 'penerapan',
     prompt: 'Tentukan himpunan penyelesaian dari $3 - 2x \\ge 7$.',
+    figure: {
+      svg: '<svg viewBox="0 0 320 140" role="img" aria-hidden="true"><line x1="30" y1="80" x2="300" y2="80" stroke="currentColor" stroke-width="1.4"/><line x1="60" y1="80" x2="60" y2="90" stroke="currentColor" stroke-width="1"/><text x="56" y="104" font-size="10" fill="currentColor">-5</text><line x1="90" y1="80" x2="90" y2="90" stroke="currentColor" stroke-width="1"/><text x="86" y="104" font-size="10" fill="currentColor">-4</text><line x1="120" y1="80" x2="120" y2="90" stroke="currentColor" stroke-width="1"/><text x="114" y="104" font-size="10" fill="currentColor">-3</text><line x1="150" y1="80" x2="150" y2="90" stroke="currentColor" stroke-width="1"/><text x="144" y="104" font-size="10" fill="currentColor">-2</text><line x1="180" y1="80" x2="180" y2="90" stroke="currentColor" stroke-width="1"/><text x="174" y="104" font-size="10" fill="currentColor">-1</text><line x1="210" y1="80" x2="210" y2="90" stroke="currentColor" stroke-width="1"/><text x="208" y="104" font-size="10" fill="currentColor">0</text><line x1="30" y1="76" x2="150" y2="76" stroke="currentColor" stroke-width="4" opacity="0.4"/><circle cx="150" cy="80" r="5" fill="currentColor"/><line x1="150" y1="80" x2="216" y2="80" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/><text x="232" y="84" font-size="10" fill="currentColor">x ≤ -2</text></svg>',
+      alt: 'Garis bilangan dari -5 sampai 0. Titik penuh di x sama dengan -2, dengan daerah di sebelah kirinya diarsir, menunjukkan x lebih kecil atau sama dengan -2.',
+      caption: 'Daerah penyelesaian $x\\le-2$ pada garis bilangan.',
+    },
     answer: 'x <= -2',
     acceptedAnswers: ['x <= -2', 'x ≤ -2', 'x≤-2', '(-∞,-2]', '(-inf,-2]'],
     explanation:

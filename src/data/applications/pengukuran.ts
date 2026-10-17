@@ -459,4 +459,46 @@ sehingga sampel Q lebih asam $10^{0{,}40} \\approx 2{,}51$ kali daripada sampel 
     source:
       'Mengacu pada definisi pH sebagai negatif logaritma basis 10 konsentrasi ion hidrogen dan nilai pH air hujan bersih sekitar 5,6 akibat larutnya CO2; nilai sampel dipilih agar perbandingan mudah diperiksa, bukan hasil pengukuran satu peristiwa hujan tertentu. pH adalah model standar kimia, bukan besaran yang diukur langsung di lokasi.',
   },
+  {
+    id: 'tgeo-kavling-rotasi',
+    title: 'Menata Kavling: Rotasi dan Dilatasi Lahan',
+    category: 'pengukuran',
+    element: 'geometri',
+    grade: 'XII',
+    level: 'mahir',
+    estimatedMinutes: 12,
+    explorationId: 'transformasi-geometri-matriks',
+    tags: ['transformasi', 'rotasi', 'dilatasi', 'determinan', 'luas', 'kavling'],
+    summary:
+      'Menentukan koordinat bayangan kavling segitiga setelah rotasi lalu dilatasi, beserta perubahan luasnya lewat determinan.',
+    topicIds: ['transformasi-geometri'],
+    body: `Sebuah kavling berbentuk segitiga digambar pada peta koordinat dengan titik sudut $A(0,0)$, $B(4,0)$, dan $C(0,3)$ (satuan dalam $100$ m). Untuk menyusun tata letak baru, kavling itu diputar $90^\\circ$ berlawanan arah jarum jam terhadap titik asal, lalu diperbesar dua kali berpusat di titik asal.
+
+Perancang ingin mengetahui koordinat ketiga titik sudut setelah kedua tahap itu, luas kavling akhir, dan mengapa luasnya justru berubah meskipun bentuknya sama.`,
+    analysis: `**Rotasi $90^\\circ$.** Pemetaannya $(x,y) \\to (-y,x)$, sehingga
+$$A(0,0) \\to (0,0), \\quad B(4,0) \\to (0,4), \\quad C(0,3) \\to (-3,0).$$
+**Dilatasi faktor $2$.** Kalikan setiap koordinat dengan $2$:
+$$A''(0,0), \\quad B''(0,8), \\quad C''(-6,0).$$
+
+**Luas.** Luas kavling awal, segitiga siku-siku dengan alas $4$ dan tinggi $3$, adalah
+$$L_0 = \\tfrac{1}{2} \\cdot 4 \\cdot 3 = 6 \\text{ satuan}.$$
+Matriks rotasi $R = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ memiliki $\\det(R) = 1$, sehingga rotasi tidak mengubah luas. Matriks dilatasi $D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}$ memiliki $\\det(D) = 4$, sehingga luas dikalikan $4$:
+$$L_{\\text{akhir}} = 4 \\times 6 = 24 \\text{ satuan}.$$
+Periksa langsung dari titik sudut: alas $B''C''$ tidak sejajar sumbu, jadi dipakai rumus luas koordinat dan diperoleh $24$ satuan yang sama.
+
+Jadi rotasi memindahkan dan memutar kavling tanpa mengubah ukurannya, sedangkan dilatasi memperbesar luas. Kombinasi "putar lalu perbesar" dapat ditulis sebagai satu matriks $D R$ dengan $|\\det(D R)| = |\\det(D)||\\det(R)| = 4$.`,
+    takeaways: [
+      'Rotasi terhadap titik asal mempertahankan luas karena determinan matriksnya bernilai $1$.',
+      'Dilatasi faktor $k$ mengalikan luas dengan $k^{2}$ karena determinan matriksnya $k^{2}$.',
+      'Rangkaian transformasi dapat digabung menjadi satu matriks; determinannya memberi faktor skala luas.',
+      'Bentuk bangun tetap, tetapi posisi, arah, dan ukurannya dapat berubah bergantung transformasi.',
+    ],
+    reflection: [
+      'Mengapa rotasi tidak mengubah luas sedangkan dilatasi mengubahnya?',
+      'Bagaimana luas berubah bila faktor dilatasinya $k = 3$?',
+      'Mengapa matriks gabungan "putar lalu perbesar" berbeda urutannya dengan "perbesar lalu putar"?',
+    ],
+    source:
+      'Skenario pengajaran yang dikonstruksi dari transformasi titik pada bidang koordinat untuk tata letak lahan; koordinat dan faktor skala dipilih agar determinan dan luas mudah diperiksa, bukan data peta satu wilayah tertentu.',
+  },
 ];

@@ -104,10 +104,11 @@ const crumbs = [
 
       <h2 id="kontras">Warna dan Kontras</h2>
       <p>
-        Warna didefinisikan sebagai token terpusat dan diterapkan pada mode terang maupun gelap.
-        Teks aksen memakai varian warna yang diperkuat
-        (<code>--color-geometry-strong</code>, <code>--color-data-strong</code>) agar tetap
-        memenuhi target rasio kontras minimal <strong>4,5:1 untuk teks normal</strong> dan{' '}
+        Warna didefinisikan sebagai token terpusat (<code>--color-*</code>) dan diterapkan pada
+        mode terang maupun gelap. Teks aksen memakai varian per elemen
+        (<code>--color-geometry</code>, <code>--color-data</code>, dan sejenisnya) dengan latar
+        yang disesuaikan agar tetap memenuhi target rasio kontras minimal{' '}
+        <strong>4,5:1 untuk teks normal</strong> dan{' '}
         <strong>3:1 untuk teks besar serta elemen antarmuka</strong> pada latar masing-masing.
       </p>
       <p>
@@ -141,13 +142,9 @@ const crumbs = [
       </p>
       <ul>
         <li>
-          Sebagian eksplorasi dan simulasi menggambar grafik pada <code>canvas</code> atau{' '}
-          <code>svg</code>. Isinya dijelaskan lewat teks, tetapi pengalaman grafik bagi pengguna
-          pembaca layar belum setara dengan pengguna yang melihat.
-        </li>
-        <li>
-          Konten tertanam dari pihak ketiga, misalnya GeoGebra, berada di luar kendali kami dan
-          dapat memiliki keterbatasan sendiri.
+          Eksplorasi dan simulasi menggambar grafik sebagai <code>svg</code> sebaris. Isinya
+          dijelaskan lewat teks, tetapi pengalaman grafik bagi pengguna pembaca layar belum
+          setara dengan pengguna yang melihat.
         </li>
         <li>
           Notasi matematika dirender dengan KaTeX. Pembacaan rumus bergantung pada dukungan

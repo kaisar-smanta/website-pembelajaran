@@ -597,8 +597,17 @@ async function main() {
   }
   const { server, port } = await startServer(DIST, BASE);
   handle = await launchBrowser(browser);
-  const report = { generatedAt: new Date().toISOString(), base: BASE, structuralFailures: 0, pages: [] };
+  const report = {
+    generatedAt: new Date().toISOString(),
+    base: BASE,
+    structuralFailures: 0,
+    highSeverity: 0,
+    consoleErrors: 0,
+    pages: [],
+  };
   let structuralFailures = 0;
+  let highSeverity = 0;
+  let consoleErrors = 0;
 
   try {
     for (const job of jobs) {
@@ -629,6 +638,11 @@ async function main() {
       }
       const structural = issues.filter((issue) => STRUCTURAL_TYPES.has(issue.type));
       structuralFailures += structural.length;
+      // Temuan bertingkat tinggi dan galat konsol juga menentukan kode keluar,
+      // sehingga masalah nyata (luapan, kontras, gambar rusak, galat JS) tidak
+      // sekadar dilaporkan lalu diabaikan.
+      highSeverity += issues.filter((issue) => issue.severity === 'high').length;
+      consoleErrors += page.messages.filter((m) => m.level === 'error').length;
       const entry = {
         name: job.name,
         path: job.path,
@@ -650,12 +664,18 @@ async function main() {
   }
 
   report.structuralFailures = structuralFailures;
+  report.highSeverity = highSeverity;
+  report.consoleErrors = consoleErrors;
   fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(report, null, 2));
   console.log(`\nLaporan lengkap: artifacts/audit/report.json`);
-  if (structuralFailures) {
-    console.error(`\nKode keluar 1: ${structuralFailures} temuan struktur aksesibilitas.`);
+  const total = structuralFailures + highSeverity + consoleErrors;
+  if (total) {
+    console.error(
+      `\nKode keluar 1: ${structuralFailures} temuan struktur, ` +
+        `${highSeverity} temuan berat, ${consoleErrors} galat konsol.`,
+    );
   }
-  return structuralFailures;
+  return total;
 }
 
 function printEntry(entry) {

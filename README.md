@@ -62,7 +62,7 @@ npm run dev        # http://localhost:4321/website-pembelajaran/
 Perintah lain:
 
 ```bash
-npm run build      # membangun situs statis ke dist/
+npm run build      # membangun situs statis ke dist/ (lalu prune-fonts.mjs menghapus font KaTeX ttf/woff lama)
 npm run preview    # pratinjau hasil build
 npm run check      # pemeriksaan tipe (astro check)
 npm run lint:content   # memindai materi dari pola LaTeX berisiko
@@ -74,12 +74,14 @@ npm run verify     # jalankan seluruh pemeriksaan di atas (check, lint, build, c
 npm run audit      # audit tata letak & aksesibilitas hasil build (Chrome/Edge)
 npm run screenshot # tangkapan layar hasil build ke artifacts/ (Chrome/Edge)
 npm run og         # membuat ulang public/og-default.png (Chrome/Edge)
+npm run pwa-icons  # membuat ulang ikon PWA (Chrome/Edge)
 ```
 
 Uji di `tests/*.mjs` dijalankan otomatis oleh `tests/run-all.mjs`. **Berkas berawalan `_`
 adalah pembantu bersama, bukan uji**, utilitas umum (`load`, `ok`, `check`, `checks`,
-`collectTopics`, `collectQuestions`, `mockStorage`) ada di `tests/_util.mjs`; pakai itu
-alih-alih menyalin loop pemuat data atau assertion.
+`collectTopics`, `collectQuestions`, `mockStorage`) ada di `tests/_util.mjs`, dan harness
+simulasi (`runSimSuite`) yang dipakai seluruh `tests/sim-*.mjs` ada di
+`tests/_sim-harness.mjs`; pakai itu alih-alih menyalin loop pemuat data atau assertion.
 
 ---
 
@@ -395,12 +397,12 @@ dibangkitkan dari data ini.
 
 ## Menambah Aktivitas Interaktif
 
-1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu dari
-   `function-slider`, `compound-interest`, `probability`, `linear-regression`, `sequence`,
-   `distribution`, `conditional-probability`, `circle`, `matrix`, `linear-system`,
-   `function-composition`, `function-inverse`, `polynomial`, `vector`, `conic`, `derivative`,
-   `integral`, `random-variable`, `limit`, `binomial-distribution`, `piecewise`, atau
-   `exponent-laws`. Isi juga `grade`, `element`,
+1. Tambahkan entri di `src/data/explorations.ts` dengan `type` salah satu nilai union
+   `ExplorationType` di `src/types/content.ts` (mis. `function-slider`, `compound-interest`,
+   `probability`, `linear-regression`, `sequence`, `limit`, `binomial-distribution`,
+   `piecewise`, `logarithm`, `counting-tree`, `amortization`, `number-theory`, `induction`,
+   `confounding`, `function-family`, `normal-distribution`, `triangle`, `sign-chart`, dan
+   `exponent-laws`). Isi juga `grade`, `element`,
    `order`, `level` (`dasar`/`cakap`/`mahir`), dan `estimatedMinutes` agar eksplorasi otomatis
    dikelompokkan dan dapat disaring di halaman `/eksplorasi`, serta `goal` dan `prompts`
    (prediksi-amati-jelaskan) untuk memandu penemuan. Halaman `/eksplorasi`, halaman rincian
@@ -497,14 +499,22 @@ src/
 │   │                   (index.ts + satu berkas per kategori)
 │   ├── topics/         Satu berkas per topik (materi, blok interaktif ditulis langsung)
 │   │                   + index.ts dan planned.ts (roadmap)
-│   └── questions/      Satu berkas per topik (bank soal)
+│   └── questions/      Satu berkas per topik (bank soal) + categories.ts
+│                       (metadata kategori asesmen, bukan kumpulan soal)
 ├── layouts/            BaseLayout.astro
 ├── lib/                Pustaka murni & dapat diuji: sim/ (perhitungan),
-│                       graph/layout.ts (tata letak graf prasyarat), storage.ts,
-│                       storage-keys.ts (registri kunci localStorage),
+│                       sim/plot.ts (gambar grafik bersama: kisi, sumbu, nilai
+│                       parameter), graph/layout.ts (tata letak graf prasyarat),
+│                       storage.ts, storage-keys.ts (registri kunci localStorage),
+│                       storage-notice.ts (pemberitahuan storage tak tersedia),
 │                       learner.ts, progress.ts, progress-overview.ts (rekap
-│                       belajar), quiz-client.ts (benih sesi, tulis progres,
+│                       belajar), topic-mastery.ts (sinyal penguasaan topik),
+│                       overview/ (ringkasan kemajuan: tally, mastery, enrichment,
+│                       suggestion), quiz-client.ts (benih sesi, tulis progres,
 │                       rentetan kuis: dipakai QuestionCard & QuizTeaser),
+│                       quiz-engine.ts (mesin kuis pilihan ganda bersama),
+│                       list-filter.ts (penyaring daftar berbasis DOM),
+│                       client-shared.ts (pembantu klien kecil),
 │                       random.ts (seededShuffle & combineSeed), routes.ts
 │                       (ruang rute turunan), answer.ts (normalisasi &
 │                       pencocokan jawaban), reference.ts (agregasi glosarium &
@@ -588,6 +598,8 @@ src/
   `npm run audit` menjalankan pemeriksaan di dalam peramban (overflow horizontal, kontras,
   sasaran sentuh, animasi reveal yang macet, gambar rusak, galat konsol). Keduanya memakai
   Chrome/Edge yang terpasang tanpa dependensi npm dan menulis ke `artifacts/` (diabaikan git).
+  Padanan statisnya berjalan di `npm test` tanpa peramban: `tests/heading.mjs`, `tests/seo.mjs`,
+  dan `tests/a11y.mjs`.
 
 ## Deployment ke GitHub Pages
 
